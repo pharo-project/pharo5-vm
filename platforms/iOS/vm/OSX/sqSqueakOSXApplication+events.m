@@ -107,14 +107,23 @@ static int buttonState=0;
 
 @implementation sqSqueakOSXApplication (events) 
 
-- (void) pumpRunLoop {
-	[super pumpRunLoop];
-	
-	 NSEvent *event;
-	 while (event = [NSApp nextEventMatchingMask: NSAnyEventMask untilDate: nil inMode: NSEventTrackingRunLoopMode dequeue: YES])
-		 [NSApp sendEvent: event];
-	
-	
+- (void) pumpRunLoopEventSendAndSignal:(BOOL)signal {
+    NSEvent *event;
+    while (event = [NSApp 
+                        nextEventMatchingMask:NSAnyEventMask
+                        untilDate:nil 
+                        inMode:NSEventTrackingRunLoopMode 
+                        dequeue:YES]) {
+        [NSApp sendEvent: event];
+        if (signal) {
+            interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);
+        }
+    }
+}
+
+- (void) pumpRunLoop {	
+    [super pumpRunLoop]; 
+    [self pumpRunLoopEventSendAndSignal:NO];
 	/* 
 	 http://www.cocoabuilder.com/archive/cocoa/228473-receiving-user-events-from-within-an-nstimer-callback.html
 	 The reason you have to do this and can't just run the runloop is
