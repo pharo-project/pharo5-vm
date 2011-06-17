@@ -36,30 +36,30 @@ void squeakVideoHandOff (GstElement* object,
 		GstPad* pad,
 		gpointer user_data)  {
 
-	GST_LOCK(object); 
+	GST_LOCK(object);
 	{
-		SqueakAudioVideoSinkPtr  squeaker = (SqueakAudioVideoSinkPtr) user_data;
+	SqueakAudioVideoSinkPtr  squeaker = (SqueakAudioVideoSinkPtr) user_data;
+	
+	if (squeaker->width == 0)
+		gst_SqueakVideoSink_set_caps(squeaker,GST_BUFFER_CAPS(buf));
+	
+	
+	if (squeaker->width == 0) {
+		GST_UNLOCK(object);
+		return;  /* should not happen but let's check */
+	}
 		
-		if (squeaker->width == 0)
-			gst_SqueakVideoSink_set_caps(squeaker,GST_BUFFER_CAPS(buf));
-		
-		
-		if (squeaker->width == 0) {
-			GST_UNLOCK(object);
-			return;  /* should not happen but let's check */
-		}
-			
-		if (GST_BUFFER_DATA(buf)) {
+	if (GST_BUFFER_DATA(buf)) {
 			guint totalBytes = (squeaker->depth == 24 ? 4 : 2)*squeaker->width*squeaker->height;
-			squeaker->frame_ready = TRUE;
-			if (totalBytes != squeaker->allocbytes) {
-				if (squeaker->copyToSendToSqueakVideo) 
-					g_free(squeaker->copyToSendToSqueakVideo);
-				squeaker->copyToSendToSqueakVideo = g_malloc(totalBytes);
-				squeaker->allocbytes = totalBytes;
-			}
-			memcpy(squeaker->copyToSendToSqueakVideo,GST_BUFFER_DATA(buf),totalBytes);
+		squeaker->frame_ready = TRUE;
+		if (totalBytes != squeaker->allocbytes) {
+			if (squeaker->copyToSendToSqueakVideo) 
+				g_free(squeaker->copyToSendToSqueakVideo);
+			squeaker->copyToSendToSqueakVideo = g_malloc(totalBytes);
+			squeaker->allocbytes = totalBytes;
 		}
+		memcpy(squeaker->copyToSendToSqueakVideo,GST_BUFFER_DATA(buf),totalBytes);
+	}
 	}
 	GST_UNLOCK(object);
 
@@ -73,18 +73,18 @@ void squeakSrcHandOff (GstElement* object,
 
 	GST_LOCK(object);
 	{
-		SqueakAudioVideoSinkPtr  squeaker = (SqueakAudioVideoSinkPtr) user_data;
-		
-		if (squeaker->frame_ready) {
-			squeaker->frame_ready = FALSE;
-			if (squeaker->semaphoreIndexForSink && squeaker->interpreterProxy) {
-				squeaker->interpreterProxy->signalSemaphoreWithIndex(squeaker->semaphoreIndexForSink);
-			}
-			if (GST_BUFFER_SIZE (buf) >= squeaker->actualbytes)
-				memcpy(GST_BUFFER_DATA(buf),squeaker->copyToSendToSqueakVideo,squeaker->actualbytes);
-			GST_BUFFER_TIMESTAMP(buf) = squeaker->startTime;
-			GST_BUFFER_DURATION(buf) = squeaker->duration;
+	SqueakAudioVideoSinkPtr  squeaker = (SqueakAudioVideoSinkPtr) user_data;
+	
+	if (squeaker->frame_ready) {
+		squeaker->frame_ready = FALSE;
+		if (squeaker->semaphoreIndexForSink && squeaker->interpreterProxy) {
+			squeaker->interpreterProxy->signalSemaphoreWithIndex(squeaker->semaphoreIndexForSink);
 		}
+		if (GST_BUFFER_SIZE (buf) >= squeaker->actualbytes)
+			memcpy(GST_BUFFER_DATA(buf),squeaker->copyToSendToSqueakVideo,squeaker->actualbytes);
+		GST_BUFFER_TIMESTAMP(buf) = squeaker->startTime;
+		GST_BUFFER_DURATION(buf) = squeaker->duration;
+	}
 	}
 	GST_UNLOCK(object);
 
