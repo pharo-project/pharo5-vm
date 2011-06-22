@@ -153,7 +153,8 @@ static void sigalrm(int signum)
   forceInterruptCheck();
 }
 
-static void initTimers(void)
+void
+ioInitTime(void)
 {
   /* set up the micro/millisecond clock */
   gettimeofday(&startUpTime, 0);
@@ -173,7 +174,7 @@ static void initTimers(void)
 #      else
 	sa.sa_flags= 0;	/* assume we already have BSD behaviour */
 #      endif
-#      if defined(__linux__) && !defined(__ia64) &7 !defined(__alpha__)
+#      if defined(__linux__) && !defined(__ia64) && !defined(__alpha__)
 	sa.sa_restorer= 0;
 #      endif
 	sigaction(SIGALRM, &sa, 0);
@@ -198,23 +199,6 @@ sqInt ioLowResMSecs(void)
 sqInt ioMSecs(void)
 {
   struct timeval now;
-  unsigned int nowMSecs;
-
-#if 1 /* HAVE_HIGHRES_COUNTER */
-
-  /* if we have a cheap, high-res counter use that to limit
-     the frequency of calls to gettimeofday to something reasonable. */
-  static unsigned int baseMSecs = 0;      /* msecs when we took base tick */
-  static sqLong baseTicks = 0;/* base tick for adjustment */
-  static sqLong tickDelta = 0;/* ticks / msec */
-  static sqLong nextTick = 0; /* next tick to check gettimeofday */
-
-  sqLong thisTick = ioHighResClock();
-
-  if(thisTick < nextTick) return lowResMSecs;
-
-#endif
-
   gettimeofday(&now, 0);
   if ((now.tv_usec-= startUpTime.tv_usec) < 0)
     {
@@ -222,32 +206,7 @@ sqInt ioMSecs(void)
       now.tv_sec-= 1;
     }
   now.tv_sec-= startUpTime.tv_sec;
-  nowMSecs = (now.tv_usec / 1000 + now.tv_sec * 1000);
-
-#if 1 /* HAVE_HIGHRES_COUNTER */
-  {
-    unsigned int msecsDelta;
-    /* Adjust our rdtsc rate every 10...100 msecs as needed.
-       This also covers msecs clock-wraparound. */
-    msecsDelta = nowMSecs - baseMSecs;
-    if(msecsDelta < 0 || msecsDelta > 100) {
-      /* Either we've hit a clock-wraparound or we are being
-	 sampled in intervals larger than 100msecs.
-	 Don't try any fancy adjustments */
-      baseMSecs = nowMSecs;
-      baseTicks = thisTick;
-      nextTick = 0;
-      tickDelta = 0;
-    } else if(msecsDelta >= 10) {
-      /* limit the rate of adjustments to 10msecs */
-      baseMSecs = nowMSecs;
-      tickDelta = (thisTick - baseTicks) / msecsDelta;
-      nextTick = baseTicks = thisTick;
-    }
-    nextTick += tickDelta;
-  }
-#endif
-  return lowResMSecs= nowMSecs;
+  return lowResMSecs= (now.tv_usec / 1000 + now.tv_sec * 1000);
 }
 
 sqInt ioMicroMSecs(void)
@@ -263,6 +222,34 @@ sqInt ioSeconds(void)
 {
   return convertToSqueakTime(time(0));
 }
+
+#define SecondsFrom1901To1970      2177452800ULL
+#define MicrosecondsFrom1901To1970 2177452800000000ULL
+
+#define MicrosecondsPerSecond 1000000ULL
+#define MillisecondsPerSecond 1000ULL
+
+#define MicrosecondsPerMillisecond 1000ULL
+/* Compute the current VM time basis, the number of microseconds from 1901. */
+
+static unsigned long long
+currentUTCMicroseconds()
+{
+	struct timeval utcNow;
+
+	gettimeofday(&utcNow,0);
+	return ((utcNow.tv_sec * MicrosecondsPerSecond) + utcNow.tv_usec)
+			+ MicrosecondsFrom1901To1970;
+}
+
+usqLong
+ioUTCMicroseconds() { return currentUTCMicroseconds(); }
+
+/* This is an expensive interface for use by profiling code that wants the time
+ * now rather than as of the last heartbeat.
+ */
+usqLong
+ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
 #endif /* STACKVM */
 
 time_t convertToSqueakTime(time_t unixTime)
@@ -576,8 +563,10 @@ static void emergencyDump(int quit)
   dataSize= preSnapshot();
   writeImageFile(dataSize);
 
+#if STACKVM
   printf("\nMost recent primitives\n");
   dumpPrimTraceLog();
+#endif
   fprintf(stderr, "\n");
   printCallStack();
   fprintf(stderr, "\nTo recover valuable content from this image:\n");
@@ -594,15 +583,31 @@ static void emergencyDump(int quit)
 
 sqInt ioProcessEvents(void)
 {
+	sqInt result;
+	extern sqInt inIOProcessEvents;
+
 #if defined(IMAGE_DUMP)
-  if (dumpImageFile)
-    {
-      emergencyDump(0);
-      dumpImageFile= 0;
-    }
+	if (dumpImageFile) {
+		emergencyDump(0);
+		dumpImageFile= 0;
+	}
 #endif
-  return dpy->ioProcessEvents();
+	/* inIOProcessEvents controls ioProcessEvents.  If negative then
+	 * ioProcessEvents is disabled.  If >= 0 inIOProcessEvents is incremented
+	 * to avoid reentrancy (i.e. for native GUIs).
+	 */
+	if (inIOProcessEvents) return;
+	inIOProcessEvents += 1;
+
+	result = dpy->ioProcessEvents();
+
+	if (inIOProcessEvents > 0)
+		inIOProcessEvents -= 1;
+
+	return result;
 }
+
+void	ioDrainEventQueue() {}
 
 sqInt ioScreenDepth(void)		 { return dpy->ioScreenDepth(); }
 sqInt ioScreenSize(void)		 { return dpy->ioScreenSize(); }
@@ -809,8 +814,10 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 	}
 	else
 		printf("\nCan't dump Smalltalk stack(s). Not in VM thread\n");
+#if STACKVM
 	printf("\nMost recent primitives\n");
 	dumpPrimTraceLog();
+#endif
 	fflush(stdout);
 }
 
@@ -1261,6 +1268,15 @@ static int vm_parseArgument(int argc, char **argv)
       else if (!strcmp(argv[0], "-plugins"))	{ squeakPlugins= strdup(argv[1]);	 return 2; }
       else if (!strcmp(argv[0], "-encoding"))	{ setEncoding(&sqTextEncoding, argv[1]); return 2; }
       else if (!strcmp(argv[0], "-pathenc"))	{ setEncoding(&uxPathEncoding, argv[1]); return 2; }
+#if STACKVM && !COGVM || NewspeakVM
+	  else if (!strcmp(argv[0], "-sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
+#endif
+#if STACKVM || NewspeakVM
+      else if (!strcmp(argv[0], "-breaksel")) { 
+		extern void setBreakSelector(char *);
+		setBreakSelector(argv[1]);
+		return 2; }
+#endif
 #if STACKVM
       else if (!strcmp(argv[0], "-eden")) {
 		extern sqInt desiredEdenBytes;
@@ -1273,10 +1289,6 @@ static int vm_parseArgument(int argc, char **argv)
       else if (!strcmp(argv[0], "-stackpages")) {
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[1]);
-		return 2; }
-      else if (!strcmp(argv[0], "-breaksel")) { 
-		extern void setBreakSelector(char *);
-		setBreakSelector(argv[1]);
 		return 2; }
       else if (!strcmp(argv[0], "-noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
@@ -1347,8 +1359,12 @@ static void vm_printUsage(void)
   printf("  -help                 print this help message, then exit\n");
   printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
   printf("  -mmap <size>[mk]      limit dynamic heap size (default: %dm)\n", DefaultMmapSize);
+#if STACKVM || NewspeakVM
+  printf("  -breaksel selector    set breakpoint on send of selector\n");
+#endif
 #if STACKVM
   printf("  -eden <size>[mk]      use given eden size\n");
+  printf("  -leakcheck num        check for leaks in the heap\n");
   printf("  -stackpages <num>     use given number of stack pages\n");
 #endif
   printf("  -noevents             disable event-driven input support\n");
@@ -1367,7 +1383,7 @@ static void vm_printUsage(void)
 #endif
 #if 1
   printf("Deprecated:\n");
-# if !(STACKVM || COGVM)
+# if !STACKVM
   printf("  -jit                  enable the dynamic compiler (if available)\n");
 # endif
   printf("  -notimer              disable interval timer for low-res clock \n");
@@ -1673,12 +1689,8 @@ int main(int argc, char **argv, char **envp)
   printf("documentName: %s\n", documentName);
 #endif
 
-#if STACKVM || COGVM
   ioInitTime();
   ioInitThreads();
-#else
-  initTimers();
-#endif
   aioInit();
   dpy->winInit();
   imgInit();
@@ -1687,7 +1699,7 @@ int main(int argc, char **argv, char **envp)
    */
   dpy->winOpen(runAsSingleInstance ? squeakArgCnt : 0, squeakArgVec);
 
-#if defined(HAVE_LIBDL) && !(STACKVM || COGVM)
+#if defined(HAVE_LIBDL) && !STACKVM
   if (useJit)
     {
       /* first try to find an internal dynamic compiler... */
@@ -1710,7 +1722,7 @@ int main(int argc, char **argv, char **envp)
 	printf("could not find j_interpret\n");
       exit(1);
     }
-#endif /* defined(HAVE_LIBDL) && !(STACKVM || COGVM) */
+#endif /* defined(HAVE_LIBDL) && !STACKVM */
 
   if (installHandlers) {
 	struct sigaction sigusr1_handler_action, sigsegv_handler_action;

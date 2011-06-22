@@ -160,7 +160,7 @@ void SetEnableF2Menu() {
 void SetEnableAltF4Quit() {
   CheckMenuItem(vmPrefsMenu, ID_ENABLEALTF4QUIT, MF_BYCOMMAND | 
 		(fEnableAltF4Quit ? MF_CHECKED : MF_UNCHECKED));
-	  WritePrivateProfileString(U_GLOBAL,TEXT("EnableAltF4Quit"),
+  WritePrivateProfileString(U_GLOBAL,TEXT("EnableAltF4Quit"),
 			    enableAltF4Quit ? U_ON : U_OFF,squeakIniName);
 }
 #endif
@@ -196,8 +196,13 @@ void LoadPreferences()
 
   /* get the window class name from the ini file */
   GetPrivateProfileString(U_GLOBAL, TEXT("WindowClassName"), 
-			  TEXT("SqueakWindowClass"), windowClassName, 
-			  MAX_PATH, squeakIniName);
+#if NewspeakVM
+				TEXT(VM_NAME"WindowClass"),
+#else
+				TEXT("SqueakWindowClass"),
+#endif
+				windowClassName, 
+				MAX_PATH, squeakIniName);
   fRunSingleApp =
     GetPrivateProfileInt(U_GLOBAL, TEXT("RunSingleApp"),
 			 fRunSingleApp, squeakIniName);
@@ -286,7 +291,9 @@ void SetAllPreferences() {
 }
 
 void CreatePrefsMenu(void) {
+#if STACKVM
 extern sqInt recordPrimTraceFunc();
+#endif
   HMENU hMenu,pMenu;
 
   vmPrefsMenu = pMenu = CreatePopupMenu();
@@ -363,7 +370,7 @@ extern sqInt recordPrimTraceFunc();
 	       TEXT("Dump call stack"));
     AppendMenu(hMenu, MF_STRING | MF_UNCHECKED, ID_PRINTALLSTACKS,
 	       TEXT("Dump all processes"));
-#if defined(recordPrimTraceFunc)
+#if STACKVM
     if (recordPrimTraceFunc())
       AppendMenu(hMenu, MF_STRING | MF_UNCHECKED, ID_DUMPPRIMLOG,
 	       TEXT("Dump recent primitives"));
@@ -457,11 +464,13 @@ void HandlePrefsMenu(int cmd) {
     printf("Printing all processes:\n");
     printAllStacks();
     break;
+#if STACKVM
   case ID_DUMPPRIMLOG: { extern void dumpPrimTraceLog(void);
     printf("Printing recent primitives:\n");
     dumpPrimTraceLog();
     break;
   }
+#endif
   case ID_PRIORITYBOOST:
     fPriorityBoost = !fPriorityBoost;
     SetPriorityBoost();

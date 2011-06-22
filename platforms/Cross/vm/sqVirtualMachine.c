@@ -5,7 +5,6 @@
 #include <time.h>
 #include <setjmp.h>
 
-#include "vmCallback.h"
 #include "sqVirtualMachine.h"
 
 
@@ -173,21 +172,32 @@ sqInt ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionName
 sqInt isInMemory(sqInt address);
 sqInt classAlien(void); /* Alien FFI */
 sqInt classUnsafeAlien(void); /* Alien FFI */
+sqInt getStackPointer(void);  /* Newsqueak FFI */
 void *startOfAlienData(sqInt);
 usqInt sizeOfAlienData(sqInt);
+sqInt signalNoResume(sqInt);
+#if VM_PROXY_MINOR > 8
 sqInt getStackPointer(void);  /* Alien FFI */
 sqInt sendInvokeCallbackStackRegistersJmpbuf(sqInt thunkPtrAsInt, sqInt stackPtrAsInt, sqInt regsPtrAsInt, sqInt jmpBufPtrAsInt); /* Alien FFI */
 sqInt reestablishContextPriorToCallback(sqInt callbackContext); /* Alien FFI */
-sqInt sendInvokeCallbackContext(VMCallbackContext *);
-sqInt returnAsThroughCallbackContext(int, VMCallbackContext *, sqInt);
+sqInt sendInvokeCallbackContext(vmccp);
+sqInt returnAsThroughCallbackContext(int, vmccp, sqInt);
+#endif /* VM_PROXY_MINOR > 8 */
 char *cStringOrNullFor(sqInt);
 
 void *ioLoadFunctionFrom(char *fnName, char *modName);
 
 
 /* Proxy declarations for v1.8 */
+#if NewspeakVM
+static sqInt
+callbackEnter(sqInt *callbackID) { return 0; }
+static sqInt
+callbackLeave(sqInt *callbackID) { return 0; }
+#else
 sqInt callbackEnter(sqInt *callbackID);
 sqInt callbackLeave(sqInt  callbackID);
+#endif
 sqInt addGCRoot(sqInt *varLoc);
 sqInt removeGCRoot(sqInt *varLoc);
 
@@ -419,9 +429,7 @@ struct VirtualMachine* sqGetInterpreterProxy(void)
 	VM->classUnsafeAlien    = classUnsafeAlien;
 	VM->sendInvokeCallbackStackRegistersJmpbuf = sendInvokeCallbackStackRegistersJmpbuf;
 	VM->reestablishContextPriorToCallback = reestablishContextPriorToCallback;
-# if ALIEN_FFI
-	VM->getStackPointer     = 0;
-# endif
+	VM->getStackPointer     = (sqInt *(*)(void))getStackPointer;
 # if IMMUTABILITY
 	VM->internalIsImmutable = internalIsImmutable;
 	VM->internalIsMutable   = internalIsMutable;
@@ -465,6 +473,7 @@ struct VirtualMachine* sqGetInterpreterProxy(void)
 	VM->cStringOrNullFor = cStringOrNullFor;
 	VM->startOfAlienData = startOfAlienData;
 	VM->sizeOfAlienData = sizeOfAlienData;
+	VM->signalNoResume = signalNoResume;
 #endif
 
 	return VM;
