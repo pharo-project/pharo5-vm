@@ -6,7 +6,7 @@
 *   AUTHOR:  
 *   ADDRESS: 
 *   EMAIL:   ]
-*   RCSID:   $Id: sqFilePluginBasicPrims.c 1283 2005-12-31 00:51:12Z rowledge $
+*   RCSID:   $Id$
 *
 *   NOTES: See change log below.
 *	2005-03-26 IKP fix unaligned accesses to file[Size] members

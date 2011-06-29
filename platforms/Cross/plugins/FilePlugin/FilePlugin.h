@@ -6,7 +6,7 @@
 *   AUTHOR:  
 *   ADDRESS: 
 *   EMAIL:   
-*   RCSID:   $Id: FilePlugin.h 1283 2005-12-31 00:51:12Z rowledge $
+*   RCSID:   $Id$
 *
 *	2009-05-15 EEM add stdio flag; reorder SQFile to make it more compact
 *	2005-03-26 IKP fix unaligned accesses to file member

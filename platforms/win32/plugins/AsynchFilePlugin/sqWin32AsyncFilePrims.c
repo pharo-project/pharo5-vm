@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32AsyncFilePrims.c 342 2002-05-04 23:20:28Z andreasraab $
+*   RCSID:   $Id$
 *
 *   NOTES:
 *     1) Instead of the async io functions (e.g., ReadFileEx/WriteFileEx)

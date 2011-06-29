@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: 
 *   EMAIL:   Andreas.Raab@gmx.de
-*   RCSID:   $Id: sqWin32UUID.c 342 2002-05-04 23:20:28Z andreasraab $
+*   RCSID:   $Id: sqWin32UUID.c,v 1.1 2002/05/04 23:20:28 andreasraab Exp $
 *
 *   NOTES:
 *****************************************************************************/

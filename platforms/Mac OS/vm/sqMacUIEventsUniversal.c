@@ -1,6 +1,6 @@
 /****************************************************************************
 *   PROJECT: Mac event interface.
-*   FILE:    sqMacUIEvents.c
+*   FILE:    sqMacUIEventsUniversal.c
 *   CONTENT: 
 *
 *   AUTHOR:  John Maloney, John McIntosh, and others.
@@ -75,7 +75,7 @@ pthread_mutex_t gEventQueueLock;
 #define EventTypeFullScreenUpdate 98
 #define EventTypePostEventProcessing 99
 static void doPostMessageHook(EventRef event);
-static void postFullScreenUpdate(void);
+void postFullScreenUpdate(void);
 void signalAnyInterestedParties(void);
 static sqKeyboardEvent *enterKeystroke (long type, long cc, long pc, UniChar utf32Char, long m);
 
@@ -445,7 +445,7 @@ static void   doPostMessageHook(EventRef event) {
     }
 }
 
-static void   postFullScreenUpdate() {
+void   postFullScreenUpdate() {
     sqInputEvent *evt;
     
     pthread_mutex_lock(&gEventQueueLock);
@@ -1305,8 +1305,21 @@ static void doPendingFlush(void) {
 
 int ioProcessEvents(void) {
 
+	extern sqInt inIOProcessEvents;
+
+	/* inIOProcessEvents controls ioProcessEvents.  If negative then
+	 * ioProcessEvents is disabled.  If >= 0 inIOProcessEvents is incremented
+	 * to avoid reentrancy (i.e. for native GUIs).
+	 */
+	if (inIOProcessEvents) return;
+	inIOProcessEvents += 1;
+
 	aioPoll(0);		
 	doPendingFlush();
+
+	if (inIOProcessEvents > 0)
+		inIOProcessEvents -= 1;
+
     if (gQuitNowRightNow) {
         ioExit();  //This might not return, might call exittoshell
         QuitApplicationEventLoop();
@@ -1547,3 +1560,11 @@ void sqRevealWindowAndHandleQuit ()
 	recordWindowEventCarbon(WindowEventClose,0, 0, 0, 0, 1 /* main ST window index */ );
 
 }
+
+#if NewspeakVM
+/* For now this is only here to make the linker happy;
+   the function really does something interesting only on Windows.
+ */
+void
+ioDrainEventQueue() {}
+#endif /* NewspeakVM */

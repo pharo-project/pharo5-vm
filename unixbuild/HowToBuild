@@ -27,11 +27,11 @@ How to build the Cog Croquet VM on Unix
      svn co http://www.squeakvm.org/svn/squeak/branches/Cog/src
      svn co http://www.squeakvm.org/svn/squeak/branches/Cog/unixbuild
 3. Open a shell, cd into the unixbuild/bld directory and execute
-     ../../platforms/unix/config/configure CFLAGS="-g -O2 -msse2 -D_GNU_SOURCE -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0" LIBS=-lpthread
+     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak CFLAGS="-g -O2 -msse2 -D_GNU_SOURCE -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0" LIBS=-lpthread
      make install prefix=WhereYouWantTheVmToGo
 
 	N.B.  On Ubuntu *do not* supply "LIBS=-lpthread", i.e. use
-     ../../platforms/unix/config/configure CFLAGS="-g -O2 -msse2 -D_GNU_SOURCE -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0"
+     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak CFLAGS="-g -O2 -msse2 -D_GNU_SOURCE -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0"
 
     For FreeBSD use
     /../platforms/unix/config/configure CFLAGS="-g -O2 -msse2 -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DNOEXECINFO -DDEBUGVM=0" LIBS=-lpthread --without-npsqueak
@@ -40,10 +40,10 @@ How to build the Cog Croquet VM on Unix
 
 
 3a. For an assert-enabled VM do
-     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak -prefix=/home/qwaq/qwaqvm/ CFLAGS="-g -O1 -msse2 -D_GNU_SOURCE -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0" LIBS=-lpthread
+     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak CFLAGS="-g -O1 -msse2 -D_GNU_SOURCE -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=0" LIBS=-lpthread
 
 3b. For a full debug VM do
-     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak -prefix=/home/qwaq/qwaqvm/ CFLAGS="-g3 -msse2 -D_GNU_SOURCE -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=1" LIBS=-lpthread
+     ../../platforms/unix/config/configure --without-vm-display-fbdev --without-npsqueak CFLAGS="-g3 -msse2 -D_GNU_SOURCE -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DCOGMTVM=0 -DDEBUGVM=1" LIBS=-lpthread
 
 N.B.  As of early 2010 the linux pthreads implementation doesn't appear to
 provide a way of setting priorities for the default thread scheduling policy
