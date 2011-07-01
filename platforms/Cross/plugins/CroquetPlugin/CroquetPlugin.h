@@ -20,8 +20,4 @@
 */
 int ioGatherEntropy(char *bufPtr, int bufSize);
 
-/* Imported from tribox.c */
-int triBoxOverlap(float minCorner[3],float maxCorner[3],
-		  float vert0[3], float vert1[3], float vert2[3]);
-
 #endif /* CROQUET_PLUGIN_H */

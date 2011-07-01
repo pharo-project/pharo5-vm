@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32FilePrims.c 1694 2007-06-03 03:01:16Z andreas $
+*   RCSID:   $Id$
 *
 *   NOTES:
 *     1) This is a bare windows implementation *not* using any stdio stuff.

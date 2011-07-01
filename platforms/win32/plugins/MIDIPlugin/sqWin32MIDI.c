@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32MIDI.c 342 2002-05-04 23:20:28Z andreasraab $
+*   RCSID:   $Id$
 *
 *   NOTES:
 *     1) For MIDI output the MIDI mapper is reported as first device
@@ -22,7 +22,7 @@
 #ifndef NO_MIDI
 
 #ifndef NO_RCSID
-  static char RCSID[] = "$Id: sqWin32MIDI.c 342 2002-05-04 23:20:28Z andreasraab $";
+  static char RCSID[] = "$Id$";
 #endif
 
 /*** MIDI Parameters (used with sqMIDIParameter function) ***/
@@ -242,9 +242,9 @@ static MIDIHDR *midiHeaderList = NULL;
 
 
 #ifndef NDEBUG
-#define DPRINTF warnPrintf
+#define DBGPRINTF warnPrintf
 #else
-#define DPRINTF
+#define DBGPRINTF
 #endif
 
 
@@ -777,7 +777,7 @@ int sqMIDIOpenPort(int portNum, int readSemaIndex, int interfaceClockRate) {
       midiPorts[portNum] = port;
       MoveMemory(port->name, caps.szPname, MAXPNAMELEN * sizeof(TCHAR));
       port->name[MAXPNAMELEN] = 0;
-      DPRINTF(TEXT("Opening output interface %s\n"), caps.szPname);
+      DBGPRINTF(TEXT("Opening output interface %s\n"), caps.szPname);
       err = midiOutOpen(&handle, portNum-1, 0, 0, 0);
       if(err)
         { /* fail if we can't open a particular output device */
@@ -806,7 +806,7 @@ int sqMIDIOpenPort(int portNum, int readSemaIndex, int interfaceClockRate) {
       midiPorts[portNum] = port;
       MoveMemory(port->name, caps.szPname, MAXPNAMELEN * sizeof(TCHAR));
       port->name[MAXPNAMELEN] = 0;
-      DPRINTF(TEXT("Opening input interface %s\n"), caps.szPname);
+      DBGPRINTF(TEXT("Opening input interface %s\n"), caps.szPname);
       err = midiInOpen(&handle, portNum - midiOutNumDevices,
                        (DWORD)midiInCallback, (DWORD)port, CALLBACK_FUNCTION);
       if(err)

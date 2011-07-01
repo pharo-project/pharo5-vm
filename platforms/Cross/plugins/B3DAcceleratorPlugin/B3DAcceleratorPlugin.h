@@ -2,7 +2,7 @@
 #ifdef WIN32
 # include <windows.h>
 #endif
-#if defined(BUILD_FOR_OSX)
+#if defined(TARGET_API_MAC_CARBON)
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
