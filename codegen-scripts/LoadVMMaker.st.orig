@@ -1,14 +1,19 @@
-<<<<<<< HEAD
-Gofer new	squeaksource: 'MetacelloRepository';	package: 'ConfigurationOfCog';	load.	((Smalltalk at: #ConfigurationOfCog) project version: '2.1' "#bleedingEdge") load.	(Smalltalk saveAs: 'generator.image') 
-	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
-=======
+
 Gofer new
 	squeaksource: 'MetacelloRepository';
 	package: 'ConfigurationOfCog';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: '1.9') load.
+<<<<<<< HEAD
+[ ((Smalltalk at: #ConfigurationOfCog) project version: #bleedingEdge) load ]
+on: Warning do: [ :e | e resume ].
 	
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
->>>>>>> 2d75ba23af5dc4b37a924e04e31cdf6d5c4743f1
+=======
+((Smalltalk at: #ConfigurationOfCog) project
+	version: '2.2') load.
+
+(Smalltalk saveAs: 'generator.image') ifFalse: [
+				 Smalltalk snapshot: false andQuit: true]
+>>>>>>> 0e41141c7430f21c8c279dd8c41f2a94b34233bf
