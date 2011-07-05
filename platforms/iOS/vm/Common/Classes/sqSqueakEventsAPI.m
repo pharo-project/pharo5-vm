@@ -57,7 +57,9 @@ sqInt ioProcessEvents(void) {
 		[getMainWindowDelegate() ioForceDisplayUpdate];
 	}
 
-	if (interpreterProxy->methodPrimitiveIndex() != 0) {
+	if (interpreterProxy->methodPrimitiveIndex() == 0) {
+		[gDelegateApp.squeakApplication pumpRunLoopEventSendAndSignal:YES];
+    } else {
 		[gDelegateApp.squeakApplication pumpRunLoop];
 	}
 	
