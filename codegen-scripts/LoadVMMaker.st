@@ -5,7 +5,7 @@ Gofer new
 	load.
 	
 ((Smalltalk at: #ConfigurationOfCog) project
-	version: '2.2') load.
+	version: '2.3') load.
 
 (Smalltalk saveAs: 'generator.image') ifFalse: [
 				 Smalltalk snapshot: false andQuit: true]
