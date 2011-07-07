@@ -69,7 +69,7 @@ void MyProviderReleaseData (
     if (self) {
         // Initialization code here.
 		squeakUIFlushPrimaryDeferNMilliseconds = 0.0f;
-		forceUpdateFlush = NO;
+		forceUpdateFlush = YES;
 		displayIsDirty = NO;
 	}
     return self;

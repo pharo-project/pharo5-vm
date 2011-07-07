@@ -1,11 +1,9 @@
-
 Gofer new
 	squeaksource: 'MetacelloRepository';
 	package: 'ConfigurationOfCog';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project
-	version: '2.4') load.
+((Smalltalk at: #ConfigurationOfCog) project version: #bleedingEdge) load.
 
-(Smalltalk saveAs: 'generator.image') ifFalse: [
-				 Smalltalk snapshot: false andQuit: true]
+(Smalltalk saveAs: 'generator.image') 
+	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
