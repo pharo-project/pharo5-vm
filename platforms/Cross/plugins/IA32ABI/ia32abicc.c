@@ -30,6 +30,7 @@ void *getbaz() { return baz; }
 #include <stdio.h> /* for fprintf(stderr,...) */
 
 #include "vmCallback.h"
+#include "sqAssert.h"
 #include "sqMemoryAccess.h"
 #include "sqVirtualMachine.h"
 #include "ia32abi.h"
@@ -63,6 +64,12 @@ struct VirtualMachine* interpreterProxy;
 #if __APPLE__ && __MACH__ && __i386__
 # define STACK_ALIGN_BYTES 16
 #elif __linux__ && __i386__
+# define STACK_ALIGN_BYTES 16
+#elif defined(WIN32) && __SSE2__
+/* using sse2 instructions requires 16-byte stack alignment but on win32 there's
+ * no guarantee that libraries preserve alignment so compensate on callback.
+ */
+# define STACK_ALIGN_HACK 1
 # define STACK_ALIGN_BYTES 16
 #endif
 
@@ -129,25 +136,18 @@ callIA32DoubleReturn(SIGNATURE) { double (*f)(), r;
 }
 
 /* Queueing order for callback returns.  To ensure that callback returns occur
- * in LIFO order we provide mostRecentCallbackContext which is tested by the return
- * primitive primReturnFromContextThrough.  In a threaded VM this will have to
- * be thread-specific (as yet unimplemented).
+ * in LIFO order we provide mostRecentCallbackContext which is tested by the
+ * return primitive primReturnFromContextThrough.  Note that in the threaded VM
+ * this does not have to be thread-specific or locked since it is within the
+ * bounds of the ownVM/disownVM pair.
  */
-#if COGMTVM
-# error as yet unimplemented
-/* Test if need and allocate a thread-local variable index in
- * allocateExecutablePage (low frequency operation).  Keep a per-thread
- * mostRecentCallbackContext.
- */
-#else
 static VMCallbackContext *mostRecentCallbackContext = 0;
 
 VMCallbackContext *
 getMostRecentCallbackContext() { return mostRecentCallbackContext; }
 
-# define getRMCC(t) mostRecentCallbackContext
-# define setRMCC(t) (mostRecentCallbackContext = (void *)(t))
-#endif
+#define getRMCC(t) mostRecentCallbackContext
+#define setRMCC(t) (mostRecentCallbackContext = (void *)(t))
 
 /*
  * Entry-point for call-back thunks.  Args are thunk address and stack pointer,
@@ -165,7 +165,8 @@ getMostRecentCallbackContext() { return mostRecentCallbackContext; }
  * requirement on platforms using SSE2 such as Mac OS X, and harmless elsewhere.
  *
  * This function's roles are to use setjmp/longjmp to save the call point
- * and return to it, and to return any of the various values from the callback.
+ * and return to it, to correct C stack pointer alignment if necessary (see
+ * STACK_ALIGN_HACK), and to return any of the various values from the callback.
  *
  * Looking forward to support for x86-64, which typically has 6 register
  * arguments, the function would take 8 arguments, the 6 register args as
@@ -179,6 +180,23 @@ thunkEntry(void *thunkp, long *stackp)
 	VMCallbackContext vmcc;
 	VMCallbackContext *previousCallbackContext;
 	int flags, returnType;
+
+#if STACK_ALIGN_HACK
+  { void *sp = getsp();
+    int offset = (unsigned long)sp & (STACK_ALIGN_BYTES - 1);
+	if (offset) {
+# if _MSC_VER
+		_asm sub esp, dword ptr offset;
+# elif __GNUC__
+		asm("sub %0,%%esp" : : "m"(offset));
+# else
+#  error need to subtract offset from esp
+# endif
+		sp = getsp();
+		assert(!((unsigned long)sp & (STACK_ALIGN_BYTES - 1)));
+	}
+  }
+#endif /* STACK_ALIGN_HACK */
 
 	if ((flags = interpreterProxy->ownVM(0)) < 0) {
 		fprintf(stderr,"Warning; callback failed to own the VM\n");

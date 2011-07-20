@@ -37,6 +37,7 @@
 
 #include "sq.h"
 #include "sqWin32Prefs.h"
+#include "sqSCCSVersion.h"
 
 #ifndef NO_RCSID
 static TCHAR RCSID[]= TEXT("$Id: sqWin32Window.c 1693 2007-06-03 02:09:21Z andreas $");
@@ -282,20 +283,29 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
     }
 #endif /* defined(_WIN32_WCE) */
     if(cmd == SC_CLOSE) {
-      if(prefsEnableAltF4Quit() || GetKeyState(VK_SHIFT) < 0) {
-	TCHAR msg[1001], label[1001];
-	GetPrivateProfileString(U_GLOBAL, TEXT("QuitDialogMessage"), 
-				TEXT("Quit " VM_NAME " without saving?"), 
-				msg, 1000, squeakIniName);
-	GetPrivateProfileString(U_GLOBAL, TEXT("QuitDialogLabel"), 
-				TEXT(VM_NAME), 
-				label, 1000, squeakIniName);
-	if(MessageBox(stWindow, msg, label, MB_YESNO) != IDYES) return 0;
-	DestroyWindow(stWindow);
-	ioExit();
-      } else {
-	recordWindowEvent(WindowEventClose, NULL);
-      }
+#if NewspeakVM
+		/* Newspeak doesn't easnt to quit if the main window is closed.  Only
+		 * when the last native window is closed.
+		 */
+		if(fEnableAltF4Quit)
+			ShowWindow(stWindow, SW_HIDE);
+#else
+		if(prefsEnableAltF4Quit() || GetKeyState(VK_SHIFT) < 0) {
+			TCHAR msg[1001], label[1001];
+			GetPrivateProfileString(U_GLOBAL, TEXT("QuitDialogMessage"), 
+						TEXT("Quit " VM_NAME " without saving?"), 
+						msg, 1000, squeakIniName);
+			GetPrivateProfileString(U_GLOBAL, TEXT("QuitDialogLabel"), 
+						TEXT(VM_NAME), 
+						label, 1000, squeakIniName);
+			if(MessageBox(stWindow, msg, label, MB_YESNO) != IDYES)
+				return 0;
+			DestroyWindow(stWindow);
+			ioExit();
+			/*NOTREACHED*/
+		}
+		recordWindowEvent(WindowEventClose, NULL);
+#endif /* NewspeakVM */
       break;
     }
     return DefWindowProcW(hwnd,message,wParam,lParam);
@@ -1547,7 +1557,7 @@ ioProcessEvents(void)
 	 * ioProcessEvents is disabled.  If >= 0 inIOProcessEvents is incremented
 	 * to avoid reentrancy (i.e. for native GUIs).
 	 */
-	if (inIOProcessEvents) return;
+	if (inIOProcessEvents) return -1;
 	inIOProcessEvents += 1;
 
 	result = ioDrainEventQueue();
@@ -1556,12 +1566,12 @@ ioProcessEvents(void)
 		inIOProcessEvents -= 1;
 
 	return result;
-#else
+#else /* NewspeakVM */
 	/* inIOProcessEvents controls ioProcessEvents.  If negative then
 	 * ioProcessEvents is disabled.  If >= 0 inIOProcessEvents is incremented
 	 * to avoid reentrancy (i.e. for native GUIs).
 	 */
-	if (inIOProcessEvents) return;
+	if (inIOProcessEvents) return -1;
 	inIOProcessEvents += 1;
 
   /* WinCE doesn't retrieve WM_PAINTs from the queue with PeekMessage,
@@ -1595,7 +1605,7 @@ ioProcessEvents(void)
 		inIOProcessEvents -= 1;
 
 	return 1;
-#endif
+#endif /* NewspeakVM */
 }
 
 #if NewspeakVM
@@ -1771,11 +1781,11 @@ int ioSetCursorARGB(sqInt bitsIndex, sqInt w, sqInt h, sqInt x, sqInt y) {
   /* We can leave the mask bits empty since we have an alpha channel below */
   bmi1->bmiHeader.biWidth = w;
   bmi1->bmiHeader.biHeight = -h;
-  hbmMask = CreateDIBSection(mDC, bmi1, DIB_RGB_COLORS, &maskBits, NULL, 0);
+  hbmMask = CreateDIBSection(mDC,bmi1,DIB_RGB_COLORS,(void **)&maskBits,0,0);
 
   bmi32->bmiHeader.biWidth = w;
   bmi32->bmiHeader.biHeight = -h;
-  hbmColor = CreateDIBSection(mDC, bmi32, DIB_RGB_COLORS, &dibBits, NULL, 0);
+  hbmColor = CreateDIBSection(mDC,bmi32,DIB_RGB_COLORS,(void **)&dibBits,0,0);
   memcpy(dibBits, srcBits, w*h*4);
 
   info.fIcon = 0;
@@ -2092,6 +2102,10 @@ int ioSetDisplayMode(int width, int height, int depth, int fullscreenFlag)
 
 /* force an update of the squeak window if using deferred updates */
 int ioForceDisplayUpdate(void) {
+	/* With Newspeak and the native GUI we do not want the main window to appear
+	 * unless explicitly asked for.
+	 */
+#if !NewspeakVM
   /* Show the main window if it's been hidden so far */
   if(IsWindow(stWindow) && !IsWindowVisible(stWindow)) {
     HideSplashScreen();
@@ -2100,15 +2114,14 @@ int ioForceDisplayUpdate(void) {
       ioSetFullScreen(shouldBeFullScreen);
     UpdateWindow(stWindow);
   }
+#endif
   /* Check if
      a) We should do deferred updates at all
      b) The window is valid
      c) The Interpreter does not defer updates by itself
   */
   if(fDeferredUpdate && IsWindow(stWindow) && !deferDisplayUpdates)
-    {
       UpdateWindow(stWindow);
-    }
   return 1;
 }
 
@@ -2778,6 +2791,9 @@ char * GetAttributeString(int id) {
 	}
 # endif
 #endif
+
+	  case 1009: /* source tree version info */
+		return sourceVersionString();
 
     /* Windows internals */
     case 10001: /* addl. hardware info */

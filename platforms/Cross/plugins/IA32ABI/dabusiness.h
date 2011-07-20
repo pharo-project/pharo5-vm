@@ -18,8 +18,8 @@
 
 #if STACKVM /* Need to access args downwards from first arg */
   if (numArgs < 0)
-	for (i = size = 0; --i > numArgs;) {
-		sqInt arg = argVector[i];
+	for (i = size = 0; --i >= numArgs;) {
+		sqInt arg = argVector[i+1];
 		if (objIsAlien(arg) && sizeField(arg))
 			size += moduloPOT(sizeof(long),abs(sizeField(arg)));
 		else /* assume an integer or pointer.  check below. */
@@ -57,8 +57,8 @@
 
 #if STACKVM /* Need to access args downwards from first arg */
   if (numArgs < 0)
-	for (i = size = 0; --i > numArgs;) {
-		sqInt arg = argVector[i];
+	for (i = size = 0; --i >= numArgs;) {
+		sqInt arg = argVector[i+1];
 		if (isSmallInt(arg)) {
 			*(long *)argvec = intVal(arg);
 			argvec += sizeof(long);
