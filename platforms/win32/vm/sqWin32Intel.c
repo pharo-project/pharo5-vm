@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h> /* _O_BINARY */
-#include <Float.h>
+#include <float.h>
 #include <ole2.h>
 #include "sq.h"
 #include "sqWin32Args.h"
@@ -1162,7 +1162,7 @@ int findEmbeddedImage(void) { return 0; }
 /****************************************************************************/
 /*                        sqMain                                            */
 /****************************************************************************/
-#if STACKVM && !COGVM || NewspeakVM
+#if (STACKVM || NewspeakVM) && !COGVM
 extern sqInt sendTrace;
 #endif
 #if STACKVM || NewspeakVM
@@ -1193,7 +1193,7 @@ static vmArg args[] = {
   { ARG_FLAG, &fLowRights, "-lowRights" }, /* started with low rights, 
 					use alternate untrustedUserDirectory */
 #endif /* VISTA_SECURITY */
-#if STACKVM && !COGVM || NewspeakVM
+#if (STACKVM || NewspeakVM) && !COGVM
   { ARG_FLAG, &sendTrace, "-sendtrace"},
 #endif
 #if STACKVM || NewspeakVM
