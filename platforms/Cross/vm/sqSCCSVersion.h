@@ -13,63 +13,14 @@
  * 15 July 2011
  */
 
-#define SCCS 0
-#define RCS 0
-#define CVS 0
-#define SUBVERSION 1
-#define BAZAAR 0
-#define MERCURIAL 0
-#define GIT 0
 
+#include "vmVersionInfo.h" // defines REVISION_STRING
 
-#if SUBVERSION
-static char SvnRawRevisionString[] = "$Rev$";
-# define REV_START (SvnRawRevisionString + 6)
-
-static char SvnRawRepositoryURL[] = "$URL$";
-# define URL_START (SvnRawRepositoryURL + 6)
-
-static long
-revisionAsLong() { return atol(REV_START); }
-
-static char *
-revisionAsString()
-{
-	char *maybe_space = strchr(REV_START,' ');
-	if (maybe_space)
-		*maybe_space = 0;
-	return REV_START;
-}
-
-static char *
-repositoryURL()
-{
-	char *maybe_platforms = strstr(URL_START, "/platforms");
-	if (maybe_platforms)
-		*maybe_platforms = 0;
-	return URL_START;
-}
-# undef REV_START
-# undef URL_START
-#else /* SUBVERSION */
-static long
-revisionAsLong() { return -1; }
-
-static char *
-revisionAsString() { return "?"; }
-
-static char *
-repositoryURL() { return "unknown"; }
-#endif /* SUBVERSION */
-
-static char *sourceVersion = 0;
+#ifndef REVISION_STRING
+# error "Revision information not specified"
+#endif
 
 static char *sourceVersionString()
 {
-	if (!sourceVersion) {
-		int len = strlen(revisionAsString()) + strlen(repositoryURL()) + 3;
-		sourceVersion = malloc(len);
-		sprintf(sourceVersion,"r%s %s",revisionAsString(),repositoryURL());
-	}
-	return sourceVersion;
+	return REVISION_STRING;
 }
