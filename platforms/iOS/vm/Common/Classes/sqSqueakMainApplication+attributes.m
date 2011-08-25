@@ -39,6 +39,8 @@
 
 #import "sqSqueakMainApplication+attributes.h"
 #import "sqSqueakMainApplication+vmAndImagePath.h"
+#include "sqSCCSVersion.h"
+
 
 extern struct VirtualMachine* interpreterProxy;
 
@@ -93,6 +95,9 @@ extern struct VirtualMachine* interpreterProxy;
 				
 			case 1004: /* Interpreter version string */
 				return [self interpreterVersionString];
+			
+			case 1009: /* source tree version info */
+                return sourceVersionString();
 
 			case 1201: /* macintosh file name size */
 				return "255";
