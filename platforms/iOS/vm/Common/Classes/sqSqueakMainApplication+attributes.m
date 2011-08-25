@@ -55,36 +55,44 @@ extern struct VirtualMachine* interpreterProxy;
 		strncpy(byteArrayIndex, [self getAttribute: indexNumber], (size_t) length); //This does not need to be strlcpy
 }
 
+- (char *) interpreterVersionString {
+	static char data[255];
+	bzero(data,sizeof(data));
+	strlcat(data,interpreterVersion,sizeof(data));
+	strlcat(data," ",sizeof(data));
+	NSString *versionString =[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
+	
+	if (versionString == nil)
+		return data;
+	const char *versonStringAsCString =  [ versionString cStringUsingEncoding: [self currentVMEncoding]];
+	
+	if (versonStringAsCString == nil)
+		return data;
+	
+	strlcat(data,versonStringAsCString,sizeof(data));
+	
+	return data;
+}
+
 - (const char *) getAttribute:(sqInt)indexNumber {
 	//indexNumber is a postive/negative number
 	
+#warning TODO Esteban: commandLineArguments is an ugly and temporal solution. Also, I think using negative numbers to get command line args is not the best solution
+	
 	if (indexNumber < 0)	/* VM argument */ {
-		if (-indexNumber <= [self.argsArguments count])
-			return (char *) [self.argsArguments objectAtIndex: (NSUInteger) (-indexNumber - 1)];
-	}
-	else {
+		if (-indexNumber < [self.commandLineArguments count]) {
+			return (char *) [[self.commandLineArguments objectAtIndex: -indexNumber] cStringUsingEncoding:[self currentVMEncoding]];
+		}
+	} else {
 		switch (indexNumber) {
 			case 0: 
-				return (char *) [self getVMPath];
-
+				return [self getVMPath];
+				
 			case 1: 
-				return (char *) [self getImageName];
+				return [self getImageName];
 				
-			case 1004:  { /* Interpreter version string */
-				
-				static char data[255];
-				bzero(data,sizeof(data));
-				strlcat(data,interpreterVersion,sizeof(data));
-				strlcat(data," ",sizeof(data));
-				NSString *versionString =[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
-				if (versionString == nil)
-					return data;
-				const char *versonStringAsCString =  [ versionString cStringUsingEncoding: [self currentVMEncoding]];
-				if (versonStringAsCString == nil)
-					return data;
-				strlcat(data,versonStringAsCString,sizeof(data));
-				return data;
-			}
+			case 1004: /* Interpreter version string */
+				return [self interpreterVersionString];
 
 			case 1201: /* macintosh file name size */
 				return "255";
@@ -92,9 +100,12 @@ extern struct VirtualMachine* interpreterProxy;
 			case 1202: /* macintosh file error peek */
 				return "0";
 				
-			default: 
-				if ((indexNumber - 2) >= 0 && ((indexNumber - 2) < [self.argsArguments count]))
-					return (char *) [[self.argsArguments objectAtIndex: (NSUInteger) (indexNumber - 2)] cStringUsingEncoding: [self currentVMEncoding]];
+			default: {
+				int indexOfArg = indexNumber - 1;
+				if (indexOfArg < [self.argsArguments count]) {
+					return (char *) [[self.argsArguments objectAtIndex: (NSUInteger) indexOfArg] cStringUsingEncoding:[self currentVMEncoding]];			
+				}
+			}
 		}
 	}
 	interpreterProxy->success(false);

@@ -64,6 +64,7 @@ extern sqSqueakAppDelegate *gDelegateApp;
 @synthesize infoPlistInterfaceLogic;
 @synthesize soundInterfaceLogic;
 @synthesize argsArguments;
+@synthesize commandLineArguments;
 
 extern sqInt interpret(void);  //This is a VM Callback
 
@@ -138,7 +139,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 		[pool drain];
 		return;
 	}
-	
+
 	[self parseUnixArgs];
 	
 	//JMM here we parse the unixArgs
@@ -149,8 +150,9 @@ extern sqInt interpret(void);  //This is a VM Callback
 	
 	[self doMemorySetup];
 	
-	if ([self ImageNameIsEmpty]) 
+	if ([self ImageNameIsEmpty]) {
 		[self findImageViaBundleOrPreferences];
+	}
 	
 	if ([self ImageNameIsEmpty]) {
 		[pool drain];

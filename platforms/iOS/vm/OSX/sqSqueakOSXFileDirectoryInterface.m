@@ -61,14 +61,7 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 
 @implementation sqSqueakOSXFileDirectoryInterface
 - (BOOL) setWorkingDirectory {
-	if (1) 
-		return 1;
-	//for people wanting to do  ./Squeak.app foobar.image  zingger.st
-	
-	
-	NSString *path = [gDelegateApp.squeakApplication.vmPathStringURL path];
-	BOOL results = [[NSFileManager defaultManager] changeCurrentDirectoryPath: path];
-	return results;
+	return YES;	
 }
 
 - (NSString *)resolvedAliasFiles:(NSString *)filePath {
