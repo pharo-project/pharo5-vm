@@ -1,0 +1,15 @@
+If you downloaded source from hudson(or jenkins) server,
+please use cmake for building VM.
+
+i.e.:
+
+cd build
+cmake .
+make
+
+DO NOT USE scripts in unixbuild or macbuild or cygwinbuild for building VMs. There is no any guarantees that they are working
+for sources taken from git repositories!
+
+See a complete guide how to build Cog VM using cmake on:
+http://code.google.com/p/cog/wiki/Guide
+

@@ -67,7 +67,7 @@ SqueakOSXAppDelegate *gDelegateApp;
 	[windowHandler.mainViewOnWindow initializeVariables];
 	self.window.delegate =  windowHandler;
 	self.window.contentResizeIncrements = NSMakeSize(8.0f,8.0f);
-	[self.squeakApplication setupEventQueue];
+    [self.squeakApplication setupEventQueue];
 	
 	[self singleThreadStart];
 //	[self workerThreadStart];
@@ -147,7 +147,7 @@ SqueakOSXAppDelegate *gDelegateApp;
 	[NSApp runModalForWindow: panel];
 	[panel close]; 
 	
-	return self.window;
+	return gDelegateApp.window;
 }
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)fileName {
