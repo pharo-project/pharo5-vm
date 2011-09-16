@@ -27,7 +27,11 @@ explain how to generate the VM sources from a build image.
 - load VMmaker in the pharo image
     
     cd image
-    pharo Pharo14.image $PWD/ConfigurationOfCog.st
+    # directly evaluate the contents of ConfigurationOfCog.st
+    pharo $PWD/Pharo14.image $PWD/ConfigurationOfCog.st
+
+    # alternatively copy the contents of ConfigurationOfCog.st into the
+    # workspace and evaluate it
 
 
 - generate the source from a given VM configuration, evaluate the following in
