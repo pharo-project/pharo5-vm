@@ -1,15 +1,48 @@
-If you downloaded source from hudson(or jenkins) server,
-please use cmake for building VM.
+BUILDING FROM JENKINS SOURCES
+=============================
 
-i.e.:
+If you downloaded the sources from the hudson(or jenkins) server use cmake 
+to build the VM.
 
-cd build
-cmake .
-make
+    cd build
+    cmake .
+    make
 
-DO NOT USE scripts in unixbuild or macbuild or cygwinbuild for building VMs. There is no any guarantees that they are working
-for sources taken from git repositories!
+DO NOT USE scripts in unixbuild or macbuild or cygwinbuild for building VMs. 
+There is no any guarantees that they are working for sources taken from git 
+repositories!
 
-See a complete guide how to build Cog VM using cmake on:
+
+(RE)CREATING THE GENERATED VM SOURCES
+=====================================
+If you downloaded the sources from gitorious do the following the VM sources
+are not included (unlike the jenkins build download). The following steps
+explain how to generate the VM sources from a build image.
+
+- get a fresh pharo image from the build server:
+
+    cd image
+    ./newImage
+
+- load VMmaker in the pharo image
+    
+    cd image
+    pharo Pharo14.image $PWD/ConfigurationOfCog.st
+
+
+- generate the source from a given VM configuration, evaluate the following in
+  the workspace (for ex. CogUnixConfig or CogMsWindowsConfig):
+
+    MTCocoaIOSCogJitConfig generateWithSources.
+
+   
+- once the sources are exported you can launch cmake and build the VM
+    
+    cd build
+    cmake .
+    make
+
+
+See a complete guide on how to build Cog VM using cmake on:
 http://code.google.com/p/cog/wiki/Guide
 
