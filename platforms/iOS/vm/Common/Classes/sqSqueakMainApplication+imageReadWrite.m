@@ -51,6 +51,7 @@
 		[pool drain];
 		return NO;
 	}
+
 	f = sqImageFileOpen(characterPathForImage, "rb");
 	if (f == 0) {
 		fprintf(stderr, "Failed to open image named %s", characterPathForImage);

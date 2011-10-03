@@ -178,7 +178,7 @@ void mtfsfi(unsigned long long fpscr) {}
 			
 			//guessing first parameter as image name
 			if ([argData compare: @"--"] != NSOrderedSame) {
-				[self imageNamePut:[argData cStringUsingEncoding:[self currentVMEncoding]]];
+                [self setImageNamePathIfItWasReadable:argData];
 			} else {
 				continue;
 			}

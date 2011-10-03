@@ -61,7 +61,7 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 
 @implementation sqSqueakOSXFileDirectoryInterface
 - (BOOL) setWorkingDirectory {
-	return YES;	
+    return YES;	
 }
 
 - (NSString *)resolvedAliasFiles:(NSString *)filePath {
