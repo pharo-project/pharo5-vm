@@ -89,7 +89,7 @@
 
 #endif
 
-//#define DEBUG
+
 #undef	DEBUG
 
 #if defined(DEBUG)
@@ -271,19 +271,18 @@ int aioPoll(int microSeconds)
 int aioSleepForUsecs(int microSeconds)
 {
 #if defined(HAVE_NANOSLEEP)
-    if (microSeconds < (1000000/60)) 
+  if (microSeconds < (1000000/60))	/* < 1 timeslice? */
     {
-        if (!aioPoll(0)) 
-        {
-            struct timespec rqtp= { 0, microSeconds * 1000 };
-            struct timespec rmtp;
-            nanosleep(&rqtp, &rmtp);
-            microSeconds= 0;			/* poll but don't block */
-        }
+      if (!aioPoll(0))
+	{
+	  struct timespec rqtp= { 0, microSeconds * 1000 };
+	  struct timespec rmtp;
+	  nanosleep(&rqtp, &rmtp);
+	  microSeconds= 0;			/* poll but don't block */
+	}
     }
 #endif
-    
-    return aioPoll(microSeconds);
+  return aioPoll(microSeconds);
 }
 
 
