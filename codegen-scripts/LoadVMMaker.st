@@ -3,7 +3,7 @@ Gofer new
 	package: 'ConfigurationOfCog';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project #bleedingEdge) load.
+((Smalltalk at: #ConfigurationOfCog) project '3.5') load.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
