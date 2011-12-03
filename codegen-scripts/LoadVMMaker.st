@@ -1,9 +1,9 @@
 Gofer new
-	squeaksource: 'MetacelloRepository';
-	package: 'ConfigurationOfCog';
+	squeaksource: 'PharoVM';
+	package: 'ConfigurationOfPharoVM';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: #bleedingEdge) load.
+((Smalltalk at: #ConfigurationOfPharoVM) project version: #bleedingEdge) load.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
