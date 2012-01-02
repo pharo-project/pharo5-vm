@@ -66,7 +66,7 @@ extern struct VirtualMachine* interpreterProxy;
 	
 	if (versionString == nil)
 		return data;
-	const char *versonStringAsCString =  [ versionString cStringUsingEncoding: [self currentVMEncoding]];
+	const char *versonStringAsCString =  [versionString cStringUsingEncoding: [self currentVMEncoding]];
 	
 	if (versonStringAsCString == nil)
 		return data;
@@ -79,10 +79,8 @@ extern struct VirtualMachine* interpreterProxy;
 - (const char *) getAttribute:(sqInt)indexNumber {
 	//indexNumber is a postive/negative number
 	
-#warning TODO Esteban: commandLineArguments is an ugly and temporal solution. Also, I think using negative numbers to get command line args is not the best solution
-	
-	if (indexNumber < 0)	/* VM argument */ {
-		if (-indexNumber < [self.commandLineArguments count]) {
+	if (indexNumber < 0) /* VM argument */ {
+        if (-indexNumber < ([self.commandLineArguments count] - 1)) {
 			return (char *) [[self.commandLineArguments objectAtIndex: -indexNumber] cStringUsingEncoding:[self currentVMEncoding]];
 		}
 	} else {

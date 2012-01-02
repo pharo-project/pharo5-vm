@@ -86,7 +86,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 }
 
 - (void) doHeadlessSetup {
-	gSqueakHeadless = false;
+    //gSqueakHeadless = NO;
 }
 
 - (void) doMemorySetup {

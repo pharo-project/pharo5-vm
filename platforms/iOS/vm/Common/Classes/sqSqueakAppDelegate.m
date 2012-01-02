@@ -44,6 +44,7 @@ such third-party acknowledgments.
 @implementation sqSqueakAppDelegate
 @synthesize squeakApplication;
 
+#ifdef BUILD_FOR_OSX
 - (void) makeMainWindow {
 	
 	/*Beware creating a main window must be done on main thread it will not work from this interpreter squeak thread */
@@ -73,6 +74,7 @@ such third-party acknowledgments.
 	ioSetFullScreen(getFullScreenFlag());
 
 }
+#endif
 
 - (sqSqueakMainApplication *) makeApplicationInstance {
 	return nil;
