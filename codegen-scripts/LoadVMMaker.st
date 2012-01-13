@@ -1,9 +1,9 @@
 Gofer new
-	squeaksource: 'MetacelloRepository';
-	package: 'ConfigurationOfCog';
+	squeaksource: 'PharoVM';
+	package: 'ConfigurationOfPharoVM';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: '3.1') load.
+((Smalltalk at: #ConfigurationOfPharoVM) project version: '1.4-1') load.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]

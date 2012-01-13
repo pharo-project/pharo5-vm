@@ -155,8 +155,8 @@ void mtfsfi(unsigned long long fpscr) {}
 	return 0;
 }
 
-- (void) parseArgs: (NSArray *) args{
-		  
+- (void) parseArgs: (NSArray *) args {
+	commandLineArguments = [args copyWithZone:null];
 	argsArguments = [[NSMutableArray alloc] initWithCapacity: [args count]];
 	
 	if ([args count] < 2) 
@@ -175,7 +175,13 @@ void mtfsfi(unsigned long long fpscr) {}
 		}
 		if (!optionsCompleted && [[argData substringToIndex: 1] compare: @"-"] != NSOrderedSame) {
 			optionsCompleted = YES;
-			continue;
+			
+			//guessing first parameter as image name
+			if ([argData compare: @"--"] != NSOrderedSame) {
+                [self setImageNamePathIfItWasReadable:argData];
+			} else {
+				continue;
+			}
 		}
 		if (optionsCompleted) {
 			[self.argsArguments addObject: argData];

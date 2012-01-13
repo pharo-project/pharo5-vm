@@ -59,7 +59,7 @@ static inline uint64_t
 AtomicGet(uint64_t *target)
 {
 	while (true) {
-		int64 value = *target;
+		uint64_t value = *target;
 		if (OSAtomicCompareAndSwap64Barrier(value, value, target))
 			return value;
 	}

@@ -916,7 +916,9 @@ error(char *msg) {
     MessageBox(stWindow,crashInfo,TEXT("Fatal VM error"),
                  MB_OK | MB_APPLMODAL | MB_ICONSTOP);
 
+#if !NewspeakVM
   SetCurrentDirectoryW(vmLogDirW);
+#endif
   /* print the above information */
   f = fopen_for_append("crash.dmp");
   if(f){  
@@ -1002,7 +1004,9 @@ printCrashDebugInformation(LPEXCEPTION_POINTERS exp)
     MessageBox(stWindow,crashInfo,TEXT("Fatal VM error"),
                  MB_OK | MB_APPLMODAL | MB_ICONSTOP);
 
+#if !NewspeakVM
   SetCurrentDirectoryW(vmLogDirW);
+#endif
   /* print the above information */
   f = fopen_for_append("crash.dmp");
   if(f){  
@@ -1198,6 +1202,7 @@ static vmArg args[] = {
 #endif
 #if STACKVM || NewspeakVM
   { ARG_STRING_FUNC, setBreakSelector, "-breaksel:"}, /* break-point selector string */
+  { ARG_INT_FUNC, ioSetMaxExtSemTableSize, "-numextsems:"}, /* set num external semaphores */
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
   { ARG_UINT, &checkForLeaks, "-leakcheck:"}, /* leak check on GC */
@@ -1207,7 +1212,7 @@ static vmArg args[] = {
 #endif /* STACKVM */
 #if COGVM
   { ARG_UINT, &desiredCogCodeSize, "-codesize:"}, /* machine code memory to use */
-  { ARG_FLAG, &traceLinkedSends, "-sendtrace" },  /* trace sends in log */
+  { ARG_UINT, &traceLinkedSends, "-sendtrace:" },  /* trace sends in log */
   { ARG_INT, &traceLinkedSends, "-trace:" },  /* trace sends in log */
   { ARG_FLAG, &traceStores, "-tracestores" },     /* assert-check stores */
   { ARG_UINT, &debugPrimCallStackOffset, "-dpcso:"}, /* debug prim call stack offset */
@@ -1399,6 +1404,8 @@ int sqMain(char *lpCmdLine, int nCmdShow)
   __try {
 # endif
 #endif /* !NO_FIRST_LEVEL_EXCEPTION_HANDLER */
+
+#if !NewspeakVM
     /* set the CWD to the image location */
     if(*imageName) {
       char path[MAX_PATH+1], *ptr;
@@ -1409,6 +1416,7 @@ int sqMain(char *lpCmdLine, int nCmdShow)
 	SetCurrentDirectory(path);
       }
     }
+#endif /* !NewspeakVM */
 
     /* display the splash screen */
     ShowSplashScreen();

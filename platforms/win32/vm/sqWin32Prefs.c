@@ -291,7 +291,7 @@ void SetAllPreferences() {
 }
 
 void CreatePrefsMenu(void) {
-#if COGVM
+#if STACKVM
 extern sqInt recordPrimTraceFunc();
 #endif
   HMENU hMenu,pMenu;
@@ -370,7 +370,7 @@ extern sqInt recordPrimTraceFunc();
 	       TEXT("Dump call stack"));
     AppendMenu(hMenu, MF_STRING | MF_UNCHECKED, ID_PRINTALLSTACKS,
 	       TEXT("Dump all processes"));
-#if COGVM
+#if STACKVM
     if (recordPrimTraceFunc())
       AppendMenu(hMenu, MF_STRING | MF_UNCHECKED, ID_DUMPPRIMLOG,
 	       TEXT("Dump recent primitives"));

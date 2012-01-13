@@ -8,7 +8,11 @@
 #include <gl.h>
 #else
 #include <AGL/agl.h>
+#ifdef MAC_OS_X_VERSION_10_7
+#include <OpenGL/gl.h>
+#else
 #include <AGL/gl.h>
+#endif
 #endif
 typedef struct glRenderer {
 	GLint bufferRect[4];

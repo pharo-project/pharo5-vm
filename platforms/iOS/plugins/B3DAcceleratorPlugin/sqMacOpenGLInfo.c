@@ -13,9 +13,14 @@
 *****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-	#include <Carbon/Carbon.h>
-	#include <AGL/gl.h>
-	#include <AGL/agl.h>
+#include <Carbon/Carbon.h>
+#include <OpenGL/gl.h>
+#ifdef MAC_OS_X_VERSION_10_7
+#include <OpenGL/gl.h>
+#else 
+#include <AGL/gl.h>
+#endif
+#include <AGL/agl.h>
 
 #include "sq.h"
 #include "sqVirtualMachine.h"
