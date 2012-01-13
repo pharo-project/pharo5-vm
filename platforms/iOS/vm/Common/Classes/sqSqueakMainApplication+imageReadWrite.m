@@ -52,10 +52,6 @@
 		return NO;
 	}
 	f = sqImageFileOpen(characterPathForImage, "rb");
-	if (f == 0) {
-		fprintf(stderr, "Failed to open image named %s", characterPathForImage);
-		exit(-1);
-	}
 	readImageFromFileHeapSizeStartingAt(f, sqGetAvailableMemory(), (squeakFileOffsetType) 0);  //This is a VM Callback
 	sqImageFileClose(f);
 	[pool drain];

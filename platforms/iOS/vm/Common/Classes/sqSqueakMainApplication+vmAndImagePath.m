@@ -52,8 +52,8 @@ extern sqSqueakAppDelegate *gDelegateApp;
 
 - (BOOL) ImageNameIsEmpty {
 	if (self.imageNameURL) 
-		return NO;
-	return YES;
+		return false;
+	return true;
 }
 
 - (const char *) getImageName {
