@@ -7,7 +7,7 @@ Gofer new
     load.
     
 "start loading all the cog sources"
-(Smalltalk at: #ConfigurationOfCog) project latestVersion load.
+(Smalltalk at: #ConfigurationOfCog) load.
 
 "Open workspace with example Configurations"
 Workspace openContents: (String streamContents: [ :stream|

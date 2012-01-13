@@ -20,9 +20,15 @@ are not included (unlike the jenkins build download). The following steps
 explain how to generate the VM sources from a build image.
 
 - get a fresh pharo image from the build server:
+  Either run the script in the image folder
 
     cd image
     ./newImage
+ 
+  or get the vmmaker image from jenkins manually
+
+    https://ci.lille.inria.fr/pharo/view/VM-dev/job/Cog%20Git%20Tracker%20(cog-osx)/ws/vmmaker-image.zip
+
 
 - load VMmaker in the pharo image
     
@@ -30,7 +36,7 @@ explain how to generate the VM sources from a build image.
     # directly evaluate the contents of ConfigurationOfCog.st
     pharo $PWD/Pharo14.image $PWD/ConfigurationOfCog.st
 
-    # alternatively copy the contents of ConfigurationOfCog.st into the
+    # alternatively copy the contents of ConfigurationOfCog.st into a new
     # workspace and evaluate it
 
 
@@ -39,12 +45,23 @@ explain how to generate the VM sources from a build image.
 
     MTCocoaIOSCogJitConfig generateWithSources.
 
+  See the ConfigurationOfCog.st for more examples for the common platforms.
+
    
-- once the sources are exported you can launch cmake and build the VM
+- once the sources are exported you can launch cmake and build the VM using
+  Unix Makefiles
     
     cd build
-    cmake .
+    cmake .             # this is the same as cmake -G "Unix Makefiles"
     make
+
+  Consult the last section from `cmake --help` to check for other generators.
+  For instance to create an XCode project under OSX do the following
+
+    cd build
+    rm CMakeCache.txt   # remove existing cache to avoid issues
+    cmake -G "Xcode"
+    open CogVM.xcodeproj
 
 
 See a complete guide on how to build Cog VM using cmake on:

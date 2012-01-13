@@ -1,21 +1,61 @@
 #!/bin/bash
+
+PREBUILT_IMAGE_URL="https://ci.lille.inria.fr/pharo/view/VM-dev/job/Cog%20Git%20Tracker%20(cog-osx)/lastSuccessfulBuild/artifact/vmmaker-image.zip"
+
 URL="https://ci.lille.inria.fr/pharo/view/Pharo%201.4/job/Pharo%201.4/lastSuccessfulBuild/artifact/"
 VERSION="Pharo-1.4"
-# using curl since that's installed by default on mach :/
-curl "$URL$VERSION.zip" -o "$VERSION.zip"
 
-unzip $VERSION.zip && \
-rm $VERSION.zip    && \
+# ----------------------------------------------------------------------------
+
+openImage() {
+    IMAGE=$1
+    SCRIPT="$PWD/ConfigurationOfCog.st"
+
+    echo 'OPENING IMAGE'
+    echo "    $IMAGE"
+    echo "    $SCRIPT"
+    
+    hash pharo 2>&-      && echo "using " `which pharo` \
+        && pharo  "$IMAGE" "$SCRIPT"        && exit 0
+    
+    hash squeak 2>-      && echo "using "  `which squeak` \
+        && squeak "$IMAGE" "$SCRIPT"        && exit 0
+    
+    hash open 2>&-       && echo "using " `which open` \
+        && open "$IMAGE" --args "$SCRIPT"   && exit 0
+    
+    hash gnome-open 2>&- && echo "using " `which gnome-open` \
+        && gnome-open "$IMAGE"              && exit 0
+}
+
+# ----------------------------------------------------------------------------
+echo "LOADING PREBUILT IMAGE"
+echo "    $PREBUILT_IMAGE_URL"
+
+curl "$PREBUILT_IMAGE_URL" -o "image.zip" && \
+unzip image.zip && \ 
+rm image.zip  && \
+openImage "$PWD/generator.image" && exit 1
+
+
+# ----------------------------------------------------------------------------
+echo "FETCHING FRESH IMAGE"
+echo "   $URL$VERSION.zip"
+
+# using curl since that's installed by default on mac os x :/
+curl "$URL$VERSION.zip" -o "image.zip"
+
+# ----------------------------------------------------------------------------
+echo "UNZIPPING"
+echo "    $PWD/image.zip"
+
+unzip image.zip && \
+rm image.zip    && \
 mv $VERSION/*  .   && \
 rm -rf $VERSION    || exit 1
 
 
+# ----------------------------------------------------------------------------
 # try to open the image...
-IMAGE="$PWD/$VERSION.image"
-SCRIPT="$PWD/ConfigurationOfCog.st"
+openImage "$PWD/$VERSION.image"
 
-hash pharo 2>&-      && pharo  "$IMAGE" "$SCRIPT" && exit 0
-hash squeak 2>-      && squeak "$IMAGE" "$SCRIPT" && exit 0
-
-hash open 2>&-       && open "$IMAGE" --args "$SCRIPT"      && exit 0
-hash gnome-open 2>&- && gnome-open "$IMAGE" && exit 0
