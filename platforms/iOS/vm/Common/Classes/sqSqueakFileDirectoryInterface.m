@@ -51,6 +51,13 @@ such third-party acknowledgments.
 	return YES;
 }
 
+
+/*** Constants ***/
+	
+#define ENTRY_FOUND     0
+#define NO_MORE_ENTRIES 1
+#define BAD_PATH        2
+
 - (sqInt) dir_EntryLookup: (const char *) pathString 
 			  length: (sqInt) pathStringLength 
 		  returnName: (char *) nameString
@@ -61,8 +68,60 @@ such third-party acknowledgments.
 	modificationDate: (sqInt *) modificationDate
 		 isDirectory: (sqInt *) isDirectory 
 		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile {
-#warning this is not implementation
-	return 0;
+	
+   	NSFileManager * fileMgr = [NSFileManager defaultManager];
+    NSString*	directoryPath = NULL;
+	NSString*	filePath;
+	NSString*	fileName;
+	NSDictionary * fileAttributes;
+	BOOL		readDirectory = false;
+
+    *sizeIfFile       = 0;
+
+    if (nameSrtringLength <= 0 || pathStringLength <= 0)
+        return BAD_PATH
+        
+	directoryPath = [[[NSString alloc] initWithBytes: pathString length: (NSUInteger) pathStringLength encoding: NSUTF8StringEncoding] autorelease];
+    fileName      = [[[NSString alloc] initWithBytes: nameString length: (NSUInteger) nameStringLength encoding: NSUTF8StringEncoding] autorelease];
+	
+	filePath      = [[directoryPath stringByAppendingString: @"/"] stringByAppendingString: fileName] ;
+	
+    *name         = nameString
+	*nameLength   = nameStringLength;
+
+	//This minics the unix port where we resolve the file name, but the symbolic file lookup can fail. 
+	//The unix port says, oh file was there, but stat/lstat fails, so mmm kinda continue
+	//However to deal with Finder Aliases we have to be more clever.
+	
+	NSError *error;
+	NSString *fileType;
+	NSString *newFilePath = [self resolvedAliasFiles: filePath];
+	
+	fileAttributes        = [fileMgr attributesOfItemAtPath: filePath error: &error];
+
+	if ([filePath isEqualToString: newFilePath]) {
+		if (!fileAttributes) {
+			return ENTRY_FOUND;
+		}
+		fileType     = [fileAttributes objectForKey: NSFileType];
+		*isDirectory = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
+	} else {
+		NSDictionary *fileAttributesPossibleAlias = [fileMgr attributesOfItemAtPath: newFilePath error: &error];  // do symbolic link
+		fileAttributes                            = fileAttributesPossibleAlias;
+		
+		fileType                                  = [fileAttributesPossibleAlias objectForKey: NSFileType];
+		*isDirectory                              = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
+	}
+
+	*creationDate     = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
+	*modificationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileModificationDate]);
+	*sizeIfFile       = [[fileAttributes objectForKey: NSFileSize] integerValue];
+	
+	/* POSSIBLE IPHONE BUG CHECK */
+	if (*creationDate == 0) 
+		*creationDate = *modificationDate;
+	
+	return ENTRY_FOUND;
 }
 
 
@@ -82,12 +141,6 @@ such third-party acknowledgments.
 	NSString*	fileName;
 	NSDictionary * fileAttributes;
 	BOOL		readDirectory = false;
-	
-	/*** Constants ***/
-	
-#define ENTRY_FOUND     0
-#define NO_MORE_ENTRIES 1
-#define BAD_PATH        2
 	
 	
 	/* default return values */
