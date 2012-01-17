@@ -19,7 +19,7 @@ Workspace openContents: (String streamContents: [ :stream|
 
         stream << '"Configuration for Windows"'; cr.
         stream << 'CogWindowsConfig generateWithSources.'.
-    ])
+    ]).
 
 "save the image and quit"
 Smalltalk snapshot: true andQuit: true.

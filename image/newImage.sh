@@ -14,13 +14,13 @@ openImage() {
     echo 'OPENING IMAGE'
     echo "    $IMAGE"
     echo "    $SCRIPT"
-    
-    hash pharo 2>&-      && echo "using " `which pharo` \
-        && pharo  "$IMAGE" "$SCRIPT"        && exit 0
-    
-    hash squeak 2>-      && echo "using "  `which squeak` \
-        && squeak "$IMAGE" "$SCRIPT"        && exit 0
-    
+   
+    for vm in CogVM cog pharo squeak StackVM stackVM; do
+        echo $vm;
+        hash $vm 2>&-      && echo "using " `which ${vm}` \
+            && $vm  "$IMAGE" "$SCRIPT"        && exit 0
+    done  
+   
     hash open 2>&-       && echo "using " `which open` \
         && open "$IMAGE" --args "$SCRIPT"   && exit 0
     

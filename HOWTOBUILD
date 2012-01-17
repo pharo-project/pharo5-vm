@@ -59,7 +59,8 @@ explain how to generate the VM sources from a build image.
   For instance to create an XCode project under OSX do the following
 
     cd build
-    rm CMakeCache.txt   # remove existing cache to avoid issues
+    rm -f CMakeCache.txt   # remove existing cache to avoid issues
+    export CC='gcc-4.2';   # make sure we don't use llvm
     cmake -G "Xcode"
     open CogVM.xcodeproj
 
