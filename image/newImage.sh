@@ -16,7 +16,6 @@ openImage() {
     echo "    $SCRIPT"
    
     for vm in CogVM cog pharo squeak StackVM stackVM; do
-        echo $vm;
         hash $vm 2>&-      && echo "using " `which ${vm}` \
             && $vm  "$IMAGE" "$SCRIPT"        && exit 0
     done  

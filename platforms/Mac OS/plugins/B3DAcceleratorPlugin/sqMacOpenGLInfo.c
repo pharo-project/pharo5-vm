@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 	#include <Carbon/Carbon.h>
-	#include <GL/gl.h>
+	#include <AGL/gl.h>
 	#include <AGL/agl.h>
 
 #include "sq.h"
