@@ -48,21 +48,36 @@ explain how to generate the VM sources from a build image.
   See the ConfigurationOfCog.st for more examples for the common platforms.
 
    
-- once the sources are exported you can launch cmake and build the VM using
-  Unix Makefiles
+- once the sources are exported you can launch cmake and build the VM 
+
+    UNIX:
+        using Unix Makefiles
     
-    cd build
-    cmake .             # this is the same as cmake -G "Unix Makefiles"
-    make
+        cd build
+        cmake .             # this is the same as cmake -G "Unix Makefiles"
+        make
 
-  Consult the last section from `cmake --help` to check for other generators.
-  For instance to create an XCode project under OSX do the following
+    OSX:
+        cd build
+        export CC='/usr/bin/gcc-4.2'    # as of 10.7 llvm is the incompatible
+                                        # default compiler
+        export MACOSX_DEPLOYMENT_TARGET=10.5
+        cmake
+        make
+    
+    Varia:
 
-    cd build
-    rm -f CMakeCache.txt   # remove existing cache to avoid issues
-    export CC='gcc-4.2';   # make sure we don't use llvm
-    cmake -G "Xcode"
-    open CogVM.xcodeproj
+        Consult the last section from `cmake --help` to check for other generators.
+        For instance to create an XCode project under OSX do the following
+
+          cd build
+          rm -f CMakeCache.txt   # remove existing cache to avoid issues
+          export CC='gcc-4.2';   # make sure we don't use llvm
+          cmake -G "Xcode"
+          open CogVM.xcodeproj
+
+
+- run the freshly compiled VM from 'results'
 
 
 See a complete guide on how to build Cog VM using cmake on:
