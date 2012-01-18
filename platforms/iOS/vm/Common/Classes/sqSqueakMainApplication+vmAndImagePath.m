@@ -47,13 +47,13 @@ extern sqSqueakAppDelegate *gDelegateApp;
 @implementation sqSqueakMainApplication (vmAndImagePath) 
 
 - (void) setVMPathFromApplicationDirectory {
-	self.vmPathStringURL = [NSURL fileURLWithPath: [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
+	self.vmPathStringURL = [NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]];
 }
 
 - (BOOL) ImageNameIsEmpty {
 	if (self.imageNameURL) 
-		return false;
-	return true;
+		return NO;
+	return YES;
 }
 
 - (const char *) getImageName {
