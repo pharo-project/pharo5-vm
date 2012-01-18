@@ -122,8 +122,12 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
 					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
 {
+    
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	
+	/*Implementation notes
+	 if pathStringLength = 0 then we use the current working directory
+	 if pathStringLength > 0 then we resolve the pathString and alias */
 	sqInt status =
 	[gDelegateApp.squeakApplication.fileDirectoryLogic dir_EntryLookup: pathString 
 														   length: pathStringLength 

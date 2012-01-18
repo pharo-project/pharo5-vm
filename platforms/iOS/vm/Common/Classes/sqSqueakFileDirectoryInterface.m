@@ -58,42 +58,18 @@ such third-party acknowledgments.
 #define NO_MORE_ENTRIES 1
 #define BAD_PATH        2
 
-- (sqInt) dir_EntryLookup: (const char *) pathString 
-			  length: (sqInt) pathStringLength 
-		  returnName: (char *) nameString
-	returnNameLength: (sqInt) nameStringLength	
-				name: (char *) name
-			  length: (sqInt *) nameLength 
-		creationDate: (sqInt *) creationDate 
-	modificationDate: (sqInt *) modificationDate
-		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile {
-	
-   	NSFileManager * fileMgr = [NSFileManager defaultManager];
-    NSString*	directoryPath = NULL;
-	NSString*	filePath;
-	NSString*	fileName;
-	NSDictionary * fileAttributes;
-	BOOL		readDirectory = false;
-
-    *sizeIfFile       = 0;
-
-    if (nameSrtringLength <= 0 || pathStringLength <= 0)
-        return BAD_PATH
-        
-	directoryPath = [[[NSString alloc] initWithBytes: pathString length: (NSUInteger) pathStringLength encoding: NSUTF8StringEncoding] autorelease];
-    fileName      = [[[NSString alloc] initWithBytes: nameString length: (NSUInteger) nameStringLength encoding: NSUTF8StringEncoding] autorelease];
-	
-	filePath      = [[directoryPath stringByAppendingString: @"/"] stringByAppendingString: fileName] ;
-	
-    *name         = nameString
-	*nameLength   = nameStringLength;
-
+- (sqInt)attributesForPath:(NSString *)filePath 
+                   fileMgr:(NSFileManager *)fileMgr 
+               isDirectory:(sqInt *)isDirectory 
+              creationDate:(sqInt *)creationDate 
+          modificationDate:(sqInt *)modificationDate
+                sizeIfFile:(off_t *)sizeIfFile  {
 	//This minics the unix port where we resolve the file name, but the symbolic file lookup can fail. 
 	//The unix port says, oh file was there, but stat/lstat fails, so mmm kinda continue
 	//However to deal with Finder Aliases we have to be more clever.
 	
-	NSError *error;
+	NSDictionary *fileAttributes;
+    NSError *error;
 	NSString *fileType;
 	NSString *newFilePath = [self resolvedAliasFiles: filePath];
 	
@@ -124,6 +100,40 @@ such third-party acknowledgments.
 	return ENTRY_FOUND;
 }
 
+- (sqInt) dir_EntryLookup: (const char *) pathString 
+			  length: (sqInt) pathStringLength 
+		  returnName: (char *) nameString
+	returnNameLength: (sqInt) nameStringLength	
+				name: (char *) name
+			  length: (sqInt *) nameLength 
+		creationDate: (sqInt *) creationDate 
+	modificationDate: (sqInt *) modificationDate
+		 isDirectory: (sqInt *) isDirectory 
+		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile {
+	
+   	NSFileManager * fileMgr = [NSFileManager defaultManager];
+    NSString*	directoryPath = NULL;
+	NSString*	filePath;
+	NSString*	fileName;
+
+    *sizeIfFile       = 0;
+
+    if (nameStringLength <= 0 || pathStringLength <= 0)
+        return BAD_PATH;
+        
+	directoryPath = [[[NSString alloc] initWithBytes: pathString length: (NSUInteger) pathStringLength encoding: NSUTF8StringEncoding] autorelease];
+    fileName      = [[[NSString alloc] initWithBytes: nameString length: (NSUInteger) nameStringLength encoding: NSUTF8StringEncoding] autorelease];
+	
+	filePath      = [[directoryPath stringByAppendingString: @"/"] stringByAppendingString: fileName];
+	
+	strlcpy(name,[fileName UTF8String], 256);
+    
+    *name         = *nameString;
+	*nameLength   = nameStringLength;
+
+    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile];
+}
+
 
 - (sqInt) dir_Lookup: (const char *) pathString 
 			  length: (sqInt) pathStringLength 
@@ -139,7 +149,6 @@ such third-party acknowledgments.
 	NSString*	directoryPath = NULL;
 	NSString*	filePath;
 	NSString*	fileName;
-	NSDictionary * fileAttributes;
 	BOOL		readDirectory = false;
 	
 	
@@ -191,42 +200,10 @@ such third-party acknowledgments.
 	filePath = [ directoryContentsForDirLookup objectAtIndex: (NSUInteger) (index-1)];
 	filePath = [[ lastPathForDirLookup stringByAppendingString: @"/"] stringByAppendingString: filePath] ;
 	fileName = [[filePath lastPathComponent] precomposedStringWithCanonicalMapping];
-	strlcpy(name,[fileName UTF8String],256);
+	strlcpy(name,[fileName UTF8String], 256);
 	*nameLength = (sqInt) strlen(name);
-
-	//This minics the unix port where we resolve the file name, but the symbolic file lookup can fail. 
-	//The unix port says, oh file was there, but stat/lstat fails, so mmm kinda continue
-	//However to deal with Finder Aliases we have to be more clever.
-	
-	NSError *error;
-	NSString *fileType;
-	NSString *newFilePath = [self resolvedAliasFiles: filePath];
-	
-	fileAttributes = [fileMgr attributesOfItemAtPath: filePath error: &error];  
-
-	if ([filePath isEqualToString: newFilePath]) {
-		if (!fileAttributes) {
-			return ENTRY_FOUND;
-		}
-		fileType = [fileAttributes objectForKey: NSFileType];
-		*isDirectory = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
-	} else {
-		NSDictionary *fileAttributesPossibleAlias = [fileMgr attributesOfItemAtPath: newFilePath error: &error];  // do symbolic link
-		fileAttributes = fileAttributesPossibleAlias;
-		
-		fileType = [fileAttributesPossibleAlias objectForKey: NSFileType];
-		*isDirectory = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
-	}
-
-	*creationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
-	*modificationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileModificationDate]);
-	*sizeIfFile = [[fileAttributes objectForKey: NSFileSize] integerValue];
-	
-	/* POSSIBLE IPHONE BUG CHECK */
-	if (*creationDate == 0) 
-		*creationDate = *modificationDate;
-	
-	return ENTRY_FOUND;
+    
+    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile];
 }
 
 - (sqInt) dir_Create: (char *) pathString
