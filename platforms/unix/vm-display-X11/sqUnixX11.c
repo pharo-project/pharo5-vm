@@ -318,8 +318,6 @@ int windowState= WIN_CHANGED;
       windowState= WIN_CHANGED;			\
   }
 
-#define recordKeystroke(ignored) 0
-
 #include "sqUnixEvent.c"
 
 #ifdef DEBUG_CONV
@@ -1723,7 +1721,6 @@ static int recordPendingKeys(void)
 # endif
 	  recordKeyboardEvent(*pendingKey, EventKeyDown, modifierState, 0);
 	  recordKeyboardEvent(*pendingKey, EventKeyChar, modifierState, 0);
-	  recordKeystroke(*pendingKey);  /* DEPRECATED */
 	  ++pendingKey;
 	  if (--inputCount == 0) break;
 	}
@@ -3666,12 +3663,6 @@ static void handleEvent(XEvent *evt)
 	    }
 	  }
 	DCONV_FPRINTF(stderr, "keyCode, ucs4, multi_key_buffer: %d, %d, %x\n", keyCode, ucs4, multi_key_buffer);
-	if (keyCode >= 0)
-	  {
-	    recordKeystroke(keyCode);			/* DEPRECATED */
-	    if (multi_key_buffer != 0)
-	      recordKeystroke(multi_key_buffer);
-	  }
 	if ((keyCode >= 0) || (ucs4 > 0))
 	  {
 	    recordKeyboardEvent(keyCode, EventKeyDown, modifierState, ucs4);
