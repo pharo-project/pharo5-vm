@@ -293,7 +293,6 @@ static unsigned char  inputString[128];
 static unsigned char *inputBuf= inputString;
 static unsigned char *pendingKey= NULL;
 static int	      inputCount= 0;
-/* static int	      inputSymbol= 0; */
 
 static void initInputI18n();
 
