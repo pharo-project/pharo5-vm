@@ -72,17 +72,6 @@
 #define SQ_FORM_FILENAME	"squeak-form.ppm"
 #undef	FULL_UPDATE_ON_EXPOSE
 
-#if 0 /* The following is a pain.  Leave it to the command line. */
-# undef	DEBUG_FOCUS
-# undef	DEBUG_XIM
-# undef	DEBUG_CONV
-# undef	DEBUG_EVENTS
-# undef	DEBUG_SELECTIONS
-# undef	DEBUG_BROWSER
-# undef	DEBUG_WINDOW
-# undef  DEBUG_VISUAL
-#endif
-
 #define	USE_XICFONT_OPTION
 #undef	USE_XICFONT_RESOURCE
 #undef	USE_XICFONT_DEFAULT
@@ -3463,21 +3452,6 @@ static void handleEvent(XEvent *evt)
 	XUnsetICFocus(inputContext);
       break;
 
-#if 0
-    case EnterNotify:
-      if (inputContext && evt->xcrossing.focus && !(inputStyle & XIMPreeditPosition))
-	{
-	  setInputContextArea();
-	  XSetICFocus(inputContext);
-	}
-      break;
-
-    case LeaveNotify:
-      if (inputContext && evt->xcrossing.focus && !(inputStyle & XIMPreeditPosition))
-	XUnsetICFocus(inputContext);
-      break;
-#endif
-
     case ButtonPress:
       noteEventState(evt->xbutton);
       switch (evt->xbutton.button)
@@ -3991,14 +3965,6 @@ void initPixmap(void)
       XSetWindowColormap(stDisplay, stParent, stColormap);
       stColorWhite.pixel= 0;
       stColorBlack.pixel= 1;
-#if 0
-      /* initialise the black and white color values for cursor creation */
-      if (XAllocColor(stDisplay, stColormap, &stColorWhite))
-	fprintf(stderr, "failed to find white pixel in Squeak colormap\n");
-
-      if (XAllocColor(stDisplay, stColormap, &stColorBlack))
-	fprintf(stderr, "failed to find black pixel in Squeak colormap\n");
-#endif
       initDownGradingColors();
     }
   else
