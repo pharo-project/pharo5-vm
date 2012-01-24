@@ -3675,17 +3675,6 @@ static void handleEvent(XEvent *evt)
       }
       break;
 
-#  if 0
-    case VisibilityNotify:
-      {
-	static int previousState= VisibilityFullyObscured;
-	XVisibilityEvent *ex= &evt->xvisibility;
-	if (ex->state < previusState)
-	  fullDisplayUpdate();
-	previousState= ex->state;
-      }
-#  endif
-
     case MapNotify:
       /* The window has just been mapped, possibly for the first
 	 time: update mousePosition (which otherwise may not be
@@ -4442,6 +4431,20 @@ translateCode(KeySym symbolic, int *modp, XKeyEvent *evt)
     case XK_KP_Next:	return 12;	/* page down */
     case XK_KP_Home:	return  1;
     case XK_KP_End:	return  4;
+
+    /* Function keys */
+    case XK_F1: return 16;
+    case XK_F2: return 17;
+    case XK_F3: return 18;
+    case XK_F4: return 19;
+    case XK_F5: return 20;
+    case XK_F6: return 21;
+    case XK_F7: return 22;
+    case XK_F8: return 23;
+    case XK_F9: return 24;
+    case XK_F10: return 25;
+    /* XL_F11 and XK_L1 are the same keysym */
+    /* XL_F12 and XK_L2 are the same keysym */
 
     /* "aliases" for Sun keyboards */
     case XK_R9:		return 11;	/* page up */
