@@ -1587,8 +1587,6 @@ static int x2sqKeyInput(XKeyEvent *xevt, KeySym *symbolic)
       return key;
     }
 
-  DCONV_PRINTF("keycode %u\n", xevt->keycode);
-
   {
     char string[128];	/* way too much */
     Status status;
@@ -1596,22 +1594,16 @@ static int x2sqKeyInput(XKeyEvent *xevt, KeySym *symbolic)
     switch (status)
       {
       case XLookupNone:		/* still composing */
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupNone\n");
 	return -1;
 
       case XLookupChars:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupChars count %d\n", count);
       case XLookupBoth:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupBoth count %d\n", count);
 	lastKey= (count ? recode(string[0]) : -1);
-	DCONV_FPRINTF(stderr, "x2sqKey == %d\n", lastKey);
 	return lastKey;
 
       case XLookupKeySym:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupKeySym\n");
 	{
 	  int charCode= translateCode(*symbolic, 0, xevt);
-	  DCONV_FPRINTF("SYM %d -> %d\n", symbolic, charCode);
 	  if (charCode < 0)
 	    return -1;	/* unknown key */
 	  if ((charCode == 127) && mapDelBs)
@@ -1650,8 +1642,6 @@ static int x2sqKeyCompositionInput(XKeyEvent *xevt, KeySym *symbolic)
       lastKey= -1;
       return key;
     }
-
-  DCONV_FPRINTF(stderr, "keycode %u\n", xevt->keycode);
 
   {
     Status status;
@@ -1696,13 +1686,10 @@ static int x2sqKeyCompositionInput(XKeyEvent *xevt, KeySym *symbolic)
     switch (status)
       {
       case XLookupNone:		/* still composing */
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupNone\n");
 	return -1;
 
       case XLookupChars:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupChars count %d\n", inputCount);
       case XLookupBoth:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupBoth count %d\n", inputCount);
 	if (inputCount == 0)
 	  return lastKey= -1;
 	else if (inputCount == 1)
@@ -1733,19 +1720,16 @@ static int x2sqKeyCompositionInput(XKeyEvent *xevt, KeySym *symbolic)
 	  }
 
       case XLookupKeySym:
-	DCONV_FPRINTF(stderr, "x2sqKey XLookupKeySym\n");
 	{
 	  int charCode;
 	  if (*symbolic == XK_Multi_key)
 	    {
 	      multi_key_pressed= 1;
 	      multi_key_buffer= 0;
-	      DCONV_FPRINTF(stderr, "multi_key was pressed\n");
 	      return -1;
 	  }
 	  
 	  charCode= translateCode(*symbolic, 0, xevt);
-	  DCONV_PRINTF("SYM %x -> %d\n", *symbolic, charCode);
 	  if (charCode < 0)
 	    return -1;	/* unknown key */
 	  if ((charCode == 127) && mapDelBs)
@@ -2298,8 +2282,6 @@ static void handleEvent(XEvent *evt)
 	KeySym symbolic;
 	int keyCode= x2sqKey(&evt->xkey, &symbolic);
 	int ucs4= xkeysym2ucs4(symbolic);
-	DCONV_FPRINTF(stderr, "symbolic, keyCode, ucs4: %x, %d, %d\n", symbolic, keyCode, ucs4);
-	DCONV_FPRINTF(stderr, "pressed, buffer: %d, %x\n", multi_key_pressed, multi_key_buffer);
 	if (multi_key_pressed && multi_key_buffer == 0)
 	  {
 	    switch (ucs4)
@@ -2360,11 +2342,9 @@ static void handleEvent(XEvent *evt)
 	    }
 	  if (symbolic != XK_Multi_key)
 	    {
-	      multi_key_pressed= 0; 
-	      DCONV_FPRINTF(stderr, "multi_key reset\n");
+	      multi_key_pressed= 0; /* multi_key reset\n */
 	    }
 	  }
-	DCONV_FPRINTF(stderr, "keyCode, ucs4, multi_key_buffer: %d, %d, %x\n", keyCode, ucs4, multi_key_buffer);
 	if ((keyCode >= 0) || (ucs4 > 0))
 	  {
 	    recordKeyboardEvent(keyCode, EventKeyDown, modifierState, ucs4);
@@ -4797,12 +4777,6 @@ void copyImage16To32(int *fromImageData, int *toImageData, int width, int height
   int line;
   int rshift, gshift, bshift;
   register unsigned int col;
-
-#if defined(DEBUG)
-  fprintf(stderr, "copyImg16to32 %p -> %p (%d %d) %d %d %d %d\n",
-	  fromImageData, toImageData, width, height,
-	  affectedL, affectedT, affectedR, affectedB);
-#endif
 
   rshift= stRNMask-5 + stRShift;
   gshift= stGNMask-5 + stGShift;
