@@ -1953,6 +1953,8 @@ static int xkeysym2ucs4(KeySym keysym) {
 		return sqSpecialKey[keysym - 0xff95];
 	}
 
+    /* Misc mappings */
+
 	if (keysym == XK_Escape)
 		return keysym & 0x001f;
 	if (keysym == XK_Delete)
@@ -1960,7 +1962,7 @@ static int xkeysym2ucs4(KeySym keysym) {
     if (keysym == XK_KP_Equal)
         return XK_equal;
 
-	/* explicitly mapped */
+	/* Explicitly mapped by range */
 #define map(lo, hi) if (keysym >= 0x##lo && keysym <= 0x##hi) return ucs4_##lo##_##hi[keysym - 0x##lo];
 	map(01a1, 01ff);
 	map(02a1, 02fe);
