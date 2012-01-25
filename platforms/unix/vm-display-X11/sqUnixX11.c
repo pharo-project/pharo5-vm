@@ -2229,14 +2229,16 @@ static void handleEvent(XEvent *evt) {
 #            undef dead_key_case
 				}
 				if (symbolic != XK_Multi_key) {
-					multi_key_pressed = 0; /* multi_key reset\n */
+					multi_key_pressed = 0; /* multi_key reset */
 				}
 			}
 			if ((keyCode >= 0) || (ucs4 > 0)) {
 				recordKeyboardEvent(keyCode, EventKeyDown, modifierState, ucs4);
 				if (ucs4) /* only generate a key char event if there's a code. */
+                {
 					recordKeyboardEvent(keyCode, EventKeyChar, modifierState,
 							ucs4);
+                }
 				if (multi_key_buffer != 0) {
 					recordKeyboardEvent(multi_key_buffer, EventKeyDown,
 							modifierState, multi_key_buffer);
