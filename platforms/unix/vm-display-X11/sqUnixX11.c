@@ -1884,6 +1884,20 @@ static int xkeysym2ucs4(KeySym keysym) {
 			0x20a8, 0x20a9, 0x20aa, 0x20ab, 0x20ac /* 0x20a8-0x20af */
 	};
 
+    /* Keypad numbers mapping */
+    static unsigned short const ucs4_ffb0_ffb9[] = { 0x30, 0x31, 0x32, 0x33, 0x34,
+            0x35, 0x36, 0x37, 0x38, 0x39};
+
+    /* Keypad operators mapping */
+    static unsigned short const ucs4_ffaa_ffaf[] = { 
+            0x2a, /* Multiply  */
+            0x2b, /* Add       */
+            0x2c, /* Separator */
+            0x2d, /* Substract */
+            0x2e, /* Decimal   */
+            0x2f  /* Divide    */
+    };
+
 	static unsigned short const sqSpecialKey[] = { 1, 28, 30, 29, 31, 11, 12, 4,
 			1 };
 
@@ -1907,10 +1921,13 @@ static int xkeysym2ucs4(KeySym keysym) {
 	if (keysym > 0xff94 && keysym < 0xff9d) {
 		return sqSpecialKey[keysym - 0xff95];
 	}
-	if (keysym == 0xff1b)
+	if (keysym == XK_Escape)
 		return keysym & 0x001f;
-	if (keysym == 0xffff)
+	if (keysym == XK_Delete)
 		return keysym & 0x007f;
+
+    if (keysym == XK_KP_Equal)
+        return XK_equal;
 
 	/* explicitly mapped */
 #define map(lo, hi) if (keysym >= 0x##lo && keysym <= 0x##hi) return ucs4_##lo##_##hi[keysym - 0x##lo];
@@ -1934,6 +1951,8 @@ static int xkeysym2ucs4(KeySym keysym) {
 	map(16a0, 16f6);
 	map(1e9f, 1eff);
 	map(20a0, 20ac);
+    map(ffb0, ffb9);
+    map(ffaa, ffaf);
 #undef map
 
 #if defined(XF86XK_Start)
