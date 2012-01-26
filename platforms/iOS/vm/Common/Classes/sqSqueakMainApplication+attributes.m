@@ -80,8 +80,8 @@ extern struct VirtualMachine* interpreterProxy;
 
 #warning TODO Esteban: commandLineArguments is an ugly and temporal solution. Also, I think using negative numbers to get command line args is not the best solution
 	if (indexNumber < 0)	/* VM argument */ {
-        if (-indexNumber < [self.commandLineArguments count]) {
-		    return (char *) [[self.commandLineArguments objectAtIndex: -indexNumber] cStringUsingEncoding:[self currentVMEncoding]];
+		if (-indexNumber < [self.commandLineArguments count]) {
+			return (char *) [[self.commandLineArguments objectAtIndex: -indexNumber] cStringUsingEncoding:[self currentVMEncoding]];
 		}
 	} else {
 		switch (indexNumber) {
@@ -91,19 +91,19 @@ extern struct VirtualMachine* interpreterProxy;
 			case 1: 
 				return [self getImageName];
 
-            case 1004: /* Interpreter version string */
+			case 1004: /* Interpreter version string */
 				return [self interpreterVersionString];
 			
 			case 1009: /* source tree version info */
-                return sourceVersionString();
+				return sourceVersionString();
 
 			case 1201: /* macintosh file name size */
 				return "255";
 
 			case 1202: /* macintosh file error peek */
 				return "0";
-		    
-            default: {
+			
+			default: {
 				int indexOfArg = indexNumber - 1;
 				if (indexOfArg < [self.argsArguments count]) {
 					return (char *) [[self.argsArguments objectAtIndex: (NSUInteger) indexOfArg] cStringUsingEncoding:[self currentVMEncoding]];			

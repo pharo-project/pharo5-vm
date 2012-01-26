@@ -51,7 +51,7 @@
 	NSURL*		imageNameURL;
 	NSStringEncoding	currentVMEncoding;
 	NSMutableArray *argsArguments;
-    NSMutableArray *commandLineArguments;
+	NSMutableArray *commandLineArguments;
 	sqSqueakFileDirectoryInterface* fileDirectoryLogic;
 	sqSqueakInfoPlistInterface*		infoPlistInterfaceLogic;
 	sqSqueakSoundCoreAudio*			soundInterfaceLogic;
