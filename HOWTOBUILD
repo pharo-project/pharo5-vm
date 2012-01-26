@@ -62,7 +62,7 @@ explain how to generate the VM sources from a build image.
         export CC='/usr/bin/gcc-4.2'    # as of 10.7 llvm is the incompatible
                                         # default compiler
         export MACOSX_DEPLOYMENT_TARGET=10.5
-        cmake
+        cmake .
         make
     
     Varia:
