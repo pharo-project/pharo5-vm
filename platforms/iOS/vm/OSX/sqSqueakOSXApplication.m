@@ -145,7 +145,7 @@ void mtfsfi(unsigned long long fpscr) {}
 	}
 	if ([argData compare: @"-headless"] == NSOrderedSame) {
 		extern BOOL gSqueakHeadless;
-		gSqueakHeadless = YES;
+        gSqueakHeadless = YES;
 		return 1;
 	}
 	if ([argData compare: @"-memory"] == NSOrderedSame) {

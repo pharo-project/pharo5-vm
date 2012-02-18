@@ -39,7 +39,7 @@ sqInt ioSetCursorARGB(sqInt cursorBitsIndex, sqInt extentX, sqInt extentY, sqInt
 sqInt ioSetDisplayMode( sqInt width, sqInt height, sqInt depth, sqInt fullscreenFlag) {return 0;}
 
 //int plugInTimeToReturn(void) {
-//    return false;
+//    return 0;
 //}
 
 int clearProfile(void){return 0;}														

@@ -40,6 +40,10 @@
 
 @implementation sqSqueakMainApplication  (events) 
 
+- (void) pumpRunLoopEventSendAndSignal:(BOOL)signal {
+    //It should be redefined by my children
+}
+
 - (void) pumpRunLoop {
 /*	static NSTimeInterval old = 0.0;
 	

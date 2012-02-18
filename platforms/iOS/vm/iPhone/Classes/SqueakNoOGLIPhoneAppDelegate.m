@@ -68,6 +68,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	
 	squeakApplication = [self makeApplicationInstance];
 	screenAndWindow =  [sqiPhoneScreenAndWindow new];
+    
 	[self.squeakApplication setupEventQueue];
 	[self singleThreadStart];
 	//[self workerThreadStart];
@@ -132,12 +133,14 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	// The application frame includes the status area if needbe. 
 
 	CGRect mainScreenSize = [[UIScreen mainScreen] applicationFrame];
-	
-	BOOL useScrollingView = [(sqSqueakIPhoneInfoPlistInterface*)self.squeakApplication.infoPlistInterfaceLogic useScrollingView];
-	
+	    
+    self.viewController = [SqueakUIController new];
+    [window setRootViewController:self.viewController];
+    
+	BOOL useScrollingView = [(sqSqueakIPhoneInfoPlistInterface*)self.squeakApplication.infoPlistInterfaceLogic useScrollingView];	
 	if (useScrollingView) {
 		scrollView = [[UIScrollView alloc ] initWithFrame: mainScreenSize];
-
+        
 		//Now setup the true view size as the width/height * 2.0  so we can have a larger squeak window and zoom in/out. 
 		CGRect fakeScreenSize = mainScreenSize;
 		fakeScreenSize.origin.x = 0;
@@ -165,9 +168,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 		self.scrollView.autoresizesSubviews=YES;
 		self.scrollView.autoresizingMask=(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);	
 
-		self.viewController = [SqueakUIController new];
-		self.viewController.view = self.scrollView;
-		
+		self.viewController.view = self.scrollView;		
 		
 		[self zoomToOrientation: UIInterfaceOrientationPortrait animated: NO];
 		[self.scrollView addSubview: self.mainView];
@@ -178,7 +179,6 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 		mainView = [[[self whatRenderCanWeUse] alloc] initWithFrame: fakeScreenSize];
 		self.mainView.clearsContextBeforeDrawing = NO;
 		[self.mainView setMultipleTouchEnabled: YES];
-		self.viewController = [SqueakUIController new];
 		self.viewController.view = self.mainView;
 		[window addSubview: self.mainView];
 	}

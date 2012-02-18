@@ -115,7 +115,10 @@
 				[pool drain];
 				return;
 			}
-			copyOk = [dfm copyItemAtPath: bundleChangesPath toPath: documentsChangesPath error: &error];
+            //Changes file can be nil
+            if (bundleChangesPath) {
+                copyOk = [dfm copyItemAtPath: bundleChangesPath toPath: documentsChangesPath error: &error];
+            }
 		} else {
 			const char	*imageNameCharacters = [dfm fileSystemRepresentationWithPath: bundleImagePath];
 			imageNamePutLength((sqInt) imageNameCharacters, strlen(imageNameCharacters));
