@@ -80,15 +80,17 @@ extern struct VirtualMachine* interpreterProxy;
 	//indexNumber is a postive/negative number
 	
 	if (indexNumber < 0) /* VM argument */ {
+#ifndef TARGET_OS_IS_IPHONE        
         if (-indexNumber < ([self.commandLineArguments count] - 1)) {
 			return (char *) [[self.commandLineArguments objectAtIndex: -indexNumber] cStringUsingEncoding:[self currentVMEncoding]];
 		}
+#endif
 	} else {
 		switch (indexNumber) {
 			case 0: 
 				return [self getVMPath];
 				
-			case 1: 
+			case 1:
 				return [self getImageName];
 				
 			case 1004: /* Interpreter version string */
