@@ -1080,7 +1080,8 @@ sqInt Stream_stop(Stream *s)
 
 #if (DEBUG)
 
- void dumpFormat(AudioStreamBasicDescription *fmt)
+void
+dumpFormat(AudioStreamBasicDescription *fmt)
 {
   UInt32 flags= fmt->mFormatFlags;
 

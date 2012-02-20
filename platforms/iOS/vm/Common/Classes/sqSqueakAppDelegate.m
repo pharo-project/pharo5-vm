@@ -70,7 +70,8 @@ such third-party acknowledgments.
 	windowBlock->width = width;
 	windowBlock->height = height; 	
 	extern sqInt getFullScreenFlag(void);
-	ioSetFullScreen(getFullScreenFlag());    
+	ioSetFullScreen(getFullScreenFlag());
+
 }
 
 - (sqSqueakMainApplication *) makeApplicationInstance {
