@@ -1,12 +1,9 @@
 Gofer new
-	squeaksource: 'Cog';
 	squeaksource: 'PharoVM';
-	package: 'ConfigurationOfCog';
 	package: 'ConfigurationOfPharoVM';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: #bleedingEdge) load.
-((Smalltalk at: #ConfigurationOfPharoVM) project version: #bleedingEdge) load.
+((Smalltalk at: #ConfigurationOfPharoVM) project version: '1.4-4') load.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
