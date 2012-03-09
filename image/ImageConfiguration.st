@@ -1,13 +1,5 @@
-Deprecation raiseWarning: false.
-
-"load the cog configuration"
-Gofer new
-	squeaksource: 'PharoVM';
-	package: 'ConfigurationOfPharoVM';
-	load.
-	
-"start loading all the cog sources"
-(Smalltalk at: #ConfigurationOfPharoVM) load.
+"the bae configuration for loading VMMaker can be found under
+../codegen-scripts/LoadVMMaker.st"
 
 "Open workspace with example Configurations"
 Workspace openContents: (String streamContents: [ :stream|

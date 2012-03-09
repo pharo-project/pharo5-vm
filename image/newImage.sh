@@ -2,7 +2,6 @@
 
 PREBUILT_IMAGE_URL="https://ci.lille.inria.fr/pharo/view/VM-dev/job/Cog%20Git%20Tracker%20(cog-osx)/lastSuccessfulBuild/artifact/vmmaker-image.zip"
 
-URL="https://ci.lille.inria.fr/pharo/view/Pharo%201.4/job/Pharo%201.4/lastSuccessfulBuild/artifact/"
 VERSION="Pharo-1.4"
 
 NO_COLOR='\033[0m' #disable any colors
@@ -11,7 +10,7 @@ YELLOW='\033[0;33m'
 
 openImage() {
     IMAGE=$1
-    SCRIPT="$PWD/ConfigurationOfCog.st"
+    SCRIPT=$2
 
     echo -e $YELLOW 'OPENING IMAGE' $NO_COLOR
     echo "    $IMAGE"
@@ -58,5 +57,5 @@ rm -rf $VERSION    || exit 1
 
 # ----------------------------------------------------------------------------
 # try to open the image...
-openImage "$PWD/$VERSION.image"
+openImage "$PWD/$VERSION.image" "$PWD/ImageConfiguration.st"
 
