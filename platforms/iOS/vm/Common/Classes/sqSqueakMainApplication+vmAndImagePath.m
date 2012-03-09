@@ -47,7 +47,7 @@ extern sqSqueakAppDelegate *gDelegateApp;
 @implementation sqSqueakMainApplication (vmAndImagePath) 
 
 - (void) setVMPathFromApplicationDirectory {
-    "in the default case return /Applications otherwise the path the .app is contained in"
+    // in the default case return /Applications otherwise the path the .app is contained in
 	self.vmPathStringURL = [NSURL fileURLWithPath: [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 }
 
