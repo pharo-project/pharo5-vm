@@ -43,7 +43,7 @@ explain how to generate the VM sources from a build image.
 - generate the source from a given VM configuration, evaluate the following in
   the workspace (for ex. CogUnixConfig or CogMsWindowsConfig):
 
-    MTCocoaIOSCogJitConfig generateWithSources.
+    CogCocoaIOSConfig generateWithSources.
 
   See the ConfigurationOfCog.st for more examples for the common platforms.
 
@@ -51,17 +51,18 @@ explain how to generate the VM sources from a build image.
 - once the sources are exported you can launch cmake and build the VM 
 
     UNIX:
-        using Unix Makefiles
-    
+        # using Unix Makefiles
         cd build
+        sh ../codegen-scripts/extract-commit-info.sh 
         cmake .             # this is the same as cmake -G "Unix Makefiles"
         make
 
     OSX:
-        cd build
         export CC='/usr/bin/gcc-4.2'    # as of 10.7 llvm is the incompatible
                                         # default compiler
         export MACOSX_DEPLOYMENT_TARGET=10.5
+        sh ../codegen-scripts/extract-commit-info.sh 
+        cd build
         cmake .
         make
     
@@ -71,6 +72,7 @@ explain how to generate the VM sources from a build image.
         For instance to create an XCode project under OSX do the following
 
           cd build
+          sh ../codegen-scripts/extract-commit-info.sh 
           rm -f CMakeCache.txt   # remove existing cache to avoid issues
           export CC='gcc-4.2';   # make sure we don't use llvm
           cmake -G "Xcode"
