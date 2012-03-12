@@ -53,10 +53,13 @@ static void printCrashDebugInformation(LPEXCEPTION_POINTERS exp);
 
 /*** Variables -- command line */
 static char *initialCmdLine;
-static int  numOptionsVM = 0;
-static char **vmOptions;
-static int  numOptionsImage = 0;
-static char **imageOptions;
+
+/*can't be static because they are declared as extern */
+int  numOptionsVM = 0;
+char **vmOptions;
+int  numOptionsImage = 0;
+char **imageOptions;
+
 static int clargc; /* the Unix-style command line, saved for GetImageOption */
 static char **clargv;
 
