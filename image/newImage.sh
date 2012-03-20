@@ -39,7 +39,7 @@ openImage() {
 echo -e "${YELLOW}LOADING PREBUILT IMAGE" $NO_COLOR
 echo "    $PREBUILT_IMAGE_URL"
 
-curl "$PREBUILT_IMAGE_URL" -o "image.zip" && \
+curl -k "$PREBUILT_IMAGE_URL" -o "image.zip" && \
 unzip image.zip && \
 rm image.zip  && \
 openImage "$PWD/generator.image" "$PWD/ImageConfiguration.st" && exit 1
@@ -50,7 +50,7 @@ echo -e "${YELLOW}FETCHING FRESH IMAGE" $NO_COLOR
 echo "   $URL$VERSION.zip"
 
 # using curl since that's installed by default on mac os x :/
-curl "$URL$VERSION.zip" -o "image.zip"
+curl -k "$URL$VERSION.zip" -o "image.zip"
 
 # ----------------------------------------------------------------------------
 echo -e "${YELLOW}UNZIPPING" $NO_COLOR
