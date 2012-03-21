@@ -3,7 +3,7 @@ Gofer new
 	package: 'ConfigurationOfPharoVM';
 	load.
 	
-((Smalltalk at: #ConfigurationOfPharoVM) project version: '1.4-4') load.
+((Smalltalk at: #ConfigurationOfPharoVM) project version: '1.4-5') load.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
