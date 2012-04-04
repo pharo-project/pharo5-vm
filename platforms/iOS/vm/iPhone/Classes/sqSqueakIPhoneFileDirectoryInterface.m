@@ -53,7 +53,8 @@ Some of this code was funded via a grant from the European Smalltalk User Group 
 - (NSString *) resolvedAliasFiles: (NSString *) filePath {
 	NSFileManager * fileMgr = [NSFileManager defaultManager];
 	NSDictionary * fileAttributes = [fileMgr fileAttributesAtPath: filePath traverseLink: NO];
-	if (fileAttributes) {
+	
+    if (fileAttributes) {
 		if ([[fileAttributes objectForKey: NSFileTypeSymbolicLink] boolValue]) {
 			NSString* targetFilePath = [fileMgr destinationOfSymbolicLinkAtPath: filePath error: NULL];
 			if (targetFilePath) {

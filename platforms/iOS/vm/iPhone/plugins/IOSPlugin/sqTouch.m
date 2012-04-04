@@ -15,8 +15,6 @@ void sqShowKeyboard(int show) {
     if (show) {
         [gDelegateApp.mainView becomeFirstResponder];
     } else {
-        if ([gDelegateApp.mainView isFirstResponder]) {
-            [gDelegateApp.mainView resignFirstResponder];
-        }
+        [gDelegateApp.mainView resignFirstResponder];
     }
 }
