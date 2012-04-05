@@ -6,7 +6,6 @@
  *
  */
 
-#include <Carbon/Carbon.h>
 #include "sqMemoryAccess.h"
 #include <locale.h>
 #include "sq.h"
