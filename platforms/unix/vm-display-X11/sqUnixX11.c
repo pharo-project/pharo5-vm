@@ -2858,14 +2858,6 @@ void initPixmap(void)
       XSetWindowColormap(stDisplay, stParent, stColormap);
       stColorWhite.pixel= 0;
       stColorBlack.pixel= 1;
-#if 0
-      /* initialise the black and white color values for cursor creation */
-      if (XAllocColor(stDisplay, stColormap, &stColorWhite))
-	fprintf(stderr, "failed to find white pixel in Squeak colormap\n");
-
-      if (XAllocColor(stDisplay, stColormap, &stColorBlack))
-	fprintf(stderr, "failed to find black pixel in Squeak colormap\n");
-#endif
       initDownGradingColors();
     }
   else
@@ -3737,16 +3729,6 @@ static sqInt display_ioSetCursorWithMaskBig(sqInt cursorBitsIndex, sqInt cursorM
 
   return 0;
 }
-
-
-#if 0
-sqInt ioSetCursor(sqInt cursorBitsIndex, sqInt offsetX, sqInt offsetY)
-{
-  /* Deprecated: forward to new version with explicit mask. */
-  ioSetCursorWithMask(cursorBitsIndex, null, offsetX, offsetY);
-  return 0;
-}
-#endif
 
 
 static sqInt display_ioSetCursorARGB(sqInt cursorBitsIndex, sqInt extentX, sqInt extentY, sqInt offsetX, sqInt offsetY)
