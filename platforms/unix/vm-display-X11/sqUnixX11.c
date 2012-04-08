@@ -72,17 +72,6 @@
 #define SQ_FORM_FILENAME	"squeak-form.ppm"
 #undef	FULL_UPDATE_ON_EXPOSE
 
-#if 0 /* The following is a pain.  Leave it to the command line. */
-# undef	DEBUG_FOCUS
-# undef	DEBUG_XIM
-# undef	DEBUG_CONV
-# undef	DEBUG_EVENTS
-# undef	DEBUG_SELECTIONS
-# undef	DEBUG_BROWSER
-# undef	DEBUG_WINDOW
-# undef  DEBUG_VISUAL
-#endif
-
 #define	USE_XICFONT_OPTION
 #undef	USE_XICFONT_RESOURCE
 #undef	USE_XICFONT_DEFAULT
