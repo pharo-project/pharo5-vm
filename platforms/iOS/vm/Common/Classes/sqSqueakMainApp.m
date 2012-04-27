@@ -57,7 +57,8 @@ EXPORT(char**)	envVec= 0;
 
 extern sqSqueakAppDelegate *gDelegateApp;
 
-BOOL			gQuitNowRightNow=false,gSqueakHeadless=false;
+BOOL			gQuitNowRightNow=NO;
+BOOL            gSqueakHeadless=NO;
 int				gSqueakUseFileMappedMMAP=0;
 char            gSqueakUntrustedDirectoryName[PATH_MAX];
 char            gSqueakTrustedDirectoryName[PATH_MAX];

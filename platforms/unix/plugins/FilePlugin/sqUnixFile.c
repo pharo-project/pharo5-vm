@@ -196,23 +196,23 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
   for (i= 0; i < index; i++)
     {
     nextEntry:
-      do
+    do
 	{ 
 	  errno= 0; 
 	  dirEntry= readdir(openDir);
 	}
-      while ((dirEntry == 0) && (errno == EINTR));
+    while ((dirEntry == 0) && (errno == EINTR));
 
-      if (!dirEntry)
-	return NO_MORE_ENTRIES;
+    if (!dirEntry)
+	    return NO_MORE_ENTRIES;
       
-      nameLen= NAMLEN(dirEntry);
+    nameLen= NAMLEN(dirEntry);
 
-      /* ignore '.' and '..' (these are not *guaranteed* to be first) */
-      if (nameLen < 3 && dirEntry->d_name[0] == '.')
+    /* ignore '.' and '..' (these are not *guaranteed* to be first) */
+    if (nameLen < 3 && dirEntry->d_name[0] == '.')
 	if (nameLen == 1 || dirEntry->d_name[1] == '.')
 	  goto nextEntry;
-    }
+  }
 
   *nameLength= ux2sqPath(dirEntry->d_name, nameLen, name, MAXPATHLEN, 0);
 

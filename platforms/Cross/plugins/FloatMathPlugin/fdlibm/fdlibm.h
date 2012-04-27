@@ -13,6 +13,9 @@
 /* Sometimes it's necessary to define __LITTLE_ENDIAN explicitly
    but these catch some common cases. */
 
+#ifndef FDLIBM_H
+#define FDLIBM_H
+
 #if defined(i386) || defined(i486) || \
 	defined(intel) || defined(x86) || defined(i86pc) || \
 	defined(__alpha) || defined(__osf__)
@@ -215,3 +218,5 @@ extern double __kernel_sin __P((double,double,int));
 extern double __kernel_cos __P((double,double));
 extern double __kernel_tan __P((double,double,int));
 extern int    __kernel_rem_pio2 __P((double*,double*,int,int,int,const int*));
+
+#endif // FDLIBM_H

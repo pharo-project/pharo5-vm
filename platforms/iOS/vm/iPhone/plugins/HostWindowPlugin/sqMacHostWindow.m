@@ -84,11 +84,11 @@ int ioPositionOfNativeDisplay(unsigned long windowHandle)
 
 sqInt ioSizeOfWindowSetxy(wIndexType windowIndex, sqInt x, sqInt y)
 {
-	return (0);  /* w is high 16 bits; h is low 16 bits */
+	return 0;  /* w is high 16 bits; h is low 16 bits */
 }
 
 sqInt ioSetTitleOfWindow(sqInt windowIndex, char * newTitle, sqInt sizeOfTitle) {
-	return 1;
+    return 1;
 }
 
 sqInt ioCloseAllWindows(void) {

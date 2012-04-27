@@ -2764,7 +2764,7 @@ char * GetAttributeString(int id) {
     return GetImageOption(id-1);
   /* id < 0 : return options of the VM (e.g. given *before* the image name) */
   if(id < 0)
-    return GetVMOption(0-id-1);
+    return GetVMOption(-id);
   /* special attributes */
   switch(id) {
     case 1001: /* Primary OS type */
@@ -3218,6 +3218,7 @@ int printUsage(int level)
                    TEXT("\n\t-leakcheck: n \t(leak check on GC (1=full,2=incr,3=both))")
                    TEXT("\n\t-eden: bytes \t(set eden memory size to bytes)")
                    TEXT("\n\t-stackpages: n \t(use n stack pages)")
+                   TEXT("\n\t-numextsems: n \t(allow up to n external semaphores)")
                    TEXT("\n\t-noheartbeat \t(no heartbeat for debug)")
 #endif /* STACKVM */
 #if COGVM

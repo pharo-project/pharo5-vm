@@ -1,83 +1,73 @@
 BUILDING FROM JENKINS SOURCES
 =============================
 
-If you downloaded the sources from the hudson(or jenkins) server use cmake 
+If you downloaded the sources from the hudson(or jenkins) server use cmake
 to build the VM.
 
     cd build
     cmake .
     make
 
-DO NOT USE scripts in unixbuild or macbuild or cygwinbuild for building VMs. 
-There is no any guarantees that they are working for sources taken from git 
+**DO NOT USE** scripts in unixbuild or macbuild or cygwinbuild to build VMs.
+There is no any guarantees that they are working for sources taken from git
 repositories!
 
 
 (RE)CREATING THE GENERATED VM SOURCES
 =====================================
+
 If you downloaded the sources from gitorious do the following the VM sources
 are not included (unlike the jenkins build download). The following steps
 explain how to generate the VM sources from a build image.
 
-- get a fresh pharo image from the build server:
-  Either run the script in the image folder
+1. Get a fresh pharo image from the build server by running the script in
+the image folder.
 
-    cd image
-    ./newImage
- 
-  or get the vmmaker image from jenkins manually
-
-    https://ci.lille.inria.fr/pharo/view/VM-dev/job/Cog%20Git%20Tracker%20(cog-osx)/ws/vmmaker-image.zip
+        cd image && ./newImage.sh
 
 
-- load VMmaker in the pharo image
-    
-    cd image
-    # directly evaluate the contents of ConfigurationOfCog.st
-    pharo $PWD/Pharo14.image $PWD/ConfigurationOfCog.st
+2. This image contains VMMaker and slang sources, plus a workspace with some
+example VM configurations.
+Pick or edit the configuration you want, then evaluate it.
 
-    # alternatively copy the contents of ConfigurationOfCog.st into a new
-    # workspace and evaluate it
+        CogCocoaIOSConfig generateWithSources.
 
-
-- generate the source from a given VM configuration, evaluate the following in
-  the workspace (for ex. CogUnixConfig or CogMsWindowsConfig):
-
-    MTCocoaIOSCogJitConfig generateWithSources.
-
-  See the ConfigurationOfCog.st for more examples for the common platforms.
-
-   
-- once the sources are exported you can launch cmake and build the VM 
-
-    UNIX:
-        using Unix Makefiles
-    
-        cd build
-        cmake .             # this is the same as cmake -G "Unix Makefiles"
-        make
-
-    OSX:
-        cd build
-        export CC='/usr/bin/gcc-4.2'    # as of 10.7 llvm is the incompatible
-                                        # default compiler
-        export MACOSX_DEPLOYMENT_TARGET=10.5
-        cmake .
-        make
-    
-    Varia:
-
-        Consult the last section from `cmake --help` to check for other generators.
-        For instance to create an XCode project under OSX do the following
-
-          cd build
-          rm -f CMakeCache.txt   # remove existing cache to avoid issues
-          export CC='gcc-4.2';   # make sure we don't use llvm
-          cmake -G "Xcode"
-          open CogVM.xcodeproj
+    See the ImageConfiguration.st for more examples for the common platforms.
 
 
-- run the freshly compiled VM from 'results'
+3. Once the sources are exported, you can launch cmake and build the VM:
+
+    - UNIX:
+
+            # using Unix Makefiles
+            cd build
+            sh ../codegen-scripts/extract-commit-info.sh
+            cmake .             # this is the same as cmake -G "Unix Makefiles"
+            make
+
+    - OSX:
+
+            # as of 10.7 llvm is the default but incompatible compiler
+            export CC='/usr/bin/gcc-4.2'
+            export MACOSX_DEPLOYMENT_TARGET=10.5
+            sh ../codegen-scripts/extract-commit-info.sh
+            cd build
+            cmake .
+            make
+
+    - Varia: consult the last section from `cmake --help` to check for other
+    generators.  
+    For instance, to create an XCode project under OSX, do the following:
+
+            cd build
+            sh ../codegen-scripts/extract-commit-info.sh
+            rm -f CMakeCache.txt   # remove existing cache to avoid issues
+            export CC='gcc-4.2';   # make sure we don't use llvm
+            cmake -G "Xcode"
+            open CogVM.xcodeproj
+
+
+4. Finally, run the freshly compiled VM from `results`.
 
 
 See a complete guide on how to build Cog VM using cmake on:

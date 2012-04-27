@@ -86,7 +86,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 }
 
 - (void) doHeadlessSetup {
-	gSqueakHeadless = false;
+    //gSqueakHeadless = NO;
 }
 
 - (void) doMemorySetup {
@@ -164,12 +164,12 @@ extern sqInt interpret(void);  //This is a VM Callback
 		return;
 	}
 	
-	[self setupMenus];
+    [self setupMenus];
 	[self setupTimers];
 	[self setupAIO];
 	[self setupBrowserLogic];
 	[self setupSoundLogic];
-	[gDelegateApp makeMainWindow];
+    [gDelegateApp makeMainWindow];
 	
 	interpret();
 	[pool drain];  //may not return here, could call exit() via quit image
