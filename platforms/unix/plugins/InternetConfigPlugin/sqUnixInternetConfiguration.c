@@ -14,7 +14,7 @@ int   (*get_bool)   (void*,char*,void*);
 
 int sqInternetConfigurationInit() {
     void (*init)(void);
-    gconf_handle = dlopen ("libgconf-2111.so", RTLD_LAZY);
+    gconf_handle = dlopen ("libgconf-2.so", RTLD_LAZY);
     if (!gconf_handle) {
         fprintf (stdout, "%s\n", dlerror());
     }else{
