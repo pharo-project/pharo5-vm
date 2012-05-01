@@ -2337,7 +2337,6 @@
 					"ISQUEAK_SOURCES=\"PharoV10\"",
 				);
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = "Info-iPhone.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2350,7 +2349,7 @@
 				);
 				PRODUCT_NAME = Squeak;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D0FAB1BA-D41B-4D7E-A984-469B9016ACB9";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = "Distribution Store";
@@ -2435,13 +2434,12 @@
 					"DEBUGVM=0",
 				);
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = "Info-iPhone.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				PRODUCT_NAME = Squeak;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2557,7 +2555,6 @@
 					"ISQUEAK_SOURCES=\"PharoV10\"",
 				);
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = "Info-iPhone.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2570,7 +2567,7 @@
 				);
 				PRODUCT_NAME = Squeak;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "813AC9F6-39F6-492C-8710-8D1C5D88E049";
-				SDKROOT = iphoneos4.2;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Distribution;

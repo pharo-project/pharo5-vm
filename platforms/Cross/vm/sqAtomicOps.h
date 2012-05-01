@@ -57,15 +57,17 @@ AtomicSet(uint64_t *target, uint64_t new_value)
 
 static inline uint64_t
 AtomicGet(uint64_t *target)
-{
+{ 
 	while (true) {
 		uint64_t value = *target;
 		if (OSAtomicCompareAndSwap64Barrier(value, value, target))
 			return value;
 	}
 }
-#	define get64(variable) AtomicGet(&(variable))
-#	define set64(variable,value) AtomicSet(&(variable),value)
+//#	define get64(variable) AtomicGet(&(variable))
+//#	define set64(variable,value) AtomicSet(&(variable),value)
+# define get64(variable) variable
+# define set64(variable,value) (variable = value)
 
 	/* Currently we provide definitions for x86 and GCC only.  But see below. */
 # elif defined(__GNUC__) && (defined(i386) || defined(__i386) || defined(__i386__) || defined(_X86_))
