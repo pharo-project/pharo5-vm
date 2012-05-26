@@ -75,7 +75,9 @@
 # include <sys/param.h>
 # include <sys/socket.h>
 # include <netinet/in.h>
+#ifndef TARGET_OS_IS_IPHONE
 # include <netinet/udp.h>
+#endif
 # include <netinet/tcp.h>
 # include <arpa/inet.h>
 # include <netdb.h>

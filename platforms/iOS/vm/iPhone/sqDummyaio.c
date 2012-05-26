@@ -84,3 +84,9 @@ int aioSleep(int microSeconds)
 #endif
 	return 0;
 }
+
+void aioEnable(int fd, void *clientData, int flags) {}
+void aioDisable(int fd) {}
+void aioHandle(int fd, void *handler, int mask) {};
+void aioFini(void) {};
+
