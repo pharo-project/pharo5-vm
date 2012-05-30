@@ -77,7 +77,7 @@ such third-party acknowledgments.
 
 	if ([filePath isEqualToString: newFilePath]) {
 		if (!fileAttributes) {
-			return ENTRY_FOUND;
+			return BAD_PATH;
 		}
 		fileType     = [fileAttributes objectForKey: NSFileType];
 		*isDirectory = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
