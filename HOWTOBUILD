@@ -1,7 +1,7 @@
 BUILDING FROM JENKINS SOURCES
 =============================
 
-If you downloaded the sources from the hudson(or jenkins) server use cmake 
+If you downloaded the complete sources from the hudson(or jenkins) server use cmake 
 to build the VM.
 
     cd build
