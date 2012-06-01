@@ -226,7 +226,8 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
 - (void)update  // moved or resized
 {
 	NSRect rect;
-	
+	NSOpenGLContext *oldContext = [NSOpenGLContext currentContext];
+    
 	[super update];
 	
 	[[self openGLContext] makeCurrentContext];
@@ -245,10 +246,15 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
     glLoadIdentity(); 
 	
 	[self setNeedsDisplay:true];
+
+    if (oldContext != nil) {
+        [oldContext makeCurrentContext];
+    }
 }
 
 - (void)reshape	// scrolled, moved or resized
 {
+	NSOpenGLContext *oldContext = [NSOpenGLContext currentContext];
 	NSRect rect;
 	
 	[super reshape];
@@ -268,11 +274,16 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
     glLoadIdentity();
 	
 	[self setNeedsDisplay:true];
+    
+    if (oldContext != nil) {
+        [oldContext makeCurrentContext];
+    }
 }
 
 -(void)drawRect:(NSRect)rect
 {
 //	NSLog(@" draw %f %f %f %f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
+	NSOpenGLContext *oldContext = [NSOpenGLContext currentContext];
 	sqInt formObj = interpreterProxy->displayObject();
 	sqInt formPtrOop = interpreterProxy->fetchPointerofObject(0, formObj);	
 	void* dispBitsIndex = interpreterProxy->firstIndexableField(formPtrOop);
@@ -285,7 +296,11 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
 		}
 		[self loadTexturesFrom:dispBitsIndex subRectangle: rect];
 		[self defineQuad:rect];
-  }
+    }
+    
+    if (oldContext != nil) {
+        [oldContext makeCurrentContext];
+    }
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
