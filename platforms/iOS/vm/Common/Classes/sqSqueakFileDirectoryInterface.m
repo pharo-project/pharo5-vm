@@ -63,7 +63,8 @@ such third-party acknowledgments.
                isDirectory:(sqInt *)isDirectory 
               creationDate:(sqInt *)creationDate 
           modificationDate:(sqInt *)modificationDate
-                sizeIfFile:(off_t *)sizeIfFile  {
+                sizeIfFile:(off_t *)sizeIfFile
+          posixPermissions:(sqInt *)posixPermissions {
 	//This minics the unix port where we resolve the file name, but the symbolic file lookup can fail. 
 	//The unix port says, oh file was there, but stat/lstat fails, so mmm kinda continue
 	//However to deal with Finder Aliases we have to be more clever.
@@ -92,6 +93,7 @@ such third-party acknowledgments.
 	*creationDate     = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
 	*modificationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileModificationDate]);
 	*sizeIfFile       = [[fileAttributes objectForKey: NSFileSize] integerValue];
+	*posixPermissions = [[fileAttributes objectForKey: NSFilePosixPermissions] shortValue];
 	
 	/* POSSIBLE IPHONE BUG CHECK */
 	if (*creationDate == 0) 
@@ -108,8 +110,9 @@ such third-party acknowledgments.
 			  length: (sqInt *) nameLength 
 		creationDate: (sqInt *) creationDate 
 	modificationDate: (sqInt *) modificationDate
-		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile {
+		 isDirectory: (sqInt *) isDirectory  
+		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
+    posixPermissions: (sqInt *)posixPermissions {
 	
    	NSFileManager * fileMgr = [NSFileManager defaultManager];
     NSString*	directoryPath = NULL;
@@ -131,7 +134,7 @@ such third-party acknowledgments.
     *name         = *nameString;
 	*nameLength   = nameStringLength;
 
-    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile];
+    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile posixPermissions: posixPermissions];
 }
 
 
@@ -143,7 +146,8 @@ such third-party acknowledgments.
 		creationDate: (sqInt *) creationDate 
 	modificationDate: (sqInt *) modificationDate
 		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile {
+		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
+    posixPermissions: (sqInt *)posixPermissions {
 	
 	NSFileManager * fileMgr = [NSFileManager defaultManager];
 	NSString*	directoryPath = NULL;
@@ -203,7 +207,14 @@ such third-party acknowledgments.
 	strlcpy(name,[fileName UTF8String], 256);
 	*nameLength = (sqInt) strlen(name);
     
-    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile];
+    return [self 
+        attributesForPath:filePath
+        fileMgr:fileMgr 
+        isDirectory:isDirectory 
+        creationDate:creationDate 
+        modificationDate:modificationDate
+        sizeIfFile:sizeIfFile
+        posixPermissions:posixPermissions];
 }
 
 - (sqInt) dir_Create: (char *) pathString
