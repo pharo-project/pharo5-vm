@@ -152,7 +152,7 @@ static int maybeOpenDir(char *unixPath)
 
 sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-		sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+		sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt * posixPermissions)
 {
   /* Lookup the index-th entry of the directory with the given path, starting
      at the root of the file system. Set the name, name length, creation date,
@@ -175,6 +175,7 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
   *modificationDate = 0;
   *isDirectory      = false;
   *sizeIfFile       = 0;
+  *posixPermissions = 0;
 
   if ((pathStringLength == 0))
     strcpy(unixPath, ".");
@@ -239,14 +240,14 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
     *isDirectory= true;
   else
     *sizeIfFile= statBuf.st_size;
-
+  *posixPermissions = statBuf.st_mode & 0777;
   return ENTRY_FOUND;
 }
 
 
 sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString, sqInt nameStringLength,
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-		sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+		sqInt *isDirectory, squeakFileOffsetType *sizeIfFile,  sqInt * posixPermissions )
 {
   /* Lookup the given name in the given directory,
      Set the name, name length, creation date,
@@ -266,6 +267,7 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
   *modificationDate = 0;
   *isDirectory      = false;
   *sizeIfFile       = 0;
+  *posixPermissions = 0;
 
   if ((pathStringLength == 0))
     strcpy(unixPath, ".");
@@ -293,6 +295,7 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
     *isDirectory= true;
   else
     *sizeIfFile= statBuf.st_size;
+  *posixPermissions = statBuf.st_mode & 0777;
 
   return ENTRY_FOUND;
 }
