@@ -55,7 +55,8 @@ such third-party acknowledgments.
 		creationDate: (sqInt *) creationDate 
 	modificationDate: (sqInt *) modificationDate
 		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile;
+		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
+    posixPermissions: (sqInt *)posixPermissions;
 
 - (sqInt) dir_Lookup: (const char *) pathString 
 			  length: (sqInt) pathStringLength 
@@ -65,7 +66,9 @@ such third-party acknowledgments.
 		creationDate: (sqInt *) creationDate 
 	modificationDate: (sqInt *) modificationDate
 		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile;
+		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
+    posixPermissions: (sqInt *)posixPermissions;
+
 - (sqInt) dir_Create: (char *) pathString
 			  length: (sqInt) pathStringLength;
 - (sqInt) dir_Delete: (char *) pathString

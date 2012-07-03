@@ -102,25 +102,27 @@ void MyProviderReleaseData (
 	return 32;
 }
 
+
 - (sqInt) ioHasDisplayDepth: (sqInt) depth {
-	if (depth == 32) 
+	if (depth == 2 || depth ==  4 || depth == 8 || depth == 16 || depth == 32 ||
+        depth == -2 || depth ==  -4 || depth == -8 || depth == -16 || depth == -32) { 
 		return true;
-	return false;
+    } else {
+        return false;
+    }
 }
 
-- (void) ioForceDisplayUpdateActual {
+
+- (void) ioForceDisplayUpdate {
 	lastFlushTime = [NSDate timeIntervalSinceReferenceDate];
 	self.displayIsDirty = NO;
 	self.forceUpdateFlush = NO;
+
 	if ([NSThread isMainThread]) 
 		[[self getMainView] drawThelayers];
 	else {
 		[[self getMainView] performSelectorOnMainThread: @selector(drawThelayers) withObject: nil waitUntilDone: NO];
 	}
-}
-
-- (void) ioForceDisplayUpdate {
-	[self ioForceDisplayUpdateActual];
 }
 
 - (int)   ioShowDisplayOnWindowActual: (unsigned char*) dispBitsIndex
@@ -134,7 +136,6 @@ void MyProviderReleaseData (
 					windowIndex: (int) passedWindowIndex {
 	
 	static CGColorSpaceRef colorspace = NULL;
-	sqInt 		pitch;
 	windowDescriptorBlock *targetWindowBlock = windowBlockFromIndex(passedWindowIndex);	
 	
 	if (colorspace == NULL) {
@@ -155,7 +156,6 @@ void MyProviderReleaseData (
 	}
 	
 	
-	pitch = ((((width)*(depth) + 31) >> 5) << 2);
 		
 	CGRect clip = CGRectMake((CGFloat)affectedL,(CGFloat)(height-affectedB), (CGFloat)(affectedR-affectedL), (CGFloat)(affectedB-affectedT));
 	[gDelegateApp.mainView drawImageUsingClip: clip];

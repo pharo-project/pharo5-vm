@@ -88,7 +88,7 @@ sqInt dir_Delimitor(void)
 
 sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-				 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+				 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
 {
 	//API Documented
 	/* Lookup the index-th entry of the directory with the given path, starting
@@ -113,14 +113,15 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 			creationDate: creationDate 
 			modificationDate: modificationDate
 			isDirectory: isDirectory 
-			sizeIfFile: sizeIfFile];
+			sizeIfFile: sizeIfFile
+            posixPermissions: posixPermissions];
 	[pool drain];
 	return status;
 }
 
 sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString, sqInt nameStringLength,
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
 {
     
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
@@ -138,7 +139,8 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
 													 creationDate: creationDate 
 												 modificationDate: modificationDate
 													  isDirectory: isDirectory 
-													   sizeIfFile: sizeIfFile];
+													   sizeIfFile: sizeIfFile
+                                                 posixPermissions: posixPermissions];
 	[pool drain];
 	return status;
 }

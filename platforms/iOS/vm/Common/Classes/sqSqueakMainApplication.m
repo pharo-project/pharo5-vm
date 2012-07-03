@@ -147,7 +147,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 	
 	[self doHeadlessSetup];
 	//JMM after wait normally if headless and no imageName then exit -42
-	
+	    
 	[self doMemorySetup];
 	
 	if ([self ImageNameIsEmpty]) {
@@ -163,14 +163,15 @@ extern sqInt interpret(void);  //This is a VM Callback
 		[pool drain];
 		return;
 	}
-	
+	    
     [self setupMenus];
 	[self setupTimers];
 	[self setupAIO];
 	[self setupBrowserLogic];
 	[self setupSoundLogic];
-    [gDelegateApp makeMainWindow];
-	
+    
+    [gDelegateApp makeMainWindow];   	
+    
 	interpret();
 	[pool drain];  //may not return here, could call exit() via quit image
 	[self release];

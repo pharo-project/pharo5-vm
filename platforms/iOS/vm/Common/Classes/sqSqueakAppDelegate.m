@@ -44,10 +44,11 @@ such third-party acknowledgments.
 @implementation sqSqueakAppDelegate
 @synthesize squeakApplication;
 
+
 - (void) makeMainWindow {
 	
 	/*Beware creating a main window must be done on main thread it will not work from this interpreter squeak thread */
-	
+    
 	sqInt width,height;
 	windowDescriptorBlock *windowBlock;
 	
@@ -63,15 +64,15 @@ such third-party acknowledgments.
 	windowBlock-> handle = createdWindow;
 	windowBlock->context = nil;
 	windowBlock->updateArea = CGRectZero;
-	width  = (usqInt) ioScreenSize() >> 16;
+    width  = (usqInt) ioScreenSize() >> 16;
 	height = ioScreenSize() & 0xFFFF;
 	
 	setSavedWindowSize( (width << 16) |(height & 0xFFFF));
 	windowBlock->width = width;
 	windowBlock->height = height; 	
-	extern sqInt getFullScreenFlag(void);
+	
+    extern sqInt getFullScreenFlag(void);
 	ioSetFullScreen(getFullScreenFlag());
-
 }
 
 - (sqSqueakMainApplication *) makeApplicationInstance {

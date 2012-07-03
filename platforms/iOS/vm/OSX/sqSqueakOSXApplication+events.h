@@ -37,14 +37,15 @@
 //
 #import "sqSqueakOSXApplication.h"
 #import "sqSqueakMainApplication+events.h"
-#import "sqSqueakOSXNSView.h"
+#import "sqSqueakOSXView.h"
+
 @class NSWIndow;
 @interface sqSqueakOSXApplication (events) 
 
-- (void) recordCharEvent:(NSString *) unicodeString fromView: (sqSqueakOSXNSView *) mainView;
-- (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (sqSqueakOSXNSView*) aView ;
-- (void) recordMouseEvent: (NSEvent*) theEvent fromView: (sqSqueakOSXNSView*) aView;
-- (void) recordWheelEvent: (NSEvent*) theEvent  fromView: (sqSqueakOSXNSView*) aView;
+- (void) recordCharEvent:(NSString *) unicodeString fromView: (NSView<sqSqueakOSXView> *) mainView;
+- (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView> *) aView ;
+- (void) recordMouseEvent: (NSEvent*) theEvent fromView: (NSView<sqSqueakOSXView> *) aView;
+- (void) recordWheelEvent: (NSEvent*) theEvent  fromView: (NSView<sqSqueakOSXView> *) aView;
 - (void) pushEventToQueue: (sqInputEvent *) evt;
 - (void) fakeMouseWheelKeyboardEventsKeyCode: (int) keyCode ascii: (int) ascii windowIndex: (int) windowIndex;
 - (int) mapMouseAndModifierStateToSqueakBits: (NSEvent *) event;

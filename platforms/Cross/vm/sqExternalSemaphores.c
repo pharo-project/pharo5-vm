@@ -60,31 +60,56 @@ sqOSThread ioVMThread; /* initialized in the various <plat>/vm/sqFooMain.c */
 extern void forceInterruptCheck(void);
 extern sqInt doSignalSemaphoreWithIndex(sqInt semaIndex);
 
-typedef struct {
-#if !defined(TARGET_OS_IS_IPHONE) && (x86 || x86-64) /* etc etc x86 allows atomic update of 16 bit values */
-		short requests;
-		short responses;
+static volatile int sigIndexLow = 0;
+static volatile int sigIndexHigh = 0;
+static volatile int sigLock = 0;
+
+
+/* do we need to dynamically grow the queue?  */
+#define SQ_DYNAMIC_QUEUE_SIZE 0
+
+/* a hardcoded limit for static-sized queue */
+#define SQ_SIGNAL_QUEUE_SIZE 512
+
+#if SQ_DYNAMIC_QUEUE_SIZE
+    static int maxPendingSignals = 0;
+    static volatile sqInt * signalQueue = 0;
 #else
-		long requests;
-		long responses;
+    #define maxPendingSignals SQ_SIGNAL_QUEUE_SIZE
+    static sqInt signalQueue [maxPendingSignals];
 #endif
-	} SignalRequest;
 
-static SignalRequest *signalRequests = 0;
-static int numSignalRequests = 0;
-static volatile sqInt checkSignalRequests;
+static inline int hasPendingSignals(void) {
+    return sigIndexLow != sigIndexHigh;
+}
 
-/* The tides define the minimum range of indices into signalRequests that the
- * VM needs to scan.  With potentially thousands of indices to scan this can
- * save significant lengths of time.
- */
-static volatile int tideLock = 0;
-static volatile int useTideA = 1;
-static volatile sqInt lowTideA = (unsigned long)-1 >> 1, highTideA = -1;
-static volatile sqInt lowTideB = (unsigned long)-1 >> 1, highTideB = -1;
+static inline int maxQueueSize(void) {
+    return maxPendingSignals;
+}
 
-int
-ioGetMaxExtSemTableSize(void) { return numSignalRequests; }
+/* return a successive index in queue, wrap around in round-robin style */ 
+static inline int succIndex(int index) {
+    return ((index + 1) == maxQueueSize()) ? 0 : index + 1; 
+}
+
+
+
+
+static inline void lockSignalQueue()
+{
+    volatile int old;
+    /* spin to obtain a lock */
+    
+    do {
+        sqLowLevelMFence();        
+        sqCompareAndSwapRes(sigLock, 0, 1, old );
+    } while (old != 0);
+    
+}
+
+static inline void unlockSignalQueue() {
+    sigLock = 0;
+}
 
 /* Setting this at any time other than start-up can potentially lose requests.
  * i.e. during the realloc new storage is allocated, the old contents are copied
@@ -94,152 +119,144 @@ ioGetMaxExtSemTableSize(void) { return numSignalRequests; }
  * there is little point.  The intended use is to set the table to some adequate
  * maximum at start-up and avoid locking altogether.
  */
-void
-ioSetMaxExtSemTableSize(int n)
-{
-#if COGMTVM
-  /* initialization is a little different in MT. Hack around assert for now */
-  if (getVMOSThread())
-#endif
-	if (numSignalRequests)
-		assert(ioOSThreadsEqual(ioCurrentOSThread(),getVMOSThread()));
-	if (numSignalRequests < n) {
+
+void ioGrowSignalQueue( int n ) {
+#if SQ_DYNAMIC_QUEUE_SIZE // ignore, if queue size is static
+
+    /* only to grow */
+    if (maxPendingSignals < n) {
 		extern sqInt highBit(sqInt);
 		int sz = 1 << highBit(n-1);
 		assert(sz >= n);
-		signalRequests = realloc(signalRequests, sz * sizeof(SignalRequest));
-		memset(signalRequests + numSignalRequests,
-				0,
-				(sz - numSignalRequests) * sizeof(SignalRequest));
-		numSignalRequests = sz;
+		
+        
+        sqInt * newBuf = realloc(signalQueue, sz * sizeof(sqInt));
+
+        /* we should lock queue when growing, so nobody can access the queue buffer when we mutate the pointer */
+        lockSignalQueue();
+        signalQueue = newBuf;
+        unlockSignalQueue();
+        
+		maxPendingSignals = sz;
 	}
+#endif
 }
+
 
 void
 ioInitExternalSemaphores(void)
 {
-	ioSetMaxExtSemTableSize(INITIAL_EXT_SEM_TABLE_SIZE);
+    ioGrowSignalQueue(SQ_SIGNAL_QUEUE_SIZE);
 }
 
 /* Signal the external semaphore with the given index.  Answer non-zero on
  * success, zero otherwise.  This function is (should be) thread-safe;
  * multiple threads may attempt to signal the same semaphore without error.
  * An index of zero should be and is silently ignored.
+ *
+ *  (sig) As well as negative index.
  */
 sqInt
 signalSemaphoreWithIndex(sqInt index)
 {
-	int i = index - 1;
-	int v;
-
+    int next;
+    
 	/* An index of zero should be and is silently ignored. */
-	assert(index >= 0 && index <= numSignalRequests);
+    if (index <=0)
+        return 0;
+    
+    /* we must use the locking semantics to avoid ABA problem on writing a semaphore index to queue,
+     so there is no chance for fetching thread to observe queue in inconsistent state.
+     */
+    lockSignalQueue();
+    
+    /* check for queue overflow */
+    next = succIndex(sigIndexHigh);
+    if (next == sigIndexLow ) {
+        
+#if SQ_DYNAMIC_QUEUE_SIZE 
+        // grow and retry
+        unlockSignalQueue();
+        ioGrowSignalQueue( maxPendingSignals + 100);
+        return signalSemaphoreWithIndex(index);
 
-	if ((unsigned)i >= numSignalRequests)
-		return 0;
+#else
+        unlockSignalQueue();
+        // error if queue size is static  (perhaps better would be to sleep for a while and retry?)
+        error("External semaphore signal queue overflow");
+#endif
+    }
 
-	sqLowLevelMFence();
-	sqAtomicAddConst(signalRequests[i].requests,1);
-	if (useTideA) {
-		/* atomic if (lowTideA > i) lowTideA = i; */
-		while ((v = lowTideA) > i) {
-			sqLowLevelMFence();
-			sqCompareAndSwap(lowTideA, v, i);
-		}
-		/* atomic if (highTideA < i) highTideA = i; */
-		while ((v = highTideA) < i) {
-			sqLowLevelMFence();
-			sqCompareAndSwap(highTideA, v, i);
-		}
-	}
-	else {
-		/* atomic if (lowTideB > i) lowTideB = i; */
-		while ((v = lowTideB) > i) {
-			sqLowLevelMFence();
-			sqCompareAndSwap(lowTideB, v, i);
-		}
-		/* atomic if (highTideB < i) highTideB = i; */
-		while ((v = highTideB) < i) {
-			sqLowLevelMFence();
-			sqCompareAndSwap(highTideB, v, i);
-		}
-	}
+    signalQueue[sigIndexHigh] = index;
+    /* make sure semaphore index is written before we advance sigIndexHigh */
+    sqLowLevelMFence();
+    
+    sigIndexHigh = next;
+    /* reset lock */
 
-	checkSignalRequests = 1;
-
-	forceInterruptCheck();
+    unlockSignalQueue();
+    forceInterruptCheck();
 	return 1;
 }
 
-/* Signal any external semaphores for which signal requests exist.
+
+static inline sqInt fetchQueueItem()
+{
+    // if queue size is dynamic, we should lock while accessing signalQueue
+    #if SQ_DYNAMIC_QUEUE_SIZE
+        lockSignalQueue();
+    #endif
+    sqInt result = signalQueue[sigIndexLow];
+    #if SQ_DYNAMIC_QUEUE_SIZE
+        unlockSignalQueue();
+    #endif
+    return result;
+}
+
+
+
+/* Signal any external semaphores for which signal request(s) are pending in queue.
  * Answer whether a context switch occurred.
- * Note we no longer ensure the lock table has at least minTableSize elements.
- * Instead its size is settable at startup from a value in the image header via
- * ioSetMaxExtSemTableSize.  This avoids locks on the table while it grows
- * (although a lock-free implementation is possible, if tricky).  So for the
- * moment externalSemaphoreTableSize is not used.
+ * sigIndexHigh may advance during processing, which is not big deal,
+ * since we flushing the queue anyways.
  */
+
 sqInt
 doSignalExternalSemaphores(int externalSemaphoreTableSize)
 {
-	int i, switched;
-
-	if (!checkSignalRequests)
-		return 0;
-
-	switched = 0;
-	checkSignalRequests = 0;
-
-	if (useTideA) {
-		useTideA = 0;
-		sqLowLevelMFence();
-		/* doing this here saves a bounds check in doSignalSemaphoreWithIndex */
-		if (highTideA >= externalSemaphoreTableSize)
-			highTideA = externalSemaphoreTableSize - 1;
-		for (i = lowTideA; i <= highTideA; i++)
-			while (signalRequests[i].responses != signalRequests[i].requests) {
-				if (doSignalSemaphoreWithIndex(i+1))
-					switched = 1;
-				++signalRequests[i].responses;
-			}
-		lowTideA = (unsigned long)-1 >> 1, highTideA = -1;
-	}
-	else {
-		useTideA = 1;
-		sqLowLevelMFence();
-		/* doing this here saves a bounds check in doSignalSemaphoreWithIndex */
-		if (highTideB >= externalSemaphoreTableSize)
-			highTideB = externalSemaphoreTableSize - 1;
-		for (i = lowTideB; i <= highTideB; i++)
-			while (signalRequests[i].responses != signalRequests[i].requests) {
-				if (doSignalSemaphoreWithIndex(i+1))
-					switched = 1;
-				++signalRequests[i].responses;
-			}
-		lowTideB = (unsigned long)-1 >> 1, highTideB = -1;
-	}
-
-	/* If a signal came in while processing, check for signals again soon.
-	 */
-	sqLowLevelMFence();
-	if (checkSignalRequests)
-		forceInterruptCheck();
-
+    int switched = 0;
+ 
+    while (hasPendingSignals()) {
+        if(doSignalSemaphoreWithIndex(fetchQueueItem()))
+            switched = 1;
+        sigIndexLow = succIndex(sigIndexLow);
+    }    
 	return switched;
 }
+
 
 #if FOR_SQUEAK_VM_TESTS
 /* see e.g. tests/sqExternalSemaphores/unixmain.c */
 int
 allRequestsAreAnswered(int externalSemaphoreTableSize)
 {
-	long i;
-	for (i = 1; i < externalSemaphoreTableSize; i++)
-		if (signalRequests[i].responses != signalRequests[i].requests) {
-			printf("signalRequests[%ld] requests %d responses %d\n",
-					i, signalRequests[i].requests, signalRequests[i].responses);
-			return 0;
-		}
+    /* yes, it is, otherwise we will get a queue overflow error ;) */
 	return 1;
 }
 #endif /* FOR_SQUEAK_VM_TESTS */
+
+
+
+/* Following two are left for compatibility with language side */
+
+void ioSetMaxExtSemTableSize(int n) { 
+    /* just ignore */
+}
+
+int ioGetMaxExtSemTableSize(void) { 
+    // answer an arbitrary large number.. to not confuse image side about it
+    return 10000000;
+    /*    return maxQueueSize(); */
+}
+
+

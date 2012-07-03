@@ -1,31 +1,31 @@
 /****************************************************************************
-*   PROJECT: Common include
-*   FILE:    FilePlugin.h
-*   CONTENT: 
-*
-*   AUTHOR:  
-*   ADDRESS: 
-*   EMAIL:   
-*   RCSID:   $Id$
-*
-*	2009-05-15 EEM add stdio flag; reorder SQFile to make it more compact
-*	2005-03-26 IKP fix unaligned accesses to file member
-*	2004-06-10 IKP 64-bit cleanliness
-*	01/22/2002 JMM change off_t to squeakOffsetFileType
-*/
+ *   PROJECT: Common include
+ *   FILE:    FilePlugin.h
+ *   CONTENT: 
+ *
+ *   AUTHOR:  
+ *   ADDRESS: 
+ *   EMAIL:   
+ *   RCSID:   $Id$
+ *
+ *	2009-05-15 EEM add stdio flag; reorder SQFile to make it more compact
+ *	2005-03-26 IKP fix unaligned accesses to file member
+ *	2004-06-10 IKP 64-bit cleanliness
+ *	01/22/2002 JMM change off_t to squeakOffsetFileType
+ */
 /* File support definitions */
 
 #include "sqMemoryAccess.h"
 
 /* squeak file record; see sqFilePrims.c for details */
 typedef struct {
-  int			 sessionID;	/* ikp: must be first */
-  void			*file;
-  squeakFileOffsetType	 fileSize;	/* 64-bits we hope. */
-  char			 writable;
-  char			 lastOp; /* 0 = uncommitted, 1 = read, 2 = write */
-  char			 lastChar;
-  char			 isStdioStream;
+    int			 sessionID;	/* ikp: must be first */
+    void			*file;
+    squeakFileOffsetType	 fileSize;	/* 64-bits we hope. */
+    char			 writable;
+    char			 lastOp; /* 0 = uncommitted, 1 = read, 2 = write */
+    char			 lastChar;
+    char			 isStdioStream;
 } SQFile;
 
 /* file i/o */
@@ -54,9 +54,9 @@ sqInt dir_Create(char *pathString, sqInt pathStringLength);
 sqInt dir_Delete(char *pathString, sqInt pathStringLength);
 sqInt dir_Delimitor(void);
 sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
-		/* outputs: */
-		char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-		sqInt *isDirectory, squeakFileOffsetType *sizeIfFile);
+                 /* outputs: */
+                 char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions);
 sqInt dir_PathToWorkingDir(char *pathName, sqInt pathNameMax);
 sqInt dir_SetMacFileTypeAndCreator(char *filename, sqInt filenameSize, char *fType, char *fCreator);
 sqInt dir_GetMacFileTypeAndCreator(char *filename, sqInt filenameSize, char *fType, char *fCreator);

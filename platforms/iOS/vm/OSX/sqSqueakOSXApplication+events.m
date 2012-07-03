@@ -42,7 +42,6 @@
 #import "sqMacV2Browser.h"
 #import "sqSqueakOSXInfoPlistInterface.h"
 #import "keyBoardStrokeDetails.h"
-#import "sqSqueakOSXNSView.h"
 #import "sqMacHostWindow.h"
 
 extern struct	VirtualMachine* interpreterProxy;
@@ -162,7 +161,7 @@ static int buttonState=0;
 	[data release];	
 }
 
-- (void) recordCharEvent:(NSString *) unicodeString fromView: (sqSqueakOSXNSView *) mainView {
+- (void) recordCharEvent:(NSString *) unicodeString fromView: (NSView<sqSqueakOSXView> *) mainView {
 	sqKeyboardEvent evt;
 	unichar unicode;
 	unsigned char macRomanCharacter;
@@ -180,9 +179,9 @@ static int buttonState=0;
 		
 		unicode = [unicodeString characterAtIndex: i];
 		
-		if (mainView.lastSeenKeyBoardStrokeDetails) {
-			evt.modifiers = [self translateCocoaModifiersToSqueakModifiers: mainView.lastSeenKeyBoardStrokeDetails.modifierFlags];
-			evt.charCode = mainView.lastSeenKeyBoardStrokeDetails.keyCode;
+		if ([mainView lastSeenKeyBoardStrokeDetails]) {
+			evt.modifiers = [self translateCocoaModifiersToSqueakModifiers: [[mainView lastSeenKeyBoardStrokeDetails] modifierFlags]];
+			evt.charCode = [[mainView lastSeenKeyBoardStrokeDetails] keyCode];
 		} else {
 			evt.modifiers = 0;
 			evt.charCode = 0;
@@ -204,7 +203,7 @@ static int buttonState=0;
 		unsigned short keyCodeRemembered = evt.charCode;
 		evt.utf32Code = 0;
 		evt.reserved1 = 0;
-		evt.windowIndex = (int)  mainView.windowLogic.windowIndex;
+		evt.windowIndex = (int)[[mainView windowLogic] windowIndex];
 		[self pushEventToQueue: (sqInputEvent *)&evt];
 		
 		evt.charCode =	macRomanCharacter;
@@ -214,7 +213,7 @@ static int buttonState=0;
 		
 		[self pushEventToQueue: (sqInputEvent *) &evt];
 		
-		if (i > 1 || !mainView.lastSeenKeyBoardStrokeDetails) {
+		if (i > 1 || ![mainView lastSeenKeyBoardStrokeDetails]) {
 			evt.pressCode = EventKeyUp;
 			evt.charCode = keyCodeRemembered;
 			evt.utf32Code = 0;
@@ -226,7 +225,7 @@ static int buttonState=0;
 
 }
 
-- (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (sqSqueakOSXNSView*) aView {
+- (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView>*) aView {
 	sqKeyboardEvent evt;
 	
 	evt.type = EventTypeKeyboard;
@@ -236,13 +235,13 @@ static int buttonState=0;
 	evt.modifiers = [self translateCocoaModifiersToSqueakModifiers: [theEvent modifierFlags]];
 	evt.utf32Code = 0;
 	evt.reserved1 = 0;
-	evt.windowIndex = (int) aView.windowLogic.windowIndex;
+	evt.windowIndex = (int)[[aView windowLogic] windowIndex];
 	[self pushEventToQueue: (sqInputEvent *) &evt];
 
 	interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);
 }
 
-- (void) recordMouseEvent:(NSEvent *)theEvent fromView: (sqSqueakOSXNSView *) aView{
+- (void) recordMouseEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView> *) aView{
 	sqMouseEvent evt;
 	
 	evt.type = EventTypeMouse;
@@ -261,24 +260,24 @@ static int buttonState=0;
 #else
 	evt.reserved1 = 0;
 #endif 
-	evt.windowIndex = (int) aView.windowLogic.windowIndex;
+	evt.windowIndex = (int) [[aView windowLogic] windowIndex];
 	
 	[self pushEventToQueue:(sqInputEvent *) &evt];
 //NSLog(@"mouse hit x %i y %i buttons %i mods %i",evt.x,evt.y,evt.buttons,evt.modifiers);
 	interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);
 }
 						   
-- (void) recordWheelEvent:(NSEvent *) theEvent fromView: (sqSqueakOSXNSView *) aView{
+- (void) recordWheelEvent:(NSEvent *) theEvent fromView: (NSView<sqSqueakOSXView> *) aView{
 		
 	[self recordMouseEvent: theEvent fromView: aView];
 	CGFloat x = [theEvent deltaX];
 	CGFloat y = [theEvent deltaY];
 
 	if (x != 0.0f) {
-		[self fakeMouseWheelKeyboardEventsKeyCode: (x < 0 ? 124 : 123) ascii: (x < 0 ? 29 : 28) windowIndex:  (int) aView.windowLogic.windowIndex];
+		[self fakeMouseWheelKeyboardEventsKeyCode: (x < 0 ? 124 : 123) ascii: (x < 0 ? 29 : 28) windowIndex:(int)[[aView windowLogic] windowIndex]];
 	}
 	if (y != 0.0f) {
-		[self fakeMouseWheelKeyboardEventsKeyCode: (y < 0 ? 125 : 126) ascii: (y < 0 ? 31 : 30) windowIndex: (int) aView.windowLogic.windowIndex];
+		[self fakeMouseWheelKeyboardEventsKeyCode: (y < 0 ? 125 : 126) ascii: (y < 0 ? 31 : 30) windowIndex:(int)[[aView windowLogic] windowIndex]];
 	}
 }
 		  
