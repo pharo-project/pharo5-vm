@@ -1,8 +1,7 @@
 //
-//  sqSqueakOSXScreenAndWindow.h
-//  SqueakPureObjc
+//  sqSqueakOSXView.h
 //
-//  Created by John M McIntosh on 09-11-14.
+//  Created by Esteban Lorenzano on 12-06-26.
 /*
  Some of this code was funded via a grant from the European Smalltalk User Group (ESUG)
  Copyright 2009 Corporate Smalltalk Consulting Ltd. All rights reserved.
@@ -35,16 +34,17 @@
  such third-party acknowledgments.
  */
 //
+#import "sqMemoryAccess.h"
 
-#import "sqSqueakScreenAndWindow.h"
-#import "sqSqueakOSXView.h"
-
-//@protocol NSWindowDelegate <NSObject> @end
-
-
-@interface sqSqueakOSXScreenAndWindow : sqSqueakScreenAndWindow  <NSWindowDelegate>{
-    NSView<sqSqueakOSXView>	*mainViewOnWindow;
-}
-@property (nonatomic,retain) NSView<sqSqueakOSXView> *mainViewOnWindow;
+@protocol sqSqueakOSXView <NSObject>
+    
+-(void)setWindowLogic:(id)screenAndWindow;
+-(id)windowLogic;
+-(void)fakeKeyDownUp:(id)theEvent;
+-(id)lastSeenKeyBoardStrokeDetails;
+-(id)dragFileNameStringAtIndex:(sqInt)index;
+-(void)initializeVariables;
+-(void)drawThelayers;
+-(void)drawImageUsingClip:(CGRect)clip;
 
 @end
