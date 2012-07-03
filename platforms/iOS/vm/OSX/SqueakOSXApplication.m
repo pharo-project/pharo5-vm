@@ -38,7 +38,6 @@
 
 #import "SqueakOSXApplication.h"
 #import "sqSqueakOSXScreenAndWindow.h"
-#import "sqSqueakOSXNSView.h"
 
 @implementation SqueakOSXApplication 
 
@@ -48,9 +47,9 @@
 		([anEvent modifierFlags] & NSCommandKeyMask) != 0 ) {
 		NSWindow *who = [anEvent window];
 		sqSqueakOSXScreenAndWindow *squeakScreenWindow = (sqSqueakOSXScreenAndWindow *) who.delegate;
-		sqSqueakOSXNSView *view;
+		NSView<sqSqueakOSXView> *view;
 		if (squeakScreenWindow)
-			view = squeakScreenWindow.mainViewOnWindow;
+			view = [squeakScreenWindow mainViewOnWindow ];
 		else
 			view = [who contentView];
 	   [view fakeKeyDownUp: anEvent];

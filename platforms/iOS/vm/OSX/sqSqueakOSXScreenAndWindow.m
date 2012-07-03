@@ -48,7 +48,7 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 @synthesize mainViewOnWindow;
 
 -(id) getMainView {
-	return (sqSqueakOSXNSView*) self.mainViewOnWindow;
+	return self.mainViewOnWindow;
 }
 
 - (void) dealloc {
@@ -56,18 +56,12 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 	[super dealloc];
 }
 
-- (void)  ioSetFullScreen: (sqInt) fullScreen {
-	[[self getMainView] ioSetFullScreen: fullScreen];
-}
-
-- (sqInt) ioHasDisplayDepth: (sqInt) depth {
-	if (depth == 1 || depth == 2 || depth == 4 || depth == 8 || depth==16 || depth==32 ) 
-		return true;
-	return false;
+- (void)  ioSetFullScreen: (sqInt)fullScreen {
+	[[self getMainView] ioSetFullScreen:fullScreen];
 }
 
 - (BOOL)windowShouldClose:(id)window {
-	[gDelegateApp.squeakApplication recordWindowEvent: WindowEventClose window: window];
+	[gDelegateApp.squeakApplication recordWindowEvent:WindowEventClose window:window];
 	return NO;
 }
 @end
