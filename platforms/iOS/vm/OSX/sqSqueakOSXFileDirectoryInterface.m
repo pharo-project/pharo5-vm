@@ -72,17 +72,18 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 }
 
 - (NSString *)resolvedAliasFiles:(NSString *)filePath {
-	NSArray *compoents = [[filePath stringByStandardizingPath] pathComponents];
+	NSArray *components = [filePath pathComponents];
 	NSString *thisComponent;
 	NSString *path = [[NSString new] autorelease];
-	for (thisComponent in compoents) {
-		path = [path stringByAppendingPathComponent:thisComponent];
+	for (thisComponent in components) {		
+        path = [path stringByAppendingPathComponent:thisComponent];
 		if (![[NSFileManager defaultManager] fileExistsAtPath:path])
 			continue;
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsAliasFile)
-			path = [[self resolveAliasAtPath:path] stringByResolvingSymlinksInPath];
+		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+			path = [self resolveAliasAtPath:path];
+        }
 	}
 	return path;
 }
@@ -101,10 +102,9 @@ extern SqueakOSXAppDelegate *gDelegateApp;
 	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
 		outString = [url path];
 		CFRelease(url);
-		return outString;
 	}
 	
-	return nil;
+	return outString;
 }
 
 @end
