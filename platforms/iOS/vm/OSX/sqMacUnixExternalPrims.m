@@ -169,7 +169,7 @@ void *ioLoadModuleRaw(char *pluginName)
     }
 	
 	/* first, look in the "<Squeak VM directory>Plugins" directory for the library */
-	NSString *pluginDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Plugins"];
+	NSString *pluginDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/MacOS/Plugins"];
 	// [[gDelegateApp.squeakApplication.vmPathStringURL path] stringByAppendingPathComponent: @"Plugins/"];
 	NSString *vmDirPath = [[NSBundle mainBundle] resourcePath];
 
