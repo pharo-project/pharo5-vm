@@ -127,7 +127,10 @@ such third-party acknowledgments.
 	directoryPath = [[[NSString alloc] initWithBytes: pathString length: (NSUInteger) pathStringLength encoding: NSUTF8StringEncoding] autorelease];
     fileName      = [[[NSString alloc] initWithBytes: nameString length: (NSUInteger) nameStringLength encoding: NSUTF8StringEncoding] autorelease];
 	
-	filePath      = [[directoryPath stringByAppendingString: @"/"] stringByAppendingString: fileName];
+    if (![directoryPath hasSuffix: @"/"]) {
+        directoryPath = [directoryPath stringByAppendingString: @"/"];
+    }
+	filePath      = [directoryPath stringByAppendingString: fileName];
 	
 	strlcpy(name,[fileName UTF8String], 256);
     
