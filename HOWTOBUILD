@@ -1,3 +1,18 @@
+REQUIREMENTS
+============
+
+The build relies on a valid gcc, cmake and 32 bit headers installation:
+
+- Unix:
+	sudo apt-get install gcc g++ cmake lib32x-dev
+
+- Mac:
+  Download and install the latest version of XCode and XCode command line tools
+
+- Win:
+  For building the VM under windos you will have to install a minggw
+  environment
+
 BUILDING FROM JENKINS SOURCES
 =============================
 
