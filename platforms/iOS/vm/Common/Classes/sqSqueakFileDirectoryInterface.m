@@ -71,25 +71,14 @@ such third-party acknowledgments.
 	
 	NSDictionary *fileAttributes;
     NSError *error;
-	NSString *fileType;
 	NSString *newFilePath = [self resolvedAliasFiles: filePath];
 	
 	fileAttributes        = [fileMgr attributesOfItemAtPath: filePath error: &error];
-
-	if ([filePath isEqualToString: newFilePath]) {
-		if (!fileAttributes) {
-			return BAD_PATH;
-		}
-		fileType     = [fileAttributes objectForKey: NSFileType];
-		*isDirectory = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
-	} else {
-		NSDictionary *fileAttributesPossibleAlias = [fileMgr attributesOfItemAtPath: newFilePath error: &error];  // do symbolic link
-		fileAttributes                            = fileAttributesPossibleAlias;
-		
-		fileType                                  = [fileAttributesPossibleAlias objectForKey: NSFileType];
-		*isDirectory                              = [fileType isEqualToString: NSFileTypeDirectory] ? 1 : 0;
-	}
-
+    if (!fileAttributes) {
+        return BAD_PATH;
+    }
+    
+    *isDirectory = [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeDirectory] ? 1 : 0;
 	*creationDate     = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
 	*modificationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileModificationDate]);
 	*sizeIfFile       = [[fileAttributes objectForKey: NSFileSize] integerValue];
@@ -171,10 +160,12 @@ such third-party acknowledgments.
 		self.lastPathForDirLookup =[fileMgr currentDirectoryPath];
 	}
 	
-	if (pathStringLength > 0) 
+	if (pathStringLength > 0) {
 		directoryPath = [[[NSString alloc] initWithBytes: pathString length: (NSUInteger) pathStringLength encoding: NSUTF8StringEncoding] autorelease];
-	if (directoryPath == NULL)
+    }
+	if (directoryPath == NULL) {
 		return BAD_PATH;
+    }
 	
 	if ([self.lastPathForDirLookup isEqualToString: directoryPath]) {
 		if (lastIndexForDirLookup >= index)
