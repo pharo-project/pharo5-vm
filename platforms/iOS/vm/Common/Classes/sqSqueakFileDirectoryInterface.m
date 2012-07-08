@@ -73,7 +73,7 @@ such third-party acknowledgments.
     NSError *error;
 	NSString *newFilePath = [self resolvedAliasFiles: filePath];
 	
-	fileAttributes        = [fileMgr attributesOfItemAtPath: filePath error: &error];
+	fileAttributes        = [fileMgr attributesOfItemAtPath: newFilePath error: &error];
     if (!fileAttributes) {
         return BAD_PATH;
     }
