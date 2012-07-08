@@ -7,21 +7,21 @@ Workspace openContents: (String streamContents: [ :stream|
         stream << 'CogCocoaIOSConfig new'; cr.
         stream << '    addExternalPlugins: #( FT2Plugin );'; cr.
         stream << '    addInternalPlugins: #( UnixOSProcessPlugin );'; cr.
-        stream << '    "generateDebug;"'; cr.
+        stream << '    "generateForDebug;"'; cr.
         stream << '    generateSources; generate.'; cr; cr.
 
         stream << '"Configuration for Linux -------------------------------------------------"'; cr.
         stream << 'CogUnixConfig new'; cr.
         stream << '    addExternalPlugins: #( FT2Plugin );'; cr.
         stream << '    addInternalPlugins: #( UnixOSProcessPlugin );'; cr.
-        stream << '    "generateDebug;"'; cr.
+        stream << '    "generateForDebug;"'; cr.
         stream << '    generateSources; generate.'; cr; cr.
 
         stream << '"Configuration for Windows -----------------------------------------------"'; cr.
         stream << 'CogWindowsConfig new'; cr.
         stream << '    addExternalPlugins: #( FT2Plugin );'; cr.
         stream << '    addInternalPlugins: #( Win32OSProcessPlugin );'; cr.
-        stream << '    "generateDebug;"'; cr.
+        stream << '    "generateForDebug;"'; cr.
         stream << '    generateSources; generate.'; cr; cr.
 
         stream << '"Configuration for iOS-devices -------------------------------------------"'; cr.
