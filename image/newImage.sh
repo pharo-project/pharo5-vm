@@ -6,6 +6,11 @@ VERSION="Pharo-1.4"
 
 NO_COLOR='\033[0m' #disable any colors
 YELLOW='\033[0;33m'
+
+WGET_CERTCHECK="--no-check-certificate"
+# on macs wget is pretty old and not recognizing this option 
+wget --help | grep -- "$WGET_CERTCHECK" 2>&1 > /dev/null || WGET_CERTCHECK=''
+
 # ----------------------------------------------------------------------------
 
 openImage() {
@@ -41,7 +46,7 @@ openImage() {
 echo -e "${YELLOW}LOADING PREBUILT IMAGE" $NO_COLOR
 echo "    $PREBUILT_IMAGE_URL"
 
-wget "$PREBUILT_IMAGE_URL" --output-document="image.zip" && \
+wget $WGET_CERTCHECK "$PREBUILT_IMAGE_URL" --output-document="image.zip" && \
 unzip image.zip && \
 rm image.zip  && \
 openImage "$PWD/generator.image" "$PWD/ImageConfiguration.st" && exit 1
@@ -51,7 +56,7 @@ openImage "$PWD/generator.image" "$PWD/ImageConfiguration.st" && exit 1
 echo -e "${YELLOW}FETCHING FRESH IMAGE" $NO_COLOR
 echo "   $URL$VERSION.zip"
 
-wget "$URL$VERSION.zip" --output-document="image.zip"
+wget $WGET_CERTCHECK "$URL$VERSION.zip" --output-document="image.zip"
 
 # ----------------------------------------------------------------------------
 echo -e "${YELLOW}UNZIPPING" $NO_COLOR
