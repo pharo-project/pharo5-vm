@@ -39,6 +39,10 @@ size_t sqImageFileRead(void *ptr, size_t sz, size_t count, sqImageFile h);
 squeakFileOffsetType sqImageFileSeek(sqImageFile h, squeakFileOffsetType pos);
 size_t sqImageFileWrite(void *ptr, size_t sz, size_t count, sqImageFile h);
 
+#define sqImageFileReadEntireImage(memoryAddress, elementSize,  length, fileStream) \
+	sqImageFileRead(memoryAddress, elementSize,  length, fileStream)
+
+
 #endif /* WIN32_FILE_SUPPORT */
 
 /* pluggable primitive support */

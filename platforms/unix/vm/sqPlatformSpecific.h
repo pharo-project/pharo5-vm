@@ -54,6 +54,10 @@ extern void sqMakeMemoryNotExecutableFromTo(unsigned long, unsigned long);
 extern int isCFramePointerInUse(void);
 #endif
 
+#define sqImageFileReadEntireImage(memoryAddress, elementSize,  length, fileStream) \
+	sqImageFileRead(memoryAddress, elementSize,  length, fileStream)
+
+
 /* warnPrintf is provided (and needed) on the win32 platform.
  * But it may be mentioned elsewhere, so provide a suitable def.
  */
