@@ -2,7 +2,7 @@
 #ifdef WIN32
 # include <windows.h>
 #endif
-#if defined(TARGET_API_MAC_CARBON)
+#if defined(TARGET_API_MAC_CARBON) | defined(__llvm__)
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
