@@ -2,8 +2,9 @@
 //  sqSqueakFileDirectoryInterface.m
 //  
 //
-//  Created by John M McIntosh on 6/14/08.
-//
+//  Author: John M McIntosh
+//  Author: Esteban Lorenzano
+//  Author: Camillo Bruni
 //
 /*
  Some of this code was funded via a grant from the European Smalltalk User Group (ESUG)
@@ -40,6 +41,7 @@ such third-party acknowledgments.
 
 #import "sqSqueakFileDirectoryInterface.h"
 #import "sqSqueakFileDirectoryAPI.h"
+#include <sys/stat.h>
 
 @implementation sqSqueakFileDirectoryInterface
 @synthesize lastPathForDirLookup;
@@ -58,28 +60,44 @@ such third-party acknowledgments.
 #define NO_MORE_ENTRIES 1
 #define BAD_PATH        2
 
+- (sqInt)linkIsDirectory:(NSString *)filePath fileManager:(NSFileManager *)fileManager {
+    NSString *resolvedPath = [self resolvedAliasFiles: filePath];
+	NSDictionary *fileAttributes;
+    NSError *error;
+    
+	fileAttributes = [fileManager attributesOfItemAtPath:resolvedPath error: &error];
+    return [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeDirectory] ? 1 : 0;
+}
+
 - (sqInt)attributesForPath:(NSString *)filePath 
                    fileMgr:(NSFileManager *)fileMgr 
-               isDirectory:(sqInt *)isDirectory 
-              creationDate:(sqInt *)creationDate 
+               isDirectory:(sqInt *)isDirectory
+              creationDate:(sqInt *)creationDate
           modificationDate:(sqInt *)modificationDate
                 sizeIfFile:(off_t *)sizeIfFile
-          posixPermissions:(sqInt *)posixPermissions {
+          posixPermissions:(sqInt *)posixPermissions
+                 isSymlink:(sqInt *)isSymlink {
+    
 	//This minics the unix port where we resolve the file name, but the symbolic file lookup can fail. 
 	//The unix port says, oh file was there, but stat/lstat fails, so mmm kinda continue
 	//However to deal with Finder Aliases we have to be more clever.
 	
 	NSDictionary *fileAttributes;
     NSError *error;
-	NSString *newFilePath = [self resolvedAliasFiles: filePath];
-	
-	fileAttributes        = [fileMgr attributesOfItemAtPath: newFilePath error: &error];
+    
+	fileAttributes        = [fileMgr attributesOfItemAtPath: filePath error: &error];
     if (!fileAttributes) {
         return BAD_PATH;
     }
     
-    *isDirectory = [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeDirectory] ? 1 : 0;
-	*creationDate     = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
+    *isSymlink        = [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] ? 1 : 0;
+    if(*isSymlink) {
+        //I need to check if symlink points to a directory
+        *isDirectory  = [self linkIsDirectory:filePath fileManager:fileMgr];
+    } else {
+        *isDirectory  = [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeDirectory] ? 1 : 0;
+	}
+    *creationDate     = convertToSqueakTime([fileAttributes objectForKey: NSFileCreationDate ]);
 	*modificationDate = convertToSqueakTime([fileAttributes objectForKey: NSFileModificationDate]);
 	*sizeIfFile       = [[fileAttributes objectForKey: NSFileSize] integerValue];
 	*posixPermissions = [[fileAttributes objectForKey: NSFilePosixPermissions] shortValue];
@@ -91,17 +109,18 @@ such third-party acknowledgments.
 	return ENTRY_FOUND;
 }
 
-- (sqInt) dir_EntryLookup: (const char *) pathString 
-			  length: (sqInt) pathStringLength 
-		  returnName: (char *) nameString
-	returnNameLength: (sqInt) nameStringLength	
-				name: (char *) name
-			  length: (sqInt *) nameLength 
-		creationDate: (sqInt *) creationDate 
-	modificationDate: (sqInt *) modificationDate
-		 isDirectory: (sqInt *) isDirectory  
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
-    posixPermissions: (sqInt *)posixPermissions {
+- (sqInt) dir_EntryLookup:(const char *) pathString
+			  length:(sqInt) pathStringLength
+		  returnName:(char *) nameString
+	returnNameLength:(sqInt) nameStringLength
+				name:(char *) name
+			  length:(sqInt *) nameLength
+		creationDate:(sqInt *) creationDate
+	modificationDate:(sqInt *) modificationDate
+		 isDirectory:(sqInt *) isDirectory
+		  sizeIfFile:(squeakFileOffsetType *) sizeIfFile
+    posixPermissions:(sqInt *)posixPermissions
+           isSymlink:(sqInt *) isSymlink {
 	
    	NSFileManager * fileMgr = [NSFileManager defaultManager];
     NSString*	directoryPath = NULL;
@@ -126,20 +145,29 @@ such third-party acknowledgments.
     *name         = *nameString;
 	*nameLength   = nameStringLength;
 
-    return [self attributesForPath: filePath fileMgr: fileMgr isDirectory: isDirectory creationDate: creationDate modificationDate: modificationDate sizeIfFile: sizeIfFile posixPermissions: posixPermissions];
+    return [self
+        attributesForPath: filePath
+        fileMgr: fileMgr
+        isDirectory: isDirectory
+        creationDate: creationDate
+        modificationDate: modificationDate
+        sizeIfFile: sizeIfFile
+        posixPermissions: posixPermissions
+        isSymlink: isSymlink];
 }
 
 
-- (sqInt) dir_Lookup: (const char *) pathString 
-			  length: (sqInt) pathStringLength 
-			   index: (sqInt) index 
-				name: (char *) name
-			  length: (sqInt *) nameLength 
-		creationDate: (sqInt *) creationDate 
-	modificationDate: (sqInt *) modificationDate
-		 isDirectory: (sqInt *) isDirectory 
-		  sizeIfFile: (squeakFileOffsetType *) sizeIfFile
-    posixPermissions: (sqInt *)posixPermissions {
+- (sqInt) dir_Lookup:(const char *) pathString
+			  length:(sqInt) pathStringLength
+			   index:(sqInt) index
+				name:(char *) name
+			  length:(sqInt *) nameLength
+		creationDate:(sqInt *) creationDate
+	modificationDate:(sqInt *) modificationDate
+		 isDirectory:(sqInt *) isDirectory
+		  sizeIfFile:(squeakFileOffsetType *) sizeIfFile
+    posixPermissions:(sqInt *) posixPermissions
+           isSymlink:(sqInt *) isSymlink {
 	
 	NSFileManager * fileMgr = [NSFileManager defaultManager];
 	NSString*	directoryPath = NULL;
@@ -202,13 +230,14 @@ such third-party acknowledgments.
 	*nameLength = (sqInt) strlen(name);
     
     return [self 
-        attributesForPath:filePath
-        fileMgr:fileMgr 
-        isDirectory:isDirectory 
-        creationDate:creationDate 
-        modificationDate:modificationDate
-        sizeIfFile:sizeIfFile
-        posixPermissions:posixPermissions];
+        attributesForPath: filePath
+        fileMgr: fileMgr
+        isDirectory: isDirectory
+        creationDate: creationDate
+        modificationDate: modificationDate
+        sizeIfFile: sizeIfFile
+        posixPermissions: posixPermissions
+        isSymlink: isSymlink];
 }
 
 - (sqInt) dir_Create: (char *) pathString

@@ -202,7 +202,7 @@ void *ioLoadModuleRaw(char *pluginName)
 		char workingData[PATH_MAX+1];
 		size_t pluginNameLength;
 		NSString *path,*path2;
-		
+
 		if (!systemFolder) {
 			struct FSRef frameworksFolderRef;
 			OSErr err = FSFindFolder(kSystemDomain, kFrameworksFolderType, false, &frameworksFolderRef);

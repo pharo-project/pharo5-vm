@@ -3,10 +3,9 @@
  *   FILE:    sqWin32Directory.c
  *   CONTENT: Directory management
  *
- *   AUTHOR:  Andreas Raab (ar)
- *   ADDRESS: University of Magdeburg, Germany
- *   EMAIL:   raab@isg.cs.uni-magdeburg.de
- *   RCSID:   $Id: sqWin32Directory.c 1696 2007-06-03 18:13:07Z andreas $
+ *   Author: Andreas Raab (ar)
+ *   Author: Esteban Lorenzano
+ *   Author: Camillo Bruni
  *
  *   NOTES:
  *
@@ -136,7 +135,7 @@ int dir_Delimitor(void)
 
 int dir_Lookup(char *pathString, int pathLength, int index,
 /* outputs: */ char *name, int *nameLength, int *creationDate, int *modificationDate,
-               int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
+               int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
 {
     /* Lookup the index-th entry of the directory with the given path, starting
      at the root of the file system. Set the name, name length, creation date,
@@ -167,6 +166,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
     *isDirectory      = false;
     *sizeIfFile       = 0;
     *posixPermissions = 0777;
+    *isSymlink        = 0;
     
     /* check for a dir cache hit (but NEVER on the top level) */
     if(pathLength && 
@@ -289,7 +289,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
 
 int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int nameStringLength,
 /* outputs: */ char *name, int *nameLength, int *creationDate, int *modificationDate,
-                    int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
+                    int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqint *isSymlink)
 {
     /* Lookup a given file in a given named directory.
      Set the name, name length, creation date,
@@ -315,6 +315,7 @@ int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int name
     *isDirectory      = false;
     *sizeIfFile       = 0;
     *posixPermissions = 0777;
+    *isSymlink        = 0;
     
 #if !defined(_WIN32_WCE)
     /* Like Unix, Windows CE does not have drive letters */

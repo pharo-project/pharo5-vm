@@ -87,8 +87,9 @@ sqInt dir_Delimitor(void)
 }
 
 sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
-/* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-				 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
+                 /* outputs */
+                 char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+				 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
 {
 	//API Documented
 	/* Lookup the index-th entry of the directory with the given path, starting
@@ -112,16 +113,17 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 			length: nameLength 
 			creationDate: creationDate 
 			modificationDate: modificationDate
-			isDirectory: isDirectory 
+			isDirectory: isDirectory
 			sizeIfFile: sizeIfFile
-            posixPermissions: posixPermissions];
+            posixPermissions: posixPermissions
+            isSymlink: isSymlink];
 	[pool drain];
 	return status;
 }
 
 sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString, sqInt nameStringLength,
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions)
+					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
 {
     
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
@@ -134,13 +136,14 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
 														   length: pathStringLength 
 															returnName: nameString
 													  returnNameLength: nameStringLength	
-															 name:  name
+															 name: name
 														   length: nameLength 
 													 creationDate: creationDate 
 												 modificationDate: modificationDate
-													  isDirectory: isDirectory 
+													  isDirectory: isDirectory
 													   sizeIfFile: sizeIfFile
-                                                 posixPermissions: posixPermissions];
+                                                 posixPermissions: posixPermissions
+                                                        isSymlink: isSymlink];
 	[pool drain];
 	return status;
 }
