@@ -138,17 +138,17 @@ void mtfsfi(unsigned long long fpscr) {}
 		}
 	NS_HANDLER;
 	NS_ENDHANDLER;
-	
-	if ([argData compare: @"-help"] == NSOrderedSame) {
+
+	if ([argData compare: @"--help"] == NSOrderedSame) {
 		[self usage];
 		return 1;
 	}
-	if ([argData compare: @"-headless"] == NSOrderedSame) {
+	if ([argData compare: @"--headless"] == NSOrderedSame) {
 		extern BOOL gSqueakHeadless;
         gSqueakHeadless = YES;
 		return 1;
 	}
-	if ([argData compare: @"-memory"] == NSOrderedSame) {
+	if ([argData compare: @"--memory"] == NSOrderedSame) {
 		gMaxHeapSize = (usqInt) [self strtobkm: [peek UTF8String]];
 		return 2;
 	}
@@ -238,14 +238,14 @@ void mtfsfi(unsigned long long fpscr) {}
 
 - (void) printUsage {
 	printf("\nCommon <option>s:\n");
-	printf("  -help                 print this help message, then exit\n");
-	printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
-	printf("  -headless             run in headless (no window) mode (default: false)\n");
+	printf("  --help                 print this help message, then exit\n");
+	printf("  --memory <size>[mk]    use fixed heap size (added to image size)\n");
+	printf("  --headless             run in headless (no window) mode (default: false)\n");
 }
 
 - (void) printUsageNotes
 {
-	printf("  If `-memory' is not specified then the heap will grow dynamically.\n");
+	printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
 	printf("  <argument>s are ignored, but are processed by the Squeak image.\n");
 	printf("  The first <argument> normally names a Squeak `script' to execute.\n");
 	printf("  Precede <arguments> by `--' to use default image.\n");

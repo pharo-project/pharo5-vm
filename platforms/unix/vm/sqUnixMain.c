@@ -1252,81 +1252,81 @@ static int vm_parseArgument(int argc, char **argv)
     if (!strcmp(argv[0], arg))							\
       return parseModuleArgument(argc, argv, &type##Module, #type, name);
 
-  moduleArg("-nodisplay",	display, "null");
-  moduleArg("-display",		display, "X11");
-  moduleArg("-headless",	display, "X11");
-  moduleArg("-quartz",		display, "Quartz");
-  moduleArg("-nosound",		sound,   "null");
+  moduleArg("--nodisplay",	display, "null");
+  moduleArg("--display",		display, "X11");
+  moduleArg("--headless",	display, "X11");
+  moduleArg("--quartz",		display, "Quartz");
+  moduleArg("--nosound",		sound,   "null");
 
 # undef moduleArg
 
   /* vm arguments */
 
-  if      (!strcmp(argv[0], "-help"))		{ usage();		return 1; }
-  else if (!strcmp(argv[0], "-noevents"))	{ noEvents	= 1;	return 1; }
-  else if (!strcmp(argv[0], "-nomixer"))	{ noSoundMixer	= 1;	return 1; }
-  else if (!strcmp(argv[0], "-notimer"))	{ useItimer	= 0;	return 1; }
-  else if (!strcmp(argv[0], "-nohandlers"))	{ installHandlers= 0;	return 1; }
+  if      (!strcmp(argv[0], "--help"))		{ usage();		return 1; }
+  else if (!strcmp(argv[0], "--noevents"))	{ noEvents	= 1;	return 1; }
+  else if (!strcmp(argv[0], "--nomixer"))	{ noSoundMixer	= 1;	return 1; }
+  else if (!strcmp(argv[0], "--notimer"))	{ useItimer	= 0;	return 1; }
+  else if (!strcmp(argv[0], "--nohandlers"))	{ installHandlers= 0;	return 1; }
 #if !STACKVM && !COGVM
-  else if (!strncmp(argv[0],"-jit", 4))		{ useJit	= jitArgs(argv[0]+4);	return 1; }
-  else if (!strcmp(argv[0], "-nojit"))		{ useJit	= 0;	return 1; }
-  else if (!strcmp(argv[0], "-spy"))		{ withSpy	= 1;	return 1; }
+  else if (!strncmp(argv[0],"--jit", 4))	{ useJit	= jitArgs(argv[0]+4);	return 1; }
+  else if (!strcmp(argv[0], "--nojit"))		{ useJit	= 0;	return 1; }
+  else if (!strcmp(argv[0], "--spy"))		{ withSpy	= 1;	return 1; }
 #endif /* !STACKVM && !COGVM */
-  else if (!strcmp(argv[0], "-version"))	{ versionInfo();	return 1; }
-  else if (!strcmp(argv[0], "-single"))		{ runAsSingleInstance=1; return 1; }
+  else if (!strcmp(argv[0], "--version"))	{ versionInfo();	return 1; }
+  else if (!strcmp(argv[0], "--single"))		{ runAsSingleInstance=1; return 1; }
   /* option requires an argument */
   else if (argc > 1)
     {
-      if (!strcmp(argv[0], "-memory"))	{ extraMemory=	 strtobkm(argv[1]);	 return 2; }
+      if (!strcmp(argv[0], "--memory"))	{ extraMemory=	 strtobkm(argv[1]);	 return 2; }
 #if !STACKVM && !COGVM
-      else if (!strcmp(argv[0], "-procs"))	{ jitProcs=	 atoi(argv[1]);		 return 2; }
-      else if (!strcmp(argv[0], "-maxpic"))	{ jitMaxPIC=	 atoi(argv[1]);		 return 2; }
+      else if (!strcmp(argv[0], "--procs"))	{ jitProcs=	 atoi(argv[1]);		 return 2; }
+      else if (!strcmp(argv[0], "--maxpic"))	{ jitMaxPIC=	 atoi(argv[1]);		 return 2; }
 #endif /* !STACKVM && !COGVM */
-      else if (!strcmp(argv[0], "-mmap"))	{ useMmap=	 strtobkm(argv[1]);	 return 2; }
-      else if (!strcmp(argv[0], "-plugins"))	{ squeakPlugins= strdup(argv[1]);	 return 2; }
-      else if (!strcmp(argv[0], "-encoding"))	{ setEncoding(&sqTextEncoding, argv[1]); return 2; }
-      else if (!strcmp(argv[0], "-pathenc"))	{ setEncoding(&uxPathEncoding, argv[1]); return 2; }
+      else if (!strcmp(argv[0], "--mmap"))	{ useMmap=	 strtobkm(argv[1]);	 return 2; }
+      else if (!strcmp(argv[0], "--plugins"))	{ squeakPlugins= strdup(argv[1]);	 return 2; }
+      else if (!strcmp(argv[0], "--encoding"))	{ setEncoding(&sqTextEncoding, argv[1]); return 2; }
+      else if (!strcmp(argv[0], "--pathenc"))	{ setEncoding(&uxPathEncoding, argv[1]); return 2; }
 #if (STACKVM || NewspeakVM) && !COGVM
-	  else if (!strcmp(argv[0], "-sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
+	  else if (!strcmp(argv[0], "--sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
 #endif
 #if STACKVM || NewspeakVM
-      else if (!strcmp(argv[0], "-breaksel")) { 
+      else if (!strcmp(argv[0], "--breaksel")) { 
 		extern void setBreakSelector(char *);
 		setBreakSelector(argv[1]);
 		return 2; }
 #endif
 #if STACKVM
-      else if (!strcmp(argv[0], "-eden")) {
+      else if (!strcmp(argv[0], "--eden")) {
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);
 		return 2; }
-      else if (!strcmp(argv[0], "-leakcheck")) { 
+      else if (!strcmp(argv[0], "--leakcheck")) { 
 		extern sqInt checkForLeaks;
 		checkForLeaks = atoi(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-stackpages")) {
+      else if (!strcmp(argv[0], "--stackpages")) {
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[1]);
 		return 2; }
-      else if (!strcmp(argv[0], "-numextsems")) { 
+      else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
-      else if (!strcmp(argv[0], "-noheartbeat")) { 
+      else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-pollpip")) { 
+      else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
 		pollpip = atoi(argv[1]);	 
 		return 2; }
 #endif /* STACKVM */
 #if COGVM
-      else if (!strcmp(argv[0], "-codesize")) { 
+      else if (!strcmp(argv[0], "--codesize")) { 
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-sendtrace")-1)
-      else if (!strncmp(argv[0], "-sendtrace", TLSLEN)) { 
+# define TLSLEN (sizeof("--sendtrace")-1)
+      else if (!strncmp(argv[0], "--sendtrace", TLSLEN)) { 
 		extern int traceLinkedSends;
 		char *equalsPos = strchr(argv[0],'=');
 
@@ -1340,20 +1340,20 @@ static int vm_parseArgument(int argc, char **argv)
 
 		traceLinkedSends = atoi(equalsPos + 1);
 		return 1; }
-      else if (!strcmp(argv[0], "-tracestores")) { 
+      else if (!strcmp(argv[0], "--tracestores")) { 
 		extern sqInt traceStores;
 		traceStores = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-cogmaxlits")) { 
+      else if (!strcmp(argv[0], "--cogmaxlits")) { 
 		extern sqInt maxLiteralCountForCompile;
 		maxLiteralCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-cogminjumps")) { 
+      else if (!strcmp(argv[0], "--cogminjumps")) { 
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
 #endif /* COGVM */
-      else if (!strcmp(argv[0], "-textenc"))
+      else if (!strcmp(argv[0], "--textenc"))
 	{
 	  char *buf= (char *)malloc(strlen(argv[1]) + 1);
 	  int len, i;
@@ -1376,51 +1376,51 @@ static int vm_parseArgument(int argc, char **argv)
 static void vm_printUsage(void)
 {
   printf("\nCommon <option>s:\n");
-  printf("  -encoding <enc>       set the internal character encoding (default: MacRoman)\n");
-  printf("  -help                 print this help message, then exit\n");
-  printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
-  printf("  -mmap <size>[mk]      limit dynamic heap size (default: %dm)\n", DefaultMmapSize);
+  printf("  --encoding <enc>       set the internal character encoding (default: MacRoman)\n");
+  printf("  --help                 print this help message, then exit\n");
+  printf("  --memory <size>[mk]    use fixed heap size (added to image size)\n");
+  printf("  --mmap <size>[mk]      limit dynamic heap size (default: %dm)\n", DefaultMmapSize);
 #if STACKVM || NewspeakVM
-  printf("  -breaksel selector    set breakpoint on send of selector\n");
+  printf("  --breaksel selector    set breakpoint on send of selector\n");
 #endif
 #if STACKVM
-  printf("  -eden <size>[mk]      use given eden size\n");
-  printf("  -leakcheck num        check for leaks in the heap\n");
-  printf("  -stackpages <num>     use given number of stack pages\n");
+  printf("  --eden <size>[mk]      use given eden size\n");
+  printf("  --leakcheck num        check for leaks in the heap\n");
+  printf("  --stackpages <num>     use given number of stack pages\n");
 #endif
-  printf("  -noevents             disable event-driven input support\n");
-  printf("  -nohandlers           disable sigsegv & sigusr1 handlers\n");
-  printf("  -pathenc <enc>        set encoding for pathnames (default: UTF-8)\n");
-  printf("  -plugins <path>       specify alternative plugin location (see manpage)\n");
-  printf("  -textenc <enc>        set encoding for external text (default: UTF-8)\n");
-  printf("  -version              print version information, then exit\n");
-  printf("  -vm-<sys>-<dev>       use the <dev> driver for <sys> (see below)\n");
+  printf("  --noevents             disable event-driven input support\n");
+  printf("  --nohandlers           disable sigsegv & sigusr1 handlers\n");
+  printf("  --pathenc <enc>        set encoding for pathnames (default: UTF-8)\n");
+  printf("  --plugins <path>       specify alternative plugin location (see manpage)\n");
+  printf("  --textenc <enc>        set encoding for external text (default: UTF-8)\n");
+  printf("  --version              print version information, then exit\n");
+  printf("  --vm-<sys>-<dev>       use the <dev> driver for <sys> (see below)\n");
 #if COGVM
-  printf("  -codesize <size>[mk]  set machine code memory to bytes\n");
-  printf("  -sendtrace[=num]      enable send tracing (optionally to a specific value)\n");
-  printf("  -tracestores          enable store tracing (assert check stores)\n");
-  printf("  -cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
-  printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
+  printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
+  printf("  --sendtrace[=num]      enable send tracing (optionally to a specific value)\n");
+  printf("  --tracestores          enable store tracing (assert check stores)\n");
+  printf("  --cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
+  printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
 #endif
 #if 1
   printf("Deprecated:\n");
 # if !STACKVM
-  printf("  -jit                  enable the dynamic compiler (if available)\n");
+  printf("  --jit                  enable the dynamic compiler (if available)\n");
 # endif
-  printf("  -notimer              disable interval timer for low-res clock\n");
-  printf("  -display <dpy>        quivalent to '-vm-display-X11 -display <dpy>'\n");
-  printf("  -headless             quivalent to '-vm-display-X11 -headless'\n");
-  printf("  -nodisplay            quivalent to '-vm-display-null'\n");
-  printf("  -nomixer              disable modification of mixer settings\n");
-  printf("  -nosound              quivalent to '-vm-sound-null'\n");
-  printf("  -quartz               quivalent to '-vm-display-Quartz'\n");
+  printf("  --notimer              disable interval timer for low-res clock\n");
+  printf("  --display <dpy>        quivalent to '-vm-display-X11 -display <dpy>'\n");
+  printf("  --headless             quivalent to '-vm-display-X11 -headless'\n");
+  printf("  --nodisplay            quivalent to '-vm-display-null'\n");
+  printf("  --nomixer              disable modification of mixer settings\n");
+  printf("  --nosound              quivalent to '-vm-sound-null'\n");
+  printf("  --quartz               quivalent to '-vm-display-Quartz'\n");
 #endif
 }
 
 
 static void vm_printUsageNotes(void)
 {
-  printf("  If `-memory' is not specified then the heap will grow dynamically.\n");
+  printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
   printf("  <argument>s are ignored, but are processed by the " IMAGE_DIALECT_NAME " image.\n");
   printf("  The first <argument> normally names a " IMAGE_DIALECT_NAME " `script' to execute.\n");
   printf("  Precede <arguments> by `--' to use default image.\n");
@@ -1456,11 +1456,11 @@ static void usage(void)
   if (useJit)
     {
       printf("\njit <option>s:\n");
-      printf("  -align <n>            align functions at <n>-byte boundaries\n");
-      printf("  -jit<o>[,<d>...]      set optimisation [and debug] levels\n");
-      printf("  -maxpic <n>           set maximum PIC size to <n> entries\n");
-      printf("  -procs <n>            allow <n> concurrent volatile processes\n");
-      printf("  -spy                  enable the system spy\n");
+      printf("  --align <n>            align functions at <n>-byte boundaries\n");
+      printf("  --jit<o>[,<d>...]      set optimisation [and debug] levels\n");
+      printf("  --maxpic <n>           set maximum PIC size to <n> entries\n");
+      printf("  --procs <n>            allow <n> concurrent volatile processes\n");
+      printf("  --spy                  enable the system spy\n");
     }
   printf("\nNotes:\n");
   printf("  <imageName> defaults to `" DEFAULT_IMAGE_NAME "'.\n");

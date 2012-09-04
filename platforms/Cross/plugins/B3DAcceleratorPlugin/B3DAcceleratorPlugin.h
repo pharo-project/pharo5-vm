@@ -2,11 +2,12 @@
 #ifdef WIN32
 # include <windows.h>
 #endif
-#if defined(TARGET_API_MAC_CARBON)
+
+#if defined(TARGET_API_MAC_CARBON) || defined(BUILD_FOR_OSX)
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
-#endif
+#endif //defined(TARGET_API_MAC_CARBON)
 
 /* Vertex buffer flags */
 #define B3D_VB_TRACK_AMBIENT 1

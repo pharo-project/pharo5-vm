@@ -179,8 +179,8 @@ static void  display_parseEnvironment(void) {}
 
 static int   display_parseArgument(int argc, char **argv)
 {
-  if (!strcmp(argv[0], "-nodisplay")) return 1;
-  if (!strcmp(argv[0], "-headless"))  return 1;
+  if (!strcmp(argv[0], "--nodisplay")) return 1;
+  if (!strcmp(argv[0], "--headless"))  return 1;
   return 0;
 }
 

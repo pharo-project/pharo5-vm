@@ -149,62 +149,62 @@ static int parseArgument(int argc, char **argv)
 {
    /* vm arguments */
   
-  if      (!strcmp(argv[0], "-help"))		{ 
+  if      (!strcmp(argv[0], "--help"))		{ 
 	usage();
 	return 1; }
-  else if (!strcmp(argv[0], "-version")) {
+  else if (!strcmp(argv[0], "--version")) {
 	extern char *getVersionInfo(int verbose);
 	printf("%s\n", getVersionInfo(0));
 	exit(0);
   }
   else if (!strncmp(argv[0], "-psn_", 5)) { return 1; }
-  else if (!strcmp(argv[0], "-headless")) { gSqueakHeadless = true; return 1; }
-  else if (!strcmp(argv[0], "-headfull")) { gSqueakHeadless = false; return 1; }
+  else if (!strcmp(argv[0], "--headless")) { gSqueakHeadless = true; return 1; }
+  else if (!strcmp(argv[0], "--headfull")) { gSqueakHeadless = false; return 1; }
 #if (STACKVM || NewspeakVM) && !COGVM
-  else if (!strcmp(argv[0], "-sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
+  else if (!strcmp(argv[0], "--sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
 #endif
   else if (argc > 1) {
-	  if (!strcmp(argv[0], "-memory"))	{ 
+	  if (!strcmp(argv[0], "--memory"))	{ 
 		gMaxHeapSize = strtobkm(argv[1]);	 
 		return 2; }
 #if STACKVM || NewspeakVM
-      else if (!strcmp(argv[0], "-breaksel")) { 
+      else if (!strcmp(argv[0], "--breaksel")) { 
 		extern void setBreakSelector(char *);
 		setBreakSelector(argv[1]);
 		return 2; }
 #endif
 #if STACKVM
-      else if (!strcmp(argv[0], "-eden")) { 
+      else if (!strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-leakcheck")) { 
+      else if (!strcmp(argv[0], "--leakcheck")) { 
 		extern sqInt checkForLeaks;
 		checkForLeaks = atoi(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-stackpages")) { 
+      else if (!strcmp(argv[0], "--stackpages")) { 
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-numextsems")) { 
+      else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
-      else if (!strcmp(argv[0], "-noheartbeat")) { 
+      else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-pollpip")) { 
+      else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
 		pollpip = atoi(argv[1]);	 
 		return 2; }
 #endif /* STACKVM */
 #if COGVM
-      else if (!strcmp(argv[0], "-codesize")) { 
+      else if (!strcmp(argv[0], "--codesize")) { 
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-sendtrace")-1)
-      else if (!strncmp(argv[0], "-sendtrace", TLSLEN)) { 
+# define TLSLEN (sizeof("--sendtrace")-1)
+      else if (!strncmp(argv[0], "--sendtrace", TLSLEN)) { 
 		extern int traceLinkedSends;
 		char *equalsPos = strchr(argv[0],'=');
 
@@ -218,27 +218,27 @@ static int parseArgument(int argc, char **argv)
 
 		traceLinkedSends = atoi(equalsPos + 1);
 		return 1; }
-      else if (!strcmp(argv[0], "-tracestores")) { 
+      else if (!strcmp(argv[0], "--tracestores")) { 
 		extern sqInt traceStores;
 		traceStores = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-dpcso")) { 
+      else if (!strcmp(argv[0], "--dpcso")) { 
 		extern unsigned long debugPrimCallStackOffset;
 		debugPrimCallStackOffset = (unsigned long)strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-cogmaxlits")) { 
+      else if (!strcmp(argv[0], "--cogmaxlits")) { 
 		extern sqInt maxLiteralCountForCompile;
 		maxLiteralCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-cogminjumps")) { 
+      else if (!strcmp(argv[0], "--cogminjumps")) { 
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
 #endif /* COGVM */
-      else if (!strcmp(argv[0], "-pathenc")) { 
+      else if (!strcmp(argv[0], "--pathenc")) { 
 		setEncodingType(argv[1]); 
 		return 2; }
-      else if (!strcmp(argv[0], "-browserPipes")) {
+      else if (!strcmp(argv[0], "--browserPipes")) {
 		extern int		 gSqueakBrowserPipes[]; /* read/write fd for browser communication */
 		extern Boolean gSqueakBrowserSubProcess;
 		
@@ -266,26 +266,26 @@ static void usage(void)
 static void printUsage(void)
 {
   printf("\nCommon <option>s:\n");
-  printf("  -help                 print this help message, then exit\n");
-  printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
+  printf("  --help                 print this help message, then exit\n");
+  printf("  --memory <size>[mk]    use fixed heap size (added to image size)\n");
 #if STACKVM || NewspeakVM
-  printf("  -breaksel selector    set breakpoint on send of selector\n");
+  printf("  --breaksel selector    set breakpoint on send of selector\n");
 #endif
 #if STACKVM
-  printf("  -eden <size>[mk]      set eden memory to bytes\n");
-  printf("  -leakcheck num        check for leaks in the heap\n");
-  printf("  -stackpages num       use n stack pages\n");
+  printf("  --eden <size>[mk]      set eden memory to bytes\n");
+  printf("  --leakcheck num        check for leaks in the heap\n");
+  printf("  --stackpages num       use n stack pages\n");
 #endif
 #if COGVM
-  printf("  -codesize <size>[mk]  set machine code memory to bytes\n");
-  printf("  -sendtrace[=num]      enable send tracing (optionally to a specific value)\n");
-  printf("  -tracestores          enable store tracing (assert check stores)\n");
-  printf("  -cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
-  printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
+  printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
+  printf("  --sendtrace[=num]      enable send tracing (optionally to a specific value)\n");
+  printf("  --tracestores          enable store tracing (assert check stores)\n");
+  printf("  --cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
+  printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
 #endif
-  printf("  -pathenc <enc>        set encoding for pathnames (default: macintosh)\n");
-  printf("  -headless             run in headless (no window) mode (default: false)\n");
-  printf("  -version              print version information, then exit\n");
+  printf("  --pathenc <enc>        set encoding for pathnames (default: macintosh)\n");
+  printf("  --headless             run in headless (no window) mode (default: false)\n");
+  printf("  --version              print version information, then exit\n");
 }
 
 static void printUsageNotes(void)
