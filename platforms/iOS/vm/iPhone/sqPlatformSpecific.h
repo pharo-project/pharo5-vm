@@ -85,8 +85,6 @@ sqAllocateMemoryMac(heapSize, minimumMemory, fileStream, headerSize)
 
 #ifdef BUILD_FOR_OSX
 size_t sqImageFileReadEntireImage(void *ptr, size_t elementSize, size_t count, FILE * f);
-#define sqImageFileReadEntireImage(memoryAddress, elementSize,  length, fileStream) \
-sqImageFileReadEntireImage(memoryAddress, elementSize, length, fileStream)
 #else
 #define sqImageFileReadEntireImage(memoryAddress, elementSize,  length, fileStream) length 
 #endif
