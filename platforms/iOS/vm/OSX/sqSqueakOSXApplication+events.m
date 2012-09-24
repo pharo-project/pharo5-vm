@@ -383,9 +383,11 @@ static int buttonState=0;
 	return buttonState;
 }
 
-- (void) recordDragEvent: (int) dragType numberOfFiles: (int) numFiles where: (NSPoint) local_point windowIndex: (sqInt) windowIndex {
+- (void) recordDragEvent:(int)dragType numberOfFiles:(int)numFiles where:(NSPoint)point windowIndex:(sqInt)windowIndex view:(NSView *)aView{
 	sqDragDropFilesEvent evt;
 	
+    NSPoint local_point = [aView convertPoint:point fromView:nil];
+    
 	evt.type= EventTypeDragDropFiles;
 	evt.timeStamp= (int) ioMSecs();
 	evt.dragType= dragType;
