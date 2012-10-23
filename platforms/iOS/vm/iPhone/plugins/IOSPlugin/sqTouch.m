@@ -12,6 +12,7 @@
 SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 
 void sqShowKeyboard(int show) {
+#warning TODO I need to check that I'm actually in a window that can take the focus (if I have a webview on top, I can't take focus)
     if (show) {
         [gDelegateApp.mainView becomeFirstResponder];
     } else {

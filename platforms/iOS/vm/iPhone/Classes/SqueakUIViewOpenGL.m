@@ -60,9 +60,12 @@ const GLfloat spriteTexcoords[] = {
 
 - (id)initWithFrame:(CGRect) aFrame {
 	self = [super initWithFrame: aFrame];
+
 	clippyIsEmpty = YES;
 	syncNeeded = NO;
-
+ 
+    [self setContentScaleFactor: [[UIScreen mainScreen] scale]];
+ 
 	// Get the layer
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
 	eaglLayer.opaque = YES;
@@ -194,8 +197,8 @@ const GLfloat spriteTexcoords[] = {
 }
 
 
--(void)drawRect:(CGRect)rect {
-	//	NSLog(@" drawRect %f %f %f %f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
+-(void)drawRect:(CGRect)rect {    
+	//NSLog(@" drawRect %f %f %f %f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
 	sqInt formObj = interpreterProxy->displayObject();
 	sqInt formPtrOop = interpreterProxy->fetchPointerofObject(0, formObj);	
 	void* dispBitsIndex = interpreterProxy->firstIndexableField(formPtrOop);

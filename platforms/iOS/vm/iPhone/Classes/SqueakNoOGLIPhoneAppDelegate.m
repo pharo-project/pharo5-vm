@@ -1,3 +1,4 @@
+
 //
 //  SqueakNoOGLIPhoneAppDelegate.m
 //  SqueakNoOGLIPhone
@@ -47,6 +48,10 @@ such third-party acknowledgments.
 extern struct	VirtualMachine* interpreterProxy;
 SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 
+@interface SqueakNoOGLIPhoneAppDelegate()
+@property(nonatomic, retain) UIWebView *webView;
+@end
+
 @implementation SqueakNoOGLIPhoneAppDelegate
 
 @synthesize window;
@@ -55,12 +60,12 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 @synthesize viewController;
 @synthesize screenAndWindow;
 
+
 - (sqSqueakMainApplication *) makeApplicationInstance {
 	return [sqSqueakIPhoneApplication new];
 }
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {	
-	
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
 #warning this is wrong, need to get shared application
 	gDelegateApp = self;	
 	mainView = null;
@@ -70,9 +75,20 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	screenAndWindow =  [sqiPhoneScreenAndWindow new];
     
 	[self.squeakApplication setupEventQueue];
-	[self singleThreadStart];
-	//[self workerThreadStart];
+    if (![self.info useWebViewAsUI]) {
+        [self singleThreadStart];
+    } else {
+        [self workerThreadStart];
+        [self loadUrl];
+    }
+}
 
+- (void)loadUrl {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^{
+        NSString *url = [self.info webViewUrl];
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    });
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -117,18 +133,22 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 //	return  (hasGL_APPLE_texture_2D_limited_npot) ? [SqueakUIViewOpenGL class] : [SqueakUIViewCALayer class];
 
     // The device must be running running iOS 3.2 or later.
+    //Esteban >> (Testing retina stuff)
+    /*
     NSString *reqSysVer = @"3.2";
     NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
     BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
 	return  (osVersionSupported) ? [SqueakUIViewOpenGL class] : [SqueakUIViewCALayer class];
+    */
+     return [SqueakUIViewCALayer class];
+    //Esteban <<
 }
 
 - (void) makeMainWindowOnMainThread
 
 //This is fired via a cross thread message send from logic that checks to see if the window exists in the squeak thread.
 
-{
-		
+{		
 	// Set up content view
 	// The application frame includes the status area if needbe. 
 
@@ -136,7 +156,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	    
     self.viewController = [SqueakUIController new];
     [window setRootViewController:self.viewController];
-    
+        
 	BOOL useScrollingView = [(sqSqueakIPhoneInfoPlistInterface*)self.squeakApplication.infoPlistInterfaceLogic useScrollingView];	
 	if (useScrollingView) {
 		scrollView = [[UIScrollView alloc ] initWithFrame: mainScreenSize];
@@ -182,9 +202,29 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 		self.viewController.view = self.mainView;
 		[window addSubview: self.mainView];
 	}
-	
-	[window makeKeyAndVisible];
-	
+    
+    if ([self.info useWebViewAsUI]) {
+        [self prepareWebView];
+    }
+    
+	[window makeKeyAndVisible];	
+}
+
+- (void)prepareWebView {
+    self.webView = [[[UIWebView alloc] initWithFrame: [window bounds]] autorelease];
+    [self.webView setAutoresizingMask:
+     UIViewAutoresizingFlexibleBottomMargin
+     | UIViewAutoresizingFlexibleHeight
+     | UIViewAutoresizingFlexibleLeftMargin
+     | UIViewAutoresizingFlexibleRightMargin
+     | UIViewAutoresizingFlexibleTopMargin
+     | UIViewAutoresizingFlexibleWidth ];
+    
+    [window addSubview:self.webView];
+}
+
+- (sqSqueakIPhoneInfoPlistInterface *)info {
+    return (sqSqueakIPhoneInfoPlistInterface *)self.squeakApplication.infoPlistInterfaceLogic;
 }
 
 - (void)dealloc {
@@ -193,6 +233,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	[viewController release];
 	[window release];
 	[screenAndWindow release];
+    [_webView release];
 	[super dealloc];
 }
 

@@ -103,8 +103,8 @@
 		return;
 	} else {
 
-		NSString* bundleImagePath = [[NSBundle mainBundle] pathForResource:@QUOTEDIMAGE ofType:@"image"]; 
-		BOOL writeable = [(sqSqueakIPhoneInfoPlistInterface*)[self infoPlistInterfaceLogic] imageIsWriteable];
+		NSString* bundleImagePath = [[NSBundle mainBundle] pathForResource:@QUOTEDIMAGE ofType:@"image"];
+		BOOL writeable = NO;//[(sqSqueakIPhoneInfoPlistInterface*)[self infoPlistInterfaceLogic] imageIsWriteable];
 		
 		if (writeable) {
 			NSString* documentsChangesPath = [documentsPath stringByAppendingPathComponent: [@QUOTEDIMAGE stringByAppendingString: @".changes"]];

@@ -40,76 +40,55 @@ Sept-02-08  1.03b1  setup useScrollingView
 
 #import "sqSqueakIPhoneInfoPlistInterface.h"
 
-NSString * kwriteable_preferenceKey = @"writeable_preference";
-NSString * kscrollableView_preferenceKey = @"scrollableView_preference";
-NSString * kmemorySize_preferenceKey = @"memorySize_preference";
-
- extern int gSqueakUseFileMappedMMAP;
+extern int gSqueakUseFileMappedMMAP;
 
 @implementation sqSqueakIPhoneInfoPlistInterface
 - (void) parseInfoPlist {
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-
+    
 	[super parseInfoPlist];
-	
+    
 	self.SqueakUseFileMappedMMAP = YES;
 	gSqueakUseFileMappedMMAP = 1;
-	
-	NSString *testValue = [defaults stringForKey: kwriteable_preferenceKey];
-	
-	if (testValue == nil) {
-		// no default values have been set, create them here based on what's in our Settings bundle info
-        //
-        NSString *pathStr = [[NSBundle mainBundle] bundlePath];
-        NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
-        NSString *finalPath = [settingsBundlePath stringByAppendingPathComponent:@"Root.plist"];
-		
-        NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
-        NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
-
-        NSDictionary *prefItem;
-		NSString	*writeable_preferenceDefault = @"YES";
-		NSString	*scrollableView_preferenceDefault= @"NO";
-		NSString	*memorySize_preferenceDefault=@"33554432";
-        for (prefItem in prefSpecifierArray)	{
-			NSString *keyValueStr = [prefItem objectForKey:@"Key"];
-			id defaultValue = [prefItem objectForKey:@"DefaultValue"];
-		
-			if ([keyValueStr isEqualToString: kwriteable_preferenceKey]) {
-				writeable_preferenceDefault = defaultValue;
-			}
-
-			if ([keyValueStr isEqualToString: kscrollableView_preferenceKey]) {
-				scrollableView_preferenceDefault = defaultValue;
-			}
-
-			if ([keyValueStr isEqualToString: kmemorySize_preferenceKey]) {
-				memorySize_preferenceDefault = defaultValue;
-			}
-		}
-		
-        // since no default values have been set (i.e. no preferences file created), create it here
-        NSDictionary *appDefaults =  [NSDictionary dictionaryWithObjectsAndKeys: writeable_preferenceDefault,  kwriteable_preferenceKey,
-									  scrollableView_preferenceDefault,  kscrollableView_preferenceKey,
-									  memorySize_preferenceDefault,  kmemorySize_preferenceKey,
-									  nil];
-        
-        [[NSUserDefaults standardUserDefaults] registerDefaults: appDefaults];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-	}
+ 	
 	[pool drain];
 	
 }
 
+- (NSString *)stringFromInfo:(NSString *)key defaultValue:(NSString *)defaultValue{
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *value = info[key];
+    if(value != nil)
+        return value;
+    else
+        return defaultValue;
+}
+                          
 - (BOOL) imageIsWriteable {
-	return [defaults boolForKey: kwriteable_preferenceKey];
+	NSString *value = [self stringFromInfo:@"ImageIsWritable" defaultValue:@"YES"];
+    return [value boolValue];
 }
 
 - (BOOL) useScrollingView {
-	return [defaults boolForKey: kscrollableView_preferenceKey];
+	NSString *value = [self stringFromInfo:@"ImageIsScrollable" defaultValue:@"NO"];
+    return [value boolValue];
 }
 
 - (NSInteger) memorySize {
-	return [defaults integerForKey: kmemorySize_preferenceKey];
+    //Default value is 64M (for now)
+	NSString *value = [self stringFromInfo:@"VMMemorySize" defaultValue:@"67108864"];
+	return [value integerValue];
 }
+
+- (BOOL) useWebViewAsUI {
+	NSString *value = [self stringFromInfo:@"WebViewAsUI" defaultValue:@"NO"];
+    return [value boolValue];
+}
+
+- (NSString *) webViewUrl {
+	NSString *value = [self stringFromInfo:@"WebViewUrl" defaultValue:@"http://localhost:8080"];
+	return value;
+}
+
+
 @end

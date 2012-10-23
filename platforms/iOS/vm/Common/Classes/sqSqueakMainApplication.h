@@ -53,7 +53,6 @@
 	NSMutableArray *argsArguments;
 	NSMutableArray *commandLineArguments;
 	sqSqueakFileDirectoryInterface* fileDirectoryLogic;
-	sqSqueakInfoPlistInterface*		infoPlistInterfaceLogic;
 	sqSqueakSoundCoreAudio*			soundInterfaceLogic;
 	sqInt	inputSemaphoreIndex;		//event semaphore for VM thread
 	Queue* eventQueue;						//event queue for user events from UI thread

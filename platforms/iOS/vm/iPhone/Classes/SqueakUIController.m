@@ -41,7 +41,7 @@ Some of this code was funded via a grant from the European Smalltalk User Group 
 #import "sqiPhoneScreenAndWindow.h"
 #import "sq.h"
 
-extern struct	VirtualMachine* interpreterProxy;
+extern struct VirtualMachine* interpreterProxy;
 extern SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 static	sqWindowEvent evt;
 

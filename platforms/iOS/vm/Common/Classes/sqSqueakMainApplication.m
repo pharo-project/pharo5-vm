@@ -51,6 +51,8 @@
 #import	"sqSqueakSoundCoreAudio.h"
 #import "Queue.h"
 
+
+
 extern BOOL gSqueakHeadless;
 extern sqSqueakAppDelegate *gDelegateApp;
 
@@ -68,11 +70,20 @@ extern sqSqueakAppDelegate *gDelegateApp;
 
 extern sqInt interpret(void);  //This is a VM Callback
 
+
 - (void) setupFloat {
 }
 
 - (void) setupErrorRecovery {
 	signal(SIGSEGV, sigsegv);
+}
+
+
+- (sqSqueakInfoPlistInterface *) infoPlistInterfaceLogic{
+    if (!infoPlistInterfaceLogic) {
+        [self fetchPreferences];
+    }
+    return infoPlistInterfaceLogic;
 }
 
 - (sqSqueakInfoPlistInterface *) newSqSqueakInfoPlistInterfaceCreation {
@@ -131,8 +142,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 	
 	[self setupFloat];  //JMM We have code for intel and powerpc float, but arm? 
 	[self setupErrorRecovery];
-	[self fetchPreferences];
-	
+    
 	fileDirectoryLogic = [self newFileDirectoryInterfaceInstance];
 	[self setVMPathFromApplicationDirectory];
 	if (![self.fileDirectoryLogic setWorkingDirectory]) {
