@@ -125,7 +125,6 @@ sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString
 /* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
 					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
 {
-    
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	
 	/*Implementation notes
