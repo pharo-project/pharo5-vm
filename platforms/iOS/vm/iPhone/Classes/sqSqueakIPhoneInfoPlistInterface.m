@@ -80,15 +80,14 @@ extern int gSqueakUseFileMappedMMAP;
 	return [value integerValue];
 }
 
+- (BOOL) useWorkerThread {
+	NSString *value = [self stringFromInfo:@"VMWorkerThread" defaultValue:@"NO"];
+    return [value boolValue];
+}
+
 - (BOOL) useWebViewAsUI {
 	NSString *value = [self stringFromInfo:@"WebViewAsUI" defaultValue:@"NO"];
     return [value boolValue];
 }
-
-- (NSString *) webViewUrl {
-	NSString *value = [self stringFromInfo:@"WebViewUrl" defaultValue:@"http://localhost:8080"];
-	return value;
-}
-
 
 @end

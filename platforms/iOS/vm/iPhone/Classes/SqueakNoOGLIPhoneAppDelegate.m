@@ -75,24 +75,18 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	screenAndWindow =  [sqiPhoneScreenAndWindow new];
     
 	[self.squeakApplication setupEventQueue];
-    if (![self.info useWebViewAsUI]) {
-        [self singleThreadStart];
-    } else {
+    if ([self.info useWorkerThread] || [self.info useWebViewAsUI]) {
         [self workerThreadStart];
-        [self loadUrl];
+    } else {
+        [self singleThreadStart];
     }
 }
 
-- (void)loadUrl {
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^{
-        NSString *url = [self.info webViewUrl];
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    });
+- (void)loadUrl:(NSString *)aString {
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:aString]]];
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 	return self.mainView;
 }
 
@@ -157,7 +151,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
     self.viewController = [SqueakUIController new];
     [window setRootViewController:self.viewController];
         
-	BOOL useScrollingView = [(sqSqueakIPhoneInfoPlistInterface*)self.squeakApplication.infoPlistInterfaceLogic useScrollingView];	
+	BOOL useScrollingView = [self.info useScrollingView];
 	if (useScrollingView) {
 		scrollView = [[UIScrollView alloc ] initWithFrame: mainScreenSize];
         
@@ -213,13 +207,14 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 - (void)prepareWebView {
     self.webView = [[[UIWebView alloc] initWithFrame: [window bounds]] autorelease];
     [self.webView setAutoresizingMask:
-     UIViewAutoresizingFlexibleBottomMargin
-     | UIViewAutoresizingFlexibleHeight
-     | UIViewAutoresizingFlexibleLeftMargin
-     | UIViewAutoresizingFlexibleRightMargin
-     | UIViewAutoresizingFlexibleTopMargin
-     | UIViewAutoresizingFlexibleWidth ];
+        UIViewAutoresizingFlexibleBottomMargin
+        | UIViewAutoresizingFlexibleHeight
+        | UIViewAutoresizingFlexibleLeftMargin
+        | UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleTopMargin
+        | UIViewAutoresizingFlexibleWidth ];
     
+    [self.viewController setView:self.webView];
     [window addSubview:self.webView];
 }
 
