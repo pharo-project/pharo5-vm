@@ -56,6 +56,7 @@
 	sqSqueakSoundCoreAudio*			soundInterfaceLogic;
 	sqInt	inputSemaphoreIndex;		//event semaphore for VM thread
 	Queue* eventQueue;						//event queue for user events from UI thread
+    sqSqueakInfoPlistInterface *infoPListInterfaceLogic;
 }
 - (void) setupFloat;
 - (void) setupErrorRecovery;
