@@ -289,7 +289,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
 
 int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int nameStringLength,
 /* outputs: */ char *name, int *nameLength, int *creationDate, int *modificationDate,
-                    int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqint *isSymlink)
+                    int *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
 {
     /* Lookup a given file in a given named directory.
      Set the name, name length, creation date,
