@@ -47,16 +47,16 @@
 #import	"sqSqueakSoundCoreAudio.h"
 
 @interface sqSqueakMainApplication : NSObject {
-	NSURL*		vmPathStringURL;
-	NSURL*		imageNameURL;
-	NSStringEncoding	currentVMEncoding;
-	NSMutableArray *argsArguments;
-	NSMutableArray *commandLineArguments;
-	sqSqueakFileDirectoryInterface* fileDirectoryLogic;
-	sqSqueakSoundCoreAudio*			soundInterfaceLogic;
-	sqInt	inputSemaphoreIndex;		//event semaphore for VM thread
-	Queue* eventQueue;						//event queue for user events from UI thread
-    sqSqueakInfoPlistInterface *infoPListInterfaceLogic;
+	NSURL                           *vmPathStringURL;
+	NSURL                           *imageNameURL;
+	NSStringEncoding                currentVMEncoding;
+	NSMutableArray                  *argsArguments;
+	NSMutableArray                  *commandLineArguments;
+	sqSqueakFileDirectoryInterface  *fileDirectoryLogic;
+	sqSqueakSoundCoreAudio          *soundInterfaceLogic;
+    sqSqueakInfoPlistInterface      *infoPlistInterfaceLogic;
+	sqInt                           inputSemaphoreIndex; //event semaphore for VM thread
+	Queue                           * eventQueue;		 //event queue for user events from UI thread
 }
 - (void) setupFloat;
 - (void) setupErrorRecovery;
@@ -78,13 +78,14 @@
 - (sqSqueakFileDirectoryInterface *) newFileDirectoryInterfaceInstance;
 
 @property (nonatomic,retain) NSURL* vmPathStringURL;
-@property (nonatomic,retain) sqSqueakInfoPlistInterface* infoPlistInterfaceLogic;
+@property (nonatomic,readonly) sqSqueakInfoPlistInterface* infoPlistInterfaceLogic;
 @property (nonatomic,retain) sqSqueakSoundCoreAudio* soundInterfaceLogic;
 @property (nonatomic,retain) NSURL* imageNameURL;
 @property (nonatomic,assign) sqInt inputSemaphoreIndex;
 @property (nonatomic,assign) NSStringEncoding currentVMEncoding;
 @property (nonatomic,retain) Queue* eventQueue;
 @property (nonatomic,retain) sqSqueakFileDirectoryInterface * fileDirectoryLogic;
+@property (nonatomic,retain) sqSqueakInfoPlistInterface *infoPListInterfaceLogic;
 @property (nonatomic,retain) NSMutableArray* argsArguments;
 @property (nonatomic,retain) NSMutableArray*commandLineArguments;
 @end

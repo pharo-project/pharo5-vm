@@ -51,8 +51,6 @@
 #import	"sqSqueakSoundCoreAudio.h"
 #import "Queue.h"
 
-
-
 extern BOOL gSqueakHeadless;
 extern sqSqueakAppDelegate *gDelegateApp;
 
@@ -78,11 +76,15 @@ extern sqInt interpret(void);  //This is a VM Callback
 	signal(SIGSEGV, sigsegv);
 }
 
+- (void) setInfoPlistInterfaceLogic:(sqSqueakInfoPlistInterface *)anObject {
+    infoPlistInterfaceLogic = anObject;
+}
 
-- (sqSqueakInfoPlistInterface *) infoPlistInterfaceLogic{
+- (sqSqueakInfoPlistInterface *) infoPlistInterfaceLogic {
     if (!infoPlistInterfaceLogic) {
         [self fetchPreferences];
     }
+    
     return infoPlistInterfaceLogic;
 }
 
@@ -91,7 +93,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 }
 
 - (void) fetchPreferences {
-	infoPlistInterfaceLogic = [self newSqSqueakInfoPlistInterfaceCreation];
+	self.infoPlistInterfaceLogic = [self newSqSqueakInfoPlistInterfaceCreation];
 	[infoPlistInterfaceLogic parseInfoPlist]; 
 	currentVMEncoding = NSUTF8StringEncoding;
 }
