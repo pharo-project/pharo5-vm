@@ -20,8 +20,11 @@
 
 #define PORT_NAME_SIZE 64
 
-static const char serialPortBaseName[]		= "/dev/tty";
-static const char serialPortBaseNameDefault[]	= "/dev/ttyS0";
+#ifdef BUILD_FOR_OSX
+static const char *serialPortBaseNameDefault	= "/dev/ttys%d";
+#else
+static const char *serialPortBaseNameDefault	= "/dev/ttyS%d";
+#endif
 
 /* stopBits	0=1.5, 1=1, 2=2 */
 /* I don't know how to get 1.5 stop bits. Oh well. So you get 2 instead */
@@ -148,10 +151,8 @@ serial_port_type *find_stored_serialport (const char *serialPortName)
 /* generate a serial port filename (with last digit set to port number).
  * If the port number is greater than 9, the portnumber is defaulted to 0. */
 
-void make_portname_from_portnum(char *serialPortName, const int portNum)
-{
-  strcpy(serialPortName, serialPortBaseNameDefault);
-  if (portNum <= 9) serialPortName[strlen(serialPortName) - 1]= '0' + portNum;
+void make_portname_from_portnum(char *serialPortName, const int portNum) {
+    sprintf(serialPortName, serialPortBaseNameDefault, portNum);
 }
 
 /*** Public Functions ***/
@@ -242,58 +243,54 @@ static int portOpenFailed(serial_port_type *sp)
 int serialPortOpenByName(char *portName, int dataRate, int stopBitsType, int parityType, int dataBits,
 			 int inFlowCtrl, int outFlowCtrl, int xOnChar, int xOffChar)
 {
-  int newPort= false;
-  serial_port_type *sp= find_stored_serialport(portName);
-  if (!sp)
-    {
-      if (sp_count >= MAX_SERIAL_PORTS)
-	{
-	  fprintf( stderr, "Error: maximum serial ports (%d) used.", MAX_SERIAL_PORTS);
-	  success( false);
-	  return -1;
-	}
-      sp= &previousSerialFiles[sp_count];
-      /* save the serial port name */
-      strcpy(sp->spName, portName);
-      newPort= true;
-    }
-  else if (sp->spDescriptor >= 0)
-    {
-      return 0;
+    int newPort= false;
+    serial_port_type *sp= find_stored_serialport(portName);
+  
+    if (!sp) {
+        if (sp_count >= MAX_SERIAL_PORTS) {
+            fprintf( stderr, "Error: maximum serial ports (%d) used.", MAX_SERIAL_PORTS);
+            success( false);
+            return -1;
+        }
+        sp= &previousSerialFiles[sp_count];
+        /* save the serial port name */
+        strcpy(sp->spName, portName);
+        newPort= true;
+    } else if (sp->spDescriptor >= 0) {
+        success(true);
+        return 0;
     }
 
-  {
-    speed_t speed= serialDecodeSpeed(dataRate);
-    struct termios flags;
+    {
+        speed_t speed= serialDecodeSpeed(dataRate);
+        struct termios flags;
 
-    /* validate arguments */
-    if (speed == B0
-	|| stopBitsType < 0 || stopBitsType > MAX_STOP_BITS
-	|| parityType < 0 || parityType > MAX_PARITY_TYPE
-	|| dataBits < 0 || dataBits > MAX_DATA_BITS
-	|| inFlowCtrl < 0 || inFlowCtrl > MAX_FLOW_CTRL
-	|| outFlowCtrl < 0 || outFlowCtrl > MAX_FLOW_CTRL
-	|| (( inFlowCtrl == 1 || outFlowCtrl == 1 )
-	    && ( xOnChar < 0 || xOnChar > 255
-		 || xOffChar < 0 || xOffChar > 255 )))
-      {
-	fprintf(stderr, "Incorrect serial port parameters.\n");
-	return portOpenFailed(sp);
-      }
+        /* validate arguments */
+        if (speed == B0
+        || stopBitsType < 0 || stopBitsType > MAX_STOP_BITS
+        || parityType < 0 || parityType > MAX_PARITY_TYPE
+        || dataBits < 0 || dataBits > MAX_DATA_BITS
+        || inFlowCtrl < 0 || inFlowCtrl > MAX_FLOW_CTRL
+        || outFlowCtrl < 0 || outFlowCtrl > MAX_FLOW_CTRL
+        || (( inFlowCtrl == 1 || outFlowCtrl == 1 )
+            && ( xOnChar < 0 || xOnChar > 255
+             || xOffChar < 0 || xOffChar > 255 )))
+          {
+        fprintf(stderr, "Incorrect serial port parameters.\n");
+        return portOpenFailed(sp);
+    }
 
     /* open the device and save the file descriptor */
-    if ((sp->spDescriptor= open(portName, O_RDWR|O_NONBLOCK|O_NOCTTY)) < 0)
-      {
-	fprintf(stderr, "Error while opening the serial port (%s).\n", portName);
-	return portOpenFailed(sp);
-      }
+    if ((sp->spDescriptor= open(portName, O_RDWR|O_NONBLOCK|O_NOCTTY)) < 0) {
+        fprintf(stderr, "Error while opening the serial port (%s).\n", portName);
+        return portOpenFailed(sp);
+    }
 
     /* save the old state */
-    if (tcgetattr(sp->spDescriptor, &sp->spTermios))
-      {
-	fprintf(stderr, "Error while saving old state.\n");
-	return portOpenFailed(sp);
-      }
+    if (tcgetattr(sp->spDescriptor, &sp->spTermios)) {
+        fprintf(stderr, "Error while saving old state.\n");
+        return portOpenFailed(sp);
+    }
 
     /* set up the new modes */
     flags= defaultTermios;
@@ -337,16 +334,14 @@ int serialPortOpenByName(char *portName, int dataRate, int stopBitsType, int par
       }
 #  endif
 
-    if (tcsetattr(sp->spDescriptor, TCSANOW, &flags))	/* set it NOW */
-      {
-	fprintf(stderr, "Error while setting terminal attributes.\n");
-	return portOpenFailed(sp);
-      }
+    if (tcsetattr(sp->spDescriptor, TCSANOW, &flags))	/* set it NOW */ {
+        fprintf(stderr, "Error while setting terminal attributes.\n");
+        return portOpenFailed(sp);
+    }
 
-    if (newPort)
-      {
-	++sp_count;
-      }
+    if (newPort) {
+        ++sp_count;
+    }
 
     /* sorts the table of serial port, to ensure a reliable later retrieval. */
     qsort(previousSerialFiles, sp_count, sizeof (serial_port_type), (int(*)(const void *, const void *))serial_port_cmp);
