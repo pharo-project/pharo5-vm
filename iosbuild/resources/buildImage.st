@@ -27,3 +27,5 @@ This text has been served by Pharo running locally in your device or simulator.
 UIApplicationLauncher 
 	url: 'http://localhost:8080';
 	register.
+	
+Smalltalk snapshot: true andQuit: true.
