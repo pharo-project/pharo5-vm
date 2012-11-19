@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # run this script from build/ subdirectory, so vmVersionInfo.h will be placed in build dir
 
 URL=`git config --get remote.origin.url`
