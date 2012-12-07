@@ -3201,7 +3201,7 @@ int printUsage(int level)
 {
   switch(level) {
     case 0: /* No command line given */
-      abortMessage(TEXT("Usage: squeak [options] <imageFile>"));
+      abortMessage(TEXT("Usage: " VM_NAME " [options] <imageFile>"));
       break;
     case 1: /* full usage */
       abortMessage(TEXT("%s"),
