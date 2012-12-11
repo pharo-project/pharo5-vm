@@ -44,6 +44,7 @@ int methodPrimitiveIndex(void);
 int getCurrentBytecode(void);
 
 extern TCHAR squeakIniName[];
+extern void printPhaseTime(int);
 
 /* Import from sqWin32Alloc.c */
 LONG CALLBACK sqExceptionFilter(LPEXCEPTION_POINTERS exp);
@@ -53,13 +54,10 @@ static void printCrashDebugInformation(LPEXCEPTION_POINTERS exp);
 
 /*** Variables -- command line */
 static char *initialCmdLine;
-
-/*can't be static because they are declared as extern */
-int  numOptionsVM = 0;
-char **vmOptions;
-int  numOptionsImage = 0;
-char **imageOptions;
-
+static int  numOptionsVM = 0;
+static char **vmOptions;
+static int  numOptionsImage = 0;
+static char **imageOptions;
 static int clargc; /* the Unix-style command line, saved for GetImageOption */
 static char **clargv;
 
@@ -759,6 +757,63 @@ void gatherSystemInfo(void) {
   gdInfoString = _strdup(tmpString);
 }
 
+char *
+getVersionInfo(int verbose)
+{
+#if STACKVM
+  extern char *__interpBuildInfo;
+# define INTERP_BUILD __interpBuildInfo
+# if COGVM
+  extern char *__cogitBuildInfo;
+# endif
+#else
+# define INTERP_BUILD interpreterVersion
+#endif
+  char *info= (char *)malloc(4096);
+  info[0]= '\0';
+
+  sprintf(info+strlen(info), "%s\n", vmBuildString);
+  if (verbose)
+    sprintf(info+strlen(info), "Built from: ");
+  sprintf(info+strlen(info), "%s\n", INTERP_BUILD);
+#if COGVM
+  if (verbose)
+    sprintf(info+strlen(info), "With: ");
+  sprintf(info+strlen(info), "%s\n", GetAttributeString(1008)); /* __cogitBuildInfo */
+#endif
+  if (verbose)
+    sprintf(info+strlen(info), "Revision: ");
+  sprintf(info+strlen(info), "%s\n", sourceVersionString('\n'));
+  return info;
+}
+
+/* Calling exit(ec) apparently does NOT provide the correct exit code for the
+ * terminating process (MinGW bug?). So instead call the shutdown sequence via
+ * _cexit() and then terminate explicitly.
+ */
+#define exit(ec) do { _cexit(ec); ExitProcess(ec); } while (0)
+
+static void
+versionInfo(void)
+{
+#if 0
+	/* we could create a console but to version the non-consoel VM it is
+	 * sufficient to do e.g. Squeak.exe >foo; cat foo.  But feel free to
+	 * add the code if you have the energy ;)
+	 */
+	DWORD mode;
+	HANDLE stdouth = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	if (GetConsoleMode(stdouth, &mode) != 0) {
+		char *vi = getVersionInfo(0);
+		WriteConsole(stdouth, vi, strlen(vi), 0, 0);
+	}
+	else
+#endif
+		printf("%s", getVersionInfo(0));
+	exit(0);
+}
+
 /****************************************************************************/
 /*                      Error handling                                      */
 /****************************************************************************/
@@ -858,7 +913,7 @@ extern char *__cogitBuildInfo;
     fprintf(f,"Cogit Build: %s\n", __cogitBuildInfo);
 # endif
 #endif
-    fprintf(f,"Source Version: %s\n", sourceVersionString());
+    fprintf(f,"Source Version: %s\n", sourceVersionString('\n'));
     fflush(f);
     fprintf(f,"\n"
 	    "Current byte code: %d\n"
@@ -954,6 +1009,20 @@ error(char *msg) {
   /* dumpStackIfInMainThread(0); */
   exit(-1);
 }
+
+static int inCleanExit = 0; /* to suppress stack trace in Cleanup */
+
+int ioExit(void) { return ioExitWithErrorCode(0); }
+
+sqInt
+ioExitWithErrorCode(int ec)
+{
+	printPhaseTime(3);
+	inCleanExit = 1;
+	exit(ec);
+	return ec;
+}
+
 #pragma auto_inline on
 
 static void
@@ -1077,9 +1146,7 @@ printCrashDebugInformation(LPEXCEPTION_POINTERS exp)
 void __cdecl Cleanup(void)
 { /* not all of these are essential, but they're polite... */
 
-extern int inCleanExit; /* from platforms/win32/vm/sqWin32Window.c */
-
-  if(!inCleanExit) {
+  if (!inCleanExit) {
     dumpStackIfInMainThread(0);
   }
   ioShutdownAllModules();
@@ -1403,6 +1470,7 @@ sqMain(int argc, char *argv[])
 
     /* run Squeak */
     ioInitSecurity();
+	printPhaseTime(2);
     interpret();
 #if !NO_FIRST_LEVEL_EXCEPTION_HANDLER
 # ifdef _MSC_VER
@@ -1524,9 +1592,15 @@ parseVMArgument(int argc, char *argv[])
 	/* flags */
 	if      (!strcmp(argv[0], "-help"))		{ 
 		printUsage(1);
-		return 1; }
+		return 1;
+	}
+	else if (!strcmp(argv[0], "-version"))	{ versionInfo();	return 1; }
 	else if (!strcmp(argv[0], "-headless")) { fHeadlessImage = true; return 1; }
 	else if (!strcmp(argv[0], "-headfull")) { fHeadlessImage = false; return 1;}
+	else if (!strcmp(argv[0], "-timephases")) {
+		printPhaseTime(1);
+		return 1;
+	}
 #ifdef  VISTA_SECURITY /* IE7/Vista protected mode support */
 	/* started with low rights, use alternate untrustedUserDirectory */
 	else if (!strcmp(argv[0], "-lowRights")) { fLowRights = true; return 1; }
