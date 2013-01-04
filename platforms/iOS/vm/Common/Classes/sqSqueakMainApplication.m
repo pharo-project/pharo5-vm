@@ -109,6 +109,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 }
 
 - (void) setupMenus {
+//    nothing to do so far since the menu is setup in the MainMenu.nib file
 }
 
 - (void) setupTimers {
@@ -156,10 +157,7 @@ extern sqInt interpret(void);  //This is a VM Callback
 	
 	//JMM here we parse the unixArgs
 	//JMM now we wait for the open document apple events (normally)
-	
-	[self doHeadlessSetup];
-	//JMM after wait normally if headless and no imageName then exit -42
-	    
+	   
 	[self doMemorySetup];
 	
 	if ([self ImageNameIsEmpty]) {
@@ -175,7 +173,12 @@ extern sqInt interpret(void);  //This is a VM Callback
 		[pool drain];
 		return;
 	}
-	    
+	
+    // The headless setup is now after the image setup on purpose. This is in order to be
+    // able to select an image with the popup even when running headless
+	[self doHeadlessSetup];
+
+    
     [self setupMenus];
 	[self setupTimers];
 	[self setupAIO];
@@ -190,6 +193,8 @@ extern sqInt interpret(void);  //This is a VM Callback
 }
 
 - (void) MenuBarRestore {
+    //    nothing to do so far since the menu is setup in the MainMenu.nib file
+    
 }
 
 void sqMacMemoryFree(void);

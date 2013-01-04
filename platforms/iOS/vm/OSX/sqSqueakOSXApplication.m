@@ -90,19 +90,13 @@ void mtfsfi(unsigned long long fpscr) {}
 - (void) doHeadlessSetup {
 	[super doHeadlessSetup];
 	extern BOOL gSqueakHeadless;
-	if (gSqueakHeadless) 
-		return;
-#warning untested
-	ProcessSerialNumber psn = { 0, kCurrentProcess };
-	ProcessInfoRec info;
-	bzero(&info, sizeof(ProcessInfoRec));
-	info.processInfoLength = sizeof(ProcessInfoRec);
-	GetProcessInformation(&psn,&info);
-	if ((info.processMode & modeOnlyBackground) && TransformProcessType != NULL) {
-		OSStatus returnCode = TransformProcessType(& psn, kProcessTransformToForegroundApplication);
-#pragma unused(returnCode)
-		SetFrontProcess(&psn);		
-	}
+	if (gSqueakHeadless) {
+        [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+    } else {
+        [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+        [NSApp activateIgnoringOtherApps:YES];
+    }
+        
 }
 
 - (void) doMemorySetup {
