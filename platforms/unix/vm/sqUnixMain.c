@@ -65,6 +65,10 @@
 #if __FreeBSD__
 # include <sys/ucontext.h>
 #endif
+# if __sun__
+  # include <sys/ucontext.h>
+  # include <limits.h>
+# endif
 
 #if defined(__alpha__) && defined(__osf__)
 # include <sys/sysinfo.h>
@@ -85,6 +89,8 @@
        char   imageName[MAXPATHLEN+1];		/* full path to image */
 static char   vmName[MAXPATHLEN+1];		/* full path to vm */
        char   vmPath[MAXPATHLEN+1];		/* full path to image directory */
+static char   vmLogDirA[PATH_MAX+1];	/* where to write crash.dmp */
+
        char  *exeName;					/* short vm name, e.g. "squeak" */
 
        int    argCnt=		0;	/* global copies for access from plugins */
@@ -137,6 +143,7 @@ struct SqDisplay *dpy= 0;
 struct SqSound   *snd= 0;
 
 extern void dumpPrimTraceLog(void);
+extern void printPhaseTime(int);
 char *getVersionInfo(int verbose);
 
 
@@ -330,20 +337,31 @@ recordPathsForVMName(const char *localVmName)
   }
 }
 
-static void recordFullPathForImageName(const char *localImageName)
+static void
+recordFullPathForImageName(const char *localImageName)
 {
-  struct stat s;
-  /* get canonical path to image */
-  if ((stat(localImageName, &s) == -1) || (realpath(localImageName, imageName) == 0))
-    pathCopyAbs(imageName, localImageName, sizeof(imageName));
+	struct stat s;
+	/* get canonical path to image */
+	if ((stat(localImageName, &s) == -1)
+	 || (realpath(localImageName, imageName) == 0))
+		pathCopyAbs(imageName, localImageName, sizeof(imageName));
+
+	/* Set the directory into which to write the crash.dmp file. */
+	/* By default this is the image file's directory (strange but true). */
+#if CRASH_DUMP_IN_CWD
+	getcwd(vmLogDirA,PATH_MAX);
+#else
+	strcpy(vmLogDirA,imageName);
+	if (strrchr(vmLogDirA,'/'))
+		*strrchr(vmLogDirA,'/') = 0;
+	else
+		getcwd(vmLogDirA,PATH_MAX);
+#endif
 }
 
 /* vm access */
 
-sqInt imageNameSize(void)
-{
-  return strlen(imageName);
-}
+sqInt imageNameSize(void) { return strlen(imageName); }
 
 sqInt imageNameGetLength(sqInt sqImageNameIndex, sqInt length)
 {
@@ -379,19 +397,12 @@ sqInt imageNamePutLength(sqInt sqImageNameIndex, sqInt length)
 }
 
 
-char *getImageName(void)
-{
-  return imageName;
-}
+char *getImageName(void) { return imageName; }
 
 
 /*** VM Home Directory Path ***/
 
-
-sqInt vmPathSize(void)
-{
-  return strlen(vmPath);
-}
+sqInt vmPathSize(void) { return strlen(vmPath); }
 
 sqInt vmPathGetLength(sqInt sqVMPathIndex, sqInt length)
 {
@@ -481,7 +492,7 @@ GetAttributeString(sqInt id)
 #endif
 
 	  case 1009: /* source tree version info */
-		return sourceVersionString();
+		return sourceVersionString(' ');
 
       default:
 	if ((id - 2) < squeakArgCnt)
@@ -805,6 +816,9 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 # elif __FreeBSD__ && __i386__
 			void *fp = (void *)(uap ? uap->uc_mcontext.mc_ebp: 0);
 			void *sp = (void *)(uap ? uap->uc_mcontext.mc_esp: 0);
+# elif __sun__ && __i386__
+      void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_FP]: 0);
+      void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_SP]: 0);
 # else
 #	error need to implement extracting pc from a ucontext_t on this system
 # endif
@@ -839,6 +853,19 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 	fflush(stdout);
 }
 
+int blockOnError = 0; /* to allow attaching gdb on fatal error */
+
+static void
+block()
+{ struct timespec while_away_the_hours;
+
+	printf("blocking e.g. to allow attaching debugger\n");
+	while (1) {
+		while_away_the_hours.tv_sec = 3600;
+		nanosleep(&while_away_the_hours, 0);
+	}
+}
+
 /* Print an error message, possibly a stack trace, and exit. */
 /* Disable Intel compiler inlining of error which is used for breakpoints */
 #pragma auto_inline off
@@ -846,19 +873,17 @@ void
 error(char *msg)
 {
 	reportStackState(msg,0,0,0);
+	if (blockOnError) block();
 	abort();
 }
 #pragma auto_inline on
 
-/* construct /dir/for/image/crash.dmp if a / in imageName else crash.dmp */
 static void
 getCrashDumpFilenameInto(char *buf)
 {
-  char *slash;
-
-  strcpy(buf,imageName);
-  slash = strrchr(buf,'/');
-  strcpy(slash ? slash + 1 : buf, "crash.dmp");
+	strcpy(buf,vmLogDirA);
+	vmLogDirA[0] && strcat(buf, "/");
+	strcat(buf, "crash.dmp");
 }
 
 static void
@@ -886,19 +911,31 @@ sigusr1(int sig, siginfo_t *info, void *uap)
 	errno = saved_errno;
 }
 
+static int inFault = 0;
+
 static void
 sigsegv(int sig, siginfo_t *info, void *uap)
 {
 	time_t now = time(NULL);
 	char ctimebuf[32];
 	char crashdump[IMAGE_NAME_SIZE+1];
+	char *fault = sig == SIGSEGV
+					? "Segmentation fault"
+					: (sig == SIGBUS
+						? "Bus error"
+						: (sig == SIGILL
+							? "Illegal instruction"
+							: "Unknown signal"));
 
-	getCrashDumpFilenameInto(crashdump);
-	ctime_r(&now,ctimebuf);
-	pushOutputFile(crashdump);
-	reportStackState("Segmentation fault", ctimebuf, 0, uap);
-	popOutputFile();
-	reportStackState("Segmentation fault", ctimebuf, 0, uap);
+	if (!inFault) {
+		getCrashDumpFilenameInto(crashdump);
+		ctime_r(&now,ctimebuf);
+		pushOutputFile(crashdump);
+		reportStackState(fault, ctimebuf, 0, uap);
+		popOutputFile();
+		reportStackState(fault, ctimebuf, 0, uap);
+	}
+	if (blockOnError) block();
 	abort();
 }
 
@@ -1267,6 +1304,10 @@ static int vm_parseArgument(int argc, char **argv)
   else if (!strcmp(argv[0], "-nomixer"))	{ noSoundMixer	= 1;	return 1; }
   else if (!strcmp(argv[0], "-notimer"))	{ useItimer	= 0;	return 1; }
   else if (!strcmp(argv[0], "-nohandlers"))	{ installHandlers= 0;	return 1; }
+  else if (!strcmp(argv[0], "-blockonerror")) { blockOnError = 1; return 1; }
+  else if (!strcmp(argv[0], "-timephases")) {
+	printPhaseTime(1);
+	return 1; }
 #if !STACKVM && !COGVM
   else if (!strncmp(argv[0],"-jit", 4))		{ useJit	= jitArgs(argv[0]+4);	return 1; }
   else if (!strcmp(argv[0], "-nojit"))		{ useJit	= 0;	return 1; }
@@ -1327,18 +1368,18 @@ static int vm_parseArgument(int argc, char **argv)
 		return 2; }
 # define TLSLEN (sizeof("-sendtrace")-1)
       else if (!strncmp(argv[0], "-sendtrace", TLSLEN)) { 
-		extern int traceLinkedSends;
+		extern int traceFlags;
 		char *equalsPos = strchr(argv[0],'=');
 
 		if (!equalsPos) {
-			traceLinkedSends = 1;
+			traceFlags = 1;
 			return 1;
 		}
 		if (equalsPos - argv[0] != TLSLEN
 		  || (equalsPos[1] != '-' && !isdigit(equalsPos[1])))
 			return 0;
 
-		traceLinkedSends = atoi(equalsPos + 1);
+		traceFlags = atoi(equalsPos + 1);
 		return 1; }
       else if (!strcmp(argv[0], "-tracestores")) { 
 		extern sqInt traceStores;
@@ -1380,6 +1421,7 @@ static void vm_printUsage(void)
   printf("  -help                 print this help message, then exit\n");
   printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
   printf("  -mmap <size>[mk]      limit dynamic heap size (default: %dm)\n", DefaultMmapSize);
+  printf("  -timephases           print start load and run times\n");
 #if STACKVM || NewspeakVM
   printf("  -breaksel selector    set breakpoint on send of selector\n");
 #endif
@@ -1390,6 +1432,7 @@ static void vm_printUsage(void)
 #endif
   printf("  -noevents             disable event-driven input support\n");
   printf("  -nohandlers           disable sigsegv & sigusr1 handlers\n");
+  printf("  -pollpip              output . on each poll for input\n");
   printf("  -pathenc <enc>        set encoding for pathnames (default: UTF-8)\n");
   printf("  -plugins <path>       specify alternative plugin location (see manpage)\n");
   printf("  -textenc <enc>        set encoding for external text (default: UTF-8)\n");
@@ -1402,6 +1445,7 @@ static void vm_printUsage(void)
   printf("  -cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
   printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
 #endif
+  printf("  -blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
 #if 1
   printf("Deprecated:\n");
 # if !STACKVM
@@ -1506,7 +1550,7 @@ char *getVersionInfo(int verbose)
 #endif
   if (verbose)
     sprintf(info+strlen(info), "Revision: ");
-  sprintf(info+strlen(info), "%s\n", sourceVersionString());
+  sprintf(info+strlen(info), "%s\n", sourceVersionString('\n'));
   if (verbose)
     sprintf(info+strlen(info), "Build host: ");
   sprintf(info+strlen(info), "%s\n", ux_version);
@@ -1771,6 +1815,8 @@ main(int argc, char **argv, char **envp)
 	sigsegv_handler_action.sa_flags = SA_NODEFER | SA_SIGINFO;
 	sigemptyset(&sigsegv_handler_action.sa_mask);
     (void)sigaction(SIGSEGV, &sigsegv_handler_action, 0);
+    (void)sigaction(SIGBUS, &sigsegv_handler_action, 0);
+    (void)sigaction(SIGILL, &sigsegv_handler_action, 0);
 
 	sigusr1_handler_action.sa_sigaction = sigusr1;
 	sigusr1_handler_action.sa_flags = SA_NODEFER | SA_SIGINFO;
@@ -1784,8 +1830,10 @@ main(int argc, char **argv, char **envp)
 #endif
 
   /* run Squeak */
-  if (runInterpreter)
+  if (runInterpreter) {
+	printPhaseTime(2);
     interpret();
+  }
 
   /* we need these, even if not referenced from main executable */
   (void)sq2uxPath;
@@ -1800,6 +1848,7 @@ int ioExit(void) { return ioExitWithErrorCode(0); }
 sqInt
 ioExitWithErrorCode(int ec)
 {
+  printPhaseTime(3);
   dpy->winExit();
   exit(ec);
   return ec;

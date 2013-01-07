@@ -318,7 +318,6 @@ heartbeat()
 	 * the high-priority thread unless there are high-priority tickees as
 	 * indicated by numAsyncTickees > 0.
 	 */
-    extern int numAsyncTickees; 
 	if (numAsyncTickees > 0) {
 		void prodHighPriorityThread(void);
 		prodHighPriorityThread();
@@ -525,15 +524,17 @@ extern sqInt suppressHeartbeatFlag;
 	if (suppressHeartbeatFlag) return;
 
 #if NEED_SIGALTSTACK
-	signal_stack.ss_flags = 0;
-	signal_stack.ss_size = SIGNAL_STACK_SIZE;
-	if (!(signal_stack.ss_sp = malloc(signal_stack.ss_size))) {
-		perror("ioInitHeartbeat malloc");
-		exit(1);
-	}
-	if (sigaltstack(&signal_stack, 0) < 0) {
-		perror("ioInitHeartbeat sigaltstack");
-		exit(1);
+	if (!signal_stack.ss_size) {
+		signal_stack.ss_flags = 0;
+		signal_stack.ss_size = SIGNAL_STACK_SIZE;
+		if (!(signal_stack.ss_sp = malloc(signal_stack.ss_size))) {
+			perror("ioInitHeartbeat malloc");
+			exit(1);
+		}
+		if (sigaltstack(&signal_stack, 0) < 0) {
+			perror("ioInitHeartbeat sigaltstack");
+			exit(1);
+		}
 	}
 #endif /* NEED_SIGALTSTACK */
 
@@ -579,6 +580,20 @@ extern sqInt suppressHeartbeatFlag;
 	pulse.it_value = pulse.it_interval;
 	if (setitimer(THE_ITIMER, &pulse, &pulse)) {
 		perror("ioInitHeartbeat setitimer");
+		exit(1);
+	}
+}
+
+void
+ioDisableHeartbeat() /* for debugging */
+{
+	struct itimerval expire;
+
+	expire.it_interval.tv_sec =
+	expire.it_interval.tv_usec = 0;
+	expire.it_value = expire.it_interval;
+	if (setitimer(THE_ITIMER, &expire, 0)) {
+		perror("ioDisableHeartbeat setitimer");
 		exit(1);
 	}
 }
