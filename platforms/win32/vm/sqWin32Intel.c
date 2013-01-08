@@ -1012,6 +1012,7 @@ error(char *msg) {
 
 static int inCleanExit = 0; /* to suppress stack trace in Cleanup */
 
+
 int ioExit(void) { return ioExitWithErrorCode(0); }
 
 sqInt
