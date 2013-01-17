@@ -1012,7 +1012,6 @@ error(char *msg) {
 
 static int inCleanExit = 0; /* to suppress stack trace in Cleanup */
 
-
 int ioExit(void) { return ioExitWithErrorCode(0); }
 
 sqInt
@@ -1687,8 +1686,8 @@ parseVMArgument(int argc, char *argv[])
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-sendtrace")-1)
-	else if (!strncmp(argv[0], "-sendtrace", TLSLEN)) { 
+# define TLSLEN (sizeof("-trace")-1)
+	else if (!strncmp(argv[0], "-trace", TLSLEN)) { 
 		extern int traceFlags;
 		char *equalsPos = strchr(argv[0],'=');
 

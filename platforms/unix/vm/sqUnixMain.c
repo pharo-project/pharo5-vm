@@ -445,7 +445,7 @@ sqInt ioDisablePowerManager(sqInt disableIfNonZero)
 # endif
 #endif
 
-static char *
+char *
 GetAttributeString(sqInt id)
 {
   if (id < 0)	/* VM argument */
@@ -819,6 +819,9 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 # elif __sun__ && __i386__
       void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_FP]: 0);
       void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_SP]: 0);
+# elif __x86_64__
+#	error Currently this VM must be build as a 32-bit binary.
+#	error See section 3e in unixbuild/HowToBuild.
 # else
 #	error need to implement extracting pc from a ucontext_t on this system
 # endif
@@ -1366,8 +1369,8 @@ static int vm_parseArgument(int argc, char **argv)
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-sendtrace")-1)
-      else if (!strncmp(argv[0], "-sendtrace", TLSLEN)) { 
+# define TLSLEN (sizeof("-trace")-1)
+      else if (!strncmp(argv[0], "-trace", TLSLEN)) { 
 		extern int traceFlags;
 		char *equalsPos = strchr(argv[0],'=');
 
@@ -1438,9 +1441,15 @@ static void vm_printUsage(void)
   printf("  -textenc <enc>        set encoding for external text (default: UTF-8)\n");
   printf("  -version              print version information, then exit\n");
   printf("  -vm-<sys>-<dev>       use the <dev> driver for <sys> (see below)\n");
+#if STACKVM || NewspeakVM
+# if COGVM
+  printf("  -trace[=num]          enable tracing (optionally to a specific value)\n");
+# else
+  printf("  -sendtrace            enable send tracing\n");
+# endif
+#endif
 #if COGVM
   printf("  -codesize <size>[mk]  set machine code memory to bytes\n");
-  printf("  -sendtrace[=num]      enable send tracing (optionally to a specific value)\n");
   printf("  -tracestores          enable store tracing (assert check stores)\n");
   printf("  -cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
   printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");

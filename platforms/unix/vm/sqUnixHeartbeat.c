@@ -163,9 +163,7 @@ ioHighResClock(void)
 			|| defined(intel) || defined(x86) || defined(i86pc) )
     __asm__ __volatile__ ("rdtsc" : "=A"(value));
 #else
-#ifndef TARGET_OS_IS_IPHONE
 # error "no high res clock defined"
-#endif
 #endif
   return value;
 }

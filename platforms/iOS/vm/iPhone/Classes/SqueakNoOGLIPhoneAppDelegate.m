@@ -127,7 +127,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 //	return  (hasGL_APPLE_texture_2D_limited_npot) ? [SqueakUIViewOpenGL class] : [SqueakUIViewCALayer class];
 
     // The device must be running running iOS 3.2 or later.
-    //Esteban >> (Testing retina stuff)
+    //Esteban >>
     /*
     NSString *reqSysVer = @"3.2";
     NSString *currSysVer = [[UIDevice currentDevice] systemVersion];

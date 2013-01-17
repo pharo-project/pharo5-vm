@@ -51,6 +51,14 @@
 #include "config.h"
 #include "debug.h"
 
+void *uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize);
+char *uxGrowMemoryBy(char *oldLimit, sqInt delta);
+char *uxShrinkMemoryBy(char *oldLimit, sqInt delta);
+sqInt uxMemoryExtraBytesLeft(sqInt includingSwap);
+
+static int	    pageSize = 0;
+static unsigned int pageMask = 0;
+
 #if defined(HAVE_MMAP)
 
 #include <stdio.h>
@@ -79,11 +87,6 @@ extern int useMmap;
 # define ALWAYS_USE_MMAP 1
 #endif
 
-void *uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize);
-char *uxGrowMemoryBy(char *oldLimit, sqInt delta);
-char *uxShrinkMemoryBy(char *oldLimit, sqInt delta);
-sqInt uxMemoryExtraBytesLeft(sqInt includingSwap);
-
 #if defined(SQ_IMAGE32) && defined(SQ_HOST64)
 char *sqMemoryBase= (char *)-1;
 #endif
@@ -95,9 +98,6 @@ static int   devZero	= -1;
 static char *heap	=  0;
 static int   heapSize	=  0;
 static int   heapLimit	=  0;
-
-static int	    pageSize = 0;
-static unsigned int pageMask = 0;
 
 #define valign(x)	((x) & pageMask)
 
@@ -244,14 +244,28 @@ sqInt uxMemoryExtraBytesLeft(sqInt includingSwap)
 }
 
 
-#else  /* !HAVE_MMAP */
+#else  /* HAVE_MMAP */
 
+# if COG
+void *
+uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize)
+{
+	if (pageMask) {
+		fprintf(stderr, "uxAllocateMemory: already called\n");
+		exit(1);
+	}
+	pageSize = getpagesize();
+	pageMask = ~(pageSize - 1);
+	return malloc(desiredHeapSize);
+}
+# else /* COG */
 void *uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize)	{ return malloc(desiredHeapSize); }
+# endif /* COG */
 char *uxGrowMemoryBy(char * oldLimit, sqInt delta)			{ return oldLimit; }
 char *uxShrinkMemoryBy(char *oldLimit, sqInt delta)			{ return oldLimit; }
 sqInt uxMemoryExtraBytesLeft(sqInt includingSwap)			{ return 0; }
 
-#endif
+#endif /* HAVE_MMAP */
 
 
 
@@ -297,7 +311,7 @@ sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
 	unsigned long firstPage = roundDownToPageBoundary(startAddr);
 	if (mprotect((void *)firstPage,
-				 roundUpToPageBoundary(endAddr - firstPage),
+				 endAddr - firstPage + 1,
 				 PROT_READ | PROT_WRITE | PROT_EXEC) < 0)
 		perror("mprotect(x,y,PROT_READ | PROT_WRITE | PROT_EXEC)");
 }
@@ -307,7 +321,7 @@ sqMakeMemoryNotExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
 	unsigned long firstPage = roundDownToPageBoundary(startAddr);
 	if (mprotect((void *)firstPage,
-				 roundUpToPageBoundary(endAddr - firstPage),
+				 endAddr - firstPage + 1,
 				 PROT_READ | PROT_WRITE) < 0)
 		perror("mprotect(x,y,PROT_READ | PROT_WRITE)");
 }

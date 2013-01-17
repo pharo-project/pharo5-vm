@@ -151,7 +151,6 @@ sqInt printAllStacks(void);
 sqInt printCallStack(void);
 extern void dumpPrimTraceLog(void);
 extern BOOL NSApplicationLoad(void);
-static void fetchPrefrences(void);
 char *getVersionInfo(int verbose);
 
 
@@ -241,6 +240,19 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 	fflush(stdout);
 }
 
+int blockOnError = 0; /* to allow attaching gdb on fatal error */
+
+static void
+block()
+{ struct timespec while_away_the_hours;
+
+	printf("blocking e.g. to allow attaching debugger\n");
+	while (1) {
+		while_away_the_hours.tv_sec = 3600;
+		nanosleep(&while_away_the_hours, 0);
+	}
+}
+
 /* Print an error message, possibly a stack trace, and exit. */
 /* Disable Intel compiler inlining of error which is used for breakpoints */
 #pragma auto_inline off
@@ -248,19 +260,19 @@ void
 error(char *msg)
 {
 	reportStackState(msg,0,0,0);
+	if (blockOnError) block();
 	abort();
 }
 #pragma auto_inline on
 
-/* construct /dir/for/image/crash.dmp if a / in imageName else crash.dmp */
+static char vmLogDirA[PATH_MAX+1];
+
 static void
 getCrashDumpFilenameInto(char *buf)
 {
-  char *slash;
-
-  strcpy(buf,imageName);
-  slash = strrchr(buf,'/');
-  strcpy(slash ? slash + 1 : buf, "crash.dmp");
+	strcpy(buf,vmLogDirA);
+	vmLogDirA[0] && strcat(buf, "/");
+	strcat(buf, "crash.dmp");
 }
 
 static void
@@ -287,19 +299,32 @@ sigusr1(int sig, siginfo_t *info, void *uap)
 	errno = saved_errno;
 }
 
+static int inFault = 0;
+
 static void
 sigsegv(int sig, siginfo_t *info, void *uap)
 {
 	time_t now = time(NULL);
 	char ctimebuf[32];
 	char crashdump[IMAGE_NAME_SIZE+1];
+	char *fault = sig == SIGSEGV
+					? "Segmentation fault"
+					: (sig == SIGBUS
+						? "Bus error"
+						: (sig == SIGILL
+							? "Illegal instruction"
+							: "Unknown signal"));
 
-	getCrashDumpFilenameInto(crashdump);
-	ctime_r(&now,ctimebuf);
-	pushOutputFile(crashdump);
-	reportStackState("Segmentation fault", ctimebuf, 0, uap);
-	popOutputFile();
-	reportStackState("Segmentation fault", ctimebuf, 0, uap);
+	if (!inFault) {
+		inFault = 1;
+		getCrashDumpFilenameInto(crashdump);
+		ctime_r(&now,ctimebuf);
+		pushOutputFile(crashdump);
+		reportStackState(fault, ctimebuf, 0, uap);
+		popOutputFile();
+		reportStackState(fault, ctimebuf, 0, uap);
+	}
+	if (blockOnError) block();
 	abort();
 }
 
@@ -370,6 +395,8 @@ main(int argc, char **argv, char **envp)
 	sigsegv_handler_action.sa_sigaction = sigsegv;
 	sigsegv_handler_action.sa_flags = SA_NODEFER | SA_SIGINFO;
 	sigemptyset(&sigsegv_handler_action.sa_mask);
+    (void)sigaction(SIGBUS, &sigsegv_handler_action, 0);
+    (void)sigaction(SIGILL, &sigsegv_handler_action, 0);
     (void)sigaction(SIGSEGV, &sigsegv_handler_action, 0);
 
 	sigusr1_handler_action.sa_sigaction = sigusr1;
@@ -382,10 +409,24 @@ main(int argc, char **argv, char **envp)
 
 	LoadScrap();
 	SetUpClipboard();
-	fetchPrefrences();
+	fetchPreferences();
 
 	SetVMPathFromApplicationDirectory();
 
+#if 1
+	unixArgcInterface(argCnt,argVec,envVec);
+
+	if (!gSqueakHeadless) {
+		/* install apple event handlers and wait for open event */
+		InstallAppleEventHandlers();
+		while (ShortImageNameIsEmpty()) {
+			GetNextEvent(everyEvent, &theEvent);
+			if (theEvent.what == kHighLevelEvent) {
+				AEProcessAppleEvent(&theEvent);
+			}
+		}
+	}
+#else
 	/* install apple event handlers and wait for open event */
 	InstallAppleEventHandlers();
 	while (ShortImageNameIsEmpty()) {
@@ -396,6 +437,7 @@ main(int argc, char **argv, char **envp)
 	}
 
 	unixArgcInterface(argCnt,argVec,envVec);
+#endif
 
 	if (!gSqueakHeadless) {
 		ProcessSerialNumber psn = { 0, kCurrentProcess };
@@ -438,6 +480,18 @@ main(int argc, char **argv, char **envp)
 				resolveWhatTheImageNameIs(afterCheckForTilda);
 			}
 	}
+
+	/* Set the directory into which to write the crash.dmp file. */
+	/* By default this is the image file's directory (strange but true). */
+#if CRASH_DUMP_IN_CWD
+	getcwd(vmLogDirA,PATH_MAX);
+#else
+	strcpy(vmLogDirA,getImageName());
+	if (strrchr(vmLogDirA,'/'))
+		*strrchr(vmLogDirA,'/') = 0;
+	else
+		getcwd(vmLogDirA,PATH_MAX);
+#endif
 
 	/* read the image file and allocate memory for Squeak heap */
 	f = sqImageFileOpen(getImageName(), "rb");
@@ -486,6 +540,8 @@ int ioExit(void) { return ioExitWithErrorCode(0); }
 sqInt
 ioExitWithErrorCode(int ec)
 {
+	extern void printPhaseTime(int);
+	printPhaseTime(3);
     UnloadScrap();
     ioShutdownAllModules();
 	if (!gSqueakHeadless || gSqueakBrowserWasHeadlessButMadeFullScreen) 
@@ -527,7 +583,16 @@ int ioFormPrint(int bitsAddr, int width, int height, int depth, double hScale, d
 
 /* Andreas' stubs */
 char* ioGetLogDirectory(void) { return ""; };
-sqInt ioSetLogDirectoryOfSize(void* lblIndex, sqInt sz){ return 1; }
+
+sqInt
+ioSetLogDirectoryOfSize(void *lblIndex, sqInt sz)
+{
+	if (sz >= PATH_MAX)
+		return 0;
+	strncpy(vmLogDirA, lblIndex, sz);
+	vmLogDirA[sz] = 0;
+	return 1;
+}
 
 
 char * GetAttributeString(int id) {
@@ -581,8 +646,10 @@ char * GetAttributeString(int id) {
             versionString = CFBundleGetValueForInfoDictionaryKey(mainBundle, CFSTR("CFBundleShortVersionString"));
             bzero(data,255);
             strcat(data,interpreterVersion);
-            strcat(data," ");
-            CFStringGetCString (versionString, data+strlen(data), 255-strlen(data), gCurrentVMEncoding);
+			if (versionString) {
+				strcat(data," ");
+				CFStringGetCString (versionString, data+strlen(data), 255-strlen(data), gCurrentVMEncoding);
+			}
             return data;            
         }
 
@@ -609,7 +676,7 @@ char * GetAttributeString(int id) {
 #endif
 
 	  if (id == 1009) /* source tree version info */
-		return sourceVersionString();
+		return sourceVersionString(' ');
 
 // 		return "Mac Carbon 3.8.18b4 29-May-08 >02DA4BFD-4050-4372-8DBB-9582DA7D0218<";
 // 		return "Mac Carbon 3.8.18b3 10-Apr-08 >DC0EAF5D-C46C-479D-B2A3-DBD4A2DF95A8<";
@@ -681,8 +748,8 @@ int getAttributeIntoLength(int id, int byteArrayIndex, int length) {
 }
 
 
-static void
-fetchPrefrences() {
+void
+fetchPreferences() {
     CFBundleRef  myBundle;
     CFDictionaryRef myDictionary;
     CFNumberRef SqueakWindowType,
@@ -943,7 +1010,7 @@ getVersionInfo(int verbose)
 #endif
   if (verbose)
     sprintf(info+strlen(info), "Revision: ");
-  sprintf(info+strlen(info), "%s\n", sourceVersionString());
+  sprintf(info+strlen(info), "%s\n", sourceVersionString('\n'));
   return info;
 }
 #if COGVM
