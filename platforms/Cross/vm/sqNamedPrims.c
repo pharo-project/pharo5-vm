@@ -43,6 +43,7 @@ static ModuleEntry *squeakModule = NULL;
 static ModuleEntry *firstModule = NULL;
 struct VirtualMachine *sqGetInterpreterProxy(void);
 
+
 static void *findLoadedModule(char *pluginName)
 {
 	ModuleEntry *module;
@@ -382,6 +383,7 @@ void *ioLoadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength)
 	if(module) return module->handle;
 	return 0;
 }
+
 
 /* shutdownModule:
 	Call the shutdown mechanism from the specified module.

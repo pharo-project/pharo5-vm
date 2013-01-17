@@ -17,16 +17,17 @@ void *ioGetWindow(void);
 
 void *os_exports[][3]=
 {
+  XFN(GetAttributeString)
 #if !defined(HEADLESS)
-  XFN(primitivePluginBrowserReady),
-  XFN(primitivePluginRequestURLStream),
-  XFN(primitivePluginRequestURL),
-  XFN(primitivePluginPostURL),
-  XFN(primitivePluginRequestFileHandle),
-  XFN(primitivePluginDestroyRequest),
-  XFN(primitivePluginRequestState),
-  XFN(ioGetDisplay),
-  XFN(ioGetWindow),
+  XFN(primitivePluginBrowserReady)
+  XFN(primitivePluginRequestURLStream)
+  XFN(primitivePluginRequestURL)
+  XFN(primitivePluginPostURL)
+  XFN(primitivePluginRequestFileHandle)
+  XFN(primitivePluginDestroyRequest)
+  XFN(primitivePluginRequestState)
+  XFN(ioGetDisplay)
+  XFN(ioGetWindow)
 #endif
   { 0, 0, 0 }
 };
