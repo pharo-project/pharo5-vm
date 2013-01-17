@@ -3,7 +3,7 @@ Gofer new
 	package: 'ConfigurationOfCog';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: '5.6') load.
+((Smalltalk at: #ConfigurationOfCog) project version: '5.7') load.
 
 (Smalltalk saveAs: 'generator.image') 
     ifFalse: [ Smalltalk snapshot: false andQuit: true ]
