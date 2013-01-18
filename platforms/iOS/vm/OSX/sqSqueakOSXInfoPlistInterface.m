@@ -231,6 +231,12 @@ extern int gSqueakUseFileMappedMMAP;
 	[self setInfoPlistNumberValueForMouseX: 3 Y: 1 from: dict key: @"SqueakBrowserMouseControlButton1" default: 1 browser: YES];
 	[self setInfoPlistNumberValueForMouseX: 3 Y: 2 from: dict key: @"SqueakBrowserMouseControlButton2" default: 3 browser: YES];
 	[self setInfoPlistNumberValueForMouseX: 3 Y: 3 from: dict key: @"SqueakBrowserMouseControlButton3" default: 2 browser: YES];
+    
+    /* So far, setting the flag LSBackgroundOnly to "true" is mandatory for running headless. So when the user enables this flag
+     is to go headless. Therefore, we also set gSqueakHeadless. This way, passing the argument -headless is not necessary anymore.*/
+    extern BOOL gSqueakHeadless;
+    gSqueakHeadless = [[mainBundle objectForInfoDictionaryKey:@"LSBackgroundOnly"] boolValue];
+    
 	[pool drain];
 }
 
