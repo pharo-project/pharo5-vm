@@ -89,14 +89,23 @@ void mtfsfi(unsigned long long fpscr) {}
 
 - (void) doHeadlessSetup {
 	[super doHeadlessSetup];
-	extern BOOL gSqueakHeadless;
-	if (gSqueakHeadless) {
-        [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+	extern BOOL gSqueakHeadless;    
+    // Notice that setActivationPolicy: is available in OSX 10.6 and later
+    if ([NSApp respondsToSelector:@selector(setActivationPolicy:)]) {
+        if (gSqueakHeadless) {
+            [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+        } else {
+            [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+            [NSApp activateIgnoringOtherApps:YES];
+        }
     } else {
-        [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
-        [NSApp activateIgnoringOtherApps:YES];
+        if (gSqueakHeadless) {
+            NSLog( @"For OSX older than 10.6 there is no support for headless");
+            [self ioExit];
+        } else {
+                // nothing in particular to do. 
+        }
     }
-        
 }
 
 - (void) doMemorySetup {
