@@ -89,20 +89,23 @@ void mtfsfi(unsigned long long fpscr) {}
 
 - (void) doHeadlessSetup {
 	[super doHeadlessSetup];
-	extern BOOL gSqueakHeadless;
-	if (gSqueakHeadless) 
-		return;
-#warning untested
-	ProcessSerialNumber psn = { 0, kCurrentProcess };
-	ProcessInfoRec info;
-	bzero(&info, sizeof(ProcessInfoRec));
-	info.processInfoLength = sizeof(ProcessInfoRec);
-	GetProcessInformation(&psn,&info);
-	if ((info.processMode & modeOnlyBackground) && TransformProcessType != NULL) {
-		OSStatus returnCode = TransformProcessType(& psn, kProcessTransformToForegroundApplication);
-#pragma unused(returnCode)
-		SetFrontProcess(&psn);		
-	}
+	extern BOOL gSqueakHeadless;    
+    // Notice that setActivationPolicy: is available in OSX 10.6 and later
+    if ([NSApp respondsToSelector:@selector(setActivationPolicy:)]) {
+        if (gSqueakHeadless) {
+            [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+        } else {
+            [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+            [NSApp activateIgnoringOtherApps:YES];
+        }
+    } else {
+        if (gSqueakHeadless) {
+            NSLog( @"For OSX older than 10.6 there is no support for headless");
+            [self ioExit];
+        } else {
+                // nothing in particular to do. 
+        }
+    }
 }
 
 - (void) doMemorySetup {

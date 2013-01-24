@@ -156,6 +156,11 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
 }
 
 - (void) drawThelayers {
+    extern BOOL gSqueakHeadless;
+	if (gSqueakHeadless) {
+        firstDrawCompleted = YES;
+        return;
+    }
 	if (syncNeeded) { 
 		[self drawRect: NSRectFromCGRect(clippy)];
 		syncNeeded = NO;
