@@ -232,11 +232,15 @@ extern int gSqueakUseFileMappedMMAP;
 	[self setInfoPlistNumberValueForMouseX: 3 Y: 2 from: dict key: @"SqueakBrowserMouseControlButton2" default: 3 browser: YES];
 	[self setInfoPlistNumberValueForMouseX: 3 Y: 3 from: dict key: @"SqueakBrowserMouseControlButton3" default: 2 browser: YES];
     
-    /* So far, setting the flag LSBackgroundOnly to "true" is mandatory for running headless. So when the user enables this flag
-     is to go headless. Therefore, we also set gSqueakHeadless. This way, passing the argument -headless is not necessary anymore.*/
+    /* There are two possibilities for running headless. 
+     Scenario 1: If the user does not care about a “little flash” that happens when starting the VM, then it just needs to invoke the VM from command line sending the argument -headless. 
+     Scenario 2: If the user does care about the “flash”, it needs to set the LSBackgroundOnly property to true in the Info.plist. Then, just start the VM normally (no need of -headless).
+     Notice that the processing of the -headless happens before this. So if gSqueakHeadless is true (Scenario 1) we cannot override it. The following lines are to support the uncessary -headless for Scenario 2.
+  */
     extern BOOL gSqueakHeadless;
-    gSqueakHeadless = [[mainBundle objectForInfoDictionaryKey:@"LSBackgroundOnly"] boolValue];
-    
+    if(!gSqueakHeadless) {
+        gSqueakHeadless = [[mainBundle objectForInfoDictionaryKey:@"LSBackgroundOnly"] boolValue];
+    }
 	[pool drain];
 }
 
