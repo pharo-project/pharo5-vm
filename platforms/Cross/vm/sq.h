@@ -41,8 +41,9 @@
 	EXPORT(int) somePrimitive(void)
    If the platform requires special declaration modifiers, the EXPORT
    macro can be redefined.
-*/
+   */
 #define EXPORT(returnType) returnType
+#define VM_EXPORT
 
 /* Image save/restore macros. */
 

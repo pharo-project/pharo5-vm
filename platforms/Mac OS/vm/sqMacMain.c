@@ -77,6 +77,7 @@
 #include <objc/objc-runtime.h>
 
 #include "sq.h"
+#include "sqAssert.h"
 #include "sqMacUIConstants.h"
 #include "sqMacMain.h"
 #include "sqMacUIMenuBar.h"
@@ -107,6 +108,7 @@
 # include <execinfo.h>
 # define BACKTRACE_DEPTH 64
 #endif
+#include <signal.h>
 #include <sys/ucontext.h>
 
 extern pthread_mutex_t gEventQueueLock,gSleepLock;

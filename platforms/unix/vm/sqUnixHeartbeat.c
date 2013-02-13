@@ -1,5 +1,5 @@
 /****************************************************************************
-*   PROJECT: Unix (pthread or setitimer) heartbeat logic for Stack VM
+*   PROJECT: Unix (pthread) heartbeat logic for Stack/Cog VM
 *   FILE:    sqUnixHeartbeat.c
 *   CONTENT: 
 *
