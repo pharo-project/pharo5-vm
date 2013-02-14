@@ -11,8 +11,8 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 
 - Mac:
   Download and install the latest version of XCode and XCode command line tools
-  Download MacOSX10.6.sdk.zip from http://pharo.gforge.inria.fr/ci/vm/cog/mac/MacOSX10.6.sdk.zip and put it on 
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs (just where MacOSX10.x.sdk are)
+  Download MacOSX10.6.sdk.zip from http://pharo.gforge.inria.fr/ci/extras/MacOSX10.6.sdk.zip and put it on 
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs (just where MacOSX10.x.sdk usually are)
   (YES, WE NEED 10.6 SDK!)
 
 - Win:
