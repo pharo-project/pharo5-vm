@@ -10,6 +10,13 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
     sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
 
 - Mac:
+  Download and install teh homebrew package manager with some additional packages
+  
+  	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+	brew install git                     # if you haven't installed git yet
+  	brew install wget 					 # wget is needed in certain cases to download files
+	brew install gnu-tar --default-names # OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
+  
   Download and install the latest version of XCode and XCode command line tools
   Download MacOSX10.6.sdk.zip from http://pharo.gforge.inria.fr/ci/extras/MacOSX10.6.sdk.zip and put it on 
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs (just where MacOSX10.x.sdk usually are)
@@ -94,17 +101,14 @@ Pick or edit the configuration you want, then evaluate it.
 
     - OSX:
 
-            # as of 10.7 llvm is the default but incompatible compiler
-            export CC='/usr/bin/gcc-4.2'
-            export MACOSX_DEPLOYMENT_TARGET=10.5
+            export MACOSX_DEPLOYMENT_TARGET=10.6
             sh ../codegen-scripts/extract-commit-info.sh
             cd build
             cmake .
             make
 
     - Varia: consult the last section from `cmake --help` to check for other
-    generators.  
-    For instance, to create an XCode project under OSX, do the following:
+    generators. For instance, to create an XCode project under OSX, do the following:
 
             cd build
             sh ../codegen-scripts/extract-commit-info.sh
