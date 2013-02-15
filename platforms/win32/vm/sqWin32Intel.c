@@ -18,6 +18,7 @@
 #include <fcntl.h> /* _O_BINARY */
 #include <float.h>
 #include <ole2.h>
+#include <setjmp.h>
 #include "sq.h"
 #include "sqWin32Backtrace.h"
 #include "sqSCCSVersion.h"
