@@ -43,7 +43,6 @@ static ModuleEntry *squeakModule = NULL;
 static ModuleEntry *firstModule = NULL;
 struct VirtualMachine *sqGetInterpreterProxy(void);
 
-
 static void *findLoadedModule(char *pluginName)
 {
 	ModuleEntry *module;

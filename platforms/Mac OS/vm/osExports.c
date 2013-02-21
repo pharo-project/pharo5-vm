@@ -70,6 +70,4 @@ void *os_exports[][3] = {
 	XFN(primitivePluginRequestState)
 #endif
 	{NULL, NULL, NULL}
-
 };
-
