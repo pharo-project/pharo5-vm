@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PREBUILT_IMAGE_URL="https://ci.lille.inria.fr/pharo/job/Cog%20Git%20Tracker/lastSuccessfulBuild/artifact/vmmaker-image.zip"
-URL="https://ci.lille.inria.fr/pharo/job/Pharo%201.4/lastSuccessfulBuild/artifact/"
+PREBUILT_IMAGE_URL="https://ci.inria.fr/pharo/job/Cog-Git-Tracker/lastSuccessfulBuild/artifact/vmmaker-image.zip"
+URL="https://files.pharo.org/image/14/latest.zip"
 VERSION="Pharo-1.4"
 
 NO_COLOR='\033[0m' #disable any colors

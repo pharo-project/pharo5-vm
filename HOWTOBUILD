@@ -12,10 +12,14 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 - Mac:
   Download and install teh homebrew package manager with some additional packages
   
+  	# install homebrew with the following oneliner:
   	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-	brew install git                     # if you haven't installed git yet
-  	brew install wget 					 # wget is needed in certain cases to download files
-	brew install gnu-tar --default-names # OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
+	 # if you haven't installed git yet
+	brew install git
+  	# wget is needed in certain cases to download files
+	brew install wget
+	# OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
+	brew install gnu-tar --default-names 
   
   Download and install the latest version of XCode and XCode command line tools
   Download MacOSX10.6.sdk.zip from http://pharo.gforge.inria.fr/ci/extras/MacOSX10.6.sdk.zip and put it on 
