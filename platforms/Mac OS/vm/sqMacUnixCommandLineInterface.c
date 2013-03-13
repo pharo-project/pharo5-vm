@@ -242,7 +242,8 @@ static int parseArgument(int argc, char **argv)
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-reportheadroom")) { 
+      else if (!strcmp(argv[0], "-reportheadroom")
+			|| !strcmp(argv[0], "-rh")) { 
 		extern sqInt reportStackHeadroom;
 		reportStackHeadroom = 1;
 		return 1; }
