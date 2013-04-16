@@ -544,6 +544,11 @@ sqInt ioFormPrint(sqInt bitsAddr, sqInt width, sqInt height, sqInt depth, double
 #if STACKVM
 sqInt ioRelinquishProcessorForMicroseconds(sqInt us)
 {
+# if ITIMER_HEARTBEAT
+  extern void checkHeartStillBeats();
+
+  checkHeartStillBeats();
+# endif
   dpy->ioRelinquishProcessorForMicroseconds(us);
   return 0;
 }
@@ -1463,6 +1468,7 @@ static void vm_printUsage(void)
   printf("  -tracestores          enable store tracing (assert check stores)\n");
   printf("  -cogmaxlits <n>       set max number of literals for methods compiled to machine code\n");
   printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
+  printf("  -reportheadroom       report unused stack headroom on exit\n");
 #endif
   printf("  -blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
 #if 1

@@ -347,7 +347,7 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
 	timeDelta = timeNow - lastClickTime;
 	nrClicks = (timeDelta <= GetDoubleClickTime()) ? (nrClicks + 1) : 1;
 	lastClickTime = timeNow;
-	
+
     if(inputSemaphoreIndex) {
       recordMouseEvent(lastMessage, nrClicks);
       break;
@@ -358,11 +358,11 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
     /* check for console focus */
     recordMouseDown(wParam, lParam);
     recordModifierButtons();
-	
+
 	/* capture the mouse as long as the button is pressed so we can scroll outside */
     SetCapture(stWindow);
     break;
-	
+
   case WM_LBUTTONUP:
   case WM_RBUTTONUP:
   case WM_MBUTTONUP:
