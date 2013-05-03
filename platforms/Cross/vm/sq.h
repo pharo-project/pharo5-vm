@@ -30,7 +30,9 @@
 #	define IMAGE_ENV_NAME "NEWSPEAK_IMAGE"
 # else
 #	define IMAGE_DIALECT_NAME "Squeak"
-#	define DEFAULT_IMAGE_NAME "squeak.image"
+#	ifndef DEFAULT_IMAGE_NAME
+#		define DEFAULT_IMAGE_NAME "squeak.image"
+#	endif
 #	define IMAGE_ENV_NAME "SQUEAK_IMAGE"
 # endif
 #endif

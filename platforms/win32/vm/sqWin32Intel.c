@@ -1600,104 +1600,104 @@ static int
 parseVMArgument(int argc, char *argv[])
 {
 	/* flags */
-	if      (!strcmp(argv[0], "-help"))		{ 
+	if (!strcmp(argv[0], "--help"))		{ 
 		printUsage(1);
 		return 1;
 	}
-	else if (!strcmp(argv[0], "-version"))	{ versionInfo();	return 1; }
-	else if (!strcmp(argv[0], "-headless")) { fHeadlessImage = true; return 1; }
-	else if (!strcmp(argv[0], "-headfull")) { fHeadlessImage = false; return 1;}
-	else if (!strcmp(argv[0], "-timephases")) {
+	else if (!strcmp(argv[0], "--version"))	{ versionInfo();	return 1; }
+	else if (!strcmp(argv[0], "--headless")) { fHeadlessImage = true; return 1; }
+	else if (!strcmp(argv[0], "--headfull")) { fHeadlessImage = false; return 1;}
+	else if (!strcmp(argv[0], "--timephases")) {
 		printPhaseTime(1);
 		return 1;
 	}
 #ifdef  VISTA_SECURITY /* IE7/Vista protected mode support */
 	/* started with low rights, use alternate untrustedUserDirectory */
-	else if (!strcmp(argv[0], "-lowRights")) { fLowRights = true; return 1; }
+	else if (!strcmp(argv[0], "--lowRights")) { fLowRights = true; return 1; }
 #endif /* VISTA_SECURITY */
 #if (STACKVM || NewspeakVM) && !COGVM
-	else if (!strcmp(argv[0], "-sendtrace"))
+	else if (!strcmp(argv[0], "--sendtrace"))
 		{ extern sqInt sendTrace; sendTrace = 1; return 1; }
 #endif
 
 	/* parameters */
-	else if (argc > 1 && !strcmp(argv[0], "-service")) {
+	else if (argc > 1 && !strcmp(argv[0], "--service")) {
 		installServiceName = argv[1];
 		return 2;
 	}
-	else if (!strncmp(argv[0], "-service:", 9)) {
+	else if (!strncmp(argv[0], "--service:", 9)) {
 		installServiceName = argv[0] + 9;
 		return 1;
 	}
-	else if (argc > 1 && !strcmp(argv[0], "-log")) {
+	else if (argc > 1 && !strcmp(argv[0], "--log")) {
 		logName = argv[1];
 		return 2;
 	}
-	else if (!strncmp(argv[0], "-log:", 5)) {
+	else if (!strncmp(argv[0], "--log:", 5)) {
 		logName = argv[0] + 5;
 		return 1;
 	}
-	else if (argc > 1 && !strcmp(argv[0], "-memory")) {
+	else if (argc > 1 && !strcmp(argv[0], "--memory")) {
 		dwMemorySize = strtobkm(argv[1]);
 		return 2;
 	}
-	else if (!strncmp(argv[0], "-memory:", 8)) {
+	else if (!strncmp(argv[0], "--memory:", 8)) {
 		dwMemorySize = strtobkm(argv[0] + 8);
 		return 1;
 	}
 #if STACKVM || NewspeakVM
-	else if (argc > 1 && !strcmp(argv[0], "-breaksel")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--breaksel")) { 
 		extern void setBreakSelector(char *);
 		setBreakSelector(argv[1]);
 		return 2; }
-	else if (!strncmp(argv[0], "-breaksel:", 10)) { 
+	else if (!strncmp(argv[0], "--breaksel:", 10)) { 
 		extern void setBreakSelector(char *);
 		setBreakSelector(argv[0] + 10);
 		return 1; }
-	else if (argc > 1 && !strcmp(argv[0], "-numextsems")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
-	else if (!strncmp(argv[0], "-numextsems:", 12)) { 
+	else if (!strncmp(argv[0], "--numextsems:", 12)) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]+12));
 		return 1; }
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
-	else if (argc > 1 && !strcmp(argv[0], "-eden")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
 		return 2; }
-	else if (!strncmp(argv[0], "-eden:", 6)) { 
+	else if (!strncmp(argv[0], "--eden:", 6)) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[0]+6);	 
 		return 2; }
-	else if (argc > 1 && !strcmp(argv[0], "-leakcheck")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--leakcheck")) { 
 		extern sqInt checkForLeaks;
 		checkForLeaks = atoi(argv[1]);	 
 		return 2; }
-	else if (!strncmp(argv[0], "-leakcheck:", 11)) { 
+	else if (!strncmp(argv[0], "--leakcheck:", 11)) { 
 		extern sqInt checkForLeaks;
 		checkForLeaks = atoi(argv[0]+11);	 
 		return 2; }
-	else if (argc > 1 && !strcmp(argv[0], "-stackpages")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--stackpages")) { 
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[1]);	 
 		return 2; }
-	else if (!strncmp(argv[0], "-stackpages:", 12)) { 
+	else if (!strncmp(argv[0], "--stackpages:", 12)) { 
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[0]+12);	 
 		return 2; }
-	else if (!strcmp(argv[0], "-noheartbeat")) { 
+	else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
 		return 1; }
 #endif /* STACKVM */
 #if COGVM
-	else if (!strcmp(argv[0], "-codesize")) { 
+	else if (!strcmp(argv[0], "--codesize")) { 
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-trace")-1)
-	else if (!strncmp(argv[0], "-trace", TLSLEN)) { 
+# define TLSLEN (sizeof("--trace")-1)
+	else if (!strncmp(argv[0], "--trace", TLSLEN)) { 
 		extern int traceFlags;
 		char *equalsPos = strchr(argv[0],'=');
 
@@ -1711,48 +1711,48 @@ parseVMArgument(int argc, char *argv[])
 
 		traceFlags = atoi(equalsPos + 1);
 		return 1; }
-	else if (!strcmp(argv[0], "-tracestores")) { 
+	else if (!strcmp(argv[0], "--tracestores")) { 
 		extern sqInt traceStores;
 		traceStores = 1;
 		return 1; }
-	else if (!strcmp(argv[0], "-dpcso")) { 
+	else if (!strcmp(argv[0], "--dpcso")) { 
 		extern unsigned long debugPrimCallStackOffset;
 		debugPrimCallStackOffset = (unsigned long)strtobkm(argv[1]);	 
 		return 2; }
-	else if (argc > 1 && !strcmp(argv[0], "-cogmaxlits")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--cogmaxlits")) { 
 		extern sqInt maxLiteralCountForCompile;
 		maxLiteralCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-	else if (!strncmp(argv[0], "-cogmaxlits:", 12)) { 
+	else if (!strncmp(argv[0], "--cogmaxlits:", 12)) { 
 		extern sqInt maxLiteralCountForCompile;
 		maxLiteralCountForCompile = strtobkm(argv[0]+12); 
 		return 2; }
-	else if (argc > 1 && !strcmp(argv[0], "-cogminjumps")) { 
+	else if (argc > 1 && !strcmp(argv[0], "--cogminjumps")) { 
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[1]); 
 		return 2; }
-	else if (!strncmp(argv[0], "-cogminjumps:",13)) { 
+	else if (!strncmp(argv[0], "--cogminjumps:",13)) { 
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[0]+13); 
 		return 2; }
-    else if (!strcmp(argv[0], "-reportheadroom")
-          || !strcmp(argv[0], "-rh")) { 
+    else if (!strcmp(argv[0], "--reportheadroom")
+          || !strcmp(argv[0], "--rh")) { 
 		extern sqInt reportStackHeadroom;
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
 
   /* NOTE: the following flags are "undocumented" */
-	else if (argc > 1 && !strcmp(argv[0], "-browserWindow")) {
+	else if (argc > 1 && !strcmp(argv[0], "--browserWindow")) {
 		browserWindow = (HWND)atoi(argv[1]);
 		return 2; }
-	else if (!strncmp(argv[0], "-browserWindow:", 15)) {
+	else if (!strncmp(argv[0], "--browserWindow:", 15)) {
 		browserWindow = (HWND)atoi(argv[0]+15);
 		return 1; }
 
 	/* service support on 95 */
-	else if (!strcmp(argv[0], "-service95")) { fRunService = true; return 1; }
-	else if (!strcmp(argv[0], "-broadcast95")) { fBroadcastService95 = true; return 1; }
+	else if (!strcmp(argv[0], "--service95")) { fRunService = true; return 1; }
+	else if (!strcmp(argv[0], "--broadcast95")) { fBroadcastService95 = true; return 1; }
 
 	return 0;	/* option not recognised */
 }

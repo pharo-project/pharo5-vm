@@ -144,6 +144,7 @@ void mtfsfi(unsigned long long fpscr) {}
 
 	if ([argData compare: @"--help"] == NSOrderedSame) {
 		[self usage];
+		exit(0);
 		return 1;
 	}
 	if ([argData compare: @"--headless"] == NSOrderedSame) {
@@ -193,6 +194,7 @@ void mtfsfi(unsigned long long fpscr) {}
 			if (result == 0)			/* option not recognised */ {
 				fprintf(stderr, "unknown option: %s\n", [argData UTF8String]);
 				[self usage];
+				exit(1);
 			}
 			if (result == 2)
 				i++;
@@ -219,7 +221,7 @@ void mtfsfi(unsigned long long fpscr) {}
 
 - (void) parseEnv: (NSDictionary *) env {
 #warning untested!
-	NSString *imageNameString = [env objectForKey: @"SQUEAK_IMAGE"];
+	NSString *imageNameString = [env objectForKey: @"retain"];
 	if (imageNameString) {
 		[(sqSqueakOSXInfoPlistInterface*) self.infoPlistInterfaceLogic setOverrideSqueakImageName: imageNameString];
 	}
@@ -234,9 +236,8 @@ void mtfsfi(unsigned long long fpscr) {}
 	printf("       [<option>...] -- [<argument>...]\n");
 	[self printUsage];
 	printf("\nNotes:\n");
-	printf("  <imageName> defaults to `Squeak.image'.\n");
+	printf("  <imageName> defaults to `%s'.\n", DEFAULT_IMAGE_NAME);
 	[self printUsageNotes];
-	exit(1);
 }
 
 - (void) printUsage {
