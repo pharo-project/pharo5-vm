@@ -149,70 +149,70 @@ static int parseArgument(int argc, char **argv)
 {
    /* vm arguments */
 
-  if      (!strcmp(argv[0], "-help"))		{ 
+  if      (!strcmp(argv[0], "--help"))		{ 
 	usage();
 	return 1; }
-  else if (!strcmp(argv[0], "-version")) {
+  else if (!strcmp(argv[0], "--version")) {
 	extern char *getVersionInfo(int verbose);
 	printf("%s\n", getVersionInfo(0));
 	exit(0);
   }
   else if (!strncmp(argv[0], "-psn_", 5)) { return 1; }
-  else if (!strcmp(argv[0], "-headless")) { gSqueakHeadless = true; return 1; }
-  else if (!strcmp(argv[0], "-headfull")) { gSqueakHeadless = false; return 1; }
-  else if (!strcmp(argv[0], "-blockonerror")) {
+  else if (!strcmp(argv[0], "--headless")) { gSqueakHeadless = true; return 1; }
+  else if (!strcmp(argv[0], "--headfull")) { gSqueakHeadless = false; return 1; }
+  else if (!strcmp(argv[0], "--blockonerror")) {
 	extern int blockOnError;
 	blockOnError = true;
 	return 1; }
-  else if (!strcmp(argv[0], "-timephases")) {
+  else if (!strcmp(argv[0], "--timephases")) {
 	extern void printPhaseTime(int);
 	printPhaseTime(1);
 	return 1; }
 #if (STACKVM || NewspeakVM) && !COGVM
-  else if (!strcmp(argv[0], "-sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
+  else if (!strcmp(argv[0], "--sendtrace")) { extern sqInt sendTrace; sendTrace = 1; return 1; }
 #endif
   else if (argc > 1) {
-	  if (!strcmp(argv[0], "-memory"))	{ 
+	  if (!strcmp(argv[0], "--memory"))	{ 
 		gMaxHeapSize = strtobkm(argv[1]);	 
 		return 2; }
 #if STACKVM || NewspeakVM
-      else if (!strcmp(argv[0], "-breaksel")) { 
+      else if (!strcmp(argv[0], "--breaksel")) { 
 		extern void setBreakSelector(char *);
 		setBreakSelector(argv[1]);
 		return 2; }
 #endif
 #if STACKVM
-      else if (!strcmp(argv[0], "-eden")) { 
+      else if (!strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-leakcheck")) { 
+      else if (!strcmp(argv[0], "--leakcheck")) { 
 		extern sqInt checkForLeaks;
 		checkForLeaks = atoi(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-stackpages")) { 
+      else if (!strcmp(argv[0], "--stackpages")) { 
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-numextsems")) { 
+      else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
-      else if (!strcmp(argv[0], "-noheartbeat")) { 
+      else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-pollpip")) { 
+      else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
 		pollpip = atoi(argv[1]);	 
 		return 2; }
 #endif /* STACKVM */
 #if COGVM
-      else if (!strcmp(argv[0], "-codesize")) { 
+      else if (!strcmp(argv[0], "--codesize")) { 
 		extern sqInt desiredCogCodeSize;
 		desiredCogCodeSize = strtobkm(argv[1]);	 
 		return 2; }
-# define TLSLEN (sizeof("-trace")-1)
-      else if (!strncmp(argv[0], "-trace", TLSLEN)) { 
+# define TLSLEN (sizeof("--trace")-1)
+      else if (!strncmp(argv[0], "--trace", TLSLEN)) { 
 		extern int traceFlags;
 		char *equalsPos = strchr(argv[0],'=');
 
@@ -226,32 +226,32 @@ static int parseArgument(int argc, char **argv)
 
 		traceFlags = atoi(equalsPos + 1);
 		return 1; }
-      else if (!strcmp(argv[0], "-tracestores")) { 
+      else if (!strcmp(argv[0], "--tracestores")) { 
 		extern sqInt traceStores;
 		traceStores = 1;
 		return 1; }
-      else if (!strcmp(argv[0], "-dpcso")) { 
+      else if (!strcmp(argv[0], "--dpcso")) { 
 		extern unsigned long debugPrimCallStackOffset;
 		debugPrimCallStackOffset = (unsigned long)strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-cogmaxlits")) { 
+      else if (!strcmp(argv[0], "--cogmaxlits")) { 
 		extern sqInt maxLiteralCountForCompile;
 		maxLiteralCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-cogminjumps")) { 
+      else if (!strcmp(argv[0], "--cogminjumps")) { 
 		extern sqInt minBackwardJumpCountForCompile;
 		minBackwardJumpCountForCompile = strtobkm(argv[1]);	 
 		return 2; }
-      else if (!strcmp(argv[0], "-reportheadroom")
-			|| !strcmp(argv[0], "-rh")) { 
+      else if (!strcmp(argv[0], "--reportheadroom")
+			|| !strcmp(argv[0], "--rh")) { 
 		extern sqInt reportStackHeadroom;
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
-      else if (!strcmp(argv[0], "-pathenc")) { 
+      else if (!strcmp(argv[0], "--pathenc")) { 
 		setEncodingType(argv[1]); 
 		return 2; }
-      else if (!strcmp(argv[0], "-browserPipes")) {
+      else if (!strcmp(argv[0], "--browserPipes")) {
 		extern int		 gSqueakBrowserPipes[]; /* read/write fd for browser communication */
 		extern Boolean gSqueakBrowserSubProcess;
 
@@ -279,49 +279,50 @@ static void usage(void)
 static void printUsage(void)
 {
   printf("\nCommon <option>s:\n");
-  printf("  -help                 print this help message, then exit\n");
-  printf("  -memory <size>[mk]    use fixed heap size (added to image size)\n");
-  printf("  -timephases           print start load and run times\n");
+  printf("  --help                 print this help message, then exit\n");
+  printf("  --memory <size>[mk]    use fixed heap size (added to image size)\n");
+  printf("  --timephases           print start load and run times\n");
 #if STACKVM || NewspeakVM
-  printf("  -breaksel selector    set breakpoint on send of selector\n");
+  printf("  --breaksel selector    set breakpoint on send of selector\n");
 #endif
 #if STACKVM
-  printf("  -eden <size>[mk]      set eden memory to bytes\n");
-  printf("  -leakcheck num        check for leaks in the heap\n");
-  printf("  -stackpages num       use n stack pages\n");
-  printf("  -numextsems num       make the external semaphore table num in size\n");
-  printf("  -noheartbeat          disable the heartbeat for VM debugging. disables input\n");
-  printf("  -pollpip              output . on each poll for input\n");
+  printf("  --eden <size>[mk]      set eden memory to bytes\n");
+  printf("  --leakcheck num        check for leaks in the heap\n");
+  printf("  --stackpages num       use n stack pages\n");
+  printf("  --numextsems num       make the external semaphore table num in size\n");
+  printf("  --noheartbeat          disable the heartbeat for VM debugging. disables input\n");
+  printf("  --pollpip              output . on each poll for input\n");
 #endif
 #if STACKVM || NewspeakVM
 # if COGVM
-  printf("  -trace[=num]          enable tracing (optionally to a specific value)\n");
+  printf("  --trace[=num]          enable tracing (optionally to a specific value)\n");
 # else
-  printf("  -sendtrace            enable send tracing\n");
+  printf("  --sendtrace            enable send tracing\n");
 # endif
 #endif
 #if COGVM
-  printf("  -codesize <size>[mk]  set machine code memory to bytes\n");
-  printf("  -tracestores          enable store tracing (assert check stores)\n");
-  printf("  -cogmaxlits <n>       set max number of literals for methods to be compiled to machine code\n");
-  printf("  -cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
+  printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
+  printf("  --tracestores          enable store tracing (assert check stores)\n");
+  printf("  --cogmaxlits <n>       set max number of literals for methods to be compiled to machine code\n");
+  printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
+  printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
 #if STACKVM || NewspeakVM
-  printf("  -breaksel selector    call warning when sending or jitting selector\n");
+  printf("  --breaksel selector    call warning when sending or jitting selector\n");
 #endif
-  printf("  -pathenc <enc>        set encoding for pathnames (default: %s)\n",
+  printf("  --pathenc <enc>        set encoding for pathnames (default: %s)\n",
 		getEncodingType(gCurrentVMEncoding));
 
-  printf("  -headless             run in headless (no window) mode (default: false)\n");
-  printf("  -headfull             run in headful (window) mode (default: true)\n");
-  printf("  -version              print version information, then exit\n");
+  printf("  --headless             run in headless (no window) mode (default: false)\n");
+  printf("  --headfull             run in headful (window) mode (default: true)\n");
+  printf("  --version              print version information, then exit\n");
 
-  printf("  -blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
+  printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
 }
 
 static void printUsageNotes(void)
 {
-  printf("  If `-memory' is not specified then the heap will grow dynamically.\n");
+  printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
   printf("  <argument>s are ignored, but are processed by the " IMAGE_DIALECT_NAME " image.\n");
   printf("  The first <argument> normally names a " IMAGE_DIALECT_NAME " `script' to execute.\n");
   printf("  Precede <arguments> by `--' to use default image.\n");

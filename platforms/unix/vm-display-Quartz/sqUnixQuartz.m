@@ -1036,28 +1036,28 @@ static void  display_parseEnvironment(void) {}
 static int display_parseArgument(int argc, char **argv)
 {
   if     (!strncmp(*argv, "-psn_", 5))		return fromFinder= 1;
-  else if (!strcmp(*argv, "-quartz"))		return 1;
-  else if (!strcmp(*argv, "-fullscreen"))	return fullscreen= 1;
-  else if (!strcmp(*argv, "-headless"))		return headless= 1;
-  else if (!strcmp(*argv, "-notitle"))		return noTitle= 1;
-  else if (!strcmp(*argv, "-nodock"))		return noDock= 1;
-  else if (!strcmp(*argv, "-swapbtn"))		return swapBtn= 1;
+  else if (!strcmp(*argv, "--quartz"))		return 1;
+  else if (!strcmp(*argv, "--fullscreen"))	return fullscreen= 1;
+  else if (!strcmp(*argv, "--headless"))		return headless= 1;
+  else if (!strcmp(*argv, "--notitle"))		return noTitle= 1;
+  else if (!strcmp(*argv, "--nodock"))		return noDock= 1;
+  else if (!strcmp(*argv, "--swapbtn"))		return swapBtn= 1;
   return 0;
 }
 
 static void display_printUsage(void)
 {
   printf("\nQuartz/Aqua <option>s:\n");
-  printf("  -fullscreen           occupy the entire screen\n");
-  printf("  -headless             run in headless (no window) mode\n");
-  printf("  -nodock               don't show Squeak in the dock\n");
-  printf("  -notitle              disable the Squeak window title bar\n");
-  printf("  -swapbtn              swap mouse buttons 2 (yellow) and 3 (blue)\n");
+  printf("  --fullscreen           occupy the entire screen\n");
+  printf("  --headless             run in headless (no window) mode\n");
+  printf("  --nodock               don't show Squeak in the dock\n");
+  printf("  --notitle              disable the Squeak window title bar\n");
+  printf("  --swapbtn              swap mouse buttons 2 (yellow) and 3 (blue)\n");
 }
 
 static void display_printUsageNotes(void)
 {
-  printf("  -nodock is only useful with `-headless'.\n");
+  printf("  --nodock is only useful with `--headless'.\n");
 }
 
 

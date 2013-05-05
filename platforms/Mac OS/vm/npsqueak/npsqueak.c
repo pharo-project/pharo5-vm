@@ -266,8 +266,8 @@ NPP_New(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc,
   plugin->srcId=       -1;
   plugin->failureUrl=  0;
   plugin->argv[0]=     NPN_StrDup("squeakvm");
-  plugin->argv[1]=     NPN_StrDup("-headless");
-  plugin->argv[2]=     NPN_StrDup("-browserPipes");
+  plugin->argv[1]=     NPN_StrDup("--headless");
+  plugin->argv[2]=     NPN_StrDup("--browserPipes");
   plugin->argv[3]=     NULL;             /* inserted later */
   plugin->argv[4]=     NULL;             /* inserted later */
   plugin->argv[5]=     NULL;             /* inserted later */
