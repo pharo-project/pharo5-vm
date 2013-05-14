@@ -55,6 +55,8 @@
 extern SqueakOSXAppDelegate *gDelegateApp;
 extern struct	VirtualMachine* interpreterProxy;
 
+#define max(x, y) (x > y? x: y)
+
 static NSString *stringWithCharacter(unichar character) {
 	return [NSString stringWithCharacters: &character length: 1];
 }
@@ -200,8 +202,9 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
     int bytePerRow = 4*width;
     
     CGRect r = NSRectToCGRect([self frame]);
-    int y2 = r.size.height - (rect.origin.y);
-    int y1 = y2 - rect.size.height;
+    int y2 = max(r.size.height - (rect.origin.y), 0);
+    int y1 = max(y2 - rect.size.height, 0);
+    
     CGRect swapRect = CGRectIntersection(CGRectMake(0, 0, width, height), CGRectMake(rect.origin.x, y1, rect.size.width, y2));
     [self swapColors: bits imageWidth:width clipRect: swapRect];
     
