@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # getting right pharo
-wget --quiet -qO - http://files.pharo.org/script/ciPharo14PharoVM.sh | bash
+wget -O- get.pharo.org/14+vm | bash
 
 # preparing for iPhone
-./vm.sh Pharo.image buildImage.st
+./pharo Pharo.image buildImage.st
