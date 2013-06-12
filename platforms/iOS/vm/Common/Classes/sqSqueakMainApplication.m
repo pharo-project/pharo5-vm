@@ -68,7 +68,6 @@ extern sqSqueakAppDelegate *gDelegateApp;
 
 extern sqInt interpret(void);  //This is a VM Callback
 
-
 - (void) setupFloat {
 }
 

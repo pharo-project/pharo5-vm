@@ -774,7 +774,15 @@ getVersionInfo(int verbose)
   char *info= (char *)malloc(4096);
   info[0]= '\0';
 
-  sprintf(info+strlen(info), "%s\n", vmBuildString);
+#if defined(NDEBUG)
+# define BuildVariant "Production"
+#elif DEBUGVM
+# define BuildVariant "Debug"
+# else
+# define BuildVariant "Assert"
+#endif
+
+  sprintf(info+strlen(info), "%s [" BuildVariant " VM]\n", vmBuildString);
   if (verbose)
     sprintf(info+strlen(info), "Built from: ");
   sprintf(info+strlen(info), "%s\n", INTERP_BUILD);

@@ -3599,6 +3599,8 @@ static void handleEvent(XEvent *evt)
 	KeySym symbolic;
 	int keyCode= x2sqKey(&evt->xkey, &symbolic);
 	int ucs4= xkeysym2ucs4(symbolic);
+	DCONV_FPRINTF(stderr, "symbolic, keyCode, ucs4: %x, %d, %d\n", symbolic, keyCode, ucs4);
+	DCONV_FPRINTF(stderr, "pressed, buffer: %d, %x\n", multi_key_pressed, multi_key_buffer);
 	if (multi_key_pressed && multi_key_buffer == 0)
 	  {
 	    switch (ucs4)
@@ -3670,15 +3672,18 @@ static void handleEvent(XEvent *evt)
 	    if (multi_key_buffer != 0)
 	      recordKeystroke(multi_key_buffer);
 	  }
-	    recordKeyboardEvent(symbolic, EventKeyDown, modifierState, ucs4);
-	    if (ucs4 > 0) /* only generate a key char event if there's a code. */
+	if ((keyCode >= 0) || (ucs4 > 0))
+	  {
+	    recordKeyboardEvent(keyCode, EventKeyDown, modifierState, ucs4);
+	    if (ucs4) /* only generate a key char event if there's a code. */
 		recordKeyboardEvent(keyCode, EventKeyChar, modifierState, ucs4);
-	    if (multi_key_buffer != 0 && ucs4 > 0)
+	    if (multi_key_buffer != 0)
 	      {
-		recordKeyboardEvent(symbolic, EventKeyDown, modifierState, multi_key_buffer);
+		recordKeyboardEvent(multi_key_buffer, EventKeyDown, modifierState, multi_key_buffer);
 		recordKeyboardEvent(multi_key_buffer, EventKeyChar, modifierState, multi_key_buffer);
 		multi_key_buffer= 0;
 	      }
+	  }
       }
       break;
 
@@ -3694,10 +3699,10 @@ static void handleEvent(XEvent *evt)
 	    if ((evt2.type == KeyPress) && (evt2.xkey.keycode == evt->xkey.keycode) && ((evt2.xkey.time - evt->xkey.time < 2)))
 	      break;
 	  }
-	/*x= keyCode2sqKey(&evt->xkey, &symbolic);*/
-	/*ucs4= xkeysym2ucs4(symbolic);*/
-	/*if ((keyCode >= 0) || (ucs4 > 0))*/
-	  recordKeyboardEvent(symbolic, EventKeyUp, modifierState, 0);
+	keyCode= x2sqKey(&evt->xkey, &symbolic);
+	ucs4= xkeysym2ucs4(symbolic);
+	if ((keyCode >= 0) || (ucs4 > 0))
+	  recordKeyboardEvent(keyCode, EventKeyUp, modifierState, ucs4);
       }
       break;
 

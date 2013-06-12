@@ -43,8 +43,7 @@
 
 -(void)sendEvent:(NSEvent*)anEvent
 {
-   if ( [anEvent type] == NSKeyDown &&
-		([anEvent modifierFlags] & NSCommandKeyMask) != 0 ) {
+   if (([anEvent type] == NSKeyDown) && (([anEvent modifierFlags] & NSCommandKeyMask) != 0 )) {
 		NSWindow *who = [anEvent window];
 		sqSqueakOSXScreenAndWindow *squeakScreenWindow = (sqSqueakOSXScreenAndWindow *) who.delegate;
 		NSView<sqSqueakOSXView> *view;
@@ -54,7 +53,7 @@
 			view = [who contentView];
 	   [view fakeKeyDownUp: anEvent];
    } else {
-        [super sendEvent:anEvent];
+       [super sendEvent:anEvent];
     }
 }   
 @end

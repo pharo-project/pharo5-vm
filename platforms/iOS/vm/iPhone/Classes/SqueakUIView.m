@@ -157,8 +157,10 @@ extern SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 		[lookupString release];
 		
 		// LF -> CR
-		if (macRomanCharacter == 10)
-			macRomanCharacter = 13;
+		if (macRomanCharacter == 10) {
+			unicode = 13;
+            macRomanCharacter = 13;
+        }
 		
 		evt.pressCode = EventKeyDown;
 		BOOL isUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember: unicode];
