@@ -164,6 +164,8 @@ ioHighResClock(void)
 			|| defined(i486) || defined(__i486) || defined (__i486__) \
 			|| defined(intel) || defined(x86) || defined(i86pc) )
     __asm__ __volatile__ ("rdtsc" : "=A"(value));
+#elif defined(__arm__) && defined(__ARM_ARCH_6__)
+	/* tpr - do nothing for now; needs input from eliot to decide further */
 #else
 # error "no high res clock defined"
 #endif
@@ -240,6 +242,9 @@ ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 
 usqLong
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
+
+usqInt
+ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 
 /* This is an expensive interface for use by profiling code that wants the time
  * now rather than as of the last heartbeat.
@@ -350,9 +355,10 @@ static void
 heartbeat_handler(int sig, struct siginfo *sig_info, void *context)
 {
 #if !defined(SA_NODEFER)
-  {	int zeroAndPreviousHandlingHeartbeat = 0;
-    sqCompareAndSwap(handling_heartbeat,zeroAndPreviousHandlingHeartbeat,1);
-	if (zeroAndPreviousHandlingHeartbeat)
+  {	int zero = 0;
+	int previouslyHandlingHeartbeat;
+    sqCompareAndSwapRes(handling_heartbeat,zero,1,previouslyHandlingHeartbeat);
+	if (previouslyHandlingHeartbeat)
 		return;
   }
 

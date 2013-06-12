@@ -1,11 +1,12 @@
 /****************************************************************************
 *   PROJECT: Atomic operations for multi-threading.
 *			 Atomic reads and writes of 64-bit values (e.g. for 64-bit clock).
-*			 Atomic 32-bit increment (e.g. for signalSemaphoreWithIndex:).
 *				get64(sqLong variable)
 *				set64(sqLong variable, sqLong value)
+*			 Atomic 32-bit increment (e.g. for signalSemaphoreWithIndex:).
 *				sqAtomicAddConst(var,n)
 *				sqCompareAndSwap(var,old,new)
+*				sqCompareAndSwapRes(var,old,new,res)
 *   FILE:    sqAtomicOps.h
 *
 *   AUTHOR:  Eliot Miranda
@@ -29,6 +30,8 @@
  * we can make a good guess that __LONG_MAX__ implies 32-bits or 64-bits.
  */
 
+// tpr; Raspbian does not define ILP32 or LP32, therefore LP32 is #def'd below
+
 #if defined(__LONG_MAX__) && !defined(LP32) && !defined(ILP32) \
        && !defined(LP64) && !defined(ILP64) && !defined(LLP64)
 # if __LONG_MAX__ > 0xFFFFFFFF
@@ -44,6 +47,8 @@
 # define set64(variable,value) (variable = value)
 
 #elif LP32 || ILP32
+
+
 # if TARGET_OS_IS_IPHONE
 static inline void
 AtomicSet(uint64_t *target, uint64_t new_value)
@@ -64,10 +69,8 @@ AtomicGet(uint64_t *target)
 			return value;
 	}
 }
-//#	define get64(variable) AtomicGet(&(variable))
-//#	define set64(variable,value) AtomicSet(&(variable),value)
-# define get64(variable) variable
-# define set64(variable,value) (variable = value)
+#	define get64(variable) AtomicGet(&(variable))
+#	define set64(variable,value) AtomicSet(&(variable),value)
 
 	/* Currently we provide definitions for x86 and GCC only.  But see below. */
 # elif defined(__GNUC__) && (defined(i386) || defined(__i386) || defined(__i386__) || defined(_X86_))
@@ -133,13 +136,24 @@ AtomicGet(uint64_t *target)
 							: "memory", "eax", "ebx", "ecx", "edx", "cc")
 #  endif /* __SSE2__ */
 # else /* TARGET_OS_IS_IPHONE elif x86 variants etc */
+
+#if defined(__arm__) && defined(__ARM_ARCH_6__)
+/* tpr - this is code intended for the Raspberry Pi Raspbian OS 
+ * We'll experimentally trust in our MMU to keep 64bit accesses atomic */
+#define get64(var)  \
+	(var)
+#define set64(var,value) \
+		(var) = (value)
+
+#else
 /* Dear implementor, you have choices.  For example consider defining get64 &
  * set64 thusly
- * #define get64(var) read64(&(var))
+ * #define get64(var)  read64(&(var))
  * #define set64(var,val) write64(&(var),val)
  * and get the JIT to generate read64 & write64 above atomic 64-bit read/write.
  */
 #	error atomic access of 64-bit variables not yet defined for this platform
+#endif
 # endif
 
 #else /* LP32 || ILP32 else LP64 || ILP64 || LLP64 */
@@ -161,13 +175,20 @@ AtomicGet(uint64_t *target)
 # define sqAtomicAddConst(var,n) \
 	asm volatile ("lock addl %1, %0" : "=m" (var) : "i" (n), "m" (var))
 #endif
-#else
-#ifdef TARGET_OS_IS_IPHONE
+#elif defined TARGET_OS_IS_IPHONE
 #define sqAtomicAddConst(var,n) OSAtomicAdd32(n,&var)
-#endif
+#elif  defined(__arm__) && defined(__ARM_ARCH_6__)
+/* tpr - this is code intended for the Raspberry Pi Raspbian OS */
+/* We'll experimentally use the gcc inbuilt functions detailed in
+ * http://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Atomic-Builtins.html
+ */
+#define sqAtomicAddConst(var,n) \
+	__sync_fetch_and_add((int *)&var, n)
+#else
 /* Dear implementor, you have choices.  Google atomic increment and you will
  * find a number of implementations for other architectures.
  */
+#	error atomic increment of 32-bit variables not yet defined for this platfom
 #endif
 
 
@@ -190,7 +211,8 @@ AtomicGet(uint64_t *target)
 
 #ifdef TARGET_OS_IS_IPHONE
 # define sqCompareAndSwap(var,old,new) OSAtomicCompareAndSwap32(old, new, &var) 
-# define sqCompareAndSwapRes(var,old,new,res) res = var; OSAtomicCompareAndSwap32(old, new, &var) 
+/* N.B.  This is not atomic in fetching var's old value :( */
+# define sqCompareAndSwapRes(var,old,new,res) do { res = var; if (OSAtomicCompareAndSwap32(old, new, &var)) res = new; } while (0)
 #else
 # define sqCompareAndSwap(var,old,new) \
 	asm volatile ("movl %1, %%eax; lock cmpxchg %2, %0" \
@@ -204,13 +226,23 @@ AtomicGet(uint64_t *target)
 					: "g"(old), "r"(new), "m"(var) \
 					: "memory", "%eax")
 #endif
-#else
-#if TARGET_OS_IS_IPHONE
+#elif defined TARGET_OS_IS_IPHONE
 # define sqCompareAndSwap(var,old,new) OSAtomicCompareAndSwap32(old, new, &var) 
 # define sqCompareAndSwapRes(var,old,new,res) res = var; OSAtomicCompareAndSwap32(old, new, &var) 
 
-#endif
+#elif  defined(__arm__) && defined(__ARM_ARCH_6__)
+/* tpr - this is code intended for the Raspberry Pi Raspbian OS */
+/* We'll experimentally use the gcc inbuilt functions detailed in
+ * http://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Atomic-Builtins.html */
+# define sqCompareAndSwap(var,old,new) \
+	__sync_bool_compare_and_swap(&(var), (old), (new))
+
+# define sqCompareAndSwapRes(var,old,new,res) \
+	__sync_val_compare_and_swap(&(var), (old), (new))
+
+#else
 /* Dear implementor, you have choices.  Google atomic increment and you will
  * find a number of implementations for other architectures.
  */
+#	error atomic compare/swap of 32-bit variables not yet defined for this platfom
 #endif

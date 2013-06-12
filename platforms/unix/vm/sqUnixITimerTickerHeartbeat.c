@@ -234,6 +234,9 @@ ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 usqLong
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 
+usqInt
+ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
+
 /* This is an expensive interface for use by profiling code that wants the time
  * now rather than as of the last heartbeat.
  */
@@ -480,9 +483,10 @@ heartbeat_handler(int sig, struct siginfo *sig_info, void *context)
 	}
 
 #if !defined(SA_NODEFER)
-  {	int zeroAndPreviousHandlingHeartbeat = 0;
-    sqCompareAndSwap(handling_heartbeat,zeroAndPreviousHandlingHeartbeat,1);
-	if (zeroAndPreviousHandlingHeartbeat)
+  {	int zero = 0;
+	int previouslyHandlingHeartbeat;
+    sqCompareAndSwapRes(handling_heartbeat,zero,1,previouslyHandlingHeartbeat);
+	if (previouslyHandlingHeartbeat)
 		return;
   }
 

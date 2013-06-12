@@ -43,7 +43,7 @@
 #import "sqaio.h"
 
 extern sqSqueakAppDelegate *gDelegateApp;
-extern struct VirtualMachine *interpreterProxy;
+extern struct	VirtualMachine* interpreterProxy;
 extern BOOL gQuitNowRightNow;
 extern sqSqueakScreenAndWindow *getMainWindowDelegate();
 

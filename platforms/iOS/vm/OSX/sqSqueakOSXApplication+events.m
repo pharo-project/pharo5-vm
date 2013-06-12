@@ -108,11 +108,13 @@ static int buttonState=0;
 
 - (void) pumpRunLoopEventSendAndSignal:(BOOL)signal {
     NSEvent *event;
-    while (event = [NSApp 
+    
+    while ((event = [NSApp
                         nextEventMatchingMask:NSAnyEventMask
                         untilDate:nil 
                         inMode:NSEventTrackingRunLoopMode 
-                        dequeue:YES]) {
+                        dequeue:YES])) {
+
         [NSApp sendEvent: event];
         if (signal) {
             interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);
