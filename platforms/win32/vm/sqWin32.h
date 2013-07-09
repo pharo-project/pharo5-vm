@@ -301,6 +301,7 @@ extern BOOL  fEnableAltF4Quit; /* can we quit using Alt-F4? */
 extern BOOL  fEnableF2Menu;    /* can we get prefs menu via F2? */
 extern BOOL  fEnablePrefsMenu;    /* can we get prefs menu at all? */
 extern BOOL  fRunSingleApp;   /* do we only allow one instance? */
+extern UINT fAddressSpaceLimit; /* virtual memory address space limit, in Mbytes */
 
 extern HANDLE vmWakeUpEvent;      /* wakeup event for interpret() */
 

@@ -252,6 +252,11 @@ void LoadPreferences()
   fEnablePrefsMenu   = 
     GetPrivateProfileInt(U_GLOBAL,TEXT("EnablePrefsMenu"),
 			 fEnablePrefsMenu,squeakIniName);
+			 
+  fAddressSpaceLimit =
+    GetPrivateProfileInt(U_GLOBAL,TEXT("AddressSpaceLimit"),
+			 fAddressSpaceLimit,squeakIniName);
+  
 # if STACKVM
   { sqInt nStackPagesPref;
     nStackPagesPref = GetPrivateProfileInt(U_GLOBAL,TEXT("SqueakNumStackPages"),0,squeakIniName);

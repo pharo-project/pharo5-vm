@@ -127,6 +127,8 @@ BOOL  fHeadlessImage = 0;      /* Do we run headless? */
 BOOL  fRunService = 0;         /* Do we run as NT service? */
 DWORD dwMemorySize = 0;        /* How much memory do we use? */
 BOOL  fBrowserMode = 0;        /* Are we running in a web browser? */
+UINT  fAddressSpaceLimit = MAX_VIRTUAL_MEMORY; /* how much address space reserve for object memory */
+
 
 /* Misc preferences */
 BOOL  fEnableAltF4Quit = 1; /* can we quit using Alt-F4? */

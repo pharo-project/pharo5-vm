@@ -70,7 +70,7 @@ void *sqAllocateMemory(int minHeapSize, int desiredHeapSize)
 
   /* Here, we only reserve the maximum memory to be used
      It will later be committed during actual access */
-  maxReserved = MAX_VIRTUAL_MEMORY;
+  maxReserved = fAddressSpaceLimit * 1024 * 1024;
   do {
     pageBase = VirtualAlloc(NULL,maxReserved,MEM_RESERVE, PAGE_NOACCESS);
     if(!pageBase) {
