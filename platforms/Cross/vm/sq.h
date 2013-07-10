@@ -151,6 +151,7 @@ sqInt ioMicroMSecs(void);
 usqLong ioUTCMicrosecondsNow();
 usqLong ioUTCMicroseconds();
 usqLong ioLocalMicroseconds();
+usqInt	ioLocalSecondsOffset();
 void	ioUpdateVMTimezone();
 void	ioSynchronousCheckForEvents();
 void	checkHighPriorityTickees(usqLong);
