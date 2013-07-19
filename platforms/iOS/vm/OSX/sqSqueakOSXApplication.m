@@ -250,8 +250,8 @@ void mtfsfi(unsigned long long fpscr) {}
 - (void) printUsageNotes
 {
 	printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
-	printf("  <argument>s are ignored, but are processed by the Squeak image.\n");
-	printf("  The first <argument> normally names a Squeak `script' to execute.\n");
+	printf("  <argument>s are ignored, but are processed by the image.\n");
+	printf("  The first <argument> normally names a 'script' to execute.\n");
 	printf("  Precede <arguments> by `--' to use default image.\n");
 }
 
