@@ -12,12 +12,16 @@
  */
 
 extern void warning(char *);
+extern void warningat(char *,int);
 
 #ifdef NDEBUG /* compatible with Mac OS X (FreeBSD) /usr/include/assert.h */
 # undef assert
 # define assert(expr) 0 /* hack disabling of asserts.  Better in makefile? */
 # define asserta(expr) (expr)
 # define assertf(msg) 0
+# define assertl(expr,line) 0
+# define assertal(expr,line) (expr)
+# define assertfl(msg,line) 0
 # define PRODUCTION 1
 #elif 1
 # undef assert
@@ -26,5 +30,8 @@ extern void warning(char *);
 # define assert(expr)  ((expr)||(warning(#expr " " __stringifyNum(__LINE__)),0))
 # define asserta(expr) ((expr)||(warning(#expr " " __stringifyNum(__LINE__)),0))
 # define assertf(msg)  (warning(#msg " " __stringifyNum(__LINE__)),0)
+# define assertl(expr,line)  ((expr)||(warningat(#expr,line),0))
+# define assertal(expr,line) ((expr)||(warningat(#expr,line),0))
+# define assertfl(msg,line)  (warningat(#msg,line),0)
 # define PRODUCTION 0
 #endif

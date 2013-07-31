@@ -19,13 +19,13 @@
 
 /* squeak file record; see sqFilePrims.c for details */
 typedef struct {
-    int			 sessionID;	/* ikp: must be first */
-    void			*file;
-    squeakFileOffsetType	 fileSize;	/* 64-bits we hope. */
-    char			 writable;
-    char			 lastOp; /* 0 = uncommitted, 1 = read, 2 = write */
-    char			 lastChar;
-    char			 isStdioStream;
+  int			 sessionID;	/* ikp: must be first */
+  void			*file;
+  squeakFileOffsetType	 fileSize;	/* 64-bits we hope. */
+  char			 writable;
+  char			 lastOp; /* 0 = uncommitted, 1 = read, 2 = write */
+  char			 lastChar;
+  char			 isStdioStream;
 } SQFile;
 
 /* file i/o */
