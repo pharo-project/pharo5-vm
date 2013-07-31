@@ -3,7 +3,7 @@ Gofer new
 	package: 'ConfigurationOfCog';
 	load.
 	
-((Smalltalk at: #ConfigurationOfCog) project version: '6.6.1') load.
+((Smalltalk at: #ConfigurationOfCog) project version: '6.7') load.
 
 (Smalltalk saveAs: 'generator') 
     ifFalse: [ Smalltalk snapshot: false andQuit: true ]
