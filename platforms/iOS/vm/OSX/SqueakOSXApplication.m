@@ -52,7 +52,6 @@
 			view = [squeakScreenWindow mainViewOnWindow ];
 		else
 			view = [who contentView];
-       printf("going fake %d\n", [anEvent modifierFlags]);
 	   [view fakeKeyDownUp: anEvent];
    } else {
        [super sendEvent:anEvent];
