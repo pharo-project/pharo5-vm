@@ -1,0 +1,14 @@
+{
+	"category" : "NativeBoost-CogPlugin-Builder",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "IgorStasenko 9/3/2012 16:06",
+	"instvars" : [
+		 ],
+	"name" : "NBVMBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

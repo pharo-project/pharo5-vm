@@ -1,0 +1,4 @@
+control primitives
+primitiveExecuteMethodArgsArray
+	self halt.
+	^super primitiveExecuteMethodArgsArray

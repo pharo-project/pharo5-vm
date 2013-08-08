@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ThreadedIA32FFIPlugin",
+	"pools" : [
+		 ],
+	"super" : "ThreadedFFIPlugin",
+	"type" : "normal" }

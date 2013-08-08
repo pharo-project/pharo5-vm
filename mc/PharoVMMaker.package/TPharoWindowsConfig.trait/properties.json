@@ -1,0 +1,6 @@
+{
+	"category" : "PharoVMMaker-Win",
+	"classtraitcomposition" : "TPharoConfig classTrait",
+	"commentStamp" : "<historical>",
+	"name" : "TPharoWindowsConfig",
+	"traitcomposition" : "TPharoConfig" }

@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PharoIPhoneSimulatorConfig",
+	"pools" : [
+		 ],
+	"super" : "StackSimulatorConfig",
+	"type" : "normal" }

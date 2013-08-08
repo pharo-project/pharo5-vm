@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"block:argsClass:" : "eem 11/26/2007 15:38",
+		"block:stdcallArgsClass:" : "eem 11/26/2007 15:38",
+		"evaluateCallbackForThunk:stack:" : "vb 3/26/2008 12:09",
+		"finalizeValues" : "eem 2/20/2008 16:11",
+		"initialize" : "eem 2/27/2008 16:34",
+		"setup" : "Ahe 2/26/2008 15:51" },
+	"instance" : {
+		"block:thunk:argsProxy:" : "eem 2/20/2008 16:11",
+		"thunk" : "eem 11/19/2007 16:54",
+		"valueWithStackPointer:" : "JoachimGeidel 6/10/2010 15:03" } }

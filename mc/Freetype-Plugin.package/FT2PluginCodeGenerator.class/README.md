@@ -1,0 +1,1 @@
+This is just so we can use the FT2PluginTMethod to generate our sources.

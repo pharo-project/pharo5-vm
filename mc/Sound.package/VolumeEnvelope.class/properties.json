@@ -1,0 +1,16 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"currentVol",
+		"targetVol",
+		"mSecsForChange" ],
+	"name" : "VolumeEnvelope",
+	"pools" : [
+		 ],
+	"super" : "Envelope",
+	"type" : "normal" }

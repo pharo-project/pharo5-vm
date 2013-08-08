@@ -1,0 +1,30 @@
+settings
+defaultInternalPlugins
+	^ #(
+		ADPCMCodecPlugin
+		BMPReadWriterPlugin 
+		BalloonEnginePlugin 
+		BitBltSimulation 
+		DSAPlugin 
+		DeflatePlugin 
+		"DropPlugin"
+		LocalePlugin 
+		FFTPlugin 
+		FilePlugin 
+		FloatArrayPlugin 
+		HostWindowPlugin 
+		JPEGReadWriter2Plugin 
+		JPEGReaderPlugin 
+		LargeIntegersPlugin 
+		Matrix2x3Plugin 
+		MiscPrimitivePlugin 
+		"RePlugin" 
+		SecurityPlugin 
+		SocketPlugin
+		SoundCodecPlugin 
+		SoundGenerationPlugin 
+		SoundPlugin
+		SurfacePlugin
+		UUIDPlugin
+		ObjectiveCPlugin 
+		IOSPlugin)

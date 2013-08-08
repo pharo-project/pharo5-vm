@@ -1,0 +1,14 @@
+{
+	"category" : "Alien-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "John M McIntosh 12/15/2008 08:51",
+	"instvars" : [
+		"nonPointerObject" ],
+	"name" : "UnsafeAlien",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

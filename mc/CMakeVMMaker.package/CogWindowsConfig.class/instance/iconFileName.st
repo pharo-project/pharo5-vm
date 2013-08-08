@@ -1,0 +1,3 @@
+resources
+iconFileName
+	^ 'Cog.ico'

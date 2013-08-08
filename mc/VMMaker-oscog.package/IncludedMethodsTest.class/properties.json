@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 11/9/2010 21:03",
+	"instvars" : [
+		 ],
+	"name" : "IncludedMethodsTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

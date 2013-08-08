@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 11:48",
+	"instvars" : [
+		"bbObj",
+		"savedBBObj",
+		"workBufferArray" ],
+	"name" : "BalloonEngineSimulation",
+	"pools" : [
+		 ],
+	"super" : "BalloonEnginePlugin",
+	"type" : "normal" }

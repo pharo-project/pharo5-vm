@@ -1,0 +1,29 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CanRecordWhilePlaying",
+		"RecorderActive" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"stereo",
+		"samplingRate",
+		"recordLevel",
+		"recordedBuffers",
+		"recordedSound",
+		"recordProcess",
+		"bufferAvailableSema",
+		"paused",
+		"meteringBuffer",
+		"meterLevel",
+		"soundPlaying",
+		"currentBuffer",
+		"nextIndex",
+		"codec",
+		"desiredSampleRate" ],
+	"name" : "SoundRecorder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

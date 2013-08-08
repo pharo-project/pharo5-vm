@@ -1,0 +1,14 @@
+{
+	"category" : "Applescript-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ComponentInstance",
+	"pools" : [
+		 ],
+	"super" : "MacExternalData",
+	"type" : "words" }

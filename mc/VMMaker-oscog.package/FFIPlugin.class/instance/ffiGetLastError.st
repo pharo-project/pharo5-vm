@@ -1,0 +1,3 @@
+callout support
+ffiGetLastError
+	^ffiLastError

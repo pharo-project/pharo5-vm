@@ -1,0 +1,1 @@
+This class provides the basic framework for creating VM plugins. Most of the useful methods are on the class side; particularly take note of the messages like #shouldBeTranslated and #requiresPlatformFiles.

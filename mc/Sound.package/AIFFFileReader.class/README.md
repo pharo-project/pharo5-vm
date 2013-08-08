@@ -1,0 +1,1 @@
+I am a parser for AIFF (audio interchange file format) files. I can read uncompressed 8-bit and 16-bit mono, stereo, or multichannel AIFF files. I read the marker information used by the TransferStation utility to mark the loop points in sounds extracted from commercial sampled-sound CD-ROMs.

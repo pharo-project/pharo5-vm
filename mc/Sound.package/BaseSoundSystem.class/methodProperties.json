@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"initialize" : "adrian_lienhard 7/28/2009 22:43",
+		"unload" : "gk 2/23/2004 21:08" },
+	"instance" : {
+		"beep" : "HenrikSperreJohansen 1/21/2011 15:28",
+		"playSampledSound:rate:" : "HenrikSperreJohansen 1/21/2011 15:28",
+		"playSoundNamed:" : "HenrikSperreJohansen 1/21/2011 15:28",
+		"playSoundNamed:ifAbsentReadFrom:" : "GuillermoPolito 6/17/2013 14:44",
+		"playSoundNamedOrBeep:" : "HenrikSperreJohansen 1/21/2011 15:29",
+		"randomBitsFromSoundInput:" : "stephaneducasse 2/4/2006 20:40",
+		"sampledSoundChoices" : "ads 7/30/2003 22:18",
+		"shutDown" : "gk 2/23/2004 19:53",
+		"soundNamed:" : "ads 7/30/2003 23:17" } }

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"annotation",
+		"instruction" ],
+	"name" : "CogInstructionAnnotation",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

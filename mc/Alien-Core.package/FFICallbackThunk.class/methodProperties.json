@@ -1,0 +1,20 @@
+{
+	"class" : {
+		"allocateExecutablePage" : "eem 12/20/2007 17:14",
+		"dataSize" : "eem 12/20/2007 17:06",
+		"ensureNotifiedAtStartup" : "eem 2/27/2008 16:45",
+		"finalize:" : "eem 12/21/2007 15:17",
+		"freeBlockInExecutablePage:" : "eem 12/20/2007 17:41",
+		"initialize" : "eem 2/27/2008 16:47",
+		"newCCall" : "eem 12/21/2007 15:32",
+		"newStdCall:" : "eem 12/21/2007 15:32",
+		"privateFinalizingNew" : "eem 2/20/2008 10:48",
+		"startUp:" : "vb 5/8/2008 11:32",
+		"unusedBlockInExecutablePage" : "eem 12/21/2007 15:28" },
+	"instance" : {
+		"address" : "eem 1/29/2008 13:06",
+		"free" : "eem 12/21/2007 15:38",
+		"initialize" : "eem 1/3/2008 17:14",
+		"initializeStdcall:" : "eem 1/3/2008 17:14",
+		"primFree" : "eem 12/21/2007 15:45",
+		"primThunkEntryAddress" : "eem 11/15/2007 17:45" } }

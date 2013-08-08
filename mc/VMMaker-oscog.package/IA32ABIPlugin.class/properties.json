@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins-Alien",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "IA32ABIPlugin",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

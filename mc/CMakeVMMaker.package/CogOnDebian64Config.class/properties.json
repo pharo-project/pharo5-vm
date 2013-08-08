@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "LaurentLaffont 8/15/2011 15:30",
+	"instvars" : [
+		 ],
+	"name" : "CogOnDebian64Config",
+	"pools" : [
+		 ],
+	"super" : "CogUnixConfig",
+	"type" : "normal" }

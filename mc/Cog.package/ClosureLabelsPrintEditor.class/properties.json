@@ -1,0 +1,20 @@
+{
+	"category" : "Cog-Morphing Bytecode Set",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"xlator",
+		"xlation",
+		"kwdxlation",
+		"ranges",
+		"index",
+		"output",
+		"codeIndex" ],
+	"name" : "ClosureLabelsPrintEditor",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

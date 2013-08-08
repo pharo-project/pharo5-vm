@@ -1,0 +1,23 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"cogitClass" : "IgorStasenko 3/18/2011 02:38",
+		"commonCompilerFlags" : "EstebanLorenzano 7/10/2013 14:13",
+		"compilerFlags" : "IgorStasenko 2/12/2011 21:55",
+		"compilerFlagsDebug" : "MarianoMartinezPeck 4/26/2011 20:45",
+		"compilerFlagsRelease" : "EstebanLorenzano 3/13/2013 18:10",
+		"configH" : "IgorStasenko 3/15/2011 17:54",
+		"coreSources" : "Igor.Stasenko 1/7/2011 17:10",
+		"defaultExternalPlugins" : "EstebanLorenzano 4/19/2013 14:14",
+		"defaultInternalPlugins" : "EstebanLorenzano 4/19/2013 14:14",
+		"executableName" : "IgorStasenko 3/23/2011 15:19",
+		"extraPluginSettings:" : "IgorStasenko 7/6/2011 16:15",
+		"extraSources" : "Igor.Stasenko 1/18/2011 10:45",
+		"generateConfigH" : "Igor.Stasenko 1/15/2011 14:55",
+		"interpreterClass" : "IgorStasenko 3/18/2011 02:37",
+		"linkFlags" : "NicolasPasserini 3/30/2011 16:48",
+		"platformSources" : "Igor.Stasenko 1/16/2011 00:53",
+		"preferredIncludes" : "IgorStasenko 2/9/2011 20:21",
+		"prepareForGeneration" : "EstebanLorenzano 9/12/2011 09:50",
+		"setExtraTargetProperties:" : "NicolasPasserini 3/30/2011 16:40" } }

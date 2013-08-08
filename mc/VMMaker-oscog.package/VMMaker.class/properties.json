@@ -1,0 +1,26 @@
+{
+	"category" : "VMMaker-Building",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DirNames" ],
+	"commentStamp" : "tpr 5/5/2003 12:28",
+	"instvars" : [
+		"inline",
+		"forBrowser",
+		"allPlugins",
+		"internalPlugins",
+		"externalPlugins",
+		"platformName",
+		"sourceDirName",
+		"platformRootDirName",
+		"logger",
+		"interpreterClassName",
+		"cogitClassName",
+		"is64BitVM",
+		"optionsDictionary" ],
+	"name" : "VMMaker",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 11:43",
+	"instvars" : [
+		"interpreterProxy",
+		"moduleName" ],
+	"name" : "InterpreterPlugin",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "VMClass",
+	"type" : "normal" }

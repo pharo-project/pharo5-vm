@@ -1,0 +1,16 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "IgorStasenko 6/7/2012 04:53",
+	"instvars" : [
+		"gen",
+		"vmGen",
+		"configurationFlags" ],
+	"name" : "CMThirdpartyLibrary",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

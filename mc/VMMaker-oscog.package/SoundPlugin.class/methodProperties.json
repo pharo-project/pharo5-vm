@@ -1,0 +1,21 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:12",
+		"requiresPlatformFiles" : "tpr 11/29/2000 22:38" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 5/12/2000 16:54",
+		"primitiveSoundAvailableSpace" : "ar 4/4/2006 21:11",
+		"primitiveSoundGetRecordingSampleRate" : "ar (auto pragmas 12/08) 4/4/2006 21:10",
+		"primitiveSoundGetVolume" : "eem 9/9/2011 16:48",
+		"primitiveSoundInsertSamples:from:leadTime:" : "dtl 4/26/2009 12:20",
+		"primitiveSoundPlaySamples:from:startingAt:" : "dtl 4/26/2009 11:19",
+		"primitiveSoundPlaySilence" : "ar 4/4/2006 21:11",
+		"primitiveSoundRecordSamplesInto:startingAt:" : "eem 9/9/2011 16:48",
+		"primitiveSoundSetLeftVolume:rightVolume:" : "JMM 11/6/2000 11:06",
+		"primitiveSoundSetRecordLevel:" : "TPR 3/21/2000 16:39",
+		"primitiveSoundStartBufferSize:rate:stereo:" : "TPR 2/25/2000 14:58",
+		"primitiveSoundStartBufferSize:rate:stereo:semaIndex:" : "TPR 2/25/2000 12:57",
+		"primitiveSoundStartRecordingDesiredSampleRate:stereo:semaIndex:" : "TPR 2/25/2000 12:55",
+		"primitiveSoundStop" : "TPR 2/25/2000 12:58",
+		"primitiveSoundStopRecording" : "TPR 2/25/2000 12:58",
+		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:55" } }

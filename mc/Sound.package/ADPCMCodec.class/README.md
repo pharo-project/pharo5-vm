@@ -1,0 +1,3 @@
+This is a simple ADPCM (adapative delta pulse code modulation) codec. This is a general audio codec that compresses speech, music, or sound effects equally well, and works at any sampling rate (i.e., it contains no frequency-sensitive filters). It compresses 16-bit sample data down to 5, 4, 3, or 2 bits per sample, with lower fidelity and increased noise at the lowest bit rates. Although it does not deliver state-of-the-art compressions, the algorithm is small, simple, and extremely fast, since the encode/decode primitives have been translated into C primitives.
+
+This codec will also encode and decode all Flash .swf file compressed sound formats, both mono and stereo. (Note: stereo Flash compression is not yet implemented, but stereo decompression works.)

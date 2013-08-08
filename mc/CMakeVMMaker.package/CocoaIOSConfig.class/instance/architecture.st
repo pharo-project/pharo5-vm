@@ -1,0 +1,3 @@
+accessing
+architecture 
+	^'i386'

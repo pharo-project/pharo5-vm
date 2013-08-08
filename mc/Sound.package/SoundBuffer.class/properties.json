@@ -1,0 +1,14 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"SineTable" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "SoundBuffer",
+	"pools" : [
+		 ],
+	"super" : "ArrayedCollection",
+	"type" : "words" }

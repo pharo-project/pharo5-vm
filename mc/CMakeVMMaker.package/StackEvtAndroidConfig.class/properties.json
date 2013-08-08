@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Android",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "golubovsky 7/24/2011 22:47",
+	"instvars" : [
+		 ],
+	"name" : "StackEvtAndroidConfig",
+	"pools" : [
+		 ],
+	"super" : "CPlatformConfig",
+	"type" : "normal" }

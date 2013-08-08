@@ -1,0 +1,3 @@
+accessing
+freetypeLibClass 
+	^CMOSXFreetype2

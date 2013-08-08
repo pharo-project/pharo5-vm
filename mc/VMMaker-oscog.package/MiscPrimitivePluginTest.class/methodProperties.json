@@ -1,0 +1,25 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"compare:with:collated:" : "dtl 11/9/2010 19:48",
+		"compress:toByteArray:" : "dtl 11/10/2010 19:42",
+		"convert8bitSignedFrom:to16Bit:" : "dtl 11/10/2010 20:03",
+		"decompress:fromByteArray:at:" : "dtl 11/10/2010 19:42",
+		"expectedFailures" : "dtl 2/1/2011 19:49",
+		"findFirstInString:inSet:startingAt:" : "dtl 11/10/2010 20:03",
+		"findSubstring:in:startingAt:matchTable:" : "dtl 11/9/2010 19:38",
+		"hashBytes:startingWith:" : "dtl 11/10/2010 21:36",
+		"indexOfAscii:inString:startingAt:" : "dtl 11/10/2010 20:03",
+		"testCompareWithCollated" : "dtl 11/9/2010 20:00",
+		"testCompressToByteArray" : "dtl 11/10/2010 08:03",
+		"testConvert8bitSignedFromTo16Bit" : "dtl 11/10/2010 20:14",
+		"testDecompressFromByteArrayAt" : "dtl 11/10/2010 20:00",
+		"testFindFirstInStringInSetStartingAt" : "dtl 11/9/2010 20:54",
+		"testFindSubstringInByteString" : "dtl 3/19/2011 00:31",
+		"testFindSubstringInWideString" : "dtl 3/17/2011 22:40",
+		"testFindSubstringOldVersionWithMissingTypeChecks" : "dtl 3/18/2011 08:52",
+		"testHashBytesStartingWith" : "dtl 11/10/2010 21:48",
+		"testIindexOfAsciiInStringStartingAt" : "dtl 11/9/2010 20:57",
+		"testTranslateFromToTable" : "dtl 11/9/2010 20:33",
+		"translate:from:to:table:" : "dtl 11/10/2010 20:03" } }

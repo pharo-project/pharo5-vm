@@ -1,0 +1,15 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"initialCount",
+		"count" ],
+	"name" : "RestSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

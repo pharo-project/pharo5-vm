@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "SurfacePlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

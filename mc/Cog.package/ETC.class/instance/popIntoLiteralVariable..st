@@ -1,0 +1,3 @@
+instruction decoding
+popIntoLiteralVariable: anAssociation
+	currentContext pop

@@ -1,0 +1,16 @@
+generating actions
+build
+	gen 
+		puts:
+'
+add_custom_command(OUTPUT "${libcairoInstalled}"
+	COMMAND ./configure --prefix=''${installPrefix}'' PKG_CONFIG="${pkgconfigPath}"
+		PKG_CONFIG_PATH="${installPrefix}/lib/pkgconfig" CFLAGS=''-arch i386'' LDFLAGS=''-arch i386''
+		--disable-silent-rules --disable-xlib --disable-dependency-tracking
+	COMMAND make
+	COMMAND make install
+	WORKING_DIRECTORY "${libSourcesDir}"
+	DEPENDS "${unpackTarget}" pkg-config freetype2 libpng pixman
+	COMMENT "Building ${libName}"
+)
+'

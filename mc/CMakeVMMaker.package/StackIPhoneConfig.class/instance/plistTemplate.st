@@ -1,0 +1,68 @@
+bundle strings
+plistTemplate 
+	^'<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleVersion</key>
+	<string>@CFBundleVersion@</string>
+	<key>CFBundleDisplayName</key>
+	<string>@CFBundleExecutable@</string>
+	<key>CFBundleExecutable</key>
+	<string>@CFBundleExecutable@</string>
+	<key>CFBundleIconFile</key>
+	<string>@CFBundleIconFile@</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>@CFBundleIconFile@</string>
+		<string>@CFBundleIconFile57@</string>
+		<string>@CFBundleIconFile72@</string>
+		<string>@CFBundleIconFile1024@</string>
+	</array>	
+	<key>CFBundleIdentifier</key>
+	<string>@CFBundleIdentifier@</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>@CFBundleName@</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleResourceSpecification</key>
+	<string>ResourceRules.plist</string>
+	<key>CFBundleSignature</key>
+	<string>FRAC</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>iPhoneOS</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>MinimumOSVersion</key>
+	<string>3.1.3</string>
+	<key>NSMainNibFile</key>
+	<string>MainWindow</string>
+	<key>UIDeviceFamily</key>
+	<array>
+		@UIDeviceFamily@
+	</array>
+	<key>UIPrerenderedIcon</key>
+	<false/>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<@UIFileSharingEnabled@/>
+	<key>ImageIsWritable</key>
+	<@ImageIsWritable@/>
+	<key>ImageIsScrollable</key>
+	<@ImageIsScrollable@/>
+	<key>VMMemorySize</key>
+	<integer>@VMMemorySize@</integer>
+	<key>WebViewAsUI</key>
+	<@WebViewAsUI@/>
+	<key>WebViewUrl</key>
+	<string>@WebViewUrl@</string>
+</dict>
+</plist>
+'

@@ -1,0 +1,14 @@
+{
+	"category" : "Applescript-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CompiledApplescript",
+	"pools" : [
+		 ],
+	"super" : "ByteArray",
+	"type" : "bytes" }

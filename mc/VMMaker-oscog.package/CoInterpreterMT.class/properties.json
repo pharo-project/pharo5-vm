@@ -1,0 +1,31 @@
+{
+	"category" : "VMMaker-Multithreading",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DisownFlagsShift",
+		"DisownVMForProcessorRelinquish",
+		"LockGUIThreadFlag",
+		"LockGUIThreadShift",
+		"OwnVMForeignThreadFlag",
+		"ProcessUnaffinedOnDisown",
+		"ReturnToThreadSchedulingLoop",
+		"VMAlreadyOwnedHenceDoNotDisown" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"cogThreadManager",
+		"checkThreadActivation",
+		"maxWaitingPriority",
+		"foreignCallbackPriority",
+		"deferThreadSwitch",
+		"disowningVMThread",
+		"disownCount",
+		"foreignCallbackProcessSlot",
+		"willNotThreadWarnCount",
+		"activeProcessAffined",
+		"relinquishing" ],
+	"name" : "CoInterpreterMT",
+	"pools" : [
+		"VMThreadingConstants" ],
+	"super" : "CoInterpreterPrimitives",
+	"type" : "normal" }

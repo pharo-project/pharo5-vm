@@ -1,0 +1,11 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addMorphsTo:pianoRoll:eventTime:betweenTime:and:" : "RAA 12/11/2000 17:29",
+		"encounteredAtTime:inScorePlayer:atIndex:inEventTrack:secsPerTick:" : "RAA 12/11/2000 15:48",
+		"justDroppedIntoPianoRoll:event:" : "stephaneducasse 2/4/2006 20:40",
+		"pauseFrom:" : "RAA 12/11/2000 23:21",
+		"resetFrom:" : "RAA 12/11/2000 23:22",
+		"resumeFrom:" : "RAA 12/11/2000 23:21",
+		"triggerActionFromPianoRoll" : "marcus.denker 8/24/2008 21:42" } }

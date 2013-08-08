@@ -1,0 +1,1 @@
+this is common superclass for defining settings for building cairo and accompanied libraries

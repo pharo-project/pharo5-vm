@@ -1,0 +1,16 @@
+{
+	"category" : "NativeBoost-CogPlugin-Configs",
+	"classinstvars" : [
+		 ],
+	"classtraitcomposition" : "TNBConfigMod classTrait",
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NBCogMacOSConfig",
+	"pools" : [
+		 ],
+	"super" : "CogMacOSConfig",
+	"traitcomposition" : "TNBConfigMod",
+	"type" : "normal" }

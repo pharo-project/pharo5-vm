@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"cogit" ],
+	"name" : "NewCoObjectMemory",
+	"pools" : [
+		"CogMethodConstants" ],
+	"super" : "NewObjectMemory",
+	"type" : "normal" }

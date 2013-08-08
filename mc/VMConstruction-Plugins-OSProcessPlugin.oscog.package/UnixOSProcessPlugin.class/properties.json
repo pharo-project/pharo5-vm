@@ -1,0 +1,22 @@
+{
+	"category" : "VMConstruction-Plugins-OSProcessPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"sigChldSemaIndex",
+		"sigHandlers",
+		"originalSigHandlers",
+		"semaIndices",
+		"vmThread",
+		"sigNumToSend",
+		"pidArray",
+		"pidCount",
+		"useSignalStack" ],
+	"name" : "UnixOSProcessPlugin",
+	"pools" : [
+		 ],
+	"super" : "OSProcessPlugin",
+	"type" : "normal" }

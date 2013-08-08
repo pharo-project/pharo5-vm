@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"licenseTemplate" : "",
+		"pluginsTemplate" : "" },
+	"instance" : {
+		"commonCompilerFlags" : "EstebanLorenzano 7/12/2013 12:56",
+		"executableName" : "",
+		"externalPlugins" : "",
+		"generate" : "",
+		"generateLicense" : "",
+		"generatePluginsList" : "",
+		"internalPlugins" : "",
+		"version" : "" } }

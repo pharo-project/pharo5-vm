@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"on:" : "GuillermoPolito 6/17/2013 15:27" },
+	"instance" : {
+		"copyFrom:to:" : "acg 12/30/2001 14:16",
+		"deGnuify" : "eem 11/9/2007 14:45",
+		"gnuify" : "GuillermoPolito 6/19/2013 14:58",
+		"gnuifyFrom:to:" : "eem 12/3/2012 18:23",
+		"interpreterFilename:" : "eem 12/10/2008 11:46",
+		"setDirectory:" : "acg 12/30/2001 14:12" } }

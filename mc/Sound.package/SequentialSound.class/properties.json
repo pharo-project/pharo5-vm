@@ -1,0 +1,15 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"sounds",
+		"currentIndex" ],
+	"name" : "SequentialSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

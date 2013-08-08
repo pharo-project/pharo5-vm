@@ -1,0 +1,18 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"fwt",
+		"samplesPerFrame",
+		"nLevels",
+		"alpha",
+		"beta" ],
+	"name" : "WaveletCodec",
+	"pools" : [
+		 ],
+	"super" : "SoundCodec",
+	"type" : "normal" }

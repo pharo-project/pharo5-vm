@@ -1,0 +1,3 @@
+generating actions
+defineGlobalTargets
+	self subclassResponsibility

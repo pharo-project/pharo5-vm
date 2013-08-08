@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"new" : "jm 10/21/2001 10:10" },
+	"instance" : {
+		"bytesPerEncodedFrame" : "jm 2/4/1999 11:36",
+		"decodeFrames:from:at:into:at:" : "stephaneducasse 2/4/2006 20:41",
+		"encodeFrames:from:at:into:at:" : "stephaneducasse 2/4/2006 20:41",
+		"primDecode:frames:from:at:into:at:" : "jm 2/4/1999 11:33",
+		"primEncode:frames:from:at:into:at:" : "jm 2/4/1999 11:33",
+		"primNewState" : "jm 2/4/1999 11:35",
+		"reset" : "stephaneducasse 2/4/2006 20:41",
+		"samplesPerFrame" : "jm 2/4/1999 11:36" } }

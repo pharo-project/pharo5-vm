@@ -1,0 +1,8 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"checkedUnsignedIntPtrOf:" : "jm (auto pragmas 12/08) 1/20/2001 11:01",
+		"primitiveDiffuseFromToWidthHeightDelta" : "tpr (auto pragmas 12/08) 12/29/2005 17:22",
+		"primitiveEvaporateRate" : "tpr (auto pragmas 12/08) 12/29/2005 17:22",
+		"primitiveMapFromToWidthHeightPatchSizeRgbFlagsShift" : "tpr (auto pragmas 12/08) 12/29/2005 17:22" } }

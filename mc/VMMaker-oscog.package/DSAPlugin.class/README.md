@@ -1,0 +1,1 @@
+This plugin defines primitives that support the DigitalSignatureAlgorithm class. Three of these primitives support fast multiplication and division of very large integers, three others support the SecureHashAlgorithm.

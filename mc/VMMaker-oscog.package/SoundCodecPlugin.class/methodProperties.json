@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:11",
+		"moduleName" : "tpr 4/18/2002 15:56",
+		"requiresCrossPlatformFiles" : "tpr 7/2/2001 16:34" },
+	"instance" : {
+		"primitiveGSMDecode" : "jm (auto pragmas 12/08) 2/4/1999 08:38",
+		"primitiveGSMEncode" : "jm (auto pragmas 12/08) 2/4/1999 08:37",
+		"primitiveGSMNewState" : "bgf 2/25/2009 21:40" } }

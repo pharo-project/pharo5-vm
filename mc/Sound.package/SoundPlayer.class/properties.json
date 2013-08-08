@@ -1,0 +1,30 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ActiveSounds",
+		"Buffer",
+		"BufferIndex",
+		"BufferMSecs",
+		"LastBuffer",
+		"PlayerProcess",
+		"PlayerSemaphore",
+		"ReadyForBuffer",
+		"ReverbState",
+		"SamplingRate",
+		"SoundJustStarted",
+		"SoundSupported",
+		"SoundsShouldStartQuick",
+		"SoundsStopWhenDone",
+		"Stereo",
+		"UseReadySemaphore",
+		"UseReverb" ],
+	"commentStamp" : "HenrikSperreJohansen 1/21/2011 17:56",
+	"instvars" : [
+		 ],
+	"name" : "SoundPlayer",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

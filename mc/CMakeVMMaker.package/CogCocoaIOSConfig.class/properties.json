@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:35",
+	"instvars" : [
+		 ],
+	"name" : "CogCocoaIOSConfig",
+	"pools" : [
+		 ],
+	"super" : "CogFamilyCocoaIOSConfig",
+	"type" : "normal" }

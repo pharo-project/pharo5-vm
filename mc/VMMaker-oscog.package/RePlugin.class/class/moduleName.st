@@ -1,0 +1,4 @@
+translation
+moduleName
+
+	^'RePlugin'

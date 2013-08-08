@@ -1,0 +1,3 @@
+opcodes
+nopOpcode
+	self subclassResponsibility.

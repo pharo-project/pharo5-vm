@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CogClass",
+	"pools" : [
+		 ],
+	"super" : "VMClass",
+	"type" : "normal" }

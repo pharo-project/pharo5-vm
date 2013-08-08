@@ -1,0 +1,4 @@
+initialization
+stackPageClass
+	<doNotGenerate>
+	^InterpreterStackPage

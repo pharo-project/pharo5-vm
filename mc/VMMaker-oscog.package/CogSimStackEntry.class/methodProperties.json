@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 1/22/2011 16:53" },
+	"instance" : {
+		"annotateUse" : "eem 1/22/2011 16:54",
+		"annotateUse:" : "eem 1/22/2011 16:54",
+		"bcptr" : "eem 11/27/2010 14:27",
+		"bcptr:" : "eem 11/27/2010 14:27",
+		"cogit" : "eem 2/18/2011 15:39",
+		"cogit:" : "eem 11/29/2010 14:32",
+		"constant" : "eem 11/20/2010 11:21",
+		"constant:" : "eem 11/20/2010 10:33",
+		"ensureSpilledAt:from:" : "eem 3/6/2011 14:42",
+		"maybeConstant" : "eem 1/7/2011 14:10",
+		"mergeAt:from:" : "eem 11/22/2010 15:07",
+		"offset" : "eem 11/20/2010 22:10",
+		"offset:" : "eem 11/20/2010 10:32",
+		"popToReg:" : "eem 1/22/2011 18:24",
+		"printStateOn:" : "eem 1/25/2011 21:49",
+		"register" : "eem 11/20/2010 22:09",
+		"register:" : "eem 11/20/2010 10:32",
+		"registerMask" : "eem 11/22/2010 13:42",
+		"registerOrNil" : "eem 12/1/2010 13:26",
+		"spilled" : "eem 11/20/2010 22:01",
+		"spilled:" : "eem 11/20/2010 22:01",
+		"storeToReg:" : "eem 1/22/2011 18:24",
+		"type" : "eem 11/20/2010 10:32",
+		"type:" : "eem 11/20/2010 10:32" } }

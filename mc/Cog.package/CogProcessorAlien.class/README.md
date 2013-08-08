@@ -1,0 +1,1 @@
+I am the superclass for the Simulation CPU instance wrappers. I ensure that methods used in both/all of them need not be copied.

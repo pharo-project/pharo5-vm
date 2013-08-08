@@ -1,0 +1,3 @@
+initialize-release
+shutdownModule
+	^true

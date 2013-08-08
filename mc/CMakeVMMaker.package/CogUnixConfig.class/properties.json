@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:31",
+	"instvars" : [
+		 ],
+	"name" : "CogUnixConfig",
+	"pools" : [
+		 ],
+	"super" : "CogFamilyUnixConfig",
+	"type" : "normal" }

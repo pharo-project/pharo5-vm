@@ -1,0 +1,30 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"FloatLoopIndexScaleFactor",
+		"LoopIndexFractionMask",
+		"LoopIndexScaleFactor" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"initialCount",
+		"count",
+		"releaseCount",
+		"sampleCountForRelease",
+		"leftSamples",
+		"rightSamples",
+		"originalSamplingRate",
+		"perceivedPitch",
+		"gain",
+		"firstSample",
+		"lastSample",
+		"loopEnd",
+		"scaledLoopLength",
+		"scaledIndex",
+		"scaledIndexIncr" ],
+	"name" : "LoopedSampledSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

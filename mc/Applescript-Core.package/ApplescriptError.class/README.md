@@ -1,0 +1,1 @@
+I represent a syntax or execution error report for errors encountered when processing Applescripts. As a StringHolder, the string to be viewed is generally the method code or expression containing the error.

@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-FreeBSD",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:35",
+	"instvars" : [
+		 ],
+	"name" : "CogMTFreeBSDConfig",
+	"pools" : [
+		 ],
+	"super" : "CogFreeBSDConfig",
+	"type" : "normal" }

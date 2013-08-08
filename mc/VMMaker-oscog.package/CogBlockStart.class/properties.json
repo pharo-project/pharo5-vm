@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"fakeHeader",
+		"fillInstruction",
+		"numArgs",
+		"numCopied",
+		"numInitialNils",
+		"startpc",
+		"entryLabel",
+		"stackCheckLabel",
+		"span" ],
+	"name" : "CogBlockStart",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

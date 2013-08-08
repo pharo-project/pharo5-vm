@@ -1,0 +1,14 @@
+{
+	"category" : "SqueakSSL-Plugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SqueakSSLPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+generateForDebug
+	generateForRelease := false

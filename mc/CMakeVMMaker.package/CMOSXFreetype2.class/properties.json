@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMOSXFreetype2",
+	"pools" : [
+		 ],
+	"super" : "CMFreetype2",
+	"type" : "normal" }

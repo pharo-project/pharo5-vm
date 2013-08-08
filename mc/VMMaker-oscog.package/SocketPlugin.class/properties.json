@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/2/2003 15:49",
+	"instvars" : [
+		"sDSAfn",
+		"sHSAfn",
+		"sCCTPfn",
+		"sCCLOPfn",
+		"sCCSOTfn" ],
+	"name" : "SocketPlugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

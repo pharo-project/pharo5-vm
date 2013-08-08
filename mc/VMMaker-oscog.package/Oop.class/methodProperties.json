@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"ccg:generateCoerceToOopFrom:on:" : "eem 10/2/2010 14:12",
+		"ccg:generateCoerceToValueFrom:on:" : "eem 10/3/2010 08:09",
+		"ccg:prolog:expr:index:" : "acg 9/18/1999 15:58",
+		"ccgCanConvertFrom:" : "acg 9/20/1999 11:17",
+		"ccgDeclareCForVar:" : "ikp 3/31/2005 14:20" },
+	"instance" : {
+		 } }

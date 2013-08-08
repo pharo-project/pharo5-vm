@@ -1,0 +1,13 @@
+generate machine code - concretize
+concretizeMoveRX16rR
+	"Will get inlined into concretizeAt: switch."
+	"Write the word in R(src) into memory at address (base+2*index)"
+	<inline: true>
+	| index base src |
+	src := self concreteRegister: (operands at: 0).
+	index := self concreteRegister: (operands at: 1).
+	base := self concreteRegister: (operands at: 2).
+	"str		src, [base, +index, LSL #1]"
+	"cond 011 1100 0 base srcR 00001 00 0 inde"
+	self machineCodeAt: 0 put: (self t: 3 o: 16rC s: 0 rn: base rd: src shifterOperand: (16r080 bitOr: index)).
+	^machineCodeSize := 4

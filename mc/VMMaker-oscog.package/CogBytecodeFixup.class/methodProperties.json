@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"byteSizeForSimulator:" : "eem 7/18/2013 11:53",
+		"instVarNamesAndTypesForTranslationDo:" : "eem 12/11/2010 09:37",
+		"structTypeName" : "eem 11/22/2010 09:42" },
+	"instance" : {
+		"asInteger" : "eem 2/15/2009 10:22",
+		"initialize" : "eem 11/25/2010 13:29",
+		"instructionIndex" : "eem 2/11/2009 21:27",
+		"instructionIndex:" : "eem 2/11/2009 21:28",
+		"printStateOn:" : "eem 12/1/2010 10:49",
+		"targetInstruction" : "eem 2/11/2009 11:51",
+		"targetInstruction:" : "eem 2/11/2009 11:51" } }

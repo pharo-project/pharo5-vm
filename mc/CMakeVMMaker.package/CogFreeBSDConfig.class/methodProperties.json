@@ -1,0 +1,12 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addDriver:sources:generator:" : "DavidGraham 3/26/2011 05:08",
+		"addVMDrivers:" : "DavidGraham 3/25/2011 21:09",
+		"compilerFlags" : "DavidGraham 3/26/2011 04:57",
+		"compilerFlagsDebug" : "MarianoMartinezPeck 4/26/2011 20:45",
+		"compilerFlagsRelease" : "MarianoMartinezPeck 4/26/2011 20:47",
+		"configH" : "DavidGraham 3/25/2011 21:22",
+		"configureFloatMathPlugin:" : "DavidGraham 3/25/2011 18:13",
+		"setExtraTargetProperties:" : "DavidGraham 3/26/2011 03:36" } }

@@ -1,0 +1,15 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"encodeState",
+		"decodeState" ],
+	"name" : "GSMCodec",
+	"pools" : [
+		 ],
+	"super" : "SoundCodec",
+	"type" : "normal" }

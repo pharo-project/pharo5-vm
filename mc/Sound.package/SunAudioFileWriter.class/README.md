@@ -1,0 +1,1 @@
+I encode monophonic sampled sounds in Sun audio (.au) file format. Sun audio files have a very simple format but can store both compressed and uncompressed sample data. I can write this format either directly into a file or onto any writable binary stream.

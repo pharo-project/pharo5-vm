@@ -1,0 +1,21 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ar 3/26/2006 19:37",
+		"requiresCrossPlatformFiles" : "ar 3/26/2006 19:37" },
+	"instance" : {
+		"primitiveARC4Transform" : "jcg 6/18/2010 14:49",
+		"primitiveAdj3" : "jcg 6/18/2010 14:49",
+		"primitiveDet3" : "jcg 6/18/2010 14:49",
+		"primitiveGatherEntropy" : "jcg 6/18/2010 14:49",
+		"primitiveInplaceHouseHolderInvert" : "jcg 6/18/2010 14:50",
+		"primitiveInverseByAdjoint" : "jcg 6/18/2010 14:50",
+		"primitiveMD5Transform" : "jcg 6/18/2010 14:49",
+		"primitiveOrthoNormInverseMatrix" : "jcg 6/18/2010 14:50",
+		"primitiveTransformDirection" : "jcg 6/18/2010 14:50",
+		"primitiveTransformMatrixWithInto" : "jcg 6/18/2010 14:50",
+		"primitiveTransformVector3" : "jcg 6/18/2010 14:50",
+		"primitiveTransposeMatrix" : "jcg 6/18/2010 14:50",
+		"primitiveTriBoxIntersects" : "jcg 6/18/2010 14:50",
+		"stackMatrix:" : "ar (auto pragmas dtl 2010-09-27) 3/26/2006 22:32",
+		"stackVector3:" : "ar (auto pragmas dtl 2010-09-27) 3/18/2007 01:08",
+		"transformMatrix:with:into:" : "jcg 6/18/2010 14:50" } }

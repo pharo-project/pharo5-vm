@@ -1,0 +1,14 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "FMClarinetSound",
+	"pools" : [
+		 ],
+	"super" : "FMSound",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+bundle strings
+WebViewAsUI
+	^false

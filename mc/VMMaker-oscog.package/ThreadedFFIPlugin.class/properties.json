@@ -1,0 +1,21 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DefaultMaxStackSize",
+		"ExternalFunctionAddressIndex",
+		"ExternalFunctionArgTypesIndex",
+		"ExternalFunctionFlagsIndex",
+		"ExternalFunctionStackSizeIndex",
+		"MaxNumArgs" ],
+	"commentStamp" : "eem 7/21/2011 11:38",
+	"instvars" : [
+		"ffiLogEnabled",
+		"externalFunctionInstSize",
+		"ffiLastError" ],
+	"name" : "ThreadedFFIPlugin",
+	"pools" : [
+		"FFIConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

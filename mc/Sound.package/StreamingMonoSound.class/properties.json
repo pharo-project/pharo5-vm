@@ -1,0 +1,25 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"stream",
+		"volume",
+		"repeat",
+		"headerStart",
+		"audioDataStart",
+		"streamSamplingRate",
+		"totalSamples",
+		"codec",
+		"mixer",
+		"leftoverSamples",
+		"lastBufferMSecs",
+		"mutex" ],
+	"name" : "StreamingMonoSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "Alien-Core",
+	"classinstvars" : [
+		"uniqueInstance" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"alienHandle" ],
+	"name" : "AlienLibrary",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

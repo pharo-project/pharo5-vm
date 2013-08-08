@@ -1,0 +1,3 @@
+plugin primitive support
+getDeferDisplayUpdates
+	^deferDisplayUpdates

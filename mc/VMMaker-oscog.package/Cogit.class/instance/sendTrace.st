@@ -1,0 +1,4 @@
+debugging
+sendTrace
+	<doNotGenerate>
+	^traceFlags

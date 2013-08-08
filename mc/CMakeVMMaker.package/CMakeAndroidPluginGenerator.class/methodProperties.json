@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addCrossSources:" : "golubovsky 7/29/2011 22:27",
+		"addDefinitions:" : "golubovsky 7/29/2011 20:59",
+		"addSources:prefixed:" : "golubovsky 7/29/2011 22:42",
+		"addSubdirectory:" : "golubovsky 7/29/2011 20:59",
+		"append:with:" : "golubovsky 12/27/2011 21:37",
+		"generate" : "golubovsky 7/29/2011 22:55",
+		"generatePlugin:internal:extraRules:" : "golubovsky 7/29/2011 20:59",
+		"include:" : "golubovsky 7/29/2011 20:59",
+		"includeDirectories:" : "golubovsky 7/29/2011 20:59",
+		"includeDirs" : "golubovsky 7/29/2011 20:59",
+		"outputFileName" : "golubovsky 7/29/2011 21:04",
+		"printHeader" : "golubovsky 7/29/2011 20:59",
+		"processInternalPlugins" : "golubovsky 7/29/2011 20:59",
+		"set:to:" : "golubovsky 7/29/2011 20:59",
+		"sources" : "golubovsky 7/29/2011 20:59" } }

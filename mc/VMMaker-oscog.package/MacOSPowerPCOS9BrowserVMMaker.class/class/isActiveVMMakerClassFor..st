@@ -1,0 +1,3 @@
+initialisation
+isActiveVMMakerClassFor: platformName
+	^false

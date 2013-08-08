@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"supports:" : "EstebanLorenzano 2/28/2013 12:56" },
+	"instance" : {
+		"copyArtefacts" : "EstebanLorenzano 8/7/2012 16:24",
+		"defineGlobalTargets" : "EstebanLorenzano 8/7/2012 14:23",
+		"includeDir" : "EstebanLorenzano 2/28/2013 12:53",
+		"libraryFileName" : "EstebanLorenzano 8/7/2012 16:06",
+		"targetForLinking" : "EstebanLorenzano 8/7/2012 16:24" } }

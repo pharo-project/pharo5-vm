@@ -1,0 +1,24 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"SineTable" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"initialCount",
+		"count",
+		"waveTable",
+		"scaledWaveTableSize",
+		"scaledIndex",
+		"scaledIndexIncr",
+		"modulation",
+		"multiplier",
+		"normalizedModulation",
+		"scaledOffsetIndex",
+		"scaledOffsetIndexIncr" ],
+	"name" : "FMSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

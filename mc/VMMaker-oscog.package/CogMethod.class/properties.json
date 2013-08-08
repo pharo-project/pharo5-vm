@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 1/9/2011 08:49",
+	"instvars" : [
+		"blockSize",
+		"blockEntryOffset",
+		"methodObject",
+		"methodHeader",
+		"selector" ],
+	"name" : "CogMethod",
+	"pools" : [
+		 ],
+	"super" : "CogBlockMethod",
+	"type" : "normal" }

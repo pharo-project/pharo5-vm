@@ -1,0 +1,3 @@
+accessing
+moduleName
+	self subclassResponsibility

@@ -1,0 +1,24 @@
+{
+	"category" : "VMMaker-Multithreading",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"coInterpreter",
+		"cogit",
+		"threadLocalStorage",
+		"processorOwner",
+		"vmOwner",
+		"vmOwnerLock",
+		"threads",
+		"numThreads",
+		"numThreadsIncrement",
+		"memoryIsScarce",
+		"vmOSThread" ],
+	"name" : "CogThreadManager",
+	"pools" : [
+		"VMThreadingConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

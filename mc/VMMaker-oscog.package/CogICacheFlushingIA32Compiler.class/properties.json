@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CogICacheFlushingIA32Compiler",
+	"pools" : [
+		 ],
+	"super" : "CogIA32Compiler",
+	"type" : "normal" }
