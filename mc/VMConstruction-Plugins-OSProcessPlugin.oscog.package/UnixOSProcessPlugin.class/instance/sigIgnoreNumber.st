@@ -3,4 +3,4 @@ sigIgnoreNumber
 	"Ignore action for a signal"
 
 	<returnTypeC: 'void *'>
-	^ self cCode: 'SIG_IGN' inSmalltalk: [1]
+	^self cCode: [#'SIG_IGN'] inSmalltalk: [1]

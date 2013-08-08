@@ -1,6 +1,6 @@
 primitives - OS signals
-primitiveSendSigabrtTo: anIntegerPid 
-	"Send SIGABRT (abort) to the OS process identified by anIntegerPid. Use an explicit
+primitiveSendSigkillTo
+	"Send SIGKILL (kill, unblockable) to the OS process identified by the argument. Use an explicit
 	check for isIntegerObject so we can return -1 on error (the stackIntegerValue: method
 	answers 1 on error, and 1 is a valid pid number)."
 
@@ -17,6 +17,6 @@ primitiveSendSigabrtTo: anIntegerPid
 			[(interpreterProxy isIntegerObject: (interpreterProxy stackValue: 0))
 				ifTrue: 
 					[pidToSignal := interpreterProxy stackIntegerValue: 0.
-					result := self sendSignal: self sigAbrtNumber toPid: pidToSignal.
+					result := self sendSignal: self sigKillNumber toPid: pidToSignal.
 					interpreterProxy pop: 2; pushInteger: result]
 				ifFalse: [interpreterProxy pop: 2; pushInteger: -1]]

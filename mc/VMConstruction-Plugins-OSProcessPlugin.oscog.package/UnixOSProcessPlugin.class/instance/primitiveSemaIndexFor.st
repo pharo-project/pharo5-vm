@@ -6,5 +6,7 @@ primitiveSemaIndexFor
 	| sigNum index |
 	<export: true>
 	sigNum := interpreterProxy stackIntegerValue: 0.
-	index := self semaphoreIndices at: sigNum.
+	semaIndices = nil
+		ifTrue: [index := 0 "interpreter simulation"]
+		ifFalse: [index := semaIndices at: sigNum].
 	interpreterProxy pop: 2; pushInteger: index

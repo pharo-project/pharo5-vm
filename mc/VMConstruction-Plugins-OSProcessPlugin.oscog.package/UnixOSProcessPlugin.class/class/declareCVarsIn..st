@@ -5,22 +5,18 @@ declareCVarsIn: cg
 	module identification string to be written with the name of the actual subclass
 	being generated."
 
-	cg addHeaderFile: '<sys/types.h>
-/* ', self idString, ' - ', self moduleName, '.c translated from class
-   ', self name, ' of OSProcessPlugin version ', self versionString, ' */'.
+	cg addHeaderFile: '<sys/types.h>'.
 	cg addHeaderFile: '<sys/time.h>'.
+	cg addHeaderFile: '<sys/stat.h>'.	"For stat(2) call in primitiveFileProtectionMask"
 	cg addHeaderFile: '<sys/wait.h>'.
 	cg addHeaderFile: '<signal.h>'.
 	cg addHeaderFile: '<unistd.h>'.
-	cg addHeaderFile: '<stdlib.h>'.
 	cg addHeaderFile: '<fcntl.h>'.
-	cg addHeaderFile: '<signal.h>'.
 	cg addHeaderFile: '<pthread.h>'.
-	cg addHeaderFile: '<sys/stat.h>'.	"For stat(2) call in primitiveFileProtectionMask"
 	cg addHeaderFile: '<errno.h>'.
-	cg addHeaderFile: '"config.h"
-#define FILEHANDLETYPE FILE *  /* the type of low level stream to be used in a struct SQFile */'.
+	cg addHeaderFile: '"config.h"'.
 	cg addHeaderFile: '"sqaio.h"'.
+	cg addConstantForBinding: 'FILEHANDLETYPE' -> 'FILE *  /* the type of low level stream to be used in a struct SQFile */'.
 	cg var: 'sigHandlers' declareC: 'void *sigHandlers[NSIG]'.
 	cg var: 'originalSigHandlers' declareC: 'void *originalSigHandlers[NSIG]'.
 	cg var: 'semaIndices' declareC: 'unsigned char semaIndices[NSIG]'.

@@ -1,8 +1,8 @@
 primitives - OS signals
-primitiveSendSigtermTo: anIntegerPid
-	"Send SIGTERM (termination) to the OS process identified by anIntegerPid. Use an explicit
-	check for isIntegerObject so we can return -1 on error (the stackIntegerValue: method
-	answers 1 on error, and 1 is a valid pid number)."
+primitiveSendSigusr2To
+	"Send SIGUSR2 (User-defined signal 2) to the OS process identified by the argument. Use
+	an explicit check for isIntegerObject so we can return -1 on error (the stackIntegerValue:
+	method answers 1 on error, and 1 is a valid pid number)."
 
 	| result pidToSignal |
 	<export: true>
@@ -17,6 +17,6 @@ primitiveSendSigtermTo: anIntegerPid
 			[(interpreterProxy isIntegerObject: (interpreterProxy stackValue: 0))
 				ifTrue: 
 					[pidToSignal := interpreterProxy stackIntegerValue: 0.
-					result := self sendSignal: self sigTermNumber toPid: pidToSignal.
+					result := self sendSignal: self sigUsr2Number toPid: pidToSignal.
 					interpreterProxy pop: 2; pushInteger: result]
 				ifFalse: [interpreterProxy pop: 2; pushInteger: -1]]

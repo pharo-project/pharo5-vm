@@ -2,4 +2,4 @@ private - signum
 sigIntNumber
 	"Interrupt (ANSI)."
 
-	^ self cCode: 'SIGINT' inSmalltalk: [2]
+	^self cCode: [#SIGINT] inSmalltalk: [2]

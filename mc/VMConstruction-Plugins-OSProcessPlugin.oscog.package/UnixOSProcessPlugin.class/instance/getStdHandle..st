@@ -9,7 +9,7 @@ getStdHandle: n
 		inSmalltalk:
 			["In the simulator file handles are integer indexes of FilePluginSimulator's openFiles dictionary."
 			^interpreterProxy pop: 1 thenPush: (interpreterProxy integerObjectOf: n)].
-	validMask := self sqFileStdioHandlesInto: (self addressOf: fileRecords).
+	validMask := self sqFileStdioHandlesInto: fileRecords.
 	(validMask bitAnd: (1 << n)) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrUnsupported].
 

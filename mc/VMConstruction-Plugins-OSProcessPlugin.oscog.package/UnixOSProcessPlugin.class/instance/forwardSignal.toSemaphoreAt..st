@@ -13,18 +13,20 @@ forwardSignal: sigNum toSemaphoreAt: semaphoreIndex
 	| oldHandler |
 	<returnTypeC: 'void *'>
 	<var: 'oldHandler' type: 'void *'>
+	semaIndices = nil ifTrue: [^nil]. "Interpreter simulation"
 	(semaphoreIndex == 0)
 		ifTrue:
 			["Disable the handler"
-			((self semaphoreIndices at: sigNum) ~= 0)
+			((semaIndices at: sigNum) ~= 0)
 				ifTrue:
-					[oldHandler := self setSignalNumber: sigNum handler: oldHandler.
-					self semaphoreIndices at: sigNum put: 0.
+					[oldHandler := self originalSignalHandlers at: sigNum.
+					oldHandler := self setSignalNumber: sigNum handler: oldHandler.
+					semaIndices at: sigNum put: 0.
 					^ oldHandler]
-				ifFalse:
+				ifFalse: "either -1 for printAllStacks or a positive integer for semaphore forwarding"
 					["Signal handler had not been set, answer an error"
 					^ self sigErrorNumber]].
-	((self semaphoreIndices at: sigNum) > 0)
+	((semaIndices at: sigNum) > 0)
 		ifTrue:
 			["Handler is already set, answer an error"
 			^ self sigErrorNumber].
@@ -32,5 +34,5 @@ forwardSignal: sigNum toSemaphoreAt: semaphoreIndex
 	(oldHandler ~= self sigErrorNumber)
 		ifTrue:
 			[self originalSignalHandlers at: sigNum put: oldHandler.
-			self semaphoreIndices at: sigNum put: semaphoreIndex].
+			semaIndices at: sigNum put: semaphoreIndex].
 	^ oldHandler

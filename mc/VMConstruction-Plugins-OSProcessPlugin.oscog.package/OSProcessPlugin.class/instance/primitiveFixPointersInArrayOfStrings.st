@@ -6,17 +6,14 @@ primitiveFixPointersInArrayOfStrings
 	this on a variety of machines, so I'll leave this test method here in case
 	someone runs into problems on other hardware or compilers. -dtl"
 
-	| count offsetArray offsets cStringArray flattenedArrayOfStrings |
 	<export: true>
-	<var: 'offsets' declareC: 'sqInt *offsets'>
-	<var: 'flattenedArrayOfStrings' declareC: 'char *flattenedArrayOfStrings'>
+	| count offsetArray cStringArray |
 	count := interpreterProxy stackIntegerValue: 0.
 	offsetArray := interpreterProxy stackObjectValue: 1.
 	cStringArray := interpreterProxy stackObjectValue: 2.
-	offsets := interpreterProxy firstIndexableField: offsetArray.
-	flattenedArrayOfStrings := interpreterProxy arrayValueOf: cStringArray.
-	self
-		fixPointersInArrayOfStrings: flattenedArrayOfStrings
-		withOffsets: offsets
-		count: count.
-	interpreterProxy pop: 4; push: cStringArray
+	(interpreterProxy failed
+	 or: [(self
+			fixPointersInArrayOfStrings: cStringArray
+			withOffsets: offsetArray) = 0])
+		ifTrue: [interpreterProxy primitiveFail]
+		ifFalse: [interpreterProxy pop: 4 thenPush: cStringArray]

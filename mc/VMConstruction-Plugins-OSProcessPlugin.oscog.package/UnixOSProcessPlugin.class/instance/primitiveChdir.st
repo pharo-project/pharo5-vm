@@ -9,6 +9,6 @@ primitiveChdir
 	<var: 'errno' type: 'extern int'>
 	path := self transientCStringFromString: (interpreterProxy stackObjectValue: 0).
 	(self chdir: path)
-		ifTrue: [interpreterProxy pop: 2; push: interpreterProxy nilObject]
-		ifFalse: [interpreterProxy pop: 2; pushInteger: errno].
+		ifFalse: [interpreterProxy pop: 2; push: interpreterProxy nilObject]
+		ifTrue: [interpreterProxy pop: 2; pushInteger: errno]
 

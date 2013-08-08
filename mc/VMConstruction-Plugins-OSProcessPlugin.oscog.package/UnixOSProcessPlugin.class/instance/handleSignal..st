@@ -8,7 +8,7 @@ handleSignal: sigNum
 	| semaIndex |
 	<returnTypeC: 'void'>
 	<var: 'sigNum' type: 'int'>
-	semaIndex := self semaphoreIndices at: sigNum.
+	semaIndex := semaIndices at: sigNum.
 	self forwardSignal: sigNum toSemaphoreAt: semaIndex. "Reset handler"
 	self isVmThread
 		ifTrue: [semaIndex > 0

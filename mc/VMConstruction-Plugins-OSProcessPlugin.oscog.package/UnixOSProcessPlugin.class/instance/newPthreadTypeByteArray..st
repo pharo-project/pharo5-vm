@@ -5,11 +5,12 @@ newPthreadTypeByteArray: aPthreadType
 	passed to the image."
 
 	| ptr len byteArray |
+	<var: 'aPthreadType' type: 'pthread_t'>
 	<var: 'ptr' declareC: 'pthread_t *ptr'>
 	len := self cCode: 'sizeof(pthread_t)' inSmalltalk: [Smalltalk wordSize].
 	byteArray := interpreterProxy
 		instantiateClass: interpreterProxy classByteArray
 		indexableSize: len.
 	ptr := interpreterProxy arrayValueOf: byteArray.
-	self cCode: '*ptr = aPthreadType'.
+	ptr at: 0 put: aPthreadType.
 	^ byteArray
