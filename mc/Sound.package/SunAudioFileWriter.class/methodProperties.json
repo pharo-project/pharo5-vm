@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"codecForFormatCode:" : "jm 11/21/2001 15:42",
+		"formatCodeForCompressionType:" : "stephaneducasse 2/4/2006 20:41",
+		"onFileNamed:" : "stephaneducasse 2/4/2006 20:41",
+		"onStream:" : "jm 11/16/2001 17:50",
+		"storeSampledSound:onFileNamed:compressionType:" : "stephaneducasse 2/4/2006 20:41" },
+	"instance" : {
+		"appendBytes:" : "jm 11/16/2001 18:02",
+		"appendSamples:" : "stephaneducasse 2/4/2006 20:41",
+		"closeFile" : "GuillermoPolito 6/17/2013 15:29",
+		"ensureOpen" : "sd 1/30/2004 15:23",
+		"setStream:" : "stephaneducasse 2/4/2006 20:41",
+		"updateHeaderDataSize" : "stephaneducasse 2/4/2006 20:41",
+		"writeHeaderSamplingRate:" : "jm 11/16/2001 17:55",
+		"writeHeaderSamplingRate:format:" : "jm 11/16/2001 22:10" } }

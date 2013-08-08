@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMPixman",
+	"pools" : [
+		 ],
+	"super" : "CMCairoBundle",
+	"type" : "normal" }

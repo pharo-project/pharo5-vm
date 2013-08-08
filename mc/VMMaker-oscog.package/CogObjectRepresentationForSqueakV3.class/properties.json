@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"RootBitDigitLength" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CogObjectRepresentationForSqueakV3",
+	"pools" : [
+		"VMSqueakV3ObjectRepresentationConstants" ],
+	"super" : "CogObjectRepresentation",
+	"type" : "normal" }

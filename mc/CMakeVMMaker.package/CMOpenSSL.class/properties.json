@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMOpenSSL",
+	"pools" : [
+		 ],
+	"super" : "CMThirdpartyLibrary",
+	"type" : "normal" }

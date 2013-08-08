@@ -1,0 +1,4 @@
+private
+getThisSessionIdentifier
+
+	^ interpreterProxy getThisSessionID

@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"buildMVCViewOn:" : "acg 9/26/1999 21:00",
+		"buildMorphicViewOn:" : "acg 9/26/1999 21:01",
+		"open:" : "RAA 6/3/2000 09:12",
+		"syntaxErrorFor:withComponent:" : "acg 9/26/1999 01:38" },
+	"instance" : {
+		"canDiscardEdits" : "acg 9/26/1999 02:10",
+		"code:errorMessage:from:to:" : "acg 9/26/1999 01:26",
+		"contentsSelection" : "acg 9/26/1999 01:25",
+		"list" : "acg 9/26/1999 01:27",
+		"listIndex" : "acg 9/26/1999 01:27",
+		"listMenu:" : "acg 9/26/1999 22:10" } }

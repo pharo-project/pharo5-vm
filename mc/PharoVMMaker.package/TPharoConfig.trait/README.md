@@ -1,0 +1,1 @@
+I'm a trait with the common behavior needed to configure a Pharo(S) virtual machine. 

@@ -1,0 +1,23 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"channels",
+		"soundClassName",
+		"codecName",
+		"loopEnd",
+		"loopLength",
+		"perceivedPitch",
+		"samplingRate",
+		"gain",
+		"firstSample",
+		"cachedSound" ],
+	"name" : "CompressedSoundData",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

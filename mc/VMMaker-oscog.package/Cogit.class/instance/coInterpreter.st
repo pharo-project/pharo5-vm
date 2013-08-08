@@ -1,0 +1,4 @@
+accessing
+coInterpreter
+	<doNotGenerate>
+	^coInterpreter

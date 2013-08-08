@@ -1,0 +1,3 @@
+Instances of this class hold the data resulting from compressing a sound.  Each carries a reference to the codec class that created it, so that it can reconstruct a sound similar to the original in response to the message asSound.
+
+In order to facilitate integration with existing sounds, a CompressedSoundData instance can masquerade as a sound by caching a copy of its original sound and delegating the essential sound-playing protocol to that cached copy.  It should probably be made a subclass of AbstractSound to complete the illusion.

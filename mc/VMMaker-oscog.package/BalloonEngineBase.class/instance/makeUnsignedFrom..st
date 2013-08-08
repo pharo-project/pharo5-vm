@@ -1,0 +1,3 @@
+private
+makeUnsignedFrom: someIntegerValue
+	^someIntegerValue

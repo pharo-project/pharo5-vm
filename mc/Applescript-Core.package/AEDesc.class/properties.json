@@ -1,0 +1,14 @@
+{
+	"category" : "Applescript-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "AEDesc",
+	"pools" : [
+		 ],
+	"super" : "MacExternalData",
+	"type" : "words" }

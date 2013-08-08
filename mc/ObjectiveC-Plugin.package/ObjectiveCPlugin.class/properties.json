@@ -1,0 +1,14 @@
+{
+	"category" : "ObjectiveC-Plugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ObjectiveCPlugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

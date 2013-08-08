@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"initialize" : "eem 2/27/2013 16:01" },
+	"instance" : {
+		"bitIndex:" : "eem 2/27/2013 16:05",
+		"byteIndex:" : "eem 2/27/2013 16:03",
+		"clearHeapMap" : "eem 2/27/2013 15:39",
+		"heapMapAtWord:" : "eem 2/27/2013 16:10",
+		"heapMapAtWord:Put:" : "eem 2/27/2013 16:08",
+		"initialize" : "eem 2/27/2013 15:39",
+		"pageIndex:" : "eem 2/27/2013 16:01",
+		"pageSize" : "eem 2/27/2013 15:50" } }

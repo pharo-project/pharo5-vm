@@ -1,0 +1,4 @@
+accessing
+lowLimit
+
+	^ lowLimit

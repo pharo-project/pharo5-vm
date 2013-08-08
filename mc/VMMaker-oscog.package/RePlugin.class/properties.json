@@ -1,0 +1,27 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"netMemory",
+		"numAllocs",
+		"numFrees",
+		"lastAlloc",
+		"patternStr",
+		"rcvr",
+		"compileFlags",
+		"pcrePtr",
+		"extraPtr",
+		"errorStr",
+		"errorOffset",
+		"matchFlags",
+		"patternStrPtr",
+		"errorStrBuffer" ],
+	"name" : "RePlugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

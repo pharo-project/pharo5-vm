@@ -1,0 +1,4 @@
+simulation
+interpreter
+	<doNotGenerate>
+	^self

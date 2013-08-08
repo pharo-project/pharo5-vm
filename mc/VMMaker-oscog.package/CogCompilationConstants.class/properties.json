@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"SSBaseOffset",
+		"SSConstant",
+		"SSIllegal",
+		"SSRegister",
+		"SSSpill" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogCompilationConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

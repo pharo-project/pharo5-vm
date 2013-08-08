@@ -1,0 +1,1 @@
+I respresent a sequence of sound samples, often used to record a single note played by a real instrument. I can be pitch-shifted up or down, and can include a looped portion to allow a sound to be sustained indefinitely.

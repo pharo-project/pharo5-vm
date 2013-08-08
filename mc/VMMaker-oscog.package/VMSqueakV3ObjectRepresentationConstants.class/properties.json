@@ -1,0 +1,36 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"AllButTypeMask",
+		"ClassArrayCompactIndex",
+		"ClassBlockClosureCompactIndex",
+		"ClassBlockContextCompactIndex",
+		"ClassByteStringCompactIndex",
+		"ClassFloatCompactIndex",
+		"ClassLargeNegativeIntegerCompactIndex",
+		"ClassLargePositiveIntegerCompactIndex",
+		"ClassMethodContextCompactIndex",
+		"CompactClassMask",
+		"HashBitsOffset",
+		"HashMaskUnshifted",
+		"HeaderTypeShort",
+		"HeaderTypeSizeAndClass",
+		"ImmediateTagMask",
+		"ImmutabilityBit",
+		"LongSizeMask",
+		"MarkBit",
+		"RootBit",
+		"Size4Bit",
+		"SizeMask",
+		"SmallIntegerShift",
+		"TypeMask" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMSqueakV3ObjectRepresentationConstants",
+	"pools" : [
+		 ],
+	"super" : "VMBasicConstants",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CoInterpreterStackPagesSimulator",
+	"pools" : [
+		 ],
+	"super" : "CoInterpreterStackPages",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing-abstract
+endianness
+	self subclassResponsibility

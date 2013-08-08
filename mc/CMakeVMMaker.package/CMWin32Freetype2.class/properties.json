@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CMWin32Freetype2",
+	"pools" : [
+		 ],
+	"super" : "CMFreetype2",
+	"type" : "normal" }

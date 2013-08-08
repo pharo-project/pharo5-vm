@@ -1,0 +1,24 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"argVector",
+		"currentArg",
+		"limit",
+		"structReturnSize",
+		"callFlags",
+		"ffiArgSpec",
+		"ffiArgSpecSize",
+		"ffiArgHeader",
+		"ffiRetHeader",
+		"stringArgIndex",
+		"stringArgs" ],
+	"name" : "ThreadedFFICalloutState",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+utils
+fixLineEndsOf: string
+	^ string 

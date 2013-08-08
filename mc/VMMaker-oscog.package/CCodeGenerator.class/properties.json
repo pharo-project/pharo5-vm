@@ -1,0 +1,38 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"UseRightShiftForDivide" ],
+	"commentStamp" : "tpr 5/2/2003 14:30",
+	"instvars" : [
+		"vmClass",
+		"translationDict",
+		"asArgumentTranslationDict",
+		"inlineList",
+		"constants",
+		"variables",
+		"variableDeclarations",
+		"scopeStack",
+		"methods",
+		"macros",
+		"apiMethods",
+		"currentMethod",
+		"headerFiles",
+		"globalVariableUsage",
+		"useSymbolicConstants",
+		"generateDeadCode",
+		"requiredSelectors",
+		"logger",
+		"suppressAsmLabels",
+		"asmLabelCounts",
+		"pools",
+		"selectorTranslations",
+		"optionsDictionary",
+		"breakSrcInlineSelector",
+		"breakDestInlineSelector" ],
+	"name" : "CCodeGenerator",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "Object",
+	"type" : "normal" }

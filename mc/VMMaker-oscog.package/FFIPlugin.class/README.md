@@ -1,0 +1,1 @@
+This plugin provides access to foreign function interfaces on those platforms that provide such. For example Windows DLLs and unix .so's.

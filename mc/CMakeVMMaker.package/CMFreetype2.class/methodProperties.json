@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"canonicalName" : "" },
+	"instance" : {
+		"archiveMD5Sum" : "IgorStasenko 6/7/2012 17:04",
+		"build" : "EstebanLorenzano 7/9/2012 12:29",
+		"copyArtefacts" : "IgorStasenko 8/3/2012 17:58",
+		"defineAsTarget" : "IgorStasenko 6/8/2012 02:13",
+		"defineGlobalTargets" : "IgorStasenko 6/10/2012 02:50",
+		"downloadURL" : "",
+		"includeDir" : "IgorStasenko 6/7/2012 22:46",
+		"libraryFileName" : "",
+		"setVariables" : "IgorStasenko 6/8/2012 23:21",
+		"unpackedDirName" : "" } }

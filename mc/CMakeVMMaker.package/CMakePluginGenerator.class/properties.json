@@ -1,0 +1,18 @@
+{
+	"category" : "CMakeVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "Igor.Stasenko 12/25/2010 04:21",
+	"instvars" : [
+		"plugin",
+		"vmGen",
+		"internal",
+		"extraRules",
+		"doNotGenerate" ],
+	"name" : "CMakePluginGenerator",
+	"pools" : [
+		 ],
+	"super" : "CMakeGenerator",
+	"type" : "normal" }

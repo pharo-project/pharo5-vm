@@ -1,0 +1,22 @@
+{
+	"class" : {
+		"blue" : "",
+		"blue:" : "",
+		"createBlue" : "",
+		"createRed" : "",
+		"createYellow" : "",
+		"generateReportOfColoursOn:" : "",
+		"initialize" : "",
+		"red" : "",
+		"red:" : "",
+		"yellow" : "",
+		"yellow:" : "" },
+	"instance" : {
+		"color" : "",
+		"color:" : "",
+		"complementaryColourFor:" : "",
+		"hasSameColorAs:" : "",
+		"isBlue" : "",
+		"isRed" : "",
+		"isYellow" : "",
+		"printOn:" : "" } }

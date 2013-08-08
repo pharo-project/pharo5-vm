@@ -1,0 +1,3 @@
+accessing
+codeSignIdentity 
+	^'iPhone Developer'

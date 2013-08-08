@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ar 11/6/2005 02:48",
+		"requiresCrossPlatformFiles" : "ar 11/6/2005 16:20",
+		"simulatorClass" : "eem 10/21/2008 10:32" },
+	"instance" : {
+		"primitiveArcCos" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveArcCosH" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveArcSin" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveArcSinH" : "ar (auto pragmas 12/08) 4/17/2006 21:31",
+		"primitiveArcTan" : "ar (auto pragmas 12/08) 4/17/2006 21:31",
+		"primitiveArcTan2" : "ar (auto pragmas 12/08) 4/17/2006 21:31",
+		"primitiveArcTanH" : "ar (auto pragmas 12/08) 4/17/2006 21:31",
+		"primitiveCos" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveCosH" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveExp" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveFMod" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveFractionalPart" : "ar (auto pragmas 12/08) 4/17/2006 22:51",
+		"primitiveHypot" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveLog10" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveLogN" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveRaisedToPower" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveSin" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveSinH" : "ar (auto pragmas 12/08) 4/17/2006 21:32",
+		"primitiveSqrt" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveTan" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveTanH" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
+		"primitiveTimesTwoPower" : "ar (auto pragmas 12/08) 4/17/2006 21:33" } }

@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Android",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMakeAndroidPluginGenerator",
+	"pools" : [
+		 ],
+	"super" : "CMakePluginGenerator",
+	"type" : "normal" }

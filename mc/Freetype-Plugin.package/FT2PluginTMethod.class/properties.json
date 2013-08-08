@@ -1,0 +1,14 @@
+{
+	"category" : "Freetype-Plugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "FT2PluginTMethod",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxPluginTMethod",
+	"type" : "normal" }

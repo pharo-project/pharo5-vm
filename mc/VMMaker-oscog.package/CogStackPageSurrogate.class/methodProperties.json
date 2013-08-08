@@ -1,0 +1,13 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"=" : "eem 12/29/2008 14:30",
+		"address" : "eem 12/29/2008 14:07",
+		"address:simulator:zoneBase:zoneLimit:" : "eem 3/6/2009 15:16",
+		"addressIsInPage:" : "eem 6/2/2009 14:20",
+		"asInteger" : "eem 1/29/2009 09:38",
+		"asUnsignedInteger" : "eem 1/15/2011 08:26",
+		"hash" : "eem 12/29/2008 14:30",
+		"isFree" : "eem 6/2/2009 14:19",
+		"printOn:" : "eem 12/29/2008 14:32" } }

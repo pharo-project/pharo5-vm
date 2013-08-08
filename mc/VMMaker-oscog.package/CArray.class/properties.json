@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"interpreter",
+		"arrayBaseAddress",
+		"ptrOffset",
+		"unitSize" ],
+	"name" : "CArray",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

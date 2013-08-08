@@ -1,0 +1,3 @@
+bundle strings
+UIDeviceFamily
+	^self targetedDeviceFamilyAsTemplateString

@@ -1,0 +1,4 @@
+testing
+isLabel
+
+	^true

@@ -1,0 +1,24 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 11/5/2010 16:59",
+		"needsTypeTag" : "eem 12/25/2010 22:49",
+		"printTypedefOn:" : "eem 12/25/2010 22:32" },
+	"instance" : {
+		"floatregargsp" : "eem 10/13/2010 16:47",
+		"floatregargsp:" : "eem 10/13/2010 16:47",
+		"intregargsp" : "eem 10/13/2010 16:47",
+		"intregargsp:" : "eem 10/13/2010 16:47",
+		"rvs" : "eem 10/13/2010 16:47",
+		"rvs:" : "eem 10/13/2010 16:47",
+		"savedCFramePointer" : "eem 10/12/2010 18:45",
+		"savedCFramePointer:" : "eem 10/12/2010 18:45",
+		"savedCStackPointer" : "eem 10/12/2010 18:45",
+		"savedCStackPointer:" : "eem 10/12/2010 18:45",
+		"savedReenterInterpreter" : "eem 11/5/2010 16:56",
+		"savedReenterInterpreter:" : "eem 11/5/2010 16:56",
+		"stackp" : "eem 10/12/2010 18:45",
+		"stackp:" : "eem 10/12/2010 18:45",
+		"thunkp" : "eem 10/12/2010 18:45",
+		"thunkp:" : "eem 10/12/2010 18:45",
+		"trampoline" : "eem 10/12/2010 18:45",
+		"trampoline:" : "eem 10/12/2010 18:45" } }

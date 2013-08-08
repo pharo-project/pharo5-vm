@@ -1,0 +1,1 @@
+I am an abstract class that describes the protocol for sound codecs. Each codec (the name stems from "COder/DECoder") describes a particular algorithm for compressing and decompressing sound data. Most sound codecs are called 'lossy' because they lose information; the decompressed sound data is not exactly the same as the original data.

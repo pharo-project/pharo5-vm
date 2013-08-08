@@ -1,0 +1,4 @@
+process primitive support
+commenceCogCompiledCodeCompaction
+	self halt.
+	^super commenceCogCompiledCodeCompaction

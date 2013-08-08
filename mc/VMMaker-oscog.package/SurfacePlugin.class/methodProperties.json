@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:12",
+		"requiresCrossPlatformFiles" : "tpr 7/4/2001 15:15",
+		"translateInDirectory:doInlining:" : "tpr 4/9/2002 16:15" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 5/26/2000 22:33",
+		"ioFindSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioGetSurfaceFormat" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioLockSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioRegisterSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioShowSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioUnlockSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"ioUnregisterSurface" : "ar (auto pragmas 12/08) 5/26/2000 22:34",
+		"shutdownModule" : "ar (auto pragmas 12/08) 5/26/2000 22:33" } }

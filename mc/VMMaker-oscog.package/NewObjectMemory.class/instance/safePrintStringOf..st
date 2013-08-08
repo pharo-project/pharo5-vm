@@ -1,0 +1,23 @@
+debug printing
+safePrintStringOf: oop
+	"Version of printStringOf: that copes with forwarding during garbage collection."
+	| fmt header cnt i |
+	<inline: false>
+	(self isIntegerObject: oop) ifTrue:
+		[^nil].
+	(oop between: self startOfMemory and: freeStart) ifFalse:
+		[^nil].
+	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+		[^nil].
+	header := self headerWhileForwardingOf: oop.
+	fmt := self formatOfHeader: header.
+	fmt < 8 ifTrue: [ ^nil ].
+
+	cnt := 100 min: (self lengthOf: oop baseHeader: header format: fmt).
+	i := 0.
+
+	[i < cnt] whileTrue:
+		[self printChar: (self fetchByte: i ofObject: oop).
+		 i := i + 1].
+	coInterpreter flush.
+	^oop

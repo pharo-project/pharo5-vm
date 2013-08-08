@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"copyAndForward:" : "eem 9/8/2011 16:59",
+		"scavenge" : "eem 9/8/2011 17:03",
+		"scavengeFutureSurvivorSpaceStartingAt:" : "eem 9/8/2011 17:04",
+		"scavengeLoop" : "eem 9/8/2011 17:04",
+		"scavengeReferentsOf:" : "eem 9/8/2011 16:32",
+		"scavengeRememberedSetStartingAt:" : "eem 9/8/2011 14:43" } }

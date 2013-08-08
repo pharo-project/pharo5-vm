@@ -1,0 +1,3 @@
+accessing
+platformName
+	^ 'win32'

@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:32",
+	"instvars" : [
+		 ],
+	"name" : "StackUnixDebugConfig",
+	"pools" : [
+		 ],
+	"super" : "StackUnixConfig",
+	"type" : "normal" }

@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:09",
+		"requiresPlatformFiles" : "tpr 3/20/2001 12:15" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 1/10/2001 19:57",
+		"primitiveDropRequestFileHandle" : "ar (auto pragmas 12/08) 1/10/2001 20:46",
+		"primitiveDropRequestFileName" : "ar (auto pragmas 12/08) 1/10/2001 20:46",
+		"setFileAccessCallback:" : "JMM (auto pragmas 12/08) 9/15/2001 21:14",
+		"shutdownModule" : "ar (auto pragmas 12/08) 1/10/2001 19:57" } }

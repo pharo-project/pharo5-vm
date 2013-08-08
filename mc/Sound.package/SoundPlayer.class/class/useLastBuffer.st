@@ -1,0 +1,3 @@
+initialization
+useLastBuffer
+	^LastBuffer notNil

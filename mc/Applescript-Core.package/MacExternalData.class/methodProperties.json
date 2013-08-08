@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"ccg:prolog:expr:index:" : "acg 9/20/1999 22:08",
+		"ccgDeclareCForVar:" : "acg 9/25/1999 14:55",
+		"fromValue:" : "acg 9/20/1999 14:53" },
+	"instance" : {
+		"at:put:" : "acg 9/12/1999 17:24",
+		"byteAt:" : "acg 9/12/1999 17:20",
+		"byteAt:put:" : "acg 9/12/1999 17:47",
+		"fourBytesAt:" : "acg 9/12/1999 17:56",
+		"fourBytesAt:put:" : "acg 9/12/1999 17:56",
+		"handleSizeAt:" : "acg 9/12/1999 21:31",
+		"primGetHandleSize:" : "bf 1/30/2006 00:31",
+		"printAt:on:" : "acg 9/12/1999 17:55",
+		"printOn:" : "acg 9/20/1999 11:56",
+		"shortAt:" : "acg 9/23/1999 20:54" } }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Building",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:28",
+	"instvars" : [
+		 ],
+	"name" : "VMMakerException",
+	"pools" : [
+		 ],
+	"super" : "Error",
+	"type" : "normal" }

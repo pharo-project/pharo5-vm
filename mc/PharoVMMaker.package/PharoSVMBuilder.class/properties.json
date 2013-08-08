@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "PharoSVMBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

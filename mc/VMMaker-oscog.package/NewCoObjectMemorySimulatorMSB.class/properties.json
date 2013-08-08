@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NewCoObjectMemorySimulatorMSB",
+	"pools" : [
+		 ],
+	"super" : "NewCoObjectMemorySimulator",
+	"type" : "normal" }

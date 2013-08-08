@@ -1,0 +1,3 @@
+accessing
+primTraceLogIndexAddress
+	^coInterpreter primTraceLogIndexAddress

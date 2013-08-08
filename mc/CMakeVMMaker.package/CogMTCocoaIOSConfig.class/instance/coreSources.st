@@ -1,0 +1,8 @@
+source files
+coreSources
+	"files to include from src/vm dir"
+	
+	^ #(
+		'cogit.c'
+		'gcc3x-cointerpmt.c'
+		)

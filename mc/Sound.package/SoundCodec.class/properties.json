@@ -1,0 +1,14 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "SoundCodec",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"fileout:to:" : "Igor.Stasenko 1/28/2011 10:54",
+		"fileoutLoaderScript" : "Igor.Stasenko 1/28/2011 10:53",
+		"generateCocoaVM" : "GuillermoPolito 6/17/2013 18:03",
+		"generateCogMacOS" : "GuillermoPolito 6/17/2013 15:12",
+		"generateCogSources" : "GuillermoPolito 6/17/2013 15:12",
+		"generateCogSources:" : "Igor.Stasenko 1/28/2011 15:59",
+		"generateCogSourcesEmm40" : "GuillermoPolito 6/17/2013 15:12",
+		"generateStackMacOS" : "MarianoMartinezPeck 4/22/2011 23:16",
+		"generateStackSources" : "GuillermoPolito 6/17/2013 15:12",
+		"loaderScript" : "IgorStasenko 4/12/2011 13:24",
+		"loaderScriptName" : "Igor.Stasenko 1/28/2011 10:53",
+		"mcPackage:" : "Igor.Stasenko 1/27/2011 12:19" },
+	"instance" : {
+		"seeClassSide" : "Igor.Stasenko 12/30/2010 09:52" } }

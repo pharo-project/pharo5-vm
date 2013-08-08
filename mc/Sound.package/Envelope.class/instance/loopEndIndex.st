@@ -1,0 +1,4 @@
+accessing
+loopEndIndex
+
+	^ loopEndIndex

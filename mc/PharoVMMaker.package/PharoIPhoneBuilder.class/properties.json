@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "PharoIPhoneBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

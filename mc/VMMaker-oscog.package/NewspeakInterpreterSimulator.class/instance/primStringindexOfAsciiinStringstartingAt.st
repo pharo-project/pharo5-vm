@@ -1,0 +1,3 @@
+other primitives
+primStringindexOfAsciiinStringstartingAt
+	^ self primitiveFail

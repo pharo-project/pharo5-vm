@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackSimulatorConfig",
+	"pools" : [
+		 ],
+	"super" : "StackIPhoneConfig",
+	"type" : "normal" }

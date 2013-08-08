@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Scripting",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CommandLineLauncher",
+	"pools" : [
+		 ],
+	"super" : "AbstractLauncher",
+	"type" : "normal" }

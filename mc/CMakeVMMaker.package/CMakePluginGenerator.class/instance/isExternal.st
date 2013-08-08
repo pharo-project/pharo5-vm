@@ -1,0 +1,3 @@
+testing
+isExternal
+	^ internal not

@@ -1,0 +1,14 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"applyReverbTo:startingAt:count:" : "HenrikSperreJohansen 10/25/2010 16:32",
+		"copySound" : "stephaneducasse 2/4/2006 20:41",
+		"doControl" : "jm 1/21/98 14:32",
+		"mixSampleCount:into:startingAt:leftVol:rightVol:" : "zz 3/2/2004 08:26",
+		"postCopy" : "nice 1/12/2010 20:11",
+		"reset" : "jm 1/21/98 16:47",
+		"samplesRemaining" : "jm 1/21/98 17:02",
+		"sound" : "jm 1/7/98 22:41",
+		"sound:" : "stephaneducasse 2/4/2006 20:41",
+		"tapDelays:gains:" : "stephaneducasse 2/4/2006 20:41" } }

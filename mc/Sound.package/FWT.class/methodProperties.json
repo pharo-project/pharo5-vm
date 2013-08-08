@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"coeffs" : "stephaneducasse 2/4/2006 20:41",
+		"coeffs:" : "stephaneducasse 2/4/2006 20:41",
+		"convolveAndDec:dataLen:filter:out:" : "stephaneducasse 2/4/2006 20:41",
+		"convolveAndInt:dataLen:filter:sumOutput:into:" : "stephaneducasse 2/4/2006 20:41",
+		"dotpData:endIndex:filter:start:stop:inc:" : "stephaneducasse 2/4/2006 20:41",
+		"meanSquareError:" : "stephaneducasse 2/4/2006 20:41",
+		"nSamples:nLevels:" : "stephaneducasse 2/4/2006 20:41",
+		"samples" : "di 10/31/1998 12:26",
+		"samples:" : "di 10/31/1998 12:25",
+		"setAlpha:beta:" : "stephaneducasse 2/4/2006 20:41",
+		"transformForward:" : "stephaneducasse 2/4/2006 20:41" } }

@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"ccg:generateCoerceToOopFrom:on:" : "eem 10/2/2010 14:12",
+		"ccg:generateCoerceToValueFrom:on:" : "eem 10/3/2010 08:09",
+		"ccg:prolog:expr:index:" : "acg 9/18/1999 17:08",
+		"ccgCanConvertFrom:" : "acg 9/20/1999 11:22",
+		"ccgDeclareCForVar:" : "acg 9/17/1999 01:09",
+		"fromIEEE64BitWord:" : "eem 5/23/2011 14:26" },
+	"instance" : {
+		"asIEEE64BitWord" : "eem 9/18/2010 17:29" } }

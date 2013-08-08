@@ -1,0 +1,5 @@
+menus
+makeAllPluginsExternal
+
+
+	vmMaker makeAllModulesExternal

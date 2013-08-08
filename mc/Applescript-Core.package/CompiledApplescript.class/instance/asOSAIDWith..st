@@ -1,0 +1,4 @@
+converting
+asOSAIDWith: anApplescriptInstance
+
+	^self asAEDesc asOSAIDThenDisposeAEDescWith: anApplescriptInstance

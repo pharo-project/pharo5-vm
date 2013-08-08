@@ -1,0 +1,17 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"add:" : "len 8/29/1999 21:52",
+		"currentSound" : "stephaneducasse 2/4/2006 20:41",
+		"currentSound:" : "stephaneducasse 2/4/2006 20:41",
+		"doControl" : "len 8/29/1999 22:07",
+		"done:" : "stephaneducasse 2/4/2006 20:41",
+		"initialize" : "stephaneducasse 2/4/2006 20:41",
+		"mixSampleCount:into:startingAt:leftVol:rightVol:" : "stephaneducasse 2/4/2006 20:41",
+		"nextSound" : "stephaneducasse 2/4/2006 20:41",
+		"reset" : "len 9/13/1999 00:26",
+		"samplesRemaining" : "len 8/29/1999 22:13",
+		"sounds" : "len 8/29/1999 21:46",
+		"startTime" : "len 9/26/1999 17:19",
+		"startTime:" : "stephaneducasse 2/4/2006 20:41" } }

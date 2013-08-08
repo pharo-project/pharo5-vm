@@ -1,0 +1,22 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"nfib" : "lw 7/11/2012 14:16",
+		"processor" : "eem 12/11/2008 13:53",
+		"registerGetters" : "lw 7/2/2012 11:54",
+		"registerSetters" : "lw 7/2/2012 11:55",
+		"runNFib:disassemble:printRegisters:" : "lw 8/9/2012 20:57",
+		"singleStepNFib:disassemble:printRegisters:" : "lw 7/11/2012 13:45",
+		"testCallTrap" : "lw 1/26/2013 21:02",
+		"testDisassembling" : "lw 1/26/2013 20:57",
+		"testExecutionTrap" : "lw 8/18/2012 14:25",
+		"testFlags" : "lw 1/26/2013 20:52",
+		"testNfib1" : "lw 8/18/2012 14:24",
+		"testNfib16" : "lw 7/11/2012 14:21",
+		"testNfib2" : "lw 7/10/2012 14:29",
+		"testNfib4" : "lw 7/11/2012 14:20",
+		"testResetCPU" : "eem 1/20/2009 12:58",
+		"testStepNfib1" : "lw 7/11/2012 13:27",
+		"testStepNfib2" : "lw 7/11/2012 14:19",
+		"testStepNfib4" : "lw 7/11/2012 14:20" } }

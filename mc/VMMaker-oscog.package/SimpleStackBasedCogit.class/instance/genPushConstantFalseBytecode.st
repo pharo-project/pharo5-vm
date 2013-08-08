@@ -1,0 +1,3 @@
+bytecode generators
+genPushConstantFalseBytecode
+	^self genPushLiteral: objectMemory falseObject

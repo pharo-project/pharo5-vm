@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "BenjaminVanRyseghem 9/27/2011 14:04",
+	"instvars" : [
+		"processor",
+		"opcodes" ],
+	"name" : "AbstractInstructionTests",
+	"pools" : [
+		"CogRTLOpcodes" ],
+	"super" : "TestCase",
+	"type" : "normal" }

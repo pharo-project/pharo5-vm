@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "sr 6/14/2004 14:04",
+	"instvars" : [
+		"andOpIndex",
+		"orOpIndex",
+		"xorOpIndex" ],
+	"name" : "LargeIntegersPlugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

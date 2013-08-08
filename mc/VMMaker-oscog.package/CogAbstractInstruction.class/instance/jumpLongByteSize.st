@@ -1,0 +1,3 @@
+accessing
+jumpLongByteSize
+	self subclassResponsibility

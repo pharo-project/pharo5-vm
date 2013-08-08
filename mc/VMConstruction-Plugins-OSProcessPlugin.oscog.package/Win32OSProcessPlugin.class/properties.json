@@ -1,0 +1,18 @@
+{
+	"category" : "VMConstruction-Plugins-OSProcessPlugin",
+	"classinstvars" : [
+		"arrayValueOf" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"readCharBufferArray",
+		"readCharCountArray",
+		"readCharStatusArray",
+		"readCharArraySize",
+		"readCharThreadIdArray" ],
+	"name" : "Win32OSProcessPlugin",
+	"pools" : [
+		 ],
+	"super" : "OSProcessPlugin",
+	"type" : "normal" }

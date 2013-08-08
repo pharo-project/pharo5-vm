@@ -1,0 +1,3 @@
+translation
+additionalSelectorTables
+	^{ self primitiveTable }

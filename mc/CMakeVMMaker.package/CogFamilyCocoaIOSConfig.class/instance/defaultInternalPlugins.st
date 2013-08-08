@@ -1,0 +1,34 @@
+plugins
+defaultInternalPlugins
+	^ #(
+		ADPCMCodecPlugin
+		BMPReadWriterPlugin 
+		BalloonEnginePlugin 
+		BitBltSimulation 
+		ClipboardExtendedPlugin
+		DSAPlugin 
+		DeflatePlugin 
+		DropPlugin 
+		FFTPlugin 
+		FilePlugin 
+		FloatArrayPlugin 
+		GeniePlugin 
+		HostWindowPlugin 
+		"JPEGReadWriter2Plugin 
+		JPEGReaderPlugin" 
+		KlattSynthesizerPlugin 
+		LargeIntegersPlugin 
+		"MacMenubarPlugin" "This plugin is not yet ported"
+		Matrix2x3Plugin 
+		MiscPrimitivePlugin 
+		"RePlugin" 
+		SecurityPlugin 
+		SocketPlugin 
+		SoundCodecPlugin 
+		SoundGenerationPlugin 
+		SoundPlugin
+		StarSqueakPlugin 
+		SurfacePlugin 
+		UnixAioPlugin
+		UnixOSProcessPlugin
+		)

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 12/6/2012 15:03",
+	"instvars" : [
+		 ],
+	"name" : "VMInterfaceConsistencyTests",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

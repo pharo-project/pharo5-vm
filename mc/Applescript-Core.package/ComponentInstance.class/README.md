@@ -1,0 +1,1 @@
+I am an ExternalData representation of a MacOS Scripting Component.  I am typically subclassed to generate the relevant scripting component, for example, by ApplescriptInstance.

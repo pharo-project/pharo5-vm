@@ -1,0 +1,3 @@
+accessing
+instFormatFieldWidth
+	^objectMemory instFormatFieldWidth

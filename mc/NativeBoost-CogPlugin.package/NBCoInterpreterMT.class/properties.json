@@ -1,0 +1,14 @@
+{
+	"category" : "NativeBoost-CogPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "IgorStasenko 2/6/2013 20:37",
+	"instvars" : [
+		 ],
+	"name" : "NBCoInterpreterMT",
+	"pools" : [
+		 ],
+	"super" : "CoInterpreterMT",
+	"type" : "normal" }

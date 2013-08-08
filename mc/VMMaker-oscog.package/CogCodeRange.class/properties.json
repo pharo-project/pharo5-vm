@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"startpc",
+		"endpc",
+		"cogMethod" ],
+	"name" : "CogCodeRange",
+	"pools" : [
+		 ],
+	"super" : "Interval",
+	"type" : "normal" }

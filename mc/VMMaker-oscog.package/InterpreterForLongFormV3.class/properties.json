@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "InterpreterForLongFormV3",
+	"pools" : [
+		 ],
+	"super" : "Interpreter",
+	"type" : "normal" }

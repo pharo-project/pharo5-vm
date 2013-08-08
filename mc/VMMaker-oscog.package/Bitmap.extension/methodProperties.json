@@ -1,0 +1,12 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"coerceTo:sim:" : "ajh 8/20/2002 01:13",
+		"longAt:bigEndian:" : "eem 1/2/2009 09:25",
+		"longAt:put:bigEndian:" : "eem 1/2/2009 12:11",
+		"unsignedByteAt:" : "eem 12/28/2008 18:45",
+		"unsignedByteAt:put:" : "eem 12/28/2008 18:46",
+		"unsignedLongAt:" : "eem 12/28/2008 18:42",
+		"unsignedLongAt:bigEndian:" : "eem 12/28/2008 17:53",
+		"unsignedLongAt:put:" : "eem 12/28/2008 18:42" } }

@@ -1,0 +1,1 @@
+This is Cairo library config for building on MacOSX

@@ -1,0 +1,1 @@
+Provide MIDI support, if your platform provides it. 

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"stackp",
+		"joins" ],
+	"name" : "StackDepthFinder",
+	"pools" : [
+		 ],
+	"super" : "InstructionStream",
+	"type" : "normal" }

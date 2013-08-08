@@ -1,0 +1,3 @@
+accessing
+srcDirName
+	^ 'src'

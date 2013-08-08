@@ -1,0 +1,3 @@
+testing
+callsAreRelative
+	^self subclassResponsibility

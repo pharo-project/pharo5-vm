@@ -1,0 +1,14 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "DummyStream",
+	"pools" : [
+		 ],
+	"super" : "Stream",
+	"type" : "normal" }

@@ -1,0 +1,27 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CMBlock",
+		"CMClosedPIC",
+		"CMFree",
+		"CMMaxUsageCount",
+		"CMMethod",
+		"CMOpenPIC",
+		"MaxLiteralCountForCompile",
+		"MaxMethodSize",
+		"MaxNumArgs",
+		"MaxStackCheckOffset",
+		"PrimCallCollectsProfileSamples",
+		"PrimCallMayCallBack",
+		"PrimCallNeedsNewMethod",
+		"PrimCallNeedsPrimitiveFunction" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogMethodConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

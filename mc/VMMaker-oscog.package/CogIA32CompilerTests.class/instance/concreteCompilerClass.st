@@ -1,0 +1,3 @@
+accessing
+concreteCompilerClass
+	^CogIA32CompilerForTests

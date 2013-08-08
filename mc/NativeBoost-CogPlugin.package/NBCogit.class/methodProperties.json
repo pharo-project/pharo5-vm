@@ -1,0 +1,6 @@
+{
+	"class" : {
+		"initializePrimitiveTableForSqueakV3" : "IgorStasenko 9/20/2012 14:33" },
+	"instance" : {
+		"copyInstructionsFrom:upTo:" : "IgorStasenko 2/6/2013 21:36",
+		"genPrimitiveNBNativeCall" : "IgorStasenko 2/6/2013 21:35" } }

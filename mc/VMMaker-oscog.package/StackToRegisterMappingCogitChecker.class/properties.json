@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackToRegisterMappingCogitChecker",
+	"pools" : [
+		 ],
+	"super" : "StackToRegisterMappingCogit",
+	"type" : "normal" }

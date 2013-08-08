@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"theArray" ],
+	"name" : "ReadOnlyArrayWrapper",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

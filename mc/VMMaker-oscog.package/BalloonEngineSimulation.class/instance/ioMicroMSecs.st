@@ -1,0 +1,3 @@
+simulation
+ioMicroMSecs
+	^Time millisecondClockValue

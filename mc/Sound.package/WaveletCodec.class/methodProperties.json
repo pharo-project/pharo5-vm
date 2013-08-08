@@ -1,0 +1,9 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"bytesPerEncodedFrame" : "di 2/8/1999 14:22",
+		"decodeFrames:from:at:into:at:" : "stephaneducasse 2/4/2006 20:41",
+		"encodeFrames:from:at:into:at:" : "stephaneducasse 2/4/2006 20:41",
+		"frameCount:" : "di 2/8/1999 16:49",
+		"samplesPerFrame" : "di 2/8/1999 14:17" } }

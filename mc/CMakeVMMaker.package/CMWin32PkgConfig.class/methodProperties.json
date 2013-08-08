@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"supports:" : "IgorStasenko 10/3/2012 15:04" },
+	"instance" : {
+		"archiveMD5Sum" : "IgorStasenko 10/18/2012 14:44",
+		"build" : "IgorStasenko 10/18/2012 14:49",
+		"defineGlobalTargets" : "IgorStasenko 10/18/2012 17:55",
+		"downloadURL" : "IgorStasenko 10/18/2012 14:47",
+		"setVariables" : "IgorStasenko 10/18/2012 15:31",
+		"unpackedDirName" : "IgorStasenko 10/18/2012 14:48" } }

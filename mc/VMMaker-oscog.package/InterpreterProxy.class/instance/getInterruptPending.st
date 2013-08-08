@@ -1,0 +1,3 @@
+other
+getInterruptPending
+	^self notYetImplementedError

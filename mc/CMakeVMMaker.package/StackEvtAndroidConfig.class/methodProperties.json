@@ -1,0 +1,28 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"compilerFlags" : "golubovsky 7/28/2011 21:49",
+		"configH" : "golubovsky 7/31/2011 00:12",
+		"configureFileCopyPlugin:" : "golubovsky 8/1/2011 23:04",
+		"configureFilePlugin:" : "golubovsky 8/1/2011 23:17",
+		"configureFloatMathPlugin:" : "golubovsky 7/29/2011 23:00",
+		"configureJoystickTabletPlugin:" : "golubovsky 8/1/2011 23:31",
+		"configureLocalePlugin:" : "golubovsky 1/4/2012 21:50",
+		"configureSecurityPlugin:" : "golubovsky 8/12/2011 00:22",
+		"configureSocketPlugin:" : "golubovsky 8/1/2011 23:04",
+		"coreSources" : "golubovsky 7/26/2011 21:40",
+		"crossSources" : "golubovsky 8/1/2011 21:19",
+		"defaultExternalPlugins" : "golubovsky 7/24/2011 23:08",
+		"defaultInternalPlugins" : "golubovsky 1/4/2012 21:43",
+		"extraVMSettings:" : "golubovsky 7/30/2011 09:17",
+		"fixLineEndsOf:" : "golubovsky 7/25/2011 06:14",
+		"generate" : "golubovsky 7/27/2011 22:49",
+		"generateConfigH" : "golubovsky 7/25/2011 05:49",
+		"interpreterClass" : "golubovsky 7/31/2011 13:25",
+		"mkFileList:baseDir:" : "golubovsky 7/26/2011 21:16",
+		"outputDir" : "GuillermoPolito 6/27/2013 01:13",
+		"platformName" : "golubovsky 7/24/2011 22:53",
+		"platformSources" : "golubovsky 8/2/2011 21:34",
+		"prepareForGeneration" : "golubovsky 7/24/2011 22:55",
+		"setupDirectories:" : "golubovsky 7/30/2011 23:19" } }

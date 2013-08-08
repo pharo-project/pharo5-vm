@@ -1,0 +1,15 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"stream",
+		"headerStart" ],
+	"name" : "SunAudioFileWriter",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

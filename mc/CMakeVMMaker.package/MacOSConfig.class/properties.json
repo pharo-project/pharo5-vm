@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-MacOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:33",
+	"instvars" : [
+		"resourcesDir" ],
+	"name" : "MacOSConfig",
+	"pools" : [
+		 ],
+	"super" : "CPlatformConfig",
+	"type" : "normal" }

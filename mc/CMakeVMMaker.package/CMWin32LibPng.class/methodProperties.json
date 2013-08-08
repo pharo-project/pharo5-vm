@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"supports:" : "IgorStasenko 10/3/2012 15:05" },
+	"instance" : {
+		"build" : "IgorStasenko 10/22/2012 17:02",
+		"defineAsTarget" : "IgorStasenko 10/24/2012 16:49",
+		"dependencies" : "IgorStasenko 10/18/2012 15:37",
+		"downloadURL" : "IgorStasenko 10/22/2012 15:24",
+		"libraryFileName" : "IgorStasenko 10/22/2012 17:17",
+		"setVariables" : "IgorStasenko 10/18/2012 18:32" } }

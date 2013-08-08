@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"NumRegArgs" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ThreadedPPCBEFFIPlugin",
+	"pools" : [
+		 ],
+	"super" : "ThreadedFFIPlugin",
+	"type" : "normal" }

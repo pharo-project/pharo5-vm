@@ -1,0 +1,3 @@
+accessing
+mustAsmLabel
+	^mustAsmLabel == true

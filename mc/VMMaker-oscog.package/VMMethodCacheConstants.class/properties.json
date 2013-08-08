@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"MethodCacheClass",
+		"MethodCacheEntries",
+		"MethodCacheEntrySize",
+		"MethodCacheMask",
+		"MethodCacheMethod",
+		"MethodCachePrim",
+		"MethodCachePrimFunction",
+		"MethodCacheSelector",
+		"MethodCacheSize" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMMethodCacheConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

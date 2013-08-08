@@ -1,0 +1,18 @@
+{
+	"category" : "Alien-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"FlushThunkToCallbackMap",
+		"ThunkToCallbackMap" ],
+	"commentStamp" : "eem 11/26/2007 15:37",
+	"instvars" : [
+		"block",
+		"thunk",
+		"argsProxy",
+		"resultProxy" ],
+	"name" : "Callback",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

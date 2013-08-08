@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"commonCompilerFlags" : "IgorStasenko 3/19/2011 21:37",
+		"configureReentrantIA32FFIPlugin:" : "IgorStasenko 3/19/2011 21:32",
+		"coreSources" : "IgorStasenko 3/19/2011 21:32",
+		"defaultExternalPlugins" : "IgorStasenko 3/19/2011 21:32",
+		"executableName" : "IgorStasenko 3/23/2011 15:24",
+		"interpreterClass" : "IgorStasenko 3/19/2011 21:30" } }

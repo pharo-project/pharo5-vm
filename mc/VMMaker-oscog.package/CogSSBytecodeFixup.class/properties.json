@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 1/20/2011 13:03",
+	"instvars" : [
+		"simStackPtr" ],
+	"name" : "CogSSBytecodeFixup",
+	"pools" : [
+		 ],
+	"super" : "CogBytecodeFixup",
+	"type" : "normal" }

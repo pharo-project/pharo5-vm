@@ -1,0 +1,3 @@
+source generation
+interpreterClass
+	^ CoInterpreterMT

@@ -1,0 +1,19 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"lastX",
+		"scrollDelta",
+		"columnForm",
+		"minVal",
+		"maxVal",
+		"pixValMap" ],
+	"name" : "Sonogram",
+	"pools" : [
+		 ],
+	"super" : "ImageMorph",
+	"type" : "normal" }

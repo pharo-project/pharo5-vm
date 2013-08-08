@@ -1,0 +1,23 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"coInterpreter",
+		"objectMemory",
+		"stackBasePlus1",
+		"pages",
+		"mostRecentlyUsedPage",
+		"overflowLimit",
+		"bytesPerPage",
+		"pageMap",
+		"minStackAddress",
+		"maxStackAddress" ],
+	"name" : "CoInterpreterStackPages",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

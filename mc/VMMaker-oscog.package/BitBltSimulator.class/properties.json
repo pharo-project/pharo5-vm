@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:22",
+	"instvars" : [
+		 ],
+	"name" : "BitBltSimulator",
+	"pools" : [
+		 ],
+	"super" : "BitBltSimulation",
+	"type" : "normal" }

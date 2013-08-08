@@ -1,0 +1,14 @@
+{
+	"category" : "Applescript-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "OSAID",
+	"pools" : [
+		 ],
+	"super" : "MacExternalData",
+	"type" : "words" }

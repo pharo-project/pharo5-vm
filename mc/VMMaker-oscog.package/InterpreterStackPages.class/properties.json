@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"interpreter",
+		"stackMemory",
+		"indexOffset",
+		"pages",
+		"mostRecentlyUsedPage",
+		"overflowLimit",
+		"numPages",
+		"pageSizeInSlots",
+		"bytesPerPage" ],
+	"name" : "InterpreterStackPages",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "VMClass",
+	"type" : "normal" }

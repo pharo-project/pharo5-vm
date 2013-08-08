@@ -1,0 +1,17 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"rand",
+		"lowLimit",
+		"highLimit",
+		"delta" ],
+	"name" : "RandomEnvelope",
+	"pools" : [
+		 ],
+	"super" : "Envelope",
+	"type" : "normal" }

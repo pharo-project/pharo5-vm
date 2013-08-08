@@ -1,0 +1,3 @@
+accessing
+freetypeLibClass 
+	^CMIOSFreetype2

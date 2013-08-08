@@ -1,0 +1,4 @@
+assound
+doControl
+
+	cachedSound doControl
