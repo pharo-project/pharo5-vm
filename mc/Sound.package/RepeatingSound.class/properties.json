@@ -1,0 +1,17 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CarMotorSamples" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"sound",
+		"iterationCount",
+		"iteration",
+		"samplesPerIteration" ],
+	"name" : "RepeatingSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

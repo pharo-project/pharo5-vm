@@ -1,0 +1,19 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"initialCount",
+		"count",
+		"ring",
+		"scaledIndex",
+		"scaledIndexIncr",
+		"scaledIndexLimit" ],
+	"name" : "PluckedSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

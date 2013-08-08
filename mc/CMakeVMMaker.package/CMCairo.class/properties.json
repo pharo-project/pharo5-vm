@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "IgorStasenko 9/26/2012 14:30",
+	"instvars" : [
+		 ],
+	"name" : "CMCairo",
+	"pools" : [
+		 ],
+	"super" : "CMCairoBundle",
+	"type" : "normal" }

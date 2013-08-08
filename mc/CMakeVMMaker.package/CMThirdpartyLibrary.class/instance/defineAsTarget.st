@@ -1,0 +1,4 @@
+generating actions
+defineAsTarget
+
+	self subclassResponsibility

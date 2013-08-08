@@ -1,0 +1,24 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"alpha",
+		"beta",
+		"coeffs",
+		"h",
+		"g",
+		"hTilde",
+		"gTilde",
+		"samples",
+		"nSamples",
+		"nLevels",
+		"transform" ],
+	"name" : "FWT",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

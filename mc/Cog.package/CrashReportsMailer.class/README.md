@@ -1,0 +1,1 @@
+This class generates an almost complete crash report that still needs editing for categories and then posts it after editing.

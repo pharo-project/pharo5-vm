@@ -1,0 +1,18 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "EstebanLorenzano 2/13/2013 15:33",
+		"initializePrimitiveTable" : "IgorStasenko 9/21/2012 14:53",
+		"objectMemoryClass" : "" },
+	"instance" : {
+		"allocateCallbackContext" : "",
+		"callInterpret" : "",
+		"enterCallback:method:callbackCtx:callbackArgs:" : "IgorStasenko 5/18/2012 03:30",
+		"enterSmalltalkExecutiveImplementation" : "",
+		"executeCoggedNewMethod:methodHeader:" : "IgorStasenko 9/23/2012 03:34",
+		"executeNewMethod" : "GuillermoPolito 5/31/2013 13:24",
+		"initStackPagesAndInterpret" : "EstebanLorenzano 2/13/2013 15:21",
+		"internalExecuteNewMethod" : "GuillermoPolito 5/31/2013 13:24",
+		"jumpBufSize" : "",
+		"primitiveForceJIT" : "IgorStasenko 9/20/2012 20:09",
+		"primitiveVoltage" : "IgorStasenko 9/21/2012 15:03",
+		"swapActiveContext:restoreMethod:" : "IgorStasenko 5/8/2012 03:45" } }

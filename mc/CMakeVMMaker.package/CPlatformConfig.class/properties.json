@@ -1,0 +1,23 @@
+{
+	"category" : "CMakeVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:29",
+	"instvars" : [
+		"topDir",
+		"buildDir",
+		"srcDir",
+		"platformsDir",
+		"outputDir",
+		"internalPlugins",
+		"externalPlugins",
+		"pluginsDir",
+		"externalLibs",
+		"thirdpartyLibs" ],
+	"name" : "CPlatformConfig",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

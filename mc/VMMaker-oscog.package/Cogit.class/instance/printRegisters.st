@@ -1,0 +1,4 @@
+debugging
+printRegisters
+	<doNotGenerate>
+	^printRegisters

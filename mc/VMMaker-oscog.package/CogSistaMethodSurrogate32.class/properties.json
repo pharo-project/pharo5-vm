@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogSistaMethodSurrogate32",
+	"pools" : [
+		 ],
+	"super" : "CogMethodSurrogate32",
+	"type" : "normal" }

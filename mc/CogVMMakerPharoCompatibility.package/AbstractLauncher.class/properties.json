@@ -1,0 +1,14 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ReadDocumentAtStartup" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"parameters" ],
+	"name" : "AbstractLauncher",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

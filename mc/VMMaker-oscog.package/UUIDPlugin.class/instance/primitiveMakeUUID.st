@@ -1,0 +1,19 @@
+system primitives
+primitiveMakeUUID
+	| oop location |
+	<export: true>
+	<var: #location type: 'char*'>
+	oop := interpreterProxy stackObjectValue: 0.
+	(interpreterProxy failed
+	or: [interpreterProxy methodArgumentCount ~= 0
+	or: [(interpreterProxy isBytes: oop) not
+	or: [(interpreterProxy byteSizeOf: oop) ~= 16]]]) ifTrue:
+		[^interpreterProxy primitiveFail].
+	location := interpreterProxy firstIndexableField: oop.
+	self cCode: [self MakeUUID: location]
+		inSmalltalk:
+			[| uuid |
+			uuid := UUID new.
+			1 to: 16 do:
+				[:i| location at: i - 1 put: (uuid at: i)]].
+	^oop

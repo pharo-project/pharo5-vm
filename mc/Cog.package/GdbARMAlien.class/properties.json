@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"PostBuildStackDelta" ],
+	"commentStamp" : "lw 8/23/2012 19:17",
+	"instvars" : [
+		 ],
+	"name" : "GdbARMAlien",
+	"pools" : [
+		 ],
+	"super" : "CogProcessorAlien",
+	"type" : "bytes" }

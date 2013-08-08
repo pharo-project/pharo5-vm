@@ -1,0 +1,3 @@
+inlining
+shouldExpand
+	^method extractExpandCaseDirective

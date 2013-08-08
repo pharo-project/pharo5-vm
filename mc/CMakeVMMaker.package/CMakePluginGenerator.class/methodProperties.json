@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addCrossSources:" : "Igor.Stasenko 12/23/2010 14:38",
+		"addExternalLibrary:" : "IgorStasenko 6/4/2011 16:57",
+		"addPlatformSources:" : "Igor.Stasenko 12/23/2010 12:51",
+		"config" : "Igor.Stasenko 12/23/2010 09:52",
+		"configurationName" : "IgorStasenko 3/16/2011 18:44",
+		"doNotGenerate" : "Igor.Stasenko 12/27/2010 14:00",
+		"doNotGenerate:" : "Igor.Stasenko 12/27/2010 13:59",
+		"generate" : "IgorStasenko 10/3/2012 13:40",
+		"generate:for:internal:extraRules:" : "Igor.Stasenko 12/27/2010 14:02",
+		"isExternal" : "Igor.Stasenko 12/29/2010 15:42",
+		"isInternal" : "Igor.Stasenko 12/29/2010 15:42",
+		"moduleName" : "EstebanLorenzano 1/10/2011 19:43",
+		"plugin" : "",
+		"saveFile" : "GuillermoPolito 6/17/2013 18:29",
+		"vmGenerator" : "Igor.Stasenko 12/22/2010 01:07" } }

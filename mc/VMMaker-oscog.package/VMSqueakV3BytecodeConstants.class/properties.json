@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CtxtTempFrameStart",
+		"LargeContextBit",
+		"LargeContextSize",
+		"SmallContextSize" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMSqueakV3BytecodeConstants",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "VMBasicConstants",
+	"type" : "normal" }

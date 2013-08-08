@@ -1,0 +1,1 @@
+SoundBuffers store 16 bit unsigned quantities.  

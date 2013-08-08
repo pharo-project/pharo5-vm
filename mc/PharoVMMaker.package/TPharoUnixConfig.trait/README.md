@@ -1,0 +1,1 @@
+I'm a trait for Linux CMake configurations.

@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-MemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"coInterpreter",
+		"manager",
+		"memory",
+		"futureSpace",
+		"pastSpace",
+		"rememberedSet",
+		"rememberedSetSize" ],
+	"name" : "CogGenerationScavenger",
+	"pools" : [
+		 ],
+	"super" : "VMClass",
+	"type" : "normal" }

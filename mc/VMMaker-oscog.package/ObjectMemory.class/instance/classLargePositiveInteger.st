@@ -1,0 +1,3 @@
+plugin support
+classLargePositiveInteger
+	^self splObj: ClassLargePositiveInteger

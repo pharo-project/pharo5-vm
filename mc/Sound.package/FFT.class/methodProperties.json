@@ -1,0 +1,20 @@
+{
+	"class" : {
+		"new:" : "jm 8/25/1999 12:49" },
+	"instance" : {
+		"imagData" : "jm 8/1/1998 13:08",
+		"initializeHammingWindow:" : "stephaneducasse 2/4/2006 20:41",
+		"initializeTriangularWindow" : "stephaneducasse 2/4/2006 20:41",
+		"n" : "jm 8/25/1999 21:59",
+		"nu:" : "stephaneducasse 2/4/2006 20:41",
+		"permuteData" : "stephaneducasse 2/4/2006 20:41",
+		"pluginPrepareData" : "stephaneducasse 2/4/2006 20:41",
+		"pluginTransformData:" : "ar 2/13/2001 21:10",
+		"realData" : "jm 8/1/1998 13:08",
+		"realData:" : "stephaneducasse 2/4/2006 20:41",
+		"realData:imagData:" : "stephaneducasse 2/4/2006 20:41",
+		"samplesPerCycleForIndex:" : "stephaneducasse 2/4/2006 20:41",
+		"scaleData" : "stephaneducasse 2/4/2006 20:41",
+		"setSize:" : "stephaneducasse 2/4/2006 20:41",
+		"transformDataFrom:startingAt:" : "ul 8/3/2010 15:43",
+		"transformForward:" : "ul 8/3/2010 15:43" } }

@@ -1,0 +1,4 @@
+accessing
+loopStartIndex
+
+	^ loopStartIndex

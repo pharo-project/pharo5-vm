@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"default" : "stephaneducasse 2/4/2006 20:41" },
+	"instance" : {
+		"copyRing" : "stephaneducasse 2/4/2006 20:41",
+		"duration" : "jm 8/17/1998 14:07",
+		"duration:" : "stephaneducasse 2/4/2006 20:41",
+		"mixSampleCount:into:startingAt:leftVol:rightVol:" : "HenrikSperreJohansen 10/25/2010 16:32",
+		"postCopy" : "nice 1/12/2010 20:11",
+		"reset" : "stephaneducasse 2/4/2006 20:41",
+		"samplesRemaining" : "jm 11/26/97 10:51",
+		"setPitch:dur:loudness:" : "stephaneducasse 2/4/2006 20:41",
+		"stopAfterMSecs:" : "stephaneducasse 2/4/2006 20:41" } }

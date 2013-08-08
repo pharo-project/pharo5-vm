@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "Igor.Stasenko 12/30/2010 09:53",
+	"instvars" : [
+		 ],
+	"name" : "CMakeGenScripts",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

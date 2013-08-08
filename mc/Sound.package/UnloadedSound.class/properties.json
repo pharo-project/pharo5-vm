@@ -1,0 +1,14 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "UnloadedSound",
+	"pools" : [
+		 ],
+	"super" : "FMSound",
+	"type" : "normal" }

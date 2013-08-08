@@ -1,0 +1,4 @@
+private
+autoStarter
+		"DO NOTHING. THIS CLASS IS HERE JUST TO LOAD COG."
+	

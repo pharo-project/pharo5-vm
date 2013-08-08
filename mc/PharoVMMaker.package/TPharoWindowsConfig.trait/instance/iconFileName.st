@@ -1,0 +1,3 @@
+resources
+iconFileName
+	^ 'Pharo.ico'

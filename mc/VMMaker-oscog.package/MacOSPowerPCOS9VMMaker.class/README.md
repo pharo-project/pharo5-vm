@@ -1,0 +1,1 @@
+A VMMaker subclass to suit Mac OS

@@ -1,0 +1,16 @@
+{
+	"category" : "Alien-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"GCMallocedAliens",
+		"PlatformSizes",
+		"ProcessIoEvents" ],
+	"commentStamp" : "John M McIntosh 11/23/2008 12:45",
+	"instvars" : [
+		 ],
+	"name" : "Alien",
+	"pools" : [
+		 ],
+	"super" : "ByteArray",
+	"type" : "bytes" }

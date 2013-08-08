@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "MarianoMartinezPeck 4/24/2011 15:34",
+	"instvars" : [
+		"generateForRelease" ],
+	"name" : "CocoaIOSConfig",
+	"pools" : [
+		 ],
+	"super" : "MacOSConfig",
+	"type" : "normal" }

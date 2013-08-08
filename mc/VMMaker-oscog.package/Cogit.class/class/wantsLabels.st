@@ -1,0 +1,3 @@
+translation
+wantsLabels
+	^true

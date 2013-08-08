@@ -1,0 +1,3 @@
+testing
+isGenerateForRelease 
+	^generateForRelease

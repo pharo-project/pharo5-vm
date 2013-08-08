@@ -1,0 +1,6 @@
+{
+	"category" : "PharoVMMaker-OSX",
+	"classtraitcomposition" : "TPharoConfig classTrait",
+	"commentStamp" : "<historical>",
+	"name" : "TPharoOSXConfig",
+	"traitcomposition" : "TPharoConfig" }

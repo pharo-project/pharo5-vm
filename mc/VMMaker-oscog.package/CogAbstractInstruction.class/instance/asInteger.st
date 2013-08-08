@@ -1,0 +1,4 @@
+coercion
+asInteger
+	<doNotGenerate>
+	^self

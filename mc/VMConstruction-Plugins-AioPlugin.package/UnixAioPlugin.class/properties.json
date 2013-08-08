@@ -1,0 +1,14 @@
+{
+	"category" : "VMConstruction-Plugins-AioPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "UnixAioPlugin",
+	"pools" : [
+		 ],
+	"super" : "AioPlugin",
+	"type" : "normal" }

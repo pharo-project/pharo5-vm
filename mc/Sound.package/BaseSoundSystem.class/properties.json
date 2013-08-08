@@ -1,0 +1,14 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "gk 2/24/2004 08:35",
+	"instvars" : [
+		 ],
+	"name" : "BaseSoundSystem",
+	"pools" : [
+		 ],
+	"super" : "AbstractSoundSystem",
+	"type" : "normal" }

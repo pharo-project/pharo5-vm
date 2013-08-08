@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"isReceiverResultRegLive",
+		"ssEntry" ],
+	"name" : "CogSSOptStatus",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

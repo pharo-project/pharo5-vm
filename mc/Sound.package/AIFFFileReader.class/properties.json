@@ -1,0 +1,27 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"in",
+		"fileType",
+		"channelCount",
+		"frameCount",
+		"bitsPerSample",
+		"samplingRate",
+		"channelData",
+		"channelDataOffset",
+		"markers",
+		"pitch",
+		"gain",
+		"isLooped",
+		"skipDataChunk",
+		"mergeIfStereo" ],
+	"name" : "AIFFFileReader",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

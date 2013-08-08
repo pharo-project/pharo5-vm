@@ -1,0 +1,3 @@
+package properties
+downloadURL 
+	^ 'http://zlib.net/zlib-1.2.8.tar.gz'

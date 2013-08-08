@@ -1,0 +1,14 @@
+{
+	"category" : "NativeBoost-CogPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NBCoInterpreter",
+	"pools" : [
+		 ],
+	"super" : "CoInterpreterPrimitives",
+	"type" : "normal" }

@@ -1,0 +1,24 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 11:54",
+	"instvars" : [
+		"ffiLastError",
+		"ffiArgSpec",
+		"ffiArgSpecSize",
+		"ffiArgHeader",
+		"ffiRetOop",
+		"ffiRetClass",
+		"ffiRetSpec",
+		"ffiRetSpecSize",
+		"ffiRetHeader",
+		"ffiLogEnabled",
+		"externalFunctionInstSize" ],
+	"name" : "FFIPlugin",
+	"pools" : [
+		"FFIConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CMWin32PkgConfig",
+	"pools" : [
+		 ],
+	"super" : "CMPkgConfig",
+	"type" : "normal" }

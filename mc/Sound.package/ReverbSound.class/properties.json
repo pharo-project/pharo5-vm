@@ -1,0 +1,21 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"sound",
+		"tapDelays",
+		"tapGains",
+		"tapCount",
+		"bufferSize",
+		"bufferIndex",
+		"leftBuffer",
+		"rightBuffer" ],
+	"name" : "ReverbSound",
+	"pools" : [
+		 ],
+	"super" : "AbstractSound",
+	"type" : "normal" }

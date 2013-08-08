@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 11/10/2010 22:04",
+	"instvars" : [
+		 ],
+	"name" : "MiscPrimitivePluginTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

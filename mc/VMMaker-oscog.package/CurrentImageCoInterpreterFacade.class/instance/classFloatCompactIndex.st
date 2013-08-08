@@ -1,0 +1,3 @@
+accessing
+classFloatCompactIndex
+	^objectMemory classFloatCompactIndex

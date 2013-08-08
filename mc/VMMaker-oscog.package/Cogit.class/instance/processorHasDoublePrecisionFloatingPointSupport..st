@@ -1,0 +1,3 @@
+initialization
+processorHasDoublePrecisionFloatingPointSupport: ignoredPrimIndex 
+	^backEnd hasDoublePrecisionFloatingPointSupport

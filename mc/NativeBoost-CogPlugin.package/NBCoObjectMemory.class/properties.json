@@ -1,0 +1,14 @@
+{
+	"category" : "NativeBoost-CogPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NBCoObjectMemory",
+	"pools" : [
+		 ],
+	"super" : "NewCoObjectMemory",
+	"type" : "normal" }

@@ -1,0 +1,4 @@
+debugging
+minCogMethodAddress
+	<api>
+	^methodZoneBase

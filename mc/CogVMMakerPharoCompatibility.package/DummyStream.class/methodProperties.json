@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"on:" : "jm 12/3/97 20:25" },
+	"instance" : {
+		"nextInt32Put:" : "",
+		"nextNumber:put:" : "",
+		"nextPut:" : "LukasRenggli 5/8/2010 18:39",
+		"nextPutAll:" : "LukasRenggli 5/8/2010 18:39",
+		"nextStringPut:" : "",
+		"originalContents" : "tk 3/6/2000 11:10",
+		"position" : "",
+		"position:" : "tk 7/12/1998 12:51",
+		"skip:" : "6/10/97 17:14 tk",
+		"subclassResponsibility" : "" } }

@@ -1,0 +1,3 @@
+initialization
+properties: anAdditionalMethodState
+	properties := anAdditionalMethodState

@@ -1,0 +1,15 @@
+{
+	"category" : "Applescript-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ApplescriptGeneric" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"compiledScript",
+		"source" ],
+	"name" : "Applescript",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

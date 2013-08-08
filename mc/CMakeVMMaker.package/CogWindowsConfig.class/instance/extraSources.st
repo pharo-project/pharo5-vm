@@ -1,0 +1,5 @@
+source files
+extraSources
+
+	^ 
+	'${resources}'

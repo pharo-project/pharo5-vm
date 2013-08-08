@@ -1,0 +1,12 @@
+allocation
+growObjectMemory: delta 
+	"NativeBoost: this method modified to make the whole object memory executable"
+
+	"Attempt to grow the object memory by the given delta amount."
+	| limit |
+	statGrowMemory := statGrowMemory + 1.
+	limit := self sqGrowMemory: memoryLimit By: delta.
+	limit = memoryLimit ifFalse:
+		[self setMemoryLimit: limit - 24. "remove a tad for safety"
+		 self initializeMemoryFirstFree: freeStart.
+		 coInterpreter sqMakeMemoryExecutableFrom: self startOfMemory To: memoryLimit]

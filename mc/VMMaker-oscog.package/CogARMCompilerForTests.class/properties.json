@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogARMCompilerForTests",
+	"pools" : [
+		 ],
+	"super" : "CogARMCompiler",
+	"type" : "normal" }

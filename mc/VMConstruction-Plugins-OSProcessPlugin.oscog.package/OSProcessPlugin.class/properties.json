@@ -1,0 +1,14 @@
+{
+	"category" : "VMConstruction-Plugins-OSProcessPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"osprocessSandboxSecurity" ],
+	"name" : "OSProcessPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

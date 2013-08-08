@@ -1,0 +1,3 @@
+object access
+methodArgumentCount
+	^argumentCount

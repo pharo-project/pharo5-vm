@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"new" : "acg 9/20/1999 22:17",
+		"nullType" : "acg 9/25/1999 22:53",
+		"primSizeAEDesc" : "acg 9/12/1999 20:49",
+		"scptTypeOn:" : "acg 9/22/1999 08:05",
+		"textTypeOn:" : "acg 9/20/1999 13:30" },
+	"instance" : {
+		"asCompiledApplescript" : "acg 9/24/1999 00:35",
+		"asCompiledApplescriptThenDispose" : "acg 9/24/1999 00:31",
+		"asOSAIDThenDisposeAEDescWith:" : "acg 9/26/1999 18:39",
+		"asShort" : "acg 9/23/1999 23:46",
+		"asShortThenDispose" : "acg 9/23/1999 23:47",
+		"asString" : "jdr 3/16/2006 18:07",
+		"asStringThenDispose" : "acg 9/21/1999 00:13",
+		"asWideString" : "jdr 3/16/2006 18:30",
+		"createFromScpt:" : "acg 9/24/1999 00:38",
+		"createFromText:" : "jdr 3/16/2006 15:58",
+		"createFromUTF16:" : "jdr 3/16/2006 16:04",
+		"createNull" : "acg 9/25/1999 22:54",
+		"dataSize" : "acg 9/12/1999 21:33",
+		"dispose" : "acg 9/20/1999 14:22",
+		"primAECoerceDesc:to:" : "bf 1/30/2006 00:32",
+		"primAECreateDesc:from:" : "bf 1/30/2006 00:32",
+		"primAEDescToString:" : "bf 1/30/2006 00:32",
+		"primAEDisposeDesc" : "bf 1/30/2006 00:32",
+		"primAEGetKeyPtr:type:actual:to:" : "bf 1/30/2006 00:32",
+		"to:" : "acg 9/26/1999 01:15" } }

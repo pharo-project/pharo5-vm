@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"stackHeightComputer" ],
+	"name" : "DetailedInstructionPrinter",
+	"pools" : [
+		 ],
+	"super" : "InstructionPrinter",
+	"type" : "normal" }

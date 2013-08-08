@@ -1,0 +1,4 @@
+playing
+millisecondsSinceStart
+
+	^ mSecsSinceStart

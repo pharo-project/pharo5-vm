@@ -1,0 +1,3 @@
+testing
+hasDoublePrecisionFloatingPointSupport
+	^self subclassResponsibility

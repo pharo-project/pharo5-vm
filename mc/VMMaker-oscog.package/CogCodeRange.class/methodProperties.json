@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"from:to:cogMethod:startpc:" : "eem 1/8/2011 21:47" },
+	"instance" : {
+		"cogMethod" : "eem 12/8/2010 17:53",
+		"cogMethod:" : "eem 12/8/2010 17:53",
+		"endPC" : "eem 1/8/2011 11:29",
+		"endPC:" : "eem 1/8/2011 11:30",
+		"explorerContents" : "eem 1/24/2011 20:06",
+		"printOn:" : "eem 1/8/2011 11:16",
+		"startpc" : "eem 2/19/2009 12:36",
+		"startpc:" : "eem 2/19/2009 12:36" } }

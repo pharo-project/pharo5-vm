@@ -1,0 +1,3 @@
+simulation
+primitiveFileRename
+	^interpreterProxy primitiveFileRename

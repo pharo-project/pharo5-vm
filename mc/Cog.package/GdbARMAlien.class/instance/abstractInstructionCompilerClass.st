@@ -1,0 +1,3 @@
+Cog API
+abstractInstructionCompilerClass
+	^CogARMCompiler

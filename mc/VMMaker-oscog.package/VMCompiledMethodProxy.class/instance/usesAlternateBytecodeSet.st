@@ -1,0 +1,4 @@
+accessing
+usesAlternateBytecodeSet
+
+	^coInterpreter headerIndicatesAlternateBytecodeSet: self header

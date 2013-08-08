@@ -1,0 +1,1 @@
+I'm a trait for Windows CMake configurations.

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "FloatMathPluginSimulator",
+	"pools" : [
+		 ],
+	"super" : "FloatMathPlugin",
+	"type" : "normal" }

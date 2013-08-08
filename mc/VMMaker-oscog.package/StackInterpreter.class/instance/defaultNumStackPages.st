@@ -1,0 +1,8 @@
+initialization
+defaultNumStackPages
+	"Return the default number of stack pages allocate at startup.
+	 This default suits Qwaq Forums (specifically general rendering).
+	 It is probably a bit high for normal use but QF is profligate with processes.
+	 The actual value can be set via vmParameterAt: and/or a preference in the ini file."
+	<inline: false>
+	^160

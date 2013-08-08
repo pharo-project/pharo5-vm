@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"dur:" : "jm 3/31/1999 21:05",
+		"pitch:dur:loudness:" : "jm 12/15/97 22:38" },
+	"instance" : {
+		"duration" : "jm 8/17/1998 14:07",
+		"duration:" : "stephaneducasse 2/4/2006 20:41",
+		"mixSampleCount:into:startingAt:leftVol:rightVol:" : "stephaneducasse 2/4/2006 20:41",
+		"reset" : "stephaneducasse 2/4/2006 20:41",
+		"samples" : "di 2/17/1999 21:09",
+		"samplesRemaining" : "jm 12/15/97 22:37",
+		"setDur:" : "stephaneducasse 2/4/2006 20:41" } }

@@ -1,0 +1,28 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"MaxBits",
+		"StateNoMoreData" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"zipCollection",
+		"zipReadLimit",
+		"zipPosition",
+		"zipState",
+		"zipBitBuf",
+		"zipBitPos",
+		"zipSource",
+		"zipSourcePos",
+		"zipSourceLimit",
+		"zipLitTable",
+		"zipDistTable",
+		"zipCollectionSize",
+		"zipLitTableSize",
+		"zipDistTableSize" ],
+	"name" : "InflatePlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

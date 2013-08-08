@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"activate" : "MarianoMartinezPeck 12/22/2011 15:53",
+		"addLauncherFirst:" : "MarianoMartinezPeck 12/22/2011 16:09",
+		"autoStarter" : "MarianoMartinezPeck 12/22/2011 16:09",
+		"deactivate" : "MarcusDenker 8/18/2010 11:18",
+		"readDocumentAtStartup" : "pavel.krivanek 10/16/2010 22:31",
+		"readDocumentAtStartup:" : "pavel.krivanek 10/16/2010 22:32" },
+	"instance" : {
+		"commandLine:" : "MarcusDenker 8/18/2010 11:17",
+		"parameterAt:" : "mir 8/4/1999 14:19",
+		"parameterAt:ifAbsent:" : "mir 1/11/2000 16:36",
+		"parameters" : "StephaneDucasse 3/17/2010 20:51",
+		"parameters:" : "mir 7/29/1999 10:21",
+		"readDocumentAtStartup" : "pavel.krivanek 10/16/2010 22:32",
+		"startUp" : "tk 10/24/2001 06:40" } }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CogStackPageSurrogate64",
+	"pools" : [
+		 ],
+	"super" : "CogStackPageSurrogate",
+	"type" : "normal" }

@@ -1,0 +1,27 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 11/11/2009 12:29",
+		"structTypeName" : "eem 10/30/2009 10:14" },
+	"instance" : {
+		"argVector" : "eem 10/29/2009 22:11",
+		"argVector:" : "eem 10/29/2009 22:11",
+		"callFlags" : "eem 11/19/2009 10:18",
+		"callFlags:" : "eem 11/19/2009 10:19",
+		"currentArg" : "eem 10/29/2009 22:11",
+		"currentArg:" : "eem 10/29/2009 22:11",
+		"ffiArgHeader" : "eem 10/29/2009 22:11",
+		"ffiArgHeader:" : "eem 10/29/2009 22:11",
+		"ffiArgSpec" : "eem 10/29/2009 22:11",
+		"ffiArgSpec:" : "eem 10/29/2009 22:11",
+		"ffiArgSpecSize" : "eem 10/29/2009 22:11",
+		"ffiArgSpecSize:" : "eem 10/29/2009 22:11",
+		"ffiRetHeader" : "eem 10/29/2009 22:11",
+		"ffiRetHeader:" : "eem 10/29/2009 22:11",
+		"initialize" : "eem 11/9/2009 14:58",
+		"limit" : "eem 10/29/2009 22:11",
+		"limit:" : "eem 10/29/2009 22:11",
+		"stringArgIndex" : "eem 11/9/2009 14:55",
+		"stringArgIndex:" : "eem 11/9/2009 14:55",
+		"stringArgs" : "eem 11/9/2009 14:55",
+		"structReturnSize" : "eem 10/30/2009 14:48",
+		"structReturnSize:" : "eem 10/30/2009 14:48" } }

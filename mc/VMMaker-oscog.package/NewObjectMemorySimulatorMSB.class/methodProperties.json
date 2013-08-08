@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"byteAt:" : "di 6/22/2004 14:52",
+		"byteAt:put:" : "eem 7/18/2013 17:36",
+		"charsOfLong:" : "di 6/22/2004 14:52",
+		"endianness" : "eem 6/25/2011 14:03",
+		"fetchFloatAt:into:" : "eem 10/12/2009 03:55",
+		"halfWordHighInLong32:" : "di 7/16/2004 14:58",
+		"halfWordLowInLong32:" : "di 7/16/2004 14:58",
+		"nextLongFrom:" : "eem 10/12/2009 04:04",
+		"nextShortFrom:" : "eem 10/12/2009 03:59",
+		"putLong:toFile:" : "eem 10/12/2009 04:03",
+		"putShort:toFile:" : "eem 10/12/2009 04:01",
+		"shortAt:" : "di 7/3/2004 11:06",
+		"shortAt:put:" : "di 7/3/2004 11:00",
+		"storeFloatAt:from:" : "eem 10/12/2009 04:05",
+		"vmEndianness" : "tpr 12/22/2005 17:46" } }

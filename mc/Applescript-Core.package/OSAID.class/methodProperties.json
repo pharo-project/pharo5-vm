@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"new" : "acg 9/21/1999 00:05" },
+	"instance" : {
+		"asAEDescWith:" : "acg 9/26/1999 18:26",
+		"asCompiledApplescriptWith:" : "acg 9/26/1999 18:27",
+		"dispose" : "acg 9/26/1999 00:28",
+		"disposeWith:" : "acg 9/22/1999 08:34",
+		"doIt" : "acg 9/26/1999 02:14",
+		"doItWith:in:mode:" : "acg 9/26/1999 02:14",
+		"initialize" : "acg 9/21/1999 00:05",
+		"isEmpty" : "acg 9/22/1999 09:16" } }

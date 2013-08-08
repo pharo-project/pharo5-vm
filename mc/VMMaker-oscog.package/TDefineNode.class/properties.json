@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"name" ],
+	"name" : "TDefineNode",
+	"pools" : [
+		 ],
+	"super" : "TConstantNode",
+	"type" : "normal" }

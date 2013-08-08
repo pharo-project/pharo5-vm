@@ -1,0 +1,24 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 2/11/2009 23:54",
+		"structTypeName" : "eem 2/10/2009 09:34" },
+	"instance" : {
+		"entryLabel" : "eem 1/17/2009 09:27",
+		"entryLabel:" : "eem 1/17/2009 09:27",
+		"fakeHeader" : "eem 2/11/2009 23:52",
+		"fakeHeader:" : "eem 1/16/2009 13:42",
+		"fillInstruction" : "eem 2/11/2009 23:42",
+		"fillInstruction:" : "eem 2/11/2009 23:42",
+		"numArgs" : "eem 1/16/2009 17:46",
+		"numArgs:" : "eem 1/16/2009 17:46",
+		"numCopied" : "eem 1/16/2009 17:46",
+		"numCopied:" : "eem 1/16/2009 17:46",
+		"numInitialNils" : "eem 12/7/2010 20:51",
+		"numInitialNils:" : "eem 12/7/2010 20:52",
+		"printStateOn:" : "eem 12/11/2010 09:40",
+		"span" : "eem 1/11/2009 09:37",
+		"span:" : "eem 1/11/2009 09:37",
+		"stackCheckLabel" : "eem 2/12/2009 20:33",
+		"stackCheckLabel:" : "eem 12/7/2010 20:52",
+		"startpc" : "eem 1/11/2009 09:35",
+		"startpc:" : "eem 1/11/2009 09:37" } }

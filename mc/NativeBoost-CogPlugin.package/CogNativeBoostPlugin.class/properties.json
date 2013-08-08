@@ -1,0 +1,17 @@
+{
+	"category" : "NativeBoost-CogPlugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"NativeCodeTrailerId",
+		"PlatformId" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"enabled",
+		"lastError" ],
+	"name" : "CogNativeBoostPlugin",
+	"pools" : [
+		"NativeBoostConstants",
+		"VMBasicConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

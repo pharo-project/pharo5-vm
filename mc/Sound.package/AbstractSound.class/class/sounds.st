@@ -1,0 +1,4 @@
+sound library
+sounds
+
+	^ Sounds

@@ -1,0 +1,4 @@
+compiler flags
+compilerFlagsDebug
+
+	^ self commonCompilerFlags , ' -g3 -O0 -Wmissing-prototypes -Wmissing-braces -Wparentheses -Wunused-function -Wunused-label -Wunused-parameter -Wunused-variable -Wunused-value -Wsign-compare -DDEBUGVM=1 -DEXTERNALPRIMSDEBUG=1 -gdwarf-2 '

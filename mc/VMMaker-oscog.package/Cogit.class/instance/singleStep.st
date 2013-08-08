@@ -1,0 +1,4 @@
+debugging
+singleStep
+	<doNotGenerate>
+	^singleStep

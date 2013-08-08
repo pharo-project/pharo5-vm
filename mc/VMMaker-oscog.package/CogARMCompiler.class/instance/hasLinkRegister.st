@@ -1,0 +1,3 @@
+testing
+hasLinkRegister
+	^true "lr"

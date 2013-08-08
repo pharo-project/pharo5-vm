@@ -1,0 +1,29 @@
+{
+	"category" : "Sound-Synthesis",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"predicted",
+		"index",
+		"deltaSignMask",
+		"deltaValueMask",
+		"deltaValueHighBit",
+		"frameSizeMask",
+		"currentByte",
+		"bitPosition",
+		"byteIndex",
+		"encodedBytes",
+		"samples",
+		"rightSamples",
+		"sampleIndex",
+		"bitsPerSample",
+		"stepSizeTable",
+		"indexTable" ],
+	"name" : "ADPCMCodec",
+	"pools" : [
+		 ],
+	"super" : "SoundCodec",
+	"type" : "normal" }

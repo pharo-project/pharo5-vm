@@ -1,0 +1,2 @@
+generating actions
+defineGlobalTargets 

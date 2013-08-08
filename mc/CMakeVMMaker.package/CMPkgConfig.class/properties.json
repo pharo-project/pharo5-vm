@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Libs",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "IgorStasenko 6/9/2012 21:48",
+	"instvars" : [
+		 ],
+	"name" : "CMPkgConfig",
+	"pools" : [
+		 ],
+	"super" : "CMCairoBundle",
+	"type" : "normal" }

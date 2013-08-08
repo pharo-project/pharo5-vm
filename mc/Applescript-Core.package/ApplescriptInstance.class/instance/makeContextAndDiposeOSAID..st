@@ -1,0 +1,14 @@
+intermediate operations
+makeContextAndDiposeOSAID: anOSAID
+	
+	| result contextOSAID contextAEDesc |
+	contextOSAID := OSAID new.
+	result := self 
+		primOSAMakeContext: (AEDesc nullType)
+		parent: anOSAID
+		to: contextOSAID.
+	anOSAID dispose.
+	result isZero ifFalse: [^nil].
+	contextAEDesc := self storeAndDisposeOSAID: contextOSAID type: 'scpt' mode: 0.
+	contextAEDesc ifNil: [^nil].
+	^ contextAEDesc asCompiledApplescriptThenDispose

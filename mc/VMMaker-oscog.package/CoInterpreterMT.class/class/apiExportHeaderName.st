@@ -1,0 +1,3 @@
+translation
+apiExportHeaderName
+	^'cointerpmt.h'

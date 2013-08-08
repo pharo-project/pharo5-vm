@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"hasHeaderFile" : "JMM 1/17/2006 20:24",
+		"requiresCrossPlatformFiles" : "JMM 1/17/2006 20:24" },
+	"instance" : {
+		"initialiseModule" : "JMM (auto pragmas 12/08) 1/17/2006 15:53",
+		"moduleUnloaded:" : "JMM (auto pragmas 12/08) 1/17/2006 15:53",
+		"primitiveClearFrameCompletedSemaphore:" : "JMM 1/17/2006 23:05",
+		"primitiveDestroyHandle:" : "JMM 1/17/2006 23:05",
+		"primitiveDestroySurface:" : "JMM 3/16/2006 09:32",
+		"primitiveSetFrameCompletedSemaphore:for:" : "JMM 1/17/2006 23:06",
+		"primitiveSetGWorldPtrOntoExistingSurface:gWorld:width:height:rowBytes:depth:movie:" : "JMM 3/16/2006 11:30",
+		"primitiveSetGWorldPtrOntoSurface:width:height:rowBytes:depth:movie:" : "JMM 3/16/2006 11:30" } }
