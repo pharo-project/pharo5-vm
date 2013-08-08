@@ -18,7 +18,8 @@ primitiveGetSession
 	sessionByteArrayPointer := interpreterProxy arrayValueOf: sessionOop.
 	thisSessionID isNil ifTrue:
 		[^ interpreterProxy primitiveFail].	"The session ID is not permitted to be zero"
-	self copyBytesFrom: (self cCode: '(unsigned char *)&thisSessionID' inSmalltalk: [thisSessionID])
+	self copyBytesFrom: (self cCode: '(unsigned char *)&thisSessionID'
+							inSmalltalk: [thisSessionID asByteArray asString])
 		to: sessionByteArrayPointer
 		length: sessionIDSize.
-	interpreterProxy pop: 1; push: sessionOop
+	interpreterProxy pop: 1 thenPush: sessionOop

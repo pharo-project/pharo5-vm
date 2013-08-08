@@ -35,26 +35,47 @@ forkAndExecInDirectory: useSignalHandler
 		8: executableFile, a null terminated string with the name of the file to execute.
 		9: the sender"
 
-	| progNamePtr argsPtr envPtr intervalTimer saveIntervalTimer envVec pid
-	envOffsets envVecBuffer argOffsets argVecBuffer stdErr stdOut stdIn executableFile idx
-	handleCount envCount argCount envOffsetPtr argOffsetPtr workingDir pwdPtr pwd env args |
-	<var: 'progNamePtr' declareC: 'char *progNamePtr'>
-	<var: 'argsPtr' declareC: 'char *argsPtr'>
-	<var: 'envPtr' declareC: 'char *envPtr'>
-	<var: 'args' declareC: 'char **args'>
-	<var: 'env' declareC: 'char **env'>
-	<var: 'pwdPtr' declareC: 'char *pwdPtr'>
+	| progNamePtr intervalTimer saveIntervalTimer envVec pid
+	envOffsets envVecBuffer argOffsets argVecBuffer stdErr stdOut stdIn executableFile
+	 workingDir pwdPtr env args |
+	<var: 'progNamePtr' type: #'char *'>
+	<var: 'args' type: #'char **'>
+	<var: 'env' type: #'char **'>
+	<var: 'pwdPtr' type: #'char *'>
 	<var: 'intervalTimer' type: 'struct itimerval'>
 	<var: 'saveIntervalTimer' type: 'struct itimerval'>
-	<var: 'envVec' declareC: 'extern char **envVec'>
+	<var: 'envVec' type: 'extern char **'>
 	<var: 'pid' type: 'pid_t'>
-	<var: 'envOffsetPtr' declareC: 'sqInt *envOffsetPtr'>
-	<var: 'argOffsetPtr' declareC: 'sqInt *argOffsetPtr'>
+
+	interpreterProxy methodArgumentCount ~= 9 ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrBadNumArgs].
 
 	useSignalHandler ifTrue: [self setSigChldHandler].
 
 	"Do not fork child if running in secure mode"
-	(self sandboxSecurity == 1) ifTrue: [interpreterProxy pop: 10; pushInteger: -1] ifFalse: [
+	self sandboxSecurity = 1 ifTrue:
+		[interpreterProxy pop: 10; pushInteger: -1. ^nil].
+
+	workingDir := interpreterProxy stackObjectValue: 0.
+	envOffsets := interpreterProxy stackObjectValue: 1.
+	envVecBuffer := interpreterProxy stackObjectValue: 2.
+	argOffsets := interpreterProxy stackObjectValue: 3.
+	argVecBuffer := interpreterProxy stackObjectValue: 4.
+	stdErr := interpreterProxy stackObjectValue: 5.
+	stdOut := interpreterProxy stackObjectValue: 6.
+	stdIn := interpreterProxy stackObjectValue: 7.
+	executableFile := interpreterProxy stackObjectValue: 8.
+
+	((interpreterProxy isIntegerObject: workingDir)
+	 or: [(interpreterProxy isIntegerObject: envOffsets)
+	 or: [(interpreterProxy isIntegerObject: envVecBuffer)
+	 or: [(interpreterProxy isIntegerObject: argOffsets)
+	 or: [(interpreterProxy isIntegerObject: argVecBuffer)
+	 or: [(interpreterProxy isIntegerObject: stdErr)
+	 or: [(interpreterProxy isIntegerObject: stdOut)
+	 or: [(interpreterProxy isIntegerObject: stdIn)
+	 or: [interpreterProxy isIntegerObject: executableFile]]]]]]]]) ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 
 	"Turn off the interval timer. If this is not done, then the program which we exec in
 	the child process will receive a timer interrupt, and will not know how to handle it."
@@ -64,95 +85,74 @@ forkAndExecInDirectory: useSignalHandler
 	self cCode: 'intervalTimer.it_value.tv_usec = 0'.
 	self cCode: 'setitimer (ITIMER_REAL, &intervalTimer, &saveIntervalTimer)'.
 
-	((pid := self cCode: 'vfork()') = 0)
-		ifFalse:
-			[ "Normal return to Smalltalk - this is the old parent process."
-			"Enable the timer again before resuming Smalltalk."
-			self cCode: 'setitimer (ITIMER_REAL, &saveIntervalTimer, 0L)'.
-			interpreterProxy pop: 10; pushInteger: pid 
-			"Pop 9 arguments plus receiver, push pid."]
+	(pid := self vfork) ~= 0 ifTrue:
+		["Normal return to Smalltalk - this is the old parent process."
+		 "Enable the timer again before resuming Smalltalk."
+		 self cCode: 'setitimer (ITIMER_REAL, &saveIntervalTimer, 0L)'.
+		 interpreterProxy failed ifFalse: "Pop 9 arguments plus receiver, push pid."
+			[interpreterProxy pop: 10; pushInteger: pid].
+		^nil].
+
+	"This is the new child process"
+	"If a new working directory has been specified, try to chdir() to it."
+	workingDir ~= interpreterProxy nilObject ifTrue:
+		[pwdPtr := interpreterProxy arrayValueOf: workingDir.
+		 (interpreterProxy failed or: [pwdPtr = 0]) ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrBadArgument.
+			 self cCode: 'fprintf(stderr, "bad workingDir parameter\n")'.
+			 self cCode: '_exit(-1)'].
+		 (self chdir: pwdPtr) ~= 0 ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrNotFound.
+			 self perror: 'chdir'.
+			 self cCode: '_exit(-1)']].
+
+	"Pointer to name of the file to execute."
+	progNamePtr := interpreterProxy arrayValueOf: executableFile.
+
+	"Dup the file handles to attach the new child process to the right streams
+	 on descriptors 0, 1 and 2."
+	stdErr = interpreterProxy nilObject ifFalse: [self dupToStdErr: stdErr].
+	stdOut = interpreterProxy nilObject ifFalse: [self dupToStdOut: stdOut].
+	stdIn = interpreterProxy nilObject ifFalse: [self dupToStdIn: stdIn].
+
+	"Close all file handles not needed by the child. This is done by brute force
+	 because the image has no way of being aware of all open file descriptors
+	 (some are opened by the VM without the knowledge of the image)."
+	"3 = First Unix file descriptor after stdin, stdout, stderr."
+	3 to: self descriptorTableSize - 1 do:
+		[:fd| self close: fd].
+
+	"Set up the environment, a C array of pointers to C strings, where each string
+	 is of the form 'KEY=value'. Refer to previously allocated object memory rather
+	 than using a call to malloc()."
+	envVecBuffer = interpreterProxy nilObject
 		ifTrue:
-			[ "This is the new child process"
-			workingDir := interpreterProxy stackObjectValue: 0.
-			envOffsets := interpreterProxy stackObjectValue: 1.
-			envVecBuffer := interpreterProxy stackObjectValue: 2.
-			argOffsets := interpreterProxy stackObjectValue: 3.
-			argVecBuffer := interpreterProxy stackObjectValue: 4.
-			stdErr := interpreterProxy stackObjectValue: 5.
-			stdOut := interpreterProxy stackObjectValue: 6.
-			stdIn := interpreterProxy stackObjectValue: 7.
-			executableFile := interpreterProxy stackObjectValue: 8.
+			[env := envVec]
+		ifFalse:
+			[env := self cCoerce: (self
+									fixPointersInArrayOfStrings: envVecBuffer
+									withOffsets: envOffsets)
+						to: 'char **'].
 
-			"If a new working directory has been specified, try to chdir() to it."
-			(workingDir ~= interpreterProxy nilObject)
-				ifTrue:
-					[pwdPtr := interpreterProxy firstIndexableField: workingDir.
-					(pwdPtr == 0)
-						ifTrue:
-							[self cCode: 'fprintf(stderr, "bad workingDir parameter\n")'.
-							self cCode: '_exit(-1)']
-						ifFalse:
-							[pwd := self cCode: 'chdir(pwdPtr)' inSmalltalk: [0].
-							(pwd ~= 0)
-								ifTrue:
-									[self cCode: 'perror("chdir")'.
-									self cCode: '_exit(-1)']]].
+	"Set up the argument array. Allocate space for a C array of pointers to strings.
+	Refer to previously allocated object memory rather than using a call to malloc()."
+	args := self cCoerce: (self
+							fixPointersInArrayOfStrings: argVecBuffer
+							withOffsets: argOffsets)
+				to: 'char **'.
 
-			"Pointer to name of the file to execute."
-			progNamePtr := interpreterProxy arrayValueOf: executableFile.
+	(env = 0 or: [args = 0]) ifTrue:
+		[self perror: 'bad env or bad args'.
+		 self cCode: '_exit(-1)'].
 
-			"Dup the file handles to attach the new child process to the right streams
-			on descriptors 0, 1 and 2."
-			(stdErr = interpreterProxy nilObject) ifFalse: [self dupToStdErr: stdErr].
-			(stdOut = interpreterProxy nilObject) ifFalse: [self dupToStdOut: stdOut].
-			(stdIn = interpreterProxy nilObject) ifFalse: [self dupToStdIn: stdIn].
+	"Clean things up before clobbering the running image."
+	"Note: If any file descriptors, signal handlers, or other references to external
+	resources need to be cleaned up, do it here."
+	self restoreDefaultSignalHandlers.
 
-			"Close all file handles not needed by the child. This is done by brute force
-			because the image has no way of being aware of all open file descriptors
-			(some are opened by the VM without the knowledge of the image)."
-			idx := 3.	"First Unix file descriptor after stdin, stdout, stderr."
-			handleCount := self descriptorTableSize.
-			[idx < handleCount]
-				whileTrue:
-					[self cCode: 'close(idx)'.
-					idx := idx + 1].
-
-			"Set up the environment, a C array of pointers to C strings, where each string
-			is of the form 'KEY=value'. Refer to previously allocated object memory rather
-			than using a call to malloc()."
-			envVecBuffer = (interpreterProxy nilObject)
-				ifTrue:
-					[env := envVec]
-				ifFalse:
-					[envCount := interpreterProxy stSizeOf: envOffsets.
-					envPtr := interpreterProxy arrayValueOf: envVecBuffer.
-					envOffsetPtr := interpreterProxy firstIndexableField: envOffsets.
-					self
-						fixPointersInArrayOfStrings: envPtr
-						withOffsets: envOffsetPtr
-						count: envCount.
-					env := self cCoerce: envPtr to: 'char **'].
-
-			"Set up the argument array. Allocate space for a C array of pointers to strings.
-			Reer to previously allocated object memory rather than using a call to malloc()."
-			argCount := interpreterProxy stSizeOf: argOffsets.
-			argsPtr := interpreterProxy arrayValueOf: argVecBuffer.
-			argOffsetPtr := interpreterProxy firstIndexableField: argOffsets.
-			self
-				fixPointersInArrayOfStrings: argsPtr
-				withOffsets: argOffsetPtr
-				count: argCount.
-			args := self cCoerce: argsPtr to: 'char **'.
-
-			"Clean things up before clobbering the running image."
-			"Note: If any file descriptors, signal handlers, or other references to external
-			resources need to be cleaned up, do it here."
-			self restoreDefaultSignalHandlers.
-
-			"Do the exec to overlay the new program on this child address space. This is 
-			the end of the world as we know it."
-			(self cCode: 'execve(progNamePtr, args, env)' ) = -1
-				ifTrue:
-					[self cCode: 'perror(progNamePtr)'; cCode: '_exit(-1)' "execve() error, child exits"]
-				ifFalse:
-					[self cCode: '/* Can''t get here from there */']]]
+	"Do the exec to overlay the new program on this child address space. This is 
+	the end of the world as we know it."
+	self exec: progNamePtr v: args e: env.
+	"if execve returns something went wrong"
+	self perror: progNamePtr.
+	self cCode: '_exit(-1)' "execve() error, child exits"

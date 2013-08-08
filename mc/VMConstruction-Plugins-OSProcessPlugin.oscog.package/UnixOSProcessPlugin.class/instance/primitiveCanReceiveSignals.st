@@ -1,7 +1,7 @@
 primitives - OS signals
-primitiveCanReceiveSignals: anIntegerPid
-	"Send a null signal to the OS process identified by anIntegerPid. Answer false for
-	a bad parameter on the stack (the common case is for anIntegerPid equal to nil,
+primitiveCanReceiveSignals
+	"Send a null signal to the OS process identified by the argument. Answer false for
+	a bad parameter on the stack (the common case is for the argument equal to nil,
 	for which case we should answer false). Answer true if the process exists and can
 	receive signals from this process, otherwise false. This test is useful for determining
 	if a child process still exists following a Squeak image restart."

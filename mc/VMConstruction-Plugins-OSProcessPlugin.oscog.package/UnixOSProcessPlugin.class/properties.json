@@ -13,7 +13,8 @@
 		"vmThread",
 		"sigNumToSend",
 		"pidArray",
-		"pidCount" ],
+		"pidCount",
+		"useSignalStack" ],
 	"name" : "UnixOSProcessPlugin",
 	"pools" : [
 		 ],
