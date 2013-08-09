@@ -23,13 +23,13 @@ primitiveCommandWithInputOutputError
 	commandString := interpreterProxy stackObjectValue: 3.
 	cStringPtr := self cStringFromString: commandString.
 	(stdIn = interpreterProxy nilObject)
-		ifTrue: [inputHandle := self stdInHandle]
+		ifTrue: [inputHandle := self stdInputHandle]
 		ifFalse: [inputHandle := self handleFromSQFile: stdIn].
 	(stdOut = interpreterProxy nilObject)
-		ifTrue: [outputHandle := self stdOutHandle]
+		ifTrue: [outputHandle := self stdOutputHandle]
 		ifFalse: [outputHandle := self handleFromSQFile: stdOut].
 	(stdErr = interpreterProxy nilObject)
-		ifTrue: [errorHandle := self stdErrHandle]
+		ifTrue: [errorHandle := self stdErrorHandle]
 		ifFalse: [errorHandle := self handleFromSQFile: stdErr].
 	self cCode: 'GetStartupInfo (&startUp)'.
 	self cCode: 'startUp.hStdInput = inputHandle'.
