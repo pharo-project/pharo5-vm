@@ -16,9 +16,8 @@ defaultInternalPlugins
 		HostWindowPlugin 
 		"JPEGReadWriter2Plugin 
 		JPEGReaderPlugin" 
-		KlattSynthesizerPlugin 
+		KlattSynthesizerPlugin
 		LargeIntegersPlugin 
-		"MacMenubarPlugin" "This plugin is not yet ported"
 		Matrix2x3Plugin 
 		MiscPrimitivePlugin 
 		"RePlugin" 

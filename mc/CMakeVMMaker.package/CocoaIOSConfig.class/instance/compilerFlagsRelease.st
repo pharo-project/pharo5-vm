@@ -8,7 +8,7 @@ compilerFlagsRelease
 	"'-mdynamic-no-pic'" 
 	"'-fwritable-strings'" 
 	'-Os' 
-	'-fvisibility=hidden'
+	'-fvisibility=default'
 	'-funroll-loops' 
 	"'-fno-asm'" 
 	'-fasm-blocks' 
