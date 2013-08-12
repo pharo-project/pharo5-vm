@@ -157,6 +157,36 @@ void make_portname_from_portnum(char *serialPortName, const int portNum) {
 
 /*** Public Functions ***/
 
+int serialPortIsOpen(int portNum) {
+    char serialPortName[PORT_NAME_SIZE];
+    
+	if ((portNum < 0) || (portNum >= MAX_SERIAL_PORTS)) {
+        return false;
+    }
+	
+    make_portname_from_portnum(serialPortName, portNum);
+
+    return find_stored_serialport (serialPortName) != 0;
+}
+
+int serialPortSetControl(int portNum,int control, char *data) {
+#pragma unused(portNum,control,data)
+    return -1;
+}
+
+int serialPortCount(void) {
+    /* Return the number of serial ports available on this machine */
+    return 0;
+}
+
+int serialPortNames(int portNum, char *portName, char *inName, char *outName) {
+    /* Fill in the user name and input and output port names for the given
+     port number. Note that ports are numbered starting with zero. */
+#pragma unused(portNum,portName,inName,outName)
+
+    return 0;
+}
+
 /* return value ignored */
 int serialPortClose(int portNum)
 {

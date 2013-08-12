@@ -1,7 +1,7 @@
 #include "sq.h"
 #include "MIDIPlugin.h"
-    #include <Carbon/Carbon.h>
-    #include <QuickTime/QuickTimeMusic.h>
+#include <Cocoa/Cocoa.h>
+#include <QuickTime/QuickTimeMusic.h>
 
 extern struct VirtualMachine *interpreterProxy;
 
@@ -57,7 +57,8 @@ void processMIDIByte(int aByte);
 void startMIDICommand(int cmdByte);
 
 /* initialize/shutdown */
-int midiInit() { 
+int midiInit() {
+    
 	portIsOpenFn = interpreterProxy->ioLoadFunctionFrom("serialPortIsOpen", "SerialPlugin");
     if (portIsOpenFn == 0) {
     	portIsOpenFn = interpreterProxy->ioLoadFunctionFrom("serialPortIsOpen", "");

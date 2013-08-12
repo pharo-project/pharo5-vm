@@ -147,9 +147,9 @@ static void *findInternalFunctionIn(char *functionName, char *pluginName)
       return exports[index].primitiveAddress;
     }
   }
-  DPRINTF(("not found\n"));
-  return NULL;
-
+    
+	DPRINTF(("not found\n"));
+    return NULL;
 }
 
 
