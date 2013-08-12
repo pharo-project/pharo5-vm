@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Builder",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogMTBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
