@@ -5,11 +5,9 @@ defaultExternalPlugins
 		UUIDPlugin
 		FloatMathPlugin
 		AsynchFilePlugin
-		SerialPlugin
 		Mpeg3Plugin
 		CroquetPlugin
 		JoystickTabletPlugin
-		MIDIPlugin
 		B3DAcceleratorPlugin
 		JPEGReadWriter2Plugin 
 		JPEGReaderPlugin
@@ -19,5 +17,6 @@ defaultExternalPlugins
 		QuicktimePlugin
 		TestOSAPlugin
 		SqueakSSLPlugin
-		"UnixOSProcessPlugin"
+		SerialPlugin
+		MIDIPlugin
 	)

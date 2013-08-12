@@ -9,4 +9,5 @@ frameworks
 	ApplicationServices
 	QuartzCore
 	OpenGL
-	AGL)
+	AGL
+	QuickTime)
