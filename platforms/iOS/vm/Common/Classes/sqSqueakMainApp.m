@@ -139,14 +139,17 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 			 * stackPointer & framePointer to the native stack & frame pointers.
 			 */
 # if __APPLE__ && __MACH__ && __i386__
+            /* see sys/ucontext.h; two different namings */
+#	if __GNUC__ && !__INTEL_COMPILER /* icc pretends to be gcc */
+			void *fp = (void *)(uap ? uap->uc_mcontext->__ss.__ebp: 0);
+			void *sp = (void *)(uap ? uap->uc_mcontext->__ss.__esp: 0);
+#	else
 			void *fp = (void *)(uap ? uap->uc_mcontext->ss.ebp: 0);
 			void *sp = (void *)(uap ? uap->uc_mcontext->ss.esp: 0);
+#	endif
 # elif __linux__ && __i386__
 			void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_EBP]: 0);
 			void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_ESP]: 0);
-# elif __FreeBSD__ && __i386__
-			void *fp = (void *)(uap ? uap->uc_mcontext.mc_ebp: 0);
-			void *sp = (void *)(uap ? uap->uc_mcontext.mc_esp: 0);
 # else
 #	error need to implement extracting pc from a ucontext_t on this system
 # endif
