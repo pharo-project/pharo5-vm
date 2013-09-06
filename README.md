@@ -29,6 +29,7 @@ Download MacOSX10.6.sdk.zip from <http://files.pharo.org/vm/src/lib/MacOSX10.6.s
 `/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
 (YES, WE NEED 10.6 SDK!) 
 	  
+	# make sure you're root: sudo su
 	cd /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
   	wget http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip
 	unzip MacOSX10.6.sdk.zip
