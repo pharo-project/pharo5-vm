@@ -94,37 +94,10 @@ See `startup.st` for more examples for the common platforms.
 
 
 4. Once the sources are exported, you can launch cmake and build the VM:
- 
-  - UNIX:
- ```bash
- # using Unix Makefiles
- cd build
- sh ../codegen-scripts/extract-commit-info.sh
- # this is the same as cmake -G "Unix Makefiles"
- cmake .
- make
- ```
-
-  - OSX
- ```bash
- export MACOSX_DEPLOYMENT_TARGET=10.6
- sh ../codegen-scripts/extract-commit-info.sh
- cd build
- cmake .
- make
- ```
-
-  - Varia: consult the last section from `cmake --help` to check for other generators. For instance, to create an XCode project under OSX, do the following:
- ```bash
- cd build
- sh ../codegen-scripts/extract-commit-info.sh
- # remove existing cache to avoid issues
- rm -f CMakeCache.txt
- # make sure we don't use llvm
- export CC='gcc-4.2';
- cmake -G "Xcode"
- open CogVM.xcodeproj
- ```
+```bash
+cd build
+./build.sh
+```
 
 5. Finally, run the freshly compiled VM from `results`.
 
