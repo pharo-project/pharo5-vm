@@ -1,12 +1,7 @@
 {
 	"class" : {
-		"build" : "IgorStasenko 1/29/2013 15:48",
-		"buildMacOSX32" : "IgorStasenko 1/29/2013 15:48",
-		"buildOnJenkins:" : "IgorStasenko 1/29/2013 15:48",
-		"buildUnix32" : "IgorStasenko 1/29/2013 15:48",
-		"buildWin32" : "IgorStasenko 1/29/2013 15:48" },
+		 },
 	"instance" : {
-		"buildMacOSX32" : "EstebanLorenzano 7/8/2013 07:54",
-		"buildUnix32" : "IgorStasenko 1/29/2013 15:56",
-		"buildWin32" : "IgorStasenko 1/29/2013 15:50",
-		"initialize" : "IgorStasenko 1/29/2013 15:55" } }
+		"buildMacOSX32" : "CamilloBruni 9/6/2013 13:30",
+		"buildUnix32" : "CamilloBruni 9/6/2013 13:30",
+		"buildWin32" : "CamilloBruni 9/6/2013 13:30" } }

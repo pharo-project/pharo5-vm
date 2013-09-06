@@ -1,9 +1,7 @@
 building
 buildMacOSX32 
 	
-	PharoSOSXConfig new  
-		generateForRelease;
-		"generateForDebug;"
+	self buildConfig: (PharoSOSXConfig new  
 		addExternalPlugins: #(  FT2Plugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
-		generateSources; generate.
+		yourself).

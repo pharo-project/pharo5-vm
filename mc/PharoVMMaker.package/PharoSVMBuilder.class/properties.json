@@ -10,5 +10,5 @@
 	"name" : "PharoSVMBuilder",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "AbstractPharoVMBuilder",
 	"type" : "normal" }

@@ -1,7 +1,7 @@
 building
 buildUnix32
 
-	PharoSUnixConfig new
+	self buildConfig: (PharoSUnixConfig new
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin  );
-		generateSources; generate.
+		yourself).
