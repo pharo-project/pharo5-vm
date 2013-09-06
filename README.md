@@ -89,7 +89,7 @@ See `startup.st` for more examples for the common platforms.
 
 
 4. Once the sources are exported, you can launch cmake and build the VM:
-- UNIX:
+  - UNIX:
 ```bash
 # using Unix Makefiles
 cd build
@@ -98,7 +98,7 @@ cmake .             # this is the same as cmake -G "Unix Makefiles"
 make
 ```
 
-- OSX:
+  - OSX:
 ```bash
 export MACOSX_DEPLOYMENT_TARGET=10.6
 sh ../codegen-scripts/extract-commit-info.sh
@@ -107,7 +107,7 @@ cmake .
 make
 ```
 
-- Varia: consult the last section from `cmake --help` to check for other
+  - Varia: consult the last section from `cmake --help` to check for other
 generators. For instance, to create an XCode project under OSX, do the following:
 ```bash
 cd build
