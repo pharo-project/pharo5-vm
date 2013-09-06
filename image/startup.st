@@ -1,6 +1,10 @@
 "the bae configuration for loading VMMaker can be found under
 ../codegen-scripts/LoadVMMaker.st"
 
+
+"Only load this startup script in interactive mode"
+Smalltalk isInteractive ifTrue: [
+
 "Open workspace with example Configurations"
 Workspace openContents: (String streamContents: [ :stream|
         stream << '"Configuration for OSX ---------------------------------------------------"'; cr.
@@ -38,6 +42,4 @@ Workspace openContents: (String streamContents: [ :stream|
         stream << 'CogUnixConfig new internalPlugins'; cr.
         stream << 'CogUnixConfig new externalPlugins'; cr.
     ]).
-
-"save the image and quit"
-Smalltalk snapshot: true andQuit: true.
+]
