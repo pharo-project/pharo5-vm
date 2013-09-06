@@ -3,42 +3,42 @@ REQUIREMENTS
 
 The build relies on a valid gcc, cmake and 32 bit headers installation:
 
-- Unix:
-    # build tools
+Unix:
+    
+	# build tools
 	sudo apt-get install gcc g++ cmake lib32x-dev
     # dependencies for vm plugins
     sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
 
 - Mac:
   Download and install teh homebrew package manager with some additional packages
-  
-  	# install homebrew with the following oneliner:
-  	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+
+	# install homebrew with the following oneliner:
+	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 	 # if you haven't installed git yet
 	brew install git
-  	# wget is needed in certain cases to download files
+	# wget is needed in certain cases to download files
 	brew install wget
 	# OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
-	brew install gnu-tar --default-names 
-  
+	brew install gnu-tar --default-names
+
   Download and install the latest version of XCode and XCode command line tools
-  Download MacOSX10.6.sdk.zip from http://pharo.gforge.inria.fr/ci/extras/MacOSX10.6.sdk.zip and put it on 
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs (just where MacOSX10.x.sdk usually are)
+  Download MacOSX10.6.sdk.zip from <http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip> and put it on
+  `/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
   (YES, WE NEED 10.6 SDK!)
 
 - Win:
   For building the VM under windos you will have to install a minggw
   environment: http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/
-  
+
   Install the following additional MinGW packages by running the following command in the MingGW Shell:
   
-  	mingw-get install msys-unzip msys-wget msys-zip
+	mingw-get install msys-unzip msys-wget msys-zip
 
   Install git: http://code.google.com/p/msysgit/
 
-  Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly 
-	C:\Program Files\Git but similar…
-	!!! but make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles !!!
+  Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
+  Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
 
 Install CMake: during installation, in install options , make sure that you choose to add CMake to PATH.
 
@@ -46,29 +46,26 @@ To check if everything is installed, open MSYS program (which should look like a
 
 Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 
-#ifndef _MINGW_FLOAT_H_
- #include_next <float.h>
-#endif
- 
-into C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h
-(yes, literally copy and paste at the end of that file)
+	#ifndef _MINGW_FLOAT_H_
+		#include_next <float.h>
+	#endif
 
+into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
 The version number, in this case 4.6.1, might be different in your case.
 
 
 BUILDING FROM JENKINS SOURCES
 =============================
 
-If you downloaded the complete sources from the hudson(or jenkins) server use cmake 
+If you downloaded the complete sources from the hudson(or jenkins) server use cmake
 to build the VM.
 
     cd build
     cmake .
     make
 
-**DO NOT USE** scripts in unixbuild or macbuild or cygwinbuild to build VMs.
-There is no any guarantees that they are working for sources taken from git
-repositories!
+**DO NOT USE** scripts in `unixbuild` or `macbuild` or `cygwinbuild` to build VMs.
+There is no any guarantees that they are working for sources taken from git repositories!
 
 
 (RE)CREATING THE GENERATED VM SOURCES
@@ -88,9 +85,9 @@ the image folder.
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
 
-        CogCocoaIOSConfig generateWithSources.
+	CogCocoaIOSConfig generateWithSources.
 
-    See the ImageConfiguration.st for more examples for the common platforms.
+See the `ImageConfiguration.st` for more examples for the common platforms.
 
 
 3. Once the sources are exported, you can launch cmake and build the VM:
