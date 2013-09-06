@@ -4,14 +4,16 @@ REQUIREMENTS
 The build relies on a valid gcc, cmake and 32 bit headers installation:
 
 Unix:
+-----
     
 	# build tools
 	sudo apt-get install gcc g++ cmake lib32x-dev
-    # dependencies for vm plugins
-    sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
+	# dependencies for vm plugins
+	sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
 
-- Mac:
-  Download and install teh homebrew package manager with some additional packages
+Mac:
+-----
+  Download and install the (http://brew.sh/)[homebrew] package manager with some additional packages
 
 	# install homebrew with the following oneliner:
 	ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
@@ -26,19 +28,20 @@ Unix:
   Download MacOSX10.6.sdk.zip from <http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip> and put it on
   `/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
   (YES, WE NEED 10.6 SDK!)
+  
+Windows:
+---------
+For building the VM under windows you will have to install a minggw
+environment: http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/
 
-- Win:
-  For building the VM under windos you will have to install a minggw
-  environment: http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/
-
-  Install the following additional MinGW packages by running the following command in the MingGW Shell:
+Install the following additional MinGW packages by running the following command in the MingGW Shell:
   
 	mingw-get install msys-unzip msys-wget msys-zip
 
-  Install git: http://code.google.com/p/msysgit/
+Install git: http://code.google.com/p/msysgit/
 
-  Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
-  Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
+Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
+Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
 
 Install CMake: during installation, in install options , make sure that you choose to add CMake to PATH.
 
