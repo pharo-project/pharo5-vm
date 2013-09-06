@@ -85,11 +85,10 @@ Pick or edit the configuration you want, then evaluate it.
 ```Smalltalk
 	CogCocoaIOSConfig generateWithSources.
 ```
-See the `startup.st` for more examples for the common platforms.
+See `startup.st` for more examples for the common platforms.
 
 
 4. Once the sources are exported, you can launch cmake and build the VM:
-
 - UNIX:
 ```bash
 # using Unix Makefiles
@@ -100,7 +99,6 @@ make
 ```
 
 - OSX:
-
 ```bash
 export MACOSX_DEPLOYMENT_TARGET=10.6
 sh ../codegen-scripts/extract-commit-info.sh
@@ -108,6 +106,7 @@ cd build
 cmake .
 make
 ```
+
 - Varia: consult the last section from `cmake --help` to check for other
 generators. For instance, to create an XCode project under OSX, do the following:
 ```bash
@@ -121,9 +120,7 @@ cmake -G "Xcode"
 open CogVM.xcodeproj
 ```
 
-4. Finally, run the freshly compiled VM from `results`.
-
+5. Finally, run the freshly compiled VM from `results`.
 
 See a complete guide on how to build Cog VM using cmake on:
 http://code.google.com/p/cog/wiki/Guide
-
