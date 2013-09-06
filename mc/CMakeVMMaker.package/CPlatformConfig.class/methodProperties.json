@@ -60,6 +60,8 @@
 		"fixLineEndsOf:" : "Igor.Stasenko 12/23/2010 11:54",
 		"frameworks" : "Igor.Stasenko 12/24/2010 00:52",
 		"generate" : "IgorStasenko 3/5/2011 14:17",
+		"generateForDebug" : "CamilloBruni 9/6/2013 15:06",
+		"generateForRelease" : "CamilloBruni 9/6/2013 15:06",
 		"generateSources" : "EstebanLorenzano 7/31/2013 14:55",
 		"generateStackSources" : "IgorStasenko 2/16/2011 11:26",
 		"generateVMOnlySources" : "IgorStasenko 5/10/2011 14:09",
