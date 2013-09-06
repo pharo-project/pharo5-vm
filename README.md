@@ -57,9 +57,9 @@ To check if everything is installed, open MSYS program (which should look like a
 
 Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 ```C
-	#ifndef _MINGW_FLOAT_H_
-		#include_next <float.h>
-	#endif
+#ifndef _MINGW_FLOAT_H_
+	#include_next <float.h>
+#endif
 ```
 into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
 The version number, in this case 4.6.1, might be different in your case.
