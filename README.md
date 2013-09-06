@@ -51,7 +51,7 @@ Install git: <http://code.google.com/p/msysgit/>
 Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
 Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
 
-Install CMake: during installation, in install options , make sure that you choose to add CMake to PATH.
+Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
 To check if everything is installed, open MSYS program (which should look like a UNIX terminal) and try to execute the different commands: git, make and cmake.
 
