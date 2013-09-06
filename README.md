@@ -69,29 +69,29 @@ Building the VM
 ================
 
 1. Download the sources from [github](https://github.com/pharo-project/pharovm)
-```bash
-git clone --depth=1 https://github.com/pharo-project/pharovm.git
-cd pharovm
-```
+ ```bash
+ git clone --depth=1 https://github.com/pharo-project/pharovm.git
+ cd pharovm
+ ```
 
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
-```bash
-cd image && ./newImage.sh
-```
+ ```bash
+ cd image && ./newImage.sh
+ ```
 
 3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
-```Smalltalk
-PharoVMBuilder 
-	buildUnix32.
-
-PharoVMBuilder 
-	buildMacOSX32.
-
-PharoVMBuilder 
+ ```Smalltalk
+ PharoVMBuilder 
+ 	buildUnix32.
+ 
+ PharoVMBuilder 
+ 	buildMacOSX32.
+ 
+ PharoVMBuilder 
 	buildWin32.
-```
+ ```
 See `startup.st` for more examples for the common platforms.
 
 
@@ -105,7 +105,7 @@ See `startup.st` for more examples for the common platforms.
  # this is the same as cmake -G "Unix Makefiles"
  cmake .
  make
-```
+ ```
 
   - OSX
  ```bash
