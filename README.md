@@ -44,10 +44,7 @@ Install the following additional MinGW packages by running the following command
 ```bash
 mingw-get install msys-unzip msys-wget msys-zip
 ```
-Install git: <http://code.google.com/p/msysgit/>
-
-Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
-Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
+Install git: <http://code.google.com/p/msysgit/> and [add it to `PATH` variable](http://www.google.com/search?q=windows+add+PATH&btnI) after the `msys` paths.
 
 Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
@@ -56,7 +53,7 @@ To check if everything is installed, open MSYS program (which should look like a
 Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 ```C
 #ifndef _MINGW_FLOAT_H_
-	#include_next <float.h>
+#include_next <float.h>
 #endif
 ```
 into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
@@ -68,8 +65,8 @@ Building the VM
 
 1. Download the sources from [github](https://github.com/pharo-project/pharovm)
  ```bash
- git clone --depth=1 https://github.com/pharo-project/pharovm.git
- cd pharovm
+ git clone --depth=1 https://github.com/pharo-project/pharo-vm.git
+ cd pharo-vm
  ```
 
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
