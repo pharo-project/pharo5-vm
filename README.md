@@ -26,10 +26,8 @@ brew install wget
 brew install gnu-tar --default-names
 ```
 
-Download and install the latest version of XCode and XCode command line tools.
-Download [MacOSX10.6.sdk.zip](http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip) and put it in
-`/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
-(YES, WE NEED 10.6 SDK!) 
+Install the latest version of [XCode](https://itunes.apple.com/en/app/xcode/id4977998350) and XCode command line tools.
+Download [MacOSX10.6.sdk.zip](http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip) and put in [Xcode SDK folder](file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs):
 ```bash	  
 # make sure you're root: sudo su
 cd /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
@@ -46,10 +44,7 @@ Install the following additional MinGW packages by running the following command
 ```bash
 mingw-get install msys-unzip msys-wget msys-zip
 ```
-Install git: <http://code.google.com/p/msysgit/>
-
-Optional: add git to the PATH variable so that you can see git from msys. To do this, add path to git for msys: Control panel -> System, then search for Environment Variables. There should be already: C:\Program Files\Git\cmd. Add C:\Program Files\Git\bin. Notice that the path may not be exactly `C:\Program Files\Git` but similar…
-Make sure that path to Git binary directory is **after** msys bin path, otherwise you will get a lot of troubles.
+Install git: <http://code.google.com/p/msysgit/> and [add it to `PATH` variable](http://www.google.com/search?q=windows+add+PATH&btnI) after the `msys` paths.
 
 Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
@@ -58,7 +53,7 @@ To check if everything is installed, open MSYS program (which should look like a
 Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 ```C
 #ifndef _MINGW_FLOAT_H_
-	#include_next <float.h>
+#include_next <float.h>
 #endif
 ```
 into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
@@ -68,10 +63,10 @@ The version number, in this case 4.6.1, might be different in your case.
 Building the VM
 ================
 
-1. Download the sources from [github](https://github.com/pharo-project/pharovm)
+1. Download the sources from [github](https://github.com/pharo-project/pharo-vm)
  ```bash
- git clone --depth=1 https://github.com/pharo-project/pharovm.git
- cd pharovm
+ git clone --depth=1 https://github.com/pharo-project/pharo-vm.git
+ cd pharo-vm
  ```
 
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
@@ -83,50 +78,21 @@ Building the VM
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
  ```Smalltalk
- PharoVMBuilder 
- 	buildUnix32.
- 
- PharoVMBuilder 
- 	buildMacOSX32.
- 
- PharoVMBuilder 
-	buildWin32.
+ "Unix"
+ PharoVMBuilder buildUnix32.
+ "OSX"
+ PharoVMBuilder buildMacOSX32.
+ "Windows"
+ PharoVMBuilder buildWin32.
  ```
 See `startup.st` for more examples for the common platforms.
 
 
 4. Once the sources are exported, you can launch cmake and build the VM:
- 
-  - UNIX:
- ```bash
- # using Unix Makefiles
- cd build
- sh ../codegen-scripts/extract-commit-info.sh
- # this is the same as cmake -G "Unix Makefiles"
- cmake .
- make
- ```
-
-  - OSX
- ```bash
- export MACOSX_DEPLOYMENT_TARGET=10.6
- sh ../codegen-scripts/extract-commit-info.sh
- cd build
- cmake .
- make
- ```
-
-  - Varia: consult the last section from `cmake --help` to check for other generators. For instance, to create an XCode project under OSX, do the following:
- ```bash
- cd build
- sh ../codegen-scripts/extract-commit-info.sh
- # remove existing cache to avoid issues
- rm -f CMakeCache.txt
- # make sure we don't use llvm
- export CC='gcc-4.2';
- cmake -G "Xcode"
- open CogVM.xcodeproj
- ```
+```bash
+cd build
+./build.sh
+```
 
 5. Finally, run the freshly compiled VM from `results`.
 
