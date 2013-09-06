@@ -63,7 +63,7 @@ The version number, in this case 4.6.1, might be different in your case.
 Building the VM
 ================
 
-1. Download the sources from [github](https://github.com/pharo-project/pharovm)
+1. Download the sources from [github](https://github.com/pharo-project/pharo-vm)
  ```bash
  git clone --depth=1 https://github.com/pharo-project/pharo-vm.git
  cd pharo-vm
