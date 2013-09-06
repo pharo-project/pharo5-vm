@@ -53,7 +53,7 @@ Make sure that path to Git binary directory is **after** msys bin path, otherwis
 
 Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
-To check if everything is installed, open MSYS program (which should look like a UNIX terminal) and try to execute the different commands: git, make and cmake.
+To check if everything is installed, open MSYS program (which should look like a UNIX terminal) and try to execute the different commands: `git`, `make` and `cmake`.
 
 Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 ```C
@@ -65,34 +65,21 @@ into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
 The version number, in this case 4.6.1, might be different in your case.
 
 
-BUILDING FROM JENKINS SOURCES
-=============================
+Building the VM
+================
 
-If you downloaded the complete sources from the hudson(or jenkins) server use cmake
-to build the VM.
+1. Download the sources from [github](https://github.com/pharo-project/pharovm)
 ```bash
-cd build
-cmake .
-make
+git clone --depth=1 https://github.com/pharo-project/pharovm.git
+cd pharovm
 ```
-**DO NOT USE** scripts in `unixbuild` or `macbuild` or `cygwinbuild` to build VMs.
-There is no any guarantees that they are working for sources taken from git repositories!
 
-
-(RE)CREATING THE GENERATED VM SOURCES
-=====================================
-
-If you downloaded the sources from gitorious do the following the VM sources
-are not included (unlike the jenkins build download). The following steps
-explain how to generate the VM sources from a build image.
-
-1. Get a fresh pharo image from the build server by running the script in
-the image folder.
+2. Get a fresh pharo image from the build server by running the script in the `image` folder.
 ```bash
 cd image && ./newImage.sh
 ```
 
-2. This image contains VMMaker and slang sources, plus a workspace with some
+3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
 ```Smalltalk
@@ -101,9 +88,9 @@ Pick or edit the configuration you want, then evaluate it.
 See the `startup.st` for more examples for the common platforms.
 
 
-3. Once the sources are exported, you can launch cmake and build the VM:
+4. Once the sources are exported, you can launch cmake and build the VM:
 
-    - UNIX:
+- UNIX:
 ```bash
 # using Unix Makefiles
 cd build
@@ -112,7 +99,7 @@ cmake .             # this is the same as cmake -G "Unix Makefiles"
 make
 ```
 
-    - OSX:
+- OSX:
 
 ```bash
 export MACOSX_DEPLOYMENT_TARGET=10.6
@@ -121,8 +108,8 @@ cd build
 cmake .
 make
 ```
-    - Varia: consult the last section from `cmake --help` to check for other
-    generators. For instance, to create an XCode project under OSX, do the following:
+- Varia: consult the last section from `cmake --help` to check for other
+generators. For instance, to create an XCode project under OSX, do the following:
 ```bash
 cd build
 sh ../codegen-scripts/extract-commit-info.sh
