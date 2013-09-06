@@ -4,7 +4,7 @@ buildConfig: config
 		ifTrue:  [ config generateForDebug ]
 		ifFalse: [ config generateForRelease ].
 		
-	config
+	^ config
 		generateSources;
 		generate
 		
