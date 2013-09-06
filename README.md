@@ -83,7 +83,14 @@ cd image && ./newImage.sh
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
 ```Smalltalk
-	CogCocoaIOSConfig generateWithSources.
+PharoVMBuilder 
+	buildUnix32.
+
+PharoVMBuilder 
+	buildMacOSX32.
+
+PharoVMBuilder 
+	buildWin32.
 ```
 See `startup.st` for more examples for the common platforms.
 

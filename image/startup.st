@@ -9,23 +9,23 @@ Smalltalk isInteractive ifTrue: [
 Workspace openContents: (String streamContents: [ :stream|
         stream << '"Configuration for the Pharo VM ---------------------------------------------------"'; cr.
 		stream << 'PharoVMBuilder '; cr.
-		stream << '	buildMacUnix32.'; cr; cr.
+		stream << '	buildUnix32.'; cr; cr.
 		
 		stream << 'PharoVMBuilder '; cr.
 		stream << '	buildMacOSX32.'; cr; cr.
 
 		stream << 'PharoVMBuilder '; cr.
-		stream << '	buildMacWin32.'; cr; cr.
+		stream << '	buildWin32.'; cr; cr.
 		
         stream << '"Configuration for the PharoS VM ---------------------------------------------------"'; cr.
 		stream << 'PharoSVMBuilder '; cr.
-		stream << '	buildMacUnix32.'; cr; cr.
+		stream << '	buildUnix32.'; cr; cr.
 		
 		stream << 'PharoSVMBuilder '; cr.
 		stream << '	buildMacOSX32.'; cr; cr.
 
 		stream << 'PharoSVMBuilder '; cr.
-		stream << '	buildMacWin32.'; cr; cr.
+		stream << '	buildWin32.'; cr; cr.
 
         stream << '"For more details see the internals of PharoVMBuilder and PharoSVMBuilder"'; cr.
     ]).
