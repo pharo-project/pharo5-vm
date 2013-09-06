@@ -81,14 +81,12 @@ Building the VM
 example VM configurations.
 Pick or edit the configuration you want, then evaluate it.
  ```Smalltalk
- PharoVMBuilder 
- 	buildUnix32.
- 
- PharoVMBuilder 
- 	buildMacOSX32.
- 
- PharoVMBuilder 
-	buildWin32.
+ "Unix"
+ PharoVMBuilder buildUnix32.
+ "OSX"
+ PharoVMBuilder buildMacOSX32.
+ "Windows"
+ PharoVMBuilder buildWin32.
  ```
 See `startup.st` for more examples for the common platforms.
 
