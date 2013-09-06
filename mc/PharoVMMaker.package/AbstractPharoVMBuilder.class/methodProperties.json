@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"build" : "CamilloBruni 9/6/2013 13:29",
+		"buildDebug" : "CamilloBruni 9/6/2013 13:29",
+		"buildMacOSX32" : "CamilloBruni 9/6/2013 12:56",
+		"buildOnJenkins:" : "CamilloBruni 9/6/2013 12:56",
+		"buildUnix32" : "CamilloBruni 9/6/2013 12:56",
+		"buildWin32" : "CamilloBruni 9/6/2013 12:56" },
+	"instance" : {
+		"build" : "CamilloBruni 9/6/2013 12:55",
+		"buildConfig:" : "CamilloBruni 9/6/2013 13:24",
+		"buildDebug" : "CamilloBruni 9/6/2013 13:29",
+		"initialize" : "CamilloBruni 9/6/2013 13:27",
+		"isDebug" : "CamilloBruni 9/6/2013 12:51",
+		"isDebug:" : "CamilloBruni 9/6/2013 12:52" } }
