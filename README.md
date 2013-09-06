@@ -26,9 +26,8 @@ brew install wget
 brew install gnu-tar --default-names
 ```
 
-Download and install the latest version of XCode and XCode command line tools.
-Download [MacOSX10.6.sdk.zip](http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip) and put in [Xcode SDK folder](file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs) (just where MacOSX10.x.sdk usually are)
-(YES, WE NEED 10.6 SDK!) 
+Install the latest version of [XCode](https://itunes.apple.com/en/app/xcode/id4977998350) and XCode command line tools.
+Download [MacOSX10.6.sdk.zip](http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip) and put in [Xcode SDK folder](file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs):
 ```bash	  
 # make sure you're root: sudo su
 cd /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
