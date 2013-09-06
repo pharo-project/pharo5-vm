@@ -24,10 +24,15 @@ Mac:
 	# OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
 	brew install gnu-tar --default-names
 
-  Download and install the latest version of XCode and XCode command line tools
-  Download MacOSX10.6.sdk.zip from <http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip> and put it on
-  `/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
-  (YES, WE NEED 10.6 SDK!)
+Download and install the latest version of XCode and XCode command line tools.
+Download MacOSX10.6.sdk.zip from <http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip> and put it on
+`/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs` (just where MacOSX10.x.sdk usually are)
+(YES, WE NEED 10.6 SDK!) 
+	  
+	cd /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
+  	wget http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip
+	unzip MacOSX10.6.sdk.zip
+	rm MacOSX10.6.sdk.zip
   
 Windows:
 ---------
