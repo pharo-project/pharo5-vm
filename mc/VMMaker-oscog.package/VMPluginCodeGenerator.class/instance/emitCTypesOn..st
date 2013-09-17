@@ -1,11 +1,9 @@
 C code generator
-emitCTypesOn: aStream 
+emitCTypesOn: aStream
 	"Store local type declarations on the given stream."
-	([pluginClass ancilliaryStructClasses]
-		on: MessageNotUnderstood
-		do: [:ex| ex message selector == #ancilliaryStructClasses ifTrue: [^self].
-				ex pass]) do:
-			[:structClass|
-			(pluginClass shouldGenerateTypedefFor: structClass) ifTrue:
-				[structClass printTypedefOn: aStream.
-				 aStream cr; cr]]
+	(self structClassesForTranslationClasses: { pluginClass }) do:
+		[:structClass|
+		(structClass isAbstract not
+		 and: [ pluginClass shouldGenerateTypedefFor: structClass]) ifTrue:
+			[structClass printTypedefOn: aStream.
+			 aStream cr; cr]]

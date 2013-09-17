@@ -6,12 +6,17 @@ compactCompiledCode: objectHeaderValue
 	source := coInterpreter cCoerceSimple: baseAddress to: #'CogMethod *'.
 	openPICList := nil.
 	methodCount := 0.
+	self cppIf: NewspeakVM ifTrue: [unpairedMethodList := nil].
 	[source < self limitZony
 	 and: [source cmType ~= CMFree]] whileTrue:
 		[self assert: (cogit cogMethodDoesntLookKosher: source) = 0.
 		 source objectHeader: objectHeaderValue.
 		 source cmUsageCount > 0 ifTrue:
 			[source cmUsageCount: source cmUsageCount // 2].
+		 self cppIf: NewspeakVM ifTrue:
+				[(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger ifTrue:
+					[source nextMethod: unpairedMethodList.
+					 unpairedMethodList := source]].
 		 source cmType = CMOpenPIC ifTrue:
 			[source nextOpenPIC: openPICList asUnsignedInteger.
 			 openPICList := source].
@@ -29,13 +34,16 @@ compactCompiledCode: objectHeaderValue
 			 dest objectHeader: objectHeaderValue.
 			 dest cmType = CMMethod
 				ifTrue:
-					["For non-Newspeak there should ne a one-to-one mapping metween bytecoded and
-					  cog methods. For Newspeak not necessarily, but only for anonymous accessors."
-					 self assert: ((coInterpreter rawHeaderOf: dest methodObject) asInteger = source asInteger
-								or: [(cogit noAssertMethodClassAssociationOf: dest methodObject) = objectMemory nilObject]).
+					["For non-Newspeak there should be a one-to-one mapping between bytecoded and
+					  cog methods.  For Newspeak not necessarily, but only for anonymous accessors."
 					"Only update the original method's header if it is referring to this CogMethod."
-					 (coInterpreter rawHeaderOf: dest methodObject) asInteger = source asInteger ifTrue:
-						[coInterpreter rawHeaderOf: dest methodObject put: dest asInteger]]
+					 (coInterpreter rawHeaderOf: dest methodObject) asInteger = source asInteger
+						ifTrue: [coInterpreter rawHeaderOf: dest methodObject put: dest asInteger]
+						ifFalse:
+							[self assert: (cogit noAssertMethodClassAssociationOf: dest methodObject) = objectMemory nilObject.
+							 self cppIf: NewspeakVM
+								ifTrue: [dest nextMethod: unpairedMethodList.
+										unpairedMethodList := dest]]]
 				ifFalse:
 					[dest cmType = CMOpenPIC ifTrue:
 						[dest nextOpenPIC: openPICList asUnsignedInteger.
@@ -43,10 +51,10 @@ compactCompiledCode: objectHeaderValue
 			 dest cmUsageCount > 0 ifTrue:
 				[dest cmUsageCount: dest cmUsageCount // 2].
 			 dest := coInterpreter
-								cCoerceSimple: dest asInteger + bytes
+								cCoerceSimple: dest asUnsignedInteger + bytes
 								to: #'CogMethod *'].
 		 source := coInterpreter
-							cCoerceSimple: source asInteger + bytes
+							cCoerceSimple: source asUnsignedInteger + bytes
 							to: #'CogMethod *'].
-	mzFreeStart := dest asInteger.
+	mzFreeStart := dest asUnsignedInteger.
 	methodBytesFreedSinceLastCompaction := 0

@@ -4,7 +4,7 @@ allocateBlockStarts: numBlocks
 	 needs to be a macro since the structures are alloca'ed (stack
 	 allocated) to ensure their being freed when compilation is done."
 	<cmacro: '(numBlocks) do { \
-		blockStarts = numBlocks ? alloca(sizeof(BlockStart) * numBlocks) : 0; \
+		blockStarts = (numBlocks) ? alloca(sizeof(BlockStart) * (numBlocks)) : 0; \
 } while (0)'>
 	blockStarts := numBlocks > 0 ifTrue:
 					[CArrayAccessor on:

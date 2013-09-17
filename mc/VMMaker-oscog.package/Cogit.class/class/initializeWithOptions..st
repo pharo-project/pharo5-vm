@@ -5,5 +5,5 @@ initializeWithOptions: optionsDictionary
 	self initializeErrorCodes.
 	self initializeCogMethodConstants.
 	self initializeAnnotationConstants.
-	self initializeBytecodeTable.
+	self initializeBytecodeTableWith: optionsDictionary.
 	self initializePrimitiveTable

@@ -8,22 +8,22 @@ checkOkayFields: oop
 	(objectMemory isIntegerObject: oop) ifTrue: [ ^true ].
 	(objectMemory checkOkayOop: oop) ifFalse: [ ^false ].
 	(self checkOopHasOkayClass: oop) ifFalse: [ ^false ].
+	((objectMemory isPointersNonInt: oop) or: [objectMemory isCompiledMethod: oop]) ifFalse: [ ^true ].
 	hasYoung := objectMemory isYoung: (objectMemory fetchClassOfNonInt: oop).
-	((objectMemory isPointersNonInt: oop) or: [objectMemory isCompiledMethod: oop]) ifTrue:
-		[(objectMemory isCompiledMethod: oop)
-			ifTrue:
-				[i := (self literalCountOf: oop) - 1]
-			ifFalse:
-				[(objectMemory isContext: oop)
-					ifTrue: [i := CtxtTempFrameStart + (self fetchStackPointerOf: oop) - 1]
-					ifFalse: [i := (objectMemory lengthOf: oop) - 1]].
-		[i >= 0] whileTrue:
-			[fieldOop := objectMemory fetchPointer: i ofObject: oop.
-			(objectMemory isIntegerObject: fieldOop) ifFalse:
-				[hasYoung := hasYoung or: [objectMemory isYoung: fieldOop].
-				(objectMemory checkOkayOop: fieldOop) ifFalse: [ ^false ].
-				(self checkOopHasOkayClass: fieldOop) ifFalse: [ ^false ]].
-			i := i - 1]].
+	(objectMemory isCompiledMethod: oop)
+		ifTrue:
+			[i := (self literalCountOf: oop) + LiteralStart - 1]
+		ifFalse:
+			[(objectMemory isContext: oop)
+				ifTrue: [i := CtxtTempFrameStart + (self fetchStackPointerOf: oop) - 1]
+				ifFalse: [i := (objectMemory lengthOf: oop) - 1]].
+	[i >= 0] whileTrue:
+		[fieldOop := objectMemory fetchPointer: i ofObject: oop.
+		(objectMemory isIntegerObject: fieldOop) ifFalse:
+			[hasYoung := hasYoung or: [objectMemory isYoung: fieldOop].
+			(objectMemory checkOkayOop: fieldOop) ifFalse: [ ^false ].
+			(self checkOopHasOkayClass: fieldOop) ifFalse: [ ^false ]].
+		i := i - 1].
 	hasYoung ifTrue:
 		[^objectMemory checkOkayYoungReferrer: oop].
 	^true

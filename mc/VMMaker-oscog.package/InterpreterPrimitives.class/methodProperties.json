@@ -52,7 +52,7 @@
 		"primitiveClockLogAddresses" : "eem 8/27/2010 10:19",
 		"primitiveClone" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveClosureValue" : "eem 2/27/2013 13:50",
-		"primitiveClosureValueNoContextSwitch" : "eem 2/27/2013 13:50",
+		"primitiveClosureValueNoContextSwitch" : "eem 8/21/2013 12:56",
 		"primitiveClosureValueWithArgs" : "eem 2/27/2013 13:50",
 		"primitiveCompareBytes" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveConstantFill" : "eem 6/25/2011 12:27",

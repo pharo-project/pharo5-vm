@@ -21,15 +21,21 @@ fieldAccessorsForBytesPerWord: bytesPerWord
 				ifTrue:
 					[Integer readFrom: (typeTuple last readStream skipTo: $:; skipSeparators)]
 				ifFalse:
-					[typeTuple caseOf: {
+					[typeTuple
+						caseOf: {
 								['unsigned char']	->	[8].
 								['unsigned short']	->	[16].
-								['unsigned int']		->	[32].
-								['unsigned long']	->	[bytesPerWord * 8].
-								['sqInt']				->	[bytesPerWord * 8].
-								['usqInt']			->	[bytesPerWord * 8] }].
-			(typeTuple isArray and: [typeTuple size >= 3 and: [typeTuple second = #Boolean]]) ifTrue:
-				[#Boolean] }] valueWithArguments: tuple]
+								['unsigned int']		->	[32] }
+						otherwise: [bytesPerWord * 8]].
+			typeTuple isArray
+				ifTrue:
+					[(typeTuple size >= 3 and: [typeTuple second = #Boolean]) ifTrue:
+						[#Boolean]]
+				ifFalse:
+					[typeTuple last = $* ifTrue:
+						[(typeTuple beginsWith: 'struct _') "remove struct tag if any"
+							ifTrue: [(typeTuple allButFirst: 8) asSymbol]
+							ifFalse: [typeTuple]]] }] valueWithArguments: tuple]
 
 	"#(4 8) collect: [:bpw| (CogBlockMethod fieldAccessorsForBytesPerWord: bpw) asArray]"
 	"#(4 8) collect: [:bpw| (CogMethod fieldAccessorsForBytesPerWord: bpw) asArray]"

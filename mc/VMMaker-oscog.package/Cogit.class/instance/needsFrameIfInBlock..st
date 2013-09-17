@@ -1,3 +1,3 @@
 compile abstract instructions
-needsFrameIfInBlock: isInBlock
+needsFrameIfInBlock: stackDelta
 	^inBlock

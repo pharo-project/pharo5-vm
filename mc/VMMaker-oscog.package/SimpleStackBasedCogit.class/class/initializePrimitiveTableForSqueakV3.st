@@ -111,7 +111,7 @@ initializePrimitiveTableForSqueakV3
 
 		"System Primitives (110-119)"
 		(110 genPrimitiveEquivalent 1)
-		"(111 genPrimitiveClass)"
+		(111 genPrimitiveClass)
 		"(112 primitiveBytesLeft)"
 		"(113 primitiveQuit)"
 		"(114 primitiveExitToDebugger)"

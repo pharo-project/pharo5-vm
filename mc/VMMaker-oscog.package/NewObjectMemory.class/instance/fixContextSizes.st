@@ -79,7 +79,7 @@ fixContextSizes
 			((self isPointersNonInt: obj) or: [self isCompiledMethod: obj]) ifTrue:
 				[(self isCompiledMethod: obj)
 					ifTrue:
-						[i := self literalCountOf: obj]
+						[i := (self literalCountOf: obj) + LiteralStart]
 					ifFalse:
 						[(self isContextNonInt: obj)
 							ifTrue: [i := CtxtTempFrameStart + (coInterpreter fetchStackPointerOf: obj)]

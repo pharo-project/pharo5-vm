@@ -29,7 +29,7 @@ checkHeapIntegrity
 				 fmt := self formatOfHeader: hdr.
 				 (fmt <= 4 "pointers" or: [fmt >= 12 "compiled method"]) ifTrue:
 					[fmt >= 12
-						ifTrue: [fi := (self literalCountOf: obj) + 1 "+ 1 = methodHeader slot"]
+						ifTrue: [fi := (self literalCountOf: obj) + LiteralStart]
 						ifFalse: [(fmt = 3 and: [self isContextHeader: hdr])
 									ifTrue: [fi := CtxtTempFrameStart + (self fetchStackPointerOf: obj)]
 									ifFalse: [fi := self lengthOf: obj]].

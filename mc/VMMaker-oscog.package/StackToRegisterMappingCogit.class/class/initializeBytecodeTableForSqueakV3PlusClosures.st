@@ -13,7 +13,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
  are inlined only to instances of classes for which there will always be a method.'.
 	self generatorTableFrom: #(
 		(1    0   15 genPushReceiverVariableBytecode needsFrameNever: 1)
-		(1  16   31 genPushTemporaryVariableBytecode)
+		(1  16   31 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)
 		(1  96 103 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
@@ -77,7 +77,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1 191 191 genSpecialSelectorArithmetic isMapped OrRR)
 		(1 192 197 genSpecialSelectorSend isMapped) "#at: #at:put: #size #next #nextPut: #atEnd"
 		(1 198 198 genSpecialSelectorEqualsEquals needsFrameNever: notMapped -1) "not mapped because it is directly inlined (for now)"
-		(1 199 199 genSpecialSelectorClass needsFrameNever: notMapped 0) "not mapped because it is directly inlined (for now)"
+		(1 199 199 genSpecialSelectorClass needsFrameIfStackGreaterThanOne: notMapped 0) "not mapped because it is directly inlined (for now)"
 		(1 200 207 genSpecialSelectorSend isMapped) "#blockCopy: #value #value: #do: #new #new: #x #y"
 		(1 208 223 genSendLiteralSelector0ArgsBytecode isMapped)
 		(1 224 239 genSendLiteralSelector1ArgBytecode isMapped)

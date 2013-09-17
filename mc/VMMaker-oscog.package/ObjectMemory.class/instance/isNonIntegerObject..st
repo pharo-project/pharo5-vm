@@ -1,4 +1,4 @@
 interpreter access
 isNonIntegerObject: objectPointer
-
-	^ (objectPointer bitAnd: 1) = 0
+	<api>
+	^(objectPointer bitAnd: 1) = 0

@@ -6,4 +6,5 @@ declareCVarsIn: aCCodeGenerator
 	
 	self declareC: #(youngReferrers mzFreeStart baseAddress limitAddress)
 			as: #usqInt
-				in: aCCodeGenerator
+				in: aCCodeGenerator.
+	aCCodeGenerator var: 'unpairedMethodList' type: #'CogMethod *'

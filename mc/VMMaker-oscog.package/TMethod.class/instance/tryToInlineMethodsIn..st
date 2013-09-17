@@ -10,11 +10,14 @@ tryToInlineMethodsIn: aCodeGen
 	sendsToInline := Dictionary new: 100.
 	parseTree
 		nodesDo:
-			[ :n |
-			(self inlineableFunctionCall: n in: aCodeGen) ifTrue:
-				[sendsToInline at: n put: (self inlineFunctionCall: n in: aCodeGen)]]
+			[:node|
+			(self inlineableFunctionCall: node in: aCodeGen) ifTrue:
+				[sendsToInline at: node put: (self inlineFunctionCall: node in: aCodeGen)]]
 		unless: "Don't inline the arguments to asserts to keep the asserts readable"
-			[:n| n isSend and: [#(cCode:inSmalltalk: assert: asserta:) includes: n selector]].
+			[:node|
+			node isSend
+			and: [node selector == #cCode:inSmalltalk:
+				or: [aCodeGen isAssertSelector: node selector]]].
 
 	sendsToInline isEmpty ifFalse:
 		[didSomething := true.
@@ -24,12 +27,12 @@ tryToInlineMethodsIn: aCodeGen
 		[writtenToGlobalVarsCache := nil.
 		^didSomething].
 
-	stmtLists := self statementsListsForInlining.
+	stmtLists := self statementsListsForInliningIn: aCodeGen.
 	stmtLists do:
-		[ :stmtList | 
+		[:stmtList|
 		newStatements := OrderedCollection new: 100.
 		stmtList statements do:
-			[ :stmt |
+			[:stmt|
 			(self inlineCodeOrNilForStatement: stmt in: aCodeGen)
 				ifNil: [newStatements addLast: stmt]
 				ifNotNil: [:inlinedStmts|

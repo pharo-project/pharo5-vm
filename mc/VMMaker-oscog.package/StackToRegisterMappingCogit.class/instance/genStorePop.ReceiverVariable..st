@@ -2,6 +2,8 @@ bytecode generators
 genStorePop: popBoolean ReceiverVariable: slotIndex
 	<inline: false>
 	| topReg valueReg constVal |
+	needsFrame ifFalse:
+		[^self genFramelessStorePop: popBoolean ReceiverVariable: slotIndex].
 	self ssFlushUpThroughReceiverVariable: slotIndex.
 	"Avoid store check for immediate values"
 	constVal := self ssTop maybeConstant.

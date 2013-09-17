@@ -18,7 +18,7 @@ buildCodeGeneratorForCogit: getAPIMethods
 	 and: [cogitClass inheritsFrom: Cogit]] whileTrue:
 		[cogitClass := cogitClass superclass].
 	cogitClasses addFirst: VMClass.
-	cogitClasses addAllLast: self cogitClass ancilliaryClasses.
+	cogitClasses addAllLast: ((self cogitClass ancilliaryClasses: optionsDictionary) reject: [:class| class isStructClass]).
 	cogitClasses do: [:cgc| cg addClass: cgc].
 	(cg structClassesForTranslationClasses: cogitClasses) do:
 		[:structClass| cg addStructClass: structClass].

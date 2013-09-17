@@ -34,7 +34,7 @@ codeRangesFor: cogMethod
 		i <= starts size
 			ifTrue:
 				[cogSubMethod := starts at: i.
-				 nextpc := i < starts size ifTrue: [(starts at: i + 1) address] ifFalse: [end].
+				 nextpc := i < starts size ifTrue: [(starts at: i + 1) address] ifFalse: [blockEntry].
 				 CogCodeRange
 					from: cogSubMethod address + (self sizeof: cogSubMethod)
 					to: nextpc - 1

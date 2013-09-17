@@ -1,12 +1,14 @@
 compile abstract instructions
 compileBlockBodies
 	<inline: false>
-	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs initialStackPtr initialOpcodeIndex initialAnnotationIndex |
+	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs savedNumTemps
+	  initialStackPtr initialOpcodeIndex initialAnnotationIndex |
 	<var: #blockStart type: #'BlockStart *'>
 	self assert: blockCount > 0.
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
 	savedNeedsFrame := needsFrame.
 	savedNumArgs := methodOrBlockNumArgs.
+	savedNumTemps := methodOrBlockNumTemps.
 	inBlock := true.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
@@ -42,4 +44,5 @@ compileBlockBodies
 		compiledBlocksCount := compiledBlocksCount + 1].
 	needsFrame := savedNeedsFrame.
 	methodOrBlockNumArgs := savedNumArgs.
+	methodOrBlockNumTemps := savedNumTemps.
 	^0

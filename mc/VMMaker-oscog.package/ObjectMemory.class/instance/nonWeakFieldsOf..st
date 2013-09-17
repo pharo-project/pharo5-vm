@@ -4,7 +4,6 @@ nonWeakFieldsOf: oop
 	Note: The following is copied from fixedFieldsOf:format:length: since we do know
 	the format of the oop (e.g. format = 4) and thus don't need the length."
 	| class classFormat |
-	<inline: false> "No need to inline - we won't call this often"
 
 	self assert: (self isWeakNonInt: oop).
 

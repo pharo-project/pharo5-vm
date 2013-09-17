@@ -6,7 +6,7 @@ printMethodReferencesTo: anOop
 	oop := self firstAccessibleObject.
 	[oop = nil] whileFalse:
 		[(self isCompiledMethod: oop) ifTrue:
-			[i := (self literalCountOf: oop) - 1.
+			[i := (self literalCountOf: oop) + LiteralStart - 1.
 			 [i >= 0] whileTrue:
 				[anOop = (self fetchPointer: i ofObject: oop) ifTrue:
 					[self printHex: oop; print: ' @ '; printNum: i; cr.

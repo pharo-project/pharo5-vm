@@ -1,4 +1,4 @@
 interpreter access
 fetchByte: byteIndex ofObject: oop
-
-	^ self byteAt: oop + BaseHeaderSize + byteIndex
+	<api>
+	^self byteAt: oop + BaseHeaderSize + byteIndex

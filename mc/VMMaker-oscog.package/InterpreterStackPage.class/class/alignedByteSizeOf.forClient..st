@@ -1,3 +1,3 @@
 translation
 alignedByteSizeOf: anObject forClient: aVMClass
-	^self alignedByteSize
+	^self surrogateClass alignedByteSize

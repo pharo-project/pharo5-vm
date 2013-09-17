@@ -7,7 +7,9 @@ compileEntry
 	 In Newspeak we also need to distinguish dynSuperSends from normal and super
 	 and so bind a the preceeding nop (on x86 there happens to be one anyway)."
 	self cppIf: NewspeakVM
-		ifTrue: [dynSuperEntry := self Nop].
+		ifTrue: "1st nop differentiates dynSuperEntry from no-check entry if using nextMethod"
+			[self Nop. 
+			dynSuperEntry := self Nop].
 	self AlignmentNops: (BytesPerWord max: 8).
 	entry := self Label.
 	objectRepresentation getInlineCacheClassTagFrom: ReceiverResultReg into: TempReg.

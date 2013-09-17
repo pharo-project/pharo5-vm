@@ -13,7 +13,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	depending on whether the target method is cogged or not."
 	<api>
-	| class canLinkCacheTag errSelIdx cogMethod newCogMethod |
+	| class canLinkCacheTag errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -55,21 +55,19 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 									ifFalse: [cogit noCheckEntryOffset])
 							receiver: rcvr].
 				self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: class.
-				"NOTREACHED"
-				self assert: false]].
+				self assert: false "NOTREACHED"]].
 	"Method found and has a cog method.  Attempt to link to it.  The receiver's class may be young.
 	 If the Cogit can't store young classes in inline caches we can link to an open PIC instead."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[cogMethod := self cogMethodOf: newMethod.
-		 cogMethod selector = objectMemory nilObject ifTrue:
-			[cogit setSelectorOf: cogMethod to: selector].
-		 "Deal with anonymous accessors, e.g. in Newspeak.  The cogMethod may not have the correct
-		  selector.  If not, try and compile a new method with the correct selector."
-		 cogMethod selector ~= selector ifTrue:
-			[self assert: (self methodClassAssociationOf: newMethod) = objectMemory nilObject.
-			 newCogMethod := cogit cog: newMethod selector: selector.
-			 newCogMethod ifNotNil:
-				[cogMethod := newCogMethod]].
+		 cogMethod selector = objectMemory nilObject
+			ifTrue: [cogit setSelectorOf: cogMethod to: selector]
+			ifFalse:
+				["Deal with anonymous accessors, e.g. in Newspeak.  The cogMethod may not have the
+				  correct selector.  If not, try and compile a new method with the correct selector."
+				 cogMethod selector ~= selector ifTrue:
+					[(cogit cog: newMethod selector: selector) ifNotNil:
+						[:newCogMethod| cogMethod := newCogMethod]]].
 		 (cogMethod selector = selector
 		  and: [canLinkCacheTag])
 			ifTrue:
@@ -88,8 +86,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 					receiver: rcvr].
 		 instructionPointer := self popStack.
 		 self executeNewMethod.
-		 self assert: false
-		 "NOTREACHED"].
+		 self assert: false "NOTREACHED"].
 	instructionPointer := self popStack.
 	^self interpretMethodFromMachineCode
 	"NOTREACHED"

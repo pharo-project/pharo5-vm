@@ -1,4 +1,4 @@
 initialization
 computeStackZoneSize
-	^numStackPages * ((self sizeof: CogStackPage) + self stackPageByteSize)
+	^numStackPages * ((self sizeof: InterpreterStackPage) + self stackPageByteSize)
 	 + stackPages extraStackBytes

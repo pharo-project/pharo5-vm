@@ -2,7 +2,7 @@ C code generator
 emitCTypesOn: aStream 
 	"Store local type declarations on the given stream."
 	vmClass ifNotNil:
-		[vmClass ancilliaryStructClasses do:
+		[(self structClassesForTranslationClasses: { vmClass }) do:
 			[:structClass|
 			(structClass isAbstract not
 			 and: [vmClass shouldGenerateTypedefFor: structClass]) ifTrue:

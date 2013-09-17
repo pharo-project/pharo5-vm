@@ -6,7 +6,7 @@
 		"emitCCodeOn:doInlining:doAssertions:" : "tpr 4/9/2013 12:17",
 		"emitCHeaderForPrimitivesOn:" : "eem 12/10/2012 16:24",
 		"emitCHeaderOn:" : "eem 7/16/2013 13:43",
-		"emitCTypesOn:" : "eem 11/7/2009 09:59",
+		"emitCTypesOn:" : "EstebanLorenzano 9/17/2013 14:14",
 		"emitExportsOn:" : "eem 5/20/2010 17:02",
 		"generateCodeStringForPrimitives" : "ar 7/8/2003 10:53",
 		"generateInterpreterProxyFunctionDeference:on:indent:" : "eem 12/6/2012 13:08",

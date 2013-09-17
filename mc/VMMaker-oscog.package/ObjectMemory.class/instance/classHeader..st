@@ -1,4 +1,4 @@
 header access
 classHeader: oop
-
-	^ self longAt: oop - BaseHeaderSize
+	<api>
+	^self longAt: oop - BaseHeaderSize

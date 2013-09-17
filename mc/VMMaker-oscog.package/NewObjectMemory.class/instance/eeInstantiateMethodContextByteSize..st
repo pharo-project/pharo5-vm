@@ -6,7 +6,7 @@ eeInstantiateMethodContextByteSize: sizeInBytes
 	 and should include four bytes for the base header word.
 	 Will *not* cause a GC."
 	| hash header1 |
-	self assert: (sizeInBytes == SmallContextSize or: [sizeInBytes == LargeContextSize]).
+	self assert: (sizeInBytes = SmallContextSize or: [sizeInBytes = LargeContextSize]).
 	self assert: sizeInBytes <= SizeMask.
 	hash := self newObjectHash.
 	header1 := (hash bitAnd: HashMaskUnshifted) << HashBitsOffset bitOr: self formatOfMethodContextMinusSize.

@@ -2,7 +2,7 @@ generate sources
 buildCodeGeneratorForInterpreter: getAPIMethods
 	"Answer the code generator for translating the interpreter."
 
-	| cg interpreterClass interpreterClasses structClasses apicg |
+	| cg interpreterClass interpreterClasses apicg |
 	interpreterClasses := OrderedCollection new.
 
 	(cg := self createCodeGenerator) vmClass: (interpreterClass := self interpreterClass).
@@ -19,22 +19,17 @@ buildCodeGeneratorForInterpreter: getAPIMethods
 			 interpreterClass := interpreterClass superclass]].
 
 	interpreterClasses addFirst: VMClass.
-	interpreterClasses addAllLast: (self interpreterClass ancilliaryClasses copyWithout: cg vmClass objectMemoryClass).
-	structClasses := Set new.
-	interpreterClasses do: [:class| structClasses addAll: class ancilliaryStructClasses].
-	(Class superclassOrder: structClasses asArray) do:
+	interpreterClasses addAllLast: (((self interpreterClass ancilliaryClasses: optionsDictionary) reject: [:class| class isStructClass]) copyWithout: cg vmClass objectMemoryClass).
+	(cg structClassesForTranslationClasses: interpreterClasses) do:
 		[:structClass|
-		structClass initialize. ].
+		structClass initialize.
+		cg addStructClass: structClass].
 
 	interpreterClasses do:
 		[:ic|
 		(ic respondsTo: #initializeWithOptions:)
 			ifTrue: [ic initializeWithOptions: optionsDictionary]
 			ifFalse: [ic initialize]].
-
-	(Class superclassOrder: structClasses asArray) do:
-		[:structClass|
-		cg addStructClass: structClass].
 
 	interpreterClasses do: [:ic| cg addClass: ic].
 

@@ -16,7 +16,8 @@
 		"coInterpreter",
 		"objectRepresentation",
 		"cogit",
-		"objectMemory" ],
+		"objectMemory",
+		"unpairedMethodList" ],
 	"name" : "CogMethodZone",
 	"pools" : [
 		"CogMethodConstants",

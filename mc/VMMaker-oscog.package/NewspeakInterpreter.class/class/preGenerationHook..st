@@ -4,7 +4,7 @@ preGenerationHook: aCCodeGenerator
 	 before it performs code analysis and generation.  In this case, make
 	 all non-exported methods private."
 	| publicMethodNames |
-	publicMethodNames := self requiredMethodNames
+	publicMethodNames := (self requiredMethodNames: aCCodeGenerator options)
 								copyWithoutAll: (self primitiveTable
 														copyWithout: #primitiveFail).
 	aCCodeGenerator selectorsAndMethodsDo:

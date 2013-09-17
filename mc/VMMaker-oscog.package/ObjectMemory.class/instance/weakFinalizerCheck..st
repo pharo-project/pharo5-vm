@@ -13,14 +13,10 @@ weakFinalizerCheck: oop
 		list instVarAt: 1 put: oop ]	"
 	<inline: true>
 	<asmLabel: false> "prevent label duplication"
-	| listOop listHead |
+	| listOop listItemOop |
 
 	listOop := self fetchPointer: 0 ofObject: oop.
-	(self fetchClassOf: listOop) == (self splObj: ClassWeakFinalizer) ifTrue: [
-		"Fix: put oop into the list, only if it's not already in list"
-		listHead := self fetchPointer: 0 ofObject: listOop.
-		(self isInFinalizationList: oop head: listHead) ifFalse: [
-			self storePointer: 1 ofObject: oop withValue: listHead. 
-			self storePointer: 0 ofObject: listOop withValue: oop.
-		] 
-	]
+	(self fetchClassOf: listOop) = (self splObj: ClassWeakFinalizer) ifTrue:
+		[listItemOop := self fetchPointer: 0 ofObject: listOop.
+		 self storePointer: 1 ofObject: oop withValue: listItemOop. 
+		 self storePointer: 0 ofObject: listOop withValue: oop]

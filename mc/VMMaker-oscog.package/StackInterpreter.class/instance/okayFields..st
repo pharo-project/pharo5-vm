@@ -11,7 +11,7 @@ okayFields: oop
 	((objectMemory isPointersNonInt: oop) or: [objectMemory isCompiledMethod: oop]) ifFalse: [ ^true ].
 	(objectMemory isCompiledMethod: oop)
 		ifTrue:
-			[i := (self literalCountOf: oop) - 1]
+			[i := (self literalCountOf: oop) + LiteralStart - 1]
 		ifFalse:
 			[(objectMemory isContext: oop)
 				ifTrue: [i := CtxtTempFrameStart + (self fetchStackPointerOf: oop) - 1]

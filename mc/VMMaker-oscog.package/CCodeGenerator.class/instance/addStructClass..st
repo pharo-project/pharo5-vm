@@ -5,7 +5,7 @@ addStructClass: aClass
 	aClass prepareToBeAddedToCodeGenerator: self.
 	self addClassVarsFor: aClass.
 	self addPoolVarsFor: aClass.
-	self retainMethods: aClass requiredMethodNames.
+	self retainMethods: (aClass requiredMethodNames: self options).
 	
 	'Adding Class ' , aClass name , '...'
 		displayProgressAt: Sensor cursorPoint
