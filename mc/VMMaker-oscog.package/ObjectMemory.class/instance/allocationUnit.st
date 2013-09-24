@@ -1,0 +1,3 @@
+allocation
+allocationUnit
+	^BytesPerWord

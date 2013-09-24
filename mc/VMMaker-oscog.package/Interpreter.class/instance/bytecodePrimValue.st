@@ -6,7 +6,7 @@ bytecodePrimValue
 	argumentCount := 0.
 	successFlag := true.
 	(self isNonIntegerObject: maybeBlock) ifTrue:
-		[rcvrClass := self fetchClassOfNonInt: maybeBlock.
+		[rcvrClass := self fetchClassOfNonImm: maybeBlock.
 		 rcvrClass = (self splObj: ClassBlockClosure)
 			ifTrue:
 				[self externalizeIPandSP.

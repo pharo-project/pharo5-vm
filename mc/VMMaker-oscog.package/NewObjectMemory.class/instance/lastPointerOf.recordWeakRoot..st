@@ -11,9 +11,9 @@ lastPointerOf: oop recordWeakRoot: recordWeakRoot "<Boolean>"
 	<asmLabel: false>
 	header := self baseHeader: oop.
 	fmt := self formatOfHeader: header.
-	fmt <= 4 ifTrue:
-		[fmt >= 3 ifTrue:
-			[fmt = 4 ifTrue:
+	fmt <= self lastPointerFormat ifTrue:
+		[fmt >= self indexablePointersFormat ifTrue:
+			[fmt = self lastPointerFormat ifTrue:
 				[(recordWeakRoot and: [weakRootCount >= 0]) ifTrue:
 					["And remember as weak root"
 					 (weakRootCount := weakRootCount + 1) <= WeakRootTableSize ifFalse:
@@ -31,7 +31,7 @@ lastPointerOf: oop recordWeakRoot: recordWeakRoot "<Boolean>"
 				 ^CtxtTempFrameStart + contextSize * BytesPerOop]].
 		 sz := self sizeBitsOfSafe: oop.
 		 ^sz - BaseHeaderSize  "all pointers" ].
-	fmt < 12 ifTrue: [^0]. "no pointers"
+	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
 	numFields := coInterpreter literalCountOf: oop. "so literalCountOf: may be inlined"

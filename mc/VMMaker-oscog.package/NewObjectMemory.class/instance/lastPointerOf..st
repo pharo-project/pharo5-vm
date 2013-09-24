@@ -9,14 +9,14 @@ lastPointerOf: oop
 	| fmt header contextSize numLiterals |
 	header := self baseHeader: oop.
 	fmt := self formatOfHeader: header.
-	fmt <= 4 ifTrue:
-		[(fmt = 3
+	fmt <= self lastPointerFormat ifTrue:
+		[(fmt = self indexablePointersFormat
 		  and: [self isContextHeader: header]) ifTrue:
 			["contexts end at the stack pointer"
 			contextSize := coInterpreter fetchStackPointerOf: oop.
 			^CtxtTempFrameStart + contextSize * BytesPerOop].
 		^(self sizeBitsOfSafe: oop) - BaseHeaderSize  "all pointers"].
-	fmt < 12 ifTrue: [^0]. "no pointers"
+	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
 	numLiterals := coInterpreter literalCountOf: oop.

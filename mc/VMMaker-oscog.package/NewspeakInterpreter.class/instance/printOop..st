@@ -17,7 +17,7 @@ printOop: oop
 		[self print: ' free chunk of size '; printNum: (self sizeOfFree: oop); cr.
 		 ^nil].
 	self print: ': a(n) '.
-	self printNameOfClass: (cls := self fetchClassOfNonInt: oop) count: 5.
+	self printNameOfClass: (cls := self fetchClassOfNonImm: oop) count: 5.
 	cls = (self splObj: ClassFloat) ifTrue:
 		[self cr; printFloat: (self dbgFloatValueOf: oop); cr.
 		 ^nil].

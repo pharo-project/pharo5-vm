@@ -12,7 +12,7 @@ printAllStacks
 	mutexClass := objectMemory classMutex.
 	oop := objectMemory firstObject.
 	[self oop: oop isLessThan: objectMemory freeStart] whileTrue:
-		[classObj := objectMemory fetchClassOfNonInt: oop.
+		[classObj := objectMemory fetchClassOfNonImm: oop.
 		 (classObj = semaphoreClass
 		  or: [classObj = mutexClass]) ifTrue:
 			[self printProcsOnList: oop].

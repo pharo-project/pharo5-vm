@@ -13,7 +13,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	depending on whether the target method is cogged or not."
 	<api>
-	| class canLinkCacheTag errSelIdx cogMethod |
+	| classTag canLinkCacheTag errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -21,25 +21,21 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	"self printStringOf: selector"
 	cogit assertCStackWellAligned.
 	self assert: ((objectMemory isIntegerObject: rcvr) or: [objectMemory addressCouldBeObj: rcvr]).
-	self sendBreak: selector + BaseHeaderSize
-		point: (objectMemory lengthOf: selector)
-		receiver: rcvr.
+	self sendBreakpoint: selector receiver: rcvr.
 	superNormalBar = 0
-		ifTrue: [class := objectMemory fetchClassOf: rcvr]
-		ifFalse: [class := self superclassOf: (self methodClassOf: (self frameMethodObject: framePointer))].
-	canLinkCacheTag := (objectMemory isYoungObject: class) not or: [cogit canLinkToYoungClasses].
-	"We set the messageSelector and lkupClass for executeMethod below since things
-	 like the at cache read messageSelector and lkupClass and so they cannot be left stale."
-	messageSelector := selector.
-	lkupClass := class.
+		ifTrue: [classTag := objectMemory fetchClassTagOf: rcvr]
+		ifFalse: [classTag := objectMemory classTagForClass: (self superclassOf: (self methodClassOf: (self frameMethodObject: framePointer)))].
+	canLinkCacheTag := objectMemory hasSpurMemoryManagerAPI
+						or: [(objectMemory isYoungObject: classTag) not or: [cogit canLinkToYoungClasses]].
 	argumentCount := numArgs.
-	(self lookupInMethodCacheSel: selector class: class)
+	(self lookupInMethodCacheSel: selector classTag: classTag)
 		ifTrue:"check for coggability because method is in the cache"
 			[self
 				ifAppropriateCompileToNativeCode: newMethod
 				selector: selector]
 		ifFalse:
-			[(errSelIdx := self lookupMethodNoMNUEtcInClass: class) ~= 0 ifTrue:
+			[messageSelector := selector.
+			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 				[(canLinkCacheTag
 				  and: [errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
@@ -54,7 +50,9 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 									ifTrue: [cogit entryOffset]
 									ifFalse: [cogit noCheckEntryOffset])
 							receiver: rcvr].
-				self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: class.
+				self handleMNU: errSelIdx
+					InMachineCodeTo: rcvr
+					classForMessage: (objectMemory classForClassTag: classTag).
 				self assert: false "NOTREACHED"]].
 	"Method found and has a cog method.  Attempt to link to it.  The receiver's class may be young.
 	 If the Cogit can't store young classes in inline caches we can link to an open PIC instead."

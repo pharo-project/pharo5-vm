@@ -1,13 +1,27 @@
 message sending
 lookupMethodInDictionary: dictionary 
-	"This method lookup tolerates integers as Dictionary keys to suoport
+	"This method lookup tolerates integers as Dictionary keys to support
 	 execution of images in which Symbols have been compacted out."
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
 	<asmLabel: false>
 	length := objectMemory fetchWordLengthOf: dictionary.
 	mask := length - SelectorStart - 1.
-	index := SelectorStart + (mask bitAnd: ((objectMemory isIntegerObject: messageSelector)
+	"Use linear search on small dictionaries; its cheaper.
+	 Also the limit can be set to force linear search of all dictionaries, which supports the
+	 booting of images that need rehashing (e.g. because a tracer has generated an image
+	 with different hashes but hasn't rehashed it yet.)"
+	mask <= methodDictLinearSearchLimit ifTrue:
+		[index := 0.
+		 [index <= mask] whileTrue:
+			[nextSelector := objectMemory fetchPointer: index + SelectorStart ofObject: dictionary.
+			 nextSelector = messageSelector ifTrue:
+				[methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: dictionary.
+				 newMethod := objectMemory fetchPointer: index ofObject: methodArray.
+				^true].
+		 index := index + 1].
+		 ^false].
+	index := SelectorStart + (mask bitAnd: ((objectMemory isImmediate: messageSelector)
 												ifTrue: [objectMemory integerValueOf: messageSelector]
 												ifFalse: [objectMemory hashBitsOf: messageSelector])).
 
@@ -27,4 +41,5 @@ lookupMethodInDictionary: dictionary
 			[wrapAround ifTrue: [^false].
 			 wrapAround := true.
 			 index := SelectorStart]].
+	
 	^false "for Slang"

@@ -7,7 +7,7 @@ initialize
 	global arrays in the translated code."
 
 	"initialize class variables"
-	ObjectMemory initBytesPerWord: self bytesPerWord.
+	ObjectMemory initBytesPerWord: self wordSize.
 	ObjectMemory initialize.
 	NewspeakInterpreter initialize.
 	super initialize.

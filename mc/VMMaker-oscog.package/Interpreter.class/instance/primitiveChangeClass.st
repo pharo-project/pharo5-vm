@@ -11,7 +11,7 @@ primitiveChangeClass
 	arg := self stackObjectValue: 0.
 	rcvr := self stackObjectValue: 1.
 	self successful ifFalse:[^nil].
-	argClass := self fetchClassOfNonInt: arg.
+	argClass := self fetchClassOfNonImm: arg.
 	err := self changeClassOf: rcvr to: argClass.
 	err = 0
 		ifTrue: ["Flush at cache because rcvr's class has changed."

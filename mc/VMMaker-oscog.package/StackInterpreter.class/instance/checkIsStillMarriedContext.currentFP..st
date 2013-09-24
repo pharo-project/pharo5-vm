@@ -16,7 +16,7 @@ checkIsStillMarriedContext: aContext currentFP: currentFP
 				ifTrue: [currentFP]
 				ifFalse: [thePage headFP].
 	^theFP >= limitFP
-	   and: [(objectMemory isNonIntegerObject: (self frameCallerFP: theFP) asInteger)
+	   and: [(objectMemory isNonImmediate: (self frameCallerFP: theFP) asInteger)
 	   and: [(self withSmallIntegerTags: (self frameCallerFP: theFP))
 			= (objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext)
 	   and: [(self frameMethodObject: theFP)

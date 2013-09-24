@@ -11,7 +11,7 @@ longPrintReferencesTo: anOop
 				ifTrue:
 					[i := (self literalCountOf: oop) + LiteralStart]
 				ifFalse:
-					[(self isContextNonInt: oop)
+					[(self isContextNonImm: oop)
 						ifTrue: [i := CtxtTempFrameStart + (coInterpreter fetchStackPointerOf: oop)]
 						ifFalse: [i := self lengthOf: oop]].
 			[(i := i - 1) >= 0] whileTrue:

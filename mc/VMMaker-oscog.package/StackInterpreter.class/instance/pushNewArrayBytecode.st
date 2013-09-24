@@ -6,7 +6,10 @@ pushNewArrayBytecode
 	size := size bitAnd: 127.
 	self fetchNextBytecode.
 	self externalizeIPandSP.
-	array := objectMemory eeInstantiateClass: (objectMemory splObj: ClassArray) indexableSize: size.
+	array := objectMemory
+				eeInstantiateClassIndex: ClassArrayCompactIndex
+				format: objectMemory arrayFormat
+				numSlots: size.
 	self internalizeIPandSP.
 	popValues
 		ifTrue:

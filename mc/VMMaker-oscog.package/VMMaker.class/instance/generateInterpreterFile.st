@@ -15,7 +15,7 @@ generateInterpreterFile
 	cg removeUnneededBuiltins.
 	self interpreterClass preGenerationHook: cg.
 
-	vmHeaderContents := cg vmHeaderContentsWithBytesPerWord: self bytesPerWord.
+	vmHeaderContents := cg vmHeaderContentsWithBytesPerWord: self wordSize.
 	(cg needToGenerateHeader: self interpreterHeaderName file: self interpreterHeaderPath contents: vmHeaderContents) ifTrue:
 		[cg storeHeaderOnFile: self interpreterHeaderPath contents: vmHeaderContents].
 	cg storeCodeOnFile: (self sourceFilePathFor: self interpreterClass sourceFileName) doInlining: self doInlining.

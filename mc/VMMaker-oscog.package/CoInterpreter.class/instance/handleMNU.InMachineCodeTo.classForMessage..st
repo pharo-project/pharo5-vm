@@ -1,14 +1,15 @@
 message sending
 handleMNU: selectorIndex InMachineCodeTo: rcvr classForMessage: classForMessage
-	"A message send from either an open PIC or an unlinked send has
-	 not been understood.  Execute the relevant resulting MNU method."
+	"A message send from either an open PIC or an unlinked send has not  been
+	 understood.  Create a message and execute the relevant resulting MNU method.
+	 messageSelector is an implicit argument (yuck)."
 	| errSelIdx classForThisMessage |
 	<var: #cogMethod type: #'CogMethod *'>
 	self assert: ((objectMemory isIntegerObject: rcvr) or: [objectMemory addressCouldBeObj: rcvr]).
 	instructionPointer := self popStack.
 	self createActualMessageTo: classForMessage.
 	messageSelector := objectMemory splObj: selectorIndex.
-	(self lookupInMethodCacheSel: messageSelector class: lkupClass)
+	(self lookupInMethodCacheSel: messageSelector classTag: (objectMemory classTagForClass: lkupClass))
 		ifTrue:"check for coggability because method is in the cache"
 			[self
 				ifAppropriateCompileToNativeCode: newMethod

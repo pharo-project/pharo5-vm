@@ -95,6 +95,7 @@
 	"pools" : [
 		"VMBasicConstants",
 		"VMObjectIndices",
+		"VMSqueakClassIndices",
 		"VMSqueakV3BytecodeConstants",
 		"VMSqueakV3ObjectRepresentationConstants" ],
 	"super" : "VMClass",

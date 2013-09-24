@@ -9,10 +9,10 @@ primitiveSignalAtMilliseconds
 	sema := self stackValue: 1.
 	msecs := self positive32BitValueOf: msecsObj.
 	(self failed
-	 or: [objectMemory isIntegerObject: sema]) ifTrue:
+	 or: [objectMemory isImmediate: sema]) ifTrue:
 		[self primitiveFail.
 		 ^nil].
-	(objectMemory fetchClassOfNonInt: sema) = (objectMemory splObj: ClassSemaphore)
+	(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)
 		ifTrue:
 			[objectMemory splObj: TheTimerSemaphore put: sema.
 			deltaMsecs := msecs - (self ioMSecs bitAnd: MillisecondClockMask).

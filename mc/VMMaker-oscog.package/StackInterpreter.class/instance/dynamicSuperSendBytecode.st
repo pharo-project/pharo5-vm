@@ -13,5 +13,5 @@ dynamicSuperSendBytecode
 	mixinApplication := self 
 		findApplicationOfTargetMixin: mClassMixin
 		startingAtBehavior: (objectMemory fetchClassOf: rcvr).
-	lkupClass := self superclassOf: mixinApplication.
+	lkupClassTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
 	self commonSend

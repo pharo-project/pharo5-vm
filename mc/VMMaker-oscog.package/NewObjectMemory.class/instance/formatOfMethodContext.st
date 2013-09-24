@@ -3,5 +3,5 @@ formatOfMethodContext
 	"Answer the class format word for MethodContext which is used to instantiate
 	 contexts without needing to fetch it from the class MethodContext itself."
 	^(ClassMethodContextCompactIndex << 12)
-	+ (3 << 8) "Pointers+Variable"
+	+ (self indexablePointersFormat << self instFormatFieldLSB) "Pointers+Variable"
 	+ (CtxtTempFrameStart + (BaseHeaderSize / BytesPerWord) << 2)

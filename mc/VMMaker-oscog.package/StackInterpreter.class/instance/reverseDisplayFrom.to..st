@@ -10,9 +10,9 @@ reverseDisplayFrom: startIndex to: endIndex
 	((objectMemory isPointers: displayObj) and: [(objectMemory lengthOf: displayObj) >= 4]) ifFalse: [^ nil].
 	w := objectMemory fetchPointer: 1 ofObject: displayObj.
 	displayBits := objectMemory fetchPointer: 0 ofObject: displayObj.
-	((objectMemory isIntegerObject: displayBits)
+	((objectMemory isImmediate: displayBits)
 	or: [(objectMemory isNonIntegerObject: w)
-	or: [objectMemory isPointersNonInt: displayBits]]) ifTrue: [^ nil].
+	or: [objectMemory isPointersNonImm: displayBits]]) ifTrue: [^ nil].
 	wordStartIndex := startIndex * 4.
 	wordEndIndex := endIndex * 4 min: (objectMemory sizeBitsOf: displayBits).
 	displayBits := displayBits + BaseHeaderSize.

@@ -1,3 +1,4 @@
+SystemOrganization addCategory: #'Cog-Bootstrapping'!
 SystemOrganization addCategory: #'Cog-Morphing Bytecode Set'!
 SystemOrganization addCategory: #'Cog-Scripts'!
 SystemOrganization addCategory: #'Cog-Scripting'!

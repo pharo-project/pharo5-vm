@@ -1,6 +1,6 @@
 initialization
 openOn: fileName extraMemory: extraBytes
-	"InterpreterSimulator new openOn: 'clone.im' extraMemory: 100000"
+	"StackInterpreterSimulator new openOn: 'clone.im' extraMemory: 100000"
 
 	| f version headerSize count oldBaseAddr bytesToShift swapBytes
 	  hdrNumStackPages hdrEdenBytes headerFlags |
@@ -36,7 +36,6 @@ openOn: fileName extraMemory: extraBytes
 									ifTrue: [self defaultNumStackPages]
 									ifFalse: [hdrNumStackPages]].
 	desiredNumStackPages := hdrNumStackPages.
-	stackPages := self stackPagesClass new. "Temporary for computeStackZoneSize"
 	"pad to word boundary.  This slot can be used for anything else that will fit in 16 bits.
 	 Preserve it to be polite to images run on Cog."
 	theUnknownShort	:= self getShortFromFile: f swap: swapBytes.

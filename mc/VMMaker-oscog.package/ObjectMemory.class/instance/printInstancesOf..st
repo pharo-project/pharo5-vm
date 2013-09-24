@@ -5,6 +5,6 @@ printInstancesOf: aClassOop
 	<api>
 	oop := self firstAccessibleObject.
 	[oop = nil] whileFalse:
-		[(self fetchClassOfNonInt: oop) = aClassOop ifTrue:
+		[(self fetchClassOfNonImm: oop) = aClassOop ifTrue:
 			[self printHex: oop; cr].
 		 oop := self accessibleObjectAfter: oop]

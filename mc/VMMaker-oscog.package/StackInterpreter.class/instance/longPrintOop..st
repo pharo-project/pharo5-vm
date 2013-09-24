@@ -2,23 +2,32 @@ debug printing
 longPrintOop: oop
 	<api>
 	| class fmt lastIndex startIP bytecodesPerLine column |
-	((objectMemory isIntegerObject: oop)
-	 or: [(oop between: objectMemory startOfMemory and: objectMemory freeStart) not
-	 or: [(oop bitAnd: (BytesPerWord - 1)) ~= 0
-	 or: [(objectMemory isFreeObject: oop)]]]) ifTrue:
+	((objectMemory isImmediate: oop)
+	 or: [(objectMemory addressCouldBeObj: oop) not
+	 or: [(oop bitAnd: objectMemory allocationUnit - 1) ~= 0
+	 or: [(objectMemory isFreeObject: oop)
+	 or: [objectMemory isForwarded: oop]]]]) ifTrue:
 		[^self printOop: oop].
-	class := objectMemory fetchClassOfNonInt: oop.
+	class := objectMemory fetchClassOfNonImm: oop.
 	self printHex: oop;
 		print: ': a(n) '; printNameOfClass: class count: 5;
 		print: ' ('; printHex: class; print: ')'.
 	fmt := objectMemory formatOf: oop.
-	fmt > 4 ifTrue:
-		[self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)].
+	self print: ' format '; printHexnp: fmt.
+	fmt > objectMemory lastPointerFormat
+		ifTrue: [self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)]
+		ifFalse: [(objectMemory isIndexableFormat: fmt) ifTrue:
+					[| len |
+					len := objectMemory lengthOf: oop.
+					self print: ' size '; printNum: len - (objectMemory fixedFieldsOf: oop format: fmt length: len)]].
 	objectMemory printHeaderTypeOf: oop.
+	self print: ' hash '; printHexnp: (objectMemory rawHashBitsOf: oop).
 	self cr.
-	(fmt between: 5 and: 11) ifTrue:
+	(fmt between: objectMemory firstLongFormat and: objectMemory firstCompiledMethodFormat - 1) ifTrue:
 		[^self].
-	lastIndex := 256 min: (startIP := (objectMemory lastPointerOf: oop) / BytesPerWord).
+	"this is nonsense.  apologies."
+	startIP := (objectMemory lastPointerOf: oop) + BytesPerOop - objectMemory baseHeaderSize / BytesPerOop.
+	lastIndex := 256 min: startIP.
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
 			[:i| | fieldOop |
@@ -26,7 +35,8 @@ longPrintOop: oop
 			self space; printNum: i - 1; space; printHex: fieldOop; space.
 			(i = 1 and: [objectMemory isCompiledMethod: oop])
 				ifTrue: [self printMethodHeaderOop: fieldOop]
-				ifFalse: [self printOopShort: fieldOop].
+				ifFalse: [self cCode: [self printOopShort: fieldOop]
+							inSmalltalk: [self print: (self shortPrint: fieldOop)]].
 			self cr]].
 	(objectMemory isCompiledMethod: oop)
 		ifFalse:

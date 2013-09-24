@@ -3,7 +3,9 @@ floatObjectOf: aFloat
 	| newFloatObj |
 	<inline: false>
 	<var: #aFloat type: #double>
-	self flag: #Dan.
-	newFloatObj := objectMemory eeInstantiateSmallClass: (objectMemory splObj: ClassFloat) sizeInBytes: 8+BaseHeaderSize.
-	objectMemory storeFloatAt: newFloatObj + BaseHeaderSize from: aFloat.
-	^ newFloatObj.
+	newFloatObj := objectMemory
+						eeInstantiateClassIndex: ClassFloatCompactIndex
+						format: objectMemory firstLongFormat
+						numSlots: 8 / objectMemory wordSize.
+	objectMemory storeFloatAt: newFloatObj + objectMemory baseHeaderSize from: aFloat.
+	^newFloatObj

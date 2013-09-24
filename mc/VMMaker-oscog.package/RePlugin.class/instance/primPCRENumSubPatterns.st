@@ -8,9 +8,11 @@ primPCRENumSubPatterns
 Return the number of subpatterns captured by the compiled pattern."
 
 	<export: true>
-	
+	| ncap |
 	"Load Parameters"
 	self loadRcvrFromStackAt: 0.
 	"Load Instance Variables"
 	pcrePtr := self rcvrPCREBufferPtr.
-	interpreterProxy pop: 1; pushInteger: (self cCode: 'pcre_info((pcre *)pcrePtr, NULL, NULL)').
+	self cCode: 'pcre_fullinfo((const pcre *)pcrePtr, NULL, PCRE_INFO_CAPTURECOUNT, &ncap)'
+		inSmalltalk: [ncap := -1].
+	interpreterProxy pop: 1; pushInteger: ncap.

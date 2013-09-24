@@ -1,8 +1,7 @@
 control primitives
 primitivePerform
 	<returnTypeC: #void>
-	| performSelector newReceiver lookupClass performMethod |
-	performSelector := messageSelector.
+	| newReceiver lookupClassTag performMethod |
 	performMethod := newMethod.
 	messageSelector := self stackValue: argumentCount - 1.
 	newReceiver := self stackValue: argumentCount.
@@ -18,13 +17,12 @@ primitivePerform
 			longAt: stackPointer + (i * BytesPerWord)
 			put: (stackPages longAt: stackPointer + ((i - 1) * BytesPerWord))].
 	self pop: 1.
-	lookupClass := objectMemory fetchClassOf: newReceiver.
-	self sendBreak: messageSelector + BaseHeaderSize
-		point: (objectMemory lengthOf: messageSelector)
-		receiver: newReceiver.
+	lookupClassTag := objectMemory fetchClassTagOf: newReceiver.
+	self sendBreakpoint: messageSelector receiver: newReceiver.
 	self printSends ifTrue:
-		[self printActivationNameForSelector: messageSelector startClass: lookupClass; cr].
-	self findNewMethodInClass: lookupClass.
+		[self printActivationNameForSelector: messageSelector
+			startClass: (objectMemory classForClassTag: lookupClassTag); cr].
+	self findNewMethodInClassTag: lookupClassTag.
 
 	"Only test CompiledMethods for argument count - other objects will have to take their chances"
 	((objectMemory isOopCompiledMethod: newMethod)
@@ -38,7 +36,6 @@ primitivePerform
 		stackPages longAt: stackPointer + (argumentCount * BytesPerWord) put: messageSelector.
 		argumentCount := argumentCount + 1.
 		newMethod := performMethod.
-		messageSelector := performSelector.
 		^self primitiveFail].
 
 	self executeNewMethod.

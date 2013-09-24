@@ -9,5 +9,6 @@ stSizeOf: oop
 	fmt := objectMemory formatOfHeader: hdr.
 	totalLength := objectMemory lengthOf: oop baseHeader: hdr format: fmt.
 	fixedFields := objectMemory fixedFieldsOf: oop format: fmt length: totalLength.
-	fmt = 3 ifTrue: [self assert: (objectMemory isContextHeader: hdr) not].
+	fmt = objectMemory indexablePointersFormat ifTrue:
+		[self assert: (objectMemory isContextHeader: hdr) not].
 	^totalLength - fixedFields

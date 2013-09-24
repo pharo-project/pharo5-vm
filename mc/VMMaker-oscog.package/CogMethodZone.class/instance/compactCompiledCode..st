@@ -14,7 +14,8 @@ compactCompiledCode: objectHeaderValue
 		 source cmUsageCount > 0 ifTrue:
 			[source cmUsageCount: source cmUsageCount // 2].
 		 self cppIf: NewspeakVM ifTrue:
-				[(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger ifTrue:
+				[(source cmType = CMMethod
+				  and: [(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger]) ifTrue:
 					[source nextMethod: unpairedMethodList.
 					 unpairedMethodList := source]].
 		 source cmType = CMOpenPIC ifTrue:

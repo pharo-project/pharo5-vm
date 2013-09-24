@@ -6,7 +6,7 @@ ensureAllContextsWithMethodHaveBytecodePCs: methodObj
 	oop := objectMemory firstObject.
 	[oop < objectMemory freeStart] whileTrue:
 		[((objectMemory isFreeObject: oop) not
-		  and: [(objectMemory isContextNonInt: oop)
+		  and: [(objectMemory isContextNonImm: oop)
 		  and: [(objectMemory fetchPointer: MethodIndex ofObject: oop) = methodObj]]) ifTrue:
 			[(self isMarriedOrWidowedContext: oop)
 				ifTrue:

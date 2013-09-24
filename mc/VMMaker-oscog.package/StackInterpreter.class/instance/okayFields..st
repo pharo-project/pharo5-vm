@@ -7,7 +7,7 @@ okayFields: oop
 	(oop = nil or: [oop = 0]) ifTrue: [ ^true ].
 	(objectMemory isIntegerObject: oop) ifTrue: [ ^true ].
 	(objectMemory okayOop: oop) ifFalse: [ ^false ].
-	(self oopHasOkayClass: oop) ifFalse: [ ^false ].
+	(objectMemory oopHasOkayClass: oop) ifFalse: [ ^false ].
 	((objectMemory isPointersNonInt: oop) or: [objectMemory isCompiledMethod: oop]) ifFalse: [ ^true ].
 	(objectMemory isCompiledMethod: oop)
 		ifTrue:

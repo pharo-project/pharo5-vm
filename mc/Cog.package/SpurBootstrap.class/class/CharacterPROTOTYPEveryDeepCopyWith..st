@@ -1,0 +1,3 @@
+method prototypes
+CharacterPROTOTYPEveryDeepCopyWith: deepCopier
+	^self

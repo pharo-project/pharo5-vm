@@ -36,6 +36,5 @@ validate: oop
 		cc = 0 ifTrue: [self halt]].
 	fmt = 5 ifTrue: [self halt].
 	fmt = 7 ifTrue: [self halt].
-	fmt >= 12 ifTrue:
-		["CompiledMethod -- check for integer header"
-		(self isIntegerObject: (self longAt: oop + BytesPerWord)) ifFalse: [self halt]].
+	fmt >= self firstCompiledMethodFormat ifTrue: "must have integer header"
+		[(self isIntegerObject: (self longAt: oop + BytesPerWord)) ifFalse: [self halt]].

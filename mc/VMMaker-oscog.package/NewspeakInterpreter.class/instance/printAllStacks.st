@@ -11,7 +11,7 @@ printAllStacks
 	semaphoreClass := self classSemaphore.
 	oop := self firstObject.
 	[self oop: oop isLessThan: freeBlock] whileTrue:
-		[classObj := self fetchClassOfNonInt: oop.
+		[classObj := self fetchClassOfNonImm: oop.
 		 (classObj = semaphoreClass) ifTrue:
 			[self printProcsOnList: oop].
 		 oop := self objectAfter: oop].

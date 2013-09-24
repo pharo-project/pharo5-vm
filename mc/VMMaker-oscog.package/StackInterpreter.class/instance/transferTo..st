@@ -9,7 +9,7 @@ transferTo: newProc
 	self assertValidExecutionPointe: instructionPointer r: framePointer s: stackPointer.
 	sched := self schedulerPointer.
 	oldProc := objectMemory fetchPointer: ActiveProcessIndex ofObject: sched.
-	activeContext := self ensureFrameIsMarried: framePointer SP: stackPointer.
+	activeContext := self ensureFrameIsMarried: framePointer SP: stackPointer + BytesPerWord.
 	objectMemory storePointer: SuspendedContextIndex ofObject: oldProc withValue: activeContext.
 	objectMemory storePointer: ActiveProcessIndex ofObject: sched withValue: newProc.
 	objectMemory storePointerUnchecked: MyListIndex ofObject: newProc withValue: objectMemory nilObject.

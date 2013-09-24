@@ -31,7 +31,6 @@ primitiveDoPrimitiveWithArgs
 	 popRemappableOop: wouldn't occur, potentially overflowing the remap buffer.  While recursion
 	 could occur (nil tryPrimitive: 118 withArgs: #(111 #())) it counts as shooting oneself in the foot."
 	tempOop := argumentArray. "prim might alloc/gc"
-	lkupClass := objectMemory nilObject.
 	"Run the primitive (sets primFailCode)"
 	self slowPrimitiveResponse.
 	self successful ifFalse: "If primitive failed, then restore state for failure code"

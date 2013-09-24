@@ -12,9 +12,7 @@ lookupMethodInClass: class
 				-- raise exception #cannotInterpret:."
 			self createActualMessageTo: class.
 			messageSelector := objectMemory splObj: SelectorCannotInterpret.
-			self sendBreak: messageSelector + BaseHeaderSize
-				point: (objectMemory lengthOf: messageSelector)
-				receiver: nil.
+			self sendBreakpoint: messageSelector receiver: nil.
 			^self lookupMethodInClass: (self superclassOf: currentClass)].
 		found := self lookupMethodInDictionary: dictionary.
 		found ifTrue: [^currentClass].

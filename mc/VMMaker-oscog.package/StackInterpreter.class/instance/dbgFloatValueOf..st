@@ -6,8 +6,8 @@ dbgFloatValueOf: oop
 	<returnTypeC: #double>
 	<var: #result type: #double>
 	self flag: #Dan.  "None of the float stuff has been converted for 64 bits"
-	((objectMemory isNonIntegerObject: oop)
-	and: [(objectMemory fetchClassOfNonInt: oop) = (objectMemory splObj: ClassFloat)]) ifTrue:
+	((objectMemory isNonImmediate: oop)
+	and: [(objectMemory fetchClassOfNonImm: oop) = (objectMemory splObj: ClassFloat)]) ifTrue:
 		[self cCode: '' inSmalltalk: [result := Float new: 2].
 		 objectMemory fetchFloatAt: oop + BaseHeaderSize into: result.
 		 ^result].

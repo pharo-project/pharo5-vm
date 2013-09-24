@@ -3,17 +3,19 @@ ceCounterTripped: condition
 	<api>
 	<option: #SistaStackToRegisterMappingCogit>
 	"Send e.g. thisContext conditionalBranchCounterTrippedOn: boolean."
-	| context counterTrippedSelector |
+	| context counterTrippedSelector classTag |
 	counterTrippedSelector := objectMemory maybeSplObj: SelectorCounterTripped.
 	(counterTrippedSelector isNil
 	or: [counterTrippedSelector = objectMemory nilObject]) ifTrue:
 		[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
 		 ^condition].
 	
-	lkupClass := self splObj: ClassMethodContext.
-	(self lookupInMethodCacheSel: counterTrippedSelector class: lkupClass) ifFalse:
+	classTag := objectMemory
+					classTagForSpecialObjectsIndex: ClassMethodContext
+					compactClassIndex: ClassMethodContextCompactIndex.
+	(self lookupInMethodCacheSel: counterTrippedSelector classTag: classTag) ifFalse:
 	 	[messageSelector := counterTrippedSelector.
-		 (self lookupMethodNoMNUEtcInClass: lkupClass) ~= 0 ifTrue:
+		 (self lookupMethodNoMNUEtcInClass: (objectMemory classTagForClass: classTag)) ~= 0 ifTrue:
 			[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
 			 ^condition]].
 
@@ -26,7 +28,7 @@ ceCounterTripped: condition
 	context := self ensureFrameIsMarried: framePointer SP: stackPointer.
 	self push: context.
 	self push: condition.
-	self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector.
+	self ifAppropriateCompileToNativeCode: newMethod selector: counterTrippedSelector.
 	self activateNewMethod.
 	"not reached"
 	^true

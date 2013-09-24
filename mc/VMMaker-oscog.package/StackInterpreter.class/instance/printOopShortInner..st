@@ -3,22 +3,28 @@ printOopShortInner: oop
 	| classOop name nameLen |
 	<var: #name type: #'char *'>
 	<inline: true>
-	(objectMemory isIntegerObject: oop) ifTrue:
-		[self printNum: (objectMemory integerValueOf: oop);
+	(objectMemory isImmediate: oop) ifTrue:
+		[(objectMemory isImmediateCharacter: oop) ifTrue:
+			[self printChar: $$;
+				printChar: (objectMemory characterValueOf: oop);
+				printChar: $(;
+				printHex: (objectMemory integerValueOf: oop);
+				printChar: $).
+			 ^nil].
+		self printNum: (objectMemory integerValueOf: oop);
 			printChar: $(;
 			printHex: (objectMemory integerValueOf: oop);
 			printChar: $).
 		 ^nil].
-	(oop between: objectMemory startOfMemory and: objectMemory freeStart) ifFalse:
-		[self printHex: oop; print: ' is not on the heap'.
-		 ^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
-		[self printHex: oop; print: ' is misaligned'.
+	(objectMemory addressCouldBeObj: oop) ifFalse:
+		[self print: ((oop bitAnd: objectMemory allocationUnit - 1) ~= 0
+						ifTrue: [' is misaligned']
+						ifFalse: [' is not on the heap']); cr.
 		 ^nil].
 	(self isFloatObject: oop) ifTrue:
 		[self printFloat: (self dbgFloatValueOf: oop).
 		 ^nil].
-	classOop := objectMemory fetchClassOfNonInt: oop.
+	classOop := objectMemory fetchClassOfNonImm: oop.
 	(objectMemory addressCouldBeObj: classOop) ifFalse:
 		[self print: 'a ??'. ^nil].
 	(objectMemory sizeBitsOf: classOop) = metaclassSizeBits ifTrue:
@@ -40,11 +46,11 @@ printOopShortInner: oop
 	(nameLen = 9 and: [(self str: name n: 'Character' cmp: 9) not]) ifTrue:
 		[self printChar: $$; printChar: (objectMemory integerValueOf: (objectMemory fetchPointer: 0 ofObject: oop)).
 		 ^nil].
-	self cCode: [self prin: 'a(n) %.*s' t: nameLen f: name]
-		inSmalltalk: [self print: 'a(n) '; print: name].
+	self print: 'a(n) '.
+	1 to: nameLen do: [:i| self printChar: (name at: i)].
 	"Try to spot association-like things; they're all subclasses of LookupKey"
 	((objectMemory instanceSizeOf: classOop) = (ValueIndex + 1)
-	 and: [(self superclassOf: classOop) = (self superclassOf: (objectMemory fetchClassOfNonInt: (objectMemory splObj: SchedulerAssociation)))
+	 and: [(self superclassOf: classOop) = (self superclassOf: (objectMemory fetchClassOfNonImm: (objectMemory splObj: SchedulerAssociation)))
 	 and: [objectMemory isBytes: (objectMemory fetchPointer: KeyIndex ofObject: oop)]]) ifTrue:
 		[self space;
 			printOopShort: (objectMemory fetchPointer: KeyIndex ofObject: oop);

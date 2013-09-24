@@ -14,7 +14,7 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 	depending on whether the target method is cogged or not."
 	<api>
 	<option: #NewspeakVM>
-	| class canLinkCacheTag errSelIdx cogMethod mClassMixin mixinApplication |
+	| class classTag canLinkCacheTag errSelIdx cogMethod mClassMixin mixinApplication |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -22,30 +22,25 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 	"self printStringOf: selector"
 	cogit assertCStackWellAligned.
 	self assert: ((objectMemory isIntegerObject: rcvr) or: [objectMemory addressCouldBeObj: rcvr]).
-	self sendBreak: selector + BaseHeaderSize
-		point: (objectMemory lengthOf: selector)
-		receiver: rcvr.
+	self sendBreakpoint: selector receiver: rcvr.
 	mClassMixin := self mMethodClass.
 	mixinApplication := self 
 							findApplicationOfTargetMixin: mClassMixin
 							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
 	self assert: (objectMemory lengthOf: mixinApplication) > (InstanceSpecificationIndex + 1).
-	lkupClass := self superclassOf: mixinApplication.
-	class := objectMemory fetchClassOf: rcvr.
+	classTag := self classTagForClass: (self superclassOf: mixinApplication).
+	class := objectMemory fetchClassOf: rcvr. "what about the read barrier??"
 	canLinkCacheTag := (objectMemory isYoungObject: class) not or: [cogit canLinkToYoungClasses].
-	"We set the messageSelector and lkupClass for executeMethod below since things
-	 like the at cache read messageSelector and lkupClass and so they cannot be left stale."
-	messageSelector := selector.
-	lkupClass := self superclassOf: mixinApplication.
 	argumentCount := numArgs.
-	(self lookupInMethodCacheSel: selector class: lkupClass)
+	(self lookupInMethodCacheSel: selector classTag: classTag)
 		ifTrue:"check for coggability because method is in the cache"
 			[self
 				ifAppropriateCompileToNativeCode: newMethod
 				selector: selector]
 		ifFalse:
-			[(errSelIdx := self lookupMethodNoMNUEtcInClass: lkupClass) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: lkupClass.
+			[messageSelector := selector.
+			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
 				self assert: false "NOTREACHED"]].
 	"Method found and has a cog method.  Attempt to link to it."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:

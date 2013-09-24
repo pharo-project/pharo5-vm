@@ -14,7 +14,7 @@ lookupAddress: address
 	and: [(size between: 1 and: 64)
 	and: [Scanner isLiteralSymbol: (string := (0 to: size - 1) collect: [:i| Character value: (self fetchByte: i ofObject: address)])]]) ifTrue:
 		[^'#', (ByteString withAll: string)].
-	class := self fetchClassOfNonInt: address.
+	class := self fetchClassOfNonImm: address.
 	((self addressCouldBeObj: class)
 	 and: [(self headerType: class) ~= HeaderTypeShort]) ifFalse:
 		[^nil].

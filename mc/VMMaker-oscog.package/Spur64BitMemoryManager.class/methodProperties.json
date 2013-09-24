@@ -1,0 +1,24 @@
+{
+	"class" : {
+		"wordSize" : "eem 9/10/2013 14:39" },
+	"instance" : {
+		"addressAfter:" : "eem 9/22/2013 15:00",
+		"allocateSlots:format:classIndex:" : "eem 9/22/2013 15:27",
+		"allocateSlotsInOldSpace:format:classIndex:" : "eem 9/22/2013 15:06",
+		"bytesInObject:" : "eem 9/22/2013 15:08",
+		"bytesPerSlot" : "eem 8/30/2013 11:55",
+		"initFreeChunkWithBytes:at:" : "eem 9/22/2013 15:15",
+		"instantiateClass:indexableSize:" : "eem 9/20/2013 14:50",
+		"integerObjectOf:" : "eem 9/3/2013 17:44",
+		"integerValueOf:" : "eem 9/3/2013 17:40",
+		"isWordsNonImm:" : "eem 9/10/2013 15:34",
+		"numTagBits" : "eem 8/31/2013 08:43",
+		"objectAfter:limit:" : "eem 9/23/2013 14:33",
+		"objectBytesForSlots:" : "eem 9/23/2013 11:37",
+		"setClassIndexOf:to:" : "eem 9/22/2013 15:46",
+		"setFormatOf:to:" : "eem 9/22/2013 17:59",
+		"setHashBitsOf:to:" : "eem 9/22/2013 15:43",
+		"setIsRememberedOf:to:" : "eem 9/22/2013 15:45",
+		"shiftForWord" : "eem 8/31/2013 12:00",
+		"tagMask" : "eem 9/4/2013 16:25",
+		"wordSize" : "eem 8/31/2013 11:31" } }

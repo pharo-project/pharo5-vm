@@ -5,7 +5,7 @@ firstIndexableField: oop
 	<returnTypeC: #'void *'>
 	hdr := self baseHeader: oop.
 	fmt := self formatOfHeader: hdr.
-	fmt <= 4 ifTrue: "<= 4 pointer"
+	fmt <= self lastPointerFormat ifTrue:
 		["pointer; may need to delve into the class format word"
 		totalLength := self lengthOf: oop baseHeader: hdr format: fmt.
 		fixedFields := self fixedFieldsOf: oop format: fmt length: totalLength.

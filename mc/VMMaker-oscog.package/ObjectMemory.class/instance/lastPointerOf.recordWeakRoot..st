@@ -4,13 +4,13 @@ lastPointerOf: oop recordWeakRoot: recordWeakRoot "<Boolean>"
 	 Works with CompiledMethods, as well as ordinary objects. 
 	 Can be used even when the type bits are not correct.
 	 This is a version of lastPointerOf: for markAndTrace:."
-	| fmt sz header contextSize |
+	| fmt sz header contextSize numLiterals |
 	<inline: true>
 	header := self baseHeader: oop.
 	fmt := self formatOfHeader: header.
-	fmt <= 4 ifTrue:
-		[fmt >= 3 ifTrue:
-			[fmt = 4 ifTrue:
+	fmt <= self lastPointerFormat ifTrue:
+		[fmt >= self indexablePointersFormat ifTrue:
+			[fmt = self lastPointerFormat ifTrue:
 				[(recordWeakRoot and: [weakRootCount >= 0]) ifTrue:
 					["And remember as weak root"
 					 (weakRootCount := weakRootCount + 1) <= WeakRootTableSize ifFalse:
@@ -24,8 +24,9 @@ lastPointerOf: oop recordWeakRoot: recordWeakRoot "<Boolean>"
 				 contextSize := self fetchStackPointerOf: oop.
 				 ^CtxtTempFrameStart + contextSize * BytesPerOop]].
 		 sz := self sizeBitsOfSafe: oop.
-		 ^sz - BaseHeaderSize  "all pointers" ].
-	fmt < 12 ifTrue: [^0]. "no pointers"
+		 ^sz - BaseHeaderSize  "all pointers"].
+	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes:"
-	^(self literalCountOf: oop) + LiteralStart * BytesPerOop
+	numLiterals := self literalCountOf: oop.
+	^numLiterals + LiteralStart * BytesPerOop

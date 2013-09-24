@@ -15,7 +15,8 @@ checkOkayInterpreterObjects: writeBack
 		oopOrZero := methodCache at: i + MethodCacheSelector.
 		oopOrZero = 0 ifFalse:
 			[ok := ok & (self checkOkayFields: (methodCache at: i + MethodCacheSelector)).
-			ok := ok & (self checkOkayFields: (methodCache at: i + MethodCacheClass)).
+			objectMemory hasSpurMemoryManagerAPI ifFalse:
+				[ok := ok & (self checkOkayFields: (methodCache at: i + MethodCacheClass))].
 			ok := ok & (self checkOkayFields: (methodCache at: i + MethodCacheMethod))]].
 	1 to: objectMemory remapBufferCount do:
 		[ :i |

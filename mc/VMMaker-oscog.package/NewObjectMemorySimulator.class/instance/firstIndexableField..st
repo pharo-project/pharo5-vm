@@ -5,15 +5,15 @@ firstIndexableField: oop
 	<returnTypeC: #'void *'>
 	hdr := self baseHeader: oop.
 	fmt := self formatOfHeader: hdr.
-	fmt <= 4 ifTrue: "<= 4 pointer"
+	fmt <= self lastPointerFormat ifTrue:
 		["pointer; may need to delve into the class format word"
 		totalLength := self lengthOf: oop baseHeader: hdr format: fmt.
 		fixedFields := self fixedFieldsOf: oop format: fmt length: totalLength.
 		^self cCoerce: (self pointerForOop: oop + BaseHeaderSize + (fixedFields << ShiftForWord)) to: 'oop *'].
 	^self
 		cCoerce: (self pointerForOop: oop + BaseHeaderSize)
-		to: (fmt < 8
-				ifTrue: [fmt = 6
+		to: (fmt < self firstByteFormat
+				ifTrue: [fmt = self firstLongFormat
 						ifTrue: ["32 bit field objects" 'int *']
 						ifFalse: ["full word objects (bits)" 'oop *']]
 				ifFalse: ["byte objects (including CompiledMethod" 'char *'])

@@ -13,8 +13,8 @@ primitiveStopVMProfiling
 	successFlag ifFalse:
 		[^nil].
 	"Both args must be either nil or arrays.  If they're arrays and the wrong size we incorrectly stop profiling."
-	((vmHistArrayOrNil = nilObj or: [(self fetchClassOfNonInt: vmHistArrayOrNil) = (self splObj: ClassArray)])
-	 and: [(self fetchClassOfNonInt: vmHistArrayOrNil) = (self fetchClassOfNonInt: easHistArrayOrNil)]) ifFalse:
+	((vmHistArrayOrNil = nilObj or: [(self fetchClassOfNonImm: vmHistArrayOrNil) = (self splObj: ClassArray)])
+	 and: [(self fetchClassOfNonImm: vmHistArrayOrNil) = (self fetchClassOfNonImm: easHistArrayOrNil)]) ifFalse:
 		[^self primitiveFail].
 	self cCode: 'ioControlProfile(0,&vmHist,&vmBins,&easHist,&easBins)'
 		inSmalltalk: [vmHist := vmBins := easHist := easBins := 0].

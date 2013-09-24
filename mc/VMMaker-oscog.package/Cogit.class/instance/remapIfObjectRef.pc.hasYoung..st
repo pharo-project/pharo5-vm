@@ -6,7 +6,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 		[| literal mappedLiteral |
 		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
 		 (objectRepresentation couldBeObject: literal) ifTrue:
-			[mappedLiteral := objectMemory remap: literal.
+			[mappedLiteral := objectRepresentation remapObj: literal.
 			 literal ~= mappedLiteral ifTrue:
 				[backEnd storeLiteral: mappedLiteral beforeFollowingAddress: mcpc asInteger.
 				 codeModified := true].
@@ -17,7 +17,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 		[| cacheTag mappedCacheTag |
 		 cacheTag := backEnd inlineCacheTagAt: mcpc asInteger.
 		 (objectRepresentation couldBeObject: cacheTag) ifTrue:
-			[mappedCacheTag := objectMemory remap: cacheTag.
+			[mappedCacheTag := objectRepresentation remapObj: cacheTag.
 			 cacheTag ~= mappedCacheTag ifTrue:
 				[backEnd rewriteInlineCacheTag: mappedCacheTag at: mcpc asInteger.
 				 codeModified := true].

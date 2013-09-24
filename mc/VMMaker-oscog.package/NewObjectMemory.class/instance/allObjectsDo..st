@@ -1,6 +1,6 @@
-debug support
+object enumeration
 allObjectsDo: aBlock
-	<doNotGenerate>
+	<inline: true>
 	| oop |
 	oop := self firstObject.
 	[oop < freeStart] whileTrue:

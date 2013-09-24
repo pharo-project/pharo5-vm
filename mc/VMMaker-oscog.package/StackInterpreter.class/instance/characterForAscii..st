@@ -1,4 +1,6 @@
 indexing primitive support
-characterForAscii: ascii  "Arg must lie in range 0-255!"
+characterForAscii: ascii  "Above ObjectMemory, arg must lie in range 0-255!"
 	<inline: true>
-	^ objectMemory fetchPointer: ascii ofObject: (objectMemory splObj: CharacterTable)
+	^CharacterTable
+		ifNil: [objectMemory characterObjectOf: ascii]
+		ifNotNil: [objectMemory fetchPointer: ascii ofObject: objectMemory characterTable]

@@ -3,12 +3,12 @@ lookup: selector receiver: rcvr
 	<api>
 	"Lookup selector in rcvr, without doing MNU processing, and answer either a
 	 method or nil if the message was not understood.  Used to populate closed PICs."
-	| class erridx |
+	| classTag erridx |
 	"self printFrame: stackPage headFP WithSP: stackPage headSP"
 	"self printStringOf: selector"
-	class := objectMemory fetchClassOf: rcvr.
-	(self lookupInMethodCacheSel: selector class: class) ifFalse:
+	classTag := objectMemory fetchClassTagOf: rcvr.
+	(self lookupInMethodCacheSel: selector classTag: classTag) ifFalse:
 		[messageSelector := selector.
-		 (erridx := self lookupMethodNoMNUEtcInClass: class) ~= 0 ifTrue:
+		 (erridx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 			[^erridx]].
 	^newMethod

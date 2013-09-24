@@ -195,10 +195,10 @@ initializePrimitiveTable
 		(168 primitiveCopyObject)
 		(169 primitiveNotIdentical)
 
-		"Sound Primitives (170-199) - NO LONGER INDEXED"
-		(170 174 primitiveFail)
-
-		"CogMemoryManager primitives"
+		"SpurMemoryManager primitives"
+		(170 primitiveAsCharacter)
+		(171 primitiveCharacterValue)
+		(172 174 primitiveFail)
 		(175 primitiveBehaviorHash)
 		(176 primitiveMaxIdentityHash)
 		(177 184 primitiveFail)

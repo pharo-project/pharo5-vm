@@ -21,19 +21,19 @@ changeClassOf: rcvr to: argClass
 	rcvrHdr := self baseHeader: rcvr.
 	rcvrFormat := self formatOfHeader: rcvrHdr.
 	"If the receiver is a byte object we need to clear the number of odd bytes from the format."
-	rcvrFormat > 8 ifTrue:
+	rcvrFormat > self firstByteFormat ifTrue:
 		[rcvrFormat := rcvrFormat bitAnd: 16rC].
 	argFormat = rcvrFormat ifFalse:
 		[^PrimErrInappropriate]. "no way"
 
 	"For fixed field classes, the sizes must match.
 	Note: argClassInstByteSize-4 because base header is included in class size."
-	argFormat < 2
+	argFormat < self arrayFormat
 		ifTrue:
 			[(argClassInstByteSize - BaseHeaderSize) ~= (self byteLengthOf: rcvr) ifTrue:
 				[^PrimErrBadReceiver]]
 		ifFalse:
-			[argFormat = 3 ifTrue: "For indexable plus fixed fields the receiver must be at least big enough."
+			[argFormat = self indexablePointersFormat ifTrue: "For indexable plus fixed fields the receiver must be at least big enough."
 				[(argClassInstByteSize - BaseHeaderSize) > (self byteLengthOf: rcvr) ifTrue:
 					[^PrimErrBadReceiver]]].
 

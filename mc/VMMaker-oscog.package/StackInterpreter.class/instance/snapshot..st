@@ -4,7 +4,7 @@ snapshot: embedded
 	| activeContext activeProc dataSize rcvr setMacType stackIndex |
 	<var: #setMacType type: 'void *'>
 
-	"For nowe the stack munging below doesn't deal with more than omne argument.
+	"For now the stack munging below doesn't deal with more than one argument.
 	 It can, and should."
 	argumentCount ~= 0 ifTrue:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
@@ -22,11 +22,7 @@ snapshot: embedded
 
 	objectMemory pushRemappableOop: activeContext.
 
-	"compact memory and compute the size of the memory actually in use"
-	objectMemory incrementalGC.
-
-	"maximimize space for forwarding table"
-	objectMemory fullGC.
+	"garbage collect, bereave contexts and flush external methods."
 	self snapshotCleanUp.
 
 	"Nothing moves from here on so it is safe to grab the activeContext again."
@@ -35,8 +31,7 @@ snapshot: embedded
 	dataSize := objectMemory freeStart - objectMemory startOfMemory. "Assume all objects are below the start of the free block"
 	self successful ifTrue:
 		["Without contexts or stacks simulate
-			rcvr := self popStack.
-			''pop rcvr''
+			rcvr := self popStack. ''pop rcvr''
 			self push: trueObj.
 		  to arrange that the snapshot resumes with true.  N.B. stackIndex is one-relative."
 		stackIndex := self quickFetchInteger: StackPointerIndex ofObject: activeContext.

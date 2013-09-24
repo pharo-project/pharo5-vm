@@ -10,12 +10,10 @@ initializeInterpreter: bytesToShift
 	stackLimit := 0. "This is also the initialization flag for the stack system."
 	stackPage := overflowedPage := 0.
 	extraFramesToMoveOnOverflow := 0.
-	method := objectMemory nilObject.
+	method := newMethod := objectMemory nilObject.
 	self cCode: [self cppIf: MULTIPLEBYTECODESETS ifTrue: [bytecodeSetSelector := 0]]
 		inSmalltalk: [bytecodeSetSelector := 0].
-	messageSelector := objectMemory nilObject.
-	newMethod := objectMemory nilObject.
-	lkupClass := objectMemory nilObject.
+	methodDictLinearSearchLimit := 8.
 	self flushMethodCache.
 	self flushAtCache.
 	self initialCleanup.

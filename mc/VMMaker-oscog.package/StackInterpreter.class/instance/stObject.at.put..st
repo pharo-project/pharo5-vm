@@ -2,12 +2,12 @@ indexing primitive support
 stObject: array at: index put: value
 	"Do what ST would return for <obj> at: index put: value."
 	| hdr fmt totalLength fixedFields stSize |
-	<inline: false>
+	<inline: true>
 	hdr := objectMemory baseHeader: array.
 	fmt := objectMemory formatOfHeader: hdr.
 	totalLength := objectMemory lengthOf: array baseHeader: hdr format: fmt.
 	fixedFields := objectMemory fixedFieldsOf: array format: fmt length: totalLength.
-	(fmt = 3
+	(fmt = objectMemory indexablePointersFormat
 	 and: [objectMemory isContextHeader: hdr])
 		ifTrue:
 			[stSize := self stackPointerForMaybeMarriedContext: array.

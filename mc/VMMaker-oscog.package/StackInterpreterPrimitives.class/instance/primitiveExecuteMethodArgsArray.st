@@ -28,9 +28,6 @@ primitiveExecuteMethodArgsArray
 	primitiveIndex := self primitiveIndexOf: newMethod.
 	primitiveFunctionPointer := self functionPointerFor: primitiveIndex inClass: nil.
 	argumentCount := argCnt.
-	"We set the messageSelector for executeMethod below since things
-	 like the at cache read messageSelector and so it cannot be left stale."
-	messageSelector := objectMemory nilObject.
 	self executeNewMethod.
 	"Recursive xeq affects primErrorCode"
 	self initPrimCall

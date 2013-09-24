@@ -1,0 +1,3 @@
+header format
+identityHashHalfWordMask
+	^16r3fffff

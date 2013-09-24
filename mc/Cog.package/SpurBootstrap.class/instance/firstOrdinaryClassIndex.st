@@ -1,0 +1,3 @@
+class indices
+firstOrdinaryClassIndex
+	^newHeap classTablePageSize

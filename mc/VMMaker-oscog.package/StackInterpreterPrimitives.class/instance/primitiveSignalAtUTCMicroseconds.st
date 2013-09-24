@@ -12,7 +12,7 @@ primitiveSignalAtUTCMicroseconds
 	 or: [objectMemory isIntegerObject: sema]) ifTrue:
 		[self primitiveFail.
 		 ^nil].
-	(objectMemory fetchClassOfNonInt: sema) = (objectMemory splObj: ClassSemaphore)
+	(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)
 		ifTrue:
 			[objectMemory splObj: TheTimerSemaphore put: sema.
 			nextWakeupUsecs := usecs]

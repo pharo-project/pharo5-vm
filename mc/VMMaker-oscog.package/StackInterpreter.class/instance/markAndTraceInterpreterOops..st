@@ -1,7 +1,10 @@
 object memory support
 markAndTraceInterpreterOops: fullGCFlag
 	"Mark and trace all oops in the interpreter's state."
-	"Assume: All traced variables contain valid oops."
+	"Assume: All traced variables contain valid oops.
+	 N.B. Don't trace messageSelector and lkupClass; these are ephemeral, live
+	 only during message lookup and because createActualMessageTo will not
+	 cause a GC these cannot change during message lookup."
 	| oop |
 	"Must mark stack pages first to initialize the per-page trace
 	 flags for full garbage collect before any subsequent tracing."
@@ -9,11 +12,8 @@ markAndTraceInterpreterOops: fullGCFlag
 	self markAndTraceTraceLog.
 	self markAndTracePrimTraceLog.
 	objectMemory markAndTrace: objectMemory specialObjectsOop. "also covers nilObj, trueObj, falseObj, and compact classes"
-	(objectMemory isIntegerObject: messageSelector) ifFalse:
-		[objectMemory markAndTrace: messageSelector].
-	(objectMemory isIntegerObject: newMethod) ifFalse:
-		[objectMemory markAndTrace: newMethod.
-	objectMemory markAndTrace: lkupClass].
+	(objectMemory isImmediate: newMethod) ifFalse:
+		[objectMemory markAndTrace: newMethod].
 	self traceProfileState.
 	tempOop = 0 ifFalse: [objectMemory markAndTrace: tempOop].
 

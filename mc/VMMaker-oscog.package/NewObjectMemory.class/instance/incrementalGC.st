@@ -13,7 +13,7 @@ incrementalGC
 		 statRootTableOverflows := statRootTableOverflows + 1.
 		 ^self fullGC].
 	self runLeakCheckerForFullGC: false.
-	self preGCAction: GCModeIncr.
+	coInterpreter preGCAction: GCModeIncr.
 	needGCFlag := false.
 	gcStartUsecs := self ioUTCMicrosecondsNow.
 	statSweepCount := statMarkCount := statMkFwdCount := statCompMoveCount := 0.
@@ -53,7 +53,7 @@ incrementalGC
 			[self biasToGrow.
 			 weDidGrow := true].
 		youngStart := freeStart].
-	self postGCAction.
+	coInterpreter postGCAction.
 	
 	self runLeakCheckerForFullGC: false.
 	weDidGrow ifTrue:

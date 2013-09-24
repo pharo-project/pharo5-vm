@@ -29,7 +29,7 @@ printFrame: theFP WithSP: theSP
 		 rcvrOrClosure := self pushedReceiverOrClosureOfFrame: theFP.
 		 ((objectMemory isNonIntegerObject: rcvrOrClosure)
 		 and: [(objectMemory addressCouldBeObj: rcvrOrClosure)
-		 and: [(objectMemory fetchClassOfNonInt: rcvrOrClosure) = (objectMemory splObj: ClassBlockClosure)]])
+		 and: [(objectMemory fetchClassOfNonImm: rcvrOrClosure) = (objectMemory splObj: ClassBlockClosure)]])
 			ifTrue: [numTemps := numArgs + (self stSizeOf: rcvrOrClosure)]
 			ifFalse: [numTemps := 0]].
 	self shortPrintFrame: theFP.

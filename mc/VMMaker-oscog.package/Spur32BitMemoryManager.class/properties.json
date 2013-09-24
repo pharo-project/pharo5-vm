@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "Spur32BitMemoryManager",
+	"pools" : [
+		 ],
+	"super" : "SpurMemoryManager",
+	"type" : "normal" }

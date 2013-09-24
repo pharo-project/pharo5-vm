@@ -2,7 +2,7 @@ trampolines
 ceContext: maybeContext instVar: slotIndex
 	<api>
 	| result |
-	(objectMemory isContextNonInt: maybeContext)
+	(objectMemory isContextNonImm: maybeContext)
 		ifTrue:
 			[instructionPointer := self popStack.
 			 result := self externalInstVar: slotIndex ofContext: maybeContext.

@@ -14,7 +14,7 @@ primitiveCopyObject
 	self failed ifTrue:[^nil].
 	(objectMemory isPointers: rcvr) ifFalse:
 		[^self primitiveFail].
-	(objectMemory fetchClassOfNonInt: rcvr) = (objectMemory fetchClassOfNonInt: arg) ifFalse:
+	(objectMemory fetchClassOfNonImm: rcvr) = (objectMemory fetchClassOfNonImm: arg) ifFalse:
 		[^self primitiveFail].
 	length := objectMemory lengthOf: rcvr.
 	length = (objectMemory lengthOf: arg) ifFalse:

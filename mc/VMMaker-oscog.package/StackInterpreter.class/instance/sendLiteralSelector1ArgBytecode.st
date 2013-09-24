@@ -5,6 +5,6 @@ sendLiteralSelector1ArgBytecode
 	messageSelector := self literal: (currentBytecode bitAnd: 16rF).
 	argumentCount := 1.
 	rcvr := self internalStackValue: 1.
-	lkupClass := objectMemory fetchClassOf: rcvr.
-	self assert: lkupClass ~= objectMemory nilObject.
+	lkupClassTag := objectMemory fetchClassTagOf: rcvr.
+	self assert: lkupClassTag ~= objectMemory nilObject.
 	self commonSend

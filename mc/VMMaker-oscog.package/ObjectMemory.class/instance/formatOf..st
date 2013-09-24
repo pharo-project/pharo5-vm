@@ -6,7 +6,7 @@ formatOf: oop
         3      both fixed and indexable fields (all containing pointers)
         4      both fixed and indexable weak fields (all containing pointers).
 
-        5      unused
+        5      unused (reserved for ephemerons?)
         6      indexable word fields only (no pointers)
         7      indexable long (64-bit) fields (only in 64-bit images)
  
@@ -16,4 +16,4 @@ formatOf: oop
                    followed by indexable bytes (same interpretation of low 2 bits as above)
 "
 	<inline: true>
-	^((self baseHeader: oop) >> 8) bitAnd: 16rF
+	^((self baseHeader: oop) >> self instFormatFieldLSB) bitAnd: 16rF

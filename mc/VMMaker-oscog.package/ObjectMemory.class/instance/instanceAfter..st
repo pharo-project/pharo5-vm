@@ -1,13 +1,13 @@
-object enumeration
-instanceAfter: objectPointer 
-	"Support for instance enumeration. Return the next instance 
-	of the class of the given object, or nilObj if the enumeration 
-	is complete."
-	| classPointer thisObj thisClass |
-	classPointer := self fetchClassOfNonInt: objectPointer.
-	thisObj := self accessibleObjectAfter: objectPointer.
-	[thisObj = nil] whileFalse:
-		[thisClass := self fetchClassOfNonInt: thisObj.
-		 thisClass = classPointer ifTrue: [^ thisObj].
-		 thisObj := self accessibleObjectAfter: thisObj].
-	^ nilObj
+primitive support
+instanceAfter: objOop
+	"Answer the next instance of objOop's class in the canonical enumeration order,
+	 if it exists, otherwise answer nil."
+	| classPointer subsequentObject |
+	classPointer := self fetchClassOfNonImm: objOop.
+	subsequentObject := self objectAfter: objOop.
+	[self oop: subsequentObject isLessThan: self freeStart] whileTrue:
+		[((self isFreeObject: subsequentObject) not
+		  and: [(self fetchClassOfNonImm: subsequentObject) = classPointer]) ifTrue:
+			[^subsequentObject].
+		 subsequentObject := self objectAfter: subsequentObject].
+	^nil

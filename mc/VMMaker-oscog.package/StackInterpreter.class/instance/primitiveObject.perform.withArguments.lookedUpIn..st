@@ -21,7 +21,7 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	"Check if number of arguments is reasonable; MaxNumArgs isn't available
 	 so just use LargeContextSize"
 	arraySize := objectMemory fetchWordLengthOf: argumentArray.
-	arraySize > (LargeContextSize / BytesPerWord) ifTrue:
+	arraySize > LargeContextSlots ifTrue:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
 
 	performArgCount := argumentCount.
@@ -34,12 +34,10 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 		[:index| self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray)].
 	argumentCount := arraySize.
 	messageSelector := selector.
-	self sendBreak: messageSelector + BaseHeaderSize
-		point: (objectMemory lengthOf: messageSelector)
-		receiver: actualReceiver.
+	self sendBreakpoint: messageSelector receiver: actualReceiver.
 	self printSends ifTrue:
 		[self printActivationNameForSelector: messageSelector startClass: lookupClass; cr].
-	self findNewMethodInClass: lookupClass.
+	self findNewMethodInClassTag: (objectMemory classTagForClass: lookupClass).
 
 	"Only test CompiledMethods for argument count - any other objects playacting as CMs will have to take their chances"
 	((objectMemory isOopCompiledMethod: newMethod)

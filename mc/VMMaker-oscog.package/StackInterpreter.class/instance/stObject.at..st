@@ -3,12 +3,13 @@ stObject: array at: index
 	"Return what ST would return for <obj> at: index."
 
 	| hdr fmt totalLength fixedFields stSize |
-	<inline: false>
+	<inline: true>
 	hdr := objectMemory baseHeader: array.
 	fmt := objectMemory formatOfHeader: hdr.
 	totalLength := objectMemory lengthOf: array baseHeader: hdr format: fmt.
 	fixedFields := objectMemory fixedFieldsOf: array format: fmt length: totalLength.
-	(fmt = 3 and: [objectMemory isContextHeader: hdr])
+	(fmt = objectMemory indexablePointersFormat
+	 and: [objectMemory isContextHeader: hdr])
 		ifTrue:
 			[stSize := self stackPointerForMaybeMarriedContext: array.
 			((self oop: index isGreaterThanOrEqualTo: 1)

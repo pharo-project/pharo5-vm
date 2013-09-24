@@ -2,14 +2,12 @@ debug printing
 printStringOf: oop
 	| fmt len cnt max i |
 	<inline: false>
-	(objectMemory isIntegerObject: oop) ifTrue:
+	(objectMemory isImmediate: oop) ifTrue:
 		[^nil].
-	(oop between: objectMemory startOfMemory and: objectMemory freeStart) ifFalse:
-		[^nil].
-	(oop bitAnd: (BytesPerOop - 1)) ~= 0 ifTrue:
+	(objectMemory addressCouldBeObj: oop) ifFalse:
 		[^nil].
 	fmt := objectMemory formatOf: oop.
-	fmt < 8 ifTrue: [^nil].
+	fmt < objectMemory firstByteFormat ifTrue: [^nil].
 
 	cnt := (max := 128) min: (len := objectMemory lengthOf: oop).
 	i := 0.

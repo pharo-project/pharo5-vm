@@ -5,4 +5,6 @@ isWordsOrBytesNonInt: oop
 
 	| fmt |
 	fmt := self formatOf: oop.
-	^ fmt = 6 or: [(fmt >= 8) and: [fmt <= 11]]
+	^fmt = self firstLongFormat
+	  or: [fmt >= self firstByteFormat
+		  and: [fmt < self firstCompiledMethodFormat]]

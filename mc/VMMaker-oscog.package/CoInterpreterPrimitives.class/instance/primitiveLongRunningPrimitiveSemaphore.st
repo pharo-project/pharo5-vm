@@ -14,7 +14,7 @@ primitiveLongRunningPrimitiveSemaphore
 			 longRunningPrimitiveCheckSemaphore := nil]
 		ifFalse:
 			[flushState := longRunningPrimitiveCheckSemaphore isNil.
-			 (objectMemory fetchClassOfNonInt: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
+			 (objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
 				[^self primitiveFail].
 			 longRunningPrimitiveCheckSemaphore := sema].
 	"If we've switched checking on or off we must void machine code
@@ -27,7 +27,7 @@ primitiveLongRunningPrimitiveSemaphore
 		 self marryContextInNewStackPageAndInitializeInterpreterRegisters: activeContext.
 		 self assert: (((self stackValue: 0) = objectMemory nilObject and: [longRunningPrimitiveCheckSemaphore isNil])
 				  or: [(self stackValue: 0) = longRunningPrimitiveCheckSemaphore
-					  and: [(objectMemory fetchClassOfNonInt: sema) = (objectMemory splObj: ClassSemaphore)]])].
+					  and: [(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)]])].
 	self voidLongRunningPrimitive: 'install'.
 	self pop: 1.
 	flushState ifTrue:

@@ -6,18 +6,18 @@ lastPointerWhileForwarding: oop
 	<inline: true>
 	header := self headerWhileForwardingOf: oop.
 	fmt := self formatOfHeader: header.
-	fmt <= 4 ifTrue:
-		[(fmt = 3
+	fmt <= self lastPointerFormat ifTrue:
+		[(fmt = self indexablePointersFormat
 		  and: [self isContextHeader: header]) ifTrue:
 			["contexts end at the stack pointer"
 			contextSize := self nacFetchStackPointerOf: oop.
 			self assert: ReceiverIndex + contextSize < (self lengthOf: oop baseHeader: header format: fmt).
-			^ CtxtTempFrameStart + contextSize * BytesPerWord].
+			^CtxtTempFrameStart + contextSize * BytesPerWord].
 		"do sizeBitsOf: using the header we obtained"
 		(header bitAnd: TypeMask) = HeaderTypeSizeAndClass
 			ifTrue: [size := (self sizeHeader: oop) bitAnd: AllButTypeMask]
 			ifFalse: [size := header bitAnd: SizeMask].
-		^ size - BaseHeaderSize].
-	fmt < 12 ifTrue: [^ 0]. "no pointers"
+		^size - BaseHeaderSize].
+	fmt < self firstCompiledMethodFormat ifTrue: [^ 0]. "no pointers"
 	methodHeader := self longAt: oop + BaseHeaderSize.
 	^(self literalCountOfHeader: methodHeader) * BytesPerWord + BaseHeaderSize

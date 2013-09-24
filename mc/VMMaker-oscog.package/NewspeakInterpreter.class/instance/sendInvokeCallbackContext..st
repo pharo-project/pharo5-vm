@@ -10,7 +10,7 @@ sendInvokeCallbackContext: vmCallbackContext
 	<var: #vmCallbackContext type: #'VMCallbackContext *'>
 	| relativeSP |
 	receiver := self splObj: ClassAlien.
-	lkupClass := self fetchClassOfNonInt: receiver.
+	lkupClass := self fetchClassOfNonImm: receiver.
 	messageSelector := self splObj: SelectorInvokeCallback.
 	(self lookupInMethodCacheSel: messageSelector class: lkupClass) ifFalse:
 	 	[(self lookupMethodNoMNUEtcInClass: lkupClass) ~= 0 ifTrue:

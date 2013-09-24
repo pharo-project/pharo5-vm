@@ -6,7 +6,7 @@ storeMaybeContextReceiverVariable: fieldIndex withValue: anObject
 	| rcvr |
 	rcvr := self receiver.
 	((self isWriteMediatedContextInstVarIndex: fieldIndex)
-	and: [(objectMemory isContextNonInt: rcvr)
+	and: [(objectMemory isContextNonImm: rcvr)
 	and: [self isMarriedOrWidowedContext: rcvr]])
 		ifTrue:
 			[self instVar: fieldIndex ofContext: rcvr put: anObject]

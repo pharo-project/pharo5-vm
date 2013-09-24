@@ -32,7 +32,7 @@ pathTo: goal using: stack followWeak: followWeak
 									ifTrue: [self fieldOrSenderFP: index ofContext: current]
 									ifFalse: [objectMemory fetchPointer: index ofObject: current]]
 							ifFalse:
-								[objectMemory fetchClassOfNonInt: current]].
+								[objectMemory fetchClassOfNonImm: current]].
 		 (stackPages couldBeFramePointer: next)
 			ifTrue: [self assert: (self isFrame: next onPage: (stackPages stackPageFor: next))]
 			ifFalse: [self assert: (self checkOkayOop: next)].

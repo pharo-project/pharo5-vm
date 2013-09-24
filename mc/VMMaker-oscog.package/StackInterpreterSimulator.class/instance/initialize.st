@@ -5,20 +5,8 @@ initialize
 	 Smalltalk Arrays for variables that will be declared as statically-allocated
 	 global arrays in the translated code."
 
-	| objectMemoryClass |
-
-	"initialize class variables"
-	objectMemory ifNotNil:
-		[^self halt].
-
-	objectMemoryClass := self class objectMemoryClass.
-
-	objectMemoryClass initBytesPerWord: objectMemoryClass bytesPerWord.
-	objectMemoryClass initialize.
-	StackInterpreter initialize.
-
-	super initialize.
-	objectMemory := objectMemoryClass simulatorClass new.
+	objectMemory ifNil:
+		[objectMemory := self class objectMemoryClass simulatorClass new].
 	objectMemory coInterpreter: self.
 
 	"Note: we must initialize ConstMinusOne differently for simulation,

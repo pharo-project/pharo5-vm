@@ -8,6 +8,6 @@ nonWeakFieldsOf: oop
 	self assert: (self isWeakNonInt: oop).
 
 	"fmt = 3 or 4: mixture of fixed and indexable fields, so must look at class format word"
-	class := self fetchClassOfNonInt: oop.
+	class := self fetchClassOfNonImm: oop.
 	classFormat := self formatOfClass: class.
 	^(classFormat >> 11 bitAnd: 16rC0) + (classFormat >> 2 bitAnd: 16r3F) - 1

@@ -8,5 +8,5 @@ doSignalSemaphoreWithIndex: index
 	semaphoreClass := self splObj: ClassSemaphore.
 	sema := self fetchPointer: index - 1 ofObject: xArray. "Note: semaphore indices are 1-based"
 	^(self isNonIntegerObject: sema)
-	   and: [(self fetchClassOfNonInt: sema) = semaphoreClass
+	   and: [(self fetchClassOfNonImm: sema) = semaphoreClass
 	   and: [self synchronousSignal: sema]]

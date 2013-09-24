@@ -19,7 +19,7 @@ commonAtPut: stringy
 	Therefore we must determine that the message is #at:Put: (not, eg, #basicAt:Put:),
 	and that the send is not a super-send, before using the at-cache."
 	(messageSelector = (self specialSelector: 17)
-	  and: [lkupClass = (self fetchClassOfNonInt: rcvr)])
+	  and: [lkupClass = (self fetchClassOfNonImm: rcvr)])
 		ifTrue:
 		["OK -- look in the at-cache"
 		atIx := (rcvr bitAnd: AtCacheMask) + AtPutBase.  "Index into atPutCache"

@@ -14,7 +14,6 @@ requiredMethodNames: options
 			getSavedWindowSize getThisSessionID
 		interpret
 		loadInitialContext
-		oopFromChunk:
 		primitiveFail primitiveFailFor: primitiveFlushExternalPrimitives printAllStacks printCallStack printContext:
 			printExternalHeadFrame printFramesInPage: printFrame: printHeadFrame printMemory printOop:
 				printStackPages printStackPageList printStackPagesInUse printStackPageListInUse

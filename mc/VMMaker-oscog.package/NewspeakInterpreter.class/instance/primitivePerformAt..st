@@ -31,9 +31,7 @@ primitivePerformAt: lookupClass
 	argumentCount := arraySize.
 
 	self fastLogSend: messageSelector.
-	self sendBreak: messageSelector + BaseHeaderSize
-		point: (self lengthOf: messageSelector)
-		receiver: receiver.
+	self sendBreakpoint: messageSelector receiver: receiver.
 	self findNewMethodInClass: lookupClass.
 
 	"Only test CompiledMethods for argument count - any other objects playacting as CMs will have to take their chances"

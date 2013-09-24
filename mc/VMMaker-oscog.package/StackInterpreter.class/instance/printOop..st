@@ -2,30 +2,32 @@ debug printing
 printOop: oop
 	| cls fmt lastIndex startIP bytecodesPerLine column |
 	<inline: false>
+	(objectMemory isImmediate: oop) ifTrue:
+		[^self shortPrintOop: oop].
 	self printHex: oop.
-	(objectMemory isIntegerObject: oop) ifTrue:
-		[^self
-			cCode: 'printf("=%ld\n", (long)integerValueOf(oop))'
-			inSmalltalk: [self print: (self shortPrint: oop); cr]].
-	(oop between: objectMemory startOfMemory and: objectMemory freeStart) ifFalse:
-		[self print: ' is not on the heap'; cr.
-		 ^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
-		[self print: ' is misaligned'; cr.
+	(objectMemory addressCouldBeObj: oop) ifFalse:
+		[self print: ((oop bitAnd: objectMemory allocationUnit - 1) ~= 0
+						ifTrue: [' is misaligned']
+						ifFalse: [' is not on the heap']); cr.
 		 ^nil].
 	(objectMemory isFreeObject: oop) ifTrue:
 		[self print: ' is a free chunk of size '; printNum: (objectMemory sizeOfFree: oop); cr.
 		 ^nil].
+	(objectMemory isForwarded: oop) ifTrue:
+		[self
+			print: ' is a forwarded object to '; printHex: (objectMemory followForwarded: oop);
+			print: ' of slot size '; printNum: (objectMemory numSlotsOfAny: oop); cr.
+		 ^nil].
 	self print: ': a(n) '.
-	self printNameOfClass: (cls := objectMemory fetchClassOfNonInt: oop) count: 5.
+	self printNameOfClass: (cls := objectMemory fetchClassOfNonImm: oop) count: 5.
 	cls = (objectMemory splObj: ClassFloat) ifTrue:
 		[self cr; printFloat: (self dbgFloatValueOf: oop); cr.
 		 ^nil].
 	fmt := objectMemory formatOf: oop.
-	fmt > 4 ifTrue:
+	fmt > objectMemory lastPointerFormat ifTrue:
 		[self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)].
 	self cr.
-	(fmt > 4 and: [fmt < 12]) ifTrue:
+	(fmt between: objectMemory firstLongFormat and: objectMemory firstCompiledMethodFormat - 1) ifTrue:
 		["This will answer false if splObj: ClassAlien is nilObject"
 		 (self is: oop KindOfClass: (objectMemory splObj: ClassAlien)) ifTrue:
 			[self print: ' datasize '; printNum: (self sizeOfAlienData: oop).
@@ -49,7 +51,9 @@ printOop: oop
 					[self cr]].
 			^nil].
 		^self printStringOf: oop; cr].
-	lastIndex := 64 min: (startIP := (objectMemory lastPointerOf: oop) / BytesPerWord).
+	"this is nonsense.  apologies."
+	startIP := (objectMemory lastPointerOf: oop) + BytesPerOop - objectMemory baseHeaderSize / BytesPerOop.
+	lastIndex := 256 min: startIP.
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
 			[:index|

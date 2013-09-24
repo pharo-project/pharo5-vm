@@ -12,7 +12,5 @@ implicitReceiverFor: rcvr mixin: mixin implementing: selector
 	<api>
 	<option: #NewspeakVM>
 	cogit breakOnImplicitReceiver ifTrue:
-		[self sendBreak: selector + BaseHeaderSize
-			point: (objectMemory lengthOf: selector)
-			receiver: nil].
+		[self sendBreakpoint: selector receiver: nil].
 	^super implicitReceiverFor: rcvr mixin: mixin implementing: selector

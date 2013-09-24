@@ -9,6 +9,6 @@ byteSizeOf: oop
 				ifTrue: [(self sizeHeader: oop) bitAnd: LongSizeMask]
 				ifFalse: [header bitAnd: SizeMask].
 	size := size - (header bitAnd: Size4Bit).
-	^format < 8
+	^format < self firstByteFormat
 		ifTrue: [ size - BaseHeaderSize "32-bit longs"]
 		ifFalse: [ (size - BaseHeaderSize) - (format bitAnd: 3) "bytes"]

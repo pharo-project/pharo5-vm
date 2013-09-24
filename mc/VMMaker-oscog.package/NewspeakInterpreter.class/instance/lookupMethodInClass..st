@@ -15,9 +15,7 @@ lookupMethodInClass: class
 			currentClass := self popRemappableOop.
 			messageSelector := self splObj: SelectorCannotInterpret.
 			self fastLogSend: messageSelector.
-			self sendBreak: messageSelector + BaseHeaderSize
-				point: (self lengthOf: messageSelector)
-				receiver: nil.
+			self sendBreakpoint: messageSelector receiver: nil.
 			^ self lookupMethodInClass: (self superclassOf: currentClass)].
 		found := self lookupMethodInDictionary: dictionary.
 		found ifTrue: [^currentClass].

@@ -63,8 +63,6 @@ primitiveDoNamedPrimitiveWithArgs
 	argumentCount := arraySize.
 	1 to: arraySize do:
 		[:index| self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray)].
-	"Run the primitive (sets primFailCode)"
-	lkupClass := objectMemory nilObject.
 	self callExternalPrimitive: addr.
 	ctxtRcvr  := objectMemory popRemappableOop.
 	methodArg := objectMemory popRemappableOop.

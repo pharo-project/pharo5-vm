@@ -7,7 +7,7 @@ remapNSIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 		[| literal mappedLiteral |
 		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
 		 (objectRepresentation couldBeObject: literal) ifTrue:
-			[mappedLiteral := objectMemory remap: literal.
+			[mappedLiteral := objectRepresentation remapObj: literal.
 			 literal ~= mappedLiteral ifTrue:
 				[backEnd storeLiteral: mappedLiteral beforeFollowingAddress: mcpc asInteger.
 				 codeModified := true].
@@ -18,7 +18,7 @@ remapNSIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 		[| cacheTag mappedCacheTag entryPoint |
 		 cacheTag := backEnd inlineCacheTagAt: mcpc asInteger.
 		 (objectRepresentation couldBeObject: cacheTag) ifTrue:
-			[mappedCacheTag := objectMemory remap: cacheTag.
+			[mappedCacheTag := objectRepresentation remapObj: cacheTag.
 			 cacheTag ~= mappedCacheTag ifTrue:
 				[backEnd rewriteInlineCacheTag: mappedCacheTag at: mcpc asInteger.
 				 codeModified := true].
@@ -31,7 +31,7 @@ remapNSIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 				[| pc oop mappedOop |
 				 pc := mcpc asInteger + backEnd jumpShortByteSize.
 				 (oop := backEnd unalignedLongAt: pc) ~= 0 ifTrue:
-					[mappedOop := objectMemory remap: oop.
+					[mappedOop := objectRepresentation remapOop: oop.
 					 mappedOop ~= oop ifTrue:
 						[backEnd unalignedLongAt: pc put: mappedOop].
 					 (hasYoungPtr ~= 0
@@ -39,7 +39,7 @@ remapNSIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 						[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true].
 					 pc := mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop.
 					 (oop := backEnd unalignedLongAt: pc) ~= 0 ifTrue:
-						[mappedOop := objectMemory remap: oop.
+						[mappedOop := objectRepresentation remapOop: oop.
 						 mappedOop ~= oop ifTrue:
 							[backEnd unalignedLongAt: pc put: mappedOop].
 					 (hasYoungPtr ~= 0

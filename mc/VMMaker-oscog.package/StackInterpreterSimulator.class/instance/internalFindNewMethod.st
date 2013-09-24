@@ -13,7 +13,7 @@ internalFindNewMethod
 	sendCount := sendCount + 1.
 
 	printSends ifTrue:
-		[self cr; print: byteCount; space; printStringOf: messageSelector; cr].
+		[self cr; print: byteCount; space; printStringOf: messageSelector].
 "
 	(sendCount > 1000 and: [sendCount\\10 = 0]) ifTrue:
 		[Transcript print: sendCount; space.

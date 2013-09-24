@@ -1,4 +1,4 @@
-object enumeration
+debug support
 clearLeakMapAndMapAccessibleObjects
 	"Perform an integrity/leak check using the heapMap.  Set a bit at each object's header."
 	| obj sz nextHeader |

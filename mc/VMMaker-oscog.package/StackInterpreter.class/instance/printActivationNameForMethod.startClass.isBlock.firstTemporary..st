@@ -28,7 +28,7 @@ printActivationNameForMethod: aMethod startClass: startClass isBlock: isBlock fi
 		ifFalse: [self print: 'INVALID SELECTOR'].
 	(methodSel = (objectMemory splObj: SelectorDoesNotUnderstand)
 	and: [(objectMemory addressCouldBeObj: maybeMessage)
-	and: [(objectMemory fetchClassOfNonInt: maybeMessage) = (objectMemory splObj: ClassMessage)]]) ifTrue:
+	and: [(objectMemory fetchClassOfNonImm: maybeMessage) = (objectMemory splObj: ClassMessage)]]) ifTrue:
 		["print arg message selector"
 		methodSel := objectMemory fetchPointer: MessageSelectorIndex ofObject: maybeMessage.
 		self print: ' '.

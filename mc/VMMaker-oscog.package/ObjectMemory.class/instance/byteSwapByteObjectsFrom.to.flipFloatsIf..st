@@ -11,13 +11,13 @@ byteSwapByteObjectsFrom: startOop to: stopAddr flipFloatsIf: flipFloatWords
 	[self oop: oop isLessThan: stopAddr] whileTrue:
 		[(self isFreeObject: oop) ifFalse:
 			[fmt := self formatOf: oop.
-			fmt >= 8 ifTrue:
+			fmt >= self firstByteFormat ifTrue:
 				["oop contains bytes; unswap"
 				wordAddr := oop + BaseHeaderSize.
-				fmt >= 12 ifTrue: "compiled method; start after methodHeader and literals"
+				fmt >= self firstCompiledMethodFormat ifTrue: "compiled method; start after methodHeader and literals"
 					[wordAddr := wordAddr + ((self literalCountOf: oop) + LiteralStart * BytesPerOop)].
 				self reverseBytesFrom: wordAddr to: oop + (self sizeBitsOf: oop)].
-			fmt = 6  ifTrue: "Bitmap, Float etc"
+			fmt = self firstLongFormat  ifTrue: "Bitmap, Float etc"
 				[(self compactClassIndexOf: oop) = ClassFloatCompactIndex
 					ifTrue:
 						[flipFloatWords ifTrue:

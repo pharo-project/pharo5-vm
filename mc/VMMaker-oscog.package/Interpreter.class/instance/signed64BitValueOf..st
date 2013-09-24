@@ -7,7 +7,7 @@ signed64BitValueOf: oop
 	<returnTypeC: #sqLong>
 	<var: #value type: #sqLong>
 	(self isIntegerObject: oop) ifTrue: [^self cCoerce: (self integerValueOf: oop) to: #sqLong].
-	largeClass := self fetchClassOfNonInt: oop.
+	largeClass := self fetchClassOfNonImm: oop.
 	largeClass = self classLargePositiveInteger
 		ifTrue:[negative := false]
 		ifFalse:[largeClass = self classLargeNegativeInteger

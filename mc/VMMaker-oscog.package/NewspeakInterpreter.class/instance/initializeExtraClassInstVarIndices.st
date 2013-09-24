@@ -7,7 +7,7 @@ initializeExtraClassInstVarIndices
 	classNameIndex := 6. "default"
 	thisClassIndex := 5. "default"
 	classArrayObj := self splObj: ClassArray.
-	classArrayClass := self fetchClassOfNonInt: classArrayObj.
+	classArrayClass := self fetchClassOfNonImm: classArrayObj.
 	metaclassSizeBits := self sizeBitsOf: classArrayClass.	"determine actual (Metaclass instSize * 4)"
 	InstanceSpecificationIndex + 1 to: (self lengthOf: classArrayClass) do:
 		[:i|

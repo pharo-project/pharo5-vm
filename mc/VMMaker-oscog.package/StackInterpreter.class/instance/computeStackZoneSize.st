@@ -1,7 +1,6 @@
 initialization
 computeStackZoneSize
-	"In C the StackPage structs live next to the actual stack pages in the alloca'ed stack
-	 zone.  In simulation these live in some dictionary and don't exist in the memory."
-	^numStackPages * ((self cCode: [self sizeof: InterpreterStackPage] inSmalltalk: [0])
-						+ self stackPageByteSize)
+	self cCode: []
+		inSmalltalk: [stackPages ifNil: [stackPages := self stackPagesClass new]].
+	^numStackPages * ((self sizeof: InterpreterStackPage) + self stackPageByteSize)
 	 + stackPages extraStackBytes

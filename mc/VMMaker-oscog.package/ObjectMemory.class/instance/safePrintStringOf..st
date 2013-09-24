@@ -11,7 +11,7 @@ safePrintStringOf: oop
 		[^nil].
 	header := self headerWhileForwardingOf: oop.
 	fmt := self formatOfHeader: header.
-	fmt < 8 ifTrue: [ ^nil ].
+	fmt < self firstByteFormat ifTrue: [^nil].
 
 	cnt := 100 min: (self lengthOf: oop baseHeader: header format: fmt).
 	i := 0.
