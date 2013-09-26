@@ -1,7 +1,8 @@
 language: c
 env: OS=linux
 install:
-  - sudo apt-get install gcc cmake lib32c-dev libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev zip bash-completion htop ruby1.9.1 git-all ia32-libs xz-utils build-essential debhelper devscripts
+  - sudo apt-get install gcc cmake lib32c-dev libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev zip bash-completion htop ruby1.9.1 git-all xz-utils build-essential debhelper devscripts
+  - sudo apt-get install ia32-libs
 script:
   - codegen-scripts/extract-commit-info.sh
   - cd image && ./newImage.sh
