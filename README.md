@@ -7,7 +7,7 @@ Unix:
 -----
 ```bash    
 # build tools
-sudo apt-get install gcc g++ cmake lib32x-dev
+sudo apt-get install gcc g++ cmake lib32c-dev ia32-libs
 # dependencies for vm plugins
 sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
 ```
