@@ -1,0 +1,8 @@
+language: c
+env: OS=linux
+install:
+  - sudo apt-get install -qq gcc g++ cmake lib32x-dev
+  - sudo apt-get install -qq libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
+script:
+  - cd image && ./newImage.sh
+  - codegen-scripts/extract-commit-info.sh
