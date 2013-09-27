@@ -25,8 +25,15 @@ fi
 
 # ===============================================================================
 codegen-scripts/extract-commit-info.sh
+
 cd image
 ./newImage.sh
-echo "PharoVMBuilder buildOnJenkins: '$OS'." > ./script.st
+
+echo "
+NonInteractiveTranscript stdout install.
+PharoVMBuilder buildOnJenkins: '$OS'.
+" > ./script.st
+
 ./pharo generator.image script.st
+
 cd ../build/build.sh

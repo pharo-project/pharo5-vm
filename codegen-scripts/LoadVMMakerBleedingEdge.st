@@ -1,3 +1,5 @@
+NonInteractiveTranscript stdout install.
+
 Gofer new
 	squeaksource: 'MetacelloRepository';
 	package: 'ConfigurationOfCog';
@@ -9,6 +11,8 @@ Gofer new
 	package: 'ConfigurationOfPharoVM';
 	load.
 ((Smalltalk at: #ConfigurationOfPharoVM) project version: #bleedingEdge) load.
+
+ThreadSafeTranscript install.
 
 (Smalltalk saveAs: 'generator.image') 
 	ifFalse: [ Smalltalk snapshot: false andQuit: true ]
