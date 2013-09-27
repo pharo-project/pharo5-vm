@@ -24,6 +24,8 @@ else
 fi
 
 # ===============================================================================
+set -x
+
 codegen-scripts/extract-commit-info.sh
 
 cd image
