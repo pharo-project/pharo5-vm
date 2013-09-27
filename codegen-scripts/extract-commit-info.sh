@@ -14,6 +14,8 @@ VERSION_INFO=$DIR/../build/vmVersionInfo.h
 URL=`git config --get remote.origin.url`
 COMMIT=`git show HEAD --pretty="Commit: %H Date: %ci By: %cn <%cE>" | head -n 1`
 
+mkdir `dirname $VERSION_INFO`
+
 echo -n "#define REVISION_STRING \"$URL $COMMIT " > $VERSION_INFO 
 test -n "${BUILD_NUMBER}" && echo -n "Jenkins build #${BUILD_NUMBER}" >> $VERSION_INFO || echo
 echo "\"" >> $VERSION_INFO
