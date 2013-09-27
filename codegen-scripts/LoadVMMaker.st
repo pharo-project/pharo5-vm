@@ -1,4 +1,4 @@
-NonInteractiveTranscript stderr install.
+NonInteractiveTranscript stdout install.
 
 Gofer new
       url: 'http://ss3.gemstone.com/ss/FileTree';
