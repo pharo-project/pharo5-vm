@@ -5,4 +5,4 @@ install:
   - sudo apt-get install gcc cmake lib32c-dev libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev zip bash-completion htop ruby git xz-utils build-essential debhelper devscripts
   - sudo apt-get install libc6:i386
 script:
-  - build.sh
+  - ./build.sh
