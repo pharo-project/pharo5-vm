@@ -36,6 +36,7 @@ NonInteractiveTranscript stdout install.
 PharoVMBuilder buildOnJenkins: '$OS'.
 " > ./script.st
 
-./pharo generator.image script.st
+./pharo generator.image --quit script.st
 
-cd ../build/build.sh
+cd ../build
+./build.sh
