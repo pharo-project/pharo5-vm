@@ -5,10 +5,4 @@ install:
   - sudo apt-get install gcc cmake lib32c-dev libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev zip bash-completion htop ruby git xz-utils build-essential debhelper devscripts
   - sudo apt-get install libc6:i386
 script:
-  - codegen-scripts/extract-commit-info.sh
-  - cd image
-  - ./newImage.sh
-  - "echo \"PharoVMBuilder buildOnJenkins: '$OS'.\" > ./script.st
-  - wget -O- get.pharo.org/vm | bash
-  - ./pharo generator.image script.st"
-  - cd build/build.sh
+  - build.sh
