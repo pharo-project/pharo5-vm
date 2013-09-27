@@ -6,8 +6,9 @@ install:
   - sudo apt-get install libc6:i386
 script:
   - codegen-scripts/extract-commit-info.sh
-  - cd image && ./newImage.sh
-  - "cd image && echo \"PharoVMBuilder buildOnJenkins: '$OS'.\" > ./script.st &&
-wget -O- get.pharo.org/vm | bash && 
-./pharo generator.image script.st"
+  - cd image
+  - ./newImage.sh
+  - "echo \"PharoVMBuilder buildOnJenkins: '$OS'.\" > ./script.st
+  - wget -O- get.pharo.org/vm | bash
+  - ./pharo generator.image script.st"
   - cd build/build.sh
