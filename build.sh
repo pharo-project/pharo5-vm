@@ -39,4 +39,4 @@ PharoVMBuilder buildOnJenkins: '$OS'.
 ./pharo generator.image --quit script.st
 
 cd ../build
-./build.sh
+bash ./build.sh
