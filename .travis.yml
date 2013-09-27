@@ -4,6 +4,6 @@ install:
   - sudo apt-get update 
   - sudo apt-get install cmake libgl1-mesa-dev zip bash-completion htop ruby git xz-utils build-essential debhelper devscripts
   - sudo apt-get install libc6:i386 libasound2-dev:i386 libssl-dev:i386 libfreetype6-dev:i386
-  - sudo apt-get install gcc
+  - sudo apt-get install gcc g++
 script:
   - ./build.sh
