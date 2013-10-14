@@ -3,6 +3,7 @@
 		"build" : "EstebanLorenzano 7/10/2013 17:11",
 		"buildMacOSX32" : "EstebanLorenzano 7/10/2013 17:11",
 		"buildOnJenkins:" : "jeanbaptistearnaud 10/14/2013 17:40",
+		"buildRaspberryPi" : "jeanbaptistearnaud 10/14/2013 17:55",
 		"buildUnix32" : "EstebanLorenzano 7/10/2013 17:11",
 		"buildWin32" : "EstebanLorenzano 7/10/2013 17:11" },
 	"instance" : {
