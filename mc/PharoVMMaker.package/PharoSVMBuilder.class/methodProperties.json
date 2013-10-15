@@ -11,4 +11,6 @@
 		"buildRaspberryPi" : "jeanbaptistearnaud 10/14/2013 17:38",
 		"buildUnix32" : "EstebanLorenzano 7/12/2013 13:02",
 		"buildWin32" : "EstebanLorenzano 7/12/2013 13:02",
+		"generateCMakeFilesForRaspberryPi" : "jeanbaptistearnaud 10/15/2013 11:58",
+		"generateSourcesForRaspberryPi" : "jeanbaptistearnaud 10/15/2013 11:57",
 		"initialize" : "EstebanLorenzano 7/10/2013 17:11" } }
