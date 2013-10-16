@@ -2,4 +2,5 @@
 	"class" : {
 		 },
 	"instance" : {
-		"commonCompilerFlags" : "jeanbaptistearnaud 10/8/2013 16:29" } }
+		"commonCompilerFlags" : "jeanbaptistearnaud 10/8/2013 16:29",
+		"configureBitBltSimulation:" : "jeanbaptistearnaud 10/16/2013 16:36" } }
