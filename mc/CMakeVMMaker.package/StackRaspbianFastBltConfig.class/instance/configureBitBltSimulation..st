@@ -1,0 +1,12 @@
+as yet unclassified
+configureBitBltSimulation: maker
+	"extra rules for BitBltSimulation"
+
+	maker includeDirectories: '${pluginCross}'.
+
+	maker addCrossSources: #(
+		'BitBltArm.c'
+		'BitBltArmSimd.c'
+		'BitBltDispatch.c'
+	).
+	
