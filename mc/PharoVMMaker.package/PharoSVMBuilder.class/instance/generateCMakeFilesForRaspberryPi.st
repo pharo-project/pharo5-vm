@@ -1,4 +1,4 @@
 building
 generateCMakeFilesForRaspberryPi
-	StackRaspbianConfig new  
+	StackRaspbianFastBltConfig new  
 		generate.
