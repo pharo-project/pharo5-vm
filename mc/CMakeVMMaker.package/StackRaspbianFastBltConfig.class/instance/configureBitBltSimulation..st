@@ -8,5 +8,8 @@ configureBitBltSimulation: maker
 		'BitBltArm.c'
 		'BitBltArmSimd.c'
 		'BitBltDispatch.c'
+		'BitBltGeneric.c'
+		'BitBltOther.c'
+		
 	).
 	
