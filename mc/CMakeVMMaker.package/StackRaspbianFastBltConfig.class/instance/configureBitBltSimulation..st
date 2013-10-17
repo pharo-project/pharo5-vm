@@ -10,7 +10,7 @@ configureBitBltSimulation: maker
 		'BitBltDispatch.c'
 		'BitBltGeneric.c'
 		'BitBltArmLinux.c'
-		'BitBltArmSimdSourceAsm.s'
+		'BitBltArmSimdAsm.s'
 		'BitBltArmSimdAlphaBlend.s'
 		'BitBltArmSimdBitLogical.s'
 		'BitBltArmSimdPixPaint.s'
