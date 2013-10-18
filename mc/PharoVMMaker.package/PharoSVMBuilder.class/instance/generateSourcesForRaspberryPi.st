@@ -1,4 +1,4 @@
 building
 generateSourcesForRaspberryPi
-	StackRaspbianFastBltConfig new  
+	StackRaspbianConfig new  
 		generateSources.
