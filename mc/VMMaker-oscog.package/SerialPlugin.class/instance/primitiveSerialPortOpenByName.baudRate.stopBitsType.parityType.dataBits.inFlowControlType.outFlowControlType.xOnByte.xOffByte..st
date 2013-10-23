@@ -8,7 +8,7 @@ primitiveSerialPortOpenByName: portName baudRate: baudRate stopBitsType: stopBit
 		parameters: #(String SmallInteger SmallInteger SmallInteger SmallInteger SmallInteger SmallInteger SmallInteger SmallInteger ).
 
 	portNameSize := interpreterProxy slotSizeOf: (portName asOop: String).
-	port := self cCode: 'calloc(portNameSize, sizeof(char))'.
+	port := self cCode: 'calloc(portNameSize+1, sizeof(char))'.
 	self cCode: 'memcpy(port, portName, portNameSize)'.
 	
 	self cCode: 'serialPortOpenByName(
