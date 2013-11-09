@@ -10,7 +10,7 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 
 Unix:
 -----
-see [ubuntu-setup.sh](script/ubuntu.sh) for a complete setup for a recent ubuntu machine.
+see [ubuntu-setup.sh](script/ubuntu-setup.sh) for a complete setup for a recent ubuntu machine.
 
 Mac:
 -----
