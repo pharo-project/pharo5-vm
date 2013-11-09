@@ -48,6 +48,11 @@ if [ -z "$PHARO_TEST_VM" ]; then
 fi
 
 # RUN TEST IMAGE ==============================================================
-
+if [ "$OS" == "linux" ]; then
+	HEADLESS="-nodisplay"
+else
+	HEADLESS="-headless"
+fi
+	
 TEST_IMAGE=`"$SCRIPT_DIR/../image/newVMTestImage.sh"`
-"$PHARO_TEST_VM" "$TEST_IMAGE" test ".*"
+"$PHARO_TEST_VM" $HEADLESS "$TEST_IMAGE" test ".*"
