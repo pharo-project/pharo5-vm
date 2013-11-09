@@ -1,6 +1,6 @@
 #!/bin/bash 
-
 set -ex
+
 
 # ARGUMENT HANDLING ===========================================================
 if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
@@ -12,11 +12,13 @@ elif [ $# -gt 0 ]; then
 	exit 1;
 fi
 
+
 # FIND THIS SCRIPT's LOCATION =================================================
 SCRIPT_DIR=`readlink "$0"` || SCRIPT_DIR="$0";
 SCRIPT_DIR=`dirname "$SCRIPT_DIR"`;
 cd "$SCRIPT_DIR" 2> /dev/null
 SCRIPT_DIR=`pwd -P`
+
 
 # VM PROPERTIES ===============================================================
 VM_TYPE="pharo"
@@ -26,7 +28,6 @@ VM_DIR="$SCRIPT_DIR/../results"
 
 
 # TEST VM LOCATION ============================================================
-
 TMP_OS=`uname | tr "[:upper:]" "[:lower:]"`
 if [[ "{$TMP_OS}" = *darwin* ]]; then
     PHARO_TEST_VM=`find "$VM_DIR" -name ${VM_BINARY_NAME}`;
@@ -47,7 +48,13 @@ if [ -z "$PHARO_TEST_VM" ]; then
 	exit 1
 fi
 
+
 # RUN TEST IMAGE ==============================================================
+if [ "$OS" == "linux" ]; then
+	HEADLESS="--nodisplay"
+else
+	HEADLESS="--headless"
+fi
 	
 TEST_IMAGE=`"$SCRIPT_DIR/../image/newVMTestImage.sh"`
-"$PHARO_TEST_VM" --headless "$TEST_IMAGE" test ".*"
+"$PHARO_TEST_VM" $ "$TEST_IMAGE" test ".*"
