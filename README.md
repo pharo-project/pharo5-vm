@@ -10,12 +10,7 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 
 Unix:
 -----
-```bash    
-# build tools
-sudo apt-get install gcc g++ cmake lib32c-dev ia32-libs
-# dependencies for vm plugins
-sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
-```
+see [ubuntu-setup.sh](script/ubuntu.sh) for a complete setup for a recent ubuntu machine.
 
 Mac:
 -----
