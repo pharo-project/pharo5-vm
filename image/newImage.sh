@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 # Make Sure we are in the image directory (this script's location) =========
 IMAGE_DIR=`readlink "$0"` || IMAGE_DIR="$0";
