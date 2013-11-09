@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 # ARGUMENT HANDLING ===========================================================
 if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
 	echo "This script builds the VM for the currently running platform.
@@ -36,7 +40,7 @@ cd "$SCRIPT_DIR/.."
 "$SCRIPT_DIR/extract-commit-info.sh"
 
 # =============================================================================
-cd "$SCRIPT_DIR/image"
+cd "$SCRIPT_DIR/../image"
 ./newImage.sh
 
 echo "
@@ -47,5 +51,5 @@ PharoVMBuilder buildOnJenkins: '$OS'.
 ./pharo generator.image --quit script.st
 
 # =============================================================================
-cd "$SCRIPT_DIR/build"
+cd "$SCRIPT_DIR/../build"
 bash ./build.sh
