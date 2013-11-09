@@ -1,8 +1,8 @@
 language: c
 env: 
-	- OS=linux
+  - OS=linux
 install: 
-	- scripts/setup-ubuntu.sh
+  - scripts/setup-ubuntu.sh
 script: 
-	- scripts/build.sh
-	- scripts/test.sh
+  - scripts/build.sh
+  - scripts/test.sh
