@@ -1,6 +1,5 @@
 #!/bin/bash
-
-set -e
+set -ex
 
 # ARGUMENT HANDLING ===========================================================
 if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
@@ -34,12 +33,6 @@ else
 fi
 
 # =============================================================================
-set -x
-
-cd "$SCRIPT_DIR/.."
-"$SCRIPT_DIR/extract-commit-info.sh"
-
-# =============================================================================
 cd "$SCRIPT_DIR/../image"
 ./newImage.sh
 
@@ -51,5 +44,11 @@ PharoVMBuilder buildOnJenkins: '$OS'.
 ./pharo generator.image --quit script.st
 
 # =============================================================================
+
+cd "$SCRIPT_DIR/.."
+"$SCRIPT_DIR/extract-commit-info.sh"
+
+# =============================================================================
+
 cd "$SCRIPT_DIR/../build"
 bash ./build.sh
