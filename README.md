@@ -59,6 +59,35 @@ Also there are some discrepancy with recent GCC (4.6.1), you need to add:
 into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
 The version number, in this case 4.6.1, might be different in your case.
 
+At the time of writing the mingw32 version is 4.8.1.
+
+There are additional steps to take to have the build process to work on a 64 bit Windows machine (e.g. Windows 8.1 Pro): 
+
+1. As the build process uses libcrtdll.dll, one needs to make a libcrtdll.a to link against. libcrtdll.dll is obsolete but that's what we do use. So, one must have a libcrtdll.def file from which to create the libcrtdll.a file. A copy of those files is provided in the wind32support directory. Copy the libcrtdll.a file in C:\MinGW\lib
+
+2. The _mingw.h header has to be amended to deal with changes in some typedefs. One needs to add:
+
+```
+#define off64_t _off64_t
+#define off_t _off_t
+```
+at the end.
+
+For some weird reason, make sure you copy the _mingw.h header to the:
+
+C:\MinGW\include
+C:\MinGW\mingw32\include
+
+folders.
+
+Should you need a copy of crtdll32.dll, it lives in C:\Windows\SysWOW64 on 4-bit system. The build process fails to find it on such machines.
+
+3. time_t in its 32-bit version is required by the VM at this point in time. To work properly and avoid the "time_t structure is not 32 bit" error message, the CMakeLists.txt file in the build folder has to be changed (add  -D_USE_32BIT_TIME_T). The VMMaker CMake related package should take care of this. Not done yet.
+
+``` 
+add_definitions(-march=pentium4 -mwindows -D_MT -msse2 -mthreads -mwin32 -mno-rtd -mms-bitfields -mno-accumulate-outgoing-args -D_WIN32_WINNT=0x0501 -DWINVER=0x0501 -DWIN32 -DWIN32_FILE_SUPPORT -DNO_ISNAN -DNO_SERVICE -DNO_STD_FILE_SUPPORT -DLSB_FIRST -DVM_NAME="Pharo" -D_USE_32BIT_TIME_T -DX86 -DSTACK_ALIGN_BYTES=16 -DALLOCA_LIES_SO_USE_GETSP=0 -DENABLE_FAST_BLT  -g0 -O2 -march=pentium4 -momit-leaf-frame-pointer -maccumulate-outgoing-args -funroll-loops -DNDEBUG -DDEBUGVM=0)
+```
+
 
 Building the VM
 ================
@@ -75,7 +104,7 @@ Building the VM
  ```
 
 3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
-example VM configurations.
+example VM configurations. (That's not true as there will be no workspace open or your with that, so open a workspace and copy paste the line you need, and then evaluate it (Do It)).
 Pick or edit the configuration you want, then evaluate it.
  ```Smalltalk
  "Unix"
@@ -87,6 +116,7 @@ Pick or edit the configuration you want, then evaluate it.
  ```
 See `startup.st` for more examples for the common platforms.
 
+Should you want to build a StackVM version, use the PharoSVMBuilder.
 
 4. Once the sources are exported, you can launch cmake and build the VM:
 ```bash
@@ -94,7 +124,9 @@ cd build
 ./build.sh
 ```
 
+Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.
+
 5. Finally, run the freshly compiled VM from `results`.
 
 See a complete guide on how to build Cog VM using cmake on:
-http://code.google.com/p/cog/wiki/Guide
+http://code.google.com/p/cog/wiki/Guide (even if this VM is the PharoVM and notthe CogVM per se).
