@@ -44,6 +44,13 @@ Install the following additional MinGW packages by running the following command
 ```bash
 mingw-get install msys-unzip msys-wget msys-zip
 ```
+
+The thing is that on newer installs, you will not have the mingw-get.exe in the system. MSys/MinGW install is getting ever more twisted than before.
+You can extract it from the zip version of the installer.
+There is also a copy in the pharo-vm/win32support folder.
+Just copy it into C:\MinGW\bin
+
+
 Install git: <http://code.google.com/p/msysgit/> and [add it to `PATH` variable](http://www.google.com/search?q=windows+add+PATH&btnI) after the `msys` paths.
 
 Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
@@ -98,6 +105,77 @@ Building the VM
  cd pharo-vm
  ```
 
+Windows specifics
+-----------------
+If you do this on Windows/Msys, you'll get a message about the GeniePlugin giving trouble:
+
+
+    error: unable to create file mc/VMMaker-oscog.package/GeniePlugin.class/instance/primSameClassAbsoluteStrokeDistanceMyPoints.otherPoints.myVectors.otherVectors.mySquaredLengths.otherSquaredLengths.myAngles.otherAngles.maxSizeAndReferenceFlag.rowBase.rowInsertRemove.rowInsertRemoveCount..st (Filename too long)
+
+As the Windows VM doesn't use the plugin, that's no big deal.
+
+Next, you'll face another issue which is that that clone isn't respecting the line endings of the files and all files will appear as being different from the ones in the repository. It makes it impossible to stage, commit, and push.
+
+So go to the pharo-vm/.git/ folder and edit the config file in there.
+
+Add:
+
+```
+text=auto
+```
+
+at the end of the [core] section.
+
+It should be working when you set that in the /etc/gitconfig but apparently it doesn't work.
+
+Then, back to the pharo-vm folder and remove it all (the .git/ folder will stay as it is a hidden folder).
+
+```
+cd pharo-vm/
+rm -rf *
+```
+
+Then check everything out again.
+```
+git checkout -f HEAD
+```
+
+It should be fast as you have the whole clone in the .git/ folder
+
+Now, line endings are correct and one will be able to commit.
+
+Now, gcc will not work as the default $PATH is incorrect in the Msys install.
+
+Get in your home dir ( cd ~) and edit the .profile file. Add this to the top.
+
+```
+export PATH=/c/MinGW/bin:$PATH
+```
+
+Should you need to know where files are and what the Msys pathes are in Windows, you can also add this function to the .profile:
+
+```
+winpath() {
+    if [ -z "$1" ]; then
+        echo "$@"
+    else
+        if [ -f "$1" ]; then
+            local dir=$(dirname "$1")
+            local fn=$(basename "$1")
+            echo "$(cd "$dir"; echo "$(pwd -W)/$fn")" | sed 's|/|\\|g';
+        else
+            if [ -d "$1" ]; then
+                echo "$(cd "$1"; pwd -W)" | sed 's|/|\\|g';
+            else
+                echo "$1" | sed 's|^/\(.\)/|\1:\\|g; s|/|\\|g';
+            fi
+        fi
+    fi
+}
+```
+
+
+
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
  ```bash
  cd image && ./newImage.sh
@@ -115,6 +193,12 @@ Pick or edit the configuration you want, then evaluate it.
  PharoVMBuilder buildWin32.
  ```
 See `startup.st` for more examples for the common platforms.
+
+As an alternative, try (Windows flavor shown):
+
+```
+./pharo generator.image eval 'PharoVMBuilder buildWin32'
+```
 
 Should you want to build a StackVM version, use the PharoSVMBuilder.
 
