@@ -13,5 +13,6 @@
 		"buildWin32" : "EstebanLorenzano 7/12/2013 13:02",
 		"generateCMakeFilesDevForRaspberryPi" : "jeanbaptistearnaud 10/18/2013 13:30",
 		"generateCMakeFilesForRaspberryPi" : "jeanbaptistearnaud 10/18/2013 11:45",
+		"generateCMakeFilesForRaspberryPiFBB" : "jeanbaptistearnaud 11/29/2013 11:27",
 		"generateSourcesForRaspberryPi" : "jeanbaptistearnaud 10/18/2013 11:45",
 		"initialize" : "EstebanLorenzano 7/10/2013 17:11" } }
