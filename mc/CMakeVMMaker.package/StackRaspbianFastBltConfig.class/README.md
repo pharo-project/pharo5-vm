@@ -1,3 +1,1 @@
-A StackRaspbianFastConfig is xxxxxxxxx.
-
-Instance Variables
+http://www.cmake.org/Wiki/CMake/Assembler

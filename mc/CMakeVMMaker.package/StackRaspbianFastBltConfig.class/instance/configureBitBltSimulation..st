@@ -3,7 +3,9 @@ configureBitBltSimulation: maker
 	"extra rules for BitBltSimulation"
 
 	maker includeDirectories: '${pluginCross}'.
-
+	
+	maker set: 'can_use_assembler' to: 'TRUE'.
+	
 	maker addCrossSources: #(
 		'BitBltArm.c'
 		'BitBltArmSimd.c'
