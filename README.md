@@ -20,6 +20,8 @@ Download and install the [homebrew](http://brew.sh/) package manager with some a
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 # if you haven't installed git yet
 brew install git
+# if you haven't installed cmake yet
+brew install cmake
 # wget is needed in certain cases to download files
 brew install wget
 # OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
