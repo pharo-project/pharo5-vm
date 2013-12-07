@@ -38,6 +38,21 @@ static char RCSID[]="$Id: sqWin32Directory.c 1696 2007-06-03 18:13:07Z andreas $
  useful for trying to stay in sync with case-sensitive platforms. */
 int caseSensitiveFileMode = 0;
 
+static int findFileFallbackOnSharingViolation(WCHAR *win32Path, WIN32_FILE_ATTRIBUTE_DATA* winAttrs) {
+  WIN32_FIND_DATAW findData;
+  HANDLE findHandle = FindFirstFileW(win32Path,&findData);
+  if(findHandle == INVALID_HANDLE_VALUE) {
+    return 0;
+  }
+  winAttrs->ftCreationTime = findData.ftCreationTime;
+  winAttrs->ftLastWriteTime = findData.ftLastWriteTime;
+  winAttrs->dwFileAttributes = findData.dwFileAttributes;
+  winAttrs->nFileSizeLow = findData.nFileSizeLow;
+  winAttrs->nFileSizeHigh = findData.nFileSizeHigh;
+  FindClose(findHandle);
+  return 1;
+}
+
 int hasCaseSensitiveDuplicate(WCHAR *path) {
     WCHAR *src, *dst, *prev;
     WCHAR findPath[MAX_PATH];
@@ -364,7 +379,14 @@ int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int name
     win32Path[sz] = 0;
     
     if(!GetFileAttributesExW(win32Path, 0, &winAttrs)) {
+      if(GetLastError() == ERROR_SHARING_VIOLATION) {
+	if(!findFileFallbackOnSharingViolation(win32Path, &winAttrs)) {
+	  return NO_MORE_ENTRIES;
+	}
+      }
+      else {
         return NO_MORE_ENTRIES;
+      }
     }
     
     memcpy(name, nameString, nameStringLength);
