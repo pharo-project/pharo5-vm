@@ -41,7 +41,7 @@ rm MacOSX10.6.sdk.zip
 
 Windows:
 ---------
-Building the VM under windows requires a more complex setup which is describe in the separate <README-Win32.md> file.
+Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
 
 
 Building the VM
@@ -52,7 +52,7 @@ Building the VM
  git clone --depth=1 https://github.com/pharo-project/pharo-vm.git
  cd pharo-vm
  ```
- Note the windows specifi step mentioned in <README-Win32.md>.
+ Note the windows specific steps mentioned in the [win32 readme](README-Win32.md).
 
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
  ```bash
