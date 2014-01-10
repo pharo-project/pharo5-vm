@@ -9,7 +9,7 @@ mingw-get install msys-unzip msys-wget msys-zip
 
 The thing is that on newer installs, you will not have the mingw-get.exe in the system. MSys/MinGW install is getting ever more twisted than before.
 You can extract it from the zip version of the installer.
-There is also a copy in the pharo-vm/win32support folder.
+There is also a copy in the `platforms/win32/extra` folder.
 Just copy it into C:\MinGW\bin
 
 
@@ -32,7 +32,7 @@ At the time of writing the mingw32 version is 4.8.1.
 
 There are additional steps to take to have the build process to work on a 64 bit Windows machine (e.g. Windows 8.1 Pro): 
 
-1. As the build process uses libcrtdll.dll, one needs to make a libcrtdll.a to link against. libcrtdll.dll is obsolete but that's what we do use. So, one must have a libcrtdll.def file from which to create the libcrtdll.a file. A copy of those files is provided in the wind32support directory. Copy the libcrtdll.a file in C:\MinGW\lib
+1. As the build process uses libcrtdll.dll, one needs to make a libcrtdll.a to link against. libcrtdll.dll is obsolete but that's what we do use. So, one must have a libcrtdll.def file from which to create the libcrtdll.a file. A copy of those files is provided in the `platforms/win32/extra` directory. Copy the libcrtdll.a file in C:\MinGW\lib
 
 2. The _mingw.h header has to be amended to deal with changes in some typedefs. One needs to add:
 
