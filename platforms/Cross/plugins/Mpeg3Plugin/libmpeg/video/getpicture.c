@@ -205,7 +205,7 @@ int mpeg3video_getintrablock(mpeg3_slice_t *slice,
 		{
 /*    	  	fprintf(stderr, "mpeg3video_getintrablock: invalid Huffman code\n"); */
     	  	slice->fault = 1;
-    	  	return;
+    	  	return 0;
     	}
 
     	mpeg3slice_flushbits(slice_buffer, tab->len);
@@ -240,7 +240,7 @@ int mpeg3video_getintrablock(mpeg3_slice_t *slice,
 		else
 		{
     	  	slice->fault = 1;
-    	  	return;
+    	  	return 0;
 		}
 			
 
@@ -397,7 +397,7 @@ int mpeg3video_getmpg2intrablock(mpeg3_slice_t *slice,
 	else                  
 		val = (dc_dct_pred[2] += mpeg3video_getdcchrom(slice_buffer));
 
-  	if(slice->fault) return;
+  	if(slice->fault) return 0;
 #ifdef HAVE_MMX
 	if(video->have_mmx)
   		bp[0] = val << (7 - video->dc_prec);
@@ -463,7 +463,7 @@ int mpeg3video_getmpg2intrablock(mpeg3_slice_t *slice,
 			{
 // invalid signed_level (escape)
         		slice->fault = 1;
-        		return;
+        		return 0;
     	  	}
     	  	if((sign = (val >= 2048)) != 0) val = 4096 - val;
     	}
@@ -545,7 +545,7 @@ int mpeg3video_getmpg2interblock(mpeg3_slice_t *slice,
 		{
 // invalid Huffman code
     		slice->fault = 1;
-    		return;
+    		return 0;
     	}
 
     	mpeg3slice_flushbits(slice_buffer, tab->len);
