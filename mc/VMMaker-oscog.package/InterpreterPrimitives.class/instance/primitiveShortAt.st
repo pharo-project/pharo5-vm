@@ -7,11 +7,12 @@ primitiveShortAt
 	self successful ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	rcvr := self stackValue: 1.
-	(objectMemory isWordsOrBytes: rcvr) ifFalse:
+	((objectMemory isIntegerObject: rcvr)
+	or: [(objectMemory isWordsOrBytes: rcvr) not]) ifTrue:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	sz := (objectMemory numSlotsOf: rcvr) * objectMemory bytesPerOop // 2.  "number of 16-bit fields"
+	sz := ((objectMemory sizeBitsOf: rcvr) - BaseHeaderSize) // 2.  "number of 16-bit fields"
 	((index >= 1) and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
-	addr := rcvr + objectMemory baseHeaderSize + (2 * (index - 1)).
+	addr := rcvr + BaseHeaderSize + (2 * (index - 1)).
 	value := objectMemory shortAt: addr.
 	self pop: 2 thenPushInteger: value

@@ -1,9 +1,10 @@
 debug support
 allAccessibleObjectsOkay
 	"Ensure that all accessible objects in the heap are okay."
-	| ok |
+	| ok oop |
 	ok := true.
-	objectMemory allObjectsDo:
-		[:oop|
-		ok := ok & (self okayFields: oop)].
+	oop := objectMemory firstAccessibleObject.
+	[oop = nil] whileFalse:
+		[ok := ok & (self okayFields: oop).
+		oop := objectMemory accessibleObjectAfter: oop].
 	^ok

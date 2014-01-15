@@ -15,13 +15,13 @@ checkGenerateFieldAccessors: fieldSpecs bitPosition: firstBitPosition in: surrog
 			[code := self getter: spec first
 						 bitPosition: bitPosition
 						 bitWidth: spec second
-						 type: (spec at: 3 ifAbsent: []).
+						 bool: (spec at: 3 ifAbsent: []) = #Boolean.
 			 code ~= (surrogateClass sourceCodeAt: spec first asSymbol ifAbsent: ['']) asString ifTrue:
 				[surrogateClass compile: code classified: #accessing].
 			 code := self setter: spec first
 						 bitPosition: bitPosition
 						 bitWidth: spec second
-						 type: (spec at: 3 ifAbsent: []).
+						 bool: (spec at: 3 ifAbsent: []) = #Boolean.
 			 code ~= (surrogateClass sourceCodeAt: (spec first, ':') asSymbol ifAbsent: ['']) asString ifTrue:
 				[surrogateClass compile: code classified: #accessing]].
 		bitPosition := bitPosition + spec second].

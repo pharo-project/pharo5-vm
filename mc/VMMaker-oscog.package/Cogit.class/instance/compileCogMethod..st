@@ -1,7 +1,7 @@
 compile abstract instructions
 compileCogMethod: selector
 	<returnTypeC: #'CogMethod *'>
-	| numBytecodes numBlocks numCleanBlocks result extra |
+	| numBytecodes numBlocks result extra |
 	hasYoungReferent := (objectMemory isYoung: methodObj)
 						  or: [objectMemory isYoung: selector].
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.
@@ -24,12 +24,7 @@ compileCogMethod: selector
 		ifFail: [^coInterpreter cCoerceSimple: MethodTooBig to: #'CogMethod *'].
 	(numBlocks := self scanMethod) < 0 ifTrue:
 		[^coInterpreter cCoerceSimple: numBlocks to: #'CogMethod *'].
-	numCleanBlocks := self scanForCleanBlocks.
-	self allocateBlockStarts: numBlocks + numCleanBlocks.
-	blockCount := 0.
-	numCleanBlocks > 0 ifTrue:
-		[self addCleanBlockStarts].
-	self maybeAllocAndInitCounters.
+	self allocateBlockStarts: numBlocks.
 	blockEntryLabel := nil.
 	methodLabel dependent: nil.
 	(result := self compileEntireMethod) < 0 ifTrue:

@@ -1,20 +1,29 @@
 initialization
 initialize
-	"Initialize the CogVMSimulator when running the interpreter inside Smalltalk.  The
-	 primary responsibility of this method is to allocate Smalltalk Arrays for variables
-	 that will be declared as statically-allocated global arrays in the translated code."
+	"Initialize the StackInterpreterSimulator when running the interpreter
+	 inside Smalltalk. The primary responsibility of this method is to allocate
+	 Smalltalk Arrays for variables that will be declared as statically-allocated
+	 global arrays in the translated code."
 
-	objectMemory ifNil:
-		[objectMemory := self class objectMemoryClass simulatorClass new].
-	cogit ifNil:
-		[cogit := self class cogitClass new setInterpreter: self].
-	objectMemory coInterpreter: self cogit: cogit.
+	| objectMemoryClass |
 
+	"initialize class variables"
+	objectMemory ifNotNil:
+		[^self halt].
+
+	objectMemoryClass := self class objectMemoryClass.
+
+	objectMemoryClass initBytesPerWord: objectMemoryClass bytesPerWord.
+	((Smalltalk classNamed: #CoInterpreterMT) ifNil: [CoInterpreter] ifNotNil: [:cimt| cimt])  initialize.
+	(self class cogitClass withAllSuperclasses copyUpThrough: Cogit) reverseDo:
+		[:c| c initialize].
+
+	super initialize.
+	objectMemory := objectMemoryClass simulatorClass new.
+	cogit := self class cogitClass new setInterpreter: self.
 	cogit numRegArgs > 0 ifTrue:
 		[debugStackDepthDictionary := Dictionary new].
-
-	cogThreadManager ifNotNil:
-		[super initialize].
+	objectMemory coInterpreter: self cogit: cogit.
 
 	"Note: we must initialize ConstMinusOne & HasBeenReturnedFromMCPC differently
 	 for simulation, due to the fact that the simulator works only with +ve 32-bit values"

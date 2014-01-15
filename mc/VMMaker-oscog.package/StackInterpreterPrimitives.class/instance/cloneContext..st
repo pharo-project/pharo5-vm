@@ -2,8 +2,8 @@ primitive support
 cloneContext: aContext 
 	| sz cloned spouseFP sp |
 	<var: #spouseFP type: #'char *'>
-	sz := objectMemory numSlotsOf: aContext.
-	cloned := objectMemory eeInstantiateMethodContextSlots: sz.
+	sz := (objectMemory byteLengthOf: aContext) + BaseHeaderSize.
+	cloned := objectMemory eeInstantiateMethodContextByteSize: sz.
 	cloned ~= 0 ifTrue:
 		[0 to: StackPointerIndex do:
 			[:i|

@@ -4,7 +4,7 @@ ceContext: maybeMarriedContext instVar: slotIndex value: anOop
 	"genStorePop:MaybeContextReceiverVariable: filters out unmarried contexts
 	 but not arbitrary objects in subclasses.  It answers maybeMarriedContext so
 	 that the StackToRegisterMappingCogit can keep ReceiverResultReg live."
-	(objectMemory isContextNonImm: maybeMarriedContext)
+	(objectMemory isContextNonInt: maybeMarriedContext)
 		ifTrue:
 			[self assert: (self isMarriedOrWidowedContext: maybeMarriedContext).
 			 instructionPointer := self popStack.

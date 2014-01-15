@@ -1,12 +1,8 @@
 bytecode generators
 genSpecialSelectorClass
-	| topReg |
-	topReg := self ssTop registerOrNil.
 	self ssPop: 1.
-	(topReg isNil or: [topReg = ClassReg])
-		ifTrue: [self ssAllocateRequiredReg: (topReg := SendNumArgsReg) and: ClassReg]
-		ifFalse: [self ssAllocateRequiredReg: ClassReg].
+	self ssAllocateRequiredReg: SendNumArgsReg and: ClassReg.
 	self ssPush: 1.
-	self ssTop popToReg: topReg.
-	objectRepresentation genGetClassObjectOf: topReg into: ClassReg scratchReg: TempReg.
+	self ssTop popToReg: SendNumArgsReg.
+	objectRepresentation genGetClassObjectOf: SendNumArgsReg into: ClassReg scratchReg: TempReg.
 	^self ssPop: 1; ssPushRegister: ClassReg

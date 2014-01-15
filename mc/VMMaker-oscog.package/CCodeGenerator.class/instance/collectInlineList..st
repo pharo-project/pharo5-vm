@@ -18,7 +18,7 @@ collectInlineList: inlineFlagOrSymbol
 	"build dictionary to record the number of calls to each method"
 	callsOf := Dictionary new: methods size * 2.
 	methods keysAndValuesDo:
-		[:s :m|
+		[ :s :m |
 		m isRealMethod ifTrue: [callsOf at: s put: 0]].
 
 	"For each method, scan its parse tree once or twice to:
@@ -27,9 +27,7 @@ collectInlineList: inlineFlagOrSymbol
 		3. increment the sender counts of the methods it calls"
 	inlineList := Set new: methods size * 2.
 	(methods reject: [:m| selectorsOfMethodsNotToInline includes: m selector]) do:
-		[:m| | inlineIt hasUnrenamableCCode nodeCount |
-		breakSrcInlineSelector = m selector ifTrue:
-			[self halt].
+		[ :m | | inlineIt hasUnrenamableCCode nodeCount  |
 		inlineIt := #dontCare.
 		(translationDict includesKey: m selector)
 			ifTrue: [hasUnrenamableCCode := true]
@@ -37,12 +35,11 @@ collectInlineList: inlineFlagOrSymbol
 				[hasUnrenamableCCode := m hasUnrenamableCCode.
 				 nodeCount := 0.
 				 m parseTree nodesDo:
-					[:node|
+					[ :node | | sel |
 					node isSend ifTrue:
-						[callsOf
-							at: node selector
-							ifPresent:
-								[:senderCount| callsOf at: node selector put: senderCount + 1]].
+						[sel := node selector.
+						 (callsOf at: sel ifAbsent: [ nil ]) ifNotNil:
+							[:senderCount| callsOf at: sel put: senderCount + 1]].
 					 nodeCount := nodeCount + 1].
 				inlineIt := m extractInlineDirective].  "may be true, false, or #dontCare"
 		(hasUnrenamableCCode or: [inlineIt == false])

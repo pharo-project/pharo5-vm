@@ -1,7 +1,7 @@
 re primitives
 primPCREExecfromto
 
-"<rcvr primPCREExec: searchObject from: fromInteger to: toInteger>, where rcvr is an object with instance variables:
+"<rcvr primPCREExec: searchObject> from: fromInteger to: toInteger>, where rcvr is an object with instance variables:
 
 	'patternStr compileFlags pcrePtr extraPtr errorStr errorOffset matchFlags'	
 
@@ -9,8 +9,8 @@ Apply the regular expression (stored in <pcrePtr> and <extratr>, generated from 
 
 	| searchObject searchBuffer length  result matchSpacePtr matchSpaceSize fromInteger toInteger |
 	<export: true>
-	<var:#searchBuffer	type: 'char *'>
-	<var:#matchSpacePtr	type: 'int *'>
+	<var: #searchBuffer type: 'char *'>
+	<var: #matchSpacePtr type: 'int *'>
 	
 	"Load Parameters"
 	toInteger := interpreterProxy stackIntegerValue: 0.
@@ -41,7 +41,7 @@ Apply the regular expression (stored in <pcrePtr> and <extratr>, generated from 
 	result := self 
 		cCode: 'pcre_exec((pcre *)pcrePtr, (pcre_extra *)extraPtr, 
 				searchBuffer, length, 0, matchFlags, matchSpacePtr, matchSpaceSize)'.
-	interpreterProxy pop: 4; pushInteger: result.
+	interpreterProxy pop: 2; pushInteger: result.
 
 	"empty call so compiler doesn't bug me about variables not used"
 	self touch: searchBuffer; touch: matchSpacePtr; touch: matchSpaceSize; touch: length

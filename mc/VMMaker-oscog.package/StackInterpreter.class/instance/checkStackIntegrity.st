@@ -28,14 +28,14 @@ checkStackIntegrity
 				[theSP := theSP + BytesPerWord].
 			 [[theSP <= (theFP + FoxReceiver)] whileTrue:
 				[oop := stackPages longAt: theSP.
-				 ((objectMemory isNonImmediate: oop) 
+				 ((objectMemory isNonIntegerObject: oop) 
 				   and: [(self heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 					[self printFrameThing: 'object leak in frame temp' at: theSP; cr.
 					 ok := false].
 				 theSP := theSP + BytesPerWord].
 			 (self frameHasContext: theFP) ifTrue:
 				[oop := self frameContext: theFP.
-				 ((objectMemory isImmediate: oop) 
+				 ((objectMemory isIntegerObject: oop) 
 				   or: [(self heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 					[self printFrameThing: 'object leak in frame ctxt' at: theFP + FoxThisContext; cr.
 					 ok := false].
@@ -43,7 +43,7 @@ checkStackIntegrity
 					[self printFrameThing: 'frame ctxt should be context' at: theFP + FoxThisContext; cr.
 					 ok := false]].
 			 oop := self frameMethod: theFP.
-			 ((objectMemory isImmediate: oop) 
+			 ((objectMemory isIntegerObject: oop) 
 			   or: [(self heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 				[self printFrameThing: 'object leak in frame mthd' at: theFP + FoxMethod; cr.
 				 ok := false].
@@ -53,7 +53,7 @@ checkStackIntegrity
 			 theSP := theFP + FoxCallerContext "a.k.a. FoxCallerSavedIP".
 			 [theSP <= thePage baseAddress] whileTrue:
 				[oop := stackPages longAt: theSP.
-				 ((objectMemory isNonImmediate: oop) 
+				 ((objectMemory isNonIntegerObject: oop) 
 				   and: [(self heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 					[self printFrameThing: 'object leak in frame arg' at: theSP; cr.
 					 ok := false].

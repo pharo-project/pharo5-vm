@@ -11,6 +11,6 @@ findApplicationOfTargetMixin: targetMixin startingAtBehavior: aBehavior
 	[mixinOrMixinApplication = objectMemory nilObject
 	 or: [mixinOrMixinApplication = targetMixin
 	 or: [(mixin := objectMemory fetchPointer: MixinIndex ofObject: mixinOrMixinApplication) = targetMixin
-	 or: [(objectMemory fetchClassOfNonImm: mixin) = targetMixin]]]] whileFalse:
+	 or: [(objectMemory fetchClassOfNonInt: mixin) = targetMixin]]]] whileFalse:
 		[mixinOrMixinApplication := objectMemory fetchPointer: SuperclassIndex ofObject: mixinOrMixinApplication].
 	^mixinOrMixinApplication

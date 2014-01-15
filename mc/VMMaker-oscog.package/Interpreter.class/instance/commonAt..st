@@ -13,7 +13,7 @@ commonAt: stringy
 	Therefore we must determine that the message is #at: (not, eg, #basicAt:),
 	and that the send is not a super-send, before using the at-cache."
 	(messageSelector = (self specialSelector: 16)
-		and: [lkupClass = (self fetchClassOfNonImm: rcvr)])
+		and: [lkupClass = (self fetchClassOfNonInt: rcvr)])
 		ifTrue:
 		["OK -- look in the at-cache"
 		atIx := rcvr bitAnd: AtCacheMask.  "Index into atCache = 4N, for N = 0 ... 7"

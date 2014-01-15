@@ -13,6 +13,6 @@ commonSendAbsentImplicit
 							mixin: (self methodClassOf: method)
 							implementing: messageSelector.
 	self shuffleArgumentsAndStoreAbsentReceiver: implicitReceiver.
-	lkupClassTag := objectMemory fetchClassTagOf: implicitReceiver.
-	self assert: lkupClassTag ~= objectMemory nilObject.
+	lkupClass := objectMemory fetchClassOf: implicitReceiver.
+	self assert: lkupClass ~= objectMemory nilObject.
 	self commonSend

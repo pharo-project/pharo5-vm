@@ -8,9 +8,11 @@ and be patient both to wait for things to happen, and to accept various things t
 
 Here's an example to launch the simulator in a window.  The bottom-right window has a menu packed with useful stuff:
 
-(CogVMSimulator newWithOptions: #(Cogit StackToRegisterMappingCogit))
+| opts |
+CoInterpreter initializeWithOptions: (opts := Dictionary newFromPairs: #(Cogit StackToRegisterMappingCogit)).
+CogVMSimulator chooseAndInitCogitClassWithOpts: opts.
+CogVMSimulator new
 	desiredNumStackPages: 8;
-	openOn: '/Users/eliot/Cog/startreader.image';
 	openAsMorph;
 	run
 

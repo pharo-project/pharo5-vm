@@ -5,19 +5,12 @@ primitiveNewWithArg
 	size := self positive32BitValueOf: self stackTop.
 	(self successful and: [size >= 0])
 		ifTrue:
-			[objectMemory hasSpurMemoryManagerAPI
-				ifTrue:
-					[(objectMemory instantiateClass: (self stackValue: 1) indexableSize: size)
-						ifNotNil: [:obj| self pop: argumentCount + 1 thenPush: obj]
-						ifNil: [self primitiveFailFor: PrimErrNoMemory]]
+			[spaceOkay := objectMemory sufficientSpaceToInstantiate: (self stackValue: 1) indexableSize: size.
+			 spaceOkay ifTrue:
+					[self
+						pop: argumentCount + 1
+						thenPush: (objectMemory instantiateClass: (self stackValue: 1) indexableSize: size)]
 				ifFalse:
-					[spaceOkay := objectMemory sufficientSpaceToInstantiate: (self stackValue: 1) indexableSize: size.
-					 spaceOkay
-						ifTrue:
-							[self
-								pop: argumentCount + 1
-								thenPush: (objectMemory instantiateClass: (self stackValue: 1) indexableSize: size)]
-						ifFalse:
-							[self primitiveFailFor: PrimErrNoMemory]]]
+					[self primitiveFailFor: PrimErrNoMemory]]
 		ifFalse:
 			[self primitiveFailFor: PrimErrBadArgument]

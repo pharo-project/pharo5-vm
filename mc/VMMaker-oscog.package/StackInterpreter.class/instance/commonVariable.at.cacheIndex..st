@@ -7,21 +7,21 @@ commonVariable: rcvr at: index cacheIndex: atIx
 	((self oop: index isGreaterThanOrEqualTo: 1)
 	 and: [self oop: index isLessThanOrEqualTo: stSize]) ifTrue:
 		[fmt := atCache at: atIx+AtCacheFmt.
-		 fmt <= objectMemory weakArrayFormat ifTrue:
-			[self assert: (objectMemory isContextNonImm: rcvr) not.
+		 fmt <= 4 ifTrue:
+			[self assert: (objectMemory isContextNonInt: rcvr) not.
 			 fixedFields := atCache at: atIx+AtCacheFixedFields.
 			 ^objectMemory fetchPointer: index + fixedFields - 1 ofObject: rcvr].
-		 fmt < objectMemory firstByteFormat ifTrue:  "Bitmap"
+		 fmt < 8 ifTrue:  "Bitmap"
 			[result := objectMemory fetchLong32: index - 1 ofObject: rcvr.
 			 ^self positive32BitIntegerFor: result].
-		 fmt >= objectMemory firstStringyFakeFormat  "Note fmt >= firstStringyFormat is an artificial flag for strings"
+		 fmt >= 16  "Note fmt >= 16 is an artificial flag for strings"
 			ifTrue: "String"
 				[^self characterForAscii: (objectMemory fetchByte: index - 1 ofObject: rcvr)]
 			ifFalse:
-				[(fmt < objectMemory firstCompiledMethodFormat "ByteArray"
+				[(fmt < 12 "ByteArray"
 				  or: [index >= (self firstByteIndexOfMethod: rcvr) "CompiledMethod"]) ifTrue:
 					[^objectMemory integerObjectOf: (objectMemory fetchByte: index - 1 ofObject: rcvr)]]].
 
-	^self primitiveFailFor: ((objectMemory isIndexable: rcvr)
-								ifFalse: [PrimErrBadReceiver]
-								ifTrue: [PrimErrBadIndex])
+	^self primitiveFailFor: ((objectMemory formatOf: rcvr) <= 1
+								ifTrue: [PrimErrBadReceiver]
+								ifFalse: [PrimErrBadIndex])

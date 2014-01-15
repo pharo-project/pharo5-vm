@@ -2,7 +2,7 @@ utilities
 extractTypeFor: aVariable fromDeclaration: aVariableDeclaration
 	"Eliminate inessentials from aVariableDeclaration to answer a C type without the variable,
 	 or initializations etc"
-	| decl fpIndex closeidx openidx |
+	| decl fpIndex |
 	decl := aVariableDeclaration.
 	(decl beginsWith: 'static') ifTrue:
 		[decl := decl allButFirst: 6].
@@ -13,9 +13,4 @@ extractTypeFor: aVariable fromDeclaration: aVariableDeclaration
 		[decl := decl copyReplaceFrom: (decl indexOf: $( startingAt: fpIndex + 1)
 					to: (decl indexOf: $) startingAt: fpIndex + 1)
 					with: ''].
-	"collapse [size] to *"
-	openidx := 0.
-	[(openidx := decl indexOf: $[ startingAt: openidx + 1) > 0
-	 and: [(closeidx := decl indexOf: $] startingAt: openidx + 1) > 0]] whileTrue:
-		[decl := decl copyReplaceFrom: openidx to: closeidx with: '*'].
 	^decl trimBoth

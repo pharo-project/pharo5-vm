@@ -24,7 +24,6 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 								['blockEntryOffset']			-> [#'unsigned short'].
 								['homeOffset']				-> [#'unsigned short'].
 								['startpc']					-> [#'unsigned short'].
-								['padToWord']				-> [#(#BytesPerWord 8 'unsigned int')].
-								['nextMethod']				-> ['struct _CogMethod *']} "see NewspeakCogMethod"
+								['padToWord']				-> [#(#BytesPerWord 8 'unsigned int')]}
 							otherwise:
 								[#sqInt])]]

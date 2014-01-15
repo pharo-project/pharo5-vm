@@ -7,6 +7,9 @@ mapStackPages
 	<var: #frameRcvrOffset type: #'char *'>
 	<var: #callerFP type: #'char *'>
 	<var: #theIPPtr type: #'char *'>
+	"Need to write back the frame pointers unless all pages are free (as in snapshot)"
+	stackPage ~= 0 ifTrue:
+		[self externalWriteBackHeadFramePointers].
 	0 to: numStackPages - 1 do:
 		[:i| | thePage theSP theFP frameRcvrOffset callerFP theIPPtr theIP oop |
 		thePage := stackPages stackPageAt: i.
@@ -24,41 +27,39 @@ mapStackPages
 					 theSP := theSP + BytesPerWord].
 			[self assert: (thePage addressIsInPage: theFP).
 			 self assert: (thePage addressIsInPage: theSP).
-			 self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr]).
+			 self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theFP]).
 			 frameRcvrOffset := self frameReceiverOffset: theFP.
 	 		  [theSP <= frameRcvrOffset] whileTrue:
 				[oop := stackPages longAt: theSP.
-				 (objectMemory shouldRemapOop: oop) ifTrue:
-					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
+				 (objectMemory isIntegerObject: oop) ifFalse:
+					[stackPages longAt: theSP put: (objectMemory remap: oop)].
 				 theSP := theSP + BytesPerWord].
-			 ((self frameHasContext: theFP)
-			  and: [objectMemory shouldRemapObj: (self frameContext: theFP)]) ifTrue:
+			 (self frameHasContext: theFP) ifTrue:
 				[stackPages
 					longAt: theFP + FoxThisContext
-					put: (objectMemory remapObj: (self frameContext: theFP))].
+					put: (objectMemory remap: (self frameContext: theFP))].
 			(self isMachineCodeFrame: theFP) ifFalse:
-				[(objectMemory shouldRemapObj: (self iframeMethod: theFP)) ifTrue:
-					[theIPPtr ~= 0 ifTrue:
-						[theIP := stackPages longAt: theIPPtr.
-						 theIP = cogit ceReturnToInterpreterPC
-							ifTrue:
-								[self assert: (self iframeSavedIP: theFP) > (self iframeMethod: theFP).
-								 theIPPtr := theFP + FoxIFSavedIP.
-								 theIP := stackPages longAt: theIPPtr]
-							ifFalse:
-								[self assert: theIP > (self iframeMethod: theFP)].
-						 theIP := theIP - (self iframeMethod: theFP)].
-					 stackPages
-						longAt: theFP + FoxMethod
-						put: (objectMemory remapObj: (self iframeMethod: theFP)).
-					 theIPPtr ~= 0 ifTrue:
-						[stackPages longAt: theIPPtr put: theIP + (self iframeMethod: theFP)]]].
+				[theIPPtr ~= 0 ifTrue:
+					[theIP := stackPages longAt: theIPPtr.
+					 theIP = cogit ceReturnToInterpreterPC
+						ifTrue:
+							[self assert: (self iframeSavedIP: theFP) > (self iframeMethod: theFP).
+							 theIPPtr := theFP + FoxIFSavedIP.
+							 theIP := stackPages longAt: theIPPtr]
+						ifFalse:
+							[self assert: theIP > (self iframeMethod: theFP)].
+					 theIP := theIP - (self iframeMethod: theFP)].
+				 stackPages
+					longAt: theFP + FoxMethod
+					put: (objectMemory remap: (self iframeMethod: theFP)).
+				 theIPPtr ~= 0 ifTrue:
+					[stackPages longAt: theIPPtr put: theIP + (self iframeMethod: theFP)]].
 			 (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
 				[theSP := (theIPPtr := theFP + FoxCallerSavedIP) + BytesPerWord.
 				 theFP := callerFP].
 			 theSP := theFP + FoxCallerSavedIP + BytesPerWord.
 			 [theSP <= thePage baseAddress] whileTrue:
 				[oop := stackPages longAt: theSP.
-				 (objectMemory shouldRemapOop: oop) ifTrue:
-					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
+				 (objectMemory isIntegerObject: oop) ifFalse:
+					[stackPages longAt: theSP put: (objectMemory remap: oop)].
 				 theSP := theSP + BytesPerWord]]]

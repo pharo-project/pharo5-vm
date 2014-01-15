@@ -8,4 +8,4 @@ allocateCounters
 } while (0)'>
 	counters := CArrayAccessor on:
 					((1 to: numCounters) collect:
-						[:ign| backEnd class new])
+						[:ign| CogAbstractInstruction new])

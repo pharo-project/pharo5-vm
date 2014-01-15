@@ -6,11 +6,11 @@ primitiveClone
 
 	| rcvr newCopy |
 	rcvr := self stackTop.
-	(objectMemory isImmediate: rcvr)
+	(objectMemory isIntegerObject: rcvr)
 		ifTrue:
 			[newCopy := rcvr]
 		ifFalse:
-			[(objectMemory isContextNonImm: rcvr)
+			[(objectMemory isContextNonInt: rcvr)
 				ifTrue:
 					[newCopy := self cloneContext: rcvr]
 				ifFalse:

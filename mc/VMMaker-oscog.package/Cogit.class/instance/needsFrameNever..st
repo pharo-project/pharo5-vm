@@ -1,3 +1,3 @@
 compile abstract instructions
-needsFrameNever: stackDelta
+needsFrameNever: isInBlock
 	^false

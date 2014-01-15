@@ -25,7 +25,7 @@ addNewMethodToCache: class
 		(methodCache at: probe + MethodCacheSelector) = 0 ifTrue:
 			["Found an empty entry -- use it"
 			methodCache at: probe + MethodCacheSelector put: messageSelector.
-			methodCache at: probe + MethodCacheClass put: (objectMemory classTagForClass: class).
+			methodCache at: probe + MethodCacheClass put: class.
 			methodCache at: probe + MethodCacheMethod put: newMethod.
 			methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #long).
 			lastMethodCacheProbeWrite := probe. "this for primitiveExternalMethod"
@@ -34,7 +34,7 @@ addNewMethodToCache: class
 	"OK, we failed to find an entry -- install at the first slot..."
 	probe := hash bitAnd: MethodCacheMask.  "first probe"
 	methodCache at: probe + MethodCacheSelector put: messageSelector.
-	methodCache at: probe + MethodCacheClass put: (objectMemory classTagForClass: class).
+	methodCache at: probe + MethodCacheClass put: class.
 	methodCache at: probe + MethodCacheMethod put: newMethod.
 	methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #long).
 	lastMethodCacheProbeWrite := probe. "this for primitiveExternalMethod"

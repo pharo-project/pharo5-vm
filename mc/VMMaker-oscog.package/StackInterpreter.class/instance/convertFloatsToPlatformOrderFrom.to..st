@@ -6,12 +6,15 @@ convertFloatsToPlatformOrderFrom: startOop to: stopAddr
 	 after blindly byte-swapping the entire image. For compiled 
 	 methods, byte-swap only their bytecodes part.
 	 Ensure floats are in platform-order."
+	| oop temp |
 	objectMemory vmEndianness = imageFloatsBigEndian ifTrue:
 		[^nil].
 	self assert: ClassFloatCompactIndex ~= 0.
-	objectMemory allObjectsDo:
-		[:obj| | temp |
-		(objectMemory compactClassIndexOf: obj) = ClassFloatCompactIndex ifTrue:
-			[temp := self longAt: obj + BaseHeaderSize.
-			 self longAt: obj + BaseHeaderSize put: (self longAt: obj + BaseHeaderSize + 4).
-			 self longAt: obj + BaseHeaderSize + 4 put: temp]]
+	oop := startOop.
+	[self oop: oop isLessThan: stopAddr] whileTrue:
+		[(objectMemory isFreeObject: oop) ifFalse:
+			[(objectMemory compactClassIndexOf: oop) = ClassFloatCompactIndex ifTrue:
+				[temp := self longAt: oop + BaseHeaderSize.
+				 self longAt: oop + BaseHeaderSize put: (self longAt: oop + BaseHeaderSize + 4).
+				 self longAt: oop + BaseHeaderSize + 4 put: temp]].
+		 oop := objectMemory objectAfter: oop]

@@ -9,7 +9,6 @@
 		 ],
 	"name" : "CogObjectRepresentationForSqueakV3",
 	"pools" : [
-		"VMSqueakClassIndices",
 		"VMSqueakV3ObjectRepresentationConstants" ],
 	"super" : "CogObjectRepresentation",
 	"type" : "normal" }

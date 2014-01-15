@@ -5,7 +5,7 @@ wordSwapFloatsFrom: startOop to: stopAddr
 	oop := startOop.
 	[self oop: oop isLessThan: stopAddr] whileTrue:
 		[(self isFreeObject: oop) ifFalse:
-			[((self formatOf: oop) = self firstLongFormat
+			[((self formatOf: oop) = 6
 			 and: [(self compactClassIndexOf: oop) = ClassFloatCompactIndex]) ifTrue:
 				[temp := self longAt: oop + BaseHeaderSize.
 				 self longAt: oop + BaseHeaderSize put: (self longAt: oop + BaseHeaderSize + 4).

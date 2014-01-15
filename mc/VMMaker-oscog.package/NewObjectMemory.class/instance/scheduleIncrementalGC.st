@@ -1,4 +1,5 @@
 garbage collection
 scheduleIncrementalGC
+	<api>
 	needGCFlag := true.
-	coInterpreter forceInterruptCheck
+	self forceInterruptCheck

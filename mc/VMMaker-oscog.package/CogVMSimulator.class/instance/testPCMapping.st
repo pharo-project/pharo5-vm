@@ -1,6 +1,6 @@
 testing
 testPCMapping
-	objectMemory allObjectsDo:
+	self allObjectsDo:
 		[:o|
 		((objectMemory isCompiledMethod: o)
 		 and: [self methodShouldBeCogged: o]) ifTrue:

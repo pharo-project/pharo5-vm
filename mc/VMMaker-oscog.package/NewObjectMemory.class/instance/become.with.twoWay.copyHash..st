@@ -26,7 +26,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	twoWayFlag
 		ifTrue: [self restoreHeadersAfterBecoming: array1 with: array2]
 		ifFalse: [self restoreHeadersAfterForwardBecome: copyHashFlag].
-	coInterpreter postBecomeAction: 0.
+	coInterpreter postBecomeAction.
 
 	self initializeMemoryFirstFree: freeStart. "re-initialize memory used for forwarding table"
 	self leakCheckBecome ifTrue:

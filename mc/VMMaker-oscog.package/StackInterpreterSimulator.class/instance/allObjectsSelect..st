@@ -2,9 +2,11 @@ debug support
 allObjectsSelect: objBlock
 	"self allObjectsSelect: [:oop | (self baseHeader: oop) = 1234]"
 
-	| selected |
+	| oop selected |
+	oop := objectMemory firstObject.
 	selected := OrderedCollection new.
-	objectMemory allObjectsDo:
-		[:obj|
-		(objBlock value: obj) ifTrue: [selected addLast: obj]].
-	^selected
+	[oop < objectMemory endOfMemory] whileTrue:
+			[(objectMemory isFreeObject: oop)
+				ifFalse: [(objBlock value: oop) ifTrue: [selected addLast: oop]].
+			oop := objectMemory objectAfter: oop].
+	^ selected

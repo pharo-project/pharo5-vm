@@ -9,7 +9,7 @@ ensureAllContextsHaveBytecodePCsOrAreBereaved
 	oop := objectMemory firstObject.
 	[oop < objectMemory freeStart] whileTrue:
 		[((objectMemory isFreeObject: oop) not
-		   and: [objectMemory isContextNonImm: oop]) ifTrue:
+		   and: [objectMemory isContextNonInt: oop]) ifTrue:
 			[(self isMarriedOrWidowedContext: oop)
 				ifTrue: "The stack pages have already been discarded.  Any remaining married contexts are actually widows."
 					[self markContextAsDead: oop]

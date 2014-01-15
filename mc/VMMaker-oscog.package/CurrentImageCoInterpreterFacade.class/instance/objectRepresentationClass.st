@@ -1,3 +1,3 @@
 accessing
 objectRepresentationClass
-	^self subclassResponsibility
+	^CogObjectRepresentationForSqueakV3

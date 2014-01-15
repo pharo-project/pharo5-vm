@@ -7,6 +7,7 @@ compileEntireMethod
 	(result := self compilePrimitive) < 0 ifTrue:
 		[^result].
 	self compileFrameBuild.
+	blockCount := 0.
 	(result := self compileMethodBody) < 0 ifTrue:
 		[^result].
 	blockCount = 0 ifTrue:

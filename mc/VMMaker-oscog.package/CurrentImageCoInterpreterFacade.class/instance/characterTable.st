@@ -1,3 +1,3 @@
 accessing
 characterTable
-	^self subclassResponsibility
+	^self oopForObject: Character characterTable

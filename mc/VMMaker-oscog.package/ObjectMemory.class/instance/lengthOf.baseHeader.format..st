@@ -9,8 +9,8 @@ lengthOf: oop baseHeader: hdr format: fmt
 		ifTrue: [ sz := (self sizeHeader: oop) bitAnd: LongSizeMask ]
 		ifFalse: [ sz := (hdr bitAnd: SizeMask)].
 	sz := sz - (hdr bitAnd: Size4Bit).
-	fmt <= self lastPointerFormat
+	fmt <= 4
 		ifTrue: [ ^ (sz - BaseHeaderSize) >> ShiftForWord "words"].
-	^fmt < self firstByteFormat
-		ifTrue: [(sz - BaseHeaderSize) >> 2 "32-bit longs"]
-		ifFalse: [(sz - BaseHeaderSize) - (fmt bitAnd: 3) "bytes"]
+	fmt < 8
+		ifTrue: [ ^ (sz - BaseHeaderSize) >> 2 "32-bit longs"]
+		ifFalse: [ ^ (sz - BaseHeaderSize) - (fmt bitAnd: 3) "bytes"]

@@ -5,7 +5,9 @@ commonSend
 	the receiver and arguments have been pushed onto the stack,"
 	"Note: This method is inlined into the interpreter dispatch loop."
 	<sharedCodeNamed: 'commonSend' inCase: #singleExtendedSendBytecode>
-	self sendBreakpoint: messageSelector receiver: (self internalStackValue: argumentCount).
+	self sendBreak: messageSelector + BaseHeaderSize
+		point: (objectMemory lengthOf: messageSelector)
+		receiver: (self internalStackValue: argumentCount).
 	self printSends ifTrue:
 		[self printActivationNameForSelector: messageSelector startClass: lkupClass; cr].
 	self internalFindNewMethod.

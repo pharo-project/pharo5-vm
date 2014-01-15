@@ -10,7 +10,7 @@ sendInvokeCallback: thunkPtr Stack: stackPtr Registers: regsPtr Jmpbuf: jmpBufPt
 	self pushRemappableOop: (self positive32BitIntegerFor: stackPtr).
 	self pushRemappableOop: (self positive32BitIntegerFor: thunkPtr).
 	receiver := self splObj: ClassAlien.
-	lkupClass := self fetchClassOfNonImm: receiver.
+	lkupClass := self fetchClassOfNonInt: receiver.
 	messageSelector := self splObj: SelectorInvokeCallback.
 	(self lookupInMethodCacheSel: messageSelector class: lkupClass) ifFalse:
 	 	[(self lookupMethodNoMNUEtcInClass: lkupClass) ifFalse:

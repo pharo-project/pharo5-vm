@@ -12,8 +12,8 @@ mapTraceLog
 	0 to: limit by: 3 do:
 		[:i| | intOrClass selectorOrMethod |
 		intOrClass := traceLog at: i.
-		(objectMemory shouldRemapOop: intOrClass) ifTrue:
-			[traceLog at: i put: (objectMemory remapObj: intOrClass)].
+		(objectMemory isIntegerObject: intOrClass) ifFalse:
+			[traceLog at: i put: (objectMemory remap: intOrClass)].
 		selectorOrMethod := traceLog at: i + 1.
-		(objectMemory shouldRemapOop: selectorOrMethod) ifTrue:
-			[traceLog at: i + 1 put: (objectMemory remapObj: selectorOrMethod)]]
+		(objectMemory isIntegerObject: selectorOrMethod) ifFalse:
+			[traceLog at: i + 1 put: (objectMemory remap: selectorOrMethod)]]

@@ -4,6 +4,6 @@ firstValidIndexOfIndexableObject: obj withFormat: fmt
 	 with the given format.  This is 1 for all objects except compiled methods
 	 where the first index is beyond the last literal.
 	 Used for safer bounds-checking on methods."
-	^fmt >= self firstCompiledMethodFormat
+	^fmt >= 12
 		ifTrue: [coInterpreter firstByteIndexOfMethod: obj]
 		ifFalse: [1]

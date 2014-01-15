@@ -8,14 +8,14 @@ primitiveIntegerAt
 	self successful ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	rcvr := self stackValue: 1.
-	(objectMemory isWords: rcvr) ifFalse:
+	((objectMemory isIntegerObject: rcvr)
+	or: [(objectMemory isWords: rcvr) not]) ifTrue:
 		[^self primitiveFailFor: PrimErrInappropriate].
 	sz := objectMemory lengthOf: rcvr.  "number of fields"
 	((index >= 1) and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
-	"4 = 32 bits / 8"
-	addr := rcvr + objectMemory baseHeaderSize + (index - 1 * 4). "for zero indexing"
-	value := objectMemory intAt: addr.
+	addr := rcvr + BaseHeaderSize + (index - 1 * BytesPerWord). "for zero indexing"
+	value := self intAt: addr.
 	self pop: 2.  "pop rcvr, index"
 	"push element value"
 	(objectMemory isIntegerValue: value)

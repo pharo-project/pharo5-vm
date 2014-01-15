@@ -1,3 +1,3 @@
 accessing
-formatOfClass: classOop
-	^self subclassResponsibility
+formatOfClass: classOop 
+	^(self objectForOop: classOop) format << 1

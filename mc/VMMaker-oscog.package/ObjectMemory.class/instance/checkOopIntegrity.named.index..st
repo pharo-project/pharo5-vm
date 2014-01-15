@@ -1,4 +1,4 @@
-debug support
+memory access
 checkOopIntegrity: obj named: name index: i
 	<inline: false>
 	<var: #name type: #'char *'>

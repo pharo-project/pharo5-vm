@@ -10,6 +10,6 @@ byteLengthOf: obj
 			ifTrue: [(self sizeHeader: obj) bitAnd: AllButTypeMask]
 			ifFalse: [header bitAnd: SizeMask].
 	fmt := self formatOfHeader: header.
-	^fmt < self firstByteFormat
+	^fmt < 8
 		ifTrue: [(sz - BaseHeaderSize)]  "words"
 		ifFalse: [(sz - BaseHeaderSize) - (fmt bitAnd: 3)]  "bytes"

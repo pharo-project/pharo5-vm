@@ -1,5 +1,5 @@
 inlining
 mayInline: sel
-	"Answer if the method with the given selector may be inlined."
+	"Answer true if the method with the given selector may be inlined."
 
-	^(self isAssertSelector: sel) not and: [inlineList includes: sel]
+	^sel ~~ #assert: and: [inlineList includes: sel]

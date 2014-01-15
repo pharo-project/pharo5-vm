@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addDriver:sources:generator:externalLibs:" : "jeanbaptistearnaud 10/8/2013 17:00",
+		"commonCompilerFlags" : "jeanbaptistearnaud 10/8/2013 16:26",
+		"compilerFlagsDebug" : "jeanbaptistearnaud 10/8/2013 15:19",
+		"compilerFlagsRelease" : "jeanbaptistearnaud 10/8/2013 15:19",
+		"configureBitBltSimulation:" : "jeanbaptistearnaud 10/8/2013 16:24",
+		"defaultExternalPlugins" : "jeanbaptistearnaud 10/8/2013 15:18",
+		"defaultInternalPlugins" : "jeanbaptistearnaud 10/8/2013 15:20",
+		"executableName" : "jeanbaptistearnaud 10/16/2013 12:31",
+		"extraPluginSettings:" : "jeanbaptistearnaud 10/8/2013 15:18",
+		"linkFlags" : "jeanbaptistearnaud 10/8/2013 15:19",
+		"setExtraTargetProperties:" : "jeanbaptistearnaud 10/8/2013 16:56" } }

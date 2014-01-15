@@ -19,5 +19,5 @@ validInstructionPointer: theInstrPointer inMethod: aMethod framePointer: fp
 										+ (self sizeOfCallPrimitiveBytecode: methodHeader) - 1)]])
 					not]]]
 		ifFalse: "-1 for pre-increment in fetchNextBytecode"
-			[theInstrPointer >= (aMethod + (objectMemory lastPointerOf: aMethod))
-			 and: [theInstrPointer < (aMethod + (objectMemory byteLengthOf: aMethod) + objectMemory baseHeaderSize - 1)]]
+			[theInstrPointer >= (aMethod + (objectMemory lastPointerOf: aMethod) + BaseHeaderSize - 1)
+			 and: [theInstrPointer < (aMethod + (objectMemory byteLengthOf: aMethod) + BaseHeaderSize - 1)]]

@@ -4,14 +4,11 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 	 initialized with a subset of the frame's state that references the frame.
 	 For the default closure implementation we do not need to copy temps.
 	 Different closure implementations may require temps to be copied."
-	| theContext methodHeader numSlots numArgs numStack closureOrNil numTemps |
+	| theContext methodHeader byteSize numArgs numStack closureOrNil numTemps |
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	<var: #theSP type: #'char *'>
 	self assert: (self frameHasContext: theFP) not.
-
-	"The SP is expected to be pointing at the last oop on the stack, not at the pc"
-	self assert: (objectMemory addressCouldBeOop: (stackPages longAt: theSP)).
 
 	methodHeader := self headerOf: (self frameMethod: theFP).
 	"Decide how much of the stack to preserve in widowed contexts.  Preserving too much
@@ -27,11 +24,11 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 						ifTrue: [self pushedReceiverOrClosureOfFrame: theFP]
 						ifFalse: [objectMemory nilObject].
 
-	numSlots := (methodHeader bitAnd: LargeContextBit) ~= 0
-					ifTrue: [LargeContextSlots]
-					ifFalse: [SmallContextSlots].
-	theContext := objectMemory eeInstantiateMethodContextSlots: numSlots.
-	self assert: numStack + ReceiverIndex <= numSlots. 
+	byteSize := (methodHeader bitAnd: LargeContextBit) ~= 0
+					ifTrue: [LargeContextSize]
+					ifFalse: [SmallContextSize].
+	theContext := objectMemory eeInstantiateMethodContextByteSize: byteSize.
+	self assert: numStack + ReceiverIndex << ShiftForWord + BaseHeaderSize <= byteSize. 
 	"Mark context as married by setting its sender to the frame pointer plus SmallInteger
 	 tags and the InstructionPointer to the saved fp (which ensures correct alignment
 	 w.r.t. the frame when we check for validity)"

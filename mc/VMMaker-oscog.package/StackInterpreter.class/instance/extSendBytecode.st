@@ -8,6 +8,6 @@ extSendBytecode
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
 	rcvr := self internalStackValue: argumentCount.
-	lkupClassTag := objectMemory fetchClassTagOf: rcvr.
-	self assert: lkupClassTag ~= objectMemory nilObject.
+	lkupClass := objectMemory fetchClassOf: rcvr.
+	self assert: lkupClass ~= objectMemory nilObject.
 	self commonSend

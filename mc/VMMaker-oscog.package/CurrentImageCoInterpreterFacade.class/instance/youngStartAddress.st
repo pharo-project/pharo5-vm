@@ -1,3 +1,3 @@
 accessing
 youngStartAddress
-	^self subclassResponsibility
+	^16r4E5E400

@@ -5,6 +5,6 @@ storePointer: index ofObject: oop withValue: valuePointer
 	self assert: oop >= self startOfMemory.
 	hdr := self baseHeader: oop.
 	fmt := self formatOfHeader: hdr.
-	self assert: ((fmt <= self lastPointerFormat or: [fmt >= self firstCompiledMethodFormat])
+	self assert: ((fmt <= 4 or: [fmt >= 12])
 				and: [index >= 0 and: [index < (self lengthOf: oop baseHeader: hdr format: fmt)]]).
 	^super storePointer: index ofObject: oop withValue: valuePointer

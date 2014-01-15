@@ -28,7 +28,7 @@ allocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOop h3: extendedS
 	"clear new object"
 	doFill ifTrue:
 		[| fillWord end i |
-		 fillWord := format <= self lastPointerFormat
+		 fillWord := format <= 4
 					ifTrue: [nilObj] "if pointers, fill with nil oop"
 					ifFalse: [0].
 		 end := newObj + byteSize.

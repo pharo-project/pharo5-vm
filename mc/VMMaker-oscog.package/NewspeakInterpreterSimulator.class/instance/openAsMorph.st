@@ -8,7 +8,7 @@ openAsMorph
 	window addMorph: (displayView := ImageMorph new image: displayForm)
 		frame: (0@0 corner: 1@0.8).
 
-	transcript := ThreadSafeTranscript new.
+	transcript := TranscriptStream on: (String new: 10000).
 	window addMorph: (PluggableTextMorph
 							on: transcript text: nil accept: nil
 							readSelection: nil menu: #codePaneMenu:shifted:)
@@ -22,6 +22,4 @@ openAsMorph
 	window openInWorldExtent: (self desiredDisplayExtent
 								+ (2 * window borderWidth)
 								+ (0@window labelHeight)
-								* (1@(1/0.8))) rounded.
-								
-	^window 						
+								* (1@(1/0.8))) rounded

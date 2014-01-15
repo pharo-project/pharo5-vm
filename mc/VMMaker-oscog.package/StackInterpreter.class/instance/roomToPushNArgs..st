@@ -6,6 +6,6 @@ roomToPushNArgs: n
 	| cntxSize |
 	self assert: method = (stackPages longAt: framePointer + FoxMethod).
 	cntxSize := ((self headerOf: method) bitAnd: LargeContextBit) ~= 0
-					ifTrue: [LargeContextSlots - ReceiverIndex]
-					ifFalse: [SmallContextSlots - ReceiverIndex].
+					ifTrue: [LargeContextSize / BytesPerWord - ReceiverIndex]
+					ifFalse: [SmallContextSize / BytesPerWord - ReceiverIndex].
 	^self stackPointerIndex + n <= cntxSize

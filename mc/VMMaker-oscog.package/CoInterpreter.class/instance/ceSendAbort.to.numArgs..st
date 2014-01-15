@@ -7,24 +7,28 @@ ceSendAbort: selector to: rcvr numArgs: numArgs
 	 Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	 depending on whether the target method is cogged or not."
 	<api>
-	| classTag errSelIdx |
+	| class errSelIdx |
 	<inline: false>
 	"self printExternalHeadFrame"
 	"self printStringOf: selector"
 	cogit assertCStackWellAligned.
 	self assert: ((objectMemory isIntegerObject: rcvr) or: [objectMemory addressCouldBeObj: rcvr]).
-	self sendBreakpoint: selector receiver: rcvr.
+	self sendBreak: selector + BaseHeaderSize
+		point: (objectMemory lengthOf: selector)
+		receiver: rcvr.
 	argumentCount := numArgs.
-	classTag := objectMemory fetchClassTagOf: rcvr.
-	(self lookupInMethodCacheSel: selector classTag: classTag)
+	"We set the messageSelector and lkupClass for executeMethod below since things
+	 like the at cache read messageSelector and lkupClass and so they cannot be left stale."
+	messageSelector := selector.
+	lkupClass := class := objectMemory fetchClassOf: rcvr.
+	(self lookupInMethodCacheSel: selector class: class)
 		ifTrue:"check for coggability because method is in the cache"
 			[self
 				ifAppropriateCompileToNativeCode: newMethod
 				selector: selector]
 		ifFalse:
-			[messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
+			[(errSelIdx := self lookupMethodNoMNUEtcInClass: class) ~= 0 ifTrue:
+				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: class.
 				"NOTREACHED"
 				self assert: false]].
 	instructionPointer := self popStack.

@@ -9,7 +9,6 @@
 		 ],
 	"name" : "VMClass",
 	"pools" : [
-		"VMBasicConstants",
-		"VMObjectIndices" ],
+		"VMBasicConstants" ],
 	"super" : "Object",
 	"type" : "normal" }

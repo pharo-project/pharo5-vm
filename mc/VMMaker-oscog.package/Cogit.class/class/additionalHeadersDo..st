@@ -4,6 +4,4 @@ additionalHeadersDo: aBinaryBlock
 	 any additional header files that need to be generated."
 	aBinaryBlock
 		value: 'cogmethod.h'
-		value: (NewspeakVM
-					ifTrue: [NewspeakCogMethod]
-					ifFalse: [CogMethod]) cogMethodHeader
+		value: CogMethod cogMethodHeader

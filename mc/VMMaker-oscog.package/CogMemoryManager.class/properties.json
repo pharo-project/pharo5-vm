@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-MemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 7/5/2012 07:03",
+	"instvars" : [
+		"coInterpreter" ],
+	"name" : "CogMemoryManager",
+	"pools" : [
+		 ],
+	"super" : "VMClass",
+	"type" : "normal" }

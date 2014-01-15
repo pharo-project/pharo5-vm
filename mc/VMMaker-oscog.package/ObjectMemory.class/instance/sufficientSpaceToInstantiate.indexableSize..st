@@ -5,12 +5,12 @@ sufficientSpaceToInstantiate: classOop indexableSize: size
 	<var: #size type: #usqInt>
 	| format allocSize |
 	<inline: true>
-	(format := self instSpecOfClass: classOop) < self firstByteFormat
+	(format := self instSpecOfClass: classOop) < 8
 		ifTrue:
 			["indexable fields are words or pointers"
 			size ~= 0 ifTrue:
 				["fail if attempting to call new: on non-indexable class"
-				 format < self arrayFormat ifTrue:
+				 format < 2 ifTrue:
 					[^false].
 				 "fail if attempting to allocate over 2 Gb, since this overflows 32-bit arithmetic"
 				 size >> (LongSizeNumBits - BytesPerWord) > 0 ifTrue:

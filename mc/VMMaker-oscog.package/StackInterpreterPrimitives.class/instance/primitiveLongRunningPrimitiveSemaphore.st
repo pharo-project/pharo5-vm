@@ -12,7 +12,7 @@ primitiveLongRunningPrimitiveSemaphore
 		ifTrue:
 			[longRunningPrimitiveCheckSemaphore := nil]
 		ifFalse:
-			[(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
+			[(objectMemory fetchClassOfNonInt: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
 				[^self primitiveFail].
 			 longRunningPrimitiveCheckSemaphore := sema].
 	self voidLongRunningPrimitive: 'install'.

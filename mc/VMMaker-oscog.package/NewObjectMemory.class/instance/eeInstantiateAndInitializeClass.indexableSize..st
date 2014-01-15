@@ -24,32 +24,35 @@ eeInstantiateAndInitializeClass: classPointer indexableSize: size
 	byteSize := byteSize << (ShiftForWord-2).
 	format := self formatOfHeader: classFormat.
 	self flag: #sizeLowBits.
-	format < self firstByteFormat
+	format < 8
 		ifTrue:
-			[format = self firstLongFormat
-				ifTrue: "long32 bitmaps"
-					[bm1 := BytesPerWord-1.
+			[format = 6
+				ifTrue: ["long32 bitmaps"
+					bm1 := BytesPerWord-1.
 					byteSize := byteSize + (size * 4) + bm1 bitAnd: LongSizeMask. "round up"
 					binc := bm1 - ((size * 4) + bm1 bitAnd: bm1). "odd bytes"
 					"extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"
 					header1 := header1 bitOr: (binc bitAnd: 4)]
-				ifFalse: "Arrays and 64-bit bitmaps"
-					[byteSize := byteSize + (size * BytesPerWord)]]
+				ifFalse: [byteSize := byteSize + (size * BytesPerWord) "Arrays and 64-bit bitmaps"]
+			]
 		ifFalse:
 			["Strings and Methods"
 			bm1 := BytesPerWord-1.
 			byteSize := byteSize + size + bm1 bitAnd: LongSizeMask. "round up"
 			binc := bm1 - (size + bm1 bitAnd: bm1). "odd bytes"
 			"low bits of byte size go in format field"
-			header1 := header1 bitOr: (binc bitAnd: 3) << self instFormatFieldLSB.
+			header1 := header1 bitOr: (binc bitAnd: 3) << 8.
 			"extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"
 			header1 := header1 bitOr: (binc bitAnd: 4)].
 	byteSize > 255
-		ifTrue: "requires size header word"
-			[header3 := byteSize.
+		ifTrue: ["requires size header word"
+			header3 := byteSize.
 			header1 := header1]
 		ifFalse: [header1 := header1 bitOr: byteSize].
-	hdrSize := header3 > 0
-					ifTrue: [3] "requires full header"
-					ifFalse: [cClass = 0 ifTrue: [2] ifFalse: [1]].
+	header3 > 0
+		ifTrue: ["requires full header"
+			hdrSize := 3]
+		ifFalse: [cClass = 0
+				ifTrue: [hdrSize := 2]
+				ifFalse: [hdrSize := 1]].
 	^self eeAllocate: byteSize headerSize: hdrSize h1: header1 h2: header2 h3: header3 doFill: true format: format

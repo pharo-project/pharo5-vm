@@ -28,7 +28,5 @@ checkClassForNameConflicts: aClass
 	aClass selectors do:
 		[:sel |
 		((methods includesKey: sel)
-		and: [(aClass isStructClass and: [(aClass isAccessor: sel)
-				and: [(methods at: sel) isStructAccessor]]) not
-		and: [((aClass compiledMethodAt: sel) pragmaAt: #doNotGenerate) isNil]]) ifTrue:
+		and: [((aClass compiledMethodAt: sel) pragmaAt: #doNotGenerate) isNil]) ifTrue:
 			[self error: 'Method ', sel, ' was defined in a previously added class.']]

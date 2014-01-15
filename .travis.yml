@@ -1,0 +1,10 @@
+language: c
+env: 
+  - OS=linux
+before_install:
+  - sudo apt-get update
+install: 
+  - scripts/setup-ubuntu.sh
+script: 
+  - scripts/build.sh
+  - scripts/test.sh

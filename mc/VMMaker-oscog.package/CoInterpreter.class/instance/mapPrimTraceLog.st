@@ -12,5 +12,5 @@ mapPrimTraceLog
 	0 to: limit do:
 		[:i| | selector |
 		selector := primTraceLog at: i.
-		(objectMemory shouldRemapOop: selector) ifTrue:
-			[primTraceLog at: i put: (objectMemory remapObj: selector)]]
+		(objectMemory isIntegerObject: selector) ifFalse:
+			[primTraceLog at: i put: (objectMemory remap: selector)]]

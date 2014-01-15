@@ -9,16 +9,13 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 
 	Override to set the ``has context'' flag appropriately for both machine code and interpreter frames
 	and to streamline the machine code/interpreter differences.."
-	| theContext methodFieldOrObj closureOrNil rcvr numSlots numArgs numStack numTemps |
+	| theContext methodFieldOrObj closureOrNil rcvr byteSize numArgs numStack numTemps |
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	<var: #theSP type: #'char *'>
 	<var: #cogMethod type: #'CogMethod *'>
 	self assert: (self frameHasContext: theFP) not.
 	self assert: (self isBaseFrame: theFP) not. "base frames must aready be married for cannotReturn: processing"
-
-	"The SP is expected to be pointing at the last oop on the stack, not at the pc"
-	self assert: (objectMemory addressCouldBeOop: (objectMemory longAt: theSP)).
 
 	"Decide how much of the stack to preserve in widowed contexts.  Preserving too much
 	 state will potentially hold onto garbage.  Holding onto too little may mean that a dead
@@ -41,24 +38,24 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 				ifFalse:
 					[cogMethod := (self cCoerceSimple: cogMethod to: #'CogBlockMethod *') cmHomeMethod.
 					 closureOrNil := self frameStackedReceiver: theFP numArgs: numArgs].
-			 numSlots := (cogMethod methodHeader bitAnd: LargeContextBit) ~= 0
-							ifTrue: [LargeContextSlots]
-							ifFalse: [SmallContextSlots].
+			 byteSize := (cogMethod methodHeader bitAnd: LargeContextBit) ~= 0
+							ifTrue: [LargeContextSize]
+							ifFalse: [SmallContextSize].
 			 methodFieldOrObj := cogMethod methodObject.
 			 rcvr := self mframeReceiver: theFP.
 			 numStack := self stackPointerIndexForMFrame: theFP WithSP: theSP numArgs: numArgs]
 		ifFalse:
 			[self setIFrameHasContext: theFP.
 			 numArgs := self iframeNumArgs: theFP.
-			 numSlots := ((self headerOf: methodFieldOrObj) bitAnd: LargeContextBit) ~= 0
-							ifTrue: [LargeContextSlots]
-							ifFalse: [SmallContextSlots].
+			 byteSize := ((self headerOf: methodFieldOrObj) bitAnd: LargeContextBit) ~= 0
+							ifTrue: [LargeContextSize]
+							ifFalse: [SmallContextSize].
 			 closureOrNil := (self iframeIsBlockActivation: theFP)
 								ifTrue: [self frameStackedReceiver: theFP numArgs: numArgs]
 								ifFalse: [objectMemory nilObject].
 			 rcvr := self iframeReceiver: theFP.
 			 numStack := self stackPointerIndexForIFrame: theFP WithSP: theSP numArgs: numArgs].
-	theContext := objectMemory eeInstantiateMethodContextSlots: numSlots.
+	theContext := objectMemory eeInstantiateMethodContextByteSize: byteSize.
 	self setFrameContext: theFP to: theContext.
 	"Mark context as married by setting its sender to the frame pointer plus SmallInteger
 	 tags and the InstructionPointer to the saved fp (which ensures correct alignment

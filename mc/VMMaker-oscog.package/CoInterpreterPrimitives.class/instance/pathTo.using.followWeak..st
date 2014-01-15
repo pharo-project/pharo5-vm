@@ -32,7 +32,7 @@ pathTo: goal using: stack followWeak: followWeak
 									ifTrue: [self fieldOrSenderFP: index ofContext: current]
 									ifFalse: [objectMemory fetchPointer: index ofObject: current]]
 							ifFalse:
-								[objectMemory fetchClassOfNonImm: current]].
+								[objectMemory fetchClassOfNonInt: current]].
 		 (stackPages couldBeFramePointer: next)
 			ifTrue: [self assert: (self isFrame: (self cCoerceSimple: next to: #'char *')
 										onPage: (stackPages stackPageFor: (self cCoerceSimple: next to: #'char *')))]
@@ -71,7 +71,7 @@ pathTo: goal using: stack followWeak: followWeak
 						[hdr := objectMemory baseHeader: next.
 						 objectMemory baseHeader: next put: (hdr bitOr: MarkBit).
 						 (objectMemory isCompiledMethodHeader: hdr)
-							ifTrue: [index := (self literalCountOf: next) + LiteralStart]
+							ifTrue: [index := self literalCountOf: next]
 							ifFalse: [index := objectMemory lengthOf: next]].
 				 current := next]].
 		 current = objectMemory specialObjectsOop ifTrue:

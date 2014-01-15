@@ -13,13 +13,13 @@ updateObjectsPostByteSwapFrom: startOop to: stopAddr
 	[self oop: oop isLessThan: stopAddr] whileTrue:
 		[(objectMemory isFreeObject: oop) ifFalse:
 			[fmt := objectMemory formatOf: oop.
-			 fmt >= self firstByteFormat ifTrue: "oop contains bytes"
+			 fmt >= 8 ifTrue: "oop contains bytes"
 				[wordAddr := oop + BaseHeaderSize.
-				fmt >= self firstCompiledMethodFormat ifTrue: "compiled method; start after methodHeader and literals"
+				fmt >= 12 ifTrue: "compiled method; start after methodHeader and literals"
 					[methodHeader := self longAt: oop + BaseHeaderSize.
 					 wordAddr := wordAddr + BytesPerWord + ((methodHeader >> 10 bitAnd: 255) * BytesPerWord)].
 				objectMemory reverseBytesFrom: wordAddr to: oop + (objectMemory sizeBitsOf: oop)].
-			 fmt = self firstLongFormat ifTrue: "Bitmap, Float etc"
+			 fmt = 6 ifTrue: "Bitmap, Float etc"
 				[(swapFloatWords
 				  and: [(objectMemory compactClassIndexOf: oop) = ClassFloatCompactIndex])
 					ifTrue:

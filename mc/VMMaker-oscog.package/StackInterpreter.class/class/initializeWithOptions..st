@@ -2,6 +2,7 @@ initialization
 initializeWithOptions: optionsDictionary
 	"StackInterpreter initializeWithOptions: Dictionary new"
 
+	NewObjectMemory initializeWithOptions: optionsDictionary.  "initialize ObjectMemory constants"
 	self initializeMiscConstantsWith: optionsDictionary. "must preceed other initialization."
 	self initializeAssociationIndex.
 	self initializeBytecodeTable.

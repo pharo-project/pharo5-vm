@@ -22,7 +22,7 @@ configurationInfo
 		platformName.
 		makeRelative value: self sourceDirectory pathName.
 		makeRelative value: self platformRootDirectory pathName.
-		self wordSize.
+		self bytesPerWord.
 		isRelative value: self sourceDirectory pathName.
 		isRelative value: self platformRootDirectory pathName.
 		self interpreterClassName

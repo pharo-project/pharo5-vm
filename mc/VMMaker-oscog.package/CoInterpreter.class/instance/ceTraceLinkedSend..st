@@ -15,4 +15,6 @@ ceTraceLinkedSend: theReceiver
 			isBlock: false
 			firstTemporary: nil;
 			cr].
-	self sendBreakpoint: cogMethod selector receiver: theReceiver
+	self sendBreak: cogMethod selector + BaseHeaderSize
+		point: (objectMemory lengthOf: cogMethod selector)
+		receiver: theReceiver

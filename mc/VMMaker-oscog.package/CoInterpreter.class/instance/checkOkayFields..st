@@ -7,12 +7,12 @@ checkOkayFields: oop
 	(oop = nil or: [oop = 0]) ifTrue: [ ^true ]. "?? eem 1/16/2013"
 	(objectMemory isIntegerObject: oop) ifTrue: [ ^true ].
 	(objectMemory checkOkayOop: oop) ifFalse: [ ^false ].
-	(objectMemory checkOopHasOkayClass: oop) ifFalse: [ ^false ].
+	(self checkOopHasOkayClass: oop) ifFalse: [ ^false ].
+	hasYoung := objectMemory isYoung: (objectMemory fetchClassOfNonInt: oop).
 	((objectMemory isPointersNonInt: oop) or: [objectMemory isCompiledMethod: oop]) ifFalse: [ ^true ].
-	hasYoung := objectMemory isYoung: (objectMemory fetchClassOfNonImm: oop).
 	(objectMemory isCompiledMethod: oop)
 		ifTrue:
-			[i := (self literalCountOf: oop) + LiteralStart - 1]
+			[i := (self literalCountOf: oop) - 1]
 		ifFalse:
 			[(objectMemory isContext: oop)
 				ifTrue: [i := CtxtTempFrameStart + (self fetchStackPointerOf: oop) - 1]

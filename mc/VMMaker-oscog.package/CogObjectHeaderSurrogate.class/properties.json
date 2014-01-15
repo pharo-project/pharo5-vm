@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-MemoryManagerSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"address",
+		"memory" ],
+	"name" : "CogObjectHeaderSurrogate",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

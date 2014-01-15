@@ -30,9 +30,7 @@ declareCVarsIn: aCodeGen
 		var: 'isPushNilFunction'
 			declareC: 'sqInt (* const isPushNilFunction)(struct _BytecodeDescriptor *,sqInt,sqInt,sqInt) = ', (aCodeGen cFunctionNameFor: self isPushNilFunction);
 		var: 'pushNilSizeFunction'
-			declareC: 'sqInt (* const pushNilSizeFunction)(sqInt) = ', (aCodeGen cFunctionNameFor: self pushNilSizeFunction);
-		var: 'prevBCDescriptor'
-			type: #'BytecodeDescriptor *'.
+			declareC: 'sqInt (* const pushNilSizeFunction)(sqInt) = ', (aCodeGen cFunctionNameFor: self pushNilSizeFunction).
 
 	aCodeGen
 		addSelectorTranslation: #register to: (aCodeGen cFunctionNameFor: 'registerr');

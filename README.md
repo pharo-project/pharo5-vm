@@ -1,3 +1,8 @@
+Build Status
+============
+- Master Branch: [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=master)](https://travis-ci.org/pharo-project/pharo-vm)
+- Develop Branch: [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=develop)](https://travis-ci.org/pharo-project/pharo-vm)
+
 REQUIREMENTS
 ============
 
@@ -5,12 +10,7 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 
 Unix:
 -----
-```bash    
-# build tools
-sudo apt-get install gcc g++ cmake lib32x-dev
-# dependencies for vm plugins
-sudo apt-get install libasound2-dev libssl-dev libfreetype6-dev libgl1-mesa-dev
-```
+see [setup-ubuntu.sh](scripts/setup-ubuntu.sh) for a complete setup for a recent ubuntu machine.
 
 Mac:
 -----
@@ -20,9 +20,12 @@ Download and install the [homebrew](http://brew.sh/) package manager with some a
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 # if you haven't installed git yet
 brew install git
+# if you haven't installed cmake yet
+brew install cmake
 # wget is needed in certain cases to download files
 brew install wget
 # OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
+#Follow the instruction of `brew info gnu-tar` to make this `tar` version the system default
 brew install gnu-tar --default-names
 ```
 
@@ -38,26 +41,7 @@ rm MacOSX10.6.sdk.zip
 
 Windows:
 ---------
-For building the VM under windows you will have to install a [minggw environment](http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/).
-
-Install the following additional MinGW packages by running the following command in the MingGW Shell:
-```bash
-mingw-get install msys-unzip msys-wget msys-zip
-```
-Install git: <http://code.google.com/p/msysgit/> and [add it to `PATH` variable](http://www.google.com/search?q=windows+add+PATH&btnI) after the `msys` paths.
-
-Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
-
-To check if everything is installed, open MSYS program (which should look like a UNIX terminal) and try to execute the different commands: `git`, `make` and `cmake`.
-
-Also there are some discrepancy with recent GCC (4.6.1), you need to add:
-```C
-#ifndef _MINGW_FLOAT_H_
-#include_next <float.h>
-#endif
-```
-into `C:\MinGW\lib\gcc\mingw32\4.6.1\include\float.h` at the end of that file.
-The version number, in this case 4.6.1, might be different in your case.
+Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
 
 
 Building the VM
@@ -68,6 +52,7 @@ Building the VM
  git clone --depth=1 https://github.com/pharo-project/pharo-vm.git
  cd pharo-vm
  ```
+ Note the windows specific steps mentioned in the [win32 readme](README-Win32.md).
 
 2. Get a fresh pharo image from the build server by running the script in the `image` folder.
  ```bash
@@ -75,7 +60,7 @@ Building the VM
  ```
 
 3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
-example VM configurations.
+example VM configurations. (That's not true as there will be no workspace open or your with that, so open a workspace and copy paste the line you need, and then evaluate it (Do It)).
 Pick or edit the configuration you want, then evaluate it.
  ```Smalltalk
  "Unix"
@@ -87,6 +72,13 @@ Pick or edit the configuration you want, then evaluate it.
  ```
 See `startup.st` for more examples for the common platforms.
 
+As an alternative, try (Windows flavor shown):
+
+```
+./pharo generator.image eval 'PharoVMBuilder buildWin32'
+```
+
+Should you want to build a StackVM version, use the PharoSVMBuilder.
 
 4. Once the sources are exported, you can launch cmake and build the VM:
 ```bash
@@ -94,7 +86,6 @@ cd build
 ./build.sh
 ```
 
-5. Finally, run the freshly compiled VM from `results`.
+Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.
 
-See a complete guide on how to build Cog VM using cmake on:
-http://code.google.com/p/cog/wiki/Guide
+5. Finally, run the freshly compiled VM from `results`.

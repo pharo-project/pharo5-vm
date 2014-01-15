@@ -6,7 +6,9 @@ commonSend
 	"Note: This method is inlined into the interpreter dispatch loop."
 	<sharedCodeNamed: 'commonSend' inCase: #singleExtendedSendBytecode>
 	self fastLogSend: messageSelector.
-	self sendBreakpoint: messageSelector receiver: (self internalStackValue: argumentCount).
+	self sendBreak: messageSelector + BaseHeaderSize
+		point: (self lengthOf: messageSelector)
+		receiver: (self internalStackValue: argumentCount).
 	self internalFindNewMethod.
 	self internalExecuteNewMethod.
 	self fetchNextBytecode

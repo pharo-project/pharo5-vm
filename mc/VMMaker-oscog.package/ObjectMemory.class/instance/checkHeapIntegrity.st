@@ -27,10 +27,10 @@ checkHeapIntegrity
 						[self print: 'object leak in '; printHex: obj; print: ' class = '; printHex: fieldOop; cr.
 						 ok := false]].
 				 fmt := self formatOfHeader: hdr.
-				 (fmt <= self lastPointerFormat or: [fmt >= self firstCompiledMethodFormat]) ifTrue:
-					[fmt >= self firstCompiledMethodFormat
-						ifTrue: [fi := (self literalCountOf: obj) + LiteralStart]
-						ifFalse: [(fmt = self indexablePointersFormat and: [self isContextHeader: hdr])
+				 (fmt <= 4 "pointers" or: [fmt >= 12 "compiled method"]) ifTrue:
+					[fmt >= 12
+						ifTrue: [fi := (self literalCountOf: obj) + 1 "+ 1 = methodHeader slot"]
+						ifFalse: [(fmt = 3 and: [self isContextHeader: hdr])
 									ifTrue: [fi := CtxtTempFrameStart + (self fetchStackPointerOf: obj)]
 									ifFalse: [fi := self lengthOf: obj]].
 					[(fi := fi - 1) >= 0] whileTrue:

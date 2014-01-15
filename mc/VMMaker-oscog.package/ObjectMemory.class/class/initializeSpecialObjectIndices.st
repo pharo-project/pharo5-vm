@@ -18,7 +18,7 @@ initializeSpecialObjectIndices
 	ClassLargePositiveInteger := 13.
 	TheDisplay := 14.
 	ClassMessage := 15.
-	"ClassCompiledMethod := 16. unused by the VM"
+	ClassCompiledMethod := 16.
 	TheLowSpaceSemaphore := 17.
 	ClassSemaphore := 18.
 	ClassCharacter := 19.
@@ -29,7 +29,7 @@ initializeSpecialObjectIndices
 	CharacterTable := 24.
 	SelectorMustBeBoolean := 25.
 	ClassByteArray := 26.
-	"ClassProcess := 27. unused"
+	ClassProcess := 27.
 	CompactClasses := 28.
 	TheTimerSemaphore := 29.
 	TheInterruptSemaphore := 30.

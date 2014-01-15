@@ -1,5 +1,5 @@
 interpreter access
-instantiateClass: classPointer indexableSize: size
+instantiateClass: classPointer indexableSize: size 
 	"NOTE: This method supports the backward-compatible split instSize field of the 
 	class format word. The sizeHiBits will go away and other shifts change by 2 
 	when the split fields get merged in an (incompatible) image change."
@@ -21,24 +21,23 @@ instantiateClass: classPointer indexableSize: size
 	byteSize := byteSize << (ShiftForWord-2).
 	format := self formatOfHeader: classFormat.
 	self flag: #sizeLowBits.
-	format < self firstByteFormat
+	format < 8
 		ifTrue:
-			[format = self firstLongFormat
-				ifTrue: "long32 bitmaps"
-					[bm1 := BytesPerWord-1.
+			[format = 6
+				ifTrue: ["long32 bitmaps"
+					bm1 := BytesPerWord-1.
 					byteSize := byteSize + (size * 4) + bm1 bitAnd: LongSizeMask. "round up"
 					binc := bm1 - ((size * 4) + bm1 bitAnd: bm1). "odd bytes"
 					"extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"
 					header1 := header1 bitOr: (binc bitAnd: 4)]
-				ifFalse: "Arrays and 64-bit bitmaps"
-					[byteSize := byteSize + (size * BytesPerWord)]]
+				ifFalse: [byteSize := byteSize + (size * BytesPerWord) "Arrays and 64-bit bitmaps"]]
 		ifFalse:
 			["Strings and Methods"
 			bm1 := BytesPerWord-1.
 			byteSize := byteSize + size + bm1 bitAnd: LongSizeMask. "round up"
 			binc := bm1 - (size + bm1 bitAnd: bm1). "odd bytes"
 			"low bits of byte size go in format field"
-			header1 := header1 bitOr: (binc bitAnd: 3) << self instFormatFieldLSB.
+			header1 := header1 bitOr: (binc bitAnd: 3) << 8.
 			"extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"
 			header1 := header1 bitOr: (binc bitAnd: 4)].
 	byteSize > 255 "requires size header word/full header"

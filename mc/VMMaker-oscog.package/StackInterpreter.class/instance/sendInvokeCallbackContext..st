@@ -8,11 +8,10 @@ sendInvokeCallbackContext: vmCallbackContext
 	 The arguments are raw C addresses and are converted to integer objects on the way."
 	<export: true>
 	<var: #vmCallbackContext type: #'VMCallbackContext *'>
-	| classTag |
-	classTag := self fetchClassTagOfNonImm: (self splObj: ClassAlien).
+	lkupClass := self fetchClassOfNonInt: (self splObj: ClassAlien).
 	messageSelector := self splObj: SelectorInvokeCallback.
-	(self lookupInMethodCacheSel: messageSelector classTag: classTag) ifFalse:
-	 	[(self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+	(self lookupInMethodCacheSel: messageSelector class: lkupClass) ifFalse:
+	 	[(self lookupMethodNoMNUEtcInClass: lkupClass) ~= 0 ifTrue:
 			[^false]].
 	primitiveFunctionPointer ~= 0 ifTrue:
 		[^false].

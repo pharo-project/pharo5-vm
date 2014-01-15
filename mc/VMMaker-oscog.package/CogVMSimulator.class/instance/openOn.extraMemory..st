@@ -36,6 +36,7 @@ openOn: fileName extraMemory: extraBytes
 									ifTrue: [self defaultNumStackPages]
 									ifFalse: [hdrNumStackPages]].
 	desiredNumStackPages := hdrNumStackPages.
+	stackPages := self stackPagesClass new. "Temporary for computeStackZoneSize"
 	stackZoneSize := self computeStackZoneSize.
 	"This slot holds the size of the native method zone in 1k units. (pad to word boundary)."
 	hdrCogCodeSize := (self getShortFromFile: f swap: swapBytes) * 1024.

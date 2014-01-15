@@ -12,5 +12,5 @@ extSendAbsentDynamicSuperBytecode
 	mixinApplication := self 
 							findApplicationOfTargetMixin: mClassMixin
 							startingAtBehavior: (objectMemory fetchClassOf: self receiver).
-	lkupClassTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
+	lkupClass := self superclassOf: mixinApplication.
 	self commonSend

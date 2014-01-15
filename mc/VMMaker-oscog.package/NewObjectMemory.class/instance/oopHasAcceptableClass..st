@@ -11,7 +11,7 @@ oopHasAcceptableClass: signedOop
 	oop := self cCoerce: signedOop to: #usqInt.
 	(self addressCouldBeObj: oop) ifFalse: [^ false].
 
-	oopClass := self cCoerce: (self fetchClassOfNonImm: oop) to: #usqInt.
+	oopClass := self cCoerce: (self fetchClassOfNonInt: oop) to: #usqInt.
 	(self addressCouldBeObj: oopClass) ifFalse: [^ false].
 	(oopClass + (self sizeBitsOf: oopClass)) <= freeStart ifFalse: [^ false].
 

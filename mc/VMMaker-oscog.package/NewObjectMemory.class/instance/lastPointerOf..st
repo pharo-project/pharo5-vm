@@ -3,21 +3,20 @@ lastPointerOf: oop
 	"Return the byte offset of the last pointer field of the given object.  
 	 Can be used even when the type bits are not correct.
 	 Works with CompiledMethods, as well as ordinary objects."
-	<api>
+	| fmt header contextSize numLiterals |
 	<inline: true>
 	<asmLabel: false>
-	| fmt header contextSize numLiterals |
 	header := self baseHeader: oop.
 	fmt := self formatOfHeader: header.
-	fmt <= self lastPointerFormat ifTrue:
-		[(fmt = self indexablePointersFormat
+	fmt <= 4 ifTrue:
+		[(fmt = 3
 		  and: [self isContextHeader: header]) ifTrue:
 			["contexts end at the stack pointer"
 			contextSize := coInterpreter fetchStackPointerOf: oop.
-			^CtxtTempFrameStart + contextSize * BytesPerOop].
+			^CtxtTempFrameStart + contextSize * BytesPerWord].
 		^(self sizeBitsOfSafe: oop) - BaseHeaderSize  "all pointers"].
-	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
+	fmt < 12 ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
 	numLiterals := coInterpreter literalCountOf: oop.
-	^numLiterals + LiteralStart * BytesPerOop
+	^numLiterals * BytesPerWord + BaseHeaderSize

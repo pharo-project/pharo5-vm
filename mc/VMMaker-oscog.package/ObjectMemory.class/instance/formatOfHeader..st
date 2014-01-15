@@ -16,4 +16,4 @@ formatOfHeader: header
                    followed by indexable bytes (same interpretation of low 2 bits as above)
 "
 	<inline: true>
-	^header >> self instFormatFieldLSB bitAnd: 16rF
+	^header >> 8 bitAnd: 16rF

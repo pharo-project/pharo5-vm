@@ -1,20 +1,18 @@
 debug printing
-printCallStackOf: aContextOrProcessOrFrame
+printCallStackOf: aContextOrProcess
 	<api>
 	| context |
 	<inline: false>
 	<var: #theFP type: #'char *'>
-	(stackPages couldBeFramePointer: aContextOrProcessOrFrame) ifTrue:
-		[^self printCallStackFP: (self cCoerceSimple: aContextOrProcessOrFrame to: #'char *')].
-	((objectMemory isContext: aContextOrProcessOrFrame) not
-	and: [(objectMemory lengthOf: aContextOrProcessOrFrame) > MyListIndex
+	((objectMemory isContext: aContextOrProcess) not
+	and: [(objectMemory lengthOf: aContextOrProcess) > MyListIndex
 	and: [objectMemory isContext: (objectMemory
 									fetchPointer: SuspendedContextIndex
-									ofObject: aContextOrProcessOrFrame)]]) ifTrue:
+									ofObject: aContextOrProcess)]]) ifTrue:
 		[^self printCallStackOf: (objectMemory
 									fetchPointer: SuspendedContextIndex
-									ofObject: aContextOrProcessOrFrame)].
-	context := aContextOrProcessOrFrame.
+									ofObject: aContextOrProcess)].
+	context := aContextOrProcess.
 	[context = objectMemory nilObject] whileFalse:
 		[(self isMarriedOrWidowedContext: context)
 			ifTrue:

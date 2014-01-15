@@ -1,7 +1,7 @@
 building
 buildWin32
 
-	self buildConfig: (PharoSWindowsConfig new  
+	PharoSWindowsConfig new  
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( Win32OSProcessPlugin );
-		yourself)
+		generateSources; generate.

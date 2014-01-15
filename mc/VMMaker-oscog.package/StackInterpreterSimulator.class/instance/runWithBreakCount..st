@@ -1,12 +1,14 @@
 testing
 runWithBreakCount: theBreakCount
 	"Just run, halting when byteCount is reached"
-	quitBlock := [displayView ifNotNil:
-				   [displayView containingWindow ifNotNil:
-					[:topWindow|
-					((World submorphs includes: topWindow)
-					 and: [UIManager default confirm: 'close?']) ifTrue:
-						[topWindow delete]]].
+	quitBlock := [| topWindow |
+				  
+				   (displayView notNil
+				   and: [topWindow := displayView outermostMorphThat:
+									[:m| m isSystemWindow and: [World submorphs includes: m]].
+						topWindow notNil
+				   and: [UIManager default confirm: 'close?']]) ifTrue:
+					[topWindow delete].
 				  ^self].
 	breakCount := theBreakCount.
 	self initStackPages.

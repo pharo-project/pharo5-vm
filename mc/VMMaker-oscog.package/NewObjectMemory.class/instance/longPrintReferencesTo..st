@@ -9,9 +9,9 @@ longPrintReferencesTo: anOop
 		[((self isPointersNonInt: oop) or: [self isCompiledMethod: oop]) ifTrue:
 			[(self isCompiledMethod: oop)
 				ifTrue:
-					[i := (self literalCountOf: oop) + LiteralStart]
+					[i := self literalCountOf: oop]
 				ifFalse:
-					[(self isContextNonImm: oop)
+					[(self isContextNonInt: oop)
 						ifTrue: [i := CtxtTempFrameStart + (coInterpreter fetchStackPointerOf: oop)]
 						ifFalse: [i := self lengthOf: oop]].
 			[(i := i - 1) >= 0] whileTrue:

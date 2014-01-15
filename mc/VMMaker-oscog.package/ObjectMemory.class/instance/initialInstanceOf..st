@@ -8,4 +8,4 @@ initialInstanceOf: classPointer
 		whileFalse: [thisClass := self fetchClassOf: thisObj.
 			thisClass = classPointer ifTrue: [^ thisObj].
 			thisObj := self accessibleObjectAfter: thisObj].
-	^nil
+	^ nilObj

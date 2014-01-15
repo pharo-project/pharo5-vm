@@ -15,8 +15,10 @@ initStackPagesAndInterpret
 	stackPageBytes := self stackPageByteSize.
 	stackPagesBytes := self computeStackZoneSize.
 	theStackMemory := self
-							cCode: [self alloca: stackPagesBytes]
-							inSmalltalk: [stackPages initializeWithByteSize: stackPagesBytes for: self].
+						cCode: [self alloca: stackPagesBytes]
+						inSmalltalk:
+							[stackPages := self stackPagesClass new.
+							 stackPages initializeWithByteSize: stackPagesBytes for: self].
 	self cCode: [self me: theStackMemory ms: 0 et: stackPagesBytes].
 	self sqMakeMemoryNotExecutableFrom: objectMemory startOfMemory asUnsignedInteger
 		To: objectMemory memoryLimit asUnsignedInteger.

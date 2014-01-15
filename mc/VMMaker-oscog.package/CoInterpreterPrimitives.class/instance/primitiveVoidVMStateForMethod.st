@@ -25,7 +25,7 @@ primitiveVoidVMStateForMethod
 				 instructionPointer := self popStack.
 				 self assert: methodObj = self stackTop]
 			ifFalse:
-				[self zeroStackPage. "to avoid assert in marryContextInNewStackPageAndInitializeInterpreterRegisters:"
+				[stackPage := 0. "to avoid assert in marryContextInNewStackPageAndInitializeInterpreterRegisters:"
 				 self marryContextInNewStackPageAndInitializeInterpreterRegisters: activeContext.
 				 self popStack. "pop bogus machine-code instructionPointer"
 				 self assert: methodObj = self stackTop.

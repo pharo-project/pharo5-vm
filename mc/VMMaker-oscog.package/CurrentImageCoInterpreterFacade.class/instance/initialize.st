@@ -11,4 +11,5 @@ initialize
 	variables := Dictionary new.
 	#('stackLimit') do:
 		[:l| self addressForLabel: l].
+	headerToMethodMap := Dictionary new.
 	self initializeObjectMap

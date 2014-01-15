@@ -6,7 +6,7 @@ initializeInterpreter: bytesToShift
 	self initializeObjectMemory: bytesToShift.
 	self initCompilerHooks.
 	self checkAssumedCompactClasses.
-	metaclassSizeBits := self sizeBitsOf: (self fetchClassOfNonImm: (self splObj: ClassArray)).	"determine actual (Metaclass instSize * 4)"
+	metaclassSizeBits := self sizeBitsOf: (self fetchClassOfNonInt: (self splObj: ClassArray)).	"determine actual (Metaclass instSize * 4)"
 	activeContext := nilObj.
 	theHomeContext := nilObj.
 	method := nilObj.

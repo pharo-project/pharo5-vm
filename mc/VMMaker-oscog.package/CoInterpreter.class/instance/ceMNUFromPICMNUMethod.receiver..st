@@ -24,8 +24,7 @@ ceMNUFromPICMNUMethod: aMethodObj receiver: rcvr
 		primitiveIndex := self primitiveIndexOf: aMethodObj.
 		primitiveFunctionPointer := self functionPointerFor: primitiveIndex inClass: objectMemory nilObject.
 		^self interpretMethodFromMachineCode].
-	self handleMNU: SelectorDoesNotUnderstand
-		InMachineCodeTo: rcvr
-		classForMessage: (objectMemory fetchClassOf: rcvr).
+	lkupClass := objectMemory fetchClassOf: rcvr.
+	self handleMNU: SelectorDoesNotUnderstand InMachineCodeTo: rcvr classForMessage: lkupClass.
 	"NOTREACHED"
 	self assert: false

@@ -30,7 +30,7 @@ compileFrameBuild
 		objRef: objectMemory nilObject.
 	self PushR: SendNumArgsReg. "context"
 	self PushR: ReceiverResultReg.
-	methodOrBlockNumArgs + 1 to: (coInterpreter temporaryCountOfMethodHeader: methodHeader) do:
+	methodOrBlockNumArgs + 1 to: (coInterpreter tempCountOf: methodObj) do:
 		[:i|
 		self PushR: SendNumArgsReg].
 	(primitiveIndex > 0

@@ -7,8 +7,7 @@ printActivationNameFor: aMethod receiver: anObject isBlock: isBlock firstTempora
 	methClass := self findClassOfMethod: aMethod forReceiver: anObject.
 	methodSel := self findSelectorOfMethod: aMethod.
 	((objectMemory addressCouldBeOop: anObject)
-	 and: [(objectMemory isOopForwarded: anObject) not
-	 and: [self addressCouldBeClassObj: (classObj := objectMemory fetchClassOf: anObject)]])
+	 and: [self addressCouldBeClassObj: (classObj := objectMemory fetchClassOf: anObject)])
 		ifTrue:
 			[classObj = methClass
 				ifTrue: [self printNameOfClass: methClass count: 5]
@@ -17,9 +16,7 @@ printActivationNameFor: aMethod receiver: anObject isBlock: isBlock firstTempora
 					 self print: '('.
 					 self printNameOfClass: methClass count: 5.
 					 self print: ')']]
-		ifFalse:
-			[self cCode: '' inSmalltalk: [self halt].
-			 self print: 'INVALID RECEIVER'].
+		ifFalse: [self print: 'INVALID RECEIVER'].
 	self print: '>'.
 	(objectMemory addressCouldBeOop: methodSel)
 		ifTrue:

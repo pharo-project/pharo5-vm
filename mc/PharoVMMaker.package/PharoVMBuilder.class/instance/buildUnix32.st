@@ -3,7 +3,7 @@ buildUnix32
 	CogNativeBoostPlugin setTargetPlatform: #Linux32PlatformId.
 
 	
-	self buildConfig: (PharoUnixConfig new
+	PharoUnixConfig new
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin  );
-		yourself).
+		generateSources; generate.

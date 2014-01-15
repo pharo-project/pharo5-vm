@@ -9,7 +9,7 @@ addClass: aClass
 	self addPoolVarsFor: aClass.
 	(aClass inheritsFrom: VMStructType) ifFalse:
 		[variables addAll: aClass instVarNames].
-	self retainMethods: (aClass requiredMethodNames: self options).
+	self retainMethods: aClass requiredMethodNames.
 	
 	'Adding Class ' , aClass name , '...'
 		displayProgressAt: Sensor cursorPoint

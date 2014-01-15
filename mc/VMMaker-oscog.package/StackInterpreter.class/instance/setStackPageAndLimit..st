@@ -5,7 +5,6 @@ setStackPageAndLimit: thePage
 	<inline: true>
 	<asmLabel: false>
 	<var: #thePage type: #'StackPage *'>
-	self assert: thePage ~= 0.
 	stackPage := thePage.
 	stackLimit ~= (self cCoerceSimple: -1 signedIntToLong to: #'char *') ifTrue:
 		[stackLimit := stackPage stackLimit].

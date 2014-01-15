@@ -11,7 +11,7 @@ pushMaybeContextReceiverVariable: fieldIndex
 	<inline: true>
 	rcvr := self receiver.
 	((self isReadMediatedContextInstVarIndex: fieldIndex)
-	and: [objectMemory isContextNonImm: rcvr])
+	and: [objectMemory isContextNonInt: rcvr])
 		ifTrue:
 			[self internalPush: (self instVar: fieldIndex ofContext: rcvr)]
 		ifFalse:

@@ -8,15 +8,13 @@ checkInterpreterIntegrity
 	ok := true.
 	(objectMemory checkOopIntegrity: objectMemory specialObjectsOop named: 'specialObjectsOop')ifFalse:
 		[ok := false].
-	"No longer check messageSelector; it is ephemeral, not living beyond message lookup.
-	(objectMemory isNonImmediate: messageSelector) ifTrue:
+	(objectMemory isIntegerObject: messageSelector) ifFalse:
 		[(objectMemory checkOopIntegrity: messageSelector named: 'messageSelector')ifFalse:
-			[ok := false]]."
+			[ok := false]].
 	(objectMemory checkOopIntegrity: newMethod named: 'newMethod')ifFalse:
 		[ok := false].
-	"No longer check lkupClass; it is ephemeral, not living beyond message lookup.
 	(objectMemory checkOopIntegrity: lkupClass named: 'lkupClass')ifFalse:
-		[ok := false]."
+		[ok := false].
 	(objectMemory checkOopIntegrity: profileProcess named: 'profileProcess')ifFalse:
 		[ok := false].
 	(objectMemory checkOopIntegrity: profileMethod named: 'profileMethod')ifFalse:

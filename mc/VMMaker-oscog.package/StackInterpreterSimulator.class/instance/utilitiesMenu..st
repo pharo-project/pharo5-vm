@@ -2,7 +2,6 @@ UI
 utilitiesMenu: aMenuMorph
 	aMenuMorph
 		add: 'toggle transcript' action: #toggleTranscript;
-		add: 'clone VM' action: #cloneSimulation;
 		addLine;
 		add: 'print ext head frame' action: #printExternalHeadFrame;
 		add: 'print int head frame' action: #printHeadFrame;
@@ -12,11 +11,8 @@ utilitiesMenu: aMenuMorph
 		add: 'long print int frame & callers' action: [self printFrameAndCallers: localFP SP: localSP];
 		add: 'print frame...' action: [(self promptHex: 'print frame') ifNotNil: [:fp| self printFrame: fp]];
 		add: 'print call stack' action: #printCallStack;
-		add: 'print stack call stack' action: #printStackCallStack;
 		add: 'print call stack of...' action: [(self promptHex: 'context or process oop') ifNotNil: [:obj| self printCallStackOf: obj]];
 		add: 'print all stacks' action: #printAllStacks;
-		add: 'write back local ptrs' action: [stackPointer := localSP. framePointer := localFP. instructionPointer := localIP.
-											self writeBackHeadFramePointers];
 		addLine;
 		add: 'print oop...' action: [(self promptHex: 'print oop') ifNotNil: [:oop| self printOop: oop]];
 		add: 'long print oop...' action: [(self promptHex: 'print oop') ifNotNil: [:oop| self longPrintOop: oop]];

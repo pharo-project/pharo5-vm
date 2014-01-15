@@ -11,7 +11,7 @@ primitiveInstVarAt
 	fixedFields := objectMemory fixedFieldsOf: rcvr format: fmt length: totalLength.
 	(index >= 1 and: [index <= fixedFields]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
-	(fmt = objectMemory indexablePointersFormat
+	(fmt = 3
 	 and: [objectMemory isContextHeader: hdr])
 		ifTrue: [value := self externalInstVar: index - 1 ofContext: rcvr]
 		ifFalse: [value := self subscript: rcvr with: index format: fmt].

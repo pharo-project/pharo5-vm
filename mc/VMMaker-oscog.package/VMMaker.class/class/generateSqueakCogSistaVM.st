@@ -1,8 +1,12 @@
 configurations
 generateSqueakCogSistaVM
-	^VMMaker
-		generate: CoInterpreter
+	^ VMMaker
+		generate:
+			(Smalltalk
+				at:
+					([ :choices | choices at: (UIManager default chooseFrom: choices) ifAbsent: [ ^ self ] ]
+						value: #(#CoInterpreter #CoInterpreterMT)))
 		and: SistaStackToRegisterMappingCogit
-		to: (FileDirectory default pathFromURI: 'oscogvm/sistasrc')
-		platformDir: (FileDirectory default pathFromURI: 'oscogvm/platforms')
-		excluding: (InterpreterPlugin withAllSubclasses collect: [:ea| ea name])
+		to: 'oscogvm/sistasrc' asFileReference fullName
+		platformDir: 'oscogvm/platforms' asFileReference fullName
+		excluding: (InterpreterPlugin withAllSubclasses collect: [ :ea | ea name ])

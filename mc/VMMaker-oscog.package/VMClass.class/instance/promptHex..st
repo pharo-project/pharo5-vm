@@ -3,7 +3,6 @@ promptHex: string
 	<doNotGenerate>
 	| s |
 	s := UIManager default request: string, ' (hex)'.
-	s := s withBlanksTrimmed.
 	^s notEmpty ifTrue:
 		[(s includes: $r)
 			ifTrue:

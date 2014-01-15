@@ -6,15 +6,15 @@ primitiveObjectPointsTo
 	| rcvr thang header fmt lastField methodHeader |
 	thang := self stackTop.
 	rcvr := self stackValue: 1.
-	(objectMemory isImmediate: rcvr) ifTrue:
+	(objectMemory isIntegerObject: rcvr) ifTrue:
 		[^self pop: 2 thenPushBool: false].
 
 	"Inlined version of lastPointerOf: for speed in determining if rcvr is a context."
 	header := objectMemory baseHeader: rcvr.
 	fmt := objectMemory formatOfHeader: header.
-	(objectMemory isPointersFormat: fmt)
+	fmt <= 4
 		ifTrue:
-			[(fmt = objectMemory indexablePointersFormat
+			[(fmt = 3
 			  and: [objectMemory isContextHeader: header]) 
 				ifTrue:
 	 				[(self isMarriedOrWidowedContext: rcvr) ifTrue:
@@ -25,18 +25,18 @@ primitiveObjectPointsTo
 														pointsTo: thang
 														stackDeltaForCurrentFrame: 2)]].
 					"contexts end at the stack pointer"
-					lastField := CtxtTempFrameStart + (self fetchStackPointerOf: rcvr) * BytesPerOop]
+					lastField := CtxtTempFrameStart + (self fetchStackPointerOf: rcvr) * BytesPerWord]
 				ifFalse:
-					[lastField := (objectMemory sizeBitsOfSafe: rcvr) - objectMemory baseHeaderSize]]
+					[lastField := (objectMemory sizeBitsOfSafe: rcvr) - BaseHeaderSize]]
 		ifFalse:
-			[fmt < objectMemory firstCompiledMethodFormat "no pointers" ifTrue:
+			[fmt < 12 "no pointers" ifTrue:
 				[^self pop: 2 thenPushBool: false].
 			"CompiledMethod: contains both pointers and bytes:"
 			methodHeader := self headerOf: rcvr.
 			methodHeader = thang ifTrue: [^self pop: 2 thenPushBool: true].
-			lastField := ((self literalCountOfHeader: methodHeader) + 1) * BytesPerOop].
+			lastField := ((self literalCountOfHeader: methodHeader) + 1) * BytesPerWord].
 
-	objectMemory baseHeaderSize to: lastField by: objectMemory bytesPerOop do:
+	BaseHeaderSize to: lastField by: BytesPerWord do:
 		[:i |
 		(self longAt: rcvr + i) = thang ifTrue:
 			[^self pop: 2 thenPushBool: true]].

@@ -5,7 +5,7 @@ mapObjectReferencesInGeneratedRuntime
 		[:i| | mcpc literal mappedLiteral |
 		 mcpc := objectReferencesInRuntime at: i.
 		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
-		 mappedLiteral := objectRepresentation remapObj: literal.
+		 mappedLiteral := objectMemory remap: literal.
 		 mappedLiteral ~= literal ifTrue:
 			[backEnd storeLiteral: mappedLiteral beforeFollowingAddress: mcpc.
 			 codeModified := true]]

@@ -4,21 +4,18 @@ checkForCompleteness: stmtLists in: aCodeGen
 
 	complete := true.
 	stmtLists do:
-		[:stmtList|
+		[ :stmtList |
 		stmtList statements do:
-			[:node|
+			[ :node |
 			[(self inlineableSend: node in: aCodeGen) ifTrue:
 				[complete := false.  "more inlining to do"
 				^self]]]].
 
 	parseTree
 		nodesDo:
-			[:node|
-			(self inlineableFunctionCall: node in: aCodeGen) ifTrue:
+			[ :n |
+			(self inlineableFunctionCall: n in: aCodeGen) ifTrue:
 				[complete := false.  "more inlining to do"
 				^self]]
 		unless:
-			[:node|
-			node isSend
-			and: [node selector == #cCode:inSmalltalk:
-				or: [aCodeGen isAssertSelector: node selector]]]
+			[ :n | n isSend and: [#(cCode:inSmalltalk: assert: asserta:) includes: n selector]]
