@@ -1,7 +1,7 @@
 plugins
 defaultExternalPlugins
 	^ #(
-		B3DAcceleratorPlugin
+		X11DisplayPlugin 
 		ThreadedIA32FFIPlugin "SqueakFFIPrims"
 		"UUIDPlugin"
 		"UnixOSProcessPlugin ?? "	
