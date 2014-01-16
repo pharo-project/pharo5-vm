@@ -9,6 +9,7 @@ write: aContents toFile: aFileName
 		ifTrue: [ bldDir := bldDir asFileReference ].
 	bldDir ensureDirectory.
 	(bldDir / aFileName)
+		ensureDeleted
 		ensureFile
 		writeStream
 		nextPutAll: (self fixLineEndsOf: aContents)

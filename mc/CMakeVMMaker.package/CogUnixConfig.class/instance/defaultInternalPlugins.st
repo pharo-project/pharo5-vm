@@ -9,7 +9,7 @@ defaultInternalPlugins
 		BMPReadWriterPlugin 
 		CroquetPlugin 
 		DeflatePlugin  "ZipPlugin"
-		DropPlugin 
+		"DropPlugin"
 		DSAPlugin "DSAPrims" 
 		FFTPlugin 
 		FileCopyPlugin 

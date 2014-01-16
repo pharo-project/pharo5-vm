@@ -137,16 +137,33 @@ int inModalLoop= 0;
 int sqIgnorePluginErrors	= 0;
 int runInterpreter		= 1;
 
-#include "SqDisplay.h"
 #include "SqSound.h"
 
-struct SqDisplay *dpy= 0;
 struct SqSound   *snd= 0;
 
 extern void dumpPrimTraceLog(void);
 extern void printPhaseTime(int);
 char *getVersionInfo(int verbose);
 
+
+void (*ioProcessEventsHandler) (void) = 0;
+
+extern void setIoProcessEventsHandler(void * handler) {
+	ioProcessEventsHandler = (void(*)()) handler;
+}
+
+sqInt ioProcessEvents(void) {
+    aioPoll(0);
+    if(ioProcessEventsHandler)
+		ioProcessEventsHandler();
+    return 0;
+}
+
+
+/* DEPRECATED STUFF */
+
+int ioScreenSize(void) { return ((64 << 16) | 64); }
+sqInt ioGetNextEvent(sqInputEvent *evt)	{ return 0; }
 
 /*
  * In the Cog VMs time management is in platforms/unix/vm/sqUnixHeartbeat.c.
@@ -392,7 +409,7 @@ sqInt imageNamePutLength(sqInt sqImageNameIndex, sqInt length)
     imageName[i]= sqImageName[i];
   imageName[count]= 0;
 
-  dpy->winSetName(imageName);
+  //dpy->winSetName(imageName);
 
   return count;
 }
@@ -473,9 +490,9 @@ GetAttributeString(sqInt id)
       case 1004:
 	/* Interpreter version string */
 	return  (char *)interpreterVersion;
-      case 1005:
+    //  case 1005:
 	/* window system name */
-	return  dpy->winSystemName();
+	//return  dpy->winSystemName();
       case 1006:
 	/* vm build string */
 	return VM_BUILD_STRING;
@@ -536,10 +553,6 @@ sqInt ioSetInputSemaphore(sqInt semaIndex)
 
 /*** display functions ***/
 
-sqInt ioFormPrint(sqInt bitsAddr, sqInt width, sqInt height, sqInt depth, double hScale, double vScale, sqInt landscapeFlag)
-{
-  return dpy->ioFormPrint(bitsAddr, width, height, depth, hScale, vScale, landscapeFlag);
-}
 
 #if STACKVM
 sqInt ioRelinquishProcessorForMicroseconds(sqInt us)
@@ -549,7 +562,7 @@ sqInt ioRelinquishProcessorForMicroseconds(sqInt us)
 
   checkHeartStillBeats();
 # endif
-  dpy->ioRelinquishProcessorForMicroseconds(us);
+  aioSleepForUsecs(us);
   return 0;
 }
 #else /* STACKVM */
@@ -558,7 +571,7 @@ static int lastInterruptCheck= 0;
 sqInt ioRelinquishProcessorForMicroseconds(sqInt us)
 {
   int now;
-  dpy->ioRelinquishProcessorForMicroseconds(us);
+  aioSleepForUsecs(us);
   now= ioLowResMSecs();
   if (now - lastInterruptCheck > (1000/25))	/* avoid thrashing intr checks from 1ms loop in idle proc  */
     {
@@ -569,7 +582,6 @@ sqInt ioRelinquishProcessorForMicroseconds(sqInt us)
 }
 #endif /* STACKVM */
 
-sqInt ioBeep(void)				 { return dpy->ioBeep(); }
 
 #if defined(IMAGE_DUMP)
 
@@ -613,165 +625,6 @@ static void emergencyDump(int quit)
 }
 
 #endif
-
-sqInt ioProcessEvents(void)
-{
-	sqInt result;
-	extern sqInt inIOProcessEvents;
-
-#if defined(IMAGE_DUMP)
-	if (dumpImageFile) {
-		emergencyDump(0);
-		dumpImageFile= 0;
-	}
-#endif
-	/* inIOProcessEvents controls ioProcessEvents.  If negative then
-	 * ioProcessEvents is disabled.  If >= 0 inIOProcessEvents is incremented
-	 * to avoid reentrancy (i.e. for native GUIs).
-	 */
-	if (inIOProcessEvents) return;
-	inIOProcessEvents += 1;
-
-	result = dpy->ioProcessEvents();
-
-	if (inIOProcessEvents > 0)
-		inIOProcessEvents -= 1;
-
-	return result;
-}
-
-void	ioDrainEventQueue() {}
-
-sqInt ioScreenDepth(void)		 { return dpy->ioScreenDepth(); }
-sqInt ioScreenSize(void)		 { return dpy->ioScreenSize(); }
-
-sqInt ioSetCursorWithMask(sqInt cursorBitsIndex, sqInt cursorMaskIndex, sqInt offsetX, sqInt offsetY)
-{
-  return dpy->ioSetCursorWithMask(cursorBitsIndex, cursorMaskIndex, offsetX, offsetY);
-}
-
-sqInt ioSetCursorARGB(sqInt cursorBitsIndex, sqInt extentX, sqInt extentY, sqInt offsetX, sqInt offsetY)
-{
-  return dpy->ioSetCursorARGB(cursorBitsIndex, extentX, extentY, offsetX, offsetY);
-}
-
-sqInt ioSetCursor(sqInt cursorBitsIndex, sqInt offsetX, sqInt offsetY)
-{
-  return ioSetCursorWithMask(cursorBitsIndex, 0, offsetX, offsetY);
-}
-
-sqInt ioSetFullScreen(sqInt fullScreen)	{ return dpy->ioSetFullScreen(fullScreen); }
-sqInt ioForceDisplayUpdate(void)	{ return dpy->ioForceDisplayUpdate(); }
-
-sqInt ioShowDisplay(sqInt dispBitsIndex, sqInt width, sqInt height, sqInt depth, sqInt l, sqInt r, sqInt t, sqInt b)
-{
-  return dpy->ioShowDisplay(dispBitsIndex, width, height, depth, l, r, t, b);
-}
-
-sqInt ioHasDisplayDepth(sqInt i) { return dpy->ioHasDisplayDepth(i); }
-
-sqInt ioSetDisplayMode(sqInt width, sqInt height, sqInt depth, sqInt fullscreenFlag)
-{
-  return dpy->ioSetDisplayMode(width, height, depth, fullscreenFlag);
-}
-
-sqInt clipboardSize(void)
-{
-  return dpy->clipboardSize();
-}
-
-sqInt clipboardWriteFromAt(sqInt count, sqInt byteArrayIndex, sqInt startIndex)
-{
-  return dpy->clipboardWriteFromAt(count, byteArrayIndex, startIndex);
-}
-
-sqInt clipboardReadIntoAt(sqInt count, sqInt byteArrayIndex, sqInt startIndex)
-{
-  return dpy->clipboardReadIntoAt(count, byteArrayIndex, startIndex);
-}
-
-char **clipboardGetTypeNames(void)
-{
-  return dpy->clipboardGetTypeNames();
-}
-
-sqInt clipboardSizeWithType(char *typeName, int ntypeName)
-{
-  return dpy->clipboardSizeWithType(typeName, ntypeName);
-}
-
-void clipboardWriteWithType(char *data, size_t nData, char *typeName, size_t nTypeNames, int isDnd, int isClaiming)
-{
-  dpy->clipboardWriteWithType(data, nData, typeName, nTypeNames, isDnd, isClaiming);
-}
-
-sqInt ioGetButtonState(void)		{ return dpy->ioGetButtonState(); }
-sqInt ioPeekKeystroke(void)		{ return dpy->ioPeekKeystroke(); }
-sqInt ioGetKeystroke(void)		{ return dpy->ioGetKeystroke(); }
-sqInt ioGetNextEvent(sqInputEvent *evt)	{ return dpy->ioGetNextEvent(evt); }
-sqInt ioMousePoint(void)		{ return dpy->ioMousePoint(); }
-
-/*** Window labeling ***/
-char* ioGetWindowLabel(void) {return "";}
-
-sqInt ioSetWindowLabelOfSize(void* lbl, sqInt size)
-{ return dpy->hostWindowSetTitle((long)dpy->ioGetWindowHandle(), lbl, size); }
-
-sqInt ioIsWindowObscured(void) {return false;}
-
-/** Misplaced Window-Size stubs, so the VM will link. **/
-sqInt ioGetWindowWidth()
-{ int wh = dpy->hostWindowGetSize((long)dpy->ioGetWindowHandle());
-  return wh >> 16; } 
-
-sqInt ioGetWindowHeight()
-{ int wh = dpy->hostWindowGetSize((long)dpy->ioGetWindowHandle());
-  return (short)wh; } 
-
-void* ioGetWindowHandle(void) { return dpy->ioGetWindowHandle(); }
-
-sqInt ioSetWindowWidthHeight(sqInt w, sqInt h)
-{ return dpy->hostWindowSetSize((long)dpy->ioGetWindowHandle(),w,h); }
-
-/*** Drag and Drop ***/
-
-sqInt dndOutStart(char *types, int ntypes)	{ return dpy->dndOutStart(types, ntypes); }
-sqInt dndOutAcceptedType(char *type, int ntype)	{ return dpy->dndOutAcceptedType(type, ntype); }
-void  dndOutSend(char *bytes, int nbytes)	{        dpy->dndOutSend(bytes, nbytes); }
-void  dndReceived(char *fileName)			{        dpy->dndReceived(fileName); }
-
-/*** OpenGL ***/
-
-int verboseLevel= 1;
-
-struct SqDisplay *ioGetDisplayModule(void)	{ return dpy; }
-
-void *ioGetDisplay(void)			{ return dpy->ioGetDisplay(); }
-void *ioGetWindow(void)				{ return dpy->ioGetWindow(); }
-sqInt ioGLinitialise(void)			{ return dpy->ioGLinitialise(); }
-
-sqInt  ioGLcreateRenderer(glRenderer *r, sqInt x, sqInt y, sqInt w, sqInt h, sqInt flags)
-{
-  return dpy->ioGLcreateRenderer(r, x, y, w, h, flags);
-}
-
-sqInt ioGLmakeCurrentRenderer(glRenderer *r)	{ return dpy->ioGLmakeCurrentRenderer(r); }
-void  ioGLdestroyRenderer(glRenderer *r)	{	 dpy->ioGLdestroyRenderer(r); }
-void  ioGLswapBuffers(glRenderer *r)		{	 dpy->ioGLswapBuffers(r); }
-
-void  ioGLsetBufferRect(glRenderer *r, sqInt x, sqInt y, sqInt w, sqInt h)
-{
-  dpy->ioGLsetBufferRect(r, x, y, w, h);
-}
-
-
-sqInt  primitivePluginBrowserReady(void)	{ return dpy->primitivePluginBrowserReady(); }
-sqInt  primitivePluginRequestURLStream(void)	{ return dpy->primitivePluginRequestURLStream(); }
-sqInt  primitivePluginRequestURL(void)		{ return dpy->primitivePluginRequestURL(); }
-sqInt  primitivePluginPostURL(void)		{ return dpy->primitivePluginPostURL(); }
-sqInt  primitivePluginRequestFileHandle(void)	{ return dpy->primitivePluginRequestFileHandle(); }
-sqInt  primitivePluginDestroyRequest(void)	{ return dpy->primitivePluginDestroyRequest(); }
-sqInt  primitivePluginRequestState(void)	{ return dpy->primitivePluginRequestState(); }
 
 
 /*** errors ***/
@@ -968,7 +821,6 @@ sigquit(int ignore) { emergencyDump(1); }
 
 #include "SqModule.h"
 
-struct SqModule *displayModule=	0;
 struct SqModule *soundModule=	0;
 struct SqModule *modules= 0;
 
@@ -983,14 +835,9 @@ struct moduleDescription
 
 static struct moduleDescription moduleDescriptions[]=
 {
-  { &displayModule, "display", "X11"    },	/*** NO DEFAULT ***/
-  { &displayModule, "display", "fbdev"  },	/*** NO DEFAULT ***/
-  { &displayModule, "display", "null"   },	/*** NO DEFAULT ***/
-  { &displayModule, "display", "custom" },	/*** NO DEFAULT ***/
   { &soundModule,   "sound",   "NAS"    },	/*** NO DEFAULT ***/
   { &soundModule,   "sound",   "custom" },	/*** NO DEFAULT ***/
   /* when adding an entry above be sure to change the defaultModules offset below */
-  { &displayModule, "display", "Quartz" },	/* defaults... */
   { &soundModule,   "sound",   "OSS"    },
   { &soundModule,   "sound",   "MacOSX" },
   { &soundModule,   "sound",   "Sun"    },
@@ -1099,8 +946,7 @@ static void requireModuleNamed(char *type)	/*** NOTE: MODIFIES THE ARGUMENT! ***
     {
       struct SqModule **addr= 0, *module= 0;
 
-      if      (!strcmp(type, "display")) addr= &displayModule;
-      else if (!strcmp(type, "sound"))   addr= &soundModule;
+		if (!strcmp(type, "sound"))   addr= &soundModule;
       /* let unknown types through to the following to generate a more informative diagnostic */
       name= canonicalModuleName(name);
       module= requireModule(type, name);
@@ -1157,7 +1003,6 @@ static void loadImplicit(struct SqModule **addr, char *evar, char *type, char *n
 
 static void loadModules(void)
 {
-  loadImplicit(&displayModule, "DISPLAY",     "display", "X11");
   loadImplicit(&soundModule,   "AUDIOSERVER", "sound",   "NAS");
   {
     struct moduleDescription *md;
@@ -1171,21 +1016,15 @@ static void loadModules(void)
 	    ;
   }
 
-  if (!displayModule)
-    {
-      fprintf(stderr, "%s: could not find any display driver\n", exeName);
-      abort();
-    }
+ 
   if (!soundModule)
     {
       fprintf(stderr, "%s: could not find any sound driver\n", exeName);
       abort();
     }
 
-  dpy= (struct SqDisplay *)displayModule->makeInterface();
   snd= (struct SqSound   *)soundModule  ->makeInterface();
 
-  checkModuleVersion(displayModule, SqDisplayVersion, dpy->version);
   checkModuleVersion(soundModule,   SqSoundVersion,   snd->version);
 }
 
@@ -1278,11 +1117,6 @@ static int vm_parseArgument(int argc, char **argv)
 {
   /* deal with arguments that implicitly load modules */
 
-  if (!strncmp(argv[0], "-psn_", 5))
-    {
-      displayModule= requireModule("display", "Quartz");
-      return displayModule->parseArgument(argc, argv);
-    }
 
   if ((!strcmp(argv[0], "-vm")) && (argc > 1))
     {
@@ -1302,10 +1136,6 @@ static int vm_parseArgument(int argc, char **argv)
     if (!strcmp(argv[0], arg))							\
       return parseModuleArgument(argc, argv, &type##Module, #type, name);
 
-  moduleArg("--nodisplay",	display, "null");
-  moduleArg("--display",		display, "X11");
-  moduleArg("--headless",	display, "X11");
-  moduleArg("--quartz",		display, "Quartz");
   moduleArg("--nosound",		sound,   "null");
 
 # undef moduleArg
@@ -1688,9 +1518,6 @@ void imgInit(void)
       if ((  (-1 == stat(imageName, &sb)))
 	  || ( 0 == (f= fopen(imageName, "r"))))
 	{
-	  if (dpy->winImageFind(shortImageName, sizeof(shortImageName)))
-	    continue;
-	  dpy->winImageNotFound();
 	  imageNotFound(shortImageName);
 	}
       {
@@ -1792,14 +1619,13 @@ main(int argc, char **argv, char **envp)
     modules= &vm_Module;
   vm_Module.parseEnvironment();
   parseArguments(argc, argv);
-  if ((!dpy) || (!snd))
+  if ((!snd))
     loadModules();
 #if !DEBUG
   sqIgnorePluginErrors= 0;
 #endif
 
 #if defined(DEBUG_MODULES)
-  printf("displayModule %p %s\n", displayModule, displayModule->name);
   if (soundModule)
     printf("soundModule   %p %s\n", soundModule,   soundModule->name);
 #endif
@@ -1816,12 +1642,10 @@ main(int argc, char **argv, char **envp)
   ioInitTime();
   ioInitThreads();
   aioInit();
-  dpy->winInit();
   imgInit();
   /* If running as a single instance and there are arguments after the image
    * and any are files then try and drop these on the existing instance.
    */
-  dpy->winOpen(runAsSingleInstance ? squeakArgCnt : 0, squeakArgVec);
 
 #if defined(HAVE_LIBDL) && !STACKVM
   if (useJit)
@@ -1894,7 +1718,6 @@ extern sqInt reportStackHeadroom;
 		reportMinimumUnusedHeadroom();
 #endif
   printPhaseTime(3);
-  dpy->winExit();
   exit(ec);
   return ec;
 }
