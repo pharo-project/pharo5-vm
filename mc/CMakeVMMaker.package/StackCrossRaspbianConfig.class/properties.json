@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "StackCrossRaspbianConfig",
+	"pools" : [
+		 ],
+	"super" : "StackUnixConfig",
+	"type" : "normal" }
