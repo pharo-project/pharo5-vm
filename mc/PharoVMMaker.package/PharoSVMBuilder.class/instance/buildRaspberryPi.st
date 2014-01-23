@@ -1,4 +1,5 @@
 building
 buildRaspberryPi
-	StackRaspbianConfig new  
+	StackCrossRaspbianConfig new  
 		generateSources; generate.
+
