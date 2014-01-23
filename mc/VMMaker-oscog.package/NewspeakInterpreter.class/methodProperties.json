@@ -2,6 +2,7 @@
 	"class" : {
 		"additionalHeadersDo:" : "eem 5/9/2011 15:04",
 		"additionalSelectorTables" : "eem 2/10/2009 08:39",
+		"ancilliaryClasses:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"ancilliaryStructClasses" : "eem 5/11/2011 11:13",
 		"bytecodeTable" : "",
 		"declareCVarsIn:" : "eem 6/3/2011 15:59",
@@ -38,6 +39,7 @@
 		"primitiveTable" : "",
 		"primitiveTableString" : "eem 5/9/2011 09:01",
 		"requiredMethodNames" : "eem 5/10/2011 15:45",
+		"requiredMethodNames:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"shouldGenerateTypedefFor:" : "eem 1/30/2011 17:35",
 		"sourceFileName" : "eem 5/6/2011 17:01",
 		"table:from:" : "eem 6/21/2008 10:39",

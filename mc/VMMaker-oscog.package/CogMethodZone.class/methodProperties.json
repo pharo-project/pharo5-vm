@@ -6,6 +6,7 @@
 		"typeForSelf" : "eem 2/11/2009 15:48" },
 	"instance" : {
 		"addToOpenPICList:" : "eem 6/25/2009 17:14",
+		"addToUnpairedMethodList:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"addToYoungReferrers:" : "eem 8/10/2012 13:25",
 		"allocate:" : "eem 8/13/2012 18:10",
 		"clearCogCompiledCode" : "eem 8/13/2012 10:37",
@@ -38,6 +39,7 @@
 		"quickClearCogCompiledCode" : "eem 1/8/2011 13:26",
 		"relocateAndPruneYoungReferrers" : "eem 7/15/2011 06:41",
 		"removeFromOpenPICList:" : "eem 7/9/2009 21:08",
+		"removeFromUnpairedMethodList:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"roomOnYoungReferrersList" : "eem 8/13/2012 18:11",
 		"roundUpAddress:" : "eem 2/15/2009 16:53",
 		"roundUpLength:" : "eem 1/5/2009 19:31",

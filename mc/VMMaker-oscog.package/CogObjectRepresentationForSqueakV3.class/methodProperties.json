@@ -17,6 +17,7 @@
 		"genFetchIndexRegister:from:into:" : "eem 3/27/2009 14:28",
 		"genGetClassFormatOfNonInt:into:scratchReg:" : "eem 12/20/2012 11:11",
 		"genGetClassObjectOf:into:scratchReg:" : "eem 12/20/2012 11:12",
+		"genGetClassTagOf:into:scratchReg:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"genGetCompactClassIndexNonIntOf:into:" : "eem 8/19/2011 10:35",
 		"genGetDoubleValueOf:into:" : "eem 4/16/2009 15:45",
 		"genGetFixedFieldsOfPointerNonInt:into:scratchReg:" : "eem 2/3/2009 17:08",
@@ -48,6 +49,7 @@
 		"numSmallIntegerBits" : "eem 1/20/2009 15:40",
 		"numSmallIntegerTagBits" : "eem 9/9/2009 12:28",
 		"remapCacheTag:" : "eem 10/9/2009 03:10",
+		"remapObj:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"remapOop:" : "eem 10/9/2009 03:10",
 		"shouldAnnotateObjectReference:" : "eem 4/3/2013 15:07",
 		"slotOffsetOfInstVarIndex:" : "eem 12/1/2010 17:58" } }

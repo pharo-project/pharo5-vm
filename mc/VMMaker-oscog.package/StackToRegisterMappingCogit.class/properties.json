@@ -7,6 +7,7 @@
 		 ],
 	"commentStamp" : "eem 12/19/2010 18:12",
 	"instvars" : [
+		"prevBCDescriptor",
 		"isPushNilFunction",
 		"pushNilSizeFunction",
 		"callerSavedRegMask",
