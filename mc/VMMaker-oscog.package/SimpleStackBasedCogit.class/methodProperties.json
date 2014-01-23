@@ -1,6 +1,7 @@
 {
 	"class" : {
 		"ancilliaryClasses" : "eem 2/28/2009 17:52",
+		"ancilliaryClasses:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"callingConvention" : "eem 3/21/2013 15:35",
 		"declareCVarsIn:" : "eem 12/13/2010 21:55",
 		"initializeBytecodeTableForNewspeakV3PlusClosures" : "eem 3/18/2013 16:53",
@@ -80,6 +81,7 @@
 		"genPrimitiveBitOr" : "eem 2/12/2009 20:03",
 		"genPrimitiveBitShift" : "eem 9/18/2009 08:59",
 		"genPrimitiveBitXor" : "eem 2/12/2009 20:03",
+		"genPrimitiveClass" : "LucFabresse 9/27/2013 10:04:12.418",
 		"genPrimitiveClosureValue" : "eem 12/12/2012 11:46",
 		"genPrimitiveDiv" : "eem 9/14/2009 07:14",
 		"genPrimitiveDivide" : "eem 9/13/2009 22:50",

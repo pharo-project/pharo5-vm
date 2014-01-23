@@ -159,6 +159,7 @@
 		"initialize" : "eem 11/18/2012 19:51",
 		"initializeCTranslationDictionary" : "eem 2/20/2013 12:27",
 		"inlineDispatchesInMethodNamed:localizingVars:" : "eem 7/26/2011 13:51",
+		"isAssertSelector:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"isBuiltinSelector:" : "eem 7/19/2013 10:32",
 		"isCLiteral:" : "ar 7/8/2003 11:04",
 		"isFloatingPointCType:" : "eem 3/5/2009 14:18",

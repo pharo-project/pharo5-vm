@@ -1,7 +1,12 @@
 {
 	"class" : {
 		"chooseAndInitCogitClassWithOpts:" : "eem 7/18/2012 17:08",
-		"new" : "eem 9/30/2010 13:29" },
+		"initializeWithOptions:objectMemoryClass:" : "LucFabresse 9/27/2013 10:04:12.418",
+		"new" : "eem 9/30/2010 13:29",
+		"newWithOptions:" : "LucFabresse 9/27/2013 10:04:12.418",
+		"onObjectMemory:" : "LucFabresse 9/27/2013 10:04:12.418",
+		"onObjectMemory:cogit:" : "LucFabresse 9/27/2013 10:04:12.418",
+		"onObjectMemory:cogit:options:" : "LucFabresse 9/27/2013 10:04:12.418" },
 	"instance" : {
 		"CFramePointer" : "eem 3/30/2009 11:10",
 		"allObjectsDo:" : "eem 11/1/2012 21:09",
@@ -38,6 +43,7 @@
 		"cedeToHigherPriorityThreads" : "eem 9/30/2010 13:21",
 		"charsOfLong:" : "th 4/15/2000 17:22",
 		"checkForEventsMayContextSwitch:" : "eem 9/30/2010 13:21",
+		"checkStackIntegrity" : "LucFabresse 9/27/2013 10:04:12.418",
 		"checkVMOwnershipFromHeartbeat" : "eem 11/20/2010 21:51",
 		"classAndSelectorOfMethod:forReceiver:" : "eem 9/29/2010 17:44",
 		"classNameOf:Is:" : "eem 8/17/2010 19:31",
@@ -86,6 +92,7 @@
 		"fetchPointer:ofObject:" : "eem 7/26/2010 17:06",
 		"filterPerformOf:to:" : "eem 1/11/2013 18:38",
 		"findNewMethodInClass:" : "eem 6/25/2008 14:19",
+		"findNewMethodInClassTag:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"firstIndexableField:" : "eem 6/11/2010 11:37",
 		"flush" : "eem 7/10/2008 16:35",
 		"flushExternalPrimitives" : "eem 4/8/2009 10:28",

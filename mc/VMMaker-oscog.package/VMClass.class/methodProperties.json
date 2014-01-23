@@ -1,8 +1,10 @@
 {
 	"class" : {
 		"ancilliaryClasses" : "eem 2/28/2009 17:54",
+		"ancilliaryClasses:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"ancilliaryStructClasses" : "eem 2/11/2009 09:29",
 		"apiExportHeaderName" : "eem 2/10/2009 16:32",
+		"cogMethodClass:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"coreInterpreterClass" : "eem 9/30/2010 12:21",
 		"declareC:as:in:" : "eem 7/7/2008 20:18",
 		"declareCVarsIn:" : "eem 2/11/2009 09:38",
@@ -11,10 +13,12 @@
 		"emitExportPragma" : "bgf 3/15/2009 21:09",
 		"emitInterpreterProxyVersionOn:" : "eem 6/16/2011 12:56",
 		"exportAPISelectors" : "eem 7/16/2009 10:51",
+		"exportAPISelectors:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"exportAPISelectorsFor:" : "eem 5/20/2010 16:41",
 		"getVMMaker" : "eem 12/19/2010 18:40",
 		"implicitReturnTypeFor:" : "eem 2/15/2009 09:12",
 		"initializeMiscConstantsWith:" : "eem 1/4/2013 15:06",
+		"initializePrimitiveErrorCodes" : "LucFabresse 9/27/2013 10:04:12.418",
 		"initializeWithOptions:" : "eem 6/21/2011 13:27",
 		"isAccessor:" : "eem 2/11/2009 17:18",
 		"isCogitClass" : "eem 5/29/2009 09:49",
@@ -29,6 +33,7 @@
 		"prepareToBeAddedToCodeGenerator:" : "eem 2/11/2009 09:31",
 		"removeThreadedSubSystem" : "eem 3/11/2011 18:29",
 		"requiredMethodNames" : "eem 10/14/2010 18:47",
+		"requiredMethodNames:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"shouldGenerateTypedefFor:" : "eem 12/19/2010 18:29",
 		"specialValueForConstant:default:" : "eem 7/6/2010 15:32",
 		"timeStamp" : "tpr 3/27/2002 12:53",
@@ -64,6 +69,8 @@
 		"oop:isGreaterThan:" : "eem 6/3/2010 09:05",
 		"oop:isGreaterThan:andLessThan:" : "eem 6/3/2010 09:05",
 		"oop:isGreaterThanOrEqualTo:" : "eem 6/3/2010 09:05",
+		"oop:isGreaterThanOrEqualTo:andLessThan:" : "LucFabresse 9/27/2013 10:04:12.418",
+		"oop:isGreaterThanOrEqualTo:andLessThanOrEqualTo:" : "LucFabresse 9/27/2013 10:04:12.418",
 		"oop:isLessThan:" : "eem 6/3/2010 09:05",
 		"oop:isLessThanOrEqualTo:" : "eem 6/3/2010 09:05",
 		"oopForPointer:" : "eem 6/10/2010 16:16",
@@ -77,4 +84,5 @@
 		"storeFloatAtPointer:from:" : "eem 6/3/2010 09:00",
 		"storeSingleFloatAtPointer:from:" : "eem 6/3/2010 09:00",
 		"str:n:cmp:" : "eem 6/27/2012 20:20",
-		"strlen:" : "eem 6/22/2011 11:28" } }
+		"strlen:" : "eem 6/22/2011 11:28",
+		"unalignedAccessError" : "LucFabresse 9/27/2013 10:04:12.418" } }

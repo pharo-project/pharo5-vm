@@ -10,6 +10,15 @@ initializeContextIndices
 	ReceiverIndex := 5.
 	CtxtTempFrameStart := 6.
 
+	SmallContextSlots := CtxtTempFrameStart + 16.  "16 indexable fields"
+	"Large contexts have 56 indexable fields.  Max with single header word of ObjectMemory [but not SpurMemoryManager ;-)]."
+	LargeContextSlots := CtxtTempFrameStart + 56.
+	
+	"Including the header size in these sizes is problematic for multiple memory managers,
+	 so we don't use them, except LargeContextSize for asserts.  Set small to nil for error checking."
+	SmallContextSize := nil.
+	LargeContextSize := LargeContextSlots + 1 * BytesPerOop.
+
 	"Class BlockClosure"
 	ClosureOuterContextIndex := 0.
 	ClosureStartPCIndex := 1.
