@@ -5,7 +5,7 @@ buildOnJenkins: aPlatformName
 		win
 		mac
 		linux
-	
+		raspberrypi
 	"
 	
 	aPlatformName = 'win' ifTrue: [ ^ self buildWin32 ].
