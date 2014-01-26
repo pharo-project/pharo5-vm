@@ -89,3 +89,9 @@ cd build
 Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.
 
 5. Finally, run the freshly compiled VM from `results`.
+
+Acknowledge
+===========
+The Pharo VM is a flavour of the Cog VM, a new and fast VM for Pharo, Squeak and Newspeak. It implements context-to-stack mapping, JIT (just in time compiler), PIC (polymorphic inline caching), Multi-threading, etc.  
+
+For more data about the Cog VM, please visit [the offical Cog website](http://www.mirandabanda.org/cog/)
