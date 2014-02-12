@@ -124,7 +124,7 @@
 		"incrementByteCount" : "eem 10/17/2010 16:12",
 		"initStackPagesForTests" : "eem 1/25/2013 06:33",
 		"initialEnterSmalltalkExecutive" : "eem 12/25/2010 15:50",
-		"initialize" : "StefanMarr 2/12/2014 14:02",
+		"initialize" : "StefanMarr 2/12/2014 22:34",
 		"initializeInterpreter:" : "eem 11/20/2010 21:51",
 		"initializeProcessorForThreadIndex:" : "eem 9/30/2010 13:21",
 		"initializeThreadSupport" : "eem 6/14/2010 12:31",

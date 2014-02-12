@@ -59,7 +59,7 @@ initialize
 	printSends := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
 	transcript := Transcript.
-	displayForm := (StringMorph contents: 'Display has not yet been installed') imageForm.
+	displayForm := 'Display has not yet been installed' asMorph imageForm.
 	suppressHeartbeatFlag := deferSmash := deferredSmash := false.
 	systemAttributes := Dictionary new.
 	primTraceLog := CArrayAccessor on: (Array new: 256 withAll: 0).
