@@ -4,10 +4,10 @@ buildScript
 	
 
 	^ 
-'#!bash
+'#!/usr/bin/env bash
 
 if [ ! -e vmVersionInfo.h ]; then
-	../codegen-scripts/extract-commit-info.sh
+	../scripts/extract-commit-info.sh
 fi
 cmake -G Xcode .
 xcodebuild -sdk {2} -configuration Release -target {1}
