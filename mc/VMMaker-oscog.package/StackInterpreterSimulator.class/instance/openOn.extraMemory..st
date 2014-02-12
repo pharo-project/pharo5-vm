@@ -60,5 +60,5 @@ openOn: fileName extraMemory: extraBytes
 
 	objectMemory initialize.
 	bytesToShift := objectMemory startOfMemory - oldBaseAddr.  "adjust pointers for zero base address"
-	Utilities informUser: 'Relocating object pointers...'
+	UIManager default informUser: 'Relocating object pointers...'
 				during: [self initializeInterpreter: bytesToShift].

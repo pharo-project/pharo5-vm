@@ -49,7 +49,7 @@ initialize
 	printSends := printReturns := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
 	transcript := Transcript.
-	displayForm := 'Display has not yet been installed' asDisplayText form.
+	displayForm := (StringMorph contents: 'Display has not yet been installed') imageForm.
 	suppressHeartbeatFlag := false.
 	extSemTabSize := 256.
 	disableBooleanCheat := false
