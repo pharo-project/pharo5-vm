@@ -1,3 +1,3 @@
 pointer arithmetic
 + increment
-	^self clone += increment
+	^self shallowCopy += increment

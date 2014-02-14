@@ -48,7 +48,7 @@ initializeCTranslationDictionary
 		#isKindOf:					#generateIsKindOf:on:indent:
 
 		#fromStack:					#generateFromStack:on:indent:
-		#clone						#generateClone:on:indent
+		#shallowCopy				#generateClone:on:indent
 		#new						#generateNew:on:indent
 		#new:						#generateNewSize:on:indent
 		#superclass					#generateSuperclass:on:indent:

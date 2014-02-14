@@ -1,3 +1,3 @@
 pointer arithmetic
 - decrement
-	^self clone -= decrement
+	^self shallowCopy -= decrement
