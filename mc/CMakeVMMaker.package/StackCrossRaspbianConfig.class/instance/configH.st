@@ -111,9 +111,10 @@ configH
 /* architecture */
 
 #define	OS_TYPE "unix"
-
-#define	VM_HOST "i686-pc-linux-gnu"
-#define	VM_HOST_CPU "i686"
+#define __arm__ 1
+#define __ARM_ARCH_6__ 1
+#define	VM_HOST "arm-pc-linux-gnu"
+#define	VM_HOST_CPU "arm"
 /* #undef	VM_HOST_VENDOR */
 #define	VM_HOST_OS "linux-gnu"
 #define	VM_BUILD_STRING "Unix built on "__DATE__ " "__TIME__" Compiler: "__VERSION__
