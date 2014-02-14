@@ -5,7 +5,7 @@ primitiveGetAttribute
 	| attr s attribute |
 	attr := self stackIntegerValue: 0.
 	self successful ifTrue: [
-		attribute := Smalltalk getSystemAttribute: attr.
+		attribute := Smalltalk vm getSystemAttribute: attr.
 		attribute ifNil: [ ^self primitiveFail ].
 		s := objectMemory instantiateClass: (objectMemory splObj: ClassByteString) indexableSize: attribute size.
 		1 to: attribute size do: [ :i |

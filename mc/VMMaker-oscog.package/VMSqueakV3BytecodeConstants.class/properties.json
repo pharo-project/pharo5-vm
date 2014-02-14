@@ -6,7 +6,9 @@
 		"CtxtTempFrameStart",
 		"LargeContextBit",
 		"LargeContextSize",
-		"SmallContextSize" ],
+		"LargeContextSlots",
+		"SmallContextSize",
+		"SmallContextSlots" ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		 ],
