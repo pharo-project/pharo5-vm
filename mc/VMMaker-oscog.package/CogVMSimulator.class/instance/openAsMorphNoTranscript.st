@@ -2,7 +2,7 @@ UI
 openAsMorphNoTranscript
 	"Open a morphic view on this simulation."
 	| localImageName theWindow |
-	localImageName := FileSystem workingDirectory localNameFor: imageName.
+	localImageName := imageName asFileReference basename.
 	theWindow := (SystemWindow labelled: 'Simulation of ' , localImageName) model: self.
 
 	theWindow addMorph: (displayView := ImageMorph new image: displayForm)

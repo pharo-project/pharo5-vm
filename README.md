@@ -14,7 +14,9 @@ see [setup-ubuntu.sh](scripts/setup-ubuntu.sh) for a complete setup for a recent
 
 Mac:
 -----
-Download and install the [homebrew](http://brew.sh/) package manager with some additional packages
+To build the VM you need: git, cmake, wget, gnu-tar, the latest version of Xcode, and the MacOSX 10.6 SDK.
+
+One way of downloading and installing these is to use the [homebrew](http://brew.sh/) package manager:
 ```bash
 # install homebrew with the following oneliner:
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
@@ -60,8 +62,8 @@ Building the VM
  ```
 
 3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
-example VM configurations. (That's not true as there will be no workspace open or your with that, so open a workspace and copy paste the line you need, and then evaluate it (Do It)).
-Pick or edit the configuration you want, then evaluate it.
+example VM configurations. In case there is no workspace, open one and paste the line you need.
+Pick or edit the configuration you want, then evaluate it (Do It).
  ```Smalltalk
  "Unix"
  PharoVMBuilder buildUnix32.
@@ -82,8 +84,8 @@ Should you want to build a StackVM version, use the PharoSVMBuilder.
 
 4. Once the sources are exported, you can launch cmake and build the VM:
 ```bash
-cd build
-./build.sh
+cd ../build
+bash build.sh
 ```
 
 Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.

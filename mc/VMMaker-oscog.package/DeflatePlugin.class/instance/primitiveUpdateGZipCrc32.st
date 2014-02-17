@@ -18,7 +18,7 @@ primitiveUpdateGZipCrc32
 	length := interpreterProxy byteSizeOf: collection.
 	(stopIndex <= length) ifFalse:[^interpreterProxy primitiveFail].
 	bytePtr := interpreterProxy firstIndexableField: collection.
-	self cCode:'' inSmalltalk:[zipCrcTable := CArrayAccessor on: GZipWriteStream crcTable].
+	self cCode:'' inSmalltalk:[zipCrcTable := CArrayAccessor on: CRC crc32Table].
 	startIndex := startIndex - 1.
 	stopIndex := stopIndex - 1.
 	startIndex to: stopIndex do:[:i|
