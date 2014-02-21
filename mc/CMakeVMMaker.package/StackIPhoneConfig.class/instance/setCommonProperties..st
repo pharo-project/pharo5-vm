@@ -5,9 +5,13 @@ setCommonProperties: maker
 	maker set: 'CMAKE_SYSTEM_PROCESSOR' to: 'arm'.
 
 	maker set: 'SDKVER' toString: self sdkVersion.
-	maker set: 'DEVROOT' toString: ('/Applications/Xcode.app/Contents/Developer/Platforms/{1}.platform/Developer'
-		format: { self targetDevice }).
-	maker set: 'SDKROOT' toString: '${DEVROOT}/SDKs/', self targetDevice,'${SDKVER}.sdk'.
+	maker 
+		set: 'DEVROOT' 
+		toString: ('/Applications/Xcode.app/Contents/Developer/Platforms/{1}.platform/Developer'
+			format: { self targetDevice }).
+	maker 
+		set: 'SDKROOT' 
+		toString: '${DEVROOT}/SDKs/', self targetDevice,'${SDKVER}.sdk'.
 
 	maker set: 'CMAKE_OSX_SYSROOT' to: 'iphoneos${SDKVER}'.
 		

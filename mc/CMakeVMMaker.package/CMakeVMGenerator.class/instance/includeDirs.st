@@ -1,4 +1,4 @@
-as yet unclassified
+sources management
 includeDirs
 
 	^ '${crossDir}/vm ${srcVMDir} ${targetPlatform}/vm ${buildDir}'.

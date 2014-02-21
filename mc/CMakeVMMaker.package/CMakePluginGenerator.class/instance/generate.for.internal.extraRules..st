@@ -1,4 +1,4 @@
-as yet unclassified
+code generation
 generate: aPlugin for: aCMakeVMGenerator internal: aBoolean extraRules: aBlock
 
 	doNotGenerate := false.

@@ -1,7 +1,5 @@
-as yet unclassified
+cmake commands
 addExternalLibrary: aLibrary 
-
-	self isInternal ifTrue: [
-		vmGen addExternalLibrary: aLibrary  
-		]
-	ifFalse: [ super addExternalLibrary: aLibrary ]
+	self isInternal 
+		ifTrue: [ vmGen addExternalLibrary: aLibrary ]
+		ifFalse: [ super addExternalLibrary: aLibrary ].
