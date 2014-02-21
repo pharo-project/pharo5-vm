@@ -6,7 +6,7 @@ buildMacOSX32
 	PharoOSXConfig new  
 		generateForRelease;
 		"generateForDebug;"
-		addExternalPlugins: #(  FT2Plugin );
+		addExternalPlugins: #( FT2Plugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
-		addThirdpartyLibrary: 'cairo';
+		addThirdpartyLibraries: #('cairo'" 'libsdl2' 'libssh2'");
 		generateSources; generate.

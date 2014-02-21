@@ -31,7 +31,7 @@ generate
 	
 	intPlugins := self generatePluginConfigs: config internalPlugins internal: true.
 	extPlugins := self generatePluginConfigs: config externalPlugins internal: false.
-	
+
 	self processThirdpartyLibraries.
 	
 	self processPlugins:  intPlugins, extPlugins.

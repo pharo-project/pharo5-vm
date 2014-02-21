@@ -1,3 +1,3 @@
 accessing
 sdkVersion 
-	^'6.1'
+	^'7.0'
