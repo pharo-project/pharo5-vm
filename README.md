@@ -92,8 +92,8 @@ Before doing that, you would be well advised to make a tar or zipfile of the who
 
 5. Finally, run the freshly compiled VM from `results`.
 
-Building for iOS
-================
+##Building for iOS
+
 The process for compiling the VM for iOS is almost the same, but there are some extra steps you need to do:
 
 1. You need to produce a valid Pharo image (which is a plain Pharo image with some packages). The easiest way to do it is going to `iosbuild/resources`, then execute:
@@ -112,8 +112,7 @@ The process for compiling the VM for iOS is almost the same, but there are some 
 	
 That will not solve certain common problems you will find when working for iOS, thought. I will try to cover some of them now.
 
-Problem 1: Debugging/deploying through Xcode 
---------------------------------------------
+####Problem 1: Debugging/deploying through Xcode 
 You will need to produce a valid xcodeproj file. Is very easy, just follow next steps. 
 
 1. Go to `build` directory
@@ -123,8 +122,7 @@ You will need to produce a valid xcodeproj file. Is very easy, just follow next 
 
 Done! you will have an xcode project and you can proceed from there as any other regular iOS app.
 
-Problem 2: Signing for publishing
----------------------------------
+####Problem 2: Signing for publishing
 The problem of publishing apps is very complicated and in my opinion, moronic... but well, that's the game and we have to play with those rules (I will not explain them, in part because I do not understand it completely, you can go to [http://developer.apple.com](Apple developers site) and try to dig it there).  
 There is one tool that you can use to automate the signing process, assuming you have all the required previous steps:  
 ```
