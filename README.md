@@ -123,7 +123,7 @@ You will need to produce a valid xcodeproj file. Is very easy, just follow next 
 Done! you will have an xcode project and you can proceed from there as any other regular iOS app.
 
 ####Problem 2: Signing for publishing
-The problem of publishing apps is very complicated and in my opinion, moronic... but well, that's the game and we have to play with those rules (I will not explain them, in part because I do not understand it completely, you can go to [http://developer.apple.com](Apple developers site) and try to dig it there).  
+The problem of publishing apps is very complicated and in my opinion, moronic... but well, that's the game and we have to play with those rules (I will not explain them, in part because I do not understand it completely, you can go to [Apple developers site](http://developer.apple.com) and try to dig it there).  
 There is one tool that you can use to automate the signing process, assuming you have all the required previous steps:  
 ```
 xcrun -sdk iphoneos PackageApplication \
