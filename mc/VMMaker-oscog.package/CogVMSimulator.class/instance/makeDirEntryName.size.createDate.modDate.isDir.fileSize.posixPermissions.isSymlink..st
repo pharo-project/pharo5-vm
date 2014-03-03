@@ -4,8 +4,8 @@ makeDirEntryName: entryName
 	createDate: createDate 
 	modDate: modifiedDate
 	isDir: dirFlag 
-	fileSize: posixPermissions
-	posixPermissions: fileSize
+	fileSize: fileSize
+	posixPermissions: posixPermissions
 	isSymlink: symlinkFlag
 
 	| modDateOop createDateOop nameString results |
