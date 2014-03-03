@@ -7,7 +7,7 @@ primitiveDirectoryLookup
 	self successful ifFalse:
 		[^self primitiveFail].
 
-	array := FileSystem workingDirectory primLookupEntryIn: pathName index: index.
+	array := FilePluginPrims new lookupEntryIn: pathName index: index.
 
 	array == nil ifTrue:
 		[self pop: 3 thenPush: objectMemory nilObject.

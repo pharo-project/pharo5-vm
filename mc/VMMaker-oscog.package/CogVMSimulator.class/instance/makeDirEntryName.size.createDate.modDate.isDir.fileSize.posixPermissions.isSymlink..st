@@ -4,14 +4,14 @@ makeDirEntryName: entryName
 	createDate: createDate 
 	modDate: modifiedDate
 	isDir: dirFlag 
-	fileSize: posixPermissions
-	posixPermissions: fileSize
+	fileSize: fileSize
+	posixPermissions: posixPermissions
 	isSymlink: symlinkFlag
 
 	| modDateOop createDateOop nameString results |
 	<var: 'entryName' type: 'char *'>
 
-	results			:= objectMemory instantiateClass: (objectMemory splObj: ClassArray) indexableSize: 6.
+	results			:= objectMemory instantiateClass: (objectMemory splObj: ClassArray) indexableSize: 7.
 	nameString		:= objectMemory instantiateClass: (objectMemory splObj: ClassString) indexableSize: entryNameSize.
 	createDateOop	:= self positive32BitIntegerFor: createDate.
 	modDateOop	:= self positive32BitIntegerFor: modifiedDate.

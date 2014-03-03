@@ -1,7 +1,5 @@
 testing
 runAtEachStep: aBlock
-	self initStackPages.
-	self loadInitialContext.
 	self internalizeIPandSP.
 	self fetchNextBytecode.
 	[true] whileTrue:

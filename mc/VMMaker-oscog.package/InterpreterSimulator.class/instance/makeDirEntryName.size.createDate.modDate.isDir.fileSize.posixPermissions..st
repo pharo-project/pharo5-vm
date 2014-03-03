@@ -4,8 +4,8 @@ makeDirEntryName: entryName
 	createDate: createDate 
 	modDate: modifiedDate
 	isDir: dirFlag 
-	fileSize: posixPermissions
-	posixPermissions: fileSize
+	fileSize: fileSize
+	posixPermissions: posixPermissions
 
 	| modDateOop createDateOop nameString results |
 	<var: 'entryName' type: 'char *'>
@@ -13,7 +13,7 @@ makeDirEntryName: entryName
 	"allocate storage for results, remapping newly allocated
 	 oops in case GC happens during allocation"
 	self pushRemappableOop:
-		(self instantiateClass: (self splObj: ClassArray) indexableSize: 5).
+		(self instantiateClass: (self splObj: ClassArray) indexableSize: 6).
 	self pushRemappableOop:
 		(self instantiateClass: (self splObj: ClassString) indexableSize: entryNameSize)..
 	self pushRemappableOop: (self positive32BitIntegerFor: createDate).
