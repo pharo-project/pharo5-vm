@@ -14,7 +14,7 @@ makeDirEntryName: entryName
 	"allocate storage for results, remapping newly allocated
 	 oops in case GC happens during allocation"
 	self pushRemappableOop:
-		(self instantiateClass: (self splObj: ClassArray) indexableSize: 6).
+		(self instantiateClass: (self splObj: ClassArray) indexableSize: 7).
 	self pushRemappableOop:
 		(self instantiateClass: (self splObj: ClassString) indexableSize: entryNameSize)..
 	self pushRemappableOop: (self positive32BitIntegerFor: createDate).
