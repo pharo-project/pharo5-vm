@@ -4,7 +4,8 @@ defaultInternalPlugins
 		ADPCMCodecPlugin
 		BMPReadWriterPlugin 
 		BalloonEnginePlugin 
-		BitBltSimulation 
+		BitBltSimulation
+		BochsIA32Plugin
 		ClipboardExtendedPlugin
 		DSAPlugin 
 		DeflatePlugin 
