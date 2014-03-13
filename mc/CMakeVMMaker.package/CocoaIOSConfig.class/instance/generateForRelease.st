@@ -1,3 +1,0 @@
-accessing
-generateForRelease
-	generateForRelease := true

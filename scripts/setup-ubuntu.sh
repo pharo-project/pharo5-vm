@@ -16,3 +16,5 @@ sudo apt-get install build-essential gcc-multilib g++
 sudo apt-get install libgl1-mesa-dev libgl1-mesa-glx:i386
 sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so /usr/lib/i386-linux-gnu/libGL.so
 sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/mesa/libGL.so
+#sound library
+sudo apt-get install libasound2:i386

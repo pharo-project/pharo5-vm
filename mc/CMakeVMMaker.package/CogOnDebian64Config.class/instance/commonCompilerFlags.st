@@ -1,3 +1,3 @@
 accessing
 commonCompilerFlags 
-	^ super commonCompilerFlags , ' -L/usr/lib32'
+	^ super commonCompilerFlags , { '-L/usr/lib32' }

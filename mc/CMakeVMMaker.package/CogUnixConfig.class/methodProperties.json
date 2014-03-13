@@ -3,10 +3,9 @@
 		 },
 	"instance" : {
 		"cogitClass" : "IgorStasenko 3/18/2011 02:38",
-		"commonCompilerFlags" : "EstebanLorenzano 7/10/2013 14:13",
-		"compilerFlags" : "IgorStasenko 2/12/2011 21:55",
-		"compilerFlagsDebug" : "MarianoMartinezPeck 4/26/2011 20:45",
-		"compilerFlagsRelease" : "EstebanLorenzano 3/13/2013 18:10",
+		"commonCompilerFlags" : "EstebanLorenzano 3/12/2014 15:56",
+		"compilerFlagsDebug" : "EstebanLorenzano 3/12/2014 16:08",
+		"compilerFlagsRelease" : "EstebanLorenzano 3/12/2014 16:02",
 		"configH" : "IgorStasenko 3/15/2011 17:54",
 		"coreSources" : "Igor.Stasenko 1/7/2011 17:10",
 		"defaultExternalPlugins" : "EstebanLorenzano 4/19/2013 14:14",

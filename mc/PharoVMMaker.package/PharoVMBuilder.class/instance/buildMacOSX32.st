@@ -8,5 +8,9 @@ buildMacOSX32
 		"generateForDebug;"
 		addExternalPlugins: #( FT2Plugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
-		addThirdpartyLibraries: #('cairo'" 'libsdl2' 'libssh2'");
+		addThirdpartyLibraries: #(
+			'cairo' 
+			"'libsdl2'" 
+			'libgit2'
+			'libssh2');
 		generateSources; generate.

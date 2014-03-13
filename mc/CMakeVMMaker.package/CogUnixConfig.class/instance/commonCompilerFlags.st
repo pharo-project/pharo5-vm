@@ -9,5 +9,10 @@ commonCompilerFlags
 	
 	"
 	
-	^ ' -DLSB_FIRST=1 -DUSE_GLOBAL_STRUCT=0 -DCOGMTVM=0 -m32 -DENABLE_FAST_BLT ' 	
+	^ {
+		'-DLSB_FIRST=1'. 
+		'-DUSE_GLOBAL_STRUCT=0'. 
+		'-DCOGMTVM=0'. 
+		'-m32'.
+		'-DENABLE_FAST_BLT ' } 	
 	
