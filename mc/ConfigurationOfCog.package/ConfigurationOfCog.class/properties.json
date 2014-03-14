@@ -1,0 +1,15 @@
+{
+	"category" : "ConfigurationOfCog",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"LastVersionLoad" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"project",
+		"repositoryDir" ],
+	"name" : "ConfigurationOfCog",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
