@@ -18,5 +18,5 @@ sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so /usr/lib/i386-linux-gnu/libGL.s
 sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/mesa/libGL.so
 #sound library
 sudo apt-get install libasound2:i386
-#ssl (looks needed)
+#ssl library
 sudo apt-get install openssl:i386
