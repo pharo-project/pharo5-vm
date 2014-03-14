@@ -13,4 +13,5 @@ buildMacOSX32
 			"'libsdl2'" 
 			'libgit2'
 			'libssh2');
-		generateSources; generate.
+		generateSources; 
+		generate.

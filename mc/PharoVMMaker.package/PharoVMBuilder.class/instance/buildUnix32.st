@@ -9,4 +9,5 @@ buildUnix32
 		addThirdpartyLibraries: #( 
 			'libssh2' 
 			'libgit2' );
-		generateSources; generate.
+		generateSources; 
+		generate.
