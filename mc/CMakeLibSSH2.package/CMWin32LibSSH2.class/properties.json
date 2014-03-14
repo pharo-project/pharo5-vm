@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeLibSSH2",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMWin32LibSSH2",
+	"pools" : [
+		 ],
+	"super" : "CMLibSSH2",
+	"type" : "normal" }
