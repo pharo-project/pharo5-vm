@@ -1,3 +1,3 @@
 accessing
 generateForRelease
-	"override in subclasses"
+	generateForRelease := true

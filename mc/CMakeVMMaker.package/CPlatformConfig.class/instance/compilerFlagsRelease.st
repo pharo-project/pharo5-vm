@@ -1,0 +1,3 @@
+compiler flags
+compilerFlagsRelease
+	^ #()

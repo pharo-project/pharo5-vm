@@ -1,0 +1,3 @@
+accessing
+canonicalName
+	^ 'libgit2'

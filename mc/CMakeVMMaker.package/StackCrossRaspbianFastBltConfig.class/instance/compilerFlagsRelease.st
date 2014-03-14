@@ -16,4 +16,10 @@ THIS IS LIKE: -O2 -fno-tree-pre -fno-caller-saves
 
 "
 
-	^ '-g0 -D_GNU_SOURCE -DNDEBUG -DITIMER_HEARTBEAT=1 -DNO_VM_PROFILE=1 -DDEBUGVM=0'
+	^ {
+		'-g0'. 
+		'-D_GNU_SOURCE'. 
+		'-DNDEBUG'. 
+		'-DITIMER_HEARTBEAT=1'. 
+		'-DNO_VM_PROFILE=1'. 
+		'-DDEBUGVM=0' }

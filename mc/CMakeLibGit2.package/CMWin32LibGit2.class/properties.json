@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeLibGit2",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMWin32LibGit2",
+	"pools" : [
+		 ],
+	"super" : "CMLibGit2",
+	"type" : "normal" }
