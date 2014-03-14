@@ -11,7 +11,7 @@ buildMacOSX32
 		addThirdpartyLibraries: #(
 			'cairo' 
 			"'libsdl2'" 
-			'libgit2'
-			'libssh2');
+			"'libgit2'"
+			"'libssh2'");
 		generateSources; 
 		generate.

@@ -7,7 +7,7 @@ buildUnix32
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin  );
 		addThirdpartyLibraries: #( 
-			'libssh2' 
-			'libgit2' );
+			"'libssh2' 
+			'libgit2'" );
 		generateSources; 
 		generate.
