@@ -5,7 +5,7 @@ build
 		puts:
 '
 add_custom_command(OUTPUT "${libGit2Installed}"
-	COMMAND cmake -DCMAKE_INSTALL_PREFIX="${installPrefix}" -DCMAKE_OSX_ARCHITECTURES="i386" . 
+	COMMAND cmake -DCMAKE_INSTALL_PREFIX="${installPrefix}" ', self configurationFlags, ' . 
 	WORKING_DIRECTORY "${libSourcesDir}"
 	DEPENDS "${unpackTarget}"
 	COMMAND make
