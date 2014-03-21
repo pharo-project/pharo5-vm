@@ -14,7 +14,6 @@ commonCompilerFlags
 	'-mtune=prescott' 
 	'-falign-functions=16' 
 	'-fno-gcse' 
-	'-fno-cse-follow-jumps' 
 	'-std=gnu99'
 	'-fmessage-length=0' 
 	'-fpascal-strings' 
