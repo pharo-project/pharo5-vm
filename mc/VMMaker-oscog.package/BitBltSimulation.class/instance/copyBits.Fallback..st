@@ -49,7 +49,7 @@ copyBits: op Fallback: flags
 				cmBitsPerColor := 0.
 				cmMask = 16r1FF ifTrue: [cmBitsPerColor := 3].
 				cmMask = 16rFFF ifTrue: [cmBitsPerColor := 4].
-				cmMask = 16r3FFF ifTrue: [cmBitsPerColor := 5].
+				cmMask = 16r7FFF ifTrue: [cmBitsPerColor := 5].
 	
 				"Try a shortcut for stuff that should be run as quickly as possible"
 				done := self tryCopyingBitsQuickly.
