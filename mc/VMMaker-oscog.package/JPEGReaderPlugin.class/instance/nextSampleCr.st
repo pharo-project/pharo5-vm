@@ -6,7 +6,7 @@ nextSampleCr
 	dy := crComponent at: CurrentYIndex.
 	sx := crComponent at: HScaleIndex.
 	sy := crComponent at: VScaleIndex.
-	(sx = 0 and:[sy = 0]) ifFalse:[
+	(sx ~= 0 and: [sy ~= 0]) ifTrue: [
 		dx := dx // sx.
 		dy := dy // sy.
 	].

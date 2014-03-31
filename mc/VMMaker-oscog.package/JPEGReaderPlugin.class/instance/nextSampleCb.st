@@ -6,7 +6,7 @@ nextSampleCb
 	dy := cbComponent at: CurrentYIndex.
 	sx := cbComponent at: HScaleIndex.
 	sy := cbComponent at: VScaleIndex.
-	(sx = 0 and:[sy = 0]) ifFalse:[
+	(sx ~= 0 and: [sy ~= 0]) ifTrue: [
 		dx := dx // sx.
 		dy := dy // sy.
 	].

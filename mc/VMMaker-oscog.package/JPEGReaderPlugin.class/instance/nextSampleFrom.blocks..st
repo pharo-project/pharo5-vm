@@ -8,7 +8,7 @@ nextSampleFrom: aComponent blocks: aBlockArray
 	dy := aComponent at: CurrentYIndex.
 	sx := aComponent at: HScaleIndex.
 	sy := aComponent at: VScaleIndex.
-	(sx = 0 and:[sy = 0]) ifFalse:[
+	(sx ~= 0 and: [sy ~= 0]) ifTrue: [
 		dx := dx // sx.
 		dy := dy // sy.
 	].
