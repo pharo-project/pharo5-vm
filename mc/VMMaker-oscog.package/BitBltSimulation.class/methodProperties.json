@@ -99,7 +99,7 @@
 		"pixPaint:with:" : "ar (auto pragmas 12/08) 4/18/2001 20:39",
 		"pixSwap:with:" : "ar (auto pragmas 12/08) 4/19/2001 15:38",
 		"primitiveCopyBits" : "tpr (auto pragmas 12/08) 3/24/2004 13:06",
-		"primitiveDisplayString" : "tpr (auto pragmas 12/08) 4/3/2005 22:07",
+		"primitiveDisplayString" : "nice 10/24/2013 01:38",
 		"primitiveDrawLoop" : "tpr (auto pragmas 12/08) 3/24/2004 13:56",
 		"primitivePixelValueAtX:y:" : "tpr 3/25/2013 16:42",
 		"primitiveWarpBits" : "ar (auto pragmas 12/08) 2/20/2001 21:10",
