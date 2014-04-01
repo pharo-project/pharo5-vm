@@ -117,7 +117,7 @@
 		"genSendSuper:numArgs:" : "eem 11/21/2010 11:59",
 		"genSendTrampolineFor:numArgs:called:arg:arg:arg:" : "eem 7/14/2011 15:50",
 		"genSendTrampolineFor:numArgs:called:arg:arg:arg:arg:" : "eem 12/3/2010 17:24",
-		"genSmallIntegerComparison:" : "eem 11/25/2010 15:10",
+		"genSmallIntegerComparison:orDoubleComparison:" : "nice 5/4/2011 19:35",
 		"genSpecialSelectorArithmetic" : "eem 11/30/2012 14:14",
 		"genSpecialSelectorClass" : "eem 12/1/2010 16:24",
 		"genSpecialSelectorComparison" : "eem 11/30/2012 14:13",

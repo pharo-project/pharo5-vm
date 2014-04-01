@@ -1,3 +1,3 @@
 primitive generators
 genPrimitiveNotEqual
-	^self genSmallIntegerComparison: JumpNonZero
+	^self genSmallIntegerComparison: JumpNonZero orDoubleComparison: #JumpFPNotEqual: asSymbol

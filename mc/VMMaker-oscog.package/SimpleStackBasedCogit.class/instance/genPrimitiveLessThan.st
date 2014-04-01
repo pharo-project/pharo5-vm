@@ -1,3 +1,3 @@
 primitive generators
 genPrimitiveLessThan
-	^self genSmallIntegerComparison: JumpLess
+	^self genSmallIntegerComparison: JumpLess orDoubleComparison: #JumpFPLess: asSymbol
