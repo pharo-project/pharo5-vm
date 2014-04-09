@@ -13,7 +13,6 @@ commonCompilerFlags
 	'-std=gnu99'.
 	'-falign-functions=16'.
 	'-fno-gcse'.
-	'-fno-cse-follow-jumps'.
 	'-fvisibility=hidden'.
 	'-funroll-loops'.
 	'-finline-functions'.

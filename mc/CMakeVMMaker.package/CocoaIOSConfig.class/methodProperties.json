@@ -13,7 +13,7 @@
 		"SqueakDebug" : "EstebanLorenzano 11/29/2011 16:18",
 		"architecture" : "EstebanLorenzano 12/30/2011 11:03",
 		"commonCompilerFlags" : "EstebanLorenzano 5/3/2013 17:47",
-		"compilerFlagsRelease" : "EstebanLorenzano 8/12/2013 13:44",
+		"compilerFlagsRelease" : "EstebanLorenzano 3/21/2014 14:12",
 		"configureB3DAcceleratorPlugin:" : "EstebanLorenzano 7/22/2011 09:42",
 		"configureClipboardExtendedPlugin:" : "MarianoMartinezPeck 4/23/2011 13:32",
 		"configureHostWindowPlugin:" : "EstebanLorenzano 1/10/2012 17:37",
@@ -45,6 +45,6 @@
 		"preferredIncludes" : "EstebanLorenzano 1/10/2011 21:25",
 		"prefixHeaderFileName" : "EstebanLorenzano 3/17/2011 18:40",
 		"resources" : "EstebanLorenzano 12/3/2011 11:31",
-		"setExtraTargetProperties:" : "EstebanLorenzano 6/22/2012 13:05",
+		"setExtraTargetProperties:" : "EstebanLorenzano 3/21/2014 14:12",
 		"srcDir" : "EstebanLorenzano 1/2/2011 10:15",
 		"standardIncludes" : "EstebanLorenzano 1/10/2011 21:25" } }
