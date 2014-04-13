@@ -40,20 +40,47 @@ primitiveStringReplace
 	srcIndex := replStart + replInstSize - 1.
 	"- 1 for 0-based access"
 
-	arrayFmt <= 4
-		ifTrue: ["pointer type objects"
-			start + arrayInstSize - 1 to: stop + arrayInstSize - 1 do: [:i |
-				objectMemory storePointer: i ofObject: array withValue: (objectMemory fetchPointer: srcIndex ofObject: repl).
-					srcIndex := srcIndex + 1]]
-		ifFalse: [arrayFmt < 8
-				ifTrue: ["32-bit-word type objects"
-					start + arrayInstSize - 1 to: stop + arrayInstSize - 1
-						do: [:i | objectMemory storeLong32: i ofObject: array withValue: (objectMemory fetchLong32: srcIndex ofObject: repl).
+	"choose direction to copy in to prevent destroying contents if copying from self to self"
+	replStart >= start
+		ifTrue:
+			[srcIndex := replStart + replInstSize - 1.
+			"- 1 for 0-based access"
+
+			arrayFmt <= 4
+				ifTrue: ["pointer type objects"
+					start + arrayInstSize - 1 to: stop + arrayInstSize - 1 do: [:i |
+						self storePointer: i ofObject: array withValue: (self fetchPointer: srcIndex ofObject: repl).
 							srcIndex := srcIndex + 1]]
-				ifFalse: ["byte-type objects"
-					start + arrayInstSize - 1 to: stop + arrayInstSize - 1
-						do: [:i |  objectMemory storeByte: i ofObject: array withValue: (objectMemory fetchByte: srcIndex ofObject: repl).
-							srcIndex := srcIndex + 1]]].
+				ifFalse: [arrayFmt < 8
+						ifTrue: ["32-bit-word type objects"
+							start + arrayInstSize - 1 to: stop + arrayInstSize - 1
+								do: [:i | self storeLong32: i ofObject: array withValue: (self fetchLong32: srcIndex ofObject: repl).
+									srcIndex := srcIndex + 1]]
+						ifFalse: ["byte-type objects"
+							start + arrayInstSize - 1 to: stop + arrayInstSize - 1
+								do: [:i |  self storeByte: i ofObject: array withValue: (self fetchByte: srcIndex ofObject: repl).
+									srcIndex := srcIndex + 1]]]]
+		ifFalse:
+			[srcIndex := replStart + replInstSize - 1 + stop - start.
+			"- 1 for 0-based access"
+
+			arrayFmt <= 4
+				ifTrue: ["pointer type objects"
+					stop + arrayInstSize - 1 to: start + arrayInstSize - 1 by: -1 do:
+						[:i |
+						self storePointer: i ofObject: array withValue: (self fetchPointer: srcIndex ofObject: repl).
+						srcIndex := srcIndex - 1]]
+				ifFalse: [arrayFmt < 8
+						ifTrue: ["32-bit-word type objects"
+							stop + arrayInstSize - 1 to: start + arrayInstSize - 1 by: -1 do:
+								[:i |
+								self storeLong32: i ofObject: array withValue: (self fetchLong32: srcIndex ofObject: repl).
+								srcIndex := srcIndex - 1]]
+						ifFalse: ["byte-type objects"
+							stop + arrayInstSize - 1 to: start + arrayInstSize - 1 by: -1 do:
+								[:i |
+								self storeByte: i ofObject: array withValue: (self fetchByte: srcIndex ofObject: repl).
+								srcIndex := srcIndex - 1]]]].
 	"We might consider  comparing stop - start to some value here and using forceInterruptCheck"
 
 	self pop: argumentCount "leave rcvr on stack"
