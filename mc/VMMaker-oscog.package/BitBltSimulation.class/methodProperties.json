@@ -101,7 +101,7 @@
 		"primitiveCopyBits" : "tpr (auto pragmas 12/08) 3/24/2004 13:06",
 		"primitiveDisplayString" : "tpr (auto pragmas 12/08) 4/3/2005 22:07",
 		"primitiveDrawLoop" : "tpr (auto pragmas 12/08) 3/24/2004 13:56",
-		"primitivePixelValueAtX:y:" : "tpr 3/25/2013 16:42",
+		"primitivePixelValueAtX:y:" : "dtl 12/21/2013 10:06",
 		"primitiveWarpBits" : "ar (auto pragmas 12/08) 2/20/2001 21:10",
 		"queryDestSurface:" : "ikp 6/9/2004 22:52",
 		"querySourceSurface:" : "ikp 6/9/2004 22:57",
