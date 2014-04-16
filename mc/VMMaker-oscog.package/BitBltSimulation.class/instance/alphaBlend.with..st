@@ -6,37 +6,30 @@ alphaBlend: sourceWord with: destinationWord
 	The blend produced is alpha*source + (1-alpha)*dest, with
 	the computation being performed independently on each color
 	component.  The high byte of the result will be 0."
-	| alpha unAlpha colorMask result blend shift |
+	| alpha unAlpha result blendRB blendAG |
 	<inline: false>
+	<return: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #blendRB type: 'unsigned int'>
+	<var: #blendAG type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
+	<var: #alpha type: 'unsigned int'>
+	<var: #unAlpha type: 'unsigned int'>
 	alpha := sourceWord >> 24.  "High 8 bits of source pixel"
 	alpha = 0 ifTrue: [ ^ destinationWord ].
 	alpha = 255 ifTrue: [ ^ sourceWord ].
 	unAlpha := 255 - alpha.
-	colorMask := 16rFF.
-	result := 0.
 
-	"red"
-	shift := 0.
-	blend := ((sourceWord >> shift bitAnd: colorMask) * alpha) +
-				((destinationWord>>shift bitAnd: colorMask) * unAlpha)
-			 	+ 254 // 255 bitAnd: colorMask.
-	result := result bitOr: blend << shift.
-	"green"
-	shift := 8.
-	blend := ((sourceWord >> shift bitAnd: colorMask) * alpha) +
-				((destinationWord>>shift bitAnd: colorMask) * unAlpha)
-			 	+ 254 // 255 bitAnd: colorMask.
-	result := result bitOr: blend << shift.
-	"blue"
-	shift := 16.
-	blend := ((sourceWord >> shift bitAnd: colorMask) * alpha) +
-				((destinationWord>>shift bitAnd: colorMask) * unAlpha)
-			 	+ 254 // 255 bitAnd: colorMask.
-	result := result bitOr: blend << shift.
-	"alpha (pre-multiplied)"
-	shift := 24.
-	blend := (alpha * 255) +
-				((destinationWord>>shift bitAnd: colorMask) * unAlpha)
-			 	+ 254 // 255 bitAnd: colorMask.
-	result := result bitOr: blend << shift.
+	blendRB := ((sourceWord bitAnd: 16rFF00FF) * alpha) +
+				((destinationWord bitAnd: 16rFF00FF) * unAlpha)
+				+ 16rFF00FF.	"blend red and blue"
+
+	blendAG := (((sourceWord>> 8 bitOr: 16rFF0000) bitAnd: 16rFF00FF) * alpha) +
+				((destinationWord>>8 bitAnd: 16rFF00FF) * unAlpha)
+				+ 16rFF00FF.	"blend alpha and green"
+
+	blendRB := blendRB + (blendRB - 16r10001 >> 8 bitAnd: 16rFF00FF) >> 8 bitAnd: 16rFF00FF.	"divide by 255"
+	blendAG := blendAG + (blendAG - 16r10001 >> 8 bitAnd: 16rFF00FF) >> 8 bitAnd: 16rFF00FF.
+	result := blendRB bitOr: blendAG<<8.
 	^ result
