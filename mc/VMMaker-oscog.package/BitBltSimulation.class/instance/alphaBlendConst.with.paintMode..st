@@ -14,30 +14,39 @@ alphaBlendConst: sourceWord with: destinationWord paintMode: paintMode
 	To allow storing into any depth will require subsequent addition of two other
 	colormaps, as is the case with WarpBlt."
 
-	| pixMask destShifted sourceShifted destPixVal rgbMask sourcePixVal unAlpha result pixBlend shift blend maskShifted bitsPerColor |
+	| pixMask destShifted sourceShifted destPixVal rgbMask sourcePixVal unAlpha result pixBlend shift blend maskShifted bitsPerColor blendAG blendRB |
 	<inline: false>
+	<return: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #blendRB type: 'unsigned int'>
+	<var: #blendAG type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
+	<var: #sourceAlpha type: 'unsigned int'>
+	<var: #unAlpha type: 'unsigned int'>
 	destDepth < 16 ifTrue: [^ destinationWord "no-op"].
 	unAlpha := 255 - sourceAlpha.
-	pixMask := maskTable at: destDepth.
-	destDepth = 16 
-		ifTrue: [bitsPerColor := 5]
-		ifFalse:[bitsPerColor := 8].
-	rgbMask := (1<<bitsPerColor) - 1.
-	maskShifted := destMask.
-	destShifted := destinationWord.
-	sourceShifted := sourceWord.
 	result := destinationWord.
 	destPPW = 1 ifTrue:["32bpp blends include alpha"
 		paintMode & (sourceWord = 0)  "painting a transparent pixel" ifFalse:[
-			result := 0.
-			1 to: 4 do:[:i|
-				shift := (i-1)*8.
-				blend := (((sourceWord>>shift bitAnd: rgbMask) * sourceAlpha)
-							+ ((destinationWord>>shift bitAnd: rgbMask) * unAlpha))
-					 	+ 254 // 255 bitAnd: rgbMask.
-				result := result bitOr: blend<<shift].
+
+				blendRB := ((sourceWord bitAnd: 16rFF00FF) * sourceAlpha) +
+						((destinationWord bitAnd: 16rFF00FF) * unAlpha) + 16rFF00FF.	"blendRB red and blue"
+
+				blendAG := ((sourceWord>> 8 bitAnd: 16rFF00FF) * sourceAlpha) +
+						((destinationWord>>8 bitAnd: 16rFF00FF) * unAlpha) + 16rFF00FF.	"blendRB alpha and green"
+
+				blendRB := blendRB + (blendRB - 16r10001 >> 8 bitAnd: 16rFF00FF) >> 8 bitAnd: 16rFF00FF.	"divide by 255"
+				blendAG := blendAG + (blendAG - 16r10001 >> 8 bitAnd: 16rFF00FF) >> 8 bitAnd: 16rFF00FF.
+				result := blendRB bitOr: blendAG<<8.
 		].
 	] ifFalse:[
+		pixMask := maskTable at: destDepth.
+		bitsPerColor := 5.
+		rgbMask := 16r1F.
+		maskShifted := destMask.
+		destShifted := destinationWord.
+		sourceShifted := sourceWord.
 		1 to: destPPW do:[:j |
 			sourcePixVal := sourceShifted bitAnd: pixMask.
 			((maskShifted bitAnd: pixMask) = 0  "no effect if outside of dest rectangle"
@@ -51,10 +60,8 @@ alphaBlendConst: sourceWord with: destinationWord paintMode: paintMode
 								+ ((destPixVal>>shift bitAnd: rgbMask) * unAlpha))
 						 	+ 254 // 255 bitAnd: rgbMask.
 					pixBlend := pixBlend bitOr: blend<<shift].
-				destDepth = 16
-					ifTrue: [result := (result bitAnd: (pixMask << (j-1*16)) bitInvert32)
-										bitOr: pixBlend << (j-1*16)]
-					ifFalse: [result := pixBlend]].
+				result := (result bitAnd: (pixMask << (j-1*16)) bitInvert32)
+								bitOr: pixBlend << (j-1*16)].
 			maskShifted := maskShifted >> destDepth.
 			sourceShifted := sourceShifted >> destDepth.
 			destShifted := destShifted >> destDepth].

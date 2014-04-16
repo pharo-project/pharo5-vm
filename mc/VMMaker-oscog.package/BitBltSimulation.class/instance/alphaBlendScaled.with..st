@@ -7,23 +7,16 @@ alphaBlendScaled: sourceWord with: destinationWord
 		srcColor + (1-srcAlpha) * dstColor
 
 	e.g., it is assumed that the source color is already scaled."
-	| unAlpha dstMask srcMask b g r a |
+	| unAlpha rb ag |
 	<inline: false>	"Do NOT inline this into optimized loops"
-	unAlpha := 255 - (sourceWord >> 24).  "High 8 bits of source pixel"
-	dstMask := destinationWord.
-	srcMask := sourceWord.
-	b := (dstMask bitAnd: 255) * unAlpha >> 8 + (srcMask bitAnd: 255).
-	b > 255 ifTrue:[b := 255].
-	dstMask := dstMask >> 8.
-	srcMask := srcMask >> 8.
-	g := (dstMask bitAnd: 255) * unAlpha >> 8 + (srcMask bitAnd: 255).
-	g > 255 ifTrue:[g := 255].
-	dstMask := dstMask >> 8.
-	srcMask := srcMask >> 8.
-	r := (dstMask bitAnd: 255) * unAlpha >> 8 + (srcMask bitAnd: 255).
-	r > 255 ifTrue:[r := 255].
-	dstMask := dstMask >> 8.
-	srcMask := srcMask >> 8.
-	a := (dstMask bitAnd: 255) * unAlpha >> 8 + (srcMask bitAnd: 255).
-	a > 255 ifTrue:[a := 255].
-	^(((((a << 8) + r) << 8) + g) << 8) + b
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #rb type: 'unsigned int'>
+	<var: #ag type: 'unsigned int'>
+	<var: #unAlpha type: 'unsigned int'>
+	unAlpha := 255 - (sourceWord >> 24).  "High 8 bits of source pixel is source opacity (ARGB format)"
+	rb := ((destinationWord bitAnd: 16rFF00FF) * unAlpha >> 8 bitAnd: 16rFF00FF) + (sourceWord bitAnd: 16rFF00FF). "blend red and blue components"
+	ag := ((destinationWord>>8 bitAnd: 16rFF00FF) * unAlpha >> 8 bitAnd: 16rFF00FF) + (sourceWord>>8 bitAnd: 16rFF00FF). "blend alpha and green components"
+	rb := (rb bitAnd: 16rFF00FF) bitOr: (rb bitAnd: 16r1000100) * 16rFF >> 8. "saturate red and blue components if there is a carry"
+	ag := (ag bitAnd: 16rFF00FF) << 8 bitOr: (ag bitAnd: 16r1000100) * 16rFF. "saturate alpha and green components if there is a carry"
+	^ag bitOr: rb "recompose"
