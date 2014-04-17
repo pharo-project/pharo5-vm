@@ -33,7 +33,7 @@ lockSurfaces
 	"
 	| sourceHandle destHandle l r t b fn |
 	<inline: true>
-	<var: #fn declareC: 'sqInt (*fn)(sqInt, sqInt*, sqInt, sqInt, sqInt, sqInt)'>
+	<var: #fn declareC:'sqInt (*fn)(sqInt, sqInt*, sqInt, sqInt, sqInt, sqInt)'>
 	hasSurfaceLock := false.
 	destBits = 0 ifTrue:["Blitting *to* OS surface"
 		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
@@ -51,7 +51,7 @@ lockSurfaces
 				] ifTrue:[
 					"Otherwise use overlapping area"
 					l := sx min: dx. r := (sx max: dx) + bbW.
-					t := sy min: dy. b := (sy max: sy) + bbH.
+					t := sy min: dy. b := (sy max: dy) + bbH.
 					sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, l, t, r-l, b-t)'.
 				].
 				destBits := sourceBits.
