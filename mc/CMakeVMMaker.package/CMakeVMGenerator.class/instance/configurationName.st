@@ -1,3 +1,3 @@
-as yet unclassified
+accessing
 configurationName
 	^ config class name

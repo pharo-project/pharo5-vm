@@ -2,13 +2,14 @@
 	"class" : {
 		"build" : "EstebanLorenzano 7/10/2013 17:11",
 		"buildMacOSX32" : "EstebanLorenzano 7/10/2013 17:11",
-		"buildOnJenkins:" : "jeanbaptistearnaud 10/14/2013 17:40",
-		"buildRaspberryPi" : "jeanbaptistearnaud 10/14/2013 17:55",
+		"buildOnJenkins:" : "jeanbaptistearnaud 1/24/2014 10:11",
+		"buildRaspberryPi" : "jeanbaptistearnaud 1/24/2014 10:10",
 		"buildUnix32" : "EstebanLorenzano 7/10/2013 17:11",
 		"buildWin32" : "EstebanLorenzano 7/10/2013 17:11" },
 	"instance" : {
 		"buildMacOSX32" : "EstebanLorenzano 7/10/2013 18:57",
-		"buildRaspberryPi" : "jeanbaptistearnaud 10/14/2013 17:38",
+		"buildRaspberryPi" : "jeanbaptistearnaud 1/23/2014 16:09",
+		"buildRaspberryPiFBB" : "jeanbaptistearnaud 1/23/2014 16:09",
 		"buildUnix32" : "EstebanLorenzano 7/12/2013 13:02",
 		"buildWin32" : "EstebanLorenzano 7/12/2013 13:02",
 		"generateCMakeFilesDevForRaspberryPi" : "jeanbaptistearnaud 10/18/2013 13:30",

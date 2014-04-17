@@ -19,7 +19,6 @@ compilerFlagsRelease
 	'-mtune=prescott' 
 	'-falign-functions=16'  
 	'-fno-gcse' 
-	'-fno-cse-follow-jumps' 
 	'-std=gnu99' 
 	'-DBUILD_FOR_OSX' 
 	"'-DUSE_INLINE_MEMORY_ACCESSORS'" 

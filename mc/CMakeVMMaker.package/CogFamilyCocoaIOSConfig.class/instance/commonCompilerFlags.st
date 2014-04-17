@@ -1,7 +1,11 @@
 settings
 commonCompilerFlags
-	^super commonCompilerFlags, 
-		#(
+	^super commonCompilerFlags,  #(
+	"CLANG >>"
+	'-fwrapv' "Non optimization of stackoverflow (to allow number conversions)"
+	'-Wno-return-type' "to avoid clang to complain about plugins that do not return properly."	
+	'-Qunused-arguments'
+	"CLANG <<"
 	'-funroll-loops' 
 	'-fasm-blocks' 
 	'-fno-inline-functions' 
@@ -10,7 +14,6 @@ commonCompilerFlags
 	'-mtune=prescott' 
 	'-falign-functions=16' 
 	'-fno-gcse' 
-	'-fno-cse-follow-jumps' 
 	'-std=gnu99'
 	'-fmessage-length=0' 
 	'-fpascal-strings' 

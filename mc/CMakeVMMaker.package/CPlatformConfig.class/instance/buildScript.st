@@ -4,7 +4,7 @@ buildScript
 	
 
 	^ 
-'#!bash
+'#!/usr/bin/env bash
 
 cmake .
 make

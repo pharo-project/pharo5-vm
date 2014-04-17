@@ -13,6 +13,7 @@
 		"generate:to:platformDir:including:" : "eem 6/21/2011 08:45",
 		"generate:with:to:platformDir:including:" : "eem 6/21/2011 08:45",
 		"generateConfiguration" : "eem 3/13/2012 16:09",
+		"generateNewSqueakCogVM" : "LucFabresse 9/27/2013 10:04:12.418",
 		"generateNewspeakCogVM" : "GuillermoPolito 6/17/2013 15:27",
 		"generateNewspeakInterpreterVM" : "GuillermoPolito 6/17/2013 15:27",
 		"generateNewspeakStackVM" : "GuillermoPolito 6/17/2013 15:27",
@@ -149,4 +150,5 @@
 		"validateExternalPlugin:" : "tpr 10/17/2001 13:15",
 		"validateInternalPlugin:" : "tpr 10/17/2001 13:15",
 		"validatePlugin:in:" : "tpr 3/13/2002 15:29",
-		"vmBitnessString" : "tpr 4/4/2005 17:17" } }
+		"vmBitnessString" : "tpr 4/4/2005 17:17",
+		"wordSize" : "LucFabresse 9/27/2013 10:04:12.418" } }

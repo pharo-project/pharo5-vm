@@ -1,5 +1,5 @@
 image save/restore
 reverseBytesInImage
-	Utilities
+	UIManager default
 		informUser: 'Swapping bytes of foreign image...'
 		during: [super reverseBytesInImage]

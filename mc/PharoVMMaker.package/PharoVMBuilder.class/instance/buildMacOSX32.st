@@ -4,9 +4,12 @@ buildMacOSX32
 	CogNativeBoostPlugin setTargetPlatform: #Mac32PlatformId.
 	
 	PharoOSXConfig new  
-		generateForRelease;
 		"generateForDebug;"
-		addExternalPlugins: #(  FT2Plugin );
+		addExternalPlugins: #( FT2Plugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
-		addThirdpartyLibrary: 'cairo';
-		generateSources; generate.
+		addThirdpartyLibraries: #(
+			'cairo' 
+			'libgit2'
+			'libssh2');
+		generateSources; 
+		generate.
