@@ -34,6 +34,8 @@ baselineGit: spec
 				spec requires: #('VMMaker-oscog') ];
 			package: 'Applescript-Core' with: [ 
 				spec requires: #('VMMaker-oscog') ];
+			package: 'X11DisplayPlugin' with: [ 
+				spec requires: #('VMMaker-oscog') ];
 			package: 'CMakeVMMaker' with: [ 
 				spec requires: #('Cog') ].	
 			
@@ -50,7 +52,8 @@ baselineGit: spec
 				'Freetype-Plugin'
 				'SqueakSSL-Plugin'
 				'ObjectiveC-Plugin'
-				'Applescript-Core') ].
+				'Applescript-Core'
+				'X11DisplayPlugin') ].
 		
 		spec for: #pharo do: [		
 			spec 

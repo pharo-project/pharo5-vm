@@ -8,7 +8,9 @@ Author
 		(Smalltalk at: #ConfigurationOfFileTree) load.
 
 		Gofer new
-			squeaksource: 'MetacelloRepository';
+			repository: (MCFileTreeRepository new 
+				directory: '../mc' asFileReference;
+				yourself);
 			package: 'ConfigurationOfCog';
 			load.	
 		(Smalltalk at: #ConfigurationOfCog) loadGit.
