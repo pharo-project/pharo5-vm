@@ -36,6 +36,8 @@ baselineGit: spec
 				spec requires: #('VMMaker-oscog') ];
 			package: 'X11DisplayPlugin' with: [ 
 				spec requires: #('VMMaker-oscog') ];
+			package: 'SDL2DisplayPlugin' with: [ 
+				spec requires: #('VMMaker-oscog') ];
 			package: 'CMakeVMMaker' with: [ 
 				spec requires: #('Cog') ].	
 			
@@ -53,7 +55,8 @@ baselineGit: spec
 				'SqueakSSL-Plugin'
 				'ObjectiveC-Plugin'
 				'Applescript-Core'
-				'X11DisplayPlugin') ].
+				'X11DisplayPlugin'
+				'SDL2DisplayPlugin') ].
 		
 		spec for: #pharo do: [		
 			spec 

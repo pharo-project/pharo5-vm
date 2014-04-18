@@ -6,7 +6,7 @@ extern struct VirtualMachine* interpreterProxy;
 static int inputSemaphoreIndex = 0;
 static Display * current_display = 0;
 
-void ioCheckForEvents() {
+static void ioCheckForEvents() {
 
 	if (current_display && XPending(current_display)) {
 		interpreterProxy->signalSemaphoreWithIndex(inputSemaphoreIndex);
