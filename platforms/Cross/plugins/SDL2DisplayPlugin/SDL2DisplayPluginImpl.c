@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 extern struct VirtualMachine* interpreterProxy;
+extern void setIoProcessEventsHandler(void * handler);
 
 static int inited = 0;
 static int inputSemaphoreIndex = 0;

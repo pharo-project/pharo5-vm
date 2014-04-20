@@ -39,4 +39,5 @@ SoundPlugin
 StarSqueakPlugin 
 SurfacePlugin 
 UUIDPlugin
+SDL2DisplayPlugin
 	)
