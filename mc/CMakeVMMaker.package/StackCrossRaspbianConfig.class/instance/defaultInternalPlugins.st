@@ -28,9 +28,8 @@ defaultInternalPlugins
 		SocketPlugin 
 		SoundCodecPlugin "SoundCodecPrims"
 		SoundGenerationPlugin 
-		SoundPlugin
+		"SoundPlugin"
 		StarSqueakPlugin 
 		SurfacePlugin	
 		LocalePlugin
-		"UnixOSProcessPlugin"
 		)
