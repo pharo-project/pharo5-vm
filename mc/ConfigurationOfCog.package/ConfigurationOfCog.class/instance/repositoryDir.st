@@ -1,3 +1,3 @@
 accessing
 repositoryDir 
-	^ repositoryDir ifNil: [ '../mc' asFileReference ].
+	^ repositoryDir ifNil: [ 'filetree://../mc' ]

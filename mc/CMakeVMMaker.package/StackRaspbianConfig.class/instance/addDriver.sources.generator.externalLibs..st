@@ -25,7 +25,7 @@ addDriver: name sources: aSources generator: cmakeGen externalLibs: extLibs
 			cmd: 'set_target_properties' params: name , ' PROPERTIES PREFIX "" SUFFIX "" ' 
 	].
 	
-	(self buildDir / name) ensureDirectory.
+	(self buildDir / name) ensureCreateDirectory.
 	self write: cfg toFile: name , '/', cmakeGen outputFileName.
 	cmakeGen addSubdirectory:  name.
 	

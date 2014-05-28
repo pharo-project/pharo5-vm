@@ -6,9 +6,7 @@ baselineGit: spec
 		spec blessing: #baseline.
 
 		spec repositories: [
-			spec repository: (MCFileTreeRepository new 
-				directory: self repositoryDir;
-				yourself) ].
+			spec repository: self repositoryDir ].
 	
 		spec 
 			package: 'FFI-Pools';

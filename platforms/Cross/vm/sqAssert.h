@@ -14,7 +14,7 @@
 extern void warning(char *);
 extern void warningat(char *,int);
 
-#ifdef NDEBUG /* compatible with Mac OS X (FreeBSD) /usr/include/assert.h */
+#ifndef NDEBUG /* compatible with Mac OS X (FreeBSD) /usr/include/assert.h */
 # undef assert
 # define assert(expr) 0 /* hack disabling of asserts.  Better in makefile? */
 # define asserta(expr) (expr)

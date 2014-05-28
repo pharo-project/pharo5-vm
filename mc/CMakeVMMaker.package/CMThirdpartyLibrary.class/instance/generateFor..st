@@ -8,7 +8,7 @@ generateFor: aVMGenerator
 	gen := CMakeGenerator new
 		output: (String new writeStream).
 	
-	libDir := (aVMGenerator thirdpartyDir / self canonicalName) ensureDirectory.
+	libDir := (aVMGenerator thirdpartyDir / self canonicalName) ensureCreateDirectory.
 
 	stream := String new writeStream.
 	
