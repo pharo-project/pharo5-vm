@@ -1,7 +1,9 @@
 source generation
 validateSourcesPresent
 	| sources |
-	sources := Smalltalk openSources: SmalltalkImage current sourcesName forImage: SmalltalkImage current imageName.
+	sources := PharoFilesOpener default 
+		openSources: SmalltalkImage current sourcesName 
+		forImage: SmalltalkImage current imageName.
 	
 	((sources == nil or: [sources atEnd])
 			and: [ SmalltalkImage current checkSourcesFileAvailability])

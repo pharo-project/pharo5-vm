@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+decompileString
+	^ self decompile decompileString

@@ -26,7 +26,7 @@ addDriver: name sources: aSources generator: cmakeGen externalLibs: extLibs
 			LINK_FLAGS -m32' 
 	].
 	
-	(self buildDir / name) ensureDirectory.
+	(self buildDir / name) ensureCreateDirectory.
 	self write: cfg toFile: name , '/', cmakeGen outputFileName.
 	cmakeGen addSubdirectory:  name.
 	

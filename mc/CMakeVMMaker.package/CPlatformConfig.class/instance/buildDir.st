@@ -1,4 +1,4 @@
 directories
 buildDir
 	
-	^ buildDir ifNil: [ buildDir := (self topDir / self buildDirName) ensureDirectory; yourself ].
+	^ buildDir ifNil: [ buildDir := (self topDir / self buildDirName) ensureCreateDirectory; yourself ].

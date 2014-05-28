@@ -1,3 +1,3 @@
 accessing
 archiveFileName
-	^ self downloadURL asUrl fileName 
+	^ self downloadURL asUrl file

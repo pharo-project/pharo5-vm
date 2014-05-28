@@ -7,8 +7,8 @@ write: aContents toFile: aFileName
 	bldDir := self buildDir.
 	bldDir isString
 		ifTrue: [ bldDir := bldDir asFileReference ].
-	bldDir ensureDirectory.
+	bldDir ensureCreateDirectory.
 	(bldDir / aFileName)
-		ensureFile
+		ensureCreateFile
 		writeStream
 		nextPutAll: (self fixLineEndsOf: aContents)

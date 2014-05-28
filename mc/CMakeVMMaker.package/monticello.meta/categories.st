@@ -1,9 +1,9 @@
 SystemOrganization addCategory: #CMakeVMMaker!
-SystemOrganization addCategory: #'CMakeVMMaker-Android'!
-SystemOrganization addCategory: #'CMakeVMMaker-Builder'!
-SystemOrganization addCategory: #'CMakeVMMaker-FreeBSD'!
-SystemOrganization addCategory: #'CMakeVMMaker-IOS'!
-SystemOrganization addCategory: #'CMakeVMMaker-Libs'!
-SystemOrganization addCategory: #'CMakeVMMaker-MacOS'!
-SystemOrganization addCategory: #'CMakeVMMaker-Unix'!
-SystemOrganization addCategory: #'CMakeVMMaker-Windows'!
+SystemOrganization addCategory: 'CMakeVMMaker-Android'!
+SystemOrganization addCategory: 'CMakeVMMaker-Builder'!
+SystemOrganization addCategory: 'CMakeVMMaker-FreeBSD'!
+SystemOrganization addCategory: 'CMakeVMMaker-IOS'!
+SystemOrganization addCategory: 'CMakeVMMaker-Libs'!
+SystemOrganization addCategory: 'CMakeVMMaker-MacOS'!
+SystemOrganization addCategory: 'CMakeVMMaker-Unix'!
+SystemOrganization addCategory: 'CMakeVMMaker-Windows'!
