@@ -73,6 +73,8 @@ baselineGit: spec
 					spec requires: 'VMMaker-oscog' ];
 			 	package: 'SqueakSSL-Plugin' with: [ 
 					spec requires: 'VMMaker-oscog' ];
+				package:  'CMakeLibSDL2' with: [ 
+					spec requires: 'CMakeVMMaker' ];
 				package:  'CMakeLibSSH2' with: [ 
 					spec requires: 'CMakeVMMaker' ];
 				package:  'CMakeLibGit2' with: [ 
@@ -83,4 +85,4 @@ baselineGit: spec
 			spec 
 				group: 'ALL' with: #('CogVMMaker' 'Plugins' 'PharoPlugins' 'CMakeVMMaker' 'PharoVMMaker' 'ThirdPartyLibs');
 				group: 'PharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
-				group: 'ThirdPartyLibs' with: #('CMakeLibSSH2' 'CMakeLibGit2') ]
+				group: 'ThirdPartyLibs' with: #('CMakeLibSDL2' 'CMakeLibSSH2' 'CMakeLibGit2') ]
