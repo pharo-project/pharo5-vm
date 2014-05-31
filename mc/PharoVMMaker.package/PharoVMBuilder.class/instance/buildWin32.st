@@ -7,6 +7,7 @@ buildWin32
 		addInternalPlugins: #( Win32OSProcessPlugin );
 		addThirdpartyLibraries: #(
 			'cairo'
+			'SDL2'
 			'libssh2'
 			'libgit2');
 		generateSources; 

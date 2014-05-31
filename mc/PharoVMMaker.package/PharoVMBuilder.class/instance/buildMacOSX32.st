@@ -9,6 +9,7 @@ buildMacOSX32
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		addThirdpartyLibraries: #(
 			'cairo' 
+			'SDL2'
 			'libgit2'
 			'libssh2');
 		generateSources; 
