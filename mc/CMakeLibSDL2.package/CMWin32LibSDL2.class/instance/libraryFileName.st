@@ -1,3 +1,3 @@
 as yet unclassified
 libraryFileName
-	^ 'SDL2.dll'
+	^ 'libSDL2.dll.a'

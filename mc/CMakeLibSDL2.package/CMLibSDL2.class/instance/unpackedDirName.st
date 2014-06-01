@@ -1,3 +1,3 @@
 as yet unclassified
 unpackedDirName
-	^ 'SDL2-2.0.3-p1'
+	^ 'SDL2-2.0.3'

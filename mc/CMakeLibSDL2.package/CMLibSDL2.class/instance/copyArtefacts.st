@@ -1,5 +1,5 @@
 as yet unclassified
 copyArtefacts
 	self 
-		copy: '${libSDL2Installed}' 
+		copy: '${SDL2LibInstalled}' 
 		to: '${externalModulesDir}/${libraryFileName}'.

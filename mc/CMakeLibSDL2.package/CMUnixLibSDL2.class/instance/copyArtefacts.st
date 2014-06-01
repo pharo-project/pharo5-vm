@@ -2,5 +2,5 @@ as yet unclassified
 copyArtefacts
 	super copyArtefacts.
 	self 
-		copy: '${libSDL2Installed}' 
+		copy: '${SDL2LibInstalled}' 
 		to: '${externalModulesDir}/libSDL2-2.0.so.0'.
