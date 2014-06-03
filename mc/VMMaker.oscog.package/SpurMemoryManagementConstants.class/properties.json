@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DontTenure",
+		"DontTenureButDoUnmark",
+		"MarkOnTenure",
+		"TenureByAge",
+		"TenureByClass" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurMemoryManagementConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

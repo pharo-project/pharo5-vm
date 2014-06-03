@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"alignedByteSizeOf:forClient:" : "eem 9/2/2011 14:08",
+		"on:" : "ar 9/16/1998 21:36" },
+	"instance" : {
+		"+" : "dtl 2/14/2014 19:29",
+		"+=" : "ar 10/9/1998 21:57",
+		"-" : "dtl 2/14/2014 19:30",
+		"-=" : "ar 10/9/1998 21:58",
+		"asFloatAccessor" : "di 7/14/2004 17:36",
+		"asIntAccessor" : "di 7/14/2004 17:36",
+		"asOop:" : "acg 9/20/1999 11:08",
+		"asPluggableAccessor" : "di 7/14/2004 11:55",
+		"asPluggableAccessor:" : "eem 3/11/2009 10:26",
+		"at:" : "ar 10/9/1998 21:56",
+		"at:put:" : "ar 10/9/1998 21:56",
+		"coerceTo:sim:" : "di 7/14/2004 17:38",
+		"first" : "eem 10/11/2013 09:29",
+		"getObject" : "ar 11/3/1998 22:37",
+		"isCObjectAccessor" : "di 7/14/2004 12:13",
+		"memory:offset:" : "eem 4/26/2010 13:48",
+		"object" : "yo 2/9/2001 11:23",
+		"offset" : "yo 2/9/2001 11:23",
+		"printOn:" : "ar 9/16/1998 21:38",
+		"printOnStream:" : "MPW 1/1/1901 22:01",
+		"setObject:" : "ar 10/9/1998 21:56" } }

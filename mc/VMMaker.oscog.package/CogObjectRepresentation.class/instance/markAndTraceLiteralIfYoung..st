@@ -1,0 +1,3 @@
+garbage collection
+markAndTraceLiteralIfYoung: literal
+	self subclassResponsibility

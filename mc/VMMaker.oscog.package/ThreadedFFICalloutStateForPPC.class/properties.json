@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"registerIndex",
+		"integerRegisters",
+		"floatRegisters" ],
+	"name" : "ThreadedFFICalloutStateForPPC",
+	"pools" : [
+		 ],
+	"super" : "ThreadedFFICalloutState",
+	"type" : "normal" }

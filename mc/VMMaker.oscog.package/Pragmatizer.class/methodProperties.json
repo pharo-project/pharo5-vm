@@ -1,0 +1,18 @@
+{
+	"class" : {
+		"convertVMMakerAndPluginsToPragmas" : "dtl 9/25/2010 15:15",
+		"on:selectors:" : "dtl 9/23/2010 19:31",
+		"revertVMMakerAndPluginsToMessageSendDeclarations" : "dtl 9/26/2010 11:03" },
+	"instance" : {
+		"classes:" : "dtl 9/27/2010 13:41",
+		"depragmatize" : "dtl 9/27/2010 11:37",
+		"depragmatize:" : "dtl 9/25/2010 12:51",
+		"isExcludedClass:" : "dtl 9/27/2010 13:44",
+		"newConvertToMessageSendStamp:" : "dtl 9/25/2010 13:06",
+		"newConvertToPragmaStamp:" : "dtl 9/25/2010 13:06",
+		"newPragmatizedSourceFrom:nodes:nodeRanges:" : "dtl 9/25/2010 18:05",
+		"package:selectors:" : "dtl 9/20/2010 18:57",
+		"pragmatize" : "dtl 9/27/2010 11:36",
+		"pragmatize:" : "dtl 9/25/2010 17:26",
+		"stampCutString:" : "dtl 9/25/2010 11:19",
+		"stampInsertString:" : "dtl 9/25/2010 12:49" } }

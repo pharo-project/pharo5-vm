@@ -1,0 +1,28 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"bindVariableUsesIn:" : "eem 2/11/2009 12:15",
+		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 10/29/2012 12:55",
+		"bindVariablesIn:" : "eem 2/11/2009 12:14",
+		"cases" : "eem 2/9/2009 15:56",
+		"cases:" : "eem 2/9/2009 15:56",
+		"createCasesFromBraceNode:" : "eem 2/9/2009 18:47",
+		"emitCCodeAsExpressionOn:level:generator:" : "eem 10/13/2013 18:35",
+		"emitCCodeOn:addToEndOfCases:level:generator:" : "eem 2/15/2009 10:41",
+		"emitCCodeOn:level:generator:" : "eem 2/13/2009 16:41",
+		"expression" : "eem 2/9/2009 15:56",
+		"expression:" : "eem 2/9/2009 15:56",
+		"expression:cases:otherwiseOrNil:" : "eem 2/9/2009 16:30",
+		"isSwitch" : "eem 2/10/2009 07:58",
+		"nodesDo:" : "eem 11/19/2012 12:12",
+		"nodesDo:parent:" : "eem 10/13/2013 17:06",
+		"nodesDo:unless:" : "eem 2/27/2009 16:48",
+		"otherwiseOrNil" : "eem 2/9/2009 15:56",
+		"otherwiseOrNil:" : "eem 2/9/2009 15:56",
+		"postCopy" : "eem 2/9/2009 19:26",
+		"printOn:level:" : "eem 2/10/2009 19:17",
+		"removeAssertions" : "eem 2/11/2009 12:18",
+		"replaceNodesIn:" : "eem 2/11/2009 17:16",
+		"switchVariable" : "eem 10/13/2013 17:20",
+		"switchVariable:" : "eem 10/13/2013 17:20" } }

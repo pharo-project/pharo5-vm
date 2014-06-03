@@ -1,0 +1,3 @@
+accessing
+rootTableCount
+	^scavenger rememberedSetSize

@@ -1,3 +1,0 @@
-translation
-ancilliaryStructClasses
-	^{ InterpreterStackPage. VMCallbackContext }

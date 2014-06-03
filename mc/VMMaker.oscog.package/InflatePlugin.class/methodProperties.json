@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "sma 3/3/2000 12:31",
+		"initialize" : "ar 12/21/1999 23:02",
+		"moduleName" : "ar 5/11/2000 23:58",
+		"shouldBeTranslated" : "tpr 5/14/2001 12:27",
+		"simulatorClass" : "eem 9/21/2013 07:10" },
+	"instance" : {
+		"primitiveInflateDecompressBlock" : "eem 9/21/2013 07:14",
+		"zipDecodeValueFrom:size:" : "tpr (auto pragmas 12/08) 12/29/2005 16:22",
+		"zipDecompressBlock" : "ar (auto pragmas 12/08) 12/22/1999 00:04",
+		"zipNextBits:" : "ar (auto pragmas 12/08) 12/21/1999 23:06" } }

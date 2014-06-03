@@ -1,0 +1,3 @@
+translation
+isAcceptableAncilliaryClass: aClass
+	^true

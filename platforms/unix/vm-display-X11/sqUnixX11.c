@@ -63,6 +63,15 @@
 #undef HAVE_OPENGL_GL_H		/* don't include Quartz OpenGL if configured */
 #include "SqDisplay.h"
 
+#if defined(USE_FAST_BLT)
+  /* XXX referring to plugin variables *requires* BitBitPlugin to be included by VMM as an internal plugin */
+# if defined(__arm__)
+#   include "../../../Cross/plugins/BitBltPlugin/BitBltArm.h"
+# else
+#   error configuration error
+# endif
+#endif
+
 #if defined(ioMSecs)
 # undef ioMSecs
 #endif

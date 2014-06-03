@@ -157,6 +157,8 @@ ioHighResClock(void)
 			|| defined(i486) || defined(__i486) || defined (__i486__) \
 			|| defined(intel) || defined(x86) || defined(i86pc) )
     __asm__ __volatile__ ("rdtsc" : "=A"(value));
+#elif defined(__arm__) && defined(__ARM_ARCH_6__)
+	/* tpr - do nothing for now; needs input from eliot to decide further */
 #else
 # error "no high res clock defined"
 #endif
@@ -237,11 +239,14 @@ ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 usqInt
 ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 
-/* This is an expensive interface for use by profiling code that wants the time
- * now rather than as of the last heartbeat.
+/* This is an expensive interface for use by Smalltalk or vm profiling code that
+ * wants the time now rather than as of the last heartbeat.
  */
 usqLong
 ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
+
+usqLong
+ioLocalMicrosecondsNow() { return currentUTCMicroseconds() + vmGMTOffset; };
 
 int
 ioMSecs() { return millisecondClock; }
@@ -254,7 +259,13 @@ int
 ioSeconds(void) { return get64(localMicrosecondClock) / MicrosecondsPerSecond; }
 
 int
+ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
+
+int
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
+
+int
+ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond; }
 
 /*
  * On Mac OS X use the following.
@@ -540,6 +551,7 @@ extern sqInt suppressHeartbeatFlag;
 	int er;
 	struct timespec halfAMo;
 	struct sigaction heartbeat_handler_action, ticker_handler_action;
+	sigset_t ss;
 
 	if (suppressHeartbeatFlag) return;
 
@@ -578,7 +590,7 @@ extern sqInt suppressHeartbeatFlag;
      * e.g. ODBC connections.
 	 */
 #if NEED_SIGALTSTACK
-	ticker_handler_action.sa_flags = SA_RESTART;
+	ticker_handler_action.sa_flags = SA_RESTART | SA_ONSTACK;
 #else
 	ticker_handler_action.sa_flags = SA_RESTART;
 #endif
@@ -603,6 +615,11 @@ extern sqInt suppressHeartbeatFlag;
 		perror("ioInitHeartbeat sigaction");
 		exit(1);
 	}
+
+	/* Make sure SIGALRM is unblocked. */
+	sigemptyset(&ss);
+	sigaddset(&ss, ITIMER_SIGNAL);
+	sigprocmask(SIG_UNBLOCK, &ss, NULL);
 
 	setIntervalTimer(beatMilliseconds);
 }

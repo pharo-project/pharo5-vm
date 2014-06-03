@@ -1,0 +1,3 @@
+accessing
+memMgr: aSpurMemoryManagerSubclassInstance
+	memMgr := aSpurMemoryManagerSubclassInstance

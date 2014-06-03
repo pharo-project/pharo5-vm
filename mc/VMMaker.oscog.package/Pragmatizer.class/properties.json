@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 9/25/2010 18:26",
+	"instvars" : [
+		"package",
+		"selectors",
+		"classes",
+		"stampCutString",
+		"stampInsertString" ],
+	"name" : "Pragmatizer",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -22,10 +22,18 @@ typedef struct {
   int			 sessionID;	/* ikp: must be first */
   void			*file;
   squeakFileOffsetType	 fileSize;	/* 64-bits we hope. */
+#if defined(ACORN)
+// ACORN has to have 'lastOp' as at least a 32 bit field in order to work
+  int lastOp; // actually used to save file position
+  char writable;
+  char lastChar;
+  char isStdioStream;
+#else
   char			 writable;
   char			 lastOp; /* 0 = uncommitted, 1 = read, 2 = write */
   char			 lastChar;
   char			 isStdioStream;
+#endif
 } SQFile;
 
 /* file i/o */

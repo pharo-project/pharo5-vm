@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"pluginClass",
+		"pluginName",
+		"pluginFunctionsUsed",
+		"inProgressSelectors" ],
+	"name" : "VMPluginCodeGenerator",
+	"pools" : [
+		 ],
+	"super" : "CCodeGenerator",
+	"type" : "normal" }

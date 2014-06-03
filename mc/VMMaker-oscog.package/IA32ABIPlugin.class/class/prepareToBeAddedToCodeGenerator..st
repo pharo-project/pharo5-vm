@@ -1,3 +1,0 @@
-translation
-prepareToBeAddedToCodeGenerator: aCodeGen
-	aCodeGen removeMethodForSelector: #setInterpreter:

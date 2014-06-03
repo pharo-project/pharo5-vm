@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogObjectRepresentationFor64BitSpur",
+	"pools" : [
+		 ],
+	"super" : "CogObjectRepresentationForSpur",
+	"type" : "normal" }

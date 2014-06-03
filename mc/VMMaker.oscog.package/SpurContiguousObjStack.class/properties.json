@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"top" ],
+	"name" : "SpurContiguousObjStack",
+	"pools" : [
+		 ],
+	"super" : "SpurNewSpaceSpace",
+	"type" : "normal" }

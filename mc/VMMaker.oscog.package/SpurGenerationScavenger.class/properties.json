@@ -1,0 +1,31 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"RememberedSetLimit",
+		"RememberedSetRedZone" ],
+	"commentStamp" : "eem 9/30/2013 11:05",
+	"instvars" : [
+		"coInterpreter",
+		"manager",
+		"eden",
+		"futureSpace",
+		"pastSpace",
+		"futureSurvivorStart",
+		"rememberedSet",
+		"rememberedSetSize",
+		"previousRememberedSetSize",
+		"weakList",
+		"ephemeronList",
+		"tenureCriterion",
+		"tenureThreshold",
+		"tenuringClassIndex",
+		"tenuringProportion",
+		"numRememberedEphemerons",
+		"statTenures" ],
+	"name" : "SpurGenerationScavenger",
+	"pools" : [
+		"SpurMemoryManagementConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:02",
+	"instvars" : [
+		"openFiles",
+		"states" ],
+	"name" : "FilePluginSimulator",
+	"pools" : [
+		 ],
+	"super" : "FilePlugin",
+	"type" : "normal" }

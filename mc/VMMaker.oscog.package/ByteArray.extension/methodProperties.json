@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"ccg:prolog:expr:index:" : "acg 9/19/1999 00:25",
+		"ccgDeclareCForVar:" : "acg 9/17/1999 01:13" },
+	"instance" : {
+		"coerceTo:sim:" : "eem 6/24/2012 16:14",
+		"long64At:" : "eem 4/19/2014 13:44",
+		"long64At:put:" : "eem 4/19/2014 13:43",
+		"longAt:" : "eem 4/2/2014 15:33",
+		"longAt:put:" : "eem 4/2/2014 15:13" } }

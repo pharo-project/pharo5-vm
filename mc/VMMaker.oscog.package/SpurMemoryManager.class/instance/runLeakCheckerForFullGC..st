@@ -1,0 +1,3 @@
+debug support
+runLeakCheckerForFullGC: fullGCFlag
+	^self runLeakCheckerForFullGC: fullGCFlag excludeUnmarkedNewSpaceObjs: false classIndicesShouldBeValid: true

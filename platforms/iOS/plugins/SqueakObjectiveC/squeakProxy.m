@@ -145,7 +145,7 @@
 	
 	NSString *selectorString = NSStringFromSelector (selector);
 	
-	if (sigAsString = ([sigs objectForKey: selectorString])) {
+	if (sigAsString = [sigs objectForKey: selectorString]) {
 		
 		if (protocol) {
 			struct objc_method_description methodDescription;

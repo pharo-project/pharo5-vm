@@ -1,0 +1,22 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"asByteArray" : "eem 12/28/2008 17:35",
+		"byteAt:" : "eem 1/15/2009 22:17",
+		"byteAt:put:" : "eem 10/9/2013 11:13",
+		"long64At:" : "eem 4/19/2014 13:40",
+		"long64At:put:" : "eem 4/19/2014 13:40",
+		"longAt:" : "eem 10/1/2013 13:20",
+		"longAt:bigEndian:" : "eem 1/2/2009 09:25",
+		"longAt:put:" : "eem 10/9/2013 08:57",
+		"longAt:put:bigEndian:" : "eem 10/9/2013 08:58",
+		"longLongAt:" : "eem 10/1/2013 14:33",
+		"longLongAt:put:" : "eem 10/9/2013 19:52",
+		"unsignedByteAt:" : "eem 1/15/2009 22:16",
+		"unsignedByteAt:put:" : "eem 12/28/2008 18:44",
+		"unsignedLongAt:" : "eem 12/28/2008 18:41",
+		"unsignedLongAt:bigEndian:" : "eem 12/28/2008 17:54",
+		"unsignedLongAt:put:" : "eem 12/28/2008 18:42",
+		"unsignedShortAt:" : "eem 1/30/2009 09:58",
+		"unsignedShortAt:put:" : "eem 1/30/2009 10:08" } }

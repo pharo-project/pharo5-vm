@@ -1,3 +1,0 @@
-accessing
-numRegArgs
-	^NumRegArgs

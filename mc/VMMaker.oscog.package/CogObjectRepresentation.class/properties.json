@@ -1,0 +1,21 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"cogit",
+		"methodZone",
+		"objectMemory",
+		"ceStoreCheckTrampoline" ],
+	"name" : "CogObjectRepresentation",
+	"pools" : [
+		"CogMethodConstants",
+		"CogRTLOpcodes",
+		"VMBasicConstants",
+		"VMObjectIndices",
+		"VMStackFrameOffsets" ],
+	"super" : "CogClass",
+	"type" : "normal" }

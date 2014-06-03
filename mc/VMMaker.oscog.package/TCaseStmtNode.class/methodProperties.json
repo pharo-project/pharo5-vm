@@ -1,0 +1,25 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"bindVariableUsesIn:" : "jm 12/10/1998 18:26",
+		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 10/29/2012 11:38",
+		"bindVariablesIn:" : "",
+		"cases" : "",
+		"customizeCase:forVar:from:to:in:method:expandedCases:" : "eem 11/12/2012 14:58",
+		"customizeShortCasesForDispatchVar:in:method:" : "eem 11/12/2012 14:58",
+		"emitCCodeOn:addToEndOfCases:level:generator:" : "eem 11/7/2009 15:54",
+		"emitCCodeOn:level:generator:" : "eem 11/18/2012 19:55",
+		"expression" : "",
+		"filterCommentsFrom:" : "eem 11/18/2012 19:55",
+		"isCaseStmt" : "",
+		"nodesDo:" : "eem 11/19/2012 12:12",
+		"nodesDo:parent:" : "eem 10/13/2013 17:00",
+		"nodesDo:unless:" : "eem 2/27/2009 16:47",
+		"postCopy" : "eem 2/9/2009 19:24",
+		"printOn:level:" : "",
+		"processSharedCodeBlocks:forCase:in:method:expandedCases:" : "eem 11/12/2012 14:59",
+		"removeAssertions" : "ikp 9/26/97 14:50",
+		"replaceNodesIn:" : "",
+		"setExpression:cases:" : "eem 10/29/2012 11:34",
+		"setExpression:selectors:arguments:" : "ar 11/18/1999 20:08" } }

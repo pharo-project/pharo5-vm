@@ -1,0 +1,3 @@
+compile abstract instructions
+genConvertSmallIntegerToCharacterInReg: reg
+	self subclassResponsibility

@@ -1,0 +1,20 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "ar 9/15/1998 00:30" },
+	"instance" : {
+		"primitiveAddFloatArray" : "ar 5/5/2010 16:28",
+		"primitiveAddScalar" : "ar 5/5/2010 16:33",
+		"primitiveAt" : "tpr (auto pragmas 12/08) 12/29/2005 16:19",
+		"primitiveAtPut" : "tpr (auto pragmas 12/08) 12/29/2005 16:19",
+		"primitiveDivFloatArray" : "ar 5/5/2010 16:28",
+		"primitiveDivScalar" : "ar 5/5/2010 16:33",
+		"primitiveDotProduct" : "ar 5/5/2010 16:29",
+		"primitiveEqual" : "tpr (auto pragmas 12/08) 12/29/2005 16:20",
+		"primitiveHashArray" : "tpr (auto pragmas 12/08) 12/29/2005 16:20",
+		"primitiveLength" : "ar 5/5/2010 16:29",
+		"primitiveMulFloatArray" : "ar 5/5/2010 16:30",
+		"primitiveMulScalar" : "ar 5/5/2010 16:32",
+		"primitiveNormalize" : "ar 5/5/2010 16:32",
+		"primitiveSubFloatArray" : "ar 5/5/2010 16:31",
+		"primitiveSubScalar" : "ar 5/5/2010 16:32",
+		"primitiveSum" : "ar 5/5/2010 16:31" } }

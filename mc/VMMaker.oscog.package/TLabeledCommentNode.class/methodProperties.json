@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"asmLabel" : "eem 9/19/2008 14:39",
+		"asmLabel:" : "eem 9/19/2008 14:39",
+		"emitCCodeOn:level:generator:" : "eem 10/16/2013 16:44",
+		"isComment" : "",
+		"isLabel" : "",
+		"isLeaf" : "",
+		"label" : "",
+		"needsTrailingSemicolon" : "eem 12/13/2012 15:56",
+		"nodesDo:parent:" : "eem 10/25/2013 14:42",
+		"printOn:level:" : "",
+		"printOptionalLabelOn:" : "",
+		"setComment:" : "",
+		"setLabel:" : "",
+		"setLabel:comment:" : "",
+		"unindentOneTab:" : "" } }

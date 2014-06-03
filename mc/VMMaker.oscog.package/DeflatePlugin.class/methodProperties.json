@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "sma 3/3/2000 12:33",
+		"initialize" : "ar 12/29/1999 20:54" },
+	"instance" : {
+		"compare:with:min:" : "ar (auto pragmas 12/08) 12/29/1999 21:59",
+		"deflateBlock:chainLength:goodMatch:" : "ar (auto pragmas 12/08) 12/29/1999 22:00",
+		"encodeLiteral:" : "ar (auto pragmas 12/08) 12/29/1999 20:37",
+		"encodeMatch:distance:" : "ar (auto pragmas 12/08) 12/29/1999 20:37",
+		"findMatch:lastLength:lastMatch:chainLength:goodMatch:" : "ar (auto pragmas 12/08) 12/29/1999 22:00",
+		"insertStringAt:" : "ar (auto pragmas 12/08) 12/29/1999 21:59",
+		"loadDeflateStreamFrom:" : "eem 1/30/2014 15:57",
+		"loadZipEncoderFrom:" : "eem 1/30/2014 15:52",
+		"nextZipBits:put:" : "nice 12/27/2012 21:03",
+		"primitiveDeflateBlock" : "ar (auto pragmas 12/08) 12/29/1999 22:21",
+		"primitiveDeflateUpdateHashTable" : "tpr (auto pragmas 12/08) 12/29/2005 16:00",
+		"primitiveUpdateAdler32" : "tpr (auto pragmas 12/08) 12/29/2005 16:01",
+		"primitiveUpdateGZipCrc32" : "eem 11/2/2013 00:34",
+		"primitiveZipSendBlock" : "ar (auto pragmas 12/08) 12/30/1999 15:54",
+		"sendBlock:with:with:with:" : "eem 1/30/2014 15:51",
+		"shouldFlush" : "ar (auto pragmas 12/08) 12/29/1999 22:00",
+		"updateHash:" : "nice 12/27/2012 02:58",
+		"updateHashAt:" : "ar 12/29/1999 20:29" } }

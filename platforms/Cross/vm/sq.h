@@ -43,7 +43,7 @@
 	EXPORT(int) somePrimitive(void)
    If the platform requires special declaration modifiers, the EXPORT
    macro can be redefined.
-   */
+*/
 #define EXPORT(returnType) returnType
 #define VM_EXPORT
 
@@ -80,6 +80,14 @@
 #define sqShrinkMemoryBy(oldLimit, delta)		oldLimit
 #define sqMemoryExtraBytesLeft(includingSwap)		0
 
+#if SPURVM
+/* Allocate a region of memory of al least sz bytes, at or above minAddr.
+ * If the attempt fails, answer null.  If the attempt succeeds, answer the
+ * start of the region and assign its size through asp.
+ */
+extern void *sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto(sqInt sz, void *minAddr, sqInt *asp);
+extern void sqDeallocateMemorySegmentAtOfSize(void *addr, sqInt sz);
+#endif /* SPURVM */
 /* Platform-dependent memory size adjustment macro. */
 
 /* Note: This macro can be redefined to allows platforms with a
@@ -130,8 +138,8 @@
    regular intervals (of the order of ever milisecond).  The heartbeat on these
    VMs is responsible for updating a 64-bit microsecond clock with the number
    of microseconds since the start of the 20th century (12pm Dec 31, 1900)
-   available via ioUTCMicroseconds() and ioLocalMicroseconds().  For cases
-   where exact time is required we provide ioUTCMicrosecondsNow that updates
+   available via ioUTCMicroseconds and ioLocalMicroseconds.  When exact time is
+   required we provide ioUTCMicrosecondsNow & ioLocalMicrosecondsNow that update
    the clock to return the time right now, rather than of the last heartbeat.
 */
 
@@ -150,6 +158,7 @@ sqInt ioMicroMSecs(void);
 #if STACKVM
 usqLong ioUTCMicrosecondsNow();
 usqLong ioUTCMicroseconds();
+usqLong ioLocalMicrosecondsNow();
 usqLong ioLocalMicroseconds();
 usqInt	ioLocalSecondsOffset();
 void	ioUpdateVMTimezone();
@@ -221,6 +230,7 @@ sqInt ioRelinquishProcessorForMicroseconds(sqInt microSeconds);
 sqInt ioScreenSize(void);
 sqInt ioScreenDepth(void);
 sqInt ioSeconds(void);
+sqInt ioSecondsNow(void);
 sqInt ioSetCursor(sqInt cursorBitsIndex, sqInt offsetX, sqInt offsetY);
 sqInt ioSetCursorWithMask(sqInt cursorBitsIndex, sqInt cursorMaskIndex, sqInt offsetX, sqInt offsetY);
 sqInt ioShowDisplay(sqInt dispBitsIndex, sqInt width, sqInt height, sqInt depth,
@@ -521,7 +531,7 @@ sqInt ioDisableImageWrite(void);
 
 /* Save/restore. */
 /* Read the image from the given file starting at the given image offset */
-sqInt readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squeakFileOffsetType imageOffset);
+size_t readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squeakFileOffsetType imageOffset);
 
 /* Clipboard (cut/copy/paste). */
 sqInt clipboardSize(void);
@@ -548,8 +558,14 @@ sqInt getAttributeIntoLength(sqInt indexNumber, sqInt byteArrayIndex, sqInt leng
 /*** Pluggable primitive support. ***/
 
 /* NOTE: The following functions are those implemented by sqNamedPrims.c */
-void *ioLoadExternalFunctionOfLengthFromModuleOfLength(sqInt functionNameIndex, sqInt functionNameLength,
-						       sqInt moduleNameIndex, sqInt moduleNameLength);
+void *ioLoadExternalFunctionOfLengthFromModuleOfLength
+		(sqInt functionNameIndex, sqInt functionNameLength,
+		 sqInt moduleNameIndex, sqInt moduleNameLength);
+#if SPURVM
+void *ioLoadExternalFunctionOfLengthFromModuleOfLengthAccessorDepthInto
+	(sqInt functionNameIndex, sqInt functionNameLength,
+	 sqInt moduleNameIndex,   sqInt moduleNameLength, sqInt *accessorDepthPtr);
+#endif
 sqInt  ioUnloadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength);
 void  *ioLoadFunctionFrom(char *functionName, char *pluginName);
 sqInt  ioShutdownAllModules(void);
@@ -557,7 +573,7 @@ sqInt  ioUnloadModule(char *moduleName);
 sqInt  ioUnloadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength);
 char  *ioListBuiltinModule(sqInt moduleIndex);
 char  *ioListLoadedModule(sqInt moduleIndex);
-/* The next two are FFI entries! (implemented in sqNamedPrims.c as well) */
+/* The next two for the FFI, also implemented in sqNamedPrims.c. */
 void  *ioLoadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength);
 void  *ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNameLength, void *moduleHandle);
 
@@ -570,11 +586,17 @@ void  *ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNam
 */
 void *ioLoadModule(char *pluginName);
 
-/* ioFindExternalFunctionIn:
+/* ioFindExternalFunctionIn[AccessorDepthInto]:
 	Find the function with the given name in the moduleHandle.
 	WARNING: never primitiveFail() within, just return 0.
+	Note in Spur takes an extra parameter which is defaulted to 0.
 */
+#if SPURVM
+void *ioFindExternalFunctionInAccessorDepthInto(char *lookupName, void *moduleHandle, sqInt *accessorDepthPtr);
+# define ioFindExternalFunctionIn(ln,mh) ioFindExternalFunctionInAccessorDepthInto(ln,mh,0)
+#else
 void *ioFindExternalFunctionIn(char *lookupName, void *moduleHandle);
+#endif
 
 /* ioFreeModule:
 	Free the module with the associated handle.
