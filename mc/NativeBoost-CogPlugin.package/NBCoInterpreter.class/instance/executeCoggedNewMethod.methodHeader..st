@@ -17,8 +17,7 @@ executeCoggedNewMethod: inInterpreter methodHeader: aRawMethodHeader
 	rcvr := self stackValue: cogMethod cmNumArgs. "could new rcvr be set at point of send?"
 	self push: instructionPointer.
 	
-	self
-		cppIf: cogit numRegArgs > 0
+	cogit numRegArgs > 0
 		ifTrue:
 			[cogMethod cmNumArgs <= cogit numRegArgs ifTrue:
 				[self enterRegisterArgCogMethod: cogMethod at: cogit noCheckEntryOffset receiver: rcvr]].
