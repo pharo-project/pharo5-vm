@@ -5,9 +5,10 @@ transform
 	self installModifiedMethods.
 	self bootstrapImage.
 	self validate.
+	self rememberRehashSymbol.
 	self rehashImage.
 	self followForwardingPointers.
 	self scavengeImage.
 	self freeForwarders.
 	self compactImage.
-	Transcript nextPutAll: 'done.'; flush.
+	self reportSizes

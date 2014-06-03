@@ -3,10 +3,10 @@
 		 },
 	"instance" : {
 		"callTrapPerformance:" : "eem 5/7/2010 10:43",
+		"integerRegisterGetters" : "eem 3/18/2014 10:44",
+		"integerRegisterSetters" : "eem 3/18/2014 10:45",
 		"nfib" : "eem 12/12/2008 16:23",
 		"processor" : "eem 12/11/2008 13:53",
-		"registerGetters" : "eem 1/20/2009 12:57",
-		"registerSetters" : "eem 1/20/2009 12:57",
 		"runNFib:disassemble:printRegisters:" : "eem 10/21/2010 11:02",
 		"singleStepNFib:disassemble:printRegisters:" : "eem 10/21/2010 11:06",
 		"testCPUHasSSE2" : "eem 4/15/2009 17:13",
@@ -18,7 +18,7 @@
 		"testNfib16" : "eem 1/14/2009 15:51",
 		"testNfib2" : "eem 1/14/2009 15:50",
 		"testNfib4" : "eem 1/14/2009 15:49",
-		"testResetCPU" : "eem 1/20/2009 12:58",
+		"testResetCPU" : "eem 3/18/2014 10:44",
 		"testStepNfib1" : "eem 1/14/2009 15:10",
 		"testStepNfib2" : "eem 1/14/2009 15:10",
 		"testStepNfib4" : "eem 1/14/2009 15:11" } }

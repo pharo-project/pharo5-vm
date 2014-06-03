@@ -1,0 +1,1 @@
+I constrain two variables to have the same value: "v1 = v2".

@@ -5,6 +5,8 @@ findLiteral: aLiteral
 		[^self stringFor: aLiteral].
 	aLiteral isFloat ifTrue:
 		[^oldInterpreter floatObjectOf: aLiteral].
+	aLiteral isArray ifTrue:
+		[^self cloneArrayLiteral: aLiteral].
 	self assert: aLiteral isVariableBinding.
 	symbolOop := self findSymbol: aLiteral key.
 	smalltalk := oldHeap splObj: 8.

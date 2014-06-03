@@ -1,0 +1,3 @@
+benchs
+defaultProblemSize
+	^ 50

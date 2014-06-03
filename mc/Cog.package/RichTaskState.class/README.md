@@ -1,0 +1,1 @@
+Abstract task that manipulates work packets.

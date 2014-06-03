@@ -1,6 +1,6 @@
 bootstrap image
 validate
-	| p n duplicates maxClassIndex |
+	| p n duplicates maxClassIndex savedEndOfMemory |
 	self assert: (reverseMap at: newHeap specialObjectsOop) = oldHeap specialObjectsOop.
 	self assert: (map at: oldHeap specialObjectsOop) = newHeap specialObjectsOop.
 	self assert: (reverseMap at: newHeap classTableRootObj ifAbsent: []) isNil.
@@ -9,13 +9,13 @@ validate
 	maxClassIndex := classToIndex inject: 0 into: [:a :b| a max: b].
 	self assert: ((newHeap arrayClassIndexPun to: maxClassIndex) select:
 					[:idx| | classObj |
-					(classObj := newHeap classAtIndex: idx) ~= newHeap nilObject
+					(classObj := newHeap classOrNilAtIndex: idx) ~= newHeap nilObject
 					and: [(newHeap classIndexOf: classObj) = (newHeap rawHashBitsOf: classObj)]]) isEmpty.
 	0 to: maxClassIndex do:
 		[:index| | classObj |
 		(index <= newHeap tagMask
 		 and: [index > newHeap isForwardedObjectClassIndexPun]) ifTrue:
-			[(classObj := newHeap classAtIndex: index) = newHeap nilObject
+			[(classObj := newHeap classOrNilAtIndex: index) = newHeap nilObject
 				ifTrue:
 					[self assert: (classToIndex keyAtValue: index ifAbsent: []) isNil]
 				ifFalse:
@@ -27,6 +27,8 @@ validate
 		self assert: (newHeap rawHashBitsOf: (map at: oldClass)) = idx. 
 		self assert: oldClass = (reverseMap at: (newHeap classAtIndex: idx))].
 	n := 0.
+	savedEndOfMemory := newHeap endOfMemory.
+	newHeap setEndOfMemory: newHeap freeOldSpaceStart.
 	newHeap allObjectsDo:
 		[:o|
 		(o <= newHeap trueObject
@@ -35,8 +37,9 @@ validate
 			 self assert: (newHeap fetchClassOfNonImm: o) = (map at: (oldHeap fetchClassOfNonImm: (reverseMap at: o)))].
 		n := n + 1.
 		p := o].
-	p class.
-	self assert: (n between: map size and: map size + 5). "+ 5 is room for classTable"
+	newHeap setEndOfMemory: savedEndOfMemory.
+	self touch: p.
+	self assert: (n between: map size and: map size + 6). "+ 6 is room for freelists & classTable"
 
 	"check some class properties to ensure the format changes are correct"
 	self assert: (newHeap fixedFieldsOfClassFormat: (newHeap formatOfClass: newHeap classArray)) = 0.

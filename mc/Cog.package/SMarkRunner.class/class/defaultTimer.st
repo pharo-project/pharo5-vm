@@ -1,0 +1,3 @@
+defaults
+defaultTimer
+	^ SMarkTimer

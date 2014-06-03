@@ -5,11 +5,16 @@
 	"classvars" : [
 		"ImageHeaderFlags",
 		"ImageName",
+		"ImageScreenSize",
 		"TransformedImage" ],
 	"commentStamp" : "eem 9/11/2013 05:45",
 	"instvars" : [
 		"oldHeap",
 		"newHeap",
+		"oldHeapSize",
+		"newHeapSize",
+		"oldHeapNumObjs",
+		"newHeapNumObjs",
 		"map",
 		"reverseMap",
 		"classToIndex",

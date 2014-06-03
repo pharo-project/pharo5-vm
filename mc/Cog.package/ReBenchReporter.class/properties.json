@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-SMark",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ReBenchReporter",
+	"pools" : [
+		 ],
+	"super" : "SMarkSimpleStatisticsReporter",
+	"type" : "normal" }

@@ -1,6 +1,7 @@
 primitives
 "cpuAlien <GdbARMAlien>" primitiveRunInMemory: memory "<Bitmap|ByteArray|WordArray>" minimumAddress: minAddress "<Integer>" readOnlyBelow: minWriteMaxExecAddress "<Integer>"
-	"Run the cpu using the first argument as the memory and the following arguments defining valid addresses, running until it halts or hits an exception."
+	"Run the cpu using the first argument as the memory and the following arguments defining valid addresses, running until it halts or hits an exception.
+	Note that minWriteMaxExecAddress is both the minimum writeable address AND the maximum executable address"
 	| cpuAlien cpu maybeErr |
 	<var: #cpu type: #'void *'>
 	cpuAlien := self primitive: #primitiveRunInMemoryMinimumAddressReadWrite

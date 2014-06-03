@@ -7,7 +7,7 @@ doClassSide
 
 	rules := RBParseTreeRewriter new.
 	model := RBNamespace new.
-	env := BrowserEnvironment new forClasses: classes.
+	env := RBBrowserEnvironment new forClasses: classes.
 	classes do: [:c| rules replace: c name with: c name, 'S'].
 	env classesAndSelectorsDo:
 		[:class :selector| | tree |

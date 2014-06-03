@@ -11,8 +11,7 @@ fillInPointerObject: newObj from: oldObj
 						ifFalse:
 							[map at: oldValue ifAbsent:
 								[(oldValue = oldHeap characterTable
-								
-								   or: [oldValue = (oldHeap splObj: CompactClasses)])
+								  or: [oldValue = (oldHeap splObj: CompactClasses)])
 									ifTrue: [newHeap nilObject]
 									ifFalse:
 										[self assert: (oldHeap fetchClassOfNonImm: oldValue) = oldHeap classCharacter.
@@ -24,7 +23,4 @@ fillInPointerObject: newObj from: oldObj
 			ofObject: newObj
 			withValue: newValue].
 	(self isOldObjABehavior: oldObj) ifTrue:
-		[newHeap
-			storePointerUnchecked: InstanceSpecificationIndex
-			ofObject: newObj
-			withValue: (self newClassFormatFor: oldObj)]
+		[self mapOldBehavior: oldObj toNewBehavior: newObj]
