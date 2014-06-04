@@ -271,8 +271,8 @@ ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
 int
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
-ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond; }
+int 
+ioUTCSecondsNow(void) { return ioUTCMicrosecondsNow() / MicrosecondsPerSecond; }
 
 
 typedef enum { dead, condemned, nascent, quiescent, active } machine_state;

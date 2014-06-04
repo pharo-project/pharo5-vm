@@ -16,7 +16,7 @@
  
 #include <windows.h>
 /* MSVC v6 == 1200 */
-#if defined(__MINGW32__) || defined(_MSC_VER) && _MSC_VER > 0 && _MSC_VER < 1300
+#if defined(_MSC_VER) && _MSC_VER > 0 && _MSC_VER < 1300
 typedef DWORD *DWORD_PTR; /* ULONGLONG on 64-bit systems */
 #endif
 #include "sq.h"

@@ -189,8 +189,6 @@ void sqReleaseMemory(void)
   /* Win32 will do that for us */
 }
 
-#endif /* NO_VIRTUAL_MEMORY */
-
 #if COGVM
 void
 sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)

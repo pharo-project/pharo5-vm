@@ -28,4 +28,5 @@ commonCompilerFlags
 		'-DX86 '.
 		'-DSTACK_ALIGN_BYTES=16'. 
 		'-DALLOCA_LIES_SO_USE_GETSP=0'. 
-		'-DENABLE_FAST_BLT ' }
+		'-DENABLE_FAST_BLT'.
+		'-D_USE_32BIT_TIME_T' }
