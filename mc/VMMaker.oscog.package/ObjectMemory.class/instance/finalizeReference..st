@@ -27,4 +27,5 @@ finalizeReference: oop
 				ifFalse: [oopGone := (self isMarked: weakOop) not].
 			oopGone ifTrue: "Store nil in the pointer and signal the  interpreter"
 				[self longAt: oop + i put: nilObj.
+				numFields >= 2 ifTrue: [ self weakFinalizerCheck: oop ].
 				self signalFinalization: oop]]]
