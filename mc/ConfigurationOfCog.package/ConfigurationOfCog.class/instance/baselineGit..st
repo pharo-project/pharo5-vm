@@ -22,7 +22,7 @@ baselineGit: spec
 				spec requires: #('VMMaker.oscog' ) ];
 			package: 'VMConstruction-Plugins-AioPlugin' with: [ 
 				spec requires: #('VMMaker.oscog') ];
-			package: 'VMConstruction-Plugins-OSProcessPlugin' with: [ 
+			package: 'VMConstruction-Plugins-OSProcessPlugin.oscog' with: [ 
 				spec requires: #('VMMaker.oscog' 'VMConstruction-Plugins-AioPlugin') ];
 			package: 'Freetype-Plugin' with: [ 
 				spec requires: #('VMMaker.oscog') ];
@@ -43,7 +43,7 @@ baselineGit: spec
 			group: 'CogVMMaker' with: #('VMMaker.oscog' 'Cog');
 			group: 'Plugins' with: #(
 				'VMConstruction-Plugins-AioPlugin' 
-				'VMConstruction-Plugins-OSProcessPlugin' 
+				'VMConstruction-Plugins-OSProcessPlugin.oscog' 
 				'Qwaq-VMProfiling-Plugins' 
 				'Freetype-Plugin'
 				'SqueakSSL-Plugin'
