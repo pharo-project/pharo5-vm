@@ -1,14 +1,14 @@
 initialization
-compileTrampolineFor: aRoutine callJumpBar: callJumpBar "<Boolean>" numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 saveRegs: saveRegs resultReg: resultRegOrNil
+compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 saveRegs: saveRegs pushLinkReg: pushLinkReg resultReg: resultRegOrNil
 	"Generate a trampoline with up to four arguments.  Generate either a call or a jump to aRoutine
 	 as requested by callJumpBar.  If generating a call and resultRegOrNil is non-zero pass the C result
 	 back in resultRegOrNil.
 	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
-	"If on a RISC processor the return address needs to be pushed to the
+	"If on a RISC processor, the return address needs to be pushed to the
 	 stack so that the interpreter sees the same stack layout as on CISC."
-	backEnd hasLinkRegister ifTrue:
+	(pushLinkReg and: [backEnd hasLinkRegister]) ifTrue:
 		[self PushR: LinkReg].
 	self genSmalltalkToCStackSwitch.
 	cStackAlignment > BytesPerWord ifTrue:
@@ -17,9 +17,7 @@ compileTrampolineFor: aRoutine callJumpBar: callJumpBar "<Boolean>" numArgs: num
 			numArgs: numArgs
 			wordAlignment: cStackAlignment / BytesPerWord].
 	saveRegs ifTrue:
-		[callJumpBar ifFalse:
-			[self error: 'why save registers when you''re not going to return?'].
-		 backEnd genSaveRegisters].
+		[backEnd genSaveRegisters].
 	numArgs > 0 ifTrue:
 		[numArgs > 1 ifTrue:
 			[numArgs > 2 ifTrue:
@@ -36,19 +34,17 @@ compileTrampolineFor: aRoutine callJumpBar: callJumpBar "<Boolean>" numArgs: num
 		regOrConst0 < 0
 			ifTrue: [backEnd genPassReg: regOrConst0 asArgument: 0]
 			ifFalse: [backEnd genPassConst: regOrConst0 asArgument: 0]].
-	self gen: (callJumpBar ifTrue: [Call] ifFalse: [Jump])
-		operand: (self cCode: [aRoutine asUnsignedInteger]
+	self Call: (self cCode: [aRoutine asUnsignedInteger]
 					   inSmalltalk: [self simulatedTrampolineFor: aRoutine]).
-	callJumpBar ifTrue:
-		[resultRegOrNil ifNotNil:
-			[backEnd genWriteCResultIntoReg: resultRegOrNil].
-		 saveRegs ifTrue:
-			[numArgs > 0 ifTrue:
-				[backEnd genRemoveNArgsFromStack: numArgs].
-			resultRegOrNil
-				ifNotNil: [backEnd genRestoreRegsExcept: resultRegOrNil]
-				ifNil: [backEnd genRestoreRegs]].
-		backEnd genLoadStackPointers.
-		backEnd hasLinkRegister ifTrue:
-			[self PopR: LinkReg].
-		self RetN: 0]
+	resultRegOrNil ifNotNil:
+		[backEnd genWriteCResultIntoReg: resultRegOrNil].
+	 saveRegs ifTrue:
+		[numArgs > 0 ifTrue:
+			[backEnd genRemoveNArgsFromStack: numArgs].
+		resultRegOrNil
+			ifNotNil: [backEnd genRestoreRegsExcept: resultRegOrNil]
+			ifNil: [backEnd genRestoreRegs]].
+	backEnd genLoadStackPointers.
+	backEnd hasLinkRegister ifTrue:
+		[self PopR: LinkReg].
+	self RetN: 0

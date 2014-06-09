@@ -53,9 +53,10 @@ dispatchConcretize
 		[AddCwR]					-> [^self concretizeDataOperationCwR: 4].
 		[AddRR]						-> [^self concretizeDataOperationRR: 4].
 		"[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58]."
-		[AndCqR]					-> [^self concretizeDataOperationCqR: 0].
+		[AndCqR]					-> [^self concretizeAndCqR].
 		[AndCwR]					-> [^self concretizeDataOperationCwR: 0].
 		[AndRR]						-> [^self concretizeDataOperationRR: 0].
+		[BICCqR]					-> [^self   concretizeDataOperationCqR: 16rE].
 		[CmpCqR]					-> [^self concretizeCmpCqR].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
 		[CmpRR]					-> [^self concretizeCmpRR].

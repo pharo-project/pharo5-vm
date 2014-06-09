@@ -18,24 +18,24 @@ genMethodAbortTrampolineFor: numArgs
 		[self AddCq: BytesPerWord R: SPReg].
 
 	self compileTrampolineFor: #ceStackOverflow:
-		callJumpBar: true
 		numArgs: 1
 		arg: SendNumArgsReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil.
 	jumpSICMiss jmpTarget: self Label.
 	backEnd genPushRegisterArgsForAbortMissNumArgs: numArgs.
 	^self genTrampolineFor: #ceSICMiss:
 		called: (self trampolineName: 'ceMethodAbort' numArgs: (numArgs <= self numRegArgs ifTrue: [numArgs] ifFalse: [-1]))
-		callJumpBar: true
 		numArgs: 1
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: true

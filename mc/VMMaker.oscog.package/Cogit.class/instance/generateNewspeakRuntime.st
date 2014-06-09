@@ -40,12 +40,12 @@ generateNewspeakRuntime
 	ceImplicitReceiverTrampoline := self
 										genTrampolineFor: #ceImplicitReceiverFor:receiver:class:
 										called: 'ceImplicitReceiverTrampoline'
-										callJumpBar: true
 										numArgs: 3
 										arg: SendNumArgsReg
 										arg: ReceiverResultReg
 										arg: ClassReg
 										arg: nil
 										saveRegs: false
+										pushLinkReg: true
 										resultReg: ReceiverResultReg
 										appendOpcodes: true

@@ -15,7 +15,7 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator removeConstant: #COGMTVM. "this should be defined at compile time"
 	aCCodeGenerator
 		addHeaderFile:'<stddef.h>'; "for e.g. offsetof"
-		addHeaderFile:'<setjmp.h>'; 
+		addHeaderFile:'<setjmp.h>';
 		addHeaderFile:'"sqCogStackAlignment.h"';
 		addHeaderFile:'"cogmethod.h"';
 		addHeaderFile:'#if COGMTVM';
@@ -57,8 +57,8 @@ declareCVarsIn: aCCodeGenerator
 		var: #primInvokeLabel type: #'AbstractInstruction *'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
-					stackOverflowCall sendMissCall entry noCheckEntry dynSuperEntry
-					mnuCall interpretCall endCPICCase0 endCPICCase1)
+					stackOverflowCall sendMiss sendMissCall entry noCheckEntry dynSuperEntry
+					mnuCall interpretCall interpretLabel endCPICCase0 endCPICCase1)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
 	aCCodeGenerator
@@ -91,7 +91,7 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'BytecodeDescriptor generatorTable[', bytecodeGenTable size asString, ']',
+				declareC: 'BytecodeDescriptor generatorTable[', bytecodeGenTable size printString, ']',
 							(self tableInitializerFor: bytecodeGenTable
 								in: aCCodeGenerator);
 			var: #primitiveGeneratorTable

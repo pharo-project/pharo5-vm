@@ -3,6 +3,7 @@ followForwardedObjectFields: objOop toDepth: depth
 	"Follow pointers in the object to depth.
 	 Answer if any forwarders were found.
 	 How to avoid cyclic structures?? A temproary mark bit?"
+	<api>
 	| oop found |
 	found := false.
 	self assert: ((self isPointers: objOop) or: [self isOopCompiledMethod: objOop]).

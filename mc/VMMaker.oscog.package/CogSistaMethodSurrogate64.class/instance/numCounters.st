@@ -1,3 +1,3 @@
 accessing
 numCounters
-	^memory unsignedLongLongAt: address + 41
+	^memory unsignedLongLongAt: address + 33 + baseHeaderSize

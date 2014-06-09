@@ -8,12 +8,12 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	self AddCq: boolean R: TempReg.
 	^self genTrampolineFor: #ceSendMustBeBoolean:
 		called: trampolineName
-		callJumpBar: true
 		numArgs: 1
 		arg: TempReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: true

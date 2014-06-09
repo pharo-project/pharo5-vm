@@ -4,7 +4,7 @@ initialize
 	"Initialize various ARM instruction-related constants."
 	"CogARMCompiler initialize"
 	
-	| specificOpcodes refs conditionCodes |
+	| specificOpcodes refs |
 	super initialize.
 	self ~~ CogARMCompiler ifTrue: [^self].
 	
@@ -33,20 +33,29 @@ initialize
 	RISCTempReg := R10.
 	
 	"Condition Codes. Note that cc=16rF is NOT ALLOWED as a condition; it specifies an extension instruction. See e.g.ARM_ARM v5 DDI01001.pdf A3.2.1"
-	conditionCodes := #(EQ NE CS CC MI PL VS VC HI LS GE LT GT LE AL).
-	"this is a somewhat odd way to set class variables - were they originally globals?"
-	conditionCodes withIndexDo: [ :classVarName :value | 
-		self classPool
-			declare: classVarName from: Undeclared;
-			at: classVarName put: value - 1].
+	EQ := 0.
+	NE := 1.
+	CS := 2.
+	CC := 3.
+	MI := 4.
+	PL := 5.
+	VS := 6.
+	VC := 7.
+	HI := 8.
+	LS := 9.
+	GE := 10.
+	LT := 11.
+	GT := 12.
+	LE := 13.
+	AL := 14.
 	
 	"Specific instructions"
 	LastRTLCode isNil ifTrue:
 		[CogRTLOpcodes initialize].
-	specificOpcodes := #(LDMFD STMFD).
+	specificOpcodes := #(LDMFD STMFD BICCqR).
 	refs := (thisContext method literals select: [:l| l isVariableBinding and: [classPool includesKey: l key]]) collect:
 				[:ea| ea key].
-	(classPool keys reject: [:k| (specificOpcodes includes: k) or: [refs includes: k] or: [conditionCodes includes: k]]) do:
+	(classPool keys reject: [:k| (specificOpcodes includes: k) or: [refs includes: k]]) do:
 		[:k|
 		Undeclared declare: k from: classPool].
 	specificOpcodes withIndexDo:

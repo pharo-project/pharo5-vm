@@ -11,7 +11,7 @@ concretizeLoadEffectiveAddressMwrR
 		ifTrue: [ :rot :immediate | 
 			self machineCodeAt: 0 
 				"add destReg, srcReg, #immediate ROR rot"
-				put: (self add: destReg rn: srcReg imm: immediate ror: rot).
+				put: (self add: destReg rn: srcReg imm: immediate ror: rot<<1).
 			^machineCodeSize := 4]
 		ifFalse: [ 
 			instrOffset := self at: 0 moveCw: offset intoR: RISCTempReg.

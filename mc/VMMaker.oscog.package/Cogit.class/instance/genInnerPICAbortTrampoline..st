@@ -11,23 +11,23 @@ genInnerPICAbortTrampoline: name
 	self CmpCq: 0 R: ClassReg.
 	jumpMNUCase := self JumpZero: 0.
 	self compileTrampolineFor: #ceInterpretMethodFromPIC:receiver:
-		callJumpBar: true
 		numArgs: 2
 		arg: SendNumArgsReg
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil.
 	jumpMNUCase jmpTarget: self Label.
 	^self genTrampolineFor: #ceMNUFromPICMNUMethod:receiver:
 		called: name
-		callJumpBar: true
 		numArgs: 2
 		arg: SendNumArgsReg
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: true

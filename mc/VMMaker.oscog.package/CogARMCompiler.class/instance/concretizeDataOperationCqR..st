@@ -1,7 +1,7 @@
 generate machine code - concretize
 concretizeDataOperationCqR: opcode
 	"Will get inlined into concretizeAt: switch."
-	"4 == Add, 2 == Sub, Xor == 1, And == 0, Or == 12"
+	"4 == Add, 2 == Sub, Xor == 1, And == 0, Or == 12, Bic == 14"
 	<inline: true>
 	self 
 		rotateable8bitImmediate: (operands at: 0) 

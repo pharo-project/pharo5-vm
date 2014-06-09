@@ -7,6 +7,9 @@ genPushNewArrayBytecode
 		ifTrue: [self ssFlushTo: simStackPtr]
 		ifFalse: [self ssAllocateCallReg: SendNumArgsReg and: ReceiverResultReg].
 	size := byte1 bitAnd: 127.
+	popValues ifFalse:
+		[(self tryCollapseTempVectorInitializationOfSize: size) ifTrue:
+			[^0]].
 	objectRepresentation genNewArrayOfSize: size initialized: popValues not.
 	popValues ifTrue:
 		[size - 1 to: 0 by: -1 do:

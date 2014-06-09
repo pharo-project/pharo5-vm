@@ -22,7 +22,7 @@ compileCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag i
 		ifFalse:
 			[self assert: (case1Method isNil or: [(objectMemory isYoungObject: case1Method) not]).
 			 operand := case1Method.
-			 targetEntry := case1Method isNil ifTrue: [mnuCall] ifFalse: [interpretCall]].
+			 targetEntry := case1Method isNil ifTrue: [mnuCall] ifFalse: [interpretLabel]].
 
 	jumpNext := self compileCPICEntry.
 	self MoveCw: 0 R: SendNumArgsReg.

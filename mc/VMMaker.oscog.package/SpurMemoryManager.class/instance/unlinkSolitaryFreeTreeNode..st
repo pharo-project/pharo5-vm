@@ -2,7 +2,7 @@ free space
 unlinkSolitaryFreeTreeNode: freeTreeNode
 	"Unlink a freeTreeNode.  Assumes the node has no list (null next link)."
 	| parent smaller larger |
-	self assert: (self fetchPointer: self freeChunkNextIndex ofObject: freeTreeNode) = 0.
+	self assert: (self fetchPointer: self freeChunkNextIndex ofFreeChunk: freeTreeNode) = 0.
 
 	"case 1. interior node has one child, P = parent, N = node, S = subtree (mirrored for large vs small)
 			___				  ___

@@ -1,7 +1,7 @@
 initialize-release
 initialize
 	memory := ByteArray new: 262144.
-	objectMemory := NewCoObjectMemory new.
+	objectMemory := self class objectMemoryClass new.
 	coInterpreter := CoInterpreter new.
 	coInterpreter
 		instVarNamed: 'objectMemory'

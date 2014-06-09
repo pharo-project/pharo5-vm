@@ -1,5 +1,5 @@
 accessing
 numCounters: aValue
 	^memory
-		unsignedLongAt: address + 25
+		unsignedLongAt: address + 21 + baseHeaderSize
 		put: aValue

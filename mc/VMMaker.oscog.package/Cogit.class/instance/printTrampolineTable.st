@@ -6,5 +6,5 @@ printTrampolineTable
 		coInterpreter
 			printHex: (trampolineAddresses at: i + 1) asInteger;
 			print: ': ';
-			print: (trampolineAddresses at: i);
+			print: (self cCoerceSimple: (trampolineAddresses at: i) to: #'char *');
 			cr]

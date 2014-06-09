@@ -17,23 +17,23 @@ genMethodAbortTrampoline
 		[self AddCq: BytesPerWord R: SPReg].
 
 	self compileTrampolineFor: #ceStackOverflow:
-		callJumpBar: true
 		numArgs: 1
 		arg: SendNumArgsReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil.
 	jumpSICMiss jmpTarget: self Label.
 	^self genTrampolineFor: #ceSICMiss:
 		called: 'ceMethodAbort'
-		callJumpBar: true
 		numArgs: 1
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: true

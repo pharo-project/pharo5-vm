@@ -40,7 +40,7 @@
 		"printOpenPICList" : "eem 1/21/2014 15:14",
 		"pruneYoungReferrers" : "eem 7/15/2011 06:42",
 		"quickClearCogCompiledCode" : "eem 1/8/2011 13:26",
-		"relocateAndPruneYoungReferrers" : "eem 10/1/2013 10:47",
+		"relocateAndPruneYoungReferrers" : "eem 6/7/2014 15:00",
 		"removeFromOpenPICList:" : "eem 7/9/2009 21:08",
 		"removeFromUnpairedMethodList:" : "eem 8/22/2013 14:31",
 		"roomOnYoungReferrersList" : "eem 8/13/2012 18:11",

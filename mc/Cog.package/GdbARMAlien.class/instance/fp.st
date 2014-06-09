@@ -1,4 +1,4 @@
-accessing-abstract
+accessing
 fp
-	"According to the use in SVr4"
+"fp is r11"
 	^self r11

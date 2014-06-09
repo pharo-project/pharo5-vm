@@ -1,6 +1,7 @@
 generate machine code - concretize
 concretizeMoveMbrR
 	"Will get inlined into concretizeAt: switch."
+	"ldrb destReg, [srcReg, #immediate] or ldrb destReg, [srcReg, RISCTempReg]"
 	<inline: true>
 	| srcReg offset destReg instrOffset|
 	offset := operands at: 0.

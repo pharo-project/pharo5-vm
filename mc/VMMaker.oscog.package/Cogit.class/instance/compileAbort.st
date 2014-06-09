@@ -7,6 +7,10 @@ compileAbort
 	 The abort routine must be called;  In the callee the method is located by
 	 adding the relevant offset to the return address of the call."
 	stackOverflowCall := self MoveCq: 0 R: ReceiverResultReg.
-	backEnd hasLinkRegister ifTrue:
-		[self PushR: LinkReg].
-	sendMissCall := self Call: (self methodAbortTrampolineFor: methodOrBlockNumArgs)
+	backEnd hasLinkRegister
+		ifTrue:
+			[sendMiss := self PushR: LinkReg.
+			 sendMissCall := self Call: (self methodAbortTrampolineFor: methodOrBlockNumArgs)]
+		ifFalse:
+			[sendMiss :=
+			 sendMissCall := self Call: (self methodAbortTrampolineFor: methodOrBlockNumArgs)]

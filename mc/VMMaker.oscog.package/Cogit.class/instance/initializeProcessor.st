@@ -4,10 +4,7 @@ initializeProcessor
 	<doNotGenerate>
 	guardPageSize := self class guardPageSize.
 	lastNInstructions := OrderedCollection new.
-	"This is for testing.  On many OS's the stack must remain aligned;
-	 e.g. IA32 using SSE requires 16 byte alignment."
-	expectedSPAlignment := 0. expectedFPAlignment := 8. cStackAlignment := 16.
-	processor class setStackAlignmentDelta: cStackAlignment.
+	processor initializeStackFor: self.
 	self initializeProcessorStack: coInterpreter rumpCStackAddress.
 	objectMemory
 		longAt: self cFramePointerAddress put: processor fp;

@@ -39,9 +39,6 @@ initialize
 
 	Note that there are no generic division instructions defined, but a processor may define some."
 
-	"CogRTLOpcodes initialize.
-	 CogAbstractInstruction allSubclasses do: [:sc| sc initialize]"
-
 	| opcodeNames refs |
 	FPReg := -1.
 	SPReg := -2.
@@ -159,4 +156,8 @@ initialize
 	"For CogAbstractInstruction>>isJump etc..."
 	FirstJump := JumpLong.
 	LastJump := JumpFPUnordered.
-	FirstShortJump := Jump
+	FirstShortJump := Jump.
+
+	"And now initialize the backends; they add their own opcodes and hence these must be reinitialized."
+	(Smalltalk classNamed: #CogAbstractInstruction) ifNotNil:
+		[:cogAbstractInstruction| cogAbstractInstruction allSubclasses do: [:sc| sc initialize]]

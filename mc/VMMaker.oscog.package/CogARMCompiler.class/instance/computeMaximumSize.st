@@ -39,6 +39,7 @@ computeMaximumSize
 											ifFalse: [maxSize := 8]].
 			[CmpCqR]				-> [rotateableAt0then4or20Block value].
 			[AddCqR]				-> [rotateableAt0then4or20Block value].
+			[BICCqR]				-> [rotateableAt0then4or20Block value].
 			[SubCqR]				-> [rotateableAt0then4or20Block value].
 			[AndCqR]				-> [rotateableAt0then4or20Block value].
 			[OrCqR]					-> [rotateableAt0then4or20Block value].

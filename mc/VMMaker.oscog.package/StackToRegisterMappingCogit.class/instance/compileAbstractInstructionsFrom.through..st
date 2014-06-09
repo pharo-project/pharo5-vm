@@ -29,14 +29,7 @@ compileAbstractInstructionsFrom: start through: end
 						= (self debugStackPointerFor: bytecodePC)]].
 	 byte0 := (objectMemory fetchByte: bytecodePC ofObject: methodObj) + bytecodeSetOffset.
 	 descriptor := self generatorAt: byte0.
-	 descriptor numBytes > 1 ifTrue:
-		[byte1 := objectMemory fetchByte: bytecodePC + 1 ofObject: methodObj.
-		 descriptor numBytes > 2 ifTrue:
-			[byte2 := objectMemory fetchByte: bytecodePC + 2 ofObject: methodObj.
-			 descriptor numBytes > 3 ifTrue:
-				[byte3 := objectMemory fetchByte: bytecodePC + 3 ofObject: methodObj.
-				 descriptor numBytes > 4 ifTrue:
-					[self notYetImplemented]]]].
+	 self loadSubsequentBytesForDescriptor: descriptor at: bytecodePC.
 	 nextOpcodeIndex := opcodeIndex.
 	 result := deadCode
 				ifTrue: "insert nops for dead code that is mapped so that bc to mc mapping is not many to one"

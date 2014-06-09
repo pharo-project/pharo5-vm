@@ -41,7 +41,7 @@ compileOpenPIC: selector numArgs: numArgs
 		genLoadSlot: HeaderIndex sourceReg: SendNumArgsReg destReg: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpBCMethod := objectRepresentation genJumpSmallIntegerInScratchReg: TempReg.
-	jumpBCMethod jmpTarget: interpretCall.
+	jumpBCMethod jmpTarget: interpretLabel.
 	self AddCq: cmNoCheckEntryOffset R: ClassReg.
 	self JumpR: ClassReg.
 

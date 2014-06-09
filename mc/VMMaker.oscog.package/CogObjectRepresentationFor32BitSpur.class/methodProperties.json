@@ -2,7 +2,6 @@
 	"class" : {
 		"defaultObjectMemoryClass" : "eem 1/22/2014 15:53" },
 	"instance" : {
-		"createsClosuresInline" : "eem 6/1/2014 10:46",
 		"genAddSmallIntegerTagsTo:" : "eem 10/2/2013 15:08",
 		"genConvertCharacterToSmallIntegerInReg:" : "eem 12/24/2013 18:52",
 		"genConvertIntegerToSmallIntegerInReg:" : "eem 12/6/2013 14:50",

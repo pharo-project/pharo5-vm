@@ -5,7 +5,7 @@ handleRetFailureAt: pc "<Integer>" in: memoryArray "<Bitmap|ByteArray>"
 	^(ProcessorSimulationTrap
 			pc: pc
 			nextpc: pc + 4
-			address: (memoryArray unsignedLongAt: self sp -3) 
+			address: self lr " for popping off stack version of retiurn -> (memoryArray unsignedLongAt: self sp -3) "
 			type: #return
-			accessor: #pc:)
+			"don't quite know what to do with this yet ->accessor: #pc:")
 		signal

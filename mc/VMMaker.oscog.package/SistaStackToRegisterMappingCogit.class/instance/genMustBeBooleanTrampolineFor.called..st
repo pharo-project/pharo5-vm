@@ -16,13 +16,13 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	self CmpCq: 0 R: SendNumArgsReg.
 	jumpMBB := self JumpZero: 0.
 	self compileTrampolineFor: #ceCounterTripped:
-		callJumpBar: true
 		numArgs: 1
 		arg: TempReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil.
 	"For the case where the ceCounterTripped: call returns (e.g. because there's no callback selector
 	 installed), the call to the ceSendMustBeBooleanAddTrue/FalseTrampoline is followed by a jump
@@ -35,12 +35,12 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	jumpMBB jmpTarget: (self AddCq: boolean R: TempReg).
 	^self genTrampolineFor: #ceSendMustBeBoolean:
 		called: trampolineName
-		callJumpBar: true
 		numArgs: 1
 		arg: TempReg
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: true

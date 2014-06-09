@@ -6,9 +6,11 @@ callTargetFromReturnAddress: callSiteReturnAddress
 	call := self instructionBeforeAddress: callSiteReturnAddress.
 	self assert: call ~= 0. "andeq r0, r0 will not be generated, not even as nops"
 	((self instructionIsB: call) or:[self instructionIsBL: call])
-		ifTrue: [ "a short call/jump" callDistance := self extractOffsetFromBL: call]
-		ifFalse: [ "A Long Call/Jump. Extract the value saved to RISCTempReg from all the instructions before."
-			((self instructionIsBX: call) or:[self instructionIsBLX: call])
-				ifTrue:[self extractOffsetFromBXAt: self halt].
-			self notYetImplemented ].
-	^callSiteReturnAddress + 4 + callDistance signedIntFromLong
+		ifTrue: [ "a short call/jump" callDistance := self extractOffsetFromBL: call.
+			^callSiteReturnAddress + 4 + callDistance signedIntFromLong].
+	
+	((self instructionIsBX: call) or:[self instructionIsBLX: call])
+		ifTrue:["A Long Call/Jump. Extract the value saved to RISCTempReg from all the instructions before."
+			^self extractOffsetFromBXAt: callSiteReturnAddress - 4].
+	self halt
+	

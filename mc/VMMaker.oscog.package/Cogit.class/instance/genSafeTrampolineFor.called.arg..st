@@ -7,12 +7,12 @@ genSafeTrampolineFor: aRoutine called: aString arg: regOrConst0
 	^self
 		genTrampolineFor: aRoutine
 		called: aString
-		callJumpBar: true
 		numArgs: 1
 		arg: regOrConst0
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: true
+		pushLinkReg: true
 		resultReg: nil
 		appendOpcodes: false

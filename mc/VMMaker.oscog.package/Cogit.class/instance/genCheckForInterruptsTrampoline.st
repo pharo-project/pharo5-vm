@@ -9,12 +9,12 @@ genCheckForInterruptsTrampoline
 			 self MoveR: TempReg Aw: coInterpreter instructionPointerAddress].
 	^self genTrampolineFor: #ceCheckForInterrupts
 		called: 'ceCheckForInterruptsTrampoline'
-		callJumpBar: true
 		numArgs: 0
 		arg: nil
 		arg: nil
 		arg: nil
 		arg: nil
 		saveRegs: false
+		pushLinkReg: false
 		resultReg: nil
 		appendOpcodes: true

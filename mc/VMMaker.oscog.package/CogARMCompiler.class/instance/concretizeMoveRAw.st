@@ -1,6 +1,8 @@
 generate machine code - concretize
 concretizeMoveRAw
 	"Will get inlined into concretizeAt: switch."
+	"LEA RISCTempReg
+	str srcReg, [RISCTempReg]"
 	<inline: true>
 	| srcReg destAddr instrOffset|
 	srcReg := self concreteRegister: (operands at: 0).

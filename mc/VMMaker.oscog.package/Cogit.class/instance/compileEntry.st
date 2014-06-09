@@ -12,7 +12,7 @@ compileEntry
 		 dynSuperEntry := self Nop].
 	entry := objectRepresentation getInlineCacheClassTagFrom: ReceiverResultReg into: TempReg.
 	self CmpR: ClassReg R: TempReg.
-	self JumpNonZero: sendMissCall.
+	self JumpNonZero: sendMiss.
 	noCheckEntry := self Label.
 	self recordSendTrace ifTrue:
 		[self CallRT: ceTraceLinkedSendTrampoline]

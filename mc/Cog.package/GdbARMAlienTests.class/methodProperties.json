@@ -2,8 +2,8 @@
 	"class" : {
 		 },
 	"instance" : {
-		"integerRegisterGetters" : "eem 3/18/2014 10:44",
-		"integerRegisterSetters" : "eem 3/18/2014 10:45",
+		"integerRegisterGetters" : "tpr 5/31/2014 12:06",
+		"integerRegisterSetters" : "tpr 5/31/2014 12:07",
 		"memory" : "tpr 5/5/2014 18:06",
 		"nfib" : "lw 7/11/2012 14:16",
 		"processor" : "eem 12/11/2008 13:53",
@@ -36,9 +36,8 @@
 		"testQuickDisassemby" : "tpr 4/30/2014 11:15",
 		"testQuickDisassembyOf:" : "tpr 4/30/2014 11:43",
 		"testResetCPU" : "eem 3/18/2014 10:44",
-		"testReturnTrap" : "tpr 5/27/2014 18:17",
-		"testReturnTrap2" : "tpr 5/27/2014 14:52",
-		"testReturnTrapWithThumbBug" : "tpr 5/28/2014 07:20",
+		"testReturnTrap" : "tpr 5/28/2014 21:56",
+		"testReturnTrapWithThumbBug" : "tpr 5/28/2014 21:51",
 		"testStepNfib1" : "lw 7/11/2012 13:27",
 		"testStepNfib2" : "lw 7/11/2012 14:19",
 		"testStepNfib4" : "lw 7/11/2012 14:20" } }

@@ -4,4 +4,4 @@ isCallPreceedingReturnPC: mcpc
 	"There are two types of calls: BL and/BLX encoding"
 	| call |
 	call := self instructionBeforeAddress: mcpc.
-	^(self instructionIsBX: call) or:[self instructionIsBLX: call]
+	^(self instructionIsBL: call) or:[self instructionIsBLX: call]
