@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		"timeStamp",
+		"initializationOptions" ],
+	"classvars" : [
+		"DefaultBase" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMClass",
+	"pools" : [
+		"VMBasicConstants",
+		"VMObjectIndices" ],
+	"super" : "Object",
+	"type" : "normal" }

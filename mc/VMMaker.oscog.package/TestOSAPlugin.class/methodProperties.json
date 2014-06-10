@@ -1,0 +1,24 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "EstebanLorenzano 6/3/2014 10:37",
+		"requiresPlatformFiles" : "JMM 5/30/2001 19:43" },
+	"instance" : {
+		"primAECoerceDesc:to:" : "acg 9/23/1999 22:49",
+		"primAECreateDesc:from:" : "acg 9/20/1999 12:37",
+		"primAEDescToString:" : "acg 9/20/1999 14:16",
+		"primAEDisposeDesc" : "acg 9/20/1999 12:38",
+		"primAEGetKeyPtr:type:actual:to:" : "tpr (auto pragmas 12/08) 12/29/2005 17:22",
+		"primGetHandleSize:" : "acg 9/20/1999 12:56",
+		"primOSACompile:mode:to:" : "acg 9/20/1999 16:08",
+		"primOSADisplay:as:mode:to:" : "acg 9/20/1999 16:08",
+		"primOSADispose:" : "acg 9/20/1999 15:39",
+		"primOSADoScript:in:mode:resultType:to:" : "JMM 10/31/2005 11:59",
+		"primOSAExecute:in:mode:to:" : "JMM 10/31/2005 11:59",
+		"primOSAGetScriptInfo:type:to:" : "acg 9/25/1999 15:01",
+		"primOSAGetSource:type:to:" : "acg 9/25/1999 17:25",
+		"primOSALoad:mode:to:" : "acg 9/22/1999 03:08",
+		"primOSAMakeContext:parent:to:" : "acg 9/25/1999 22:55",
+		"primOSAScriptError:type:to:" : "acg 9/23/1999 20:39",
+		"primOSAScriptingComponentNameTo:" : "acg 9/20/1999 21:53",
+		"primOSAStore:resultType:mode:to:" : "acg 9/22/1999 07:51",
+		"primOpenDefaultConfiguration:subtype:" : "acg 9/20/1999 23:42" } }

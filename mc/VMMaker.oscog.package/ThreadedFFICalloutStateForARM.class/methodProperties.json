@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "djm 4/12/2014 20:09" },
+	"instance" : {
+		"backfillFloatRegisterIndex" : "djm 4/17/2014 08:50",
+		"backfillFloatRegisterIndex:" : "djm 4/17/2014 08:50",
+		"floatRegisterIndex" : "djm 4/12/2014 19:24",
+		"floatRegisterIndex:" : "djm 4/12/2014 19:24",
+		"floatRegisters" : "djm 4/12/2014 19:24",
+		"floatRegisters:" : "djm 4/12/2014 19:24",
+		"initialize" : "djm 4/17/2014 08:50",
+		"integerRegisterIndex" : "djm 4/12/2014 19:24",
+		"integerRegisterIndex:" : "djm 4/12/2014 19:24",
+		"integerRegisters" : "eem 10/29/2009 22:11",
+		"integerRegisters:" : "eem 10/30/2009 10:08" } }

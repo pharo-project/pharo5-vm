@@ -774,12 +774,17 @@ getVersionInfo(int verbose)
   char *info= (char *)malloc(4096);
   info[0]= '\0';
 
+#if SPURVM
+# define ObjectMemory " Spur"
+#else
+# define ObjectMemory
+#endif
 #if defined(NDEBUG)
-# define BuildVariant "Production"
+# define BuildVariant "Production" ObjectMemory
 #elif DEBUGVM
-# define BuildVariant "Debug"
+# define BuildVariant "Debug" ObjectMemory
 # else
-# define BuildVariant "Assert"
+# define BuildVariant "Assert" ObjectMemory
 #endif
 
   sprintf(info+strlen(info), "%s [" BuildVariant " VM]\n", vmBuildString);
@@ -995,7 +1000,7 @@ error(char *msg) {
   if(f){  
     time_t crashTime = time(NULL);
     fprintf(f,"---------------------------------------------------------------------\n");
-    fprintf(f,"%s\n\n", ctime(&crashTime));
+    fprintf(f,"%s %s\n\n", ctime(&crashTime), GetAttributeString(0));
 
 	fprintf(f,
 			"Error in %s thread\nReason: %s\n\n",

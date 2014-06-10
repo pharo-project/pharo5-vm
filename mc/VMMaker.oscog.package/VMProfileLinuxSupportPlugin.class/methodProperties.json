@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"declareHeaderFilesIn:" : "eem 6/10/2013 15:20" },
+	"instance" : {
+		"count:num:modules:" : "eem 6/4/2013 17:02",
+		"primitiveDLSymInLibrary" : "eem 6/10/2013 13:34",
+		"primitiveExecutableModules" : "eem 11/2/2013 00:26",
+		"primitiveInterpretAddress" : "eem 6/4/2013 17:34",
+		"reap:module:names:" : "eem 6/4/2013 17:26",
+		"reap:module:symlinks:" : "eem 6/10/2013 17:51" } }

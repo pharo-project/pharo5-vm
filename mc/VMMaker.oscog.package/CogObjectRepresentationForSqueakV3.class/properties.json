@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"RootBitDigitLength" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"ceCreateNewArrayTrampoline",
+		"cePositive32BitIntegerTrampoline",
+		"ceActiveContextTrampoline",
+		"ceClosureCopyTrampoline" ],
+	"name" : "CogObjectRepresentationForSqueakV3",
+	"pools" : [
+		"VMSqueakClassIndices",
+		"VMSqueakV3ObjectRepresentationConstants" ],
+	"super" : "CogObjectRepresentation",
+	"type" : "normal" }

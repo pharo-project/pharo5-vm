@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-DeltaBlue",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "DBEqualityConstraint",
+	"pools" : [
+		 ],
+	"super" : "DBBinaryConstraint",
+	"type" : "normal" }

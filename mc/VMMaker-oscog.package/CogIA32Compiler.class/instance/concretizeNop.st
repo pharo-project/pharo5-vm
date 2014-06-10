@@ -1,4 +1,0 @@
-generate machine code
-concretizeNop
-	machineCode at: 0 put: 16r90.
-	^machineCodeSize := 1

@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CounterBytes",
+		"MaxCounterValue" ],
+	"commentStamp" : "eem 4/7/2014 12:23",
+	"instvars" : [
+		"picDataIndex",
+		"picData",
+		"numCounters",
+		"counters",
+		"counterIndex",
+		"initialCounterValue",
+		"counterMethodCache",
+		"prevMapAbsPCMcpc" ],
+	"name" : "SistaStackToRegisterMappingCogit",
+	"pools" : [
+		"VMSqueakClassIndices" ],
+	"super" : "StackToRegisterMappingCogit",
+	"type" : "normal" }

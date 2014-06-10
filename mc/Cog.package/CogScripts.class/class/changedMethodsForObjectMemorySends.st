@@ -24,7 +24,7 @@ changedMethodsForObjectMemorySends
 	self readOnlyVars do: [:instVar|
 			rules replace: instVar with: 'objectMemory ', instVar].
 	model := RBNamespace new.
-	environment := BrowserEnvironment new forClasses:
+	environment := RBBrowserEnvironment new forClasses:
 						{ StackInterpreter. CoInterpreter. CoInterpreterMT.
 						   StackInterpreterSimulator. CogVMSimulator }.
 	environment classesAndSelectorsDo:

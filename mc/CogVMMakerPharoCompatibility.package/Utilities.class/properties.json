@@ -1,0 +1,14 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "Utilities",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

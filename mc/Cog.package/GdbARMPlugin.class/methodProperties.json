@@ -9,9 +9,9 @@
 		"primitiveFlushICacheFrom:To:" : "eem 1/15/2009 09:57",
 		"primitiveNewCPU" : "eem 1/14/2009 15:28",
 		"primitiveResetCPU" : "eem 1/14/2009 15:28",
-		"primitiveRunInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 7/19/2013 11:36",
-		"primitiveRunInMemory:minimumAddress:readOnlyBelow:" : "eem 10/20/2010 16:08",
-		"primitiveSingleStepInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 7/19/2013 11:38",
+		"primitiveRunInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 11/21/2013 16:40",
+		"primitiveRunInMemory:minimumAddress:readOnlyBelow:" : "tpr 5/8/2014 08:23",
+		"primitiveSingleStepInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 11/21/2013 16:37",
 		"primitiveSingleStepInMemory:minimumAddress:readOnlyBelow:" : "eem 10/20/2010 16:08",
 		"sizeField:" : "eem (auto pragmas 12/08) 12/11/2008 09:57",
 		"startOfData:" : "eem (auto pragmas 12/08) 12/11/2008 09:55" } }

@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"expression",
+		"cases",
+		"otherwiseOrNil",
+		"switchVariable" ],
+	"name" : "TSwitchStmtNode",
+	"pools" : [
+		 ],
+	"super" : "TParseNode",
+	"type" : "normal" }

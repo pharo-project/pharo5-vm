@@ -1,0 +1,3 @@
+accessing
+maxIdentityHash
+	^self identityHashHalfWordMask

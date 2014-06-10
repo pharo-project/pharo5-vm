@@ -1,3 +1,5 @@
 testing
 launchSaved
-	self launch: TransformedImage veryDeepCopy headerFlags: ImageHeaderFlags
+	self launch: TransformedImage veryDeepCopy
+		simulatorClass: StackInterpreterSimulator
+		headerFlags: ImageHeaderFlags

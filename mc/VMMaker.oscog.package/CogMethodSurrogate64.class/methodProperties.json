@@ -1,0 +1,19 @@
+{
+	"class" : {
+		"alignedByteSize" : "EstebanLorenzano 6/3/2014 09:13",
+		"offsetOf:" : "eem 10/2/2013 18:04" },
+	"instance" : {
+		"blockEntryOffset" : "eem 10/9/2013 16:00",
+		"blockEntryOffset:" : "eem 10/9/2013 16:00",
+		"blockSize" : "eem 10/9/2013 16:00",
+		"blockSize:" : "eem 10/9/2013 16:00",
+		"cmUsesMethodClass" : "eem 12/8/2013 14:47",
+		"cmUsesMethodClass:" : "eem 12/8/2013 14:47",
+		"methodHeader" : "eem 10/9/2013 16:00",
+		"methodHeader:" : "eem 10/9/2013 16:00",
+		"methodObject" : "eem 10/9/2013 16:00",
+		"methodObject:" : "eem 10/9/2013 16:00",
+		"numCounters" : "EstebanLorenzano 6/3/2014 09:12",
+		"numCounters:" : "EstebanLorenzano 6/3/2014 09:12",
+		"selector" : "eem 10/9/2013 16:00",
+		"selector:" : "eem 10/9/2013 16:00" } }

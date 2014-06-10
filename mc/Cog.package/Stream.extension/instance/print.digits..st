@@ -1,4 +1,4 @@
-*Cog-Benchmarks-platform
+*Cog-Benchmarks-Shootout-platform
 print: number digits: decimalPlaces
    | precision rounded |
    decimalPlaces <= 0 ifTrue: [^ number rounded printString].

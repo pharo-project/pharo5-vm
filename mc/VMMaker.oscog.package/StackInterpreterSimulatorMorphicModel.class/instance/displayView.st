@@ -1,0 +1,3 @@
+accessing
+displayView
+	^ vm displayView

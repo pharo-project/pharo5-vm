@@ -13,9 +13,8 @@ executeNewMethod
 		methodHeader := self rawHeaderOf: newMethod.
 
 		(self isCogMethodReference: methodHeader) ifTrue: [
-			^ self executeCoggedNewMethod: inInterpreter methodHeader: methodHeader
-		].
-	].
+			self executeCoggedNewMethod: inInterpreter methodHeader: methodHeader.
+			^nil ] ].
 
 	"Here are handled both primitives and object as methods handling.
 	The primitiveFunctionPointer is a pointer to either the function implementing the primitive of the method or the function implementing the runWithIn for objects as methods"

@@ -8,8 +8,8 @@ simulateCallOf: address nextpc: nextpc memory: aMemory
 
 	self assert: self sp \\ 8 = 0. "This check ensures, that we conform with ARM abi. Before doing anything to the stack, we ensure 2-word alignment."
 	self pushWord: nextpc in: aMemory.
-	self pushWord: self r11 in: aMemory.
-	self r11: self sp.
+	self pushWord: self fp in: aMemory.
+	self fp: self sp.
 	PostBuildStackDelta ~= 0 ifTrue:
 		[self sp: self sp - PostBuildStackDelta]. "In order to satisfy the CStackAlignment check by cogit, which is only valid on IA32 platforms."
 	self pc: address

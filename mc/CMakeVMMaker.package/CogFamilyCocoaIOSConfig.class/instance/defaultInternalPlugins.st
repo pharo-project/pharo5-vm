@@ -20,7 +20,6 @@ defaultInternalPlugins
 		LargeIntegersPlugin 
 		Matrix2x3Plugin 
 		MiscPrimitivePlugin 
-		"RePlugin" 
 		SecurityPlugin 
 		SocketPlugin 
 		SoundCodecPlugin 

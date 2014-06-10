@@ -1,3 +1,5 @@
 testing
 launch
-	self launch: newHeap headerFlags: oldInterpreter getImageHeaderFlags
+	self launch: newHeap
+		simulatorClass: StackInterpreterSimulator
+		headerFlags: oldInterpreter getImageHeaderFlags

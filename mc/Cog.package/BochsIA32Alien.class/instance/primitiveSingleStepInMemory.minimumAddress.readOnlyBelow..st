@@ -6,6 +6,5 @@ primitiveSingleStepInMemory: memoryArray "<Bitmap|ByteArray>" minimumAddress: mi
 	<primitive: 'primitiveSingleStepInMemoryMinimumAddressReadWrite' module: 'BochsIA32Plugin' error: ec>
 	^ec == #'inappropriate operation'
 		ifTrue: [self handleExecutionPrimitiveFailureIn: memoryArray
-					minimumAddress: minimumAddress
-					readOnlyBelow: minimumWritableAddress]
+					minimumAddress: minimumAddress]
 		ifFalse: [self reportPrimitiveFailure]

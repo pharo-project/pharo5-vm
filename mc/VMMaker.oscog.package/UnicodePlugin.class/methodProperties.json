@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ikp 7/30/2012 14:36" },
+	"instance" : {
+		"asCString:" : "eem 1/30/2014 14:36",
+		"cWordsPtr:minSize:" : "eem 1/30/2014 14:34",
+		"copyString:into:max:" : "eem 1/30/2014 14:32",
+		"primitiveClipboardGet" : "eem 1/30/2014 14:27",
+		"primitiveClipboardPut" : "eem 1/30/2014 14:25",
+		"primitiveClipboardSize" : "jm (auto pragmas dtl 2014-01-04) 6/20/2008 21:42",
+		"primitiveDrawString" : "jm (auto pragmas dtl 2014-01-04) 6/17/2008 10:51",
+		"primitiveGetFontList" : "jm (auto pragmas dtl 2014-01-04) 6/20/2008 21:14",
+		"primitiveGetXRanges" : "jm (auto pragmas dtl 2014-01-04) 6/17/2008 10:51",
+		"primitiveMeasureString" : "jm (auto pragmas dtl 2014-01-04) 6/17/2008 10:51",
+		"primitiveSetColors" : "jm (auto pragmas dtl 2014-01-04) 1/24/2008 16:29",
+		"primitiveSetFont" : "jm (auto pragmas dtl 2014-01-04) 1/13/2008 11:24" } }

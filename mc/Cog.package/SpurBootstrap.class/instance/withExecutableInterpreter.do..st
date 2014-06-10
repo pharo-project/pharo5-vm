@@ -16,6 +16,10 @@ withExecutableInterpreter: sim do: aBlock
 		internalPush: sim localIP;
 		externalizeIPandSP.
 	"now undo the execution state"
-	finalContext := sim voidVMStateForSnapshot.
+	finalContext := sim voidVMStateForSnapshotFlushingExternalPrimitivesIf: false.
 	self assert: initialContext = finalContext.
-	self assert: sim localIP = savedpc
+	self assert: sim localIP = savedpc.
+	sim objectMemory
+		storePointer: SuspendedContextIndex
+		ofObject: sim activeProcess
+		withValue: finalContext

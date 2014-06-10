@@ -1,0 +1,17 @@
+{
+	"class" : {
+		"forPlatform:" : "eem 4/10/2013 16:01",
+		"generateSqueakStackVM" : "GuillermoPolito 6/17/2013 18:10" },
+	"instance" : {
+		"createCodeGenerator" : "eem 10/30/2013 16:27",
+		"export:forExternalPlugin:" : "EstebanLorenzano 6/2/2014 17:28",
+		"gnuifyInterpreterFile" : "tpr 4/9/2013 17:36",
+		"interpreterExportsFilePath" : "tpr 3/12/2003 10:16",
+		"interpreterFilename" : "eem 2/9/2009 12:35",
+		"interpreterHeaderPath" : "tpr 3/17/2005 16:26",
+		"needsToRegenerateInterpreterFile" : "EstebanLorenzano 6/2/2014 17:44",
+		"processFilesForExternalPlugin:" : "tpr 3/12/2003 10:17",
+		"processFilesForInternalPlugin:" : "StefanMarr 2/12/2014 14:08",
+		"sourceFilePathFor:" : "tpr 4/9/2013 16:09",
+		"storeExternalPluginList" : "tpr 3/11/2003 14:11",
+		"storeInternalPluginList" : "tpr 3/11/2003 14:11" } }

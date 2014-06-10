@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"objectMemoryClass" : "eem 6/1/2014 12:15",
+		"objectRepresentationClass" : "eem 1/22/2014 15:37" },
+	"instance" : {
+		"arrayFormat" : "eem 6/1/2014 12:21",
+		"baseHeaderSize" : "eem 4/2/2014 15:08",
+		"classIndexMask" : "eem 4/18/2014 16:09",
+		"classTableMajorIndexShift" : "eem 6/4/2014 14:48",
+		"classTableMinorIndexMask" : "eem 6/4/2014 14:49",
+		"classTableRootObj" : "eem 4/18/2014 16:08",
+		"followForwardedObjectFields:toDepth:" : "eem 6/2/2014 20:34",
+		"getScavengeThreshold" : "eem 6/1/2014 12:20",
+		"headerForSlots:format:classIndex:" : "eem 6/1/2014 12:12",
+		"isForwardedObjectClassIndexPun" : "eem 6/2/2014 20:34",
+		"memMgr" : "eem 4/18/2014 16:08",
+		"memMgr:" : "eem 4/18/2014 16:07",
+		"numSlotsMask" : "eem 6/1/2014 12:20",
+		"rememberedBitShift" : "eem 6/1/2014 12:22",
+		"shiftForWord" : "eem 6/4/2014 14:48",
+		"smallObjectBytesForSlots:" : "eem 6/1/2014 12:18",
+		"storeCheckBoundary" : "eem 6/1/2014 12:22",
+		"tagMask" : "eem 4/18/2014 16:08" } }

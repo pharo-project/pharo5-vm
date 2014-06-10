@@ -1,3 +1,0 @@
-simulation only
-cogCodeSize
-	^cogCodeSize

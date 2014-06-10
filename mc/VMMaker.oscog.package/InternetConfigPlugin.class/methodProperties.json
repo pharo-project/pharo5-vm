@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"hasHeaderFile" : "JMM 9/26/2001 12:21",
+		"requiresPlatformFiles" : "JMM 9/26/2001 12:21" },
+	"instance" : {
+		"initialiseModule" : "JMM (auto pragmas 12/08) 9/26/2001 12:22",
+		"primitiveGetMacintoshFileTypeAndCreatorFrom:" : "eem 11/1/2013 23:48",
+		"primitiveGetStringKeyedBy:" : "eem 9/9/2011 16:06",
+		"shutdownModule" : "JMM (auto pragmas 12/08) 9/26/2001 12:22" } }

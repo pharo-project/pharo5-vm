@@ -1,0 +1,3 @@
+accessing
+authorInitials
+	^ Author fullName

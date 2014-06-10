@@ -1,10 +1,11 @@
 method prototypes
 BehaviorPROTOTYPEhandleFailingBasicNew
-	"This basicNew gets sent after basicNew has failed and allowed a
-	 scavenging garbage collection to occur.  The scavenging collection
-	 will have happened as the VM is activating the (failing) basicNew.
-	 If failingBasicNew fails then the scavenge failed to reclaim sufficient
-	 space and a global garbage collection is required.
+	"handleFailingBasicNew gets sent after basicNew has failed and allowed
+	 a scavenging garbage collection to occur.  The scavenging collection
+	 will have happened as the VM is activating the (failing) basicNew.  If
+	 handleFailingBasicNew fails then the scavenge failed to reclaim sufficient
+	 space and a global garbage collection is required.  Retry after garbage
+	 collecting and growing memory if necessary.
 
 	 Primitive. Answer an instance of this class with the number of indexable
 	 variables specified by the argument, sizeRequested.  Fail if this class is not
@@ -12,6 +13,6 @@ BehaviorPROTOTYPEhandleFailingBasicNew
 	 enough memory available. Essential. See Object documentation whatIsAPrimitive."
 
 	<primitive: 70>
-	self isVariable ifTrue: [^self basicNew: 0].
-	Smalltalk garbageCollect.
-	^self failingFailingBasicNew "retry after global garbage collect"
+	Smalltalk garbageCollect < 1048576 ifTrue:
+		[Smalltalk growMemoryByAtLeast: 1048576].
+	^self handleFailingFailingBasicNew "retry after global garbage collect"

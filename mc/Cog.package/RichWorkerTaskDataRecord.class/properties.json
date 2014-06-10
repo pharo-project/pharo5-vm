@@ -1,0 +1,15 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"destination",
+		"count" ],
+	"name" : "RichWorkerTaskDataRecord",
+	"pools" : [
+		 ],
+	"super" : "RichObject",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "UnicodePlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

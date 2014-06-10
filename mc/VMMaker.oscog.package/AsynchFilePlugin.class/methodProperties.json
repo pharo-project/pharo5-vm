@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "JMM 5/23/2005 18:59",
+		"hasHeaderFile" : "tpr 5/23/2001 17:04",
+		"requiresPlatformFiles" : "tpr 11/29/2000 22:37" },
+	"instance" : {
+		"asyncFileValueOf:" : "eem 1/30/2014 16:10",
+		"initialiseModule" : "JMM (auto pragmas 12/08) 1/20/2002 22:00",
+		"moduleUnloaded:" : "tpr (auto pragmas 12/08) 3/24/2004 14:51",
+		"primitiveAsyncFileClose:" : "tpr (auto pragmas 12/08) 12/29/2005 14:15",
+		"primitiveAsyncFileOpen:forWrite:semaIndex:" : "tpr (auto pragmas 12/08) 12/30/2005 16:09",
+		"primitiveAsyncFileReadResult:intoBuffer:at:count:" : "tpr (auto pragmas 12/08) 12/29/2005 14:16",
+		"primitiveAsyncFileReadStart:fPosition:count:" : "tpr (auto pragmas 12/08) 12/29/2005 14:16",
+		"primitiveAsyncFileWriteResult:" : "tpr (auto pragmas 12/08) 12/29/2005 14:16",
+		"primitiveAsyncFileWriteStart:fPosition:fromBuffer:at:count:" : "tpr (auto pragmas 12/08) 12/29/2005 14:16",
+		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:54" } }

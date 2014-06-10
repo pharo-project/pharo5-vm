@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"hasHeaderFile" : "JMM 8/17/2004 20:24",
+		"requiresPlatformFiles" : "tpr 7/20/2004 13:09" },
+	"instance" : {
+		"primitiveCloseHostWindow:" : "tpr 9/20/2004 12:32",
+		"primitiveCreateHostWindowWidth:height:originX:y:attributes:" : "tpr 10/3/2004 10:34",
+		"primitiveHostWindowPosition:" : "tpr 10/14/2004 15:58",
+		"primitiveHostWindowPositionSet:x:y:" : "tpr 10/14/2004 15:58",
+		"primitiveHostWindowSize:" : "tpr 10/14/2004 15:59",
+		"primitiveHostWindowSizeSet:x:y:" : "tpr 10/14/2004 15:59",
+		"primitiveHostWindowTitle:string:" : "tpr 9/20/2004 12:38",
+		"primitiveShowHostWindow:bits:width:height:depth:left:right:top:bottom:" : "dtl 3/8/2013 20:57",
+		"shutdownModule" : "eem 1/9/2014 10:46" } }

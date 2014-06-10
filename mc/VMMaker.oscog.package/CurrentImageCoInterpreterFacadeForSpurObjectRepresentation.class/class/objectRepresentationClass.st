@@ -1,0 +1,3 @@
+accessing
+objectRepresentationClass
+	^CogObjectRepresentationFor32BitSpur

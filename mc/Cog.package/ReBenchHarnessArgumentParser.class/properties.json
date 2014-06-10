@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-SMark",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "ReBenchHarnessArgumentParser",
+	"pools" : [
+		 ],
+	"super" : "SMarkHarnessArgumentParser",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SpurMemoryManagerSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurGenerationScavengerSimulator",
+	"pools" : [
+		 ],
+	"super" : "SpurGenerationScavenger",
+	"type" : "normal" }

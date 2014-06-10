@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"alignedByteSizeOf:forClient:" : "eem 9/2/2011 14:03",
+		"baseHeaderSize" : "eem 10/1/2013 14:09",
+		"defaultObjectMemoryClass" : "eem 10/1/2013 14:10" },
+	"instance" : {
+		"+" : "eem 2/15/2009 23:19",
+		"<" : "eem 2/15/2009 23:17",
+		"<=" : "eem 2/15/2009 23:18",
+		"=" : "eem 6/26/2010 09:19",
+		">" : "eem 6/15/2009 18:12",
+		">=" : "eem 3/9/2009 10:22",
+		"adaptToInteger:andSend:" : "eem 2/15/2009 23:20",
+		"address" : "eem 12/26/2008 11:02",
+		"asInteger" : "eem 1/19/2009 09:23",
+		"asUnsignedInteger" : "eem 4/8/2009 09:24",
+		"asVoidPointer" : "eem 4/4/2014 09:53",
+		"at:objectMemory:cogit:" : "eem 10/1/2013 10:53",
+		"cPICNumCases" : "eem 2/26/2009 09:37",
+		"cPICNumCases:" : "eem 2/26/2009 09:38",
+		"isZero" : "eem 7/1/2010 12:53",
+		"nextOpenPIC" : "eem 3/21/2013 15:14",
+		"nextOpenPIC:" : "eem 6/22/2009 14:08",
+		"objectHeader" : "eem 4/19/2014 13:35",
+		"objectHeader:" : "eem 4/19/2014 13:35",
+		"printOn:" : "eem 1/23/2009 13:09" } }

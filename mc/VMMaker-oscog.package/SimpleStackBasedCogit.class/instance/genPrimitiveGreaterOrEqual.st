@@ -1,3 +1,0 @@
-primitive generators
-genPrimitiveGreaterOrEqual
-	^self genSmallIntegerComparison: JumpGreaterOrEqual

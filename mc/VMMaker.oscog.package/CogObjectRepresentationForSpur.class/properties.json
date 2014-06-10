@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"ceSheduleScavengeTrampoline",
+		"ceSmallActiveContextInMethodTrampoline",
+		"ceSmallActiveContextInBlockTrampoline",
+		"ceLargeActiveContextInMethodTrampoline",
+		"ceLargeActiveContextInBlockTrampoline" ],
+	"name" : "CogObjectRepresentationForSpur",
+	"pools" : [
+		"CogCompilationConstants",
+		"VMSqueakClassIndices",
+		"VMSqueakV3BytecodeConstants" ],
+	"super" : "CogObjectRepresentation",
+	"type" : "normal" }

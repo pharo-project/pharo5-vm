@@ -2,4 +2,4 @@ symbolic versions
 development: spec
 	<symbolicVersion: #development>
 	
-	spec for: #'common' version: '6.7'
+	spec for: #'common' version: 'git'

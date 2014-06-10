@@ -6,6 +6,7 @@ rehashImage
 	| n sim rehashFlags |
 	sim := StackInterpreterSimulator onObjectMemory: newHeap.
 	newHeap coInterpreter: sim.
+	sim bootstrapping: true.
 	sim initializeInterpreter: 0.
 	sim instVarNamed: 'methodDictLinearSearchLimit' put: SmallInteger maxVal.
 
@@ -14,7 +15,7 @@ rehashImage
 		setHashBitsOf: newHeap falseObject to: 2;
 		setHashBitsOf: newHeap trueObject to: 3.
 
-	rehashFlags := ByteArray new: newHeap classTableIndex + 7 // 8.
+	rehashFlags := ByteArray new: newHeap numClassTablePages * newHeap classTablePageSize.
 	n := 0.
 	newHeap classTableObjectsDo:
 		[:class| | classIndex |

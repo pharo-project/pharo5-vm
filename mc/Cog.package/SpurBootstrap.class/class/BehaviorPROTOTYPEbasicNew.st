@@ -6,7 +6,7 @@ BehaviorPROTOTYPEbasicNew
 	
 	 If the primitive fails because space is low then the scavenger
 	 will run before the method is activated.  Check arguments and
-	 retry via failingBasicNew: if they're OK."
+	 retry via handleFailingBasicNew if they're OK."
 
 	<primitive: 70>
 	self isVariable ifTrue: [^self basicNew: 0].

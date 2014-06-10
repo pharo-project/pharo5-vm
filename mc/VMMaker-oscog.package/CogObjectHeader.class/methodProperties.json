@@ -1,7 +1,0 @@
-{
-	"class" : {
-		"initialize" : "eem 7/25/2011 17:01",
-		"instVarNamesAndTypesForTranslationDo:" : "eem 9/12/2011 08:34" },
-	"instance" : {
-		"isForwarded" : "eem 9/8/2011 16:51",
-		"setIsForwarded" : "eem 9/8/2011 16:52" } }

@@ -1,0 +1,3 @@
+accessing
+objectRepresentationClass
+	^self subclassResponsibility

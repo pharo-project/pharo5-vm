@@ -1,0 +1,20 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"bindVariableUsesIn:" : "jm 12/10/1998 18:26",
+		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 10/29/2012 12:42",
+		"bindVariablesIn:" : "",
+		"emitCCodeOn:level:generator:" : "eem 11/1/2013 15:10",
+		"endsWithReturn" : "eem 2/11/2009 15:24",
+		"expression" : "",
+		"isReturn" : "",
+		"nodesDo:" : "eem 11/19/2012 12:12",
+		"nodesDo:parent:" : "eem 10/13/2013 17:02",
+		"nodesDo:unless:" : "eem 2/27/2009 16:47",
+		"postCopy" : "eem 2/9/2009 19:25",
+		"prependCCodeOn:level:generator:" : "eem 2/11/2009 14:45",
+		"printOn:level:" : "",
+		"removeAssertions" : "ikp 9/26/97 14:50",
+		"replaceNodesIn:" : "",
+		"setExpression:" : "" } }

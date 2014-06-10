@@ -1,8 +1,0 @@
-{
-	"class" : {
-		 },
-	"instance" : {
-		"bytesPerWord" : "di 6/13/2004 10:55",
-		"long32At:" : "di 6/13/2004 10:56",
-		"long32At:put:" : "di 6/13/2004 11:01",
-		"wordSize" : "LucFabresse 9/27/2013 10:04:12.418" } }

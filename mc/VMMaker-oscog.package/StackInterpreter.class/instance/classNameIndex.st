@@ -1,4 +1,0 @@
-simulation
-classNameIndex
-	<doNotGenerate>
-	^classNameIndex

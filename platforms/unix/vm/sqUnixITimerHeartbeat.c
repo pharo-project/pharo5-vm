@@ -246,11 +246,14 @@ ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 usqInt
 ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 
-/* This is an expensive interface for use by profiling code that wants the time
- * now rather than as of the last heartbeat.
+/* This is an expensive interface for use by Smalltalk or vm profiling code that
+ * wants the time now rather than as of the last heartbeat.
  */
 usqLong
 ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
+
+usqLong
+ioLocalMicrosecondsNow() { return currentUTCMicroseconds() + vmGMTOffset; };
 
 int
 ioMSecs() { return millisecondClock; }
@@ -263,7 +266,13 @@ int
 ioSeconds(void) { return get64(localMicrosecondClock) / MicrosecondsPerSecond; }
 
 int
+ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
+
+int
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
+
+int
+ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond; }
 
 /*
  * On Mac OS X use the following.
@@ -411,6 +420,7 @@ ioInitHeartbeat()
 extern sqInt suppressHeartbeatFlag;
 	int er;
 	struct sigaction heartbeat_handler_action;
+	sigset_t ss;
 
 	if (suppressHeartbeatFlag) return;
 
@@ -445,6 +455,11 @@ extern sqInt suppressHeartbeatFlag;
 		perror("ioInitHeartbeat sigaction");
 		exit(1);
 	}
+
+	/* Make sure SIGALRM is unblocked. */
+	sigemptyset(&ss);
+	sigaddset(&ss, ITIMER_SIGNAL);
+	sigprocmask(SIG_UNBLOCK, &ss, NULL);
 
 	setIntervalTimer(beatMilliseconds);
 }

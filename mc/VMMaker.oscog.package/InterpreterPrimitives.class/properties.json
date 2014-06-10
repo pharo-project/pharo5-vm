@@ -1,0 +1,31 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CrossedX",
+		"EndOfRun",
+		"MillisecondClockMask" ],
+	"commentStamp" : "eem 12/11/2012 17:11",
+	"instvars" : [
+		"objectMemory",
+		"messageSelector",
+		"argumentCount",
+		"newMethod",
+		"primFailCode",
+		"profileMethod",
+		"profileProcess",
+		"profileSemaphore",
+		"nextProfileTick",
+		"preemptionYields" ],
+	"name" : "InterpreterPrimitives",
+	"pools" : [
+		"VMBasicConstants",
+		"VMMethodCacheConstants",
+		"VMObjectIndices",
+		"VMSqueakClassIndices",
+		"VMSqueakV3BytecodeConstants",
+		"VMSqueakV3ObjectRepresentationConstants",
+		"VMStackFrameOffsets" ],
+	"super" : "VMClass",
+	"type" : "normal" }

@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"new" : "ar 5/11/2000 22:06",
+		"shouldBeTranslated" : "tpr 5/14/2001 12:19" },
+	"instance" : {
+		"dstLongAt:" : "ikp 8/2/2004 20:25",
+		"dstLongAt:put:" : "ikp 8/2/2004 20:29",
+		"initBBOpTable" : "tpr 4/3/2004 23:16",
+		"initializeDitherTables" : "JMM 7/4/2003 11:16",
+		"long32At:" : "eem 7/1/2008 17:29",
+		"long32At:put:" : "eem 7/1/2008 17:28",
+		"mergeFn:with:" : "di 12/30/97 11:07",
+		"primitive:parameters:receiver:" : "eem 3/14/2014 17:29",
+		"primitivePixelValueAt" : "eem 3/14/2014 17:26",
+		"srcLongAt:" : "ikp 8/2/2004 20:25" } }

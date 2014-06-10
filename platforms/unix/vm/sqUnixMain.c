@@ -103,7 +103,7 @@ static char **vmArgVec=		0;
 static int    squeakArgCnt=	0;
 static char **squeakArgVec=	0;
 
-static int    extraMemory=	0;
+static long   extraMemory=	0;
        int    useMmap=		DefaultMmapSize * 1024 * 1024;
 
 static int    useItimer=	1;	/* 0 to disable itimer-based clock */
@@ -786,24 +786,33 @@ static void outOfMemory(void)
 /* Print an error message, possibly a stack trace, do /not/ exit.
  * Allows e.g. writing to a log file and stderr.
  */
+static void *printRegisterState(ucontext_t *uap);
+
 static void
 reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 {
 #if !defined(NOEXECINFO)
 	void *addrs[BACKTRACE_DEPTH];
+	void *pc;
 	int depth;
 #endif
 	/* flag prevents recursive error when trying to print a broken stack */
 	static sqInt printingStack = false;
 
 	printf("\n%s%s%s\n\n", msg, date ? " " : "", date ? date : "");
-	printf("%s\n\n", getVersionInfo(1));
+	printf("%s\n%s\n\n", GetAttributeString(0), getVersionInfo(1));
 
 #if !defined(NOEXECINFO)
-	printf("C stack backtrace:\n");
+	printf("C stack backtrace & registers:\n");
+	if (uap) {
+		addrs[0] = printRegisterState(uap);
+		depth = 1 + backtrace(addrs + 1, BACKTRACE_DEPTH);
+	}
+	else
+		depth = backtrace(addrs, BACKTRACE_DEPTH);
+	putchar('*'); /* indicate where pc is */
 	fflush(stdout); /* backtrace_symbols_fd uses unbuffered i/o */
-	depth = backtrace(addrs, BACKTRACE_DEPTH);
-	backtrace_symbols_fd(addrs, depth, fileno(stdout));
+	backtrace_symbols_fd(addrs, depth + 1, fileno(stdout));
 #endif
 
 	if (ioOSThreadsEqual(ioCurrentOSThread(),getVMOSThread())) {
@@ -864,6 +873,34 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 #endif
 	printf("\n\t(%s)\n", msg);
 	fflush(stdout);
+}
+
+/* Attempt to dump the registers to stdout.  Only do so if we know how. */
+static void *
+printRegisterState(ucontext_t *uap)
+{
+#if __linux__ && __i386__
+	gregset_t *regs = &uap->uc_mcontext.gregs;
+	printf(	"\teax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n"
+			"\tedi 0x%08x esi 0x%08x ebp 0x%08x esp 0x%08x\n"
+			"\teip 0x%08x\n",
+			regs[REG_EAX], regs[REG_EBX], regs[REG_ECX], regs[REG_EDX],
+			regs[REG_EDI], regs[REG_EDI], regs[REG_EBP], regs[REG_ESP],
+			regs[REG_EIP]);
+	return regs[REG_EIP];
+#elif __FreeBSD__ && __i386__
+	struct mcontext *regs = &uap->uc_mcontext;
+	printf(	"\teax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n"
+			"\tedi 0x%08x esi 0x%08x ebp 0x%08x esp 0x%08x\n"
+			"\teip 0x%08x\n",
+			regs->mc_eax, regs->mc_ebx, regs->mc_ecx, regs->mc_edx,
+			regs->mc_edi, regs->mc_edi, regs->mc_ebp, regs->mc_esp,
+			regs->mc_eip);
+	return regs->mc_eip;
+#else
+	printf("don't know how to derive register state from a ucontext_t on this platform\n");
+	return 0;
+#endif
 }
 
 int blockOnError = 0; /* to allow attaching gdb on fatal error */
@@ -1195,7 +1232,7 @@ static void loadModules(void)
 static int strtobkm(const char *str)
 {
   char *suffix;
-  int value= strtol(str, &suffix, 10);
+  long value= strtol(str, &suffix, 10);
   switch (*suffix)
     {
     case 'k': case 'K':
@@ -1704,12 +1741,24 @@ void imgInit(void)
       if (extraMemory)
 	useMmap= 0;
       else
-	extraMemory= DefaultHeapSize * 1024 *1024;
+#if SPURVM
+	{ off_t size = (long)sb.st_size;
+
+	  size = 1 << highBit(size-1);
+	  size = size + size / 4;
 #    ifdef DEBUG_IMAGE
-      printf("image size %d + heap size %d (useMmap = %d)\n", (int)sb.st_size, extraMemory, useMmap);
+      printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, size, useMmap);
 #    endif
-      extraMemory += (int)sb.st_size;
+	  readImageFromFileHeapSizeStartingAt(f, size + size / 4, 0);
+	}
+#else
+	extraMemory= DefaultHeapSize * 1024 * 1024;
+#    ifdef DEBUG_IMAGE
+      printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, extraMemory, useMmap);
+#    endif
+      extraMemory += (long)sb.st_size;
       readImageFromFileHeapSizeStartingAt(f, extraMemory, 0);
+#endif
       sqImageFileClose(f);
       break;
     }
@@ -1737,6 +1786,8 @@ void imgInit(void)
 # define mtfsfi(fpscr)
 #endif
 
+extern void initGlobalStructure(void); // this is effectively null if a global register is not being used
+
 int
 main(int argc, char **argv, char **envp)
 {
@@ -1758,7 +1809,9 @@ main(int argc, char **argv, char **envp)
   }
 #endif
 
-  /* Allocate arrays to store copies of pointers to command line
+	initGlobalStructure();
+ 
+ /* Allocate arrays to store copies of pointers to command line
      arguments.  Used by getAttributeIntoLength(). */
 
   if ((vmArgVec= calloc(argc + 1, sizeof(char *))) == 0)

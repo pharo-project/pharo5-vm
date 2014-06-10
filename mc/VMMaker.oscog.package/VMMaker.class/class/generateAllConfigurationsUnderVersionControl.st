@@ -1,0 +1,4 @@
+configurations
+generateAllConfigurationsUnderVersionControl
+	self generateAllStackConfigurationsUnderVersionControl;
+		generateAllCogConfigurationsUnderVersionControl

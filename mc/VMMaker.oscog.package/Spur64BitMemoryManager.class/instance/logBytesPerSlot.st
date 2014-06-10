@@ -1,0 +1,3 @@
+accessing
+logBytesPerSlot
+	^3
