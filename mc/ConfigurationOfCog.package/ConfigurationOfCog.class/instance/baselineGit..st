@@ -14,24 +14,28 @@ baselineGit: spec
 			package: 'Balloon-Engine-Pools';
 			package: 'Sound';
 			package: 'Alien-Core';
-			package: 'VMMaker.oscog' with: [ 
-				spec requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
+			package: 'VMMaker' with: [ 
+				spec 
+					file: 'VMMaker';
+					requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
 			package: 'Cog' with: [ 
-				spec requires: #('VMMaker.oscog' ) ];
+				spec requires: #('VMMaker' ) ];
 			package: 'Qwaq-VMProfiling-Plugins' with: [ 
-				spec requires: #('VMMaker.oscog' ) ];
+				spec requires: #('VMMaker' ) ];
 			package: 'VMConstruction-Plugins-AioPlugin' with: [ 
-				spec requires: #('VMMaker.oscog') ];
-			package: 'VMConstruction-Plugins-OSProcessPlugin.oscog' with: [ 
-				spec requires: #('VMMaker.oscog' 'VMConstruction-Plugins-AioPlugin') ];
+				spec requires: #('VMMaker') ];
+			package: 'VMConstruction-Plugins-OSProcessPlugin' with: [ 
+				spec 
+					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
+					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
 			package: 'Freetype-Plugin' with: [ 
-				spec requires: #('VMMaker.oscog') ];
+				spec requires: #('VMMaker') ];
 			package: 'SqueakSSL-Plugin' with: [ 
-				spec requires: #('VMMaker.oscog') ];
+				spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ 
-				spec requires: #('VMMaker.oscog') ];
+				spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ 
-				spec requires: #('VMMaker.oscog') ];
+				spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ 
 				spec requires: #('Cog') ].	
 			
@@ -40,10 +44,10 @@ baselineGit: spec
 		spec 
 			group: 'default' with: 'ALL';
 			group: 'ALL' with: #('CogVMMaker' 'Plugins' 'CMakeVMMaker');
-			group: 'CogVMMaker' with: #('VMMaker.oscog' 'Cog');
+			group: 'CogVMMaker' with: #('VMMaker' 'Cog');
 			group: 'Plugins' with: #(
 				'VMConstruction-Plugins-AioPlugin' 
-				'VMConstruction-Plugins-OSProcessPlugin.oscog' 
+				'VMConstruction-Plugins-OSProcessPlugin' 
 				'Qwaq-VMProfiling-Plugins' 
 				'Freetype-Plugin'
 				'SqueakSSL-Plugin'
@@ -53,18 +57,14 @@ baselineGit: spec
 		spec for: #pharo do: [		
 			spec 
 				package: 'CogVMMakerPharoCompatibility';
-				package: 'VMMaker.oscog' with: [ 
-					spec requires: #(
-						'SharedPool-Speech' 
-						'FFI-Pools' 
-						'Balloon-Engine-Pools' 
-						'Sound' 
-						'Alien-Core' 
-						'CogVMMakerPharoCompatibility') ];
+				package: 'VMMaker' with: [ 
+					spec 
+						file: 'VMMaker.oscog';
+						requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core' 'CogVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ 
-					spec requires: 'VMMaker.oscog' ];
+					spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ 
-					spec requires: 'VMMaker.oscog' ];
+					spec requires: 'VMMaker' ];
 				package:  'CMakeLibSSH2' with: [ 
 					spec requires: 'CMakeVMMaker' ];
 				package:  'CMakeLibGit2' with: [ 
