@@ -37,4 +37,4 @@ sweepToCoallesceFreeSpaceForPigCompactFrom: lowestForwarder
 			withValue: prevPrevFree].
 	lastFreeChunk := prevFree.
 	self inSortedFreeListLink: lastFreeChunk to: 0 given: prevPrevFree.
-	self checkTraversableSortedFreeList
+	self assert: self checkTraversableSortedFreeList

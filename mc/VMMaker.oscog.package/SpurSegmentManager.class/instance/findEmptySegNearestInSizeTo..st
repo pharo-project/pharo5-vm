@@ -2,6 +2,7 @@ growing/shrinking memory
 findEmptySegNearestInSizeTo: size
 	| seg best delta |
 	<var: #seg type: #'SpurSegmentInfo *'>
+	<var: #best type: #'SpurSegmentInfo *'>
 	best := nil.
 	delta := size.
 	0 to: numSegments - 1 do:

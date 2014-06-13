@@ -1,9 +1,9 @@
 free space
 isValidFreeObject: objOop
 	| chunk |
-	^(self addressCouldBeObj: objOop)
+	^(self addressCouldBeOldObj: objOop)
 	  and: [(self isFreeObject: objOop)
-	  and: [(self isInMemory: (self addressAfter: objOop))
+	  and: [(self oop: (self addressAfter: objOop) isLessThanOrEqualTo: endOfMemory)
 	  and: [((chunk := (self fetchPointer: self freeChunkNextIndex ofFreeChunk: objOop)) = 0
 		   or: [self isFreeObject: chunk])
 	  and: [(self bytesInObject: objOop) < (self numFreeLists * self allocationUnit)

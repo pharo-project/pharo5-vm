@@ -11,7 +11,7 @@ generateConfiguration
 	selectors remove: thisContext selector.
 	selectors := selectors asArray sort.
 	(UIManager default
-			chooseFrom: (selectors collect: [:sel| self configuirationNameFromSelector: sel])
+			chooseFrom: (selectors collect: [:sel| self configurationNameFromSelector: sel])
 			values: selectors) ifNotNil:
 		[:choice|
 		self perform: choice]

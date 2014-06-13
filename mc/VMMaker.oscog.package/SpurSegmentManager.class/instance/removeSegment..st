@@ -5,7 +5,7 @@ removeSegment: emptySeg
 	i := self indexOfSegment: emptySeg.
 	self assert: i > 0.
 
-	manager sqDeallocateMemorySegmentAt: emptySeg segStart OfSize: emptySeg segSize.
+	manager sqDeallocateMemorySegmentAt: emptySeg segStart asVoidPointer OfSize: emptySeg segSize.
 
 	i to: numSegments - 1 do:
 		[:j| segments at: j put: (segments at: j + 1)].

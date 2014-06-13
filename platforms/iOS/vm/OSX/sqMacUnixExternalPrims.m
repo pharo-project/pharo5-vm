@@ -83,7 +83,8 @@ void *ioLoadModuleRaw(char *pluginName);
  *  moduleName and suffix.  Answer the new module entry, or 0 if the shared
  *  library could not be loaded.
  */
-static void *tryLoadingInternals(NSString *libNameString) {	
+static void *
+tryLoadingInternals(NSString *libNameString) {	
 	struct stat buf;
 	int         err;
 	void        *handle = NULL;
@@ -105,7 +106,8 @@ static void *tryLoadingInternals(NSString *libNameString) {
 	return NULL;
 }
 
-static void *tryLoading(NSString *dirNameString, char *moduleName)
+static void *
+tryLoading(NSString *dirNameString, char *moduleName)
 {
 	void        *handle= NULL;
 	NSString    *libName;
@@ -146,14 +148,16 @@ static void *tryLoading(NSString *dirNameString, char *moduleName)
 /*  Find and load the named module.  Answer 0 if not found (do NOT fail
  *  the primitive!).
  */
-void *ioLoadModule(char *pluginName) {
+void *
+ioLoadModule(char *pluginName) {
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	void* result = ioLoadModuleRaw(pluginName);
 	[pool drain];
 	return result;
 }
 	
-void *ioLoadModuleRaw(char *pluginName)
+void *
+ioLoadModuleRaw(char *pluginName)
 {
 	void *handle= null;
 
@@ -276,11 +280,18 @@ void *ioLoadModuleRaw(char *pluginName)
 /*  Find a function in a loaded module.  Answer 0 if not found (do NOT
  *  fail the primitive!).
  */
-void *ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
+#if SPURVM
+void *
+ioFindExternalFunctionInAccessorDepthInto(char *lookupName, void *moduleHandle,
+											sqInt *accessorDepthPtr)
+#else
+void *
+ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
+#endif
 {
   char buf[NAME_MAX+1];
- 
-  snprintf(buf, sizeof(buf), "%s", lookupName);
+
+  snprintf(buf, sizeof(buf), "%s", lookupName); 
   void *fn = dlsym(moduleHandle, buf);
 
   dprintf((stderr, "ioFindExternalFunctionIn(%s, %ld)\n",lookupName, (long) moduleHandle));
@@ -294,6 +305,20 @@ void *ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
     fprintf(stderr, "ioFindExternalFunctionIn(%s, %p):\n  %s\n",lookupName, moduleHandle, why);
 	}
 
+#if SPURVM
+  if (fn && accessorDepthPtr) {
+	signed char *accessorDepthVarPtr;
+	snprintf(buf+strlen(buf), sizeof(buf), "AccessorDepth");
+	accessorDepthVarPtr = dlsym(moduleHandle, buf);
+	/* The Slang machinery assumes accessor depth defaults to -1, which
+	 * means "no accessor depth".  It saves space not outputting -1 depths.
+	 */
+	*accessorDepthPtr = accessorDepthVarPtr
+							? *accessorDepthVarPtr
+							: -1;
+  }
+#endif /* SPURVM */
+
   return fn;
 }
 
@@ -301,7 +326,8 @@ void *ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
 /*  Free the module with the associated handle.  Answer 0 on error (do
  *  NOT fail the primitive!).
 */
-sqInt ioFreeModule(void *moduleHandle)
+sqInt 
+ioFreeModule(void *moduleHandle)
 {
   int results = dlclose(moduleHandle);
 	

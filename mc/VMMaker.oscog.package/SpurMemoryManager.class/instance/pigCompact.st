@@ -13,4 +13,4 @@ pigCompact
 			[scanAddress := self moveARunOfObjectsStartingAt: scanAddress upTo: high.
 			 scanAddress = 0 ifTrue:
 				[^self]]].
-	self cCode: [] inSmalltalk: [self checkTraversableSortedFreeList]
+	self assert: self checkTraversableSortedFreeList

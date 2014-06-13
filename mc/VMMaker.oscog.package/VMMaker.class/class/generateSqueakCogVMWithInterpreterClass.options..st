@@ -18,4 +18,5 @@ generateSqueakCogVMWithInterpreterClass: interpreterClass options: optionsArray
 					SoundCodecPlugin SoundGenerationPlugin SoundPlugin SqueakSSLPlugin StarSqueakPlugin
 					ThreadedFFIPlugin ThreadedARMFFIPlugin ThreadedIA32FFIPlugin
 					UnicodePlugin UnixAioPlugin UUIDPlugin UnixOSProcessPlugin
-					Win32OSProcessPlugin VMProfileLinuxSupportPlugin VMProfileMacSupportPlugin WeDoPlugin)
+					Win32OSProcessPlugin VMProfileLinuxSupportPlugin VMProfileMacSupportPlugin WeDoPlugin
+					XDisplayControlPlugin)
