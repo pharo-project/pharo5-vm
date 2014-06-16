@@ -6,4 +6,5 @@ defaultExternalPlugins
 		JPEGReadWriter2Plugin 			
 		RePlugin
 		InternetConfigPlugin
+		ThreadedARMFFIPlugin
 	)
