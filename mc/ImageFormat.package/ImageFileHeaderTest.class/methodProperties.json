@@ -1,0 +1,21 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"sample6504HeaderData" : "dtl 10/31/2012 08:30",
+		"sample6505HeaderData" : "dtl 10/31/2012 08:32",
+		"sample68002HeaderData" : "dtl 10/31/2012 18:22",
+		"testAsByteArray" : "dtl 10/31/2012 20:03",
+		"testCogStoreOn" : "dtl 10/31/2012 18:51",
+		"testReadWrite64BitBigEndian" : "dtl 10/31/2012 18:40",
+		"testReadWrite64BitCogBigEndian" : "dtl 10/31/2012 18:43",
+		"testReadWrite64BitCogLittleEndian" : "dtl 10/31/2012 18:39",
+		"testReadWrite64BitLittleEndian" : "dtl 10/31/2012 18:37",
+		"testReadWriteBigEndian" : "dtl 10/31/2012 18:16",
+		"testReadWriteCogBigEndian" : "dtl 10/31/2012 18:16",
+		"testReadWriteCogLittleEndian" : "dtl 10/31/2012 18:17",
+		"testReadWriteLittleEndian" : "dtl 10/31/2012 18:17",
+		"testSample6504Header" : "dtl 10/31/2012 18:13",
+		"testSample6505Header" : "dtl 10/31/2012 18:13",
+		"testSample68002Header" : "dtl 10/31/2012 18:23",
+		"testStoreOn" : "dtl 10/31/2012 18:50" } }

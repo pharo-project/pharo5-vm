@@ -1,0 +1,4 @@
+accessing
+extraVMMemory
+
+	^ extraVMMemory

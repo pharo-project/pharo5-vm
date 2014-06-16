@@ -1,0 +1,22 @@
+{
+	"category" : "ImageFormat-Header",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 11/1/2012 07:46",
+	"instvars" : [
+		"imageFormat",
+		"headerSize",
+		"imageBytes",
+		"startOfMemory",
+		"specialObjectsOop",
+		"lastHash",
+		"screenSize",
+		"imageHeaderFlags",
+		"extraVMMemory" ],
+	"name" : "ImageFileHeader",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

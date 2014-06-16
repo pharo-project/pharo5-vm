@@ -1,0 +1,23 @@
+{
+	"category" : "ImageFormat-Header",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"BaseVersionMask",
+		"BaseVersionNumbers",
+		"CapabilitiesBitsMask",
+		"KnownVersionNumbers",
+		"PlatformByteOrderBit",
+		"ReservedBitsMask",
+		"SpurObjectBit" ],
+	"commentStamp" : "dtl 11/7/2010 22:13",
+	"instvars" : [
+		"wordSize",
+		"requiresClosureSupport",
+		"requiresNativeFloatWordOrder",
+		"requiresSpurSupport" ],
+	"name" : "ImageFormat",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
