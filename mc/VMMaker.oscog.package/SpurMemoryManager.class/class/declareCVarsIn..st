@@ -1,7 +1,7 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	self declareCAsOop: #(	memory freeStart scavengeThreshold newSpaceStart newSpaceLimit pastSpaceStart
-							lowSpaceThreshold freeOldSpaceStart oldSpaceStart endOfMemory sortedFreeChunks)
+							lowSpaceThreshold freeOldSpaceStart oldSpaceStart endOfMemory firstFreeChunk lastFreeChunk)
 		in: aCCodeGenerator.
 	self declareCAsUSqLong: (self allInstVarNames select: [:ivn| ivn endsWith: 'Usecs'])
 		in: aCCodeGenerator.

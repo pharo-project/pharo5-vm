@@ -4,7 +4,7 @@
 		"implicitReturnTypeFor:" : "eem 10/29/2013 23:43",
 		"isNonArgumentImplicitReceiverVariableName:" : "eem 10/13/2013 18:45" },
 	"instance" : {
-		"addSegmentOfSize:" : "eem 5/6/2014 12:03",
+		"addSegmentOfSize:" : "eem 6/13/2014 15:04",
 		"adjustSegmentSwizzlesBy:" : "eem 3/7/2014 16:53",
 		"allBridgesMarked" : "eem 11/29/2013 11:37",
 		"allocateOrExtendSegmentInfos" : "eem 10/31/2013 09:13",
@@ -14,6 +14,7 @@
 		"checkSegments" : "eem 5/28/2014 10:11",
 		"collapseSegmentsPostSwizzle" : "eem 11/29/2013 11:51",
 		"findEmptySegNearestInSizeTo:" : "eem 6/10/2014 15:38",
+		"firstGapOfSizeAtLeast:" : "eem 6/13/2014 15:12",
 		"firstSegmentBytes" : "eem 10/9/2013 10:56",
 		"firstSegmentSize:" : "eem 10/9/2013 21:19",
 		"indexOfSegment:" : "eem 5/21/2014 11:40",

@@ -3,6 +3,7 @@ sweepToFollowForwardersForPigCompact
 	"Sweep, following forwarders in all live objects.
 	 Answer the lowest forwarder in oldSpace."
 	| lowestForwarder |
+	<var: #lowestForwarder type: #usqInt>
 	self assert: (freeStart = scavenger eden start
 				  and: [scavenger futureSurvivorStart = scavenger futureSpace start]).
 	self allPastSpaceObjectsDo:

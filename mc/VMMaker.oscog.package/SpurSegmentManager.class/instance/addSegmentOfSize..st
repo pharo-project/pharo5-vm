@@ -8,7 +8,7 @@ addSegmentOfSize: ammount
 	self cCode: [] inSmalltalk: [segments ifNil: [^nil]]. "bootstrap"
 	(manager "sent to the manager so that the simulator can increase memory to simulate a new segment"
 			sqAllocateMemorySegmentOfSize: ammount
-			Above: (segments at: 0) segLimit asVoidPointer
+			Above: (self firstGapOfSizeAtLeast: ammount)
 			AllocatedSizeInto: (self cCode: [self addressOf: allocatedSize]
 									inSmalltalk: [[:sz| allocatedSize := sz]])) ifNotNil:
 		[:segAddress| | newSegIndex newSeg |

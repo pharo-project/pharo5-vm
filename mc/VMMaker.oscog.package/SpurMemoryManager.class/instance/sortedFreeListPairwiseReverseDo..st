@@ -5,6 +5,9 @@ sortedFreeListPairwiseReverseDo: aBinaryBlock
 	 start of the next free chunk, not the free chunk itself.  Use
 	 endOfMemory - bridgeSize as the second argument in the first evaluation."
 	| free prevFree prevPrevFree |
+	<var: #free type: #usqInt>
+	<var: #prevFree type: #usqInt>
+	<var: #prevPrevFree type: #usqInt>
 	<inline: true>
 	free := lastFreeChunk.
 	prevPrevFree := prevFree := 0.

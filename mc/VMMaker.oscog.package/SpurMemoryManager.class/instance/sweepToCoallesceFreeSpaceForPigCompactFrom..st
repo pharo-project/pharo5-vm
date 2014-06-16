@@ -2,6 +2,7 @@ compaction
 sweepToCoallesceFreeSpaceForPigCompactFrom: lowestForwarder
 	"Coallesce free chunks and forwarders, maintaining the doubly-linked free list."
 	| lowest firstOfFreeRun startOfFreeRun endOfFreeRun prevPrevFree prevFree |
+	<var: #lowestForwarder type: #usqInt>
 	lowest := (lowestForwarder = 0 ifTrue: [endOfMemory] ifFalse: [lowestForwarder])
 				min: (firstFreeChunk = 0 ifTrue: [endOfMemory] ifFalse: [firstFreeChunk]).
 	firstOfFreeRun := prevPrevFree := prevFree := 0.
