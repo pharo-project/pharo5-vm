@@ -11,6 +11,4 @@ relocateCallBeforeReturnPC: retpc by: delta
 			byteAt: retpc - 1 put: (distance >> 24 bitAnd: 16rFF);
 			byteAt: retpc - 2 put: (distance >> 16 bitAnd: 16rFF);
 			byteAt: retpc - 3 put: (distance >>   8 bitAnd: 16rFF);
-			byteAt: retpc - 4 put: (distance            bitAnd: 16rFF).
-		(self asserta: (self callTargetFromReturnAddress: retpc) >= cogit minCallAddress) ifFalse:
-			[self error: 'relocating call to invalid address']]
+			byteAt: retpc - 4 put: (distance            bitAnd: 16rFF)]

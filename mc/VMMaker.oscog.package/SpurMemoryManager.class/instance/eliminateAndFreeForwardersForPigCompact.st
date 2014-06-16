@@ -4,6 +4,7 @@ eliminateAndFreeForwardersForPigCompact
 	 forwarders, then free forwarders, coalescing with free space as we go."
 	<inline: false>
 	| lowestForwarder |
+	<var: #lowestForwarder type: #usqInt>
 	self assert: (self isForwarded: nilObj) not.
 	self assert: (self isForwarded: falseObj) not.
 	self assert: (self isForwarded: trueObj) not.

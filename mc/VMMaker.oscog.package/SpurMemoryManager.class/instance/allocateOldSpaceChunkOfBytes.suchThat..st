@@ -6,7 +6,6 @@ allocateOldSpaceChunkOfBytes: chunkBytes suchThat: acceptanceBlock
 	 The caller *must* fill in the header correctly."
 	| initialIndex node next prev index child childBytes acceptedChunk acceptedNode |
 	<inline: true> "must inline for acceptanceBlock"
-	self assert: (lastSubdividedFreeChunk := 0) = 0.
 	"for debugging:" "totalFreeOldSpace := self totalFreeListBytes"
 	totalFreeOldSpace := totalFreeOldSpace - chunkBytes. "be optimistic (& don't wait for the write)"
 	initialIndex := chunkBytes / self allocationUnit.

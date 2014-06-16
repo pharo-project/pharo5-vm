@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackCocoaIOSSpur32Config",
+	"pools" : [
+		 ],
+	"super" : "StackCocoaIOSConfig",
+	"type" : "normal" }

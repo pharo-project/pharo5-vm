@@ -2,7 +2,7 @@ compaction
 rebuildFreeListsForPigCompact
 	"Rebuild the free lists from the doubly-linked free list."
 	<inline: false>
-	self checkTraversableSortedFreeList.
+	self assert: self checkTraversableSortedFreeList.
 	totalFreeOldSpace := 0.
 	self sortedFreeListDo:
 		[:freeObj| | start bytes |

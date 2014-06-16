@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "Igor.Stasenko 12/24/2010 02:53",
+	"commentStamp" : "EstebanLorenzano 6/12/2014 15:37",
 	"instvars" : [
 		"output" ],
 	"name" : "CMakeGenerator",

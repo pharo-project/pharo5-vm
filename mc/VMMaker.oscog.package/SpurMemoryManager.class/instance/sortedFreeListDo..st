@@ -2,6 +2,10 @@ compaction
 sortedFreeListDo: aBlock
 	"Evaluate aBlock with ascending entries in the free list"
 	| free nextFree prevFree prevPrevFree |
+	<var: #free type: #usqInt>
+	<var: #nextFree type: #usqInt>
+	<var: #prevFree type: #usqInt>
+	<var: #prevPrevFree type: #usqInt>
 	<inline: true>
 	free := firstFreeChunk.
 	prevPrevFree := prevFree := 0.
