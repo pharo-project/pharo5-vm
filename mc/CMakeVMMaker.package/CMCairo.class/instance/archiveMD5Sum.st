@@ -1,4 +1,3 @@
 package properties
 archiveMD5Sum
-
-	^ '645b7c1421ed52260d0853e3215c1d8f'
+	^ '27b634113d0f52152d60ae8e2ec7daa7'

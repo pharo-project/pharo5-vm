@@ -7,4 +7,4 @@ initializeNewSpaceVariables
 							- coInterpreter interpreterAllocationReserveBytes.
 	newSpaceStart := scavenger pastSpace start min: scavenger futureSpace start.
 	self assert: newSpaceStart < scavenger eden start.
-	self initSpaceForAllocationCheck: (self addressOf: scavenger eden)
+	self initSpaceForAllocationCheck: (self addressOf: scavenger eden) limit: scavengeThreshold

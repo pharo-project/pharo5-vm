@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"desiredEdenBytes" : "dtl 10/30/2012 18:54",
+		"desiredEdenBytes:" : "dtl 11/1/2012 18:41",
+		"desiredNumStackPages" : "dtl 10/30/2012 18:54",
+		"desiredNumStackPages:" : "dtl 11/1/2012 18:42",
+		"maxExtSemTabSizeSet" : "dtl 10/30/2012 18:54",
+		"maxExtSemTabSizeSet:" : "dtl 11/1/2012 18:42",
+		"readFieldsFrom:startingAt:headerWordSize:littleEndian:" : "dtl 10/30/2012 18:34",
+		"storeOn:" : "dtl 10/31/2012 18:54",
+		"unknownShortOrCodeSizeInKs" : "dtl 10/30/2012 18:54",
+		"unknownShortOrCodeSizeInKs:" : "dtl 11/1/2012 18:42",
+		"writeFieldsTo:littleEndian:headerWordSize:" : "dtl 10/31/2012 18:02" } }

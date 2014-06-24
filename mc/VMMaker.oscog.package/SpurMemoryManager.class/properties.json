@@ -4,7 +4,6 @@
 		 ],
 	"classvars" : [
 		"BitsPerByte",
-		"CheckObjectOverwrite",
 		"EphemeronQueueRootIndex",
 		"ExtraRootsSize",
 		"FirstValidClassIndex",

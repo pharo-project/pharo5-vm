@@ -1,0 +1,21 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"testAsInteger" : "dtl 10/9/2013 21:28",
+		"testBaseVersionBits" : "dtl 9/6/2010 09:12",
+		"testBitsInUse" : "dtl 9/6/2010 10:05",
+		"testDefaultImageFormats" : "dtl 9/5/2010 13:37",
+		"testFormat6502" : "dtl 4/18/2011 19:31",
+		"testFormat6504" : "dtl 4/18/2011 19:31",
+		"testFormat6505" : "dtl 4/18/2011 19:31",
+		"testFormat6521" : "dtl 10/9/2013 22:25",
+		"testFormat68000" : "dtl 4/18/2011 19:31",
+		"testFormat68002" : "dtl 4/18/2011 19:31",
+		"testFormat68003" : "dtl 4/18/2011 19:31",
+		"testFormat68019" : "dtl 10/9/2013 22:24",
+		"testIs32Bit" : "dtl 10/9/2013 22:18",
+		"testIs64Bit" : "dtl 10/9/2013 21:24",
+		"testIsValidVersionNumber" : "dtl 10/9/2013 21:23",
+		"testRequiresClosureSupport" : "dtl 9/5/2010 13:37",
+		"testRequiresNativeFloatWordOrder" : "dtl 10/9/2013 21:21" } }

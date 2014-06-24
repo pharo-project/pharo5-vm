@@ -1,0 +1,1 @@
+Verify and document the values of ImageFormat. The image format is an integer value that identifies the format of an image snapshot and the capabilities that the image expects of the virtual machine.

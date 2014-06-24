@@ -1,0 +1,1 @@
+CogImageFileHeader is an extension of ImageFileHeader with additional fields that are used by Cog and Stack VMs. Some of the additional fields are encoded as short short integers, which are 16 bits when the header word size is 32, and 32 bits when the header word size is 64. All current Cog VMs use 32 bit word size with 16 bit short integer fields.

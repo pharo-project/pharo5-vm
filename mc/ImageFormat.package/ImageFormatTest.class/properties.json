@@ -1,0 +1,14 @@
+{
+	"category" : "ImageFormat-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 9/5/2010 13:41",
+	"instvars" : [
+		 ],
+	"name" : "ImageFormatTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

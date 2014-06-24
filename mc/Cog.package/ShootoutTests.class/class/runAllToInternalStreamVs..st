@@ -4,14 +4,10 @@ runAllToInternalStreamVs: referenceTimes
 	 self runAllToInternalStreamVs: self referenceTimesForClosureInterpreter"
 	"Transcript clear.
 	 self runAllToInternalStreamVs: self referenceTimesForSqueakVM"
-	| stream times ratios geometricMean |
-	stream := (ByteString new: 10000) writeStream.
+	| times ratios geometricMean |
 	times := Array new writeStream.
 	ratios := Array new writeStream.
-	{ [self nbody: 200000 "20000000" to: stream].
-	   [self binarytrees: 15 to: stream].
-	   [self chameneosredux: 260000 to: stream].
-	   [self threadring: 10000000 to: stream] } do:
+	(self standardSuiteTo: (ByteString new: 10000) writeStream) do:
 		[:block | | benchmark reference t |
 		benchmark := (self selectorForSimpleBlock: block) copyUpTo: $:.
 		reference := referenceTimes at: benchmark asSymbol.

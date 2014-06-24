@@ -1,0 +1,4 @@
+accessing
+desiredNumStackPages
+
+	^ desiredNumStackPages

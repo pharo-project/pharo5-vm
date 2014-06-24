@@ -2,14 +2,14 @@
 	"class" : {
 		"canonicalName" : "IgorStasenko 6/10/2012 01:04" },
 	"instance" : {
-		"archiveMD5Sum" : "IgorStasenko 10/23/2012 13:38",
+		"archiveMD5Sum" : "EstebanLorenzano 6/24/2014 10:42",
 		"build" : "IgorStasenko 10/23/2012 15:01",
 		"copyArtefacts" : "IgorStasenko 8/3/2012 17:57",
 		"defineAsTarget" : "IgorStasenko 10/22/2012 17:18",
 		"defineGlobalTargets" : "IgorStasenko 6/10/2012 02:50",
 		"dependencies" : "",
-		"downloadURL" : "IgorStasenko 10/23/2012 13:35",
+		"downloadURL" : "EstebanLorenzano 6/24/2014 10:42",
 		"libraryFileName" : "IgorStasenko 6/10/2012 01:20",
 		"setVariables" : "IgorStasenko 6/10/2012 02:13",
 		"unpack" : "IgorStasenko 5/30/2013 14:55",
-		"unpackedDirName" : "IgorStasenko 10/23/2012 13:53" } }
+		"unpackedDirName" : "EstebanLorenzano 6/24/2014 10:42" } }

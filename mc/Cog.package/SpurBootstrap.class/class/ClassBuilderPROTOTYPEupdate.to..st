@@ -1,4 +1,4 @@
-method prototypes
+as yet unclassified
 ClassBuilderPROTOTYPEupdate: oldClass to: newClass
 	"Convert oldClass, all its instances and possibly its meta class into newClass,
 	 instances of newClass and possibly its meta class. The process is surprisingly

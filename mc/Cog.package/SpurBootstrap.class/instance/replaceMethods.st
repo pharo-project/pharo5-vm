@@ -16,7 +16,7 @@ replaceMethods
 						nextPutAll: 'replacing ';
 						nextPutAll: className;
 						nextPutAll: (isMeta ifTrue: [' class>>'] ifFalse: ['>>']);
-						store: selector;
+						nextPutAll: selector printString;
 						flush.
 					replacement := self installableMethodFor: method
 										selector: selector

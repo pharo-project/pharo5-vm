@@ -1,4 +1,4 @@
-method prototypes
+as yet unclassified
 MethodContextPROTOTYPEallInstances
 	"Answer all instances of the receiver."
 	<primitive: 177>

@@ -80,6 +80,7 @@ compileInterpreterPrimitive: primitiveRoutine
 				"If set, jump to record sample call."
 				jmpSamplePrim := self JumpNonZero: 0.
 				continuePostSamplePrim := self Label].
+			self maybeCompileAllocFillerCheck.
 			"Switch back to the Smalltalk stack.  Stack better be in either of these two states:
 				success:	stackPointer	->	result (was receiver)
 											arg1

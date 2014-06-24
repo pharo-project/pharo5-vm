@@ -1,4 +1,4 @@
-method prototypes
+as yet unclassified
 ClassBuilderPROTOTYPEcomputeFormat: type instSize: newInstSize forSuper: newSuper ccIndex: ccIndex
 	"Compute the new format for making oldClass a subclass of newSuper.
 	 Answer the format or nil if there is any problem."

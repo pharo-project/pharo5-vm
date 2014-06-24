@@ -44,7 +44,7 @@ initialize
 	traceOn := true.
 	printSends := printReturns := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
-	displayForm := 'Display has not yet been installed' asDisplayText form.
+	displayForm := 'Display has not yet been installed' asStringMorph.
 	eventQueue := SharedQueue new.
 	suppressHeartbeatFlag := false.
 	systemAttributes := Dictionary new.

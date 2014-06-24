@@ -13,12 +13,7 @@ allocateInterpreterChunk: byteSize
 	newChunk := freeStart.
 	newFreeStart := freeStart + byteSize.
 	newFreeStart < scavengeThreshold ifTrue:
-		[(AllocationCheckFiller ~= 0
-		  and: [(self longAt: newChunk) ~= (AllocationCheckFiller = 16rADD4E55
-												ifTrue: [newChunk]
-												ifFalse: [AllocationCheckFiller])]) ifTrue:
-			[self error: 'last object overwritten'].
-		freeStart := newFreeStart.
+		[freeStart := newFreeStart.
 		 ^self oopForPointer: newChunk].
 
 	"Don't thrash doing collections when over the scavengeThreshold.

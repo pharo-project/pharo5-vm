@@ -24,6 +24,7 @@ slowPrimitiveResponse
 	 and: [self checkForAndFollowForwardedPrimitiveState]]]) ifTrue:
 		[self initPrimCall.
 		 self dispatchFunctionPointer: primitiveFunctionPointer].
+	self maybeFailForLastObjectOverwrite.
 	(FailImbalancedPrimitives
 	and: [self successful
 	and: [framePointer = savedFramePointer

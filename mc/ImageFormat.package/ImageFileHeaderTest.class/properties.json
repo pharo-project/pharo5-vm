@@ -1,0 +1,14 @@
+{
+	"category" : "ImageFormat-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 10/31/2012 20:26",
+	"instvars" : [
+		 ],
+	"name" : "ImageFileHeaderTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }
