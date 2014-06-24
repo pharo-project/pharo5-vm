@@ -23,7 +23,6 @@ initialize
 	WeaklingStackRootIndex := MarkStackRootIndex + 1.
 	EphemeronQueueRootIndex := MarkStackRootIndex + 2.
 
-	CheckObjectOverwrite := true.
 	MarkObjectsForEnumerationPrimitives := false.
 
 	"The remap buffer support is for compatibility; Spur doesn't GC during allocation.

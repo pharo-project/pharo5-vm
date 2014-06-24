@@ -27,7 +27,7 @@ addNewMethods
 							nextPutAll: 'installing ';
 							nextPutAll: className;
 							nextPutAll: (isMeta ifTrue: [' class>>'] ifFalse: ['>>']);
-							store: selector;
+							nextPutAll: selector printString;
 							flush.
 						 self interpreter: oldInterpreter
 							object: class

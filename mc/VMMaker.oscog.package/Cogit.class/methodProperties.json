@@ -353,7 +353,7 @@
 		"getLiteral:" : "eem 3/1/2013 16:32",
 		"halt" : "eem 10/22/2010 10:49",
 		"halt:" : "eem 9/2/2011 17:10",
-		"handleCallOrJumpSimulationTrap:" : "eem 7/18/2013 16:02",
+		"handleCallOrJumpSimulationTrap:" : "eem 6/16/2014 12:37",
 		"handleReadSimulationTrap:" : "eem 1/29/2009 09:26",
 		"handleSimulationTrap:" : "eem 10/19/2010 18:13",
 		"handleWriteSimulationTrap:" : "eem 11/21/2013 16:02",

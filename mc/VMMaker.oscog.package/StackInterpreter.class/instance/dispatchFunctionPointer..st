@@ -2,13 +2,9 @@ message sending
 dispatchFunctionPointer: aFunctionPointer
 	"In C aFunctionPointer is void (*aFunctionPointer)()"
 	<cmacro: '(aFunctionPointer) (aFunctionPointer)()'>
-	| result |
+	"In Smalltalk aFunctionPointer is a message selector symbol, except for
+	 external primitives which are funkily encoded as integers >= 1000."
 	(aFunctionPointer isInteger
-	 and: [aFunctionPointer >= 1000]) ifTrue:
-		[result := self callExternalPrimitive: aFunctionPointer.
-		 objectMemory checkForLastObjectOverwrite.
-		 ^result].
-	"In Smalltalk aFunctionPointer is a message selector symbol"
-	result := self perform: aFunctionPointer.
-	 objectMemory checkForLastObjectOverwrite.
-	 ^result
+	 and: [aFunctionPointer >= 1000])
+		ifTrue: [self callExternalPrimitive: aFunctionPointer]
+		ifFalse: [self perform: aFunctionPointer]

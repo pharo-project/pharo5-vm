@@ -4,4 +4,5 @@ callExternalPrimitive: functionID
 	 see StackInterpreterSimulator for its version."
 
 	<var: #functionID declareC: 'void (*functionID)()'>
-	self dispatchFunctionPointer: functionID
+	self dispatchFunctionPointer: functionID.
+	self maybeFailForLastObjectOverwrite.

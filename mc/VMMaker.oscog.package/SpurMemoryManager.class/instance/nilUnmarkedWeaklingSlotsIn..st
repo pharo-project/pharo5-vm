@@ -4,7 +4,7 @@ nilUnmarkedWeaklingSlotsIn: aWeakling
 	 answer if any unmarked slots were found."
 	| anyUnmarked |
 	anyUnmarked := false.
-	(self numStrongSlotsOf: aWeakling ephemeronInactiveIf: nil) to: (self numSlotsOf: aWeakling) - 1 do:
+	(self numStrongSlotsOfWeakling: aWeakling) to: (self numSlotsOf: aWeakling) - 1 do:
 		[:i| | referent |
 		referent := self fetchPointer: i ofObject: aWeakling.
 		((self isNonImmediate: referent)

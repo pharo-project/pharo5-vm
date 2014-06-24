@@ -23,6 +23,6 @@ newSpaceStart: startAddress newSpaceBytes: totalBytes edenBytes: requestedEdenBy
 				+ (futureSpace limit \\ manager allocationUnit) = 0.
 
 	self initFutureSpaceStart.
-	manager initSpaceForAllocationCheck: (self addressOf: eden).
+	manager initSpaceForAllocationCheck: (self addressOf: eden) limit: eden limit.
 
 	tenuringProportion := 0.9

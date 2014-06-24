@@ -6,7 +6,7 @@ mustBeGlobal: var
 	   or: [(#('interpreterProxy' 'interpreterVersion' 'inIOProcessEvents'
 			'deferDisplayUpdates' 'extraVMMemory' 'showSurfaceFn'
 			'desiredNumStackPages' 'desiredEdenBytes'
-			'breakSelector' 'breakSelectorLength' 'sendTrace'
+			'breakSelector' 'breakSelectorLength' 'sendTrace' 'checkAllocFiller'
 			'suppressHeartbeatFlag') includes: var)
 	   or: [ "This allows slow machines to define bytecodeSetSelector as 0
 			to avoid the interpretation overhead."

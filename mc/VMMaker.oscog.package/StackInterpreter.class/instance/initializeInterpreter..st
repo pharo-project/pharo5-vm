@@ -3,6 +3,7 @@ initializeInterpreter: bytesToShift
 	"Initialize Interpreter state before starting execution of a new image."
 	interpreterProxy := self sqGetInterpreterProxy.
 	self dummyReferToProxy.
+	checkAllocFiller := false. "must preceed initializeObjectMemory:"
 	objectMemory initializeObjectMemory: bytesToShift.
 	self checkAssumedCompactClasses.
 	primFailCode := 0.

@@ -9,5 +9,5 @@ doScavenge: tenuringCriterion
 					isGreaterThanOrEqualTo: scavenger pastSpace start
 					andLessThanOrEqualTo: scavenger pastSpace limit).
 	freeStart := scavenger eden start.
-	self initSpaceForAllocationCheck: (self addressOf: scavenger eden).
+	self initSpaceForAllocationCheck: (self addressOf: scavenger eden) limit: scavengeThreshold.
 	scavengeInProgress := false

@@ -4,10 +4,7 @@ maybeFillWithAllocationCheckFillerFrom: start to: end
 	<inline: true>
 	<var: 'start' type: #usqInt>
 	<var: 'end' type: #usqInt>
-	<var: 'i' type: #usqInt>
-	AllocationCheckFiller ~= 0 ifTrue:
+	<var: 'p' type: #usqInt>
+	self checkAllocFiller ifTrue:
 		[start to: end by: BytesPerWord do:
-			[:i|
-			self longAt: i put: (AllocationCheckFiller = 16rADD4E55
-									ifTrue: [i]
-									ifFalse: [AllocationCheckFiller])]]
+			[:p| self longAt: p put: p]]

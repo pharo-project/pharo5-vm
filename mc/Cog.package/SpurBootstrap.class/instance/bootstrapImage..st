@@ -1,12 +1,12 @@
 public access
 bootstrapImage: imageName
 	| dirName baseName dir |
-	dirName := FileDirectory dirPathFor: imageName.
+	dirName := imageName asFileReference parent fullName.
 	baseName := (imageName endsWith: '.image')
-					ifTrue: [FileDirectory baseNameFor: imageName]
-					ifFalse: [FileDirectory localNameFor: imageName].
-	dir := FileDirectory on: dirName.
-	self on: (dir fullNameFor: baseName, '.image').
+					ifTrue: [ imageName asFileReference basename ]
+					ifFalse: [ (imageName, '.image') asFileReference basename ].
+	dir := dirName asFileReference.
+	self on: (dir / baseName) fullName.
 	[self transform]
 		on: Halt
 		do: [:ex|

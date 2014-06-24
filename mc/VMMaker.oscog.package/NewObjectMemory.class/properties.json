@@ -3,7 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		"AllocationCheckFiller" ],
+		 ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		"coInterpreter",

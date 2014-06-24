@@ -1,3 +1,3 @@
-*Cog-Benchmarks-Shootout-Shootout-Shootout-platform
+*Cog-Benchmarks-Shootout-platform
 print: number digits: decimalPlaces
 	"do nothing"

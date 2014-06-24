@@ -6,7 +6,7 @@ markAndTraceWeaklingsFrom: startIndex
 	^self objStack: weaklingStack from: startIndex do:
 		[:weakling|
 		 self markAndTraceClassOf: weakling.
-		 0 to: (self numStrongSlotsOf: weakling ephemeronInactiveIf: nil) - 1 do:
+		 0 to: (self numStrongSlotsOfWeakling: weakling) - 1 do:
 			[:i| | field |
 			field := self fetchPointer: i ofObject: weakling.
 			((self isImmediate: field) or: [self isMarked: field]) ifFalse:

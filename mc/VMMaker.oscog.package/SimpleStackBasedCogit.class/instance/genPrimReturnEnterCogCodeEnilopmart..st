@@ -24,6 +24,8 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		jmpSample := self JumpNonZero: 0.
 		continuePostSample := self Label].
 
+	self maybeCompileAllocFillerCheck.
+
 	"Test primitive failure"
 	self MoveAw: coInterpreter primFailCodeAddress R: TempReg.
 	self flag: 'ask concrete code gen if move sets condition codes?'.

@@ -15,6 +15,8 @@ primitivePropertyFlags: primIndex
 
 		(functionPointer == #primitiveExternalCall
 	 or: [functionPointer == #primitiveCalloutToFFI]) ifTrue: "For callbacks"
-		[baseFlags := baseFlags bitOr: PrimCallNeedsNewMethod + PrimCallNeedsPrimitiveFunction + PrimCallMayCallBack].
+		[baseFlags := baseFlags bitOr: PrimCallNeedsNewMethod + PrimCallNeedsPrimitiveFunction + PrimCallMayCallBack.
+		 checkAllocFiller ifTrue:
+			[baseFlags := baseFlags bitOr: CheckAllocationFillerAfterPrimCall]].
 
 	^baseFlags

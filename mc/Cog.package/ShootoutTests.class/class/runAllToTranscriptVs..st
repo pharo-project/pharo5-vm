@@ -7,10 +7,7 @@ runAllToTranscriptVs: referenceTimes
 	| times ratios geometricMean |
 	times := Array new writeStream.
 	ratios := Array new writeStream.
-	{ [self nbody: 200000 "20000000" to: Transcript].
-	   [self binarytrees: 15 to: Transcript].
-	   [self chameneosredux: 260000 to: Transcript].
-	   [self threadring: 10000000 to: Transcript] } do:
+	(self standardSuiteTo: Transcript) do:
 		[:block | | benchmark reference t |
 		benchmark := (self selectorForSimpleBlock: block) copyUpTo: $:.
 		reference := referenceTimes at: benchmark asSymbol.

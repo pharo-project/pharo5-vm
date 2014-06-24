@@ -1,9 +1,10 @@
 allocation
-initSpaceForAllocationCheck: aNewSpace
+initSpaceForAllocationCheck: aNewSpace limit: limit
 	<var: 'aNewSpace' type: #'SpurNewSpaceSpace *'>
+	<var: 'limit' type: #usqInt>
 	memory ifNotNil:
-		[CheckObjectOverwrite ifTrue:
+		[self checkAllocFiller ifTrue:
 			[aNewSpace start
-				to: aNewSpace limit - 1
+				to: limit - 1
 				by: self wordSize
 				do: [:p| self longAt: p put: p]]]
