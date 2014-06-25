@@ -449,6 +449,11 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
     else encode( 27, 53,    cancel:)
     else encode( 27, 53,    complete:)
     else encode( 27, 71,    delete:)
+
+    else encode(  1, 115,   moveToBeginningOfLine:)
+    else encode(  1, 115,   moveToBeginningOfLineAndModifySelection:)
+    else encode(  4, 119,   moveToEndOfLine:)
+    else encode(  4, 119,   moveToEndOfLineAndModifySelection:)
     else return;
 	
 	@synchronized(self) {
