@@ -73,7 +73,7 @@ usqInt	memory;
 #if COGVM
 	 return gMaxHeapSize - 25*1024*1024;
 #else
-	 return gMaxHeapSize;
+	 return gMaxHeapSize - 4*1024*1024; //Remove "eden bytes"
 #endif
  }
  
