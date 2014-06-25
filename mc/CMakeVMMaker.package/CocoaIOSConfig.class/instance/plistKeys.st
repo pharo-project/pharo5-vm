@@ -9,4 +9,5 @@ plistKeys
 	CFBundleIconFile
 	CFBundleIdentifier
 	NSMainNibFile
-	SqueakDebug)
+	SqueakDebug
+	SqueakMaxHeapSize)

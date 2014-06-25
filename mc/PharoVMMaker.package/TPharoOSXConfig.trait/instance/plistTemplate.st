@@ -392,7 +392,7 @@ plistTemplate
 	<key>SqueakImageName</key>
 	<string>Squeak.image</string>
 	<key>SqueakMaxHeapSize</key>
-	<integer>536870912</integer>
+	<integer>@SqueakMaxHeapSize@</integer>
 	<key>SqueakMouseCmdButton1</key>
 	<integer>3</integer>
 	<key>SqueakMouseCmdButton2</key>
