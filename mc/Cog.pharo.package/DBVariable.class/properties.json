@@ -1,0 +1,19 @@
+{
+	"category" : "Cog-Benchmarks-DeltaBlue",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"constraints",
+		"determinedBy",
+		"mark",
+		"stay",
+		"value",
+		"walkStrength" ],
+	"name" : "DBVariable",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

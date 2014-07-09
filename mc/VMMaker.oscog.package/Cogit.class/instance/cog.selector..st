@@ -38,8 +38,9 @@ cog: aMethodObj selector: aSelectorOop
 	(cogMethod asInteger between: MaxNegativeErrorCode and: -1) ifTrue:
 		[cogMethod asInteger = InsufficientCodeSpace ifTrue:
 			[coInterpreter callForCogCompiledCodeCompaction].
-		"Right now no errors should be reported, so nothing more to do."
-		"self reportError: (self cCoerceSimple: cogMethod to: #sqInt)."
+		 self maybeFreeCounters.
+		 "Right now no errors should be reported, so nothing more to do."
+		 "self reportError: (self cCoerceSimple: cogMethod to: #sqInt)."
 		 ^nil].
 	"self cCode: ''
 		inSmalltalk:

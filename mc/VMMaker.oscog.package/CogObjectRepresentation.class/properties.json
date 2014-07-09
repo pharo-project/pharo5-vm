@@ -9,6 +9,7 @@
 		"cogit",
 		"methodZone",
 		"objectMemory",
+		"coInterpreter",
 		"ceStoreCheckTrampoline" ],
 	"name" : "CogObjectRepresentation",
 	"pools" : [

@@ -11,6 +11,8 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	<var: #jumpCond type: #'AbstractInstruction *'>
 	<var: #jumpTrue type: #'AbstractInstruction *'>
 	<var: #jumpFail type: #'AbstractInstruction *'>
+	backEnd hasDoublePrecisionFloatingPointSupport ifFalse:
+		[^self genSmallIntegerComparison: jumpOpcode].
 	self MoveMw: BytesPerWord r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.

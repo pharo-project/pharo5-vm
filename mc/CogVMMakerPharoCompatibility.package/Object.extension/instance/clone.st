@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+clone 
+	^ self shallowCopy

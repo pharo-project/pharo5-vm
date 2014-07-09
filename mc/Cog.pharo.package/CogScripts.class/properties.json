@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Scripts",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogScripts",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

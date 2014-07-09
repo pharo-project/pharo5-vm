@@ -20,7 +20,7 @@
 		"cStackRangeForCurrentVMOwner" : "eem 9/30/2009 18:54",
 		"cStackRangeForThreadIndex:" : "eem 10/19/2010 17:16",
 		"cedeToHigherPriorityThreads" : "eem 11/5/2010 09:25",
-		"checkForEventsMayContextSwitch:" : "eem 1/17/2013 13:32",
+		"checkForEventsMayContextSwitch:" : "eem 6/29/2014 18:21",
 		"checkVMOwnershipFromHeartbeat" : "eem 11/12/2010 12:09",
 		"deferStackLimitSmashAround:" : "eem 7/17/2013 12:12",
 		"deferStackLimitSmashAround:with:" : "eem 7/17/2013 12:10",

@@ -7,12 +7,12 @@ primitiveDirectoryEntry
 	self successful ifFalse:
 		[^self primitiveFail].
 
-	array := FileSystem workingDirectory primLookupEntryIn: pathName name: name.
+	array := FileSystem disk store basicEntryAt: (pathName asFileReference / name) path.
 	array == nil ifTrue:
 		[self pop: 3 thenPush: objectMemory nilObject.
 		^array].
 	array == #badDirectoryPath ifTrue:
-		[self halt.
+		[
 		^self primitiveFail].
 
 	result := self makeDirEntryName: (array at: 1) 

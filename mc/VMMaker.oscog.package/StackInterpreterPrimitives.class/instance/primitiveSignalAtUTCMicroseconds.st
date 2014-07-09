@@ -8,18 +8,16 @@ primitiveSignalAtUTCMicroseconds
 	usecsObj := self stackTop.
 	sema := self stackValue: 1.
 	usecs := self positive64BitValueOf: usecsObj.
-	(self failed
-	 or: [objectMemory isIntegerObject: sema]) ifTrue:
-		[self primitiveFail.
-		 ^nil].
-	(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)
-		ifTrue:
+	self successful ifTrue:
+		[(objectMemory isSemaphoreOop: sema) ifTrue:
 			[objectMemory splObj: TheTimerSemaphore put: sema.
-			nextWakeupUsecs := usecs]
-		ifFalse:
+			 nextWakeupUsecs := usecs.
+			 ^self pop: 2].
+		 sema = objectMemory nilObject ifTrue:
 			[objectMemory
 				storePointer: TheTimerSemaphore
 				ofObject: objectMemory specialObjectsOop
 				withValue: objectMemory nilObject.
-			nextWakeupUsecs := 0].
-	self pop: 2
+			 nextWakeupUsecs := 0.
+			 ^self pop: 2]].
+	self primitiveFailFor: PrimErrBadArgument

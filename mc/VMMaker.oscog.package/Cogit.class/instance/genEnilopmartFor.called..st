@@ -1,18 +1,27 @@
 initialization
-genEnilopmartFor: regArg called: trampolineName
+genEnilopmartFor: regArg1 called: trampolineName
 	"An enilopmart (the reverse of a trampoline) is a piece of code that makes
 	 the system-call-like transition from the C runtime into generated machine
 	 code.  The desired arguments and entry-point are pushed on a stackPage's
 	 stack.  The enilopmart pops off the values to be loaded into registers and
-	 then executes a return instruction to pop off the entry-point and jump to it."
-	<returnTypeC: 'void (*genEnilopmartForcalled(sqInt regArg, char *trampolineName))(void)'>
+	 then executes a return instruction to pop off the entry-point and jump to it.
+
+						BEFORE				AFTER			(stacks grow down)
+						whatever			stackPointer ->	whatever
+						target address =>	reg1 = reg1val
+		stackPointer ->	reg1val				pc = target address
+
+	C.F. genCallEnilopmartFor:and:and:called:"
+	<returnTypeC: 'void (*genEnilopmartForcalled(sqInt regArg1, char *trampolineName))(void)'>
 	| size endAddress enilopmart |
 	opcodeIndex := 0.
 	backEnd genLoadStackPointers.
-	self PopR: regArg.
-	backEnd hasLinkRegister ifTrue:
-		[self PopR: LinkReg].
-	self RetN: 0.
+	self PopR: regArg1.
+	backEnd hasLinkRegister
+		ifTrue: [backEnd hasPCRegister
+					ifTrue: [self PopR: PCReg]
+					ifFalse: [self PopR: LinkReg; RetN: 0]]
+		ifFalse: [self RetN: 0].
 	self computeMaximumSizes.
 	size := self generateInstructionsAt: methodZoneBase.
 	endAddress := self outputInstructionsAt: methodZoneBase.

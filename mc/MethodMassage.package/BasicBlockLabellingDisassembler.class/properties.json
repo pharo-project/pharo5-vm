@@ -1,0 +1,14 @@
+{
+	"category" : "MethodMassage-Coverage",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BasicBlockLabellingDisassembler",
+	"pools" : [
+		 ],
+	"super" : "BytecodeDisassembler",
+	"type" : "normal" }

@@ -30,7 +30,8 @@ compileCogMethod: selector
 	blockCount := 0.
 	numCleanBlocks > 0 ifTrue:
 		[self addCleanBlockStarts].
-	self maybeAllocAndInitCounters.
+	self maybeAllocAndInitCounters ifFalse: "Inaccurate error code, but it'll do.  This will likely never fail."
+		[^coInterpreter cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
 	blockEntryLabel := nil.
 	methodLabel dependent: nil.
 	(result := self compileEntireMethod) < 0 ifTrue:

@@ -6,10 +6,11 @@ mustBeGlobal: var
 	 a hack to get them declared at all."
 	^#('ceBaseFrameReturnTrampoline' 'ceCaptureCStackPointers' 'ceCheckForInterruptTrampoline'
 		'ceEnterCogCodePopReceiverReg' 'realCEEnterCogCodePopReceiverReg'
-		'ceEnterCogCodePopReceiverAndClassRegs' 'realCEEnterCogCodePopReceiverAndClassRegs'
+		'ceCallCogCodePopReceiverReg' 'realCECallCogCodePopReceiverReg'
+		'ceCallCogCodePopReceiverAndClassRegs' 'realCECallCogCodePopReceiverAndClassRegs'
 		'ceReturnToInterpreterTrampoline' 'ceCannotResumeTrampoline'
 		'ceTryLockVMOwner' 'ceUnlockVMOwner'
-		'cmEntryOffset' 'cmNoCheckEntryOffset' 'cmDynSuperEntryOffset'
+		'cmEntryOffset' 'cmNoCheckEntryOffset' 'cmDynSuperEntryOffset' 'missOffset'
 		'blockNoContextSwitchOffset' 'breakPC'
 		'CFramePointer' 'CStackPointer' 'cFramePointerInUse' 'ceGetSP'
 		'traceFlags' 'traceStores' 'debugPrimCallStackOffset')

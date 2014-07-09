@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"assembler:encoder:" : "eem 2/22/2013 11:00",
+		"copySizeCodeToEmitterCode" : "eem 2/22/2013 13:29",
+		"createCodeSkeletons" : "eem 2/22/2013 11:31",
+		"initialize" : "eem 2/22/2013 13:20" },
+	"instance" : {
+		"assembler" : "eem 2/22/2013 10:59",
+		"assembler:" : "eem 2/22/2013 10:59",
+		"assembler:encoder:" : "eem 2/22/2013 11:01",
+		"encoder" : "eem 2/22/2013 10:59",
+		"encoder:" : "eem 2/22/2013 10:59" } }

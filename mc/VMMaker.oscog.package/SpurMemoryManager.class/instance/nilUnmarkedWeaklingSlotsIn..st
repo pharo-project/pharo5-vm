@@ -8,7 +8,8 @@ nilUnmarkedWeaklingSlotsIn: aWeakling
 		[:i| | referent |
 		referent := self fetchPointer: i ofObject: aWeakling.
 		((self isNonImmediate: referent)
-		 and: [self isForwarded: referent]) ifTrue:
+		 and: [(self isFreeObject: referent) not
+		 and: [self isForwarded: referent]]) ifTrue:
 			[referent := self fixFollowedField: i ofObject: aWeakling withInitialValue: referent].
 		((self isImmediate: referent) or: [self isMarked: referent]) ifFalse:
 			[self storePointerUnchecked: i ofObject: aWeakling withValue: nilObj.

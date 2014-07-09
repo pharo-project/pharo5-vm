@@ -18,8 +18,4 @@ generateMissAbortTrampolines
 		[:numArgs|
 		picMissTrampolines
 			at: numArgs
-			put: (self genPICMissTrampolineFor: numArgs)].
-	self cCode: '' inSmalltalk:
-		[simulatedTrampolines
-			at: (self simulatedAddressFor: #ceSendFromInLineCacheMiss:)
-			put: #ceSendFromInLineCacheMiss:]
+			put: (self genPICMissTrampolineFor: numArgs)]

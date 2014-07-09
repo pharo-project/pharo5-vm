@@ -34,7 +34,6 @@ compileBlockBodies
 				 blockStart fakeHeader dependent: nil.
 				 self reinitializeFixupsFrom: blockStart startpc + blockStart numInitialNils
 					through: blockStart startpc + blockStart span - 1.
-				 self reinitializeCountersFrom: initialCounterIndex to: counterIndex - 1.
 				 self cCode: 'bzero(abstractOpcodes + initialOpcodeIndex,
 									(opcodeIndex - initialOpcodeIndex) * sizeof(AbstractInstruction))'
 					inSmalltalk: [initialOpcodeIndex to: opcodeIndex - 1 do:

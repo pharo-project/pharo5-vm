@@ -1,15 +1,15 @@
 disassembly
 disassembleMethod: surrogateOrAddress on: aStream
 	<doNotGenerate>
-	| cogMethod firstCounter |
+	| cogMethod |
 	cogMethod := super disassembleMethod: surrogateOrAddress on: aStream.
 	(cogMethod cmType = CMMethod
-	 and: [cogMethod numCounters > 0]) ifTrue:
+	 and: [cogMethod counters ~= 0]) ifTrue:
 		[aStream nextPutAll: 'counters:'; cr.
-		 firstCounter := cogMethod address + cogMethod blockSize - (cogMethod numCounters * CounterBytes).
-		 0 to: cogMethod numCounters - 1 do:
+		 numCounters := objectRepresentation numCountersFor: counters.
+		 0 to: numCounters - 1 do:
 			[:i| | addr |
-			 addr := i * CounterBytes + firstCounter.
+			 addr := i * CounterBytes + counters.
 			 addr printOn: aStream base: 16.
 			 aStream nextPut: $:; space.
 			 (objectMemory longAt: addr) printOn: aStream base: 16.

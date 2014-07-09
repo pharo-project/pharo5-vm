@@ -15,7 +15,8 @@ markYoungObjects: annotation pc: mcpc method: cogMethod
 					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
 						[| class mixin |
 						 (class := backEnd unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize) ~= 0 ifTrue:
-							[objectRepresentation markAndTraceLiteralIfYoung: class.
+							[objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+								[objectRepresentation markAndTraceLiteralIfYoung: class].
 							 mixin := backEnd unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop.
 							 objectRepresentation markAndTraceLiteralIfYoung: mixin]]]]].
 	^0 "keep scanning"

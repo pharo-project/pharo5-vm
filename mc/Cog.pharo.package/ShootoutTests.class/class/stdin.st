@@ -1,0 +1,3 @@
+platform
+stdin
+   ^StandardFileStream stdIn

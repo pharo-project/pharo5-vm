@@ -1,0 +1,17 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"creatureName",
+		"colour",
+		"selfMet",
+		"creaturesMet" ],
+	"name" : "ShootoutCreature",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

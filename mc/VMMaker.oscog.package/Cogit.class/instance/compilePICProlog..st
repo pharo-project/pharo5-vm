@@ -9,7 +9,9 @@ compilePICProlog: numArgs
 	mnuCall := self MoveCq: 0 R: ClassReg.
 	backEnd hasLinkRegister
 		ifTrue:
-			[interpretLabel := self PushR: LinkReg.
+			["if we have a link register we will assume that it does not get automatically pushed onto the stack
+			and thus needs to be manually handled here"
+			 interpretLabel := self PushR: LinkReg.
 			 interpretCall := self Call: (self picAbortTrampolineFor: numArgs)]
 		ifFalse:
 			[interpretLabel :=

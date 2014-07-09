@@ -1,5 +1,7 @@
 memory space primitives
 primitiveSizeInBytes
 	<option: #SpurObjectMemory>
+	| byteSize |
+	byteSize := objectMemory totalByteSizeOf: self stackTop.
 	self pop: argumentCount + 1
-		 thenPushInteger: (objectMemory totalByteSizeOf: self stackTop)
+		 thenPush: (self positive64BitIntegerFor: byteSize)

@@ -42,6 +42,7 @@
 		"freeStartAddress" : "eem 1/8/2011 13:34",
 		"functionPointerFor:inClass:" : "eem 1/8/2011 12:52",
 		"functionPointerForCompiledMethod:primitiveIndex:" : "eem 1/8/2011 13:10",
+		"getCheckAllocFiller" : "tpr 6/7/2014 17:58",
 		"headerIndicatesAlternateBytecodeSet:" : "eem 11/1/2012 18:19",
 		"headerOf:" : "eem 11/14/2012 15:24",
 		"inMemoryCFramePointerAddress" : "eem 12/19/2010 14:20",

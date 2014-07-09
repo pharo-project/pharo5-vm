@@ -1,0 +1,3 @@
+translation
+primitivesClass
+	^StackInterpreterPrimitives

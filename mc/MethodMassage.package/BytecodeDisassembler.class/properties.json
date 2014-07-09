@@ -1,0 +1,19 @@
+{
+	"category" : "MethodMassage-Kernel",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"instructions",
+		"labels",
+		"labelling",
+		"instrs",
+		"thePC",
+		"method" ],
+	"name" : "BytecodeDisassembler",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -4,7 +4,11 @@ primitiveInterruptSemaphore
 	not a Semaphore, unregister the current interrupt 
 	semaphore. "
 	| arg |
-	arg := self popStack.
-	(objectMemory fetchClassOf: arg) = (objectMemory splObj: ClassSemaphore)
-		ifTrue: [objectMemory splObj: TheInterruptSemaphore put: arg]
-		ifFalse: [objectMemory splObj: TheInterruptSemaphore put: objectMemory nilObject]
+	arg := self stackTop.
+	(arg = objectMemory nilObject
+	 or: [objectMemory isSemaphoreOop: arg])
+		ifTrue:
+			[objectMemory splObj: TheInterruptSemaphore put: arg.
+			 self pop: 1]
+		ifFalse:
+			[self primitiveFailFor: PrimErrBadArgument]

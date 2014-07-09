@@ -5,6 +5,6 @@ compileCPICEntry
 	self cppIf: NewspeakVM ifTrue:
 		[self Nop. "1st nop differentiates dynSuperEntry from no-check entry if using nextMethod"
 		 dynSuperEntry := self Nop].
-	entry := objectRepresentation getInlineCacheClassTagFrom: ReceiverResultReg into: TempReg.
+	entry := objectRepresentation genGetInlineCacheClassTagFrom: ReceiverResultReg into: TempReg forEntry: true.
 	self CmpR: ClassReg R: TempReg.
 	^self JumpNonZero: 0

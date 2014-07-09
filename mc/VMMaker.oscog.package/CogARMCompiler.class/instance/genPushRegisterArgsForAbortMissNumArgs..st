@@ -17,7 +17,7 @@ genPushRegisterArgsForAbortMissNumArgs: numArgs
 					(arg0)
 					(arg1)
 		sp		->	outerRetpc		(send site retpc)
-		linkReg = innerRetpc		(PIC abort/miss retpc)"
+		linkReg = innerRetpc		(PIC abort/miss retpc) - we will rely upon the next bit of code generation to push the current lr if required"
 	numArgs <= cogit numRegArgs ifTrue:
 		[self assert: cogit numRegArgs <= 2.
 		 cogit MoveMw: 0 r: SPReg R: TempReg. "Save return address"
@@ -26,4 +26,4 @@ genPushRegisterArgsForAbortMissNumArgs: numArgs
 			[cogit PushR: Arg0Reg.
 			 numArgs > 1 ifTrue:
 				[cogit PushR: Arg1Reg]].
-		cogit PushR: TempReg] "Restore return address"
+		cogit PushR: TempReg] "push back return address"

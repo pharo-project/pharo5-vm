@@ -1,3 +1,3 @@
 accessing
 alignedByteSize
-	^28
+	^24 + self baseHeaderSize

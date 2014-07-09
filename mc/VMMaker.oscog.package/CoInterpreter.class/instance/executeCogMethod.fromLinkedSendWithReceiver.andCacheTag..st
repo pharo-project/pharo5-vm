@@ -18,14 +18,14 @@ executeCogMethod: cogMethod fromLinkedSendWithReceiver: rcvr andCacheTag: cacheT
 		[cogMethod cmNumArgs <= cogit numRegArgs ifTrue:
 			[self push: cacheTag.
 			 cogMethod cmNumArgs caseOf: {
-				[0]	->	[cogit ceEnter0ArgsPIC].
-				[1]	->	[cogit ceEnter1ArgsPIC].
-				[2]	->	[cogit ceEnter2ArgsPIC]
+				[0]	->	[cogit ceCall0ArgsPIC].
+				[1]	->	[cogit ceCall1ArgsPIC].
+				[2]	->	[cogit ceCall2ArgsPIC]
 			 	}
 				otherwise: [].
 			 self error: 'not reached']].
 	self
 		push: rcvr;
 		push: cacheTag.
-	cogit ceEnterCogCodePopReceiverAndClassRegs
+	cogit ceCallCogCodePopReceiverAndClassRegs
 	"NOTREACHED"

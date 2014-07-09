@@ -34,10 +34,14 @@ declareCVarsIn: aCCodeGenerator
 			declareC: 'void (*ceEnterCogCodePopReceiverReg)(void)';
 		var: #realCEEnterCogCodePopReceiverReg
 			declareC: 'void (*realCEEnterCogCodePopReceiverReg)(void)';
-		var: #ceEnterCogCodePopReceiverAndClassRegs
-			declareC: 'void (*ceEnterCogCodePopReceiverAndClassRegs)(void)';
-		var: #realCEEnterCogCodePopReceiverAndClassRegs
-			declareC: 'void (*realCEEnterCogCodePopReceiverAndClassRegs)(void)';
+		var: #ceCallCogCodePopReceiverReg
+			declareC: 'void (*ceCallCogCodePopReceiverReg)(void)';
+		var: #realCECallCogCodePopReceiverReg
+			declareC: 'void (*realCECallCogCodePopReceiverReg)(void)';
+		var: #ceCallCogCodePopReceiverAndClassRegs
+			declareC: 'void (*ceCallCogCodePopReceiverAndClassRegs)(void)';
+		var: #realCECallCogCodePopReceiverAndClassRegs
+			declareC: 'void (*realCECallCogCodePopReceiverAndClassRegs)(void)';
 		var: #ceFlushICache
 			declareC: 'static void (*ceFlushICache)(unsigned long from, unsigned long to)';
 		var: #ceCheckFeaturesFunction

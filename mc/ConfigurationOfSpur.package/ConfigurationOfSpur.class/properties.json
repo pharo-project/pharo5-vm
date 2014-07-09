@@ -1,0 +1,15 @@
+{
+	"category" : "ConfigurationOfSpur",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"LastVersionLoad" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"project",
+		"repositoryDir" ],
+	"name" : "ConfigurationOfSpur",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

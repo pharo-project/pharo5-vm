@@ -1,0 +1,14 @@
+{
+	"category" : "MethodMassage-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BytecodeCoverageTests",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

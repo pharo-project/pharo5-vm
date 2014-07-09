@@ -1,0 +1,1 @@
+I am a quick-hack type-checker (Eliot's Type Checker) that answers a dictionary of receiver to selector sets for a given method.

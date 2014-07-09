@@ -2,6 +2,7 @@ process primitive support
 removeProcess: aProcess fromList: aList 
 	"Remove a given process from a linked list. May fail if aProcess is not on the list."
 	| firstLink lastLink nextLink tempLink |
+	self assert: (objectMemory isForwarded: aList) not.
 	firstLink := objectMemory fetchPointer: FirstLinkIndex ofObject: aList.
 	lastLink := objectMemory fetchPointer: LastLinkIndex ofObject: aList.
 	aProcess  = firstLink ifTrue:[

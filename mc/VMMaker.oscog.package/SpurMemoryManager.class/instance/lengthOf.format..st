@@ -6,7 +6,7 @@ lengthOf: objOop format: fmt
 	| numSlots |
 	<inline: true>
 	<asmLabel: false> 
-	numSlots := self numSlotsOf: objOop.
+	numSlots := self numSlotsOfAny: objOop. "don't let forwarders freak us out..."
 	fmt <= self sixtyFourBitIndexableFormat ifTrue:
 		[^numSlots].
 	fmt >= self firstByteFormat ifTrue: "bytes, including CompiledMethod"

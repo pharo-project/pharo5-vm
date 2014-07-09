@@ -1,0 +1,1 @@
+This class mostly adds some constants that are used in the Richards benchmarks.

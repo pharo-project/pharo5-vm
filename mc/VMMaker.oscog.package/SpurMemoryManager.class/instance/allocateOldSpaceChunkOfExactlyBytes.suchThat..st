@@ -3,6 +3,7 @@ allocateOldSpaceChunkOfExactlyBytes: chunkBytes suchThat: acceptanceBlock
 	"Answer a chunk of oldSpace from the free lists that satisfies acceptanceBlock,
 	 if one of this size is available, otherwise answer nil.  N.B.  the chunk is simply a
 	 pointer, it has no valid header.  The caller *must* fill in the header correctly."
+	<var: #chunkBytes type: #usqInt>
 	| index node next prev child childBytes |
 	<inline: true> "must inline for acceptanceBlock"
 	"for debugging:" "totalFreeOldSpace := self totalFreeListBytes"

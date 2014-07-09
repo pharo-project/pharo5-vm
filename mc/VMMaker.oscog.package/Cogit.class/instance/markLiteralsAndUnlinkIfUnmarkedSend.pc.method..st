@@ -36,8 +36,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 							 class := backEnd unalignedLongAt: classpc.
 							 class ~= 0
 								ifTrue:
-									[self assert: (objectMemory addressCouldBeObj: class).
-									 (objectRepresentation cacheTagIsMarked: class)
+									[(objectRepresentation cacheTagIsMarked: class)
 										ifTrue:
 											[(mixin := backEnd unalignedLongAt: mixinpc) ~= 0 ifTrue:
 												[objectRepresentation markAndTraceLiteral: mixin]]

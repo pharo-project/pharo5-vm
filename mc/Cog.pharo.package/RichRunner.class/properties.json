@@ -1,0 +1,19 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"taskList",
+		"currentTask",
+		"currentTaskIdentity",
+		"taskTable",
+		"queuePacketCount",
+		"holdCount" ],
+	"name" : "RichRunner",
+	"pools" : [
+		 ],
+	"super" : "RichObject",
+	"type" : "normal" }

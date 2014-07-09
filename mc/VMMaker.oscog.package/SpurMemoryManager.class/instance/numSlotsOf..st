@@ -1,6 +1,7 @@
 object access
 numSlotsOf: objOop
 	<returnTypeC: #usqInt>
+	<api>
 	| numSlots |
 	self flag: #endianness.
 	"numSlotsOf: should not be applied to free or forwarded objects."

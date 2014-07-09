@@ -16,5 +16,5 @@ actuallyFollowNecessaryForwardingInMethod: methodObj literalCount: litCount
 	(objectMemory numSlotsOf: assoc) >= (ValueIndex + 1) ifTrue:
 		[classObj := objectMemory fetchPointer: ValueIndex ofObject: assoc.
 		 (objectMemory isForwarded: classObj) ifTrue:
-			[classObj := objectMemory followForwarded: assoc.
+			[classObj := objectMemory followForwarded: classObj.
 			 objectMemory storePointer: ValueIndex ofObject: assoc withValue: classObj]]

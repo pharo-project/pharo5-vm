@@ -1,0 +1,4 @@
+timing
+currentMillis
+
+	^ Time millisecondClockValue

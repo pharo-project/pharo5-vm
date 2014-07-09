@@ -3,10 +3,10 @@ bootstrapImage: imageName
 	| dirName baseName dir |
 	dirName := imageName asFileReference parent fullName.
 	baseName := (imageName endsWith: '.image')
-					ifTrue: [ imageName asFileReference basename ]
-					ifFalse: [ (imageName, '.image') asFileReference basename ].
+		ifTrue: [ imageName asFileReference base ]
+		ifFalse: [ (imageName, '.image') asFileReference base ].
 	dir := dirName asFileReference.
-	self on: (dir / baseName) fullName.
+	self on: (dir / (baseName, '.image')) fullName.
 	[self transform]
 		on: Halt
 		do: [:ex|
@@ -14,9 +14,8 @@ bootstrapImage: imageName
 			(#(fullGC compactImage) includes: ex signalerContext sender selector)
 				ifTrue: [ex resume]
 				ifFalse: [ex pass]].
-	self writeSnapshot: (dir fullNameFor: baseName, '-spur.image')
+	self writeSnapshot: (dir / (baseName, '-spur.image')) fullName
 		ofTransformedImage: newHeap
 		headerFlags: oldInterpreter getImageHeaderFlags
 		screenSize: oldInterpreter savedWindowSize.
-	dir copyFileNamed: (dir fullNameFor: baseName, '.changes')
-		toFileNamed: (dir fullNameFor: baseName, '-spur.changes')
+	(dir / (baseName, '.changes')) copyTo: (dir / (baseName, '-spur.changes'))

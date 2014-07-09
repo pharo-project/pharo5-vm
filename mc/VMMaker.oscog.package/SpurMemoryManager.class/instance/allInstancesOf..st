@@ -47,7 +47,7 @@ allInstancesOf: aClass
 		 smallObj := self allocateSlots: count format: self arrayFormat classIndex: ClassArrayCompactIndex.
 		 0 to: count - 1 do:
 			[:i|
-			self storePointerUnchecked: i ofObject: smallObj withValue: (self fetchPointer: i ofObject: freeChunk)].
+			self storePointerUnchecked: i ofObject: smallObj withValue: (self fetchPointer: i ofFreeChunk: freeChunk)].
 		 self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
 		 self beRootIfOld: smallObj.
 		 self checkFreeSpace.

@@ -18,12 +18,12 @@ addToFreeTree: freeChunk bytes: chunkBytes
 	child := freeLists at: 0.
 	[child ~= 0] whileTrue:
 		[childBytes := self bytesInObject: child.
-		 self assert: ((self oop: freeChunk + chunkBytes isLessThan: child)
+		 self assert: ((self oop: freeChunk + chunkBytes isLessThanOrEqualTo: child)
 						or: [self oop: freeChunk isGreaterThanOrEqualTo: child + childBytes]).
 		 childBytes = chunkBytes ifTrue: "size match; add to list at node."
 			[self storePointer: self freeChunkNextIndex
 					ofFreeChunk: freeChunk
-						withValue: (self fetchPointer: self freeChunkNextIndex ofObject: child);
+						withValue: (self fetchPointer: self freeChunkNextIndex ofFreeChunk: child);
 				storePointer: self freeChunkNextIndex
 					ofFreeChunk: child
 						withValue: freeChunk.

@@ -5,17 +5,16 @@ primitiveProfileSemaphore
 	See also primitiveProfileStart."
 	| sema flushState activeContext |
 	<export: true>
+	self methodArgumentCount ~= 1 ifTrue:
+		[^self primitiveFailFor: PrimErrBadNumArgs].
 	sema := self stackValue: 0.
-	((objectMemory isIntegerObject: sema)
-	or: [self methodArgumentCount ~= 1]) ifTrue:
-		[^self primitiveFail].
 	sema = objectMemory nilObject
 		ifTrue:
 			[flushState := profileSemaphore ~= objectMemory nilObject]
 		ifFalse:
 			[flushState := profileSemaphore = objectMemory nilObject.
-			 (objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
-				[^self primitiveFail]].
+			 (objectMemory isSemaphoreOop: sema) ifFalse:
+				[^self primitiveFailFor: PrimErrBadArgument]].
 	profileSemaphore := sema.
 	"If we've switched profiling on or off we must void machine code
 	 (and machine code pcs in contexts) since we will start or stop
@@ -27,7 +26,7 @@ primitiveProfileSemaphore
 		 self marryContextInNewStackPageAndInitializeInterpreterRegisters: activeContext.
 		 self assert: (((self stackValue: 0) = objectMemory nilObject and: [profileSemaphore = objectMemory nilObject])
 				  or: [(self stackValue: 0) = profileSemaphore
-					  and: [(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)]])].
+					  and: [objectMemory isSemaphoreOop: sema]])].
 	profileProcess := profileMethod := objectMemory nilObject.
 	self pop: 1.
 	flushState ifTrue:

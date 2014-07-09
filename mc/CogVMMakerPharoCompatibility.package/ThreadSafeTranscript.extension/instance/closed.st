@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+closed 
+	^ false

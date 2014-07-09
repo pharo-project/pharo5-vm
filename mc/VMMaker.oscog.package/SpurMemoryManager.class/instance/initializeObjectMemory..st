@@ -1,16 +1,16 @@
 initialization
 initializeObjectMemory: bytesToShift
-	"Initialize object memory variables at startup time. Assume endOfMemory is initially set (by the image-reading code) to the end of the last object in the image. Initialization redefines endOfMemory to be the end of the object allocation area based on the total available memory, but reserving some space for forwarding blocks."
-	"Assume: image reader initializes the following variables:
-		memory
-		memoryLimit
+	"Initialize object memory variables at startup time. Assume endOfMemory at al are
+	 initialised by the image-reading code via setHeapBase:memoryLimit:endOfMemory:.
+	 endOfMemory is assumed to point to the end of the last object in the image.
+	 Assume: image reader also initializes the following variables:
 		specialObjectsOop
-		lastHash
-	"
+		lastHash"
 	<inline: false>
 	| freeListObj |
 	"Catch mis-initializations leading to bad translations to C"
 	self assert: BaseHeaderSize = self baseHeaderSize.
+	self assert: (self maxSlotsForAlloc * BytesPerWord) asInteger > 0.
 	self bootstrapping ifFalse:
 		[self
 			initSegmentBridgeWithBytes: self bridgeSize

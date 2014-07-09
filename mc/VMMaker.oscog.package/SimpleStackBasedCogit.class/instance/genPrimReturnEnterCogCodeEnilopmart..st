@@ -63,14 +63,36 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 	jmpFail jmpTarget: (self MoveAw: coInterpreter newMethodAddress R: SendNumArgsReg).
 	"Reload sp with CStackPointer; easier than popping args of checkProfileTick."
 	self MoveAw: self cStackPointerAddress R: SPReg.
-	cStackAlignment > BytesPerWord ifTrue:
-		[backEnd
-			genAlignCStackSavingRegisters: false
-			numArgs: 1
-			wordAlignment: cStackAlignment / BytesPerWord].
-	backEnd genPassReg: SendNumArgsReg asArgument: 0.
-	self CallRT: (self cCode: '(unsigned long)ceActivateFailingPrimitiveMethod'
-					inSmalltalk: [self simulatedTrampolineFor: #ceActivateFailingPrimitiveMethod:]).
+	self 
+		compileCallFor: #ceActivateFailingPrimitiveMethod:
+		numArgs: 1
+		arg: SendNumArgsReg
+		arg: nil
+		arg: nil
+		arg: nil
+		resultReg: nil
+		saveRegs: false.
+
+	"On Spur ceActivateFailingPrimitiveMethod: may retry the primitive and return if successful.
+	 So continue by returning to the caller.
+	 Switch back to the Smalltalk stack.  Stack should be in this state:
+				success:	stackPointer ->	result (was receiver)
+											arg1
+											...
+											argN
+											return pc
+	 We can push the instructionPointer or load it into the LinkRegister to reestablish the return pc"
+	self MoveAw: coInterpreter instructionPointerAddress
+		R: (backEnd hasLinkRegister ifTrue: [LinkReg] ifFalse: [ClassReg]).
+	backEnd genLoadStackPointers.
+	backEnd hasLinkRegister
+		ifTrue:
+			[self MoveMw: 0 r: SPReg R: ReceiverResultReg]	"Fetch result from stack"
+		ifFalse:
+			[self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
+			 self PushR: ClassReg].											"Restore return pc on CISCs"
+	self flag: 'currently caller pushes result'.
+	self RetN: BytesPerWord.	"return to caller, popping receiver"
 
 	profiling ifTrue:
 		["Call ceCheckProfileTick: to record sample and then continue.  newMethod

@@ -9,13 +9,13 @@ cdigitMontgomery: pBytesFirst
 				into: pBytesRes
 				
 	| u limit1 limit2 limit3 accum lastByte |
-	<var: #pBytesFirst type: 'unsigned char * '>
-	<var: #pBytesSecond type: 'unsigned char * '>
-	<var: #pBytesThird type: 'unsigned char * '>
-	<var: #pBytesRes type: 'unsigned char * '>
-	<var: #accum type: 'usqInt '>
-	<var: #u type: 'unsigned char  '>
-	<var: #lastByte type: 'unsigned char  '>
+	<var: #pBytesFirst type: #'unsigned char *'>
+	<var: #pBytesSecond type: #'unsigned char *'>
+	<var: #pBytesThird type: #'unsigned char *'>
+	<var: #pBytesRes type: #'unsigned char *'>
+	<var: #accum type: #usqInt>
+	<var: #u type: #'unsigned char'>
+	<var: #lastByte type: #'unsigned char'>
 	limit1 := firstLen - 1.
 	limit2 := secondLen - 1.
 	limit3 := thirdLen - 1.
@@ -51,6 +51,5 @@ cdigitMontgomery: pBytesFirst
 		0 to: limit3 do: 
 			[:i | 
 			accum := accum + (pBytesRes at: i) - (pBytesThird at: i).
-			pBytesRes at: i put: accum - (accum // 256 * 256).
-			"sign-tolerant form of (z bitAnd: 255)"
-			accum := accum // 256]].
+			pBytesRes at: i put: (self cCode: [accum] inSmalltalk: [accum bitAnd: 255]).
+			accum := accum signedBitShift: -8]].

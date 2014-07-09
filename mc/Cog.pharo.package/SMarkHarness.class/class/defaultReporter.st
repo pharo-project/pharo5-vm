@@ -1,0 +1,3 @@
+defaults
+defaultReporter
+	^ SMarkReporter defaultReporter

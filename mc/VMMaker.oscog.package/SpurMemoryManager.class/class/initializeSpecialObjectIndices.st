@@ -7,7 +7,7 @@ initializeSpecialObjectIndices
 	TrueObject := 2.
 	SchedulerAssociation := 3.
 	ClassBitmap := 4.
-	ClassInteger := 5.
+	ClassSmallInteger := 5.
 	ClassByteString := ClassString := 6. "N.B.  Actually class ByteString"
 	ClassArray := 7.
 	"SmalltalkDictionary := 8."  "Do not delete!"

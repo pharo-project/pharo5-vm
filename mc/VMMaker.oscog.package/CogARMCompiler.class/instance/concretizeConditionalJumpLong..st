@@ -11,5 +11,5 @@ concretizeConditionalJumpLong: conditionCode
 	jumpTarget := self longJumpTargetAddress.
 	instrOffset := self at: 0 moveCw: jumpTarget intoR: RISCTempReg.
 	"bx RISCTempReg"
-	self machineCodeAt: instrOffset put: (self bx: RISCTempReg).
+	self machineCodeAt: instrOffset put: (self cond: conditionCode bx: 0 target: RISCTempReg).
 	^machineCodeSize := instrOffset + 4

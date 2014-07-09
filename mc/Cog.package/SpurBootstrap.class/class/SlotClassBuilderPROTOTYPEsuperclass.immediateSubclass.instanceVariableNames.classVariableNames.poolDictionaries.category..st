@@ -1,4 +1,4 @@
-method prototypes
+as yet unclassified
 SlotClassBuilderPROTOTYPEsuperclass: aClass
 	immediateSubclass: t instanceVariableNames: f 
 	classVariableNames: d poolDictionaries: s category: cat

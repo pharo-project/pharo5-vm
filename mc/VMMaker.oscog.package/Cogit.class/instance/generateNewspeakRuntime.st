@@ -1,7 +1,7 @@
 initialization
 generateNewspeakRuntime
 	<option: #NewspeakVM>
-	| jumpMiss jumpItsTheReceiverStupid |
+	| jumpMiss jumpItsTheReceiverStupid retpcReg |
 	<var: #jumpMiss type: #'AbstractInstruction *'>
 	<var: #jumpItsTheReceiverStupid type: #'AbstractInstruction *'>
 	"Generate the non-send runtime support for Newspeak, explicit outer and implicit receiver.
@@ -17,33 +17,37 @@ generateNewspeakRuntime
 		Lclass:	.word
 		Lmixin::	.word
 		continue:
-	 If class matches class of receiver then mixin contains either 0 or the implicit receiver.
+	 If class tag matches class of receiver then mixin contains either 0 or the implicit receiver.
 	 If 0, answer the actual receiver, otherwise the mixin.
-	 Generate the class fetch and cache probe inline for speed. Smashes Arg0Reg and caller-saved regs."
+	 Generate the class fetch and cache probe inline for speed.
+	 Smashes Arg1Reg, RegClass and caller-saved regs."
 	opcodeIndex := 0.
 	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
 	objectRepresentation
-		genGetClassObjectOf: ReceiverResultReg
+		genGetInlineCacheClassTagFrom: ReceiverResultReg
 		into: ClassReg
-		scratchReg: TempReg
-		instRegIsReceiver: true. "don't follow forwarding pointer here"
-	self MoveMw: 0 r: SPReg R: TempReg.
-	self MoveMw: backEnd jumpShortByteSize r: TempReg R: Arg1Reg.
+		forEntry: false.
+	backEnd hasLinkRegister
+		ifTrue: [retpcReg := LinkReg]
+		ifFalse: [self MoveMw: 0 r: SPReg R: (retpcReg := TempReg)].
+
+	self MoveMw: 0 r: SPReg R: retpcReg.
+	self MoveMw: backEnd jumpShortByteSize r: retpcReg R: Arg1Reg.
 	self CmpR: ClassReg R: Arg1Reg.
 	jumpMiss := self JumpNonZero: 0.
-	self MoveMw: backEnd jumpShortByteSize + BytesPerOop r: TempReg R: ClassReg.
+	self MoveMw: backEnd jumpShortByteSize + BytesPerOop r: retpcReg R: ClassReg.
 	self CmpCq: 0 R: ClassReg.
 	jumpItsTheReceiverStupid := self JumpZero: 0.
 	self MoveR: ClassReg R: ReceiverResultReg.
 	jumpItsTheReceiverStupid jmpTarget: (self RetN: 0).
 	jumpMiss jmpTarget: self Label.
 	ceImplicitReceiverTrampoline := self
-										genTrampolineFor: #ceImplicitReceiverFor:receiver:class:
+										genTrampolineFor: #ceImplicitReceiverFor:receiver:
 										called: 'ceImplicitReceiverTrampoline'
-										numArgs: 3
+										numArgs: 2
 										arg: SendNumArgsReg
 										arg: ReceiverResultReg
-										arg: ClassReg
+										arg: nil
 										arg: nil
 										saveRegs: false
 										pushLinkReg: true

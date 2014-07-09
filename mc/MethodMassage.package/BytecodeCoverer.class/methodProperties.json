@@ -1,0 +1,7 @@
+{
+	"class" : {
+		"unusedBytecodeSendsEnabled" : "eem 3/20/2013 17:33" },
+	"instance" : {
+		"checkUnusedBytecodeSendsEnabled" : "eem 3/20/2013 17:33",
+		"coverMethod:" : "eem 3/20/2013 17:30",
+		"uncoverMethod:" : "eem 3/20/2013 17:47" } }

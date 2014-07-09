@@ -1,5 +1,7 @@
 object memory support
 traceProfileState
+	objectMemory hasSpurMemoryManagerAPI ifTrue:
+		[self followForwardingPointersInProfileState].
 	objectMemory markAndTrace: profileProcess.
 	objectMemory markAndTrace: profileMethod.
 	objectMemory markAndTrace: profileSemaphore.
@@ -11,6 +13,10 @@ traceProfileState
 	self sqLowLevelMFence.
 	(longRunningPrimitiveCheckMethod ~= nil
 	 and: [longRunningPrimitiveCheckSequenceNumber ~= statCheckForEvents]) ifTrue:
-		[objectMemory markAndTrace: longRunningPrimitiveCheckMethod].
+		[(objectMemory isForwarded: longRunningPrimitiveCheckMethod) ifTrue:
+			[longRunningPrimitiveCheckMethod := objectMemory followForwarded: longRunningPrimitiveCheckMethod].
+	objectMemory markAndTrace: longRunningPrimitiveCheckMethod].
 	longRunningPrimitiveCheckSemaphore ~= nil ifTrue:
-		[objectMemory markAndTrace: longRunningPrimitiveCheckSemaphore]
+		[(objectMemory isForwarded: longRunningPrimitiveCheckSemaphore) ifTrue:
+			[longRunningPrimitiveCheckSemaphore := objectMemory followForwarded: longRunningPrimitiveCheckSemaphore].
+		 objectMemory markAndTrace: longRunningPrimitiveCheckSemaphore]

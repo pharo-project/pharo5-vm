@@ -1,3 +1,3 @@
 accessing
 classSmallInteger
-	^self splObj: ClassInteger
+	^self splObj: ClassSmallInteger

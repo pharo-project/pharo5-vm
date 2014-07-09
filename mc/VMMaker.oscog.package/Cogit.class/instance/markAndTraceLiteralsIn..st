@@ -14,6 +14,7 @@ markAndTraceLiteralsIn: cogMethod
 				 and: [(objectMemory isImmediate: cogMethod selector)
 					or: [objectMemory isMarked: cogMethod selector]]]).
 	objectRepresentation markAndTraceLiteral: cogMethod selector.
+	self maybeMarkCountersIn: cogMethod.
 	self mapFor: cogMethod
 		 performUntil: #markLiterals:pc:method:
 		 arg: cogMethod asInteger

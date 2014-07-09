@@ -31,6 +31,7 @@
 		"getModuleName" : "ar (auto pragmas 12/08) 5/13/2000 02:00",
 		"halt" : "jcg 6/30/2008 17:36",
 		"isInterpreterPlugin" : "eem 3/17/2014 12:26",
+		"isSmartSyntaxPluginSimulator" : "eem 7/2/2014 19:06",
 		"majorVersion" : "eem 12/7/2012 14:39",
 		"minorVersion" : "eem 12/7/2012 14:40",
 		"msg:" : "jcg (auto pragmas 12/08) 6/30/2008 17:36",

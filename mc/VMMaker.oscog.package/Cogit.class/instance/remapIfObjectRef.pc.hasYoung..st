@@ -28,24 +28,28 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 			 (self cppIf: NewspeakVM
 					ifTrue: [entryPoint = ceImplicitReceiverTrampoline]
 					ifFalse: [false])
-				ifTrue:
+				ifTrue: "Examine an implicit receiver cache."
 					[| pc oop mappedOop |
 					 pc := mcpc asInteger + backEnd jumpShortByteSize.
 					 (oop := backEnd unalignedLongAt: pc) ~= 0 ifTrue:
-						[mappedOop := objectRepresentation remapOop: oop.
-						 mappedOop ~= oop ifTrue:
-							[backEnd unalignedLongAt: pc put: mappedOop].
-						 (hasYoungPtr ~= 0
-						  and: [objectMemory isYoung: mappedOop]) ifTrue:
-							[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true].
+						["First look at the classTag entry.  This is an inline cache tag and so might not be an object."
+						 (objectRepresentation inlineCacheTagsMayBeObjects
+						  and: [objectRepresentation couldBeObject: oop]) ifTrue:
+							[mappedOop := objectRepresentation remapOop: oop.
+							 mappedOop ~= oop ifTrue:
+								[backEnd unalignedLongAt: pc put: mappedOop].
+							 (hasYoungPtr ~= 0
+							  and: [objectMemory isYoung: mappedOop]) ifTrue:
+								[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]].
+						 "Second look at the mixin entry. this must be 0 or an objct."
 						 pc := mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop.
 						 (oop := backEnd unalignedLongAt: pc) ~= 0 ifTrue:
 							[mappedOop := objectRepresentation remapOop: oop.
 							 mappedOop ~= oop ifTrue:
 								[backEnd unalignedLongAt: pc put: mappedOop].
-						 (hasYoungPtr ~= 0
-						  and: [objectMemory isYoung: mappedOop]) ifTrue:
-							[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]]]
+							 (hasYoungPtr ~= 0
+							  and: [objectMemory isYoung: mappedOop]) ifTrue:
+								[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]]]
 				ifFalse:
 					[hasYoungPtr ~= 0 ifTrue:
 						["Since the unlinking routines may rewrite the cacheTag to the send's selector, and

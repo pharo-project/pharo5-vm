@@ -1,0 +1,21 @@
+{
+	"class" : {
+		"expectedFailures" : "eem 4/9/2013 12:14",
+		"fixupMethodClassBindings" : "eem 3/15/2013 13:04" },
+	"instance" : {
+		"contextPartMethodWithMostOf:" : "eem 2/23/2013 16:08",
+		"defaultTimeout" : "eem 2/23/2013 23:12",
+		"expectedFailures" : "eem 4/9/2013 12:17",
+		"testAsAssemblerFor:" : "eem 3/20/2013 12:48",
+		"testAsAssemblerForThisPackage" : "eem 3/15/2013 08:57",
+		"testBasicBlockLabelsFor:" : "eem 3/20/2013 13:47",
+		"testBasicBlockLabelsForThisPackage" : "eem 3/20/2013 13:42",
+		"testDisassembleBytecodeAssemblerMethods" : "eem 2/22/2013 11:35",
+		"testDisassembleMethodsFor:" : "eem 2/22/2013 11:38",
+		"testDuplicateAllInstructionStreamMethods" : "eem 2/23/2013 15:49",
+		"testDuplicateBytecodeAssemblerMethods" : "eem 2/23/2013 15:40",
+		"testDuplicateMethodsFor:if:" : "eem 2/23/2013 17:54",
+		"testDuplicateNewsqueakV4Methods" : "eem 2/23/2013 21:13",
+		"testDuplicateSqueakV3Methods" : "eem 4/9/2013 12:13",
+		"testLabelsFor:" : "eem 3/20/2013 13:15",
+		"testLabelsForThisPackage" : "eem 3/20/2013 13:17" } }

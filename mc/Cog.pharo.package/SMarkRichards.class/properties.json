@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "SMarkRichards",
+	"pools" : [
+		 ],
+	"super" : "SMarkSuite",
+	"type" : "normal" }

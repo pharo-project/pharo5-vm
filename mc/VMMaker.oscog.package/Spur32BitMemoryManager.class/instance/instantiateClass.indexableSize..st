@@ -1,31 +1,48 @@
 instantiation
 instantiateClass: classObj indexableSize: nElements
+	<var: #nElements type: #usqInt>
 	| instSpec classFormat numSlots classIndex newObj fillValue |
 	classFormat := self formatOfClass: classObj.
 	instSpec := self instSpecOfClassFormat: classFormat.
 	fillValue := 0.
 	instSpec caseOf: {
 		[self arrayFormat]	->
-			[numSlots := nElements.
+			[nElements > self maxSlotsForAlloc ifTrue:
+				[^nil].
+			 numSlots := nElements.
 			 fillValue := nilObj].
 		[self indexablePointersFormat]	->
-			[numSlots := (self fixedFieldsOfClassFormat: classFormat) + nElements.
+			[nElements > (self maxSlotsForAlloc - (self fixedFieldsOfClassFormat: classFormat)) ifTrue:
+				[^nil].
+			 numSlots := (self fixedFieldsOfClassFormat: classFormat) + nElements.
 			 fillValue := nilObj].
 		[self weakArrayFormat]	->
-			[numSlots := (self fixedFieldsOfClassFormat: classFormat) + nElements.
+			[nElements > (self maxSlotsForAlloc - (self fixedFieldsOfClassFormat: classFormat)) ifTrue:
+				[^nil].
+			 numSlots := (self fixedFieldsOfClassFormat: classFormat) + nElements.
 			 fillValue := nilObj].
 		[self sixtyFourBitIndexableFormat]	->
-			[numSlots := nElements * 2].
+			[nElements > (self maxSlotsForAlloc / 2) ifTrue:
+				[^nil].
+			 numSlots := nElements * 2].
 		[self firstLongFormat]	->
-			[numSlots := nElements].
+			[nElements > self maxSlotsForAlloc ifTrue:
+				[^nil].
+			 numSlots := nElements].
 		[self firstShortFormat]	->
 			[numSlots := nElements + 1 // 2.
+			 numSlots > self maxSlotsForAlloc ifTrue:
+				[^nil].
 			 instSpec := instSpec + (nElements bitAnd: 1)].
 		[self firstByteFormat]	->
 			[numSlots := nElements + 3 // 4.
+			 numSlots > self maxSlotsForAlloc ifTrue:
+				[^nil].
 			 instSpec := instSpec + (4 - nElements bitAnd: 3)].
 		[self firstCompiledMethodFormat]	->
 			[numSlots := nElements + 3 // 4.
+			 numSlots > self maxSlotsForAlloc ifTrue:
+				[^nil].
 			 instSpec := instSpec + (4 - nElements bitAnd: 3)] }
 		otherwise: ["some Squeak images include funky fixed subclasses of abstract variable
 					 superclasses. e.g. DirectoryEntry as a subclass of ArrayedCollection.

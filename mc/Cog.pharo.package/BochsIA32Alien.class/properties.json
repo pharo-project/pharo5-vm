@@ -1,0 +1,15 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"OpcodeExceptionMap",
+		"PostBuildStackDelta" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "BochsIA32Alien",
+	"pools" : [
+		 ],
+	"super" : "CogProcessorAlien",
+	"type" : "bytes" }

@@ -18,26 +18,18 @@ baselineGit: spec
 				spec 
 					file: 'VMMaker';
 					requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
-			package: 'Cog' with: [ 
-				spec requires: #('VMMaker' ) ];
-			package: 'Qwaq-VMProfiling-Plugins' with: [ 
-				spec requires: #('VMMaker' ) ];
-			package: 'VMConstruction-Plugins-AioPlugin' with: [ 
-				spec requires: #('VMMaker') ];
+			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
+			package: 'Qwaq-VMProfiling-Plugins' with: [ spec requires: #('VMMaker' ) ];
+			package: 'VMConstruction-Plugins-AioPlugin' with: [ spec requires: #('VMMaker') ];
 			package: 'VMConstruction-Plugins-OSProcessPlugin' with: [ 
 				spec 
 					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
 					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
-			package: 'Freetype-Plugin' with: [ 
-				spec requires: #('VMMaker') ];
-			package: 'SqueakSSL-Plugin' with: [ 
-				spec requires: #('VMMaker') ];
-			package: 'ObjectiveC-Plugin' with: [ 
-				spec requires: #('VMMaker') ];
-			package: 'Applescript-Core' with: [ 
-				spec requires: #('VMMaker') ];
-			package: 'CMakeVMMaker' with: [ 
-				spec requires: #('Cog') ].	
+			package: 'Freetype-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'SqueakSSL-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
+			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ].	
 			
 			"spec postLoadDoIt: #fixForPharo10."
 			

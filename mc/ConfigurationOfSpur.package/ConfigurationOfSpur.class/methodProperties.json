@@ -1,0 +1,22 @@
+{
+	"class" : {
+		"bootstrapPackage:from:" : "EstebanLorenzano 7/2/2014 17:29",
+		"ensureMetacello" : "EstebanLorenzano 7/2/2014 17:29",
+		"isMetacelloConfig" : "EstebanLorenzano 7/2/2014 17:29",
+		"lastMetacelloVersionLoad" : "EstebanLorenzano 7/2/2014 17:29",
+		"load" : "EstebanLorenzano 7/2/2014 17:29",
+		"loadDevelopment" : "EstebanLorenzano 7/2/2014 17:29",
+		"loadGit" : "EstebanLorenzano 7/2/2014 17:29",
+		"loadStable" : "EstebanLorenzano 7/2/2014 17:29",
+		"metacelloVersion:loads:" : "EstebanLorenzano 7/2/2014 17:29",
+		"project" : "EstebanLorenzano 7/2/2014 17:29" },
+	"instance" : {
+		"baselineGit:" : "EstebanLorenzano 7/2/2014 17:32",
+		"development:" : "EstebanLorenzano 7/2/2014 17:29",
+		"fixForPharo10" : "EstebanLorenzano 7/2/2014 17:29",
+		"fixFreeTypePluginForPharo" : "EstebanLorenzano 7/2/2014 17:29",
+		"fixVMMakerForPharo" : "EstebanLorenzano 7/2/2014 17:29",
+		"pharoUndescoreAssignment" : "EstebanLorenzano 7/2/2014 17:29",
+		"project" : "EstebanLorenzano 7/2/2014 17:29",
+		"repositoryDir" : "EstebanLorenzano 7/2/2014 17:29",
+		"repositoryDir:" : "EstebanLorenzano 7/2/2014 17:29" } }

@@ -15,7 +15,7 @@ reverseSmallListHeads
 			 freeListsMask := freeListsMask + (1 << i).
 			 prev := 0.
 			 [node ~= 0] whileTrue:
-				[next := self fetchPointer: self freeChunkNextIndex ofObject: node.
+				[next := self fetchPointer: self freeChunkNextIndex ofFreeChunk: node.
 				 self storePointer: self freeChunkNextIndex ofFreeChunk: node withValue: prev.
 				 prev := node.
 				 node := next.

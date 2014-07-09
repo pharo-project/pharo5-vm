@@ -1,0 +1,17 @@
+{
+	"category" : "Cog-Benchmarks-SMark",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"numInnerIterations",
+		"benchmarkSelector",
+		"suite",
+		"runner" ],
+	"name" : "SMarkWeakScalingRunnerExecutor",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

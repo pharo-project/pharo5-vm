@@ -1,0 +1,21 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DeviceA",
+		"DeviceB",
+		"DevicePacketKind",
+		"HandlerA",
+		"HandlerB",
+		"Idler",
+		"WorkPacketKind",
+		"Worker" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "RichObject",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

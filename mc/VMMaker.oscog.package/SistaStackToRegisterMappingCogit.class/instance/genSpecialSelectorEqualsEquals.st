@@ -6,11 +6,10 @@ genSpecialSelectorEqualsEquals
 	 and if it trips simply abort the inlining, falling back to the normal send which
 	 will then continue to the conditional branch which will trip and enter the abort."
 	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor nExts
-	  counter countTripped unforwardArg unforwardRcvr |
+	  counterAddress countTripped unforwardArg unforwardRcvr |
+	<var: #countTripped type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
-	<var: #counter type: #'AbstractInstruction *'>
-	<var: #countTripped type: #'AbstractInstruction *'>
 	self ssFlushTo: simStackPtr - 2.
 	primDescriptor := self generatorAt: byte0.
 
@@ -35,17 +34,15 @@ genSpecialSelectorEqualsEquals
 	self marshallSendArguments: 1.
 
 	self ssAllocateRequiredReg: SendNumArgsReg. "Use this as the count reg."
-	counter := self addressOf: (counters at: counterIndex).
+	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
 	self assert: BytesPerWord = CounterBytes.
-	counter addDependent: (self annotateAbsolutePCRef:
-		(self MoveAw: counter asUnsignedInteger R: SendNumArgsReg)).
+	self MoveAw: counterAddress R: SendNumArgsReg.
 	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
 	"If counter trips simply abort the inlined comparison and send continuing to the following
 	 branch *without* writing back.  A double decrement will not trip the second time."
 	countTripped := self JumpCarry: 0.
-	counter addDependent: (self annotateAbsolutePCRef:
-		(self MoveR: SendNumArgsReg Aw: counter asUnsignedInteger)). "write back"
+	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
 	unforwardRcvr ifTrue:
 		[objectRepresentation genEnsureOopInRegNotForwarded: ReceiverResultReg scratchReg: TempReg].
 	unforwardArg ifTrue:
@@ -56,8 +53,7 @@ genSpecialSelectorEqualsEquals
 	self gen: (branchDescriptor isBranchTrue ifTrue: [JumpZero] ifFalse: [JumpNonZero])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 	self SubCq: 1 R: SendNumArgsReg. "Count untaken"
-	counter addDependent: (self annotateAbsolutePCRef:
-		(self MoveR: SendNumArgsReg Aw: counter asUnsignedInteger)). "write back"
+	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
 	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
 	countTripped jmpTarget: self Label.
 	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)

@@ -2,6 +2,7 @@ process primitive support
 removeFirstLinkOfList: aList 
 	"Remove the first process from the given linked list."
 	| first last next |
+	self assert: (objectMemory isForwarded: aList) not.
 	first := objectMemory fetchPointer: FirstLinkIndex ofObject: aList.
 	last := objectMemory fetchPointer: LastLinkIndex ofObject: aList.
 	first = last

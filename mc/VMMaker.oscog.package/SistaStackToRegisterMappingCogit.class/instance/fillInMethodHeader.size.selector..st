@@ -1,5 +1,6 @@
 generate machine code
 fillInMethodHeader: method size: size selector: selector
 	super fillInMethodHeader: method size: size selector: selector.
-	method numCounters: counterIndex.
+	self fillInCounters: numCounters atStartAddress: counters.
+	method counters: counters.
 	^method

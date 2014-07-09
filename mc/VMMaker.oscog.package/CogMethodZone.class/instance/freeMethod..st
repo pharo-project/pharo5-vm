@@ -3,7 +3,9 @@ freeMethod: cogMethod
 	<var: #cogMethod type: #'CogMethod *'>
 	<inline: false>
 	self assert: cogMethod cmType ~= CMFree.
-	self assert: (cogit cogMethodDoesntLookKosher: cogMethod) = 0.
+	self assert: ((cogit cogMethodDoesntLookKosher: cogMethod) = 0
+				 or: [(cogit cogMethodDoesntLookKosher: cogMethod) = 23
+					 and: [(cogit cCoerceSimple: cogMethod methodObject to: #'CogMethod *') cmType = CMFree]]).
 	cogMethod cmType = CMMethod ifTrue:
 		["For non-Newspeak there should ne a one-to-one mapping between bytecoded and
 		  cog methods.  For Newspeak not necessarily, but only for anonymous accessors."
@@ -15,6 +17,7 @@ freeMethod: cogMethod
 				[self assert: (cogit noAssertMethodClassAssociationOf: cogMethod methodObject) = objectMemory nilObject.
 				 self cppIf: NewspeakVM ifTrue:
 					[self removeFromUnpairedMethodList: cogMethod]].
+		 cogit maybeFreeCountersOf: cogMethod.
 		 cogMethod cmRefersToYoung: false].
 	cogMethod cmType = CMOpenPIC ifTrue:
 		[self removeFromOpenPICList: cogMethod.

@@ -7,20 +7,20 @@ declareCVarsIn: aCodeGen
 			declareC: 'sqInt picAbortTrampolines[4]';
 		var: #picMissTrampolines
 			declareC: 'sqInt picMissTrampolines[4]';
-		var: 'ceEnter0ArgsPIC'
-			declareC: 'void (*ceEnter0ArgsPIC)(void)';
-		var: 'ceEnter1ArgsPIC'
-			declareC: 'void (*ceEnter1ArgsPIC)(void)';
-		var: 'ceEnter2ArgsPIC'
-			declareC: 'void (*ceEnter2ArgsPIC)(void)';
-		var: #ceEnterCogCodePopReceiverArg0Regs
-			declareC: 'void (*ceEnterCogCodePopReceiverArg0Regs)(void)';
-		var: #realCEEnterCogCodePopReceiverArg0Regs
-			declareC: 'void (*realCEEnterCogCodePopReceiverArg0Regs)(void)';
-		var: #ceEnterCogCodePopReceiverArg1Arg0Regs
-			declareC: 'void (*ceEnterCogCodePopReceiverArg1Arg0Regs)(void)';
-		var: #realCEEnterCogCodePopReceiverArg1Arg0Regs
-			declareC: 'void (*realCEEnterCogCodePopReceiverArg1Arg0Regs)(void)';
+		var: 'ceCall0ArgsPIC'
+			declareC: 'void (*ceCall0ArgsPIC)(void)';
+		var: 'ceCall1ArgsPIC'
+			declareC: 'void (*ceCall1ArgsPIC)(void)';
+		var: 'ceCall2ArgsPIC'
+			declareC: 'void (*ceCall2ArgsPIC)(void)';
+		var: #ceCallCogCodePopReceiverArg0Regs
+			declareC: 'void (*ceCallCogCodePopReceiverArg0Regs)(void)';
+		var: #realCECallCogCodePopReceiverArg0Regs
+			declareC: 'void (*realCECallCogCodePopReceiverArg0Regs)(void)';
+		var: #ceCallCogCodePopReceiverArg1Arg0Regs
+			declareC: 'void (*ceCallCogCodePopReceiverArg1Arg0Regs)(void)';
+		var: #realCECallCogCodePopReceiverArg1Arg0Regs
+			declareC: 'void (*realCECallCogCodePopReceiverArg1Arg0Regs)(void)';
 		var: 'simStack'
 			declareC: 'CogSimStackEntry simStack[', ((CoInterpreter bindingOf: #LargeContextSize) value * 5 / 4 // BytesPerWord) asString, ']';
 		var: 'simSelf'

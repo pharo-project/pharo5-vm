@@ -8,8 +8,6 @@ run
 					 and: [UIManager default confirm: 'close?']) ifTrue:
 						[topWindow delete]]].
 				  ^self].
-	self initStackPages.
-	self loadInitialContext.
 	self internalizeIPandSP.
 	self fetchNextBytecode.
 	[true] whileTrue:

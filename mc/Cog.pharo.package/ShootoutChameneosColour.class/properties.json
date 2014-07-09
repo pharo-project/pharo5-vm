@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Blue",
+		"Red",
+		"Yellow" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"color" ],
+	"name" : "ShootoutChameneosColour",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

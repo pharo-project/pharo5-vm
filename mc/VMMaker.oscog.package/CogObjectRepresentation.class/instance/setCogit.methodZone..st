@@ -3,6 +3,7 @@ setCogit: aCogit methodZone: aMethodZone
 	<doNotGenerate>
 	cogit := aCogit.
 	methodZone := aMethodZone.
-	objectMemory := (aCogit coInterpreter isKindOf: StackInterpreter)
-						ifTrue: [aCogit coInterpreter objectMemory]
-						ifFalse: [aCogit coInterpreter]
+	coInterpreter := aCogit coInterpreter.
+	objectMemory := (coInterpreter isKindOf: StackInterpreter)
+						ifTrue: [coInterpreter objectMemory]
+						ifFalse: [coInterpreter]

@@ -31,4 +31,5 @@ ioLoadFunction: functionString From: pluginString
 									with: fnSymbol
 									with: [plugin perform: fnSymbol. self]).
 	"Transcript show: ' ... okay'."
+	transcript cr.
 	^ mappedPluginEntries size

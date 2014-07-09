@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Benchmarks-SMark",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"startTime",
+		"elapsedTime",
+		"name" ],
+	"name" : "SMarkTimer",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

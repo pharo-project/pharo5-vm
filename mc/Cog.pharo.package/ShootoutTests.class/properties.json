@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "ShootoutTests",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

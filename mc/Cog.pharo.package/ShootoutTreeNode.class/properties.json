@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"left",
+		"right",
+		"item" ],
+	"name" : "ShootoutTreeNode",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

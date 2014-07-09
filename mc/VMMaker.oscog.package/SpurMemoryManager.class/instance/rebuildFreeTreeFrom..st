@@ -12,7 +12,7 @@ rebuildFreeTreeFrom: sortedFreeChunks
 		 totalBytes := totalBytes + bytes.
 		 self addToFreeTree: freeChunk bytes: bytes.
 		 freeChunk := self fetchPointer: self freeChunkNextAddressIndex
-							ofObject: freeChunk].
+							ofFreeChunk: freeChunk].
 	"now reorder the lists to ensure they're in address order, apart from the list head, which should be highest."
 	self freeTreeNodesDo:
 		[:treeNode| | newTreeNode |
