@@ -1,0 +1,14 @@
+{
+	"category" : "SpurVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogSpur32VMBuilder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
