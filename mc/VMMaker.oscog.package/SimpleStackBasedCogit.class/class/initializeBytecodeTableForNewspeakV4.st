@@ -29,7 +29,7 @@ initializeBytecodeTableForNewspeakV4
 		(1 112 127 genSendLiteralSelector0ArgsBytecode isMapped)
 		(1 128 143 genSendLiteralSelector1ArgBytecode isMapped)
 		(1 144 159 genSendLiteralSelector2ArgsBytecode isMapped)
-		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped)
+		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)
 
 		(1 176 183 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
 		(1 184 191 genStoreAndPopTemporaryVariableBytecode)
@@ -67,7 +67,7 @@ initializeBytecodeTableForNewspeakV4
 
 		(2 238 238 genExtSendBytecode isMapped)
 		(2 239 239 genExtSendSuperBytecode isMapped)
-		(2 240 240 genExtSendAbsentImplicitBytecode isMapped)
+		(2 240 240 genExtSendAbsentImplicitBytecode isMapped hasIRC)
 		(2 241 241 genExtSendAbsentDynamicSuperBytecode isMapped)
 
 		(2 242 242 genExtUnconditionalJump	branch isMapped "because of interrupt check" v4:Long:Branch:Distance:)

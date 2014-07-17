@@ -10,7 +10,9 @@ markWeaklingsAndMarkAndFireEphemerons
 	numTracedWeaklings := 0.
 	[coInterpreter markAndTraceUntracedReachableStackPages.
 	 coInterpreter markAndTraceMachineCodeOfMarkedMethods.
-	 numTracedWeaklings := self markAndTraceWeaklingsFrom: numTracedWeaklings.
+	 "Make sure all reached weaklings have their string slots traced before firing ephemerons..."
+	 [numTracedWeaklings := self markAndTraceWeaklingsFrom: numTracedWeaklings.
+	  (self sizeOfObjStack: weaklingStack) > numTracedWeaklings] whileTrue.
 	 self noUnscannedEphemerons ifTrue:
 		[coInterpreter
 			markAndTraceUntracedReachableStackPages;

@@ -1,4 +1,4 @@
-as yet unclassified
+method prototypes pharo
 SlotClassBuilderPROTOTYPEsuperclass: aClass
 	immediateSubclass: t instanceVariableNames: f 
 	classVariableNames: d poolDictionaries: s category: cat

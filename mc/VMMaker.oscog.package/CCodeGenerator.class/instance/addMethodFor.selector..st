@@ -4,8 +4,6 @@ addMethodFor: aClass selector: selector
 	 or nil if it shouldn't be translated."
 
 	| method tmethod |
-	selector == #initialize ifTrue:
-		[^nil].
 	method := aClass compiledMethodAt: selector.
 	(method pragmaAt: #doNotGenerate) ifNotNil:
 		["only remove a previous method if this one overrides it, i.e. this is a subclass method.
@@ -21,7 +19,13 @@ addMethodFor: aClass selector: selector
 	(self shouldIncludeMethodFor: aClass selector: selector) ifFalse:
 		[methods removeKey: selector ifAbsent: [].
 		 ^nil].
-	tmethod := self addMethod: (self compileToTMethodSelector: selector in: aClass).
+	tmethod := self compileToTMethodSelector: selector in: aClass.
+	"Even thoug we exclude initialize methods, we must consider their
+	 global variable usage, otherwise globals may be incorrectly localized."
+	selector == #initialize ifTrue:
+		[self checkForGlobalUsage: tmethod allReferencedVariables in: tmethod.
+		 ^nil].
+	self addMethod: tmethod.
 	"If the method has a macro then add the macro.  But keep the method
 	 for analysis purposes (e.g. its variable accesses)."
 	(method pragmaAt: #cmacro:) ifNotNil:

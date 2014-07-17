@@ -20,7 +20,5 @@ unlinkIfFreeOrLinkedSend: annotation pc: mcpc of: theSelector
 				[self cppIf: NewspeakVM ifTrue:
 					[(entryPoint = ceImplicitReceiverTrampoline
 					 and: [(backEnd inlineCacheTagAt: mcpc asInteger) = theSelector]) ifTrue:
-					 	[backEnd
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize put: 0;
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop put: 0]]]].
+					 	[self voidImplicitReceiverCacheAt: mcpc]]]].
 	^0 "keep scanning"

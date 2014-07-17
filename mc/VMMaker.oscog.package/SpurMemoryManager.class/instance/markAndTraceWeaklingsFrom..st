@@ -6,6 +6,7 @@ markAndTraceWeaklingsFrom: startIndex
 	^self objStack: weaklingStack from: startIndex do:
 		[:weakling|
 		 self markAndTraceClassOf: weakling.
+		"N.B. generateToByDoLimitExpression:negative:on: guards against (unsigned)0 - 1 going +ve"
 		 0 to: (self numStrongSlotsOfWeakling: weakling) - 1 do:
 			[:i| | field |
 			field := self fetchPointer: i ofObject: weakling.

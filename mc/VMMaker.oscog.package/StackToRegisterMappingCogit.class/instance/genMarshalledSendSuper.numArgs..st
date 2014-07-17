@@ -8,6 +8,5 @@ genMarshalledSendSuper: selector numArgs: numArgs
 		[self MoveCq: numArgs R: SendNumArgsReg].
 	self MoveCw: selector R: ClassReg.
 	self CallSend: (superSendTrampolines at: (numArgs min: NumSendTrampolines - 1)).
-	usesMethodClass := true.
 	optStatus isReceiverResultRegLive: false.
 	^self ssPushRegister: ReceiverResultReg

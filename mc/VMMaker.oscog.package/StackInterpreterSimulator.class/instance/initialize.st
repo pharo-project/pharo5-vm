@@ -4,6 +4,7 @@ initialize
 	 inside Smalltalk. The primary responsibility of this method is to allocate
 	 Smalltalk Arrays for variables that will be declared as statically-allocated
 	 global arrays in the translated code."
+	super initialize.
 
 	bootstrapping := false.
 	transcript := Transcript.

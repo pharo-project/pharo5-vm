@@ -16,7 +16,5 @@ unlinkIfLinkedSend: annotation pc: mcpc ignored: superfluity
 			ifFalse:
 				[self cppIf: NewspeakVM ifTrue:
 					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-						[backEnd
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize put: 0;
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop put: 0]]]].
+						[self voidImplicitReceiverCacheAt: mcpc]]]].
 	^0 "keep scanning"

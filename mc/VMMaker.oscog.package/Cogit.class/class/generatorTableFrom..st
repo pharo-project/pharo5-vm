@@ -16,6 +16,7 @@ generatorTableFrom: anArray
 						isBranchTrue: (tuple includes: #isBranchTrue);
 						isBranchFalse: (tuple includes: #isBranchFalse);
 						isExtension: (tuple includes: #extension);
+						hasIRC: (tuple includes: #hasIRC);
 						yourself.
 		descriptor isBlockCreation ifTrue:
 			[blockCreationBytecodeSize

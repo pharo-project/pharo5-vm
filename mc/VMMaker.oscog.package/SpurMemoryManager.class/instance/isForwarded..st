@@ -6,4 +6,6 @@ isForwarded: objOop
 	 at the cost of this being ambiguous with free chunks.  So either never apply this to free chunks
 	 or guard with (self isFreeObject: foo) not.  So far the idiom has been to guard with isFreeObject:"
 	<api>
+	<inline: true>
+	"self assert: (self isFreeObject: objOop) not."
 	^(self longAt: objOop) noMask: self classIndexMask - self isForwardedObjectClassIndexPun

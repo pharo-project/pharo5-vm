@@ -55,4 +55,7 @@ compileFrameBuild
 			 self MoveCq: 0 R: SendNumArgsReg.
 			 self Jump: stackOverflowCall.
 			 jumpSkip jmpTarget: (stackCheckLabel := self Label)].
-	self annotateBytecode: stackCheckLabel
+	self annotateBytecode: stackCheckLabel.
+	self cppIf: #NewspeakVM ifTrue:
+		[numIRCs > 0 ifTrue:
+		 	[self PrefetchAw: theIRCs]]

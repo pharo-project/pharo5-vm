@@ -25,6 +25,7 @@
 		"largeObjectBytesForSlots:" : "eem 6/27/2014 15:28",
 		"logBytesPerSlot" : "eem 3/19/2014 13:01",
 		"maxSlotsForAlloc" : "eem 6/28/2014 16:52",
+		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:51",
 		"numFreeLists" : "eem 10/8/2013 09:09",
 		"numTagBits" : "eem 11/18/2013 15:54",
 		"objectAfter:limit:" : "eem 11/12/2013 16:35",

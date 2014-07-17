@@ -4,6 +4,7 @@ followForwardedObjectFields: objOop toDepth: depth
 	 Answer if any forwarders were found.
 	 How to avoid cyclic structures?? A temproary mark bit?"
 	<api>
+	<inline: false>
 	| oop found |
 	found := false.
 	self assert: ((self isPointers: objOop) or: [self isOopCompiledMethod: objOop]).

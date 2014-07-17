@@ -1,3 +1,0 @@
-utilities
-bootstrapImage: imageFileBaseName
-	self bootstrapSqueakImage: imageFileBaseName

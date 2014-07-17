@@ -39,7 +39,9 @@ validate
 		p := o].
 	newHeap setEndOfMemory: savedEndOfMemory.
 	self touch: p.
-	self assert: (n between: map size and: map size + 8). "+ 6 is room for freelists & classTable"
+	self assert: (n between: map size and: map size + (imageType = 'squeak'
+														ifTrue: [6]
+														ifFalse: [8])). "+ 6 or 8 is room for freelists & classTable"
 
 	"check some class properties to ensure the format changes are correct"
 	self assert: (newHeap fixedFieldsOfClassFormat: (newHeap formatOfClass: newHeap classArray)) = 0.

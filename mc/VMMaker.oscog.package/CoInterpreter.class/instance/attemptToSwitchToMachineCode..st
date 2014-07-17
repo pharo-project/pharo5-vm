@@ -1,7 +1,7 @@
 jump bytecodes
 attemptToSwitchToMachineCode: bcpc
 	| cogMethod pc |
-	<inline: #false>
+	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	(self methodHasCogMethod: method) ifFalse:
 		[cogit cog: method selector: objectMemory nilObject].

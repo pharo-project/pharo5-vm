@@ -14,8 +14,10 @@ initializeMiscConstants
 							[#ARMv5]	->	[GdbARMAlien]. }.
 	"we special-case 0, 1 & 2 argument sends, N is numArgs >= 3"
 	NumSendTrampolines := 4.
-	"Currently only the ceImplicitReceiverTrampoline contains object references."
-	NumObjRefsInRuntime := 2.
+	"Currently not even the ceImplicitReceiverTrampoline contains object references."
+	NumObjRefsInRuntime := 0.
+	"The implicit receiver cache has two entries, class and mixin oops."
+	NumOopsPerIRC := 2.
 	"Max size to alloca when compiling.
 	 Mac OS X 10.6.8 segfaults approaching 8Mb.
 	 Linux 2.6.9 segfaults above 11Mb.

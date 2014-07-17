@@ -9,9 +9,7 @@ lookupMethodFor: selector InDictionary: dictionary
 	<asmLabel: false>
 	length := objectMemory fetchWordLengthOf: dictionary.
 	mask := length - SelectorStart - 1.
-	index := SelectorStart + (mask bitAnd: ((objectMemory isImmediate: selector)
-												ifTrue: [objectMemory integerValueOf: selector]
-												ifFalse: [objectMemory hashBitsOf: selector])).
+	index := SelectorStart + (objectMemory methodDictionaryHash: selector mask: mask).
 
 	"It is assumed that there are some nils in this dictionary, and search will 
 	 stop when one is encountered. However, if there are no nils, then wrapAround 
@@ -21,9 +19,14 @@ lookupMethodFor: selector InDictionary: dictionary
 		[nextSelector := objectMemory fetchPointer: index ofObject: dictionary.
 		 nextSelector = objectMemory nilObject ifTrue:
 			[^nil].
+		 (objectMemory isOopForwarded: nextSelector) ifTrue:
+			[nextSelector := objectMemory
+								fixFollowedField: index + SelectorStart
+								ofObject: dictionary
+								withInitialValue: nextSelector].
 		 nextSelector = selector ifTrue:
-			[methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: dictionary.
-			 ^objectMemory fetchPointer: index - SelectorStart ofObject: methodArray].
+			[methodArray := objectMemory followObjField: MethodArrayIndex ofObject: dictionary.
+			 ^objectMemory followField: index - SelectorStart ofObject: methodArray].
 		 index := index + 1.
 		 index = length ifTrue:
 			[wrapAround ifTrue: [^nil].

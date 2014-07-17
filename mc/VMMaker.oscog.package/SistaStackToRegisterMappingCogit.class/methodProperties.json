@@ -6,7 +6,7 @@
 		"generatorTableFrom:" : "eem 4/9/2014 09:23",
 		"initializeWithOptions:" : "eem 4/6/2012 14:55" },
 	"instance" : {
-		"compileBlockBodies" : "eem 7/4/2014 17:34",
+		"compileBlockBodies" : "eem 7/9/2014 22:00",
 		"compileCogMethod:" : "eem 7/5/2014 17:21",
 		"compileFrameBuild" : "eem 7/7/2014 07:05",
 		"disassembleMethod:on:" : "eem 7/4/2014 15:45",
@@ -37,4 +37,4 @@
 		"printMcpc:Bcpc:on:" : "eem 2/9/2011 14:26",
 		"printPICDataForMethods" : "eem 2/14/2011 15:35",
 		"resetCountersIn:" : "eem 7/4/2014 12:23",
-		"scanMethod" : "eem 8/17/2013 18:46" } }
+		"scanMethod" : "eem 7/16/2014 11:38" } }

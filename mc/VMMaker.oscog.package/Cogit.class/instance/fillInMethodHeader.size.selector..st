@@ -16,9 +16,12 @@ fillInMethodHeader: method size: size selector: selector
 			[originalMethod := self cCoerceSimple: methodHeader to: #'CogMethod *'.
 			self assert: originalMethod blockSize = size.
 			methodHeader := originalMethod methodHeader.
-			self cppIf: NewspeakVM ifTrue: [methodZone addToUnpairedMethodList: method]]
+			self cppIf: NewspeakVM ifTrue:
+				[methodZone addToUnpairedMethodList: method]]
 		ifFalse:
-			[coInterpreter rawHeaderOf: methodObj put: method asInteger].
+			[coInterpreter rawHeaderOf: methodObj put: method asInteger.
+			self cppIf: NewspeakVM ifTrue:
+				[method nextMethodOrIRCs: theIRCs]].
 	method methodHeader: methodHeader.
 	method selector: selector.
 	method cmNumArgs: (coInterpreter argumentCountOfMethodHeader: methodHeader).
@@ -27,7 +30,6 @@ fillInMethodHeader: method size: size selector: selector
 	method cmUsageCount: self initialMethodUsageCount.
 	method cpicHasMNUCase: false.
 	method cmUsesPenultimateLit: maxLitIndex >= ((coInterpreter literalCountOfHeader: methodHeader) - 2).
-	method cmUsesMethodClass: usesMethodClass.
 	method blockEntryOffset: (blockEntryLabel notNil
 								ifTrue: [blockEntryLabel address - method asInteger]
 								ifFalse: [0]).

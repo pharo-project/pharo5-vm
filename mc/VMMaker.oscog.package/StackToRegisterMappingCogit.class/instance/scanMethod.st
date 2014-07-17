@@ -11,6 +11,8 @@ scanMethod
 	needsFrame := false.
 	inBlock := false.
 	prevBCDescriptor := nil.
+	self cppIf: #NewspeakVM ifTrue:
+		[numIRCs := 0].
 	(primitiveIndex > 0
 	 and: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]) ifTrue:
 		[^0].
@@ -38,6 +40,9 @@ scanMethod
 			 distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
 			 latestContinuation := latestContinuation max: targetPC].
+		self cppIf: #NewspeakVM ifTrue:
+			[descriptor hasIRC ifTrue:
+				[numIRCs := numIRCs + 1]].
 		pc := pc + descriptor numBytes.
 		nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [0].
 		prevBCDescriptor := descriptor].

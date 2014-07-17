@@ -1,4 +1,4 @@
-method prototypes
+method prototypes squeak
 BehaviorPROTOTYPEidentityHash
 	"Answer a SmallInteger whose value is related to the receiver's identity.
 	 Behavior implements identityHash to allow the VM to use an object representation which

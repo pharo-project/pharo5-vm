@@ -20,7 +20,7 @@ executeCoggedNewMethod: inInterpreter methodHeader: aRawMethodHeader
 	cogit numRegArgs > 0
 		ifTrue:
 			[cogMethod cmNumArgs <= cogit numRegArgs ifTrue:
-				[self enterRegisterArgCogMethod: cogMethod at: cogit noCheckEntryOffset receiver: rcvr]].
+				[self callRegisterArgCogMethod: cogMethod at: cogit noCheckEntryOffset receiver: rcvr]].
 	self push: cogMethod asInteger + cogit noCheckEntryOffset.
 	self push: rcvr.
 	cogit ceEnterCogCodePopReceiverReg.

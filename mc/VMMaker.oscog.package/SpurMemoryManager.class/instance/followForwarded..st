@@ -12,7 +12,7 @@ followForwarded: objOop
 		&a -> &b -> c"
 	<api>
 	| referent |
-	self assert: (self isReallyForwarded: objOop).
+	self assert: (self isUnambiguouslyForwarder: objOop).
 	referent := self fetchPointer: 0 ofMaybeForwardedObject: objOop.
 	[(self isOopForwarded: referent)] whileTrue:
 		[referent := self fetchPointer: 0 ofMaybeForwardedObject: referent].

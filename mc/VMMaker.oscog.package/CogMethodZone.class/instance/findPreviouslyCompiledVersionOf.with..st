@@ -9,18 +9,18 @@ findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop
 	 directly to only one cog method, which will have a specific selector, not necessarily
 	 the right one.  It is therefore worth-while searching for a cog method on this bytecoded
 	 method that has the right selector.  To speed up the search we maintain all such unpaired
-	 methods on the unpairedMethodList."
+	 methods on the unpairedMethodList, which is linked through nextMethodOrIRCs."
 	<returnTypeC: #'CogMethod *'>
 	<option: #NewspeakVM>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	((coInterpreter methodHasCogMethod: aMethodObj)
 	 and: [(coInterpreter methodClassAssociationOf: aMethodObj) = objectMemory nilObject]) ifTrue:
-		[cogMethod := unpairedMethodList.
+		[cogMethod := self cCoerceSimple: unpairedMethodList to: #'CogMethod *'.
 		[cogMethod notNil] whileTrue:
 			[self assert: cogMethod cmType = CMMethod.
 			 (cogMethod selector = aSelectorOop
 			  and: [cogMethod methodObject = aMethodObj]) ifTrue:
 				[^cogMethod].
-			 cogMethod := cogMethod nextMethod]].
+			 cogMethod := self cCoerceSimple: cogMethod nextMethodOrIRCs to: #'CogMethod *']].
 	^nil

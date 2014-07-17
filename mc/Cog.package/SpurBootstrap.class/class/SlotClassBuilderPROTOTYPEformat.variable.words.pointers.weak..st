@@ -1,4 +1,4 @@
-as yet unclassified
+method prototypes pharo
 SlotClassBuilderPROTOTYPEformat: nInstVars variable: isVar words: isWords pointers: isPointers weak: isWeak
 	"Compute the format for the given instance specfication.
 	 Above Cog Spur the class format is

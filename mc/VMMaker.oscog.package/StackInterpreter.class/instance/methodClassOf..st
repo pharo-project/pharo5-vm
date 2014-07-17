@@ -1,16 +1,16 @@
 compiled methods
 methodClassOf: methodPointer
 	<api>
+	"Using a read barrier here simplifies the become implementation and costs very little
+	 because the class index and ValueIndex of the association almost certainly share a cache line."
 	^self cppIf: NewspeakVM
 		ifTrue:
 			[| literal |
-			 literal := self literal: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
-			 self assert: (objectMemory isForwarded: literal) not.
+			 literal := self followLiteral: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
 			 literal = objectMemory nilObject
 				ifTrue: [literal]
-				ifFalse: [objectMemory fetchPointer: ValueIndex ofObject: literal]]
+				ifFalse: [objectMemory followField: ValueIndex ofObject: literal]]
 		ifFalse:
 			[| literal |
-			 literal := self literal: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
-			 self assert: (objectMemory isForwarded: literal) not.
-			 objectMemory fetchPointer: ValueIndex ofObject: literal]
+			 literal := self followLiteral: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
+			 objectMemory followField: ValueIndex ofObject: literal]

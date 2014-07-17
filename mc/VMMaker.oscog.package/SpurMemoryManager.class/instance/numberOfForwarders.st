@@ -4,6 +4,6 @@ numberOfForwarders
 	n := 0.
 	self allHeapEntitiesDo:
 		[:o|
-		((self isForwarded: o) and: [(self isFreeObject: o) not]) ifTrue:
+		(self isUnambiguouslyForwarder: o) ifTrue:
 			[n := n + 1]].
 	^n

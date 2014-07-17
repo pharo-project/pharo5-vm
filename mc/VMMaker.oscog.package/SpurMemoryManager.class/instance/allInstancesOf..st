@@ -37,7 +37,9 @@ allInstancesOf: aClass
 							[self setIsMarkedOf: obj to: false]]]]].
 	self assert: self allObjectsUnmarked.
 	self assert: (self isEmptyObjStack: markStack).
-	self emptyObjStack: weaklingStack.
+	MarkObjectsForEnumerationPrimitives
+		ifTrue: [self emptyObjStack: weaklingStack]
+		ifFalse: [self assert: (self isEmptyObjStack: weaklingStack)].
 	(count > (ptr - start / self bytesPerSlot) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeObject: freeChunk.

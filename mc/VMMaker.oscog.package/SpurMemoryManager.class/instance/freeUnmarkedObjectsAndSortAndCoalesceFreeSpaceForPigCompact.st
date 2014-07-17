@@ -11,7 +11,7 @@ freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact
 	 Let the segmentManager mark which segments contain pinned objects via notePinned:."
 
 	| prevPrevFree prevFree |
-	<inline: false>
+	<inline: #never> "for profiling"
 	self checkFreeSpace.
 	scavenger forgetUnmarkedRememberedObjects.
 	self doScavenge: MarkOnTenure.

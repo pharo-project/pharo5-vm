@@ -9,7 +9,6 @@ compileCogMethod: selector
 	primInvokeLabel := nil.
 	postCompileHook := nil.
 	maxLitIndex := -1.
-	usesMethodClass := false.
 	extra := ((primitiveIndex := coInterpreter primitiveIndexOf: methodObj) > 0
 			and: [(coInterpreter isQuickPrimitiveIndex: primitiveIndex) not])
 				ifTrue: [30]
@@ -30,8 +29,10 @@ compileCogMethod: selector
 	blockCount := 0.
 	numCleanBlocks > 0 ifTrue:
 		[self addCleanBlockStarts].
-	self maybeAllocAndInitCounters ifFalse: "Inaccurate error code, but it'll do.  This will likely never fail."
+	(self maybeAllocAndInitCounters
+	 and: [self maybeAllocAndInitIRCs]) ifFalse: "Inaccurate error code, but it'll do.  This will likely never fail."
 		[^coInterpreter cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
+	
 	blockEntryLabel := nil.
 	methodLabel dependent: nil.
 	(result := self compileEntireMethod) < 0 ifTrue:

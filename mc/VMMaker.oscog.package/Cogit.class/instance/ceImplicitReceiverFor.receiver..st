@@ -12,6 +12,7 @@ ceImplicitReceiverFor: selector receiver: receiver
 	 and reload the class tag.  If either the class tag or the mixin are young then the
 	 method needs to be added to the youngReferrers list to ensure correct GC."
 
+	<option: #SqueakV3ObjectMemory>
 	| rcvrClass retpc classpc mixinpc mixin cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	retpc := coInterpreter stackTop.

@@ -2,7 +2,7 @@ compile abstract instructions
 compileBlockBodies
 	<inline: false>
 	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs savedNumTemps
-	  initialStackPtr initialOpcodeIndex initialAnnotationIndex |
+	  initialStackPtr initialOpcodeIndex initialAnnotationIndex initialIndexOfIRC |
 	<var: #blockStart type: #'BlockStart *'>
 	self assert: blockCount > 0.
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
@@ -16,6 +16,8 @@ compileBlockBodies
 		 self scanBlock: blockStart.
 		 initialOpcodeIndex := opcodeIndex.
 		 initialAnnotationIndex := annotationIndex.
+		 self cppIf: #NewspeakVM ifTrue:
+			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
 		  (result := self compileAbstractInstructionsFrom: blockStart startpc + ((self pushNilSize: methodObj) * blockStart numInitialNils)
@@ -40,7 +42,9 @@ compileBlockBodies
 										at: i
 										put: (processor abstractInstructionCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
-				 annotationIndex := initialAnnotationIndex].
+				 annotationIndex := initialAnnotationIndex.
+				 self cppIf: #NewspeakVM ifTrue:
+					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].
 	needsFrame := savedNeedsFrame.
 	methodOrBlockNumArgs := savedNumArgs.

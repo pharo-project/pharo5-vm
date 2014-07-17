@@ -16,7 +16,6 @@
 		"cpicHasMNUCase",
 		"cmUsageCount",
 		"cmUsesPenultimateLit",
-		"cmUsesMethodClass",
 		"cmUnusedFlags",
 		"stackCheckOffset" ],
 	"name" : "CogBlockMethod",

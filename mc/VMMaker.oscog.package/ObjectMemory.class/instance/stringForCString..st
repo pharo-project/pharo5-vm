@@ -1,0 +1,16 @@
+primitive support
+stringForCString: aCString
+	"Answer a new String copied from a null-terminated C string,
+	 or nil if out of memory.
+	 Caution: This may invoke the garbage collector."
+	<api>
+	<var: 'aCString' type: 'const char *'>
+	<inline: false>
+	| len newString |
+	len := self strlen: aCString.
+	newString := self instantiateClass: (self splObj: ClassByteString) indexableSize: len.
+	newString ifNotNil:
+		[self st: newString + self baseHeaderSize
+			rn: aCString
+			cpy: len]. "(char *)strncpy()"
+	^newString

@@ -18,7 +18,5 @@ unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 			ifFalse: "Can't tell the target with PushReciver/SendImplicit so flush anyway."
 				[self cppIf: NewspeakVM ifTrue:
 					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-						[backEnd
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize put: 0;
-							unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop put: 0]]]].
+						[self voidImplicitReceiverCacheAt: mcpc]]]].
 	^0 "keep scanning"

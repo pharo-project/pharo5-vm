@@ -15,8 +15,9 @@ primitiveContextAtPut
 	index := objectMemory integerValueOf: index.
 	(objectMemory isContextHeader: hdr) ifFalse: "might be an instance of a subclass"
 		[self stObject: aContext at: index put: value.
-		 ^self successful ifTrue:
-			[self pop: argumentCount + 1 thenPush: value]].
+		 self successful ifTrue:
+			[self pop: argumentCount + 1 thenPush: value].
+		 ^self].
 	self externalWriteBackHeadFramePointers.
 	(self isStillMarriedContext: aContext) ifFalse:
 		[fmt := objectMemory formatOfHeader: hdr.
@@ -26,7 +27,8 @@ primitiveContextAtPut
 		 (index between: 1 and: stSize) ifFalse:
 			[^self primitiveFailFor: PrimErrBadIndex].			
 		self subscript: aContext with: (index + fixedFields) storing: value format: fmt.
-		^self pop: argumentCount + 1 thenPush: value].
+		self pop: argumentCount + 1 thenPush: value.
+		^self].
 	spouseFP := self frameOfMarriedContext: aContext.
 	(index between: 1 and: (self stackPointerIndexForFrame: spouseFP)) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].

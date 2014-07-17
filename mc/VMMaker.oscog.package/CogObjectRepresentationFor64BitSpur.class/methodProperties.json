@@ -2,6 +2,7 @@
 	"class" : {
 		"defaultObjectMemoryClass" : "eem 1/22/2014 15:53" },
 	"instance" : {
+		"allocateCounters:" : "eem 7/9/2014 21:21",
 		"genFetchIndexRegister:from:into:" : "eem 10/3/2013 10:07",
 		"inlineCacheTagForClass:" : "eem 7/7/2014 09:55",
 		"inlineCacheTagForInstance:" : "eem 7/7/2014 09:56",

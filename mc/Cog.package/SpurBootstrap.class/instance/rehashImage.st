@@ -5,7 +5,9 @@ rehashImage
 	 Enumerate all objects, rehashing those whose class has a bit set in rehashFlags."
 	| n sim rehashFlags |
 	sim := StackInterpreterSimulator onObjectMemory: newHeap.
-	sim imageName: 'spur image'.
+	sim 
+		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
+		imageName: 'spur image'.
 	newHeap coInterpreter: sim.
 	sim bootstrapping: true.
 	sim initializeInterpreter: 0.

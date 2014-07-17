@@ -1,4 +1,4 @@
-as yet unclassified
+method prototypes pharo
 SlotClassBuilderPROTOTYPEcomputeFormat: type instSize: newInstSize forSuper: newSuper ccIndex: ccIndex
 	"Compute the new format for making oldClass a subclass of newSuper.
 	 Answer the format or nil if there is any problem."

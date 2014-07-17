@@ -23,6 +23,7 @@ initializeFrameIndices
 
 	In an interpreter frame
 		frame flags holds
+			the backward jump count (see ifBackwardsCheckForEvents)
 			the number of arguments (since argument temporaries are above the frame)
 			the flag for a block activation
 			and the flag indicating if the context field is valid (whether the frame is married).

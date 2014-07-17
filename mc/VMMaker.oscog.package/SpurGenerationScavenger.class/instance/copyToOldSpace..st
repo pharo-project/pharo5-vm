@@ -24,8 +24,7 @@ copyToOldSpace: survivor
 		cp: (survivor + manager baseHeaderSize) asVoidPointer
 		y: numSlots * manager wordSize.
 	(manager hasPointerFields: survivor) ifTrue:
-		[self remember: newOop.
-		 manager setIsRememberedOf: newOop to: true].
+		[self remember: newOop].
 	hash ~= 0 ifTrue:
 		[manager setHashBitsOf: newOop to: hash].
 	statTenures := nTenures + 1.

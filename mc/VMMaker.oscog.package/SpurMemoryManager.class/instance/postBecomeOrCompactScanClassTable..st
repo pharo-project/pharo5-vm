@@ -9,8 +9,8 @@ postBecomeOrCompactScanClassTable: effectsFlags
 	 We can somehow avoid following classes from the classTable until after this mark phase."
 	self assert: self validClassTableRootPages.
 
-	(effectsFlags anyMask: BecamePointerObjectFlag"+BecameCompiledMethodFlag") ifFalse: [^self].
-	
+	(effectsFlags anyMask: BecamePointerObjectFlag) ifFalse: [^self].
+
 	0 to: numClassTablePages - 1 do:
 		[:i| | page |
 		page := self fetchPointer: i ofObject: hiddenRootsObj.
@@ -21,5 +21,4 @@ postBecomeOrCompactScanClassTable: effectsFlags
 			classOrNil ~= nilObj ifTrue:
 				[(self isForwarded: classOrNil) ifTrue:
 					[classOrNil := self followForwarded: classOrNil.
-					 self storePointer: j ofObject: page withValue: classOrNil].
-				 self scanClassPostBecome: classOrNil effects: effectsFlags]]]
+					 self storePointer: j ofObject: page withValue: classOrNil]]]]

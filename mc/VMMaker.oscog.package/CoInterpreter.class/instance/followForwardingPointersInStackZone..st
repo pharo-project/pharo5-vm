@@ -4,9 +4,8 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 	 The read-barrier is minimised by arranging that forwarding pointers will fail a method cache
 	 probe, since notionally objects' internals are accessed only via sending messages to them,
 	 the exception is primitives that access the internals of the non-receiver argument(s).
-	 To avoid a read barrier on bytecode, literal and inst var fetch we scan the receivers and
-	 methods in the stack zone and follow any forwarded ones.  This is of course way cheaper
-	 than scanning all of memory as in the old become."
+	 To avoid a read barrier on inst var fetch we scan the receivers in the stack zone and follow
+	 any forwarded ones.  This is way cheaper than scanning all of memory as in the old become."
 	| theIPPtr |
 	<inline: false>
 	<var: #thePage type: #'StackPage *'>
@@ -80,7 +79,6 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 						stackPages
 							longAt: theFP + FoxMethod
 							put: (oop := newOop)]].
-			  self followNecessaryForwardingInMethod: oop.
 			  (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
 				[theIPPtr := (theFP + FoxCallerSavedIP) asUnsignedInteger.
 				 theFP := callerFP]]]

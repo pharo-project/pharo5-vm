@@ -4,7 +4,6 @@
 		"wordSize" : "eem 9/10/2013 14:39" },
 	"instance" : {
 		"addressAfter:" : "eem 9/22/2013 15:00",
-		"allocatePinnedCounters:" : "eem 7/4/2014 17:14",
 		"allocateSlotsForPinningInOldSpace:bytes:format:classIndex:" : "eem 7/5/2014 20:27",
 		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 6/27/2014 15:50",
 		"byteSwapped:" : "eem 10/14/2013 20:10",
@@ -23,6 +22,7 @@
 		"largeObjectBytesForSlots:" : "eem 6/27/2014 15:29",
 		"logBytesPerSlot" : "eem 3/19/2014 13:02",
 		"maxSlotsForAlloc" : "eem 6/28/2014 16:35",
+		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:52",
 		"numFreeLists" : "eem 10/8/2013 09:09",
 		"numTagBits" : "eem 11/18/2013 15:54",
 		"objectAfter:limit:" : "eem 11/12/2013 16:36",

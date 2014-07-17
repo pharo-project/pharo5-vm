@@ -50,8 +50,6 @@
 		"desiredCogCodeSize",
 		"heapBase",
 		"lastCoggableInterpretedBlockMethod",
-		"lastBackwardJumpMethod",
-		"backwardJumpCount",
 		"reenterInterpreter",
 		"deferSmash",
 		"deferredSmash",
