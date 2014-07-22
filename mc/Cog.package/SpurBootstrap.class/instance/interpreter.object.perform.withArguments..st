@@ -15,7 +15,9 @@ interpreter: sim object: receiver perform: selector withArguments: arguments
 	"sim byteCount = 66849 ifTrue: [self halt]."
 	sim normalSend.
 	sim incrementByteCount. "otherwise, send is not counted"
-	["sim byteCount = 66849 ifTrue: [self halt]."
+	["sim printFrame: sim localFP WithSP: sim localSP"
+	 "sim setBreakSelector: #elementsForwardIdentityTo:"
+	 "sim byteCount = 66849 ifTrue: [self halt]."
 	 "(sim byteCount > 7508930 and: [sim localFP = -16r27894]) ifTrue:
 		[self halt]."
 	 fp = sim localFP] whileFalse:

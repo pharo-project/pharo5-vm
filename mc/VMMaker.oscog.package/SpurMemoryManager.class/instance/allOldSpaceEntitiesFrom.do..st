@@ -2,6 +2,7 @@ object enumeration
 allOldSpaceEntitiesFrom: initialObject do: aBlock
 	<inline: true>
 	| prevObj prevPrevObj objOop |
+	self assert: (self isOldObject: initialObject).
 	prevPrevObj := prevObj := nil.
 	objOop := initialObject.
 	[self assert: objOop \\ self allocationUnit = 0.

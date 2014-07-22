@@ -27,7 +27,8 @@ processWeaklings
 			 weakObj := manager followForwarded: weakCorpse.
 			 "weakObj may have been tenured..."
 			 ((self processWeakSurvivor: weakObj)
-			  and: [manager isOldObject: weakObj]) ifTrue:
+			  and: [(manager isOldObject: weakObj)
+			  and: [(manager isRemembered: weakObj) not]]) ifTrue:
 				[self remember: weakObj].
 			 weakCorpse := self nextCorpseOrNil: weakCorpse].
 		weakList := nil]

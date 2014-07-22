@@ -1,7 +1,8 @@
 private-accessing
 packagesAndPatches
 	"SpurBootstrapMonticelloPackagePatcher new packagesAndPatches"
-	| packagesAndPatches |
+	packagesAndPatches ifNotNil:
+		[^packagesAndPatches].
 	packagesAndPatches := Dictionary new.
 	SpurBootstrap new prototypeClassNameMetaSelectorMethodDo:
 		[:className :isMeta :selector :method| | class methodReference source |

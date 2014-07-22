@@ -44,9 +44,12 @@ initializeObjectMemory: bytesToShift
 	segmentManager collapseSegmentsPostSwizzle.
 	self computeFreeSpacePostSwizzle.
 	self bootstrapping ifFalse:
-		[self initializeNewSpaceVariables].
+		[self initializeNewSpaceVariables.
+		 scavenger initializeRememberedSet].
 	self initializeOldSpaceFirstFree: freeOldSpaceStart. "initializes endOfMemory, freeStart"
 	segmentManager checkSegments.
+
+	numCompactionPasses := CompactionPassesForGC.
 
 	"These defaults should depend on machine size; e.g. too small on a powerful laptop, too big on a Pi."
 	growHeadroom := 16*1024*1024.		"headroom when growing"

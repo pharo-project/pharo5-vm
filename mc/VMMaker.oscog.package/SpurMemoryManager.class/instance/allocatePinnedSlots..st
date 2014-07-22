@@ -1,8 +1,6 @@
 sista support
 allocatePinnedSlots: nSlots
 	<api>
-	<option: #NewspeakVM>
-	<option: #SistaStackToRegisterMappingCogit>
 	| obj |
 	obj := self allocateSlotsForPinningInOldSpace: nSlots
 				bytes: (self objectBytesForSlots: nSlots)

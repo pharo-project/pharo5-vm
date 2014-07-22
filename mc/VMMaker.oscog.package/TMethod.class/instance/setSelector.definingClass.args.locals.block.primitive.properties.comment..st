@@ -13,7 +13,7 @@ setSelector: sel definingClass: class args: argList locals: localList block: aBl
 	comment := aComment.
 	parseTree := aBlockNode. "hack; allows nodes to find their parent, etc"
 	parseTree := aBlockNode asTranslatorNodeIn: self.
-	labels := OrderedCollection new.
+	labels := Set new.
 	complete := false.  "set to true when all possible inlining has been done"
 	export := self extractExportDirective.
 	static := self extractStaticDirective.

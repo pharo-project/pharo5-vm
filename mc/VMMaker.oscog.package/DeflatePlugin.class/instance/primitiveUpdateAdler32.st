@@ -27,5 +27,6 @@ primitiveUpdateAdler32
 		s2 := (s2 + s1) \\ 65521.
 	].
 	adler32 := (s2 bitShift: 16) + s1.
-	interpreterProxy pop: 5. "args + rcvr"
-	interpreterProxy push: (interpreterProxy positive32BitIntegerFor: adler32).
+	interpreterProxy
+		pop: 5 "args + rcvr"
+		thenPush: (interpreterProxy positive32BitIntegerFor: adler32)

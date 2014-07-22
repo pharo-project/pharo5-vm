@@ -14,6 +14,7 @@ markAndTraceHiddenRoots
 	self markAndTraceObjStack: weaklingStack andContents: false.
 	self markAndTraceObjStack: ephemeronQueue andContents: true.
 
+	self setIsMarkedOf: self rememberedSetObj to: true.
 	self setIsMarkedOf: self freeListsObj to: true.
 
 	(self isWeakNonImm: classTableFirstPage) ifTrue:

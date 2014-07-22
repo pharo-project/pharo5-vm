@@ -3,7 +3,8 @@ emitCCodeOn: aStream prependToEnd: aNodeOrNil level: level generator: aCodeGen
 	self emitCCommentOn: aStream level: level.
 	statements withIndexDo:
 		[:s :idx|
-		s emitCCommentOn: aStream level: level.
+		s isStmtList ifFalse:
+			[s emitCCommentOn: aStream level: level].
 		aStream peekLast ~~ Character tab ifTrue:
 			[aStream tab: level].
 		(aNodeOrNil notNil

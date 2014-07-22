@@ -20,7 +20,8 @@
 		"zipDistTable",
 		"zipCollectionSize",
 		"zipLitTableSize",
-		"zipDistTableSize" ],
+		"zipDistTableSize",
+		"readStreamInstSize" ],
 	"name" : "InflatePlugin",
 	"pools" : [
 		 ],

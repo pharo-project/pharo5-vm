@@ -19,10 +19,10 @@ primitiveDeflateBlock
 	result := self deflateBlock: lastIndex chainLength: chainLength goodMatch: goodMatch.
 	interpreterProxy failed ifFalse:[
 		"Store back modified values"
-		interpreterProxy storeInteger: 6 ofObject: rcvr withValue: zipHashValue.
-		interpreterProxy storeInteger: 7 ofObject: rcvr withValue: zipBlockPos.
-		interpreterProxy storeInteger: 13 ofObject: rcvr withValue: zipLiteralCount.
-		interpreterProxy storeInteger: 14 ofObject: rcvr withValue: zipMatchCount].
+		interpreterProxy storeInteger: writeStreamInstSize + 2 ofObject: rcvr withValue: zipHashValue.
+		interpreterProxy storeInteger: writeStreamInstSize + 3 ofObject: rcvr withValue: zipBlockPos.
+		interpreterProxy storeInteger: writeStreamInstSize + 9 ofObject: rcvr withValue: zipLiteralCount.
+		interpreterProxy storeInteger: writeStreamInstSize + 10 ofObject: rcvr withValue: zipMatchCount].
 	interpreterProxy failed ifFalse:[
 		interpreterProxy pop: 4.
 		interpreterProxy pushBool: result.

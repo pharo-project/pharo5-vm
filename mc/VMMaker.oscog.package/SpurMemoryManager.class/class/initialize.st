@@ -3,6 +3,11 @@ initialize
 	"SpurMemoryManager initialize"
 	BitsPerByte := 8.
 
+	"Pig compact can be repeated to compact better.  Experience shows that 3 times
+	 compacts very well, desirable for snapshots.  But this is overkill for normal GCs."
+	CompactionPassesForGC := 2.
+	CompactionPassesForSnapshot := 3.
+
 	"An obj stack is a stack of objects stored in a hidden root slot, such as
 	 the markStack or the ephemeronQueue.  It is a linked list of segments,
 	 with the hot end at the head of the list.  It is a word object.  The stack
@@ -18,10 +23,13 @@ initialize
 	ObjStackNextx := 3.
 	ObjStackFixedSlots := 4.
 	ObjStackLimit := ObjStackPageSlots - ObjStackFixedSlots.
-	"There are currently three obj stacks, the mark stack, the weaklings and the ephemeron queue."
+	"The hiddenHootsObject contains the classTable pages and up to 8 additional objects.
+	 Currently we use four; the three objStacks, the mark stack, the weaklings and the
+	 ephemeron queue, and the rememberedSet."
 	MarkStackRootIndex := self basicNew classTableRootSlots.
 	WeaklingStackRootIndex := MarkStackRootIndex + 1.
 	EphemeronQueueRootIndex := MarkStackRootIndex + 2.
+	RememberedSetRootIndex := MarkStackRootIndex + 3.
 
 	MarkObjectsForEnumerationPrimitives := false.
 

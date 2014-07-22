@@ -15,6 +15,6 @@ remapObj: objOop
 		ifFalse:
 			[resolvedObj := objOop].
 	(scavengeInProgress
-	 and: [self isReallyYoung: resolvedObj]) ifFalse: "a becommed or compacted object whose target is in old space, or a CogMethod."
-		[^resolvedObj].
-	^scavenger copyAndForward: resolvedObj
+	 and: [self isReallyYoung: resolvedObj]) ifTrue: "a becommed or compacted object whose target is in old space, or a CogMethod."
+		[^scavenger copyAndForward: resolvedObj].
+	^resolvedObj

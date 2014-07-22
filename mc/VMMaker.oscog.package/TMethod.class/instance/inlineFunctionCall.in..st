@@ -9,8 +9,8 @@ inlineFunctionCall: aSendNode in: aCodeGen
 	| sel meth doNotRename argsForInlining substitutionDict |
 	sel := aSendNode selector.
 	meth := (aCodeGen methodNamed: sel) copy.
-	(meth isNil and: [sel beginsWith: 'perform:']) ifTrue:
-		[^self inlineFunctionCall: aSendNode asTransformedConstantPerform in: aCodeGen].
+	meth ifNil:
+		[^self inlineBuiltin: aSendNode in: aCodeGen].
 	doNotRename := Set withAll: args.
 	argsForInlining := aSendNode argumentsForInliningCodeGenerator: aCodeGen.
 	meth args with: argsForInlining do:
@@ -31,4 +31,6 @@ inlineFunctionCall: aSendNode in: aCodeGen
 		(doNotRename includes: argName) ifFalse:
 			[locals remove: argName]].
 	meth parseTree bindVariablesIn: substitutionDict.
-	^meth statements first expression
+	^meth statements first isReturn
+		ifTrue: [meth statements first expression]
+		ifFalse: [meth parseTree]

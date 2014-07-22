@@ -3,6 +3,7 @@ transform
 	self rememberRehashSymbol.
 	self findRequiredGlobals.
 	self installModifiedMethods.
+	self recreateSpecialObjectsArray.
 	self bootstrapImage.
 	self validate.
 	self rememberRehashSymbol.

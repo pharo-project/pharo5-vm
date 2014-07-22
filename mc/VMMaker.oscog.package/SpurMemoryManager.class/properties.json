@@ -4,6 +4,8 @@
 		 ],
 	"classvars" : [
 		"BitsPerByte",
+		"CompactionPassesForGC",
+		"CompactionPassesForSnapshot",
 		"EphemeronQueueRootIndex",
 		"ExtraRootsSize",
 		"FirstValidClassIndex",
@@ -18,8 +20,9 @@
 		"ObjStackPageSlots",
 		"ObjStackTopx",
 		"RemapBufferSize",
+		"RememberedSetRootIndex",
 		"WeaklingStackRootIndex" ],
-	"commentStamp" : "eem 5/13/2014 12:00",
+	"commentStamp" : "eem 7/17/2014 21:34",
 	"instvars" : [
 		"coInterpreter",
 		"scavenger",
@@ -72,6 +75,7 @@
 		"totalFreeOldSpace",
 		"firstFreeChunk",
 		"lastFreeChunk",
+		"numCompactionPasses",
 		"statCoalesces",
 		"statCompactPassCount",
 		"statFGCDeltaUsecs",

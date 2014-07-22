@@ -34,7 +34,8 @@
 		"zipExtraLengthBits",
 		"zipExtraDistanceBits",
 		"zipBaseLength",
-		"zipBaseDistance" ],
+		"zipBaseDistance",
+		"writeStreamInstSize" ],
 	"name" : "DeflatePlugin",
 	"pools" : [
 		 ],

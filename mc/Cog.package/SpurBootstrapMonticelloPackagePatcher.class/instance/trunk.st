@@ -1,10 +1,3 @@
 repository population
 trunk
-	| url |
-	url := 'http://source.squeak.org/trunk'.
-	^MCRepositoryGroup default repositories 
-		detect: [:r| r description = url]
-		ifNone: [MCHttpRepository
-					location: url
-					user: 'squeak'
-					password: 'squeak']
+	^self repositoryForUrl: 'http://source.squeak.org/trunk'
