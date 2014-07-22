@@ -33,4 +33,5 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		SurfacePlugin	
 		LocalePlugin
+		SDL2DisplayPlugin
 		)

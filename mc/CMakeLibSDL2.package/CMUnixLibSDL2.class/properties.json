@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeLibSDL2",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMUnixLibSDL2",
+	"pools" : [
+		 ],
+	"super" : "CMLibSDL2",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Windows",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogSpur32WindowsConfig",
+	"pools" : [
+		 ],
+	"super" : "CogWindowsConfig",
+	"type" : "normal" }
