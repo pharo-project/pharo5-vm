@@ -31,15 +31,15 @@ baselineGit: spec
 			package: 'SqueakSSL-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
-			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ].	
-			
-			"spec postLoadDoIt: #fixForPharo10."
-			
+			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
+			package: 'SpurVMMaker' with: [ spec requires: #('Cog') ].				
+
 		spec 
-			group: 'default' with: 'ALL';
-			group: 'ALL' with: #('CogVMMaker' 'Plugins' 'CMakeVMMaker');
-			group: 'CogVMMaker' with: #('VMMaker' 'Cog');
-			group: 'Plugins' with: #(
+			group: 'default' with: 'all';
+			group: 'all' with: #('maker' 'plugins' 'builders');
+			group: 'builders' with: #('CMakeVMMaker');
+			group: 'maker' with: #('VMMaker' 'Cog' 'ImageFormat' 'MethodMassage');
+			group: 'plugins' with: #(
 				'VMConstruction-Plugins-AioPlugin' 
 				'VMConstruction-Plugins-OSProcessPlugin' 
 				'Qwaq-VMProfiling-Plugins' 
@@ -55,7 +55,14 @@ baselineGit: spec
 				package: 'VMMaker' with: [ 
 					spec 
 						file: 'VMMaker.oscog';
-						requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core' 'CogVMMakerPharoCompatibility') ];
+						requires: #(
+							'SharedPool-Speech' 
+							'FFI-Pools' 
+							'Balloon-Engine-Pools' 
+							'Sound' 
+							'Alien-Core' 
+							'CogVMMakerPharoCompatibility' 
+							'SpurVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
 				package:  'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];
@@ -63,6 +70,7 @@ baselineGit: spec
 				package:  'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].
 			
 			spec 
-				group: 'ALL' with: #('CogVMMaker' 'Plugins' 'PharoPlugins' 'CMakeVMMaker' 'PharoVMMaker' 'ThirdPartyLibs');
-				group: 'PharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
-				group: 'ThirdPartyLibs' with: #('CMakeLibSSH2' 'CMakeLibGit2') ]
+				group: 'all' with: #('maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
+				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
+				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
+				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2') ]
