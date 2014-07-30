@@ -1,3 +1,3 @@
-as yet unclassified
+accessing
 executableName
 	^ 'Spur32CogVM'
