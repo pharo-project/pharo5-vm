@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Windows",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackSpur32WindowsConfig",
+	"pools" : [
+		 ],
+	"super" : "StackWindowsConfig",
+	"type" : "normal" }
