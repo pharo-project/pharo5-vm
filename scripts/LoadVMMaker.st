@@ -1,9 +1,9 @@
 Author useAuthor: 'LoadVMMaker' during: [ 
 	Gofer new
 		url: 'filetree://../mc';
-		package: 'ConfigurationOfCog';
+		package: 'ConfigurationOfSpur';
 		load.	
-	(Smalltalk at: #ConfigurationOfCog) loadGit ].
+	(Smalltalk at: #ConfigurationOfSpur) loadGit ].
 
 (Smalltalk saveAs: 'generator') 
     ifFalse: [ Smalltalk snapshot: false andQuit: true ].
