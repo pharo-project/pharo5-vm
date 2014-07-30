@@ -4,7 +4,7 @@ normalSend
 	"Assume: messageSelector and argumentCount have been set, and that 
 	the receiver and arguments have been pushed onto the stack,"
 	"Note: This method is inlined into the interpreter dispatch loop."
-	<sharedCodeNamed: 'normalSend' inCase: #singleExtendedSendBytecode>
+	<sharedCodeInCase: #singleExtendedSendBytecode>
 	| rcvr |
 	rcvr := self internalStackValue: argumentCount.
 	lkupClassTag := objectMemory fetchClassTagOf: rcvr.

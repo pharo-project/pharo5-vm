@@ -5,6 +5,7 @@
 		"removeCompilerMethods" : "jm 5/16/1998 10:26",
 		"shortMonticelloDescriptionForClass:" : "eem 3/7/2014 17:06" },
 	"instance" : {
+		"abortBlock" : "eem 7/23/2014 23:28",
 		"accessorChainsForMethod:interpreterClass:" : "eem 1/3/2014 17:17",
 		"accessorDepthDeterminationFollowsSelfSends" : "eem 1/3/2014 15:02",
 		"accessorDepthForChain:" : "eem 1/3/2014 10:27",

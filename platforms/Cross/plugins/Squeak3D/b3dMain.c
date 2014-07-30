@@ -63,7 +63,7 @@ int maxEdges = 0;
 /*************************************************************/
 
 void b3dAbort(char *msg){
-	printf(msg);
+	printf("%s\n", msg);
 	exit(-1);
 }
 

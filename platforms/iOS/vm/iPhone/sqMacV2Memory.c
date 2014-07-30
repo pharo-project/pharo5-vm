@@ -167,7 +167,7 @@ sqMemoryExtraBytesLeft(sqInt includingSwap) {
 	return gMaxHeapSize - gHeapSize;
 }
 
-void 
+void
 sqMacMemoryFree() {
 	if (gSqueakUseFileMappedMMAP) {
 		munmap(startOfmmapForImageFile,fileRoundedUpToPageSize);

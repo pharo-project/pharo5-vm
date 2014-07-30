@@ -1,7 +1,7 @@
 return bytecodes
 commonCallerReturn
 	"Return to the previous context/frame (sender for method activations, caller for block activations)."
-	<sharedCodeNamed: 'commonCallerReturn' inCase: #returnTopFromBlock>
+	<sharedCodeInCase: #returnTopFromBlock>
 	| callersFPOrNull |
 	<var: #callersFPOrNull type: #'char *'>
 

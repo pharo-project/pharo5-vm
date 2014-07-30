@@ -5,7 +5,7 @@ innerBecomeObjectsIn: array1 and: array2 copyHash: copyHashFlag
 		[:i| | obj1 obj2 |
 		"At first blush it would appear unnecessary to use followField: here since
 		 the validation in become:with:twoWay:copyHash: follows forwarders.  But
-		 there's nothing to ensure all elements of each array is unique and doesn't
+		 there's nothing to ensure all elements of each array are unique and don't
 		 appear in the other array.  So the enumeration could encounter an object
 		 already becommed earlier in the same enumeration."
 		obj1 := self followField: i ofObject: array1.

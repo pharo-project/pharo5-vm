@@ -1,6 +1,7 @@
 become implementation
 doBecome: obj1 and: obj2 copyHash: copyHashFlag
-	"Inner dispatch for two-way become"
+	"Inner dispatch for two-way become.
+	 N.B. At least in current two-way become use copyHashFlag is false."
 	| o1ClassIndex o2ClassIndex |
 	copyHashFlag ifFalse:
 		["in-lined
@@ -12,11 +13,14 @@ doBecome: obj1 and: obj2 copyHash: copyHashFlag
 		 o2ClassIndex := self rawHashBitsOf: obj2.
 		 (o2ClassIndex ~= 0 and: [(self classAtIndex: o2ClassIndex) ~= obj2]) ifTrue:
 			[o2ClassIndex := 0]].
-	(self numSlotsOf: obj1) = (self numSlotsOf: obj2)
-		ifTrue:
-			[self inPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag]
-		ifFalse:
-			[self outOfPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag].
+	(self numSlotsOf: obj1) = (self numSlotsOf: obj2) ifTrue:
+		[self inPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag.
+		 self assert: (o1ClassIndex = 0
+					or: [(self rawHashBitsOf: (self classAtIndex: o1ClassIndex)) = o1ClassIndex]).
+		 self assert: (o2ClassIndex = 0
+					or: [(self rawHashBitsOf: (self classAtIndex: o2ClassIndex)) = o2ClassIndex]).
+		 ^self].
+	self outOfPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag.
 	"if copyHashFlag then nothing changes, since hashes were also swapped."
 	copyHashFlag ifTrue:
 		[^self].

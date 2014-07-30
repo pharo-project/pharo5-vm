@@ -4,6 +4,8 @@ generateSqueakCogSistaVM
 	^VMMaker
 		generate: CoInterpreter
 		and: SistaStackToRegisterMappingCogit
+		with: #(	MULTIPLEBYTECODESETS true
+				bytecodeTableInitializer initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid)
 		to: (FileDirectory default pathFromURI: self sourceTree, '/sistasrc')
 		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including: #()

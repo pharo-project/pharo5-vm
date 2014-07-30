@@ -18,7 +18,8 @@
 		"interpreterClassName",
 		"cogitClassName",
 		"is64BitVM",
-		"optionsDictionary" ],
+		"optionsDictionary",
+		"abortBlock" ],
 	"name" : "VMMaker",
 	"pools" : [
 		 ],

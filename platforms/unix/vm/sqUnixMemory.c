@@ -27,7 +27,22 @@
  *   DEALINGS IN THE SOFTWARE.
  */
 
-/* Note:
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/mman.h>
+
+#include "sq.h"
+#include "sqMemoryAccess.h"
+#include "config.h"
+#include "debug.h"
+
+#if !SPURVM /* Spur uses sqUnixSpurMemory.c */
+void *uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize);
+
+/* Note: 
  * 
  *   The code allows memory to be overallocated; i.e., the initial
  *   block is reserved via mmap() and then the unused portion
@@ -45,24 +60,13 @@
  *   option to allocate a fixed size heap.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/mman.h>
-
-#include "sq.h"
-#include "sqMemoryAccess.h"
-#include "config.h"
-#include "debug.h"
-
-void *uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize);
 char *uxGrowMemoryBy(char *oldLimit, sqInt delta);
 char *uxShrinkMemoryBy(char *oldLimit, sqInt delta);
 sqInt uxMemoryExtraBytesLeft(sqInt includingSwap);
 
 static int	    pageSize = 0;
 static unsigned int pageMask = 0;
+int mmapErrno = 0;
 
 #if defined(HAVE_MMAP)
 
@@ -107,12 +111,23 @@ static int max(int x, int y) { return (x > y) ? x : y; }
 
 /* answer the address of (minHeapSize <= N <= desiredHeapSize) bytes of memory. */
 
+#if SPURVM
+void *
+uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize)
+{
+	if (heap) {
+		fprintf(stderr, "uxAllocateMemory: already called\n");
+		exit(1);
+	}
+	pageSize= getpagesize();
+	pageMask= ~(pageSize - 1);
+#else /* SPURVM */
 void *uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize)
 {
-#if !ALWAYS_USE_MMAP
+# if !ALWAYS_USE_MMAP
   if (!useMmap)
     return malloc(desiredHeapSize);
-#endif
+# endif
 
   if (heap) {
       fprintf(stderr, "uxAllocateMemory: already called\n");
@@ -123,12 +138,12 @@ void *uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize)
 
   DPRINTF(("uxAllocateMemory: pageSize 0x%x (%d), mask 0x%x\n", pageSize, pageSize, pageMask));
 
-#if (!MAP_ANON)
+# if (!MAP_ANON)
   if ((devZero= open("/dev/zero", O_RDWR)) < 0) {
       perror("uxAllocateMemory: /dev/zero");
       return 0;
   }
-#endif
+# endif
 
   DPRINTF(("uxAllocateMemory: /dev/zero descriptor %d\n", devZero));
   DPRINTF(("uxAllocateMemory: min heap %d, desired %d\n", minHeapSize, desiredHeapSize));
@@ -156,6 +171,7 @@ void *uxAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize)
 
   return heap;
 }
+#endif /* SPURVM */
 
 
 static int log_mem_delta = 0;
@@ -251,7 +267,11 @@ uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize)
 	}
 	pageSize = getpagesize();
 	pageMask = ~(pageSize - 1);
+#	if SPURVM
 	return malloc(desiredHeapSize);
+#	else
+	return malloc(desiredHeapSize);
+#	endif
 }
 # else /* COG */
 void *uxAllocateMemory(sqInt minHeapSize, sqInt desiredHeapSize)	{ return malloc(desiredHeapSize); }
@@ -328,53 +348,9 @@ sqMakeMemoryNotExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 }
 #endif /* COGVM */
 
-#if SPURVM
-/* Allocate a region of memory of al least size bytes, at or above minAddress.
- *  If the attempt fails, answer null.  If the attempt succeeds, answer the
- * start of the region and assign its size through allocatedSizePointer.
- */
-void *
-sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto(sqInt size, void *minAddress, sqInt *allocatedSizePointer)
-{
-	void *alloc;
-	long bytes = roundUpToPage(size);
+# if defined(TEST_MEMORY)
 
-	if (!pageSize) {
-		pageSize = getpagesize();
-		pageMask = pageSize - 1;
-	}
-	*allocatedSizePointer = bytes;
-	while ((char *)minAddress + bytes > (char *)minAddress) {
-		alloc = mmap((void *)roundUpToPage((unsigned long)minAddress), bytes,
-					PROT_READ | PROT_WRITE, MAP_ANON | MAP_SHARED, -1, 0);
-		if (alloc == MAP_FAILED) {
-			perror("sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto mmap");
-			return 0;
-		}
-		if (alloc >= minAddress)
-			return alloc;
-		if (munmap(alloc, bytes) != 0)
-			perror("sqAllocateMemorySegment... munmap");
-		minAddress = (void *)((char *)minAddress + bytes);
-	}
-	return 0;
-}
-
-/* Deallocate a region of memory previously allocated by
- * sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto.  Cannot fail.
- */
-void
-sqDeallocateMemorySegmentAtOfSize(void *addr, sqInt sz)
-{
-	if (munmap(addr, sz) != 0)
-		perror("sqDeallocateMemorySegment... munmap");
-}
-#endif /* SPURVM */
-
-
-#if defined(TEST_MEMORY)
-
-#define MBytes	*1024*1024
+# define MBytes	*1024*1024
 
 int main()
 {
@@ -389,4 +365,5 @@ int main()
   return 0;
 }
 
-#endif /* defined(TEST_MEMORY) */
+# endif /* defined(TEST_MEMORY) */
+#endif /* !SPURVM */

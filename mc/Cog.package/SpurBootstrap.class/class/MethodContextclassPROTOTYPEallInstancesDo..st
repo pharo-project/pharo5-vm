@@ -1,5 +1,5 @@
 method prototypes squeak
-MethodContextPROTOTYPEallInstancesDo: aBlock
+MethodContextclassPROTOTYPEallInstancesDo: aBlock
 	"Evaluate aBlock with each of the current instances of the receiver."
 	| instances inst next |
 	instances := self allInstancesOrNil.

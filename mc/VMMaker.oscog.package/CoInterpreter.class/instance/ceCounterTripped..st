@@ -29,7 +29,7 @@ ceCounterTripped: condition
 					compactClassIndex: ClassMethodContextCompactIndex.
 	(self lookupInMethodCacheSel: counterTrippedSelector classTag: classTag) ifFalse:
 	 	[messageSelector := counterTrippedSelector.
-		 (self lookupMethodNoMNUEtcInClass: (objectMemory classTagForClass: classTag)) ~= 0 ifTrue:
+		 (self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 			[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
 			 ^condition]].
 

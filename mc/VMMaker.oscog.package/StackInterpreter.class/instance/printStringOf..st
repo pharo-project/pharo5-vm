@@ -23,7 +23,13 @@ printStringOf: oop
 				 i := i + 1]]
 		ifFalse:
 			[[i < cnt] whileTrue:
-				[self printChar: (objectMemory fetchByte: i ofObject: oop).
+				[self cCode:
+						[(objectMemory fetchByte: i ofObject: oop) = 13 "Character cr asInteger" ifTrue:
+							[self print: '<CR>'.
+							 i + 1 < len ifTrue:
+								[self print: '...'].
+							 ^self]].
+				 self printChar: (objectMemory fetchByte: i ofObject: oop).
 				 i := i + 1]].
 	len > max ifTrue:
 		[self print: '...'].

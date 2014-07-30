@@ -43,5 +43,5 @@ Alternately, this acknowledgment may appear in the software itself, in the same 
 such third-party acknowledgments.
 *///
 
-usqInt	sqGetAvailableMemory(void);
-void	sqMacMemoryFree(void);
+usqInt	sqGetAvailableMemory();
+void	sqMacMemoryFree();

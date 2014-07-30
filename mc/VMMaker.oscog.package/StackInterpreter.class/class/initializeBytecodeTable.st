@@ -2,6 +2,9 @@ initialization
 initializeBytecodeTable
 	"StackInterpreter initializeBytecodeTable"
 
+	(initializationOptions at: #bytecodeTableInitializer ifAbsent: nil) ifNotNil:
+		[:initalizer| ^self perform: initalizer].
+
 	NewspeakVM ifTrue:
 		[^MULTIPLEBYTECODESETS
 			ifTrue: [self initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid]

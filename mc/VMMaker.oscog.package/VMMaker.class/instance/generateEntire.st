@@ -2,6 +2,7 @@ generate sources
 generateEntire
 	"Generate the interp, internal plugins and exports as well as the external plugins.
 	 If this comes from a generator, log it for convenience."
+	abortBlock := [^self].
 	self configurationGeneratorNameOrNil ifNotNil:
 		[:generator|
 		 logger cr; nextPutAll: (generator selector copyReplaceAll: 'generate' with: '').

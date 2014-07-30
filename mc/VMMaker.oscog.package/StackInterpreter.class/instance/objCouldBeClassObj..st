@@ -9,13 +9,11 @@ objCouldBeClassObj: objOop
 	  and: [fieldOop := objectMemory fetchPointer: SuperclassIndex ofObject: objOop.
 			((objectMemory isNonImmediate: fieldOop)
 			and:[ (objectMemory isPointersNonImm: fieldOop)
-				or: [(objectMemory rawHashBitsOf: fieldOop) = 0
-					and: [(objectMemory isOopForwarded: fieldOop)
-					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]]])
+				or: [(objectMemory isOopForwarded: fieldOop)
+					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]])
 	  and: [fieldOop := objectMemory fetchPointer: MethodDictionaryIndex ofObject: objOop.
 			((objectMemory isNonImmediate: fieldOop)
 			and:[ (objectMemory isPointersNonImm: fieldOop)
-				or: [(objectMemory rawHashBitsOf: fieldOop) = 0
-					and: [(objectMemory isOopForwarded: fieldOop)
-					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]]])
+				or: [(objectMemory isOopForwarded: fieldOop)
+					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]])
 	  and: [(objectMemory isIntegerObject: (objectMemory fetchPointer: InstanceSpecificationIndex ofObject: objOop))]]]]

@@ -3,7 +3,7 @@ commonReturn
 	"Do an ^-return (return form method), perhaps checking for unwinds if this is a block activation.
 	 Note: Assumed to be inlined into the dispatch loop."
 
-	<sharedCodeNamed: 'commonReturn' inCase: #returnReceiver>
+	<sharedCodeInCase: #returnReceiver>
 	| closure home unwindContextOrNilOrZero frameToReturnTo contextToReturnTo theFP callerFP newPage |
 	<var: #frameToReturnTo type: #'char *'>
 	<var: #theFP type: #'char *'>

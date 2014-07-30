@@ -7,7 +7,7 @@ sqInt warnpid;
 void
 warning(char *s) { /* Print an error message but don''t exit. */
 	if (warnpid)
-		printf("\n%s pid %ld\n", s, warnpid);
+		printf("\n%s pid %ld\n", s, (long)warnpid);
 	else
 		printf("\n%s\n", s);
 }

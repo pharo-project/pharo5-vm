@@ -29,10 +29,10 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 		ifFalse:
 			[self innerBecomeObjectsIn: array1 to: array2 copyHash: copyHashFlag].
 	self followSpecialObjectsOop.
-	self postBecomeOrCompactScanClassTable: becomeEffectsFlags.
 	coInterpreter postBecomeAction: becomeEffectsFlags.
 	becomeEffectsFlags := 0.
 
+	self assert: self validClassTableHashes.
 	self leakCheckBecome ifTrue:
 		[self runLeakCheckerForFullGC: true].
 

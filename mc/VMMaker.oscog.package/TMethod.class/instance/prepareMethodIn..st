@@ -36,6 +36,6 @@ prepareMethodIn: aCodeGen
 										[node arguments: node args allButLast]]]
 						ifFalse:
 							[(CaseStatements includes: node selector) ifTrue:
-								[parent replaceNodesIn: (Dictionary newFromPairs: { node. self buildCaseStmt: node})].
+								[parent replaceNodesIn: (Dictionary newFromPairs: { node. self buildCaseStmt: node in: aCodeGen})].
 							 (#(caseOf: #caseOf:otherwise:) includes: node selector) ifTrue:
 								[parent replaceNodesIn: (Dictionary newFromPairs: { node. self buildSwitchStmt: node parent: parent })]]]]]

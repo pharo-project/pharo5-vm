@@ -27,6 +27,7 @@
 		"initializeAnnotationConstants" : "eem 6/25/2011 00:29",
 		"initializeBytecodeTable" : "eem 9/30/2013 12:57",
 		"initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid" : "eem 3/18/2013 16:51",
+		"initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid" : "eem 7/23/2014 22:34",
 		"initializeCogMethodConstants" : "eem 1/21/2014 14:55",
 		"initializeErrorCodes" : "eem 6/30/2014 06:54",
 		"initializeMiscConstants" : "eem 7/9/2014 21:01",

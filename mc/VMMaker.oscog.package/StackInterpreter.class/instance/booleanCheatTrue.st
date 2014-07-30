@@ -1,7 +1,7 @@
 utilities
 booleanCheatTrue
 	"cheat the interpreter out of the pleasure of handling the next bytecode IFF it is a jump-on-boolean. Which it is, often enough when the current bytecode is something like bytecodePrimEqual"
-	<sharedCodeNamed: 'booleanCheatTrue' inCase: #bytecodePrimLessThan>
+	<sharedCodeInCase: #bytecodePrimLessThan>
 	| bytecode offset |
 
 	bytecode := self fetchByte.  "assume next bytecode is jumpIfFalse (99%)"

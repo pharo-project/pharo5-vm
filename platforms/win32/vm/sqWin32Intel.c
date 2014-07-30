@@ -8,7 +8,7 @@
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
 *   RCSID:   $Id: sqWin32Intel.c 1435 2006-04-11 00:17:05Z andreas $
 *
-*   NOTES:
+*   NOTES: (I think this comment of Andreas' is obsolete; eem 6/2013)
 *    1) When using this module the virtual machine MUST NOT be compiled
 *       with Unicode support.
 *****************************************************************************/
@@ -55,15 +55,16 @@ LONG CALLBACK sqExceptionFilter(LPEXCEPTION_POINTERS exp);
 static void printCrashDebugInformation(LPEXCEPTION_POINTERS exp);
 
 /*** Variables -- command line */
-char *initialCmdLine;
-int  numOptionsVM = 0;
-char **vmOptions;
-int  numOptionsImage = 0;
-char **imageOptions;
-int clargc; /* the Unix-style command line, saved for GetImageOption */
-char **clargv;
+static char *initialCmdLine;
+static int  numOptionsVM = 0;
+static char **vmOptions;
+static int  numOptionsImage = 0;
+static char **imageOptions;
+static int clargc; /* the Unix-style command line, saved for GetImageOption */
+static char **clargv;
 
 /* console buffer */
+BOOL fIsConsole = 0;
 TCHAR consoleBuffer[4096];
 
 /* stderr and stdout names */
@@ -232,8 +233,10 @@ int __cdecl DPRINTF(const char *fmt, ...)
 { va_list al;
 
   va_start(al, fmt);
-  wvsprintf(consoleBuffer, fmt, al);
-  OutputDebugString(consoleBuffer);
+  if (!fIsConsole) {
+	wvsprintf(consoleBuffer, fmt, al);
+	OutputDebugString(consoleBuffer);
+  }
   vfprintf(stdout, fmt, al);
   va_end(al);
   return 1;
@@ -249,10 +252,12 @@ printf(const char *fmt, ...)
   int result;
 
   va_start(al, fmt);
-  wvsprintf(consoleBuffer, fmt, al);
-  OutputLogMessage(consoleBuffer);
-  if(IsWindow(stWindow)) /* not running as service? */
-    OutputConsoleString(consoleBuffer);
+  if (!fIsConsole) {
+	wvsprintf(consoleBuffer, fmt, al);
+	OutputLogMessage(consoleBuffer);
+	if(IsWindow(stWindow)) /* not running as service? */
+	  OutputConsoleString(consoleBuffer);
+  }
   result = vfprintf(stdout, fmt, al);
   va_end(al);
   return result;
@@ -264,7 +269,7 @@ fprintf(FILE *fp, const char *fmt, ...)
   int result;
 
   va_start(al, fmt);
-  if(fp == stdout || fp == stderr)
+  if(!fIsConsole && (fp == stdout || fp == stderr))
     {
       wvsprintf(consoleBuffer, fmt, al);
       OutputLogMessage(consoleBuffer);
@@ -278,10 +283,7 @@ fprintf(FILE *fp, const char *fmt, ...)
 
 
 int __cdecl
-putchar(int c)
-{
-  return printf("%c",c);
-}
+putchar(int c) { return printf("%c",c); }
 
 #endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
 
@@ -1194,9 +1196,6 @@ void __cdecl Cleanup(void)
       fclose(stdout);
       remove(stdoutName);
     }
-#ifndef NO_VIRTUAL_MEMORY
-  sqReleaseMemory();
-#endif
   OleUninitialize();
 }
 
@@ -1349,8 +1348,7 @@ sqMain(int argc, char *argv[])
       /* Search the current directory if there's a single image file */
       if(!findImageFile()) {
 	/* Nope. Give the user a chance to open an image interactively */
-	
-          if(fHeadlessImage || !openImageFile()) return -1; /* User cancelled file open */
+	if(!openImageFile()) return -1; /* User cancelled file open */
       }
     }
   }
@@ -1515,11 +1513,18 @@ sqMain(int argc, char *argv[])
 int WINAPI
 WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+  DWORD mode;
+
   /* a few things which need to be done first */
   gatherSystemInfo();
 
   /* check if we're running NT or 95 */
   fWindows95 = (GetVersion() & 0x80000000) != 0;
+  /* Determine if we're running as a console application  We can't report
+   * allocation failures unless running as a console app because doing so
+   * via a MessageBox will make the system unusable.
+   */
+  fIsConsole = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
 
   /* fetch us a copy of the command line */
   initialCmdLine = _strdup(lpCmdLine);

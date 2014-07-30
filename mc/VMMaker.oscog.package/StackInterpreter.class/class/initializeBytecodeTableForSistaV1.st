@@ -28,7 +28,7 @@ initializeBytecodeTableForSistaV1
 		( 92	returnTopFromMethod)
 		( 93	returnNilFromBlock)
 		( 94	returnTopFromBlock)
-		( 95	extNop)
+		( 95	extNopBytecode)
 
 		( 96	 bytecodePrimAdd)
 		( 97	 bytecodePrimSubtract)
@@ -94,7 +94,7 @@ initializeBytecodeTableForSistaV1
 		(234		extSendBytecode)
 		(235		extSendSuperBytecode)
 
-		(236		extTrapOnBehaviorsBytecode)
+		(236		extTrapIfNotInstanceOfBehaviorsBytecode)
 
 		(237		extUnconditionalJump)
 		(238		extJumpIfTrue)

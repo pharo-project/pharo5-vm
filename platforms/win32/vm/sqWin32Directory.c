@@ -22,12 +22,12 @@ static char RCSID[]="$Id: sqWin32Directory.c 1696 2007-06-03 18:13:07Z andreas $
 #endif
 
 /***
- The interface to the directory primitive is path based.
- That is, the client supplies a Squeak string describing
- the path to the directory on every call. To avoid traversing
- this path on every call, a cache is maintained of the last
- path seen.
- ***/
+	The interface to the directory primitive is path based.
+	That is, the client supplies a Squeak string describing
+	the path to the directory on every call. To avoid traversing
+	this path on every call, a cache is maintained of the last
+	path seen.
+***/
 
 /*** Constants ***/
 #define ENTRY_FOUND     0
@@ -35,7 +35,7 @@ static char RCSID[]="$Id: sqWin32Directory.c 1696 2007-06-03 18:13:07Z andreas $
 #define BAD_PATH        2
 
 /* figure out if a case sensitive duplicate of the given path exists.
- useful for trying to stay in sync with case-sensitive platforms. */
+   useful for trying to stay in sync with case-sensitive platforms. */
 int caseSensitiveFileMode = 0;
 
 static int findFileFallbackOnSharingViolation(WCHAR *win32Path, WIN32_FILE_ATTRIBUTE_DATA* winAttrs) {

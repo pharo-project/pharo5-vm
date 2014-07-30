@@ -1,5 +1,5 @@
 method prototypes pharo
-ContextPROTOTYPEallInstances
+ContextclassPROTOTYPEallInstances
 	"Answer all instances of the receiver."
 	<primitive: 177>
 	"The primitive can fail because memory is low.  If so, fall back on the old
