@@ -1,4 +1,4 @@
-header access
+object access
 formatOfHeader: header
 "       0      no fields
         1      fixed fields only (all containing pointers)

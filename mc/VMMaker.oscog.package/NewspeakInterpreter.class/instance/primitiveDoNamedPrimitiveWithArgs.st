@@ -9,7 +9,7 @@ primitiveDoNamedPrimitiveWithArgs
 	argumentArray := self stackTop.
 	(self isArray: argumentArray) ifFalse:
 		[^self primitiveFail]. "invalid args"
-	arraySize := self fetchWordLengthOf: argumentArray.
+	arraySize := self numSlotsOf: argumentArray.
 	self success: (self roomToPushNArgs: arraySize).
 
 	methodArg := self stackObjectValue: 2.

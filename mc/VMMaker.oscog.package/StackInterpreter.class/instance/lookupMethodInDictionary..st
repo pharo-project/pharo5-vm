@@ -5,7 +5,7 @@ lookupMethodInDictionary: dictionary
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
 	<asmLabel: false>
-	length := objectMemory fetchWordLengthOf: dictionary.
+	length := objectMemory numSlotsOf: dictionary.
 	mask := length - SelectorStart - 1.
 	"Use linear search on small dictionaries; its cheaper.
 	 Also the limit can be set to force linear search of all dictionaries, which supports the

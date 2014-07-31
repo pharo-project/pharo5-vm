@@ -17,7 +17,7 @@ compileCogMethod: selector
 	"initial estimate.  Actual endPC is determined in scanMethod."
 	endPC := (coInterpreter isQuickPrimitiveIndex: primitiveIndex)
 					ifTrue: [initialPC - 1]
-					ifFalse: [objectMemory byteLengthOf: methodObj].
+					ifFalse: [objectMemory numBytesOf: methodObj].
 	numBytecodes := endPC - initialPC + 1.
 	self allocateOpcodes: (numBytecodes + extra) * 10
 		bytecodes: numBytecodes

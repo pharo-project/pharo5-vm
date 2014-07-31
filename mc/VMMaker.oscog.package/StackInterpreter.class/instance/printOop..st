@@ -21,7 +21,7 @@ printOop: oop
 		[^self cr; printFloat: (self dbgFloatValueOf: oop); cr].
 	fmt := objectMemory formatOf: oop.
 	fmt > objectMemory lastPointerFormat ifTrue:
-		[self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)].
+		[self print: ' nbytes '; printNum: (objectMemory numBytesOf: oop)].
 	self cr.
 	(fmt between: objectMemory firstLongFormat and: objectMemory firstCompiledMethodFormat - 1) ifTrue:
 		["This will answer false if splObj: ClassAlien is nilObject"
@@ -35,7 +35,7 @@ printOop: oop
 									ifFalse: [' direct @ ']]).
 			 ^self printHex: (self startOfAlienData: oop) asUnsignedInteger; cr].
 		 (objectMemory isWords: oop) ifTrue:
-			[lastIndex := 64 min: ((objectMemory byteLengthOf: oop) / BytesPerWord).
+			[lastIndex := 64 min: ((objectMemory numBytesOf: oop) / BytesPerWord).
 			 lastIndex > 0 ifTrue:
 				[1 to: lastIndex do:
 					[:index|

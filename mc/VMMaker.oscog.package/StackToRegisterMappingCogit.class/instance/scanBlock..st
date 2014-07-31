@@ -1,7 +1,7 @@
 compile abstract instructions
 scanBlock: blockStart
 	"Scan the block to determine if the block needs a frame or not"
-	| descriptor pc end framelessStackDelta nExts pushingNils |
+	| descriptor pc end framelessStackDelta nExts pushingNils numPushNils |
 	<var: #blockStart type: #'BlockStart *'>
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
@@ -24,13 +24,22 @@ scanBlock: blockStart
 		  and: [descriptor isExtension not]) ifTrue:
 			["Count the initial number of pushed nils acting as temp initializers.  We can't tell
 			  whether an initial pushNil is an operand reference or a temp initializer, except
-			  when the pushNil is a jump target (has a fixup) in which case it is definitely an
-			  operand reference.  So rarely we may end up over-estimating.  We will correct
-			  by checking the stack depth at the end of the block in compileBlockBodies."
-			 (pushingNils := (self isPushNil: descriptor pc: pc nExts: nExts method: methodObj)
-							  and: [(self fixupAt: pc - initialPC) targetInstruction = 0]) ifTrue:
-				[self assert: descriptor numBytes = 1. "see compileMethodBody"
-				 blockStart numInitialNils: blockStart numInitialNils + 1]].
+			  when the pushNil is a jump target (has a fixup), which never happens:
+					self systemNavigation browseAllSelect:
+						[:m| | ebc |
+						(ebc := m embeddedBlockClosures
+									select: [:ea| ea decompile statements first isMessage]
+									thenCollect: [:ea| ea decompile statements first selector]) notEmpty
+						and: [(#(whileTrue whileFalse whileTrue: whileFalse:) intersection: ebc) notEmpty]]
+			  or if the bytecode set has a push multiple nils bytecode.  We simply count initial nils.
+			  Rarely we may end up over-estimating.  We will correct by checking the stack depth
+			  at the end of the block in compileBlockBodies."
+			 (numPushNils := self numPushNils: descriptor pc: pc nExts: nExts method: methodObj) > 0
+				ifTrue:
+					[self assert: descriptor numBytes = 1. "see compileMethodBody"
+					 blockStart numInitialNils: blockStart numInitialNils + numPushNils]
+				ifFalse:
+					[pushingNils := false]].
 		 pc := self nextBytecodePCFor: descriptor at: pc exts: nExts in: methodObj.
 		 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [0].
 		 prevBCDescriptor := descriptor].

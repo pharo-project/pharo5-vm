@@ -1,4 +1,4 @@
-header access
+object access
 isClassOfNonImm: oop equalTo: classOop compactClassIndex: compactClassIndex
 	"Answer if the given (non-immediate) object is an instance of the given class
 	 that may have a compactClassIndex (if compactClassIndex is non-zero).

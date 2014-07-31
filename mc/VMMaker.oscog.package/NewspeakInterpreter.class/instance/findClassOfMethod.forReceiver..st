@@ -6,7 +6,7 @@ findClassOfMethod: meth forReceiver: rcvr
 	done := false.
 	[done] whileFalse: [
 		classDict := self fetchPointer: MessageDictionaryIndex ofObject: currClass.
-		classDictSize := self fetchWordLengthOf: classDict.
+		classDictSize := self numSlotsOf: classDict.
 		methodArray := self fetchPointer: MethodArrayIndex ofObject: classDict.
 		i := 0.
 		[i < (classDictSize - SelectorStart)] whileTrue: [

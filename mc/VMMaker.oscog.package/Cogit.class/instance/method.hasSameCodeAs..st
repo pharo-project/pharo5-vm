@@ -13,7 +13,7 @@ method: methodA hasSameCodeAs: methodB
 	 or: [(coInterpreter temporaryCountOfMethodHeader: headerA) ~= (coInterpreter temporaryCountOfMethodHeader: headerB)
 	 or: [(coInterpreter primitiveIndexOfMethod: methodA header: headerA) ~= (coInterpreter primitiveIndexOfMethod: methodB header: headerB)
 	 or: [numLitsA ~= (coInterpreter literalCountOfHeader: headerB)
-	 or: [endPCA > (objectMemory byteLengthOf: methodB)]]]]) ifTrue:
+	 or: [endPCA > (objectMemory numBytesOf: methodB)]]]]) ifTrue:
 		[^false].
 	 1 to: numLitsA - 1 do:
 		[:li|

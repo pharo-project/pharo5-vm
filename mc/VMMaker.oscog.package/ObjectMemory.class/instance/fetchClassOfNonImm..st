@@ -1,4 +1,4 @@
-interpreter access
+object access
 fetchClassOfNonImm: oop 
 	| ccIndex |
 	<inline: true>

@@ -16,7 +16,7 @@ printAllStacks
 			[self printProcsOnList: oop].
 		 oop := self objectAfter: oop].
 	schedLists := self fetchPointer: ProcessListsIndex ofObject: self schedulerPointer.
-	(self fetchWordLengthOf: schedLists) - 1 to: 0 by: -1 do:
+	(self numSlotsOf: schedLists) - 1 to: 0 by: -1 do:
 		[:pri|
 		processList := self fetchPointer: pri ofObject: schedLists.
 		(self isEmptyList: processList) ifFalse:

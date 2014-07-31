@@ -11,7 +11,7 @@ printAllStacks
 	schedLists := objectMemory fetchPointer: ProcessListsIndex ofObject: self schedulerPointer.
 	"then the runnable processes"
 	p := highestRunnableProcessPriority = 0
-			ifTrue: [objectMemory fetchWordLengthOf: schedLists]
+			ifTrue: [objectMemory numSlotsOf: schedLists]
 			ifFalse: [highestRunnableProcessPriority].
 	p - 1 to: 0 by: -1 do:
 		[:pri|

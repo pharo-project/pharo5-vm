@@ -15,7 +15,7 @@ primitiveVMProfileSamplesInto
 	self successful ifTrue:
 		[sampleBuffer := self stackObjectValue: 0.
 		 self assertClassOf: sampleBuffer is: (objectMemory splObj: ClassBitmap).
-		 self success: (objectMemory fetchWordLengthOf: sampleBuffer) >= bufferSize].
+		 self success: (objectMemory numSlotsOf: sampleBuffer) >= bufferSize].
 	self successful ifFalse:
 		[^nil].
 	sampleBufferAddress := objectMemory firstFixedField: sampleBuffer.

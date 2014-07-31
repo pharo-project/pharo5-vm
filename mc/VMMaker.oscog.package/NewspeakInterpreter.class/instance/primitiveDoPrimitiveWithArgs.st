@@ -2,8 +2,8 @@ control primitives
 primitiveDoPrimitiveWithArgs
 	| argumentArray arraySize index cntxSize primIdx |
 	argumentArray := self stackTop.
-	arraySize := self fetchWordLengthOf: argumentArray.
-	cntxSize := self fetchWordLengthOf: activeContext.
+	arraySize := self numSlotsOf: argumentArray.
+	cntxSize := self numSlotsOf: activeContext.
 	self success: self stackPointerIndex + arraySize < cntxSize.
 	(self isArray: argumentArray) ifFalse: [^ self primitiveFail].
 

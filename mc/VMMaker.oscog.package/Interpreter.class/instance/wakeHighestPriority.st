@@ -4,7 +4,7 @@ wakeHighestPriority
 	"Note: It is a fatal VM error if there is no runnable process."
 	| schedLists p processList |
 	schedLists := self fetchPointer: ProcessListsIndex ofObject: self schedulerPointer.
-	p := self fetchWordLengthOf: schedLists.
+	p := self numSlotsOf: schedLists.
 	p := p - 1.
 	"index of last indexable field"
 	processList := self fetchPointer: p ofObject: schedLists.

@@ -7,7 +7,7 @@ primitiveValueWithArgs
 	"If the argArray isnt actually an Array we ahve to unpop the above two"
 	(self isArray: argumentArray) ifFalse: [self unPop:2. ^self primitiveFail].
 
-	self successful ifTrue: [arrayArgumentCount := self fetchWordLengthOf: argumentArray.
+	self successful ifTrue: [arrayArgumentCount := self numSlotsOf: argumentArray.
 			self success: (arrayArgumentCount = blockArgumentCount
 						and: [(self fetchPointer: CallerIndex ofObject: blockContext) = nilObj])].
 	self successful

@@ -3,5 +3,5 @@ initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid
 	"StackToRegisterMappingCogit initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid"
 
 	super initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid.
-	isPushNilFunction := #squeakV3orSistaV1:Is:Push:Nil:.
+	numPushNilsFunction := #squeakV3orSistaV1:Num:Push:Nils:.
 	pushNilSizeFunction := #squeakV3orSistaV1PushNilSize:

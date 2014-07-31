@@ -3,5 +3,5 @@ initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid
 	"StackToRegisterMappingCogit initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid"
 
 	super initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid.
-	isPushNilFunction := #v3or4:Is:Push:Nil:.
+	numPushNilsFunction := #v3or4:Num:Push:Nils:.
 	pushNilSizeFunction := #v3or4PushNilSize:

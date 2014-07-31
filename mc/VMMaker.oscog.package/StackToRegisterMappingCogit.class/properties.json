@@ -1,14 +1,14 @@
 {
 	"category" : "VMMaker-JIT",
 	"classinstvars" : [
-		"isPushNilFunction",
+		"numPushNilsFunction",
 		"pushNilSizeFunction" ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "eem 12/19/2010 18:12",
 	"instvars" : [
 		"prevBCDescriptor",
-		"isPushNilFunction",
+		"numPushNilsFunction",
 		"pushNilSizeFunction",
 		"methodOrBlockNumTemps",
 		"regArgsHaveBeenPushed",

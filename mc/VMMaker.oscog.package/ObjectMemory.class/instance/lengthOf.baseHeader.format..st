@@ -1,4 +1,4 @@
-indexing primitive support
+object access
 lengthOf: oop baseHeader: hdr format: fmt
 	"Return the number of fixed and indexable bytes, words, or object pointers in the
 	given object. Assume the given oop is not an integer. For a CompiledMethod, the size

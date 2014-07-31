@@ -17,9 +17,9 @@ initializeBytecodeTableForSistaV1
 		(1  32   63 genPushLiteralConstantBytecode			needsFrameNever: 1)
 		(1  64   75 genPushTemporaryVariableBytecode)
 		(1  76   76 genPushReceiverBytecode)
-		(1  77   77 pushConstantTrueBytecode					needsFrameNever: 1)
-		(1  78   78 pushConstantFalseBytecode				needsFrameNever: 1)
-		(1  79   79 pushConstantNilBytecode					needsFrameNever: 1)
+		(1  77   77 genPushConstantTrueBytecode				needsFrameNever: 1)
+		(1  78   78 genPushConstantFalseBytecode			needsFrameNever: 1)
+		(1  79   79 genPushConstantNilBytecode				needsFrameNever: 1)
 		(1  80   80 genPushConstantZeroBytecode				needsFrameNever: 1)
 		(1  81   81 genPushConstantOneBytecode				needsFrameNever: 1)
 		(1  82   82 genExtPushPseudoVariable)
@@ -35,7 +35,7 @@ initializeBytecodeTableForSistaV1
 		(1  92   92 genReturnTopFromMethod		return needsFrameIfInBlock: isMappedInBlock -1)
 		(1  93   93 genReturnNilFromBlock			return needsFrameNever: -1)
 		(1  94   94 genReturnTopFromBlock		return needsFrameNever: -1)
-		(1  95   95 genExtNop						needsFrameNever: 0)
+		(1  95   95 genExtNopBytecode			needsFrameNever: 0)
 
 		"sends"
 		(1   96 117 genSpecialSelectorSend isMapped) "#+ #- #< #> #<= #>= #= #~= #* #/ #\\ #@ #bitShift: #// #bitAnd: #bitOr: #at: #at:put: #size #next #nextPut: #atEnd"
@@ -100,9 +100,9 @@ initializeBytecodeTableForSistaV1
 		(2 246 247	unknownBytecode)
 
 		"3 byte bytecodes"
-		(3 248 248 callPrimitiveBytecode)
+		(3 248 248 genCallPrimitiveBytecode)
 		(3 249 249 unknownBytecode) "reserved for Push Float"
-		(3 250 250 genExtPushClosureBytecode block sistaV1:Block:Code:Size:)
+		(3 250 250 genExtPushClosureBytecode block v4:Block:Code:Size:)
 		(3 251 251 genPushRemoteTempLongBytecode)
 		(3 252 252 genStoreRemoteTempLongBytecode)
 		(3 253 253 genStoreAndPopRemoteTempLongBytecode)

@@ -9,7 +9,7 @@ bcpcsAndDescriptorsFor: aMethod do: trinaryBlock
 	trinaryBlock value: pc value: nil value: nil. "stackCheck/entry pc"
 	bsOffset := self bytecodeSetOffsetFor: aMethod.
 	nExts := 0.
-	endpc := objectMemory byteLengthOf: aMethod.
+	endpc := objectMemory numBytesOf: aMethod.
 	[pc <= endpc] whileTrue:
 		[byte := objectMemory fetchByte: pc ofObject: aMethod.
 		descriptor := self generatorAt: byte + bsOffset.

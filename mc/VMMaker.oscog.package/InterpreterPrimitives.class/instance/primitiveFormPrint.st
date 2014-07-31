@@ -24,7 +24,7 @@ primitiveFormPrint
 		wordsPerLine := (w + (pixelsPerWord - 1)) // pixelsPerWord.
 		(objectMemory isWordsOrBytes: bitsArray)
 			ifTrue:
-				[bitsArraySize := objectMemory byteLengthOf: bitsArray.
+				[bitsArraySize := objectMemory numBytesOf: bitsArray.
 				self success: (bitsArraySize = (wordsPerLine * h * 4))]
 			ifFalse: [self success: false]].	
 	self successful ifTrue:

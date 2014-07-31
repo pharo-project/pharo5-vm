@@ -5,7 +5,7 @@ primitiveClosureCopyWithCopiedValues
 	copiedValues := self stackTop.
 	(self fetchClassOf: copiedValues) = (self splObj: ClassArray) ifFalse:
 		[^self primitiveFail].
-	numCopiedValues := self fetchWordLengthOf: copiedValues.
+	numCopiedValues := self numSlotsOf: copiedValues.
 	newClosure := self
 					closureNumArgs: numArgs
 									"greater by 1 due to preIncrement of localIP"

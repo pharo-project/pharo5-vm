@@ -20,7 +20,7 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 
 	"Check if number of arguments is reasonable; MaxNumArgs isn't available
 	 so just use LargeContextSize"
-	arraySize := objectMemory fetchWordLengthOf: argumentArray.
+	arraySize := objectMemory numSlotsOf: argumentArray.
 	arraySize > LargeContextSlots ifTrue:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
 

@@ -19,8 +19,8 @@ primitiveStopVMProfiling
 	self cCode: 'ioControlProfile(0,&vmHist,&vmBins,&easHist,&easBins)'
 		inSmalltalk: [vmHist := vmBins := easHist := easBins := 0].
 	vmHistArrayOrNil ~= objectMemory nilObject ifTrue:
-		[((objectMemory fetchWordLengthOf: vmHistArrayOrNil) = vmBins
-		  and: [(objectMemory fetchWordLengthOf: easHistArrayOrNil) = easBins]) ifFalse:
+		[((objectMemory numSlotsOf: vmHistArrayOrNil) = vmBins
+		  and: [(objectMemory numSlotsOf: easHistArrayOrNil) = easBins]) ifFalse:
 			[^self primitiveFail].
 		0 to: vmBins - 1 do:
 			[:i|

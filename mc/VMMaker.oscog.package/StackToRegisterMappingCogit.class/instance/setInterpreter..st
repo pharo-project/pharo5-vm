@@ -17,5 +17,5 @@ setInterpreter: aCoInterpreter
 	debugFixupBreaks := Set new.
 	debugBytecodePointers := Set new.
 
-	isPushNilFunction := self class isPushNilFunction.
-	pushNilSizeFunction := self class pushNilSizeFunction.
+	numPushNilsFunction := self class numPushNilsFunction.
+	pushNilSizeFunction := self class pushNilSizeFunction

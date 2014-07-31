@@ -1,4 +1,4 @@
-interpreter access
+object access
 fetchClassOf: oop 
 	| ccIndex |
 	<inline: true>

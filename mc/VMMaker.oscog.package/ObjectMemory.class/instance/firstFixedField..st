@@ -1,4 +1,4 @@
-object format
+object access
 firstFixedField: oop
 
 	<returnTypeC: #'void *'>

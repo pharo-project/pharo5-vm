@@ -1,3 +1,3 @@
 accessing
 size
-	^objectMemory byteLengthOf: oop
+	^objectMemory numBytesOf: oop

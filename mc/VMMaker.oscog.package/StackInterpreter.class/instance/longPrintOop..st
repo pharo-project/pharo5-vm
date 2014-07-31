@@ -21,7 +21,7 @@ longPrintOop: oop
 	fmt := objectMemory formatOf: oop.
 	self print: ' format '; printHexnp: fmt.
 	fmt > objectMemory lastPointerFormat
-		ifTrue: [self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)]
+		ifTrue: [self print: ' nbytes '; printNum: (objectMemory numBytesOf: oop)]
 		ifFalse: [(objectMemory isIndexableFormat: fmt) ifTrue:
 					[| len |
 					len := objectMemory lengthOf: oop.

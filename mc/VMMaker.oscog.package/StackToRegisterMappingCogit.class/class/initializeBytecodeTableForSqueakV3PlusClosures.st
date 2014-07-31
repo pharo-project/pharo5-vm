@@ -2,7 +2,7 @@ class initialization
 initializeBytecodeTableForSqueakV3PlusClosures
 	"StackToRegisterMappingCogit initializeBytecodeTableForSqueakV3PlusClosures"
 
-	isPushNilFunction := #v3:Is:Push:Nil:.
+	numPushNilsFunction := #v3:Num:Push:Nils:.
 	pushNilSizeFunction := #v3PushNilSize:.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which

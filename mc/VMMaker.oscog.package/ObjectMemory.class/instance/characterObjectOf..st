@@ -1,4 +1,4 @@
-primitive support
+object access
 characterObjectOf: characterCode
 	<api>
 	^(characterCode between: 0 and: 255)

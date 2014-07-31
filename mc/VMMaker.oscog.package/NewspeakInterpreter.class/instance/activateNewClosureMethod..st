@@ -16,7 +16,7 @@ activateNewClosureMethod: blockClosure
 	"allocateOrRecycleContext: may cause a GC; restore blockClosure and refetch outerContext et al"
 	theBlockClosure := self popRemappableOop.
 	outerContext := self fetchPointer: ClosureOuterContextIndex ofObject: theBlockClosure.
-	numCopied := (self fetchWordLengthOf: theBlockClosure) - ClosureFirstCopiedValueIndex.
+	numCopied := (self numSlotsOf: theBlockClosure) - ClosureFirstCopiedValueIndex.
 
 	"Assume: newContext will be recorded as a root if necessary by the
 	 call to newActiveContext: below, so we can use unchecked stores."

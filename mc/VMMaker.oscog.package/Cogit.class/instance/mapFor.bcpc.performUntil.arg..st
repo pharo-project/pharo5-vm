@@ -26,7 +26,7 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 						 or: [(objectMemory byteAt: map) >> AnnotationShift = IsDisplacementX2N]]]).
 			 latestContinuation := startbcpc.
 			 aMethodObj := homeMethod methodObject.
-			 endbcpc := (objectMemory byteLengthOf: aMethodObj) - 1.
+			 endbcpc := (objectMemory numBytesOf: aMethodObj) - 1.
 			 bsOffset := self bytecodeSetOffsetForHeader: homeMethod methodHeader]
 		ifFalse:
 			[isInBlock := true.

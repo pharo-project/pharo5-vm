@@ -6,7 +6,7 @@ findSelectorAndClassForMethod: meth lookupClass: startClass do: binaryBlock
 	| currClass classDict classDictSize methodArray i |
 	currClass := startClass.
 	[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: currClass.
-	 classDictSize := objectMemory fetchWordLengthOf: classDict.
+	 classDictSize := objectMemory numSlotsOf: classDict.
 	 methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: classDict.
 	 i := 0.
 	 [i <= (classDictSize - SelectorStart)] whileTrue:

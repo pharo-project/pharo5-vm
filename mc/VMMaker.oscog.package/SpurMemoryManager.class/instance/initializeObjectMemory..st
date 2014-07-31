@@ -43,10 +43,10 @@ initializeObjectMemory: bytesToShift
 	self initializeFreeSpacePostLoad: freeListObj.
 	segmentManager collapseSegmentsPostSwizzle.
 	self computeFreeSpacePostSwizzle.
+	self initializeOldSpaceFirstFree: freeOldSpaceStart. "initializes endOfMemory, freeStart, free space"
 	self bootstrapping ifFalse:
 		[self initializeNewSpaceVariables.
 		 scavenger initializeRememberedSet].
-	self initializeOldSpaceFirstFree: freeOldSpaceStart. "initializes endOfMemory, freeStart"
 	segmentManager checkSegments.
 
 	numCompactionPasses := CompactionPassesForGC.

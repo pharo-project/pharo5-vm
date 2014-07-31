@@ -11,7 +11,7 @@ primitiveExecuteMethodArgsArray
 	 and: [objectMemory isArray: argumentArray]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	argCnt := self argumentCountOf: methodArgument.
-	argCnt = (objectMemory fetchWordLengthOf: argumentArray) ifFalse:
+	argCnt = (objectMemory numSlotsOf: argumentArray) ifFalse:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
 	argumentCount > 2 ifTrue: "CompiledMethod class>>receiver:withArguments:executeMethod:
 								SqueakObjectPrimitives class >> receiver:withArguments:apply:

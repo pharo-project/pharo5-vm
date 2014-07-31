@@ -25,7 +25,7 @@ primitiveFormPrint
 		wordsPerLine := (w + (pixelsPerWord - 1)) // pixelsPerWord.
 		((rcvr isIntegerObject: rcvr) not and: [self isWordsOrBytes: bitsArray])
 			ifTrue: [
-				bitsArraySize := self byteLengthOf: bitsArray.
+				bitsArraySize := self numBytesOf: bitsArray.
 				self success: (bitsArraySize = (wordsPerLine * h * 4))]
 			ifFalse: [self success: false]].	
 	self successful ifTrue: [

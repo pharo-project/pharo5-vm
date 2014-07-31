@@ -5,7 +5,7 @@ lookupMethodInDictionary: dictionary
 	compacted out"
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
-	length := self fetchWordLengthOf: dictionary.
+	length := self numSlotsOf: dictionary.
 	mask := length - SelectorStart - 1.
 	(self isIntegerObject: messageSelector)
 		ifTrue: [index := (mask bitAnd: (self integerValueOf: messageSelector)) + SelectorStart]

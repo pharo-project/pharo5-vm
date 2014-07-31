@@ -1,4 +1,4 @@
 contexts
 badContextSize: oop
-	^(self byteLengthOf: oop) ~= (SmallContextSize-BaseHeaderSize)
-	   and: [(self byteLengthOf: oop) ~= (LargeContextSize-BaseHeaderSize)]
+	^(self numBytesOf: oop) ~= (SmallContextSize-BaseHeaderSize)
+	   and: [(self numBytesOf: oop) ~= (LargeContextSize-BaseHeaderSize)]

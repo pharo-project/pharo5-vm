@@ -7,7 +7,7 @@ lookupMethodFor: selector InDictionary: dictionary
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
 	<asmLabel: false>
-	length := objectMemory fetchWordLengthOf: dictionary.
+	length := objectMemory numSlotsOf: dictionary.
 	mask := length - SelectorStart - 1.
 	index := SelectorStart + (objectMemory methodDictionaryHash: selector mask: mask).
 

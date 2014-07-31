@@ -1,4 +1,4 @@
-interpreter access
+object access
 storeLong32: fieldIndex ofObject: oop withValue: valueWord
 
 	^ self long32At: oop + BaseHeaderSize + (fieldIndex << 2)

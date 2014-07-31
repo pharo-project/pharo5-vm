@@ -7,5 +7,5 @@ printWronglySizedContexts
 	[oop = nil] whileFalse:
 		[((self isContextNonImm: oop)
 		   and: [self badContextSize: oop]) ifTrue:
-			[self printHex: oop; space; printNum: (self byteLengthOf: oop); cr].
+			[self printHex: oop; space; printNum: (self numBytesOf: oop); cr].
 		 oop := self accessibleObjectAfter: oop]

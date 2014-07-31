@@ -5,7 +5,7 @@ findClassContainingMethod: meth startingAt: classObj
 	[self assert: (objectMemory isForwarded: currClass) not.
 	 classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: currClass.
 	 self assert: (objectMemory isForwarded: classDict) not.
-	 classDictSize := objectMemory fetchWordLengthOf: classDict.
+	 classDictSize := objectMemory numSlotsOf: classDict.
 	 methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: classDict.
 	 self assert: (objectMemory isForwarded: methodArray) not.
 	 i := 0.

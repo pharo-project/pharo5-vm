@@ -11,7 +11,7 @@ findSelectorOfMethod: methArg
 	classObj := self methodClassOf: meth.
 	(self addressCouldBeClassObj: classObj) ifTrue:
 		[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: classObj.
-		 classDictSize := objectMemory fetchWordLengthOf: classDict.
+		 classDictSize := objectMemory numSlotsOf: classDict.
 		 methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: classDict.
 		 i := 0.
 		 [i < (classDictSize - SelectorStart)] whileTrue:

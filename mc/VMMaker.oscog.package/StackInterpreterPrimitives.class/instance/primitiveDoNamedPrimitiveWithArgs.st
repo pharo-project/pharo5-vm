@@ -11,7 +11,7 @@ primitiveDoNamedPrimitiveWithArgs
 	((objectMemory isArray: argumentArray)
 	 and: [objectMemory isOopCompiledMethod: methodArg]) ifFalse:
 		[^self primitiveFailFor: -2]. "invalid args"
-	arraySize := objectMemory fetchWordLengthOf: argumentArray.
+	arraySize := objectMemory numSlotsOf: argumentArray.
 	(self roomToPushNArgs: arraySize) ifFalse:
 		[^self primitiveFailFor: -2]. "invalid args"
 

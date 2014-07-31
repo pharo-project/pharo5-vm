@@ -1,4 +1,4 @@
-interpreter access
+object access
 numSlotsOf: obj
 	"Answer the number of oop-sized elements in the given object.
 	 Unlike lengthOf: this does not adjust the length of a context

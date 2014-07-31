@@ -3,7 +3,7 @@ primitiveDoPrimitiveWithArgs
 	| argumentArray arraySize index primIdx |
 	argumentArray := self stackTop.
 	(objectMemory isArray: argumentArray) ifFalse: [^self primitiveFail].
-	arraySize := objectMemory fetchWordLengthOf: argumentArray.
+	arraySize := objectMemory numSlotsOf: argumentArray.
 	self success: (self roomToPushNArgs: arraySize).
 
 	primIdx := self stackIntegerValue: 1.

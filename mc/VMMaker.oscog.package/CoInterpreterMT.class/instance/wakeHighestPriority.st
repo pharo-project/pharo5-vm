@@ -14,7 +14,7 @@ wakeHighestPriority
 	| schedLists p processList proc ctxt |
 	schedLists := objectMemory fetchPointer: ProcessListsIndex ofObject: self schedulerPointer.
 	p := highestRunnableProcessPriority = 0
-			ifTrue: [objectMemory fetchWordLengthOf: schedLists]
+			ifTrue: [objectMemory numSlotsOf: schedLists]
 			ifFalse: [highestRunnableProcessPriority].
 	[(p := p - 1) >= 0] whileTrue:
 		[processList := objectMemory fetchPointer: p ofObject: schedLists.

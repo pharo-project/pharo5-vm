@@ -61,6 +61,7 @@
 		"PrimNoErr",
 		"STACKVM",
 		"ShiftForWord",
+		"SistaVM",
 		"VMBIGENDIAN" ],
 	"commentStamp" : "<historical>",
 	"instvars" : [

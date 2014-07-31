@@ -48,7 +48,7 @@
 		"checkForEventsMayContextSwitch:" : "eem 9/30/2010 13:21",
 		"checkStackIntegrity" : "eem 9/30/2013 22:35",
 		"checkVMOwnershipFromHeartbeat" : "eem 11/20/2010 21:51",
-		"classAndSelectorOfMethod:forReceiver:" : "eem 9/29/2010 17:44",
+		"classAndSelectorOfMethod:forReceiver:" : "eem 07/28/2014 07:54",
 		"classNameOf:Is:" : "eem 8/17/2010 19:31",
 		"clipboardRead:Into:At:" : "di 9/23/2001 12:26",
 		"clipboardSize" : "di 9/23/2001 12:18",

@@ -30,11 +30,11 @@ changeClassOf: rcvr to: argClass
 	Note: argClassInstByteSize-4 because base header is included in class size."
 	argFormat < self arrayFormat
 		ifTrue:
-			[(argClassInstByteSize - BaseHeaderSize) ~= (self byteLengthOf: rcvr) ifTrue:
+			[(argClassInstByteSize - BaseHeaderSize) ~= (self numBytesOf: rcvr) ifTrue:
 				[^PrimErrBadReceiver]]
 		ifFalse:
 			[argFormat = self indexablePointersFormat ifTrue: "For indexable plus fixed fields the receiver must be at least big enough."
-				[(argClassInstByteSize - BaseHeaderSize) > (self byteLengthOf: rcvr) ifTrue:
+				[(argClassInstByteSize - BaseHeaderSize) > (self numBytesOf: rcvr) ifTrue:
 					[^PrimErrBadReceiver]]].
 
 	(self headerTypeOfHeader: rcvrHdr) = HeaderTypeShort
