@@ -17,7 +17,7 @@ commonCompilerFlags
 		'-mwin32'.
 		'-mno-rtd'. 
 		'-mms-bitfields'. 
-		'-mno-accumulate-outgoing-args ', self winVer.
+		"'-mno-accumulate-outgoing-args ', self winVer."
 		'-DWIN32'. 
 		'-DWIN32_FILE_SUPPORT'. 
 		'-DNO_ISNAN'.

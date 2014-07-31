@@ -7,7 +7,7 @@ emitCFunctionPrototypes: methodList on: aStream
 	"Feel free to add equivalents for other compilers"
 	vmClass notNil ifTrue:
 		[NoRegParmsInAssertVMs ifTrue:
-			[aStream nextPutAll: '\\#if !PRODUCTION && defined(__GNUC__) && !defined(NoDbgRegParms)\# define NoDbgRegParms __attribute__ ((regparm (0)))\#endif' withCRs.
+			[aStream nextPutAll: '\\#if !PRODUCTION && defined(__GNUC__) && !(defined(__MINGW32__) || defined(__MINGW64__)) && !defined(NoDbgRegParms)\# define NoDbgRegParms __attribute__ ((regparm (0)))\#endif' withCRs.
 			 aStream nextPutAll: '\\#if !defined(NoDbgRegParms)\# define NoDbgRegParms /*empty*/\#endif\\' withCRs].
 		 aStream nextPutAll: '\\#if defined(__GNUC__) && !defined(NeverInline)\# define NeverInline __attribute__ ((noinline))\#endif' withCRs.
 		 aStream nextPutAll: '\\#if !defined(NeverInline)\# define NeverInline /*empty*/\#endif\\' withCRs].

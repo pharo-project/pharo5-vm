@@ -55,13 +55,13 @@ LONG CALLBACK sqExceptionFilter(LPEXCEPTION_POINTERS exp);
 static void printCrashDebugInformation(LPEXCEPTION_POINTERS exp);
 
 /*** Variables -- command line */
-static char *initialCmdLine;
-static int  numOptionsVM = 0;
-static char **vmOptions;
-static int  numOptionsImage = 0;
-static char **imageOptions;
-static int clargc; /* the Unix-style command line, saved for GetImageOption */
-static char **clargv;
+EXPORT(char *)	initialCmdLine;
+EXPORT(int) 	numOptionsVM = 0;
+EXPORT(char **)	vmOptions;
+EXPORT(int) 	numOptionsImage = 0;
+EXPORT(char **)	imageOptions;
+EXPORT(int) 	clargc; /* the Unix-style command line, saved for GetImageOption */
+EXPORT(char **)	clargv;
 
 /* console buffer */
 BOOL fIsConsole = 0;
