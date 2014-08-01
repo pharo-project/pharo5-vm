@@ -1,0 +1,6 @@
+{
+	"class" : {
+		"unusedBytecode" : "eem 4/9/2013 11:35" },
+	"instance" : {
+		"computeMethodHeaderForNumArgs:numTemps:numLits:primitive:" : "eem 4/9/2013 12:09",
+		"genSendSpecial:numArgs:" : "eem 4/9/2013 12:07" } }

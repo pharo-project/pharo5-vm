@@ -21,6 +21,7 @@ baselineGit: spec
 			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
 			package: 'ImageFormat' with: [ spec requires: #('VMMaker' ) ];
 			package: 'MethodMassage' with: [ spec requires: #('VMMaker' ) ];
+			package: 'MethodMassageCompatibility' with: [ spec requires: #('VMMaker' ) ];
 			package: 'Qwaq-VMProfiling-Plugins' with: [ spec requires: #('VMMaker' ) ];
 			package: 'VMConstruction-Plugins-AioPlugin' with: [ spec requires: #('VMMaker') ];
 			package: 'VMConstruction-Plugins-OSProcessPlugin' with: [ 
@@ -38,7 +39,7 @@ baselineGit: spec
 			group: 'default' with: 'all';
 			group: 'all' with: #('maker' 'plugins' 'builders');
 			group: 'builders' with: #('CMakeVMMaker');
-			group: 'maker' with: #('VMMaker' 'Cog' 'ImageFormat' 'MethodMassage');
+			group: 'maker' with: #('VMMaker' 'Cog' 'ImageFormat' 'MethodMassage' 'MethodMassageCompatibility');
 			group: 'plugins' with: #(
 				'VMConstruction-Plugins-AioPlugin' 
 				'VMConstruction-Plugins-OSProcessPlugin' 
