@@ -1,5 +1,5 @@
 *CogVMMakerPharoCompatibility
 print: aNumber maxDecimalPlaces: places
 	aNumber 
-		printOn: stream 
+		printOn: self stream 
 		showingDecimalPlaces: places
