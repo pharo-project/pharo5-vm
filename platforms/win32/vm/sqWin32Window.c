@@ -33,12 +33,9 @@
 # undef SM_CMONITORS
 # define HMONITOR_DECLARED
 # include "multimon.h"
+#else
+# include <winuser.h>
 #endif /* defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3) */
-
-#ifndef MONITOR_DEFAULTTONEAREST
-/** this definition is a hack because in certain conditions definition is not there **/
-#  define MONITOR_DEFAULTTONEAREST 2
-#endif
 
 #include "sq.h"
 #include "sqWin32Prefs.h"
