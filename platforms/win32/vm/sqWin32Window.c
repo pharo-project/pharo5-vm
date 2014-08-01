@@ -26,7 +26,7 @@
 #include <commdlg.h>
 #include <excpt.h>
 
-#if defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3)
+#if defined(__MINGW32__) || defined(__MINGW64__)
 /** Kludge to get multimonitor API's to compile in the mingw/directx7 mix. **/
 /** Not needed in cygwin **/
 # define COMPILE_MULTIMON_STUBS
