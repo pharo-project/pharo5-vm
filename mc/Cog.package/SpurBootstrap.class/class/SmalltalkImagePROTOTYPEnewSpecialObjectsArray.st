@@ -1,5 +1,5 @@
-method prototypes squeak
-SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
+method prototypes pharo
+SmalltalkImagePROTOTYPEnewSpecialObjectsArray
 	"Smalltalk recreateSpecialObjectsArray"
 	
 	"To external package developers:
@@ -17,7 +17,7 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	newArray at: 2 put: false.
 	newArray at: 3 put: true.
 	"This association holds the active process (a ProcessScheduler)"
-	newArray at: 4 put: (self specialObjectsArray at: 4) "(self bindingOf: #Processor) but it answers an Alias".
+	newArray at: 4 put: (self globals associationAt: #Processor).
 	"Numerous classes below used for type checking and instantiation"
 	newArray at: 5 put: Bitmap.
 	newArray at: 6 put: SmallInteger.
@@ -32,7 +32,7 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	newArray at: 15 put: Display.
 	newArray at: 16 put: Message.
 	newArray at: 17 put: CompiledMethod.
-	newArray at: 18 put: ((self specialObjectsArray at: 18) ifNil: [Semaphore new]). "low space Semaphore"
+	newArray at: 18 put: ((self primitiveGetSpecialObjectsArray at: 18) ifNil: [Semaphore new]). "low space Semaphore"
 	newArray at: 19 put: Semaphore.
 	newArray at: 20 put: Character.
 	newArray at: 21 put: #doesNotUnderstand:.
@@ -47,14 +47,14 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	"An array of the 255 Characters in ascii order.
 	 Cog inlines table into machine code at: prim so do not regenerate it.
 	 This is nil in Spur, which has immediate Characters."
-	newArray at: 25 put: (self specialObjectsArray at: 25).
+	newArray at: 25 put: (self primitiveGetSpecialObjectsArray at: 25).
 	newArray at: 26 put: #mustBeBoolean.
 	newArray at: 27 put: ByteArray.
 	newArray at: 28 put: Process.
 	"An array of up to 31 classes whose instances will have compact headers; an empty array in Spur"
 	newArray at: 29 put: self compactClassesArray.
-	newArray at: 30 put: ((self specialObjectsArray at: 30) ifNil: [Semaphore new]). "delay Semaphore"
-	newArray at: 31 put: ((self specialObjectsArray at: 31) ifNil: [Semaphore new]). "user interrupt Semaphore"
+	newArray at: 30 put: ((self primitiveGetSpecialObjectsArray at: 30) ifNil: [Semaphore new]). "delay Semaphore"
+	newArray at: 31 put: ((self primitiveGetSpecialObjectsArray at: 31) ifNil: [Semaphore new]). "user interrupt Semaphore"
 	"Entries 32 - 34 unreferenced. Previously these contained prototype instances to be copied for fast initialization"
 	newArray at: 32 put: nil. "was the prototype Float"
 	newArray at: 33 put: nil. "was the prototype 4-byte LargePositiveInteger"
@@ -64,10 +64,10 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	newArray at: 37 put: BlockClosure.
 	newArray at: 38 put: nil. "was the prototype BlockContext"
 	"array of objects referred to by external code"
-	newArray at: 39 put: (self specialObjectsArray at: 39).	"external semaphores"
+	newArray at: 39 put: (self primitiveGetSpecialObjectsArray at: 39).	"external semaphores"
 	newArray at: 40 put: nil. "Reserved for Mutex in Cog VMs"
-	newArray at: 41 put: ((self specialObjectsArray at: 41) ifNil: [LinkedList new]). "Reserved for a LinkedList instance for overlapped calls in CogMT"
-	newArray at: 42 put: ((self specialObjectsArray at: 42) ifNil: [Semaphore new]). "finalization Semaphore"
+	newArray at: 41 put: ((self primitiveGetSpecialObjectsArray at: 41) ifNil: [LinkedList new]). "Reserved for a LinkedList instance for overlapped calls in CogMT"
+	newArray at: 42 put: ((self primitiveGetSpecialObjectsArray at: 42) ifNil: [Semaphore new]). "finalization Semaphore"
 	newArray at: 43 put: LargeNegativeInteger.
 	"External objects for callout.
 	 Note: Written so that one can actually completely remove the FFI."
@@ -98,7 +98,7 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	newArray at: 56 put: nil.
 
 	"reserved for foreign callback process"
-	newArray at: 57 put: (self specialObjectsArray at: 57 ifAbsent: []).
+	newArray at: 57 put: (self primitiveGetSpecialObjectsArray at: 57 ifAbsent: []).
 
 	newArray at: 58 put: #unusedBytecode.
 	"59 reserved for Sista counter tripped message"
@@ -106,5 +106,4 @@ SmalltalkImagePROTOTYPErecreateSpecialObjectsArray
 	"60 reserved for Sista class trap message"
 	newArray at: 60 put: #classTrapFor:.
 
-	"Now replace the interpreter's reference in one atomic operation"
-	self specialObjectsArray becomeForward: newArray
+	^newArray

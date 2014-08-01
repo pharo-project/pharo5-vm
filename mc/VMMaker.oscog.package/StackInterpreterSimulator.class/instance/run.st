@@ -8,10 +8,12 @@ run
 					 and: [UIManager default confirm: 'close?']) ifTrue:
 						[topWindow delete]]].
 				  ^self].
+	self initStackPages.
+	self loadInitialContext.
 	self internalizeIPandSP.
 	self fetchNextBytecode.
 	[true] whileTrue:
-		[assertVEPAES ifTrue: [self assertValidExecutionPointers].
+		[self assertValidExecutionPointers.
 		 atEachStepBlock value. "N.B. may be nil"
 		 self dispatchOn: currentBytecode in: BytecodeTable.
 		 self incrementByteCount].

@@ -3,6 +3,8 @@ interpreter: sim object: receiver perform: selector withArguments: arguments
 	"Interpret an expression in oldHeap using oldInterpreter.
 	 Answer the result."
 	| fp savedpc savedsp result startByteCount |
+	self assert: ({receiver. selector}, arguments allSatisfy:
+					[:oop| oop isInteger and: [sim objectMemory addressCouldBeOop: oop]]).
 	savedpc := sim localIP.
 	savedsp := sim localSP.
 	sim internalPush: receiver.

@@ -51,4 +51,4 @@ initialize
 	systemAttributes := Dictionary new.
 	extSemTabSize := 256.
 	disableBooleanCheat := false.
-	assertVEPAES := true. "a flag so the assertValidExecutionPointers in run can be turned off for simulation speed"
+	assertVEPAES := true. "a flag so the assertValidExecutionPointers can be disabled for simulation speed"

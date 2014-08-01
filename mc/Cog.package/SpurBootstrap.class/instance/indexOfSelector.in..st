@@ -1,6 +1,6 @@
 bootstrap methods
 indexOfSelector: selectorOop in: methodDict
-	SelectorStart to: (oldHeap fetchWordLengthOf: methodDict) - 1 do:
+	SelectorStart to: (oldHeap numSlotsOf: methodDict) - 1 do:
 		[:i|
 		(oldHeap fetchPointer: i ofObject: methodDict) = selectorOop ifTrue:
 			[^i]].

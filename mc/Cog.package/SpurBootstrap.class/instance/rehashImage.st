@@ -7,7 +7,8 @@ rehashImage
 	sim := StackInterpreterSimulator onObjectMemory: newHeap.
 	sim 
 		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
-		imageName: 'spur image'.
+		imageName: 'spur image';
+		assertValidExecutionPointersAtEachStep: false..
 	newHeap coInterpreter: sim.
 	sim bootstrapping: true.
 	sim initializeInterpreter: 0.
@@ -41,7 +42,7 @@ rehashImage
 				[:o| | classIndex |
 				classIndex := newHeap classIndexOf: o.
 				((rehashFlags at: classIndex >> 3 + 1) anyMask: 1 << (classIndex bitAnd: 7)) ifTrue:
-					[(n := n + 1) \\ 8 = 0 ifTrue:
+					[(n := n + 1) \\ 16 = 0 ifTrue:
 					 	[Transcript nextPut: $.; flush].
 					 "2845 = n ifTrue: [self halt]."
 					 "Rehash an object if its size is > 0.

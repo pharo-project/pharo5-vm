@@ -36,11 +36,11 @@ newFormatFor: oldObj
 	oldFormat <= 4 ifTrue:
 		[^oldFormat].
 	oldFormat >= 12 ifTrue: "CompiledMethod"
-		[^24 + (self wordSize - (oldHeap byteLengthOf: oldObj) bitAnd: self wordSizeMask)].
+		[^24 + (self wordSize - (oldHeap numBytesOf: oldObj) bitAnd: self wordSizeMask)].
 	oldFormat >= 8 ifTrue: "ByteArray et al"
-		[^16 + (self wordSize - (oldHeap byteLengthOf: oldObj) bitAnd: self wordSizeMask)].
+		[^16 + (self wordSize - (oldHeap numBytesOf: oldObj) bitAnd: self wordSizeMask)].
 	oldFormat = 6 ifTrue: "32-bit indexable"
-		[^10 + ((oldHeap byteLengthOf: oldObj) bitAnd: self wordSizeMask) sign].
+		[^10 + ((oldHeap numBytesOf: oldObj) bitAnd: self wordSizeMask) sign].
 	oldFormat = 7 ifTrue: "64-bit indexable"
 		[^9].
 	self error: 'illegal old format'

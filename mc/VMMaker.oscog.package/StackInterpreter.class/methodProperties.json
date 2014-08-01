@@ -212,6 +212,7 @@
 		"dynamicSuperSendBytecode" : "eem 9/11/2013 19:27",
 		"elementsPerPrintOopLine" : "eem 7/11/2008 15:11",
 		"encodeFrameFieldHasContext:isBlock:numArgs:" : "eem (auto pragmas 12/08) 7/14/2008 10:31",
+		"encoderClassForHeader:" : "eem 7/31/2014 09:15",
 		"ensureCallerContext:" : "eem 2/14/2009 16:40",
 		"ensureContextHasBytecodePC:" : "eem 12/20/2013 11:01",
 		"ensureContextIsExecutionSafeAfterAssignToStackPointer:" : "eem 12/3/2010 07:10",

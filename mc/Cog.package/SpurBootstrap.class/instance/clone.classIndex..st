@@ -2,7 +2,7 @@ bootstrap image
 clone: oldObj classIndex: classIndex
 	| newObj |
 	newObj := newHeap
-				allocateSlots: (oldHeap fetchWordLengthOf: oldObj)
+				allocateSlots: (oldHeap numSlotsOf: oldObj)
 				format: (self newFormatFor: oldObj)
 				classIndex: classIndex.
 	reverseMap at: newObj put: oldObj.

@@ -8,7 +8,7 @@ findSymbol: aString
 	oldHeap allObjectsDo:
 		[:obj|
 		(symbolClass = (oldHeap fetchClassOfNonImm: obj)
-		 and: [(oldHeap byteLengthOf: obj) = aString size
+		 and: [(oldHeap numBytesOf: obj) = aString size
 		 and: [aString = (oldHeap stringOf: obj)]]) ifTrue:
 			[^obj]].
 	^nil

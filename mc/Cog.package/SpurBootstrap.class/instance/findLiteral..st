@@ -12,7 +12,7 @@ findLiteral: aLiteral
 	smalltalk := oldHeap splObj: 8.
 	array := oldHeap fetchPointer: 1 ofObject: smalltalk.
 	self assert: (oldHeap isArray: array).
-	0 to: (oldHeap fetchWordLengthOf: array) - 1 do:
+	0 to: (oldHeap numSlotsOf: array) - 1 do:
 		[:i| | bindingOrNil |
 		bindingOrNil := oldHeap fetchPointer: i ofObject: array.
 		(bindingOrNil ~= oldHeap nilObject
