@@ -26,15 +26,13 @@
 #include <commdlg.h>
 #include <excpt.h>
 
-#if defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3)
+#if (defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3)) || ((_WIN32_WINNT < 0x0410))
 /** Kludge to get multimonitor API's to compile in the mingw/directx7 mix. **/
 /** Not needed in cygwin **/
 # define COMPILE_MULTIMON_STUBS
 # undef SM_CMONITORS
 # define HMONITOR_DECLARED
 # include "multimon.h"
-#else
-# include <winuser.h>
 #endif /* defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3) */
 
 #include "sq.h"
