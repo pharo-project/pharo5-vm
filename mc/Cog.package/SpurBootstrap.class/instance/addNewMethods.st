@@ -17,8 +17,7 @@ addNewMethods
 					flush.]
 			ifNotNil:
 				[:theClass| | class |
-				class := theClass.
-				symIsMeta ifTrue: [ class := oldHeap fetchClassOfNonImm: class].
+				class := symIsMeta ifTrue: [oldHeap fetchClassOfNonImm: theClass] ifFalse: [theClass].
 				self prototypeClassNameMetaSelectorMethodDo:
 					[:className :isMeta :selector :method| | methodOrNil |
 					(className = sym
