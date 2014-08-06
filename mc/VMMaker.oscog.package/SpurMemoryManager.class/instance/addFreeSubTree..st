@@ -11,7 +11,7 @@ addFreeSubTree: freeTree
 	treeNode := freeLists at: 0.
 	self assert: treeNode ~= 0.
 	[bytesInNode := self bytesInObject: treeNode.
-	 self assert: ((self oop: freeTree + bytesInArg isLessThan: treeNode)
+	 self assert: ((self oop: freeTree + bytesInArg isLessThanOrEqualTo: treeNode)
 					or: [self oop: freeTree isGreaterThanOrEqualTo: treeNode + bytesInNode]).
 	 self assert: bytesInNode >= (self numFreeLists * self allocationUnit).
 	 self assert: bytesInArg ~= bytesInNode.

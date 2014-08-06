@@ -14,7 +14,7 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 	depending on whether the target method is cogged or not."
 	<api>
 	<option: #NewspeakVM>
-	| class classTag canLinkCacheTag errSelIdx cogMethod mClassMixin mixinApplication |
+	| classTag errSelIdx cogMethod mClassMixin mixinApplication |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -29,8 +29,6 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
 	self assert: (objectMemory lengthOf: mixinApplication) > (InstanceSpecificationIndex + 1).
 	classTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
-	class := objectMemory fetchClassOf: rcvr. "what about the read barrier??"
-	canLinkCacheTag := (objectMemory isYoungObject: class) not or: [cogit canLinkToYoungClasses].
 	argumentCount := numArgs.
 	(self lookupInMethodCacheSel: selector classTag: classTag)
 		ifTrue:"check for coggability because method is in the cache"
@@ -63,8 +61,7 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 				 cogMethod selector ~= selector ifTrue:
 					[(cogit cog: newMethod selector: selector) ifNotNil:
 						[:newCogMethod| cogMethod := newCogMethod]]].
-		 (cogMethod selector = selector
-		 and: [canLinkCacheTag]) ifTrue:
+		 cogMethod selector = selector ifTrue:
 			[cogit
 				linkSendAt: (stackPages longAt: stackPointer)
 				in: (self mframeHomeMethod: framePointer)

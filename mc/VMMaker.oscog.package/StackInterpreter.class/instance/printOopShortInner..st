@@ -52,10 +52,17 @@ printOopShortInner: oop
 				ifTrue: [self print: name]
 				ifFalse: [0 to: nameLen - 1 do: [:i| self printChar: (name at: i)]]].
 	"Try to spot association-like things; they're all subclasses of LookupKey"
-	((objectMemory instanceSizeOf: classOop) = (ValueIndex + 1)
-	 and: [(self superclassOf: classOop) = (self superclassOf: (objectMemory fetchClassOfNonImm: (objectMemory splObj: SchedulerAssociation)))
-	 and: [objectMemory isBytes: (objectMemory fetchPointer: KeyIndex ofObject: oop)]]) ifTrue:
-		[self space;
-			printOopShort: (objectMemory fetchPointer: KeyIndex ofObject: oop);
-			print: ' -> ';
-			printHex: (objectMemory fetchPointer: ValueIndex ofObject: oop)]
+	((objectMemory isPointersNonImm: oop)
+	 and: [(objectMemory instanceSizeOf: classOop) = (ValueIndex + 1)
+	 and: [(objectMemory isBytes: (objectMemory fetchPointer: KeyIndex ofObject: oop))]]) ifTrue:
+		[| classLookupKey |
+		 classLookupKey := objectMemory fetchClassOfNonImm: (objectMemory splObj: SchedulerAssociation).
+		 [classLookupKey = objectMemory nilObject ifTrue:
+			[^self].
+		  (objectMemory instanceSizeOf: classLookupKey) = (KeyIndex + 1)] whileFalse:
+			[classLookupKey := self superclassOf: classLookupKey].
+		 (self includesBehavior: classOop ThatOf: classLookupKey) ifTrue:
+			[self space;
+				printOopShort: (objectMemory fetchPointer: KeyIndex ofObject: oop);
+				print: ' -> ';
+				printHex: (objectMemory fetchPointer: ValueIndex ofObject: oop)]]

@@ -4,7 +4,8 @@
 		 ],
 	"classvars" : [
 		"BecameCompiledMethodFlag",
-		"BecamePointerObjectFlag" ],
+		"BecamePointerObjectFlag",
+		"OldBecameNewFlag" ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],

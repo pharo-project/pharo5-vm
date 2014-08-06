@@ -14,11 +14,8 @@ linkSendAt: callSiteReturnAddress in: sendingMethod to: targetMethod offset: the
 	inlineCacheTag := theEntryOffset = cmNoCheckEntryOffset
 						ifTrue: [targetMethod selector "i.e. no change"]
 						ifFalse: [objectRepresentation inlineCacheTagForInstance: receiver].
-	(sendingMethod cmRefersToYoung not
-	 and: [(objectRepresentation inlineCacheTagIsYoung: inlineCacheTag)]) ifTrue:
-		[self assert: (methodZone occurrencesInYoungReferrers: sendingMethod) = 0.
-		 sendingMethod cmRefersToYoung: true.
-		 methodZone addToYoungReferrers: sendingMethod].
+	(objectRepresentation inlineCacheTagIsYoung: inlineCacheTag) ifTrue:
+		[methodZone ensureInYoungReferrers: sendingMethod].
 	address := targetMethod asInteger + theEntryOffset.
 	extent := backEnd
 				rewriteInlineCacheAt: callSiteReturnAddress

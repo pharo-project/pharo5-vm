@@ -4,5 +4,8 @@ markAndTraceObjectReferencesInGeneratedRuntime
 	0 to: runtimeObjectRefIndex - 1 do:
 		[:i| | mcpc literal |
 		 mcpc := objectReferencesInRuntime at: i.
-		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
-		 objectRepresentation markAndTraceLiteral: literal]
+		 literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
+		 objectRepresentation
+			markAndTraceLiteral: literal
+			in: (self cCoerceSimple: nil to: #'CogMethod *')
+			atpc: mcpc asUnsignedInteger]

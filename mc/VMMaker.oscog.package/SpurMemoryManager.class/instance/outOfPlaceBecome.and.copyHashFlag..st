@@ -18,4 +18,7 @@ outOfPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag
 			 self setHashBitsOf: clone2 to: (self rawHashBitsOf: obj2)].
 	self
 		forward: obj1 to: clone2;
-		forward: obj2 to: clone1
+		forward: obj2 to: clone1.
+	((self isYoungObject: obj1) ~= (self isYoungObject: clone2)
+	 or: [(self isYoungObject: obj2) ~= (self isYoungObject: clone1)]) ifTrue:
+		[becomeEffectsFlags := becomeEffectsFlags bitOr: OldBecameNewFlag]

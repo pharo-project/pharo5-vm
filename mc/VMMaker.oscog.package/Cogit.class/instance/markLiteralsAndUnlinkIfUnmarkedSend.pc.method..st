@@ -4,8 +4,12 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 	<var: #mcpc type: #'char *'>
 	| literal |
 	annotation = IsObjectReference ifTrue:
-		[literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
-		 objectRepresentation markAndTraceLiteral: literal].
+		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
+		 (objectRepresentation
+				markAndTraceLiteral: literal
+				in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
+				atpc: mcpc asUnsignedInteger) ifTrue:
+			[codeModified := true]].
 	(self isSendAnnotation: annotation) ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | cacheTagMarked |
@@ -15,7 +19,8 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 					[self targetMethodAndSendTableFor: entryPoint into:
 						[:targetMethod :sendTable| | unlinkedRoutine |
 						 (cacheTagMarked not
-						  or: [self markAndTraceOrFreeCogMethod: targetMethod firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger]) ifTrue:
+						  or: [self markAndTraceOrFreeCogMethod: targetMethod
+								firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger]) ifTrue:
 							["Either the cacheTag is unmarked (e.g. new class) or the target
 							  has been freed (because it is unmarked), so unlink the send."
 							 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
@@ -24,22 +29,36 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 								tag: targetMethod selector
 								target: unlinkedRoutine.
 							 codeModified := true.
-							 objectRepresentation markAndTraceLiteral: targetMethod selector]]]
-				ifFalse:
-					[objectRepresentation markAndTraceLiteral: cacheTag.  "cacheTag is selector"
+							 objectRepresentation
+								markAndTraceLiteral: targetMethod selector
+								in: targetMethod
+								at: (self addressOf: targetMethod selector put: [:val| targetMethod selector: val])]]]
+				ifFalse:  "cacheTag is selector"
+					[(objectRepresentation
+							markAndTraceCacheTagLiteral: cacheTag
+							in: cogMethod
+							atpc: mcpc asUnsignedInteger) ifTrue:
+						[codeModified := true].
 					 self cppIf: NewspeakVM ifTrue:
 						[entryPoint = ceImplicitReceiverTrampoline ifTrue:
 							[| cacheAddress class mixin |
-							 objectRepresentation markAndTraceLiteral: cacheTag.  "cacheTag is selector"
+							 (objectRepresentation
+									markAndTraceCacheTagLiteral: cacheTag
+									in: cogMethod
+									atpc: mcpc asUnsignedInteger) ifTrue:
+								[codeModified := true].  "cacheTag is selector"
 							 self assert: NumOopsPerIRC = 2.
 							 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
-							 class := backEnd unalignedLongAt: cacheAddress.
-							 class ~= 0
+							 (class := backEnd unalignedLongAt: cacheAddress) ~= 0
 								ifTrue:
 									[(objectRepresentation cacheTagIsMarked: class)
 										ifTrue:
 											[(mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop) ~= 0 ifTrue:
-												[objectRepresentation markAndTraceLiteral: mixin]]
+												[objectRepresentation
+													markAndTraceLiteral: mixin
+													in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
+													at: (self asAddress: cacheAddress + BytesPerOop
+															put: [:val| backEnd unalignedLongAt: cacheAddress + BytesPerOop put: val])]]
 										ifFalse:
 											[backEnd
 												unalignedLongAt: cacheAddress put: 0;

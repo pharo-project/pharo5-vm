@@ -154,7 +154,7 @@
 		"primitiveMultiply" : "eem 11/25/2008 12:50",
 		"primitiveMultiplyLargeIntegers" : "dtl 9/2/2012 10:07",
 		"primitiveNew" : "eem 9/9/2013 11:11",
-		"primitiveNewMethod" : "eem (objmem refactor) 6/14/2010 10:15",
+		"primitiveNewMethod" : "eem 8/2/2014 08:41",
 		"primitiveNewWithArg" : "eem 6/28/2014 19:14",
 		"primitiveNextInstance" : "eem 9/4/2013 17:20",
 		"primitiveNextObject" : "eem (objmem refactor) 6/8/2010 17:12",

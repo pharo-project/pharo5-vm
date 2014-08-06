@@ -5,25 +5,36 @@ markLiterals: annotation pc: mcpc method: cogMethod
 	<var: #mcpc type: #'char *'>
 	| literal |
 	annotation = IsObjectReference ifTrue:
-		[literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
-		 objectRepresentation markAndTraceLiteral: literal].
+		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
+		 (objectRepresentation
+				markAndTraceLiteral: literal
+				in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
+				atpc: mcpc asUnsignedInteger) ifTrue:
+			[codeModified := true]].
 	(self isSendAnnotation: annotation) ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj |
 			 tagCouldBeObj ifTrue:
-				[objectRepresentation markAndTraceLiteral: cacheTag].  "cacheTag is selector"
+				[(objectRepresentation
+						markAndTraceCacheTagLiteral: cacheTag
+						in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
+						atpc: mcpc asUnsignedInteger) ifTrue:
+					[codeModified := true]].  "cacheTag is selector"
 			  self cppIf: NewspeakVM ifTrue:
 				[entryPoint = ceImplicitReceiverTrampoline ifTrue:
 					[| cacheAddress class mixin |
 					 self assert: NumOopsPerIRC = 2.
 					 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
-					 class := backEnd unalignedLongAt: cacheAddress.
-					 class ~= 0
+					 (class := backEnd unalignedLongAt: cacheAddress) ~= 0
 						ifTrue:
 							[(objectRepresentation cacheTagIsMarked: class)
 								ifTrue:
 									[(mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop) ~= 0 ifTrue:
-										[objectRepresentation markAndTraceLiteral: mixin]]
+										[objectRepresentation
+											markAndTraceLiteral: mixin
+											in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
+											at: (self asAddress: cacheAddress + BytesPerOop
+													put: [:val| backEnd unalignedLongAt: cacheAddress + BytesPerOop put: val])]]
 								ifFalse:
 									[backEnd
 										unalignedLongAt: cacheAddress put: 0;

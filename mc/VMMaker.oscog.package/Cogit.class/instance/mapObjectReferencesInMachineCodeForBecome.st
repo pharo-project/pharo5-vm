@@ -54,7 +54,7 @@ mapObjectReferencesInMachineCodeForBecome
 										rawHeaderOf: remappedMethod
 										put: cogMethod asInteger]
 								ifFalse:
-									[ self assert: (self noAssertMethodClassAssociationOf: cogMethod methodObject)
+									[self assert: (self noAssertMethodClassAssociationOf: cogMethod methodObject)
 													= objectMemory nilObject.
 									 cogMethod
 										methodHeader: (coInterpreter rawHeaderOf: remappedMethod);
@@ -66,11 +66,10 @@ mapObjectReferencesInMachineCodeForBecome
 						 arg: hasYoungObjPtr.
 					 hasYoungObj
 						ifTrue:
-							[cogMethod cmRefersToYoung ifFalse:
-								[cogMethod cmRefersToYoung: true.
-								 methodZone addToYoungReferrers: cogMethod].
+							[methodZone ensureInYoungReferrers: cogMethod.
 							hasYoungObj := false]
-						ifFalse: [cogMethod cmRefersToYoung: false]]].
+						ifFalse:
+							[cogMethod cmRefersToYoung: false]]].
 		cogMethod := methodZone methodAfter: cogMethod].
 	methodZone pruneYoungReferrers.
 	freedPIC ifTrue:

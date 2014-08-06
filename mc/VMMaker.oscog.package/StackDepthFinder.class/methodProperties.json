@@ -2,6 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
+		"blockReturnConstant:" : "eem 8/1/2014 07:23",
 		"blockReturnTop" : "eem 11/26/2010 12:38",
 		"callPrimitive:" : "eem 11/15/2012 20:07",
 		"containsMismatchedJoin" : "eem 11/26/2010 12:18",
@@ -10,7 +11,9 @@
 		"doPop" : "eem 11/26/2010 10:56",
 		"drop" : "eem 11/26/2010 11:54",
 		"drop:" : "eem 11/26/2010 11:53",
-		"interpretNextInstructionFor:" : "eem 11/26/2010 12:13",
+		"encoderClass" : "eem 8/2/2014 08:57",
+		"encoderClass:" : "eem 8/2/2014 08:56",
+		"interpretNextInstructionFor:" : "eem 8/2/2014 08:56",
 		"joins" : "eem 11/26/2010 12:48",
 		"jump:" : "eem 11/26/2010 10:57",
 		"jump:if:" : "eem 11/26/2010 10:57",
@@ -40,9 +43,10 @@
 		"sendToAbsentDynamicSuperclass:numArgs:" : "eem 1/11/2013 16:59",
 		"sendToAbsentImplicitReceiver:numArgs:" : "eem 1/11/2013 16:58",
 		"stackPointerAt:" : "eem 11/26/2010 11:58",
-		"stackPointers" : "eem 5/14/2014 11:52",
+		"stackPointers" : "eem 8/2/2014 08:58",
 		"stackp" : "eem 11/26/2010 11:58",
 		"storeIntoLiteralVariable:" : "eem 11/26/2010 10:55",
 		"storeIntoReceiverVariable:" : "eem 11/26/2010 10:55",
 		"storeIntoRemoteTemp:inVectorAt:" : "eem 11/26/2010 10:55",
-		"storeIntoTemporaryVariable:" : "eem 11/26/2010 10:55" } }
+		"storeIntoTemporaryVariable:" : "eem 11/26/2010 10:55",
+		"trapIfNotInstanceOf:" : "eem 8/2/2014 10:16" } }

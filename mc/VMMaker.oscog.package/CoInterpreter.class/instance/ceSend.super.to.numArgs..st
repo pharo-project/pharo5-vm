@@ -13,7 +13,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	depending on whether the target method is cogged or not."
 	<api>
-	| classTag canLinkCacheTag errSelIdx cogMethod |
+	| classTag errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -25,7 +25,6 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	superNormalBar = 0
 		ifTrue: [classTag := objectMemory fetchClassTagOf: rcvr]
 		ifFalse: [classTag := objectMemory classTagForClass: (self superclassOf: (self methodClassOf: (self frameMethodObject: framePointer)))].
-	canLinkCacheTag := cogit canLinkToYoungClasses or: [(objectMemory isYoungObject: classTag) not].
 	argumentCount := numArgs.
 	(self lookupInMethodCacheSel: selector classTag: classTag)
 		ifTrue:"check for coggability because method is in the cache"
@@ -48,12 +47,11 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 					numArgs: numArgs].
 			 messageSelector := selector.
 			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[(canLinkCacheTag
-				  and: [errSelIdx = SelectorDoesNotUnderstand
+				[(errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
 											methodOperand: (self mnuMethodOrNilFor: rcvr)
 											numArgs: argumentCount) asUnsignedInteger
-						> cogit minCogMethodAddress]]) ifTrue:
+						> cogit minCogMethodAddress]) ifTrue:
 						[cogit
 							linkSendAt: (stackPages longAt: stackPointer)
 							in: (self mframeHomeMethod: framePointer)
@@ -78,8 +76,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 				 cogMethod selector ~= selector ifTrue:
 					[(cogit cog: newMethod selector: selector) ifNotNil:
 						[:newCogMethod| cogMethod := newCogMethod]]].
-		 (cogMethod selector = selector
-		  and: [canLinkCacheTag])
+		 cogMethod selector = selector
 			ifTrue:
 				[cogit
 					linkSendAt: (stackPages longAt: stackPointer)

@@ -24,11 +24,7 @@ ceImplicitReceiverFor: selector receiver: receiver cache: cacheAddress
 		[((objectRepresentation inlineCacheTagsMayBeObjects
 		   and: [objectMemory isYoung: rcvrClass])
 		  or: [mixin ~= receiver and: [objectMemory isYoung: mixin]]) ifTrue:
-			[methodZone roomOnYoungReferrersList ifFalse:
-				[coInterpreter callForCogCompiledCodeCompaction.
-				 ^mixin].
-			 cogMethod cmRefersToYoung: true.
-			 methodZone addToYoungReferrers: cogMethod]].
+			[methodZone ensureInYoungReferrers: cogMethod]].
 	backEnd
 		unalignedLongAt: cacheAddress
 			put: (objectRepresentation inlineCacheTagForClass: rcvrClass);

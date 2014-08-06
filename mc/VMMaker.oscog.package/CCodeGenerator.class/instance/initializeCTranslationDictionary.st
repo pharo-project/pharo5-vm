@@ -81,6 +81,7 @@ initializeCTranslationDictionary
 	#cCoerceSimple:to:			#generateCCoercion:on:indent:
 	#addressOf:				#generateAddressOf:on:indent:
 	#addressOf:put:			#generateAddressOf:on:indent:
+	#asAddress:put:			#generateAsAddress:on:indent:
 	#signedIntFromLong		#generateSignedIntFromLong:on:indent:
 	#signedIntToLong			#generateSignedIntToLong:on:indent:
 	#signedIntFromShort		#generateSignedIntFromShort:on:indent:

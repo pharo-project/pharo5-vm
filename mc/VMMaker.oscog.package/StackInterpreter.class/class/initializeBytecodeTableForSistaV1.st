@@ -5,6 +5,7 @@ initializeBytecodeTableForSistaV1
 	"Note: This table will be used to generate a C switch statement."
 
 	BytecodeTable := Array new: 256.
+	BytecodeEncoderClassName := #EncoderForSistaV1.
 	self table: BytecodeTable from:
 	#(	"1 byte bytecodes"
 		(   0  15 pushReceiverVariableBytecode)

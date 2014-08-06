@@ -4,6 +4,9 @@ doBecome: obj1 to: obj2 copyHash: copyHashFlag
 	o1HashBits := self rawHashBitsOf: obj1.
 	o2HashBits := self rawHashBitsOf: obj2.
 	self forward: obj1 to: obj2.
+	((self isOldObject: obj1)
+	 and: [self isYoungObject: obj2]) ifTrue:
+		[becomeEffectsFlags := becomeEffectsFlags bitOr: OldBecameNewFlag].
 	copyHashFlag ifTrue: [self setHashBitsOf: obj2 to: o1HashBits].
 	"obj1 is on its way out.  Remove it from the classTable"
 	(o1HashBits ~= 0 and: [(self classAtIndex: o1HashBits) = obj1])
