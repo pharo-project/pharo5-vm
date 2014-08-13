@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker-OSX",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "NBPharoSOSXConfig",
+	"pools" : [
+		 ],
+	"super" : "PharoSOSXConfig",
+	"type" : "normal" }

@@ -186,7 +186,7 @@ sqImageFileReadEntireImage(void *ptr, size_t elementSize, size_t count, sqImageF
 
 # define roundDownToPage(v) ((v)&pageMask)
 # define roundUpToPage(v) (((v)+pageSize-1)&pageMask)
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST) 
 void
 sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
