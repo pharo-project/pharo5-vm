@@ -7,4 +7,5 @@ defaultExternalPlugins
 		RePlugin
 		InternetConfigPlugin
 		ThreadedARMFFIPlugin
+		UnixOSProcessPlugin
 	)
