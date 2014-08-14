@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker-Win",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "jb 8/13/2014 14:08",
+	"instvars" : [
+		 ],
+	"name" : "NBPharoSWindowsConfig",
+	"pools" : [
+		 ],
+	"super" : "PharoSWindowsConfig",
+	"type" : "normal" }

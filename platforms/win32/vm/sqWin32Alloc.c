@@ -189,7 +189,7 @@ void sqReleaseMemory(void)
   /* Win32 will do that for us */
 }
 
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST)
 void
 sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {

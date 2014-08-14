@@ -128,7 +128,7 @@ void CopyCStringToPascal(const char* src, Str255 dst);
 sqInt sqGrowMemoryBy(sqInt memoryLimit, sqInt delta);
 sqInt sqShrinkMemoryBy(sqInt memoryLimit, sqInt delta);
 sqInt sqMemoryExtraBytesLeft(int flag);
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST)
 extern void sqMakeMemoryExecutableFromTo(unsigned long, unsigned long);
 extern void sqMakeMemoryNotExecutableFromTo(unsigned long, unsigned long);
 
