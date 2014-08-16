@@ -23,7 +23,7 @@ copyObj: oop toSegment: segmentWordArray addr: lastSeg stopAt: stopAddr saveOopA
 	"Make sure Cogged methods have their true header field written to the segment."
 	((self isCompiledMethod: oop)
 	and: [coInterpreter methodHasCogMethod: oop]) ifTrue:
-		[self longAt: hdrAddr+BaseHeaderSize put: (coInterpreter headerOf: oop)].
+		[self longAt: hdrAddr+BaseHeaderSize put: (self methodHeaderOf: oop)].
 
 	self forward: oop to: (lastSeg+BytesPerWord + extraSize - segmentWordArray)
 		savingOopAt: oopPtr

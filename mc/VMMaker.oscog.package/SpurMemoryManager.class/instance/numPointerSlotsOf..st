@@ -5,7 +5,7 @@ numPointerSlotsOf: objOop
 	<api>
 	<inline: true>
 	<asmLabel: false>
-	| fmt contextSize numLiterals |
+	| fmt contextSize numLiterals header |
 	fmt := self formatOf: objOop.
 	fmt <= self lastPointerFormat ifTrue:
 		[(fmt = self indexablePointersFormat
@@ -18,5 +18,6 @@ numPointerSlotsOf: objOop
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	numLiterals := coInterpreter literalCountOf: objOop.
+	header := self methodHeaderOf: objOop.
+	numLiterals := self literalCountOfMethodHeader: header.
 	^numLiterals + LiteralStart

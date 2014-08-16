@@ -13,7 +13,7 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 	"The SP is expected to be pointing at the last oop on the stack, not at the pc"
 	self assert: (objectMemory addressCouldBeOop: (stackPages longAt: theSP)).
 
-	methodHeader := self headerOf: (self frameMethod: theFP).
+	methodHeader := objectMemory methodHeaderOf: (self frameMethod: theFP).
 	"Decide how much of the stack to preserve in widowed contexts.  Preserving too much
 	 state will potentially hold onto garbage.  Holding onto too little may mean that a dead
 	 context isn't informative enough in a debugging situation.  If copyTemps is false (as it
@@ -27,7 +27,7 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 						ifTrue: [self pushedReceiverOrClosureOfFrame: theFP]
 						ifFalse: [objectMemory nilObject].
 
-	numSlots := (methodHeader bitAnd: LargeContextBit) ~= 0
+	numSlots := (self methodHeaderIndicatesLargeFrame: methodHeader)
 					ifTrue: [LargeContextSlots]
 					ifFalse: [SmallContextSlots].
 	theContext := objectMemory eeInstantiateMethodContextSlots: numSlots.

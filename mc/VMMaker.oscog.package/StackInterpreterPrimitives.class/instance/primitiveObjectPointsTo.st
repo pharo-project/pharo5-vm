@@ -1,8 +1,7 @@
 object access primitives
 primitiveObjectPointsTo
 	"This primitive is assumed to be fast (see e.g. MethodDictionary>>includesKey:) so make it so.
-	 N.B.  Written to use literalHeaderOf: so that in Cog subclasses cogged methods (whose headers
-	 point to the machine code method) are still correctly scanned, for the header as well as literals."
+	 N.B.  Works forrectly for cogged methods too."
 	| rcvr thang header fmt numSlots methodHeader |
 	thang := self stackTop.
 	rcvr := self stackValue: 1.
@@ -32,9 +31,9 @@ primitiveObjectPointsTo
 			[fmt < objectMemory firstCompiledMethodFormat "no pointers" ifTrue:
 				[^self pop: 2 thenPushBool: false].
 			"CompiledMethod: contains both pointers and bytes:"
-			methodHeader := self headerOf: rcvr.
+			methodHeader := objectMemory methodHeaderOf: rcvr.
 			methodHeader = thang ifTrue: [^self pop: 2 thenPushBool: true].
-			numSlots := (self literalCountOfHeader: methodHeader) + 1].
+			numSlots := (objectMemory literalCountOfMethodHeader: methodHeader) + LiteralStart].
 
 	self assert: numSlots - 1 * BytesPerOop + objectMemory baseHeaderSize = (objectMemory lastPointerOf: rcvr).
 	objectMemory baseHeaderSize

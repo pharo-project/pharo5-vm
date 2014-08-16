@@ -20,7 +20,7 @@ compileFrameBuild
 	<inline: false>
 	<var: #jumpSkip type: #'AbstractInstruction *'>
 	needsFrame ifFalse: [^0].
-	methodHeader := coInterpreter headerOf: methodObj.
+	methodHeader := objectMemory methodHeaderOf: methodObj.
 	backEnd hasLinkRegister ifTrue: [self PushR: LinkReg].
 	self PushR: FPReg.
 	self MoveR: SPReg R: FPReg.

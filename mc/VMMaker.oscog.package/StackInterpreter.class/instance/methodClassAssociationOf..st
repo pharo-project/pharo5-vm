@@ -1,4 +1,4 @@
 compiled methods
 methodClassAssociationOf: methodPointer
 	<api>
-	^self literal: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer
+	^self literal: (objectMemory literalCountOf: methodPointer) - 1 ofMethod: methodPointer

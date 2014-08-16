@@ -1,4 +1,4 @@
 simulation support
 deny: aBooleanOrBlock
 	<doNotGenerate>
-	self assert: aBooleanOrBlock value not
+	aBooleanOrBlock value ifTrue: [AssertionFailure signal: 'Assertion failed']

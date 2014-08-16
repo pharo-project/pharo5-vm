@@ -21,7 +21,7 @@ convertToMachineCodeFrame: cogHomeMethod bcpc: bcpc
 				 stackPages
 					longAt: framePointer + FoxCallerSavedIP
 					put: cogit ceReturnToInterpreterPC]].
-	"Set the cog method field"
+	"Compute the cog method field"
 	(self iframeIsBlockActivation: framePointer)
 		ifTrue:
 			[closure := self pushedReceiverOrClosureOfFrame: framePointer.
@@ -34,6 +34,11 @@ convertToMachineCodeFrame: cogHomeMethod bcpc: bcpc
 			[startBcpc := self startPCOfMethodHeader: cogHomeMethod methodHeader.
 			 cogMethod := self cCoerceSimple: cogHomeMethod to: #'CogBlockMethod *'.
 			 methodField := cogHomeMethod asInteger].
+	"compute the pc before converting the frame to help with debugging."
+	pc := cogit mcPCForBackwardBranch: bcpc startBcpc: startBcpc in: cogMethod.
+	self assert: pc > (cogMethod asUnsignedInteger + cogit noCheckEntryOffset).
+	self assert: bcpc = (cogit bytecodePCFor: pc startBcpc: startBcpc in: cogMethod).
+	"now convert to a machine code frame"
 	stackPages
 		longAt: framePointer + FoxMethod
 		put: methodField
@@ -44,6 +49,4 @@ convertToMachineCodeFrame: cogHomeMethod bcpc: bcpc
 		[:p|
 		stackPages longAt: p + FoxMFReceiver - FoxIFReceiver put: (stackPages longAt: p)].
 	stackPointer := stackPointer + FoxMFReceiver - FoxIFReceiver.
-	pc := cogit mcPCForBackwardBranch: bcpc startBcpc: startBcpc in: cogMethod.
-	self assert: pc > (cogMethod asUnsignedInteger + cogit noCheckEntryOffset).
 	^pc

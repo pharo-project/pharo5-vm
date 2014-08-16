@@ -17,6 +17,6 @@ traceMap: annotation byte: byte at: address for: mcpc
 			 annotation instruction printStateOn: s.
 			 s space.
 			 bytecode := objectMemory fetchByte: annotation instruction bcpc ofObject: methodObj.
-			 bytecode := bytecode + (self bytecodeSetOffsetForHeader: (coInterpreter headerOf: methodObj)).
+			 bytecode := bytecode + (self bytecodeSetOffsetForHeader: (objectMemory methodHeaderOf: methodObj)).
 			 (self generatorAt: bytecode) printStateOn: s.
 			 s cr; flush]]

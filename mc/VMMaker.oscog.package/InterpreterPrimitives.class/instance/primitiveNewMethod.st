@@ -6,8 +6,8 @@ primitiveNewMethod
 	self success: (objectMemory isIntegerObject: header).
 	self successful ifFalse: [^nil].
 	class := self stackValue: 2.
-	literalCount := self literalCountOfHeader: header.
-	size := literalCount + 1 * BytesPerWord + bytecodeCount.
+	literalCount := objectMemory literalCountOfMethodHeader: header.
+	size := literalCount + LiteralStart * BytesPerOop + bytecodeCount.
 	theMethod := objectMemory instantiateClass: class indexableSize: size.
 	objectMemory storePointerUnchecked: HeaderIndex ofObject: theMethod withValue: header.
 	1 to: literalCount do:

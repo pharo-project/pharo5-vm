@@ -4,6 +4,6 @@ primitiveIndexOf: methodPointer
 	for temporary backward compatibility.  The time to unpack is negligible,
 	since the reconstituted full index is stored in the method cache."
 	| primBits |
-	primBits := ((self headerOf: methodPointer) >> 1) bitAnd: 16r100001FF.
+	primBits := ((self methodHeaderOf: methodPointer) >> 1) bitAnd: 16r100001FF.
 	
-	^ (primBits bitAnd: 16r1FF) + (primBits >> 19)
+	^(primBits bitAnd: 16r1FF) + (primBits >> 19)

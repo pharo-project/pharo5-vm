@@ -3,10 +3,16 @@ fillInObjects
 	oldHeap allObjectsDo:
 		[:oldObj|
 		(map at: oldObj ifAbsent: nil) ifNotNil:
-			[:newObj|
-			(newHeap isCompiledMethod: newObj)
-				ifTrue: [self fillInCompiledMethod: newObj from: oldObj]
+			[:newObj| | format classIndex |
+			format := newHeap formatOf: newObj.
+			(newHeap isPointersFormat: format)
+				ifTrue:
+					[((newHeap isIndexableFormat: format)
+						and: [(classIndex := newHeap classIndexOf: newObj) <= classBlockClosureIndex
+						and: [classIndex >= classMethodContextIndex]])
+						ifTrue: [self fillInPointerObjectWithPC: newObj from: oldObj]
+						ifFalse: [self fillInPointerObject: newObj from: oldObj]]
 				ifFalse:
-					[(newHeap isPointersNonImm: newObj)
-						ifTrue: [self fillInPointerObject: newObj from: oldObj]
+					[(newHeap isCompiledMethodFormat: format)
+						ifTrue: [self fillInCompiledMethod: newObj from: oldObj]
 						ifFalse: [self fillInBitsObject: newObj from: oldObj]]]]

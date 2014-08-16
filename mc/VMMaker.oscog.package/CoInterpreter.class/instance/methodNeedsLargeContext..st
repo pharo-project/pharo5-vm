@@ -1,4 +1,4 @@
 cog jit support
 methodNeedsLargeContext: methodObj
 	<api>
-	^(self headerOf: methodObj) anyMask: LargeContextBit
+	^self methodHeaderIndicatesLargeFrame: (objectMemory methodHeaderOf: methodObj)

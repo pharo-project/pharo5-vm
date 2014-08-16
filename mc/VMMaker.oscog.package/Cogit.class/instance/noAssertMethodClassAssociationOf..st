@@ -1,5 +1,5 @@
 debugging
 noAssertMethodClassAssociationOf: methodPointer
 	^coInterpreter
-		literal: (coInterpreter literalCountOfHeader: (coInterpreter noAssertHeaderOf: methodPointer)) - 1
+		literal: (objectMemory literalCountOfMethodHeader: (coInterpreter noAssertHeaderOf: methodPointer)) - 1
 		ofMethod: methodPointer

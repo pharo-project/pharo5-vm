@@ -14,7 +14,7 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	objectRepresentation genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0.
 	jumpImmediate := objectRepresentation genJumpImmediateInScratchReg: TempReg.
 	objectRepresentation genGetCompactClassIndexNonImmOf: Arg0Reg into: SendNumArgsReg.
-	self CmpCq: objectMemory classFloatCompactIndex R: SendNumArgsReg.
+	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpFail := self JumpNonZero: 0.
 	objectRepresentation genGetDoubleValueOf: Arg0Reg into: DPFPReg1.
 	invertComparison "May need to invert for NaNs"

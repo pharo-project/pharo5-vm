@@ -10,8 +10,8 @@ roomToPushNArgs: n
 			[| methodHeader cntxSize |
 			(self isMachineCodeFrame: framePointer)
 				ifTrue: [methodHeader := (self mframeHomeMethod: framePointer) methodHeader]
-				ifFalse: [methodHeader := self headerOf: (self iframeMethod: framePointer)].
-			cntxSize := (methodHeader bitAnd: LargeContextBit) ~= 0
+				ifFalse: [methodHeader := objectMemory methodHeaderOf: (self iframeMethod: framePointer)].
+			cntxSize := (self methodHeaderIndicatesLargeFrame: methodHeader)
 							ifTrue: [LargeContextSlots - CtxtTempFrameStart]
 							ifFalse: [SmallContextSlots - CtxtTempFrameStart].
 			^self stackPointerIndex + n <= cntxSize]

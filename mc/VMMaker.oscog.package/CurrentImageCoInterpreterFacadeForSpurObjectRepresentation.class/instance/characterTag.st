@@ -1,0 +1,3 @@
+accessing
+characterTag
+	^objectMemory characterTag

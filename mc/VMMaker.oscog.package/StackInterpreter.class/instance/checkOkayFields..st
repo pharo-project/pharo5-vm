@@ -13,7 +13,7 @@ checkOkayFields: oop
 				  and: [objectMemory isYoung: (objectMemory fetchClassOfNonImm: oop)].
 	(objectMemory isCompiledMethod: oop)
 		ifTrue:
-			[i := (self literalCountOf: oop) + LiteralStart - 1]
+			[i := (objectMemory literalCountOf: oop) + LiteralStart - 1]
 		ifFalse:
 			[(objectMemory isContext: oop)
 				ifTrue: [i := CtxtTempFrameStart + (self fetchStackPointerOf: oop) - 1]

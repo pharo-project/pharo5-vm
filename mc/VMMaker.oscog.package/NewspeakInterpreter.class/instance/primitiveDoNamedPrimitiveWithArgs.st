@@ -19,9 +19,9 @@ primitiveDoNamedPrimitiveWithArgs
 	(self isCompiledMethod: methodArg) ifFalse:
 		[^self primitiveFail]. "invalid args"
 
-	methodHeader := self headerOf: methodArg.
+	methodHeader := self methodHeaderOf: methodArg.
 
-	(self literalCountOfHeader: methodHeader) > 2 ifFalse:
+	(self literalCountOfMethodHeader: methodHeader) > 2 ifFalse:
 		[^self primitiveFail]. "invalid methodArg state"
 	self assertClassOf: (spec := self fetchPointer: 1 "first literal" ofObject: methodArg)
 		is: (self splObj: ClassArray).

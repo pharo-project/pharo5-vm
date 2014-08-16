@@ -6,22 +6,31 @@ primitiveIndexOfMethod: theMethod header: methodHeader
 	 format we assume a 3-byte CallPrimitive with a little-endian 16-bit primitive index."
 	<api>
 	<inline: true>
-	^self cppIf: MULTIPLEBYTECODESETS
+	| firstBytecode |
+	^objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
-			[(self headerIndicatesAlternateBytecodeSet: methodHeader)
+			[(self alternateHeaderHasPrimitiveFlag: methodHeader)
 				ifTrue:
-					[(self alternateHeaderHasPrimitiveFlag: methodHeader)
+					[firstBytecode := self firstBytecodeOfAlternateHeader: methodHeader method: theMethod.
+					 (objectMemory byteAt: firstBytecode + 1) + ((objectMemory byteAt: firstBytecode + 2) << 8)]
+				ifFalse:
+					[0]]
+		ifFalse:
+			[MULTIPLEBYTECODESETS
+				ifTrue:
+					[(self headerIndicatesAlternateBytecodeSet: methodHeader)
 						ifTrue:
-							[| firstBytecode |
-							 firstBytecode := self firstBytecodeOfAlternateHeader: methodHeader method: theMethod.
-							 (objectMemory byteAt: firstBytecode + 1) + ((objectMemory byteAt: firstBytecode + 2) << 8)]
+							[(self alternateHeaderHasPrimitiveFlag: methodHeader)
+								ifTrue:
+									[firstBytecode := self firstBytecodeOfAlternateHeader: methodHeader method: theMethod.
+									 (objectMemory byteAt: firstBytecode + 1) + ((objectMemory byteAt: firstBytecode + 2) << 8)]
+								ifFalse:
+									[0]]
 						ifFalse:
-							[0]]
+							[| primBits |
+							 primBits := objectMemory integerValueOf: methodHeader.
+							 (primBits bitAnd: 16r1FF) + (primBits >> 19 bitAnd: 16r200)]]
 				ifFalse:
 					[| primBits |
-					 primBits := methodHeader >> 1.
+					 primBits := objectMemory integerValueOf: methodHeader.
 					 (primBits bitAnd: 16r1FF) + (primBits >> 19 bitAnd: 16r200)]]
-		ifFalse:
-			[| primBits |
-			primBits := methodHeader >> 1.
-			(primBits bitAnd: 16r1FF) + (primBits >> 19 bitAnd: 16r200)]

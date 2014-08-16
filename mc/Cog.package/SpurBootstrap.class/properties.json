@@ -26,9 +26,11 @@
 		"sizeSym",
 		"rehashSym",
 		"classMetaclass",
-		"imageType" ],
+		"imageTypes",
+		"classMethodContextIndex",
+		"classBlockClosureIndex" ],
 	"name" : "SpurBootstrap",
 	"pools" : [
 		"VMObjectIndices" ],
-	"super" : "Object",
+	"super" : "SimulatorHarness",
 	"type" : "normal" }

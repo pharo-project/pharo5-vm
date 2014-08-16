@@ -1,0 +1,3 @@
+accessing
+literalCountOfMethodHeader: headerIntegerOop
+	^objectMemory literalCountOfMethodHeader: headerIntegerOop

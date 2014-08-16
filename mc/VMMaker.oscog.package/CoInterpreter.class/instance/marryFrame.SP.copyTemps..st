@@ -41,7 +41,7 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 				ifFalse:
 					[cogMethod := (self cCoerceSimple: cogMethod to: #'CogBlockMethod *') cmHomeMethod.
 					 closureOrNil := self frameStackedReceiver: theFP numArgs: numArgs].
-			 numSlots := (cogMethod methodHeader bitAnd: LargeContextBit) ~= 0
+			 numSlots := (self methodHeaderIndicatesLargeFrame: cogMethod methodHeader)
 							ifTrue: [LargeContextSlots]
 							ifFalse: [SmallContextSlots].
 			 methodFieldOrObj := cogMethod methodObject.
@@ -50,7 +50,7 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 		ifFalse:
 			[self setIFrameHasContext: theFP.
 			 numArgs := self iframeNumArgs: theFP.
-			 numSlots := ((self headerOf: methodFieldOrObj) bitAnd: LargeContextBit) ~= 0
+			 numSlots := (self methodHeaderIndicatesLargeFrame: (objectMemory methodHeaderOf: methodFieldOrObj))
 							ifTrue: [LargeContextSlots]
 							ifFalse: [SmallContextSlots].
 			 closureOrNil := (self iframeIsBlockActivation: theFP)

@@ -2,10 +2,10 @@ message sending
 activateNewMethod
 	| newContext methodHeader initialIP tempCount nilOop where errorCode |
 
-	methodHeader := self headerOf: newMethod.
+	methodHeader := self methodHeaderOf: newMethod.
 	newContext := self allocateOrRecycleContext: (methodHeader bitAnd: LargeContextBit).
 
-	initialIP := ((LiteralStart + (self literalCountOfHeader: methodHeader)) * BytesPerWord) + 1.
+	initialIP := ((LiteralStart + (self literalCountOfMethodHeader: methodHeader)) * BytesPerWord) + 1.
 	tempCount := (methodHeader >> 19) bitAnd: 16r3F.
 
 	"Assume: newContext will be recorded as a root if necessary by the

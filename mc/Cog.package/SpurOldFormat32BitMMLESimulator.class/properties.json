@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurOldFormat32BitMMLESimulator",
+	"pools" : [
+		 ],
+	"super" : "Spur32BitMMLESimulator",
+	"type" : "normal" }

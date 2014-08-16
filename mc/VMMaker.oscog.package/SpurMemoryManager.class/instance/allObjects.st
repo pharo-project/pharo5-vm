@@ -29,11 +29,13 @@ allObjects
 					[MarkObjectsForEnumerationPrimitives ifTrue:
 						[(self isSegmentBridge: obj) ifFalse:
 							[self setIsMarkedOf: obj to: false]]]]].
-	self assert: self allObjectsUnmarked.
 	self assert: (self isEmptyObjStack: markStack).
 	MarkObjectsForEnumerationPrimitives
-		ifTrue: [self emptyObjStack: weaklingStack]
-		ifFalse: [self assert: (self isEmptyObjStack: weaklingStack)].
+		ifTrue:
+			[self assert: self allObjectsUnmarked.
+			 self emptyObjStack: weaklingStack]
+		ifFalse:
+			[self assert: (self isEmptyObjStack: weaklingStack)].
 	self assert: count >= self numSlotsMask.
 	(count > (ptr - start / self bytesPerSlot) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"

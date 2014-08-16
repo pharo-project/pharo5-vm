@@ -10,6 +10,10 @@ prototypeClassNameMetaSelectorMethodDo: quaternaryBlock
 		className := self classNameForPrototypeMethod: method.
 		(isMeta := className endsWith: 'class') ifTrue:
 			[className := (className allButLast: 5) asSymbol].
+		(method pragmaAt: #indirect) ifNotNil:
+			[method := (isMeta
+							ifTrue: [(Smalltalk classNamed: className) class]
+							ifFalse: [Smalltalk classNamed: className]) >> protoSelector].
 		quaternaryBlock
 			value: className
 			value: isMeta

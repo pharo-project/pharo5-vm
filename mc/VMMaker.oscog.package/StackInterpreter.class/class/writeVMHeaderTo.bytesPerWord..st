@@ -1,6 +1,8 @@
 translation
 writeVMHeaderTo: aStream bytesPerWord: bytesPerWord
 	super writeVMHeaderTo: aStream bytesPerWord: bytesPerWord.
+	SistaVM ifTrue:
+		[aStream nextPutAll: '#define SistaVM 1'; cr].
 	NewspeakVM ifTrue:
 		[aStream nextPutAll: '#define NewspeakVM 1'; cr].
 	MULTIPLEBYTECODESETS ifTrue:

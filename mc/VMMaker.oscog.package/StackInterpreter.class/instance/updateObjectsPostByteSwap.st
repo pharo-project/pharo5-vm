@@ -14,7 +14,7 @@ updateObjectsPostByteSwap
 			[wordAddr := oop + BaseHeaderSize.
 			fmt >= self firstCompiledMethodFormat ifTrue: "compiled method; start after methodHeader and literals"
 				[methodHeader := self longAt: oop + BaseHeaderSize.
-				 wordAddr := wordAddr + (((self literalCountOfHeader: methodHeader) + LiteralStart) * BytesPerWord)].
+				 wordAddr := wordAddr + (((objectMemory literalCountOfMethodHeader: methodHeader) + LiteralStart) * BytesPerOop)].
 			objectMemory reverseBytesFrom: wordAddr to: oop + (objectMemory sizeBitsOf: oop)].
 		 fmt = self firstLongFormat ifTrue: "Bitmap, Float etc"
 			[(swapFloatWords

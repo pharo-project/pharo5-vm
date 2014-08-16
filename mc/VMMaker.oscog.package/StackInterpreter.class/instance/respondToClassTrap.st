@@ -3,7 +3,7 @@ respondToClassTrap
 	| ourContext tos |
 	<sharedCodeInCase: #extTrapIfNotInstanceOfBehaviorsBytecode>
 	messageSelector := objectMemory splObj: SelectorClassTrap.
-	tos := self internalStackTop.
+	tos := self internalPopStack.
 	ourContext := self ensureFrameIsMarried: localFP SP: localSP.
 	messageSelector = objectMemory nilObject ifTrue:
 		[self error: 'class trap'].

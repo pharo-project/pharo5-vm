@@ -6,7 +6,7 @@ functionForPrimitiveExternalCall: methodObj
 	| lit index functionPointer |
 	<var: #functionPointer declareC: #'void (*functionPointer)(void)'>
 	cogit setPostCompileHook: #recordCallOffsetIn:of:.
-	(self literalCountOf: methodObj) > 0 ifFalse:
+	(objectMemory literalCountOf: methodObj) > 0 ifFalse:
 		[^#primitiveExternalCall].
 	lit := self literal: 0 ofMethod: methodObj. 
 	"Check if it's an array of length 4"

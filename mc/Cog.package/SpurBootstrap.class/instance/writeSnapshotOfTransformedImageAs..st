@@ -10,7 +10,8 @@ writeSnapshotOfTransformedImageAs: imageFileName
 	heap coInterpreter: sim.
 	sim initializeInterpreter: 0;
 		setImageHeaderFlagsFrom: ImageHeaderFlags;
-		setDisplayForm: (Form extent: ImageScreenSize >> 16 @ (ImageScreenSize bitAnd: 16rFFFF)).
+		setDisplayForm: nil;
+		setSavedWindowSize: ImageScreenSize >> 16 @ (ImageScreenSize bitAnd: 16rFFFF).
 	heap allOldSpaceEntitiesDo: [:e| penultimate := ultimate. ultimate := e].
 	self assert: (heap isFreeObject: penultimate).
 	self assert: (heap isSegmentBridge: ultimate).

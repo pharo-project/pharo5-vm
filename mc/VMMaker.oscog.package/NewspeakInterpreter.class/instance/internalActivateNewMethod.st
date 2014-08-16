@@ -3,7 +3,7 @@ internalActivateNewMethod
 	| methodHeader initialIP newContext tempCount argCount2 needsLarge where |
 	<inline: true>
 
-	methodHeader := self headerOf: newMethod.
+	methodHeader := self methodHeaderOf: newMethod.
 	needsLarge := methodHeader bitAnd: LargeContextBit.
 	(needsLarge = 0 and: [freeContexts ~= NilContext])
 		ifTrue: [newContext := freeContexts.
@@ -12,7 +12,7 @@ internalActivateNewMethod
 				self externalizeIPandSP.
 				newContext := self allocateOrRecycleContext: needsLarge.
 				self internalizeIPandSP].
-	initialIP := ((LiteralStart + (self literalCountOfHeader: methodHeader)) * BytesPerWord) + 1.
+	initialIP := ((LiteralStart + (self literalCountOfMethodHeader: methodHeader)) * BytesPerWord) + 1.
 	tempCount := (methodHeader >> 19) bitAnd: 16r3F.
 
 	"Assume: newContext will be recorded as a root if necessary by the

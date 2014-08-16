@@ -7,10 +7,10 @@ primitiveNewMethod
 	successFlag ifFalse:
 		[self unPop: 2. ^nil].
 	class := self popStack.
-	size := (self literalCountOfHeader: header) + 1 * BytesPerWord + bytecodeCount.
+	size := (self literalCountOfMethodHeader: header) + 1 * BytesPerWord + bytecodeCount.
 	theMethod := self instantiateClass: class indexableSize: size.
 	self storePointerUnchecked: HeaderIndex ofObject: theMethod withValue: header.
-	literalCount := self literalCountOfHeader: header.
+	literalCount := self literalCountOfMethodHeader: header.
 	1 to: literalCount do:
 		[:i | self storePointer: i ofObject: theMethod withValue: nilObj].
 	self push: theMethod

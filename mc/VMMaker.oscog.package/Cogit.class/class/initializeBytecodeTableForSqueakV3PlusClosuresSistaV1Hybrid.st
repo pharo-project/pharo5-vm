@@ -4,10 +4,11 @@ initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid
 	"StackToRegisterMappingCogit initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid"
 
 	| v3Table v1Table |
-	"N.B. Must do it backwards to evaluate AltBlockCreationBytecodeSize & BlockCreationBytecodeSize correctly."
+	"N.B. Must do it backwards to evaluate AltBlockCreationBytecodeSize & BlockCreationBytecodeSize et al correctly."
 	self initializeBytecodeTableForSistaV1.
 	v1Table := generatorTable.
 	AltBlockCreationBytecodeSize := BlockCreationBytecodeSize.
+	AltFirstSpecialSelector := FirstSpecialSelector.
 	self initializeBytecodeTableForSqueakV3PlusClosures.
 	v3Table := generatorTable.
 	generatorTable := CArrayAccessor on: v3Table object, v1Table object

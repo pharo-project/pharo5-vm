@@ -15,8 +15,8 @@ primitiveDoNamedPrimitiveWithArgs
 	(self roomToPushNArgs: arraySize) ifFalse:
 		[^self primitiveFailFor: -2]. "invalid args"
 
-	methodHeader := self headerOf: methodArg.
-	(self literalCountOfHeader: methodHeader) > 2 ifFalse:
+	methodHeader := objectMemory methodHeaderOf: methodArg.
+	(objectMemory literalCountOfMethodHeader: methodHeader) > 2 ifFalse:
 		[^self primitiveFailFor: -3]. "invalid methodArg state"
 	spec := objectMemory fetchPointer: 1 "first literal" ofObject: methodArg.
 	isArray := self isInstanceOfClassArray: spec.

@@ -1,6 +1,6 @@
 tests
 testPCMappingSelect: aBlock options: optionsDictionaryOrArray
-	"Test pc mapping both ways using the methods in the current image"
+	"Test pc mapping both ways using a selection of the methods in the current image."
 	| cogit coInterpreter |
 	self initializeWithOptions: (self asOptionsDictionary: optionsDictionaryOrArray).
 	cogit := self new.
@@ -25,5 +25,5 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 				[cogit methodZone clearCogCompiledCode.
 				 coInterpreter clearCogCompiledCodeCompactionCalledFor.
 				 coInterpreter initializeObjectMap].
-			 cogit testPCMappingForMethod: cm].
+			 cogit testPCMappingForCompiledMethod: m cogMethod: cm].
 		 false]

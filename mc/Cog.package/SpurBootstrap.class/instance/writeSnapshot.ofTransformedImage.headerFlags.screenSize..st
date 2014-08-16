@@ -11,7 +11,7 @@ writeSnapshot: imageFileName ofTransformedImage: spurHeap headerFlags: headerFla
 		setEndOfMemory: spurHeap endOfMemory + spurHeap bridgeSize. "hack; initializeInterpreter: cuts it back by bridgeSize"
 	sim initializeInterpreter: 0;
 		setImageHeaderFlagsFrom: headerFlags;
-		setDisplayForm: (Form extent: screenSizeInteger >> 16 @ (screenSizeInteger bitAnd: 16rFFFF)).
+		setDisplayForm: nil.
 	spurHeap allOldSpaceEntitiesDo: [:e| penultimate := ultimate. ultimate := e].
 	(spurHeap isFreeObject: penultimate) ifTrue: "old, pre-pigCompact segmented save"
 		[self assert: (spurHeap isSegmentBridge: ultimate).

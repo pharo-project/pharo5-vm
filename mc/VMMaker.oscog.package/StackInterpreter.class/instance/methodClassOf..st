@@ -6,11 +6,11 @@ methodClassOf: methodPointer
 	^self cppIf: NewspeakVM
 		ifTrue:
 			[| literal |
-			 literal := self followLiteral: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
+			 literal := self followLiteral: (objectMemory literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
 			 literal = objectMemory nilObject
 				ifTrue: [literal]
 				ifFalse: [objectMemory followField: ValueIndex ofObject: literal]]
 		ifFalse:
 			[| literal |
-			 literal := self followLiteral: (self literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
+			 literal := self followLiteral: (objectMemory literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
 			 objectMemory followField: ValueIndex ofObject: literal]

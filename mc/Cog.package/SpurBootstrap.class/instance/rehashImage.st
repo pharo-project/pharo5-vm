@@ -3,7 +3,7 @@ rehashImage
 	"Rehash all collections in newHeap.
 	 Find out which classes implement rehash, entering a 1 against their classIndex in rehashFlags.
 	 Enumerate all objects, rehashing those whose class has a bit set in rehashFlags."
-	| n sim rehashFlags |
+	| n sim rehashFlags dotDate |
 	sim := StackInterpreterSimulator onObjectMemory: newHeap.
 	sim 
 		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
@@ -34,6 +34,7 @@ rehashImage
 				put: ((rehashFlags at: classIndex >> 3 + 1)
 						bitOr: (1 << (classIndex bitAnd: 7)))]].
 	Transcript cr; print: n; nextPutAll: ' classes understand rehash. rehashing instances...'; flush.
+	dotDate := Time now asSeconds.
 	n := 0.
 	self withExecutableInterpreter: sim
 		do: [sim setBreakSelector: 'error:'.
@@ -42,8 +43,9 @@ rehashImage
 				[:o| | classIndex |
 				classIndex := newHeap classIndexOf: o.
 				((rehashFlags at: classIndex >> 3 + 1) anyMask: 1 << (classIndex bitAnd: 7)) ifTrue:
-					[(n := n + 1) \\ 16 = 0 ifTrue:
-					 	[Transcript nextPut: $.; flush].
+					[Time now asSeconds > dotDate ifTrue:
+					 	[Transcript nextPut: $.; flush.
+						 dotDate := Time now asSeconds].
 					 "2845 = n ifTrue: [self halt]."
 					 "Rehash an object if its size is > 0.
 					  Symbol implements rehash, but let's not waste time rehashing it; in Squeak

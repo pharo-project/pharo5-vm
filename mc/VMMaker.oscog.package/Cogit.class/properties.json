@@ -5,6 +5,7 @@
 		"primitiveTable" ],
 	"classvars" : [
 		"AltBlockCreationBytecodeSize",
+		"AltFirstSpecialSelector",
 		"AltNSSendIsPCAnnotated",
 		"AnnotationConstantNames",
 		"AnnotationShift",
@@ -15,6 +16,7 @@
 		"EagerInstructionDecoration",
 		"EncounteredUnknownBytecode",
 		"FirstAnnotation",
+		"FirstSpecialSelector",
 		"HasBytecodePC",
 		"InsufficientCodeSpace",
 		"IsAbsPCReference",

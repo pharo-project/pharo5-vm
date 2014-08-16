@@ -1,7 +1,7 @@
 compiled methods
 methodShouldBeCogged: aMethodObj
 	<api>
-	(self methodWithHeaderShouldBeCogged: (self headerOf: aMethodObj)) ifTrue:
+	(self methodWithHeaderShouldBeCogged: (objectMemory methodHeaderOf: aMethodObj)) ifTrue:
 		[^true].
 	self maybeFlagMethodAsInterpreted: aMethodObj.
 	^false

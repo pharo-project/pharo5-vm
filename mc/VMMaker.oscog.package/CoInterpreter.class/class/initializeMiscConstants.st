@@ -4,7 +4,7 @@ initializeMiscConstants
 	super initializeMiscConstants.
 	COGVM := true.
 
-	MinBackwardJumpCountForCompile := 10.
+	MinBackwardJumpCountForCompile := 40.
 
 	MaxNumArgs := 15.
 	PrimCallNeedsNewMethod := 1.

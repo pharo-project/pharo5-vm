@@ -43,14 +43,13 @@ makeBaseFrameFor: aContext "<Integer>"
 				put: maybeClosure]
 		ifFalse:
 			[| header |
-			 header := self headerOf: theMethod.
+			 header := objectMemory methodHeaderOf: theMethod.
 			 numArgs := self argumentCountOfMethodHeader: header.
-			 self cppIf: MULTIPLEBYTECODESETS
-				ifTrue: "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
-					[(theIP signedIntFromLong > 0
-					  and: [(self methodHeaderHasPrimitive: header)
-					  and: [theIP = (1 + (objectMemory lastPointerOf: theMethod))]]) ifTrue:
-						[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)]].
+			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
+			 (theIP signedIntFromLong > 0
+			  and: [(self methodHeaderHasPrimitive: header)
+			  and: [theIP = (1 + (objectMemory lastPointerOf: theMethod))]]) ifTrue:
+				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages
 				longAt: (pointer := pointer - BytesPerWord)
 				put: rcvr].

@@ -2,6 +2,7 @@ class initialization
 initializeBytecodeTableForSqueakV3PlusClosures
 	"SimpleStackBasedCogit initializeBytecodeTableForSqueakV3PlusClosures"
 
+	FirstSpecialSelector := 176.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which
  inlines class.  If class is sent to e.g. a general instance of ProtoObject then unless
@@ -42,10 +43,13 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1 136 136 duplicateTopBytecode needsFrameNever: 1)
 
 		(1 137 137 genPushActiveContextBytecode)
-		(2 138 138 genPushNewArrayBytecode)
+		(2 138 138 genPushNewArrayBytecode)),
 
-		(1 139 139 unknownBytecode)
+		((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
+			ifTrue: [#((3 139 139 callPrimitiveBytecode))]
+			ifFalse: [#((1 139 139 unknownBytecode))]),
 
+	  #(
 		(3 140 140 genPushRemoteTempLongBytecode)
 		(3 141 141 genStoreRemoteTempLongBytecode)
 		(3 142 142 genStoreAndPopRemoteTempLongBytecode)

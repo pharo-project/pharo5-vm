@@ -3,7 +3,7 @@ internalActivateNewMethod
 	| methodHeader numTemps rcvr errorCode |
 	<inline: true>
 
-	methodHeader := self headerOf: newMethod.
+	methodHeader := objectMemory methodHeaderOf: newMethod.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
 
 	rcvr := self internalStackValue: argumentCount. "could new rcvr be set at point of send?"

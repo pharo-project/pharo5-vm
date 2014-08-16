@@ -11,7 +11,7 @@ primitiveObjectAt
 					ifTrue: [(self cCoerceSimple: rawHeader to: #'CogMethod *') methodHeader]
 					ifFalse: [rawHeader].
 	(index > 0
-	 and: [index <= ((self literalCountOfHeader: realHeader) + LiteralStart)]) ifFalse:
+	 and: [index <= ((objectMemory literalCountOfMethodHeader: realHeader) + LiteralStart)]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
 	self pop: 2
 		thenPush: (index = 1

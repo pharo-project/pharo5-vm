@@ -1,7 +1,6 @@
 class table
 ensureBehaviorHash: aBehavior
 	| newHash err |
-	<api>
 	<inline: true>
 	self assert: (coInterpreter addressCouldBeClassObj: aBehavior).
 	(newHash := self rawHashBitsOf: aBehavior) = 0 ifTrue:

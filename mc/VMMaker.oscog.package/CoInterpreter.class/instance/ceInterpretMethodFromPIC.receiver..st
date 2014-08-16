@@ -19,7 +19,7 @@ ceInterpretMethodFromPIC: aMethodObj receiver: rcvr
 						fromUnlinkedSendWithReceiver: rcvr]]]
 		ifFalse:
 			[self assert: (cogCompiledCodeCompactionCalledFor
-						or: [(cogit methodShouldBeCogged: aMethodObj) not])].
+						or: [(self methodShouldBeCogged: aMethodObj) not])].
 	messageSelector := pic selector.
 	newMethod := aMethodObj.
 	primitiveIndex := self primitiveIndexOf: aMethodObj.

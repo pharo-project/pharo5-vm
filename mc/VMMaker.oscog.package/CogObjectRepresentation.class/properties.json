@@ -17,6 +17,7 @@
 		"CogRTLOpcodes",
 		"VMBasicConstants",
 		"VMObjectIndices",
+		"VMSqueakClassIndices",
 		"VMStackFrameOffsets" ],
 	"super" : "CogClass",
 	"type" : "normal" }

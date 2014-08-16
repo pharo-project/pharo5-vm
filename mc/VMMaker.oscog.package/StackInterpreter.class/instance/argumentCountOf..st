@@ -1,4 +1,4 @@
 compiled methods
 argumentCountOf: methodPointer
 	<api>
-	^self argumentCountOfMethodHeader: (self headerOf: methodPointer)
+	^self argumentCountOfMethodHeader: (objectMemory methodHeaderOf: methodPointer)

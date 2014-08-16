@@ -6,11 +6,12 @@ context: aContext hasValidInversePCMappingOf: theIP in: theFP
 	<var: #theFP type: #'char *'>
 	pc := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.
 	encodedip := self contextInstructionPointer: theIP frame: theFP.
-	^self cppIf: MULTIPLEBYTECODESETS
-		ifTrue: [pc = encodedip
-				or: [| methodHeader |
-					methodHeader := self headerOf: (objectMemory fetchPointer: MethodIndex ofObject: aContext).
-					(self methodHeaderHasPrimitive: methodHeader)
-					and: [(objectMemory integerValueOf: encodedip) - (objectMemory integerValueOf: pc)
-						= (self sizeOfCallPrimitiveBytecode: methodHeader)]]]
+	^(objectMemory hasSpurMemoryManagerAPI or: [MULTIPLEBYTECODESETS])
+		ifTrue:
+			[pc = encodedip
+			or: [| methodHeader |
+				methodHeader := objectMemory methodHeaderOf: (objectMemory fetchPointer: MethodIndex ofObject: aContext).
+				(self methodHeaderHasPrimitive: methodHeader)
+				and: [(objectMemory integerValueOf: encodedip) - (objectMemory integerValueOf: pc)
+					= (self sizeOfCallPrimitiveBytecode: methodHeader)]]]
 		ifFalse: [pc = encodedip]

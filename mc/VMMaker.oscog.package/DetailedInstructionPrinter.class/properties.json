@@ -6,7 +6,8 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"stackHeightComputer" ],
+		"stackHeightComputer",
+		"encoderClass" ],
 	"name" : "DetailedInstructionPrinter",
 	"pools" : [
 		 ],

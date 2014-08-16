@@ -2,8 +2,10 @@ bootstrap methods
 installableMethodFor: aCompiledMethod selector: selector className: className isMeta: isMeta
 	"Create a sourceless method to install in the bootstrapped image.  It will allow the
 	 bootstrap to limp along until the relevant transformed Monticello package is loaded."
-	| compiledMethodClass sourcelessMethod bytes newMethod |
+	| compiledMethodClass methodClassBinding methodClass sourcelessMethod bytes newMethod |
 	compiledMethodClass := self findClassNamed: (self findSymbol: #CompiledMethod).
+	methodClassBinding := self methodClassBindingForClassName: className isMeta: isMeta.
+	methodClass := oldHeap fetchPointer: ValueIndex ofObject: methodClassBinding.
 	"the prototypes have source pointers.  the Character methods to be replaced don't."
 	sourcelessMethod := aCompiledMethod trailer hasSourcePointer
 							ifTrue: [aCompiledMethod copyWithTempsFromMethodNode: aCompiledMethod methodNode]
@@ -22,7 +24,10 @@ installableMethodFor: aCompiledMethod selector: selector className: className is
 					ifTrue:
 						[literal isInteger
 							ifTrue: [oldHeap integerObjectOf: literal]
-							ifFalse: [literalMap at: literal ifAbsent: [self findLiteral: literal]]]
+							ifFalse: [literalMap
+										at: literal
+										ifAbsent: [self findLiteral: literal
+														inClass: methodClass]]]
 					ifFalse: "should be a VMObjectProxy"
 						[literal oop].
 		oldHeap storePointer: i ofObject: newMethod withValue: oop].
@@ -34,8 +39,7 @@ installableMethodFor: aCompiledMethod selector: selector className: className is
 						ifFalse: [selector oop]);
 		storePointer: sourcelessMethod numLiterals
 		ofObject: newMethod
-		withValue: (self methodClassForClassName: className
-						isMeta: isMeta).
+		withValue: methodClass.
 	sourcelessMethod initialPC to: sourcelessMethod size do:
 		[:i|
 		oldHeap storeByte: i - 1 ofObject: newMethod withValue: (sourcelessMethod byteAt: i)].

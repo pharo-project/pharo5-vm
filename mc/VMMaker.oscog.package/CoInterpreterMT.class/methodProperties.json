@@ -9,8 +9,7 @@
 		"isNonArgumentImplicitReceiverVariableName:" : "eem 7/16/2009 13:43",
 		"isThreadedVM" : "eem 8/27/2009 11:20",
 		"mustBeGlobal:" : "eem 9/28/2010 22:59",
-		"sourceFileName" : "eem 9/4/2009 10:45",
-		"writeVMHeaderTo:bytesPerWord:" : "eem 10/12/2013 09:34" },
+		"sourceFileName" : "eem 9/4/2009 10:45" },
 	"instance" : {
 		"assertCStackPointersBelongToCurrentThread" : "eem 9/30/2009 18:55",
 		"assertCStackPointersBelongToCurrentVMOwner" : "eem 7/27/2010 09:57",

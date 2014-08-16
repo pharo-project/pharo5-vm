@@ -5,7 +5,7 @@ numStrongSlotsOfInephemeral: objOop
 	 Works with CompiledMethods, as well as ordinary objects."
 	<inline: true>
 	<asmLabel: false>
-	| fmt numSlots  contextSize numLiterals |
+	| fmt numSlots  contextSize numLiterals header |
 	fmt := self formatOf: objOop.
 	self assert: (fmt ~= self ephemeronFormat or: [self isMarked: (self keyOfEphemeron: objOop)]).
 	fmt <= self lastPointerFormat ifTrue:
@@ -25,5 +25,6 @@ numStrongSlotsOfInephemeral: objOop
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	numLiterals := coInterpreter literalCountOf: objOop.
+	header := self methodHeaderOf: objOop.
+	numLiterals := self literalCountOfMethodHeader: header.
 	^numLiterals + LiteralStart

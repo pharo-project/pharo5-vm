@@ -9,7 +9,7 @@ activateNewClosureMethod: blockClosure
 	DoAssertionChecks ifTrue:
 		[self okayOop: outerContext].
 	closureMethod := self fetchPointer: MethodIndex ofObject: outerContext.
-	methodHeader := self headerOf: closureMethod.
+	methodHeader := self methodHeaderOf: closureMethod.
 	self pushRemappableOop: blockClosure.
 	newContext := self allocateOrRecycleContext: (methodHeader bitAnd: LargeContextBit). "All for one, and one for all!"
 

@@ -5,14 +5,14 @@ method: methodA hasSameCodeAs: methodB
 	  flags can differ."
 	<inline: false>
 	| headerA headerB numLitsA endPCA |
-	headerA := coInterpreter headerOf: methodA.
-	headerB := coInterpreter headerOf: methodB.
-	numLitsA := coInterpreter literalCountOfHeader: headerA.
+	headerA := objectMemory methodHeaderOf: methodA.
+	headerB := objectMemory methodHeaderOf: methodB.
+	numLitsA := objectMemory literalCountOfMethodHeader: headerA.
 	endPCA := self endPCOf: methodA.
 	((coInterpreter argumentCountOfMethodHeader: headerA) ~= (coInterpreter argumentCountOfMethodHeader: headerB)
 	 or: [(coInterpreter temporaryCountOfMethodHeader: headerA) ~= (coInterpreter temporaryCountOfMethodHeader: headerB)
 	 or: [(coInterpreter primitiveIndexOfMethod: methodA header: headerA) ~= (coInterpreter primitiveIndexOfMethod: methodB header: headerB)
-	 or: [numLitsA ~= (coInterpreter literalCountOfHeader: headerB)
+	 or: [numLitsA ~= (objectMemory literalCountOfMethodHeader: headerB)
 	 or: [endPCA > (objectMemory numBytesOf: methodB)]]]]) ifTrue:
 		[^false].
 	 1 to: numLitsA - 1 do:

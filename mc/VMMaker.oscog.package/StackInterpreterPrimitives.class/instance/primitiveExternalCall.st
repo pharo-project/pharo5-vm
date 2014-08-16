@@ -19,7 +19,7 @@ primitiveExternalCall
 	<var: #addr declareC: 'void (*addr)()'>
 	
 	"Fetch the first literal of the method"
-	(self literalCountOf: newMethod) > 0 ifFalse:
+	(objectMemory literalCountOf: newMethod) > 0 ifFalse:
 		[^self primitiveFailFor: PrimErrBadMethod].
 
 	lit := self literal: 0 ofMethod: newMethod. 

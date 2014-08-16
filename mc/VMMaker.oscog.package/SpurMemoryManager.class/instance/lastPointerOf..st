@@ -5,7 +5,7 @@ lastPointerOf: objOop
 	<api>
 	<inline: true>
 	<asmLabel: false>
-	| fmt contextSize numLiterals |
+	| fmt contextSize header |
 	fmt := self formatOf: objOop.
 	self assert: fmt ~= self forwardedFormat.
 	fmt <= self lastPointerFormat ifTrue:
@@ -18,5 +18,5 @@ lastPointerOf: objOop
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	numLiterals := coInterpreter literalCountOf: objOop.
-	^numLiterals + LiteralStart - 1 * BytesPerOop + self baseHeaderSize
+	header := self methodHeaderOf: objOop.
+	^self lastPointerOfMethodHeader: header

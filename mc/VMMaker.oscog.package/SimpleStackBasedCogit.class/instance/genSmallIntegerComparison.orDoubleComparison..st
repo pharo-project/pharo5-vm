@@ -32,7 +32,7 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 		[self MoveR: ClassReg R: TempReg.
 		 jumpNonInt := objectRepresentation genJumpImmediateInScratchReg: TempReg].
 	objectRepresentation genGetCompactClassIndexNonImmOf: ClassReg into: SendNumArgsReg.
-	self CmpCq: objectMemory classFloatCompactIndex R: SendNumArgsReg.
+	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpFail := self JumpNonZero: 0.
 
 	"It was a Float, so convert the receiver to double and perform the operation"

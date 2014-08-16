@@ -3,7 +3,7 @@ internalActivateNewMethod
 	| methodHeader newContext tempCount argCount2 needsLarge where |
 	<inline: true>
 
-	methodHeader := self headerOf: newMethod.
+	methodHeader := self methodHeaderOf: newMethod.
 	needsLarge := methodHeader bitAnd: LargeContextBit.
 	(needsLarge = 0 and: [freeContexts ~= NilContext])
 		ifTrue: [newContext := freeContexts.
@@ -19,7 +19,7 @@ internalActivateNewMethod
 	where :=   newContext + BaseHeaderSize.
 	self longAt: where + (SenderIndex << ShiftForWord) put: activeContext.
 	self longAt: where + (InstructionPointerIndex << ShiftForWord)
-		put: (self integerObjectOf: (((LiteralStart + (self literalCountOfHeader: methodHeader)) * BytesPerWord) + 1)).
+		put: (self integerObjectOf: (((LiteralStart + (self literalCountOfMethodHeader: methodHeader)) * BytesPerWord) + 1)).
 	self longAt: where + (StackPointerIndex << ShiftForWord) put: (self integerObjectOf: tempCount).
 	self longAt: where + (MethodIndex << ShiftForWord) put: newMethod.
 	self longAt: where + (ClosureIndex << ShiftForWord) put: nilObj.

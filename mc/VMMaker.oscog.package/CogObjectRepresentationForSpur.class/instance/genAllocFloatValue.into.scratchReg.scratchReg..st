@@ -7,7 +7,7 @@ genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scrat
 	newFloatHeader := objectMemory
 							headerForSlots: (self sizeof: #double) / objectMemory wordSize
 							format: objectMemory firstLongFormat
-							classIndex: objectMemory classFloatCompactIndex.
+							classIndex: ClassFloatCompactIndex.
 	cogit MoveAw: objectMemory freeStartAddress R: resultReg.
 	cogit LoadEffectiveAddressMw: allocSize r: resultReg R: scratch1.
 	cogit CmpCq: objectMemory getScavengeThreshold R: scratch1.
