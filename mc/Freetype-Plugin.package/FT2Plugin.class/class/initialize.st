@@ -1,7 +1,7 @@
 class initialization
 initialize
 	"self initialize"
-	self ensureClassPool.
+	self classPool. "Ensures classPool"
 	#(FT2Face Form FT2GlyphSlot FT2Outline) do: [:clsName |
 		| index |
 		index := 0.

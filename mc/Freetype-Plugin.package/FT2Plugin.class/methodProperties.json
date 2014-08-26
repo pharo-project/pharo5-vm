@@ -2,7 +2,7 @@
 	"class" : {
 		"codeGeneratorClass" : "nk 11/4/2004 14:05",
 		"declareCVarsIn:" : "Igor.Stasenko 5/1/2010 00:58",
-		"initialize" : "jl 5/23/2006 16:14" },
+		"initialize" : "EstebanLorenzano 8/26/2014 14:45" },
 	"instance" : {
 		"fetchByteArray:ofObject:assureSize:" : "be 7/4/2006 13:41",
 		"fetchShortArray:ofObject:assureSize:" : "be 7/4/2006 13:41",
