@@ -11,6 +11,7 @@
 		"byteCount",
 		"breakCount",
 		"sendCount",
+		"lookupCount",
 		"printSends",
 		"printReturns",
 		"traceOn",

@@ -14,7 +14,9 @@ primitiveNewWithArg
 				ifTrue:
 					[(objectMemory instantiateClass: (self stackValue: 1) indexableSize: size)
 						ifNotNil: [:obj| self pop: argumentCount + 1 thenPush: obj]
-						ifNil: [self primitiveFailFor: PrimErrNoMemory]]
+						ifNil: [self primitiveFailFor: ((objectMemory isCompiledMethodFormat: (objectMemory instSpecOfClass: (self stackValue: 1)))
+														ifTrue: [PrimErrBadReceiver]
+														ifFalse: [PrimErrNoMemory])]]
 				ifFalse:
 					[spaceOkay := objectMemory sufficientSpaceToInstantiate: (self stackValue: 1) indexableSize: size.
 					 spaceOkay

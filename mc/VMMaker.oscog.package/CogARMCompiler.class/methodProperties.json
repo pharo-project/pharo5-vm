@@ -102,6 +102,7 @@
 		"instructionIsBLX:" : "tpr 5/3/2014 18:51",
 		"instructionIsBX:" : "tpr 5/3/2014 18:39",
 		"is12BitValue:ifTrue:ifFalse:" : "lw 7/25/2012 15:21",
+		"isBigEndian" : "eem 1/8/2009 14:05",
 		"isBranch:" : "lw 8/1/2012 16:26",
 		"isCallPreceedingReturnPC:" : "tpr 6/5/2014 08:00",
 		"isPCDependent" : "eem 10/12/2013 14:41",

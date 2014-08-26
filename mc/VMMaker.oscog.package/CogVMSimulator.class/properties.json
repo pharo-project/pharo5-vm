@@ -11,6 +11,7 @@
 		"lastPollCount",
 		"lastExtPC",
 		"sendCount",
+		"lookupCount",
 		"printSends",
 		"traceOn",
 		"myBitBlt",

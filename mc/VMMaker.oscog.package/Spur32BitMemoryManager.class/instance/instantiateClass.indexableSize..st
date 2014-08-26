@@ -1,6 +1,7 @@
 instantiation
 instantiateClass: classObj indexableSize: nElements
 	<var: #nElements type: #usqInt>
+	"Allocate an instance of a variable class, excepting CompiledMethod."
 	| instSpec classFormat numSlots classIndex newObj fillValue |
 	classFormat := self formatOfClass: classObj.
 	instSpec := self instSpecOfClassFormat: classFormat.
@@ -35,11 +36,6 @@ instantiateClass: classObj indexableSize: nElements
 				[^nil].
 			 instSpec := instSpec + (nElements bitAnd: 1)].
 		[self firstByteFormat]	->
-			[numSlots := nElements + 3 // 4.
-			 numSlots > self maxSlotsForAlloc ifTrue:
-				[^nil].
-			 instSpec := instSpec + (4 - nElements bitAnd: 3)].
-		[self firstCompiledMethodFormat]	->
 			[numSlots := nElements + 3 // 4.
 			 numSlots > self maxSlotsForAlloc ifTrue:
 				[^nil].

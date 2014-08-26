@@ -52,8 +52,8 @@ printMethodHeader: cogMethod on: aStream
 			cogMethod cmType = CMMethod ifTrue:
 				[([cogMethod nextMethodOrIRCs] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
 					[:nmoircs| aStream crtab; nextPutAll: 'nextMethodOrIRCs: '.
-						nmoircs = 0 ifTrue: [aStream print: nmoircs] ifFalse: [self printHex: nmoircs]].
+						nmoircs = 0 ifTrue: [aStream print: nmoircs] ifFalse: [coInterpreter printHex: nmoircs]].
 				 ([cogMethod counters] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
 					[:cntrs| aStream crtab; nextPutAll: 'counters: '.
-						cntrs = 0 ifTrue: [aStream print: cntrs] ifFalse: [self printHex: cntrs]]]].
+						cntrs = 0 ifTrue: [aStream print: cntrs] ifFalse: [coInterpreter printHex: cntrs]]]].
 	aStream cr; flush

@@ -3,16 +3,25 @@ picDataFor: descriptor IsBackwardBranch: IsBackwardBranch Mcpc: mcpc Bcpc: bcpc 
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	<var: #mcpc type: #'char *'>
 	<var: #cogMethodArg type: #'void *'>
-	| entryPoint tuple |
+	| entryPoint tuple counter |
+	<var: #counter type: #'unsigned long'>
+
 	descriptor isNil ifTrue:
 		[^0].
 	descriptor isBranch ifTrue:
 		["it's a branch; conditional?"
 		 (descriptor isBranchTrue or: [descriptor isBranchFalse]) ifTrue:
-			[tuple := self picDataForConditionalBranch: prevMapAbsPCMcpc at: bcpc + descriptor numBytes.
+			[counter := (self
+							cCoerce: ((self
+											cCoerceSimple: cogMethodArg
+											to: #'CogMethod *') counters)
+							to: #'unsigned long *')
+								at: counterIndex.
+			 tuple := self picDataForCounter: counter at: bcpc + 1.
 			 tuple = 0 ifTrue: [^PrimErrNoMemory].
 			 objectMemory storePointer: picDataIndex ofObject: picData withValue: tuple.
-			 picDataIndex := picDataIndex + 1].
+			 picDataIndex := picDataIndex + 1.
+			 counterIndex := counterIndex + 1].
 		 ^0].
 	"infer it's a send; alas we can't just test the descriptor because of the bloody
 	 doubleExtendedDoAnythingBytecode which does sends as well as other things."

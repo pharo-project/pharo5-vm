@@ -5,9 +5,7 @@ initializeFreeSpacePostLoad: freeListObj
 	 been swizzled in adjustAllOopsBy:"
 	
 	self assert: (self numSlotsOf: freeListObj) = self numFreeLists.
-	self assert: (self formatOf: freeListObj) = (self wordSize = 4
-													ifTrue: [self firstLongFormat]
-													ifFalse: [self sixtyFourBitIndexableFormat]).
+	self assert: (self formatOf: freeListObj) = self wordIndexableFormat.
 	freeLists := self firstIndexableField: freeListObj.
 	freeListsMask := 0.
 	0 to: self numFreeLists - 1 do:

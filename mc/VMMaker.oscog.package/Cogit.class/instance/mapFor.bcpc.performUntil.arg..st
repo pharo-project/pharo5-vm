@@ -95,8 +95,7 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 					 result ~= 0 ifTrue:
 						[^result].
 					 bcpc := nextBcpc.
-					 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [0]].
-				self maybeRememberPrevMap: annotation absPCMcpc: mcpc]
+					 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [0]]]
 			ifFalse:
 				[mcpc := mcpc + (mapByte >= DisplacementX2N
 									ifTrue: [mapByte - DisplacementX2N << AnnotationShift]

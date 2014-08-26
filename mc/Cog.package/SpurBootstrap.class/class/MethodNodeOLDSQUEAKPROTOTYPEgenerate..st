@@ -1,5 +1,8 @@
-method prototypes old squeak
-MethodNodeOLDSQUEAKPROTOTYPEgenerate: trailerBytes
-	"Since this method has inst var refs the prototype must live in the actual class."
+method prototypes
+MethodNodeOLDSQUEAKPROTOTYPEgenerate: trailer 
+	"The receiver is the root of a parse tree. Answer a CompiledMethod.
+	 The argument, trailer, is arbitrary but is typically either the reference
+	 to the source code that is stored with every CompiledMethod, or an
+	 encoding of the method's temporary names."
 
-	<indirect>
+	^self generate: trailer using: CompiledMethod

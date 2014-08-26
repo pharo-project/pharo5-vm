@@ -20,8 +20,28 @@ categoryForClass: className meta: isMeta selector: selector
 															-> [#'subclass creation'].
 			[#(ClassBuilder superclass:immediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:)]
 															-> [#public].
+			[#(CompiledMethod class handleFailingFailingNewMethod:header:)]
+															-> [#private].
+			[#(CompiledMethod class handleFailingNewMethod:header:)]
+															-> [#private].
 			[#(Context class allInstances)]					-> [#enumerating].
 			[#(Context class allInstancesDo:)]				-> [#enumerating].
+			[#(Context failPrimitiveWith:)]					-> [#'system simulation'].
+			[#(Context isPrimFailToken:)]					-> [#private].
+			[#(Context send:to:with:lookupIn:)]				-> [#controlling].
+			[#(ContextPart isPrimFailToken:)]				-> [#private].
+			[#(ContextPart send:to:with:lookupIn:)]			-> [#controlling].
+			[#(CompiledMethod class headerFlagForEncoder:)]
+															-> [#'method encoding'].
+			[#(CompiledMethod class installPrimaryBytecodeSet:)]
+															-> [#'class initialization'].
+			[#(CompiledMethod class installSecondaryBytecodeSet:)]
+															-> [#'class initialization'].
+			[#(EncoderForV3PlusClosures genCallPrimitive:)]
+															-> [#'bytecode generation'].
+			[#(EncoderForV3PlusClosures class callPrimitiveCode)]
+															-> [#'bytecode decoding'].
+			[#(MethodContext failPrimitiveWith:)]			-> [#'system simulation'].
 			[#(MethodContext class allInstances)]			-> [#enumerating].
 			[#(MethodContext class allInstancesDo:)]		-> [#enumerating].
 			[#(SmallInteger asCharacter)]					-> [#converting].

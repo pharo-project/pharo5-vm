@@ -1,12 +1,11 @@
 bootstrap image
 transform
-	self rememberRehashSymbol.
 	self findRequiredGlobals.
 	self installModifiedMethods.
 	self recreateSpecialObjectsArray.
+	self initializeClasses.
 	self bootstrapImage.
 	self validate.
-	self rememberRehashSymbol.
 	self rehashImage.
 	self followForwardingPointers.
 	self scavengeImage.

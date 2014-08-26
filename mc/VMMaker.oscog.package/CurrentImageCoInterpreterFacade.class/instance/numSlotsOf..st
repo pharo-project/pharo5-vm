@@ -1,9 +1,11 @@
 accessing
-numSlotsOf: objOop 
+numSlotsOf: objOop
 	"Answer the number of slots in the given non-immediate object.
 	 Does not adjust the size of contexts by stackPointer."
 	| obj elementSize wordSize |
 	obj := self objectForOop: objOop.
+	obj = objOop ifTrue:
+		[^objectMemory numSlotsOf: objOop].
 	self deny: ([obj class isImmediateClass]
 				on: MessageNotUnderstood
 				do: [:ex| obj class == SmallInteger]).

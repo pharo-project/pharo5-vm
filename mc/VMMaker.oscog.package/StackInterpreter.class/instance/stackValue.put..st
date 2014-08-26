@@ -1,4 +1,4 @@
-internal interpreter access
+stack access
 stackValue: offset put: oop
 	"In the StackInterpreter stacks grow down."
 	^stackPages

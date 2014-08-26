@@ -3,4 +3,5 @@ filesForPackage: package in: aDirectory
 	^aDirectory fileNames select:
 		[:fileName|
 		(fileName beginsWith: package name)
-		 and: [(fileName at: package name size + 1) isLetter not]]
+		 and: [(fileName at: package name size + 1) isLetter not
+		 and: [(fileName copyFrom: package name size + 2 to: package name size + 5) ~= 'spur']]]

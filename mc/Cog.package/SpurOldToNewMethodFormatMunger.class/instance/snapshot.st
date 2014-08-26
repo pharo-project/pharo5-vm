@@ -11,4 +11,5 @@ snapshot
 				ifFalse: [ex pass]].
 	interpreter
 		setDisplayForm: nil; "gets it to use savedWindowSize"
-		writeImageFileIO
+		writeImageFileIO.
+	Transcript cr; show: 'Done!'

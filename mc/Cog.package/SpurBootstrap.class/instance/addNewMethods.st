@@ -21,7 +21,8 @@ addNewMethods
 				self prototypeClassNameMetaSelectorMethodDo:
 					[:className :isMeta :selector :method| | methodOrNil |
 					(className = sym
-					 and: [symIsMeta = isMeta]) ifTrue:
+					 and: [symIsMeta = isMeta
+					 and: [(method pragmaAt: #remove) isNil]]) ifTrue:
 						["probe method dictionary of the class for each method, installing a dummy if not found."
 						 "Transcript cr; nextPutAll: 'checking for '; nextPutAll: selector; flush."
 						 methodOrNil := self interpreter: oldInterpreter

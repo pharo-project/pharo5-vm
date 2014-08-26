@@ -10,5 +10,8 @@ findSymbol: aString
 		(symbolClass = (oldHeap fetchClassOfNonImm: obj)
 		 and: [(oldHeap numBytesOf: obj) = aString size
 		 and: [aString = (oldHeap stringOf: obj)]]) ifTrue:
-			[^obj]].
+			[aString isSymbol ifTrue:
+				[literalMap at: aString asSymbol put: obj].
+			 ^obj]].
+	Transcript cr; nextPutAll: 'Warning, could not find '; store: aString; flush.
 	^nil

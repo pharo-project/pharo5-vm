@@ -1,4 +1,4 @@
-internal interpreter access
+stack access
 stackFloatValue: offset
 	"In the StackInterpreter stacks grow down."
 	<returnTypeC: #double>

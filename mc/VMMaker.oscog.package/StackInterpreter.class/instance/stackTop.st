@@ -1,4 +1,4 @@
-internal interpreter access
+stack access
 stackTop
 	<api>
 	^stackPages longAt: stackPointer

@@ -1,4 +1,4 @@
-internal interpreter access
+stack access
 stackSignedMachineIntegerValue: offset
 	<api>
 	"In the StackInterpreter stacks grow down."

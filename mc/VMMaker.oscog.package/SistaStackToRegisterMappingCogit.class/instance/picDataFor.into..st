@@ -6,7 +6,7 @@ picDataFor: cogMethod into: arrayObj
 	| errCode |
 	cogMethod stackCheckOffset = 0 ifTrue:
 		[^0].
-	picDataIndex := 0.
+	picDataIndex := counterIndex := 0.
 	picData := arrayObj.
 	errCode := self
 					mapFor: (self cCoerceSimple: cogMethod to: #'CogBlockMethod *')

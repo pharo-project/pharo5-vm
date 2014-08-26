@@ -6,7 +6,6 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"memMgr",
 		"hiddenRoots" ],
 	"name" : "CurrentImageCoInterpreterFacadeForSpurObjectRepresentation",
 	"pools" : [

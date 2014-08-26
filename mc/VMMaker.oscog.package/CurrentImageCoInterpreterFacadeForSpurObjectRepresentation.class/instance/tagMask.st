@@ -1,3 +1,3 @@
 testing
 tagMask
-	^self memMgr tagMask
+	^objectMemory tagMask

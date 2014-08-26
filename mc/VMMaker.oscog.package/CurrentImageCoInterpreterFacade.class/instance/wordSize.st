@@ -1,3 +1,3 @@
 accessing
 wordSize
-	^self memMgr wordSize
+	^objectMemory wordSize

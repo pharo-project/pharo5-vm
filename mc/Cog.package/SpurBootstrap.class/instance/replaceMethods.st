@@ -16,7 +16,8 @@ replaceMethods
 				self prototypeClassNameMetaSelectorMethodDo:
 					[:className :isMeta :selector :method| | replacement methodDict index |
 					(className = sym
-					 and: [symIsMeta = isMeta]) ifTrue:
+					 and: [symIsMeta = isMeta
+					 and: [(method pragmaAt: #remove) isNil]]) ifTrue:
 						[(installedPrototypes includes: method selector) ifFalse:
 							["probe method dictionary of the class for each method, installing a dummy if not found."
 							Transcript

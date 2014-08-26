@@ -1,8 +1,7 @@
 gc -- compaction
-initForwardBlock: fwdBlock mapping: oop to: newOop withBackPtr: backFlag 
+initForwardBlock: fwdBlock mapping: objOop to: newOop withBackPtr: backFlag
 	"Initialize the given forwarding block to map oop to newOop, 
-	and replace oop's header with a pointer to the fowarding 
-	block. "
+	and replace oop's header with a pointer to the fowarding block."
 	"Details: The mark bit is used to indicate that an oop is 
 	forwarded. When an oop is forwarded, its header (minus the 
 	mark bit) contains the address of its forwarding block. (The 
@@ -19,12 +18,12 @@ initForwardBlock: fwdBlock mapping: oop to: newOop withBackPtr: backFlag
 	header. "
 	| originalHeader originalHeaderType |
 	<inline: true>
-	<asmLabel: false> 
-	originalHeader := self longAt: oop.
+	<asmLabel: false>
 	self assert: fwdBlock ~= nil. "ran out of forwarding blocks in become"
-	self assert: (originalHeader bitAnd: MarkBit) = 0. "'object already has a forwarding table entry"
+	self deny: (self hasForwardingBlock: objOop). "'object already has a forwarding table entry"
+	originalHeader := self longAt: objOop.
 	originalHeaderType := originalHeader bitAnd: TypeMask.
 	self longAt: fwdBlock put: newOop.
 	self longAt: fwdBlock + BytesPerWord put: originalHeader.
-	backFlag ifTrue: [self longAt: fwdBlock + (BytesPerWord*2) put: oop].
-	self longAt: oop put: (fwdBlock >> 1 bitOr: (MarkBit bitOr: originalHeaderType))
+	backFlag ifTrue: [self longAt: fwdBlock + (BytesPerWord*2) put: objOop].
+	self longAt: objOop put: (fwdBlock >> 1 bitOr: (MarkBit bitOr: originalHeaderType))

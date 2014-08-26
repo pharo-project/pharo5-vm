@@ -6,4 +6,4 @@ initMaps
 	literalMap := IdentityDictionary new.
 	methodClasses := Set new.
 	installedPrototypes := Set new.
-	sizeSym := rehashSym := classMetaclass := nil
+	classMetaclass := nil

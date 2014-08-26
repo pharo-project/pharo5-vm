@@ -18,5 +18,5 @@ bootstrapImageUsingFileDirectory: imageName
 		ofTransformedImage: newHeap
 		headerFlags: oldInterpreter getImageHeaderFlags
 		screenSize: oldInterpreter savedWindowSize.
-	dir copyFileNamed: (dir fullNameFor: baseName, '.changes')
-		toFileNamed: (dir fullNameFor: baseName, '-spur.changes')
+	dir deleteFileNamed: baseName, '-spur.changes';
+		copyFileNamed: baseName, '.changes' toFileNamed: baseName, '-spur.changes'

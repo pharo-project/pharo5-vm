@@ -4,14 +4,15 @@ MethodNodePROTOTYPEgenerate: trailer using: aCompiledMethodClass
 	 The argument, trailer, is arbitrary but is typically either the reference to the source code
 	 that is stored with every CompiledMethod, or an encoding of the method's temporary names."
 
-	| primErrNode blkSize nLits locals literals stack method |
+	| primErrNode blkSize nLits locals literals stack header method |
 	self generate: trailer
 		using: aCompiledMethodClass
 		ifQuick:
 			[:m |
-			  m	literalAt: 2 put: encoder associationForClass;
+			 encoder noteBlockExtent: (0 to: 2) hasLocals: arguments.
+			 m	literalAt: 2 put: encoder associationForClass;
 				properties: properties.
-			^m].
+			 ^m].
 	primErrNode := self primitiveErrorVariableName ifNotNil:
 						[encoder fixTemp: self primitiveErrorVariableName].
 	self ensureClosureAnalysisDone.
@@ -28,21 +29,22 @@ MethodNodePROTOTYPEgenerate: trailer using: aCompiledMethodClass
 							sizeCodeForStore: encoder "The VM relies on storeIntoTemp: (129)"]).
 	locals := arguments, temporaries, (primErrNode ifNil: [#()] ifNotNil: [{primErrNode}]).
 	encoder noteBlockExtent: block blockExtent hasLocals: locals.
-	method := aCompiledMethodClass
-				newBytes: blkSize
-				trailerBytes: trailer 
-				nArgs: arguments size
-				nTemps: locals size
-				nStack: 0
-				nLits: (nLits := (literals := encoder allLiterals) size)
-				primitive: primitive.
+	header := encoder computeMethodHeaderForNumArgs: arguments size
+					numTemps: locals size
+					numLits: (nLits := (literals := encoder allLiterals) size)
+					primitive: primitive.
+	method := trailer
+					createMethod: blkSize
+					class: aCompiledMethodClass
+					header: header.
 	1 to: nLits do: [:lit | method literalAt: lit put: (literals at: lit)].
 	encoder streamToMethod: method.
 	stack := ParseStack new init.
-	primErrNode ifNotNil: [primErrNode emitCodeForStore: stack encoder: encoder].
-	stack position: method numTemps.
 	primitive > 0 ifTrue:
-		[encoder genCallPrimitive: primitive].
+		[encoder genCallPrimitive: primitive.
+		 primErrNode ifNotNil:
+			[primErrNode emitCodeForStore: stack encoder: encoder]].
+	stack position: method numTemps.
 	[block emitCodeForEvaluatedValue: stack encoder: encoder]
 		on: Error "If an attempt is made to write too much code the method will be asked"
 		do: [:ex|  "to grow, and the grow attempt will fail in CompiledMethod class>>#new:"

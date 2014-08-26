@@ -1,7 +1,10 @@
 initialize-release
 initialize
-	memory := ByteArray new: 262144.
-	objectMemory := self class objectMemoryClass new.
+	memory := (VMBIGENDIAN
+					ifTrue: [Bitmap]
+					ifFalse: [LittleEndianBitmap]) new: 1024*1024/4.
+	objectMemory := self class objectMemoryClass simulatorClass new.
+	objectMemory memory: memory.
 	coInterpreter := CoInterpreter new.
 	coInterpreter
 		instVarNamed: 'objectMemory'

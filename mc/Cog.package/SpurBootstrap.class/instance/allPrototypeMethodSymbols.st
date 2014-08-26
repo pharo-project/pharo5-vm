@@ -2,6 +2,7 @@ method prototypes
 allPrototypeMethodSymbols
 	"self basicNew allPrototypeMethodSymbols"
 	| symbols |
+	self assert: SpurBootstrap isolatedPrototypes isEmpty.
 	symbols := Set new.
 	self prototypeClassNameMetaSelectorMethodDo:
 		[:className :isMeta :selector :method | | adder |

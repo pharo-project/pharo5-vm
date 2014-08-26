@@ -53,7 +53,7 @@ initialize
 	flagInterpretedMethods := false.
 
 	"initialize InterpreterSimulator variables used for debugging"
-	byteCount := lastPollCount := sendCount := 0.
+	byteCount := lastPollCount := sendCount := lookupCount := 0.
 	quitBlock := [^ self].
 	traceOn := true.
 	printSends := printFrameAtEachStep := printBytecodeAtEachStep := false.

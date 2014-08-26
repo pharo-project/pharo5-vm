@@ -6,7 +6,9 @@ primitiveNew
 			  less than lowSpaceThreshold bytes free. This *will not* cause a GC :-)"
 			(objectMemory instantiateClass: self stackTop)
 				ifNotNil: [:obj| self pop: argumentCount + 1 thenPush: obj]
-				ifNil: [self primitiveFailFor: PrimErrNoMemory]]
+				ifNil: [self primitiveFailFor: ((objectMemory isFixedSizePointerFormat: (objectMemory instSpecOfClass: self stackTop))
+											ifTrue: [PrimErrNoMemory]
+											ifFalse: [PrimErrBadReceiver])]]
 		ifFalse:
 			["Allocate a new fixed-size instance. Fail if the allocation would leave
 			  less than lowSpaceThreshold bytes free. May cause a GC."

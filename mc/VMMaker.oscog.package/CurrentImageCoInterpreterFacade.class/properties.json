@@ -18,6 +18,7 @@
 	"name" : "CurrentImageCoInterpreterFacade",
 	"pools" : [
 		"VMBasicConstants",
-		"VMObjectIndices" ],
+		"VMObjectIndices",
+		"VMSqueakClassIndices" ],
 	"super" : "CogClass",
 	"type" : "normal" }

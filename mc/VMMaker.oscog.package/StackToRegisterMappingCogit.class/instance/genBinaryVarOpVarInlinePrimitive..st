@@ -1,15 +1,16 @@
 inline primitive generators
 genBinaryVarOpVarInlinePrimitive: prim
+	"Var op var version of binary inline primitives."
 	"SistaV1: 248		11111000 	iiiiiiii		mjjjjjjj		Call Primitive #iiiiiiii + (jjjjjjj * 256) m=1 means inlined primitive, no hard return after execution.
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#inlinePrimitiveBytecode:"
 	| ra rr |
-	rr := (backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
-			[self ssAllocateRequiredReg:
-				(optStatus isReceiverResultRegLive
+	(rr := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
+		[self ssAllocateRequiredReg:
+			(rr := optStatus isReceiverResultRegLive
 					ifTrue: [Arg0Reg]
 					ifFalse: [ReceiverResultReg])].
-	ra := (backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: rr))) ifNil:
-			[self ssAllocateRequiredReg: Arg1Reg].
+	(ra := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: rr))) ifNil:
+		[self ssAllocateRequiredReg: (rr := Arg1Reg)].
 	(rr = ReceiverResultReg or: [ra = ReceiverResultReg]) ifTrue:
 		[optStatus isReceiverResultRegLive: false].
 	self ssTop popToReg: ra.

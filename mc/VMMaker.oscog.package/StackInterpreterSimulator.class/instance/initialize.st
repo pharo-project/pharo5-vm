@@ -39,8 +39,7 @@ initialize
 	startMicroseconds := Time totalSeconds * 1000000.
 
 	"initialize InterpreterSimulator variables used for debugging"
-	byteCount := 0.
-	sendCount := 0.
+	byteCount := sendCount := lookupCount := 0.
 	quitBlock := [^self].
 	traceOn := true.
 	printSends := printReturns := printFrameAtEachStep := printBytecodeAtEachStep := false.

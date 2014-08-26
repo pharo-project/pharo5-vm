@@ -15,5 +15,5 @@ compileEntry
 	self CmpR: ClassReg R: TempReg.
 	self JumpNonZero: sendMiss.
 	noCheckEntry := self Label.
-	self recordSendTrace ifTrue:
+	self compileSendTrace ifTrue:
 		[self CallRT: ceTraceLinkedSendTrampoline]

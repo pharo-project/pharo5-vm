@@ -86,7 +86,6 @@
 		"concretizeXCHGRR" : "eem 4/29/2014 18:11",
 		"concretizeXorCwR" : "eem 3/11/2009 15:10",
 		"concretizeXorRR" : "eem 2/7/2009 19:37",
-		"counterTargetFromFollowingAddress:" : "eem 2/16/2011 11:17",
 		"dispatchConcretize" : "eem 12/9/2013 16:22",
 		"flushICacheFrom:to:" : "eem 6/17/2009 19:53",
 		"genDivR:R:Quo:Rem:" : "eem 10/30/2013 23:26",

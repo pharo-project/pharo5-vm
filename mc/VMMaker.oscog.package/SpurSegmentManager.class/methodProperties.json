@@ -19,6 +19,7 @@
 		"firstSegmentSize:" : "eem 10/9/2013 21:19",
 		"indexOfSegment:" : "eem 5/21/2014 11:40",
 		"initForBootstrap" : "eem 12/17/2013 17:01",
+		"initSegmentForInImageCompilationFrom:to:" : "eem 8/26/2014 09:32",
 		"initialize" : "eem 10/11/2013 09:42",
 		"initializeFromFreeChunks:" : "eem 1/13/2014 16:44",
 		"insertSegmentFor:" : "eem 11/27/2013 12:46",

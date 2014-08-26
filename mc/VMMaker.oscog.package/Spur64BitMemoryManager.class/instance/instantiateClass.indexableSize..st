@@ -1,6 +1,7 @@
 instantiation
 instantiateClass: classObj indexableSize: nElements
 	<var: #nElements type: #usqInt>
+	"Allocate an instance of a variable class, excepting CompiledMethod."
 	| instSpec classFormat numSlots classIndex newObj fillValue |
 	classFormat := self formatOfClass: classObj.
 	instSpec := self instSpecOfClassFormat: classFormat.
@@ -24,9 +25,6 @@ instantiateClass: classObj indexableSize: nElements
 			[numSlots := nElements + 3 // 4.
 			 instSpec := instSpec + (4 - nElements bitAnd: 3)].
 		[self firstByteFormat]	->
-			[numSlots := nElements + 7 // 8.
-			 instSpec := instSpec + (8 - nElements bitAnd: 7)].
-		[self firstCompiledMethodFormat]	->
 			[numSlots := nElements + 7 // 8.
 			 instSpec := instSpec + (8 - nElements bitAnd: 7)] }
 		otherwise: ["some Squeak images include funky fixed subclasses of abstract variable

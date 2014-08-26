@@ -8,7 +8,7 @@ postBecomeAction: theBecomeEffectsFlags
 	 Methods must be unfollowed since bytecode access is direct with no read barrier.
 	 But this only needs to be done if the becomeEffectsFlags indicate that a
 	 CompiledMethod was becommed.
-	 The sceduler state must be followed, but only if the becomeEffectsFlags indicate
+	 The scheduler state must be followed, but only if the becomeEffectsFlags indicate
 	 that a pointer object was becommed."
 	self followForwardingPointersInStackZone: theBecomeEffectsFlags.
 	theBecomeEffectsFlags ~= 0 ifTrue:

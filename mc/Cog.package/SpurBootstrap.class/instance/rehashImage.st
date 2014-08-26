@@ -3,7 +3,9 @@ rehashImage
 	"Rehash all collections in newHeap.
 	 Find out which classes implement rehash, entering a 1 against their classIndex in rehashFlags.
 	 Enumerate all objects, rehashing those whose class has a bit set in rehashFlags."
-	| n sim rehashFlags dotDate |
+	| n sim rehashFlags dotDate rehashSym sizeSym |
+	rehashSym := map at: (self findSymbol: #rehash).
+	sizeSym := map at: (self findSymbol: #size).
 	sim := StackInterpreterSimulator onObjectMemory: newHeap.
 	sim 
 		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
@@ -23,7 +25,7 @@ rehashImage
 	n := 0.
 	newHeap classTableObjectsDo:
 		[:class| | classIndex |
-		sim messageSelector: (map at: rehashSym).
+		sim messageSelector: rehashSym.
 		"Lookup rehash but don't be fooled by ProtoObject>>rehash, which is just ^self."
 		((sim lookupMethodNoMNUEtcInClass: class) = 0
 		 and: [(sim isQuickPrimitiveIndex: (sim primitiveIndexOf: (sim instVarNamed: 'newMethod'))) not]) ifTrue:
@@ -54,9 +56,9 @@ rehashImage
 					 ((sim addressCouldBeClassObj: o)
 					   or: [(self interpreter: sim
 							object: o
-							perform: (map at: sizeSym)
+							perform: sizeSym
 							withArguments: #()) = (newHeap integerObjectOf: 0)]) ifFalse:
 						[self interpreter: sim
 							object: o
-							perform: (map at: rehashSym)
+							perform: rehashSym
 							withArguments: #()]]]]

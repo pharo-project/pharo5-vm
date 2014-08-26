@@ -43,4 +43,5 @@ writeSnapshot: imageFileName ofTransformedImage: spurHeap headerFlags: headerFla
 	spurHeap runLeakCheckerForFullGC: true.
 	sim bereaveAllMarriedContextsForSnapshotFlushingExternalPrimitivesIf: true.
 	sim imageName: imageFileName.
-	sim writeImageFileIO
+	sim writeImageFileIO.
+	Transcript cr; show: 'Done!'

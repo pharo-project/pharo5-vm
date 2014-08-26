@@ -1,3 +1,3 @@
 accessing
-longAt: index 
-	^memory unsignedLongAt: index + 1
+longAt: index
+	^objectMemory longAt: index

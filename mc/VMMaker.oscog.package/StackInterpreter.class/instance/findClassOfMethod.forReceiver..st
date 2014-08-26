@@ -1,6 +1,6 @@
 debug support
 findClassOfMethod: meth forReceiver: rcvr
-	| rclass |
+	| rclass mclass |
 	((objectMemory addressCouldBeOop: rcvr)
 	and: [(objectMemory isOopForwarded: rcvr) not]) ifTrue:
 		[rclass := objectMemory fetchClassOf: rcvr.
@@ -11,4 +11,7 @@ findClassOfMethod: meth forReceiver: rcvr
 	((objectMemory addressCouldBeObj: meth)
 	 and: [objectMemory isCompiledMethod: meth]) ifFalse:
 		[^objectMemory nilObject].
-	^self findClassContainingMethod: meth startingAt: (self methodClassOf: meth)
+	mclass := self safeMethodClassOf: meth.
+	(self addressCouldBeClassObj: mclass) ifTrue:
+		[^objectMemory nilObject].
+	^self findClassContainingMethod: meth startingAt: (self safeMethodClassOf: meth)

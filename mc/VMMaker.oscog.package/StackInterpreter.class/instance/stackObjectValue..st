@@ -1,4 +1,4 @@
-internal interpreter access
+stack access
 stackObjectValue: offset
 	"Ensures that the given object is a real object, not a SmallInteger."
 	"In the StackInterpreter stacks grow down."

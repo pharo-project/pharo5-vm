@@ -13,7 +13,6 @@
 		"counters",
 		"counterIndex",
 		"initialCounterValue",
-		"prevMapAbsPCMcpc",
 		"ceClassTrapTrampoline" ],
 	"name" : "SistaStackToRegisterMappingCogit",
 	"pools" : [

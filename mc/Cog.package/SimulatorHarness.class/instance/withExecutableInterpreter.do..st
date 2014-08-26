@@ -9,6 +9,8 @@ withExecutableInterpreter: sim do: aBlock
 		internalizeIPandSP.
 	initialContext := sim frameContext: sim localFP.
 	savedpc := sim localIP.
+	sim objectMemory hasSpurMemoryManagerAPI ifFalse:
+		[sim objectMemory pushRemappableOop: initialContext].
 	"sim printHeadFrame."
 	aBlock value.
 	"sim printHeadFrame."
@@ -17,6 +19,8 @@ withExecutableInterpreter: sim do: aBlock
 		externalizeIPandSP.
 	"now undo the execution state"
 	finalContext := sim voidVMStateForSnapshotFlushingExternalPrimitivesIf: false.
+	sim objectMemory hasSpurMemoryManagerAPI ifFalse:
+		[initialContext := sim objectMemory popRemappableOop].
 	self assert: initialContext = finalContext.
 	self assert: sim localIP = savedpc.
 	sim objectMemory

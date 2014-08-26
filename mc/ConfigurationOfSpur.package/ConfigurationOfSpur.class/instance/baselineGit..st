@@ -66,6 +66,7 @@ baselineGit: spec
 							'SpurVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
+			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
 				package:  'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];
 				package:  'CMakeLibGit2' with: [ spec requires: 'CMakeVMMaker' ];
 				package:  'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].

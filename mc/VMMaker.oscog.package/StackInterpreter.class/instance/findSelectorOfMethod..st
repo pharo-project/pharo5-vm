@@ -8,7 +8,7 @@ findSelectorOfMethod: methArg
 		ifFalse: [meth := methArg].
 	 (objectMemory isOopCompiledMethod: meth) ifFalse:
 		[^objectMemory nilObject].
-	classObj := self methodClassOf: meth.
+	classObj := self safeMethodClassOf: meth.
 	(self addressCouldBeClassObj: classObj) ifTrue:
 		[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: classObj.
 		 classDictSize := objectMemory numSlotsOf: classDict.

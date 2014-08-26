@@ -9,7 +9,9 @@ replacementForCharacterMethod: characterMethodOop
 				for: characterMethodOop
 				coInterpreter: oldInterpreter
 				objectMemory: oldHeap.
+	self assert: (oldHeap literalCountOf: characterMethodOop) = proxy numLiterals.
 	clone := self cloneMethodProxy: proxy.
+	self assert: proxy numLiterals = clone numLiterals.
 	"Quick methods accessing value should have been replaced.  The halt will fire if there
 	 is a missing prototype for such a method on the class side of SpurBootstrap.  The
 	 relevant Character prototypes there so far are Character>>asInteger, Character>>
@@ -39,6 +41,7 @@ replacementForCharacterMethod: characterMethodOop
 				 b].
 	assembly instructions: newInsts.
 	newMethod := assembly assemble.
+	self assert: clone numLiterals + 1 = newMethod numLiterals.
 	^self
 		installableMethodFor: newMethod
 		selector: clone selector

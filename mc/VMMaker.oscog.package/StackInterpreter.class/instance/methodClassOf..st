@@ -13,4 +13,5 @@ methodClassOf: methodPointer
 		ifFalse:
 			[| literal |
 			 literal := self followLiteral: (objectMemory literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
+			 self assert: ((objectMemory isPointers: literal) and: [(objectMemory numSlotsOf: literal) > ValueIndex]).
 			 objectMemory followField: ValueIndex ofObject: literal]

@@ -6,7 +6,7 @@ fillInCompiledMethod: newObj from: oldObj
 	newHeap
 		storePointerUnchecked: 0
 		ofObject: newObj
-		withValue: (self convertOldMethodHeader: (oldHeap fetchPointer: 0 ofObject: oldObj)).
+		withValue: (newHeap integerObjectOf: (self convertOldMethodHeader: (oldHeap fetchPointer: 0 ofObject: oldObj))).
 	"Then if necessary prepend the callPrimitive: bytecode"
 	(primIndex := oldInterpreter primitiveIndexOf: oldObj) > 0
 		ifTrue:
