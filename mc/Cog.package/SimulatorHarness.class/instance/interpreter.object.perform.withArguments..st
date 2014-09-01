@@ -2,11 +2,12 @@ bootstrap methods
 interpreter: sim object: receiver perform: selector withArguments: arguments
 	"Interpret an expression in oldHeap using oldInterpreter.
 	 Answer the result."
-	| fp savedpc savedsp result startByteCount |
+	| fp savedpc savedsp savedStackPages result startByteCount |
 	self assert: ({receiver. selector}, arguments allSatisfy:
 					[:oop| oop isInteger and: [sim objectMemory addressCouldBeOop: oop]]).
 	savedpc := sim localIP.
 	savedsp := sim localSP.
+	savedStackPages := Set with: sim stackPage.
 	sim internalPush: receiver.
 	arguments do: [:arg| sim internalPush: arg].
 	sim
@@ -23,7 +24,10 @@ interpreter: sim object: receiver perform: selector withArguments: arguments
 	 "(sim byteCount > 7508930 and: [sim localFP = -16r27894]) ifTrue:
 		[self halt]."
 	 fp = sim localFP] whileFalse:
-		[sim singleStep].
+		[sim singleStep.
+		 (savedStackPages includes: sim stackPage) ifFalse: "If the stack gets deep something has probably gone wrong..."
+			[savedStackPages size > 3 ifTrue: [self halt].
+			 savedStackPages add: sim stackPage]].
 	result := sim internalPopStack.
 	self assert: savedsp = sim localSP.
 	self assert: sim localIP - 1 = savedpc.

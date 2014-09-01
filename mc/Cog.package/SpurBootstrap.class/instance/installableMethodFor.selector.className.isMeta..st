@@ -50,4 +50,5 @@ installableMethodFor: aCompiledMethod selector: selector className: className is
 	initialPC to: sourcelessMethod size - delta do:
 		[:i|
 		oldHeap storeByte: i - 1 ofObject: newMethod withValue: (sourcelessMethod byteAt: i + delta)].
+	installedMethodOops add: newMethod.
 	^newMethod

@@ -13,14 +13,14 @@ findRequiredGlobals
 		(Smalltalk classNamed: c) ifNotNil:
 			[ :nonMetaClass|
 			allNonMetaSupers := nonMetaClass withAllSuperclasses.
-			method methodClass ~= SpurBootstrap class ifTrue:
-				[ourMethodClasses addAll: allNonMetaSupers].
-			globals addAll: (allNonMetaSupers collect: [:sc| sc binding]).
+			(method methodClass includesBehavior: SpurBootstrapPrototypes) ifFalse:
+				[ourMethodClasses addAll: allNonMetaSupers.
+				 globals addAll: (allNonMetaSupers collect: [:sc| sc binding])].
 			method literals do:
 				[:l|
-				(l isVariableBinding and: [l key isSymbol]) ifTrue:
+				(l isVariableBinding and: [l key isSymbol and: [((SpurBootstrapPrototypes withAllSubclasses collect: #name) includes: l key) not]]) ifTrue:
 					[(Smalltalk bindingOf: l key) == l
-						ifTrue: [globals add: l]
+						ifTrue: [ globals add: l]
 						ifFalse:
 							[self assert: (nonMetaClass bindingOf: l key) == l.
 							classVars at: l put: nonMetaClass]]]]].

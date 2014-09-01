@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurBootstrapPrototypes",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

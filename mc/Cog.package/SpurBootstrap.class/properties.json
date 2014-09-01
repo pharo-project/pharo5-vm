@@ -23,6 +23,7 @@
 		"literalMap",
 		"methodClasses",
 		"installedPrototypes",
+		"installedMethodOops",
 		"classMetaclass",
 		"imageTypes",
 		"classMethodContextIndex",
