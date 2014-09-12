@@ -7,6 +7,6 @@ lookupAddress: address
 					[variables
 						keyAtValue: address
 						ifAbsent: [^nil]].
-	^thing isLiteral
+	^(thing isLiteral
 		ifTrue: [thing storeString]
-		ifFalse: [thing asString]
+		ifFalse: [thing asString]) contractTo: 64

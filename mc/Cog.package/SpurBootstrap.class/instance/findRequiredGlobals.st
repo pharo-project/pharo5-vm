@@ -11,16 +11,18 @@ findRequiredGlobals
 	self prototypeClassNameMetaSelectorMethodDo:
 		[:c :m :s :method| | allNonMetaSupers |
 		(Smalltalk classNamed: c) ifNotNil:
-			[ :nonMetaClass|
+			[:nonMetaClass|
 			allNonMetaSupers := nonMetaClass withAllSuperclasses.
 			(method methodClass includesBehavior: SpurBootstrapPrototypes) ifFalse:
 				[ourMethodClasses addAll: allNonMetaSupers.
 				 globals addAll: (allNonMetaSupers collect: [:sc| sc binding])].
 			method literals do:
 				[:l|
-				(l isVariableBinding and: [l key isSymbol and: [((SpurBootstrapPrototypes withAllSubclasses collect: #name) includes: l key) not]]) ifTrue:
+				(l isVariableBinding
+				 and: [l key isSymbol
+				 and: [SpurBootstrapPrototypes withAllSubclasses noneSatisfy: [:sbpc| sbpc name == l key]]]) ifTrue:
 					[(Smalltalk bindingOf: l key) == l
-						ifTrue: [ globals add: l]
+						ifTrue: [globals add: l]
 						ifFalse:
 							[self assert: (nonMetaClass bindingOf: l key) == l.
 							classVars at: l put: nonMetaClass]]]]].
@@ -30,12 +32,14 @@ findRequiredGlobals
 		do:	[| toBeAdded |
 			globals do:
 				[:global| | bindingOop |
-				bindingOop := self interpreter: oldInterpreter
-									object: (oldHeap splObj: 8) "Smalltalk"
-									perform: bindingOfSym
-									withArguments: {self findSymbol: global key}.
-				bindingOop ~= oldHeap nilObject ifTrue:
-					[literalMap at: global put: bindingOop]].
+				(self findSymbol: global key) ifNotNil:
+					[:symbolOop|
+					bindingOop := self interpreter: oldInterpreter
+										object: (oldHeap splObj: 8) "Smalltalk"
+										perform: bindingOfSym
+										withArguments: {self findSymbol: global key}.
+					bindingOop ~= oldHeap nilObject ifTrue:
+						[literalMap at: global put: bindingOop]]].
 			 toBeAdded := Dictionary new.
 			 classVars keysAndValuesDo:
 				[:var :class| | val |

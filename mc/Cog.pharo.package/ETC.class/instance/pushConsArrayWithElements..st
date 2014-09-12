@@ -1,3 +1,0 @@
-instruction decoding
-pushConsArrayWithElements: numElements
-	currentContext pushConsArrayWithElements: numElements

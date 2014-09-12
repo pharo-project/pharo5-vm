@@ -1,1 +1,0 @@
-Richards simulates the task dispatcher of an operating system.

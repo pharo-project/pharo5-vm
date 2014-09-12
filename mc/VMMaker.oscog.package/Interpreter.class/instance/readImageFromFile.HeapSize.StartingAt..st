@@ -48,7 +48,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	self sqImageFile: f Seek: headerStart + headerSize.
 
 	"read in the image in bulk, then swap the bytes if necessary"
-	bytesRead := self cCode: 'sqImageFileReadEntireImage(pointerForOop(heapBase), sizeof(unsigned char), dataSize, f)'.	
+	bytesRead := self cCode: 'sqImageFileReadEntireImage(pointerForOop(memory), sizeof(unsigned char), dataSize, f)'.	
 	bytesRead ~= dataSize ifTrue: [self unableToReadImageError].
 
 	swapBytes ifTrue: [self reverseBytesInImage].

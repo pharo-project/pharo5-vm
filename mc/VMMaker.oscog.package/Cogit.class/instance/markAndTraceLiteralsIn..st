@@ -1,6 +1,6 @@
 garbage collection
 markAndTraceLiteralsIn: cogMethod
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	"Unlink sends that have unmarked classes in inline caches or freed/freeable targets.
 	 Nil-out inline caches linked to open PICs.
 	 Assert that any selectors are marked.  We can do this since

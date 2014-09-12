@@ -3,7 +3,7 @@ freeUnmarkedMachineCode
 	"Free machine-code methods whose compiled methods are unmarked
 	 and open PICs whose selectors are not marked."
 	<api>
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	| cogMethod freedMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	freedMethod := false.

@@ -1,9 +1,7 @@
 primitive support
 codeGeneratorToComputeAccessorDepth
 	^VMMaker new
-		cogitClass: (Smalltalk classNamed: (self class initializationOptions
-												at: #Cogit
-												ifAbsent: [self class cogitClass name]));
+		cogitClass: self class cogitClass;
 		buildCodeGeneratorForInterpreter: CoInterpreterPrimitives
 		includeAPIMethods: false
 		initializeClasses: false

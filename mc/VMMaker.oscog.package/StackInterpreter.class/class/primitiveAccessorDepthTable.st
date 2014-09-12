@@ -3,7 +3,7 @@ primitiveAccessorDepthTable
 	| cg |
 	cg := CCodeGenerator new.
 	cg vmClass: StackInterpreter.
-	^PrimitiveTable collect:
+	^self primitiveTable collect:
 		[:thing| |class  method |
 		(thing isInteger "quick prims, 0 for fast primitve fail"
 		 or: [thing == #primitiveFail

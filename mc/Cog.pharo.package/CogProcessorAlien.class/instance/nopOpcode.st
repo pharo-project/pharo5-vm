@@ -1,3 +1,0 @@
-opcodes
-nopOpcode
-	self subclassResponsibility.

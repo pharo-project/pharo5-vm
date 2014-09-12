@@ -16,7 +16,7 @@ compactClassIndexOfClass: classOop
 				[Point]					->	[9].
 				[Rectangle]				->	[10].
 				[ByteString]			->	[11].
-				[MethodContext]		->	[14].
+				[Context]		->	[14].
 				[Bitmap]				->	[16]
 				}
 				otherwise: [0]]

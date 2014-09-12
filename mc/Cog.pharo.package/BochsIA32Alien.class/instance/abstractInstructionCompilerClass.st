@@ -1,3 +1,0 @@
-Cog API
-abstractInstructionCompilerClass
-	^CogIA32Compiler

@@ -1,3 +1,0 @@
-defaults
-defaultNumberOfIterations
-	^ 1

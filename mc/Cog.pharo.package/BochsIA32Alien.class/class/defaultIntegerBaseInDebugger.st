@@ -1,3 +1,0 @@
-debugger
-defaultIntegerBaseInDebugger
-	^16

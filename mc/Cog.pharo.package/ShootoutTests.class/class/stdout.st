@@ -1,3 +1,0 @@
-platform
-stdout
-   ^StandardFileStream stdOut

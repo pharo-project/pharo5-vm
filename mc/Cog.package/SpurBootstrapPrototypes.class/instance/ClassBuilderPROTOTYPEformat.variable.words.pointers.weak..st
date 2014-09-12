@@ -1,5 +1,5 @@
 method prototypes
-ClassBuilderPROTOTYPEformat: nInstVars variable: isVar words: isWords pointers: isPointers weak: isWeak
+ClassBuilderPROTOTYPEformat: nInstVars variable: isVar words: is32BitWords pointers: isPointers weak: isWeak
 	"Compute the format for the given instance specfication.
 	 Above Cog Spur the class format is
 		<5 bits inst spec><16 bits inst size>
@@ -32,6 +32,6 @@ ClassBuilderPROTOTYPEformat: nInstVars variable: isVar words: isWords pointers: 
 									ifFalse: [nInstVars > 0 ifTrue: [1] ifFalse: [0]]]
 							ifFalse:
 								[isVar
-									ifTrue: [isWords ifTrue: [12] ifFalse: [16]]
+									ifTrue: [is32BitWords ifTrue: [10] ifFalse: [16]]
 									ifFalse: [7]]].
 	^(instSpec bitShift: 16) + nInstVars

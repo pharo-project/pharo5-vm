@@ -1,3 +1,0 @@
-defaults
-defaultRunner
-	^ SMarkSuite defaultRunner

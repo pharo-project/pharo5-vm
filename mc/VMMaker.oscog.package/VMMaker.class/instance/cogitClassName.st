@@ -1,3 +1,0 @@
-generate sources
-cogitClassName
-	^cogitClassName

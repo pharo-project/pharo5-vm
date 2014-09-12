@@ -2,7 +2,7 @@ jit - api
 markAndTraceMachineCodeOfMarkedMethods
 	"Mark objects in machine-code of marked methods (or open PICs with marked selectors)."
 	<api>
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	objectMemory leakCheckFullGC ifTrue:

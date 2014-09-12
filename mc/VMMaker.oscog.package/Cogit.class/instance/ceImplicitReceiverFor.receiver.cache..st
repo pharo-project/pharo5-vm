@@ -10,7 +10,7 @@ ceImplicitReceiverFor: selector receiver: receiver cache: cacheAddress
 	 and reload the class tag.  If either the class tag or the mixin are young then the
 	 method needs to be added to the youngReferrers list to ensure correct GC."
 
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	<var: #cacheAddress type: #usqInt>
 	| rcvrClass mixin cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>

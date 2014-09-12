@@ -1,1 +1,0 @@
-A task control block manages a task and the queue of work packages associated with it.

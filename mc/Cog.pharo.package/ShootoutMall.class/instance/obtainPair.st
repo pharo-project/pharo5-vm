@@ -1,3 +1,0 @@
-private
-obtainPair
-   ^cache removeFirst

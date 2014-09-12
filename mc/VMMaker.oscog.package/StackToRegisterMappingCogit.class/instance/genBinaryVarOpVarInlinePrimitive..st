@@ -10,7 +10,7 @@ genBinaryVarOpVarInlinePrimitive: prim
 					ifTrue: [Arg0Reg]
 					ifFalse: [ReceiverResultReg])].
 	(ra := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: rr))) ifNil:
-		[self ssAllocateRequiredReg: (rr := Arg1Reg)].
+		[self ssAllocateRequiredReg: (ra := Arg1Reg)].
 	(rr = ReceiverResultReg or: [ra = ReceiverResultReg]) ifTrue:
 		[optStatus isReceiverResultRegLive: false].
 	self ssTop popToReg: ra.

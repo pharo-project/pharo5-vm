@@ -1,6 +1,5 @@
-translation
+accessing class hierarchy
 cogitClass
-	"CogitClass := SimpleStackBasedCogit"
-	"CogitClass := StackToRegisterMappingCogit"
-	CogitClass isNil ifTrue: [CogitClass := SimpleStackBasedCogit].
-	^CogitClass
+	^Smalltalk classNamed: (initializationOptions
+								at: #Cogit
+								ifAbsent: [1halt.#SimpleStackBasedCogit])

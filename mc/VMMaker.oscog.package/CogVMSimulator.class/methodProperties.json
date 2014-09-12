@@ -1,7 +1,7 @@
 {
 	"class" : {
 		"chooseAndInitCogitClassWithOpts:" : "eem 7/18/2012 17:08",
-		"initializeWithOptions:objectMemoryClass:" : "eem 10/11/2013 16:42",
+		"initializeWithOptions:objectMemoryClass:" : "eem 9/7/2014 12:38",
 		"new" : "eem 9/3/2013 11:01",
 		"newWithOptions:" : "eem 9/3/2013 11:11",
 		"onObjectMemory:" : "eem 9/3/2013 11:01",
@@ -56,7 +56,7 @@
 		"cloneSimulation" : "eem 5/27/2014 15:56",
 		"cloneSimulationWindow" : "eem 5/25/2014 20:06",
 		"close" : "eem 6/22/2011 12:06",
-		"codeGeneratorToComputeAccessorDepth" : "eem 2/12/2014 19:57",
+		"codeGeneratorToComputeAccessorDepth" : "eem 9/7/2014 12:40",
 		"cogit" : "eem 12/29/2008 12:30",
 		"commenceCogCompiledCodeCompaction" : "eem 8/13/2012 10:13",
 		"convertToArray" : "eem 12/16/2008 12:25",

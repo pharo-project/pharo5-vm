@@ -4,7 +4,7 @@ needsToRegenerateCogitFile
 	 file if it already exists. Answer if the file needs regenerating."
 
 	| cogitClass cogitClasses tStamp reference fstat |
-	cogitClasses := (cogitClass := self cogitClass) withAllSuperclasses copyUpThrough: Cogit.
+	cogitClasses := (cogitClass := self interpreterClass cogitClass) withAllSuperclasses copyUpThrough: Cogit.
 	cogitClasses addAllLast: (cogitClass ancilliaryClasses: self options).
 	tStamp := cogitClasses inject: 0 into: [:tS :cl| tS max: cl timeStamp].
 

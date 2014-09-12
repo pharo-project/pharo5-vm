@@ -1,9 +1,0 @@
-{
-	"class" : {
-		"createFor:for:with:and:" : "sm 5/30/2011 16:33" },
-	"instance" : {
-		"benchmarkSelector:" : "sm 5/30/2011 16:20",
-		"innerIterations:" : "sm 5/30/2011 16:20",
-		"run" : "sm 5/30/2011 16:22",
-		"runner:" : "sm 5/30/2011 16:21",
-		"suite:" : "sm 5/30/2011 16:21" } }

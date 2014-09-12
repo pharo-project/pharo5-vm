@@ -49,7 +49,7 @@ tryLoadNewPlugin: pluginString pluginEntries: pluginEntries
 					[:prim :index| | depth |
 					 prim isSymbol ifTrue:
 						[depth := cg accessorDepthForSelector: prim.
-						 self assert: depth isInteger.
+						 self assert: (depth isInteger or: [depth isNil and: [(plugin class whichClassIncludesSelector: prim) isNil]]).
 						 primitiveAccessorDepthTable at: index - 1 put: depth]]].
 		 cg exportedPrimitiveNames do:
 			[:primName| | fnSymbol |

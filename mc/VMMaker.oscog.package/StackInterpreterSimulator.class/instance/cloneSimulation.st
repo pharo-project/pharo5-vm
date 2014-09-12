@@ -1,6 +1,7 @@
 debug support
 cloneSimulation
-	| savedDisplayView savedDisplayForm savedQuitBlock savedTranscript |
+	| savedAtEachStepBlock savedDisplayView savedDisplayForm savedQuitBlock savedTranscript |
+	savedAtEachStepBlock := atEachStepBlock. atEachStepBlock := nil.
 	savedDisplayView := displayView. displayView := nil.
 	savedDisplayForm := displayForm. displayForm = nil.
 	savedQuitBlock := quitBlock. quitBlock := nil.
@@ -13,7 +14,8 @@ cloneSimulation
 	 theClone objectMemory parent: objectMemory.
 	 theClone]
 		ensure:
-			[displayView := savedDisplayView.
+			[atEachStepBlock := savedAtEachStepBlock.
+			 displayView := savedDisplayView.
 			 displayForm = savedDisplayForm.
 			 quitBlock := savedQuitBlock.
 			 transcript := savedTranscript]

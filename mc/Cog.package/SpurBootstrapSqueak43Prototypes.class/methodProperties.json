@@ -2,10 +2,12 @@
 	"class" : {
 		"imageType" : "EstebanLorenzano 8/27/2014 15:13" },
 	"instance" : {
-		"CompiledMethodPROTOTYPEencoderClass" : "EstebanLorenzano 8/27/2014 14:49",
-		"DecompilerPROTOTYPEdecompile:in:method:using:" : "EstebanLorenzano 8/27/2014 14:50",
+		"BlockClosurePROTOTYPEsimulateValueWithArguments:caller:" : "eem 9/7/2014 14:11",
+		"CharacterPROTOTYPEshouldBePrintedAsLiteral" : "nice 7/14/2011 22:21",
+		"CompiledMethodPROTOTYPEencoderClass" : "eem 8/12/2014 09:32",
+		"DecompilerPROTOTYPEdecompile:in:method:using:" : "eem 9/4/2014 15:16",
 		"InstructionStreamPROTOTYPEinterpretExtension:in:for:" : "EstebanLorenzano 8/27/2014 14:38",
-		"InstructionStreamPROTOTYPEnextPc:" : "EstebanLorenzano 8/27/2014 14:51",
-		"InstructionStreamPROTOTYPEskipCallPrimitive" : "EstebanLorenzano 8/27/2014 14:52",
-		"MCClassDefinitionPROTOTYPEkindOfSubclass" : "EstebanLorenzano 8/27/2014 14:52",
-		"MCMethodDefinitionPROTOTYPEinitializeWithClassName:classIsMeta:selector:category:timeStamp:source:" : "EstebanLorenzano 8/27/2014 14:52" } }
+		"InstructionStreamPROTOTYPEnextPc:" : "eem 9/9/2014 17:19",
+		"InstructionStreamPROTOTYPEskipCallPrimitive" : "eem 9/9/2014 17:20",
+		"MCClassDefinitionPROTOTYPEkindOfSubclass" : "eem 9/4/2014 15:20",
+		"MCMethodDefinitionPROTOTYPEinitializeWithClassName:classIsMeta:selector:category:timeStamp:source:" : "eem 9/4/2014 15:18" } }

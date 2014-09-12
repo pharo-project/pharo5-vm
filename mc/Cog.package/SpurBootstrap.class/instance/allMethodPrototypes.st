@@ -1,9 +1,12 @@
 method prototypes
 allMethodPrototypes
 	"Answer all prototype selectors, including those marked <remove>"
-	^imageTypes 
-		inject: Set new 
-		into: [:prototypes :type |
-				prototypes 
-					addAll: ((SpurBootstrapPrototypes prototypesFor: type) allMethodPrototypes);
-					yourself ]
+	^(imageTypes 
+		inject: (IdentitySet withAll: SpurBootstrapPrototypes new allMethodPrototypes)
+		into: [:allPrototypes :type | | prototypes |
+			prototypes := (SpurBootstrapPrototypes prototypesFor: type) allMethodPrototypes.
+			allPrototypes
+				removeAllSuchThat: [:existing| prototypes anySatisfy: [:new| existing selector == new selector]];
+				addAll: prototypes;
+				yourself])
+		asArray sort: [:ma :mb| ma selector <= mb selector]

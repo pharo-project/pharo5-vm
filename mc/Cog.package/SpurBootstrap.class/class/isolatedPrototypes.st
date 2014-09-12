@@ -7,7 +7,7 @@ isolatedPrototypes
 							collect: [:mr| mr compiledMethod].
 	^prototypes select:
 		[:m|
-		m methodClass == self class
+		(m methodClass includesBehavior: SpurBootstrapPrototypes)
 			ifTrue:
 				[(m pragmaAt: #indirect) notNil
 				  and: [prototypes noneSatisfy:
@@ -18,5 +18,5 @@ isolatedPrototypes
 				[prototypes noneSatisfy:
 					[:p|
 					p selector == m selector
-					and: [p methodClass == self class
+					and: [(p methodClass includesBehavior: SpurBootstrapPrototypes)
 					and: [(p pragmaAt: #indirect) notNil]]]]]

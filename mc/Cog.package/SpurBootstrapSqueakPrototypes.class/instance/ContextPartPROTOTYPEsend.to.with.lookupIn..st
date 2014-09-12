@@ -17,7 +17,7 @@ ContextPartPROTOTYPEsend: selector to: rcvr with: arguments lookupIn: lookupClas
 			[^val]].
 	(selector == #doesNotUnderstand: and: [lookupClass == ProtoObject]) ifTrue:
 		[^self error: 'Simulated message ', arguments first selector, ' not understood'].
-	ctxt := Context sender: self receiver: rcvr method: meth arguments: arguments.
+	ctxt := MethodContext sender: self receiver: rcvr method: meth arguments: arguments.
 	primIndex > 0 ifTrue:
 		[ctxt failPrimitiveWith: val].
 	^ctxt

@@ -13,6 +13,10 @@ checkReshapeOf: ourMethodClasses
 				[toReshape add: mc]]].
 	toReshape isEmpty ifTrue:
 		[^self].
+	self interpreter: oldInterpreter
+			object: (self oldClassOopFor: ClassBuilder)
+			perform: (self findSymbol: #beSilent:)
+			withArguments: {oldHeap trueObject}.
 	"Assume only one class in any subtree needs reshaping.  Fast and loose but gets us there for now."
 	toReshape copy do:
 		[:class|

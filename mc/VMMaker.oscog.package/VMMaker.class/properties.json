@@ -16,7 +16,6 @@
 		"platformRootDirName",
 		"logger",
 		"interpreterClassName",
-		"cogitClassName",
 		"is64BitVM",
 		"optionsDictionary",
 		"abortBlock" ],

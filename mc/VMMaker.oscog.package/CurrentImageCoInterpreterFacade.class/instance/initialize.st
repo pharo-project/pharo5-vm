@@ -4,6 +4,9 @@ initialize
 					ifTrue: [Bitmap]
 					ifFalse: [LittleEndianBitmap]) new: 1024*1024/4.
 	objectMemory := self class objectMemoryClass simulatorClass new.
+	objectMemory
+		initializeFreeSpaceForFacadeFrom: self startOfMemory
+		to: self variablesBase.
 	objectMemory memory: memory.
 	coInterpreter := CoInterpreter new.
 	coInterpreter

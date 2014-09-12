@@ -9,7 +9,8 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'"cogmethod.h"';
 		addHeaderFile: (threaded ifTrue: ['"cointerpmt.h"'] ifFalse: ['"cointerp.h"']);
 		addHeaderFile:'"cogit.h"'.
-	self declareInterpreterVersionIn: aCCodeGenerator
+	aCCodeGenerator vmClass
+		declareInterpreterVersionIn: aCCodeGenerator
 		defaultName: (threaded ifTrue: ['Cog MT'] ifFalse: ['Cog']).
 	aCCodeGenerator
 		var: #heapBase type: #usqInt;

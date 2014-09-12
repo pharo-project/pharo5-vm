@@ -9,7 +9,7 @@
 		"moduleUnloaded:" : "JMM (auto pragmas 12/08) 1/21/2002 11:10",
 		"netAddressToInt:" : "tpr (auto pragmas 12/08) 12/29/2005 17:16",
 		"primitiveDisableSocketAccess" : "eem 7/10/2009 12:11",
-		"primitiveHasSocketAccess" : "John M McIntosh (auto pragmas dtl 2010-09-28) 5/5/2009 11:03",
+		"primitiveHasSocketAccess" : "eem (auto pragmas 12/08) 7/14/2008 14:40",
 		"primitiveInitializeNetwork:" : "TPR 2/18/2000 10:39",
 		"primitiveResolverAbortLookup" : "TPR 2/18/2000 11:47",
 		"primitiveResolverAddressLookupResult" : "TPR 3/21/2000 16:47",

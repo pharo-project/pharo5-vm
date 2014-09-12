@@ -17,7 +17,6 @@
 		"CSThreadSchedulingLoop",
 		"CSWait",
 		"CSYield",
-		"CogitClass",
 		"HasBeenReturnedFromMCPC",
 		"MFMethodFlagFrameIsMarkedFlag",
 		"MinBackwardJumpCountForCompile",
