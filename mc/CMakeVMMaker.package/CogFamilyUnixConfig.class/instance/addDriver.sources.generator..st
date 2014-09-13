@@ -19,7 +19,7 @@ addDriver: name sources: aSources generator: cmakeGen
 			includeDirectories: '${crossDir}/plugins/FilePlugin';
 			includeDirectories: '${targetPlatform}/plugins/B3DAcceleratorPlugin';
 			includeDirectories: '${crossDir}/plugins/B3DAcceleratorPlugin';
-			set: 'LIBRARY_OUTPUT_PATH' toString: self outputDir;
+			set: 'LIBRARY_OUTPUT_PATH' toString: '${outputDir}';
 			cmd: 'set_target_properties' params: name , ' PROPERTIES PREFIX "" SUFFIX "" 
 			LINK_FLAGS "', self linkFlags , '"'
 	].

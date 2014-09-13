@@ -8,5 +8,5 @@ setExtraTargetProperties: maker
 			'pthread' "posix threads" 
 		).
 		
-	maker set: 'EXECUTABLE_OUTPUT_PATH' toString: self outputDir.
+	maker set: 'EXECUTABLE_OUTPUT_PATH' toString: '${outputDir}'.
 	self addVMDrivers: maker.
