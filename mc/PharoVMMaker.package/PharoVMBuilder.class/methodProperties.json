@@ -1,11 +1,13 @@
 {
 	"class" : {
 		"build" : "IgorStasenko 1/29/2013 15:48",
+		"buildFreeBSD32" : "HolgerHansPeterFreyther 9/14/2014 10:06",
 		"buildMacOSX32" : "IgorStasenko 1/29/2013 15:48",
-		"buildOnJenkins:" : "IgorStasenko 1/29/2013 15:48",
+		"buildOnJenkins:" : "HolgerHansPeterFreyther 9/14/2014 10:05",
 		"buildUnix32" : "IgorStasenko 1/29/2013 15:48",
 		"buildWin32" : "IgorStasenko 1/29/2013 15:48" },
 	"instance" : {
+		"buildFreeBSD32" : "HolgerHansPeterFreyther 9/14/2014 10:19",
 		"buildMacOSX32" : "EstebanLorenzano 3/20/2014 17:46",
 		"buildUnix32" : "EstebanLorenzano 3/20/2014 17:10",
 		"buildWin32" : "EstebanLorenzano 3/20/2014 16:08",
