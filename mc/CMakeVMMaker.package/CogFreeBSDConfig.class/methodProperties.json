@@ -2,11 +2,12 @@
 	"class" : {
 		 },
 	"instance" : {
-		"addDriver:sources:generator:" : "DavidGraham 3/26/2011 05:08",
-		"addVMDrivers:" : "DavidGraham 3/25/2011 21:09",
-		"compilerFlags" : "DavidGraham 3/26/2011 04:57",
-		"compilerFlagsDebug" : "EstebanLorenzano 3/12/2014 16:09",
-		"compilerFlagsRelease" : "EstebanLorenzano 3/12/2014 16:03",
-		"configH" : "DavidGraham 3/25/2011 21:22",
+		"addVMDrivers:" : "HolgerHansPeterFreyther 9/14/2014 09:55",
+		"buildScript" : "HolgerHansPeterFreyther 9/14/2014 13:00",
+		"configH" : "HolgerHansPeterFreyther 9/14/2014 09:58",
 		"configureFloatMathPlugin:" : "DavidGraham 3/25/2011 18:13",
-		"setExtraTargetProperties:" : "DavidGraham 3/26/2011 03:36" } }
+		"configureSoundPlugin:" : "HolgerHansPeterFreyther 9/14/2014 12:48",
+		"defaultExternalPlugins" : "HolgerHansPeterFreyther 9/14/2014 12:47",
+		"platformName" : "HolgerHansPeterFreyther 9/14/2014 11:07",
+		"setExtraTargetProperties:" : "HolgerHansPeterFreyther 9/14/2014 10:27",
+		"setupDirectories:" : "HolgerHansPeterFreyther 9/14/2014 11:08" } }

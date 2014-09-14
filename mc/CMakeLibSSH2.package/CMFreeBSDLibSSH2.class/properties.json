@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeLibSSH2",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMFreeBSDLibSSH2",
+	"pools" : [
+		 ],
+	"super" : "CMUnixLibSSH2",
+	"type" : "normal" }
