@@ -13,5 +13,5 @@ primSizeFieldPut
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 	(interpreterProxy isOopImmutable: rcvr) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNoModification].
-	self longAt: rcvr + BaseHeaderSize put: value.
+	self longAt: rcvr + BaseHeaderSize put: value signedIntToLong.
 	^interpreterProxy methodReturnValue: valueOop

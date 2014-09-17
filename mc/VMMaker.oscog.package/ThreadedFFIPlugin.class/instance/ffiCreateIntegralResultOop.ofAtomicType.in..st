@@ -1,4 +1,5 @@
 callout support
+"protocol: callout support"
 ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 	<var: #calloutState type: #'CalloutState *'>
 	<var: #retVal type: #usqLong>
@@ -32,10 +33,13 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 			ifFalse:[interpreterProxy positive32BitIntegerFor: retVal]]. "unsigned return"
 
 	"longlong, char"
-	(atomicType >> 1) = (FFITypeSignedLongLong >> 1) 
-		ifTrue:[^(atomicType anyMask: 1)
+	^(atomicType >> 1) = (FFITypeSignedLongLong >> 1) 
+		ifTrue:
+			[(atomicType anyMask: 1)
 				ifTrue:[interpreterProxy signed64BitIntegerFor: retVal] "signed return"
 				ifFalse:[interpreterProxy positive64BitIntegerFor: retVal]]
-		ifFalse:[^interpreterProxy 
-					fetchPointer: (retVal bitAnd: 255)
-					ofObject: interpreterProxy characterTable]
+		ifFalse:
+			[interpreterProxy characterObjectOf:
+				(retVal bitAnd: (self cppIf: #SPURVM
+									ifTrue: [16rFFFFFFFF]
+									ifFalse: [255]))]
