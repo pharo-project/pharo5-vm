@@ -1,4 +1,4 @@
-#include <features.h>
+#include <stdint.h>
 #if defined(__GNUC__) && defined(__GLIBC_PREREQ)
 # if __GLIBC_PREREQ(2,3)
     /* squash __ctype_to{upper,lower}_loc and avoid including the header */
