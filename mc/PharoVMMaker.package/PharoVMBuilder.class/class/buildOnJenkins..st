@@ -11,5 +11,6 @@ buildOnJenkins: aPlatformName
 	aPlatformName = 'win' ifTrue: [ ^ self buildWin32 ].
 	aPlatformName = 'mac' ifTrue: [ ^ self buildMacOSX32 ].
 	aPlatformName = 'linux' ifTrue: [ ^ self buildUnix32 ].
+	aPlatformName = 'freebsd' ifTrue: [ ^ self buildFreeBSD32 ].
 	
 	self error: 'no suitable platform'
