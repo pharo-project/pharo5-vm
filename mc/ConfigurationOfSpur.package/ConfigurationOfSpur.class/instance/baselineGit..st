@@ -69,10 +69,11 @@ baselineGit: spec
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
 				package:  'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];
 				package:  'CMakeLibGit2' with: [ spec requires: 'CMakeVMMaker' ];
+				package:  'CMakeLibSDL2' with: [ spec requires: 'CMakeVMMaker' ];
 				package:  'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].
 			
 			spec 
 				group: 'all' with: #('maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
 				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
-				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2') ]
+				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
