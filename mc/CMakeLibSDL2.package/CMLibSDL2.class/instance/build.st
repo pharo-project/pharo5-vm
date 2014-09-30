@@ -4,7 +4,7 @@ build
 	gen 
 		puts:
 '
-add_custom_command(OUTPUT "${SDL2LibInstalled}"
+add_custom_command(OUTPUT "${libSDL2Installed}"
 	COMMAND ./configure --prefix=''${installPrefix}'' ', self configurationFlags, '
 	DEPENDS "${unpackTarget}"
 	COMMAND make

@@ -1,5 +1,5 @@
 generating actions
 copyArtefacts
 	self 
-		copy: '${SDL2LibInstalled}' 
+		copy: '${libSDL2Installed}' 
 		to: '${externalModulesDir}/${libraryFileName}'.
