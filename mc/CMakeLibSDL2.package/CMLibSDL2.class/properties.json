@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeLibSDL2",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CMLibSDL2",
+	"pools" : [
+		 ],
+	"super" : "CMThirdpartyLibrary",
+	"type" : "normal" }
