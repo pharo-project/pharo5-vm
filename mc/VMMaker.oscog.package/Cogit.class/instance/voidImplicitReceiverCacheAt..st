@@ -19,4 +19,6 @@ voidImplicitReceiverCacheAt: mcpc
 	cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
 	backEnd
 		unalignedLongAt: cacheAddress put: 0;
-		unalignedLongAt: cacheAddress + BytesPerOop put: 0
+		unalignedLongAt: cacheAddress + BytesPerOop put: 0.
+	objectRepresentation canPinObjects ifFalse:
+		[codeModified := true]

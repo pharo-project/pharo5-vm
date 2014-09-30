@@ -55,6 +55,7 @@ returnAs: returnTypeOop ThroughCallback: vmCallbackContext Context: callbackMeth
 			 framePointer := thePage headFP.
 			 stackPointer := thePage headSP].
 	instructionPointer := self popStack.
+	self setMethod: (objectMemory fetchPointer: MethodIndex ofObject: calloutMethodContext).
 	self setStackPageAndLimit: thePage.
 	self restoreCStackStateForCallbackContext: vmCallbackContext.
 	 "N.B. siglongjmp is defines as _longjmp on non-win32 platforms.

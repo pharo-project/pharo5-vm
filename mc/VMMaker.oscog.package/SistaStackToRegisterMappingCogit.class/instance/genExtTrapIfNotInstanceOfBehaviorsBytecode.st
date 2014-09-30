@@ -21,7 +21,7 @@ genExtTrapIfNotInstanceOfBehaviorsBytecode
 	"Only flush the stack if the class trap traps.  Use ssFlushNoUpdateTo: so we continue compiling as if
 	 the stack had not been flushed.  Control does not return after the ceClassTrapTrampoline call."
 	self ssFlushNoUpdateTo: simStackPtr.
-	self CallRT: ceClassTrapTrampoline.
+	self CallRT: ceTrapTrampoline.
 	label := self Label.
 	0 to: numBranches - 1 do:
 		[:i|

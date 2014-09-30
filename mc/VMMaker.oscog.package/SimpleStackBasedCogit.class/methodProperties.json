@@ -8,8 +8,8 @@
 		"initializeBytecodeTableForSistaV1" : "eem 8/8/2014 15:02",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 8/8/2014 19:19",
 		"initializeMiscConstants" : "eem 6/1/2014 15:59",
-		"initializePrimitiveTableForNewsqueak" : "eem 5/15/2014 13:29",
-		"initializePrimitiveTableForSqueak" : "eem 5/15/2014 13:26" },
+		"initializePrimitiveTableForNewsqueak" : "eem 9/13/2014 15:07",
+		"initializePrimitiveTableForSqueak" : "eem 9/13/2014 15:07" },
 	"instance" : {
 		"bytecodeFixupClass" : "eem 11/22/2010 11:09",
 		"cPICMissTrampolineFor:" : "eem 12/3/2010 17:05",

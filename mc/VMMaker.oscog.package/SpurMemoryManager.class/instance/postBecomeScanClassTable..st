@@ -1,7 +1,8 @@
 become implementation
 postBecomeScanClassTable: effectsFlags
-	"Scan the class table post-become (iff a pointer object was becommed) to ensure no forwarding
-	 pointers exist in the class table.
+	"Scan the class table post-become (iff an active class object was becommed) to ensure no
+	 forwarding pointers, and no unhashed classes exist in the class table.
+
 	 Note that one-way become can cause duplications in the class table.
 	 When can these be eliminated?  We use the classTableBitmap to mark classTable entries
 	 (not the classes themselves, since marking a class doesn't help in knowing if its index is used).
@@ -18,7 +19,13 @@ postBecomeScanClassTable: effectsFlags
 		0 to: (self numSlotsOf: page) - 1 do:
 			[:j| | classOrNil |
 			classOrNil := self fetchPointer: j ofObject: page.
-			(classOrNil ~= nilObj
-			 and: [self isForwarded: classOrNil]) ifTrue:
-				[classOrNil := self followForwarded: classOrNil.
-				 self storePointer: j ofObject: page withValue: classOrNil]]]
+			classOrNil ~= nilObj ifTrue:
+				[(self isForwarded: classOrNil) ifTrue:
+					[classOrNil := self followForwarded: classOrNil.
+					 self storePointer: j ofObject: page withValue: classOrNil].
+				 (self rawHashBitsOf: classOrNil) = 0 ifTrue:
+					[self storePointerUnchecked: j ofObject: page withValue: nilObj.
+					 "If the removed class is before the classTableIndex, set the
+					  classTableIndex to point to the empty slot so as to reuse it asap."
+					 (i << self classTableMajorIndexShift + j) < classTableIndex ifTrue:
+						[classTableIndex := i << self classTableMajorIndexShift + j]]]]]

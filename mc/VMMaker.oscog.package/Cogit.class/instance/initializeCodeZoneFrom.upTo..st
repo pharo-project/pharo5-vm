@@ -14,7 +14,6 @@ initializeCodeZoneFrom: startAddress upTo: endAddress
 	self generateStackPointerCapture.
 	self generateTrampolines.
 	self cCode: '' inSmalltalk: [methodZone zoneEnd: endAddress]. "so that simulator works"
-	self checkPrimitiveTableEnablers.
 	methodZone manageFrom: methodZoneBase to: endAddress.
 	self computeEntryOffsets.
 	self generateClosedPICPrototype.

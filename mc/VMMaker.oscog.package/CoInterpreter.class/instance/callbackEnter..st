@@ -76,7 +76,7 @@ callbackEnter: callbackID
 	self assert: wasInMachineCode = (self isMachineCodeFrame: framePointer).
 	calledFromMachineCode
 		ifTrue:
-			[instructionPointer >= objectMemory startOfMemory ifTrue:
+			[instructionPointer asUnsignedInteger >= objectMemory startOfMemory ifTrue:
 				[self iframeSavedIP: framePointer put: instructionPointer.
 				 instructionPointer := cogit ceReturnToInterpreterPC]]
 		ifFalse:

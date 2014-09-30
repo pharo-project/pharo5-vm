@@ -22,7 +22,7 @@
 		"RemapBufferSize",
 		"RememberedSetRootIndex",
 		"WeaklingStackRootIndex" ],
-	"commentStamp" : "eem 7/17/2014 21:34",
+	"commentStamp" : "eem 9/18/2014 16:56",
 	"instvars" : [
 		"coInterpreter",
 		"scavenger",

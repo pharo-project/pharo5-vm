@@ -6,12 +6,7 @@ unlinkIfLinkedSendToFree: annotation pc: mcpc ignored: superfluity
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase ifTrue: "It's a linked send."
 			[self targetMethodAndSendTableFor: entryPoint into:
-				[:targetMethod :sendTable| | unlinkedRoutine |
+				[:targetMethod :sendTable| 
 				 targetMethod cmType = CMFree ifTrue:
-					[unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-					 backEnd
-						rewriteInlineCacheAt: mcpc asInteger
-						tag: targetMethod selector
-						target: unlinkedRoutine.
-					 codeModified := true]]]].
+					[self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]].
 	^0 "keep scanning"

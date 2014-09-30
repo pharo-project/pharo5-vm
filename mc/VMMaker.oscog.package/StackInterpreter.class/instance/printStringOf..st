@@ -3,11 +3,11 @@ printStringOf: oop
 	| fmt len cnt max i |
 	<inline: false>
 	(objectMemory isImmediate: oop) ifTrue:
-		[^nil].
+		[^self].
 	(objectMemory addressCouldBeObj: oop) ifFalse:
-		[^nil].
+		[^self].
 	fmt := objectMemory formatOf: oop.
-	fmt < objectMemory firstByteFormat ifTrue: [^nil].
+	fmt < objectMemory firstByteFormat ifTrue: [^self].
 
 	cnt := (max := 128) min: (len := objectMemory lengthOf: oop).
 	i := 0.

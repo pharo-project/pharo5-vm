@@ -20,6 +20,4 @@ freeUnmarkedMachineCode
 			 methodZone freeMethod: cogMethod].
 		 cogMethod := methodZone methodAfter: cogMethod].
 	freedMethod ifTrue:
-		[self unlinkSendsToFree.
-		 methodZone pruneYoungReferrers.
-		 processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[self unlinkSendsToFree]

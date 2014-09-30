@@ -10,16 +10,18 @@ compilePrimitive
 	<var: #primitiveDescriptor type: #'PrimitiveDescriptor *'>
 	<var: #primitiveRoutine declareC: 'void (*primitiveRoutine)(void)'>
 	primitiveIndex = 0 ifTrue: [^0].
+	"If a descriptor specifies an argument count (by numArgs >= 0) then it must match
+	 for the generated code to be correct.  For example for speed many primitives use
+	 ResultReceiverReg instead of accessing the stack, so the receiver better be at
+	 numArgs down the stack.  Use the interpreter version if not.  Likewise if it has an
+	 enabled function that must answer true for the generated code to be correct."
 	((primitiveDescriptor := self primitiveGeneratorOrNil) notNil
-	 and: [primitiveDescriptor primitiveGenerator notNil]) ifTrue:
-		["If a descriptor specifies an argument count (by numArgs >= 0)
-		  then it must match for the generated code to be correct.  For
-		  example for speed many primitives use ResultReceiverReg
-		  instead of accessing the stack, so the receiver better be at
-		  numArgs down the stack.  Use the interpreter version if not."
-		 (primitiveDescriptor primNumArgs < 0 "means don't care"
-		  or: [primitiveDescriptor primNumArgs = (coInterpreter argumentCountOf: methodObj)]) ifTrue:
-			[^self perform: primitiveDescriptor primitiveGenerator]].
+	 and: [primitiveDescriptor primitiveGenerator notNil
+	 and: [(primitiveDescriptor primNumArgs < 0 "means don't care"
+		   or: [primitiveDescriptor primNumArgs = (coInterpreter argumentCountOf: methodObj)])
+	 and: [primitiveDescriptor enabled isNil
+		   or: [self perform: primitiveDescriptor enabled with: primitiveIndex]]]]) ifTrue:
+		[^self perform: primitiveDescriptor primitiveGenerator].
 	((primitiveRoutine := coInterpreter
 							functionPointerForCompiledMethod: methodObj
 							primitiveIndex: primitiveIndex) isNil "no primitive"

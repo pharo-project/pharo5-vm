@@ -226,8 +226,8 @@ initializePrimitiveTable
 		(195 primitiveFindNextUnwindContext)
 		(196 primitiveTerminateTo)
 		(197 primitiveFindHandlerContext)
-		(198 primitiveMarkUnwindMethod)
-		(199 primitiveMarkHandlerMethod)
+		(198 0 "a.k.a. primitiveMarkUnwindMethod")
+		(199 0 "a.k.a. primitiveMarkHandlerMethod")
 
 		"new closure primitives (were Networking primitives)"
 		(200 primitiveClosureCopyWithCopiedValues)

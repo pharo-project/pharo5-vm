@@ -8,6 +8,8 @@
 		"CharacterPROTOTYPEsetValue:" : "eem 9/9/2014 21:18",
 		"ClassDescriptionPROTOTYPEupdateMethodBindingsTo:" : "eem 9/7/2014 13:35",
 		"ClassPROTOTYPEimmediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:" : "EstebanLorenzano 8/27/2014 14:38",
+		"CompiledMethodPROTOTYPEbytecodeSetName" : "eem 9/11/2014 12:04",
+		"CompiledMethodPROTOTYPEheaderDescription" : "eem 9/11/2014 12:12",
 		"ContextPartPROTOTYPEactivateReturn:value:" : "eem 8/11/2014 12:28",
 		"ContextPartPROTOTYPEdoPrimitive:method:receiver:args:" : "eem 9/4/2014 15:17",
 		"ContextPartPROTOTYPEisPrimFailToken:" : "eem 8/11/2014 12:57",
@@ -19,6 +21,6 @@
 		"MethodContextclassPROTOTYPEallInstances" : "EstebanLorenzano 8/27/2014 14:38",
 		"MethodContextclassPROTOTYPEallInstancesDo:" : "EstebanLorenzano 8/27/2014 14:38",
 		"ProtoObjectPROTOTYPEscaledIdentityHash" : "EstebanLorenzano 8/27/2014 14:38",
-		"SmalltalkImagePROTOTYPErecreateSpecialObjectsArray" : "EstebanLorenzano 8/27/2014 14:38",
+		"SmalltalkImagePROTOTYPErecreateSpecialObjectsArray" : "eem 9/11/2014 09:21",
 		"SmalltalkImagePROTOTYPEsetGCParameters" : "EstebanLorenzano 8/27/2014 14:38",
 		"SystemDictionaryPROTOTYPEsetGCParameters" : "EstebanLorenzano 8/27/2014 14:38" } }

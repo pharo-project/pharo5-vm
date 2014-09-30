@@ -44,11 +44,13 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(136 duplicateTopBytecode)
 
 		(137 pushActiveContextBytecode)
-		(138 pushNewArrayBytecode)
+		(138 pushNewArrayBytecode)),
 
-		"The last of 3 Newspeak bytecodes"
-		(139 pushExplicitOuterReceiverBytecode)
+	((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
+		ifTrue: [#((139 callPrimitiveBytecode))]					"V3PlusClosures on Spur"
+		ifFalse: [#((139 pushExplicitOuterReceiverBytecode))]),	"Newspeak on V3"
 
+	  #(
 		(140 pushRemoteTempLongBytecode)
 		(141 storeRemoteTempLongBytecode)
 		(142 storeAndPopRemoteTempLongBytecode)

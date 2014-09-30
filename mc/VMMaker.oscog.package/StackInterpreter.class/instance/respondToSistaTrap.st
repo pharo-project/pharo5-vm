@@ -1,12 +1,12 @@
 sista bytecodes
-respondToClassTrap
+respondToSistaTrap
 	| ourContext tos |
 	<sharedCodeInCase: #extTrapIfNotInstanceOfBehaviorsBytecode>
-	messageSelector := objectMemory splObj: SelectorClassTrap.
+	messageSelector := objectMemory splObj: SelectorSistaTrap.
 	tos := self internalPopStack.
 	ourContext := self ensureFrameIsMarried: localFP SP: localSP.
 	messageSelector = objectMemory nilObject ifTrue:
-		[self error: 'class trap'].
+		[self error: 'Sista trap but no trap selector installed'].
 	self internalPush: ourContext.
 	self internalPush: tos.
 	argumentCount := 1.

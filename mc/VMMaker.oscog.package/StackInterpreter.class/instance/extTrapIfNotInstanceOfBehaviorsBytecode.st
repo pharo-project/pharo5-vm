@@ -13,9 +13,9 @@ extTrapIfNotInstanceOfBehaviorsBytecode
 			 [(i := i -1) < 0
 			  or: [tosClassTag = (objectMemory rawClassTagForClass: (objectMemory fetchPointer: i ofObject: literal))]] whileTrue.
 			 i < 0 ifTrue:
-				[^self respondToClassTrap]]
+				[^self respondToSistaTrap]]
 		ifFalse:
 			[tosClassTag ~= (objectMemory rawClassTagForClass: literal) ifTrue:
-				[^self respondToClassTrap]].
+				[^self respondToSistaTrap]].
 	self internalPopStack.
 	self fetchNextBytecode

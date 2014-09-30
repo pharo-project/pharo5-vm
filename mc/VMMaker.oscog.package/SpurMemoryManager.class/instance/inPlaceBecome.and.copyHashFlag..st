@@ -3,6 +3,10 @@ inPlaceBecome: obj1 and: obj2 copyHashFlag: copyHashFlag
 	"Do become in place by swapping object contents."
 	| headerTemp temp1 temp2 o1HasYoung o2HasYoung fmt |
 	self assert: (self numSlotsOf: obj1) = (self numSlotsOf: obj2).
+	self assert: ((self rawHashBitsOf: obj1) = 0
+				 or: [(self classOrNilAtIndex: (self rawHashBitsOf: obj1)) ~= obj1]).
+	self assert: ((self rawHashBitsOf: obj2) = 0
+				 or: [(self classOrNilAtIndex: (self rawHashBitsOf: obj2)) ~= obj2]).
 	"swap headers, but swapping headers swaps remembered bits;
 	 these need to be unswapped."
 	temp1 := self isRemembered: obj1.

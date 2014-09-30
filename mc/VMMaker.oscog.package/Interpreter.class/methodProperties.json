@@ -466,7 +466,7 @@
 		"primitiveSquareRoot" : "tpr (auto pragmas 12/08) 12/29/2005 16:31",
 		"primitiveStartVMProfiling" : "eem 8/21/2008 10:58",
 		"primitiveStopVMProfiling" : "eem 07/28/2014 07:54",
-		"primitiveStoreImageSegment" : "eem 6/3/2010 15:07",
+		"primitiveStoreImageSegment" : "eem 9/13/2014 08:24",
 		"primitiveStoreStackp" : "eem 10/16/2009 15:38",
 		"primitiveStringAt" : "",
 		"primitiveStringAtPut" : "",

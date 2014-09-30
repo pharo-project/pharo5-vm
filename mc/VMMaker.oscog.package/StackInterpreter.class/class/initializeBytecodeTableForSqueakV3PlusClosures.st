@@ -42,8 +42,13 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(136 duplicateTopBytecode)
 
 		(137 pushActiveContextBytecode)
-		(138 pushNewArrayBytecode)
-		(139 unknownBytecode)
+		(138 pushNewArrayBytecode)),
+
+	((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
+		ifTrue: [#((139 callPrimitiveBytecode))]	"V3PlusClosures on Spur"
+		ifFalse: [#((139 unknownBytecode))]),	"V3PlusClosures on V3"
+
+	  #(
 		(140 pushRemoteTempLongBytecode)
 		(141 storeRemoteTempLongBytecode)
 		(142 storeAndPopRemoteTempLongBytecode)

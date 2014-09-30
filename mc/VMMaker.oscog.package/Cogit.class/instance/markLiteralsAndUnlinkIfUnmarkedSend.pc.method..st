@@ -17,18 +17,13 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 			 entryPoint > methodZoneBase
 				ifTrue: "It's a linked send."
 					[self targetMethodAndSendTableFor: entryPoint into:
-						[:targetMethod :sendTable| | unlinkedRoutine |
+						[:targetMethod :sendTable| 
 						 (cacheTagMarked not
 						  or: [self markAndTraceOrFreeCogMethod: targetMethod
 								firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger]) ifTrue:
 							["Either the cacheTag is unmarked (e.g. new class) or the target
 							  has been freed (because it is unmarked), so unlink the send."
-							 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-							 backEnd
-								rewriteInlineCacheAt: mcpc asInteger
-								tag: targetMethod selector
-								target: unlinkedRoutine.
-							 codeModified := true.
+							 self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable.
 							 objectRepresentation
 								markAndTraceLiteral: targetMethod selector
 								in: targetMethod

@@ -29,8 +29,11 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 		ifFalse:
 			[self innerBecomeObjectsIn: array1 to: array2 copyHash: copyHashFlag].
 	self followSpecialObjectsOop.
-	self postBecomeScanClassTable: becomeEffectsFlags.
+	"N.B. perform coInterpreter's postBecomeAction: *before* postBecomeScanClassTable:
+	 to allow the coInterpreter to void method cache entries by spotting classIndices that
+	 refer to forwarded objects. postBecomeScanClassTable: follows forwarders in the table."
 	coInterpreter postBecomeAction: becomeEffectsFlags.
+	self postBecomeScanClassTable: becomeEffectsFlags.
 	becomeEffectsFlags := 0.
 
 	self assert: self validClassTableHashes.

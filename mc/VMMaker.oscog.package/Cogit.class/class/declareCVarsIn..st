@@ -96,11 +96,11 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'BytecodeDescriptor generatorTable[', bytecodeGenTable size printString, ']',
+				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size printString, ']',
 							(self tableInitializerFor: bytecodeGenTable
 								in: aCCodeGenerator);
 			var: #primitiveGeneratorTable
-				declareC: 'PrimitiveDescriptor primitiveGeneratorTable[MaxCompiledPrimitiveIndex+1]',
+				declareC: 'static PrimitiveDescriptor primitiveGeneratorTable[MaxCompiledPrimitiveIndex+1]',
 							(self tableInitializerFor: aCCodeGenerator vmClass primitiveTable
 								in: aCCodeGenerator)].
 	"In C the abstract opcode names clash with the Smalltak generator syntactic sugar.

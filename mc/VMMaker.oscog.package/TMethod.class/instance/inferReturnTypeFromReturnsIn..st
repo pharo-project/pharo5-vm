@@ -18,6 +18,16 @@ inferReturnTypeFromReturnsIn: aCodeGen
 				[| hasReturn returnTypes |
 				 hasReturn := false.
 				 returnTypes := Set new.
+				 "Debug:
+				 (| rettypes |
+				  rettypes := Dictionary new.
+				  parseTree nodesDo:
+					[:node|
+					node isReturn ifTrue:
+						[| types |
+						 self addTypesFor: node expression to: (types := Set new) in: aCodeGen.
+						 rettypes at: node expression put: types]].
+				  rettypes)"
 				 parseTree nodesDo:
 					[:node|
 					node isReturn ifTrue:
@@ -28,14 +38,16 @@ inferReturnTypeFromReturnsIn: aCodeGen
 				hasReturn
 					ifTrue:
 						[returnTypes size > 1 ifTrue:
-							[aCodeGen logger show:
-								(String streamContents:
-									[:s|
-									 s nextPutAll: 'conflicting return types '.
-									 returnTypes
-										do: [:t| s nextPutAll: t]
-										separatedBy: [s nextPutAll: ', '].
-									 s nextPutAll: ' in '; nextPutAll: selector; cr])].
+							[| message |
+							 message := String streamContents:
+											[:s|
+											 s nextPutAll: 'conflicting return types '.
+											 returnTypes
+												do: [:t| s nextPutAll: t]
+												separatedBy: [s nextPutAll: ', '].
+											 s nextPutAll: ' in '; nextPutAll: selector; cr].
+							 Notification signal: message.
+							 aCodeGen logger show: message].
 						 returnTypes size = 1 ifTrue:
 							[self returnType: returnTypes anyOne]]
 					ifFalse:

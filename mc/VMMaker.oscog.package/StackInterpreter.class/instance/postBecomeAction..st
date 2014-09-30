@@ -15,6 +15,9 @@ postBecomeAction: theBecomeEffectsFlags
 		[(theBecomeEffectsFlags anyMask: BecameCompiledMethodFlag) ifTrue:
 			[self followForwardedMethodsInMethodCache.
 			 self followForwardedMethodsInMethodZone]. "for CoInterpreter"
+		 (theBecomeEffectsFlags anyMask: BecameActiveClassFlag) ifTrue:
+			[self flushBecommedClassesInMethodCache.
+			 self flushBecommedClassesInMethodZone]. "for CoInterpreter"
 		 self followForwardingPointersInScheduler.
 		 self followForwardingPointersInSpecialObjectsArray.
 		 self followForwardingPointersInProfileState]

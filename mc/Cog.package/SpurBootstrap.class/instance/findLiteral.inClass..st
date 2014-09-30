@@ -7,6 +7,8 @@ findLiteral: aLiteral inClass: classOop
 		[^oldInterpreter floatObjectOf: aLiteral].
 	aLiteral isArray ifTrue:
 		[^self cloneArrayLiteral: aLiteral].
+	aLiteral isCharacter ifTrue:
+		[^oldHeap characterObjectOf: aLiteral asciiValue].
 	self assert: aLiteral isVariableBinding.
 	bindingOrNil := self interpreter: oldInterpreter
 						object: classOop

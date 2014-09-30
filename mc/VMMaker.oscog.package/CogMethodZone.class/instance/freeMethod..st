@@ -20,11 +20,10 @@ freeMethod: cogMethod
 				[self assert: (cogit noAssertMethodClassAssociationOf: cogMethod methodObject) = objectMemory nilObject.
 				 self cppIf: NewspeakVM ifTrue:
 					[self removeFromUnpairedMethodList: cogMethod]].
-		 cogit maybeFreeCountersOf: cogMethod.
-		 cogMethod cmRefersToYoung: false].
+		 cogit maybeFreeCountersOf: cogMethod].
 	cogMethod cmType = CMOpenPIC ifTrue:
-		[self removeFromOpenPICList: cogMethod.
-		 cogMethod cmRefersToYoung: false].
+		[self removeFromOpenPICList: cogMethod].
+	cogMethod cmRefersToYoung: false.
 	cogMethod cmType: CMFree.
 	methodBytesFreedSinceLastCompaction := methodBytesFreedSinceLastCompaction
 												+ cogMethod blockSize

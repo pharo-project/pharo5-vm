@@ -7,15 +7,10 @@ unlinkIfFreeOrLinkedSend: annotation pc: mcpc of: theSelector
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
 				[self targetMethodAndSendTableFor: entryPoint into:
-					[:targetMethod :sendTable| | unlinkedRoutine |
+					[:targetMethod :sendTable| 
 					 (targetMethod cmType = CMFree
 					  or: [targetMethod selector = theSelector]) ifTrue:
-						[unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-						 backEnd
-							rewriteInlineCacheAt: mcpc asInteger
-							tag: targetMethod selector
-							target: unlinkedRoutine.
-						 codeModified := true]]]
+						[self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]
 			ifFalse:
 				[self cppIf: NewspeakVM ifTrue:
 					[(entryPoint = ceImplicitReceiverTrampoline

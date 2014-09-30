@@ -71,9 +71,11 @@ mapObjectReferencesInMachineCodeForBecome
 						ifFalse:
 							[cogMethod cmRefersToYoung: false]]].
 		cogMethod := methodZone methodAfter: cogMethod].
+	"we /must/ prune youngReferrers here because a) the [cogMethod cmRefersToYoung: false]
+	 block could have removed a method and subsequently it could be added back, and b) we
+	 can not tolerate duplicates in the youngReferrers list."  
 	methodZone pruneYoungReferrers.
 	freedPIC ifTrue:
-		[self unlinkSendsToFree.
-		 codeModified := true].
+		[self unlinkSendsToFree].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
 		[processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]

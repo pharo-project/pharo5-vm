@@ -1,6 +1,6 @@
 initialization
 generateSistaRuntime
-	"Class trap sends class trap message to context with top of stack, so we on't need any arguments..."
-	ceClassTrapTrampoline := self genTrampolineFor: #ceClassTrap:
-									called: 'ceClassTrapTrampoline'
+	"Trap sends Sista trap message to context with top of stack, so we don't need any arguments..."
+	ceTrapTrampoline := self genTrampolineFor: #ceSistaTrap:
+									called: 'ceSistaTrapTrampoline'
 									arg: ReceiverResultReg

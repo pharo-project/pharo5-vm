@@ -65,4 +65,4 @@ initializeSpecialObjectIndices
 
 	SelectorUnknownBytecode := 57.
 	SelectorCounterTripped := 58.
-	SelectorClassTrap := 59
+	SelectorSistaTrap := 59

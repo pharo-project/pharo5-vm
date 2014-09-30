@@ -19,6 +19,4 @@ followForwardedMethods
 				 methodZone freeMethod: cogMethod]].
 		 cogMethod := methodZone methodAfter: cogMethod].
 	freedPIC ifTrue:
-		[self unlinkSendsToFree.
-		 methodZone pruneYoungReferrers.
-		 processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[self unlinkSendsToFree]

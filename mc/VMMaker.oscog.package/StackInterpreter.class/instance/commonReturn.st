@@ -110,4 +110,4 @@ commonReturn
 			localSP := (self frameCallerSP: callerFP) - BytesPerWord].
 	self setMethod: (self frameMethod: localFP).
 	self fetchNextBytecode.
-	^self internalStackTopPut: localReturnValue
+	self internalStackTopPut: localReturnValue
