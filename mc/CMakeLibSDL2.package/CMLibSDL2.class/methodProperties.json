@@ -1,8 +1,9 @@
 {
 	"class" : {
-		"canonicalName" : "EstebanLorenzano 2/12/2014 07:23" },
+		"canonicalName" : "EstebanLorenzano 2/12/2014 07:23",
+		"supports:" : "EstebanLorenzano 7/22/2014 15:32:13.798693" },
 	"instance" : {
-		"archiveMD5Sum" : "EstebanLorenzano 7/22/2014 12:00",
+		"archiveMD5Sum" : "EstebanLorenzano 10/2/2014 16:02",
 		"build" : "RonieSalgado 6/1/2014 18:48",
 		"copyArtefacts" : "RonieSalgado 6/1/2014 18:47",
 		"defineAsTarget" : "RonieSalgado 5/31/2014 03:42",
