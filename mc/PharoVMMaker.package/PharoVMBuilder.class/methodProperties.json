@@ -7,8 +7,8 @@
 		"buildUnix32" : "IgorStasenko 1/29/2013 15:48",
 		"buildWin32" : "IgorStasenko 1/29/2013 15:48" },
 	"instance" : {
-		"buildMacOSX32" : "EstebanLorenzano 7/22/2014 13:57",
 		"buildFreeBSD32" : "HolgerHansPeterFreyther 9/14/2014 10:19",
-		"buildUnix32" : "EstebanLorenzano 3/20/2014 17:10",
-		"buildWin32" : "EstebanLorenzano 3/20/2014 16:08",
+		"buildMacOSX32" : "EstebanLorenzano 7/22/2014 13:57",
+		"buildUnix32" : "EstebanLorenzano 10/2/2014 15:55",
+		"buildWin32" : "EstebanLorenzano 10/2/2014 15:55",
 		"initialize" : "IgorStasenko 1/29/2013 15:55" } }
