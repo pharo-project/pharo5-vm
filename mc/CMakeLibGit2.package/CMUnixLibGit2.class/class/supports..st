@@ -1,3 +1,3 @@
 testing
 supports: aConfig
-	^  aConfig platformName  = 'unix' 
+	^  #('unix' 'freebsd') includes: aConfig platformName

@@ -11,8 +11,8 @@ configH
 
 /* package options */
 
-#define USE_X11 1
-#define USE_X11_GLX 1
+/* #undef USE_X11 */
+/* #undef USE_X11_GLX */
 /* #undef       USE_QUARTZ */
 /* #undef       USE_QUARTZ_CGL */
 /* #undef       USE_RFB */
@@ -20,7 +20,7 @@ configH
 /* libraries */
 
 /* #undef       HAVE_LIBX11 */
-#define HAVE_LIBXEXT 1
+/* #undef       HAVE_LIBXEXT */
 #define HAVE_LIBDL 1
 /* #undef       HAVE_DYLD */
 /* #undef       HAVE_LIBFFI */
@@ -58,7 +58,7 @@ configH
 #define HAVE_LIBUTIL_H 1
 /* #undef       HAVE_STROPTS_H */
 
-#define HAVE_GL_GL_H 1
+/* #undef       HAVE_GL_GL_H */
 /* #undef       HAVE_OPENGL_GL_H */
 
 /* #undef       NEED_SUNOS_H */
@@ -113,10 +113,10 @@ configH
 
 #define OS_TYPE "unix"
 
-#define VM_HOST "i386-freebsd8.2"
+#define VM_HOST "i386-freebsd10.0"
 #define VM_HOST_CPU "i386"
 /* #undef       VM_HOST_VENDOR */
-#define VM_HOST_OS "freebsd8.2"
+#define VM_HOST_OS "freebsd10.0"
 #define VM_BUILD_STRING "Unix built on "__DATE__ " "__TIME__" Compiler: "__VERSION__
 
 /* #undef       WORDS_BIGENDIAN */

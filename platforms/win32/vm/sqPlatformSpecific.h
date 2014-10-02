@@ -81,7 +81,7 @@ error "Not Win32!"
 #endif /* STACKVM */
 #define PROF_THREAD_PRIORITY THREAD_PRIORITY_TIME_CRITICAL
 
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST)
 extern void sqMakeMemoryExecutableFromTo(unsigned long, unsigned long);
 extern void sqMakeMemoryNotExecutableFromTo(unsigned long, unsigned long);
 

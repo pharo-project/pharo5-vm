@@ -94,7 +94,7 @@ void sqMacMemoryFree() {
 	memoryAllocationBase = 0;
 }
 
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST)
 # define roundDownToPageBoundary(v) ((v)&pageMask)
 # define roundUpToPageBoundary(v) (((v)+pageSize-1)&pageMask)
 void

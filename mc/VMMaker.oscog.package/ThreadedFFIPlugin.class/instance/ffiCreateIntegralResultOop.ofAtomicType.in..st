@@ -1,4 +1,5 @@
 callout support
+"protocol: callout support"
 ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 	<var: #calloutState type: #'CalloutState *'>
 	<var: #retVal type: #usqLong>

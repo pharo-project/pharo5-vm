@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NBStackCrossRaspbianFastBltConfig",
+	"pools" : [
+		 ],
+	"super" : "StackCrossRaspbianFastBltConfig",
+	"type" : "normal" }

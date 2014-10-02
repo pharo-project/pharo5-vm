@@ -1,0 +1,16 @@
+{
+	"category" : "PharoVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classtraitcomposition" : "TPharoUnixConfig classTrait",
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PharoFreeBSDConfig",
+	"pools" : [
+		 ],
+	"super" : "NBCogFreeBSDConfig",
+	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins}",
+	"type" : "normal" }

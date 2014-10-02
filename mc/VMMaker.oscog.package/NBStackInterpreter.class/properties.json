@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "NBStackInterpreter",
+	"pools" : [
+		 ],
+	"super" : "StackInterpreterPrimitives",
+	"type" : "normal" }

@@ -117,7 +117,7 @@ int plugInNotifyUser(char *msg);
 
 sqInt ioSetCursorARGB(sqInt cursorBitsIndex, sqInt extentX, sqInt extentY, sqInt offsetX, sqInt offsetY);
 
-#if COGVM
+#if COGVM || defined(HAVE_NATIVEBOOST) 
 extern void sqMakeMemoryExecutableFromTo(unsigned long, unsigned long);
 extern void sqMakeMemoryNotExecutableFromTo(unsigned long, unsigned long);
 
