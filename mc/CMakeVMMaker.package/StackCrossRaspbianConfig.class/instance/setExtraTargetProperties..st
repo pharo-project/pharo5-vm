@@ -16,6 +16,7 @@ setExtraTargetProperties: maker
 	maker linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/'.
 	maker addExternalLibraries: 
 		#(
+			'asound' "SoundCodec because internal hackish but the only way for now"
 			'm'  "math lib"
 			'dl'  "dynamic loader"
 			'pthread' "posix threads" 
