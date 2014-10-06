@@ -10,10 +10,12 @@
 		"configH" : "jeanbaptistearnud 2/13/2014 17:15",
 		"configureB3DAcceleratorPlugin:" : "jeanbaptistearnaud 1/20/2014 12:19",
 		"configureBitBltSimulation:" : "jeanbaptistearnaud 1/16/2014 15:15",
+		"configureSoundPlugin:" : "jeanbaptistearnaud 10/6/2014 15:28",
+		"configureSqueakSSLPlugin:" : "jeanbaptistearnaud 10/6/2014 15:27",
 		"defaultExternalPlugins" : "jeanbaptistearnaud 10/6/2014 12:29",
 		"defaultInternalPlugins" : "jeanbaptistearnaud 10/6/2014 15:00",
 		"executableName" : "jeanbaptistearnaud 1/16/2014 15:15",
-		"extraPluginSettings:" : "jeanbaptistearnaud 10/6/2014 15:00",
+		"extraPluginSettings:" : "jeanbaptistearnaud 10/6/2014 15:26",
 		"linkFlags" : "jeanbaptistearnaud 1/16/2014 15:15",
 		"preferredIncludes" : "jeanbaptistearnaud 1/20/2014 13:43",
 		"setExtraTargetProperties:" : "jeanbaptistearnaud 1/20/2014 17:07" } }
