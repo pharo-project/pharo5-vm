@@ -13,7 +13,7 @@ setExtraTargetProperties: maker
 		COMPILE_FLAGS "-O1 -fno-omit-frame-pointer"'.
 						
 	
-	maker linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/'.
+	"maker linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/'."
 	maker addExternalLibraries: 
 		#(
 			'm'  "math lib"
