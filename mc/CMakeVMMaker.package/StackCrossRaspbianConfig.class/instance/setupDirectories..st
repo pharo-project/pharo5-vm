@@ -17,7 +17,7 @@ setupDirectories: gen
 			set: #crossDir toString: '${platformsDir}/Cross';
 			set: #platformVMDir toString: '${targetPlatform}/vm';
 			set: #outputDir toString: '${topDir}/results'.
-			self cmd: 'link_directories' params: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/'.
+			gen cmd: 'link_directories' params: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/'.
 	].
 
 	self write: dirsInclude toFile: 'directories.cmake'.
