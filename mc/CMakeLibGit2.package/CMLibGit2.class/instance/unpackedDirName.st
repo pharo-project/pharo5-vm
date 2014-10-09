@@ -1,3 +1,3 @@
 package properties
 unpackedDirName
-	^ 'libgit2-0.20.0'
+	^ 'libgit2-0.21.1'
