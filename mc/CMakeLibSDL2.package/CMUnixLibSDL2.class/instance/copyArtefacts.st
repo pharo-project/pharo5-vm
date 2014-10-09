@@ -1,4 +1,4 @@
-as yet unclassified
+generating actions
 copyArtefacts
 	super copyArtefacts.
 	self 

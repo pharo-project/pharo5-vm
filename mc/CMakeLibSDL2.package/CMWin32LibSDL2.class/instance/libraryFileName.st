@@ -1,3 +1,3 @@
-as yet unclassified
+package properties
 libraryFileName
 	^ 'libSDL2.dll.a'

@@ -1,3 +1,3 @@
 testing
 libraryFileName
-	^ 'libSDL2-2.0.so.0.2.1'
+	^ 'libSDL2-2.0.so.0.2.3'

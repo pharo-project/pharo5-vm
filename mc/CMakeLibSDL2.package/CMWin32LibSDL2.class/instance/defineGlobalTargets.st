@@ -1,4 +1,4 @@
-as yet unclassified
+generating actions
 defineGlobalTargets
 	| var |
 	var := self canonicalName , '_LIB'.

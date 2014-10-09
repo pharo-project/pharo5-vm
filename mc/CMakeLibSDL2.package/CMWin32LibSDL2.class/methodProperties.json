@@ -2,9 +2,11 @@
 	"class" : {
 		"supports:" : "RonieSalgado 5/31/2014 04:05" },
 	"instance" : {
+		"archiveMD5Sum" : "EstebanLorenzano 10/2/2014 17:13",
 		"build" : "RonieSalgado 6/1/2014 18:48",
 		"copyArtefacts" : "RonieSalgado 6/1/2014 18:46",
 		"defaultConfigurationFlags" : "RonieSalgado 5/31/2014 04:06",
 		"defineGlobalTargets" : "RonieSalgado 6/1/2014 22:01",
 		"libraryFileName" : "RonieSalgado 6/1/2014 18:51",
-		"setVariables" : "RonieSalgado 6/1/2014 18:52" } }
+		"setVariables" : "RonieSalgado 6/1/2014 18:52",
+		"unpackedDirName" : "EstebanLorenzano 10/2/2014 17:12" } }

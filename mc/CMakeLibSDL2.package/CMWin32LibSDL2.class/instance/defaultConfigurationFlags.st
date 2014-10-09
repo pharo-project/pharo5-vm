@@ -1,4 +1,4 @@
-as yet unclassified
+settings
 defaultConfigurationFlags 
 	^#(
 		'CFLAGS=''-m32'''
