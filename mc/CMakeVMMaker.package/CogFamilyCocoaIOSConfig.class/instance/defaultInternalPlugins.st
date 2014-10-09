@@ -29,5 +29,5 @@ defaultInternalPlugins
 		SurfacePlugin 
 		UnixAioPlugin
 		UnixOSProcessPlugin
-		SDL2DisplayPlugin
+		"SDL2DisplayPlugin"
 		)
