@@ -8,4 +8,5 @@ defaultExternalPlugins
 		InternetConfigPlugin
 		ThreadedARMFFIPlugin
 		UnixOSProcessPlugin
+		SqueakSSLPlugin
 	)
