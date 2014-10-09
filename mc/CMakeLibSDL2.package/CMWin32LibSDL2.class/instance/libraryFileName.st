@@ -1,3 +1,3 @@
 package properties
 libraryFileName
-	^ 'libSDL2.dll.a'
+	^ 'SDL2.dll'

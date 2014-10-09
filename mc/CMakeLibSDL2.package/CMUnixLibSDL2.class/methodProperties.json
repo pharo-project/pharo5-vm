@@ -2,6 +2,7 @@
 	"class" : {
 		"supports:" : "RonieSalgado 5/31/2014 03:30" },
 	"instance" : {
+		"copyArtefacts" : "EstebanLorenzano 10/9/2014 13:36:09.270358",
 		"defaultConfigurationFlags" : "RonieSalgado 5/31/2014 03:33",
 		"defineAsTarget" : "EstebanLorenzano 10/9/2014 13:23",
 		"libraryFileName" : "EstebanLorenzano 10/9/2014 12:24" } }
