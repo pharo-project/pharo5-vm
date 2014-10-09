@@ -1,4 +1,4 @@
 class table
 reInitializeClassTablePostLoad: hiddenRoots
-	self hiddenRootsObj: hiddenRoots.
+	self setHiddenRootsObj: hiddenRoots.
 	self expungeDuplicateAndUnmarkedClasses: false

@@ -1,5 +1,9 @@
 primitive support
 pinObject: objOop
+	"Attempt to pin objOop, which must not be immediate.
+	 If the attempt succeeds answer objOop's (possibly moved) oop.
+	 If the attept fails, which can only occur if there is no memory, answer 0."
+	<inline: false>
 	| oldClone seg |
 	<var: #seg type: #'SpurSegmentInfo *'>
 	self assert: (self isNonImmediate: objOop).
@@ -10,14 +14,13 @@ pinObject: objOop
 		[seg := segmentManager segmentContainingObj: objOop.
 		 seg containsPinned ifTrue:
 			[self setIsPinnedOf: objOop to: true.
-			 ^0].
+			 ^objOop].
 		 segmentManager someSegmentContainsPinned ifFalse:
 			[self setIsPinnedOf: objOop to: true.
 			 seg containsPinned: true.
-			 ^0]].
+			 ^objOop]].
 	oldClone := self cloneInOldSpaceForPinning: objOop.
-	oldClone = 0 ifTrue:
-		[^PrimErrNoMemory].
-	self setIsPinnedOf: oldClone to: true.
-	self forward: objOop to: oldClone.
-	^0
+	oldClone ~= 0 ifTrue:
+		[self setIsPinnedOf: oldClone to: true.
+		 self forward: objOop to: oldClone].
+	^oldClone

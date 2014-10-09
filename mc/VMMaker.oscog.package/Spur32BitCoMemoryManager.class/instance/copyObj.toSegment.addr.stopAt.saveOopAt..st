@@ -9,7 +9,7 @@ copyObj: objOop toSegment: segmentWordArray addr: limitSeg stopAt: stopAddr save
 	bodySize := self bytesInObject: objOop.
 	(self oop: limitSeg + bodySize isGreaterThanOrEqualTo: stopAddr) ifTrue:
 		[^0]. "failure"
-	self mem: limitSeg cp: (self startOfObject: objOop) y: bodySize.
+	self mem: limitSeg asVoidPointer cp: (self startOfObject: objOop) asVoidPointer y: bodySize.
 	copy := self objectStartingAt: limitSeg.
 
 	"Clear remebered pinned and mark bits of all headers copied into the segment"

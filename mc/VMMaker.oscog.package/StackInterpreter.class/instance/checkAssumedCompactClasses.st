@@ -6,5 +6,5 @@ checkAssumedCompactClasses
 	objectMemory checkCompactIndex: ClassLargePositiveIntegerCompactIndex isClass: ClassLargePositiveInteger named: 'LargePositiveInteger'.
 	objectMemory checkCompactIndex: ClassFloatCompactIndex isClass: ClassFloat named: 'Float'.
 	objectMemory checkCompactIndex: ClassBlockClosureCompactIndex isClass: ClassBlockClosure named: 'BlockClosure'.
-	objectMemory checkCompactIndex: ClassMethodContextCompactIndex isClass: ClassMethodContext named: 'Context'.
+	objectMemory checkCompactIndex: ClassMethodContextCompactIndex isClass: ClassMethodContext named: 'MethodContext'.
 	classByteArrayCompactIndex := objectMemory compactIndexOfClass: (objectMemory splObj: ClassByteArray)

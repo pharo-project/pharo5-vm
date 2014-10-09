@@ -7,34 +7,19 @@ allInstancesOf: aClass
 	 1/4 of the address space, the count can never overflow."
 	| classIndex freeChunk ptr start limit count bytes |
 	classIndex := self rawHashBitsOf: aClass.
-	(classIndex = 0
-	 or: [aClass ~~ (self classOrNilAtIndex: classIndex)]) ifTrue:
+	classIndex = 0 ifTrue:
 		[freeChunk := self allocateSlots: 0 format: self arrayFormat classIndex: ClassArrayCompactIndex.
 		 ^freeChunk].
 	MarkObjectsForEnumerationPrimitives ifTrue:
 		[self markObjects]. "may not want to revive objects unnecessarily; but marking is sloooow."
 	freeChunk := self allocateLargestFreeChunk.
-	ptr := start := freeChunk + self baseHeaderSize.
+	start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.
-	count := 0.
-	self allHeapEntitiesDo:
-		[:obj| "continue enumerating even if no room so as to unmark all objects."
-		 (MarkObjectsForEnumerationPrimitives
-				ifTrue: [self isMarked: obj]
-				ifFalse: [true]) ifTrue:
-			[(self isNormalObject: obj)
-				ifTrue:
-					[MarkObjectsForEnumerationPrimitives ifTrue:
-						[self setIsMarkedOf: obj to: false].
-					 (self classIndexOf: obj) = classIndex ifTrue:
-					 	[count := count + 1.
-						 ptr < limit ifTrue:
-							[self longAt: ptr put: obj.
-							 ptr := ptr + self bytesPerSlot]]]
-				ifFalse:
-					[MarkObjectsForEnumerationPrimitives ifTrue:
-						[(self isSegmentBridge: obj) ifFalse:
-							[self setIsMarkedOf: obj to: false]]]]].
+	(self isClassAtUniqueIndex: aClass)
+		ifTrue:
+			[self uniqueIndex: classIndex allInstancesInto: start limit: limit resultsInto: [:c :p| count := c. ptr := p]]
+		ifFalse:
+			[self ambiguousClass: aClass allInstancesInto: start limit: limit resultsInto: [:c :p| count := c. ptr := p]].
 	self assert: (self isEmptyObjStack: markStack).
 	MarkObjectsForEnumerationPrimitives
 		ifTrue:

@@ -31,7 +31,6 @@ enterIntoClassTable: aBehavior
 				withValue: aBehavior.
 			 self setHashBitsOf: aBehavior to: classTableIndex.
 			 self assert: (self classAtIndex: (self rawHashBitsOf: aBehavior)) = aBehavior.
-			 self ensureAdequateClassTableBitmap.
 			 ^0]].
 	 majorIndex := (majorIndex + 1 bitAnd: self classIndexMask) max: 1.
 	 majorIndex = initialMajorIndex ifTrue: "wrapped; table full"

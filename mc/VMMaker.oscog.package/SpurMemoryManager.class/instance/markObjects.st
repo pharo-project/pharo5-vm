@@ -7,7 +7,6 @@ markObjects
 	self runLeakCheckerForFullGC: true.
 
 	self ensureAllMarkBitsAreZero.
-	self ensureAdequateClassTableBitmap.
 	self initializeUnscannedEphemerons.
 	self initializeMarkStack.
 	self initializeWeaklingStack.

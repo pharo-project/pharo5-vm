@@ -1,8 +1,9 @@
 memory space primitives
 primitivePin
-	"Pin or unpin the receiver, i.e. make it immobile or mobile.  Answer whether the object was
-	 already pinned. N.B. pinning does *not* prevent an object from being garbage collected."
-	| obj boolean wasPinned failure |
+	"Pin or unpin the receiver, i.e. make it immobile or mobile, based on the argument.
+	 Answer whether the object was already pinned. N.B. pinning does *not* prevent
+	 an object from being garbage collected."
+	| obj boolean wasPinned |
 	objectMemory hasSpurMemoryManagerAPI ifFalse:
 		[^self primitiveFailFor: PrimErrUnsupported].
 
@@ -20,11 +21,11 @@ primitivePin
 	(objectMemory isPinned: obj)
 		ifTrue:
 			[wasPinned := objectMemory trueObject.
-			 objectMemory setIsPinnedOf: obj to: false]
+			 objectMemory setIsPinnedOf: obj to: boolean = objectMemory trueObject]
 		ifFalse:
 			[wasPinned := objectMemory falseObject.
-			 failure := objectMemory pinObject: obj.
-			 failure ~= 0 ifTrue:
-				[^self primitiveFailFor: failure]].
+			 (boolean = objectMemory trueObject
+			  and: [objectMemory pinObject: obj]) = 0 ifTrue:
+				[^self primitiveFailFor: PrimErrNoMemory]].
 	
 	self pop: argumentCount - 1 thenPush: wasPinned

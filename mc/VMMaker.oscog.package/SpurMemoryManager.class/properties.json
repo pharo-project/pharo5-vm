@@ -22,7 +22,7 @@
 		"RemapBufferSize",
 		"RememberedSetRootIndex",
 		"WeaklingStackRootIndex" ],
-	"commentStamp" : "eem 9/18/2014 16:56",
+	"commentStamp" : "eem 10/3/2014 09:03",
 	"instvars" : [
 		"coInterpreter",
 		"scavenger",
@@ -43,7 +43,6 @@
 		"classTableFirstPage",
 		"classTableIndex",
 		"numClassTablePages",
-		"classTableBitmap",
 		"endOfMemory",
 		"ephemeronQueue",
 		"unscannedEphemerons",

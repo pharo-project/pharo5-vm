@@ -8,7 +8,6 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #freeListsMask type: #usqInt;
 		var: #freeLists type: #'sqInt *';
-		var: #classTableBitmap type: #'unsigned char *';
 		var: #objStackInvalidBecause type: #'char *';
 		var: #highestObjects type: #SpurCircularBuffer;
 		var: #unscannedEphemerons type: #SpurContiguousObjStack;

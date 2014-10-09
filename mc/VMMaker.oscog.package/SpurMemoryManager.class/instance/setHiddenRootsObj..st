@@ -1,5 +1,5 @@
 class table
-hiddenRootsObj: anOop
+setHiddenRootsObj: anOop
 	hiddenRootsObj := anOop.
 	self cCode: [self assert: self validClassTableRootPages]
 		inSmalltalk: [numClassTablePages ifNotNil:

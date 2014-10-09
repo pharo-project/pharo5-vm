@@ -14,7 +14,6 @@ The instance variable descriptions can be checked for extra and missing declarat
 Instance Variables
 	becomeEffectsFlags		<Integer>
 	checkForLeaks				<Boolean>
-	classTableBitmap			<CArrayAccessor on: ByteArray>
 	classTableFirstPage		<Integer oop>
 	classTableIndex			<Integer>
 	coInterpreter				<StackInterpreter|CoInterpreter (StackInterpreterSimulator|CogVMSimulator)>
@@ -89,9 +88,6 @@ becomeEffectsFlags
 	
 checkForLeaks
 	- a set of flags determining when to run leak checks on the heap's contents
-
-classTableBitmap
-	- a bitmap used to mark used classTable entries (i.e. marks classIndices, not class objects), used to reclaim unused entries.
 
 classTableFirstPage
 	- the first page of the class table which contains all classes known to the VM at known indices
@@ -381,7 +377,7 @@ The free list also looks like it allows efficient incremental compaction.  Curre
 a) keeping each free list in memory order (including the lists of free chunks off each node in the large free chunk tree)
 b) sorting the free chunks in memory order by merge sorting the free lists
 c) climbing the free list in memory order.  For each free chunk in the free list search memory from the last free chunk to the end (and from the previous chunk to the next chunk, and so on) looking for a best-fit live object.  That object is then copied into the free chunk, and its corpse is turned into a forwarding pointer.  This works because the compaction does not slide objects, and hence no forwarding blocks are necessary and the algorithm can be made incremental. Various optimizations are possible, e.g. using a bitmap to record the sizes of the first few free chunks on the list when looking for best fits.  The assumptions being
-a) the number fo objects on the free list is kept small because the IGC incrementally compacts, and so sorting and searching the list is not expensive
+a) the number of objects on the free list is kept small because the IGC incrementally compacts, and so sorting and searching the list is not expensive
 b) the incremental collector's following of forwarding pointers reclaims the corpses at the end of memory at a sufficient rate to keep the free list small
 c) the rounding of objects to an 8-byte alignment improves the chances of finding a best fit.
 Note that this incremental collection is easily amenable to leave pinned objects where they are; they are simply filtered out when looking for a best fit.

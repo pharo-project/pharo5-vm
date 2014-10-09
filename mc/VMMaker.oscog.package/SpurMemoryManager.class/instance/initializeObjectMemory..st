@@ -32,7 +32,7 @@ initializeObjectMemory: bytesToShift
 	self assert: falseObj = (self objectAfter: nilObj).
 	self assert: trueObj = (self objectAfter: falseObj).
 	freeListObj := self objectAfter: trueObj.
-	self reInitializeClassTablePostLoad: (self objectAfter: freeListObj).
+	self setHiddenRootsObj: (self objectAfter: freeListObj).
 	markStack := self swizzleObjStackAt: MarkStackRootIndex.
 	weaklingStack := self swizzleObjStackAt: WeaklingStackRootIndex.
 	ephemeronQueue := self swizzleObjStackAt: EphemeronQueueRootIndex.

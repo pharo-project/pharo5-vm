@@ -85,6 +85,7 @@
 		"longAt:" : "",
 		"longAt:put:" : "",
 		"longPrint:" : "eem 8/29/2013 17:26",
+		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:" : "eem 10/4/2013 14:20",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:" : "",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 8/2/2012 14:14",
 		"nameOfClass:" : "di 6/13/2004 07:00",

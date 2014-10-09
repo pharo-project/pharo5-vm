@@ -18,8 +18,10 @@ markAndShouldScan: objOop
 		[^false].
 	self setIsMarkedOf: objOop to: true.
 	format := self formatOf: objOop.
-	(self isPureBitsFormat: format) ifTrue: "avoid pushing non-pointer objects on the markStack"
-		[self markAndTraceClassOf: objOop.
+	(self isPureBitsFormat: format) ifTrue: "avoid pushing non-pointer objects on the markStack."
+		["Avoid tracing classes of non-objects on the heap, e.g. IRC caches, Sista counters."
+		 (self classIndexOf: objOop) > self lastClassIndexPun ifTrue:
+			[self markAndTraceClassOf: objOop].
 		 ^false].
 	format = self weakArrayFormat ifTrue: "push weaklings on the weakling stack to scan later"
 		[self push: objOop onObjStack: weaklingStack.

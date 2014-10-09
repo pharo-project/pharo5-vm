@@ -5,7 +5,7 @@
 	"instance" : {
 		"addressAfter:" : "eem 9/22/2013 15:00",
 		"allocateSlotsForPinningInOldSpace:bytes:format:classIndex:" : "eem 7/5/2014 20:27",
-		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 6/27/2014 15:50",
+		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 10/2/2014 10:53",
 		"byteSwapped:" : "eem 10/14/2013 20:10",
 		"bytesInObject:" : "eem 9/18/2014 15:56",
 		"bytesPerOop" : "eem 3/12/2014 10:26",

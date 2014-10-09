@@ -1,8 +1,6 @@
 gc - global
 globalGarbageCollect
 	<inline: true> "inline into fullGC"
-	self cCode: [] inSmalltalk: [self halt: 'GC number ', statFullGCs printString].
-
 	self assert: self validObjStacks.
 	self assert: (self isEmptyObjStack: markStack).
 	self assert: (self isEmptyObjStack: weaklingStack).
