@@ -9,7 +9,7 @@ defaultInternalPlugins
 		BMPReadWriterPlugin 
 		CroquetPlugin 
 		DeflatePlugin  "ZipPlugin"
-		DropPlugin 
+		"DropPlugin"
 		DSAPlugin "DSAPrims" 
 		FFTPlugin 
 		FileCopyPlugin 
@@ -33,5 +33,5 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		SurfacePlugin	
 		LocalePlugin
-		"SDL2DisplayPlugin"
+		SDL2DisplayPlugin
 		)

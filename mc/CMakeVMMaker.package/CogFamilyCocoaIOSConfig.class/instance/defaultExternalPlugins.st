@@ -19,4 +19,5 @@ defaultExternalPlugins
 		SqueakSSLPlugin
 		SerialPlugin
 		MIDIPlugin
+		SDL2DisplayPlugin
 	)

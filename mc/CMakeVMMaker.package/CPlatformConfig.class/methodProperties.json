@@ -53,6 +53,7 @@
 		"configureThreadedIA32FFIPlugin:" : "IgorStasenko 3/17/2011 23:40",
 		"configureUUIDPlugin:" : "EstebanLorenzano 1/2/2011 11:23",
 		"configureUnixOSProcessPlugin:" : "Igor.Stasenko 12/31/2010 01:12",
+		"configureX11DisplayPlugin:" : "EstebanLorenzano 10/9/2014 12:14:14.419021",
 		"coreSources" : "EstebanLorenzano 1/2/2011 11:03",
 		"crossSources" : "EstebanLorenzano 1/2/2011 10:52",
 		"defaultExternalPlugins" : "Igor.Stasenko 1/4/2011 03:19",
@@ -107,4 +108,4 @@
 		"topDir" : "GuillermoPolito 6/17/2013 15:12",
 		"topDir:" : "GuillermoPolito 6/17/2013 15:30",
 		"validateSourcesPresent" : "EstebanLorenzano 5/22/2014 10:03",
-		"write:toFile:" : "EstebanLorenzano 5/26/2014 15:56" } }
+		"write:toFile:" : "EstebanLorenzano 10/13/2014 16:24" } }

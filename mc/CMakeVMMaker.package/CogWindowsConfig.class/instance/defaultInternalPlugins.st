@@ -38,5 +38,4 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		SurfacePlugin 
 		UUIDPlugin
-		"SDL2DisplayPlugin"
 	)
