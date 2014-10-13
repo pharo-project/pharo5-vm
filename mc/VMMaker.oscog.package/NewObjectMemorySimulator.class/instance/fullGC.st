@@ -1,7 +1,9 @@
-debug support
+gc -- mark and sweep
 fullGC
-	"self halt."
-	coInterpreter transcript
-		cr; nextPutAll:'<Running full GC ('; print: coInterpreter byteCount; space; print: freeStart; nextPutAll: ')...'; flush.
-	super fullGC.
-	coInterpreter transcript show: ' done>'
+	"If we're /not/ a clone, clone the VM and push it over the cliff.
+	 If it survives, destroy the clone and continue.  We should be OK until next time."
+	parent ifNil:
+		[coInterpreter cr; print: 'GC number '; print: statFullGCs; tab; flush.
+		 coInterpreter cloneSimulation objectMemory fullGC.
+		 Smalltalk garbageCollect].
+	^super fullGC

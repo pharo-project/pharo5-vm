@@ -44,7 +44,7 @@ initializeBytecodeTable
 
 		"Closure & Newspeak bytecodes"
 		(138 pushNewArrayBytecode)
-		(139 pushExplicitOuterReceiverBytecode)
+		(139 pushEnclosingObjectBytecode)
 		(140 pushRemoteTempLongBytecode)
 		(141 storeRemoteTempLongBytecode)
 		(142 storeAndPopRemoteTempLongBytecode)

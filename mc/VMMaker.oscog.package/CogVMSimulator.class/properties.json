@@ -6,6 +6,7 @@
 		 ],
 	"commentStamp" : "eem 9/3/2013 11:16",
 	"instvars" : [
+		"parent",
 		"enableCog",
 		"byteCount",
 		"lastPollCount",

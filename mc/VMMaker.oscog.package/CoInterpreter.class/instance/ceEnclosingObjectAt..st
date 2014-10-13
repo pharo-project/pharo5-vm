@@ -1,8 +1,8 @@
 stack bytecodes
-ceExplicitReceiverAt: level
+ceEnclosingObjectAt: level
 	<api>
 	<option: #NewspeakVM>
 	^self 
-		explicitOuterReceiver: level
+		enclosingObjectAt: level
 		withObject: (self mframeReceiver: framePointer)
 		withMixin: self mMethodClass

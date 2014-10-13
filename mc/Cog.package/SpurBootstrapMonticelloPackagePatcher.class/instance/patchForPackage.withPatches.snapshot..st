@@ -8,9 +8,10 @@ patchForPackage: package withPatches: patches snapshot: snapshot
 							 patches noneSatisfy:
 								[:addition|
 								def isMethodDefinition
+								and: [addition definition isMethodDefinition
 								and: [addition definition selector = def selector
 								and: [addition definition className = def className
-								and: [addition definition classIsMeta = def classIsMeta]]]]]
+								and: [addition definition classIsMeta = def classIsMeta]]]]]]
 						thenCollect:
 							[:def|
 							 ((def source includesSubString: 'DELETEME')

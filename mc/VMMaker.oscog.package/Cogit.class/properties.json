@@ -152,7 +152,7 @@
 		"ceFetchContextInstVarTrampoline",
 		"ceStoreContextInstVarTrampoline",
 		"ceImplicitReceiverTrampoline",
-		"ceExplicitReceiverTrampoline",
+		"ceEnclosingObjectTrampoline",
 		"ceCaptureCStackPointers",
 		"ceFlushICache",
 		"ceCheckFeaturesFunction",

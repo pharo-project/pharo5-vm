@@ -12,6 +12,8 @@
 		"computeSignatureFor:from:" : "eem 10/2/2010 22:31",
 		"computeSignatureMap" : "eem 10/5/2010 09:40",
 		"doesNotUnderstand:" : "eem 10/4/2010 17:33",
+		"generateCoerceToBooleanObjectFrom:on:" : "eem 10/11/2014 12:42",
+		"generateCoerceToFloatObjectFrom:on:" : "eem 10/11/2014 12:42",
 		"generateCoerceToSmallIntegerObjectFrom:on:" : "eem 10/2/2010 14:03",
 		"getPrimitiveSignatureFor:" : "eem 10/2/2010 22:21",
 		"initialiseModule" : "eem 10/2/2010 22:44",

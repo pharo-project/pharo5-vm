@@ -31,7 +31,6 @@ cog: aMethodObj selector: aSelectorOop
 			 bytecodeSetOffset := 256]
 		ifFalse:
 			[bytecodeSetOffset := 0].
-	extA := extB := 0.
 	objectRepresentation ensureNoForwardedLiteralsIn: aMethodObj.
 	methodObj := aMethodObj.
 	cogMethod := self compileCogMethod: aSelectorOop.

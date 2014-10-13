@@ -20,7 +20,7 @@ initializeBytecodeTableForNewspeakV4
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   75 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  76   76 genPushReceiverBytecode needsFrameNever: 1)
-		(1  77   77 genExtPushPseudoVariableOrOuterBytecode)
+		(1  77   77 genExtPushPseudoVariableOrOuterBytecode needsFrameIfExtBGT2: 1)
 		(1  78   78 genPushConstantZeroBytecode needsFrameNever: 1)
 		(1  79   79 genPushConstantOneBytecode needsFrameNever: 1)
 

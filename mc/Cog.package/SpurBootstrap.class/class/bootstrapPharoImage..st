@@ -1,10 +1,13 @@
 utilities
 bootstrapPharoImage: imageFileBaseName
-	| oldCompilerClass |
+	| oldCompilerClass oldBytecodeBackend |
 	
 	oldCompilerClass := SmalltalkImage compilerClass.
+	oldBytecodeBackend := CompilationContext bytecodeBackend.
 	[ 
 		SmalltalkImage compilerClass: Compiler. 
+		"CompilationContext bytecodeBackend: ."
 		self bootstrapImage: imageFileBaseName type: 'pharo' ]
-	ensure: [ SmalltalkImage compilerClass: oldCompilerClass ].
-	
+	ensure: [ 
+		SmalltalkImage compilerClass: oldCompilerClass.
+		CompilationContext bytecodeBackend: oldBytecodeBackend ]

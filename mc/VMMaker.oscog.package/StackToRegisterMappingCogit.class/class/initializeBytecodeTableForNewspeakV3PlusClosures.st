@@ -51,7 +51,7 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 
 		((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
 			ifTrue: [#((3 139 139 callPrimitiveBytecode))]									"V3PlusClosures on Spur"
-			ifFalse: [#((2 139 139 genPushExplicitOuterReceiverBytecode isMapped))]),	"Newspeak"
+			ifFalse: [#((2 139 139 genPushEnclosingObjectBytecode isMapped))]),	"Newspeak"
 
 	  #(
 		(3 140 140 genPushRemoteTempLongBytecode)

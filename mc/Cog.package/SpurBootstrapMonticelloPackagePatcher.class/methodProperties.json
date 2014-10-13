@@ -2,6 +2,7 @@
 	"class" : {
 		"squeak45baseline" : "eem 5/10/2014 11:36" },
 	"instance" : {
+		"cachedNonDiffyVersionNamed:from:" : "eem 10/8/2014 17:56",
 		"compiledMethodClassDefinition" : "eem 8/12/2014 14:55",
 		"directoryFrom:" : "eem 5/10/2014 13:46",
 		"download:from:" : "eem 5/11/2014 10:57",
@@ -13,18 +14,20 @@
 		"modifiedCharacterDefinitionsIn:" : "eem 3/3/2014 18:50",
 		"packagesAndPatches" : "eem 8/22/2014 15:25",
 		"patch" : "eem 6/12/2014 15:14",
+		"patchAndUploadAllInTrunk" : "eem 10/9/2014 10:11",
 		"patchAndUploadNewer" : "eem 7/20/2014 09:12",
-		"patchAndUploadUnpatchedInTrunk" : "eem 9/27/2014 13:14",
+		"patchAndUploadUnpatchedInTrunk" : "eem 10/8/2014 17:38",
 		"patchAsNeeded" : "eem 5/11/2014 10:35",
 		"patchDefinition:withRewriter:" : "eem 2/5/2014 12:27",
 		"patchFile:" : "eem 7/17/2014 12:44",
-		"patchForPackage:withPatches:snapshot:" : "eem 8/12/2014 14:59",
-		"patchPackage:with:for:" : "eem 1/15/2014 17:42",
+		"patchForPackage:withPatches:snapshot:" : "eem 10/9/2014 09:59",
+		"patchPackage:with:for:" : "eem 10/9/2014 10:06",
 		"repositoryForUrl:" : "eem 7/20/2014 07:57",
 		"spurBranchNameForInfo:package:" : "eem 6/26/2014 17:12",
 		"storeVersion:" : "eem 1/15/2014 17:51",
 		"trunk" : "eem 7/20/2014 07:57",
 		"updateTrunkRepository" : "eem 6/26/2014 17:23",
 		"uploadFrom:to:" : "eem 5/11/2014 10:54",
-		"version:withPatches:for:" : "eem 6/26/2014 17:12",
-		"versionFor:" : "eem 1/15/2014 17:18" } }
+		"version:withPatches:for:" : "eem 10/9/2014 10:06",
+		"versionFor:" : "eem 1/15/2014 17:18",
+		"versionFor:in:" : "eem 10/9/2014 09:36" } }
