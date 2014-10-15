@@ -57,6 +57,7 @@ sweepPhaseForFullGC
 		ifTrue: ["record size of final free chunk"
 			self longAt: freeChunk put: ((freeChunkSize bitAnd: LongSizeMask) bitOr: HeaderTypeFree)].
 	oop = endOfMemory
+		ifTrue: [freeStart := endOfMemory]
 		ifFalse: [self error: 'sweep failed to find exact end of memory'].
 	firstFree = nil
 		ifTrue: [self error: 'expected to find at least one free object']

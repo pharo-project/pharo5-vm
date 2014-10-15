@@ -7,9 +7,11 @@ findApplicationOfTargetMixin: targetMixin startingAtNonMetaClass: aClass
 	<ContextPart> findApplicationOfTargetMixin: targetMixin startingAtNonMetaClass: aClass
 	"
 	| mixinOrMixinApplication |
+	self deny: (objectMemory isForwarded: targetMixin).
+	self deny: (objectMemory isForwarded: aClass).
 	mixinOrMixinApplication := aClass.
 	[mixinOrMixinApplication = objectMemory nilObject
 	 or: [mixinOrMixinApplication = targetMixin
-	 or: [(objectMemory fetchPointer: MixinIndex ofObject: mixinOrMixinApplication) = targetMixin]]] whileFalse:
-		[mixinOrMixinApplication := objectMemory fetchPointer: SuperclassIndex ofObject: mixinOrMixinApplication].
+	 or: [(objectMemory followObjField: MixinIndex ofObject: mixinOrMixinApplication) = targetMixin]]] whileFalse:
+		[mixinOrMixinApplication := objectMemory followObjField: SuperclassIndex ofObject: mixinOrMixinApplication].
 	^mixinOrMixinApplication

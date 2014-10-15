@@ -9,6 +9,8 @@ nextImplicitReceiverFor: anObject withMixin: mixin
 					withMixin: mixin <Mixin>
 					implementing: selector <Symbol> ^<Object>"
 	| implicitReceiver mixinApplication theMixin targetMixin dictionary found |
+	self deny: (objectMemory isOopForwarded: anObject).
+	self deny: (objectMemory isForwarded: mixin).
 	implicitReceiver := anObject.
 	targetMixin := mixin.
 	[(targetMixin = objectMemory nilObject "or: [implicitReceiver = objectMemory nilObject]") ifTrue:
@@ -21,9 +23,9 @@ nextImplicitReceiverFor: anObject withMixin: mixin
 	 found := self lookupMethodInDictionary: dictionary.
 	 found]
 		whileFalse:
-			[implicitReceiver := objectMemory fetchPointer: EnclosingObjectIndex ofObject: mixinApplication.
-			 theMixin := objectMemory fetchPointer: MixinIndex ofObject: mixinApplication.
+			[implicitReceiver := objectMemory followObjField: EnclosingObjectIndex ofObject: mixinApplication.
+			 theMixin := objectMemory followObjField: MixinIndex ofObject: mixinApplication.
 			 theMixin = objectMemory nilObject ifTrue:
 				[^objectMemory nilObject].
-			 targetMixin := objectMemory fetchPointer: EnclosingMixinIndex ofObject: theMixin].
+			 targetMixin := objectMemory followObjField: EnclosingMixinIndex ofObject: theMixin].
 	^implicitReceiver

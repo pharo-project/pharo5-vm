@@ -11,7 +11,10 @@ implicitReceiverFor: rcvr mixin: mixin implementing: selector
 	<api>
 	<option: #NewspeakVM>
 	| mixinApplication dictionary found |
-	messageSelector := selector. "messageSelector is an implicit parameter of lookupMethodInDictionary:"
+	self deny: (objectMemory isOopForwarded: rcvr).
+	self deny: (objectMemory isForwarded: mixin).
+	"messageSelector is an implicit parameter of lookupMethodInDictionary:"
+	messageSelector := objectMemory followMaybeForwarded: selector.
 	mixinApplication := self
 							findApplicationOfTargetMixin: mixin
 							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
@@ -21,12 +24,12 @@ implicitReceiverFor: rcvr mixin: mixin implementing: selector
 	 found := self lookupMethodInDictionary: dictionary.
 	 found ifFalse:
 		[| implicitReceiverOrNil theMixin |
-		 theMixin := objectMemory fetchPointer: MixinIndex ofObject: mixinApplication.
+		 theMixin := objectMemory followObjField: MixinIndex ofObject: mixinApplication.
 		 implicitReceiverOrNil := self nextImplicitReceiverFor: (objectMemory
-																fetchPointer: EnclosingObjectIndex
+																followObjField: EnclosingObjectIndex
 																ofObject: mixinApplication)
 									withMixin: (objectMemory
-													fetchPointer: EnclosingMixinIndex
+													followObjField: EnclosingMixinIndex
 													ofObject: theMixin).
 		 implicitReceiverOrNil ~= objectMemory nilObject ifTrue:
 			[^implicitReceiverOrNil]].

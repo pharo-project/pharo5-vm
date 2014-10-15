@@ -3,10 +3,10 @@ bootstrapPharoImage: imageFileBaseName
 	| oldCompilerClass oldBytecodeBackend |
 	
 	oldCompilerClass := SmalltalkImage compilerClass.
-	oldBytecodeBackend := CompilationContext bytecodeBackend.
+	oldBytecodeBackend := CompilationContext bytecodeBackend. 
 	[ 
 		SmalltalkImage compilerClass: Compiler. 
-		"CompilationContext bytecodeBackend: ."
+		CompilationContext bytecodeBackend: IRSpurSqueakV3PlusClosuresBytecodeGenerator.
 		self bootstrapImage: imageFileBaseName type: 'pharo' ]
 	ensure: [ 
 		SmalltalkImage compilerClass: oldCompilerClass.

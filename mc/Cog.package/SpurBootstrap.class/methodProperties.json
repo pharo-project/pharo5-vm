@@ -2,7 +2,7 @@
 	"class" : {
 		"bootstrapImage:type:" : "eem 7/31/2014 13:12",
 		"bootstrapOldSqueakImage:" : "eem 8/8/2014 17:24",
-		"bootstrapPharoImage:" : "EstebanLorenzano 10/13/2014 14:10",
+		"bootstrapPharoImage:" : "EstebanLorenzano 10/14/2014 15:08",
 		"bootstrapSqueakImage:" : "EstebanLorenzano 7/2/2014 17:26",
 		"categoryForClass:meta:selector:" : "eem 9/11/2014 12:06",
 		"defaultIntegerBaseInDebugger" : "eem 7/31/2014 13:47",
@@ -43,7 +43,7 @@
 		"fillInPointerObjectWithPC:from:" : "eem 8/9/2014 10:28",
 		"findClassNamed:" : "eem 9/6/2013 21:18",
 		"findLiteral:inClass:" : "eem 9/9/2014 21:50",
-		"findRequiredGlobals" : "eem 9/9/2014 19:10",
+		"findRequiredGlobals" : "EstebanLorenzano 10/14/2014 16:28",
 		"findSymbol:" : "eem 8/12/2014 11:41",
 		"firstOrdinaryClassIndex" : "eem 8/30/2013 15:18",
 		"followForwardingPointers" : "eem 9/18/2013 16:55",

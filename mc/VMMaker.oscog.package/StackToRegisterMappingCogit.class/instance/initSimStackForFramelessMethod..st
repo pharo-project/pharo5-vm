@@ -10,8 +10,7 @@ initSimStackForFramelessMethod: startpc
 	optStatus
 		isReceiverResultRegLive: true;
 		ssEntry: (self addressOf: simSelf).
-	self assert: (methodOrBlockNumTemps = methodOrBlockNumArgs
-				or: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]).
+	self assert: methodOrBlockNumTemps >= methodOrBlockNumArgs.
 	self assert: self numRegArgs <= 2.
 	(methodOrBlockNumArgs between: 1 and: self numRegArgs)
 		ifTrue:

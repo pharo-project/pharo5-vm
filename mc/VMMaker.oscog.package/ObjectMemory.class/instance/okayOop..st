@@ -8,7 +8,7 @@ okayOop: signedOop
 
 	"address and size checks"
 	(self isIntegerObject: oop) ifTrue: [ ^true ].
-	(oop >= self startOfMemory and: [oop < endOfMemory])
+	(self oop: oop isGreaterThanOrEqualTo: self startOfMemory andLessThan: endOfMemory)
 		ifFalse: [ self error: 'oop is not a valid address'. ^false ].
 	((oop \\ BytesPerWord) = 0)
 		ifFalse: [ self error: 'oop is not a word-aligned address'. ^false ].

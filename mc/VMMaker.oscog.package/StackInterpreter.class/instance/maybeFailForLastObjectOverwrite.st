@@ -1,4 +1,4 @@
-simulation
+primitive support
 maybeFailForLastObjectOverwrite
 	<inline: true>
 	checkAllocFiller ifTrue: 

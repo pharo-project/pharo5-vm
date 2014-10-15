@@ -8,6 +8,6 @@ safeObjectAfter: oop
 	(self isFreeObject: oop)
 		ifTrue: [sz := self sizeOfFree: oop]
 		ifFalse: [sz := self sizeBitsOf: oop].
-	^oop + sz >= freeStart
+	^(oop + sz) asUnsignedInteger >= freeStart
 		ifTrue: [freeStart]
 		ifFalse: [self oopFromChunk: oop + sz]
