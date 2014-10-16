@@ -1,6 +1,5 @@
 gmake commands
 include: aFileName
-Halt now.
 	output 
 		nextPutAll: ('include ', aFileName); 
 		cr

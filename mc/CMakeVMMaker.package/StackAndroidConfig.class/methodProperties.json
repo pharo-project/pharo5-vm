@@ -1,0 +1,23 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addDriver:sources:generator:externalLibs:" : "jb 10/15/2014 16:47",
+		"addVMDrivers:" : "jb 10/15/2014 12:32",
+		"architecture" : "jb 10/14/2014 14:45",
+		"compilerFlags" : "jb 10/14/2014 13:43",
+		"debugCompilerFlags" : "jb 10/14/2014 13:44",
+		"debugLinkFlags" : "jb 10/14/2014 14:14",
+		"defaultInternalPlugins" : "jb 10/15/2014 11:51",
+		"extraVMSettings:" : "jb 10/14/2014 15:21",
+		"generate" : "jb 10/16/2014 15:56",
+		"generateWithSources" : "jb 10/16/2014 15:52",
+		"jniFolder" : "jb 10/16/2014 15:58",
+		"linkFlags" : "jb 10/14/2014 14:10",
+		"platformSources" : "jb 10/14/2014 14:52",
+		"preferredIncludes" : "jb 10/14/2014 13:33",
+		"releaseCompilerFlags" : "jb 10/14/2014 13:44",
+		"releaseLinkFlags" : "jb 10/14/2014 14:14",
+		"setupAndroidRessources" : "jb 10/16/2014 15:47",
+		"setupAndroidTemplateDirectory" : "jb 10/16/2014 15:58",
+		"setupDirectories:" : "jb 10/14/2014 13:23" } }

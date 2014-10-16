@@ -1,0 +1,3 @@
+platform
+architecture
+	^self subclassResponsibility.

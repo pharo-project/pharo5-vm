@@ -7,19 +7,16 @@ generate
 	name := plugin moduleName.
 	self printHeader.
 	
-	self 
-		set: #pluginName to: name;
-		set: #pluginSrc to: '$(srcPluginsDir)/', name;
-		set: #pluginCross to: '$(crossDir)/plugins/', name;
-		set: #pluginPlatform to: '$(targetPlatform)/plugins/', name.
-		
 	self addDefinitions: '-DSQUEAK_BUILTIN_PLUGIN'.
 	
-	self addSources: { name , '.c' } prefixed: '$(pluginSrc)/'.
+	self addSources: { name , '.c' } prefixed: '$(TOP_PATH)/srcVM/plugins/', name,'/'.
 
-	self includeDirectories: '-I$(pluginSrc) -I$(pluginCross) -I$(targetPlatform)/plugins/$(pluginName)'.
+	self includeDirectories: '$(TOP_PATH)/srcVM/'.
+	self includeDirectories: '$(TOP_PATH)/platforms/Cross/plugins/', name, '/'.
+	self includeDirectories: '$(TOP_PATH)/platforms/android/plugins/', name, '/'.
+	
 
-	self addDefinitions: vmGen config compilerFlags.
+	vmGen config compilerFlags do:[:each | self addDefinitions: each].
 
 	" perform config's configureXYZ: message to apply per-plugin custom rules, if any "
 	
