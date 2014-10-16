@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+size 
+	^ stream size

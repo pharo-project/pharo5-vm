@@ -18,7 +18,6 @@ Here's a hairier example that I (Eliot) actually use in daily development with s
 
 | cos proc opts |
 CoInterpreter initializeWithOptions: (opts := Dictionary newFromPairs: #(Cogit StackToRegisterMappingCogit)).
-CogVMSimulator chooseAndInitCogitClassWithOpts: opts.
 cos := CogVMSimulator new.
 "cos initializeThreadSupport." "to test the multi-threaded VM"
 cos desiredNumStackPages: 8. "to set the size of the stack zone"

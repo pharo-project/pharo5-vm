@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+position
+	^ stream position

@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+atEnd 
+	^ stream atEnd

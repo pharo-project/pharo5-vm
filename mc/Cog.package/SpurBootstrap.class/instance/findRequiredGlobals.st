@@ -37,7 +37,7 @@ findRequiredGlobals
 					bindingOop := self interpreter: oldInterpreter
 										object: (oldHeap splObj: 8) "Smalltalk"
 										perform: bindingOfSym
-										withArguments: {symbolOop}.
+										withArguments: {self findSymbol: global key}.
 					bindingOop ~= oldHeap nilObject ifTrue:
 						[literalMap at: global put: bindingOop]]].
 			 toBeAdded := Dictionary new.

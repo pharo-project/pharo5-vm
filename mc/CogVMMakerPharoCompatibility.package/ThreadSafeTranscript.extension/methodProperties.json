@@ -2,7 +2,12 @@
 	"class" : {
 		 },
 	"instance" : {
+		"atEnd" : "EstebanLorenzano 10/15/2014 11:58",
 		"closed" : "EstebanLorenzano 7/1/2014 14:33",
+		"isBinary" : "EstebanLorenzano 10/15/2014 11:59",
 		"next:put:" : "EstebanLorenzano 7/1/2014 14:04",
+		"position" : "EstebanLorenzano 10/15/2014 11:57",
+		"position:" : "EstebanLorenzano 10/15/2014 11:58",
 		"print:maxDecimalPlaces:" : "EstebanLorenzano 8/1/2014 16:52",
+		"size" : "EstebanLorenzano 10/15/2014 11:56",
 		"store:" : "EstebanLorenzano 8/1/2014 11:23" } }
