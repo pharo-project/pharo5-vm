@@ -1,0 +1,4 @@
+utils - linking
+releaseLinkFlags
+	^#(
+	'-llog')
