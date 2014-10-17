@@ -33,5 +33,7 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		SurfacePlugin	
 		LocalePlugin
+		UnixAioPlugin
+		UnixOSProcessPlugin		
 		"SDL2DisplayPlugin"
 		)

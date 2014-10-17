@@ -38,5 +38,6 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		SurfacePlugin 
 		UUIDPlugin
+		Win32OSProcessPlugin
 		"SDL2DisplayPlugin"
 	)
