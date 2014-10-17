@@ -1,0 +1,3 @@
+assembly
+methodReturnReceiver
+	^encoder genReturnReceiver

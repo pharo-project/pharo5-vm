@@ -1,6 +1,6 @@
 gc - global
 markObjects
-	<inline: false>
+	<inline: #never> "for profiling"
 	"Mark all accessible objects."
 	"If the incremental collector is running mark bits may be set; stop it and clear them if necessary."
 	self cCode: '' inSmalltalk: [coInterpreter transcript nextPutAll: 'marking...'; flush].

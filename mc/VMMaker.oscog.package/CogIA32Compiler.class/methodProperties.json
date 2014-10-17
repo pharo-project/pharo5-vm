@@ -116,6 +116,7 @@
 		"hasPCDependentInstructions" : "eem 12/27/2008 18:36",
 		"hasSSE2Instructions" : "eem 6/17/2009 16:59",
 		"hasSSEInstructions" : "eem 10/17/2010 12:15",
+		"implicitReceiveCacheAt:" : "eem 7/9/2014 22:11",
 		"inlineCacheTagAt:" : "eem 2/28/2009 05:32",
 		"instructionSizeAt:" : "eem 10/13/2009 12:44",
 		"isBigEndian" : "eem 1/8/2009 14:05",

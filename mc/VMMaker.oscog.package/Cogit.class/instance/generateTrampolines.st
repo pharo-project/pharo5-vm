@@ -18,20 +18,4 @@ generateTrampolines
 
 	"finish up"
 	self recordGeneratedRunTime: 'methodZoneBase' address: methodZoneBase.
-	processor flushICacheFrom: methodZoneStart to: methodZoneBase.
-	self cCode: ''
-		inSmalltalk:
-			[simulatedTrampolines keysAndValuesDo:
-				[:addr :selector|
-				simulatedTrampolines
-					at: addr
-					put: (MessageSend
-							receiver: ((self respondsTo: selector)
-										ifTrue: [self]
-										ifFalse: [(coInterpreter respondsTo: selector)
-													ifTrue: [coInterpreter]
-													ifFalse: [(objectMemory respondsTo: selector)
-														ifTrue: [objectMemory]
-														ifFalse: [self notify: 'cannot find receiver for ', selector]]])
-							selector: selector
-							arguments: (1 to: selector numArgs) asArray)]]
+	processor flushICacheFrom: methodZoneStart to: methodZoneBase

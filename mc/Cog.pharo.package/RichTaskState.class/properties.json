@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"packetPendingIV",
+		"taskHolding",
+		"taskWaiting" ],
+	"name" : "RichTaskState",
+	"pools" : [
+		 ],
+	"super" : "RichObject",
+	"type" : "normal" }

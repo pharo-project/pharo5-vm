@@ -1,0 +1,3 @@
+tests
+testDisassembleBytecodeAssemblerMethods
+	self testDisassembleMethodsFor: BytecodeAssembler

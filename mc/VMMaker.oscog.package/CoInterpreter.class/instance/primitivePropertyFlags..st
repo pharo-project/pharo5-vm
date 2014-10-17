@@ -6,6 +6,13 @@ primitivePropertyFlags: primIndex
 	<var: #functionPointer declareC: 'void (*functionPointer)(void)'>
 	functionPointer := self functionPointerFor: primIndex inClass: nil.
 
+	"The complications of following forwarding pointers in machine code on failures
+	 of primitives called indirectly through primitiveDoNamedPrimitiveWithArgs are not
+	 worth dealing with, as primitiveDoNamedPrimitiveWithArgs is used only in debugging."
+	(objectMemory hasSpurMemoryManagerAPI
+	 and: [functionPointer = #primitiveDoNamedPrimitiveWithArgs]) ifTrue:
+		[^PrimCallDoNotJIT].
+
 	baseFlags := profileSemaphore ~= objectMemory nilObject
 					ifTrue: [PrimCallNeedsNewMethod + PrimCallCollectsProfileSamples]
 					ifFalse: [0].

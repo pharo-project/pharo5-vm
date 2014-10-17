@@ -3,13 +3,13 @@ positive64BitValueOf: oop
 	"Convert the given object into an integer value.
 	The object may be either a positive SmallInteger or an eight-byte LargePositiveInteger."
 
-	<returnTypeC: #sqLong>
+	<returnTypeC: #usqLong>
 	| sz value ok |
-	<var: #value type: #sqLong>
+	<var: #value type: #usqLong>
 	(objectMemory isIntegerObject: oop) ifTrue:
-		[value := objectMemory integerValueOf: oop.
-		 value < 0 ifTrue: [^self primitiveFail].
-		 ^value].
+		[(objectMemory integerValueOf: oop) < 0 ifTrue:
+			[^self primitiveFail].
+		 ^objectMemory integerValueOf: oop].
 
 	ok := objectMemory
 			isClassOfNonImm: oop
@@ -20,5 +20,5 @@ positive64BitValueOf: oop
 
 	value := 0.
 	0 to: sz - 1 do: [:i |
-		value := value + ((self cCoerce: (objectMemory fetchByte: i ofObject: oop) to: #sqLong) <<  (i*8))].
+		value := value + ((self cCoerce: (objectMemory fetchByte: i ofObject: oop) to: #usqLong) <<  (i*8))].
 	^value

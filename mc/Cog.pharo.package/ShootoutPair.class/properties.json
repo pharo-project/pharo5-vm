@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"partner",
+		"me",
+		"sema" ],
+	"name" : "ShootoutPair",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

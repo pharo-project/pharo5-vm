@@ -13,17 +13,17 @@ generateInterpreterFile
 								ifFalse: [ex pass]]].
 	self needsToRegenerateInterpreterFile ifFalse: [^nil].
 	cg removeUnneededBuiltins.
-	self interpreterClass preGenerationHook: cg.
 
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.
 
+	self interpreterClass preGenerationHook: cg.
 	vmHeaderContents := cg vmHeaderContentsWithBytesPerWord: self wordSize.
 	(cg needToGenerateHeader: self interpreterHeaderName file: self interpreterHeaderPath contents: vmHeaderContents) ifTrue:
 		[cg storeHeaderOnFile: self interpreterHeaderPath contents: vmHeaderContents].
 	cg storeCodeOnFile: (self sourceFilePathFor: self interpreterClass sourceFileName) doInlining: self doInlining.
 	self interpreterClass additionalHeadersDo:
 		[:headerName :headerContents| | filePath |
-		 filePath := (self coreVMDirectory asFileReference / headerName) fullName.
+		 filePath := (self coreVMDirectory / headerName) fullName.
 		 (cg needToGenerateHeader: headerName file: filePath contents: headerContents) ifTrue:
 			 [cg storeHeaderOnFile: filePath contents: headerContents]].
 	self interpreterClass apiExportHeaderName ifNotNil:

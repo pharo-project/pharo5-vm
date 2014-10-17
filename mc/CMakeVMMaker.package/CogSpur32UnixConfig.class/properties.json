@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogSpur32UnixConfig",
+	"pools" : [
+		 ],
+	"super" : "CogUnixConfig",
+	"type" : "normal" }

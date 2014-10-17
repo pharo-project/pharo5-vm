@@ -9,5 +9,17 @@ simulatedTrampolineFor: selectorOrAddress
 		 ^selectorOrAddress].
 	self assert: selectorOrAddress isSymbol.
 	address := self simulatedAddressFor: selectorOrAddress.
-	simulatedTrampolines at: address ifAbsentPut: [selectorOrAddress].
+	simulatedTrampolines
+		at: address
+		ifAbsentPut:
+			[MessageSend
+				receiver: ((self respondsTo: selectorOrAddress)
+							ifTrue: [self]
+							ifFalse: [(coInterpreter respondsTo: selectorOrAddress)
+										ifTrue: [coInterpreter]
+										ifFalse: [(objectMemory respondsTo: selectorOrAddress)
+											ifTrue: [objectMemory]
+											ifFalse: [self notify: 'cannot find receiver for ', selectorOrAddress]]])
+				selector: selectorOrAddress
+				arguments: (1 to: selectorOrAddress numArgs) asArray].
 	^address

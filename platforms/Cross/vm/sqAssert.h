@@ -16,6 +16,8 @@
 extern void warning(char *);
 extern void warningat(char *,int);
 
+#undef NDEBUG
+
 #undef assert
 # define __stringify(foo) #foo
 # define __stringifyNum(n) __stringify(n)

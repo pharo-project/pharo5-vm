@@ -14,6 +14,7 @@
 		"growObjectMemory:" : "eem 9/19/2010 00:27",
 		"isReallyYoungObject:" : "eem 10/25/2013 16:23",
 		"memoryBaseForImageRead" : "eem 10/10/2013 06:39",
+		"noShiftCompactClassIndexOf:" : "eem 7/7/2014 08:41",
 		"nullHeaderForMachineCodeMethod" : "eem 2/28/2009 05:54",
 		"restoreHeaderOf:to:" : "eem 3/29/2013 15:39",
 		"scavengeThresholdAddress" : "eem 5/6/2010 16:00",

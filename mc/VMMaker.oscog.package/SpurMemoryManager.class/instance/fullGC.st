@@ -2,7 +2,7 @@ gc - global
 fullGC
 	"Perform a full lazy compacting GC.  Answer the size of the largest free chunk."
 	<returnTypeC: #usqLong>
-	<inline: false>
+	<inline: #never> "for profiling"
 	needGCFlag := false.
 	gcStartUsecs := self ioUTCMicrosecondsNow.
 	statMarkCount := 0.

@@ -3,8 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		"NoRegParmsInAssertVMs",
-		"UseRightShiftForDivide" ],
+		"NoRegParmsInAssertVMs" ],
 	"commentStamp" : "tpr 5/2/2003 14:30",
 	"instvars" : [
 		"vmClass",

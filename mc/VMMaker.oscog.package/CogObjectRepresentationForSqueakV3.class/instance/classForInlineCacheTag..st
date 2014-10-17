@@ -4,4 +4,4 @@ classForInlineCacheTag: inlineCacheTag
 		[^objectMemory classSmallInteger].
 	(self couldBeObject: inlineCacheTag) ifTrue:
 		[^inlineCacheTag].
-	^objectMemory compactClassAt: inlineCacheTag >> ShiftForWord
+	^objectMemory compactClassAt: inlineCacheTag >> objectMemory compactClassFieldLSB

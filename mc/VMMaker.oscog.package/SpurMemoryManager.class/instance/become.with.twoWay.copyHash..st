@@ -28,8 +28,8 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 			[self innerBecomeObjectsIn: array1 and: array2 copyHash: copyHashFlag]
 		ifFalse:
 			[self innerBecomeObjectsIn: array1 to: array2 copyHash: copyHashFlag].
-	self postBecomeScanClassTable.
 	self followSpecialObjectsOop.
+	self postBecomeOrCompactScanClassTable: becomeEffectsFlags.
 	coInterpreter postBecomeAction: becomeEffectsFlags.
 	becomeEffectsFlags := 0.
 

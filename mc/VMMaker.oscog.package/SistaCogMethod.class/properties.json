@@ -4,9 +4,9 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "eem 7/4/2014 11:59",
 	"instvars" : [
-		"numCounters" ],
+		"counters" ],
 	"name" : "SistaCogMethod",
 	"pools" : [
 		 ],

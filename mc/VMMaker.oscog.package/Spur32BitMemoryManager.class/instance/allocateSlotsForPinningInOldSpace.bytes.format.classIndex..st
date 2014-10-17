@@ -3,6 +3,7 @@ allocateSlotsForPinningInOldSpace: numSlots bytes: totalBytes format: formatFiel
 	"Answer the oop of a chunk of space in oldSpace with numSlots slots.  Try and
 	 allocate in a segment that already includes pinned objects.  The header of the
 	 result will have been filled-in but not the contents."
+	<var: #totalBytes type: #usqInt>
 	<inline: false>
 	| chunk |
 	chunk := self allocateOldSpaceChunkOfBytes: totalBytes
@@ -19,7 +20,10 @@ allocateSlotsForPinningInOldSpace: numSlots bytes: totalBytes format: formatFiel
 		 self longAt: chunk put: numSlots.
 		 self longAt: chunk + 4 put: self numSlotsMask << self numSlotsHalfShift.
 		 self long64At: chunk + self baseHeaderSize
-			put: (self headerForSlots: self numSlotsMask format: formatField classIndex: classIndex).
+			 put: ((self headerForSlots: self numSlotsMask format: formatField classIndex: classIndex)
+					bitOr: 1 << self pinnedBitShift).
 		 ^chunk + self baseHeaderSize].
-	self long64At: chunk put: (self headerForSlots: numSlots format: formatField classIndex: classIndex).
+	self long64At: chunk
+		put: ((self headerForSlots: numSlots format: formatField classIndex: classIndex)
+					bitOr: 1 << self pinnedBitShift).
 	^chunk

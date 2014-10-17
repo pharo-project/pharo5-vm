@@ -1,4 +1,4 @@
 plugin support
 classSmallInteger
 	<api>
-	^self splObj: ClassInteger
+	^self splObj: ClassSmallInteger

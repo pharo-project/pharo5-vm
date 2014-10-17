@@ -1,13 +1,14 @@
 allocation
 cloneInOldSpaceForPinning: objOop
-	| numSlots newObj |
+	| numSlots fmt newObj |
 	numSlots := self numSlotsOf: objOop.
+	fmt := self formatOf: objOop.
 	
 	newObj := self allocateSlotsForPinningInOldSpace: numSlots
 					bytes: (self objectBytesForSlots: numSlots)
-					format: (self formatOf: objOop)
+					format: fmt
 					classIndex: (self classIndexOf: objOop).
-	(self isPointersNonImm: objOop)
+	(self isPointersFormat: fmt)
 		ifTrue:
 			[| hasYoung |
 			 hasYoung := false.
@@ -25,12 +26,16 @@ cloneInOldSpaceForPinning: objOop
 					withValue: oop].
 			(hasYoung
 			 and: [(self isYoungObject: newObj) not]) ifTrue:
-				[scavenger remember: newObj.
-				 self setIsRememberedOf: newObj to: true]]
+				[scavenger remember: newObj]]
 		ifFalse:
 			[0 to: numSlots - 1 do:
 				[:i|
 				self storePointerUnchecked: i
 					ofObject: newObj
-					withValue: (self fetchPointer: i ofObject: objOop)]].
+					withValue: (self fetchPointer: i ofObject: objOop)].
+			 fmt >= self firstCompiledMethodFormat ifTrue:
+				[coInterpreter maybeFixClonedCompiledMethod: newObj.
+				 ((self isOldObject: newObj)
+				  and: [(self isYoungObject: objOop) or: [self isRemembered: objOop]]) ifTrue:
+					[scavenger remember: newObj]]].
 	^newObj

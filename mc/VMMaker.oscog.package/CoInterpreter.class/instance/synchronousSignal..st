@@ -12,6 +12,15 @@ synchronousSignal: aSemaphore
 			ofObject: aSemaphore
 			withValue: excessSignals + 1.
 		 ^false].
+
+	objectMemory hasSpurMemoryManagerAPI ifTrue:
+		[| firstLink |
+		 firstLink := objectMemory fetchPointer: FirstLinkIndex ofObject: aSemaphore.
+		 (objectMemory isForwarded: firstLink) ifTrue:
+			["0 = aSemaphore, 1 = aProcess. Hence reference to suspendedContext will /not/ be forwarded."
+			 objectMemory followForwardedObjectFields: aSemaphore toDepth: 1].
+		 self assert: (objectMemory isForwarded: (objectMemory fetchPointer: SuspendedContextIndex ofObject: firstLink)) not].
+
 	^self resume: (self removeFirstLinkOfList: aSemaphore)
 		preemptedYieldingIf: preemptionYields
 		from: CSSignal

@@ -15,15 +15,18 @@ lookupMethodInDictionary: dictionary
 		[index := 0.
 		 [index <= mask] whileTrue:
 			[nextSelector := objectMemory fetchPointer: index + SelectorStart ofObject: dictionary.
+			 (objectMemory isOopForwarded: nextSelector) ifTrue:
+				[nextSelector := objectMemory
+									fixFollowedField: index + SelectorStart
+									ofObject: dictionary
+									withInitialValue: nextSelector].
 			 nextSelector = messageSelector ifTrue:
-				[methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: dictionary.
+				[methodArray := objectMemory followObjField: MethodArrayIndex ofObject: dictionary.
 				 newMethod := objectMemory followField: index ofObject: methodArray.
 				^true].
 		 index := index + 1].
 		 ^false].
-	index := SelectorStart + (mask bitAnd: ((objectMemory isImmediate: messageSelector)
-												ifTrue: [objectMemory integerValueOf: messageSelector]
-												ifFalse: [objectMemory hashBitsOf: messageSelector])).
+	index := SelectorStart + (objectMemory methodDictionaryHash: messageSelector mask: mask).
 
 	"It is assumed that there are some nils in this dictionary, and search will 
 	 stop when one is encountered. However, if there are no nils, then wrapAround 
@@ -32,8 +35,13 @@ lookupMethodInDictionary: dictionary
 	[true] whileTrue:
 		[nextSelector := objectMemory fetchPointer: index ofObject: dictionary.
 		 nextSelector = objectMemory nilObject ifTrue: [^false].
+		 (objectMemory isOopForwarded: nextSelector) ifTrue:
+			[nextSelector := objectMemory
+								fixFollowedField: index + SelectorStart
+								ofObject: dictionary
+								withInitialValue: nextSelector].
 		 nextSelector = messageSelector ifTrue:
-			[methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: dictionary.
+			[methodArray := objectMemory followObjField: MethodArrayIndex ofObject: dictionary.
 			 newMethod := objectMemory followField: index - SelectorStart ofObject: methodArray.
 			^true].
 		 index := index + 1.

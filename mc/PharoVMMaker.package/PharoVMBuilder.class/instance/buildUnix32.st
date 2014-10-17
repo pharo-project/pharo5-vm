@@ -5,9 +5,9 @@ buildUnix32
 	PharoUnixConfig new
 		"generateForDebug;"
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
-		addInternalPlugins: #( UnixOSProcessPlugin  );
 		addThirdpartyLibraries: #( 
 			'libssh2' 
-			'libgit2' );
+			'libgit2'
+			'libsdl2');
 		generateSources; 
 		generate.

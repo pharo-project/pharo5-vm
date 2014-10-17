@@ -4,6 +4,7 @@ allocateOldSpaceChunkOfBytes: chunkBytes
 	 otherwise answer nil.  Break up a larger chunk if one of the
 	 exact size does not exist.  N.B.  the chunk is simply a pointer, it
 	 has no valid header.  The caller *must* fill in the header correctly."
+	<var: #chunkBytes type: #usqInt>
 	| initialIndex chunk index nodeBytes parent child |
 	"for debugging:" "totalFreeOldSpace := self totalFreeListBytes"
 	totalFreeOldSpace := totalFreeOldSpace - chunkBytes. "be optimistic (& don't wait for the write)"

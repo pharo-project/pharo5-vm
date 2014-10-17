@@ -1,0 +1,3 @@
+assembly
+blockReturnTop
+	^encoder sizeReturnTopToCaller

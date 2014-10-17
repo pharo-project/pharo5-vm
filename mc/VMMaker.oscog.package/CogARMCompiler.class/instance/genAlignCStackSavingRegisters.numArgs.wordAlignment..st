@@ -5,5 +5,4 @@ genAlignCStackSavingRegisters: saveRegs numArgs: numArgs wordAlignment: alignmen
 	 a simple bitAnd to effectively round-down the SP - except the vagaries of the ARM
 	 instruction set means we actually need a BIC sp, sp, $7"
 
-	cogit gen: BICCqR operand: 2r111 operand: SPReg.
 	^0

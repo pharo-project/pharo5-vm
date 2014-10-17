@@ -12,6 +12,7 @@ initializeMiscConstants
 	PrimCallMayCallBack := 4.
 	PrimCallCollectsProfileSamples := 8.
 	CheckAllocationFillerAfterPrimCall := 16.
+	PrimCallDoNotJIT := 32.
 
 	ReturnToInterpreter := 1. "setjmp/longjmp code."
 

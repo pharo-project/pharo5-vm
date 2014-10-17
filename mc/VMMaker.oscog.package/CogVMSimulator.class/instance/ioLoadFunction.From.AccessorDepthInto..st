@@ -30,4 +30,5 @@ ioLoadFunction: functionString From: pluginString AccessorDepthInto: accessorDep
 			 accessorDepthPtr at: 0 put: (pluginAndName at: 4).
 			 ^index]].
 	firstTime ifTrue: [transcript cr; show: 'Failed ... primitive not in plugin'].
+	transcript cr.
 	^0

@@ -65,7 +65,7 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 					[classOop := self classOrNilAtIndex: (classIndex := self classIndexOf: obj).
 					 (classIndicesShouldBeValid
 					  and: [classOop = nilObj
-					  and: [(self isHiddenObj: obj) not]]) ifTrue:
+					  and: [classIndex > self lastClassIndexPun]]) ifTrue:
 						[coInterpreter print: 'object leak in '; printHex: obj; print: ' invalid class index '; printHex: classIndex; print: ' -> '; print: (classOop ifNil: ['nil'] ifNotNil: ['nilObj']); cr.
 						 self eek.
 						 ok := false].

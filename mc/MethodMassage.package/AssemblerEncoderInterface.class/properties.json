@@ -1,0 +1,15 @@
+{
+	"category" : "MethodMassage-Kernel",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"SpecialSelectors" ],
+	"commentStamp" : "eem 2/22/2013 13:10",
+	"instvars" : [
+		"assembler",
+		"encoder" ],
+	"name" : "AssemblerEncoderInterface",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

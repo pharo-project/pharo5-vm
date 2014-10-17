@@ -67,7 +67,6 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 				stackPages
 					longAt: theFP + FoxMethod
 					put: (oop := newOop)].
-			  self followNecessaryForwardingInMethod: oop.
 			  (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
 				[theIPPtr := (theFP + FoxCallerSavedIP) asUnsignedInteger.
 				 theFP := callerFP]]]

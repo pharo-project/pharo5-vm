@@ -1,0 +1,3 @@
+assembly
+pushReceiver
+	^encoder genPushReceiver

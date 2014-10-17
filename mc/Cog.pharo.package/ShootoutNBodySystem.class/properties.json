@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"bodies" ],
+	"name" : "ShootoutNBodySystem",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

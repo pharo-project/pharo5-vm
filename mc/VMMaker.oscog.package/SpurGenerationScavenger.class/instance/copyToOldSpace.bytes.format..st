@@ -19,8 +19,7 @@ copyToOldSpace: survivor bytes: bytesInObject format: formatOfSurvivor
 	manager mem: newStart asVoidPointer cp: startOfSurvivor asVoidPointer y: bytesInObject.
 	newOop := newStart + (survivor - startOfSurvivor).
 	(manager isAnyPointerFormat: formatOfSurvivor) ifTrue:
-		[self remember: newOop.
-		 manager setIsRememberedOf: newOop to: true].
+		[self remember: newOop].
 	tenureCriterion = MarkOnTenure ifTrue:
 		[manager setIsMarkedOf: newOop to: true].
 	statTenures := nTenures + 1.

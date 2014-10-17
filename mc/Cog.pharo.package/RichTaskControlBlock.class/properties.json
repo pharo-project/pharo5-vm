@@ -1,0 +1,20 @@
+{
+	"category" : "Cog-Benchmarks-Richards",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"link",
+		"identity",
+		"priority",
+		"input",
+		"state",
+		"function",
+		"handle" ],
+	"name" : "RichTaskControlBlock",
+	"pools" : [
+		 ],
+	"super" : "RichTaskState",
+	"type" : "normal" }

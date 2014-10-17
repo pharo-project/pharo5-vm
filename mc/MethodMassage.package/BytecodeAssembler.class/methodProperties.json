@@ -1,0 +1,18 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"assemble:" : "eem 2/24/2013 13:38",
+		"code" : "eem 2/23/2013 16:53",
+		"createEncoder" : "EstebanLorenzano 6/16/2014 16:19",
+		"createMethod" : "eem 2/23/2013 23:09",
+		"emitPass" : "eem 2/24/2013 13:47",
+		"ensureLiteralsIncludeMethodClass:isQuick:" : "eem 3/21/2013 06:46",
+		"index" : "eem 2/22/2013 15:01",
+		"isLabel:" : "eem 2/22/2013 12:47",
+		"isQuickPrimitiveIndex:" : "eem 2/23/2013 15:39",
+		"nilLabelTargets" : "eem 2/22/2013 14:29",
+		"shouldUseLongAccessForInstVarOffset:" : "eem 2/24/2013 12:02",
+		"sizePasses" : "eem 2/24/2013 13:53",
+		"spanToLabel:" : "eem 2/22/2013 14:33",
+		"totalSizeFrom:to:" : "eem 2/22/2013 17:05" } }

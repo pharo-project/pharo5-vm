@@ -19,7 +19,12 @@ primitiveSuspend
 	myList := objectMemory fetchPointer: MyListIndex ofObject: process.
 	"XXXX Fixme. We should really check whether myList is a kind of LinkedList or not
 	but we can't easily so just do a quick check for nil which is the most common case."
-	myList = objectMemory nilObject ifTrue:[^self primitiveFail].
+	myList = objectMemory nilObject ifTrue:
+		[^self primitiveFailFor: PrimErrBadReceiver].
+	"Alas in Spur we need a read barrier"
+	(objectMemory isForwarded: myList) ifTrue:
+		[myList := objectMemory followForwarded: myList.
+		 objectMemory storePointer: MyListIndex ofObject: process withValue: myList].
 	self removeProcess: process fromList: myList.
 	self successful ifTrue:
 		[objectMemory storePointer: MyListIndex ofObject: process withValue: objectMemory nilObject.

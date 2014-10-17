@@ -6,7 +6,7 @@ emptyObjStack: objStack
 	objStack = nilObj ifTrue:
 		[^self].
 	self assert: (self isValidObjStack: objStack).
-	self storePointer: ObjStackTopx ofObject: objStack withValue: 0.
+	self storePointer: ObjStackTopx ofObjStack: objStack withValue: 0.
 	nextPage := self fetchPointer: ObjStackNextx ofObject: objStack.
 	[nextPage ~= 0] whileTrue:
 		[nextNextPage := self fetchPointer: ObjStackNextx ofObject: nextPage.

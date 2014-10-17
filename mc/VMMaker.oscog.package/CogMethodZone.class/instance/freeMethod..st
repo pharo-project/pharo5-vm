@@ -3,18 +3,24 @@ freeMethod: cogMethod
 	<var: #cogMethod type: #'CogMethod *'>
 	<inline: false>
 	self assert: cogMethod cmType ~= CMFree.
-	self assert: (cogit cogMethodDoesntLookKosher: cogMethod) = 0.
+	self assert: ((cogit cogMethodDoesntLookKosher: cogMethod) = 0
+				 or: [(cogit cogMethodDoesntLookKosher: cogMethod) = 23
+					 and: [(cogit cCoerceSimple: cogMethod methodObject to: #'CogMethod *') cmType = CMFree]]).
 	cogMethod cmType = CMMethod ifTrue:
 		["For non-Newspeak there should ne a one-to-one mapping between bytecoded and
 		  cog methods.  For Newspeak not necessarily, but only for anonymous accessors."
 		"Only reset the original method's header if it is referring to this CogMethod."
 		 (coInterpreter rawHeaderOf: cogMethod methodObject) asInteger = cogMethod asInteger
 			ifTrue:
-				[coInterpreter rawHeaderOf: cogMethod methodObject put: cogMethod methodHeader]
+				[coInterpreter rawHeaderOf: cogMethod methodObject put: cogMethod methodHeader.
+				 self cppIf: NewspeakVM ifTrue:
+					[(objectRepresentation canPinObjects and: [cogMethod nextMethodOrIRCs ~= 0]) ifTrue:
+						[objectRepresentation freeIRCs: cogMethod nextMethodOrIRCs]]]
 			ifFalse:
 				[self assert: (cogit noAssertMethodClassAssociationOf: cogMethod methodObject) = objectMemory nilObject.
 				 self cppIf: NewspeakVM ifTrue:
 					[self removeFromUnpairedMethodList: cogMethod]].
+		 cogit maybeFreeCountersOf: cogMethod.
 		 cogMethod cmRefersToYoung: false].
 	cogMethod cmType = CMOpenPIC ifTrue:
 		[self removeFromOpenPICList: cogMethod.

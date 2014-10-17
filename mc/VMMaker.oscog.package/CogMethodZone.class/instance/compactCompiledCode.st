@@ -17,8 +17,8 @@ compactCompiledCode
 		 self cppIf: NewspeakVM ifTrue:
 				[(source cmType = CMMethod
 				  and: [(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger]) ifTrue:
-					[source nextMethod: unpairedMethodList.
-					 unpairedMethodList := source]].
+					[source nextMethodOrIRCs: unpairedMethodList.
+					 unpairedMethodList := source asUnsignedInteger]].
 		 source cmType = CMOpenPIC ifTrue:
 			[source nextOpenPIC: openPICList asUnsignedInteger.
 			 openPICList := source].
@@ -40,12 +40,13 @@ compactCompiledCode
 					  cog methods.  For Newspeak not necessarily, but only for anonymous accessors."
 					"Only update the original method's header if it is referring to this CogMethod."
 					 (coInterpreter rawHeaderOf: dest methodObject) asInteger = source asInteger
-						ifTrue: [coInterpreter rawHeaderOf: dest methodObject put: dest asInteger]
+						ifTrue:
+							[coInterpreter rawHeaderOf: dest methodObject put: dest asInteger]
 						ifFalse:
 							[self assert: (cogit noAssertMethodClassAssociationOf: dest methodObject) = objectMemory nilObject.
-							 self cppIf: NewspeakVM
-								ifTrue: [dest nextMethod: unpairedMethodList.
-										unpairedMethodList := dest]]]
+							 self cppIf: NewspeakVM ifTrue:
+								[dest nextMethodOrIRCs: unpairedMethodList.
+								 unpairedMethodList := dest asUnsignedInteger]]]
 				ifFalse:
 					[dest cmType = CMOpenPIC ifTrue:
 						[dest nextOpenPIC: openPICList asUnsignedInteger.

@@ -1,0 +1,1 @@
+This runner profiles the benchmarks for better analysis. Unlike the classical benchmark runner this one will not collect the results. Instead it will execute the benchmarks in the system profiler.

@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"disassemble:" : "eem 2/24/2013 13:18",
+		"doesNotUnderstand:" : "eem 2/22/2013 12:48",
+		"instructionSequence" : "eem 2/22/2013 04:35",
+		"jump:" : "eem 2/21/2013 16:46",
+		"jump:if:" : "eem 2/21/2013 16:46",
+		"label" : "eem 3/20/2013 12:41",
+		"popIntoLiteralVariable:" : "eem 3/14/2013 16:58",
+		"pushClosureCopyNumCopiedValues:numArgs:blockSize:" : "eem 2/22/2013 04:42",
+		"pushConstant:" : "eem 3/14/2013 16:40",
+		"pushLiteralVariable:" : "eem 3/14/2013 16:59",
+		"storeIntoLiteralVariable:" : "eem 3/14/2013 16:59" } }

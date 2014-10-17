@@ -1,5 +1,6 @@
 free space
 freeObject: objOop
+	<api>
 	| bytes |
 	bytes := self bytesInObject: objOop.
 	totalFreeOldSpace := totalFreeOldSpace + bytes.

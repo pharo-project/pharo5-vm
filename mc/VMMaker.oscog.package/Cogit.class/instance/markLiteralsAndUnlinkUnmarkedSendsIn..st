@@ -10,6 +10,8 @@ markLiteralsAndUnlinkUnmarkedSendsIn: cogMethod
 	self assert: cogMethod cmType = CMMethod.
 	self assert: (objectMemory isMarked: cogMethod methodObject).
 	objectRepresentation markAndTraceLiteral: cogMethod selector.
+	self maybeMarkCountersIn: cogMethod.
+	self maybeMarkIRCsIn: cogMethod.
 	self mapFor: cogMethod
 		 performUntil: #markLiteralsAndUnlinkIfUnmarkedSend:pc:method:
 		 arg: cogMethod asInteger

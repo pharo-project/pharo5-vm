@@ -1,7 +1,7 @@
 frame access
 frameOfMarriedContext: aContext 
-	| value |
+	| senderOop |
 	<inline: true>
 	<returnTypeC: 'char *'>
-	value := objectMemory fetchPointer: SenderIndex ofObject: aContext.
-	^self withoutSmallIntegerTags: value
+	senderOop := objectMemory fetchPointer: SenderIndex ofObject: aContext.
+	^self withoutSmallIntegerTags: senderOop

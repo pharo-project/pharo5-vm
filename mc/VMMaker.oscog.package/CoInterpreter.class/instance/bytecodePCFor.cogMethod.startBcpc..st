@@ -17,6 +17,9 @@ bytecodePCFor: theIP cogMethod: cogMethod startBcpc: startBcpc
 		ifFalse:
 			[cogMethodForIP := self cCoerceSimple: cogMethod to: #'CogBlockMethod *'.
 			 self assert: cogMethodForIP cmType = CMMethod.
-			 mcpc := cogMethod asInteger - theIP].
+			 mcpc := cogMethod asInteger - theIP.
+			 "map any pcs in primitive code (i.e. return addresses for interpreter primitive calls) to the initial pc"
+			 mcpc asUnsignedInteger < cogMethod stackCheckOffset ifTrue:
+				[^startBcpc]].
 	self assert: (mcpc between: cogMethod asInteger and: cogMethod asInteger + cogMethod blockSize).
 	^cogit bytecodePCFor: mcpc startBcpc: startBcpc in: cogMethodForIP

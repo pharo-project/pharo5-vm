@@ -5,13 +5,13 @@ removeFromUnpairedMethodList: aCogMethod
 	| prevMethod |
 	<var: #prevMethod type: #'CogMethod *'>
 	self assert: aCogMethod cmType = CMMethod.
-	aCogMethod = unpairedMethodList ifTrue:
-		[unpairedMethodList := aCogMethod nextMethod.
+	aCogMethod asUnsignedInteger = unpairedMethodList ifTrue:
+		[unpairedMethodList := aCogMethod nextMethodOrIRCs.
 		 ^nil].
-	prevMethod := unpairedMethodList.
+	prevMethod := self cCoerceSimple: unpairedMethodList to: #'CogMethod *'.
 	[prevMethod notNil] whileTrue:
 		[self assert: (prevMethod ~~ nil and: [prevMethod cmType = CMMethod]).
-		 prevMethod nextMethod = aCogMethod ifTrue:
-			[prevMethod nextMethod: aCogMethod nextMethod.
+		 prevMethod nextMethodOrIRCs = aCogMethod asUnsignedInteger ifTrue:
+			[prevMethod nextMethodOrIRCs: aCogMethod nextMethodOrIRCs.
 			 ^nil].
-		  prevMethod := prevMethod nextMethod]
+		  prevMethod := self cCoerceSimple: prevMethod nextMethodOrIRCs to: #'CogMethod *']

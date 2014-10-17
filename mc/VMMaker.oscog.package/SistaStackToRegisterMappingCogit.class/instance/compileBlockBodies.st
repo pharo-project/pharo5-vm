@@ -3,7 +3,7 @@ compileBlockBodies
 	"override to maintain counterIndex when recompiling blocks; sigh."
 	<inline: false>
 	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs savedNumTemps
-	  initialStackPtr initialOpcodeIndex initialAnnotationIndex initialCounterIndex |
+	  initialStackPtr initialOpcodeIndex initialAnnotationIndex initialCounterIndex initialIndexOfIRC |
 	<var: #blockStart type: #'BlockStart *'>
 	self assert: blockCount > 0.
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
@@ -18,6 +18,8 @@ compileBlockBodies
 		 initialOpcodeIndex := opcodeIndex.
 		 initialAnnotationIndex := annotationIndex.
 		 initialCounterIndex := counterIndex.
+		 self cppIf: #NewspeakVM ifTrue:
+			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
 		  (result := self compileAbstractInstructionsFrom: blockStart startpc + ((self pushNilSize: methodObj) * blockStart numInitialNils)
@@ -34,7 +36,6 @@ compileBlockBodies
 				 blockStart fakeHeader dependent: nil.
 				 self reinitializeFixupsFrom: blockStart startpc + blockStart numInitialNils
 					through: blockStart startpc + blockStart span - 1.
-				 self reinitializeCountersFrom: initialCounterIndex to: counterIndex - 1.
 				 self cCode: 'bzero(abstractOpcodes + initialOpcodeIndex,
 									(opcodeIndex - initialOpcodeIndex) * sizeof(AbstractInstruction))'
 					inSmalltalk: [initialOpcodeIndex to: opcodeIndex - 1 do:
@@ -44,7 +45,9 @@ compileBlockBodies
 										put: (processor abstractInstructionCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
 				 annotationIndex := initialAnnotationIndex.
-				 counterIndex := initialCounterIndex].
+				 counterIndex := initialCounterIndex.
+				 self cppIf: #NewspeakVM ifTrue:
+					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].
 	needsFrame := savedNeedsFrame.
 	methodOrBlockNumArgs := savedNumArgs.

@@ -3,6 +3,7 @@ addFirstLink: proc toList: aList
 	"Add the given process to the front of the given linked list
 	 and set the backpointer of process to its new list."
 	| firstLink |
+	self assert: (objectMemory isForwarded: aList) not.
 	self assert: (objectMemory fetchPointer: NextLinkIndex ofObject: proc) = objectMemory nilObject.
 	firstLink := objectMemory fetchPointer: FirstLinkIndex ofObject: aList.
 	self assert: firstLink ~= proc.

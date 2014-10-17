@@ -1,41 +1,47 @@
 allocation
 clone: objOop
-	| numSlots newObj |
+	| numSlots fmt newObj |
 	numSlots := self numSlotsOf: objOop.
-	
+	fmt := self formatOf: objOop.
 	numSlots > self maxSlotsForNewSpaceAlloc
 		ifTrue:
 			[newObj := self allocateSlotsInOldSpace: numSlots
-							format: (self formatOf: objOop)
+							format: fmt
 							classIndex: (self classIndexOf: objOop)]
 		ifFalse:
 			[newObj := self allocateSlots: numSlots
-							format: (self formatOf: objOop)
+							format: fmt
 							classIndex: (self classIndexOf: objOop)].
-	(self isPointersNonImm: objOop)
+	newObj ifNil:
+		[^0].
+	(self isPointersFormat: fmt)
 		ifTrue:
 			[| hasYoung |
 			 hasYoung := false.
 			 0 to: numSlots - 1 do:
 				[:i| | oop |
 				oop := self fetchPointer: i ofObject: objOop.
-				((self isNonImmediate: oop)
-				 and: [self isForwarded: oop]) ifTrue:
-					[oop := self followForwarded: oop].
-				((self isNonImmediate: oop)
-				 and: [self isYoungObject: oop]) ifTrue:
-					[hasYoung := true].
+				(self isNonImmediate: oop) ifTrue:
+					[(self isForwarded: oop) ifTrue:
+						[oop := self followForwarded: oop].
+					((self isNonImmediate: oop)
+					 and: [self isYoungObject: oop]) ifTrue:
+						[hasYoung := true]].
 				self storePointerUnchecked: i
 					ofObject: newObj
 					withValue: oop].
 			(hasYoung
 			 and: [(self isYoungObject: newObj) not]) ifTrue:
-				[scavenger remember: newObj.
-				 self setIsRememberedOf: newObj to: true]]
+				[scavenger remember: newObj]]
 		ifFalse:
 			[0 to: numSlots - 1 do:
 				[:i|
 				self storePointerUnchecked: i
 					ofObject: newObj
-					withValue: (self fetchPointer: i ofObject: objOop)]].
+					withValue: (self fetchPointer: i ofObject: objOop)].
+			 fmt >= self firstCompiledMethodFormat ifTrue:
+				[coInterpreter maybeFixClonedCompiledMethod: newObj.
+				 ((self isOldObject: newObj)
+				  and: [(self isYoungObject: objOop) or: [self isRemembered: objOop]]) ifTrue:
+					[scavenger remember: newObj]]].
 	^newObj

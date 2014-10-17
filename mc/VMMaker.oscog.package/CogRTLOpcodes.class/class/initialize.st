@@ -3,7 +3,7 @@ initialize
 	"Abstract opcodes are a compound of a one word operation specifier and zero or more operand type specifiers.
 	 e.g. MoveRR is the Move opcode with two register operand specifiers and defines a move register to
 	 register instruction from operand 0 to operand 1.  The word and register size is assumed to be either 32-bits on
-	 a 32-bit architecture or 64-bits on a 64-bit architecture.  
+	 a 32-bit architecture or 64-bits on a 64-bit architecture.		(self initialize)
 	The operand specifiers are
 		R		- general purpose register
 		Rd		- double-precision floating-point register
@@ -59,6 +59,7 @@ initialize
 	DPFPReg7 := -16.
 	
 	LinkReg := -17.
+	PCReg := -18.
 
 	opcodeNames := #("Noops & Pseudo Ops"
 						Label
@@ -111,6 +112,7 @@ initialize
 						MoveAwR
 						MoveRAw
 						MoveAbR
+						MoveRAb
 						MoveMwrR MoveRMwr MoveXwrRR MoveRXwrR MoveXowrR MoveRXowr
 						MoveM16rR MoveRM16r MoveX16rRR MoveRX16rR
 						MoveM32rR MoveRM32r MoveX32rRR MoveRX32rR

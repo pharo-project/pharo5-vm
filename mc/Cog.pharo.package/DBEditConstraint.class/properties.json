@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-DeltaBlue",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "DBEditConstraint",
+	"pools" : [
+		 ],
+	"super" : "DBUnaryConstraint",
+	"type" : "normal" }

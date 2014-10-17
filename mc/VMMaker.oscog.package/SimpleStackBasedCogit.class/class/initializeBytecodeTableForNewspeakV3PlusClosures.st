@@ -30,8 +30,8 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(1 124 124 genReturnTopFromMethod		return needsFrameIfInBlock: isMappedInBlock -1)
 		(1 125 125 genReturnTopFromBlock		return needsFrameNever: -1)
 
-		(3 126 126 genDynamicSuperSendBytecode isMapped)		"Newspeak"
-		(2 127 127 genPushImplicitReceiverBytecode isMapped)	"Newspeak"
+		(3 126 126 genDynamicSuperSendBytecode isMapped)			"Newspeak"
+		(2 127 127 genPushImplicitReceiverBytecode isMapped hasIRC)	"Newspeak"
 
 		(2 128 128 extendedPushBytecode needsFrameNever: 1)
 		(2 129 129 extendedStoreBytecode)

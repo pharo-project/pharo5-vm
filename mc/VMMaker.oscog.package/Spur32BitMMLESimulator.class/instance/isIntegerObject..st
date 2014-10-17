@@ -2,7 +2,7 @@ object testing
 isIntegerObject: oop
 	"This list records the valid senders of isIntegerObject: as we replace uses of
 	  isIntegerObject: by isImmediate: where appropriate."
-	| sel |
+	"| sel |
 	sel := thisContext sender method selector.
 	(#(	DoIt
 		DoItIn:
@@ -47,7 +47,7 @@ isIntegerObject: oop
 		makeBaseFrameFor:
 		numPointerSlotsOf:
 		objCouldBeClassObj:
-		on:do: "from the debugger"
+		on:do: ""from the debugger""
 		positive32BitValueOf:
 		positive64BitValueOf:
 		primDigitAdd:
@@ -79,6 +79,7 @@ isIntegerObject: oop
 		signed64BitValueOf:
 		subscript:with:storing:format:
 		unlockSurfaces
-		establishFrameForContextToReturnTo:) includes: sel) ifFalse:
-		[self halt].
+		establishFrameForContextToReturnTo:
+		positiveMachineIntegerValueOf:) includes: sel) ifFalse:
+		[self halt]."
 	^super isIntegerObject: oop

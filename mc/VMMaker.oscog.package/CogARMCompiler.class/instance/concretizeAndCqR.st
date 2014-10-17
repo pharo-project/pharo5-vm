@@ -5,7 +5,7 @@ concretizeAndCqR
 	self rotateable8bitImmediate: (operands at: 0)
 		ifTrue: [ :rot :immediate | | reg |
 			reg := self concreteRegister: (operands at: 1).
-			self machineCodeAt: 0 put: (self ands: reg rn: reg imm: immediate ror: rot<<1).
+			self machineCodeAt: 0 put: (self ands: reg rn: reg imm: immediate ror: rot).
 			^machineCodeSize := 4]
 		ifFalse: [
 			"see if the constant bit-inverted makes a quick value and if so BIC it instead
@@ -16,6 +16,6 @@ concretizeAndCqR
 			self rotateable8bitImmediate: val
 				ifTrue: [ :rot :immediate | |reg|
 					reg := self concreteRegister: (operands at: 1).
-					self machineCodeAt: 0 put: (self bics: reg rn: reg imm: immediate ror: rot<<1).
+					self machineCodeAt: 0 put: (self bics: reg rn: reg imm: immediate ror: rot).
 					^machineCodeSize := 4]
 				ifFalse: [^self concretizeDataOperationCwR: 0]]

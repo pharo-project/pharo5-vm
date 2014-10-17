@@ -13,7 +13,8 @@ declareCVarsIn: aCCodeGenerator
 		var: #highestObjects type: #SpurCircularBuffer;
 		var: #unscannedEphemerons type: #SpurContiguousObjStack;
 		var: #heapGrowthToSizeGCRatio type: #float;
-		var: #heapSizeAtPreviousGC type: #usqInt.
+		var: #heapSizeAtPreviousGC type: #usqInt;
+		var: #totalFreeOldSpace type: #usqInt.
 	aCCodeGenerator
 		var: #remapBuffer
 		declareC: 'sqInt remapBuffer[RemapBufferSize + 1 /* ', (RemapBufferSize + 1) printString, ' */]'.

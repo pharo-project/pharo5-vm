@@ -20,7 +20,7 @@ popObjStack: objStack
 					[(MarkStackRecord last first = #push and: [MarkStackRecord last last = top])
 						ifTrue: [MarkStackRecord removeLast]
 						ifFalse: [MarkStackRecord addLast: {#pop. top}]]]].
-	self storePointer: ObjStackTopx ofObject: objStack withValue: topx.
+	self storePointer: ObjStackTopx ofObjStack: objStack withValue: topx.
 	(topx = 0
 	 and: [(nextPage := self fetchPointer: ObjStackNextx ofObject: objStack) ~= 0])
 		ifTrue:

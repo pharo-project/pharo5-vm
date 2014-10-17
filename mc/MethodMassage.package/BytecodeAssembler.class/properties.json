@@ -1,0 +1,19 @@
+{
+	"category" : "MethodMassage-Kernel",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 2/22/2013 11:12",
+	"instvars" : [
+		"code",
+		"sizes",
+		"encoder",
+		"method",
+		"index",
+		"shouldNegateInstVarOffsetsMask" ],
+	"name" : "BytecodeAssembler",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

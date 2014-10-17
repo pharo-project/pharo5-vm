@@ -1,0 +1,18 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "lw 8/23/2012 19:25",
+	"instvars" : [
+		"pc",
+		"nextpc",
+		"address",
+		"type",
+		"registerAccessor" ],
+	"name" : "ProcessorSimulationTrap",
+	"pools" : [
+		 ],
+	"super" : "Error",
+	"type" : "normal" }

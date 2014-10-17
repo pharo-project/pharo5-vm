@@ -18,6 +18,7 @@
 		"complete",
 		"export",
 		"static",
+		"inline",
 		"sharedLabel",
 		"sharedCase",
 		"comment",

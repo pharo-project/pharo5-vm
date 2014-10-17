@@ -6,33 +6,33 @@ generateEnilopmarts
 
 	self cppIf: Debug
 		ifTrue:
-			[realCEEnterCogCodePopReceiverArg0Regs :=
+			[realCECallCogCodePopReceiverArg0Regs :=
 				self genEnilopmartFor: ReceiverResultReg
 					and: Arg0Reg
-					called: 'realCEEnterCogCodePopReceiverArg0Regs'.
-			 ceEnterCogCodePopReceiverArg0Regs := #enterCogCodePopReceiverArg0Regs.
-			 realCEEnterCogCodePopReceiverArg1Arg0Regs :=
+					called: 'realCECallCogCodePopReceiverArg0Regs'.
+			 ceCallCogCodePopReceiverArg0Regs := #callCogCodePopReceiverArg0Regs.
+			 realCECallCogCodePopReceiverArg1Arg0Regs :=
 				self genEnilopmartFor: ReceiverResultReg
 					and: Arg0Reg							
 					and: Arg1Reg
-					called: 'realCEEnterCogCodePopReceiverArg1Arg0Regs'.
-			 ceEnterCogCodePopReceiverArg1Arg0Regs := #enterCogCodePopReceiverArg1Arg0Regs]
+					called: 'realCECallCogCodePopReceiverArg1Arg0Regs'.
+			 ceCallCogCodePopReceiverArg1Arg0Regs := #callCogCodePopReceiverArg1Arg0Regs]
 		ifFalse:
-			[ceEnterCogCodePopReceiverArg0Regs :=
+			[ceCallCogCodePopReceiverArg0Regs :=
 				self genEnilopmartFor: ReceiverResultReg
 					and: Arg0Reg
-					called: 'ceEnterCogCodePopReceiverArg0Regs'.
-			 ceEnterCogCodePopReceiverArg1Arg0Regs :=
+					called: 'ceCallCogCodePopReceiverArg0Regs'.
+			 ceCallCogCodePopReceiverArg1Arg0Regs :=
 				self genEnilopmartFor: ReceiverResultReg
 					and: Arg0Reg							
 					and: Arg1Reg
-					called: 'ceEnterCogCodePopReceiverArg1Arg0Regs'].
+					called: 'ceCallCogCodePopReceiverArg1Arg0Regs'].
 
-	"These are special versions of the ceEnterCogCodePopReceiverAndClassRegs enilopmart that also
-	 pop register argsfrom the stack to undo the pushing of register args in the abort/miss trampolines."
-	ceEnter0ArgsPIC := self genEnterPICEnilopmartNumArgs: 0.
+	"These are special versions of the ceCallCogCodePopReceiverAndClassRegs enilopmart that also
+	 pop register args from the stack to undo the pushing of register args in the abort/miss trampolines."
+	ceCall0ArgsPIC := self genCallPICEnilopmartNumArgs: 0.
 	self numRegArgs >= 1 ifTrue:
-		[ceEnter1ArgsPIC := self genEnterPICEnilopmartNumArgs: 1.
+		[ceCall1ArgsPIC := self genCallPICEnilopmartNumArgs: 1.
 		 self numRegArgs >= 2 ifTrue:
-			[ceEnter2ArgsPIC := self genEnterPICEnilopmartNumArgs: 2.
+			[ceCall2ArgsPIC := self genCallPICEnilopmartNumArgs: 2.
 			 self assert: self numRegArgs = 2]]

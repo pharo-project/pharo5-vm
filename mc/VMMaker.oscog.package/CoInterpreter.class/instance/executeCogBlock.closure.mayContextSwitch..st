@@ -16,5 +16,5 @@ executeCogBlock: cogMethod closure: closure mayContextSwitch: mayContextSwitch
 				ifTrue: [cogMethod blockEntryOffset]
 				ifFalse: [cogMethod blockEntryOffset - cogit noContextSwitchBlockEntryOffset]).
 	self push: closure.
-	cogit ceEnterCogCodePopReceiverReg
+	cogit ceCallCogCodePopReceiverReg
 	"NOTREACHED"

@@ -50,6 +50,10 @@ printMethodHeader: cogMethod on: aStream
 					nextPutAll: 'cmRefersToYoung: ';
 					nextPutAll: (cogMethod cmRefersToYoung ifTrue: ['yes'] ifFalse: ['no'])].
 			cogMethod cmType = CMMethod ifTrue:
-				[([cogMethod numCounters] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
-					[:nc| aStream crtab; nextPutAll: 'numCounters: '; print: nc]]].
+				[([cogMethod nextMethodOrIRCs] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
+					[:nmoircs| aStream crtab; nextPutAll: 'nextMethodOrIRCs: '.
+						nmoircs = 0 ifTrue: [aStream print: nmoircs] ifFalse: [self printHex: nmoircs]].
+				 ([cogMethod counters] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
+					[:cntrs| aStream crtab; nextPutAll: 'counters: '.
+						cntrs = 0 ifTrue: [aStream print: cntrs] ifFalse: [self printHex: cntrs]]]].
 	aStream cr; flush

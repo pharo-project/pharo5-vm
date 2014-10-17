@@ -1,5 +1,6 @@
 instantiation
 instantiateClass: classObj indexableSize: nElements
+	<var: #nElements type: #usqInt>
 	| instSpec classFormat numSlots classIndex newObj fillValue |
 	classFormat := self formatOfClass: classObj.
 	instSpec := self instSpecOfClassFormat: classFormat.
@@ -39,8 +40,12 @@ instantiateClass: classObj indexableSize: nElements
 		[coInterpreter primitiveFailFor: classIndex negated.
 		 ^nil].
 	numSlots > self maxSlotsForNewSpaceAlloc
-		ifTrue: [newObj := self allocateSlotsInOldSpace: numSlots format: instSpec classIndex: classIndex]
-		ifFalse: [newObj := self allocateSlots: numSlots format: instSpec classIndex: classIndex].
+		ifTrue:
+			[numSlots > self maxSlotsForAlloc ifTrue:
+				[^nil].
+			 newObj := self allocateSlotsInOldSpace: numSlots format: instSpec classIndex: classIndex]
+		ifFalse:
+			[newObj := self allocateSlots: numSlots format: instSpec classIndex: classIndex].
 	newObj ifNotNil:
 		[self fillObj: newObj numSlots: numSlots with: fillValue].
 	^newObj

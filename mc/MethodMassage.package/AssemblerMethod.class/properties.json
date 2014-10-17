@@ -1,0 +1,26 @@
+{
+	"category" : "MethodMassage-Kernel",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 3/15/2013 16:02",
+	"instvars" : [
+		"literals",
+		"instructions",
+		"numArgs",
+		"numTemps",
+		"frameSize",
+		"primitive",
+		"flag",
+		"signFlag",
+		"trailer",
+		"methodClass",
+		"selector",
+		"compiledMethodClass",
+		"fixLabels" ],
+	"name" : "AssemblerMethod",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

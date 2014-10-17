@@ -9,7 +9,7 @@ sortFreeListAt: i
 		[^self].
 	head := list.
 	"scan list to find find first out-of-order element"
-	[(next := self fetchPointer: self freeChunkNextIndex ofObject: list) > list]
+	[(next := self fetchPointer: self freeChunkNextIndex ofFreeChunk: list) > list]
 		whileTrue:
 			[list := next].
 	"no out-of-order elements; list was already sorted; we're done"
@@ -21,14 +21,14 @@ sortFreeListAt: i
 	[list ~= 0] whileTrue:
 		[| node prev |
 		 "grab next node to be inserted"
-		 next := self fetchPointer: self freeChunkNextIndex ofObject: list.
+		 next := self fetchPointer: self freeChunkNextIndex ofFreeChunk: list.
 		 "search sorted list for insertion point"
 		 prev := 0. "prev node for insertion sort"
 		 node := head. "current node for insertion sort"
 		 [node ~= 0
 		  and: [self oop: node isLessThan: list]] whileTrue:
 			[prev := node.
-			 node := self fetchPointer: self freeChunkNextIndex ofObject: node].
+			 node := self fetchPointer: self freeChunkNextIndex ofFreeChunk: node].
 		 "insert the node into the sorted list"
 		 self assert: (node = 0 or: [node > list]).
 		 prev = 0

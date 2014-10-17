@@ -3,6 +3,7 @@ positiveMachineIntegerValueOf: oop
 	"Answer a value of an integer in address range, i.e up to the size of a machine word.
 	The object may be either a positive SmallInteger or a LargePositiveInteger of size <= word size."
 	<returnTypeC: #'unsigned long'>
+	<inline: true> "only two callers & one is primitiveNewWithArg"
 	| value bs ok |
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[value := objectMemory integerValueOf: oop.

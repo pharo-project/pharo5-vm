@@ -31,9 +31,6 @@ enterIntoClassTable: aBehavior
 				withValue: aBehavior.
 			 self setHashBitsOf: aBehavior to: classTableIndex.
 			 self assert: (self classAtIndex: (self rawHashBitsOf: aBehavior)) = aBehavior.
-			 "now fault-in method lookup chain."
-			 self scanClassPostBecome: aBehavior
-				effects: BecamePointerObjectFlag+BecameCompiledMethodFlag.
 			 self ensureAdequateClassTableBitmap.
 			 ^0]].
 	 majorIndex := (majorIndex + 1 bitAnd: self classIndexMask) max: 1.

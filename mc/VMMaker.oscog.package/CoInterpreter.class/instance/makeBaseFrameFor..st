@@ -20,8 +20,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	theIP := (objectMemory isIntegerObject: theIP)
 				ifTrue: [objectMemory integerValueOf: theIP]
 				ifFalse: [HasBeenReturnedFromMCPC].
-	theMethod := objectMemory followNonImmediateField: MethodIndex ofObject: aContext.
-	self followNecessaryForwardingInMethod: theMethod.
+	theMethod := objectMemory followObjField: MethodIndex ofObject: aContext.
 	page := self newStackPage.
 	"first word on stack is caller context of base frame"
 	stackPages

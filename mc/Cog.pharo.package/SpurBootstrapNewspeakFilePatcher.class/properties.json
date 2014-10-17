@@ -1,0 +1,15 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"source",
+		"substitutions" ],
+	"name" : "SpurBootstrapNewspeakFilePatcher",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

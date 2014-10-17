@@ -1,0 +1,14 @@
+{
+	"category" : "MethodMassage-Kernel",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 2/22/2013 11:18",
+	"instvars" : [
+		 ],
+	"name" : "BytecodeEmitter",
+	"pools" : [
+		 ],
+	"super" : "AssemblerEncoderInterface",
+	"type" : "normal" }

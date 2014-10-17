@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Benchmarks-DeltaBlue",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"strength" ],
+	"name" : "DBAbstractConstraint",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

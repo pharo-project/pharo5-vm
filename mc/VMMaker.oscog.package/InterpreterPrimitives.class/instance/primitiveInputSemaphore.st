@@ -16,7 +16,10 @@ primitiveInputSemaphore
 	"old code for compatibility"
 	TheInputSemaphore = nil ifTrue:
 		[^self primitiveFail].
-	arg := self popStack.
-	(objectMemory fetchClassOf: arg) = (objectMemory splObj: ClassSemaphore) ifFalse:
-		[arg := objectMemory nilObject].
-	objectMemory splObj: TheInputSemaphore put: arg
+	(arg = objectMemory nilObject
+	 or: [objectMemory isSemaphoreOop: arg])
+		ifTrue:
+			[objectMemory splObj: TheInputSemaphore put: arg.
+			 self pop: 1]
+		ifFalse:
+			[self primitiveFailFor: PrimErrBadArgument]

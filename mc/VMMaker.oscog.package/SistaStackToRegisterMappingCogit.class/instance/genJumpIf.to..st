@@ -8,11 +8,10 @@ genJumpIf: boolean to: targetBytecodePC
 	 decrements the lower half.  N.B. We *do not* eliminate dead branches (true ifTrue:/true ifFalse:)
 	 so that scanning for send and branch data is simplified and that branch data is correct."
 	<inline: false>
-	| desc ok counter countTripped retry |
-	<var: #desc type: #'CogSimStackEntry *'>
+	| desc ok counterAddress countTripped retry |
 	<var: #ok type: #'AbstractInstruction *'>
+	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
-	<var: #counter type: #'AbstractInstruction *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
 	self ssFlushTo: simStackPtr - 1.
 	desc := self ssTop.
@@ -20,17 +19,15 @@ genJumpIf: boolean to: targetBytecodePC
 	desc popToReg: TempReg.
 
 	self ssAllocateRequiredReg: SendNumArgsReg. "Use this as the count reg."
-	counter := self addressOf: (counters at: counterIndex).
+	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	counterIndex := counterIndex + 1.
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
 	self assert: BytesPerWord = CounterBytes.
-	retry := self MoveAw: counter asUnsignedInteger R: SendNumArgsReg.
-	counter addDependent: (self annotateAbsolutePCRef: retry).
+	retry := self MoveAw: counterAddress R: SendNumArgsReg.
 	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
 	"Don't write back if we trip; avoids wrapping count back to initial value, and if we trip we don't execute."
 	countTripped := self JumpCarry: 0.
-	counter addDependent: (self annotateAbsolutePCRef:
-		(self MoveR: SendNumArgsReg Aw: counter asUnsignedInteger)). "write back"
+	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
 
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
@@ -40,8 +37,7 @@ genJumpIf: boolean to: targetBytecodePC
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
 	self SubCq: 1 R: SendNumArgsReg. "Count untaken"
-	counter addDependent: (self annotateAbsolutePCRef:
-		(self MoveR: SendNumArgsReg Aw: counter asUnsignedInteger)). "write back"
+	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
 
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]

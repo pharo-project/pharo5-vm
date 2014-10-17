@@ -1,3 +1,3 @@
 forwarding
-followForwardedObjectFields: methodObh toDepth: depth 
+followForwardedObjectFields: objOop toDepth: depth 
 	"This is a noop in the facade"

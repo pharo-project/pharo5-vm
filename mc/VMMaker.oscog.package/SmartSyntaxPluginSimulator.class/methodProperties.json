@@ -15,6 +15,8 @@
 		"generateCoerceToSmallIntegerObjectFrom:on:" : "eem 10/2/2010 14:03",
 		"getPrimitiveSignatureFor:" : "eem 10/2/2010 22:21",
 		"initialiseModule" : "eem 10/2/2010 22:44",
+		"isPluginClass" : "eem 7/2/2014 17:56",
+		"isSmartSyntaxPluginSimulator" : "eem 7/2/2014 19:05",
 		"primitive:parameters:" : "eem 10/2/2010 21:36",
 		"primitive:parameters:receiver:" : "eem 10/2/2010 21:35",
 		"respondsTo:" : "eem 10/2/2010 22:31",

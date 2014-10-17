@@ -1,0 +1,3 @@
+instruction decoding
+popIntoRemoteTemp: remoteTempIndex inVectorAt: tempVectorIndex
+	currentContext pop

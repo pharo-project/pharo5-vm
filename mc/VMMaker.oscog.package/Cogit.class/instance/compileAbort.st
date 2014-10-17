@@ -9,7 +9,9 @@ compileAbort
 	stackOverflowCall := self MoveCq: 0 R: ReceiverResultReg.
 	backEnd hasLinkRegister
 		ifTrue:
-			[sendMiss := self PushR: LinkReg.
+			["if we have a link register we will assume that it does not get automatically pushed onto the stack
+			and thus needs to be manually handled here"
+			sendMiss := self PushR: LinkReg.
 			 sendMissCall := self Call: (self methodAbortTrampolineFor: methodOrBlockNumArgs)]
 		ifFalse:
 			[sendMiss :=

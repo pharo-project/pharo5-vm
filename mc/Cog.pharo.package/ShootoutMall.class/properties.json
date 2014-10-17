@@ -1,0 +1,20 @@
+{
+	"category" : "Cog-Benchmarks-Shootout",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Units" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"guard",
+		"maxRendezvous",
+		"open",
+		"process",
+		"queue",
+		"cache",
+		"pairCache" ],
+	"name" : "ShootoutMall",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

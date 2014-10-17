@@ -5,11 +5,12 @@ primitiveProfileSemaphore
 	See also primitiveProfileStart."
 	| sema |
 	<export: true>
-	self methodArgumentCount = 1 ifFalse:[^self success: false].
+	self methodArgumentCount = 1 ifFalse:
+		[^self primitiveFailFor: PrimErrBadNumArgs].
 	sema := self stackValue: 0.
-	sema = objectMemory nilObject ifFalse:[
-		(objectMemory fetchClassOf: sema) = (objectMemory splObj: ClassSemaphore) 
-			ifFalse:[^self success: false]].
+	(sema = objectMemory nilObject
+	 or: [objectMemory isSemaphoreOop: sema]) ifFalse:
+		[^self primitiveFailFor: PrimErrBadArgument].
 	profileSemaphore := sema.
 	profileProcess := profileMethod := objectMemory nilObject.
-	self pop: 1.
+	self pop: 1

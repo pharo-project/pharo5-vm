@@ -5,7 +5,7 @@ rotateable8bitImmediate: constant ifTrue: trueAlternativeBlock ifFalse: falseAlt
 	This is only suitable for quick constant(Cq), which don't change."
 	
 	(constant bitAnd: 16rFF) = constant ifTrue: [ ^trueAlternativeBlock value: 0 value: constant].
-	1 to: 15 do: [:i |
-		(constant bitAnd: 16rFF << (i<<1)) = constant 
-			ifTrue: [ ^trueAlternativeBlock value: 16 - i value: constant >> (i << 1)]].
+	2 to: 30 do: [:i |
+		(constant bitAnd: 16rFF << i) = constant 
+			ifTrue: [ ^trueAlternativeBlock value: 32 - i value: constant >> i ]].
 	^falseAlternativeBlock value

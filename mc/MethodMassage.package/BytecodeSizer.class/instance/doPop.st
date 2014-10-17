@@ -1,0 +1,3 @@
+assembly
+doPop
+	^encoder sizePop

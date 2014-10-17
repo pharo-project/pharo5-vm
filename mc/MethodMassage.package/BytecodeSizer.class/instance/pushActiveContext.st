@@ -1,0 +1,3 @@
+assembly
+pushActiveContext
+	^encoder sizePushThisContext

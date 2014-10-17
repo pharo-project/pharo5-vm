@@ -8,8 +8,4 @@ generateMissAbortTrampolines
 	ceCPICMissTrampoline := self genTrampolineFor: #ceCPICMiss:receiver:
 								called: 'ceCPICMissTrampoline'
 								arg: ClassReg
-								arg: ReceiverResultReg.
-	self cCode: '' inSmalltalk:
-		[simulatedTrampolines
-			at: (self simulatedAddressFor: #ceSendFromInLineCacheMiss:)
-			put: #ceSendFromInLineCacheMiss:]
+								arg: ReceiverResultReg

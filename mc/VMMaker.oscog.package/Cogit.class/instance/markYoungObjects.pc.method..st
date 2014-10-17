@@ -13,9 +13,13 @@ markYoungObjects: annotation pc: mcpc method: cogMethod
 				[objectRepresentation markAndTraceLiteralIfYoung: cacheTag].
 				 self cppIf: NewspeakVM ifTrue:
 					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-						[| class mixin |
-						 (class := backEnd unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize) ~= 0 ifTrue:
-							[objectRepresentation markAndTraceLiteralIfYoung: class.
-							 mixin := backEnd unalignedLongAt: mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop.
+						[| cacheAddress class mixin |
+						 self assert: NumOopsPerIRC = 2.
+						 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
+						 class := backEnd unalignedLongAt: cacheAddress.
+						 class ~= 0 ifTrue:
+							[objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+								[objectRepresentation markAndTraceLiteralIfYoung: class].
+							 mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop.
 							 objectRepresentation markAndTraceLiteralIfYoung: mixin]]]]].
 	^0 "keep scanning"

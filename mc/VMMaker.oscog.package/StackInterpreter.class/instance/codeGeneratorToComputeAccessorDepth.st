@@ -1,6 +1,6 @@
 primitive support
 codeGeneratorToComputeAccessorDepth
 	^VMMaker new
-		buildCodeGeneratorForInterpreter: StackInterpreterPrimitives
+		buildCodeGeneratorForInterpreter: self class primitivesClass
 		includeAPIMethods: false
 		initializeClasses: false

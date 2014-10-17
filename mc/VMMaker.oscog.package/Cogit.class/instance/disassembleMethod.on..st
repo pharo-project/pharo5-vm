@@ -31,14 +31,15 @@ disassembleMethod: surrogateOrAddress on: aStream
 
 	self cppIf: NewspeakVM
 		ifTrue:
-			[mapEntries keys do:
-				[:a|
-				(mapEntries at: a) = #IsNSSendCall ifTrue:
-					[mapEntries
-						at: a + backEnd jumpShortByteSize
-							put: {'Class'. #disassembleCachedOop:. BytesPerWord};
-						at: a + backEnd jumpShortByteSize + BytesPerOop
-							put: {'ImplicitReceiver'. #disassembleCachedOop:. BytesPerWord}]]].
+			[objectRepresentation canPinObjects ifFalse:
+				[mapEntries keys do:
+					[:a|
+					(mapEntries at: a) = #IsNSSendCall ifTrue:
+						[mapEntries
+							at: a + backEnd jumpShortByteSize
+								put: {'Class'. #disassembleCachedOop:. BytesPerWord};
+							at: a + backEnd jumpShortByteSize + BytesPerOop
+								put: {'ImplicitReceiver'. #disassembleCachedOop:. BytesPerWord}]]]].
 
 	"This would all be far more elegant and simple if we used blocks.
 	 But there are no blocks in C and the basic enumerators here need

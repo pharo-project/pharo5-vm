@@ -1,0 +1,14 @@
+{
+	"category" : "MethodMassage-Coverage",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BytecodeCoverer",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

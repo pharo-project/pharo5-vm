@@ -4,8 +4,9 @@ compileInterpreterPrimitive: primitiveRoutine
 	 usual stack-switching dance, test the primFailCode and then either
 	 return on success or continue to the method body."
 	<var: #primitiveRoutine declareC: 'void (*primitiveRoutine)(void)'>
-	| flags jmp jmpSamplePrim continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
+	| flags jmp jmpSamplePrim retry continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
 	<var: #jmp type: #'AbstractInstruction *'>
+	<var: #retry type: #'AbstractInstruction *'>
 	<var: #jmpSamplePrim type: #'AbstractInstruction *'>
 	<var: #continuePostSamplePrim type: #'AbstractInstruction *'>
 	<var: #jmpSampleNonPrim type: #'AbstractInstruction *'>
@@ -17,7 +18,10 @@ compileInterpreterPrimitive: primitiveRoutine
 	self genLoadCStackPointersForPrimCall.
 
 	flags := coInterpreter primitivePropertyFlags: primitiveIndex.
-	(flags bitAnd: PrimCallCollectsProfileSamples) ~= 0 ifTrue:
+	(flags anyMask: PrimCallDoNotJIT) ifTrue:
+		[^ShouldNotJIT].
+ 
+	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick if so"
 		BytesPerWord = 4
 			ifTrue:
@@ -31,32 +35,40 @@ compileInterpreterPrimitive: primitiveRoutine
 		jmpSampleNonPrim := self JumpNonZero: 0.
 		continuePostSampleNonPrim := self Label].
 
+	"Old full prim trace is in VMMaker-eem.550 and prior"
+	self recordPrimTrace ifTrue:
+		[self genFastPrimTraceUsing: ClassReg and: SendNumArgsReg].
+
 	"Clear the primFailCode and set argumentCount"
-	self MoveCq: 0 R: TempReg.
+	retry := self MoveCq: 0 R: TempReg.
 	self MoveR: TempReg Aw: coInterpreter primFailCodeAddress.
 	methodOrBlockNumArgs ~= 0 ifTrue:
 		[self MoveCq: methodOrBlockNumArgs R: TempReg].
 	self MoveR: TempReg Aw: coInterpreter argumentCountAddress.
-	(flags bitAnd: PrimCallNeedsPrimitiveFunction) ~= 0 ifTrue:
+
+	"If required, set primitiveFunctionPointer and newMethod"
+	(flags anyMask: PrimCallNeedsPrimitiveFunction) ifTrue:
 		[self MoveCw: primitiveRoutine asInteger R: TempReg.
 		 self MoveR: TempReg Aw: coInterpreter primitiveFunctionPointerAddress].
-	"Old full prim trace is in VMMaker-eem.550 and prior"
-	self recordPrimTrace ifTrue:
-		[self genFastPrimTraceUsing: ClassReg and: SendNumArgsReg].
-	((flags bitAnd: PrimCallNeedsNewMethod+PrimCallMayCallBack) ~= 0) ifTrue:
+	(flags anyMask: PrimCallNeedsNewMethod+PrimCallMayCallBack) ifTrue:
 		["The ceActivateFailingPrimitiveMethod: machinery can't handle framelessness."
-		 (flags bitAnd: PrimCallMayCallBack) ~= 0 ifTrue:
+		 (flags anyMask: PrimCallMayCallBack) ifTrue:
 			[needsFrame := true].
 		 methodLabel addDependent:
 			(self annotateAbsolutePCRef:
 				(self MoveCw: methodLabel asInteger R: ClassReg)).
 		 self MoveMw: (self offset: CogMethod of: #methodObject) r: ClassReg R: TempReg.
 		 self MoveR: TempReg Aw: coInterpreter newMethodAddress].
+
+	"Invoke the primitive"
 	self PrefetchAw: coInterpreter primFailCodeAddress.
-	(flags bitAnd: PrimCallMayCallBack) ~= 0
+	(flags anyMask: PrimCallMayCallBack)
 		ifTrue: "Sideways call the C primitive routine so that we return through cePrimReturnEnterCogCode."
-			[backEnd genSubstituteReturnAddress:
-				((flags bitAnd: PrimCallCollectsProfileSamples) ~= 0
+			["On Spur ceActivateFailingPrimitiveMethod: would like to retry if forwarders
+			  are found. So insist on PrimCallNeedsPrimitiveFunction being set too."
+			 self assert: (flags anyMask: PrimCallNeedsPrimitiveFunction).
+			 backEnd genSubstituteReturnAddress:
+				((flags anyMask: PrimCallCollectsProfileSamples)
 					ifTrue: [cePrimReturnEnterCogCodeProfiling]
 					ifFalse: [cePrimReturnEnterCogCode]).
 			 self JumpRT: primitiveRoutine asInteger.
@@ -66,8 +78,8 @@ compileInterpreterPrimitive: primitiveRoutine
 			["Call the C primitive routine."
 			self CallRT: primitiveRoutine asInteger.
 			primInvokeLabel := self Label.
-			(flags bitAnd: PrimCallCollectsProfileSamples) ~= 0 ifTrue:
-				[self assert: (flags bitAnd: PrimCallNeedsNewMethod) ~= 0.
+			(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
+				[self assert: (flags anyMask: PrimCallNeedsNewMethod).
 				"Test nextProfileTick for being non-zero and call checkProfileTick if so"
 				BytesPerWord = 4
 					ifTrue:
@@ -80,9 +92,10 @@ compileInterpreterPrimitive: primitiveRoutine
 				"If set, jump to record sample call."
 				jmpSamplePrim := self JumpNonZero: 0.
 				continuePostSamplePrim := self Label].
+			objectRepresentation maybeCompileRetry: retry onPrimitiveFail: primitiveIndex.
 			self maybeCompileAllocFillerCheck.
 			"Switch back to the Smalltalk stack.  Stack better be in either of these two states:
-				success:	stackPointer	->	result (was receiver)
+				success:	stackPointer ->	result (was receiver)
 											arg1
 											...
 											argN
@@ -90,29 +103,30 @@ compileInterpreterPrimitive: primitiveRoutine
 				failure:						receiver
 											arg1
 											...
-							stackPointer	->	argN
+							stackPointer ->	argN
 											return pc
-			In either case we can push the instructionPointer to reestablish the return pc"
-			self MoveAw: coInterpreter instructionPointerAddress R: ClassReg.
+			In either case we can push the instructionPointer or load it into the LinkRegister to reestablish the return pc"
+			self MoveAw: coInterpreter instructionPointerAddress
+				R: (backEnd hasLinkRegister ifTrue: [LinkReg] ifFalse: [ClassReg]).
 			backEnd genLoadStackPointers.
 			"Test primitive failure"
 			self MoveAw: coInterpreter primFailCodeAddress R: TempReg.
-			self PushR: ClassReg. "Restore return pc"
+			backEnd hasLinkRegister ifFalse: [self PushR: ClassReg]. "Restore return pc on CISCs"
 			self flag: 'ask concrete code gen if move sets condition codes?'.
 			self CmpCq: 0 R: TempReg.
 			jmp := self JumpNonZero: 0.
 			"Fetch result from stack"
 			self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.
 			self flag: 'currently caller pushes result'.
-			self RetN: BytesPerWord].
+			self RetN: BytesPerWord].	"return to caller, popping receiver"
 
-	(flags bitAnd: PrimCallCollectsProfileSamples) ~= 0 ifTrue:
+	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["The sample is collected by cePrimReturnEnterCogCode for external calls"
 		jmpSamplePrim notNil ifTrue:
 			["Call ceCheckProfileTick: to record sample and then continue."
 			jmpSamplePrim jmpTarget: self Label.
-			self assert: (flags bitAnd: PrimCallNeedsNewMethod) ~= 0.
-			self CallRT: (self cCode: '(unsigned long)ceCheckProfileTick'
+			self assert: (flags anyMask: PrimCallNeedsNewMethod).
+			self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 							   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 			"reenter the post-primitive call flow"
 			self Jump: continuePostSamplePrim].
@@ -121,7 +135,7 @@ compileInterpreterPrimitive: primitiveRoutine
 		jmpSampleNonPrim jmpTarget: self Label.
 		self MoveCq: 0 R: TempReg.
 		self MoveR: TempReg Aw: coInterpreter newMethodAddress.
-		self CallRT: (self cCode: '(unsigned long)ceCheckProfileTick'
+		self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 						   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 		"reenter the post-primitive call flow"
 		self Jump: continuePostSampleNonPrim].
@@ -129,6 +143,8 @@ compileInterpreterPrimitive: primitiveRoutine
 	jmp notNil ifTrue:
 		["Jump to restore of receiver reg and proceed to frame build for failure."
 		 jmp jmpTarget: self Label.
-		 "Restore receiver reg from stack."
-		 self MoveMw: BytesPerWord * (methodOrBlockNumArgs + 1) r: SPReg R: ReceiverResultReg].
+		 "Restore receiver reg from stack.  If on RISCs ret pc is in LinkReg, if on CISCs ret pc is on stack."
+		 self MoveMw: BytesPerWord * (methodOrBlockNumArgs + (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]))
+			r: SPReg
+			R: ReceiverResultReg].
 	^0

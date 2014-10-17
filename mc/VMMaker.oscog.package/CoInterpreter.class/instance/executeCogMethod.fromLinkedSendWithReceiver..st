@@ -15,9 +15,9 @@ executeCogMethod: cogMethod fromLinkedSendWithReceiver: rcvr
 	self assertValidExecutionPointe: self stackTop r: framePointer s: stackPointer imbar: false line: #'__LINE__'.
 	cogit numRegArgs > 0 ifTrue: "dont use and: so as to get Slang to inline cogit numRegArgs > 0"
 		[cogMethod cmNumArgs <= cogit numRegArgs ifTrue:
-			[self enterRegisterArgCogMethod: cogMethod at: cogit entryOffset receiver: rcvr]].
+			[self callRegisterArgCogMethod: cogMethod at: cogit entryOffset receiver: rcvr]].
 	self
 		push: cogMethod asInteger + cogit entryOffset;
 		push: rcvr.
-	cogit ceEnterCogCodePopReceiverReg
+	cogit ceCallCogCodePopReceiverReg
 	"NOTREACHED"

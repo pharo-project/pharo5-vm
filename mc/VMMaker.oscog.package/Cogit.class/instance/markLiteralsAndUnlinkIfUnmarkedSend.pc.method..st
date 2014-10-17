@@ -29,23 +29,22 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 					[objectRepresentation markAndTraceLiteral: cacheTag.  "cacheTag is selector"
 					 self cppIf: NewspeakVM ifTrue:
 						[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-							[| classpc mixinpc class mixin |
+							[| cacheAddress class mixin |
 							 objectRepresentation markAndTraceLiteral: cacheTag.  "cacheTag is selector"
-							 classpc := mcpc asInteger + backEnd jumpShortByteSize.
-							 mixinpc := mcpc asInteger + backEnd jumpShortByteSize + BytesPerOop.
-							 class := backEnd unalignedLongAt: classpc.
+							 self assert: NumOopsPerIRC = 2.
+							 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
+							 class := backEnd unalignedLongAt: cacheAddress.
 							 class ~= 0
 								ifTrue:
-									[self assert: (objectMemory addressCouldBeObj: class).
-									 (objectRepresentation cacheTagIsMarked: class)
+									[(objectRepresentation cacheTagIsMarked: class)
 										ifTrue:
-											[(mixin := backEnd unalignedLongAt: mixinpc) ~= 0 ifTrue:
+											[(mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop) ~= 0 ifTrue:
 												[objectRepresentation markAndTraceLiteral: mixin]]
 										ifFalse:
 											[backEnd
-												unalignedLongAt: classpc put: 0;
-												unalignedLongAt: mixinpc put: 0.
+												unalignedLongAt: cacheAddress put: 0;
+												unalignedLongAt: cacheAddress + BytesPerOop put: 0.
 											 codeModified := true]]
 								ifFalse:
-									[self assert: (backEnd unalignedLongAt: mixinpc) = 0]]]]]].
+									[self assert: (backEnd unalignedLongAt: cacheAddress + BytesPerOop) = 0]]]]]].
 	^0 "keep scanning"

@@ -1,0 +1,3 @@
+private
+isLabel: aMessageOrLookupKey
+	^aMessageOrLookupKey isVariableBinding

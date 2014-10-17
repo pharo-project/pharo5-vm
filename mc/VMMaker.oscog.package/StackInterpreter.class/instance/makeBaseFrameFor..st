@@ -12,8 +12,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	page := self newStackPage.
 	pointer := page baseAddress.
 	theIP := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.
-	theMethod := objectMemory followNonImmediateField: MethodIndex ofObject: aContext.
-	self followNecessaryForwardingInMethod: theMethod.
+	theMethod := objectMemory followObjField: MethodIndex ofObject: aContext.
 	(objectMemory isIntegerObject: theIP) ifFalse:
 		[self error: 'context is not resumable'].
 	theIP := objectMemory integerValueOf: theIP.

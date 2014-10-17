@@ -4,6 +4,7 @@ initialize
 	 inside Smalltalk. The primary responsibility of this method is to allocate
 	 Smalltalk Arrays for variables that will be declared as statically-allocated
 	 global arrays in the translated code."
+	super initialize.
 
 	bootstrapping := false.
 	transcript := Transcript.
@@ -44,7 +45,7 @@ initialize
 	traceOn := true.
 	printSends := printReturns := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
-	displayForm := 'Display has not yet been installed' asStringMorph.
+	displayForm := (ImageMorph fromString: 'Display has not yet been installed') form.
 	eventQueue := SharedQueue new.
 	suppressHeartbeatFlag := false.
 	systemAttributes := Dictionary new.

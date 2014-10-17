@@ -11,9 +11,8 @@ processWeaklings
 		[rootObj := rememberedSet at: i.
 		(manager isWeakNonImm: rootObj)
 			ifTrue:
-				[self processWeakSurvivor: rootObj.
-				 "If no more referents, remove by overwriting with the last element in the set."
-				 (manager hasYoungReferents: rootObj)
+				["If no more referents, remove by overwriting with the last element in the set."
+				 (self processWeakSurvivor: rootObj)
 					ifFalse:
 						[manager setIsRememberedOf: rootObj to: false.
 						 i + 1 < rememberedSetSize ifTrue:
@@ -26,6 +25,9 @@ processWeaklings
 		 [weakCorpse notNil] whileTrue:
 			[self assert: (manager isForwarded: weakCorpse).
 			 weakObj := manager followForwarded: weakCorpse.
-			 self processWeakSurvivor: weakObj.
+			 "weakObj may have been tenured..."
+			 ((self processWeakSurvivor: weakObj)
+			  and: [manager isOldObject: weakObj]) ifTrue:
+				[self remember: weakObj].
 			 weakCorpse := self nextCorpseOrNil: weakCorpse].
 		weakList := nil]

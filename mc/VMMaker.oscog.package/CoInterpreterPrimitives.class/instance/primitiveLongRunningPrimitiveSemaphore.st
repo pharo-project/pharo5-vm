@@ -4,18 +4,17 @@ primitiveLongRunningPrimitiveSemaphore
 	 or nil if no semaphore should be used."
 	| sema flushState activeContext |
 	<export: true>
+	self methodArgumentCount ~= 1 ifTrue:
+		[^self primitiveFailFor: PrimErrBadNumArgs].
 	sema := self stackValue: 0.
-	((objectMemory isIntegerObject: sema)
-	or: [self methodArgumentCount ~= 1]) ifTrue:
-		[^self primitiveFail].
 	sema = objectMemory nilObject
 		ifTrue:
 			[flushState := longRunningPrimitiveCheckSemaphore notNil.
 			 longRunningPrimitiveCheckSemaphore := nil]
 		ifFalse:
 			[flushState := longRunningPrimitiveCheckSemaphore isNil.
-			 (objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore) ifFalse:
-				[^self primitiveFail].
+			 (objectMemory isSemaphoreOop: sema) ifFalse:
+				[^self primitiveFailFor: PrimErrBadArgument].
 			 longRunningPrimitiveCheckSemaphore := sema].
 	"If we've switched checking on or off we must void machine code
 	 (and machine code pcs in contexts) since we will start or stop setting
@@ -27,7 +26,7 @@ primitiveLongRunningPrimitiveSemaphore
 		 self marryContextInNewStackPageAndInitializeInterpreterRegisters: activeContext.
 		 self assert: (((self stackValue: 0) = objectMemory nilObject and: [longRunningPrimitiveCheckSemaphore isNil])
 				  or: [(self stackValue: 0) = longRunningPrimitiveCheckSemaphore
-					  and: [(objectMemory fetchClassOfNonImm: sema) = (objectMemory splObj: ClassSemaphore)]])].
+					  and: [objectMemory isSemaphoreOop: sema]])].
 	self voidLongRunningPrimitive: 'install'.
 	self pop: 1.
 	flushState ifTrue:

@@ -12,20 +12,21 @@ localizeGlobalVariables
 	candidates keysAndValuesDo:
 		[:key :targets |
 		targets do:
-			[:name | | procedure newDeclaration |
-			procedure := methods at: name.
-			procedure isRealMethod ifTrue:
-				[(localized at: name ifAbsentPut: [SortedCollection new]) add: key.
-				elected add: (procedure locals add: key).
-				newDeclaration := variableDeclarations at: key ifAbsent: ['sqInt ', key].
-				(self initializerForInstVar: key inStartClass: procedure definingClass) ifNotNil:
-					[:initializerNode|
-					newDeclaration := String streamContents:
-											[:s|
-											 s nextPutAll: newDeclaration; nextPutAll: ' = '.
-											 initializerNode emitCCodeOn: s level: 0 generator: self]].
-				procedure declarationAt: key put: newDeclaration.
-				variableDeclarations removeKey: key ifAbsent: []]]].
+			[:name |
+			(methods at: name ifAbsent: []) ifNotNil:
+				[:procedure | | newDeclaration |
+				procedure isRealMethod ifTrue:
+					[(localized at: name ifAbsentPut: [SortedCollection new]) add: key.
+					elected add: (procedure locals add: key).
+					newDeclaration := variableDeclarations at: key ifAbsent: ['sqInt ', key].
+					(self initializerForInstVar: key inStartClass: procedure definingClass) ifNotNil:
+						[:initializerNode|
+						newDeclaration := String streamContents:
+												[:s|
+												 s nextPutAll: newDeclaration; nextPutAll: ' = '.
+												 initializerNode emitCCodeOn: s level: 0 generator: self]].
+					procedure declarationAt: key put: newDeclaration.
+					variableDeclarations removeKey: key ifAbsent: []]]]].
 	logger ifNotNil:
 		[localized keys asSortedCollection do:
 			[:name|

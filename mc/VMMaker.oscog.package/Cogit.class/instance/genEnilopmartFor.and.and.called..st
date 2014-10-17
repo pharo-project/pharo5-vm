@@ -4,7 +4,16 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 called: trampolineName
 	 the system-call-like transition from the C runtime into generated machine
 	 code.  The desired arguments and entry-point are pushed on a stackPage's
 	 stack.  The enilopmart pops off the values to be loaded into registers and
-	 then executes a return instruction to pop off the entry-point and jump to it."
+	 then executes a return instruction to pop off the entry-point and jump to it.
+
+						BEFORE				AFTER			(stacks grow down)
+						whatever			stackPointer ->	whatever
+						target address =>	reg1 = reg1val, etc
+						reg1val				pc = target address
+						reg2val
+		stackPointer ->	reg3val
+
+	C.F. genCallEnilopmartFor:and:and:called:"
 	<returnTypeC: 'void (*genEnilopmartForandandcalled(sqInt regArg1, sqInt regArg2, sqInt regArg3, char *trampolineName))(void)'>
 	| size endAddress enilopmart |
 	opcodeIndex := 0.
@@ -12,9 +21,11 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 called: trampolineName
 	self PopR: regArg3.
 	self PopR: regArg2.
 	self PopR: regArg1.
-	backEnd hasLinkRegister ifTrue:
-		[self PopR: LinkReg].
-	self RetN: 0.
+	backEnd hasLinkRegister
+		ifTrue: [backEnd hasPCRegister
+					ifTrue: [self PopR: PCReg]
+					ifFalse: [self PopR: LinkReg; RetN: 0]]
+		ifFalse: [self RetN: 0].
 	self computeMaximumSizes.
 	size := self generateInstructionsAt: methodZoneBase.
 	endAddress := self outputInstructionsAt: methodZoneBase.

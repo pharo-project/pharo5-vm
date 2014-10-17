@@ -37,7 +37,9 @@ allInstancesOf: aClass
 							[self setIsMarkedOf: obj to: false]]]]].
 	self assert: self allObjectsUnmarked.
 	self assert: (self isEmptyObjStack: markStack).
-	self emptyObjStack: weaklingStack.
+	MarkObjectsForEnumerationPrimitives
+		ifTrue: [self emptyObjStack: weaklingStack]
+		ifFalse: [self assert: (self isEmptyObjStack: weaklingStack)].
 	(count > (ptr - start / self bytesPerSlot) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeObject: freeChunk.
@@ -47,7 +49,7 @@ allInstancesOf: aClass
 		 smallObj := self allocateSlots: count format: self arrayFormat classIndex: ClassArrayCompactIndex.
 		 0 to: count - 1 do:
 			[:i|
-			self storePointerUnchecked: i ofObject: smallObj withValue: (self fetchPointer: i ofObject: freeChunk)].
+			self storePointerUnchecked: i ofObject: smallObj withValue: (self fetchPointer: i ofFreeChunk: freeChunk)].
 		 self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
 		 self beRootIfOld: smallObj.
 		 self checkFreeSpace.

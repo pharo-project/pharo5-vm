@@ -7,18 +7,24 @@ generateEnilopmarts
 				self genEnilopmartFor: ReceiverResultReg
 					called: 'realCEEnterCogCodePopReceiverReg'.
 			 ceEnterCogCodePopReceiverReg := #enterCogCodePopReceiver.
-			 realCEEnterCogCodePopReceiverAndClassRegs :=
-				self genEnilopmartFor: ReceiverResultReg
+			 realCECallCogCodePopReceiverReg :=
+				self genCallEnilopmartFor: ReceiverResultReg
+					called: 'realCEEnterCogCodePopReceiverReg'.
+			 ceCallCogCodePopReceiverReg := #callCogCodePopReceiver.
+			 realCECallCogCodePopReceiverAndClassRegs :=
+				self genCallEnilopmartFor: ReceiverResultReg
 					and: ClassReg
-					called: 'realCEEnterCogCodePopReceiverAndClassRegs'.
-			 ceEnterCogCodePopReceiverAndClassRegs := #enterCogCodePopReceiverAndClassRegs]
+					called: 'realCECallCogCodePopReceiverAndClassRegs'.
+			 ceCallCogCodePopReceiverAndClassRegs := #callCogCodePopReceiverAndClassRegs]
 		ifFalse:
 			[ceEnterCogCodePopReceiverReg := self genEnilopmartFor: ReceiverResultReg
 				called: 'ceEnterCogCodePopReceiverReg'.
-			 ceEnterCogCodePopReceiverAndClassRegs :=
-				self genEnilopmartFor: ReceiverResultReg
+			 ceCallCogCodePopReceiverReg := self genCallEnilopmartFor: ReceiverResultReg
+				called: 'ceCallCogCodePopReceiverReg'.
+			 ceCallCogCodePopReceiverAndClassRegs :=
+				self genCallEnilopmartFor: ReceiverResultReg
 					and: ClassReg
-					called: 'ceEnterCogCodePopReceiverAndClassRegs'].
+					called: 'ceCallCogCodePopReceiverAndClassRegs'].
 
 	self genPrimReturnEnterCogCodeEnilopmart: false.
 	cePrimReturnEnterCogCode := methodZoneBase.

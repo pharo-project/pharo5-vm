@@ -4,6 +4,7 @@ allocateOldSpaceChunkOfBytes: chunkBytes suchThat: acceptanceBlock
 	 if available, otherwise answer nil.  Break up a larger chunk if one of the exact
 	 size cannot be found.  N.B.  the chunk is simply a pointer, it has no valid header.
 	 The caller *must* fill in the header correctly."
+	<var: #chunkBytes type: #usqInt>
 	| initialIndex node next prev index child childBytes acceptedChunk acceptedNode |
 	<inline: true> "must inline for acceptanceBlock"
 	"for debugging:" "totalFreeOldSpace := self totalFreeListBytes"
