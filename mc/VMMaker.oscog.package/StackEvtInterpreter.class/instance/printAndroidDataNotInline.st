@@ -1,0 +1,2 @@
+process primitive support
+printAndroidDataNotInline

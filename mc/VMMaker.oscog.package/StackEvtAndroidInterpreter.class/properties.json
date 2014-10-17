@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "golubovsky 7/31/2011 13:19",
+	"instvars" : [
+		 ],
+	"name" : "StackEvtAndroidInterpreter",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
