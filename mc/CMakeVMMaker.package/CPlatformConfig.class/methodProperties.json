@@ -52,6 +52,7 @@
 		"configureThreadedARMFFIPlugin:" : "jeanbaptistearnaud 8/14/2014 15:21",
 		"configureThreadedIA32FFIPlugin:" : "IgorStasenko 3/17/2011 23:40",
 		"configureUUIDPlugin:" : "EstebanLorenzano 1/2/2011 11:23",
+		"configureUnixAioPlugin:" : "EstebanLorenzano 10/17/2014 11:30",
 		"configureUnixOSProcessPlugin:" : "Igor.Stasenko 12/31/2010 01:12",
 		"coreSources" : "EstebanLorenzano 1/2/2011 11:03",
 		"crossSources" : "EstebanLorenzano 1/2/2011 10:52",
