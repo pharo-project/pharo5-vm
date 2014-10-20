@@ -9,6 +9,8 @@ baselineGit: spec
 			spec repository: self repositoryDir ].
 	
 		spec 
+			package: 'FileSystem-Legacy' with: [ 
+				spec repository: 'http://smalltalkhub.com/mc/PharoExtras/FileSystemLegacy/main' ];
 			package: 'FFI-Pools';
 			package: 'SharedPool-Speech';
 			package: 'Balloon-Engine-Pools';
@@ -17,7 +19,7 @@ baselineGit: spec
 			package: 'VMMaker' with: [ 
 				spec 
 					file: 'VMMaker';
-					requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
+					requires: #('FileSystem-Legacy' 'SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
 			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
 			package: 'ImageFormat' with: [ spec requires: #('VMMaker' ) ];
 			package: 'MethodMassage' with: [ spec requires: #('VMMaker' ) ];
