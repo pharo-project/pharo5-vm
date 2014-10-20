@@ -1,3 +1,0 @@
-translation
-hasHeaderFile
-	^true

@@ -1,4 +1,4 @@
-as yet unclassified
+directory primitives
 makeDirEntryName: entryName 
 	size: entryNameSize
 	createDate: createDate 

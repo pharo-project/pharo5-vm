@@ -14,7 +14,6 @@
 		"ioCanOpenFile:OfSize:Writable:" : "ar 2/5/2001 18:17",
 		"ioCanRenameFile:OfSize:" : "ar 2/5/2001 18:17",
 		"ioCanSetFileType:OfSize:" : "ar 2/5/2001 18:18",
-		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:" : "",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 8/2/2012 14:13",
 		"primitiveDirectoryEntry" : "eem 6/10/2010 15:59",
 		"primitiveDirectoryLookup" : "eem 6/10/2010 16:25",

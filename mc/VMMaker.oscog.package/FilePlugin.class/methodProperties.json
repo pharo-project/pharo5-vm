@@ -13,7 +13,6 @@
 		"fileValueOf:" : "eem 2/10/2009 13:42",
 		"getThisSession" : "tpr (auto pragmas 12/08) 12/21/2005 19:06",
 		"initialiseModule" : "eem 6/22/2011 11:57",
-		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:" : "",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 8/2/2012 14:12",
 		"moduleUnloaded:" : "JMM (auto pragmas 12/08) 1/21/2002 11:03",
 		"primitiveDirectoryCreate" : "ar (auto pragmas 12/08) 4/4/2006 20:50",
