@@ -12,7 +12,7 @@ patchAndUploadNewer
 	repo := self repositoryForUrl: MCMcmUpdater defaultUpdateURL.
 	sourceRepo := MCDirectoryRepository directory: sourceDir.
 	repo cacheAllFileNamesDuring:
-		[self packagesAndPatches keys do:
+		[self packages do:
 			[:package| | workingCopy |
 			workingCopy := MCWorkingCopy allManagers detect: [:pkg| pkg packageName = package packageName].
 			(workingCopy possiblyNewerVersionsIn: repo) do:

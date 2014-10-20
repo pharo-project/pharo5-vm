@@ -16,6 +16,7 @@ categoryForClass: className meta: isMeta selector: selector
 			[#(Behavior isEphemeronClass)]				-> [#testing].
 			[#(Behavior isImmediateClass)]					-> [#testing].
 			[#(Character identityHash)]						-> [#comparing].
+			[#(Character setValue:)]						-> [#accessing].
 			[#(Class immediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:)]
 															-> [#'subclass creation'].
 			[#(ClassBuilder superclass:immediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:)]

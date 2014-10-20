@@ -17,7 +17,7 @@ patchAndUploadAllInTrunk
 	cacheRepo := MCCacheRepository default.
 	(trunk := self trunk) cacheAllFileNamesDuring:
 		[| latestBranches latestUnbranched |
-		latestBranches := self packagesAndPatches keys collect:
+		latestBranches := self packages collect:
 							[:package|
 							(trunk versionNamesForPackageNamed: package name, '.spur') detectMin: [:vn | vn asMCVersionName versionNumber]].
 		latestUnbranched := latestBranches collect: [:verName| (trunk versionNamed: (verName copyReplaceAll: '.spur' with: '') asMCVersionName) info ancestors first versionName].
