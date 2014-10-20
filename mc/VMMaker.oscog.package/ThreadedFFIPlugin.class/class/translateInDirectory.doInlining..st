@@ -9,9 +9,9 @@ translateInDirectory: directory doInlining: inlineFlag
 		ifTrue:
 			[self
 				storeString: self generateCodeStringForPrimitives
-				onFileNamed: (directory asFileReference / (self moduleName, '.c')) fullName.
+				onFileNamed: (directory fullNameFor: self moduleName, '.c').
 			#()]
 		ifFalse:
 			[super
-				translateInDirectory: (directory asFileReference parent / ffiPluginRootClass moduleName) ensureCreateDirectory 
+				translateInDirectory: (directory containingDirectory directoryNamed: ffiPluginRootClass moduleName) assureExistence
 				doInlining: inlineFlag]

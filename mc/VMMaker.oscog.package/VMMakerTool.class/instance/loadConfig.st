@@ -1,7 +1,7 @@
 configurations
 loadConfig
 	| fileResult file |
-	fileResult := (StandardFileMenu oldFileMenu: FileSystem workingDirectory withPattern: '*.config')
+	fileResult := (StandardFileMenu oldFileMenu: FileDirectory default withPattern: '*.config')
 				startUpWithCaption: 'Select VMMaker configuration...'.
 	fileResult
 		ifNotNil: [file := fileResult directory fullNameFor: fileResult name.

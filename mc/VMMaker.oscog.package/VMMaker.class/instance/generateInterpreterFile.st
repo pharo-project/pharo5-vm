@@ -23,7 +23,7 @@ generateInterpreterFile
 	cg storeCodeOnFile: (self sourceFilePathFor: self interpreterClass sourceFileName) doInlining: self doInlining.
 	self interpreterClass additionalHeadersDo:
 		[:headerName :headerContents| | filePath |
-		 filePath := (self coreVMDirectory / headerName) fullName.
+		 filePath := self coreVMDirectory fullNameFor: headerName.
 		 (cg needToGenerateHeader: headerName file: filePath contents: headerContents) ifTrue:
 			 [cg storeHeaderOnFile: filePath contents: headerContents]].
 	self interpreterClass apiExportHeaderName ifNotNil:

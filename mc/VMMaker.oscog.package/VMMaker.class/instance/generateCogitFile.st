@@ -21,7 +21,7 @@ generateCogitFile
 	cg storeCodeOnFile: (self sourceFilePathFor: cogitClass sourceFileName) doInlining: cogitClass doInlining.
 	cg vmClass additionalHeadersDo:
 		[:headerName :headerContents| | filePath |
-		 filePath := (self coreVMDirectory / headerName) fullName.
+		 filePath := self coreVMDirectory fullNameFor: headerName.
 		 (cg needToGenerateHeader: headerName file: filePath contents: headerContents) ifTrue:
 			 [cg storeHeaderOnFile: filePath contents: headerContents]].
 	cogitClass apiExportHeaderName ifNotNil:

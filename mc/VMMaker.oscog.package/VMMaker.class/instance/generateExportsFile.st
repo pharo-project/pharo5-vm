@@ -5,9 +5,9 @@ generateExportsFile
 	filePath := self interpreterExportsFilePath.
 	"don't bother endlessly regenerating the example file."
 	(internalPlugins isEmpty
-	 and: [(filePath fullName includesSubString: 'example')
-	 and: [ filePath asFileReference exists ]]) ifTrue:
-		[ ^self ].
+	 and: [(filePath includesSubString: 'example')
+	 and: [FileDirectory default fileExists: filePath]]) ifTrue:
+		[^self].
 	cg := self createCodeGenerator.
 	cg vmClass: self interpreterClass.
 	contents := String streamContents:
@@ -35,7 +35,7 @@ generateExportsFile
 		].
 		s crtab; nextPutAll:'NULL'.
 		s cr; nextPutAll:'};'; cr].
-	(cg needToGenerateHeader: (filePath asFileReference basename) file: filePath contents: contents) ifTrue:
+	(cg needToGenerateHeader: (FileDirectory baseNameFor: filePath) file: filePath contents: contents) ifTrue:
 		[[fileStream := VMMaker forceNewFileNamed: filePath] 
 			on: FileDoesNotExistException 
 			do:[^self couldNotOpenFile: filePath].

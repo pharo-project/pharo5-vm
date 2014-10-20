@@ -1,3 +1,3 @@
 accessing
 machinesDirName
-	^DirNames at: #machineType ifAbsent:[Smalltalk os platformName]
+	^DirNames at: #machineType ifAbsent:[SmalltalkImage current platformName]

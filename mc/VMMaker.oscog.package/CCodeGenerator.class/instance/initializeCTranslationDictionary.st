@@ -102,6 +102,7 @@ initializeCTranslationDictionary
 	#raisedTo:					#generateRaisedTo:on:indent:
 	#touch:						#generateTouch:on:indent:
 
+	#bytesPerOop 				#generateBytesPerOop:on:indent:
 	#bytesPerWord 			#generateBytesPerWord:on:indent:
 	#baseHeaderSize			#generateBaseHeaderSize:on:indent:
 	

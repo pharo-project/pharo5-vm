@@ -4,10 +4,10 @@ needToGenerateHeader: headerName file: interpHdrPath contents: newContentsArg
 	 But if not we can avoid needless recompilations by not regenerating.  So only regenerate if the
 	 package stamp is dirty and the monticello stamp is clean."
 	| newContents oldContents dirtyStamp |
-	interpHdrPath asFileReference exists
-		ifFalse: [ ^ true ].
+	(FileDirectory default fileExists: interpHdrPath) ifFalse:
+		[^true].
 	newContents := newContentsArg.
-	oldContents := (FileStream oldFileNamed: interpHdrPath) contentsOfEntireFile.
+	oldContents := (FileDirectory default oldFileNamed: interpHdrPath) contentsOfEntireFile.
 	oldContents := oldContents copyReplaceAll: {Character cr. Character lf} with: {Character cr}.
 	oldContents replaceAll: Character lf with: Character cr.
 	dirtyStamp := (oldContents indexOfSubCollection: '* VMMaker') ~= 0.

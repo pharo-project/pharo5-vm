@@ -2,5 +2,5 @@ target directories
 platformPluginsDirectories
 
 	^self platformDirectories
-		select: [:dir| (dir / self class pluginsDirName) exists]
-		thenCollect: [:dir| (dir / self class pluginsDirName) exists]
+		select: [:dir| dir directoryExists: self class pluginsDirName]
+		thenCollect: [:dir| dir directoryNamed: self class pluginsDirName]

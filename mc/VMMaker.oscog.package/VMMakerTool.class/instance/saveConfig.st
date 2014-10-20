@@ -3,7 +3,7 @@ saveConfig
 
 	"write info about the current configuration to a file."
 	| fileResult file |
-	fileResult := (StandardFileMenu newFileMenu: FileSystem workingDirectory withPattern: '*.config')
+	fileResult := (StandardFileMenu newFileMenu: FileDirectory default withPattern: '*.config')
 		startUpWithCaption: 'Save VMMaker configuration...'.
 	fileResult ifNotNil: [
 		('*.config' match: fileResult name)

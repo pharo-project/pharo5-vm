@@ -3,7 +3,7 @@ emitBuiltinConstructAsArgumentFor: msgNode on: aStream level: level
 	"If the given selector is in the translation dictionary, translate it into a target code construct and return true. Otherwise, do nothing and return false."
 
 	| action |
-	(self messageReceiverIsInterpreterProxy: msgNode) ifTrue:
+	(self shouldGenerateAsInterpreterProxySend: msgNode) ifTrue:
 		[^false].
 	action := asArgumentTranslationDict
 				at: msgNode selector

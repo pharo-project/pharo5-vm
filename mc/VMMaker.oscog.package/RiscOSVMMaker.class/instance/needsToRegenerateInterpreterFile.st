@@ -1,18 +1,21 @@
 initialize
 needsToRegenerateInterpreterFile
-"check the timestamp for the relevant classes and then the timestamp for the interp.c file if it already exists. Return true if the file needs regenerating, false if not"
+	"Check the timestamp for the relevant classes and then the timestamp for the main
+	 source file (e.g. interp.c) if it already exists.  Answer if the file needs regenerating."
 
-	| tStamp fstat reference |
-
-	tStamp := (self interpreterClass withAllSuperclasses copyUpTo: ObjectMemory superclass),
-				(self interpreterClass ancilliaryClasses: self options)
-					inject: 0 into: [:tS :cl| tS max: cl timeStamp].
+	| classes tStamp fstat |
+	classes := self interpreterClass withAllSuperclasses copyUpTo: VMClass.
+	self interpreterClass objectMemoryClass ifNotNil:
+		[:objectMemoryClass|
+		classes addAllLast: (objectMemoryClass withAllSuperclasses copyUpTo: VMClass)].
+	classes copy do:
+		[:class| classes addAllLast: (class ancilliaryClasses: self options)].
+	tStamp := classes inject: 0 into: [:tS :cl| tS max: cl timeStamp].
 
 	"don't translate if the file is newer than my timeStamp"
 	"RiscOS keeps the interp file in a 'c' subdirectory of coreVMDirectory"
-	(self coreVMDirectory / 'c') exists ifFalse:[ ^ true ].
+	(self coreVMDirectory directoryExists: 'c') ifFalse:[^true].
 
-	reference := self coreVMDirectory asFileReference / 'c' / self interpreterFilename.
-	fstat := reference exists ifTrue: [ reference entry ] ifFalse: [nil].
+	fstat := (self coreVMDirectory directoryNamed: 'c') entryAt: self interpreterFilename ifAbsent:[nil].
 	fstat ifNotNil:[tStamp < fstat modificationTime ifTrue:[^false]].
 	^true

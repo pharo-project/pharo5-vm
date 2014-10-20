@@ -10,7 +10,7 @@ findPlatformsPathFrom: fd informing: bar
 Do you want me to use it?') ifTrue:[^possiblePath].
 	].
 	dirNames do:[:dd|
-		possiblePath := self findPlatformsPathFrom: (fd asFileReference / dd) fullName informing: bar.
+		possiblePath := self findPlatformsPathFrom: (fd directoryNamed: dd) informing: bar.
 		possiblePath ifNotNil:[^possiblePath].
 	].
 	^nil

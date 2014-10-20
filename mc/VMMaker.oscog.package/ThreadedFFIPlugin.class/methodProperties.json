@@ -9,7 +9,7 @@
 		"maxNumArgs" : "eem 11/9/2009 14:52",
 		"moduleName" : "eem 4/28/2014 09:56",
 		"preambleCCode" : "djm 4/6/2014 18:36",
-		"translateInDirectory:doInlining:" : "EstebanLorenzano 6/2/2014 17:13" },
+		"translateInDirectory:doInlining:" : "dtl 5/29/2014 19:42" },
 	"instance" : {
 		"allocaLiesSoUseGetsp" : "eem 11/7/2009 09:09",
 		"atomicTypeOf:" : "eem 11/7/2009 17:07",

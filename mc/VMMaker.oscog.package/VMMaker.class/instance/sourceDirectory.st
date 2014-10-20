@@ -1,6 +1,7 @@
 target directories
 sourceDirectory
 	| fd |
-	fd := (sourceDirName ifNil: [self class sourceDirName, self vmBitnessString]) asFileReference.
-	fd ensureCreateDirectory.
+	fd := FileDirectory default directoryNamed: (sourceDirName
+		ifNil: [self class sourceDirName, self vmBitnessString]).
+	fd assureExistence.
 	^ fd

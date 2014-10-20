@@ -2,7 +2,7 @@ exports
 storeExternalPluginList
 	| contents filePath fileStream |
 	((self externalPluginListName beginsWith: 'example')
-	 and: [ (self makefileDirectory / self externalPluginListName) exists ]) ifTrue:
+	 and: [self makefileDirectory fileExists: self externalPluginListName]) ifTrue:
 		[^self].
 	contents := String streamContents:
 		[:s|
@@ -12,7 +12,7 @@ storeExternalPluginList
 			[:cls|
 			s space; nextPut: $\; cr; nextPutAll: cls moduleName].
 		s cr].
-	filePath := self makefileDirectory / self externalPluginListName.
+	filePath := self makefileDirectory fullNameFor: self externalPluginListName.
 	(CCodeGenerator basicNew needToGenerateHeader: filePath file: filePath contents: contents) ifTrue:
 		[[fileStream := VMMaker forceNewFileNamed: filePath] 
 			on: FileDoesNotExistException 
