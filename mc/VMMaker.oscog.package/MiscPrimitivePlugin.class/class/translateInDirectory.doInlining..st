@@ -6,7 +6,7 @@ translateInDirectory: directory doInlining: inlineFlag
 
 	"don't translate if the file is newer than my timeStamp"
 	fstat := directory entryAt: fname ifAbsent:[nil].
-	fstat ifNotNil:[self timeStamp < fstat modificationTime ifTrue:[^nil]].
+	fstat ifNotNil:[self timeStamp < fstat modificationTime asSeconds ifTrue:[^nil]].
 
 	self initialize.
 	cg := self buildCodeGeneratorUpTo: InterpreterPlugin.

@@ -1,7 +1,6 @@
 {
 	"class" : {
-		"identifyingPredefinedMacros" : "eem 4/21/2014 11:16",
-		"moduleName" : "eem 4/21/2014 11:05" },
+		"identifyingPredefinedMacros" : "eem 4/21/2014 11:16" },
 	"instance" : {
 		"ffiCalloutTo:SpecOnStack:in:" : "eem 7/21/2011 13:11",
 		"ffiPushDoubleFloat:in:" : "eem 11/6/2009 16:36",

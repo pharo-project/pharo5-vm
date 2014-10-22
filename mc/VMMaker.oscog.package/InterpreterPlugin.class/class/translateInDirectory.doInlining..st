@@ -8,7 +8,7 @@ translateInDirectory: directory doInlining: inlineFlag
 	fstat := directory entryAt: fname ifAbsent:[nil].
 	fstat ifNotNil:
 		[((self pluginClassesUpTo: self) allSatisfy:
-				[:aPluginClass| aPluginClass timeStamp < fstat modificationTime]) ifTrue:
+				[:aPluginClass| aPluginClass timeStamp < fstat modificationTime asSeconds]) ifTrue:
 			[^nil]].
 
 	self initialize.
