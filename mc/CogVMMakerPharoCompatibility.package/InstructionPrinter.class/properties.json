@@ -1,0 +1,21 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "md 4/8/2003 12:47",
+	"instvars" : [
+		"method",
+		"scanner",
+		"stream",
+		"oldPC",
+		"innerIndents",
+		"indent",
+		"printPC",
+		"indentSpanOfFollowingJump" ],
+	"name" : "InstructionPrinter",
+	"pools" : [
+		 ],
+	"super" : "InstructionClient",
+	"type" : "normal" }
