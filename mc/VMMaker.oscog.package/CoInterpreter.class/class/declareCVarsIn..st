@@ -1,17 +1,18 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	"Override to avoid repeating StackInterpreter's declarations and add our own extensions"
-	| threaded |
+	
 	self class == thisContext methodClass ifFalse: [^self]. "Don't duplicate decls in subclasses"
-	threaded := aCCodeGenerator vmClass isThreadedVM.
 	aCCodeGenerator
 		addHeaderFile:'"sqCogStackAlignment.h"';
 		addHeaderFile:'"cogmethod.h"';
-		addHeaderFile: (threaded ifTrue: ['"cointerpmt.h"'] ifFalse: ['"cointerp.h"']);
+		addHeaderFile: (aCCodeGenerator isThreadedVM 
+			ifTrue: ['"cointerpmt.h"'] 
+			ifFalse: ['"cointerp.h"']);
 		addHeaderFile:'"cogit.h"'.
 	aCCodeGenerator vmClass
 		declareInterpreterVersionIn: aCCodeGenerator
-		defaultName: (threaded ifTrue: ['Cog MT'] ifFalse: ['Cog']).
+		defaultName: aCCodeGenerator interpreterVersion.
 	aCCodeGenerator
 		var: #heapBase type: #usqInt;
 		var: #statCodeCompactionUsecs type: #usqLong;

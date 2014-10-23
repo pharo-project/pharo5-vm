@@ -6,6 +6,7 @@
 		"initializeMiscConstants" : "eem 10/13/2014 13:12",
 		"initializePrimitiveTable" : "eem 7/22/2010 18:40",
 		"initializeSchedulerIndices" : "eem 11/3/2010 12:08",
+		"interpreterVersion" : "EstebanLorenzano 10/23/2014 14:21",
 		"isNonArgumentImplicitReceiverVariableName:" : "eem 7/16/2009 13:43",
 		"isThreadedVM" : "eem 8/27/2009 11:20",
 		"mustBeGlobal:" : "eem 9/28/2010 22:59",
