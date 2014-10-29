@@ -54,7 +54,8 @@ baselineGit: spec
 		spec for: #pharo do: [		
 			spec 
 				package: 'CogVMMakerPharoCompatibility';
-				package: 'SpurVMMakerPharoCompatibility' with: [ spec requires: #('VMMaker') ];
+				package: 'SpurVMMakerPharoCompatibility' with: [ 
+					spec requires: #('VMMaker' 'CogVMMakerPharoCompatibility') ];
 				package: 'VMMaker' with: [ 
 					spec 
 						file: 'VMMaker.oscog';
@@ -63,7 +64,8 @@ baselineGit: spec
 							'FFI-Pools' 
 							'Balloon-Engine-Pools' 
 							'Sound' 
-							'Alien-Core') ];
+							'Alien-Core'
+							'CogVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
