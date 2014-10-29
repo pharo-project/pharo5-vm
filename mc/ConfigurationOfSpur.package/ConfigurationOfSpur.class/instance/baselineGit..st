@@ -54,7 +54,7 @@ baselineGit: spec
 		spec for: #pharo do: [		
 			spec 
 				package: 'CogVMMakerPharoCompatibility';
-				package: 'SpurVMMakerPharoCompatibility';
+				package: 'SpurVMMakerPharoCompatibility' with: [ spec requires: #('VMMaker') ];
 				package: 'VMMaker' with: [ 
 					spec 
 						file: 'VMMaker.oscog';
@@ -63,9 +63,7 @@ baselineGit: spec
 							'FFI-Pools' 
 							'Balloon-Engine-Pools' 
 							'Sound' 
-							'Alien-Core' 
-							'CogVMMakerPharoCompatibility' 
-							'SpurVMMakerPharoCompatibility') ];
+							'Alien-Core') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
@@ -75,7 +73,8 @@ baselineGit: spec
 				package: 'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].
 			
 			spec 
-				group: 'all' with: #('maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
+				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
+				group: 'pharoCompatibility' with: #('CogVMMakerPharoCompatibility' 'SpurVMMakerPharoCompatibility');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
 				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
 				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
