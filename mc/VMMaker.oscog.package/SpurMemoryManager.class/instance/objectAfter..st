@@ -10,7 +10,7 @@ objectAfter: objOop
 	(self oop: objOop isLessThan: newSpaceLimit) ifTrue:
 		[(self isInEden: objOop) ifTrue:
 			[^self objectAfter: objOop limit: freeStart].
-		 (self isInSurvivorSpace: objOop) ifTrue:
+		 (self isInPastSpace: objOop) ifTrue:
 			[^self objectAfter: objOop limit: pastSpaceStart].
 		 ^self objectAfter: objOop limit: scavenger futureSurvivorStart].
 	^self objectAfter: objOop limit: endOfMemory

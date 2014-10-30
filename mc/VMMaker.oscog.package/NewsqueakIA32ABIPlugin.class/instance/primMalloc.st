@@ -5,7 +5,6 @@ primMalloc
 		<primitive: 'primMalloc' error: errorCode module: 'IA32ABI'>"
 	| byteSize addr |
 	<export: true>
-	<var: #ptr type: 'long *'>
 	<var: #byteSize type: 'long'>
 
 	byteSize := interpreterProxy stackIntegerValue: 0.

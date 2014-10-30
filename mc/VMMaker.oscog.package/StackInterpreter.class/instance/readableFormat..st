@@ -4,4 +4,5 @@ readableFormat: imageVersion
 	 Allows a virtual machine to accept selected older image formats."
 
 	^imageVersion = self imageFormatVersion "Float words in platform-order"
-	   or: [imageVersion = self imageFormatCompatibilityVersion] "Float words in BigEndian order"
+	   or: [objectMemory hasSpurMemoryManagerAPI not "No compatibility version for Spur as yet"
+			and: [imageVersion = self imageFormatCompatibilityVersion]] "Float words in BigEndian order"

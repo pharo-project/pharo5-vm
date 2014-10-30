@@ -5,9 +5,7 @@ globalGarbageCollect
 	self assert: (self isEmptyObjStack: markStack).
 	self assert: (self isEmptyObjStack: weaklingStack).
 
-	self markObjects.
-	self expungeDuplicateAndUnmarkedClasses: true.
-	self nilUnmarkedWeaklingSlots.
+	self markObjects: true.
 	self freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact.
 
 	"Mid-way the leak check must be more lenient.  Unmarked classes will have been

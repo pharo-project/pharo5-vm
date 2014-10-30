@@ -18,6 +18,11 @@ generatorTableFrom: anArray
 						isExtension: (tuple includes: #extension);
 						hasIRC: (tuple includes: #hasIRC);
 						yourself.
+		"As a hack to cut down on descriptor flags, use opcode to tag unusedBytecode for
+		 scanning. Currently descriptors are exactly 16 bytes with all 8 flag bits used.  As
+		 another hack to eliminate a test in scanMethod mark unknows as extensions."
+		descriptor generator == #unknownBytecode ifTrue:
+			[descriptor opcode: Nop; isExtension: true].
 		descriptor isBlockCreation ifTrue:
 			[blockCreationBytecodeSize
 				ifNil: [blockCreationBytecodeSize := descriptor numBytes]

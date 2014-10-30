@@ -3,7 +3,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	"This primitive is called from Squeak as...
 		<imageSegment> loadSegmentFrom: aWordArray outPointers: anArray."
 
-"This primitive will load a binary image segment created by primitiveStoreImageSegment.  It expects the outPointer array to be of the proper size, and the wordArray to be well formed.  It will return as its value the original array of roots, and the erstwhile segmentWordArray will have been truncated to a size of zero.  If this primitive should fail, the segmentWordArray will, sadly, have been reduced to an unrecognizable and unusable jumble.  But what more could you have done with it anyway?"
+"This primitive will load a binary image segment created by primitiveStoreImageSegment.  It expects the outPointer array to be of the proper size, and the wordArray to be well formed.  It will return as its value the original array of roots, and the erstwhile segmentWordArray will have been truncated to a size of one word, i.e. retaining the version stamp.  If this primitive should fail, the segmentWordArray will, sadly, have been reduced to an unrecognizable and unusable jumble.  But what more could you have done with it anyway?"
 
 	| endSeg segOop fieldPtr fieldOop doingClass lastPtr extraSize mapOop lastOut outPtr hdrTypeBits header data |
 	<inline: false>
@@ -28,7 +28,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 			"Still NG -- put things back and fail"
 			[self reverseBytesFrom: segmentWordArray + BaseHeaderSize to: endSeg + BytesPerWord.
 			DoAssertionChecks ifTrue: [self verifyCleanHeaders].
-			^0]].
+			^PrimErrBadArgument]].
 	"Reverse the Byte type objects if the data is from opposite endian machine.
 	 Revese the words in Floats if from an earlier version with different Float order.
 	 Test top byte.  $d on the Mac or $s on the PC.  Rest of word is equal."
@@ -58,7 +58,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 		lastPtr := segOop + (self lastPointerOf: segOop).	"last field"
 		lastPtr > endSeg ifTrue:
 			[DoAssertionChecks ifTrue: [self verifyCleanHeaders].
-			^0 "out of bounds"].
+			^PrimErrBadIndex "out of bounds"].
 
 		"Go through all oops, remapping them..."
 		[fieldPtr > lastPtr] whileFalse:
@@ -73,14 +73,14 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 					fieldPtr := fieldPtr + BytesPerWord]
 				ifFalse:
 					[(fieldOop bitAnd: 3) = 0 ifFalse:
-						[^0 "bad oop"].
+						[^PrimErrBadIndex "bad oop"].
 					(fieldOop bitAnd: 16r80000000) = 0
 						ifTrue: ["Internal pointer -- add segment offset"
 								mapOop := fieldOop + segmentWordArray]
 						ifFalse: ["External pointer -- look it up in outPointers"
 								outPtr := outPointerArray + (fieldOop bitAnd: 16r7FFFFFFF).
 								outPtr > lastOut ifTrue:
-									[^0 "out of bounds"].
+									[^PrimErrBadIndex "out of bounds"].
 								mapOop := self longAt: outPtr].
 					doingClass
 						ifTrue: [self longAt: fieldPtr put: mapOop + hdrTypeBits.
@@ -96,7 +96,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	segOop := self oopFromChunk: segmentWordArray + BaseHeaderSize + BytesPerWord.
 	[segOop <= endSeg] whileTrue:
 		[(self oopHasAcceptableClass: segOop) ifFalse:
-			[^0 "inconsistency"].
+			[^PrimErrInappropriate "inconsistency"].
 		fieldPtr := segOop + BaseHeaderSize.		"first field"
 		lastPtr := segOop + (self lastPointerOf: segOop).	"last field"
 		"Go through all oops, remapping them..."
@@ -104,7 +104,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 			["Examine each pointer field"
 			fieldOop := self longAt: fieldPtr.
 			(self oopHasAcceptableClass: fieldOop) ifFalse:
-				[^0 "inconsistency"].
+				[^PrimErrInappropriate "inconsistency"].
 			fieldPtr := fieldPtr + BytesPerWord].
 		segOop := self objectAfter: segOop].
 

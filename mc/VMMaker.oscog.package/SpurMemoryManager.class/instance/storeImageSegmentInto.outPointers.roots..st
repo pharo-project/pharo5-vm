@@ -1,85 +1,113 @@
 image segment in/out
 storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arrayOfRoots
 	"This primitive is called from Squeak as...
-		<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers: anArray."
+		<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers: anArray.
 
-"This primitive will store a binary image segment (in the same format as the Squeak image file) of the receiver and every object in its proper tree of subParts (ie, that is not refered to from anywhere else outside the tree).  All pointers from within the tree to objects outside the tree will be copied into the array of outpointers.  In their place in the image segment will be an oop equal to the offset in the outPointer array (the first would be 4). but with the high bit set."
+	 This primitive will store a binary image segment (in the same format as objercts in the heap) of the
+	 set of objects in arrayOfObjects.  All pointers from within the set to objects outside the set will be
+	 copied into the array of outPointers.  In their place in the image segment will be an oop equal to the
+	 offset in the outPointer array (the first would be 4). but with the high bit set.
 
-"The primitive expects the array and wordArray to be more than adequately long.  In this case it returns normally, and truncates the two arrays to exactly the right size.  To simplify truncation, both incoming arrays are required to have large headers (i.e. be 256 words long or larger).  If either array is too small, the primitive will fail, but in no other case.
+	 Since Spur has a class table the load primitive must insert classes that have instances in the class
+	 table.  This primitive marks such classes using the isRemembered bit, which isn't meaningful as a
+	 remembered bit in the segment.
 
-During operation of the primitive, it is necessary to convert from both internal and external oops to their mapped values.  To make this fast, the original objects in question are forwarded to the mapped values.  Tables are kept of both kinds of oops.  Note that markObjects eliminates forwarding pointers, so there will be no forwarding pointers in the object graph once objects have been marked.
+	 The primitive expects the segmentWordArray and outPointerArray to be more than adequately long.
+	 In this case it returns normally, and truncates the two arrays to exactly the right size.
 
-To be specific, there are two similar tables, the outPointer array, and one in the upper eight of the segmentWordArray.  Each grows oops from the bottom up.
+	 The primitive can fail for the following reasons with the specified failure codes:
+		PrimErrWritePastObject:	the segmentWordArray is too small
+		PrimErrBadIndex:			the outPointerArray is too small
+		PrimErrNoMemory:			additional allocations failed
+		PrimErrLimitExceeded:		there is no room in the hash field to store object oops."
+	<inline: false>
+	| arrayOfObjects savedInHashes savedOutHashes fillValue segStart segAddr endSeg outIndex |
 
-In case of either success or failure, the headers must be restored.  In the event of primitive failure, the table of outPointers must also be nilled out (since the garbage in the high half will not have been discarded)."
+	self leakCheckImageSegments ifTrue:
+		[self runLeakCheckerForFullGC: true].
 
-	| endSeg firstIn firstOut lastIn lastOut limitSeg scanned newSegLimit unmarkedClasses |
-	true ifTrue: [^PrimErrUnsupported] ifFalse: [
+	"First compute the transitive closure, collecting the sequence of objects to be stored in the arrayOfObjects array."
+	arrayOfObjects := self objectsReachableFromRoots: arrayOfRoots.
+	arrayOfObjects ifNil:
+		[^PrimErrNoMemory].
 
-	((self hasOverflowHeader: outPointerArray)						"Must have 128-bit header"
-	and: [self hasOverflowHeader: segmentWordArray]) ifFalse:		"Must have 128-bit header"
-		[^PrimErrGenericFailure].
+	self assert: self allObjectsUnmarked. "work to be done when the incremental GC is written"
 
-	firstOut := outPointerArray + self baseHeaderSize.
-	lastOut := firstOut - self bytesPerOop.
+	"The scheme is to copy the objects into segmentWordArray, and then map the oops in sementWordArray.
+	 Therefore the primitive needs to both map efficiently originals to copies in segmentWordArray and
+	 be able to undo any side-effects if the primitive fails because either sementWordArray or outPointerArray
+	 is too small.  The mapping is done by having the originals (either the objects in arrayOfObjects or the
+	 objects in outPointerArray) refer to their mapped locations through their identityHash, and saving their
+	 identityHashes in two ByteArrays, one that mirrors arrayOfObjects, and one that mirrors outPointerArray.
+	 Since arrayOfObjects and its saved hashes, and outPointerArray and its saved hashes, can be enumerated
+	 side-by-side, the hashes can be restored to the originals.  So the hash of an object in arrayOfObjects
+	 is set to its offset in segmentWordArray / self allocationUnit, and the hash of an object in outPointerArray
+	 is set to its index in outPointerArray plus the top hash bit.  Oops in segmentWordArray are therefore
+	 mapped by accessing the original oop's identityHash, testing the bottom bit to distinguish between internal
+	 and external oops.  The saved hash arrays are initialized with an out-of-range hash value so that the first
+	 unused entry can be identified."
 
-	limitSeg := segmentWordArray + self baseHeaderSize.
-	endSeg := segmentWordArray + (self addressAfter: segmentWordArray).
+	savedInHashes := self allocateSlots: (self numSlotsForBytes: (self numSlotsOf: arrayOfObjects) * 4)
+							format: self firstLongFormat
+							classIndex: self thirtyTwoBitLongsClassIndexPun.
+	savedOutHashes := self allocateSlots: (self numSlotsForBytes: (self numSlotsOf: outPointerArray) * 4)
+							format: self firstLongFormat
+							classIndex: self thirtyTwoBitLongsClassIndexPun.
+	(savedInHashes isNil or: [savedOutHashes isNil]) ifTrue:
+		[self freeObject: arrayOfObjects.
+		 ^PrimErrNoMemory].
 
-	"Allocate top 1/8 of segment for table of internal oops"
-	firstIn := endSeg - ((self numSlotsOf: segmentWordArray) // 8).  "Take 1/8 of seg"
-	lastIn := firstIn - self bytesPerOop.
+	fillValue := self wordSize = 4 ifTrue: [self maxIdentityHash + 1] ifFalse: [self maxIdentityHash + 1 << 32 + (self maxIdentityHash + 1)].
+	self fillObj: savedInHashes numSlots: (self numSlotsOf: savedInHashes) with: fillValue.
+	self fillObj: savedOutHashes numSlots: (self numSlotsOf: savedOutHashes) with: fillValue.
 
-	"N.B.  A side effect of this marking is that all forwarders are followed,
-	 so while forwarders may exist in te heap they will *not* be reachable."
-	self markAllExceptTransitiveClosureOf: arrayOfRoots.
+	"Both to expand the max size of segment and to reduce the length of the
+	 load-time pass that adds classes to the class table, move classes to the
+	 front of arrayOfObjects, leaving the root array as the first element."
+	self moveClassesForwardsIn: arrayOfObjects.
 
-	"All external objects, and only they, are now marked."
-	unmarkedClasses := self arrayOfUnmarkedClasses.
-	(self isImmediate: unmarkedClasses) ifTrue:
-		[^PrimErrGenericFailure].
+	segAddr := segmentWordArray + self baseHeaderSize.
+	endSeg := self addressAfter: segmentWordArray.
 
-	"Write a version number for byte order and version check, followed by the number of classes."
-	limitSeg >= endSeg ifTrue: [^PrimErrGenericFailure].
-	self long32At: limitSeg put: self imageSegmentVersion.
-	self long32At: limitSeg + 4 put: (self numSlotsOf: unmarkedClasses).
-	scanned := limitSeg := limitSeg + 8.
+	"Write a version number for byte order and version check."
+	segAddr >= endSeg ifTrue: [^PrimErrGenericFailure].
+	self long32At: segAddr put: self imageSegmentVersion.
+	self long32At: segAddr + 4 put: self imageSegmentVersion.
+	segStart := segAddr := segAddr + self allocationUnit.
 
-	"If there are any classes then copy them into the segment, and forward their oop."
-	(self numSlotsOf: unmarkedClasses) > 0 ifTrue:
-		[((lastIn := lastIn + self bytesPerOop) >= endSeg
-		 or: [0 = (newSegLimit := self copyObj: arrayOfRoots toSegment: segmentWordArray addr: limitSeg stopAt: firstIn saveOopAt: lastIn)]) ifTrue:
-			[lastIn := lastIn - self bytesPerWord.
-			self restoreObjectsFrom: firstIn to: lastIn from: segmentWordArray + self baseHeaderSize to: limitSeg.
-			self fillObj: outPointerArray numSlots: (self numSlotsOf: outPointerArray) with: nilObj.
-			^PrimErrGenericFailure].
-		limitSeg := newSegLimit].
+	"Copy all reachable objects to the segment."
+	0 to: (self numSlotsOf: arrayOfObjects) - 1 do:
+		[:i| | newSegAddrOrError objOop |
+		objOop := self fetchPointer: i ofObject: arrayOfObjects.
+		self deny: ((self isImmediate: objOop) or: [self isForwarded: objOop]).
+		self storeLong32: i ofObject: savedInHashes withValue: (self rawHashBitsOf: objOop).
+		newSegAddrOrError := self copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg.
+		newSegAddrOrError < segStart ifTrue:
+			[^self return: newSegAddrOrError
+					restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+					and: outPointerArray savedHashes: savedOutHashes].
+		 segAddr := newSegAddrOrError].
 
-	"Copy the array of roots into the segment, and forward its oop."
-	((lastIn := lastIn + self bytesPerOop) >= endSeg
-	 or: [0 = (newSegLimit := self copyObj: arrayOfRoots toSegment: segmentWordArray addr: limitSeg stopAt: firstIn saveOopAt: lastIn)]) ifTrue:
-		[lastIn := lastIn - self bytesPerWord.
-		self restoreObjectsFrom: firstIn to: lastIn from: segmentWordArray + self baseHeaderSize to: limitSeg.
-		self fillObj: outPointerArray numSlots: (self numSlotsOf: outPointerArray) with: nilObj.
-		^PrimErrGenericFailure].
-	limitSeg := newSegLimit.
+	"Check that it can be safely shortened."
+	(endSeg ~= segAddr
+	 and: [endSeg - segAddr < (self baseHeaderSize + self bytesPerSlot)]) ifTrue:
+		[^self return: PrimErrWritePastObject
+				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+				and: outPointerArray savedHashes: savedOutHashes].
 
-	"Now traverse the objects copied to the segment so far, copying unmarked objects into the segment.
-	 This is essentially the same algorithm as the breadth-first copying algorithm in scavenging."
-	scanned := self objectStartingAt: scanned.
-	[scanned < limitSeg] whileTrue:	
-		[1 to: (self numPointerSlotsOf: scanned) do:
-			[:i| | oop |
-			 oop := self fetchPointer: i ofObject: scanned.
-			 ((self isImmediate: oop) or: [(self isForwarded: oop) or: [self isMarked: oop]]) ifFalse:
-				[((lastIn := lastIn + self bytesPerOop) >= endSeg
-				  or: [0 = (newSegLimit := self copyObj: oop toSegment: segmentWordArray addr: limitSeg stopAt: firstIn saveOopAt: lastIn)]) ifTrue:
-					[lastIn := lastIn - self bytesPerWord.
-					self restoreObjectsFrom: firstIn to: lastIn from: segmentWordArray + self baseHeaderSize to: limitSeg.
-					self fillObj: outPointerArray numSlots: (self numSlotsOf: outPointerArray) with: nilObj.
-					^PrimErrGenericFailure].
-				 limitSeg := newSegLimit]].
-		scanned := self objectAfter: scanned].
+	"Now scan, adding out pointers to the outPointersArray; all objects in arrayOfObjects
+	 have their hashes set to point to their copies in segmentWordArray."
+	(outIndex := self mapOopsFrom: segStart
+					to: segAddr
+					outPointers: outPointerArray
+					outHashes: savedOutHashes) < 0 ifTrue: "no room in outPointers; fail"
+		[^self return: PrimErrBadIndex
+				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+				and: outPointerArray savedHashes: savedOutHashes].
 
-	"Now the primitive can not fail; traverse the objects in the segment, unforwarding the originals and mapping external oops."
-	self flag: 'you are here']
+	"We're done.  SHorten the results, restore hashes and return."
+	self shorten: segmentWordArray toIndexableSize: segAddr - (segmentWordArray + self baseHeaderSize) / 4.
+	self shorten: outPointerArray toIndexableSize: outIndex.
+	^self return: PrimNoErr
+		restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+		and: outPointerArray savedHashes: savedOutHashes

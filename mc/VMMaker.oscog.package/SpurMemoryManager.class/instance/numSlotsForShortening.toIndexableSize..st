@@ -1,0 +1,3 @@
+allocation
+numSlotsForShortening: objOop toIndexableSize: indexableSize
+	self subclassResponsibility

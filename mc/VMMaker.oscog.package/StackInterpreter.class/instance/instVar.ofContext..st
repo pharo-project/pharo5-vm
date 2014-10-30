@@ -5,8 +5,6 @@ instVar: offset ofContext: aContext
 	 relevant inst var from the spouse frame's state."
 	| spouseFP |
 	<var: #spouseFP type: #'char *'>
-	<var: #thePage type: #'StackPage *'>
-	<var: #theFPAbove type: #'char *'>
 	<inline: true>
 	self assert: offset < MethodIndex.
 	self assert: (objectMemory isContext: aContext).
@@ -24,15 +22,6 @@ instVar: offset ofContext: aContext
 		[self assert: ReceiverIndex + (self stackPointerIndexForFrame: spouseFP) < (objectMemory lengthOf: aContext).
 		^objectMemory integerObjectOf: (self stackPointerIndexForFrame: spouseFP)].
 	offset = InstructionPointerIndex ifTrue:
-		[| theIP thePage theFPAbove |
-		 spouseFP = localFP
-			ifTrue: [theIP := self oopForPointer: localIP]
-			ifFalse:
-				[thePage := stackPages stackPageFor: spouseFP.
-				 theFPAbove := self findFrameAbove: spouseFP inPage: thePage.
-				 theIP := theFPAbove == 0
-							ifTrue: [stackPages longAt: thePage headSP]
-							ifFalse:[self oopForPointer: (self frameCallerSavedIP: theFPAbove)]].
-		 ^self contextInstructionPointer: theIP frame: spouseFP].
+		[^self instructionPointerForFrame: spouseFP currentFP: localFP currentIP: localIP].
 	self error: 'bad index'.
 	^0

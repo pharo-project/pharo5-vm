@@ -5,6 +5,7 @@ scanMethod
 		- if the method needs a frame or not
 		- what are the targets of any backward branches.
 		- how many blocks it creates
+		- if it contans an unknown bytecode
 	 Answer the block count or on error a negative error code"
 	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
@@ -21,7 +22,9 @@ scanMethod
 		[byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 descriptor := self generatorAt: byte0.
 		 descriptor isExtension ifTrue:
-			[self loadSubsequentBytesForDescriptor: descriptor at: pc.
+			[descriptor opcode = Nop ifTrue: "unknown bytecode tag; see Cogit class>>#generatorTableFrom:"
+				[^EncounteredUnknownBytecode].
+			 self loadSubsequentBytesForDescriptor: descriptor at: pc.
 			 self perform: descriptor generator].
 		 (descriptor isReturn
 		  and: [pc >= latestContinuation]) ifTrue:

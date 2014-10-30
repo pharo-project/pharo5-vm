@@ -15,8 +15,9 @@ implicitReceiverCacheAddressAt: mcpc
 	 and Lclass: .word; Lmixin: .word is somewhere on the heap."
 	<option: #NewspeakVM>
 	<inline: true>
+	<returnTypeC: #usqInt>
 	^objectRepresentation canPinObjects
 		ifTrue:
-			[backEnd implicitReceiveCacheAt: mcpc]
+			[(backEnd implicitReceiveCacheAt: mcpc) asUnsignedInteger]
 		ifFalse:
 			[mcpc asUnsignedInteger + backEnd jumpShortByteSize]

@@ -13,7 +13,7 @@ lastPointerOf: objOop
 		  and: [self isContextNonImm: objOop]) ifTrue:
 			["contexts end at the stack pointer"
 			contextSize := coInterpreter fetchStackPointerOf: objOop.
-			^CtxtTempFrameStart + contextSize * BytesPerOop].
+			^CtxtTempFrameStart - 1 + contextSize * BytesPerOop + self baseHeaderSize].
 		^(self numSlotsOf: objOop) - 1 * BytesPerOop + self baseHeaderSize  "all pointers"].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 

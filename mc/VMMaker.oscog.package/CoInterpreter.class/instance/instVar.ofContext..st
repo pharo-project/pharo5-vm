@@ -9,8 +9,6 @@ instVar: offset ofContext: aContext
 	 code and convert it to the corresponding bytecode pc."
 	| value spouseFP |
 	<var: #spouseFP type: #'char *'>
-	<var: #thePage type: #'StackPage *'>
-	<var: #theFPAbove type: #'char *'>
 	<inline: true>
 	self assert: offset < MethodIndex.
 	self assert: (objectMemory isContext: aContext).
@@ -18,7 +16,7 @@ instVar: offset ofContext: aContext
 	(self isMarriedOrWidowedContext: aContext) ifFalse:
 		[value := objectMemory fetchPointer: offset ofObject: aContext.
 		 (offset = InstructionPointerIndex
-		  and: ["self halt: value hex." (objectMemory isIntegerObject: value)
+		  and: [(objectMemory isIntegerObject: value)
 		  and: [value signedIntFromLong < 0]]) ifTrue:
 			[value := self internalMustMapMachineCodePC: (objectMemory integerValueOf: value)
 						context: aContext].
@@ -34,19 +32,6 @@ instVar: offset ofContext: aContext
 		[self assert: ReceiverIndex + (self stackPointerIndexForFrame: spouseFP) < (objectMemory lengthOf: aContext).
 		^objectMemory integerObjectOf: (self stackPointerIndexForFrame: spouseFP)].
 	offset = InstructionPointerIndex ifTrue:
-		[| theIP thePage theFPAbove |
-		 spouseFP = localFP
-			ifTrue: [theIP := self oopForPointer: localIP]
-			ifFalse:
-				[thePage := stackPages stackPageFor: spouseFP.
-				 theFPAbove := self findFrameAbove: spouseFP inPage: thePage.
-				 theIP := theFPAbove == 0
-							ifTrue: [stackPages longAt: thePage headSP]
-							ifFalse:[self oopForPointer: (self frameCallerSavedIP: theFPAbove)]].
-		 value := self contextInstructionPointer: theIP frame: spouseFP.
-		 value signedIntFromLong < 0 ifTrue:
-			[value := self internalMustMapMachineCodePC: (objectMemory integerValueOf: value)
-							context: aContext].
-		 ^value].
+		[^self instructionPointerForFrame: spouseFP currentFP: localFP currentIP: localIP].
 	self error: 'bad index'.
 	^0

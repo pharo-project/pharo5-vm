@@ -11,7 +11,7 @@ allInstancesOf: aClass
 		[freeChunk := self allocateSlots: 0 format: self arrayFormat classIndex: ClassArrayCompactIndex.
 		 ^freeChunk].
 	MarkObjectsForEnumerationPrimitives ifTrue:
-		[self markObjects]. "may not want to revive objects unnecessarily; but marking is sloooow."
+		[self markObjects: true]. "may not want to revive objects unnecessarily; but marking is sloooow."
 	freeChunk := self allocateLargestFreeChunk.
 	start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.

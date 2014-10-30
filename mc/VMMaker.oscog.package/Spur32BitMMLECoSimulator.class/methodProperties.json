@@ -27,6 +27,7 @@
 		"intAt:put:" : "eem 9/21/2013 07:43",
 		"isIntegerObject:" : "eem 6/28/2014 22:45",
 		"isNonIntegerObject:" : "eem 6/28/2014 22:46",
+		"loadImageSegmentFrom:outPointers:" : "eem 10/22/2014 10:49",
 		"long32At:" : "eem 9/10/2013 15:36",
 		"long32At:put:" : "eem 8/31/2013 09:07",
 		"long64At:" : "eem 4/19/2014 13:40",
@@ -40,6 +41,7 @@
 		"numClassTablePages" : "eem 10/16/2013 12:20",
 		"parent" : "eem 5/24/2014 23:38",
 		"parent:" : "eem 5/24/2014 23:38",
+		"return:restoringObjectsIn:savedHashes:and:savedHashes:" : "eem 10/23/2014 17:40",
 		"runLeakCheckerForFullGC:excludeUnmarkedNewSpaceObjs:classIndicesShouldBeValid:" : "eem 3/20/2014 12:07",
 		"scavengingGCTenuringIf:" : "eem 10/11/2013 16:43",
 		"setFree:" : "eem 12/2/2013 13:59",
@@ -47,5 +49,6 @@
 		"shortAt:" : "eem 9/20/2013 15:08",
 		"shortAt:put:" : "eem 12/4/2013 19:17",
 		"storeFloatAt:from:" : "eem 9/10/2013 17:30",
+		"storeImageSegmentInto:outPointers:roots:" : "eem 10/22/2014 11:08",
 		"testObjStackDo" : "eem 10/31/2013 17:01",
 		"vmEndianness" : "eem 10/9/2013 14:37" } }

@@ -2,27 +2,32 @@ frame access
 checkIsStillMarriedContext: aContext currentFP: currentFP
 	"Another version of isWidowedContext: for debugging.
 	 This will not bereave a widowed context."
-	| thePage theFP limitFP frameCtxt |
+	| thePage maybeFP limitFP maybeFrameCtxt |
 	<inline: false>
 	<var: #currentFP type: #'char *'>
 	<var: #thePage type: #'StackPage *'>
-	<var: #theFP type: #'char *'>
+	<var: #maybeFP type: #'char *'>
 	<var: #limitFP type: #'char *'>
 	((objectMemory isContext: aContext)
 	 and: [self isMarriedOrWidowedContext: aContext]) ifFalse:
 		[^false].
-	theFP := self frameOfMarriedContext: aContext.
-	thePage := stackPages stackPageFor: theFP.
+	maybeFP := self frameOfMarriedContext: aContext.
+	thePage := stackPages stackPageFor: maybeFP.
 	limitFP := (thePage = stackPage and: [currentFP notNil])
 				ifTrue: [currentFP]
 				ifFalse: [thePage headFP].
-	(theFP >= limitFP
-	 and: [(objectMemory isNonImmediate: (self frameCallerFP: theFP) asInteger)
-	 and: [(self withSmallIntegerTags: (self frameCallerFP: theFP))
+	(maybeFP >= limitFP
+	 and: [(objectMemory isNonImmediate: (self frameCallerFP: maybeFP) asInteger)
+	 and: [(self withSmallIntegerTags: (self frameCallerFP: maybeFP))
 			= (objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext)
-	 and: [self frameHasContext: theFP]]]) ifFalse:
+	 and: [self frameHasContext: maybeFP]]]) ifFalse:
 		[^false].
-	frameCtxt := self frameContext: theFP.
-	(objectMemory isForwarded: frameCtxt) ifTrue:
-		[frameCtxt := objectMemory followForwarded: frameCtxt].
-	^frameCtxt = aContext
+	maybeFrameCtxt := self frameContext: maybeFP.
+	"On Spur we need to follow the context to check for a match, but since the VM is
+	 only speculating about maybeFrame being a frame, and only speculating about
+	 maybeContext being a context, we need to be sure before we can safely follow."
+	(objectMemory hasSpurMemoryManagerAPI
+	 and: [(self isFrame: maybeFP onPage: thePage)
+	 and: [objectMemory isForwarded: maybeFrameCtxt]]) ifTrue:
+		[maybeFrameCtxt := objectMemory followForwarded: maybeFrameCtxt].
+	^maybeFrameCtxt = aContext

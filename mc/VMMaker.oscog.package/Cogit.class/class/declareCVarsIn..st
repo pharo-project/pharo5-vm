@@ -9,7 +9,7 @@ declareCVarsIn: aCCodeGenerator
 			aCCodeGenerator removeVariable: simulationVariableNotNeededForRealVM].
 	NewspeakVM ifFalse:
 		[#(	'dynSuperEntry' 'dynSuperEntryAlignment' 'dynamicSuperSendTrampolines'
-			'ceImplicitReceiverTrampoline' 'ceExplicitReceiverTrampoline' 'cmDynSuperEntryOffset'
+			'ceImplicitReceiverTrampoline' 'ceEnclosingObjectTrampoline' 'cmDynSuperEntryOffset'
 			'numIRCs' 'indexOfIRC' 'theIRCs') do:
 				[:variableNotNeededInNormalVM|
 				aCCodeGenerator removeVariable: variableNotNeededInNormalVM]].

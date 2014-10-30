@@ -7,7 +7,7 @@ allObjects
 	 1/4 of the address space, the count can never overflow."
 	| freeChunk ptr start limit count bytes |
 	MarkObjectsForEnumerationPrimitives ifTrue:
-		[self markObjects]. "may not want to revive objects unnecessarily; but marking is sloooow."
+		[self markObjects: true]. "may not want to revive objects unnecessarily; but marking is sloooow."
 	freeChunk := self allocateLargestFreeChunk.
 	ptr := start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.

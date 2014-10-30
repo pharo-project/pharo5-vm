@@ -1,5 +1,5 @@
 gc - global
-markAccessibleObjects
+markAccessibleObjectsAndFireEphemerons
 	self assert: self validClassTableRootPages.
 	self assert: segmentManager allBridgesMarked.
 	self cCode: [] "for debugging markAndTrace: set (MarkStackRecord := OrderedCollection new)"

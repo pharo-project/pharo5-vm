@@ -7,14 +7,15 @@ findSelectorAndClassForMethod: meth lookupClass: startClass do: binaryBlock
 	currClass := startClass.
 	[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: currClass.
 	 classDictSize := objectMemory numSlotsOf: classDict.
-	 methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: classDict.
-	 i := 0.
-	 [i <= (classDictSize - SelectorStart)] whileTrue:
-		[meth = (objectMemory fetchPointer: i ofObject: methodArray) ifTrue:
-			[^binaryBlock
-				value: (objectMemory fetchPointer: i + SelectorStart ofObject: classDict)
-				value: currClass].
-			i := i + 1].
+	 classDictSize > MethodArrayIndex ifTrue:
+		[methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: classDict.
+		 i := 0.
+		 [i <= (classDictSize - SelectorStart)] whileTrue:
+			[meth = (objectMemory fetchPointer: i ofObject: methodArray) ifTrue:
+				[^binaryBlock
+					value: (objectMemory fetchPointer: i + SelectorStart ofObject: classDict)
+					value: currClass].
+				i := i + 1]].
 	 currClass := self superclassOf: currClass.
 	 currClass = objectMemory nilObject] whileFalse.
 	^binaryBlock    "method not found in superclass chain"
