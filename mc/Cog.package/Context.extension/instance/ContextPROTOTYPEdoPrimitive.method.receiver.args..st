@@ -28,7 +28,7 @@ ContextPROTOTYPEdoPrimitive: primitiveIndex method: meth receiver: aReceiver arg
 	primitiveIndex = 83 ifTrue: "afr 9/11/1998 19:50" "Object>>perform:[with:...]"
 		[^self send: arguments first to: aReceiver with: arguments allButFirst super: false].
 	primitiveIndex = 84 ifTrue: "afr 9/11/1998 19:50 & eem 8/18/2009 17:04" "Object>>perform:withArguments:"
-		[^self send: arguments first to: aReceiver with: (arguments at: 2) lookupIn: (self objectClass: aReceiver)].
+		[^self send: arguments first to: aReceiver with: (arguments at: 2) lookupIn: aReceiver class ].
 	primitiveIndex = 100 ifTrue: "eem 8/18/2009 16:57" "Object>>perform:withArguments:inSuperclass:"
 		[^self send: arguments first to: aReceiver with: (arguments at: 2) lookupIn: (arguments at: 3)].
 
@@ -65,7 +65,7 @@ ContextPROTOTYPEdoPrimitive: primitiveIndex method: meth receiver: aReceiver arg
 	primitiveIndex = 118 ifTrue: "tryPrimitive:withArgs:; avoid recursing in the VM"
 		[(arguments size = 2
 		 and: [arguments first isInteger
-		 and: [(self objectClass: arguments last) == Array]]) ifFalse:
+		 and: [arguments last class == Array]]) ifFalse:
 			[^Context primitiveFailTokenFor: nil].
 		 ^self doPrimitive: arguments first method: meth receiver: aReceiver args: arguments last].
 
