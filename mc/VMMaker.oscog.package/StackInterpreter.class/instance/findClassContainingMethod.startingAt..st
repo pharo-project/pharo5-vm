@@ -5,6 +5,8 @@ findClassContainingMethod: meth startingAt: classObj
 		ifTrue: [currClass := objectMemory followForwarded: classObj]
 		ifFalse: [currClass := classObj].
 	[self assert: (objectMemory isForwarded: currClass) not.
+	 (self addressCouldBeClassObj: currClass) ifFalse:
+		[^objectMemory nilObject].
 	 classDict := objectMemory noFixupFollowField: MethodDictionaryIndex ofObject: currClass.
 	 self assert: (objectMemory isForwarded: classDict) not.
 	 classDictSize := objectMemory numSlotsOf: classDict.
