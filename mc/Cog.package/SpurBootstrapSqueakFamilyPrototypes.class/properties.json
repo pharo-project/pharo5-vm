@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "SpurBootstrapSqueakPrototypes",
+	"name" : "SpurBootstrapSqueakFamilyPrototypes",
 	"pools" : [
 		 ],
-	"super" : "SpurBootstrapSqueakFamilyPrototypes",
+	"super" : "SpurBootstrapPrototypes",
 	"type" : "normal" }

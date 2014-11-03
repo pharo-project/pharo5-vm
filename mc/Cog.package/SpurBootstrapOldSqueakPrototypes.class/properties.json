@@ -10,5 +10,5 @@
 	"name" : "SpurBootstrapOldSqueakPrototypes",
 	"pools" : [
 		 ],
-	"super" : "SpurBootstrapPrototypes",
+	"super" : "SpurBootstrapSqueakFamilyPrototypes",
 	"type" : "normal" }
