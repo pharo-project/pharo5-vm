@@ -11,6 +11,9 @@ magnitude64BitValueOf: oop
 		smallIntValue < 0 ifTrue: [smallIntValue := 0 - smallIntValue].
 		^self cCoerce: smallIntValue to: #usqLong].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[^self primitiveFail].
+
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 					compactClassIndex: ClassLargePositiveIntegerCompactIndex.

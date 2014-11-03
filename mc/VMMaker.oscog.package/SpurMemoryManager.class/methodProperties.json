@@ -420,6 +420,8 @@
 		"isMobileObject:" : "eem 4/29/2014 13:49",
 		"isMobileObjectHeader:" : "eem 5/1/2014 16:07",
 		"isNonImmediate:" : "eem 11/18/2013 13:52",
+		"isNonIntegerImmediate:" : "eem 10/31/2014 11:37",
+		"isNonIntegerNonImmediate:" : "eem 10/31/2014 11:39",
 		"isNonIntegerObject:" : "eem 10/11/2013 17:14",
 		"isNormalObject:" : "eem 10/14/2013 19:46",
 		"isOldObject:" : "eem 11/20/2013 13:57",

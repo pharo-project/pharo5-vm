@@ -1,7 +1,9 @@
 plugin support
 callExternalPrimitive: mapIndex
 	| entry |
-	entry := mappedPluginEntries at: (mapIndex > 1000
-										ifTrue: [externalPrimitiveTable at: mapIndex - 1001]
-										ifFalse: [mapIndex]).
-	^(entry at: 1) perform: (entry at: 2).
+	entry := self pluginEntryFor: mapIndex.
+	"Spur needs the primitiveFunctionPointer to be set correctly
+	 for accurate following of forwarders on primitive failure."
+	objectMemory hasSpurMemoryManagerAPI ifTrue:
+		[primitiveFunctionPointer := entry at: 2].
+	^(entry at: 1) perform: (entry at: 2)

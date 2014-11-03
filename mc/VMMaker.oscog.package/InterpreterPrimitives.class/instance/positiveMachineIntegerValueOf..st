@@ -10,6 +10,9 @@ positiveMachineIntegerValueOf: oop
 		 value < 0 ifTrue: [^self primitiveFail].
 		^value].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[^self primitiveFail].
+
 	ok := objectMemory
 			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)

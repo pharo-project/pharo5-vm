@@ -9,6 +9,9 @@ signed64BitValueOf: oop
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[^self cCoerce: (objectMemory integerValueOf: oop) to: #sqLong].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[^self primitiveFail].
+
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 					compactClassIndex: ClassLargePositiveIntegerCompactIndex.

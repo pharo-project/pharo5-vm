@@ -9,6 +9,9 @@ signed32BitValueOf: oop
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[^objectMemory integerValueOf: oop].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[^self primitiveFail].
+
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 					compactClassIndex: ClassLargePositiveIntegerCompactIndex.

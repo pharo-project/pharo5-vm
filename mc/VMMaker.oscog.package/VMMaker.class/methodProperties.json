@@ -21,6 +21,7 @@
 		"generateAllNonSpurConfigurationsUnderVersionControl" : "eem 5/2/2014 16:23",
 		"generateAllSistaConfigurationsUnderVersionControl" : "eem 7/5/2014 17:52",
 		"generateAllSpurConfigurations" : "eem 5/2/2014 10:12",
+		"generateAllSpurConfigurationsUnderVersionControl" : "eem 10/31/2014 11:10",
 		"generateAllStackConfigurationsUnderVersionControl" : "eem 6/7/2014 15:04",
 		"generateConfiguration" : "eem 6/13/2014 00:14",
 		"generateEitherSqueakCogVM" : "eem 5/1/2014 09:13",

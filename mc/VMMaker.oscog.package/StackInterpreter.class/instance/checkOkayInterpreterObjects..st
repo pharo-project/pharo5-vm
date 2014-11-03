@@ -21,7 +21,7 @@ checkOkayInterpreterObjects: writeBack
 	1 to: objectMemory remapBufferCount do:
 		[ :i |
 		oop := objectMemory remapBuffer at: i.
-		(objectMemory isIntegerObject: oop) ifFalse:
+		(objectMemory isImmediate: oop) ifFalse:
 			[ok := ok & (self checkOkayFields: oop)]].
 	ok := ok & (self checkOkayStackZone: writeBack).
 	^ok

@@ -19,7 +19,7 @@ okayInterpreterObjects
 	].
 	1 to: objectMemory remapBufferCount do: [ :i |
 		oop := objectMemory remapBuffer at: i.
-		(objectMemory isIntegerObject: oop) ifFalse: [
+		(objectMemory isImmediate: oop) ifFalse: [
 			self okayFields: oop.
 		].
 	].

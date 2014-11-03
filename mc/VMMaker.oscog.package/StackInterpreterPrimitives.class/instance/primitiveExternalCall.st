@@ -44,7 +44,8 @@ primitiveExternalCall
 		[addr := externalPrimitiveTable at: index - 1.
 		 addr ~= 0 ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: 'addr' inSmalltalk: [1000 + index]).
-			 self callExternalPrimitive: addr.
+			 self callExternalPrimitive: addr. "On Spur, sets primitiveFunctionPointer"
+			 self maybeRetryFailureDueToForwarding.
 			 ^nil].
 		"if we get here, then an index to the external prim was 
 		kept on the ST side although the underlying prim 
@@ -67,6 +68,7 @@ primitiveExternalCall
 		[self primitiveFailFor: PrimErrBadMethod].
 	functionLength := objectMemory lengthOf: functionName.
 
+	"Spur needs to know the primitive's accessorDepth which is stored in the last slot of the first literal."
 	objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
 			[addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
@@ -100,7 +102,8 @@ primitiveExternalCall
 	index >= 0
 		ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: [addr] inSmalltalk: [1000 + index]).
-			 self callExternalPrimitive: addr]
+			 self callExternalPrimitive: addr.
+			 self maybeRetryFailureDueToForwarding]
 		ifFalse: "Otherwise void the primitive function and fail"
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: 0.
 			 self assert: (objectMemory fetchPointer: 2 ofObject: lit) = ConstZero.

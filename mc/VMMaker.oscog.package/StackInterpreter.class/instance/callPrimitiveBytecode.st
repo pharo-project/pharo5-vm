@@ -13,7 +13,7 @@ callPrimitiveBytecode
 			 byte2 := self fetchByte.
 			 self fetchNextBytecode.
 			 byte2 < 128 ifTrue:
-				[header := self methodHeaderOf: method.
+				[header := objectMemory methodHeaderOf: method.
 				 ((self methodHeaderHasPrimitive: header)
 				  and: [localIP = (self initialPCForHeader: header method: method) + (self sizeOfCallPrimitiveBytecode: header)]) ifTrue:
 					[^self].
@@ -36,11 +36,11 @@ callPrimitiveBytecode
 			 ^self respondToUnknownBytecode]
 		ifFalse:
 			[| header |
-			 header := self methodHeaderOf: method.
+			 header := objectMemory methodHeaderOf: method.
 			 ((self methodHeaderHasPrimitive: header)
 			  and: [localIP asInteger = (self initialPCForHeader: header method: method)])
 				ifTrue:
-					[localIP := localIP + (self sizeOfCallPrimitiveBytecode: header).
+					[localIP := localIP + (self sizeOfCallPrimitiveBytecode: header) - 1.
 					 ^self fetchNextBytecode]
 				ifFalse:
 					[^self respondToUnknownBytecode]]

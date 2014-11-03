@@ -12,4 +12,7 @@ mapInterpreterOops
 	self remapCallbackState.
 	(tempOop ~= 0
 	 and: [objectMemory shouldRemapOop: tempOop]) ifTrue:
-		[tempOop := objectMemory remapObj: tempOop]
+		[tempOop := objectMemory remapObj: tempOop].
+	(tempOop2 ~= 0
+	 and: [objectMemory shouldRemapOop: tempOop2]) ifTrue:
+		[tempOop2 := objectMemory remapObj: tempOop2]

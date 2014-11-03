@@ -8,25 +8,14 @@ slowPrimitiveResponse
 	<var: #savedFramePointer type: #'char *'>
 	<var: #savedStackPointer type: #'char *'>
 	self assert: (objectMemory isOopForwarded: (self stackValue: argumentCount)) not.
+	self assert: objectMemory remapBufferCount = 0.
 	FailImbalancedPrimitives ifTrue:
 		[nArgs := argumentCount.
 		 savedStackPointer := stackPointer.
 		 savedFramePointer := framePointer].
 	self initPrimCall.
 	self dispatchFunctionPointer: primitiveFunctionPointer.
-	"In Spur a primitive may fail due to encountering a forwarder.
-	 On failure check the accessorDepth for the primitive and
-	 if non-negative scan the args to the depth, following any
-	 forwarders.  Retry the primitive if any are found."
-	objectMemory hasSpurMemoryManagerAPI
-		ifTrue:
-			[(self successful not
-			  and: [(objectMemory isOopCompiledMethod: newMethod)
-			  and: [self checkForAndFollowForwardedPrimitiveState]]) ifTrue:
-				[self initPrimCall.
-				 self dispatchFunctionPointer: primitiveFunctionPointer]]
-		ifFalse:
-			[self assert: objectMemory remapBufferCount = 0].
+	self maybeRetryFailureDueToForwarding.
 	self maybeFailForLastObjectOverwrite.
 	(FailImbalancedPrimitives
 	and: [self successful

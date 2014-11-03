@@ -4,16 +4,14 @@ positive32BitValueOf: oop
 	The object may be either a positive SmallInteger or a four-byte LargePositiveInteger."
 	<returnTypeC: #usqInt>
 	| value ok |
-	(objectMemory isIntegerObject: oop)
-		ifTrue:
-			[value := objectMemory integerValueOf: oop.
-			value < 0 ifTrue: [self primitiveFail. value := 0].
-			^value]
-		ifFalse:
-			[(objectMemory hasSpurMemoryManagerAPI
-			  and: [objectMemory isImmediate: oop]) ifTrue:
-				[self primitiveFail.
-				 ^0]].
+	(objectMemory isIntegerObject: oop) ifTrue:
+		[value := objectMemory integerValueOf: oop.
+		value < 0 ifTrue: [self primitiveFail. value := 0].
+		^value].
+
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[self primitiveFail.
+		 ^0].
 
 	ok := objectMemory isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)

@@ -46,6 +46,7 @@
 		"markAndTraceLiteral:in:atpc:" : "eem 8/4/2014 08:51",
 		"markAndTraceLiteralIfYoung:" : "eem 11/18/2013 15:44",
 		"maybeCompileRetry:onPrimitiveFail:" : "eem 7/2/2014 13:33",
+		"maybeCompileRetry:onPrimitiveFail:primPropertyFlags:" : "eem 10/31/2014 09:32",
 		"maybeMarkCounters:" : "eem 10/21/2014 18:52",
 		"numCountersFor:" : "eem 7/5/2014 17:54",
 		"numRegArgs" : "eem 5/1/2014 07:20",

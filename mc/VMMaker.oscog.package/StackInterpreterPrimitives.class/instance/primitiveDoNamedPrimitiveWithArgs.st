@@ -4,7 +4,7 @@ primitiveDoNamedPrimitiveWithArgs
 	 e.g. ContextPart>>tryNamedPrimitiveIn: aCompiledMethod for: aReceiver withArgs: arguments"
 	| argumentArray arraySize methodArg methodHeader
 	  moduleName functionName moduleLength functionLength
-	  spec addr primRcvr ctxtRcvr isArray |
+	  spec addr primRcvr isArray |
 	<var: #addr declareC: 'void (*addr)()'>
 	argumentArray := self stackTop.
 	methodArg := self stackValue: 2.
@@ -50,25 +50,36 @@ primitiveDoNamedPrimitiveWithArgs
 		[^self primitiveFailFor: -1]. "could not find function; answer generic failure (see below)"
 
 	"Cannot fail this primitive from now on.  Can only fail the external primitive."
-	objectMemory pushRemappableOop: (argumentArray := self popStack).
-	objectMemory pushRemappableOop: (primRcvr := self popStack).
-	objectMemory pushRemappableOop: self popStack. "the method"
-	objectMemory pushRemappableOop: self popStack. "the context receiver"
+	tempOop := objectMemory
+						eeInstantiateClassIndex: ClassArrayCompactIndex
+						format: objectMemory arrayFormat
+						numSlots: (objectMemory hasSpurMemoryManagerAPI
+									ifTrue: [5]
+									ifFalse: [4]).
+	objectMemory
+		storePointerUnchecked: 0 ofObject: tempOop withValue: (argumentArray := self popStack);
+		storePointerUnchecked: 1 ofObject: tempOop withValue: (primRcvr := self popStack);
+		storePointerUnchecked: 2 ofObject: tempOop withValue: self popStack; "the method"
+		storePointerUnchecked: 3 ofObject: tempOop withValue: self popStack. "the context receiver"
 	self push: primRcvr. "replace context receiver with actual receiver"
 	argumentCount := arraySize.
 	1 to: arraySize do:
 		[:index| self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray)].
-	self callExternalPrimitive: addr.
-	ctxtRcvr  := objectMemory popRemappableOop.
-	methodArg := objectMemory popRemappableOop.
-	primRcvr := objectMemory popRemappableOop.
-	argumentArray := objectMemory popRemappableOop.
+	objectMemory hasSpurMemoryManagerAPI
+		ifTrue:
+			[objectMemory storePointerUnchecked: 4 ofObject: tempOop withValue: newMethod.
+			 newMethod := methodArg.
+			 self callExternalPrimitive: addr. "On Spur, sets primitiveFunctionPointer"
+			 self maybeRetryFailureDueToForwarding.
+			 newMethod  := objectMemory fetchPointer: 4 ofObject: tempOop]
+		ifFalse:
+			[self callExternalPrimitive: addr].
 	self successful ifFalse: "If primitive failed, then restore state for failure code"
 		[self pop: arraySize + 1.
-		 self push: ctxtRcvr.
-		 self push: methodArg.
-		 self push: primRcvr.
-		 self push: argumentArray.
+		 self push: (objectMemory fetchPointer: 3 ofObject: tempOop).
+		 self push: (objectMemory fetchPointer: 2 ofObject: tempOop).
+		 self push: (objectMemory fetchPointer: 1 ofObject: tempOop).
+		 self push: (objectMemory fetchPointer: 0 ofObject: tempOop).
 		 argumentCount := 3.
 		 "Hack.  A nil prim error code (primErrorCode = 1) is interpreted by the image
 		  as meaning this primitive is not implemented.  So to pass back nil as an error

@@ -231,6 +231,8 @@
 		"isMarked:" : "eem 3/23/2009 12:18",
 		"isMethodContextHeader:" : "eem 8/1/2013 10:57",
 		"isNonImmediate:" : "eem 9/3/2013 14:58",
+		"isNonIntegerImmediate:" : "eem 10/31/2014 11:38",
+		"isNonIntegerNonImmediate:" : "eem 10/31/2014 11:39",
 		"isNonIntegerObject:" : "eem 8/21/2013 12:54",
 		"isObjImmutable:" : "eem 12/11/2012 16:33",
 		"isObjMutable:" : "eem 12/11/2012 16:11",

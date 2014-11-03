@@ -11,7 +11,7 @@ initialize
 	nextProfileTick := 0.
 	nextPollUsecs := 0.
 	nextWakeupUsecs := 0.
-	tempOop := theUnknownShort := 0.
+	tempOop := tempOop2 := theUnknownShort := 0.
 	interruptPending := false.
 	inIOProcessEvents := 0.
 	fullScreenFlag := 0.

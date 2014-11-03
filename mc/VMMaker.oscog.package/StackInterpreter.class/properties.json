@@ -103,6 +103,7 @@
 		"longRunningPrimitiveSignalUndelivered",
 		"checkAllocFiller",
 		"tempOop",
+		"tempOop2",
 		"theUnknownShort",
 		"the2ndUnknownShort",
 		"imageFloatsBigEndian",

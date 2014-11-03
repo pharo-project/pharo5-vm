@@ -11,6 +11,10 @@ positive64BitValueOf: oop
 			[^self primitiveFail].
 		 ^objectMemory integerValueOf: oop].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[self primitiveFail.
+		 ^0].
+
 	ok := objectMemory
 			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)

@@ -12,8 +12,7 @@ ceActivateFailingPrimitiveMethod: aPrimitiveMethod
 	"If we're on Spur, check for forwarders and retry,
 	 returning if successful the second time around."
 	(objectMemory hasSpurMemoryManagerAPI
-	 and: [(objectMemory isOopCompiledMethod: newMethod)
-	 and: [self checkForAndFollowForwardedPrimitiveState]]) ifTrue:
+	 and: [self checkForAndFollowForwardedPrimitiveState]) ifTrue:
 		[self initPrimCall.
 		 self cCode: [self dispatchFunctionPointer: primitiveFunctionPointer]
 			inSmalltalk:
