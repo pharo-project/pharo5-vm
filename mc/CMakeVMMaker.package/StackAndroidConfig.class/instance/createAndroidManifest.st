@@ -9,8 +9,7 @@ createAndroidManifest
 	                        android:normalScreens="true"
 	                        android:largeScreens="true"
 	                        android:xlargeScreens="true"
-		                    android:anyDensity="true"
-	                        android:requiresSmallestWidthDp="600" /> 
+		                    android:anyDensity="true" /> 
     <application android:icon="@drawable/icon"
 		 android:label="@string/app_name">
         <activity android:name="StackActivity"

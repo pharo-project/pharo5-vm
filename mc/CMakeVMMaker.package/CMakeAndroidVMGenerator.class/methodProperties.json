@@ -14,8 +14,8 @@
 		"addRawSource:" : "jb 10/15/2014 16:45",
 		"addSubdirectory:" : "jb 10/15/2014 11:03",
 		"append:with:" : "jb 10/14/2014 12:59",
-		"generate" : "jeanbaptistearnaud 10/28/2014 12:57",
-		"generateBuildScript" : "jeanbaptistearnaud 10/28/2014 13:48",
+		"generate" : "jeanbaptistearnaud 11/4/2014 14:11",
+		"generateBuildScript" : "jeanbaptistearnaud 11/4/2014 15:56",
 		"generatePlugin:internal:extraRules:" : "jeanbaptistearnaud 10/22/2014 17:37",
 		"include:" : "jb 10/14/2014 12:59",
 		"includeAsSharedLib" : "jb 10/15/2014 16:47",
@@ -27,4 +27,6 @@
 		"processPlugins:" : "jeanbaptistearnaud 10/23/2014 12:34",
 		"project:" : "jeanbaptistearnaud 10/23/2014 12:47",
 		"set:to:" : "jb 10/14/2014 12:59",
+		"setAbi:" : "jeanbaptistearnaud 11/4/2014 11:59",
+		"setAndroidVersion:" : "jeanbaptistearnaud 11/4/2014 11:58",
 		"setTargetPlatform:" : "jb 10/14/2014 14:23" } }

@@ -10,8 +10,8 @@ export PATH=$PATH:$SDK/tools:$NDK
 cd ..
 ./scripts/extract-commit-info.sh
 cd build
-android update project -p . -t android-18
-ndk-build'
+android update project -p . -t ', config androidVersion ,' 
+ndk-build NDK_DEBUG=1'
 	
 	 toFile: 'build.sh'.
 	

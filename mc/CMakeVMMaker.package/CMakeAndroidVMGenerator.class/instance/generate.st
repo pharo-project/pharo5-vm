@@ -12,6 +12,8 @@ generate
 	self project: config virtualMachineName.
 	
 	self setTargetPlatform: config architecture.
+	self setAbi: config abi.
+	self setAndroidVersion: config androidVersion.	
 	
 	config preferredIncludes 
 		do: [ :each | self includeDirectories: each ].
@@ -60,4 +62,5 @@ generate
 	
 	
 	self saveFile.
+	config createAndroidManifest.
 	self generateBuildScript
