@@ -88,7 +88,9 @@ initializeBytecodeTableForNewspeakV4
 		(2 243 243 genExtJumpIfTrue			branch isBranchTrue isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 		(2 244 244 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
-		(2 245 248	unknownBytecode)
+		(2 245 245	genExtSendAbsentSelfBytecode isMapped)
+
+		(2 246 248	unknownBytecode)
 
 		"3 byte bytecodes"
 		(3 249 249 callPrimitiveBytecode)
@@ -96,5 +98,6 @@ initializeBytecodeTableForNewspeakV4
 		(3 251 251 genStoreRemoteTempLongBytecode)
 		(3 252 252 genStoreAndPopRemoteTempLongBytecode)
 		(3 253 253 genExtPushClosureBytecode block v4:Block:Code:Size:)
+		(3 254 254	genExtSendAbsentOuterBytecode isMapped)
 
-		(3 254 255	unknownBytecode))
+		(3 255 255	unknownBytecode))

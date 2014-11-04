@@ -1,23 +1,19 @@
 newspeak bytecode support
-enclosingObjectAt: n withObject: anObject withMixin: mixin 
-	"This is used to implement the innards of the pushEnclosingObjectBytecode,
-	 used for explicit outer sends in NS2/NS3.  "
+enclosingObjectAt: depth withObject: methodReceiver withMixin: methodMixin 
+	"This is used to implement outer sends and outer expressions in Newspeak."
 	| enclosingObject mixinApplication targetMixin count |
 	
-	enclosingObject := anObject.
-	targetMixin := mixin.
+	enclosingObject := methodReceiver.
+	targetMixin := methodMixin.
 	count := 0.
-	[count < n] whileTrue:
+	[count < depth] whileTrue:
 		[count := count + 1.
-		(targetMixin = objectMemory nilObject
-		 or: [enclosingObject = objectMemory nilObject]) ifTrue:
-			[^objectMemory nilObject].
+		self deny: (targetMixin = objectMemory nilObject).
 		mixinApplication := self
-								findApplicationOfTargetMixin: targetMixin
-								startingAtNonMetaClass: (objectMemory fetchClassOf: enclosingObject).
-		mixinApplication = objectMemory nilObject ifTrue:
-			[^objectMemory nilObject]. "should never happen!"
-		enclosingObject := objectMemory followObjField: EnclosingObjectIndex ofObject: mixinApplication.	
-		targetMixin := objectMemory followObjField: EnclosingMixinIndex ofObject: targetMixin].
+							findApplicationOfTargetMixin: targetMixin
+							startingAtBehavior: (self fetchClassOf: enclosingObject).
+		self deny: (mixinApplication = objectMemory nilObject).
+		enclosingObject := self followObjField: EnclosingObjectIndex ofObject: mixinApplication.	
+		targetMixin := self followObjField: EnclosingMixinIndex ofObject: targetMixin].
 	
 	^enclosingObject

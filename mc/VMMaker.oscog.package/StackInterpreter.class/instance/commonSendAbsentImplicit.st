@@ -7,9 +7,10 @@ commonSendAbsentImplicit
 	"160-175	1010 i i i i		Send To Absent Implicit Receiver Literal Selector #iiii With 0 Arguments"
 	"240		11110000	i i i i i j j j	Send To Absent Implicit Receiver Literal Selector #iiiii (+ Extend A * 32) with jjj (+ Extend B * 8) Arguments"
 	<sharedCodeInCase: #extSendAbsentImplicitBytecode>
-	| implicitReceiver |
+	| followedReceiver implicitReceiver |
+	followedReceiver := self internalFollowedReceiver.
 	implicitReceiver := self
-							implicitReceiverFor: self receiver
+							implicitReceiverFor: followedReceiver
 							mixin: (self methodClassOf: method)
 							implementing: messageSelector.
 	self shuffleArgumentsAndStoreAbsentReceiver: implicitReceiver.

@@ -1,5 +1,5 @@
 simulation stack
-marshallImplicitReceiverSendArguments: numArgs
+marshallAbsentReceiverSendArguments: numArgs
 	"Spill everything on the simulated stack that needs spilling (that below arguments).
 	 Marshall arguments to stack and/or registers depending on arg count.
 	 If the args don't fit in registers push receiver and args (spill everything).  Assume

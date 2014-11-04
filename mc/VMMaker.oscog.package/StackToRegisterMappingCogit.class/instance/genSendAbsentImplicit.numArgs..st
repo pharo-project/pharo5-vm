@@ -8,5 +8,5 @@ genSendAbsentImplicit: selector numArgs: numArgs
 	result := self genGetImplicitReceiverFor: selector forPush: false.
 	result ~= 0 ifTrue:
 		[^result].
-	self marshallImplicitReceiverSendArguments: numArgs.
+	self marshallAbsentReceiverSendArguments: numArgs.
 	^self genMarshalledSend: selector numArgs: numArgs

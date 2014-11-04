@@ -5,10 +5,11 @@ pushImplicitReceiverBytecode
 	 effectively finds the nearest lexically-enclosing implementation of
 	 that selector by searching up the static chain of the receiver,
 	 starting at the current method."
-	| selector |
+	| selector followedReceiver |
 	selector := self literal: self fetchByte.
 	self fetchNextBytecode.
+	followedReceiver := self internalFollowedReceiver.
 	self internalPush: (self
-						implicitReceiverFor: self receiver
+						implicitReceiverFor: followedReceiver
 						mixin: (self methodClassOf: method)
 						implementing: selector)

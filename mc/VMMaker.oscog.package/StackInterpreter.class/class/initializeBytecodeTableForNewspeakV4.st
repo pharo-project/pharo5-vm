@@ -98,7 +98,9 @@ initializeBytecodeTableForNewspeakV4
 		(243		extJumpIfTrue)
 		(244		extJumpIfFalse)
 
-		(245 248	unknownBytecode)
+		(245		extSendAbsentSelfBytecode)
+
+		(246 248	unknownBytecode)
 
 		"3 byte bytecodes"
 		(249		callPrimitiveBytecode)
@@ -107,6 +109,7 @@ initializeBytecodeTableForNewspeakV4
 		(251		storeRemoteTempLongBytecode)
 		(252		storeAndPopRemoteTempLongBytecode)
 		(253		extPushClosureBytecode)
+		(254		extSendAbsentOuterBytecode)
 
-		(254 255	unknownBytecode)
+		(255		unknownBytecode)
 	)

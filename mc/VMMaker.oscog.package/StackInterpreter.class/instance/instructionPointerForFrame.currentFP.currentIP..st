@@ -6,7 +6,11 @@ instructionPointerForFrame: spouseFP currentFP: currentFP currentIP: instrPtr
 	 frame on some other stack the frame pc is the value on top of stack.  Otherwise the
 	 frame pc is the saved pc of the frame above.  Once the frame pc is found it must be
 	 mapped to a bytecode pc."
+	<var: #spouseFP type: #'char *'>
+	<var: #currentFP type: #'char *'>
 	| theIP thePage theFPAbove |
+	<var: #thePage type: #'StackPage *'>
+	<var: #theFPAbove type: #'char *'>
 	spouseFP = currentFP
 		ifTrue: [theIP := self oopForPointer: instrPtr]
 		ifFalse:

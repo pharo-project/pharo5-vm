@@ -5,8 +5,8 @@ declareCVarsIn: aCCodeGenerator
 	vmClass := aCCodeGenerator vmClass. "Generate primitiveTable etc based on vmClass, not just StackInterpreter"
 	aCCodeGenerator
 		addHeaderFile:'<stddef.h> /* for e.g. alloca */';
+		addHeaderFile:'<wchar.h>';
 		addHeaderFile:'<setjmp.h>';
-		addHeaderFile:'<wchar.h> /* for wint_t */';
 		addHeaderFile:'"vmCallback.h"';
 		addHeaderFile:'"sqMemoryFence.h"';
 		addHeaderFile:'"dispdbg.h"'.

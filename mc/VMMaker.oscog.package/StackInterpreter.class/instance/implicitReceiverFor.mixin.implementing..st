@@ -1,36 +1,30 @@
 newspeak bytecode support
-implicitReceiverFor: rcvr mixin: mixin implementing: selector
-	"This is used to implement the innards of the pushImplicitReceiverBytecode,
-	 used for implicit receiver sends in NS2/NS3.  Find the nearest lexically-enclosing
-	 implementation of selector by searching up the static chain of anObject,
-	 starting at mixin's application.  This is an iterative implementation derived from
+implicitReceiverFor: methodReceiver mixin: methodMixin implementing: selector
+	"This is used to implement implicit receiver sends in Newspeak. Find the nearest
+	 lexically-enclosing implementation of selector by searching up the static chain of the
+	 method's receiver, starting at mixin's application. This implementation is derived from
 
-	<ContextPart> implicitReceiverFor: obj <Object>
-					withMixin: mixin <Mixin>
+	<ContextPart> implicitReceiverFor: methodReceiver <Object>
+					in: methodMixin <Mixin>
 					implementing: selector <Symbol> ^<Object>"
 	<api>
 	<option: #NewspeakVM>
-	| mixinApplication dictionary found |
-	self deny: (objectMemory isOopForwarded: rcvr).
-	self deny: (objectMemory isForwarded: mixin).
+	| candidateReceiver candidateMixin candidateMixinApplication dictionary found |
+	self deny: (objectMemory isOopForwarded: methodReceiver).
+	self deny: (objectMemory isForwarded: methodMixin).
 	"messageSelector is an implicit parameter of lookupMethodInDictionary:"
 	messageSelector := objectMemory followMaybeForwarded: selector.
-	mixinApplication := self
-							findApplicationOfTargetMixin: mixin
-							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
-	 mixinApplication = objectMemory nilObject ifTrue:
-		[^rcvr].
-	 dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: mixinApplication.
+	candidateReceiver := methodReceiver.
+	candidateMixin := methodMixin.
+	[candidateMixinApplication := self
+		findApplicationOfTargetMixin: candidateMixin
+		startingAtBehavior: (objectMemory fetchClassOf: candidateReceiver).
+	 self deny: (candidateMixinApplication = objectMemory nilObject).
+	 dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: candidateMixinApplication.
 	 found := self lookupMethodInDictionary: dictionary.
-	 found ifFalse:
-		[| implicitReceiverOrNil theMixin |
-		 theMixin := objectMemory followObjField: MixinIndex ofObject: mixinApplication.
-		 implicitReceiverOrNil := self nextImplicitReceiverFor: (objectMemory
-																followObjField: EnclosingObjectIndex
-																ofObject: mixinApplication)
-									withMixin: (objectMemory
-													followObjField: EnclosingMixinIndex
-													ofObject: theMixin).
-		 implicitReceiverOrNil ~= objectMemory nilObject ifTrue:
-			[^implicitReceiverOrNil]].
-	^rcvr
+	 found ifTrue: [^candidateReceiver].
+	 candidateMixin := objectMemory followObjField: EnclosingMixinIndex ofObject: candidateMixin.
+	 candidateMixin = objectMemory nilObject]
+		whileFalse:
+			[candidateReceiver := objectMemory followObjField: EnclosingObjectIndex ofObject: candidateMixinApplication].
+	^methodReceiver
