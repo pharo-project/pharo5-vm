@@ -3,14 +3,13 @@ generate
 
 	"override this method to produce gmake syntax"
 	
-	| intPlugins extPlugins |
 	output := String new writeStream.
 		
 	self printHeader.
 	
 	config setupDirectories: self.
 	
-	self project: 'pharoVM'.
+	self project: config virtualMachineName.
 	
 	self setTargetPlatform: config architecture.
 	
@@ -41,19 +40,18 @@ generate
 	
 	config extraVMSettings: self.
 	
-	intPlugins := self generatePluginConfigs: config internalPlugins internal: true.
-	extPlugins := self generatePluginConfigs: config externalPlugins internal: false.
+	internalPlugins  := self generatePluginConfigs: config internalPlugins internal: true.
+	externalPlugins  := self generatePluginConfigs: config externalPlugins internal: false.
 
 	self processThirdpartyLibraries.
 	
-	self processPlugins:  intPlugins.
+	self processPlugins:  internalPlugins.
 	
 	
 	"self append: #LOCAL_SRC_FILES with: self sources.
 		
 	self processInternalPlugins.	
 	config setExtraTargetProperties: self."
-	
 	self includeAsSharedLib.
 	
 	
@@ -62,3 +60,4 @@ generate
 	
 	
 	self saveFile.
+	self generateBuildScript
