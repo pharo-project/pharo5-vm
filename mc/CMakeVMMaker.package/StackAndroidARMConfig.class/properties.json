@@ -10,5 +10,5 @@
 	"name" : "StackAndroidARMConfig",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "StackAndroidConfig",
 	"type" : "normal" }

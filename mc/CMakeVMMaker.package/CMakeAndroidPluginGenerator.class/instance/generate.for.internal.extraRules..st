@@ -5,5 +5,5 @@ generate: aPlugin for: aCMakeVMGenerator  internal: aBoolean extraRules: aBlock
 	plugin := aPlugin.
 	vmGen := aCMakeVMGenerator.
 	extraRules := aBlock.
-		
+	
 	^ self generate

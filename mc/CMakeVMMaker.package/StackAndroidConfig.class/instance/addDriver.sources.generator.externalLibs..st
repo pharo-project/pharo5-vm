@@ -17,7 +17,7 @@ addDriver: name sources: aSources generator: cmakeGen externalLibs: extLibs
 			extLibs do: [:each |  
 				cmakeGen addExternalLibrary: each.].
 			
-			cmakeGen addDependency: 'pharoVM'.
+			cmakeGen addDependency: self virtualMachineName.
 			 
 			aSources do: [:each |
 				cmakeGen addRawSource: each].

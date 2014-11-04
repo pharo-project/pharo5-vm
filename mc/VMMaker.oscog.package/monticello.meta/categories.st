@@ -8,6 +8,7 @@ SystemOrganization addCategory: 'VMMaker-JITSimulation'!
 SystemOrganization addCategory: 'VMMaker-Multithreading'!
 SystemOrganization addCategory: 'VMMaker-Plugins'!
 SystemOrganization addCategory: 'VMMaker-Plugins-Alien'!
+SystemOrganization addCategory: 'VMMaker-Plugins-Android'!
 SystemOrganization addCategory: 'VMMaker-Plugins-IOS'!
 SystemOrganization addCategory: 'VMMaker-PostProcessing'!
 SystemOrganization addCategory: 'VMMaker-SmartSyntaxPlugins'!

@@ -6,7 +6,10 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"jniFolder" ],
+		"jniFolder",
+		"ressourceDir",
+		"drawableDir",
+		"assetDir" ],
 	"name" : "StackAndroidConfig",
 	"pools" : [
 		 ],

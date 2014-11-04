@@ -1,5 +1,5 @@
 gmake commands
 addDefinitions: aString
 	output 
-		nextPutAll: ('COG_CFLAGS += ', aString); 
+		nextPutAll: ('LOCAL_CFLAGS += ', aString); 
 		cr

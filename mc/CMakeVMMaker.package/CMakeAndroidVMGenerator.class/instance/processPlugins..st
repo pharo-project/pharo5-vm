@@ -1,7 +1,6 @@
 gmake commands
 processPlugins: pluginGenerators
 	| libs libDeps |
-
 	libs := OrderedCollection new.
 	libDeps := Dictionary new.
 	pluginGenerators do: [:gen |
@@ -18,6 +17,6 @@ processPlugins: pluginGenerators
 						libDeps 
 							at: gen plugin moduleName
 							put: (deps fold: [ :a :b | a, ' ', b ]) ].
-			self addSubdirectory: gen plugin moduleName ] ].
-	
+			self includePlugin: gen plugin moduleName ] ].
 	self generateExportsH: libs.
+	
