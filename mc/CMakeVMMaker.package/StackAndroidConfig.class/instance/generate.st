@@ -1,4 +1,5 @@
 public
 generate
-	self setupAndroidTemplateDirectory.	
+	self setupAndroidTemplateDirectory.
+	self setupAndroidRessources.
 	^ CMakeAndroidVMGenerator generate: self 

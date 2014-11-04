@@ -1,6 +1,7 @@
 utils - compiler
 releaseCompilerFlags
 	^#(
+	'-DNOEXECINFO'
 	'-DANDROID'
 	'-DLSB_FIRST=0'
 	'-DAVOID_OPENGL_H'

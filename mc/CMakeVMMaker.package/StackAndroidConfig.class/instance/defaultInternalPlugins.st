@@ -1,11 +1,11 @@
-as yet unclassified
+plugins
 defaultInternalPlugins
 " took from unixbuild/bld/plugins.int"
 	^ #(
 		AndroidPlugin
 		"ADPCMCodecPlugin" 
 		"AsynchFilePlugin" 
-		BalloonEnginePlugin "B2DPlugin" 
+		"BalloonEnginePlugin" "B2DPlugin" 
 		BitBltSimulation "BitBltPlugin"
 		BMPReadWriterPlugin 
 		CroquetPlugin 
@@ -22,16 +22,16 @@ defaultInternalPlugins
 		"KlattSynthesizerPlugin" "Klatt"
 		LargeIntegersPlugin "LargeIntegers"
 		Matrix2x3Plugin 
-		MIDIPlugin 
+		"MIDIPlugin" 
 		MiscPrimitivePlugin 
-		Mpeg3Plugin  	
+		"Mpeg3Plugin"  	
 		SecurityPlugin 
 		SerialPlugin 
 		SocketPlugin 
 		"SoundCodecPlugin" "SoundCodecPrims"
 		"SoundGenerationPlugin" 
 		"SoundPlugin" 
-		"StarSqueakPlugin" 
+		StarSqueakPlugin 
 		"SurfacePlugin"	
 		"LocalePlugin"
 		)

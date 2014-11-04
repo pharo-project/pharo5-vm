@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "StackAndroidARMConfig",
+	"name" : "StackAndroidDebugARMConfig",
 	"pools" : [
 		 ],
-	"super" : "StackAndroidConfig",
+	"super" : "StackAndroidARMConfig",
 	"type" : "normal" }
