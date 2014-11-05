@@ -1928,18 +1928,24 @@ main(int argc, char **argv, char **envp)
   signal(SIGQUIT, sigquit);
 #endif
 
-  /* run Squeak */
-  if (runInterpreter) {
-	printPhaseTime(2);
-    interpret();
-  }
+    
+#ifdef ANDROID
+    returnValue = runVM();
+#else
+    /* run Squeak */
+    if (runInterpreter) {
+        printPhaseTime(2);
+        interpret();
+    }
+#endif
+    
 
   /* we need these, even if not referenced from main executable */
   (void)sq2uxPath;
   (void)ux2sqPath;
   sqDebugAnchor();
   
-  return 0;
+  return returnValue;
 }
 
 int ioExit(void) { return ioExitWithErrorCode(0); }
