@@ -5,7 +5,7 @@ defaultInternalPlugins
 		AndroidPlugin
 		"ADPCMCodecPlugin" 
 		"AsynchFilePlugin" 
-		"BalloonEnginePlugin" "B2DPlugin" 
+		BalloonEnginePlugin "B2DPlugin" 
 		BitBltSimulation "BitBltPlugin"
 		BMPReadWriterPlugin 
 		CroquetPlugin 

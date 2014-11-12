@@ -11,7 +11,7 @@
 		"debugCompilerFlags" : "jeanbaptistearnaud 10/28/2014 11:34",
 		"debugLinkFlags" : "jb 10/14/2014 14:14",
 		"defaultExternalPlugins" : "jeanbaptistearnaud 10/28/2014 11:20",
-		"defaultInternalPlugins" : "jeanbaptistearnaud 10/28/2014 17:55",
+		"defaultInternalPlugins" : "jeanbaptistearnaud 11/12/2014 15:37",
 		"downloadDrawableRessources" : "jeanbaptistearnaud 10/21/2014 17:55",
 		"extraPluginSettings:" : "jeanbaptistearnaud 10/23/2014 13:40",
 		"extraVMSettings:" : "jb 10/14/2014 15:21",
@@ -38,6 +38,6 @@
 		"releaseCompilerFlags" : "jeanbaptistearnaud 11/4/2014 18:05",
 		"releaseLinkFlags" : "jb 10/14/2014 14:14",
 		"setupAndroidRessources" : "jeanbaptistearnaud 10/21/2014 17:47",
-		"setupAndroidTemplateDirectory" : "jeanbaptistearnaud 10/22/2014 13:48",
+		"setupAndroidTemplateDirectory" : "jeanbaptistearnaud 11/12/2014 15:08",
 		"setupDirectories:" : "jeanbaptistearnaud 10/23/2014 14:02",
 		"virtualMachineName" : "jeanbaptistearnaud 10/27/2014 14:14" } }
