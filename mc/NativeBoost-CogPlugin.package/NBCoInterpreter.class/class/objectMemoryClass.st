@@ -1,3 +1,4 @@
 as yet unclassified
 objectMemoryClass
-	^NBCoObjectMemory 
+	^ super objectMemoryClass
+	"^NBCoObjectMemory "

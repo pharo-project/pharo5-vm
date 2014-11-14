@@ -1,3 +1,3 @@
 settings
 commonCompilerFlags
-        ^super commonCompilerFlags, #('-DUSE_CORE_GRAPHICS')
+	^ super commonCompilerFlags, #('-DUSE_CORE_GRAPHICS')

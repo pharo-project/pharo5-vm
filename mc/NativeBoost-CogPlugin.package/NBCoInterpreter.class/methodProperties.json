@@ -2,7 +2,7 @@
 	"class" : {
 		"declareCVarsIn:" : "EstebanLorenzano 2/13/2013 15:33",
 		"initializePrimitiveTable" : "IgorStasenko 9/21/2012 14:53",
-		"objectMemoryClass" : "" },
+		"objectMemoryClass" : "EstebanLorenzano 11/6/2014 16:18" },
 	"instance" : {
 		"allocateCallbackContext" : "",
 		"callInterpret" : "",
@@ -10,7 +10,6 @@
 		"enterSmalltalkExecutiveImplementation" : "",
 		"executeCoggedNewMethod:methodHeader:" : "EstebanLorenzano 7/17/2014 17:09",
 		"executeNewMethod" : "EstebanLorenzano 6/3/2014 13:42",
-		"initStackPagesAndInterpret" : "EstebanLorenzano 2/13/2013 15:21",
 		"internalExecuteNewMethod" : "GuillermoPolito 5/31/2013 13:24",
 		"jumpBufSize" : "",
 		"primitiveForceJIT" : "IgorStasenko 9/20/2012 20:09",
