@@ -1,6 +1,5 @@
 building
 buildWin32
-	CogNativeBoostPlugin  setTargetPlatform: #Win32PlatformId.
 	CogSpur32WindowsConfig new  
 		"addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );"
 		addInternalPlugins: #( Win32OSProcessPlugin );

@@ -4,10 +4,10 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "EstebanLorenzano 11/14/2014 13:03",
 	"instvars" : [
 		 ],
-	"name" : "StackCocoaIOSSpur32Config",
+	"name" : "StackSpur32OSXConfig",
 	"pools" : [
 		 ],
 	"super" : "StackCocoaIOSConfig",

@@ -34,7 +34,8 @@ baselineGit: spec
 			package: 'SqueakSSL-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
-			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
+			package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
+			package: 'CMakeVMMaker' with: [ spec requires: #('Cog' 'NativeBoost-CogPlugin') ];
 			package: 'SpurVMMaker' with: [ spec requires: #('Cog') ].				
 
 		spec 
@@ -66,7 +67,6 @@ baselineGit: spec
 							'Sound' 
 							'Alien-Core'
 							'CogVMMakerPharoCompatibility') ];
-				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
 				package: 'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];

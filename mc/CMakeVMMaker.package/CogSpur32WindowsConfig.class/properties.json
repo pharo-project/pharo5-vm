@@ -4,11 +4,11 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "EstebanLorenzano 11/14/2014 13:09",
 	"instvars" : [
 		 ],
 	"name" : "CogSpur32WindowsConfig",
 	"pools" : [
 		 ],
-	"super" : "NBCogWindowsConfig",
+	"super" : "CogWindowsConfig",
 	"type" : "normal" }

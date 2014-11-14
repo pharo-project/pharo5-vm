@@ -1,7 +1,7 @@
 building
 buildMacOSX32 
 
-	StackCocoaIOSSpur32Config new 
+	StackSpur32OSXConfig new 
 		generateForRelease;
 		"generateForDebug;"
 		"addExternalPlugins: #( FT2Plugin );"

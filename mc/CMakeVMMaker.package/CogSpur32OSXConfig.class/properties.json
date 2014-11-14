@@ -4,11 +4,11 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "EstebanLorenzano 11/14/2014 12:59",
 	"instvars" : [
 		 ],
-	"name" : "CogCocoaIOSSpur32Config",
+	"name" : "CogSpur32OSXConfig",
 	"pools" : [
 		 ],
-	"super" : "NBCogCocoaIOSConfig",
+	"super" : "CogCocoaIOSConfig",
 	"type" : "normal" }
