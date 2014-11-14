@@ -18,9 +18,17 @@ initStackPagesAndInterpret
 							cCode: [self alloca: stackPagesBytes]
 							inSmalltalk: [stackPages initializeWithByteSize: stackPagesBytes for: self].
 	self cCode: [self me: theStackMemory ms: 0 et: stackPagesBytes].
-	self sqMakeMemoryNotExecutableFrom: objectMemory startOfMemory asUnsignedInteger
-		To: objectMemory memoryLimit asUnsignedInteger.
-	self sqMakeMemoryNotExecutableFrom: theStackMemory asUnsignedInteger
+	self cppIf: #SPUR_USE_EXECUTABLE_MEMORY 
+		ifTrue:  [
+			self 
+				sqMakeMemoryExecutableFrom: objectMemory startOfMemory asUnsignedInteger
+				To: objectMemory memoryLimit asUnsignedInteger ]
+		ifFalse: [ 
+			self 
+				sqMakeMemoryNotExecutableFrom: objectMemory startOfMemory asUnsignedInteger
+				To: objectMemory memoryLimit asUnsignedInteger ].
+	self 
+		sqMakeMemoryNotExecutableFrom: theStackMemory asUnsignedInteger
 		To: theStackMemory asUnsignedInteger + stackPagesBytes.
 	stackPages
 		initializeStack: theStackMemory

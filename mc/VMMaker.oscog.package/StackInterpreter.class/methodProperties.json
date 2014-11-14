@@ -270,7 +270,7 @@
 		"fetchNextBytecode" : "eem 6/25/2012 17:17",
 		"fetchPointer:ofMarriedContext:" : "eem 10/29/2014 15:24",
 		"fetchStackPointerOf:" : "eem (objmem refactor) 6/8/2010 17:12",
-		"findApplicationOfTargetMixin:startingAtBehavior:" : "rmacnak 10/28/2014 21:22",
+		"findApplicationOfTargetMixin:startingAtBehavior:" : "eem 11/4/2014 16:40",
 		"findClassContainingMethod:startingAt:" : "eem 10/30/2014 10:09",
 		"findClassForSelector:lookupClass:do:" : "eem 07/28/2014 07:54",
 		"findClassOfMethod:forReceiver:" : "eem 10/30/2014 10:11",
