@@ -2,7 +2,7 @@
 	"category" : "PharoVMMaker-Win",
 	"classinstvars" : [
 		 ],
-	"classtraitcomposition" : "TPharoWindowsConfig classTrait + TPharoSpur32Config classTrait",
+	"classtraitcomposition" : "TPharoWindowsConfig classTrait",
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
@@ -12,5 +12,5 @@
 	"pools" : [
 		 ],
 	"super" : "StackWindowsConfig",
-	"traitcomposition" : "TPharoWindowsConfig - {#externalPlugins. #internalPlugins} + TPharoSpur32Config",
+	"traitcomposition" : "TPharoWindowsConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }

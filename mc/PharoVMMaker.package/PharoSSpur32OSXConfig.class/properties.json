@@ -2,7 +2,7 @@
 	"category" : "PharoVMMaker-OSX",
 	"classinstvars" : [
 		 ],
-	"classtraitcomposition" : "TPharoOSXConfig classTrait + TPharoSpur32Config classTrait",
+	"classtraitcomposition" : "TPharoOSXConfig classTrait",
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
@@ -12,5 +12,5 @@
 	"pools" : [
 		 ],
 	"super" : "StackCocoaIOSConfig",
-	"traitcomposition" : "TPharoOSXConfig - {#externalPlugins. #internalPlugins} + TPharoSpur32Config",
+	"traitcomposition" : "TPharoOSXConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }

@@ -2,7 +2,7 @@
 	"category" : "PharoVMMaker-Unix",
 	"classinstvars" : [
 		 ],
-	"classtraitcomposition" : "TPharoUnixConfig classTrait + TPharoSpur32Config classTrait",
+	"classtraitcomposition" : "TPharoUnixConfig classTrait",
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
@@ -12,5 +12,5 @@
 	"pools" : [
 		 ],
 	"super" : "NBCogUnixConfig",
-	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins} + TPharoSpur32Config",
+	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }
