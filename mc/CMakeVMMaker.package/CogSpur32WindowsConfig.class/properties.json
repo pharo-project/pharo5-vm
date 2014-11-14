@@ -10,5 +10,5 @@
 	"name" : "CogSpur32WindowsConfig",
 	"pools" : [
 		 ],
-	"super" : "CogWindowsConfig",
+	"super" : "NBCogWindowsConfig",
 	"type" : "normal" }

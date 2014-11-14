@@ -10,5 +10,5 @@
 	"name" : "CogCocoaIOSSpur32Config",
 	"pools" : [
 		 ],
-	"super" : "CogCocoaIOSConfig",
+	"super" : "NBCogCocoaIOSConfig",
 	"type" : "normal" }

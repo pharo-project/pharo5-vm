@@ -10,5 +10,5 @@
 	"name" : "CogSpur32UnixConfig",
 	"pools" : [
 		 ],
-	"super" : "CogUnixConfig",
+	"super" : "NBCogUnixConfig",
 	"type" : "normal" }
