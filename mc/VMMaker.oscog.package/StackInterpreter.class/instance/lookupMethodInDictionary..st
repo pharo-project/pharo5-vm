@@ -4,7 +4,6 @@ lookupMethodInDictionary: dictionary
 	 execution of images in which Symbols have been compacted out."
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
-	<asmLabel: false>
 	length := objectMemory numSlotsOf: dictionary.
 	mask := length - SelectorStart - 1.
 	"Use linear search on small dictionaries; its cheaper.

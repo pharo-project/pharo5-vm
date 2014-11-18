@@ -7,10 +7,10 @@ compileBlockEntry: blockStart
 	self AlignmentNops: self blockAlignment.
 	blockStart fakeHeader: self Label.
 	(self sizeof: CogBlockMethod) caseOf:
-		{ [2 * BytesPerWord]	"ObjectMemory"
+		{ [2 * objectMemory wordSize]	"ObjectMemory"
 			->	[self Fill32: 0.		"gets filled in later with the homeOffset and startpc"
 				 self Fill32: 0].		"gets filled in later with numArgs et al"
-		   [3 * BytesPerWord]	"Spur"
+		   [3 * objectMemory wordSize]	"Spur"
 			->	[self Fill32: 0.		"gets filled in later with the homeOffset and startpc"
 				 self Fill32: 0.		"is left fallow"
 				 self Fill32: 0].		"gets filled in later with numArgs et al"

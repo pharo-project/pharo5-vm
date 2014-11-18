@@ -17,17 +17,17 @@ shorten: obj toIndexableSize: nSlots
 	nSlots >= indexableFields
 		ifTrue: [^0]. "no change, or error if attempting to increase size into next chunk"
 	desiredLength := fixedFields + nSlots.		
-	deltaBytes := (totalLength - desiredLength) * BytesPerWord.
-	obj + BaseHeaderSize + (totalLength * BytesPerWord) = freeStart
+	deltaBytes := (totalLength - desiredLength) * self wordSize.
+	obj + self baseHeaderSize + (totalLength * self wordSize) = freeStart
 		ifTrue: "Shortening the last object.  Need to reduce freeStart."
-			[self maybeFillWithAllocationCheckFillerFrom: obj + BaseHeaderSize + (desiredLength * BytesPerWord) to: freeStart.
-			freeStart := obj + BaseHeaderSize + (desiredLength * BytesPerWord)]
+			[self maybeFillWithAllocationCheckFillerFrom: obj + self baseHeaderSize + (desiredLength * self wordSize) to: freeStart.
+			freeStart := obj + self baseHeaderSize + (desiredLength * self wordSize)]
 		ifFalse: "Shortening some interior object.  Need to create a free block."
-			[self setSizeOfFree: obj + BaseHeaderSize + (desiredLength * BytesPerWord)
+			[self setSizeOfFree: obj + self baseHeaderSize + (desiredLength * self wordSize)
 				to: deltaBytes].
 	(self headerType: obj) caseOf:	{
 		[HeaderTypeSizeAndClass] ->
-			[self longAt: (obj - (BaseHeaderSize * 2)) put: (self sizeHeader: obj) - deltaBytes].
+			[self longAt: (obj - (self baseHeaderSize * 2)) put: (self sizeHeader: obj) - deltaBytes].
 		[HeaderTypeClass] ->
 			[self longAt: obj put: ((hdr bitClear: SizeMask) bitOr: (hdr bitAnd: SizeMask) - deltaBytes)].
 		[HeaderTypeShort] ->

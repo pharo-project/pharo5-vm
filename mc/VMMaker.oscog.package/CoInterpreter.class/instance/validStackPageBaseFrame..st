@@ -5,8 +5,8 @@ validStackPageBaseFrame: aPage
 	<inline: false>
 	| savedThisContext senderContextOrNil |
 	senderContextOrNil := stackPages longAt: aPage baseAddress.
-	savedThisContext := stackPages longAt: aPage baseAddress - BytesPerWord.
-	(self asserta: aPage baseFP + (self frameStackedReceiverOffset: aPage baseFP) + (2 * BytesPerWord) = aPage baseAddress) ifFalse:
+	savedThisContext := stackPages longAt: aPage baseAddress - objectMemory wordSize.
+	(self asserta: aPage baseFP + (self frameStackedReceiverOffset: aPage baseFP) + (2 * objectMemory wordSize) = aPage baseAddress) ifFalse:
 		[^false].
 	(self asserta: (objectMemory addressCouldBeObj: senderContextOrNil)) ifFalse:
 		[^false].

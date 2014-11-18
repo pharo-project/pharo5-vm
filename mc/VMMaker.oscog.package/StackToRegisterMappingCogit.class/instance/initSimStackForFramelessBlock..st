@@ -22,6 +22,6 @@ initSimStackForFramelessBlock: startpc
 			spilled: true;
 			annotateUse: false;
 			register: SPReg;
-			offset: ((methodOrBlockNumTemps - i) * BytesPerWord);
+			offset: ((methodOrBlockNumTemps - i) * objectMemory wordSize);
 			bcptr: startpc].
 	simSpillBase := simStackPtr := methodOrBlockNumTemps - 1

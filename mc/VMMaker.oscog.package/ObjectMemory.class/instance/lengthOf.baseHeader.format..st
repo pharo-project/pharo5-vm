@@ -6,13 +6,12 @@ lengthOf: oop baseHeader: hdr format: fmt
 
 	| sz |
 	<inline: true>
-	<asmLabel: false> 
 	(hdr bitAnd: TypeMask) = HeaderTypeSizeAndClass
 		ifTrue: [ sz := (self sizeHeader: oop) bitAnd: LongSizeMask ]
 		ifFalse: [ sz := (hdr bitAnd: SizeMask)].
 	sz := sz - (hdr bitAnd: Size4Bit).
 	fmt <= self lastPointerFormat
-		ifTrue: [ ^ (sz - BaseHeaderSize) >> ShiftForWord "words"].
+		ifTrue: [ ^ (sz - self baseHeaderSize) >> self shiftForWord "words"].
 	^fmt < self firstByteFormat
-		ifTrue: [(sz - BaseHeaderSize) >> 2 "32-bit longs"]
-		ifFalse: [(sz - BaseHeaderSize) - (fmt bitAnd: 3) "bytes"]
+		ifTrue: [(sz - self baseHeaderSize) >> 2 "32-bit longs"]
+		ifFalse: [(sz - self baseHeaderSize) - (fmt bitAnd: 3) "bytes"]

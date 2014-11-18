@@ -12,7 +12,7 @@ divorceFramesIn: aStackPage
 	theFP := aStackPage headFP.
 	theSP := aStackPage headSP.
 	theIP := stackPages longAt: theSP.
-	theSP := theSP + BytesPerWord. "theSP points at hottest item on frame's stack"
+	theSP := theSP + objectMemory wordSize. "theSP points at hottest item on frame's stack"
 	calleeContext := nil.
 
 	[theContext := self ensureFrameIsMarried: theFP SP: theSP.

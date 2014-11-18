@@ -10,7 +10,7 @@ internalStoreContextRegisters: activeCntx
 	<inline: true>
 	self storePointerUnchecked: InstructionPointerIndex ofObject: activeCntx
 		withValue: (self integerObjectOf: 
-			((self oopForPointer: localIP) + 2 - (method + BaseHeaderSize))).
+			((self oopForPointer: localIP) + 2 - (method + self baseHeaderSize))).
 	self storePointerUnchecked: StackPointerIndex		  ofObject: activeCntx
 		withValue: (self integerObjectOf:
-			((((self oopForPointer: localSP) - (activeCntx + BaseHeaderSize)) >> ShiftForWord) - TempFrameStart + 1)).
+			((((self oopForPointer: localSP) - (activeCntx + self baseHeaderSize)) >> self shiftForWord) - TempFrameStart + 1)).

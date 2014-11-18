@@ -12,7 +12,7 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 	self assert: lisp < lifp l: ln.
 	self assert: lifp > lisp l: ln.
 	self assert: lisp >= (stackPage realStackLimit - self stackLimitOffset) l: ln.
-	self assert:  (lifp - lisp) < LargeContextSize l: ln.
+	self assert: (lifp - lisp) / objectMemory bytesPerOop < LargeContextSlots l: ln.
 	methodField := self frameMethodField: lifp.
 	inInterpreter
 		ifTrue:
@@ -45,4 +45,4 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 				l: ln].
 	(self isBaseFrame: lifp) ifTrue:
 		[self assert: (self frameHasContext: lifp) l: ln.
-		 self assert: (self frameContext: lifp) = (stackPages longAt: stackPage baseAddress - BytesPerWord) l: ln]
+		 self assert: (self frameContext: lifp) = (stackPages longAt: stackPage baseAddress - objectMemory wordSize) l: ln]

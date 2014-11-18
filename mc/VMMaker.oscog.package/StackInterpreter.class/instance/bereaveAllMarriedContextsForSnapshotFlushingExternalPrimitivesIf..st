@@ -4,7 +4,6 @@ bereaveAllMarriedContextsForSnapshotFlushingExternalPrimitivesIf: flushExtPrims
 	 that the snapshot contains only single contexts.  This allows the test for being
 	 married to avoid checking for a context's frame pointer being in bounds.  If
 	 flushExtPrims is true, flush references to external primitives in methods."
-	<asmLabel: false>
 	objectMemory allObjectsDo:
 		[:obj| | fmt |
 		fmt := objectMemory formatOf: obj.

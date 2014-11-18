@@ -10,7 +10,7 @@ floatValueOf: oop
 	isFloat := self isInstanceOfClassFloat: oop.
 	isFloat ifTrue:
 		[self cCode: '' inSmalltalk: [result := Float new: 2].
-		 self fetchFloatAt: oop + BaseHeaderSize into: result.
+		 self fetchFloatAt: oop + self baseHeaderSize into: result.
 		 ^result].
 	self primitiveFail.
 	^0.0

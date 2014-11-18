@@ -1,4 +1,5 @@
 contexts
 badContextSize: oop
-	^(self numBytesOf: oop) ~= (SmallContextSize-BaseHeaderSize)
-	   and: [(self numBytesOf: oop) ~= (LargeContextSize-BaseHeaderSize)]
+	| numSlots |
+	numSlots := self numSlotsOf: oop.
+	^numSlots ~= SmallContextSlots and: [numSlots ~= LargeContextSlots]

@@ -4,7 +4,7 @@ sufficientSpaceToAllocate: bytes
 
 	| minFree |
 	<inline: true>
-	minFree := (lowSpaceThreshold + bytes + BaseHeaderSize + BytesPerWord - 1) bitClear: BytesPerWord - 1.
+	minFree := (lowSpaceThreshold + bytes + self baseHeaderSize + self wordSize - 1) bitClear: self wordSize - 1.
 
 	"check for low-space"
 	(self oop: freeStart + minFree isLessThanOrEqualTo: reserveStart) ifTrue:

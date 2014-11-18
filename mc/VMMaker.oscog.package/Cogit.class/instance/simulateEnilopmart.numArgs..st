@@ -14,7 +14,7 @@ simulateEnilopmart: enilopmartAddress numArgs: n
 	(printInstructions or: [printRegisters]) ifTrue:
 		[coInterpreter printExternalHeadFrame].
 	processor
-		smashRegistersWithValuesFrom: 16r80000000 by: BytesPerWord;
+		smashRegistersWithValuesFrom: 16r80000000 by: objectMemory wordSize;
 		simulateLeafCallOf: enilopmartAddress
 		nextpc: 16rBADF00D
 		memory: coInterpreter memory.

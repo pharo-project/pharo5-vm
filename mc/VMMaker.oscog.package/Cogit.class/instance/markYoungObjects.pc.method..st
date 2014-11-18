@@ -20,6 +20,6 @@ markYoungObjects: annotation pc: mcpc method: cogMethod
 						 class ~= 0 ifTrue:
 							[objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
 								[objectRepresentation markAndTraceLiteralIfYoung: class].
-							 mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop.
+							 mixin := backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop.
 							 objectRepresentation markAndTraceLiteralIfYoung: mixin]]]]].
 	^0 "keep scanning"

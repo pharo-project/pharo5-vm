@@ -90,7 +90,7 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 
 	"Check that it can be safely shortened."
 	(endSeg ~= segAddr
-	 and: [endSeg - segAddr < (self baseHeaderSize + self bytesPerSlot)]) ifTrue:
+	 and: [endSeg - segAddr < (self baseHeaderSize + self bytesPerOop)]) ifTrue:
 		[^self return: PrimErrWritePastObject
 				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
 				and: outPointerArray savedHashes: savedOutHashes].

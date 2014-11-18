@@ -8,11 +8,11 @@ primitiveShortAtPut
 	rcvr := self stackValue: 2.
 	self success: ((self isIntegerObject: rcvr) not and: [self isWordsOrBytes: rcvr]).
 	successFlag ifFalse: [ ^ nil ].
-	sz := ((self sizeBitsOf: rcvr) - BaseHeaderSize) // 2.  "number of 16-bit fields"
+	sz := ((self sizeBitsOf: rcvr) - self baseHeaderSize) // 2.  "number of 16-bit fields"
 	self success: ((index >= 1) and: [index <= sz]).
 	self success: ((value >= -32768) and: [value <= 32767]).
 	successFlag ifTrue: [
-		addr := rcvr + BaseHeaderSize + (2 * (index - 1)).
+		addr := rcvr + self baseHeaderSize + (2 * (index - 1)).
 		self shortAt: addr put: value.
 		self pop: 2.  "pop index and value; leave rcvr on stack"
 	]

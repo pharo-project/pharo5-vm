@@ -9,4 +9,4 @@ simulatedAddressFor: anObject
 	<doNotGenerate>
 	^simulatedAddresses
 		at: anObject
-		ifAbsentPut: [(simulatedAddresses size + 101 * BytesPerWord) negated bitAnd: self allButTopBitOfAddressSpaceMask]
+		ifAbsentPut: [(simulatedAddresses size + 101 * objectMemory wordSize) negated bitAnd: self allButTopBitOfAddressSpaceMask]

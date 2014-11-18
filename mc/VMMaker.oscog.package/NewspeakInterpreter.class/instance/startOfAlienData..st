@@ -7,6 +7,6 @@ startOfAlienData: oop
 		[self primitiveFailFor: PrimErrBadArgument.
 		 ^0].
 	^self cCoerceSimple: ((self sizeFieldOfAlien: oop) > 0
-						 	ifTrue: [oop + BaseHeaderSize + BytesPerOop]
-							ifFalse: [self longAt: oop + BaseHeaderSize + BytesPerOop])
+						 	ifTrue: [oop + self baseHeaderSize + self bytesPerOop]
+							ifFalse: [self longAt: oop + self baseHeaderSize + self bytesPerOop])
 			to: #'void *'

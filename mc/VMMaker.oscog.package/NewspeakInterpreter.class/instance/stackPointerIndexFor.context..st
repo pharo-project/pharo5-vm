@@ -4,4 +4,4 @@ stackPointerIndexFor: sp context: ctxt
 	(This is what stackPointer used to be before conversion to pointer"
 	<api>
 	<inline: true>
-	^ (sp - ctxt - BaseHeaderSize) >> ShiftForWord
+	^ (sp - ctxt - self baseHeaderSize) >> self shiftForWord

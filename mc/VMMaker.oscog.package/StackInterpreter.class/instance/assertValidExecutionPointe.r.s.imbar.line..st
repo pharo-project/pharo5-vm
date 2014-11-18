@@ -11,7 +11,7 @@ assertValidExecutionPointe: lip r: lfp s: lsp imbar: inInterpreter line: ln
 	self assert: lsp < lfp l: ln.
 	self assert: lfp > lsp l: ln.
 	self assert: lsp >= (stackPage realStackLimit - self stackLimitOffset) l: ln.
-	self assert:  (lfp - lsp) < LargeContextSize l: ln.
+	self assert: (lfp - lsp) / objectMemory bytesPerOop < LargeContextSlots l: ln.
 	self assert: (self validInstructionPointer: lip inFrame: lfp) l: ln.
 	self assert: ((self frameIsBlockActivation: lfp)
 				or: [(self pushedReceiverOrClosureOfFrame: lfp) = (self frameReceiver: lfp)])

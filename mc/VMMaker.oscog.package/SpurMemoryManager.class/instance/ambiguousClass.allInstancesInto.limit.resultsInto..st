@@ -22,7 +22,7 @@ ambiguousClass: aClass allInstancesInto: start limit: limit resultsInto: binaryB
 						 count := count + 1.
 						 ptr < limit ifTrue:
 							[self longAt: ptr put: obj.
-							 ptr := ptr + self bytesPerSlot]]]
+							 ptr := ptr + self bytesPerOop]]]
 				ifFalse:
 					[MarkObjectsForEnumerationPrimitives ifTrue:
 						[(self isSegmentBridge: obj) ifFalse:

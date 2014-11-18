@@ -4,7 +4,7 @@ putToSleep: aProcess yieldingIf: yieldImplicitly
 	 adding to the back if yieldImplicitly or to the front if not yieldImplicitly."
 
 	| priority processLists processList |
-	self assert: (framePointer - stackPointer) < LargeContextSize.
+	self assert: (framePointer - stackPointer) < (LargeContextSlots * objectMemory bytesPerOop).
 	priority := self quickFetchInteger: PriorityIndex ofObject: aProcess.
 	(highestRunnableProcessPriority ~= 0
 	 and: [priority > highestRunnableProcessPriority]) ifTrue:

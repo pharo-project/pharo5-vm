@@ -46,7 +46,7 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 						primitiveTerminateTo primitiveStoreStackp primitiveDoPrimitiveWithArgs)
 							includes: function) ifFalse:
 						[self assert: savedFramePointer = coInterpreter framePointer.
-						 self assert: savedStackPointer + (savedArgumentCount * BytesPerWord)
+						 self assert: savedStackPointer + (savedArgumentCount * objectMemory wordSize)
 								= coInterpreter stackPointer]]
 			ifFalse:
 				[self assert: savedFramePointer = coInterpreter framePointer.
@@ -56,7 +56,7 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 		 rpc := processor retpcIn: coInterpreter memory.
 		 self assert: (rpc >= codeBase and: [rpc < methodZone freeStart]).
 		 processor
-			smashCallerSavedRegistersWithValuesFrom: 16r80000000 by: BytesPerWord;
+			smashCallerSavedRegistersWithValuesFrom: 16r80000000 by: objectMemory wordSize;
 			simulateReturnIn: coInterpreter memory].
 	self assert: (result isInteger "an oop result"
 			or: [result == coInterpreter

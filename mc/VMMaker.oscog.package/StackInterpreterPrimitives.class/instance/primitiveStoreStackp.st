@@ -8,7 +8,7 @@ primitiveStoreStackp
 	ctxt := self stackValue: 1.
 	newStackp := self stackIntegerValue: 0.
 	(self successful
-	 and: [newStackp between: 0 and: (objectMemory lengthOf: ctxt)]) ifFalse:
+	 and: [newStackp between: 0 and: (objectMemory numSlotsOf: ctxt) - CtxtTempFrameStart]) ifFalse:
 		[^self primitiveFail].
 	self externalWriteBackHeadFramePointers.
 	(self isStillMarriedContext: ctxt) ifTrue:

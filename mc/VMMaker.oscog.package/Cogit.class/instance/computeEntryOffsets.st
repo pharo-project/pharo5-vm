@@ -15,7 +15,7 @@ computeEntryOffsets
 	self cppIf: NewspeakVM
 		ifTrue: [cmDynSuperEntryOffset := dynSuperEntry address - methodZoneBase].
 	missOffset := sendMissCall address + sendMissCall machineCodeSize - methodZoneBase.
-	entryPointMask := BytesPerWord - 1.
+	entryPointMask := objectMemory wordSize - 1.
 	[self cppIf: NewspeakVM
 		ifTrue: [(cmEntryOffset bitAnd: entryPointMask) = (cmNoCheckEntryOffset bitAnd: entryPointMask)
 				or: [(cmEntryOffset bitAnd: entryPointMask) = (cmDynSuperEntryOffset bitAnd: entryPointMask)

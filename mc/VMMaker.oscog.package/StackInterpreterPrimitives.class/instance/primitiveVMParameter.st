@@ -114,7 +114,7 @@ primitiveVMParameter
 		objectMemory storePointerUnchecked: 36	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory statSpecialMarkCount).
 		objectMemory storePointerUnchecked: 37	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory statIGCDeltaUsecs + 500 // 1000).
 		objectMemory storePointerUnchecked: 38	ofObject: result withValue: (objectMemory integerObjectOf: statPendingFinalizationSignals).
-		objectMemory storePointerUnchecked: 39	ofObject: result withValue: (objectMemory integerObjectOf: BytesPerWord).
+		objectMemory storePointerUnchecked: 39	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory wordSize).
 		objectMemory storePointerUnchecked: 40	ofObject: result withValue: (objectMemory integerObjectOf: self imageFormatVersion).
 		objectMemory storePointerUnchecked: 41	ofObject: result withValue: (objectMemory integerObjectOf: numStackPages).
 		objectMemory storePointerUnchecked: 42	ofObject: result withValue: (objectMemory integerObjectOf: desiredNumStackPages).
@@ -197,7 +197,7 @@ primitiveVMParameter
 		arg = 37	ifTrue: [result := objectMemory integerObjectOf: objectMemory statSpecialMarkCount].
 		arg = 38	ifTrue: [result := objectMemory integerObjectOf: objectMemory statIGCDeltaUsecs + 500 // 1000].
 		arg = 39	ifTrue: [result := objectMemory integerObjectOf: statPendingFinalizationSignals].
-		arg = 40	ifTrue: [result := objectMemory integerObjectOf: BytesPerWord].
+		arg = 40	ifTrue: [result := objectMemory integerObjectOf: objectMemory wordSize].
 		arg = 41	ifTrue: [result := objectMemory integerObjectOf: self imageFormatVersion].
 		arg = 42	ifTrue: [result := objectMemory integerObjectOf: numStackPages].
 		arg = 43	ifTrue: [result := objectMemory integerObjectOf: desiredNumStackPages].

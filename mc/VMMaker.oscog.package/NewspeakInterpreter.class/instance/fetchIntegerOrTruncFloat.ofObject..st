@@ -14,7 +14,7 @@ fetchIntegerOrTruncFloat: fieldIndex ofObject: objectPointer
 	self assertClassOf: intOrFloat is: (self splObj: ClassFloat).
 	self successful ifTrue: [
 		self cCode: '' inSmalltalk: [floatVal := Float new: 2].
-		self fetchFloatAt: intOrFloat + BaseHeaderSize into: floatVal.
+		self fetchFloatAt: intOrFloat + self baseHeaderSize into: floatVal.
 		self cCode: 'frac = modf(floatVal, &trunc)'.
 		"the following range check is for C ints, with range -2^31..2^31-1"
 		self flag: #Dan.		"The ranges are INCORRECT if SmallIntegers are wider than 31 bits."

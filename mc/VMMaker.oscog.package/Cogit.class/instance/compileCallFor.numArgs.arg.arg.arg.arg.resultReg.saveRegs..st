@@ -6,11 +6,11 @@ compileCallFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg:
 	 indicates a constant."
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
-	cStackAlignment > BytesPerWord ifTrue:
+	cStackAlignment > objectMemory wordSize ifTrue:
 		[backEnd
 			genAlignCStackSavingRegisters: saveRegs
 			numArgs: numArgs
-			wordAlignment: cStackAlignment / BytesPerWord].
+			wordAlignment: cStackAlignment / objectMemory wordSize].
 	saveRegs ifTrue:
 		[backEnd genSaveRegisters].
 	numArgs > 0 ifTrue:

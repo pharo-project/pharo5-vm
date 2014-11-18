@@ -14,7 +14,7 @@ genPushRegisterArgsForNumArgs: numArgs
 					 numArgs > 1 ifTrue:
 						[cogit PushR: Arg1Reg]].
 				 cogit PushR: TempReg.
-				 cogit MoveR: ReceiverResultReg Mw: BytesPerWord * (1 + numArgs) r: SPReg]
+				 cogit MoveR: ReceiverResultReg Mw: objectMemory wordSize * (1 + numArgs) r: SPReg]
 			ifFalse:
 				[cogit MoveMw: 0 r: SPReg R: TempReg. "Save return address"
 				 cogit MoveR: ReceiverResultReg Mw: 0 r: SPReg.

@@ -6,6 +6,6 @@ getErrorObjectFromPrimFailCode
 	| table |
 	primFailCode > 0 ifTrue:
 		[table := objectMemory splObj: PrimErrTableIndex.
-		 primFailCode <= ((objectMemory lastPointerOf: table) // BytesPerWord) ifTrue:
+		 primFailCode <= ((objectMemory lastPointerOf: table) // objectMemory wordSize) ifTrue:
 			[^objectMemory fetchPointer: primFailCode - 1 ofObject: table]].
 	^objectMemory integerObjectOf: primFailCode

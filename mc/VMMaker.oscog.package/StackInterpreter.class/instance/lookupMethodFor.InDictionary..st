@@ -6,7 +6,6 @@ lookupMethodFor: selector InDictionary: dictionary
 	 execution of images in which Symbols have been compacted out."
 	| length index mask wrapAround nextSelector methodArray |
 	<inline: true>
-	<asmLabel: false>
 	length := objectMemory numSlotsOf: dictionary.
 	mask := length - SelectorStart - 1.
 	index := SelectorStart + (objectMemory methodDictionaryHash: selector mask: mask).

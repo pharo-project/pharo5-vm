@@ -5,7 +5,6 @@ lastPointerOf: objOop
 	 Works with CompiledMethods, as well as ordinary objects."
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	| fmt header contextSize |
 	header := self baseHeader: objOop.
 	fmt := self formatOfHeader: header.
@@ -14,8 +13,8 @@ lastPointerOf: objOop
 		  and: [self isContextHeader: header]) ifTrue:
 			["contexts end at the stack pointer"
 			contextSize := coInterpreter fetchStackPointerOf: objOop.
-			^CtxtTempFrameStart + contextSize * BytesPerOop].
-		^(self sizeBitsOfSafe: objOop) - BaseHeaderSize  "all pointers"].
+			^CtxtTempFrameStart + contextSize * self bytesPerOop].
+		^(self sizeBitsOfSafe: objOop) - self baseHeaderSize  "all pointers"].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"

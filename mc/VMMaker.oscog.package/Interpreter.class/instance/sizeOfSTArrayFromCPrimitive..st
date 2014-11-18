@@ -5,7 +5,7 @@ sizeOfSTArrayFromCPrimitive: cPtr
 
 	| oop |
 	<var: #cPtr type: 'void *'>
-	oop := (self oopForPointer: cPtr) - BaseHeaderSize.
+	oop := (self oopForPointer: cPtr) - self baseHeaderSize.
 	(self isWordsOrBytes: oop) ifFalse: [
 		self primitiveFail.
 		^0].

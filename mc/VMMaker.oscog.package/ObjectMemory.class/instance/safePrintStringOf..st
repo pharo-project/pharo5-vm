@@ -7,7 +7,7 @@ safePrintStringOf: oop
 		[^nil].
 	(self oop: oop isGreaterThanOrEqualTo: self startOfMemory andLessThan: freeBlock) ifFalse:
 		[^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (self wordSize - 1)) ~= 0 ifTrue:
 		[^nil].
 	header := self headerWhileForwardingOf: oop.
 	fmt := self formatOfHeader: header.

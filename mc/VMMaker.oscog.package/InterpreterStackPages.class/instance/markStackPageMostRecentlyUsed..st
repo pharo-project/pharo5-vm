@@ -6,7 +6,6 @@ markStackPageMostRecentlyUsed: page "<InterpreterStackPage>"
 	                v                        <-prev-next->                         v
 	                free page<->free page<->free page<->free page"
 	<var: #page type: #'StackPage *'>
-	<asmLabel: false>
 	page == mostRecentlyUsedPage ifTrue:
 		[^nil].
 	"Common case; making new page most recently used."

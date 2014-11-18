@@ -6,7 +6,6 @@ ensureCallerContext: theFP
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	<var: #callerFP type: #'char *'>
-	<asmLabel: false>
 	callerFP := self frameCallerFP: theFP.
 	callerFP = 0 ifTrue: "base frame, context in saved ip slot (or base of stack in Cog)"
 		[^self frameCallerContext: theFP].

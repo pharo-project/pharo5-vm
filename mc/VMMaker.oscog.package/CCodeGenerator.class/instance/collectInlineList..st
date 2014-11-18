@@ -21,7 +21,9 @@ collectInlineList: inlineFlagOrSymbol
 	callsOf := Dictionary new: methods size * 2.
 	methods keysAndValuesDo:
 		[:s :m|
-		m isRealMethod ifTrue: [callsOf at: s put: 0]].
+		(m isRealMethod
+		 and: [self shouldGenerateMethod: m]) ifTrue:
+			[callsOf at: s put: 0]].
 
 	"For each method, scan its parse tree once or twice to:
 		1. determine if the method contains unrenamable C code or declarations or has a C builtin

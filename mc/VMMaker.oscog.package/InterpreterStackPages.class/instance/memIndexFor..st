@@ -1,3 +1,3 @@
 page access
 memIndexFor: byteAddress
-	^(self oopForPointer: byteAddress) // BytesPerWord + indexOffset
+	^(self oopForPointer: byteAddress) // objectMemory wordSize + indexOffset

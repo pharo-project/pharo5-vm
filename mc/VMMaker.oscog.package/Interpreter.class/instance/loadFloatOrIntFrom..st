@@ -5,7 +5,6 @@ loadFloatOrIntFrom: floatOrInt
 	 Otherwise fail -- ie return with primErrorCode non-zero."
 
 	<inline: true>
-	<asmLabel: false>
 	<returnTypeC: #double>
 
 	(self isIntegerObject: floatOrInt) ifTrue:

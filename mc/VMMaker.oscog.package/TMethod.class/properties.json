@@ -24,8 +24,6 @@
 		"comment",
 		"definingClass",
 		"globalStructureBuildMethodHasFoo",
-		"canAsmLabel",
-		"mustAsmLabel",
 		"properties",
 		"extraVariableNumber" ],
 	"name" : "TMethod",

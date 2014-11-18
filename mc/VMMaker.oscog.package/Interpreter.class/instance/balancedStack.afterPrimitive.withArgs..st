@@ -5,7 +5,7 @@ balancedStack: delta afterPrimitive: primIdx withArgs: nArgs
 	"81-88 are control primitives after which the stack may look unbalanced"
 	successFlag ifTrue:[
 		"Successful prim, stack must have exactly nArgs arguments popped off"
-		^(stackPointer - activeContext + (nArgs * BytesPerWord)) = delta
+		^(stackPointer - activeContext + (nArgs * self wordSize)) = delta
 	].
 	"Failed prim must leave stack intact"
 	^(stackPointer - activeContext) = delta

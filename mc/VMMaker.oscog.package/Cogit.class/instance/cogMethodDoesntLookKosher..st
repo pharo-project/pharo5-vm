@@ -5,7 +5,7 @@ cogMethodDoesntLookKosher: cogMethod
 	<api>
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
-	((cogMethod blockSize bitAnd: BytesPerWord - 1) ~= 0
+	((cogMethod blockSize bitAnd: objectMemory wordSize - 1) ~= 0
 	 or: [cogMethod blockSize < (self sizeof: CogMethod)
 	 or: [cogMethod blockSize >= 32768]]) ifTrue:
 		[^1].
@@ -33,7 +33,7 @@ cogMethodDoesntLookKosher: cogMethod
 			[(cogMethod methodObject ~= 0
 			 and: [cogMethod methodObject < methodZoneBase
 				   or: [cogMethod methodObject > (methodZone freeStart - openPICSize)
-				   or: [(cogMethod methodObject bitAnd: BytesPerWord - 1) ~= 0
+				   or: [(cogMethod methodObject bitAnd: objectMemory wordSize - 1) ~= 0
 				   or: [(self cCoerceSimple: cogMethod methodObject
 							to: #'CogMethod *') cmType ~= CMOpenPIC]]]]) ifTrue:
 				[^23]].

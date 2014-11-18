@@ -4,7 +4,7 @@ pushClosureCopyCopiedValuesBytecode
 	 Create a Closure with space for the copiedValues and pop numCopied values off the stack into the closure.
 	 Set numArgs as specified, and set startpc to the pc following the block size and jump over that code."
 	| newClosure numArgsNumCopied numArgs numCopied blockSize |
-	BytesPerWord == 4
+	self wordSize == 4
 		ifTrue: [imageFormatVersionNumber := 6504]
 		ifFalse: [imageFormatVersionNumber := 68002].
 	numArgsNumCopied := self fetchByte.
@@ -16,7 +16,7 @@ pushClosureCopyCopiedValuesBytecode
 	self externalizeIPandSP. "This is a pain."
 	newClosure := self
 					closureNumArgs: numArgs
-					instructionPointer: ((self oopForPointer: localIP) + 2 - (method+BaseHeaderSize))
+					instructionPointer: ((self oopForPointer: localIP) + 2 - (method+self baseHeaderSize))
 					numCopiedValues: numCopied.
 	self internalizeIPandSP.
 	"Assume: have just allocated a new closure; it must be young. Thus, can use unchecked stores."

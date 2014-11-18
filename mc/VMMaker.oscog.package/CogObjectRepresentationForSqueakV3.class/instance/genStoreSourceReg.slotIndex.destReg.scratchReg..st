@@ -6,7 +6,7 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	<var: #jmpSourceOld type: #'AbstractInstruction *'>
 	<var: #jmpAlreadyRoot type: #'AbstractInstruction *'>
 	"do the store"
-	cogit MoveR: sourceReg Mw: index * BytesPerWord + BaseHeaderSize r: destReg.
+	cogit MoveR: sourceReg Mw: index * objectMemory wordSize + objectMemory baseHeaderSize r: destReg.
 	"now the check.  Is value stored an integer?  If so we're done"
 	cogit MoveR: sourceReg R: scratchReg.
 	cogit AndCq: 1 R: scratchReg.
@@ -24,7 +24,7 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	 Test the root bit.  Only need to fetch the byte containing it,
 	 which reduces the size of the mask constant."
 	rootBitByteOffset := jmpSourceOld isBigEndian
-							ifTrue: [BytesPerWord - RootBitDigitLength]
+							ifTrue: [objectMemory wordSize - RootBitDigitLength]
 							ifFalse:[RootBitDigitLength - 1].
 	mask := RootBitDigitLength > 1
 				ifTrue: [RootBit >> (RootBitDigitLength - 1 * 8)]

@@ -11,7 +11,7 @@ relocateAndPruneYoungReferrers
 	youngReferrers = limitAddress ifTrue:
 		[^nil].
 	dest := limitAddress.
-	[next := dest - BytesPerWord.
+	[next := dest - objectMemory wordSize.
 	 next >= youngReferrers
 	 and: [(cogMethod := coInterpreter cCoerceSimple: (objectMemory longAt: next) to: #'CogMethod *') cmType ~= CMFree
 	 and: [cogMethod cmRefersToYoung]]] whileTrue:
@@ -19,18 +19,18 @@ relocateAndPruneYoungReferrers
 			[coInterpreter longAt: next put: cogMethod asInteger + cogMethod objectHeader].
 		 dest := next].
 	self assert: dest >= youngReferrers.
-	source := dest - BytesPerWord.
+	source := dest - objectMemory wordSize.
 	[source >= youngReferrers] whileTrue:
 		[cogMethod := coInterpreter cCoerceSimple: (objectMemory longAt: source) to: #'CogMethod *'.
 		 (cogMethod cmType ~= CMFree
 		  and: [cogMethod cmRefersToYoung]) ifTrue:
-			[self assert: source < (dest - BytesPerWord).
+			[self assert: source < (dest - objectMemory wordSize).
 			 cogMethod objectHeader ~= 0 ifTrue:
 				[cogMethod := coInterpreter
 									cCoerceSimple: cogMethod asInteger + cogMethod objectHeader asInteger
 									to: #'CogMethod *'].
-			 objectMemory longAt: (dest := dest - BytesPerWord) put: cogMethod asInteger].
-		 source := source - BytesPerWord].
+			 objectMemory longAt: (dest := dest - objectMemory wordSize) put: cogMethod asInteger].
+		 source := source - objectMemory wordSize].
 	youngReferrers := dest.
 	"this assert must be deferred until after compaction.  See the end of compactCogCompiledCode"
 	"self assert: self kosherYoungReferrers"

@@ -5,6 +5,6 @@ pop: nItems thenPushBool: trueOrFalse
 	<inline: true>
 	<var: #sp type: #'char *'>
 	stackPages
-		longAt: (sp := stackPointer + ((nItems - 1) * BytesPerWord))
+		longAt: (sp := stackPointer + ((nItems - 1) * objectMemory wordSize))
 		put: (objectMemory booleanObjectOf: trueOrFalse).
 	stackPointer := sp

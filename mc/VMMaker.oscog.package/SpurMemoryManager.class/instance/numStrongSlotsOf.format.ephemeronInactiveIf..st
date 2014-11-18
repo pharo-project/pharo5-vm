@@ -4,7 +4,6 @@ numStrongSlotsOf: objOop format: fmt ephemeronInactiveIf: criterion
 	 Works with CompiledMethods, as well as ordinary objects."
 	<var: 'criterion' declareC: 'int (*criterion)(sqInt key)'>
 	<inline: true>
-	<asmLabel: false>
 	| numSlots  contextSize numLiterals header |
 	fmt <= self lastPointerFormat ifTrue:
 		[numSlots := self numSlotsOf: objOop.

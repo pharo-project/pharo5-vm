@@ -3,7 +3,7 @@ genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scrat
 	<returnTypeC: #'AbstractInstruction *'>
 	| allocSize newFloatHeaderSansHash jumpFail |
 	<var: #jumpFail type: #'AbstractInstruction *'>
-	allocSize := BaseHeaderSize + (objectMemory sizeof: #double).
+	allocSize := objectMemory baseHeaderSize + (objectMemory sizeof: #double).
 	newFloatHeaderSansHash := ((ClassFloatCompactIndex << objectMemory compactClassFieldLSB
 									bitOr: (objectMemory formatOfClass: objectMemory classFloat))
 									bitOr: allocSize)
@@ -16,10 +16,10 @@ genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scrat
 	jumpFail := cogit JumpAboveOrEqual: 0.
 	cogit MoveR: resultReg R: scratch2.
 	self flag: #newObjectHash.
-	cogit AndCq: HashMaskUnshifted << BytesPerWord R: scratch2.
-	cogit LogicalShiftLeftCq: HashBitsOffset - BytesPerWord R: scratch2.
+	cogit AndCq: HashMaskUnshifted << objectMemory wordSize R: scratch2.
+	cogit LogicalShiftLeftCq: HashBitsOffset - objectMemory wordSize R: scratch2.
 	cogit OrCq: newFloatHeaderSansHash R: scratch2.
 	cogit MoveR: scratch2 Mw: 0 r: resultReg.
-	cogit MoveRd: dpreg M64: BaseHeaderSize r: resultReg.
+	cogit MoveRd: dpreg M64: objectMemory baseHeaderSize r: resultReg.
 	cogit MoveR: scratch1 Aw: objectMemory freeStartAddress.
 	^jumpFail

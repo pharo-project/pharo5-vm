@@ -25,7 +25,7 @@ ifBackwardsCheckForEvents: offset
 		ifTrue:
 			[(self methodWithHeaderShouldBeCogged: (objectMemory methodHeaderOf: method)) ifTrue:
 				[self externalizeIPandSP.
-				 self attemptToSwitchToMachineCode: (self oopForPointer: localIP) - offset - method - BaseHeaderSize - 1
+				 self attemptToSwitchToMachineCode: (self oopForPointer: localIP) - offset - method - objectMemory baseHeaderSize - 1
 				 "If attemptToSwitchToMachineCode: returns the method could not be cogged, hence..."].
 			 "can't cog method; avoid asking to cog it again for the longest possible time."
 			 backwardJumpCountByte := 16r7F]

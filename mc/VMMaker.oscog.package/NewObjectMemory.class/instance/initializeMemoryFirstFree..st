@@ -16,14 +16,14 @@ initializeMemoryFirstFree: firstFree
 	"reserve space for forwarding blocks and the interpreter.  We can sacrifice
 	 forwarding block space at the cost of slower compactions but we cannot
 	 safely sacrifice interpreter allocation headroom."
-	fwdBlockBytes := totalObjectCount bitAnd: WordMask - BytesPerWord + 1.
+	fwdBlockBytes := totalObjectCount bitAnd: WordMask - self wordSize + 1.
 	totalReserve := fwdBlockBytes + self interpreterAllocationReserveBytes.
-	(self oop: memoryLimit - totalReserve isLessThan: firstFree + BaseHeaderSize) ifTrue:
+	(self oop: memoryLimit - totalReserve isLessThan: firstFree + self baseHeaderSize) ifTrue:
 		["reserve enough space for a minimal free block of BaseHeaderSize bytes.
 		  We are apparently in an emergency situation here because we have no space
 		  for reserve and forwarding blocks.  But a full GC will occur immediately in	
 		  sufficientSpaceAfterGC: which will grow memory and restore the reserve."
-		 fwdBlockBytes := memoryLimit - (firstFree  + BaseHeaderSize)].
+		 fwdBlockBytes := memoryLimit - (firstFree  + self baseHeaderSize)].
 
 	"set endOfMemory reserveStart and freeStart"
 	self setEndOfMemory: memoryLimit - fwdBlockBytes.

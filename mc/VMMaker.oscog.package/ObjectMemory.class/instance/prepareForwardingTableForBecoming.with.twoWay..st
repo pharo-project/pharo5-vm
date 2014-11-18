@@ -20,21 +20,21 @@ prepareForwardingTableForBecoming: array1 with: array2 twoWay: twoWayFlag
 	To avoid the simple and rather common case of oop1 become*: oop1, we skip such pairs
 	and simply avoid making fwdBlocks - it is redundant anyway"
 	| entriesNeeded entriesAvailable fieldOffset oop1 oop2 fwdBlock fwdBlkSize |
-	entriesNeeded := (self lastPointerOf: array1) // BytesPerWord. "need enough entries for all oops"
+	entriesNeeded := (self lastPointerOf: array1) // self wordSize. "need enough entries for all oops"
 	"Note: Forward blocks must be quadword aligned - see fwdTableInit:."
 	twoWayFlag
 		ifTrue: ["Double the number of blocks for two-way become"
 			entriesNeeded := entriesNeeded * 2.
-			fwdBlkSize := BytesPerWord * 2]
+			fwdBlkSize := self wordSize * 2]
 		ifFalse: ["One-way become needs backPointers in fwd blocks."
-			fwdBlkSize := BytesPerWord * 4].
+			fwdBlkSize := self wordSize * 4].
 	entriesAvailable := self fwdTableInit: fwdBlkSize.
 	entriesAvailable < entriesNeeded
 		ifTrue: [self initializeMemoryFirstFree: freeBlock.
 			"re-initialize the free block"
 			^ false].
 	fieldOffset := self lastPointerOf: array1.
-	[fieldOffset >= BaseHeaderSize]
+	[fieldOffset >= self baseHeaderSize]
 		whileTrue: [oop1 := self longAt: array1 + fieldOffset.
 			oop2 := self longAt: array2 + fieldOffset.
 			"if oop1 == oop2, no need to do any work for this pair.
@@ -56,5 +56,5 @@ prepareForwardingTableForBecoming: array1 with: array2 twoWay: twoWayFlag
 								mapping: oop2
 								to: oop1
 								withBackPtr: twoWayFlag not]].
-			fieldOffset := fieldOffset - BytesPerWord].
+			fieldOffset := fieldOffset - self wordSize].
 	^ true

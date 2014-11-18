@@ -9,4 +9,4 @@ numSlotsOf: obj
 	sz := (header bitAnd: TypeMask) = HeaderTypeSizeAndClass
 			ifTrue: [(self sizeHeader: obj) bitAnd: AllButTypeMask]
 			ifFalse: [header bitAnd: SizeMask].
-	^sz - BaseHeaderSize >> ShiftForWord
+	^sz - self baseHeaderSize >> self shiftForWord

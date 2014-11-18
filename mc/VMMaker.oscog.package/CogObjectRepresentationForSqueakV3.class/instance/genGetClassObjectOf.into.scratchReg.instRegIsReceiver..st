@@ -17,8 +17,8 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 	"Get header word in scratchReg"
 	cogit MoveMw: 0 r: instReg R: scratchReg.
 	"Form the byte index of the compact class field"
-	cogit LogicalShiftRightCq: (objectMemory compactClassFieldLSB - ShiftForWord) R: scratchReg.
-	cogit AndCq: self compactClassFieldMask << ShiftForWord R: scratchReg.
+	cogit LogicalShiftRightCq: (objectMemory compactClassFieldLSB - objectMemory shiftForWord) R: scratchReg.
+	cogit AndCq: self compactClassFieldMask << objectMemory shiftForWord R: scratchReg.
 	jumpCompact := cogit JumpNonZero: 0.
 	cogit MoveMw: objectMemory classFieldOffset r: instReg R: destReg.
 	cogit AndCq: AllButTypeMask signedIntFromLong R: destReg.
@@ -28,7 +28,7 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 				objRef: objectMemory classSmallInteger).
 	jumpGotClass2 := cogit Jump: 0.
 	"Don't have to subtract one from the destReg compactClassArray index because of the header word."
-	self assert: BaseHeaderSize = BytesPerWord.
+	self assert: objectMemory baseHeaderSize = objectMemory wordSize.
 	jumpCompact jmpTarget:
 		(cogit annotate: (cogit MoveMw: (objectMemory splObj: CompactClasses) r: scratchReg R: destReg)
 			objRef: (objectMemory splObj: CompactClasses)).

@@ -50,8 +50,8 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	"Cannot fail this primitive from here-on.  Slide the actual receiver and arguments down
 	 to replace the perform arguments and saved newMethod and then execute the new
 	 method. Use argumentCount not arraySize because an MNU may have changed it."
-	delta := BytesPerWord * (performArgCount + 2). "+2 = receiver + saved newMethod"
-	argumentCount * BytesPerWord to: 0 by: BytesPerWord negated do:
+	delta := objectMemory wordSize * (performArgCount + 2). "+2 = receiver + saved newMethod"
+	argumentCount * objectMemory wordSize to: 0 by: objectMemory wordSize negated do:
 		[:offset|
 		stackPages
 			longAt: stackPointer + offset + delta

@@ -7,9 +7,15 @@ isConstantNode: aNode valueInto: aBlock
 		 ^true].
 	aNode isSend ifFalse:
 		[^false].
-	(self anyMethodNamed: aNode selector) ifNotNil:
-		[:m|
-		(m statements size = 1
-		 and: [m statements last isReturn]) ifTrue:
-			[^self isConstantNode: m statements last expression valueInto: aBlock]].
+	(self anyMethodNamed: aNode selector)
+		ifNil:
+			[(VMBasicConstants valueOfBasicSelector: aNode selector) ifNotNil:
+				[:value|
+				 aBlock value: value.
+				 ^true]]
+		ifNotNil:
+			[:m|
+			(m statements size = 1
+			 and: [m statements last isReturn]) ifTrue:
+				[^self isConstantNode: m statements last expression valueInto: aBlock]].
 	^false

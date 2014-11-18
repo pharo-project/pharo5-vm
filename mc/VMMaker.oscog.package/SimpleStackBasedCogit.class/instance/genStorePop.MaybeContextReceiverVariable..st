@@ -25,5 +25,5 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 		scratchReg: TempReg.
 	jmpDone jmpTarget: self Label.
 	popBoolean ifTrue:
-		[self AddCq: BytesPerWord R: SPReg].
+		[self AddCq: objectMemory wordSize R: SPReg].
 	^0

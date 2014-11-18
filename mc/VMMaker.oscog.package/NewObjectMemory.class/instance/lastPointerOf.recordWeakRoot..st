@@ -8,7 +8,6 @@ lastPointerOf: objOop recordWeakRoot: recordWeakRoot "<Boolean>"
 	 Override to ask coInterpreter to determine literalCount of methods."
 	| fmt sz header contextSize numOops |
 	<inline: true>
-	<asmLabel: false>
 	header := self baseHeader: objOop.
 	fmt := self formatOfHeader: header.
 	fmt <= self lastPointerFormat ifTrue:
@@ -21,16 +20,16 @@ lastPointerOf: objOop recordWeakRoot: recordWeakRoot "<Boolean>"
 					 weakRoots at: weakRootCount put: objOop].
 				"Do not trace the object's indexed fields if it's a weak class"
 				numOops := self nonWeakFieldsOf: objOop. "so nonWeakFieldsOf: may be inlined"
-				^numOops * BytesPerWord].
+				^numOops * self wordSize].
 			"So fmt is 3"
 			(self isContextHeader: header) ifTrue:
 				[coInterpreter setTraceFlagOnContextsFramesPageIfNeeded: objOop.
 				 "contexts end at the stack pointer avoiding having to init fields beyond it"
 				 contextSize := coInterpreter fetchStackPointerOf: objOop.
 				 self assert: ReceiverIndex + contextSize < (self lengthOf: objOop baseHeader: header format: fmt).
-				 ^CtxtTempFrameStart + contextSize * BytesPerOop]].
+				 ^CtxtTempFrameStart + contextSize * self bytesPerOop]].
 		 sz := self sizeBitsOfSafe: objOop.
-		 ^sz - BaseHeaderSize  "all pointers" ].
+		 ^sz - self baseHeaderSize  "all pointers" ].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"

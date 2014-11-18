@@ -4,7 +4,7 @@ initFreeChunkWithBytes: numBytes at: address
 	| numSlots |
 	"must have room for a header (single or double) plus the next free pointer"
 	self assert: (numBytes \\ self allocationUnit = 0
-				 and: [numBytes >= (self baseHeaderSize + self bytesPerSlot)]).
+				 and: [numBytes >= (self baseHeaderSize + self bytesPerOop)]).
 	self flag: #endianness.
 	"double header"
 	numBytes >= ((self numSlotsMask << self shiftForWord) + self baseHeaderSize) ifTrue:

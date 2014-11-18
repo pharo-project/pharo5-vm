@@ -5,4 +5,4 @@ ceActiveContext
 	self assert: (self isMachineCodeFrame: framePointer).
 	self assert: (self frameHasContext: framePointer) not.
 	"Do *not* include the return pc in the stack contents; hence + BytesPerWord"
-	^self marryFrame: framePointer SP: stackPointer + BytesPerWord
+	^self marryFrame: framePointer SP: stackPointer + objectMemory wordSize

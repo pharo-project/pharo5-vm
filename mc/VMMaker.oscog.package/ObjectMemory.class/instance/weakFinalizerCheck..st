@@ -12,7 +12,6 @@ weakFinalizerCheck: oop
 		oop instVarAt: 2 put: first.
 		list instVarAt: 1 put: oop ]	"
 	<inline: true>
-	<asmLabel: false> "prevent label duplication"
 	| listOop listItemOop |
 
 	listOop := self fetchPointer: 0 ofObject: oop.

@@ -22,7 +22,7 @@ containsOnlyValidBecomeObjects: array1 and: array2
 		 (self isImmediate: oop) ifTrue: [^PrimErrInappropriate].
 		 (self isPinned: oop) ifTrue: [^PrimErrObjectIsPinned].
 		 effectsFlags := effectsFlags bitOr: (self becomeEffectFlagsFor: oop).
-		 fieldOffset := fieldOffset - BytesPerOop].
+		 fieldOffset := fieldOffset - self bytesPerOop].
 	"only set flags after checking all args."
 	becomeEffectsFlags := effectsFlags.
 	^0

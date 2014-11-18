@@ -9,7 +9,7 @@ marriedContext: spouseContext pointsTo: anOop stackDeltaForCurrentFrame: stackDe
 	<var: #rcvrOffset type: #'char *'>
 	theFP := self frameOfMarriedContext: spouseContext.
 	theFP = framePointer
-		ifTrue: [theSP := stackPointer + (stackDeltaForCurrentFrame * BytesPerWord)]
+		ifTrue: [theSP := stackPointer + (stackDeltaForCurrentFrame * objectMemory wordSize)]
 		ifFalse:
 			[thePage := stackPages stackPageFor: theFP.
 			theSP := self findSPOf: theFP on: thePage].
@@ -32,12 +32,12 @@ marriedContext: spouseContext pointsTo: anOop stackDeltaForCurrentFrame: stackDe
 	 [theSP <= rcvrOffset] whileTrue:
 		[anOop = (stackPages longAt: theSP) ifTrue:
 			[^true].
-		 theSP := theSP + BytesPerWord].
+		 theSP := theSP + objectMemory wordSize].
 	"Finally check stacked receiver (closure field or duplicate of receiver) and arguments"
-	theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+	theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 	rcvrOffset := theFP + (self frameStackedReceiverOffset: theFP).
 	 [theSP <= rcvrOffset] whileTrue:
 		[anOop = (stackPages longAt: theSP) ifTrue:
 			[^true].
-		 theSP := theSP + BytesPerWord].
+		 theSP := theSP + objectMemory wordSize].
 	^false

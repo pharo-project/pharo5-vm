@@ -18,6 +18,6 @@ primitiveIntegerAtPut
 		[^self primitiveFailFor: PrimErrBadIndex].
 	(self isOopImmutable: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrNoModification].
-	addr := rcvr + BaseHeaderSize - 4 "for zero indexing" + (index * 4).
+	addr := rcvr + self baseHeaderSize - 4 "for zero indexing" + (index * 4).
 	value := self intAt: addr put: value.
 	self pop: 3 thenPush: valueOop "pop all; return value"

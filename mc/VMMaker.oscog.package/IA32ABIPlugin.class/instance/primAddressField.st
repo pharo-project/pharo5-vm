@@ -6,6 +6,6 @@ primAddressField
 	| rcvr value valueOop |
 	<export: true>
 	rcvr := interpreterProxy stackValue: 0.
-	value := self longAt: rcvr + BaseHeaderSize + BytesPerOop.
+	value := self longAt: rcvr + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop.
 	valueOop := interpreterProxy positive32BitIntegerFor: value.
 	^interpreterProxy methodReturnValue: valueOop

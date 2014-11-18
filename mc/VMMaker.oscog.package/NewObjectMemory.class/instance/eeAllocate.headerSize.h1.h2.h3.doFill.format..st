@@ -6,21 +6,20 @@ eeAllocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOop h3: extende
 
 	| newObj |
 	<inline: true>
-	<asmLabel: false>
 	<var: #i type: 'usqInt'>
 	<var: #end type: 'usqInt'>
-	newObj := self allocateInterpreterChunk: byteSize + (hdrSize - 1 * BytesPerWord).
+	newObj := self allocateInterpreterChunk: byteSize + (hdrSize - 1 * self wordSize).
 	newObj = 0 ifTrue: [^newObj].
 	hdrSize = 3 ifTrue:
 		[self longAt: newObj put: (extendedSize bitOr: HeaderTypeSizeAndClass).
-		 self longAt: newObj + BytesPerWord put: (classOop bitOr: HeaderTypeSizeAndClass).
-		 self longAt: newObj + (BytesPerWord*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
-		 newObj := newObj + (BytesPerWord*2)].
+		 self longAt: newObj + self wordSize put: (classOop bitOr: HeaderTypeSizeAndClass).
+		 self longAt: newObj + (self wordSize*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
+		 newObj := newObj + (self wordSize*2)].
 
 	 hdrSize = 2 ifTrue:
 		[self longAt: newObj put: (classOop bitOr: HeaderTypeClass).
-		 self longAt: newObj + BytesPerWord put: (baseHeader bitOr: HeaderTypeClass).
-		 newObj := newObj + BytesPerWord].
+		 self longAt: newObj + self wordSize put: (baseHeader bitOr: HeaderTypeClass).
+		 newObj := newObj + self wordSize].
 
 	 hdrSize = 1 ifTrue:
 		[self longAt: newObj put: (baseHeader bitOr: HeaderTypeShort)].
@@ -32,10 +31,10 @@ eeAllocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOop h3: extende
 					ifTrue: [nilObj] "if pointers, fill with nil oop"
 					ifFalse: [0].
 		 end := newObj + byteSize.
-		 i := newObj + BytesPerWord.
+		 i := newObj + self wordSize.
 		 [i < end] whileTrue:
 			[self longAt: i put: fillWord.
-			 i := i + BytesPerWord]].
+			 i := i + self wordSize]].
 
 	DoExpensiveAssertionChecks ifTrue:
 		[self okayOop: newObj.

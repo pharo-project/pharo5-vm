@@ -11,9 +11,9 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	<var: #dataSize type: 'size_t '>
 	<var: #imageOffset type: 'squeakFileOffsetType '>
 
-	metaclassSizeBits := 6 * BytesPerWord.	"guess (Metaclass instSize * BPW)"
+	metaclassSizeBits := 6 * self wordSize.	"guess (Metaclass instSize * BPW)"
 	swapBytes := self checkImageVersionFrom: f startingAt: imageOffset.
-	headerStart := (self sqImageFilePosition: f) - BytesPerWord.  "record header start position"
+	headerStart := (self sqImageFilePosition: f) - self wordSize.  "record header start position"
 
 	headerSize			:= self getLongFromFile: f swap: swapBytes.
 	dataSize				:= self getLongFromFile: f swap: swapBytes.
@@ -48,7 +48,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	self sqImageFile: f Seek: headerStart + headerSize.
 
 	"read in the image in bulk, then swap the bytes if necessary"
-	bytesRead := self cCode: 'sqImageFileReadEntireImage(pointerForOop(memory), sizeof(unsigned char), dataSize, f)'.	
+	bytesRead := self cCode: 'sqImageFileReadEntireImage(pointerForOop(memory), sizeof(unsigned char), dataSize, f)'.		
 	bytesRead ~= dataSize ifTrue: [self unableToReadImageError].
 
 	swapBytes ifTrue: [self reverseBytesInImage].

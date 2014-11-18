@@ -77,7 +77,7 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	-1 for 0-based addressing of fetchByte 
 	-1 because it gets incremented BEFORE fetching currentByte"
 	closureIP := self quickFetchInteger: ClosureStartPCIndex ofObject: blockClosure.
-	instructionPointer := theMethod + closureIP + BaseHeaderSize - 2.
+	instructionPointer := theMethod + closureIP + objectMemory baseHeaderSize - 2.
 	self setMethod: theMethod methodHeader: methodHeader.
 
 	"Now check for stack overflow or an event (interrupt, must scavenge, etc)"

@@ -1,3 +1,3 @@
 simulation only
 methodCacheSize
-	^MethodCacheSize * BytesPerWord
+	^MethodCacheSize * objectMemory wordSize

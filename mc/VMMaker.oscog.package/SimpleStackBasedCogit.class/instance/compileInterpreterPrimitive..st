@@ -23,10 +23,10 @@ compileInterpreterPrimitive: primitiveRoutine
  
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick if so"
-		BytesPerWord = 4
+		objectMemory wordSize = 4
 			ifTrue:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-				 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+				 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 				 self OrR: TempReg R: ClassReg]
 			ifFalse:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -81,10 +81,10 @@ compileInterpreterPrimitive: primitiveRoutine
 			(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 				[self assert: (flags anyMask: PrimCallNeedsNewMethod).
 				"Test nextProfileTick for being non-zero and call checkProfileTick if so"
-				BytesPerWord = 4
+				objectMemory wordSize = 4
 					ifTrue:
 						[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-						 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+						 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 						 self OrR: TempReg R: ClassReg]
 					ifFalse:
 						[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -116,9 +116,9 @@ compileInterpreterPrimitive: primitiveRoutine
 			self CmpCq: 0 R: TempReg.
 			jmp := self JumpNonZero: 0.
 			"Fetch result from stack"
-			self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.
+			self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg.
 			self flag: 'currently caller pushes result'.
-			self RetN: BytesPerWord].	"return to caller, popping receiver"
+			self RetN: objectMemory wordSize].	"return to caller, popping receiver"
 
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["The sample is collected by cePrimReturnEnterCogCode for external calls"
@@ -144,7 +144,7 @@ compileInterpreterPrimitive: primitiveRoutine
 		["Jump to restore of receiver reg and proceed to frame build for failure."
 		 jmp jmpTarget: self Label.
 		 "Restore receiver reg from stack.  If on RISCs ret pc is in LinkReg, if on CISCs ret pc is on stack."
-		 self MoveMw: BytesPerWord * (methodOrBlockNumArgs + (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]))
+		 self MoveMw: objectMemory wordSize * (methodOrBlockNumArgs + (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]))
 			r: SPReg
 			R: ReceiverResultReg].
 	^0

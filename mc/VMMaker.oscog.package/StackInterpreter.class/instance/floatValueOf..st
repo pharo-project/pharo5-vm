@@ -5,7 +5,6 @@ floatValueOf: oop
 	 Note: May be called by translated primitive code."
 
 	| isFloat result |
-	<asmLabel: false>
 	<returnTypeC: #double>
 	<var: #result type: #double>
 	isFloat := self isInstanceOfClassFloat: oop.

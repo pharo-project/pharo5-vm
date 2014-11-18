@@ -24,7 +24,7 @@ allObjects
 					 count := count + 1.
 					 ptr < limit ifTrue:
 						[self longAt: ptr put: obj.
-						 ptr := ptr + self bytesPerSlot]]
+						 ptr := ptr + self bytesPerOop]]
 				ifFalse:
 					[MarkObjectsForEnumerationPrimitives ifTrue:
 						[(self isSegmentBridge: obj) ifFalse:
@@ -37,7 +37,7 @@ allObjects
 		ifFalse:
 			[self assert: (self isEmptyObjStack: weaklingStack)].
 	self assert: count >= self numSlotsMask.
-	(count > (ptr - start / self bytesPerSlot) "not enough room"
+	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
 		 self checkFreeSpace.

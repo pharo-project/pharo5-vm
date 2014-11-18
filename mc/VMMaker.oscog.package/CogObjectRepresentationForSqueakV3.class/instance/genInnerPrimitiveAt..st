@@ -45,7 +45,7 @@ genInnerPrimitiveAt: retNoffset
 	cogit AddR: SendNumArgsReg R: Arg1Reg. "Add fixed fields to index"
 	jumpFmtEq2 jmpTarget: cogit Label.
 	cogit "Too lazy [knackered, more like. ed.] to define index with displacement addressing right now"
-		AddCq: BaseHeaderSize / BytesPerWord R: Arg1Reg;
+		AddCq: objectMemory baseHeaderSize / objectMemory wordSize R: Arg1Reg;
 		MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg;
 		RetN: retNoffset.
 	jumpFmtGt4 jmpTarget: cogit Label.
@@ -56,14 +56,14 @@ genInnerPrimitiveAt: retNoffset
 	cogit CmpCq: 11 R: ClassReg.
 	jumpFmtGt11 := cogit JumpGreater: 0.
 	cogit
-		AddCq: BaseHeaderSize R: Arg1Reg;
+		AddCq: objectMemory baseHeaderSize R: Arg1Reg;
 		MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
 	self genConvertIntegerToSmallIntegerInReg: ReceiverResultReg.
 	cogit RetN: retNoffset.
 	jumpFmtLt8 jmpTarget: cogit Label.
-	self assert: BytesPerWord = 4. "documenting my laziness"
+	self assert: objectMemory wordSize = 4. "documenting my laziness"
 	cogit "Too lazy [knackered, more like. ed.] to define index with displacement addressing right now"
-		AddCq: BaseHeaderSize / BytesPerWord R: Arg1Reg;
+		AddCq: objectMemory baseHeaderSize / objectMemory wordSize R: Arg1Reg;
 		MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg;
 		CmpCq: 16r3FFFFFFF R: ReceiverResultReg.
 	jumpLarge := cogit JumpAbove: 0.

@@ -18,7 +18,7 @@ sendInvokeCallbackContext: vmCallbackContext
 		[^false].
 	self saveCStackStateForCallbackContext: vmCallbackContext.
 	self push: (self splObj: ClassAlien). "receiver"
-	self cppIf: BytesPerWord = 8
+	self cppIf: objectMemory wordSize = 8
 		ifTrue:
 			[(self argumentCountOf: newMethod) = 4 ifTrue:
 				[self push: (self positive64BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).

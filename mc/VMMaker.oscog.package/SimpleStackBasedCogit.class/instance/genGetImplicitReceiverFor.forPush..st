@@ -30,7 +30,7 @@ genGetImplicitReceiverFor: selector forPush: forPushSendBar
 	(objectMemory isYoung: selector) ifTrue:
 		[hasYoungReferent := true].
 	objectRepresentation canPinObjects ifTrue:
-		[self MoveCw: theIRCs + (2 * BytesPerOop * indexOfIRC) R: Arg1Reg.
+		[self MoveCw: theIRCs + (2 * objectMemory bytesPerOop * indexOfIRC) R: Arg1Reg.
 		 self MoveCw: selector R: SendNumArgsReg.
 		 self CallNewspeakSend: ceImplicitReceiverTrampoline.
 		 indexOfIRC := indexOfIRC + 1.

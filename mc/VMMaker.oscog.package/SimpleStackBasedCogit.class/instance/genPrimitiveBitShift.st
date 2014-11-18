@@ -42,7 +42,7 @@ nonInt:
 	<var: #jumpNegative type: #'AbstractInstruction *'>
 	<var: #jumpTooBig type: #'AbstractInstruction *'>
 	<var: #jumpInRange type: #'AbstractInstruction *'>
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.
@@ -59,13 +59,13 @@ nonInt:
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ReceiverResultReg.
 	self LogicalShiftLeftR: ClassReg R: ReceiverResultReg.
 	objectRepresentation genAddSmallIntegerTagsTo: ReceiverResultReg.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpNegative jmpTarget: (self NegateR: ClassReg).
 	self CmpCq: objectRepresentation numSmallIntegerBits R: ClassReg. "N.B. FLAGS := ClassReg - 31"
 	jumpInRange := self JumpLessOrEqual: 0.
 	self MoveCq: objectRepresentation numSmallIntegerBits R: ClassReg.
 	jumpInRange jmpTarget: (self ArithmeticShiftRightR: ClassReg R: ReceiverResultReg).
 	objectRepresentation genSetSmallIntegerTagsIn: ReceiverResultReg.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpNotSI jmpTarget: (jumpTooBig jmpTarget: (jumpOvfl jmpTarget: self Label)).
 	^0

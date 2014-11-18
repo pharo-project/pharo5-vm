@@ -25,7 +25,7 @@ interpretMethodFromMachineCode
 			 framePointer.  But context assignments will change both the framePointer and stackPage headFP."
 			
 			 self assert: (framePointer < stackPage baseAddress
-						and: [framePointer > (stackPage realStackLimit - (LargeContextSize / 2))]).
+						and: [framePointer > (stackPage realStackLimit - (LargeContextSlots * objectMemory bytesPerOop / 2))]).
 			 stackPage headFP: framePointer.
 			 self isPrimitiveFunctionPointerAnIndex
 				ifTrue:

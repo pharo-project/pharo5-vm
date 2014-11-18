@@ -13,7 +13,6 @@ generateCogitFile
 								ifTrue: [ex rearmHandlerDuring: [ex pass]]
 								ifFalse: [ex pass]]].
 	self needsToRegenerateCogitFile ifFalse: [^nil].
-	cg removeUnneededBuiltins.
 
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.
 

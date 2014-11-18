@@ -10,5 +10,5 @@ numBytesOf: objOop
 			ifFalse: [header bitAnd: SizeMask].
 	fmt := self formatOfHeader: header.
 	^fmt < self firstByteFormat
-		ifTrue: [(sz - BaseHeaderSize)]  "words"
-		ifFalse: [(sz - BaseHeaderSize) - (fmt bitAnd: 3)]  "bytes"
+		ifTrue: [(sz - self baseHeaderSize)]  "words"
+		ifFalse: [(sz - self baseHeaderSize) - (fmt bitAnd: 3)]  "bytes"

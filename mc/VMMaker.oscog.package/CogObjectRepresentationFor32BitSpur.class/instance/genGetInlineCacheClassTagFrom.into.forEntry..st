@@ -53,11 +53,11 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 			 jumpCompare jmpTarget:
 				(cogit AndCq: objectMemory classIndexMask R: destReg)]
 		ifTrue:
-			[cogit AlignmentNops: BytesPerWord.
+			[cogit AlignmentNops: objectMemory wordSize.
 			 immLabel := cogit Label.
 			 cogit AndCq: 1 R: destReg.
 			 jumpCompare := cogit Jump: 0.
-			 cogit AlignmentNops: BytesPerWord.
+			 cogit AlignmentNops: objectMemory wordSize.
 			 entryLabel := cogit Label.
 			 cogit MoveR: sourceReg R: destReg.
 			 cogit AndCq: objectMemory tagMask R: destReg.

@@ -35,10 +35,10 @@ primitiveObjectPointsTo
 			methodHeader = thang ifTrue: [^self pop: 2 thenPushBool: true].
 			numSlots := (objectMemory literalCountOfMethodHeader: methodHeader) + LiteralStart].
 
-	self assert: numSlots - 1 * BytesPerOop + objectMemory baseHeaderSize = (objectMemory lastPointerOf: rcvr).
+	self assert: numSlots - 1 * objectMemory bytesPerOop + objectMemory baseHeaderSize = (objectMemory lastPointerOf: rcvr).
 	objectMemory baseHeaderSize
-		to: numSlots - 1 * BytesPerOop + objectMemory baseHeaderSize
-		by: BytesPerOop
+		to: numSlots - 1 * objectMemory bytesPerOop + objectMemory baseHeaderSize
+		by: objectMemory bytesPerOop
 		do: [:i|
 			(self longAt: rcvr + i) = thang ifTrue:
 				[^self pop: 2 thenPushBool: true]].

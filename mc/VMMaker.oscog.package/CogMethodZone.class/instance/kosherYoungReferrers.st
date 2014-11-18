@@ -13,5 +13,5 @@ kosherYoungReferrers
 		[cogMethod := coInterpreter cCoerceSimple: (objectMemory longAt: pointer) to: #'CogMethod *'.
 		 (cogMethod cmType ~= CMFree and: [cogMethod cmRefersToYoung]) ifFalse:
 			[^false].
-		 pointer := pointer + BytesPerWord].
+		 pointer := pointer + objectMemory wordSize].
 	^true

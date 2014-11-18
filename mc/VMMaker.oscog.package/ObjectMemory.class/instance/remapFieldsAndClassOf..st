@@ -6,7 +6,7 @@ remapFieldsAndClassOf: oop
 	| fieldOffset fieldOop newOop |
 	<inline: true>
 	fieldOffset := self lastPointerWhileForwarding: oop.
-	[fieldOffset >= BaseHeaderSize] whileTrue:
+	[fieldOffset >= self baseHeaderSize] whileTrue:
 		[fieldOop := self longAt: oop + fieldOffset.
 		(self isObjectForwarded: fieldOop) ifTrue:
 			["update this oop from its forwarding block"
@@ -18,5 +18,5 @@ remapFieldsAndClassOf: oop
 			((self oop: oop isLessThan: youngStart)
 					and: [self oop: newOop isGreaterThanOrEqualTo: youngStart])
 				ifTrue: [self beRootWhileForwarding: oop]].
-		fieldOffset := fieldOffset - BytesPerWord].
+		fieldOffset := fieldOffset - self wordSize].
 	self remapClassOf: oop

@@ -10,5 +10,5 @@
 	"name" : "CoInterpreterStackPagesLSB",
 	"pools" : [
 		 ],
-	"super" : "CoInterpreterStackPagesSimulator",
+	"super" : "CoInterpreterStackPages",
 	"type" : "normal" }

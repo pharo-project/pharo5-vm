@@ -35,7 +35,7 @@ printOop: oop
 									ifFalse: [' direct @ ']]).
 			 ^self printHex: (self startOfAlienData: oop) asUnsignedInteger; cr].
 		 (objectMemory isWords: oop) ifTrue:
-			[lastIndex := 64 min: ((objectMemory numBytesOf: oop) / BytesPerWord).
+			[lastIndex := 64 min: ((objectMemory numBytesOf: oop) / objectMemory wordSize).
 			 lastIndex > 0 ifTrue:
 				[1 to: lastIndex do:
 					[:index|
@@ -47,7 +47,7 @@ printOop: oop
 			^self].
 		^self printStringOf: oop; cr].
 	"this is nonsense.  apologies."
-	startIP := (objectMemory lastPointerOf: oop) + BytesPerOop - objectMemory baseHeaderSize / BytesPerOop.
+	startIP := (objectMemory lastPointerOf: oop) + objectMemory bytesPerOop - objectMemory baseHeaderSize / objectMemory bytesPerOop.
 	lastIndex := 256 min: startIP.
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
@@ -63,7 +63,7 @@ printOop: oop
 		ifFalse:
 			[startIP > 64 ifTrue: [self print: '...'; cr]]
 		ifTrue:
-			[startIP := startIP * BytesPerWord + 1.
+			[startIP := startIP * objectMemory wordSize + 1.
 			 lastIndex := objectMemory lengthOf: oop.
 			 lastIndex - startIP > 100 ifTrue:
 				[lastIndex := startIP + 100].
@@ -73,7 +73,7 @@ printOop: oop
 				[:index| | byte |
 				column = 1 ifTrue:
 					[self cCode: 'printf("0x%08x: ", oop+BaseHeaderSize+index-1)'
-						inSmalltalk: [self print: (oop+BaseHeaderSize+index-1) hex; print: ': ']].
+						inSmalltalk: [self print: (oop+objectMemory baseHeaderSize+index-1) hex; print: ': ']].
 				byte := objectMemory fetchByte: index - 1 ofObject: oop.
 				self cCode: 'printf(" %02x/%-3d", byte,byte)'
 					inSmalltalk: [self space; print: (byte radix: 16); printChar: $/; printNum: byte].

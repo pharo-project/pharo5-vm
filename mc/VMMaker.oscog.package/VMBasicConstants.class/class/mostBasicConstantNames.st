@@ -1,4 +1,4 @@
-accessing
+C translation
 mostBasicConstantNames
-	"c.f. CCodeGenerator class>>#mostBasicConstantSelectors"
-	^#(BaseHeaderSize BytesPerWord BytesPerOop)
+	"c.f. mostBasicConstantSelectors"
+	^#(BaseHeaderSize BytesPerWord BytesPerOop ShiftForWord BytesPerWord)

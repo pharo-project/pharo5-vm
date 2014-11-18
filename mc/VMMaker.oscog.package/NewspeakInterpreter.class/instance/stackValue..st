@@ -1,3 +1,3 @@
 internal interpreter access
 stackValue: offset
-	^ self longAt: stackPointer - (offset*BytesPerWord)
+	^ self longAt: stackPointer - (offset*self wordSize)

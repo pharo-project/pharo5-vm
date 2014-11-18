@@ -39,41 +39,41 @@ makeBaseFrameFor: aContext "<Integer>"
 	1 to: numArgs do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"saved caller ip is sender context in base frame"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: (objectMemory fetchPointer: SenderIndex ofObject: aContext).
 	"base frame's saved fp is null"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: 0.
 	page baseFP: pointer; headFP: pointer.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: theMethod.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: (self encodeFrameFieldHasContext: true isBlock: maybeClosure ~= objectMemory nilObject numArgs: numArgs).
 	self assert: (self frameHasContext: page baseFP).
 	self assert: (self frameNumArgs: page baseFP) == numArgs.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: aContext.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: rcvr.
 	stackPtrIndex := self quickFetchInteger: StackPointerIndex ofObject: aContext.
 	self assert: ReceiverIndex + stackPtrIndex < (objectMemory lengthOf: aContext).
 	numArgs + 1 to: stackPtrIndex do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"top of stack is the instruction pointer"
 	theIP := self iframeInstructionPointerForIndex: theIP method: theMethod.
-	stackPages longAt: (pointer := pointer - BytesPerWord) put: theIP.
+	stackPages longAt: (pointer := pointer - objectMemory wordSize) put: theIP.
 	page headSP: pointer.
 	self assert: (self context: aContext hasValidInversePCMappingOf: theIP in: page baseFP).
 

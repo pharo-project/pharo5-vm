@@ -13,6 +13,6 @@ primitiveGetAttribute
 						indexableSize: sz.
 			self
 				getAttribute: attr
-				Into: s + BaseHeaderSize
+				Into: s + objectMemory baseHeaderSize
 				Length: sz.
 			self pop: 2 thenPush: s]

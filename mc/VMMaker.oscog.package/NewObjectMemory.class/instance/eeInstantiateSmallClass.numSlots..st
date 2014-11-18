@@ -9,7 +9,7 @@ eeInstantiateSmallClass: classPointer numSlots: numSlots
 	 Will *not* cause a GC. Result is guaranteed to be young."
 
 	| sizeInBytes hash header1 header2 hdrSize |
-	sizeInBytes := numSlots << ShiftForWord + BaseHeaderSize.
+	sizeInBytes := numSlots << self shiftForWord + self baseHeaderSize.
 	self assert: sizeInBytes <= 252.
 	hash := self newObjectHash.
 	header1 := (hash bitAnd: HashMaskUnshifted) << HashBitsOffset bitOr: (self formatOfClass: classPointer).

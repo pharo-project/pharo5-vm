@@ -5,5 +5,5 @@ popStack
 	| top |
 	<inline: true>
 	top := stackPages longAt: stackPointer.
-	stackPointer := stackPointer + BytesPerWord.
+	stackPointer := stackPointer + objectMemory wordSize.
 	^top

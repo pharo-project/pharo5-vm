@@ -4,7 +4,6 @@ noteAsRoot: oop headerLoc: headerLoc
 	 HeaderLoc is usually = oop, but may be an addr in a forwarding block."
 	| header |
 	<inline: true>
-	<asmLabel: false> 
 	header := self longAt: headerLoc.
 	(self isYoungRootHeader: header) ifFalse:
 		"record oop as root only if not already recorded"

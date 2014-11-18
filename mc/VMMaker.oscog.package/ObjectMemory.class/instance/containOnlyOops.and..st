@@ -5,8 +5,8 @@ containOnlyOops: array1 and: array2
 	| fieldOffset |
 	fieldOffset := self lastPointerOf: array1.
 	"same size as array2"
-	[fieldOffset >= BaseHeaderSize]
+	[fieldOffset >= self baseHeaderSize]
 		whileTrue: [(self isIntegerObject: (self longAt: array1 + fieldOffset)) ifTrue: [^ false].
 			(self isIntegerObject: (self longAt: array2 + fieldOffset)) ifTrue: [^ false].
-			fieldOffset := fieldOffset - BytesPerOop].
+			fieldOffset := fieldOffset - self bytesPerOop].
 	^ true

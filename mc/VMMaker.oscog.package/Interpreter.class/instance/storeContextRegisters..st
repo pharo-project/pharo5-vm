@@ -9,6 +9,6 @@ storeContextRegisters: activeCntx
 
 	<inline: true>
 	self storePointerUnchecked: InstructionPointerIndex ofObject: activeCntx
-		withValue: (self integerObjectOf: (instructionPointer - method - (BaseHeaderSize - 2))).
+		withValue: (self integerObjectOf: (instructionPointer - method - (self baseHeaderSize - 2))).
 	self storePointerUnchecked: StackPointerIndex ofObject: activeCntx
 		withValue: (self integerObjectOf: (self stackPointerIndex - TempFrameStart + 1)).

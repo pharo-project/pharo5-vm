@@ -5,5 +5,5 @@ storePointerUnchecked: fieldIndex ofObject: oop withValue: valuePointer
 	<api>
 	<inline: true>
 	^self
-		longAt: oop + BaseHeaderSize + (fieldIndex << ShiftForWord)
+		longAt: oop + self baseHeaderSize + (fieldIndex << self shiftForWord)
 		put: valuePointer

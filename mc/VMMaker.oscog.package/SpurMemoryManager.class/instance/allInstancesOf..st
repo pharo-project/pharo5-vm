@@ -27,7 +27,7 @@ allInstancesOf: aClass
 			 self emptyObjStack: weaklingStack]
 		ifFalse:
 			[self assert: (self isEmptyObjStack: weaklingStack)].
-	(count > (ptr - start / self bytesPerSlot) "not enough room"
+	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeObject: freeChunk.
 		 ^self integerObjectOf: count].

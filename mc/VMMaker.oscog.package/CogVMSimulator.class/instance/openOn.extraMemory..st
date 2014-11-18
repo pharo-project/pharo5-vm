@@ -71,8 +71,8 @@ openOn: fileName extraMemory: extraBytes
 	objectMemory firstSegmentSize: firstSegSize.
 	"For Open PICs to be able to probe the method cache during
 	 simulation the methodCache must be relocated to memory."
-	methodCacheSize := methodCache size * BytesPerWord.
-	primTraceLogSize := primTraceLog size * BytesPerWord.
+	methodCacheSize := methodCache size * objectMemory wordSize.
+	primTraceLogSize := primTraceLog size * objectMemory wordSize.
 	"allocate interpreter memory. This list is in address order, low to high.
 	 In the actual VM the stack zone exists on the C stack."
 	heapBase := (Cogit guardPageSize

@@ -8,5 +8,5 @@ genCreateClosureAt: bcpc numArgs: numArgs numCopied: numCopied contextNumArgs: c
 	cogit MoveCq: numArgs + (numCopied << 6) + (bcpc << 12) R: SendNumArgsReg.
 	cogit CallRT: ceClosureCopyTrampoline.
 	numCopied > 0 ifTrue:
-		[cogit AddCq: numCopied * BytesPerWord R: SPReg].
+		[cogit AddCq: numCopied * objectMemory wordSize R: SPReg].
 	^0

@@ -4,7 +4,6 @@ lastPointerOfMethodHeader: methodHeader
 	 CompiledMethod with the given header.  Use a temp to
 	 allow inlining given MULTIPLEBYTECODESETS complications."
 	<inline: true>
-	<asmLabel: false>
 	| numLiterals |
 	numLiterals := self literalCountOfMethodHeader: methodHeader.
-	^numLiterals + LiteralStart - 1 * BytesPerOop + BaseHeaderSize
+	^numLiterals + LiteralStart - 1 * self bytesPerOop + self baseHeaderSize

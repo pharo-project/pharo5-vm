@@ -7,10 +7,10 @@ primitiveShortAt
 	rcvr := self stackValue: 1.
 	self success: ((self isIntegerObject: rcvr) not and: [self isWordsOrBytes: rcvr]).
 	successFlag ifFalse: [ ^ nil ].
-	sz := ((self sizeBitsOf: rcvr) - BaseHeaderSize) // 2.  "number of 16-bit fields"
+	sz := ((self sizeBitsOf: rcvr) - self baseHeaderSize) // 2.  "number of 16-bit fields"
 	self success: ((index >= 1) and: [index <= sz]).
 	successFlag ifTrue: [
-		addr := rcvr + BaseHeaderSize + (2 * (index - 1)).
+		addr := rcvr + self baseHeaderSize + (2 * (index - 1)).
 		value := self shortAt: addr.
 		self pop: 2 thenPushInteger: value. 
 	]

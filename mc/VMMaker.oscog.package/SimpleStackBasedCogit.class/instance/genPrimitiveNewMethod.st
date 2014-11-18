@@ -1,7 +1,7 @@
 primitive generators
 genPrimitiveNewMethod
 	| r |
-	((r := objectRepresentation genInnerPrimitiveNewMethod: 2 * BytesPerWord) < 0
+	((r := objectRepresentation genInnerPrimitiveNewMethod: 2 * objectMemory wordSize) < 0
 	 and: [r ~= UnimplementedPrimitive]) ifTrue:
 		[^r].
 	"Call the interpreter primitive either when the machine-code primitive

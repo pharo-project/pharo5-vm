@@ -21,4 +21,4 @@ stackLimitOffset
 		+ the frame size
 		+ the max number of temps.
 	 Since a method's number of temps includes its arguments the actual offset is:"
-	^(IFrameSlots + 64) * BytesPerWord
+	^(IFrameSlots + 64) * objectMemory wordSize

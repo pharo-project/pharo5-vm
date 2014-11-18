@@ -10,7 +10,7 @@ sweepPhaseForFullGC
 	<inline: false>
 	<var: #oop type: #usqInt>
 	<var: #endOfMemoryLocal type: #usqInt>
-	self fwdTableInit: BytesPerWord*2.
+	self fwdTableInit: self wordSize*2.
 	survivors := 0.
 	freeChunk := nil.
 	firstFree := nil.

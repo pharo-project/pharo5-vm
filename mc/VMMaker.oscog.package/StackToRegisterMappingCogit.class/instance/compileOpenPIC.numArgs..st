@@ -18,14 +18,14 @@ compileOpenPIC: selector numArgs: numArgs
 	self flag: #lookupInMethodCacheSel:classTag:. "so this method shows up as a sender of lookupInMethodCacheSel:class:"
 	self MoveR: ClassReg R: SendNumArgsReg.
 	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
-	self LogicalShiftLeftCq: ShiftForWord R: ClassReg.
-	self AndCq: MethodCacheMask << ShiftForWord R: ClassReg.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << ShiftForWord)
+	self LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
+	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
 	jumpSelectorMiss := self JumpNonZero: 0.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << ShiftForWord)
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self CmpR: SendNumArgsReg R: TempReg.
@@ -33,7 +33,7 @@ compileOpenPIC: selector numArgs: numArgs
 
 	itsAHit := self Label.
 	"Fetch the method.  The interpret trampoline requires the bytecoded method in SendNumArgsReg"
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheMethod << ShiftForWord)
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheMethod << objectMemory shiftForWord)
 		r: ClassReg
 		R: SendNumArgsReg.
 	"If the method is compiled jump to its unchecked entry-point, otherwise interpret it."
@@ -49,14 +49,14 @@ compileOpenPIC: selector numArgs: numArgs
 	jumpSelectorMiss jmpTarget: (jumpClassMiss jmpTarget: self Label).
 	self MoveR: SendNumArgsReg R: ClassReg.
 	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
-	self LogicalShiftLeftCq: ShiftForWord - 1 R: ClassReg.
-	self AndCq: MethodCacheMask << ShiftForWord R: ClassReg.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << ShiftForWord)
+	self LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
+	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
 	jumpSelectorMiss := self JumpNonZero: 0.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << ShiftForWord)
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self CmpR: SendNumArgsReg R: TempReg.
@@ -66,15 +66,15 @@ compileOpenPIC: selector numArgs: numArgs
 	jumpSelectorMiss jmpTarget: self Label.
 	self MoveR: SendNumArgsReg R: ClassReg.
 	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
-	ShiftForWord > 2 ifTrue:
-		[self LogicalShiftLeftCq: ShiftForWord - 1 R: ClassReg].
-	self AndCq: MethodCacheMask << ShiftForWord R: ClassReg.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << ShiftForWord)
+	objectMemory shiftForWord > 2 ifTrue:
+		[self LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg].
+	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
 	jumpSelectorMiss := self JumpNonZero: 0.
-	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << ShiftForWord)
+	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
 	self CmpR: SendNumArgsReg R: TempReg.

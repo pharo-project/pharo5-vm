@@ -6,5 +6,5 @@ itemporary: offset in: theFP
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	^offset < (frameNumArgs := self iframeNumArgs: theFP)
-		ifTrue: [stackPages longAt: theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * BytesPerWord)]
-		ifFalse: [stackPages longAt: theFP + FoxIFReceiver - BytesPerWord + ((frameNumArgs - offset) * BytesPerWord)]
+		ifTrue: [stackPages longAt: theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * objectMemory wordSize)]
+		ifFalse: [stackPages longAt: theFP + FoxIFReceiver - objectMemory wordSize + ((frameNumArgs - offset) * objectMemory wordSize)]

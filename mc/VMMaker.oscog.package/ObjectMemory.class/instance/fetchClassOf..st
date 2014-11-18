@@ -2,7 +2,6 @@ object access
 fetchClassOf: oop 
 	| ccIndex |
 	<inline: true>
-	<asmLabel: false>
 	^(self isIntegerObject: oop)
 		ifTrue: [self splObj: ClassSmallInteger]
 		ifFalse:

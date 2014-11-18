@@ -5,7 +5,6 @@ lengthOf: objOop format: fmt
 	 should be subtracted from the result of this method."
 	| numSlots |
 	<inline: true>
-	<asmLabel: false> 
 	numSlots := self numSlotsOfAny: objOop. "don't let forwarders freak us out..."
 	fmt <= self sixtyFourBitIndexableFormat ifTrue:
 		[^numSlots].

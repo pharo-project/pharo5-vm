@@ -16,7 +16,7 @@ markAndTraceStackPage: thePage
 	theFP := thePage  headFP.
 	"Skip the instruction pointer on top of stack of inactive pages."
 	thePage = stackPage ifFalse:
-		[theSP := theSP + BytesPerWord].
+		[theSP := theSP + objectMemory wordSize].
 	[frameRcvrOffset := self frameReceiverOffset: theFP.
 	 [theSP <= frameRcvrOffset] whileTrue:
 		[oop := stackPages longAt: theSP.
@@ -25,7 +25,7 @@ markAndTraceStackPage: thePage
 			 stackPages longAt: theSP put: oop].
 		 (objectMemory isImmediate: oop) ifFalse:
 			[objectMemory markAndTrace: oop].
-		 theSP := theSP + BytesPerWord].
+		 theSP := theSP + objectMemory wordSize].
 	(self frameHasContext: theFP) ifTrue:
 		[self assert: (objectMemory isContext: (self frameContext: theFP)).
 		 objectMemory markAndTrace: (self frameContext: theFP)].
@@ -33,9 +33,9 @@ markAndTraceStackPage: thePage
 		ifTrue: [self markAndTraceMachineCodeMethod: (self mframeCogMethod: theFP)]
 		ifFalse: [objectMemory markAndTrace: (self iframeMethod: theFP)].
 	(callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-		[theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+		[theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 		 theFP := callerFP].
-	theSP := theFP + FoxCallerSavedIP + BytesPerWord. "caller ip is ceBaseReturnPC"
+	theSP := theFP + FoxCallerSavedIP + objectMemory wordSize. "caller ip is ceBaseReturnPC"
 	[theSP <= thePage baseAddress] whileTrue:
 		[oop := stackPages longAt: theSP.
 		 (objectMemory isOopForwarded: oop) ifTrue:
@@ -43,4 +43,4 @@ markAndTraceStackPage: thePage
 			 stackPages longAt: theSP put: oop].
 		 (objectMemory isImmediate: oop) ifFalse:
 			[objectMemory markAndTrace: oop].
-		 theSP := theSP + BytesPerWord]
+		 theSP := theSP + objectMemory wordSize]

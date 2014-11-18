@@ -1,3 +1,3 @@
 compile abstract instructions
 slotOffsetOfInstVarIndex: index
-	^index * BytesPerWord + BaseHeaderSize
+	^index * objectMemory wordSize + objectMemory baseHeaderSize

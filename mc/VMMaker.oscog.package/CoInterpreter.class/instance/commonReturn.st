@@ -106,7 +106,7 @@ commonReturn
 			  localFP := self frameCallerFP: localFP.
 			  localFP ~~ frameToReturnTo] whileTrue.
 			localIP := self frameCallerSavedIP: callerFP.
-			localSP := (self frameCallerSP: callerFP) - BytesPerWord].
+			localSP := (self frameCallerSP: callerFP) - objectMemory wordSize].
 	localIP asUnsignedInteger < objectMemory startOfMemory ifTrue:
 		[localIP asUnsignedInteger ~= cogit ceReturnToInterpreterPC ifTrue:
 			["localIP in the cog method zone indicates a return to machine code."

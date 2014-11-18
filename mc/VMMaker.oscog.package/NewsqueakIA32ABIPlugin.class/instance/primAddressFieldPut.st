@@ -12,5 +12,5 @@ primAddressFieldPut
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 	(interpreterProxy isOopImmutable: rcvr) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNoModification].
-	self longAt: rcvr + BaseHeaderSize + BytesPerOop put: value.
+	self longAt: rcvr + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop put: value.
 	^interpreterProxy methodReturnValue: valueOop

@@ -4,7 +4,7 @@ shortPrint: oop
 	(self isIntegerObject: oop) ifTrue: [^ '=' , (self integerValueOf: oop) printString , 
 		' (' , (self integerValueOf: oop) hex , ')'].
 	classOop := self fetchClassOf: oop.
-	(self sizeBitsOf: classOop) = (Metaclass instSize +1*BytesPerWord) ifTrue: [
+	(self sizeBitsOf: classOop) = (Metaclass instSize +1*self wordSize) ifTrue: [
 		^ 'class ' , (self nameOfClass: oop)].
 	name := self nameOfClass: classOop.
 	name size = 0 ifTrue: [name := '??'].
@@ -19,9 +19,9 @@ shortPrint: oop
 	name = 'True' ifTrue: [^ 'true'].
 	name = 'Float' ifTrue: [^ '=' , (self dbgFloatValueOf: oop) printString].
 	name = 'Association' ifTrue: [^ '(' ,
-				(self shortPrint: (self longAt: oop + BaseHeaderSize)) ,
+				(self shortPrint: (self longAt: oop + self baseHeaderSize)) ,
 				' -> ' ,
-				(self longAt: oop + BaseHeaderSize + BytesPerWord) hex8 , ')'].
+				(self longAt: oop + self baseHeaderSize + self wordSize) hex8 , ')'].
 	^('AEIOU' includes: name first)
 		ifTrue: ['an ' , name]
 		ifFalse: ['a ' , name]

@@ -4,7 +4,6 @@ slowPrimitiveResponse
 	 Called under the assumption that primFunctionPointer has been preloaded."
 	| nArgs savedFramePointer savedStackPointer |
 	<inline: true>
-	<asmLabel: false>
 	<var: #savedFramePointer type: #'char *'>
 	<var: #savedStackPointer type: #'char *'>
 	self assert: (objectMemory isOopForwarded: (self stackValue: argumentCount)) not.
@@ -21,7 +20,7 @@ slowPrimitiveResponse
 	and: [self successful
 	and: [framePointer = savedFramePointer
 	and: [(self isMachineCodeFrame: framePointer) not]]]) ifTrue:"Don't fail if primitive has done something radical, e.g. perform:"
-		[stackPointer ~= (savedStackPointer + (nArgs * BytesPerWord)) ifTrue:
+		[stackPointer ~= (savedStackPointer + (nArgs * objectMemory wordSize)) ifTrue:
 			[self flag: 'Would be nice to make this a message send of e.g. unbalancedPrimitive to the current process or context'.
 			 "This is necessary but insufficient; the result may still have been written to the stack.
 			   At least we'll know something is wrong."

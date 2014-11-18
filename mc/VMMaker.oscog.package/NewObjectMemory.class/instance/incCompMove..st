@@ -21,17 +21,17 @@ incCompMove: bytesFreed
 			fwdBlock := self forwardingPointerOf: oop.
 			self assert: (self fwdBlockValid: fwdBlock).
 			newOop := self longAt: fwdBlock.
-			header := self longAt: fwdBlock + BytesPerWord.
+			header := self longAt: fwdBlock + self wordSize.
 			self longAt: oop put: header. "restore the original header"
 			bytesToMove := oop - newOop. "move the oop (including any extra header words) "
 			sz := self sizeBitsOf: oop.
 			firstWord := oop - (self extraHeaderBytes: oop).
-			lastWord := oop + sz - BaseHeaderSize.
+			lastWord := oop + sz - self baseHeaderSize.
 			target := firstWord - bytesToMove.
-			firstWord to: lastWord by: BytesPerWord do:
+			firstWord to: lastWord by: self wordSize do:
 				[:w | 
 				self longAt: target put: (self longAt: w).
-				target := target + BytesPerWord]].
+				target := target + self wordSize]].
 		oop := next].
 	newOop = nil
 		ifTrue: ["no objects moved"

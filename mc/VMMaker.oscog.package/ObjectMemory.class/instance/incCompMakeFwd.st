@@ -15,7 +15,7 @@ incCompMakeFwd
 				(self isFreeObject: oop)
 				ifTrue: [bytesFreed := bytesFreed + (self sizeOfFree: oop)]
 				ifFalse: ["create a forwarding block for oop"
-					fwdBlock := self fwdBlockGet: BytesPerWord*2.
+					fwdBlock := self fwdBlockGet: self wordSize*2.
 					"Two-word block"
 					fwdBlock = nil
 						ifTrue: ["stop; we have used all available forwarding blocks"

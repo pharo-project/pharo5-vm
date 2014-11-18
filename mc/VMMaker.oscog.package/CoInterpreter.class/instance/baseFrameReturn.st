@@ -43,7 +43,7 @@ baseFrameReturn
 			[(retToContext
 			  and: [objectMemory isIntegerObject: (objectMemory fetchPointer: InstructionPointerIndex ofObject: contextToReturnTo)]) ifFalse:
 				[| contextToReturnFrom |
-				 contextToReturnFrom := stackPages longAt: stackPage baseAddress - BytesPerWord.
+				 contextToReturnFrom := stackPages longAt: stackPage baseAddress - objectMemory wordSize.
 				 self tearDownAndRebuildFrameForCannotReturnBaseFrameReturnFrom: contextToReturnFrom
 					to: contextToReturnTo
 					returnValue: localReturnValue.

@@ -6,7 +6,7 @@ primitiveObjectPointsTo
 	(self isIntegerObject: rcvr) ifTrue: [^self pushBool: false].
 
 	lastField := self lastPointerOf: rcvr.
-	BaseHeaderSize to: lastField by: BytesPerWord do:
+	self baseHeaderSize to: lastField by: self wordSize do:
 		[:i | (self longAt: rcvr + i) = thang
 			ifTrue: [^ self pushBool: true]].
 	self pushBool: false.

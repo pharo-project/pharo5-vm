@@ -48,17 +48,17 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 								ifTrue:
 									[(objectRepresentation cacheTagIsMarked: class)
 										ifTrue:
-											[(mixin := backEnd unalignedLongAt: cacheAddress + BytesPerOop) ~= 0 ifTrue:
+											[(mixin := backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop) ~= 0 ifTrue:
 												[objectRepresentation
 													markAndTraceLiteral: mixin
 													in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
-													at: (self asAddress: cacheAddress + BytesPerOop
-															put: [:val| backEnd unalignedLongAt: cacheAddress + BytesPerOop put: val])]]
+													at: (self asAddress: cacheAddress + objectMemory bytesPerOop
+															put: [:val| backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: val])]]
 										ifFalse:
 											[backEnd
 												unalignedLongAt: cacheAddress put: 0;
-												unalignedLongAt: cacheAddress + BytesPerOop put: 0.
+												unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: 0.
 											 codeModified := true]]
 								ifFalse:
-									[self assert: (backEnd unalignedLongAt: cacheAddress + BytesPerOop) = 0]]]]]].
+									[self assert: (backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop) = 0]]]]]].
 	^0 "keep scanning"

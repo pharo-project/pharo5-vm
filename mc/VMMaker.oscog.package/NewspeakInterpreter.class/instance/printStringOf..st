@@ -6,7 +6,7 @@ printStringOf: oop
 		[^nil].
 	(oop between: self startOfMemory and: freeBlock) ifFalse:
 		[^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (self wordSize - 1)) ~= 0 ifTrue:
 		[^nil].
 	fmt := self formatOf: oop.
 	fmt < 8 ifTrue: [ ^nil ].

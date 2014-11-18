@@ -17,13 +17,13 @@ primitiveImageName
 		self assertClassOf: s is: (objectMemory splObj: ClassByteString).
 		self successful ifTrue: [
 			sz := self stSizeOf: s.
-			self imageNamePut: (s + BaseHeaderSize) Length: sz.
+			self imageNamePut: (s + objectMemory baseHeaderSize) Length: sz.
 			self pop: 1.  "pop s, leave rcvr on stack"
 		].
 	] ifFalse: [
 		sz := self imageNameSize.
 		s := objectMemory instantiateClass: (objectMemory splObj: ClassByteString) indexableSize: sz.
-		self imageNameGet: (s + BaseHeaderSize) Length: sz.
+		self imageNameGet: (s + objectMemory baseHeaderSize) Length: sz.
 		self pop: 1.  "rcvr"
 		self push: s.
 	]

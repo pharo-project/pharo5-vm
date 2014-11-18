@@ -11,10 +11,10 @@ minimumUnusedHeadroom
 		[:i| | p unused |
 		page := stackPages stackPageAt: i.
 		p := page lastAddress.
-		[p := p + BytesPerWord.
+		[p := p + objectMemory wordSize.
 		(self longAtPointer: p) = 0
 		 and: [p <= page baseAddress]] whileTrue.
-		unused := p - BytesPerWord - page lastAddress.
+		unused := p - objectMemory wordSize - page lastAddress.
 		unused < minUnused ifTrue:
 			[minUnused := unused]].
 	^minUnused

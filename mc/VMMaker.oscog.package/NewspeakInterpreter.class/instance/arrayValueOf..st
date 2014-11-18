@@ -7,5 +7,5 @@ arrayValueOf: arrayOop
 	<returnTypeC: #'void *'>
 	((self isNonIntegerObject: arrayOop)
 	 and: [self isWordsOrBytes: arrayOop]) ifTrue:
-		[^self cCoerceSimple: (self pointerForOop: arrayOop + BaseHeaderSize) to: #'void *'].
+		[^self cCoerceSimple: (self pointerForOop: arrayOop + self baseHeaderSize) to: #'void *'].
 	self primitiveFail

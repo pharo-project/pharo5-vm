@@ -89,5 +89,5 @@
 		"primitiveSetManualSurfacePointer" : "jcg 6/14/2010 14:14",
 		"registerArgsSlop" : "eem 11/3/2009 13:14",
 		"returnStructInRegisters:" : "eem 11/5/2009 16:34",
-		"sizeField:" : "eem 10/6/2010 21:31",
-		"startOfData:" : "eem 10/6/2010 17:43" } }
+		"sizeField:" : "eem (const to msg rewrite) 11/5/2014 18:19",
+		"startOfData:" : "eem (const to msg rewrite) 11/5/2014 18:19" } }

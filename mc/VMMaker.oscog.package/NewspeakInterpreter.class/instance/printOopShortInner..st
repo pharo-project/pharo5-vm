@@ -13,7 +13,7 @@ printOopShortInner: oop
 	(oop between: self startOfMemory and: freeBlock) ifFalse:
 		[self printHex: oop; print: ' is not on the heap'.
 		 ^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (self wordSize - 1)) ~= 0 ifTrue:
 		[self printHex: oop; print: ' is misaligned'.
 		 ^nil].
 	(self isFloatObject: oop) ifTrue:

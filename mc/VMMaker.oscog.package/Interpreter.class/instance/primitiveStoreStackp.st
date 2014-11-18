@@ -5,8 +5,8 @@ primitiveStoreStackp
 	| ctxt newStackp stackp |
 	ctxt := self stackValue: 1.
 	newStackp := self stackIntegerValue: 0.
-	self success: (self oop: newStackp isGreaterThanOrEqualTo: 0).
-	self success: (self oop: newStackp isLessThanOrEqualTo: (LargeContextSize - BaseHeaderSize // BytesPerWord - CtxtTempFrameStart)).
+	self success: newStackp >= 0.
+	self success: newStackp <= (LargeContextSlots - CtxtTempFrameStart).
 	successFlag ifFalse: [^ self primitiveFail].
 	stackp := self fetchStackPointerOf: ctxt.
 	"Nil any newly accessible cells"

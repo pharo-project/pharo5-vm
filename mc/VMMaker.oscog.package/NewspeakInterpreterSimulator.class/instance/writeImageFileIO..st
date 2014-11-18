@@ -3,7 +3,7 @@ writeImageFileIO: numberOfBytesToWrite
 	"Actually emit the first numberOfBytesToWrite object memory bytes onto the snapshot."
 
 	| headerSize file |
-	BytesPerWord = 4 ifFalse: [self error: 'Not rewritten for 64 bits yet'].
+	self wordSize = 4 ifFalse: [self error: 'Not rewritten for 64 bits yet'].
 	headerSize := 64.
 
 	[

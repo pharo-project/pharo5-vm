@@ -3,4 +3,6 @@ rawOverflowSlotsOf: objOop
 	<returnTypeC: #usqLong>
 	<inline: true>
 	self flag: #endianness.
-	^((self longAt: objOop - self baseHeaderSize) << 8) asUnsignedLong >> 8
+	^self
+		cCode: [((self longAt: objOop - self baseHeaderSize) << 8) asUnsignedLong >> 8]
+		inSmalltalk: [(self longAt: objOop - self baseHeaderSize) bitAnd: 16rFFFFFFFFFFFFFF]

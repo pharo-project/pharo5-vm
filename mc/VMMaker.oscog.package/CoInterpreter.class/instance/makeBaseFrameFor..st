@@ -28,7 +28,7 @@ makeBaseFrameFor: aContext "<Integer>"
 		put: (objectMemory fetchPointer: SenderIndex ofObject: aContext).
 	"second word is the context itself; needed for cannotReturn processing; see ceBaseReturn:."
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: aContext.
 	rcvr := objectMemory followField: ReceiverIndex ofObject: aContext.
 	"If the frame is a closure activation then the closure should be on the stack in
@@ -39,7 +39,7 @@ makeBaseFrameFor: aContext "<Integer>"
 		ifTrue:
 			[numArgs := self argumentCountOfClosure: maybeClosure.
 			 stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: maybeClosure]
 		ifFalse:
 			[| header |
@@ -51,21 +51,21 @@ makeBaseFrameFor: aContext "<Integer>"
 			  and: [theIP = (1 + (objectMemory lastPointerOf: theMethod))]]) ifTrue:
 				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: rcvr].
 	"Put the arguments on the stack"
 	1 to: numArgs do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"saved caller ip is base return trampoline"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: cogit ceBaseFrameReturnPC.
 	"base frame's saved fp is null"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: 0.
 	"N.B.  Don't set the baseFP, which marks the page as in use, until after
 	 ensureMethodIsCogged: and/or instructionPointer:forContext:frame:. These
@@ -100,7 +100,7 @@ makeBaseFrameFor: aContext "<Integer>"
 							 theMethod := theMethod - ((theIP signedBitShift: -16) * cogit blockAlignment).
 							 theIP := theMethod - theIP signedIntFromShort].
 					 stackPages
-						longAt: (pointer := pointer - BytesPerWord)
+						longAt: (pointer := pointer - objectMemory wordSize)
 						put: theMethod + MFMethodFlagHasContextFlag + MFMethodFlagIsBlockFlag]
 				ifFalse:
 					[self assert: (theIP signedBitShift: -16) >= -1.
@@ -110,40 +110,40 @@ makeBaseFrameFor: aContext "<Integer>"
 								ifTrue: [cogit ceCannotResumePC]
 								ifFalse: [theMethod asInteger - theIP].
 					 stackPages
-						longAt: (pointer := pointer - BytesPerWord)
+						longAt: (pointer := pointer - objectMemory wordSize)
 						put: theMethod + MFMethodFlagHasContextFlag].
 			 stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: aContext]
 		ifFalse:
 			[stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: theMethod.
 			stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: aContext.
 			stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: (self encodeFrameFieldHasContext: true isBlock: maybeClosure ~= objectMemory nilObject numArgs: numArgs).
 			stackPages
-				longAt: (pointer := pointer - BytesPerWord)
+				longAt: (pointer := pointer - objectMemory wordSize)
 				put: 0. "FoxIFSavedIP"
 			theIP := self iframeInstructionPointerForIndex: theIP method: theMethod].
 	page baseFP: page headFP.
 	self assert: (self frameHasContext: page baseFP).
 	self assert: (self frameNumArgs: page baseFP) == numArgs.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: rcvr.
 	stackPtrIndex := self quickFetchInteger: StackPointerIndex ofObject: aContext.
 	self assert: ReceiverIndex + stackPtrIndex < (objectMemory lengthOf: aContext).
 	numArgs + 1 to: stackPtrIndex do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"top of stack is the instruction pointer"
-	stackPages longAt: (pointer := pointer - BytesPerWord) put: theIP.
+	stackPages longAt: (pointer := pointer - objectMemory wordSize) put: theIP.
 	page headSP: pointer.
 	self assert: (self context: aContext hasValidInversePCMappingOf: theIP in: page baseFP).
 

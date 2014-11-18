@@ -17,7 +17,7 @@ printTop: n
 			strm space; nextPutAll: (self nameOfClass: classAndSel first).
 			strm nextPutAll: '>>'; nextPutAll: (self shortPrint: classAndSel last).
 			ctxt = activeContext
-				ifTrue: [ip := instructionPointer - method - (BaseHeaderSize - 2).
+				ifTrue: [ip := instructionPointer - method - (self baseHeaderSize - 2).
 						sp := self stackPointerIndex - TempFrameStart + 1.
 						top := self stackTop]
 				ifFalse: [ip := self integerValueOf:

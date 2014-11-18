@@ -20,7 +20,7 @@ sweepPhase
 	<inline: false>
 	<var: #oop type: #usqInt>
 	<var: #freeStartLocal type: #usqInt>
-	entriesAvailable := self fwdTableInit: BytesPerWord*2.
+	entriesAvailable := self fwdTableInit: self wordSize*2.
 	survivors := 0.
 	freeChunk := nil.
 	firstFree := nil.

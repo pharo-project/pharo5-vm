@@ -25,7 +25,7 @@ createActualMessageTo: lookupClass
 								numSlots: MessageLookupClassIndex + 1].
 
 	"Since the array is new can use unchecked stores."
-	(argumentCount - 1) * BytesPerOop to: 0 by: BytesPerOop negated do:
+	(argumentCount - 1) * objectMemory bytesPerOop to: 0 by: objectMemory bytesPerOop negated do:
 		[:i|
 		self longAt:  argumentArray + objectMemory baseHeaderSize + i put: self popStack].
 	"Since message is new can use unchecked stores."

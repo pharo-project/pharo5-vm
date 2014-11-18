@@ -5,4 +5,4 @@ reverseBytesFrom: startAddr to: stopAddr
 	addr := startAddr.
 	[self oop: addr isLessThan: stopAddr] whileTrue:
 		[self longAt: addr put: (self byteSwapped: (self longAt: addr)).
-		addr := addr + BytesPerWord].
+		addr := addr + self wordSize].

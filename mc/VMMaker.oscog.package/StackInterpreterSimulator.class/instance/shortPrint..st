@@ -41,7 +41,7 @@ shortPrint: oop
 	name = 'Float' ifTrue: [^ '=' , (self dbgFloatValueOf: oop) printString].
 	(#('Association' 'ReadOnlyVariableBinding' 'VariableBinding') includes: name) ifTrue:
 		[^ '(' ,
-		(self shortPrint: (self longAt: oop + BaseHeaderSize)) ,
+		(self shortPrint: (self longAt: oop + objectMemory baseHeaderSize)) ,
 		' -> ' ,
-		(self longAt: oop + BaseHeaderSize + BytesPerWord) hex8 , ')'].
+		(self longAt: oop + objectMemory baseHeaderSize + objectMemory wordSize) hex8 , ')'].
 	^(('AEIOU' includes: name first) ifTrue: ['an '] ifFalse: ['a ']), name

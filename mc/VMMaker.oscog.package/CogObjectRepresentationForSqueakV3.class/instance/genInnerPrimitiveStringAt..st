@@ -30,21 +30,21 @@ genInnerPrimitiveStringAt: retNOffset
 	jumpShortHeader := cogit JumpNonZero: 0.
 	self assert: Size4Bit = 0.
 	cogit
-		MoveMw: 0 - (2 * BytesPerWord) r: ReceiverResultReg R: ClassReg; "(self sizeHeader: oop) bitAnd: LongSizeMask"
+		MoveMw: 0 - (2 * objectMemory wordSize) r: ReceiverResultReg R: ClassReg; "(self sizeHeader: oop) bitAnd: LongSizeMask"
 		AndCq: LongSizeMask signedIntFromLong R: ClassReg.
 	jumpSkip :=  cogit Jump: 0.
 	jumpShortHeader jmpTarget: (cogit AndCq: SizeMask R: ClassReg).	"hdr bitAnd: SizeMask"
-	jumpSkip jmpTarget: (cogit SubCq: BaseHeaderSize R: ClassReg). "sz - BaseHeaderSize"
+	jumpSkip jmpTarget: (cogit SubCq: objectMemory baseHeaderSize R: ClassReg). "sz - BaseHeaderSize"
 	cogit SubR: SendNumArgsReg R: ClassReg. "sz - (fmt bitAnd: 3)"
 	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
 	cogit SubCq: 1 R: Arg1Reg.
 	cogit CmpR: ClassReg R: Arg1Reg.
 	jumpBounds := cogit JumpAboveOrEqual: 0.
-	cogit AddCq: BaseHeaderSize R: Arg1Reg.
+	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
 	cogit annotate: (cogit MoveCw: objectMemory characterTable R: Arg0Reg)
 		objRef: objectMemory characterTable.
 	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg;
-		AddCq: BaseHeaderSize / BytesPerWord R: ReceiverResultReg.
+		AddCq: objectMemory baseHeaderSize / objectMemory wordSize R: ReceiverResultReg.
 	cogit MoveXwr: ReceiverResultReg R: Arg0Reg R: ReceiverResultReg.
 	cogit RetN: retNOffset.
 	jumpSI jmpTarget:

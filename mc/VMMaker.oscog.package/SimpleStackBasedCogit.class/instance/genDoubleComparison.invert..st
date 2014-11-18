@@ -12,7 +12,7 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	<var: #compare type: #'AbstractInstruction *'>
 	<var: #jumpFail type: #'AbstractInstruction *'>
 
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	objectRepresentation genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0.
 	self MoveR: TempReg R: ClassReg.
 	jumpImmediate := objectRepresentation genJumpImmediateInScratchReg: TempReg.
@@ -27,10 +27,10 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
 		objRef: objectMemory falseObject.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpCond jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
 							objRef: objectMemory trueObject).
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpImmediate jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
 		[jumpNonInt := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg].

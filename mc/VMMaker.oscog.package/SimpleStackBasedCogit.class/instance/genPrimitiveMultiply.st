@@ -3,7 +3,7 @@ genPrimitiveMultiply
 	| jumpNotSI jumpOvfl |
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpOvfl type: #'AbstractInstruction *'>
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ClassReg.
@@ -14,6 +14,6 @@ genPrimitiveMultiply
 	objectRepresentation genSetSmallIntegerTagsIn: ClassReg.
 	self MoveR: ClassReg R: ReceiverResultReg.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpOvfl jmpTarget: (jumpNotSI jmpTarget: self Label).
 	^0

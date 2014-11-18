@@ -12,6 +12,6 @@ convertFloatsToPlatformOrder
 	objectMemory allObjectsDo:
 		[:obj| | temp |
 		(objectMemory compactClassIndexOf: obj) = ClassFloatCompactIndex ifTrue:
-			[temp := self longAt: obj + BaseHeaderSize.
-			 self longAt: obj + BaseHeaderSize put: (self longAt: obj + BaseHeaderSize + 4).
-			 self longAt: obj + BaseHeaderSize + 4 put: temp]]
+			[temp := self longAt: obj + objectMemory baseHeaderSize.
+			 self longAt: obj + objectMemory baseHeaderSize put: (self longAt: obj + objectMemory baseHeaderSize + 4).
+			 self longAt: obj + objectMemory baseHeaderSize + 4 put: temp]]

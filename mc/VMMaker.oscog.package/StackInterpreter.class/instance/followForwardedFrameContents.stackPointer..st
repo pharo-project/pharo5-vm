@@ -5,8 +5,8 @@ followForwardedFrameContents: theFP stackPointer: theSP
 	<var: #theSP type: #'char *'>
 	<var: #ptr type: #'char *'>
 	theFP + (self frameStackedReceiverOffset: theFP)
-		to: theFP + FoxCallerSavedIP + BytesPerWord
-		by: BytesPerWord
+		to: theFP + FoxCallerSavedIP + objectMemory wordSize
+		by: objectMemory wordSize
 		do: [:ptr| | oop |
 			oop := stackPages longAt: ptr.
 			((objectMemory isNonImmediate: oop)
@@ -14,7 +14,7 @@ followForwardedFrameContents: theFP stackPointer: theSP
 				[stackPages longAt: ptr put: (objectMemory followForwarded: oop)]].
 	theSP
 		to: (self frameReceiverOffset: theFP)
-		by: BytesPerWord
+		by: objectMemory wordSize
 		do: [:ptr| | oop |
 			oop := stackPages longAt: ptr.
 			((objectMemory isNonImmediate: oop)

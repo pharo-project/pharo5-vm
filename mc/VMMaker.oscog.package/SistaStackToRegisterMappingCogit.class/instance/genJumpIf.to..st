@@ -22,7 +22,7 @@ genJumpIf: boolean to: targetBytecodePC
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	counterIndex := counterIndex + 1.
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: BytesPerWord = CounterBytes.
+	self assert: objectMemory wordSize = CounterBytes.
 	retry := self MoveAw: counterAddress R: SendNumArgsReg.
 	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
 	"Don't write back if we trip; avoids wrapping count back to initial value, and if we trip we don't execute."

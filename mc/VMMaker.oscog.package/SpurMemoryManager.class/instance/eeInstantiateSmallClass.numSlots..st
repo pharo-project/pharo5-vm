@@ -4,11 +4,11 @@ eeInstantiateSmallClass: classObj numSlots: numSlots
 	 engine and implies that this allocation will *NOT* cause a GC.  N.B. the instantiated
 	 object IS NOT FILLED and must be completed before returning it to Smalltalk. Since
 	 this call is used in routines that do just that we are safe.  Break this rule and die in GC.
-	 Result is guaranteed to be young."
-	| classIndex |
+	 Result is guaranteed to be young.  We assume this is only used on classes that are
+	 already in the class table."
 	<inline: true>
-	classIndex := self ensureBehaviorHash: classObj.
+	self assert: (self rawHashBitsOf: classObj) ~= 0.
 	^self
-		eeInstantiateSmallClassIndex: classIndex
+		eeInstantiateSmallClassIndex: (self rawHashBitsOf: classObj)
 		format: (self instSpecOfClass: classObj)
 		numSlots: numSlots

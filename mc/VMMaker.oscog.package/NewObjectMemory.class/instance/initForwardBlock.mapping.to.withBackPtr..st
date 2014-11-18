@@ -18,12 +18,11 @@ initForwardBlock: fwdBlock mapping: objOop to: newOop withBackPtr: backFlag
 	header. "
 	| originalHeader originalHeaderType |
 	<inline: true>
-	<asmLabel: false>
 	self assert: fwdBlock ~= nil. "ran out of forwarding blocks in become"
 	self deny: (self hasForwardingBlock: objOop). "'object already has a forwarding table entry"
 	originalHeader := self longAt: objOop.
 	originalHeaderType := originalHeader bitAnd: TypeMask.
 	self longAt: fwdBlock put: newOop.
-	self longAt: fwdBlock + BytesPerWord put: originalHeader.
-	backFlag ifTrue: [self longAt: fwdBlock + (BytesPerWord*2) put: objOop].
+	self longAt: fwdBlock + self wordSize put: originalHeader.
+	backFlag ifTrue: [self longAt: fwdBlock + (self wordSize*2) put: objOop].
 	self longAt: objOop put: (fwdBlock >> 1 bitOr: (MarkBit bitOr: originalHeaderType))

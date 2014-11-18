@@ -12,7 +12,7 @@ primitiveConstantFill
 	rcvrIsBytes ifTrue: [self success: (fillValue >= 0 and: [fillValue <= 255])].
 	successFlag
 		ifTrue: [end := rcvr + (self sizeBitsOf: rcvr).
-			i := rcvr + BaseHeaderSize.
+			i := rcvr + self baseHeaderSize.
 			rcvrIsBytes
 				ifTrue: [[i < end]
 						whileTrue: [self byteAt: i put: fillValue.

@@ -7,7 +7,7 @@
 		"argumentsForInliningCodeGenerator:" : "eem 2/11/2009 17:03",
 		"asTransformedConstantPerform" : "eem 4/13/2014 21:42",
 		"bindVariableUsesIn:" : "jm 12/10/1998 18:26",
-		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 7/19/2013 10:33",
+		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 11/14/2014 11:23",
 		"bindVariablesIn:" : "",
 		"emitCCodeAsArgumentOn:level:generator:" : "eem 12/11/2010 12:39",
 		"emitCCodeAsExpressionOn:level:generator:" : "2/7/08 14:57",

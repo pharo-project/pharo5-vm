@@ -15,7 +15,7 @@ createActualMessageTo: aClass
 	lookupClass := self popRemappableOop.
 	self beRootIfOld: argumentArray.
 
-	self transfer: argumentCount from: stackPointer - (argumentCount - 1 * BytesPerWord) to: argumentArray + BaseHeaderSize.
+	self transfer: argumentCount from: stackPointer - (argumentCount - 1 * self wordSize) to: argumentArray + self baseHeaderSize.
 	self pop: argumentCount thenPush: message.
 
 	argumentCount := 1.

@@ -47,9 +47,9 @@ primitiveDoNamedPrimitiveWithArgs
 	functionLength := self lengthOf: functionName.
 	self successful ifFalse: [^self primitiveFail]. "invalid methodArg state"
 
-	addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
+	addr := self ioLoadExternalFunction: functionName + self baseHeaderSize
 				OfLength: functionLength
-				FromModule: moduleName + BaseHeaderSize
+				FromModule: moduleName + self baseHeaderSize
 				OfLength: moduleLength.
 	addr = 0 ifTrue:
 		[^self primitiveFail]. "could not find function"

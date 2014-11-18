@@ -2,7 +2,7 @@ C translation
 generateToByDo: msgNode on: aStream indent: level
 	"Generate the C code for this message onto the given stream."
 	"N.B. MessageNode>>asTranslatorNodeIn: adds the limit var as a hidden fourth argument."
-	| blockExpr iterationVar limitExpr mayHaveSideEffects limitVar step negative |
+	| blockExpr iterationVar limitExpr mayHaveSideEffects limitVar step |
 	blockExpr := msgNode args third.
 	blockExpr args size = 1 ifFalse:
 		[self error: 'wrong number of block arguments'].
@@ -17,10 +17,10 @@ generateToByDo: msgNode on: aStream indent: level
 		 self emitCExpression: limitExpr on: aStream.
 		 limitExpr := limitVar].
 	aStream nextPutAll: '; ', iterationVar.
-	negative := ((step := msgNode args at: 2) isConstant and: [step value < 0])
-				or: [step isSend and: [step selector == #negated
-					and: [step receiver isConstant and: [step receiver value >= 0]]]].
-	self generateToByDoLimitExpression: limitExpr negative: negative on: aStream.
+	step := msgNode args at: 2.
+	self generateToByDoLimitExpression: limitExpr
+		negative: (self stepExpressionIsNegative: step)
+		on: aStream.
 	aStream nextPutAll: '; ', iterationVar, ' += '.
 	self emitCExpression: step on: aStream.
 	aStream nextPutAll: ') {'; cr.

@@ -4,7 +4,6 @@ objectAfterWhileForwarding: oop
 
 	| header fwdBlock realHeader sz |
 	<inline: true>
-	<asmLabel: false>
 	header := self longAt: oop.
 	(header bitAnd: MarkBit) = 0 ifTrue: [ ^ self objectAfter: oop ].  "oop not forwarded"
 
@@ -13,7 +12,7 @@ objectAfterWhileForwarding: oop
 
 	fwdBlock := (header bitAnd: AllButMarkBitAndTypeMask) << 1.
 	self assert: (self fwdBlockValid: fwdBlock).
-	realHeader := self longAt: fwdBlock + BytesPerWord.
+	realHeader := self longAt: fwdBlock + self wordSize.
 	"following code is like sizeBitsOf:"
 	(realHeader bitAnd: TypeMask) = HeaderTypeSizeAndClass
 		ifTrue: [ sz := (self sizeHeader: oop) bitAnd: LongSizeMask ]

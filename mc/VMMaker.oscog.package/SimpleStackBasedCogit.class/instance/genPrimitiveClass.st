@@ -15,5 +15,5 @@ genPrimitiveClass
 			instRegIsReceiver: methodOrBlockNumArgs = 0.
 		 self MoveR: ClassReg R: ReceiverResultReg].
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord.
+	self RetN: objectMemory wordSize.
 	^0

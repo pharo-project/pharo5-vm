@@ -39,7 +39,7 @@ generateNewspeakRuntime
 			[self MoveMw: 0 r: Arg1Reg R: TempReg.
 			 self CmpR: ClassReg R: TempReg.
 			 jumpMiss := self JumpNonZero: 0.
-			 self MoveMw: BytesPerOop r: Arg1Reg R: TempReg.
+			 self MoveMw: objectMemory bytesPerOop r: Arg1Reg R: TempReg.
 			 self CmpCq: 0 R: TempReg.
 			 jumpItsTheReceiverStupid := self JumpZero: 0.
 			 self MoveR: TempReg R: ReceiverResultReg.
@@ -70,7 +70,7 @@ generateNewspeakRuntime
 			 self MoveMw: backEnd jumpShortByteSize r: retpcReg R: Arg1Reg.
 			 self CmpR: ClassReg R: Arg1Reg.
 			 jumpMiss := self JumpNonZero: 0.
-			 self MoveMw: backEnd jumpShortByteSize + BytesPerOop r: retpcReg R: ClassReg.
+			 self MoveMw: backEnd jumpShortByteSize + objectMemory bytesPerOop r: retpcReg R: ClassReg.
 			 self CmpCq: 0 R: ClassReg.
 			 jumpItsTheReceiverStupid := self JumpZero: 0.
 			 self MoveR: ClassReg R: ReceiverResultReg.

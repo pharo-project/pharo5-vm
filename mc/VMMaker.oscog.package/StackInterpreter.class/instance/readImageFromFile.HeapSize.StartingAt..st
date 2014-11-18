@@ -18,7 +18,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	metaclassNumSlots := 6.	"guess Metaclass instSize"
 	classNameIndex := 6.		"guess (Class instVarIndexFor: 'name' ifAbsent: []) - 1"
 	swapBytes := self checkImageVersionFrom: f startingAt: imageOffset.
-	headerStart := (self sqImageFilePosition: f) - BytesPerWord.  "record header start position"
+	headerStart := (self sqImageFilePosition: f) - objectMemory wordSize.  "record header start position"
 
 	headerSize			:= self getLongFromFile: f swap: swapBytes.
 	dataSize			:= self getLongFromFile: f swap: swapBytes.

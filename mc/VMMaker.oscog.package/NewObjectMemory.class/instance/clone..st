@@ -23,12 +23,12 @@ clone: obj
 	remappedOop := self popRemappableOop.
 
 	"copy old to new including all header words"
-	toIndex := newChunk - BytesPerWord.  "loop below uses pre-increment"
-	fromIndex := (remappedOop - extraHdrBytes) - BytesPerWord.
+	toIndex := newChunk - self wordSize.  "loop below uses pre-increment"
+	fromIndex := (remappedOop - extraHdrBytes) - self wordSize.
 	lastFrom := fromIndex + bytes.
 	[fromIndex < lastFrom] whileTrue:
-		[self longAt: (toIndex := toIndex + BytesPerWord)
-			put: (self longAt: (fromIndex := fromIndex + BytesPerWord))].
+		[self longAt: (toIndex := toIndex + self wordSize)
+			put: (self longAt: (fromIndex := fromIndex + self wordSize))].
 	newOop := newChunk + extraHdrBytes.  "convert from chunk to oop"
 
 	"fix base header: compute new hash and clear Mark and Root bits"

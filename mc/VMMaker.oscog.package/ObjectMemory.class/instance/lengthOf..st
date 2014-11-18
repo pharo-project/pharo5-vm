@@ -5,6 +5,5 @@ lengthOf: oop
 	<api>
 	| header |
 	<inline: true>
-	<asmLabel: false> 
 	header := self baseHeader: oop.
 	^self lengthOf: oop baseHeader: header format: (self formatOfHeader: header)

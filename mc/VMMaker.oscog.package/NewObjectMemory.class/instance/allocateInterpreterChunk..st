@@ -6,7 +6,6 @@ allocateInterpreterChunk: byteSize
 	 takes freeStart over the scavenge threshold schedule a garbage collection."
 	| newChunk newFreeStart |
 	<inline: true>
-	<asmLabel: false>
 	<var: #newChunk type: #usqInt>
 	<var: #newFreeStart type: #usqInt>
 

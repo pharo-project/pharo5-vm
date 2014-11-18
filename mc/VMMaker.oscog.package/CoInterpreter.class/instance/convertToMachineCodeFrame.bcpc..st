@@ -45,7 +45,7 @@ convertToMachineCodeFrame: cogHomeMethod bcpc: bcpc
 			+ ((self iframeHasContext: framePointer)
 				ifTrue: [MFMethodFlagHasContextFlag]
 				ifFalse: [0]).
-	framePointer + FoxIFReceiver to: stackPointer by: BytesPerWord negated do:
+	framePointer + FoxIFReceiver to: stackPointer by: objectMemory wordSize negated do:
 		[:p|
 		stackPages longAt: p + FoxMFReceiver - FoxIFReceiver put: (stackPages longAt: p)].
 	stackPointer := stackPointer + FoxMFReceiver - FoxIFReceiver.

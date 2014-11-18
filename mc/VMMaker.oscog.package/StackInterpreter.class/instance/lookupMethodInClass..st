@@ -24,7 +24,7 @@ lookupMethodInClass: class
 	"Cound not find a normal message -- raise exception #doesNotUnderstand:"
 	self createActualMessageTo: class.
 	messageSelector := objectMemory splObj: SelectorDoesNotUnderstand.
-	self sendBreak: messageSelector + BaseHeaderSize
+	self sendBreak: messageSelector + objectMemory baseHeaderSize
 		point: (objectMemory lengthOf: messageSelector)
 		receiver: nil.
 	^self lookupMethodInClass: class

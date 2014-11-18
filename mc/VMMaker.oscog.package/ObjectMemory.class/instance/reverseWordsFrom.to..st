@@ -6,4 +6,4 @@ reverseWordsFrom: startAddr to: stopAddr
 	addr := startAddr.
 	[self oop: addr isLessThan: stopAddr] whileTrue:
 		[self longAt: addr put: (self wordSwapped: (self longAt: addr)).
-		addr := addr + BytesPerWord].
+		addr := addr + self wordSize].

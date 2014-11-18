@@ -6,11 +6,11 @@ pushClosureNumArgs: numArgs copiedValues: numCopied blockSize: blockSize
 	<inline: true>
 	| newClosure context |
 	"No need to record the pushed copied values in the outerContext."
-	context := self ensureFrameIsMarried: localFP SP: localSP + (numCopied * BytesPerOop).
+	context := self ensureFrameIsMarried: localFP SP: localSP + (numCopied * objectMemory bytesPerOop).
 	newClosure := self
 					closureIn: context
 					numArgs: numArgs
-					instructionPointer: (self oopForPointer: localIP) + 2 - (method+BaseHeaderSize)
+					instructionPointer: (self oopForPointer: localIP) + 2 - (method+objectMemory baseHeaderSize)
 					numCopiedValues: numCopied.
 	numCopied > 0 ifTrue:
 		[0 to: numCopied - 1 do:

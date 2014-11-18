@@ -11,4 +11,4 @@ internalQuickCheckForInterrupts
 
 		self browserPluginReturnIfNeeded.
 
-		self internalizeIPandSP].
+		self internalizeIPandSP]

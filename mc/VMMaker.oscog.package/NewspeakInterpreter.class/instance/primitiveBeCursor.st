@@ -28,12 +28,12 @@ primitiveBeCursor
 		self success: ((offsetX >= -16) and: [offsetX <= 0]).
 		self success: ((offsetY >= -16) and: [offsetY <= 0]).
 		self success: ((self isWords: bitsObj) and: [(self lengthOf: bitsObj) = 16]).
-		cursorBitsIndex := bitsObj + BaseHeaderSize.
+		cursorBitsIndex := bitsObj + self baseHeaderSize.
 		self cCode: '' inSmalltalk:
 			[ourCursor := Cursor
 				extent: extentX @ extentY
 				fromArray: ((1 to: 16) collect: [:i |
-					((self fetchLong32: i-1 ofObject: bitsObj) >> (BytesPerWord*8 - 16)) bitAnd: 16rFFFF])
+					((self fetchLong32: i-1 ofObject: bitsObj) >> (self wordSize*8 - 16)) bitAnd: 16rFFFF])
 				offset: offsetX  @ offsetY]].
 
 	argumentCount = 1 ifTrue: [
@@ -47,7 +47,7 @@ primitiveBeCursor
 		self successful ifTrue: [
 			self success: ((extentX = 16) and: [extentY = 16 and: [depth = 1]]).
 			self success: ((self isWords: bitsObj) and: [(self lengthOf: bitsObj) = 16]).
-			maskBitsIndex := bitsObj + BaseHeaderSize]].
+			maskBitsIndex := bitsObj + self baseHeaderSize]].
 
 	self successful ifTrue: [
 		argumentCount = 0

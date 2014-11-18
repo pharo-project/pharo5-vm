@@ -4,7 +4,6 @@ numPointerSlotsOf: objOop
 	 Works with CompiledMethods, as well as ordinary objects."
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	| fmt contextSize numLiterals header |
 	fmt := self formatOf: objOop.
 	fmt <= self lastPointerFormat ifTrue:

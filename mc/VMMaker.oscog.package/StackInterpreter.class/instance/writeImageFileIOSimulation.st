@@ -4,7 +4,7 @@ writeImageFileIOSimulation
 	 c.f. writeImageFileIO"
 	<doNotGenerate>
 	| headerSize file |
-	BytesPerWord = 4 ifFalse: [self error: 'Not rewritten for 64 bits yet'].
+	objectMemory wordSize = 4 ifFalse: [self error: 'Not rewritten for 64 bits yet'].
 	headerSize := 64.
 
 	(file := FileStream fileNamed: self imageName) ifNil:

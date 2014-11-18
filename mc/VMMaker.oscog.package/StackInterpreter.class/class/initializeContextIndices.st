@@ -14,9 +14,9 @@ initializeContextIndices
 	LargeContextSlots := CtxtTempFrameStart + 56.
 	
 	"Including the header size in these sizes is problematic for multiple memory managers,
-	 so we don't use them, except LargeContextSize for asserts.  Set small to #bogus for error checking."
+	 so we don't use them.  Set to #bogus for error checking."
 	SmallContextSize := #bogus.
-	LargeContextSize := LargeContextSlots * BytesPerOop + BaseHeaderSize.
+	LargeContextSize := #bogus.
 
 	"Class BlockClosure"
 	ClosureOuterContextIndex := 0.

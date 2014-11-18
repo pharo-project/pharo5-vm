@@ -44,7 +44,7 @@ externalDivorceFrame: theFP andContext: ctxt
 		ifTrue: [stackPages freeStackPage: thePage]
 		ifFalse:
 			[callerIP := self oopForPointer: (self frameCallerSavedIP: theFP).
-			 callerSP := (self frameCallerSP: theFP) - BytesPerWord.
+			 callerSP := (self frameCallerSP: theFP) - objectMemory wordSize.
 			 stackPages longAt: callerSP put: callerIP.
 			 self setHeadFP: callerFP andSP: callerSP inPage: thePage]
 	

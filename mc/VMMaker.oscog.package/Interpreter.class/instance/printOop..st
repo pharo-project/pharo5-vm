@@ -12,7 +12,7 @@ printOop: oop
 	fmt := self formatOf: oop.
 	(fmt > 4 and: [fmt < 12]) ifTrue:
 		[^self printStringOf: oop].
-	lastIndex := 64 min: ((self lastPointerOf: oop) / BytesPerWord).
+	lastIndex := 64 min: ((self lastPointerOf: oop) / self wordSize).
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
 			[:index|

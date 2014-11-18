@@ -10,5 +10,5 @@ primAddressFieldPut
 	value := interpreterProxy positive32BitValueOf: valueOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
-	self longAt: rcvr + BaseHeaderSize + BytesPerOop put: value.
+	self longAt: rcvr + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop put: value.
 	^interpreterProxy methodReturnValue: valueOop

@@ -19,8 +19,8 @@ fetchContextRegisters: activeCntx
 	-1 for 0-based addressing of fetchByte 
 	-1 because it gets incremented BEFORE fetching currentByte "
 	tmp := self quickFetchInteger: InstructionPointerIndex ofObject: activeCntx.
-	instructionPointer := method + tmp + BaseHeaderSize - 2.
+	instructionPointer := method + tmp + self baseHeaderSize - 2.
 
 	"the stack pointer is a pointer variable also..."
 	tmp := self quickFetchInteger: StackPointerIndex ofObject: activeCntx.
-	stackPointer := activeCntx + BaseHeaderSize + (TempFrameStart + tmp - 1 * BytesPerWord)
+	stackPointer := activeCntx + self baseHeaderSize + (TempFrameStart + tmp - 1 * self wordSize)

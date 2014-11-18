@@ -7,8 +7,8 @@ isKernelSelector: sel
 		 byteAt: byteAt:put: byteAtPointer: byteAtPointer:put:
 		 shortAt: shortAt:put: shortAtPointer: shortAtPointer:put:
 		 intAt: intAt:put: intAtPointer: intAtPointer:put:
-		 longAt: longAt:put: longAtPointer: longAtPointer:put: long32At: long32At:put:
-		 longLongAt: longLongAt:put: longLongAtPointer: longLongAtPointer:put: 	long64At: long64At:put:
+		 longAt: longAt:put: longAtPointer: longAtPointer:put:
+		 long32At: long32At:put: long64At: long64At:put:
 		 fetchFloatAt:into: storeFloatAt:from: fetchFloatAtPointer:into: storeFloatAtPointer:from:
 		 fetchSingleFloatAt:into: storeSingleFloatAt:from: fetchSingleFloatAtPointer:into: storeSingleFloatAtPointer:from:
 		 pointerForOop: oopForPointer:

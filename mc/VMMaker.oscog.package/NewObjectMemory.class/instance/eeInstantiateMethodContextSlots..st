@@ -7,7 +7,7 @@ eeInstantiateMethodContextSlots: numSlots
 	 Will *not* cause a GC. Result is guaranteed to be young."
 	| sizeInBytes hash header1 |
 	self assert: (numSlots = SmallContextSlots or: [numSlots = LargeContextSlots]).
-	sizeInBytes := numSlots * BytesPerOop + BaseHeaderSize.
+	sizeInBytes := numSlots * self bytesPerOop + self baseHeaderSize.
 	self assert: sizeInBytes <= SizeMask.
 	hash := self newObjectHash.
 	header1 := (hash bitAnd: HashMaskUnshifted) << HashBitsOffset bitOr: self formatOfMethodContextMinusSize.

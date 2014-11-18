@@ -6,6 +6,6 @@ floatObjectOf: aFloat
 	newFloatObj := objectMemory
 						eeInstantiateSmallClassIndex: ClassFloatCompactIndex
 						format: objectMemory firstLongFormat
-						numSlots: 8 / objectMemory wordSize.
+						numSlots: (self sizeof: #double) / objectMemory bytesPerOop.
 	objectMemory storeFloatAt: newFloatObj + objectMemory baseHeaderSize from: aFloat.
 	^newFloatObj

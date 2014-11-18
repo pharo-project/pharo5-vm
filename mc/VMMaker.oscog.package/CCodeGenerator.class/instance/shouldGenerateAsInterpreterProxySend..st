@@ -1,4 +1,4 @@
 utilities
 shouldGenerateAsInterpreterProxySend: aSendNode
 	^(self messageReceiverIsInterpreterProxy: aSendNode)
-	  and: [(self mostBasicConstantSelectors includes: aSendNode selector) not]
+	  and: [(VMBasicConstants mostBasicConstantSelectors includes: aSendNode selector) not]

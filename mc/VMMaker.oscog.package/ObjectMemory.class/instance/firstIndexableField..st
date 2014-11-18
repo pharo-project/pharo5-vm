@@ -9,5 +9,5 @@ firstIndexableField: oop
 		["pointer; may need to delve into the class format word"
 		totalLength := self lengthOf: oop baseHeader: hdr format: fmt.
 		fixedFields := self fixedFieldsOf: oop format: fmt length: totalLength.
-		^self pointerForOop: oop + BaseHeaderSize + (fixedFields << ShiftForWord)].
-	^self pointerForOop: oop + BaseHeaderSize
+		^self pointerForOop: oop + self baseHeaderSize + (fixedFields << self shiftForWord)].
+	^self pointerForOop: oop + self baseHeaderSize

@@ -9,8 +9,8 @@ initializeObjectMemory: bytesToShift
 	<inline: false>
 	| freeListObj |
 	"Catch mis-initializations leading to bad translations to C"
-	self assert: BaseHeaderSize = self baseHeaderSize.
-	self assert: (self maxSlotsForAlloc * BytesPerWord) asInteger > 0.
+	self assert: self baseHeaderSize = self baseHeaderSize.
+	self assert: (self maxSlotsForAlloc * self wordSize) asInteger > 0.
 	self bootstrapping ifFalse:
 		[self
 			initSegmentBridgeWithBytes: self bridgeSize

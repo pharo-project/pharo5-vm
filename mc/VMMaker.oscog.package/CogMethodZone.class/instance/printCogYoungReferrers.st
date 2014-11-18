@@ -14,4 +14,4 @@ printCogYoungReferrers
 		 (cogMethod cmRefersToYoung and: [cogMethod cmType ~= CMFree]) ifFalse:
 			[coInterpreter print: ' '].
 		 coInterpreter printCogMethod: cogMethod.
-		 pointer := pointer + BytesPerWord]
+		 pointer := pointer + objectMemory wordSize]

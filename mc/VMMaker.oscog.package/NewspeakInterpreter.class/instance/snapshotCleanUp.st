@@ -13,8 +13,8 @@ snapshotCleanUp
 					"Clean out context"
 					(fmt = 3 and: [self isContextHeader: header])
 						ifTrue: [sz := self sizeBitsOf: oop.
-							(self lastPointerOf: oop) + BytesPerWord
-								to: sz - BaseHeaderSize by: BytesPerWord
+							(self lastPointerOf: oop) + self wordSize
+								to: sz - self baseHeaderSize by: self wordSize
 								do: [:i | self longAt: oop + i put: nilObj]].
 					"Clean out external functions"
 					fmt >= 12

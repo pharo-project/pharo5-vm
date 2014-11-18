@@ -10,5 +10,5 @@ isImmutableWhileForwarding: oop
 		fwdBlock := (header bitAnd: AllButMarkBitAndTypeMask) << 1.
 		DoAssertionChecks ifTrue:
 			[self fwdBlockValidate: fwdBlock].
-		header := self longAt: fwdBlock + BytesPerWord].
+		header := self longAt: fwdBlock + self wordSize].
 	^(header bitAnd: ImmutabilityBit) ~= 0

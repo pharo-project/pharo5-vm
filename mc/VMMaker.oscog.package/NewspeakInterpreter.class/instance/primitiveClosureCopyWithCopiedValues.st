@@ -9,7 +9,7 @@ primitiveClosureCopyWithCopiedValues
 	newClosure := self
 					closureNumArgs: numArgs
 									"greater by 1 due to preIncrement of localIP"
-					instructionPointer: instructionPointer + 2 - (method+BaseHeaderSize)
+					instructionPointer: instructionPointer + 2 - (method+self baseHeaderSize)
 					numCopiedValues: numCopiedValues.
 	"Assume: have just allocated a new closure; it must be young. Thus, can use unchecked stores."
 	self storePointerUnchecked: ClosureOuterContextIndex ofObject: newClosure withValue: (self stackValue: 2).

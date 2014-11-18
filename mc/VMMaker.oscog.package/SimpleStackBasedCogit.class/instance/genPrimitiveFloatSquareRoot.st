@@ -14,6 +14,6 @@ genPrimitiveFloatSquareRoot
 					scratchReg: TempReg.
 	self MoveR: SendNumArgsReg R: ReceiverResultReg.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord.
+	self RetN: objectMemory wordSize.
 	jumpFailAlloc jmpTarget: self Label.
 	^self compileFallbackToInterpreterPrimitive

@@ -32,7 +32,7 @@ objectsReachableFromRoots: arrayOfRoots
 	count := count + 1.
 	ptr < limit ifTrue:
 		[self longAt: ptr put: arrayOfRoots.
-		 ptr := ptr + self bytesPerSlot].
+		 ptr := ptr + self bytesPerOop].
 
 	0 to: (self numSlotsOf: arrayOfRoots) - 1 do:
 		[:i|
@@ -46,7 +46,7 @@ objectsReachableFromRoots: arrayOfRoots
 		 count := count + 1.
 		 ptr < limit ifTrue:
 			[self longAt: ptr put: objOop.
-			 ptr := ptr + self bytesPerSlot].
+			 ptr := ptr + self bytesPerOop].
 		 oop := self fetchClassOfNonImm: objOop.
 		 (self isMarked: oop) ifFalse:
 			[self setIsMarkedOf: objOop to: true.
@@ -74,7 +74,7 @@ objectsReachableFromRoots: arrayOfRoots
 
 	totalFreeOldSpace := totalFreeOldSpace - (self bytesInObject: freeChunk).
 	"Now try and allocate the result"
-	(count > (ptr - start / self bytesPerSlot) "not enough room"
+	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
 		 self checkFreeSpace.

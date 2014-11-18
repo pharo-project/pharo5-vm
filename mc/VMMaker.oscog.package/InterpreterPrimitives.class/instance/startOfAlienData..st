@@ -7,6 +7,6 @@ startOfAlienData: oop
 		[self primitiveFailFor: PrimErrBadArgument.
 		 ^0].
 	^self cCoerceSimple: ((self isDirectAlien: oop)
-						 	ifTrue: [oop + BaseHeaderSize + BytesPerOop]
-							ifFalse: [self longAt: oop + BaseHeaderSize + BytesPerOop])
+						 	ifTrue: [oop + objectMemory baseHeaderSize + objectMemory bytesPerOop]
+							ifFalse: [self longAt: oop + objectMemory baseHeaderSize + objectMemory bytesPerOop])
 			to: #'void *'

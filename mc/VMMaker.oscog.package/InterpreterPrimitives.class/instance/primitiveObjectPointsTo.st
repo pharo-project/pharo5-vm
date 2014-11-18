@@ -7,7 +7,7 @@ primitiveObjectPointsTo
 		[^self pop: 2 thenPushBool: false].
 
 	lastField := self lastPointerOf: rcvr.
-	BaseHeaderSize to: lastField by: BytesPerWord do:
+	objectMemory baseHeaderSize to: lastField by: objectMemory wordSize do:
 		[:i |
 		(self longAt: rcvr + i) = thang ifTrue:
 			[^self pop: 2 thenPushBool: true]].

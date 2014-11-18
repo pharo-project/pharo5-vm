@@ -12,15 +12,15 @@ copyObj: oop toSegment: segmentWordArray addr: lastSeg stopAt: stopAddr saveOopA
 	bodySize := self sizeBitsOf: oop.
 	(self oop: (lastSeg + extraSize + bodySize) isGreaterThanOrEqualTo: stopAddr) ifTrue:
 		[^0]. "failure"
-	self transfer: extraSize + bodySize // BytesPerWord  "wordCount"
+	self transfer: extraSize + bodySize // self wordSize  "wordCount"
 		from: oop - extraSize
-		to: lastSeg+BytesPerWord.
+		to: lastSeg+self wordSize.
 
 	"Clear root and mark bits of all headers copied into the segment"
-	hdrAddr := lastSeg+BytesPerWord + extraSize.
+	hdrAddr := lastSeg+self wordSize + extraSize.
 	self longAt: hdrAddr put: ((self longAt: hdrAddr) bitAnd: AllButRootBit - MarkBit).
 
-	self forward: oop to: (lastSeg+BytesPerWord + extraSize - segmentWordArray)
+	self forward: oop to: (lastSeg+self wordSize + extraSize - segmentWordArray)
 		savingOopAt: oopPtr
 		andHeaderAt: hdrPtr.
 

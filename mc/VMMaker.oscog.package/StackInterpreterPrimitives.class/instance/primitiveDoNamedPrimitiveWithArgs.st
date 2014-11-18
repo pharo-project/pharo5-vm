@@ -42,9 +42,9 @@ primitiveDoNamedPrimitiveWithArgs
 	functionLength := objectMemory lengthOf: functionName.
 	self successful ifFalse: [^self primitiveFailFor: -3]. "invalid methodArg state"
 
-	addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
+	addr := self ioLoadExternalFunction: functionName + objectMemory baseHeaderSize
 				OfLength: functionLength
-				FromModule: moduleName + BaseHeaderSize
+				FromModule: moduleName + objectMemory baseHeaderSize
 				OfLength: moduleLength.
 	addr = 0 ifTrue:
 		[^self primitiveFailFor: -1]. "could not find function; answer generic failure (see below)"

@@ -5,6 +5,6 @@ roomToPushNArgs: n
 	 the frame were converted into a context."
 	| cntxSize |
 	((self methodHeaderOf: method) bitAnd: LargeContextBit) ~= 0
-		ifTrue: [cntxSize := LargeContextSize / BytesPerWord - ReceiverIndex]
-		ifFalse: [cntxSize := SmallContextSize / BytesPerWord - ReceiverIndex].
+		ifTrue: [cntxSize := LargeContextSlots - CtxtTempFrameStart]
+		ifFalse: [cntxSize := SmallContextSlots - CtxtTempFrameStart].
 	^self stackPointerIndex + n <= cntxSize

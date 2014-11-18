@@ -12,7 +12,7 @@ positive64BitIntegerFor: integerValue
 	newLargeInteger := objectMemory
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: sz)
-							numSlots: 8 / objectMemory bytesPerSlot.
+							numSlots: 8 / objectMemory bytesPerOop.
 	objectMemory
 		storeByte: 7 ofObject: newLargeInteger withValue: (integerValue >> 56 bitAnd: 16rFF);
 		storeByte: 6 ofObject: newLargeInteger withValue: (integerValue >> 48 bitAnd: 16rFF);

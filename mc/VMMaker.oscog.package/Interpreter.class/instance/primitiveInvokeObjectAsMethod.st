@@ -6,7 +6,7 @@ primitiveInvokeObjectAsMethod
 	| runSelector runReceiver runArgs newReceiver lookupClass |
 	runArgs := self instantiateClass: (self splObj: ClassArray) indexableSize: argumentCount.
 	self beRootIfOld: runArgs. "do we really need this?"
-	self transfer: argumentCount from: stackPointer - ((argumentCount - 1) * BytesPerWord) to: runArgs + BaseHeaderSize.
+	self transfer: argumentCount from: stackPointer - ((argumentCount - 1) * self wordSize) to: runArgs + self baseHeaderSize.
 
 	runSelector := messageSelector.
 	runReceiver := self stackValue: argumentCount.

@@ -1,6 +1,6 @@
 primitive generators
 genPrimitiveSize
 	| r |
-	(r := objectRepresentation genInnerPrimitiveSize: BytesPerWord) < 0 ifTrue:
+	(r := objectRepresentation genInnerPrimitiveSize: objectMemory wordSize) < 0 ifTrue:
 		[^r].
 	^self compileFallbackToInterpreterPrimitive

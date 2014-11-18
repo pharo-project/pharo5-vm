@@ -12,10 +12,10 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 	profiling ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick: if so.
 		  N.B. nextProfileTick is 64-bits so 32-bit systems need to test both halves."
-		BytesPerWord = 4
+		objectMemory wordSize = 4
 			ifTrue:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-				 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+				 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 				 self OrR: TempReg R: ClassReg]
 			ifFalse:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -51,7 +51,7 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 			[backEnd genLoadStackPointers.									"Switch back to Smalltalk stack."
 			 self MoveMw: 0 r: SPReg R: ReceiverResultReg.						"Fetch result from stack"
 			 self MoveAw: coInterpreter instructionPointerAddress R: LinkReg.	"Get and restore ret pc"
-			 self RetN: BytesPerWord]											"Return, popping result from stack"
+			 self RetN: objectMemory wordSize]											"Return, popping result from stack"
 		ifFalse:
 			[self MoveAw: coInterpreter instructionPointerAddress R: ClassReg.	"Get return pc"
 			 backEnd genLoadStackPointers.									"Switch back to Smalltalk stack."
@@ -89,10 +89,10 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		ifTrue:
 			[self MoveMw: 0 r: SPReg R: ReceiverResultReg]	"Fetch result from stack"
 		ifFalse:
-			[self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
+			[self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
 			 self PushR: ClassReg].											"Restore return pc on CISCs"
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord.	"return to caller, popping receiver"
+	self RetN: objectMemory wordSize.	"return to caller, popping receiver"
 
 	profiling ifTrue:
 		["Call ceCheckProfileTick: to record sample and then continue.  newMethod

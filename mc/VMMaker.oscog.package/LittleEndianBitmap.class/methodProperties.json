@@ -11,8 +11,6 @@
 		"longAt:bigEndian:" : "eem 1/2/2009 09:25",
 		"longAt:put:" : "eem 10/9/2013 08:57",
 		"longAt:put:bigEndian:" : "eem 10/9/2013 08:58",
-		"longLongAt:" : "eem 10/1/2013 14:33",
-		"longLongAt:put:" : "eem 10/9/2013 19:52",
 		"unsignedByteAt:" : "eem 1/15/2009 22:16",
 		"unsignedByteAt:put:" : "eem 12/28/2008 18:44",
 		"unsignedLongAt:" : "eem 12/28/2008 18:41",

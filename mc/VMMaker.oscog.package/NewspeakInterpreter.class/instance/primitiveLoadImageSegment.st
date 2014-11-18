@@ -11,7 +11,7 @@ primitiveLoadImageSegment
 	outPointerArray := self stackTop.
 	lastOut := outPointerArray + (self lastPointerOf: outPointerArray).
 	segmentWordArray := self stackValue: 1.
-	endSeg := segmentWordArray + (self sizeBitsOf: segmentWordArray) - BaseHeaderSize.
+	endSeg := segmentWordArray + (self sizeBitsOf: segmentWordArray) - self baseHeaderSize.
 
 	"Essential type checks"
 	((self formatOf: outPointerArray) = 2				"Must be indexable pointers"
@@ -19,32 +19,32 @@ primitiveLoadImageSegment
 		ifFalse: [^ self primitiveFail].
 
 	"Version check.  Byte order of the WordArray now"
-	data := self longAt: segmentWordArray + BaseHeaderSize.
+	data := self longAt: segmentWordArray + self baseHeaderSize.
 	(self readableFormat: (data bitAnd: 16rFFFF "low 2 bytes")) ifFalse: [
 		"Not readable -- try again with reversed bytes..."
-		self reverseBytesFrom: segmentWordArray + BaseHeaderSize to: endSeg + BytesPerWord.
-		data := self longAt: segmentWordArray + BaseHeaderSize.
+		self reverseBytesFrom: segmentWordArray + self baseHeaderSize to: endSeg + self wordSize.
+		data := self longAt: segmentWordArray + self baseHeaderSize.
 		(self readableFormat: (data bitAnd: 16rFFFF "low 2 bytes")) ifFalse: [
 			"Still NG -- put things back and fail"
-			self reverseBytesFrom: segmentWordArray + BaseHeaderSize to: endSeg + BytesPerWord.
+			self reverseBytesFrom: segmentWordArray + self baseHeaderSize to: endSeg + self wordSize.
 			DoAssertionChecks ifTrue: [self verifyCleanHeaders].
 			^ self primitiveFail]].
 	"Reverse the Byte type objects if the data from opposite endian machine"
 	"Test top byte.  $d on the Mac or $s on the PC.  Rest of word is equal"
 	data = self imageSegmentVersion ifFalse: [
 		"Reverse the byte-type objects once"
-		segOop := self oopFromChunk: segmentWordArray + BaseHeaderSize + BytesPerWord.
+		segOop := self oopFromChunk: segmentWordArray + self baseHeaderSize + self wordSize.
 			 "Oop of first embedded object"
-		self byteSwapByteObjectsFrom: segOop to: endSeg + BytesPerWord].
+		self byteSwapByteObjectsFrom: segOop to: endSeg + self wordSize].
 
 	"Proceed through the segment, remapping pointers..."
-	segOop := self oopFromChunk: segmentWordArray + BaseHeaderSize + BytesPerWord.
+	segOop := self oopFromChunk: segmentWordArray + self baseHeaderSize + self wordSize.
 	[segOop <= endSeg] whileTrue:
 		[(self headerType: segOop) <= 1
 			ifTrue: ["This object has a class field (type = 0 or 1) -- start with that."
-					fieldPtr := segOop - BytesPerWord.  doingClass := true]
+					fieldPtr := segOop - self wordSize.  doingClass := true]
 			ifFalse: ["No class field -- start with first data field"
-					fieldPtr := segOop + BaseHeaderSize.  doingClass := false].
+					fieldPtr := segOop + self baseHeaderSize.  doingClass := false].
 		lastPtr := segOop + (self lastPointerOf: segOop).	"last field"
 		lastPtr > endSeg ifTrue: [
 			DoAssertionChecks ifTrue: [self verifyCleanHeaders].
@@ -60,7 +60,7 @@ primitiveLoadImageSegment
 			(self isIntegerObject: fieldOop)
 				ifTrue:
 					["Integer -- nothing to do"
-					fieldPtr := fieldPtr + BytesPerWord]
+					fieldPtr := fieldPtr + self wordSize]
 				ifFalse:
 					[(fieldOop bitAnd: 3) = 0 ifFalse: [^ self primitiveFail "bad oop"].
 					(fieldOop bitAnd: 16r80000000) = 0
@@ -75,34 +75,34 @@ primitiveLoadImageSegment
 								fieldPtr := fieldPtr + 8.
 								doingClass := false]
 						ifFalse: [self longAt: fieldPtr put: mapOop.
-								fieldPtr := fieldPtr + BytesPerWord].
+								fieldPtr := fieldPtr + self wordSize].
 					segOop < youngStart
 						ifTrue: [self possibleRootStoreInto: segOop value: mapOop].
 					]].
 		segOop := self objectAfter: segOop].
 
 	"Again, proceed through the segment checking consistency..."
-	segOop := self oopFromChunk: segmentWordArray + BaseHeaderSize + BytesPerWord.
+	segOop := self oopFromChunk: segmentWordArray + self baseHeaderSize + self wordSize.
 	[segOop <= endSeg] whileTrue:
 		[(self oopHasAcceptableClass: segOop) ifFalse: [^ self primitiveFail "inconsistency"].
-		fieldPtr := segOop + BaseHeaderSize.		"first field"
+		fieldPtr := segOop + self baseHeaderSize.		"first field"
 		lastPtr := segOop + (self lastPointerOf: segOop).	"last field"
 		"Go through all oops, remapping them..."
 		[fieldPtr > lastPtr] whileFalse:
 			["Examine each pointer field"
 			fieldOop := self longAt: fieldPtr.
 			(self oopHasAcceptableClass: fieldOop) ifFalse: [^ self primitiveFail "inconsistency"].
-			fieldPtr := fieldPtr + BytesPerWord].
+			fieldPtr := fieldPtr + self wordSize].
 		segOop := self objectAfter: segOop].
 
 	"Truncate the segment word array to size = BytesPerWord (vers stamp only)"
 	extraSize := self extraHeaderBytes: segmentWordArray.
 	hdrTypeBits := self headerType: segmentWordArray.
 	extraSize = 8
-		ifTrue: [self longAt: segmentWordArray-extraSize put: BaseHeaderSize + BytesPerWord + hdrTypeBits]
+		ifTrue: [self longAt: segmentWordArray-extraSize put: self baseHeaderSize + self wordSize + hdrTypeBits]
 		ifFalse: [header := self longAt: segmentWordArray.
 				self longAt: segmentWordArray
-					put: header - (header bitAnd: SizeMask) + BaseHeaderSize + BytesPerWord].	
+					put: header - (header bitAnd: SizeMask) + self baseHeaderSize + self wordSize].	
 	"and return the roots array which was first in the segment"
 	DoAssertionChecks ifTrue: [self verifyCleanHeaders].
-	self pop: 3 thenPush: (self oopFromChunk: segmentWordArray + BaseHeaderSize + BytesPerWord).
+	self pop: 3 thenPush: (self oopFromChunk: segmentWordArray + self baseHeaderSize + self wordSize).

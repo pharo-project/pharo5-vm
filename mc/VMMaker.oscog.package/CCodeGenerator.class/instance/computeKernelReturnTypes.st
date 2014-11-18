@@ -13,9 +13,7 @@ computeKernelReturnTypes
 			longAtPointer: #sqInt longAtPointer:put: #sqInt
 				long32At: #sqInt long32At:put: #sqInt
 
-		 longLongAt: #sqLong longLongAt:put: #sqLong
-			longLongAtPointer: #sqLong longLongAtPointer:put: #sqLong
-				long64At: #sqLong long64At:put: #sqLong
+		 long64At: #sqLong long64At:put: #sqLong
 		
 		 fetchFloatAt:into: #void storeFloatAt:from: #void
 			fetchFloatAtPointer:into: #void storeFloatAtPointer:from: #void

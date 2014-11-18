@@ -4,7 +4,7 @@ printNameOfClass: classOop count: cnt
 	<inline: false>
 	(classOop = 0 or: [cnt <= 0]) ifTrue: [^self print: 'bad class'].
 	((self sizeBitsOf: classOop) = metaclassSizeBits
-	  and: [metaclassSizeBits > (thisClassIndex * BytesPerWord)])	"(Metaclass instSize * 4)"
+	  and: [metaclassSizeBits > (thisClassIndex * self wordSize)])	"(Metaclass instSize * 4)"
 		ifTrue: [self printNameOfClass: (self fetchPointer: thisClassIndex ofObject: classOop) count: cnt - 1.
 				self print: ' class']
 		ifFalse: [self printStringOf: (self fetchPointer: classNameIndex ofObject: classOop)]

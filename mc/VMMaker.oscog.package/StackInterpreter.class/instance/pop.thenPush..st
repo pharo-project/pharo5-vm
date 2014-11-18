@@ -4,5 +4,5 @@ pop: nItems thenPush: oop
 	| sp |
 	<inline: true>
 	<var: #sp type: #'char *'>
-	stackPages longAt: (sp := stackPointer + ((nItems - 1) * BytesPerWord)) put: oop.
+	stackPages longAt: (sp := stackPointer + ((nItems - 1) * objectMemory wordSize)) put: oop.
 	stackPointer := sp

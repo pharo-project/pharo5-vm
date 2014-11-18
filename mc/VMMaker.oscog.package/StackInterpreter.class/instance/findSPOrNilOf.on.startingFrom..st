@@ -8,7 +8,6 @@ findSPOrNilOf: theFP on: thePage startingFrom: startFrame
 	<returnTypeC: #'char *'>
 	| aFrame prevFrame |
 	<inline: true>
-	<asmLabel: false>
 	<var: #aFrame type: #'char *'>
 	<var: #prevFrame type: #'char *'>
 	self assert: (stackPages isFree: thePage) not.
@@ -19,7 +18,7 @@ findSPOrNilOf: theFP on: thePage startingFrom: startFrame
 		 "Skip the instruction pointer on top of stack of inactive pages."
 		^thePage = stackPage
 			ifTrue: [thePage headSP]
-			ifFalse: [thePage headSP + BytesPerWord]].
+			ifFalse: [thePage headSP + objectMemory wordSize]].
 	aFrame := startFrame.
 	[prevFrame := aFrame.
 	 aFrame := self frameCallerFP: aFrame.

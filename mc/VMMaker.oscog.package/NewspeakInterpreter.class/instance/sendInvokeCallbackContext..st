@@ -20,8 +20,8 @@ sendInvokeCallbackContext: vmCallbackContext
 	self storeContextRegisters: activeContext.
 	self justActivateNewMethod.
 	relativeSP := stackPointer - activeContext.
-	stackPointer := activeContext + BaseHeaderSize + (ReceiverIndex * BytesPerWord).
-	self cppIf: BytesPerWord = 8
+	stackPointer := activeContext + self baseHeaderSize + (ReceiverIndex * self wordSize).
+	self cppIf: self wordSize = 8
 		ifTrue:
 			[(self argumentCountOf: newMethod) = 4 ifTrue:
 				[self push: (self positive64BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).

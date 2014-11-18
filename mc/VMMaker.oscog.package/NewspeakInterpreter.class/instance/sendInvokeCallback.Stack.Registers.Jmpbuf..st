@@ -20,11 +20,11 @@ sendInvokeCallback: thunkPtr Stack: stackPtr Registers: regsPtr Jmpbuf: jmpBufPt
 		[^false].
 	self storeContextRegisters: activeContext.
 	self justActivateNewMethod.
-	where := activeContext + BaseHeaderSize + (ReceiverIndex << ShiftForWord).
-	self longAt: where + (1 << ShiftForWord) put: self popRemappableOop.
-	self longAt: where + (2 << ShiftForWord) put: self popRemappableOop.
-	self longAt: where + (3 << ShiftForWord) put: self popRemappableOop.
-	self longAt: where + (4 << ShiftForWord) put: self popRemappableOop.
+	where := activeContext + self baseHeaderSize + (ReceiverIndex << self shiftForWord).
+	self longAt: where + (1 << self shiftForWord) put: self popRemappableOop.
+	self longAt: where + (2 << self shiftForWord) put: self popRemappableOop.
+	self longAt: where + (3 << self shiftForWord) put: self popRemappableOop.
+	self longAt: where + (4 << self shiftForWord) put: self popRemappableOop.
 	self interpret.
 	"not reached"
 	^true

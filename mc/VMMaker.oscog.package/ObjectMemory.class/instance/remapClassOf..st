@@ -6,12 +6,12 @@ remapClassOf: oop
 	| classHeader classOop newClassOop newClassHeader |
 	(self headerType: oop) = HeaderTypeShort ifTrue: [^ nil]. "compact classes needn't be mapped"
 
-	classHeader := self longAt: oop - BytesPerWord.
+	classHeader := self longAt: oop - self wordSize.
 	classOop := classHeader bitAnd: AllButTypeMask.
 	(self isObjectForwarded: classOop) ifTrue:
 		[newClassOop := self remappedObj: classOop.
 		newClassHeader := newClassOop bitOr: (classHeader bitAnd: TypeMask).
-		self longAt: oop - BytesPerWord put: newClassHeader.
+		self longAt: oop - self wordSize put: newClassHeader.
 		"The following ensures that become: into an old object's class makes it a root. 
 		It does nothing during either incremental or full compaction because 
 		oop will never be < youngStart."

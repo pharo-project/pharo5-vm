@@ -10,11 +10,11 @@ primitiveShortAtPut
 	rcvr := self stackValue: 2.
 	((self isIntegerObject: rcvr) not and: [self isWordsOrBytes: rcvr]) ifFalse:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	sz := ((self sizeBitsOf: rcvr) - BaseHeaderSize) // 2.  "number of 16-bit fields"
+	sz := ((self sizeBitsOf: rcvr) - self baseHeaderSize) // 2.  "number of 16-bit fields"
 	(index >= 1 and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
 	(self isOopImmutable: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrNoModification].
-	addr := rcvr + BaseHeaderSize + (2 * (index - 1)).
+	addr := rcvr + self baseHeaderSize + (2 * (index - 1)).
 	self shortAt: addr put: value.
 	self pop: 3 thenPush: (self integerObjectOf: value) "pop all; return value"

@@ -4,7 +4,7 @@ genPrimitiveQuo
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpOverflow type: #'AbstractInstruction *'>
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	"We must shift away the tags, not just subtract them, so that the
@@ -22,6 +22,6 @@ genPrimitiveQuo
 	objectRepresentation genConvertIntegerToSmallIntegerInReg: TempReg.
 	self MoveR: TempReg R: ReceiverResultReg.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpOverflow jmpTarget: (jumpZero jmpTarget: (jumpNotSI jmpTarget: self Label)).
 	^0

@@ -9,7 +9,6 @@ isClassOfNonImm: oop equalTo: classOop compactClassIndex: knownClassIndex
 
 	| ccIndex |
 	<inline: true>
-	<asmLabel: false>
 	self assert: (self isImmediate: oop) not.
 
 	ccIndex := self classIndexOf: oop.

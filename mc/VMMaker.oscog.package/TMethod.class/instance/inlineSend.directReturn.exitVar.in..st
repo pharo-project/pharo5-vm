@@ -53,15 +53,6 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 		add: (label := TLabeledCommentNode new setComment: 'begin ', sel);
 		addAll: (self argAssignmentsFor: meth send: aSendNode in: aCodeGen);
 		addAll: meth statements.  "method body"
-	"Vile hacks to prevent too many labels.  If the C compiler inlines functions it can duplicate
-	 labels and cause compilation to fail.  The second statement prevents us creating labels in
-	 anything other than the interpreter.  If we add labels to small functions that may be inlined
-	 by the C compiler then the label can be duplicated by the C compiler and cause the assembler
-	 to fail.  eem 9/20/2008 12:29"
-	(aCodeGen wantsLabels
-	 and: [meth asmLabel
-	 and: [meth mustAsmLabel or: [meth hasMoreSendsThan: 20]]]) ifTrue:
-		[label asmLabel: sel].
 	(directReturn
 	 and: [meth endsWithReturn not]) ifTrue:
 		[inlineStmts add:

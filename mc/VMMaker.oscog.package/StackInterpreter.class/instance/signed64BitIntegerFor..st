@@ -33,7 +33,7 @@ signed64BitIntegerFor: integerValue
 	newLargeInteger := objectMemory
 							eeInstantiateSmallClassIndex: largeClass
 							format: (objectMemory byteFormatForNumBytes: sz)
-							numSlots: sz + 3 // objectMemory bytesPerSlot.
+							numSlots: sz + 3 // objectMemory bytesPerOop.
 	sz > 4 ifTrue:
 		[objectMemory
 			storeByte: 7 ofObject: newLargeInteger withValue: (magnitude >> 56 bitAnd: 16rFF);

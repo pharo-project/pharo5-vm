@@ -6,5 +6,5 @@ storePointer: fieldIndex ofObject: oop withValue: valuePointer
 		self possibleRootStoreInto: oop value: valuePointer.
 	].
 
-	^ self longAt: oop + BaseHeaderSize + (fieldIndex << ShiftForWord)
+	^ self longAt: oop + self baseHeaderSize + (fieldIndex << self shiftForWord)
 		put: valuePointer

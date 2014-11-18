@@ -4,7 +4,7 @@ emitCExpression: aParseNode on: aStream indent: level
 
 	(aParseNode isLeaf
 	 or: [aParseNode isSend
-		 and: [#(bytesPerOop bytesPerWord baseHeaderSize) includes: aParseNode selector]])
+		 and: [#(bytesPerOop bytesPerWord baseHeaderSize wordSize) includes: aParseNode selector]])
 		ifTrue: 
 			["omit parens"
 			 aParseNode emitCCodeAsExpressionOn: aStream level: level generator: self]

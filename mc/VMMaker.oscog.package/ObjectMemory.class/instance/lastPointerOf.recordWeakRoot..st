@@ -17,14 +17,14 @@ lastPointerOf: objOop recordWeakRoot: recordWeakRoot "<Boolean>"
 						[self error: 'weakRoots table overflow'].
 					 weakRoots at: weakRootCount put: objOop].
 				"Do not trace the object's indexed fields if it's a weak class"
-				^(self nonWeakFieldsOf: objOop) * BytesPerOop].
+				^(self nonWeakFieldsOf: objOop) * self bytesPerOop].
 			"So fmt is 3"
 			(self isContextHeader: header) ifTrue:
 				["contexts end at the stack pointer avoiding having to init fields beyond it"
 				 contextSize := self fetchStackPointerOf: objOop.
-				 ^CtxtTempFrameStart + contextSize * BytesPerOop]].
+				 ^CtxtTempFrameStart + contextSize * self bytesPerOop]].
 		 sz := self sizeBitsOfSafe: objOop.
-		 ^sz - BaseHeaderSize  "all pointers"].
+		 ^sz - self baseHeaderSize  "all pointers"].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes:"

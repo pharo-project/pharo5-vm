@@ -27,7 +27,7 @@ checkStackIntegrity
 					 theFP := thePage  headFP].
 			 "Skip the instruction pointer on top of stack of inactive pages."
 			 thePage = stackPage ifFalse:
-				[theSP := theSP + BytesPerWord].
+				[theSP := theSP + objectMemory wordSize].
 			 [frameRcvrOffset := self frameReceiverOffset: theFP.
 			  [theSP <= frameRcvrOffset] whileTrue:
 				[oop := stackPages longAt: theSP.
@@ -35,7 +35,7 @@ checkStackIntegrity
 				   and: [(objectMemory heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 					[self printFrameThing: 'object leak in frame temp' andFrame: theFP at: theSP.
 					 ok := false].
-				 theSP := theSP + BytesPerWord].
+				 theSP := theSP + objectMemory wordSize].
 			 (self frameHasContext: theFP) ifTrue:
 				[oop := self frameContext: theFP.
 				 ((objectMemory isImmediate: oop) 
@@ -65,14 +65,14 @@ checkStackIntegrity
 						[self printFrameThing: 'object leak in iframe mthd' andFrame: theFP at: theFP + FoxMethod.
 						 ok := false]].
 			 (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-				[theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+				[theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 				 theFP := callerFP].
-			 theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+			 theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 			 [theSP <= thePage baseAddress] whileTrue:
 				[oop := stackPages longAt: theSP.
 				 ((objectMemory isNonImmediate: oop) 
 				   and: [(objectMemory heapMapAtWord: (self pointerForOop: oop)) = 0]) ifTrue:
 					[self printFrameThing: 'object leak in frame arg' andFrame: theFP at: theSP.
 					 ok := false].
-				 theSP := theSP + BytesPerWord]]].
+				 theSP := theSP + objectMemory wordSize]]].
 	^ok

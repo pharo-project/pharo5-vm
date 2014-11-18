@@ -8,9 +8,9 @@ finalizeReference: oop
 	<var: #oop type: #usqInt>
 	<var: #weakOop type: #usqInt>
 	numFields := self nonWeakFieldsOf: oop. "so nonWeakFieldsOf: may be inlined"
-	firstField := BaseHeaderSize + (numFields << ShiftForWord).
+	firstField := self baseHeaderSize + (numFields << self shiftForWord).
 	lastField := self lastPointerOf: oop.
-	firstField to: lastField by: BytesPerWord do:
+	firstField to: lastField by: self wordSize do:
 		[:i|
 		weakOop := self longAt: oop + i.
 		"ar 1/18/2005: Added oop < youngStart test to make sure we're not testing

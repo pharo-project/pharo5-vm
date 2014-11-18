@@ -11,4 +11,4 @@ instanceSizeOf: classObj
 	"Compute the size of instances of the class (used for fixed field classes only)"
 	sizeHiBits := classHdr >> 9 bitAnd: 16r300.
 	byteSize := (classHdr bitAnd: SizeMask) + sizeHiBits. "size in bytes -- low 2 bits are 0"
-	^byteSize - BaseHeaderSize / BytesPerWord
+	^byteSize - self baseHeaderSize / self wordSize

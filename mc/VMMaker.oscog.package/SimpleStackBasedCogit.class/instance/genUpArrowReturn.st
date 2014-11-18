@@ -16,5 +16,5 @@ genUpArrowReturn
 		 self PopR: FPReg].
 	backEnd hasLinkRegister ifTrue:
 		[self PopR: LinkReg].
-	self RetN: methodOrBlockNumArgs + 1 * BytesPerWord.
+	self RetN: methodOrBlockNumArgs + 1 * objectMemory wordSize.
 	^0

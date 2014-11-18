@@ -5,7 +5,6 @@ numBytesOf: objOop
 	<api>
 	| fmt numBytes |
 	<inline: true>
-	<asmLabel: false>
 	fmt := self formatOf: objOop.
 	numBytes := self numSlotsOf: objOop.
 	numBytes := numBytes << self shiftForWord.

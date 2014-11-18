@@ -3,6 +3,7 @@ initializeObjectHeaderConstants
 
 	BytesPerWord ifNil: [BytesPerWord := 4].  "May get called on fileIn, so supply default"
 	BaseHeaderSize := BytesPerWord.
+	BytesPerOop := BytesPerWord.
 	WordMask := (1 bitShift: BytesPerWord*8) - 1.
 	
 	"masks for type field"

@@ -13,7 +13,7 @@ findString: aCString
 			ifFalse:
 				[((self isBytesNonImm: obj)
 				  and: [(self lengthOf: obj) = cssz
-				  and: [(self str: aCString n: (self pointerForOop: obj + BaseHeaderSize) cmp: cssz) = 0]]) ifTrue:
+				  and: [(self str: aCString n: (self pointerForOop: obj + self baseHeaderSize) cmp: cssz) = 0]]) ifTrue:
 					[coInterpreter printHex: obj; space; printOopShort: obj; cr].
 				 sz := self sizeBitsOf: obj].
 		 obj := self oopFromChunk: obj + sz]

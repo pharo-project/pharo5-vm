@@ -11,7 +11,7 @@ primitiveIntegerAtPut
 	((index >= 1) and: [index <= sz]) ifFalse:[^self success: false].
 	value := self signed32BitValueOf: valueOop.
 	successFlag ifTrue:[
-		addr := rcvr + BaseHeaderSize + (index - 1 * BytesPerWord). "for zero indexing"
+		addr := rcvr + self baseHeaderSize + (index - 1 * self wordSize). "for zero indexing"
 		value := self intAt: addr put: value.
 		self pop: 3 thenPush: valueOop. "pop all; return value"
 	].

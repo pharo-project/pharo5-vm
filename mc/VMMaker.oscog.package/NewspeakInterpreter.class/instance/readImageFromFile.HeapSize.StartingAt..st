@@ -12,9 +12,9 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	<var: #dataSize type: 'size_t '>
 	<var: #imageOffset type: 'squeakFileOffsetType '>
 
-	metaclassSizeBits := 7 * BytesPerWord.	"guess (Metaclass instSize+1 * 4)"
+	metaclassSizeBits := 7 * self wordSize.	"guess (Metaclass instSize+1 * 4)"
 	swapBytes := self checkImageVersionFrom: f startingAt: imageOffset.
-	headerStart := (self sqImageFilePosition: f) - BytesPerWord.  "record header start position"
+	headerStart := (self sqImageFilePosition: f) - self wordSize.  "record header start position"
 
 	headerSize			:= self getLongFromFile: f swap: swapBytes.
 	dataSize			:= self getLongFromFile: f swap: swapBytes.

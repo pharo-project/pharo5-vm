@@ -4,5 +4,5 @@ iframeBackwardBranchByte: theFP put: aByte
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	stackPages
-		byteAt: theFP + (VMBIGENDIAN ifTrue: [FoxIFrameFlags + BytesPerWord - 1] ifFalse: [FoxIFrameFlags])
+		byteAt: theFP + (VMBIGENDIAN ifTrue: [FoxIFrameFlags + objectMemory wordSize - 1] ifFalse: [FoxIFrameFlags])
 		put: aByte

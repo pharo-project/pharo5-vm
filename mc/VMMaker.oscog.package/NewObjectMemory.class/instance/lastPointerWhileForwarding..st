@@ -12,12 +12,12 @@ lastPointerWhileForwarding: objOop
 			["contexts end at the stack pointer"
 			 contextSize := coInterpreter nacFetchStackPointerOf: objOop.
 			 self assert: ReceiverIndex + contextSize < (self lengthOf: objOop baseHeader: header format: fmt).
-			 ^CtxtTempFrameStart + contextSize * BytesPerOop].
+			 ^CtxtTempFrameStart + contextSize * self bytesPerOop].
 		 "do sizeBitsOf: using the header we obtained"
 		 size := (header bitAnd: TypeMask) = HeaderTypeSizeAndClass
 					ifTrue: [(self sizeHeader: objOop) bitAnd: AllButTypeMask]
 					ifFalse: [header bitAnd: SizeMask].
-		 ^size - BaseHeaderSize].
+		 ^size - self baseHeaderSize].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 	"CompiledMethod: contains both pointers and bytes"
 	self assert: (self isCompiledMethodHeader: header).

@@ -19,7 +19,7 @@ markAndTraceMachineCodeForNewSpaceGC
 				[(objectMemory isYoung: cogMethod methodObject) ifTrue:
 					[objectMemory markAndTrace: cogMethod methodObject].
 				self markYoungObjectsIn: cogMethod]].
-		 pointer := pointer + BytesPerWord].
+		 pointer := pointer + objectMemory wordSize].
 	objectMemory leakCheckIncrementalGC ifTrue:
 		[self assert: self allMachineCodeObjectReferencesValid].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."

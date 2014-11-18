@@ -16,23 +16,23 @@ internalActivateNewMethod
 
 	"Assume: newContext will be recorded as a root if necessary by the
 	 call to newActiveContext: below, so we can use unchecked stores."
-	where :=   newContext + BaseHeaderSize.
-	self longAt: where + (SenderIndex << ShiftForWord) put: activeContext.
-	self longAt: where + (InstructionPointerIndex << ShiftForWord)
-		put: (self integerObjectOf: (((LiteralStart + (self literalCountOfMethodHeader: methodHeader)) * BytesPerWord) + 1)).
-	self longAt: where + (StackPointerIndex << ShiftForWord) put: (self integerObjectOf: tempCount).
-	self longAt: where + (MethodIndex << ShiftForWord) put: newMethod.
-	self longAt: where + (ClosureIndex << ShiftForWord) put: nilObj.
+	where :=   newContext + self baseHeaderSize.
+	self longAt: where + (SenderIndex << self shiftForWord) put: activeContext.
+	self longAt: where + (InstructionPointerIndex << self shiftForWord)
+		put: (self integerObjectOf: (((LiteralStart + (self literalCountOfMethodHeader: methodHeader)) * self wordSize) + 1)).
+	self longAt: where + (StackPointerIndex << self shiftForWord) put: (self integerObjectOf: tempCount).
+	self longAt: where + (MethodIndex << self shiftForWord) put: newMethod.
+	self longAt: where + (ClosureIndex << self shiftForWord) put: nilObj.
 
 	"Copy the receiver and arguments..."
 	argCount2 := argumentCount.
 	0 to: argCount2 do:
-		[:i | self longAt: where + ((ReceiverIndex+i) << ShiftForWord) put: (self internalStackValue: argCount2-i)].
+		[:i | self longAt: where + ((ReceiverIndex+i) << self shiftForWord) put: (self internalStackValue: argCount2-i)].
 
 	"clear remaining temps to nil in case it has been recycled"
 	methodHeader := nilObj.  "methodHeader here used just as faster (register?) temp"
 	argCount2+1+ReceiverIndex to: tempCount+ReceiverIndex do:
-		[:i | self longAt: where + (i << ShiftForWord) put: methodHeader].
+		[:i | self longAt: where + (i << self shiftForWord) put: methodHeader].
 
 	self internalPop: argCount2 + 1.
 	reclaimableContextCount := reclaimableContextCount + 1.

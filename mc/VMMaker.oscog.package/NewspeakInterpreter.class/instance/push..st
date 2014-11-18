@@ -2,5 +2,5 @@ internal interpreter access
 push: object
 
 	| sp |
-	self longAt: (sp := stackPointer + BytesPerWord) put: object.
+	self longAt: (sp := stackPointer + self wordSize) put: object.
 	stackPointer := sp.

@@ -3,4 +3,5 @@ initializeWithByteSize: byteSize "<Integer>" for: anInterpreter "<StackInterpret
 	"Initialize the stackPages memory for simulation."
 	<doNotGenerate>
 	interpreter := anInterpreter.
-	^stackMemory := Array new: byteSize / BytesPerWord withAll: 0
+	objectMemory := anInterpreter objectMemory.
+	^stackMemory := Array new: byteSize / objectMemory wordSize withAll: 0

@@ -15,7 +15,8 @@ localizeGlobalVariables
 			[:name |
 			(methods at: name ifAbsent: []) ifNotNil:
 				[:procedure | | newDeclaration |
-				procedure isRealMethod ifTrue:
+				(procedure isRealMethod
+				 and: [self shouldGenerateMethod: procedure]) ifTrue:
 					[(localized at: name ifAbsentPut: [SortedCollection new]) add: key.
 					elected add: (procedure locals add: key).
 					newDeclaration := variableDeclarations at: key ifAbsent: ['sqInt ', key].

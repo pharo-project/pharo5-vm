@@ -19,7 +19,7 @@ initSimStackForFramefulMethod: startpc
 			spilled: true;
 			annotateUse: false;
 			register: FPReg;
-			offset: FoxCallerSavedIP + ((methodOrBlockNumArgs - i) * BytesPerWord);
+			offset: FoxCallerSavedIP + ((methodOrBlockNumArgs - i) * objectMemory wordSize);
 			bcptr: startpc].
 	"temps"
 	methodOrBlockNumArgs to: simStackPtr do:
@@ -30,5 +30,5 @@ initSimStackForFramefulMethod: startpc
 			spilled: true;
 			annotateUse: false;
 			register: FPReg;
-			offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * BytesPerWord);
+			offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * objectMemory wordSize);
 			bcptr: startpc]

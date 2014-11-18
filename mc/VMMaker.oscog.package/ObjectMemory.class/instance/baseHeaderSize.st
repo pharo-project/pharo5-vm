@@ -1,3 +1,4 @@
 interpreter access
 baseHeaderSize
-	^BaseHeaderSize
+"To support SmartSyntaxPluginCodeGenerator"
+	^self baseHeaderSize

@@ -12,7 +12,7 @@ primitiveConstantFill
 	rcvrIsBytes ifTrue: [self success: (fillValue >= 0 and: [fillValue <= 255])].
 	self successful ifTrue:
 		[end := rcvr + (objectMemory sizeBitsOf: rcvr).
-		i := rcvr + BaseHeaderSize.
+		i := rcvr + objectMemory baseHeaderSize.
 		rcvrIsBytes
 			ifTrue: [[i < end] whileTrue:
 						[objectMemory byteAt: i put: fillValue.

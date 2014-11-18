@@ -14,6 +14,6 @@ genCreateClosureAt: bcpc numArgs: numArgs numCopied: numCopied contextNumArgs: c
 		cogit
 			PopR: TempReg;
 			MoveR: TempReg
-				Mw: numCopied - i + ClosureFirstCopiedValueIndex * BytesPerOop + BaseHeaderSize
+				Mw: numCopied - i + ClosureFirstCopiedValueIndex * objectMemory bytesPerOop + objectMemory baseHeaderSize
 					r: ReceiverResultReg].
 	^0

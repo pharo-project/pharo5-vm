@@ -7,6 +7,6 @@ primSizeField
 	<export: true>
 
 	rcvr := interpreterProxy stackValue: 0.
-	value := (self longAt: rcvr + BaseHeaderSize) signedIntFromLong.
+	value := (self longAt: rcvr + interpreterProxy baseHeaderSize) signedIntFromLong.
 	valueOop := interpreterProxy signed32BitIntegerFor: value.
 	^interpreterProxy methodReturnValue: valueOop

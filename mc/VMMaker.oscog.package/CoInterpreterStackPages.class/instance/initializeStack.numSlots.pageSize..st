@@ -12,15 +12,15 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 	self cCode: []
 		inSmalltalk:
 			[self assert: objectMemory startOfMemory - coInterpreter cogCodeSize - Cogit guardPageSize - coInterpreter methodCacheSize - coInterpreter primTraceLogSize - coInterpreter rumpCStackSize
-					= (stackSlots * BytesPerWord roundUpTo: objectMemory allocationUnit)].
+					= (stackSlots * objectMemory wordSize roundUpTo: objectMemory allocationUnit)].
 	structStackPageSize := coInterpreter sizeof: InterpreterStackPage.
-	bytesPerPage := slotsPerPage * BytesPerWord.
+	bytesPerPage := slotsPerPage * objectMemory wordSize.
 	numPages := coInterpreter numStkPages.
 
 	"Because stack pages grow down baseAddress is at the top of a stack page and so to avoid
 	 subtracting BytesPerWord from baseAddress and lastAddress in the init loop below we simply
 	 push the stackPage array up one word to avoid the overlap.  This word is extraStackBytes."
-	pageStructBase := theStackPages + (numPages * bytesPerPage) + BytesPerWord.
+	pageStructBase := theStackPages + (numPages * bytesPerPage) + objectMemory wordSize.
 	pages := self cCode: [self cCoerceSimple: pageStructBase to: #'StackPage *']
 				  inSmalltalk:
 					[pageMap := Dictionary new.
@@ -55,7 +55,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 	self cCode: []
 		inSmalltalk:
 			[minStackAddress := theStackPages.
-			 maxStackAddress := theStackPages + (numPages * bytesPerPage) + BytesPerWord - 1].
+			 maxStackAddress := theStackPages + (numPages * bytesPerPage) + objectMemory wordSize - 1].
 
 	"The overflow limit is the amount of stack to retain when moving frames from an overflowing
 	 stack to reduce thrashing.  See stackOverflowOrEvent:mayContextSwitch:"
@@ -65,7 +65,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 		[:index|
 		 page := self stackPageAt: index.
 		 self assert: (self pageIndexFor: page baseAddress) == index.
-		 self assert: (self pageIndexFor: page baseAddress - (slotsPerPage - 1 * BytesPerWord)) == index.
+		 self assert: (self pageIndexFor: page baseAddress - (slotsPerPage - 1 * objectMemory wordSize)) == index.
 		 self assert: (self stackPageFor: page baseAddress) == page.
 		 self assert: (self stackPageFor: page stackLimit) == page.
 		 self cCode: []
@@ -75,7 +75,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 				 self assert: (self memIndexFor: (self oopForPointer: page baseAddress))
 							== (memIndex + slotsPerPage - 1).
 				 index < (numPages - 1) ifTrue:
-					[self assert: (self stackPageFor: page baseAddress + BytesPerWord) == (self stackPageAt: index + 1)]].
+					[self assert: (self stackPageFor: page baseAddress + objectMemory wordSize) == (self stackPageAt: index + 1)]].
 		coInterpreter initializePageTraceToInvalid: page].
 
 	mostRecentlyUsedPage := self stackPageAt: 0.

@@ -32,7 +32,7 @@ lookupMethodInClass: class
 	messageSelector := self splObj: SelectorDoesNotUnderstand.
 	RecordSendTrace ifTrue:
 		[self fastLogSend: messageSelector].
-	self sendBreak: messageSelector + BaseHeaderSize
+	self sendBreak: messageSelector + self baseHeaderSize
 		point: (self lengthOf: messageSelector)
 		receiver: nil.
 	^ self lookupMethodInClass: rclass

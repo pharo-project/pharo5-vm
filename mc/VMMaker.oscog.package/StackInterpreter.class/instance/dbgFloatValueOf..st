@@ -9,6 +9,6 @@ dbgFloatValueOf: oop
 	((objectMemory isNonImmediate: oop)
 	and: [(objectMemory fetchClassOfNonImm: oop) = (objectMemory splObj: ClassFloat)]) ifTrue:
 		[self cCode: '' inSmalltalk: [result := Float new: 2].
-		 objectMemory fetchFloatAt: oop + BaseHeaderSize into: result.
+		 objectMemory fetchFloatAt: oop + objectMemory baseHeaderSize into: result.
 		 ^result].
 	^nil

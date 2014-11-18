@@ -107,7 +107,7 @@ commonReturn
 			  localFP := self frameCallerFP: localFP.
 			  localFP ~~ frameToReturnTo] whileTrue.
 			localIP := self frameCallerSavedIP: callerFP.
-			localSP := (self frameCallerSP: callerFP) - BytesPerWord].
+			localSP := (self frameCallerSP: callerFP) - objectMemory wordSize].
 	self setMethod: (self frameMethod: localFP).
 	self fetchNextBytecode.
 	self internalStackTopPut: localReturnValue

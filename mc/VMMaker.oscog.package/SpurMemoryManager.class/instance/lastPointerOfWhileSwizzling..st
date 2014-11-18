@@ -8,7 +8,6 @@ lastPointerOfWhileSwizzling: objOop
 	 and the image contains no forwarders (see class comment)."
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	| fmt header |
 	fmt := self formatOf: objOop.
 	self assert: fmt ~= self forwardedFormat.

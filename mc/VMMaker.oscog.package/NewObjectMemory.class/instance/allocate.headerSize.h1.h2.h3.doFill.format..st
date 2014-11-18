@@ -7,26 +7,26 @@ allocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOopArg h3: extend
 	<inline: true>
 	<var: #i type: #usqInt>
 	<var: #end type: #usqInt>
-	newObj := self allocateChunk: byteSize + (hdrSize - 1 * BytesPerWord).
+	newObj := self allocateChunk: byteSize + (hdrSize - 1 * self wordSize).
 	newObj = 0
 		ifTrue:
 			["remap classOop because GC may move the classOop"
 			hdrSize > 1 ifTrue: [self pushRemappableOop: classOopArg].
-			newObj := self allocateChunkAfterGC: byteSize + (hdrSize - 1 * BytesPerWord).
+			newObj := self allocateChunkAfterGC: byteSize + (hdrSize - 1 * self wordSize).
 			hdrSize > 1 ifTrue: [classOop := self popRemappableOop].
 			newObj = 0 ifTrue: [^newObj]]
 		ifFalse: [classOop := classOopArg].
 
 	hdrSize = 3 ifTrue:
 		[self longAt: newObj put: (extendedSize bitOr: HeaderTypeSizeAndClass).
-		 self longAt: newObj + BytesPerWord put: (classOop bitOr: HeaderTypeSizeAndClass).
-		 self longAt: newObj + (BytesPerWord*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
-		 newObj := newObj + (BytesPerWord*2)].
+		 self longAt: newObj + self wordSize put: (classOop bitOr: HeaderTypeSizeAndClass).
+		 self longAt: newObj + (self wordSize*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
+		 newObj := newObj + (self wordSize*2)].
 
 	hdrSize = 2 ifTrue:
 		[self longAt: newObj put: (classOop bitOr: HeaderTypeClass).
-		 self longAt: newObj + BytesPerWord put: (baseHeader bitOr: HeaderTypeClass).
-		 newObj := newObj + BytesPerWord].
+		 self longAt: newObj + self wordSize put: (baseHeader bitOr: HeaderTypeClass).
+		 newObj := newObj + self wordSize].
 
 	hdrSize = 1 ifTrue:
 		[self longAt: newObj put: (baseHeader bitOr: HeaderTypeShort)].
@@ -38,10 +38,10 @@ allocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOopArg h3: extend
 						ifTrue: [nilObj] "if pointers, fill with nil oop"
 						ifFalse: [0].
 		 end := newObj + byteSize.
-		 i := newObj + BytesPerWord. "skip header"
+		 i := newObj + self wordSize. "skip header"
 		 [i < end] whileTrue:
 			[self longAt: i put: fillWord.
-			 i := i + BytesPerWord].
+			 i := i + self wordSize].
 		 self assert: i = freeStart.].
 	DoExpensiveAssertionChecks ifTrue:
 		[self okayOop: newObj.

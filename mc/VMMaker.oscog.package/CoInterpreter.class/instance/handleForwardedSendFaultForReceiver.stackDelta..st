@@ -12,7 +12,7 @@ handleForwardedSendFaultForReceiver: forwardedReceiver stackDelta: stackDelta
 	rcvr := objectMemory followForwarded: forwardedReceiver.
 	self stackValue: rcvrStackIndex put: rcvr.
 	self followForwardedFrameContents: framePointer
-		stackPointer: stackPointer + (rcvrStackIndex + 1 * BytesPerWord). "don't repeat effort"
+		stackPointer: stackPointer + (rcvrStackIndex + 1 * objectMemory wordSize). "don't repeat effort"
 	(objectMemory isPointers: (self frameReceiver: framePointer)) ifTrue:
 		[objectMemory
 			followForwardedObjectFields: (self frameReceiver: framePointer)

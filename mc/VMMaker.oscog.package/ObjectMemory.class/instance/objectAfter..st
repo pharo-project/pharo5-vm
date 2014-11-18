@@ -6,7 +6,6 @@ objectAfter: oop
 	| sz |
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	DoAssertionChecks
 		ifTrue: [(self oop: oop isGreaterThanOrEqualTo:endOfMemory)
 					ifTrue: [self error: 'no objects after the end of memory']].

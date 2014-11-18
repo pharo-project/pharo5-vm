@@ -6,6 +6,7 @@
 		"isResponsibleFor:" : "dtl 5/6/2006 09:11",
 		"moduleName" : "dtl 2/21/2002 16:45",
 		"primGetPid" : "dtl 8/13/2003 21:55",
+		"shouldBeTranslated" : "EstebanLorenzano 11/18/2014 17:16",
 		"shouldBeTranslatedFor:" : "eem 6/3/2011 09:06" },
 	"instance" : {
 		"createPipeForReader:writer:" : "dtl (auto pragmas dtl 2010-11-28) 3/11/2005 18:25",

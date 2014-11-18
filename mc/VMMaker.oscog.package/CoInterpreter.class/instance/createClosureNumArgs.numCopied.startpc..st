@@ -6,7 +6,7 @@ createClosureNumArgs: numArgs numCopied: numCopied startpc: initialIP
 	"Do *not* include the return pc or copied values in the stack contents;
 	 hence + ((1 + numCopied) * BytesPerWord)"
 	context := self ensureFrameIsMarried: framePointer
-					SP: stackPointer + ((1 + numCopied) * BytesPerWord).
+					SP: stackPointer + ((1 + numCopied) * objectMemory wordSize).
 	newClosure := self
 					closureIn: context
 					numArgs: numArgs
@@ -22,6 +22,6 @@ createClosureNumArgs: numArgs numCopied: numCopied startpc: initialIP
 			 Thus, can use unchecked stores."
 			 objectMemory storePointerUnchecked: i + ClosureFirstCopiedValueIndex
 				ofObject: newClosure
-				withValue: (stackPages longAt: stackPointer + ((numCopied - i) * BytesPerWord))]].
+				withValue: (stackPages longAt: stackPointer + ((numCopied - i) * objectMemory wordSize))]].
 	"Assume caller will pop stack"
 	^newClosure

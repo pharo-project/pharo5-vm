@@ -37,9 +37,9 @@ disassembleMethod: surrogateOrAddress on: aStream
 					(mapEntries at: a) = #IsNSSendCall ifTrue:
 						[mapEntries
 							at: a + backEnd jumpShortByteSize
-								put: {'Class'. #disassembleCachedOop:. BytesPerWord};
-							at: a + backEnd jumpShortByteSize + BytesPerOop
-								put: {'ImplicitReceiver'. #disassembleCachedOop:. BytesPerWord}]]]].
+								put: {'Class'. #disassembleCachedOop:. (objectMemory wordSize)};
+							at: a + backEnd jumpShortByteSize + objectMemory bytesPerOop
+								put: {'ImplicitReceiver'. #disassembleCachedOop:. (objectMemory wordSize)}]]]].
 
 	"This would all be far more elegant and simple if we used blocks.
 	 But there are no blocks in C and the basic enumerators here need

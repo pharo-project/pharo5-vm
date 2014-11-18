@@ -17,6 +17,5 @@ setSelector: sel definingClass: class args: argList locals: localList block: aBl
 	complete := false.  "set to true when all possible inlining has been done"
 	export := self extractExportDirective.
 	static := self extractStaticDirective.
-	canAsmLabel := self extractLabelDirective.
 	self extractSharedCase.
 	globalStructureBuildMethodHasFoo := false

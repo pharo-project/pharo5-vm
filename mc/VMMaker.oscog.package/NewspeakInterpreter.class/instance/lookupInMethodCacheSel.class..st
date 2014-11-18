@@ -6,7 +6,6 @@ lookupInMethodCacheSel: selector class: class
 
 	| hash probe |
 	<inline: true>
-	<asmLabel: false>
 	hash := selector bitXor: class.  "shift drops two low-order zeros from addresses"
 
 	probe := hash bitAnd: MethodCacheMask.  "first probe"

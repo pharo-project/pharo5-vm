@@ -30,9 +30,9 @@ genNoPopCreateClosureAt: bcpc numArgs: numArgs numCopied: numCopied contextNumAr
 	skip jmpTarget: cogit Label.
 
 	cogit
-		MoveR: ClassReg Mw: ClosureOuterContextIndex * BytesPerOop + BaseHeaderSize r: ReceiverResultReg;
+		MoveR: ClassReg Mw: ClosureOuterContextIndex * objectMemory bytesPerOop + objectMemory baseHeaderSize r: ReceiverResultReg;
 		MoveCq: (objectMemory integerObjectOf: bcpc) R: TempReg;
-		MoveR: TempReg Mw: ClosureStartPCIndex * BytesPerOop + BaseHeaderSize r: ReceiverResultReg;
+		MoveR: TempReg Mw: ClosureStartPCIndex * objectMemory bytesPerOop + objectMemory baseHeaderSize r: ReceiverResultReg;
 		MoveCq: (objectMemory integerObjectOf: numArgs) R: TempReg;
-		MoveR: TempReg Mw: ClosureNumArgsIndex * BytesPerOop + BaseHeaderSize r: ReceiverResultReg.
+		MoveR: TempReg Mw: ClosureNumArgsIndex * objectMemory bytesPerOop + objectMemory baseHeaderSize r: ReceiverResultReg.
 	^0

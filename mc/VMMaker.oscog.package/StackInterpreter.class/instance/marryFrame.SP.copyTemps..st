@@ -59,7 +59,7 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 			ofObject: theContext "inline self temporary: i - 1 in:theFP" 
 			withValue: (stackPages longAt: theFP
 										+ FoxCallerSavedIP
-										+ ((numArgs - i + 1) * BytesPerWord))].
+										+ ((numArgs - i + 1) * objectMemory wordSize))].
 	copyTemps ifTrue:
 		[numTemps := self frameNumTemps: theFP.
 		 1 to: numTemps do:

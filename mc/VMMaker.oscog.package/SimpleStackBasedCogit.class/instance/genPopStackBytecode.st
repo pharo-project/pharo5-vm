@@ -1,4 +1,4 @@
 bytecode generators
 genPopStackBytecode
-	self AddCq: BytesPerWord R: SPReg.
+	self AddCq: objectMemory wordSize R: SPReg.
 	^0

@@ -8,7 +8,7 @@ slowPrimitiveResponse
 	FailImbalancedPrimitives ifTrue:
 		[savedContext := activeContext.
 		 nArgs := argumentCount.
-		 deltaIfSuccess := stackPointer - (argumentCount * BytesPerOop) - activeContext].
+		 deltaIfSuccess := stackPointer - (argumentCount * self bytesPerOop) - activeContext].
 	self fastLogPrim: messageSelector.
 	self initPrimCall.
 	self dispatchFunctionPointer: primitiveFunctionPointer.
@@ -20,6 +20,6 @@ slowPrimitiveResponse
 			 self warning: 'failing primitive due to unbalanced stack'.
 			 "This is necessary but insufficient; the result may still have been written to the stack.
 			   At least we'll know something is wrong."
-			 stackPointer := activeContext + deltaIfSuccess + (nArgs * BytesPerOop).
+			 stackPointer := activeContext + deltaIfSuccess + (nArgs * self bytesPerOop).
 			 self failUnbalancedPrimitive]].
 	^ self successful

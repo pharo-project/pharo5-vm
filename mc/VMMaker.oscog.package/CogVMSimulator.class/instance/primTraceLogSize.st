@@ -1,3 +1,3 @@
 simulation only
 primTraceLogSize
-	^PrimTraceLogSize * BytesPerWord
+	^PrimTraceLogSize * objectMemory wordSize

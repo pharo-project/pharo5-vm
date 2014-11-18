@@ -16,6 +16,6 @@ unlinkIfForwardedSend: annotation pc: mcpc ignored: superfluity
 						[self assert: NumOopsPerIRC = 2.
 						 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
 						 ((objectMemory isForwardedClassIndex: (backEnd unalignedLongAt: cacheAddress))
-						 or: [objectMemory isForwardedClassIndex: (backEnd unalignedLongAt: cacheAddress + BytesPerOop)]) ifTrue:
+						 or: [objectMemory isForwardedClassIndex: (backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop)]) ifTrue:
 							[self voidImplicitReceiverCacheAt: mcpc]]]]].
 	^0 "keep scanning"

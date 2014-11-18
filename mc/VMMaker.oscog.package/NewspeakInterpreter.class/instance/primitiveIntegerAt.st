@@ -13,7 +13,7 @@ primitiveIntegerAt
 	sz := self lengthOf: rcvr.  "number of fields"
 	((index >= 1) and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
-	addr := rcvr + BaseHeaderSize - 4 "for zero indexing" + (index * 4).
+	addr := rcvr + self baseHeaderSize - 4 "for zero indexing" + (index * 4).
 	value := self intAt: addr.
 	self pop: 2.  "pop rcvr, index"
 	"push element value"

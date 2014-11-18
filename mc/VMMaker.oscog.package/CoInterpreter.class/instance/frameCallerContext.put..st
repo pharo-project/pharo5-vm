@@ -6,8 +6,8 @@ frameCallerContext: theFP put: aValue
 	 above the stacked receiver."
 	<var: #theFP type: #'char *'>
 	self assert: (self isBaseFrame: theFP).
-	self assert: theFP + (self frameStackedReceiverOffset: theFP) + (2 * BytesPerWord) = (stackPages stackPageFor: theFP) baseAddress.
-	self assert: (stackPages longAt: theFP + (self frameStackedReceiverOffset: theFP) + BytesPerWord) = (self frameContext: theFP).
+	self assert: theFP + (self frameStackedReceiverOffset: theFP) + (2 * objectMemory wordSize) = (stackPages stackPageFor: theFP) baseAddress.
+	self assert: (stackPages longAt: theFP + (self frameStackedReceiverOffset: theFP) + objectMemory wordSize) = (self frameContext: theFP).
 	^stackPages
-		longAt: theFP + (self frameStackedReceiverOffset: theFP) + (2 * BytesPerWord)
+		longAt: theFP + (self frameStackedReceiverOffset: theFP) + (2 * objectMemory wordSize)
 		put: aValue

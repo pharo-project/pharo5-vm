@@ -40,11 +40,11 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 	jumpShortHeader := cogit JumpNonZero: 0.
 	self assert: Size4Bit = 0.
 	cogit
-		MoveMw: 0 - (2 * BytesPerWord) r: sourceReg R: destReg; "(self sizeHeader: oop) bitAnd: LongSizeMask"
+		MoveMw: 0 - (2 * objectMemory wordSize) r: sourceReg R: destReg; "(self sizeHeader: oop) bitAnd: LongSizeMask"
 		AndCq: LongSizeMask signedIntFromLong R: destReg.
 	jumpSkip :=  cogit Jump: 0.
 	jumpShortHeader jmpTarget: (cogit AndCq: SizeMask R: destReg).	"hdr bitAnd: SizeMask"
-	jumpSkip jmpTarget: (cogit SubCq: BaseHeaderSize R: destReg). "sz - BaseheaderSize for all three arms"
+	jumpSkip jmpTarget: (cogit SubCq: objectMemory baseHeaderSize R: destReg). "sz - BaseheaderSize for all three arms"
 	cogit CmpCq: objectMemory weakArrayFormat R: formatReg.	"fmt <= 4"
 	jumpFmtLeWeakArray := cogit JumpLessOrEqual: 0.
 	cogit CmpCq: objectMemory firstByteFormat R: formatReg.
@@ -57,7 +57,7 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 	jumpGotWordSize := cogit Jump: 0.
 	jumpFmtLeWeakArray jmpTarget: cogit Label.
 	cogit
-		LogicalShiftRightCq: ShiftForWord R: destReg; "(sz - BaseHeaderSize) >> ShiftForWord words"
+		LogicalShiftRightCq: objectMemory shiftForWord R: destReg; "(sz - BaseHeaderSize) >> ShiftForWord words"
 		CmpCq: objectMemory arrayFormat R: formatReg.
 	jumpFmtIsArray := cogit JumpZero: 0.
 	self genGetFixedFieldsOfPointerNonInt: sourceReg into: formatReg scratchReg: scratchReg.

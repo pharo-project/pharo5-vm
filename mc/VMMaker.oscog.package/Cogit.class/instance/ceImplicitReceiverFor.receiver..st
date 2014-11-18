@@ -17,7 +17,7 @@ ceImplicitReceiverFor: selector receiver: receiver
 	<var: #cogMethod type: #'CogMethod *'>
 	retpc := coInterpreter stackTop.
 	classpc := retpc + backEnd jumpShortByteSize.
-	mixinpc := retpc + backEnd jumpShortByteSize + BytesPerOop.
+	mixinpc := retpc + backEnd jumpShortByteSize + objectMemory bytesPerOop.
 	mixin := coInterpreter
 				implicitReceiverFor: receiver
 				mixin: coInterpreter mMethodClass

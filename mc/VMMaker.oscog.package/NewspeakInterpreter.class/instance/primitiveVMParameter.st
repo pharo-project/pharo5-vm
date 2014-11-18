@@ -109,7 +109,7 @@ primitiveVMParameter
 		self storePointerUnchecked: 38 ofObject: result withValue:
 			(self integerObjectOf: statPendingFinalizationSignals).
 		self storePointerUnchecked: 39 ofObject: result withValue:
-			(self integerObjectOf: BytesPerWord).
+			(self integerObjectOf: self wordSize).
 		self storePointerUnchecked: 40 ofObject: result withValue:
 			(self integerObjectOf: ImmutabilityBit ~= 0).
 		self pop: 1 thenPush: result.
@@ -156,7 +156,7 @@ primitiveVMParameter
 	index = 37  	ifTrue: [result := statSpecialMarkCount]. 
 	index = 38  	ifTrue: [result := statIGCDeltaUsecs + 500 // 1000]. 
 	index = 39  	ifTrue: [result := statPendingFinalizationSignals]. 
-	index = 40  	ifTrue: [result := BytesPerWord].
+	index = 40  	ifTrue: [result := self wordSize].
 	index = 41  	ifTrue: [result := ImmutabilityBit ~= 0].
 	argumentCount = 1 ifTrue:
 		[self pop: 2 thenPush: (self integerObjectOf: result).

@@ -1,4 +1,4 @@
 internal interpreter access
 internalPop: nItems
 
-	localSP := localSP - (nItems * BytesPerWord).
+	localSP := localSP - (nItems * self wordSize).

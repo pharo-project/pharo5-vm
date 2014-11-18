@@ -13,7 +13,7 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	backEnd hasDoublePrecisionFloatingPointSupport ifFalse:
 		[^self genSmallIntegerComparison: jumpOpcode].
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
@@ -21,10 +21,10 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
 		objRef: objectMemory falseObject.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpTrue jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
 						objRef: objectMemory trueObject).
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	
 	"Argument may be a Float : let us check or fail"
 	jumpDouble jmpTarget: self Label.
@@ -45,10 +45,10 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
 		objRef: objectMemory falseObject.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpCond jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
 							objRef: objectMemory trueObject).
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 
 	objectRepresentation smallIntegerIsOnlyImmediateType
 		ifTrue: [jumpFail jmpTarget: self Label]

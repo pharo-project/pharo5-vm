@@ -10,7 +10,7 @@ printOop: oop
 	(oop between: self startOfMemory and: freeBlock) ifFalse:
 		[self printHex: oop; print: ' is not on the heap'; cr.
 		 ^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (self wordSize - 1)) ~= 0 ifTrue:
 		[self printHex: oop; print: ' is misaligned'; cr.
 		 ^nil].
 	(self isFreeObject: oop) ifTrue:
@@ -27,7 +27,7 @@ printOop: oop
 	self cr.
 	(fmt > 4 and: [fmt < 12]) ifTrue:
 		[(self isWords: oop) ifTrue:
-			[lastIndex := 64 min: ((self byteSizeOf: oop) / BytesPerWord).
+			[lastIndex := 64 min: ((self byteSizeOf: oop) / self wordSize).
 			 lastIndex > 0 ifTrue:
 				[1 to: lastIndex do:
 					[:index|
@@ -38,7 +38,7 @@ printOop: oop
 					[self cr]].
 			^nil].
 		^self printStringOf: oop; cr].
-	lastIndex := 64 min: (startIP := (self lastPointerOf: oop) / BytesPerWord).
+	lastIndex := 64 min: (startIP := (self lastPointerOf: oop) / self wordSize).
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
 			[:index|
@@ -53,7 +53,7 @@ printOop: oop
 		ifFalse:
 			[startIP > 64 ifTrue: [self print: '...'; cr]]
 		ifTrue:
-			[startIP := startIP * BytesPerWord + 1.
+			[startIP := startIP * self wordSize + 1.
 			 lastIndex := self lengthOf: oop.
 			 lastIndex - startIP > 100 ifTrue:
 				[lastIndex := startIP + 100].

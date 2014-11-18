@@ -7,7 +7,7 @@ genSmallIntegerComparison: jumpOpcode
 	| jumpFail jumpTrue |
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	<var: #jumpTrue type: #'AbstractInstruction *'>
-	self MoveMw: BytesPerWord r: SPReg R: TempReg.
+	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpFail := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
@@ -15,9 +15,9 @@ genSmallIntegerComparison: jumpOpcode
 	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
 		objRef: objectMemory falseObject.
 	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpTrue jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
 						objRef: objectMemory trueObject).
-	self RetN: BytesPerWord * 2.
+	self RetN: objectMemory wordSize * 2.
 	jumpFail jmpTarget: self Label.
 	^0

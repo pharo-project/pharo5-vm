@@ -16,7 +16,7 @@ markAndTraceStackPage: thePage
 	theFP := thePage  headFP.
 	"Skip the instruction pointer on top of stack of inactive pages."
 	thePage = stackPage ifFalse:
-		[theSP := theSP + BytesPerWord].
+		[theSP := theSP + objectMemory wordSize].
 	[frameRcvrOffset := self frameReceiverOffset: theFP.
 	 [theSP <= frameRcvrOffset] whileTrue:
 		[oop := stackPages longAt: theSP.
@@ -25,13 +25,13 @@ markAndTraceStackPage: thePage
 			 stackPages longAt: theSP put: oop].
 		 (objectMemory isImmediate: oop) ifFalse:
 			[objectMemory markAndTrace: oop].
-		 theSP := theSP + BytesPerWord].
+		 theSP := theSP + objectMemory wordSize].
 	(self frameHasContext: theFP) ifTrue:
 		[self assert: (objectMemory isContext: (self frameContext: theFP)).
 		 objectMemory markAndTrace: (self frameContext: theFP)].
 	objectMemory markAndTrace: (self iframeMethod: theFP).
 	(callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-		[theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+		[theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 		 theFP := callerFP].
 	theSP := theFP + FoxCallerSavedIP. "caller ip is frameCallerContext in a base frame"
 	[theSP <= thePage baseAddress] whileTrue:
@@ -41,4 +41,4 @@ markAndTraceStackPage: thePage
 			 stackPages longAt: theSP put: oop].
 		 (objectMemory isImmediate: oop) ifFalse:
 			[objectMemory markAndTrace: oop].
-		 theSP := theSP + BytesPerWord]
+		 theSP := theSP + objectMemory wordSize]

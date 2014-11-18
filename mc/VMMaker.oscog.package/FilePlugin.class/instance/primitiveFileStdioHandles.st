@@ -33,7 +33,7 @@ primitiveFileStdioHandles
 						y: self fileRecordSize]
 				inSmalltalk:
 					[(interpreterProxy firstIndexableField: result)
-						unitSize: BytesPerWord;
+						unitSize: interpreterProxy wordSize;
 						at: 0 put: (fileRecords at: index + 1)]]].
 	 "In the threaded VM ensure the handles are old, so that sqFileReadIntoAt is unaffected
 	  by incremental GCs.  See platforms/Cross/plugins/FilePlugin/sqFilePluginBasicPrims.c."

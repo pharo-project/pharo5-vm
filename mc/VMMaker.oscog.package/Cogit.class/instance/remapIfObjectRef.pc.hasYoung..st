@@ -43,10 +43,10 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 							  and: [objectMemory isYoung: mappedOop]) ifTrue:
 								[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]].
 						 "Second look at the mixin entry. this must be 0 or an object."
-						 (oop := backEnd unalignedLongAt: cacheAddress + BytesPerOop) ~= 0 ifTrue:
+						 (oop := backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop) ~= 0 ifTrue:
 							[mappedOop := objectRepresentation remapOop: oop.
 							 mappedOop ~= oop ifTrue:
-								[backEnd unalignedLongAt: cacheAddress + BytesPerOop put: mappedOop].
+								[backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: mappedOop].
 							 (hasYoungPtr ~= 0
 							  and: [objectMemory isYoung: mappedOop]) ifTrue:
 								[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]]]

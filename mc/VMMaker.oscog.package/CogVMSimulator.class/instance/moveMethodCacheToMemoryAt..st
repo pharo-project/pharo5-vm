@@ -10,7 +10,7 @@ moveMethodCacheToMemoryAt: address
 	 and adds 1 on accesses itself."
 	methodCache := CMethodCacheAccessor new
 						memory: objectMemory memory
-						offset: address / BytesPerWord
+						offset: address / objectMemory wordSize
 						array: oldMethodCache
 						functionPointerIndex: MethodCachePrimFunction
 						entrySize: MethodCacheEntrySize.

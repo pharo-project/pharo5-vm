@@ -5,4 +5,4 @@ smallObjectBytesForSlots: numSlots
 	^self baseHeaderSize "single header"
 	+ (numSlots < 1
 		ifTrue: [self allocationUnit] "at least one slot for the forwarding pointer"
-		ifFalse: [numSlots * self bytesPerSlot])
+		ifFalse: [numSlots * self bytesPerOop])

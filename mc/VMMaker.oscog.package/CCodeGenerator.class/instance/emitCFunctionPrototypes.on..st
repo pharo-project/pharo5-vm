@@ -12,7 +12,8 @@ emitCFunctionPrototypes: methodList on: aStream
 		 aStream nextPutAll: '\\#if defined(__GNUC__) && !defined(NeverInline)\# define NeverInline __attribute__ ((noinline))\#endif' withCRs.
 		 aStream nextPutAll: '\\#if !defined(NeverInline)\# define NeverInline /*empty*/\#endif\\' withCRs].
 	exporting := false.
-	(methodList select: [:m| m isRealMethod]) do:
+	(methodList select: [:m| m isRealMethod
+							 and: [self shouldGenerateMethod: m]]) do:
 		[:m |
 		self emitExportPragma ifTrue:
 			[m export

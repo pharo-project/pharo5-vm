@@ -11,7 +11,7 @@ primitiveIntegerAt
 	sz := self lengthOf: rcvr.  "number of fields"
 	self success: ((index >= 1) and: [index <= sz]).
 	successFlag ifTrue: [
-		addr := rcvr + BaseHeaderSize + (index - 1 * BytesPerWord). "for zero indexing"
+		addr := rcvr + self baseHeaderSize + (index - 1 * self wordSize). "for zero indexing"
 		value := self intAt: addr.
 		self pop: 2.  "pop rcvr, index"
 		"push element value"

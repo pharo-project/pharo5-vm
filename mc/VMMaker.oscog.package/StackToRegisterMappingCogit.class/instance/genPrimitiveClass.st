@@ -10,7 +10,7 @@ genPrimitiveClass
 			[reg := Arg0Reg]
 		ifFalse:
 			[methodOrBlockNumArgs > 0 ifTrue:
-				[self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg].
+				[self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg].
 			reg := ReceiverResultReg].
 	(objectRepresentation
 			genGetClassObjectOf: reg

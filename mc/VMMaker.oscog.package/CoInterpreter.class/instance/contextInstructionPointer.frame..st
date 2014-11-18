@@ -22,5 +22,5 @@ contextInstructionPointer: theIP frame: theFP
 							ifTrue: [self iframeSavedIP: theFP]
 							ifFalse: [theIP])
 						- (self iframeMethod: theFP)
-						- BaseHeaderSize
+						- objectMemory baseHeaderSize
 						+ 2

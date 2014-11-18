@@ -4,7 +4,6 @@ numStrongSlotsOfInephemeral: objOop
 	 which is .expected not to be an active ephemeron.
 	 Works with CompiledMethods, as well as ordinary objects."
 	<inline: true>
-	<asmLabel: false>
 	| fmt numSlots  contextSize numLiterals header |
 	fmt := self formatOf: objOop.
 	self assert: (fmt ~= self ephemeronFormat or: [self isMarked: (self keyOfEphemeron: objOop)]).

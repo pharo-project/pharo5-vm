@@ -10,9 +10,9 @@ primitiveShortAt
 	((self isIntegerObject: rcvr)
 	or: [(self isWordsOrBytes: rcvr) not]) ifTrue:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	sz := ((self sizeBitsOf: rcvr) - BaseHeaderSize) // 2.  "number of 16-bit fields"
+	sz := ((self sizeBitsOf: rcvr) - self baseHeaderSize) // 2.  "number of 16-bit fields"
 	((index >= 1) and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
-	addr := rcvr + BaseHeaderSize + (2 * (index - 1)).
+	addr := rcvr + self baseHeaderSize + (2 * (index - 1)).
 	value := self shortAt: addr.
 	self pop: 2 thenPushInteger: value

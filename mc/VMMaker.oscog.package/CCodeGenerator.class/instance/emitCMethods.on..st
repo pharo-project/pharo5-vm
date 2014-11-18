@@ -8,5 +8,6 @@ emitCMethods: methodList on: aStream
 			methodList doWithIndex:
 				[ :m :i |
 				bar value: i.
-				m isRealMethod ifTrue:
+				(m isRealMethod
+				 and: [self shouldGenerateMethod: m]) ifTrue:
 					[m emitCCodeOn: aStream generator: self]]]

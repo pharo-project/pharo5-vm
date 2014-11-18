@@ -64,8 +64,8 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 
 	"Finally evaporate the container, leaving the newly loaded objects in place."
 	(self hasOverflowHeader: segmentWordArray)
-		ifTrue: [self setOverflowNumSlotsOf: segmentWordArray to: self allocationUnit / self bytesPerSlot]
-		ifFalse: [self setRawNumSlotsOf: segmentWordArray to: self allocationUnit / self bytesPerSlot].
+		ifTrue: [self setOverflowNumSlotsOf: segmentWordArray to: self allocationUnit / self bytesPerOop]
+		ifFalse: [self setRawNumSlotsOf: segmentWordArray to: self allocationUnit / self bytesPerOop].
 	
 	self leakCheckImageSegments ifTrue:
 		[self runLeakCheckerForFullGC: true].

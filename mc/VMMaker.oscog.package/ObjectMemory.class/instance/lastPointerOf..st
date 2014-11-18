@@ -5,7 +5,6 @@ lastPointerOf: objOop
 	Can be used even when the type bits are not correct."
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	| fmt sz header contextSize |
 	header := self baseHeader: objOop.
 	fmt := self formatOfHeader: header.
@@ -14,9 +13,9 @@ lastPointerOf: objOop
 		  and: [self isContextHeader: header])
 					ifTrue: ["contexts end at the stack pointer"
 						contextSize := self fetchStackPointerOf: objOop.
-						^ CtxtTempFrameStart + contextSize * BytesPerWord].
+						^ CtxtTempFrameStart + contextSize * self wordSize].
 				sz := self sizeBitsOfSafe: objOop.
-				^sz - BaseHeaderSize "all pointers"].
+				^sz - self baseHeaderSize "all pointers"].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes:"

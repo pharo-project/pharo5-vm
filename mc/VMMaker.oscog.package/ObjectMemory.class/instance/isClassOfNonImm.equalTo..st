@@ -4,7 +4,6 @@ isClassOfNonImm: oop equalTo: classOop
 
 	| ccIndex cl |
 	<inline: true>
-	<asmLabel: false>
 	(self isIntegerObject: oop) ifTrue:
 		[^false].
 

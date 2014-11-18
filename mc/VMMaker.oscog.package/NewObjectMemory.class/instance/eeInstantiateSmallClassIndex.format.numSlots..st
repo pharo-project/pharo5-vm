@@ -15,7 +15,7 @@ eeInstantiateSmallClassIndex: compactClassIndex format: objFormat numSlots: numS
 					ifTrue: [objFormat]
 					ifFalse: [objFormat bitAnd: self byteFormatMask])
 				= (self instSpecOfClass: (self compactClassAt: compactClassIndex)).
-	sizeInBytes := numSlots << ShiftForWord + BaseHeaderSize.
+	sizeInBytes := numSlots << self shiftForWord + self baseHeaderSize.
 	self assert: sizeInBytes <= 252.
 	hash := self newObjectHash.
 	header1 := (objFormat << self instFormatFieldLSB

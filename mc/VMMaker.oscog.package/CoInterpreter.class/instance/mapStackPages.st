@@ -21,7 +21,7 @@ mapStackPages
 										ifFalse: [theFP + FoxIFSavedIP]]
 				ifFalse:
 					[theIPPtr := theSP.
-					 theSP := theSP + BytesPerWord].
+					 theSP := theSP + objectMemory wordSize].
 			[self assert: (thePage addressIsInPage: theFP).
 			 self assert: (thePage addressIsInPage: theSP).
 			 self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr]).
@@ -30,7 +30,7 @@ mapStackPages
 				[oop := stackPages longAt: theSP.
 				 (objectMemory shouldRemapOop: oop) ifTrue:
 					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
-				 theSP := theSP + BytesPerWord].
+				 theSP := theSP + objectMemory wordSize].
 			 (self frameHasContext: theFP) ifTrue:
 				[(objectMemory shouldRemapObj: (self frameContext: theFP)) ifTrue:
 					[stackPages
@@ -58,11 +58,11 @@ mapStackPages
 					 theIPPtr ~= 0 ifTrue:
 						[stackPages longAt: theIPPtr put: theIP + (self iframeMethod: theFP)]]].
 			 (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-				[theSP := (theIPPtr := theFP + FoxCallerSavedIP) + BytesPerWord.
+				[theSP := (theIPPtr := theFP + FoxCallerSavedIP) + objectMemory wordSize.
 				 theFP := callerFP].
-			 theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+			 theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 			 [theSP <= thePage baseAddress] whileTrue:
 				[oop := stackPages longAt: theSP.
 				 (objectMemory shouldRemapOop: oop) ifTrue:
 					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
-				 theSP := theSP + BytesPerWord]]]
+				 theSP := theSP + objectMemory wordSize]]]

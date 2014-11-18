@@ -11,5 +11,5 @@ primSizeFieldPut
 	value := interpreterProxy signed32BitValueOf: valueOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
-	self longAt: rcvr + BaseHeaderSize put: value signedIntToLong.
+	self longAt: rcvr + interpreterProxy baseHeaderSize put: value signedIntToLong.
 	^interpreterProxy methodReturnValue: valueOop

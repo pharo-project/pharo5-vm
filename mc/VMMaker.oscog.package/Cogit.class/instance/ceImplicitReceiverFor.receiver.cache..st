@@ -28,6 +28,6 @@ ceImplicitReceiverFor: selector receiver: receiver cache: cacheAddress
 	backEnd
 		unalignedLongAt: cacheAddress
 			put: (objectRepresentation inlineCacheTagForClass: rcvrClass);
-		unalignedLongAt: cacheAddress + BytesPerOop
+		unalignedLongAt: cacheAddress + objectMemory bytesPerOop
 			put: (mixin = receiver ifTrue: [0] ifFalse: [mixin]).
 	^mixin

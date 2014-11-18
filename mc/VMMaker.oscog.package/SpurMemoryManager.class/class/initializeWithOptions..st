@@ -7,7 +7,6 @@ initializeWithOptions: optionsDictionary
 	self initBytesPerWord: (self == SpurMemoryManager
 								ifTrue: [optionsDictionary at: #BytesPerWord ifAbsent: [4]]
 								ifFalse: [self wordSize]).
-	BytesPerOop := optionsDictionary at: #BytesPerOop ifAbsent: [BytesPerWord].
 
 	self initializeObjectHeaderConstants. "Initializes BaseHeaderSize so do early"
 	self initializeSpurObjectRepresentationConstants.

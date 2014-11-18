@@ -36,7 +36,7 @@ genSpecialSelectorEqualsEquals
 	self ssAllocateRequiredReg: SendNumArgsReg. "Use this as the count reg."
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: BytesPerWord = CounterBytes.
+	self assert: objectMemory wordSize = CounterBytes.
 	self MoveAw: counterAddress R: SendNumArgsReg.
 	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
 	"If counter trips simply abort the inlined comparison and send continuing to the following

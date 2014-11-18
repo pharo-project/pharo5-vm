@@ -7,6 +7,6 @@ allocateBytes: numBytes classIndex: classIndex
 	self assert: (coInterpreter addressCouldBeClassObj: (self classAtIndex: classIndex)).
 	self assert: (self instSpecOfClass: (self classAtIndex: classIndex)) = self firstByteFormat.
 	^self
-		allocateSlots: (numBytes + self bytesPerSlot - 1 // self bytesPerSlot)
+		allocateSlots: (numBytes + self bytesPerOop - 1 // self bytesPerOop)
 		format: (self byteFormatForNumBytes: numBytes)
 		classIndex: classIndex

@@ -1,4 +1,4 @@
-interpreter access
+accessing
 splObj: index
 	<api>
 	<inline: true>

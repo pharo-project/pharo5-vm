@@ -13,7 +13,6 @@ inlineLookupInMethodCacheSel: selector classTag: classTag
 
 	| hash probe |
 	<inline: true>
-	<asmLabel: false>
 	hash := selector bitXor: classTag.  "shift drops two low-order zeros from addresses"
 
 	probe := hash bitAnd: MethodCacheMask.  "first probe"
