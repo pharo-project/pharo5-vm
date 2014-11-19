@@ -10,6 +10,6 @@ methodHeaderHasPrimitive: methodHeader
 				ifTrue:
 					[(self headerIndicatesAlternateBytecodeSet: methodHeader)
 						ifTrue: [self alternateHeaderHasPrimitiveFlag: methodHeader]
-						ifFalse: [(methodHeader bitAnd: 16r200003FE) ~= 0]]
+						ifFalse: [methodHeader anyMask: V3PrimitiveBitsMask]]
 				ifFalse:
-					[(methodHeader bitAnd: 16r200003FE) ~= 0]]
+					[methodHeader anyMask: V3PrimitiveBitsMask]]

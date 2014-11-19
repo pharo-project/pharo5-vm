@@ -5,6 +5,7 @@
 	"classvars" : [
 		"AltBytecodeEncoderClassName",
 		"AltLongStoreBytecode",
+		"AlternateHeaderHasPrimFlag",
 		"AtCacheEntries",
 		"AtCacheFixedFields",
 		"AtCacheFmt",
@@ -29,13 +30,16 @@
 		"MaxJumpBuf",
 		"MaxPrimitiveIndex",
 		"MaxQuickPrimitiveIndex",
+		"MethodHeaderArgCountShift",
+		"MethodHeaderTempCountShift",
 		"MixinIndex",
 		"PrimitiveExternalCallIndex",
 		"PrimitiveTable",
 		"StackPageReachedButUntraced",
 		"StackPageTraceInvalid",
 		"StackPageTraced",
-		"StackPageUnreached" ],
+		"StackPageUnreached",
+		"V3PrimitiveBitsMask" ],
 	"commentStamp" : "eem 9/11/2013 18:30",
 	"instvars" : [
 		"currentBytecode",
@@ -126,7 +130,6 @@
 		"VMSpurObjectRepresentationConstants",
 		"VMSqueakClassIndices",
 		"VMSqueakV3BytecodeConstants",
-		"VMSqueakV3ObjectRepresentationConstants",
 		"VMStackFrameOffsets" ],
 	"super" : "InterpreterPrimitives",
 	"type" : "normal" }

@@ -6,7 +6,7 @@ internalActivateNewMethod
 	methodHeader := self rawHeaderOf: newMethod.
 	self assert: (self isCogMethodReference: methodHeader) not.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
-
+	self assert: argumentCount = (self argumentCountOfMethodHeader: methodHeader).
 	rcvr := self internalStackValue: argumentCount. "could new rcvr be set at point of send?"
 	self assert: (objectMemory isOopForwarded: rcvr) not.
 

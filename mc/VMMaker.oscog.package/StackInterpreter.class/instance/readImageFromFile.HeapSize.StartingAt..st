@@ -18,9 +18,9 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	metaclassNumSlots := 6.	"guess Metaclass instSize"
 	classNameIndex := 6.		"guess (Class instVarIndexFor: 'name' ifAbsent: []) - 1"
 	swapBytes := self checkImageVersionFrom: f startingAt: imageOffset.
-	headerStart := (self sqImageFilePosition: f) - objectMemory wordSize.  "record header start position"
+	headerStart := (self sqImageFilePosition: f) - 4.  "record header start position"
 
-	headerSize			:= self getLongFromFile: f swap: swapBytes.
+	headerSize			:= self getWord32FromFile: f swap: swapBytes.
 	dataSize			:= self getLongFromFile: f swap: swapBytes.
 	oldBaseAddr		:= self getLongFromFile: f swap: swapBytes.
 	objectMemory specialObjectsOop: (self getLongFromFile: f swap: swapBytes).
@@ -28,7 +28,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	savedWindowSize	:= self getLongFromFile: f swap: swapBytes.
 	headerFlags		:= self getLongFromFile: f swap: swapBytes.
 	self setImageHeaderFlagsFrom: headerFlags.
-	extraVMMemory	:= self getLongFromFile: f swap: swapBytes.
+	extraVMMemory	:= self getWord32FromFile: f swap: swapBytes.
 	hdrNumStackPages	:= self getShortFromFile: f swap: swapBytes.
 	"4 stack pages is small.  Should be able to run with as few as
 	 three. 4 should be comfortable but slow.  8 is a reasonable
@@ -45,7 +45,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	"pad to word boundary.  This slot can be used for anything else that will fit in 16 bits.
 	 It is used for the cog code size in Cog.  Preserve it to be polite to other VMs."
 	theUnknownShort	:= self getShortFromFile: f swap: swapBytes.
-	hdrEdenBytes		:= self getLongFromFile: f swap: swapBytes.
+	hdrEdenBytes		:= self getWord32FromFile: f swap: swapBytes.
 	objectMemory edenBytes: (desiredEdenBytes ~= 0
 						ifTrue: [desiredEdenBytes]
 						ifFalse:

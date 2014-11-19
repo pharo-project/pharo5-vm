@@ -1,6 +1,7 @@
 {
 	"class" : {
 		"isImmediate:" : "eem 10/30/2013 13:51",
+		"numSmallIntegerTagBits" : "eem 11/18/2014 17:49",
 		"simulatorClass" : "eem 9/30/2013 12:46",
 		"wordSize" : "eem 11/13/2014 15:24" },
 	"instance" : {
@@ -30,8 +31,9 @@
 		"logBytesPerOop" : "eem 11/14/2014 12:13",
 		"maxSlotsForAlloc" : "eem 6/28/2014 16:52",
 		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:51",
-		"numFreeLists" : "eem 10/8/2013 09:09",
+		"numFreeLists" : "eem 11/18/2014 09:08",
 		"numSlotsForShortening:toIndexableSize:" : "eem 10/18/2014 18:42",
+		"numSmallIntegerTagBits" : "eem 11/18/2014 17:42",
 		"numTagBits" : "eem 11/18/2013 15:54",
 		"objectAfter:limit:" : "eem 11/12/2013 16:35",
 		"objectBytesForSlots:" : "eem 6/27/2014 15:33",
@@ -41,7 +43,6 @@
 		"set:classIndexTo:formatTo:" : "eem 3/21/2014 04:26",
 		"setClassIndexOf:to:" : "eem 9/22/2013 15:47",
 		"setFormatOf:to:" : "eem 9/22/2013 17:59",
-		"setHashBitsOf:to:" : "eem 9/22/2013 15:43",
 		"setIsGreyOf:to:" : "eem 10/15/2013 07:37",
 		"setIsImmutableOf:to:" : "eem 10/15/2013 00:29",
 		"setIsMarkedOf:to:" : "eem 10/21/2013 15:07",

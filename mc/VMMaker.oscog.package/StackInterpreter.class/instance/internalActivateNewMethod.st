@@ -5,7 +5,7 @@ internalActivateNewMethod
 
 	methodHeader := objectMemory methodHeaderOf: newMethod.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
-
+	self assert: argumentCount = (self argumentCountOfMethodHeader: methodHeader).
 	rcvr := self internalStackValue: argumentCount. "could new rcvr be set at point of send?"
 	self assert: (objectMemory isOopForwarded: rcvr) not.
 

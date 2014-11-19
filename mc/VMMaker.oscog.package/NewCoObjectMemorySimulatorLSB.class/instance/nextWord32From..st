@@ -1,4 +1,5 @@
 initialization
-nextLongFrom: aStream
+nextWord32From: aStream
 	"Read a 32-bit quantity from the given (binary) stream."
-	^self subclassResponsibility
+
+	^aStream nextLittleEndianNumber: 4

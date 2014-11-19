@@ -1,6 +1,7 @@
 image save/restore
 writeImageFileIO
-	"Write the image header and heap contents to imageFile for snapshot."
+	"Write the image header and heap contents to imageFile for snapshot. c.f. writeImageFileIOSimulation.
+	 The game below is to maintain 64-bit alignment for all putLong:toFile: occurrences."
 	| imageName headerStart headerSize f imageBytes bytesWritten sCWIfn okToWrite |
 	<var: #f type: #sqImageFile>
 	<var: #headerStart type: #squeakFileOffsetType>
@@ -18,7 +19,7 @@ writeImageFileIO
 	
 	"local constants"
 	headerStart := 0.  
-	headerSize := 64.  "header size in bytes; do not change!"
+	headerSize := objectMemory wordSize = 4 ifTrue: [64] ifFalse: [128].  "header size in bytes; do not change!"
 
 	f := self sqImageFile: imageName Open: 'wb'.
 	f = nil ifTrue: "could not open the image file for writing"
@@ -30,18 +31,18 @@ writeImageFileIO
 	"position file to start of header"
 	self sqImageFile: f Seek: headerStart.
 
-	self putLong: self imageFormatVersion toFile: f.
-	self putLong: headerSize toFile: f.
+	self putWord32: self imageFormatVersion toFile: f.
+	self putWord32: headerSize toFile: f.
 	self putLong: imageBytes toFile: f.
 	self putLong: objectMemory baseAddressOfImage toFile: f.
 	self putLong: objectMemory specialObjectsOop toFile: f.
 	self putLong: objectMemory newObjectHash toFile: f.
 	self putLong: self ioScreenSize toFile: f.
 	self putLong: self getImageHeaderFlags toFile: f.
-	self putLong: extraVMMemory toFile: f.
+	self putWord32: extraVMMemory toFile: f.
 	self putShort: desiredNumStackPages toFile: f.
 	self putShort: self unknownShortOrCodeSizeInKs toFile: f.
-	self putLong: desiredEdenBytes toFile: f.
+	self putWord32: desiredEdenBytes toFile: f.
 	self putShort: (maxExtSemTabSizeSet ifTrue: [self ioGetMaxExtSemTableSize] ifFalse: [0]) toFile: f.
 	self putShort: the2ndUnknownShort toFile: f.
 	objectMemory hasSpurMemoryManagerAPI
@@ -50,7 +51,12 @@ writeImageFileIO
 			 self putLong: objectMemory bytesLeftInOldSpace toFile: f.
 			 1 to: 2 do: [:i| self putLong: 0 toFile: f]	"Pad the rest of the header."]
 		ifFalse:
-			[1 to: 4 do: [:i| self putLong: 0 toFile: f]].  "fill remaining header words with zeros"
+			[1 to: 4 do: [:i| self putLong: 0 toFile: f]].  "Pad the rest of the header."
+
+	 objectMemory wordSize = 8 ifTrue:
+		[3 timesRepeat: [self putLong: 0 toFile: f]]. "Pad the rest of the header."
+
+	self assert: headerStart + headerSize = (self sqImageFilePosition: f).
 	"position file after the header"
 	self sqImageFile: f Seek: headerStart + headerSize.
 

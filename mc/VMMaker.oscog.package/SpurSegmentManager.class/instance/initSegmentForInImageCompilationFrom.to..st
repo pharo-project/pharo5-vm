@@ -1,4 +1,4 @@
-simulation
+simulation only
 initSegmentForInImageCompilationFrom: base to: limit
 	<doNotGenerate>
 	| bridge |

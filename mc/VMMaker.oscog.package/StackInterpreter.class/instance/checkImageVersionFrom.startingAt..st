@@ -5,29 +5,29 @@ checkImageVersionFrom: f startingAt: imageOffset
 
 	<inline: false>
 	| version firstVersion |
-	<var: #f type: 'sqImageFile '>
-	<var: #imageOffset type: 'squeakFileOffsetType '>
+	<var: #f type: #sqImageFile>
+	<var: #imageOffset type: #squeakFileOffsetType>
 
 	"check the version number"
 	self sqImageFile: f Seek: imageOffset.
-	version := firstVersion := self getLongFromFile: f swap: false.
+	version := firstVersion := self getWord32FromFile: f swap: false.
 	(self readableFormat: version) ifTrue: [^ false].
 
 	"try with bytes reversed"
 	self sqImageFile: f Seek: imageOffset.
-	version := self getLongFromFile: f swap: true.
+	version := self getWord32FromFile: f swap: true.
 	(self readableFormat: version) ifTrue: [^ true].
 
 	"Note: The following is only meaningful if not reading an embedded image"
 	imageOffset = 0 ifTrue:[
 		"try skipping the first 512 bytes (prepended by certain Mac file transfer utilities)"
 		self sqImageFile: f Seek: 512.
-		version := self getLongFromFile: f swap: false.
+		version := self getWord32FromFile: f swap: false.
 		(self readableFormat: version) ifTrue: [^ false].
 
 		"try skipping the first 512 bytes with bytes reversed"
 		self sqImageFile: f Seek: 512.
-		version := self getLongFromFile: f swap: true.
+		version := self getWord32FromFile: f swap: true.
 		(self readableFormat: version) ifTrue: [^ true]].
 
 	"hard failure; abort"

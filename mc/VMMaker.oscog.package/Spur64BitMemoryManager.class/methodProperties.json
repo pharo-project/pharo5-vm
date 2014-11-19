@@ -1,6 +1,7 @@
 {
 	"class" : {
 		"isImmediate:" : "eem 10/30/2013 13:53",
+		"numSmallIntegerTagBits" : "eem 11/18/2014 17:49",
 		"simulatorClass" : "eem 11/17/2014 13:35",
 		"wordSize" : "eem 11/13/2014 15:24" },
 	"instance" : {
@@ -14,6 +15,8 @@
 		"changeClassOf:to:" : "eem 07/28/2014 08:07",
 		"fetchClassTagOf:" : "eem 7/25/2014 21:40",
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
+		"identityHashFullWordMask" : "eem 11/18/2014 16:54",
+		"identityHashFullWordShift" : "eem 11/18/2014 16:54",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",
 		"initSegmentBridgeWithBytes:at:" : "eem 11/29/2013 12:29",
 		"instantiateClass:indexableSize:" : "eem 8/12/2014 19:52",
@@ -29,8 +32,9 @@
 		"logBytesPerOop" : "eem 11/14/2014 12:13",
 		"maxSlotsForAlloc" : "eem 6/28/2014 16:35",
 		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:52",
-		"numFreeLists" : "eem 10/8/2013 09:09",
+		"numFreeLists" : "eem 11/18/2014 09:08",
 		"numSlotsForShortening:toIndexableSize:" : "eem 10/18/2014 18:42",
+		"numSmallIntegerTagBits" : "eem 11/18/2014 17:42",
 		"numTagBits" : "eem 11/18/2013 15:54",
 		"objectAfter:limit:" : "eem 11/12/2013 16:36",
 		"objectBytesForSlots:" : "eem 6/27/2014 15:33",
@@ -40,7 +44,6 @@
 		"set:classIndexTo:formatTo:" : "eem 3/21/2014 04:26",
 		"setClassIndexOf:to:" : "eem 9/22/2013 15:46",
 		"setFormatOf:to:" : "eem 9/22/2013 17:59",
-		"setHashBitsOf:to:" : "eem 9/22/2013 15:43",
 		"setIsGreyOf:to:" : "eem 10/15/2013 07:37",
 		"setIsImmutableOf:to:" : "eem 10/15/2013 00:29",
 		"setIsMarkedOf:to:" : "eem 10/21/2013 15:07",
