@@ -5,9 +5,8 @@ prototypeClassNameMetaSelectorMethodDo: quaternaryBlock
 	 Scheme could be extended to have different protocols for different
 	 Squeak/Pharo versions."
 	self allMethodPrototypes do:
-		[:eachMethod| | method className isMeta |
-		method := eachMethod.
-		className := self classNameForPrototypeMethod: method.
+		[:methodArg| | method className isMeta |
+		className := self classNameForPrototypeMethod: (method := methodArg).
 		(isMeta := className endsWith: 'class') ifTrue:
 			[className := (className allButLast: 5) asSymbol].
 		(method pragmaAt: #indirect) ifNotNil:

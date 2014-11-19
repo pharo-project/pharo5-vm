@@ -2,5 +2,6 @@
 	"class" : {
 		 },
 	"instance" : {
+		"deny:" : "eem 11/17/2014 19:39",
 		"interpreter:object:perform:withArguments:" : "eem 9/5/2014 11:44",
 		"withExecutableInterpreter:do:" : "EstebanLorenzano 10/16/2014 15:38" } }

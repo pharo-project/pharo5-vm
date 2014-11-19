@@ -1,0 +1,21 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"heap32",
+		"heap64",
+		"map",
+		"reverseMap",
+		"interpreter32",
+		"interpreter64",
+		"imageHeaderFlags",
+		"savedWindowSize" ],
+	"name" : "SpurBootstrap32to64",
+	"pools" : [
+		"VMSqueakClassIndices" ],
+	"super" : "SimulatorHarness",
+	"type" : "normal" }

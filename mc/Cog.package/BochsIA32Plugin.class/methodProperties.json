@@ -13,5 +13,5 @@
 		"primitiveRunInMemory:minimumAddress:readOnlyBelow:" : "eem 10/20/2010 16:08",
 		"primitiveSingleStepInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 7/19/2013 11:38",
 		"primitiveSingleStepInMemory:minimumAddress:readOnlyBelow:" : "eem 10/20/2010 16:08",
-		"sizeField:" : "eem (auto pragmas 12/08) 12/11/2008 09:57",
-		"startOfData:" : "eem (auto pragmas 12/08) 12/11/2008 09:55" } }
+		"sizeField:" : "eem (const to msg rewrite) 11/5/2014 18:19",
+		"startOfData:" : "eem (const to msg rewrite) 11/5/2014 18:19" } }

@@ -1,0 +1,22 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"bootstrapImage" : "eem 11/18/2014 08:34",
+		"bootstrapImage:" : "eem 11/17/2014 13:26",
+		"bootstrapImageUsingFileDirectory:" : "eem 11/18/2014 08:40",
+		"clone:" : "eem 11/18/2014 16:50",
+		"cloneFreeLists:" : "eem 11/18/2014 09:16",
+		"cloneObjects" : "eem 11/18/2014 16:06",
+		"fillInBitsObject:from:" : "eem 11/17/2014 19:22",
+		"fillInCompiledMethod:from:" : "eem 11/18/2014 17:18",
+		"fillInHeap" : "eem 11/18/2014 15:17",
+		"fillInObjects" : "eem 11/18/2014 15:58",
+		"fillInPointerObject:from:" : "eem 11/17/2014 19:42",
+		"fillInPointerObjectWithPC:from:" : "eem 11/17/2014 20:09",
+		"incrementPCField:ofObject:for:" : "eem 11/17/2014 20:15",
+		"initMaps" : "eem 11/17/2014 14:11",
+		"isUnmappedObject:" : "eem 11/18/2014 15:58",
+		"map32BitOop:" : "eem 11/18/2014 15:59",
+		"on:" : "eem 11/17/2014 18:10",
+		"writeSnapshot:headerFlags:screenSize:" : "eem 11/18/2014 08:40" } }
