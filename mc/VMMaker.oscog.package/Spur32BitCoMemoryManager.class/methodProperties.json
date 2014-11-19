@@ -1,7 +1,6 @@
 {
 	"class" : {
 		"exportAPISelectors:" : "eem 7/14/2014 17:22",
-		"objectRepresentationClass" : "eem 10/9/2013 19:46",
 		"simulatorClass" : "eem 10/11/2013 16:22" },
 	"instance" : {
 		"assimilateNewSegment:" : "EstebanLorenzano 11/6/2014 15:46",
