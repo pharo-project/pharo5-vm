@@ -12,5 +12,5 @@ newPthreadTypeByteArray: aPthreadType
 		instantiateClass: interpreterProxy classByteArray
 		indexableSize: len.
 	ptr := interpreterProxy arrayValueOf: byteArray.
-	ptr at: 0 put: aPthreadType.
+	self cCode: [ptr at: 0 put: aPthreadType] inSmalltalk: [self longAt: ptr put: aPthreadType].
 	^ byteArray

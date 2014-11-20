@@ -1,3 +1,3 @@
 translation
 shouldBeTranslated
-	^ true
+	^true

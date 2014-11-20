@@ -8,7 +8,7 @@ setSigChldHandler
 	self cppIf: #'SA_NOCLDSTOP' defined
 		ifTrue:
 			[self cCode: 'sigchldHandlerAction.sa_sigaction = reapChildProcess'
-				inSmalltalk: [sigchldHandlerAction touch].
+				inSmalltalk: [self touch: sigchldHandlerAction].
 			self cCode: 'sigchldHandlerAction.sa_flags = SA_NODEFER | SA_NOCLDSTOP'.
 			self needSigaltstack ifTrue:
 				[self cCode: 'sigchldHandlerAction.sa_flags |= SA_ONSTACK'].

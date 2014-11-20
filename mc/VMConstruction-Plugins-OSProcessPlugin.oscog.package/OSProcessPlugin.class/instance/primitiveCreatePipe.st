@@ -9,19 +9,18 @@ primitiveCreatePipe
 	| reader writer readerPtr writerPtr readerIOStream writerIOStream
 	readerIOStreamPtr writerIOStreamPtr thisSession arrayResult |
 	<export: true>
-	<var: 'readerIOStream' type: 'FILEHANDLETYPE'>
-	<var: 'writerIOStream' type: 'FILEHANDLETYPE'>
-	<var: 'readerIOStreamPtr' declareC: 'FILEHANDLETYPE *readerIOStreamPtr'>
-	<var: 'writerIOStreamPtr' declareC: 'FILEHANDLETYPE *writerIOStreamPtr'>
-	<var: 'readerPtr' declareC: 'SQFile *readerPtr'>
-	<var: 'writerPtr' declareC: 'SQFile *writerPtr'>
-	<var: 'arrayPtr' declareC: 'int *arrayPtr'>
-	<var: 'thisSession' type: 'SESSIONIDENTIFIERTYPE'>
+	<var: 'readerIOStream' type: #FILEHANDLETYPE>
+	<var: 'writerIOStream' type: #FILEHANDLETYPE>
+	<var: 'readerIOStreamPtr' type: #'FILEHANDLETYPE *'>
+	<var: 'writerIOStreamPtr' type: #'FILEHANDLETYPE *'>
+	<var: 'readerPtr' type: #'SQFile *'>
+	<var: 'writerPtr' type: #'SQFile *'>
+	<var: 'thisSession' type: #SESSIONIDENTIFIERTYPE>
 	thisSession := self getThisSessionIdentifier.
 
 	"Create the anonymous OS pipe"
-	self cCode: 'readerIOStreamPtr = &readerIOStream'.
-	self cCode: 'writerIOStreamPtr = &writerIOStream'.
+	readerIOStreamPtr := self addressOf: readerIOStream.
+	writerIOStreamPtr := self addressOf: writerIOStream.
 	(self createPipeForReader: readerIOStreamPtr writer: writerIOStreamPtr)
 		ifFalse: [^ interpreterProxy primitiveFail].
 
@@ -47,4 +46,4 @@ primitiveCreatePipe
 	arrayResult := interpreterProxy instantiateClass: interpreterProxy classArray indexableSize: 2.
 	interpreterProxy stObject: arrayResult at: 1 put: interpreterProxy popRemappableOop.	"reader"
 	interpreterProxy stObject: arrayResult at: 2 put: interpreterProxy popRemappableOop. "writer"
-	interpreterProxy pop: 1; push: arrayResult
+	interpreterProxy pop: 1 thenPush: arrayResult
