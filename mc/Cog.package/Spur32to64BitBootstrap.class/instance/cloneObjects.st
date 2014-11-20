@@ -15,7 +15,7 @@ cloneObjects
 				[(heap32 isValidObjStackPage: obj32) ifFalse:
 					[((classIndex between: ClassLargeNegativeIntegerCompactIndex and: ClassLargePositiveIntegerCompactIndex)
 					  and: [interpreter32 initPrimCall.
-						value := heap32 positive64BitValueOf: obj32.
+						value := interpreter32 signed64BitValueOf: obj32.
 						interpreter32 failed not
 					  and: [heap64 isIntegerValue: value]]) ifFalse:
 						[self clone: obj32]]]]

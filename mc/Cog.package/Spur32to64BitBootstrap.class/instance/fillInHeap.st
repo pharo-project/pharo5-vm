@@ -7,7 +7,8 @@ fillInHeap
 		falseObject: (map at: heap32 falseObject);
 		trueObject: (map at: heap32 trueObject);
 		specialObjectsOop: (map at: heap32 specialObjectsOop);
-		lastHash: heap32 lastHash.
+		lastHash: heap32 lastHash;
+		setHiddenRootsObj: (map at: heap32 classTableRootObj).
 	heap64 segmentManager
 		initSegmentForInImageCompilationFrom: heap64 nilObject
 		to: heapEnd + heap64 bridgeSize.

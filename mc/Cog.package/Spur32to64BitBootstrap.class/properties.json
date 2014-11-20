@@ -13,9 +13,11 @@
 		"interpreter32",
 		"interpreter64",
 		"imageHeaderFlags",
-		"savedWindowSize" ],
-	"name" : "SpurBootstrap32to64",
+		"savedWindowSize",
+		"literalMap" ],
+	"name" : "Spur32to64BitBootstrap",
 	"pools" : [
+		"VMObjectIndices",
 		"VMSqueakClassIndices" ],
 	"super" : "SimulatorHarness",
 	"type" : "normal" }

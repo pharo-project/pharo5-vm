@@ -1,5 +1,6 @@
 bootstrap image
 map32BitOop: oop32
+	"interpreter32 printOop: oop32"
 	^map
 		at: oop32
 		ifAbsent:
@@ -12,6 +13,6 @@ map32BitOop: oop32
 					[| value |
 					 self assert: (self isUnmappedObject: oop32).
 					 interpreter32 initPrimCall.
-					 value := heap32 positive64BitValueOf: oop32.
+					 value := interpreter32 signed64BitValueOf: oop32.
 					 self deny: interpreter32 failed.
 					 heap64 integerObjectOf: value]]
