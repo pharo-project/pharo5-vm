@@ -17,7 +17,7 @@ positiveMachineIntegerValueOf: oop
 			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
-	(ok and: [(bs := objectMemory lengthOf: oop) <= (self sizeof: #'unsigned long')]) ifFalse:
+	(ok and: [(bs := objectMemory numBytesOf: oop) <= (self sizeof: #'unsigned long')]) ifFalse:
 		[^self primitiveFail].
 
 	((self sizeof: #'unsigned long') = 8

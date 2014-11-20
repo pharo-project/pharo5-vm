@@ -14,7 +14,7 @@ normalizeNegative: aLargeNegativeInteger
 	len <= sLen
 		ifTrue: 
 			["SmallInteger minVal"
-			minVal := -1073741824.
+			minVal := interpreterProxy minSmallInteger.
 			(len < sLen or: [(self digitOfBytes: aLargeNegativeInteger at: sLen)
 					< (self cDigitOfCSI: minVal at: sLen)
 				"minVal lastDigit"])

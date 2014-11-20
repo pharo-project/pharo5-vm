@@ -1,11 +1,42 @@
 C core util
 cDigitLengthOfCSI: csi 
-	"Answer the number of indexable fields of a CSmallInteger. This value is 
-	   the same as the largest legal subscript."
-	(csi < 256 and: [csi > -256])
-		ifTrue: [^ 1].
-	(csi < 65536 and: [csi > -65536])
-		ifTrue: [^ 2].
-	(csi < 16777216 and: [csi > -16777216])
-		ifTrue: [^ 3].
-	^ 4
+	"Answer the number of bytes required to represent the value of a CSmallInteger."
+	csi >= 0 ifTrue:
+		[csi < 256 ifTrue:
+			[^1].
+		 csi < 65536 ifTrue:
+			[^2].
+		 csi < 16777216 ifTrue:
+			[^3].
+		 interpreterProxy bytesPerOop = 4
+			ifTrue:
+				[^4]
+			ifFalse:
+				[csi < 4294967296 ifTrue:
+					[^4].
+				 csi < 1099511627776 ifTrue:
+					[^5].
+				 csi < 281474976710656 ifTrue:
+					[^6].
+				 csi < 72057594037927936 ifTrue:
+					[^7].
+				 ^8]].
+	csi > -256 ifTrue:
+		[^1].
+	csi > -65536 ifTrue:
+		[^2].
+	csi > -16777216 ifTrue:
+		[^3].
+	interpreterProxy bytesPerOop = 4
+		ifTrue:
+			[^4]
+		ifFalse:
+			[csi > -4294967296 ifTrue:
+				[^4].
+			 csi > -1099511627776 ifTrue:
+				[^5].
+			 csi > -281474976710656 ifTrue:
+				[^6].
+			 csi > -72057594037927936 ifTrue:
+				[^7].
+			^8]

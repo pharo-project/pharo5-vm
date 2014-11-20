@@ -15,7 +15,7 @@ isNormalized: anInteger
 	(self unsafeByteOf: anInteger at: len) = 0 ifTrue:
 		[^ false].
 	"no leading zero, now check if anInteger is in SmallInteger range or not"
-	sLen := 4.
+	sLen := interpreterProxy bytesPerOop.
 	"maximal digitLength of aSmallInteger"
 	len > sLen ifTrue:
 		[^ true].
@@ -23,11 +23,11 @@ isNormalized: anInteger
 		[^ false].
 	"len = sLen"
 	positive
-		ifTrue: [maxVal := 1073741823. "SmallInteger maxVal"
+		ifTrue: [maxVal := interpreterProxy maxSmallInteger. "SmallInteger maxVal"
 				"all bytes of maxVal but the highest one are just FF's"
 				^ (self unsafeByteOf: anInteger at: sLen)
 					> (self cDigitOfCSI: maxVal at: sLen)]
-		ifFalse: [minVal := -1073741824. "SmallInteger minVal"
+		ifFalse: [minVal := interpreterProxy minSmallInteger. "SmallInteger minVal"
 				"all bytes of minVal but the highest one are just 00's"
 			(self unsafeByteOf: anInteger at: sLen) < (self cDigitOfCSI: minVal at: sLen) ifTrue:
 				[^ false].

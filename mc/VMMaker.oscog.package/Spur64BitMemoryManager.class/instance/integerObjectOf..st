@@ -9,4 +9,4 @@ integerObjectOf: value
 		inSmalltalk: [value << self numTagBits
 					+ (value >= 0
 						ifTrue: [1]
-						ifFalse: [16r8000000000000001])]
+						ifFalse: [16r10000000000000001])]

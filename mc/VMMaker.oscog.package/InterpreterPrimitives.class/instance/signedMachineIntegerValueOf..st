@@ -22,7 +22,8 @@ signedMachineIntegerValueOf: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
 			ok ifFalse: [^self primitiveFail]].
-	(bs := objectMemory lengthOf: oop) > (self sizeof: #'unsigned long') ifTrue:
+	bs := objectMemory numBytesOf: oop.
+	bs > (self sizeof: #'unsigned long') ifTrue:
 		[^self primitiveFail].
 
 	((self sizeof: #'unsigned long') = 8

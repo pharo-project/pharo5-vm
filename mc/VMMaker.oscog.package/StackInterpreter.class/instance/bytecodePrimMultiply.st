@@ -3,7 +3,7 @@ bytecodePrimMultiply
 	| rcvr arg result |
 	rcvr := self internalStackValue: 1.
 	arg := self internalStackValue: 0.
-	(self areIntegers: rcvr and: arg)
+	(objectMemory areIntegers: rcvr and: arg)
 		ifTrue: [rcvr := objectMemory integerValueOf: rcvr.
 				arg := objectMemory integerValueOf: arg.
 				result := rcvr * arg.

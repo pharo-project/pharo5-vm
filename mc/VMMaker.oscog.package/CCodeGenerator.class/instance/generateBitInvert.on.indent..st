@@ -1,5 +1,5 @@
 C translation
-generateBitInvert32: msgNode on: aStream indent: level
+generateBitInvert: msgNode on: aStream indent: level
 	"Generate the C code for this message onto the given stream."
 
 	aStream nextPut: $~.

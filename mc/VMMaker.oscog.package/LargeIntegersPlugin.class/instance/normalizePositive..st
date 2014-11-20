@@ -9,10 +9,11 @@ normalizePositive: aLargePositiveInteger
 		whileTrue: [len := len - 1].
 	len = 0 ifTrue: [^ 0 asOop: SmallInteger].
 	"Now check if in SmallInteger range"
-	sLen := 4.
+	sLen := interpreterProxy bytesPerOop.
 	"SmallInteger maxVal digitLength."
-	(len <= sLen and: [(self digitOfBytes: aLargePositiveInteger at: sLen)
-			<= (self cDigitOfCSI: 1073741823 at: sLen)
+	(len <= sLen
+	 and: [(self digitOfBytes: aLargePositiveInteger at: sLen)
+			<= (self cDigitOfCSI: interpreterProxy maxSmallInteger at: sLen)
 		"SmallInteger maxVal"])
 		ifTrue: 
 			["If so, return its SmallInt value"

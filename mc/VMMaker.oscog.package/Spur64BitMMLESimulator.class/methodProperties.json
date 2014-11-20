@@ -9,7 +9,7 @@
 		"byteAtPointer:" : "eem 9/4/2013 16:23",
 		"eek" : "eem 9/16/2013 15:11",
 		"endianness" : "eem 8/30/2013 11:47",
-		"fetchFloatAt:into:" : "eem 11/17/2014 14:05",
+		"fetchFloatAt:into:" : "eem 11/19/2014 13:29",
 		"fetchPointer:ofObject:" : "eem 11/5/2013 15:55",
 		"firstIndexableField:" : "eem 2/3/2014 17:17",
 		"freeLists" : "eem 10/8/2013 11:36",
@@ -43,6 +43,6 @@
 		"setIsMarkedOf:to:" : "eem 10/29/2014 16:32",
 		"shortAt:" : "eem 11/17/2014 14:05",
 		"shortAt:put:" : "eem 11/17/2014 14:05",
-		"storeFloatAt:from:" : "eem 11/17/2014 14:05",
+		"storeFloatAt:from:" : "eem 11/19/2014 22:03",
 		"storeImageSegmentInto:outPointers:roots:" : "eem 10/22/2014 11:08",
 		"vmEndianness" : "eem 10/9/2013 14:37" } }

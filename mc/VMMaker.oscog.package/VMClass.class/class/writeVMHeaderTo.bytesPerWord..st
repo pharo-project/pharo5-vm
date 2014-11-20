@@ -22,4 +22,9 @@ writeVMHeaderTo: aStream bytesPerWord: bytesPerWord
 		asSortedCollection: [:a1 :a2| a1 value <= a2 value])
 		do: [:a|
 			aStream nextPutAll: '#define '; nextPutAll: a key; space; print: a value; cr].
-	aStream cr
+	aStream cr.
+
+	aStream
+		nextPutAll: '#define MinSmallInteger '; print: self objectMemoryClass new minSmallInteger; cr;
+		nextPutAll: '#define MaxSmallInteger '; print: self objectMemoryClass new maxSmallInteger; cr;
+		cr.

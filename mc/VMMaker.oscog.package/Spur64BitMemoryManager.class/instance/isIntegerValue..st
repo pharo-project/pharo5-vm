@@ -6,4 +6,4 @@ isIntegerValue: intValue
 	<api>
 	^self
 		cCode: [(intValue >> 60 + 1 bitAnd: 16rF) <= 1]
-		inSmalltalk: [intValue >= -16r2000000000000000 and: [intValue <= 16r1FFFFFFFFFFFFFFF]]
+		inSmalltalk: [intValue >= -16r1000000000000000 and: [intValue <= 16rFFFFFFFFFFFFFFF]]

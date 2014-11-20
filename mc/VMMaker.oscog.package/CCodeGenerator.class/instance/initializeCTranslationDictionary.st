@@ -30,7 +30,8 @@ initializeCTranslationDictionary
 	#bitXor:			#generateBitXor:on:indent:
 	#bitShift:			#generateBitShift:on:indent:
 	#signedBitShift:	#generateSignedBitShift:on:indent:
-	#bitInvert32		#generateBitInvert32:on:indent:
+	#bitInvert32		#generateBitInvert:on:indent:
+	#bitInvert64		#generateBitInvert:on:indent:
 	#bitClear:			#generateBitClear:on:indent:
 	#truncateTo:		#generateTruncateTo:on:indent:
 	#rounded			#generateRounded:on:indent:
@@ -106,6 +107,8 @@ initializeCTranslationDictionary
 	#bytesPerWord 			#generateBytesPerWord:on:indent:
 	#wordSize		 			#generateBytesPerWord:on:indent:
 	#baseHeaderSize			#generateBaseHeaderSize:on:indent:
+	#minSmallInteger			#generateSmallIntegerConstant:on:indent:
+	#maxSmallInteger			#generateSmallIntegerConstant:on:indent:
 	
 	#sharedCodeNamed:inCase:		#generateSharedCodeDirective:on:indent:
 

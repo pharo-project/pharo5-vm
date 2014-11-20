@@ -23,7 +23,7 @@ magnitude64BitValueOf: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
 			ok ifFalse: [^self primitiveFail]].
-	sz := objectMemory lengthOf: oop.
+	sz := objectMemory numBytesOf: oop.
 	sz > (self sizeof: #sqLong) ifTrue:
 		[^self primitiveFail].
 

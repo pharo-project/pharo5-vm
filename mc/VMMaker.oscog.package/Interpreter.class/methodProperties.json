@@ -49,7 +49,6 @@
 		"adjustInterruptCheckCounterFeedback" : "ar 2/27/2008 10:36",
 		"allAccessibleObjectsOkay" : "eem 12/19/2012 15:35",
 		"allocateOrRecycleContext:" : "di 10/22/1999 11:52",
-		"areIntegers:and:" : "tpr 3/15/2004 19:35",
 		"argumentCountOf:" : "eem 08/08/2014 10:47",
 		"argumentCountOfBlock:" : "tpr 3/24/2004 20:59",
 		"argumentCountOfClosure:" : "eem 6/20/2008 21:49",

@@ -19,7 +19,7 @@ positive64BitValueOf: oop
 			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
-	(ok and: [(sz := objectMemory lengthOf: oop) <= (self sizeof: #sqLong)]) ifFalse:
+	(ok and: [(sz := objectMemory numBytesOf: oop) <= (self sizeof: #sqLong)]) ifFalse:
 		[self primitiveFail.
 		 ^0].
 
