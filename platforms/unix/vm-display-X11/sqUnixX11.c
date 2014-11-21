@@ -63,7 +63,7 @@
 #undef HAVE_OPENGL_GL_H		/* don't include Quartz OpenGL if configured */
 #include "SqDisplay.h"
 
-#if defined(USE_FAST_BLT)
+#if defined(ENABLE_FAST_BLT)
   /* XXX referring to plugin variables *requires* BitBitPlugin to be included by VMM as an internal plugin */
 # if defined(__arm__)
 #   include "../../../Cross/plugins/BitBltPlugin/BitBltArm.h"
@@ -122,7 +122,7 @@
 #include <X11/Xatom.h>
 #define XK_MISCELLANY
 #define XK_XKB_KEYS
-#include <X11/keysymdef.h>
+#include <X11/keysym.h> /* /not/ keysymdef.h */
 #if defined(SUGAR)
 # include <X11/XF86keysym.h>
 #endif
@@ -146,16 +146,6 @@
 
 #define isAligned(T, V)	(((V) % sizeof(T)) == 0)
 #define align(T, V)	(((V) / sizeof(T)) * sizeof(T))
-
-#if defined(SQ_IMAGE32)
-# define BytesPerOop	4
-#elif defined(SQ_IMAGE64)
-# define BytesPerOop	8
-#else
-# error cannot determine image word size
-#endif
-
-#define BaseHeaderSize	BytesPerOop
 
 /*** Variables -- Imported from Virtual Machine ***/
 
@@ -2304,7 +2294,7 @@ static int xkeysym2ucs4(KeySym keysym)
              11, /* PRIOR (page up?) */
              12, /* NEXT (page down/new page?) */
              4,  /* END */
- 			1   /* HOME */
+             1   /* HOME */
      };
 
 
@@ -3503,19 +3493,19 @@ static void handleEvent(XEvent *evt)
   switch (evt->type)
     {
     case ButtonPress:
-      fprintf(stderr, "\nX ButtonPress   state 0x%x button %d\n",
+      fprintf(stderr, "\n(handleEvent)X ButtonPress   state 0x%x button %d\n",
 	      evt->xbutton.state, evt->xbutton.button);
       break;
     case ButtonRelease:
-      fprintf(stderr, "\nX ButtonRelease state 0x%x button %d\n",
+      fprintf(stderr, "\n(handleEvent)X ButtonRelease state 0x%x button %d\n",
 	      evt->xbutton.state, evt->xbutton.button);
       break;
     case KeyPress:
-      fprintf(stderr, "\nX KeyPress      state 0x%x raw keycode %d\n",
+      fprintf(stderr, "\n(handleEvent)X KeyPress      state 0x%x raw keycode %d\n",
 	      evt->xkey.state, evt->xkey.keycode);
       break;
     case KeyRelease:
-      fprintf(stderr, "\nX KeyRelease    state 0x%x raw keycode %d\n",
+      fprintf(stderr, "\n(handleEvent)X KeyRelease    state 0x%x raw keycode %d\n",
 	      evt->xkey.state, evt->xkey.keycode);
       break;
     }
@@ -4184,7 +4174,7 @@ static int xError(Display *dpy, XErrorEvent *evt)
 }
 
 
-static void initWindow(char *displayName)
+void initWindow(char *displayName)
 {
   XRectangle windowBounds= { 0, 0, 640, 480 };  /* default window bounds */
   int right, bottom;
@@ -6151,9 +6141,60 @@ void copyImage8To24(int *fromImageData, int *toImageData, int width, int height,
     }
 }
 
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+
+    extern void armSimdConvert_x888_8_LEPacking32_8_wide(unsigned int width, unsigned int height,
+							 unsigned int *dst, unsigned int dstStride,
+							 unsigned int *src, unsigned int srcStride,
+							 unsigned int halftone, unsigned int halftoneInfo,
+							 unsigned int *colourMap);
+
+    extern void armSimdConvert_x888_8_LEPacking32_8_narrow(unsigned int width, unsigned int height,
+							   unsigned int *dst, unsigned int dstStride,
+							   unsigned int *src, unsigned int srcStride,
+							   unsigned int halftone, unsigned int halftoneInfo,
+							   unsigned int *colourMap);
+
+    static void armSimdCopyImage32To8(int *fromImageData, int *toImageData, int width, int height,
+				      int affectedL, int affectedT, int affectedR, int affectedB,
+				      unsigned int *downGradingColors)
+    {
+      /* Find image strides in 32-bit words */
+      unsigned int srcStride= width;
+      unsigned int dstStride= (width + 3) >> 2;
+      /* Round affected region out to encompass complete words in both images */
+      affectedL &= ~3;
+      affectedR= (affectedR + 3) &~ 3;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += srcStride * affectedT + affectedL;
+      toImageData += dstStride * affectedT + (affectedL >> 2);
+      /* Adjust strides to remove number of words read/written */
+      srcStride -= affectedR - affectedL;
+      dstStride -= (affectedR - affectedL) >> 2;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 8 && ((-1 ^ (width -(128 - 32) / 8)) & ~(31 / 8)))
+	armSimdConvert_x888_8_LEPacking32_8_wide(width, height, toImageData, dstStride, fromImageData, srcStride, 0, 0, downGradingColors);
+      else
+	armSimdConvert_x888_8_LEPacking32_8_narrow(width, height, toImageData, dstStride, fromImageData, srcStride, 0, 0, downGradingColors);
+    }
+# else
+#   error configuration error
+# endif
+#endif
+
 void copyImage32To8(int *fromImageData, int *toImageData, int width, int height,
 		    int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    armSimdCopyImage32To8(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB, stDownGradingColors);
+# else
+#   error configuration error
+# endif
+#else
   int scanLine32, firstWord32, lastWord32;
   int scanLine8, firstWord8;
   int line;
@@ -6186,6 +6227,7 @@ void copyImage32To8(int *fromImageData, int *toImageData, int width, int height,
     firstWord8+= scanLine8;
   }
 #undef map32To8
+#endif /* !ENABLE_FAST_BLT */
 }
 
 void copyImage16To32(int *fromImageData, int *toImageData, int width, int height,
@@ -6310,10 +6352,58 @@ void copyImage16To24(int *fromImageData, int *toImageData, int width, int height
 #undef map16To24
 }
 
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+
+    extern void armSimdConvert_x888_0565_LEPacking32_16_wide(unsigned int width, unsigned int height,
+							     unsigned int *dst, unsigned int dstStride,
+							     unsigned int *src, unsigned int srcStride);
+
+    extern void armSimdConvert_x888_0565_LEPacking32_16_narrow(unsigned int width, unsigned int height,
+							       unsigned int *dst, unsigned int dstStride,
+							       unsigned int *src, unsigned int srcStride);
+    static void armSimdCopyImage32To16(int *fromImageData, int *toImageData, int width, int height,
+				       int affectedL, int affectedT, int affectedR, int affectedB)
+    {
+      /* Find image strides in 32-bit words */
+      unsigned int srcStride= width;
+      unsigned int dstStride= (width + 1) >> 1;
+      /* Round affected region out to encompass complete words in both images */
+      affectedL &= ~1;
+      affectedR += affectedR & 1;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += srcStride * affectedT + affectedL;
+      toImageData += dstStride * affectedT + (affectedL >> 1);
+      /* Adjust strides to remove number of words read/written */
+      srcStride -= affectedR - affectedL;
+      dstStride -= (affectedR - affectedL) >> 1;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 16 && ((-1 ^ (width - (128 - 32) / 16)) & ~(31 / 16)))
+	  armSimdConvert_x888_0565_LEPacking32_16_wide(width, height, toImageData, dstStride, fromImageData, srcStride);
+      else
+	  armSimdConvert_x888_0565_LEPacking32_16_narrow(width, height, toImageData, dstStride, fromImageData, srcStride);
+    }
+
+# else
+#   error configuration error
+# endif
+#endif
 
 void copyImage32To16(int *fromImageData, int *toImageData, int width, int height,
 		     int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+  if (stRNMask == 5 && stRShift == 11 && stGNMask == 6 && stGShift == 5 && stBNMask == 5 && stBShift == 0)
+    armSimdCopyImage32To16(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB);
+  else
+# else
+#  error configuration error
+# endif
+#endif
+  {
   int scanLine32, firstWord32, lastWord32;
   int scanLine16, firstWord16;
   int line;
@@ -6351,6 +6441,7 @@ void copyImage32To16(int *fromImageData, int *toImageData, int width, int height
       firstWord16+= scanLine16;
     }
 #undef map32To16
+	}
 }
 
 void copyImage16To16(int *fromImageData, int *toImageData, int width, int height,
@@ -6397,9 +6488,53 @@ void copyImage16To16(int *fromImageData, int *toImageData, int width, int height
 #undef map16To16
 }
 
+
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    extern void armSimdConvert_x888_x888BGR_LEPacking32_32_wide(unsigned int width, unsigned int height,
+								unsigned int *dst, unsigned int dstStride,
+								unsigned int *src, unsigned int srcStride);
+
+    extern void armSimdConvert_x888_x888BGR_LEPacking32_32_narrow(unsigned int width, unsigned int height,
+								  unsigned int *dst, unsigned int dstStride,
+								  unsigned int *src, unsigned int srcStride);
+
+    static void armSimdCopyImage32To32(int *fromImageData, int *toImageData, int width, int height,
+				       int affectedL, int affectedT, int affectedR, int affectedB)
+    {
+      unsigned int stride= width;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += stride * affectedT + affectedL;
+      toImageData   += stride * affectedT + affectedL;
+      /* Adjust stride to remove number of words read/written */
+      stride -= width;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 32 && (-1 ^ (width - (128 - 32) / 32)))
+	armSimdConvert_x888_x888BGR_LEPacking32_32_wide(width, height, toImageData, stride, fromImageData, stride);
+      else
+	armSimdConvert_x888_x888BGR_LEPacking32_32_narrow(width, height, toImageData, stride, fromImageData, stride);
+    }
+# else
+#   error configuration error
+# endif
+#endif
+
+
 void copyImage32To32(int *fromImageData, int *toImageData, int width, int height,
 		     int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    if ((armCpuFeatures & ARM_V6) && stRNMask == 8 && stRShift == 0 && stGNMask == 8 && stGShift == 8 && stBNMask == 8 && stBShift == 16)
+      armSimdCopyImage32To32(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB);
+    else
+# else
+#  error unsupported use of ENABLE_FAST_BLT
+# endif
+#endif
+  {
   int scanLine32, firstWord32, lastWord32;
   int line;
   int rshift, gshift, bshift;
@@ -6433,6 +6568,7 @@ void copyImage32To32(int *fromImageData, int *toImageData, int width, int height
       lastWord32+= scanLine32;
     }
 #undef map32To32
+	}
 }
 
 void copyImage32To32Same(int *fromImageData, int *toImageData,
@@ -6526,7 +6662,7 @@ static void display_winSetName(char *imageName)
 /*** display connection ***/
 
 
-static int openXDisplay(void)
+int openXDisplay(void)
 {
   /* open the Squeak window. */
   if (!isConnectedToXServer)
@@ -6565,7 +6701,7 @@ mapXDisplay(void)
   }
 }
 
-static int forgetXDisplay(void)
+int forgetXDisplay(void)
 {
   /* Initialise variables related to the X connection, and
      make the existing connection to the X Display invalid

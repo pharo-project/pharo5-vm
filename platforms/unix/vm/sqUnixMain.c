@@ -904,12 +904,15 @@ printRegisterState(ucontext_t *uap)
 }
 
 int blockOnError = 0; /* to allow attaching gdb on fatal error */
+extern sqInt erroronwarn;
 
 static void
 block()
 { struct timespec while_away_the_hours;
+  char pwd[MAXPATHLEN+1];
 
 	printf("blocking e.g. to allow attaching debugger\n");
+	printf("pid: %d pwd: %s vm:%s\n", (int)getpid(), argVec[0], getwd(pwd));
 	while (1) {
 		while_away_the_hours.tv_sec = 3600;
 		nanosleep(&while_away_the_hours, 0);
@@ -1355,6 +1358,7 @@ static int vm_parseArgument(int argc, char **argv)
   else if (!strcmp(argv[0], "--notimer"))	{ useItimer	= 0;	return 1; }
   else if (!strcmp(argv[0], "--nohandlers"))	{ installHandlers= 0;	return 1; }
   else if (!strcmp(argv[0], "--blockonerror")) { blockOnError = 1; return 1; }
+  else if (!strcmp(argv[0], "--blockonwarn")) { erroronwarn = blockOnError = 1; return 1; }
   else if (!strcmp(argv[0], "--timephases")) {
 	printPhaseTime(1);
 	return 1; }
@@ -1402,9 +1406,17 @@ static int vm_parseArgument(int argc, char **argv)
       else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
+      else if (!strcmp(argv[0], "--checkpluginwrites")) { 
+		extern sqInt checkAllocFiller;
+		checkAllocFiller = 1;
+		return 1; }
       else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
+		return 1; }
+      else if (!strcmp(argv[0], "--warnpid")) { 
+		extern sqInt warnpid;
+		warnpid = getpid();
 		return 1; }
       else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
@@ -1488,6 +1500,7 @@ static void vm_printUsage(void)
   printf("  --noevents             disable event-driven input support\n");
   printf("  --nohandlers           disable sigsegv & sigusr1 handlers\n");
   printf("  --pollpip              output . on each poll for input\n");
+  printf("  --checkpluginwrites    check for writes past end of object in plugins\n");
   printf("  --pathenc <enc>        set encoding for pathnames (default: UTF-8)\n");
   printf("  --plugins <path>       specify alternative plugin location (see manpage)\n");
   printf("  --textenc <enc>        set encoding for external text (default: UTF-8)\n");
@@ -1499,6 +1512,7 @@ static void vm_printUsage(void)
 # else
   printf("  --sendtrace            enable send tracing\n");
 # endif
+  printf("  --warnpid              print pid in warnings\n");
 #endif
 #if COGVM
   printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
@@ -1508,6 +1522,7 @@ static void vm_printUsage(void)
   printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
   printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
+  printf("  --blockonwarn          on warning block, don't warn.  useful for attaching gdb\n");
 #if 1
   printf("Deprecated:\n");
 # if !STACKVM
@@ -1595,12 +1610,17 @@ char *getVersionInfo(int verbose)
   char *info= (char *)malloc(4096);
   info[0]= '\0';
 
+#if SPURVM
+# define ObjectMemory " Spur"
+#else
+# define ObjectMemory
+#endif
 #if defined(NDEBUG)
-# define BuildVariant "Production"
+# define BuildVariant "Production" ObjectMemory
 #elif DEBUGVM
-# define BuildVariant "Debug"
+# define BuildVariant "Debug" ObjectMemory
 # else
-# define BuildVariant "Assert"
+# define BuildVariant "Assert" ObjectMemory
 #endif
 
 #if ITIMER_HEARTBEAT
