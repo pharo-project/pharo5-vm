@@ -198,7 +198,9 @@ initializePrimitiveTable
 		"SpurMemoryManager primitives"
 		(170 primitiveAsCharacter)
 		(171 primitiveCharacterValue)
-		(172 174 primitiveFail)
+		(172 primitiveFail)
+		(173 primitiveSlotAt)	"c.f. (73 primitiveInstVarAt)"
+		(174 primitiveSlotAtPut)	"c.f. (74 primitiveInstVarAtPut)"
 		(175 primitiveBehaviorHash)
 		(176 primitiveMaxIdentityHash)
 		(177 primitiveAllInstances)

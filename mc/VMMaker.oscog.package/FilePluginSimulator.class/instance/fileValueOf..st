@@ -5,7 +5,7 @@ fileValueOf: objectPointer
 				ifTrue: [interpreterProxy integerValueOf: objectPointer]
 				ifFalse:
 					[((interpreterProxy isBytes: objectPointer)
-					  and: [(interpreterProxy byteSizeOf: objectPointer) = interpreterProxy wordSize]) ifFalse:
+					  and: [(interpreterProxy byteSizeOf: objectPointer) = (self sizeof: #SQFile)]) ifFalse:
 						[interpreterProxy primitiveFail.
 						 ^nil].
 					interpreterProxy longAt: objectPointer + interpreterProxy baseHeaderSize].

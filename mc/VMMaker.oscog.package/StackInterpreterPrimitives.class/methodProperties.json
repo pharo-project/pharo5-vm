@@ -38,6 +38,8 @@
 		"primitiveSetGCSemaphore" : "eem (auto pragmas 12/08) 11/25/2008 12:50",
 		"primitiveSignalAtMilliseconds" : "eem 6/29/2014 11:27",
 		"primitiveSignalAtUTCMicroseconds" : "eem 6/29/2014 11:19",
+		"primitiveSlotAt" : "eem 11/20/2014 15:26",
+		"primitiveSlotAtPut" : "eem 11/20/2014 13:21",
 		"primitiveStoreStackp" : "eem 11/13/2014 13:32",
 		"primitiveTerminateTo" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"primitiveVMParameter" : "eem (const to msg rewrite) 11/5/2014 18:04",

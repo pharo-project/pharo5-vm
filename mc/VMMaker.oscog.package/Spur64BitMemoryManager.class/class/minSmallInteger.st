@@ -1,0 +1,3 @@
+translation
+minSmallInteger
+	^-16r1000000000000000

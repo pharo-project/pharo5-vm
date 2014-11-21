@@ -7,9 +7,9 @@ checkForAndFollowForwardedPrimitiveState
 	 If the primitive is 118, then primitiveDoPrimitiveWithArgs sets newMethod
 	 to a SmallInteger whose value is the primitive it is evaluating."
 	<option: #SpurObjectMemory>
-	| primIndex accessorDepth found |
+	| primIndex accessorDepth found scannedStackFrame |
 	self assert: self failed.
-	found := false.
+	found := scannedStackFrame := false.
 	primIndex := (objectMemory isIntegerObject: newMethod)
 					ifTrue: [objectMemory integerValueOf: newMethod]
 					ifFalse:
@@ -33,7 +33,12 @@ checkForAndFollowForwardedPrimitiveState
 					[self assert: index < argumentCount. "receiver should have been caught at send time."
 					 found := true.
 					 oop := objectMemory followForwarded: oop.
-					 self stackValue: index put: oop].
+					 self stackValue: index put: oop.
+					 scannedStackFrame ifFalse:
+						[scannedStackFrame := true.
+						 self
+							followForwardedFrameContents: framePointer
+							stackPointer: stackPointer + (argumentCount + 1 * objectMemory wordSize) "don't repeat effort"]].
 				((objectMemory hasPointerFields: oop)
 				 and: [objectMemory followForwardedObjectFields: oop toDepth: accessorDepth]) ifTrue:
 					[found := true]]]].

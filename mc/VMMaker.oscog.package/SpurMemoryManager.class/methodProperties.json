@@ -514,6 +514,7 @@
 		"maxIdentityHash" : "eem 10/14/2013 11:45",
 		"maxSlotsForAlloc" : "eem 6/28/2014 16:35",
 		"maxSlotsForNewSpaceAlloc" : "eem 10/3/2013 11:22",
+		"maxSmallInteger" : "eem 11/20/2014 13:00",
 		"maybeSplObj:" : "eem 10/14/2013 12:50",
 		"mem:cp:y:" : "eem 9/15/2013 23:06",
 		"memory" : "eem 12/24/2013 20:51",

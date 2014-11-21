@@ -2,6 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
+		"asUnsigned:" : "eem 11/20/2014 12:11",
 		"cStringOrNullFor:" : "eem 12/20/2012 10:02",
 		"failed" : "eem 5/24/2011 09:09",
 		"initPrimCall" : "eem 9/12/2010 06:35",
@@ -155,7 +156,7 @@
 		"primitiveMultiplyLargeIntegers" : "dtl 9/2/2012 10:07",
 		"primitiveNew" : "eem 8/12/2014 20:04",
 		"primitiveNewMethod" : "eem 8/13/2014 05:38",
-		"primitiveNewWithArg" : "eem 8/12/2014 20:01",
+		"primitiveNewWithArg" : "eem 11/20/2014 18:27",
 		"primitiveNextInstance" : "eem 9/4/2013 17:20",
 		"primitiveNextObject" : "eem 10/29/2014 10:49",
 		"primitiveNoop" : "",
@@ -208,6 +209,8 @@
 		"primitiveSize" : "eem 9/9/2013 16:56",
 		"primitiveSizeInBytes" : "eem 6/27/2014 15:59",
 		"primitiveSizeInBytesOfInstance" : "eem 6/27/2014 16:10",
+		"primitiveSlotAt" : "eem 11/20/2014 13:21",
+		"primitiveSlotAtPut" : "eem 11/20/2014 13:21",
 		"primitiveSnapshot" : "eem (auto pragmas 12/08) 8/11/2008 10:37",
 		"primitiveSnapshotEmbedded" : "eem (auto pragmas 12/08) 8/11/2008 10:37",
 		"primitiveSomeInstance" : "eem 9/18/2013 14:28",

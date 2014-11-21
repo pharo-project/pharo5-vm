@@ -1,6 +1,8 @@
 {
 	"class" : {
-		"isImmediate:" : "eem 10/30/2013 13:53",
+		"isImmediate:" : "eem 11/20/2014 17:56",
+		"maxSmallInteger" : "eem 11/20/2014 13:01",
+		"minSmallInteger" : "eem 11/20/2014 13:03",
 		"numSmallIntegerTagBits" : "eem 11/18/2014 17:49",
 		"simulatorClass" : "eem 11/17/2014 13:35",
 		"wordSize" : "eem 11/13/2014 15:24" },

@@ -3,6 +3,7 @@ followForwardedFrameContents: theFP stackPointer: theSP
 	"follow pointers in the current stack frame up to theSP."
 	<var: #theFP type: #'char *'>
 	<var: #theSP type: #'char *'>
+	<inline: false>
 	<var: #ptr type: #'char *'>
 	theFP + (self frameStackedReceiverOffset: theFP)
 		to: theFP + FoxCallerSavedIP + objectMemory wordSize
