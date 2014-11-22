@@ -21,7 +21,7 @@
 		"printOn:" : "dtl 10/18/2012 06:52",
 		"readFieldsFrom:startingAt:headerWordSize:littleEndian:" : "dtl 11/1/2012 18:48",
 		"readFrom:startingAt:" : "dtl 10/30/2012 18:27",
-		"readImageVersionFrom:startingAt:" : "dtl 10/16/2012 00:49",
+		"readImageVersionFrom:startingAt:" : "dtl 11/9/2014 17:18",
 		"screenSize" : "dtl 11/1/2012 07:36",
 		"screenSize:" : "dtl 11/1/2012 18:49",
 		"specialObjectsOop" : "dtl 10/18/2012 06:54",
