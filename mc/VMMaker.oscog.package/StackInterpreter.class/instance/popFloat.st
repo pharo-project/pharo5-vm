@@ -1,4 +1,4 @@
 primitive support
 popFloat
 	<returnTypeC: #double>
-	^self floatValueOf: self popStack
+	^objectMemory floatValueOf: self popStack

@@ -9,4 +9,4 @@ loadFloatOrIntFrom: floatOrInt
 
 	(objectMemory isIntegerObject: floatOrInt) ifTrue:
 		[^(objectMemory integerValueOf: floatOrInt) asFloat].
-	^self floatValueOf: floatOrInt
+	^objectMemory floatValueOf: floatOrInt

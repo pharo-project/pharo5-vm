@@ -1,0 +1,3 @@
+interpreter access
+smallFloatExponentOffset
+	^128

@@ -21,6 +21,7 @@ initializeCTranslationDictionary
 	#\\				#generateModulo:on:indent:
 	#<<			#generateShiftLeft:on:indent:
 	#>>			#generateShiftRight:on:indent:
+	#>>>			#generateSignedShiftRight:on:indent:
 	#min:			#generateMin:on:indent:
 	#max:			#generateMax:on:indent:
 	#between:and:	#generateBetweenAnd:on:indent:

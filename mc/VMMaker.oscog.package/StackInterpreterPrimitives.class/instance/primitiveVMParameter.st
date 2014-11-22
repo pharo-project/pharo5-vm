@@ -130,7 +130,7 @@ primitiveVMParameter
 			[objectMemory
 				storePointerUnchecked: 52 ofObject: result withValue: (objectMemory integerObjectOf: objectMemory numSegments);
 				storePointerUnchecked: 53 ofObject: result withValue: (objectMemory integerObjectOf: objectMemory freeSize);
-				storePointer: 54 ofObject: result withValue: (self floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio)].
+				storePointer: 54 ofObject: result withValue: (objectMemory floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio)].
 		objectMemory storePointer: 55	ofObject: result withValue: (self positive64BitIntegerFor: statProcessSwitch).
 		objectMemory storePointer: 56	ofObject: result withValue: (self positive64BitIntegerFor: statIOProcessEvents).
 		objectMemory storePointer: 57	ofObject: result withValue: (self positive64BitIntegerFor: statForceInterruptCheck).
@@ -216,7 +216,7 @@ primitiveVMParameter
 			[result := objectMemory integerObjectOf: objectMemory freeSize].
 		(arg = 55
 		 and: [objectMemory hasSpurMemoryManagerAPI]) ifTrue:
-			[result := self floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio].
+			[result := objectMemory floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio].
 		arg = 56	ifTrue: [result := self positive64BitIntegerFor: statProcessSwitch].
 		arg = 57	ifTrue: [result := self positive64BitIntegerFor: statIOProcessEvents].
 		arg = 58	ifTrue: [result := self positive64BitIntegerFor: statForceInterruptCheck].
@@ -307,8 +307,8 @@ primitiveVMParameter
 
 	(index = 55
 	 and: [objectMemory hasSpurMemoryManagerAPI]) ifTrue:
-		[result := self floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio.
-		 primFailCode := objectMemory setHeapGrowthToSizeGCRatio: (self floatValueOf: arg)].
+		[result := objectMemory floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio.
+		 primFailCode := objectMemory setHeapGrowthToSizeGCRatio: (objectMemory floatValueOf: arg)].
 
 	self successful ifTrue:
 		[self pop: 3 thenPush: result.  "return old value"

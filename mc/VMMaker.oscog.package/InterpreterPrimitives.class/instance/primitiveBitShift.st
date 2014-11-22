@@ -12,20 +12,22 @@ primitiveBitShift
 			[integerReceiver := self signed64BitValueOf: integerReceiver].
 	self successful ifTrue:
 		[(integerArgument := objectMemory integerValueOf: integerArgument) >= 0
-			ifTrue: "Left shift -- must fail if we lose bits beyond 32"
+			ifTrue: "Left shift -- must fail bits would be lost"
 				[integerArgument <= objectMemory numSmallIntegerBits ifFalse:
 					[^self primitiveFail].
 				shifted := integerReceiver << integerArgument.
-				(shifted >> integerArgument) = integerReceiver ifFalse:
+				integerReceiver = (objectMemory wordSize = 4
+									ifTrue: [shifted >> integerArgument]
+									ifFalse: [shifted >>> integerArgument])  ifFalse:
 					[^self primitiveFail]]
 			ifFalse: "Right shift -- OK to lose bits"
 				[integerArgument >= objectMemory numSmallIntegerBits negated ifFalse:
 					[^self primitiveFail].
-			shifted := integerReceiver >> (0 - integerArgument)].
-		shifted := (objectMemory isIntegerValue: shifted)
-					ifTrue: [objectMemory integerObjectOf: shifted]
+				 shifted := integerReceiver >> (0 - integerArgument)].
+		shifted := objectMemory wordSize = 4
+					ifTrue: [self positive32BitIntegerFor: shifted]
 					ifFalse:
-						[objectMemory wordSize = 4
-							ifTrue: [self positive32BitIntegerFor: shifted]
+						[(objectMemory isIntegerValue: shifted)
+							ifTrue: [objectMemory integerObjectOf: shifted]
 							ifFalse: [self signed64BitIntegerFor: shifted]].
 		self pop: 2 thenPush: shifted]

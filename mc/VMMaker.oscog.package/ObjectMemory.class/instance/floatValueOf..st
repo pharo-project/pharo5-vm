@@ -1,4 +1,4 @@
-utilities
+interpreter access
 floatValueOf: oop
 	"Answer the C double precision floating point value of the argument,
 	 or fail if it is not a Float, and answer 0.
@@ -7,7 +7,7 @@ floatValueOf: oop
 	| isFloat result |
 	<returnTypeC: #double>
 	<var: #result type: #double>
-	isFloat := self isInstanceOfClassFloat: oop.
+	isFloat := self isFloatInstance: oop.
 	isFloat ifTrue:
 		[self cCode: '' inSmalltalk: [result := Float new: 2].
 		 self fetchFloatAt: oop + self baseHeaderSize into: result.

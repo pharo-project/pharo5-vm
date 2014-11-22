@@ -3,12 +3,20 @@ positive64BitIntegerFor: integerValue
 	<var: 'integerValue' type: #sqLong>
 	"Answer a Large Positive Integer object for the given integer value.  N.B. will *not* cause a GC."
 	| newLargeInteger highWord sz |
-	highWord := self cCode: 'integerValue >> 32' inSmalltalk: [integerValue >> 32]. "shift is coerced to usqInt otherwise"
-	highWord = 0 ifTrue:[^self positive32BitIntegerFor: integerValue].
-	sz := 5.
-	(highWord := highWord >> 8) = 0 ifFalse:[sz := sz + 1].
-	(highWord := highWord >> 8) = 0 ifFalse:[sz := sz + 1].
-	(highWord := highWord >> 8) = 0 ifFalse:[sz := sz + 1].
+	objectMemory wordSize = 8
+		ifTrue:
+			[(integerValue >= 0 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
+				[^objectMemory integerObjectOf: integerValue].
+			 sz := 8]
+		ifFalse:
+			[(highWord := integerValue >>> 32) = 0 ifTrue:
+				[^self positive32BitIntegerFor: integerValue].
+			 sz := 5.
+			 (highWord := highWord >> 8) = 0 ifFalse:
+				[sz := sz + 1.
+				 (highWord := highWord >> 8) = 0 ifFalse:
+					[sz := sz + 1.
+					 (highWord := highWord >> 8) = 0 ifFalse:[sz := sz + 1]]]].
 	newLargeInteger := objectMemory
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: sz)

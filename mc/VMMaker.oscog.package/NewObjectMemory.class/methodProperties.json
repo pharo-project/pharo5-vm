@@ -55,6 +55,8 @@
 		"findStringBeginningWith:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"firstAccessibleObject" : "eem 3/4/2009 23:06",
 		"firstValidIndexOfIndexableObject:withFormat:" : "eem 9/10/2013 11:18",
+		"floatObjectOf:" : "eem 11/21/2014 16:25",
+		"floatValueOf:" : "eem 11/21/2014 17:16",
 		"formatOfMethodContext" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"formatOfMethodContextMinusSize" : "eem 9/10/2013 10:59",
 		"freeObject:header:" : "eem 2/20/2013 13:11",
