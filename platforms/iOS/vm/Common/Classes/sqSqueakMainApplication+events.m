@@ -73,6 +73,7 @@
 	ioProcessEvents();
 	id event = [eventQueue returnAndRemoveOldest];
 	if (event) {
+		NSLog(@"ioGetNextEvent:");
 		NSAutoreleasePool * pool = [NSAutoreleasePool new];
 		[self processAsOldEventOrComplexEvent: event placeIn: evt];
 		[event release];

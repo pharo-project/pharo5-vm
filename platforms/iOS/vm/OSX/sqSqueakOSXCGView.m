@@ -357,6 +357,7 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
 	aKeyBoardStrokeDetails.modifierFlags = [theEvent modifierFlags];
 	
 	NSArray *down = [[NSArray alloc] initWithObjects: theEvent,nil];
+	NSLog(@"sqSqueakOSXCGView.m>>keyDown:");
 	@synchronized(self) {
 		lastSeenKeyBoardStrokeDetails = aKeyBoardStrokeDetails;
 		[self interpretKeyEvents: down];
@@ -373,15 +374,18 @@ lastSeenKeyBoardModifierDetails,dragInProgress,dragCount,dragItems,windowLogic,s
 
 - (void)insertText:(id)aString
 {
+	NSLog(@"sqSqueakOSXCGView.m>>insertText:");
 	[(sqSqueakOSXApplication *) gDelegateApp.squeakApplication recordCharEvent: aString fromView: self];
 }
 
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange
 {
+	NSLog(@"sqSqueakOSXCGView.m>>insertText:replacementRange:");
 	[(sqSqueakOSXApplication *) gDelegateApp.squeakApplication recordCharEvent: aString fromView: self];
 }
 
 - (void)flagsChanged:(NSEvent *)theEvent {
+	NSLog(@"sqSqueakOSXCGView.m>>flagsChanged -- %d, %d", [theEvent keyCode], [theEvent modifierFlags] );
 	keyBoardStrokeDetails *aKeyBoardStrokeDetails = [[keyBoardStrokeDetails alloc] init];
 	aKeyBoardStrokeDetails.keyCode = [theEvent keyCode];
 	aKeyBoardStrokeDetails.modifierFlags = [theEvent modifierFlags];

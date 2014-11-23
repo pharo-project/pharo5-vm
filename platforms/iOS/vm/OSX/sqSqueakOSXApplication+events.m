@@ -149,7 +149,7 @@ static int buttonState=0;
 	if ([[event objectAtIndex: 0] intValue] == 1) {
 		[(NSData *)[event objectAtIndex: 1] getBytes: evt length: sizeof(sqInputEvent)];
 		if (evt->type == EventTypeKeyboard) {
-//			NSLog(@"keyboard pc %i cc %i uc %i m %i",((sqKeyboardEvent *)evt)->pressCode,((sqKeyboardEvent *) evt)->charCode,((sqKeyboardEvent *) evt)->utf32Code,((sqKeyboardEvent *) evt)->modifiers);
+			NSLog(@"keyboard pc %i cc %i uc %i m %i",((sqKeyboardEvent *)evt)->pressCode,((sqKeyboardEvent *) evt)->charCode,((sqKeyboardEvent *) evt)->utf32Code,((sqKeyboardEvent *) evt)->modifiers);
 		}
 		return;
 	}
@@ -157,6 +157,7 @@ static int buttonState=0;
 
 - (void) pushEventToQueue: (sqInputEvent *) evt {	
 	NSMutableArray* data = [NSMutableArray new];
+	NSLog(@"sqSqueakOSXApplication+events.m>>pushEventToQueue:");
 	[data addObject: [NSNumber numberWithInteger: 1]];
 	[data addObject: [NSData  dataWithBytes:(const void *) evt length: sizeof(sqInputEvent)]];
 	[eventQueue addItem: data];
@@ -171,6 +172,7 @@ static int buttonState=0;
 	NSRange picker;
 	NSUInteger totaLength;
 	
+	NSLog(@"sqSqueakOSXApplication+events>>recordCharEvent:fromView:");
 	evt.type = EventTypeKeyboard;
 	evt.timeStamp = (int) ioMSecs();
 	picker.location = 0;
