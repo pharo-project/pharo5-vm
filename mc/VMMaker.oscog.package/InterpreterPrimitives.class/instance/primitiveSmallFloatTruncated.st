@@ -7,6 +7,6 @@ primitiveSmallFloatTruncated
 	rcvr := self smallFloatValueOf: self stackTop.
 	self cCode: [self mod: rcvr f: (self addressOf: trunc)]
 		inSmalltalk: [trunc := rcvr truncated].
-	(trunc between: SmallInteger minVal asFloat and: SmallInteger maxVal asFloat)
+	(trunc between: objectMemory minSmallInteger asFloat and: objectMemory maxSmallInteger asFloat)
 		ifTrue: [self pop: 1 thenPushInteger: trunc asInteger]
 		ifFalse: [self primitiveFail]
