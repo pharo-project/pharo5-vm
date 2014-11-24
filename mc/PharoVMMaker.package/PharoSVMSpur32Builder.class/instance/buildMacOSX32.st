@@ -1,7 +1,7 @@
 building
 buildMacOSX32 
 	PharoSSpur32OSXConfig new  
-		generateForDebug;
+		"generateForDebug;"
 		"addExternalPlugins: #(  FT2Plugin );"
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		generateSources; 
