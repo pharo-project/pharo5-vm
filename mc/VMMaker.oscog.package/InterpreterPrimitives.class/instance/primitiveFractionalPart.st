@@ -6,6 +6,7 @@ primitiveFractionalPart
 	<var: #trunc type: #double>
 	rcvr := self popFloat.
 	self successful
-		ifTrue: [self cCode: 'frac = modf(rcvr, &trunc)' inSmalltalk: [frac := rcvr fractionPart].
+		ifTrue: [frac := self cCode: [self mod: rcvr f: (self addressOf: trunc)]
+							inSmalltalk: [rcvr fractionPart].
 				self pushFloat: frac]
 		ifFalse: [self unPop: 1]
