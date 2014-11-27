@@ -105,7 +105,7 @@ configH
 /* #undef	size_t */
 /* #undef	socklen_t */
 
-#define	ENABLE_FAST_BLT 1
+#define	ENABLE_FAST_BLT 0
 #define	squeakInt64 long long
 
 /* architecture */
