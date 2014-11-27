@@ -7,4 +7,4 @@ versionString
 
 	"2.0 supports 64bit code base"
 
-	^ '2.2.5'
+	^ self new versionString
