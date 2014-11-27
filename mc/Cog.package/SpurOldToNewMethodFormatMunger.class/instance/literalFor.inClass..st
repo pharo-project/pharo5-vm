@@ -8,7 +8,7 @@ literalFor: aLiteral inClass: classOop
 	(aLiteral isInteger and: [aLiteral class == SmallInteger]) ifTrue:
 		[^heap integerObjectOf: aLiteral].
 	aLiteral isFloat ifTrue:
-		[^interpreter floatObjectOf: aLiteral].
+		[^heap floatObjectOf: aLiteral].
 	aLiteral isArray ifTrue:
 		[^self cloneArrayLiteral: aLiteral].
 	self assert: aLiteral isVariableBinding.

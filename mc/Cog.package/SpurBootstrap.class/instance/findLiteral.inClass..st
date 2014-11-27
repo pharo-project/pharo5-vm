@@ -4,7 +4,7 @@ findLiteral: aLiteral inClass: classOop
 	aLiteral isString ifTrue:
 		[^self stringFor: aLiteral].
 	aLiteral isFloat ifTrue:
-		[^oldInterpreter floatObjectOf: aLiteral].
+		[^oldHeap floatObjectOf: aLiteral].
 	aLiteral isArray ifTrue:
 		[^self cloneArrayLiteral: aLiteral].
 	aLiteral isCharacter ifTrue:
