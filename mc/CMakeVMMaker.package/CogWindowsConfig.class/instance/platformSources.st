@@ -10,6 +10,7 @@ platformSources
 		'sqWin32VMProfile.c'
 		'sqWin32Args.c'
 		'sqWin32Exports.c'
+		'sqWin32DnsInfo.c'		
 		'sqWin32Intel.c'
 		'sqWin32Stubs.c'
 		'sqWin32Window.c'
