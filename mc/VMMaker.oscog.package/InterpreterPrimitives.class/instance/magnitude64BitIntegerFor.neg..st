@@ -6,8 +6,8 @@ magnitude64BitIntegerFor: magnitude neg: isNegative
 	<var: 'highWord' type: #usqInt>
 
 	isSmall := isNegative
-				ifTrue: [magnitude < objectMemory maxSmallInteger]
-				ifFalse: [magnitude < (objectMemory maxSmallInteger + 1)].
+				ifTrue: [magnitude <= (objectMemory maxSmallInteger + 1)]
+				ifFalse: [magnitude <= objectMemory maxSmallInteger].
 	isSmall ifTrue:
 		[smallVal := self cCoerceSimple: magnitude to: #sqInt.
 		 isNegative ifTrue: [smallVal := 0 - smallVal].

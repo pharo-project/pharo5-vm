@@ -1,10 +1,15 @@
 debug printing
-printStackCallStackOf: aFramePointer
-	<var: #aFramePointer type: #'char *'>
+printStackCallStackOf: frameOrContext
 	<api>
 	| theFP context |
 	<var: #theFP type: #'char *'>
-	theFP := aFramePointer.
+	(objectMemory addressCouldBeObj: frameOrContext) ifTrue:
+		[((objectMemory isContext: frameOrContext)
+		  and: [self checkIsStillMarriedContext: frameOrContext currentFP: nil]) ifTrue:
+			[^self printStackCallStackOf: (self frameOfMarriedContext: frameOrContext)].
+		 ^nil].
+	 
+	theFP := frameOrContext asVoidPointer.
 	[context := self shortReversePrintFrameAndCallers: theFP.
 	 ((self isMarriedOrWidowedContext: context)
 	  and:

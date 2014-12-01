@@ -43,7 +43,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 				[stackPages
 					longAt: theFP + FoxReceiver
 					put: (objectMemory followForwarded: oop)].
-			  theIP := (theFP + (self frameStackedReceiverOffset: theFP)) asUnsignedInteger. "reuse theIP; its just an offset here"
+			  theIP := (theFP + (self frameStackedReceiverOffset: theFP)) asInteger. "reuse theIP; its just an offset here"
 			  oop := stackPages longAt: theIP.
 			  (objectMemory isOopForwarded: oop) ifTrue:
 				[stackPages
@@ -68,5 +68,5 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 					longAt: theFP + FoxMethod
 					put: (oop := newOop)].
 			  (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-				[theIPPtr := (theFP + FoxCallerSavedIP) asUnsignedInteger.
+				[theIPPtr := (theFP + FoxCallerSavedIP) asInteger.
 				 theFP := callerFP]]]

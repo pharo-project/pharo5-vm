@@ -5,6 +5,7 @@ instantiateClass: classObj indexableSize: nElements
 	| instSpec classFormat numSlots classIndex newObj fillValue |
 	classFormat := self formatOfClass: classObj.
 	instSpec := self instSpecOfClassFormat: classFormat.
+	classIndex := self rawHashBitsOf: classObj.
 	fillValue := 0.
 	instSpec caseOf: {
 		[self arrayFormat]	->
@@ -19,7 +20,10 @@ instantiateClass: classObj indexableSize: nElements
 		[self sixtyFourBitIndexableFormat]	->
 			[numSlots := nElements].
 		[self firstLongFormat]	->
-			[numSlots := nElements + 1 // 2.
+			[(classIndex = ClassFloatCompactIndex and: [nElements ~= 2]) ifTrue:
+				[coInterpreter primitiveFailFor: PrimErrBadReceiver.
+				 ^nil].
+			 numSlots := nElements + 1 // 2.
 			 instSpec := instSpec + (nElements bitAnd: 1)].
 		[self firstShortFormat]	->
 			[numSlots := nElements + 3 // 4.
@@ -33,14 +37,16 @@ instantiateClass: classObj indexableSize: nElements
 					 (nElements ~= 0 or: [instSpec > self lastPointerFormat]) ifTrue:
 						[^nil].
 					 numSlots := self fixedFieldsOfClassFormat: classFormat]. "non-indexable"
-	classIndex := self ensureBehaviorHash: classObj.
-	classIndex < 0 ifTrue:
-		[coInterpreter primitiveFailFor: classIndex negated.
-		 ^nil].
+	classIndex = 0 ifTrue:
+		[classIndex := self ensureBehaviorHash: classObj.
+		 classIndex < 0 ifTrue:
+			[coInterpreter primitiveFailFor: classIndex negated.
+			 ^nil]].
 	numSlots > self maxSlotsForNewSpaceAlloc
 		ifTrue:
 			[numSlots > self maxSlotsForAlloc ifTrue:
-				[^nil].
+				[coInterpreter primitiveFailFor: PrimErrUnsupported.
+				 ^nil].
 			 newObj := self allocateSlotsInOldSpace: numSlots format: instSpec classIndex: classIndex]
 		ifFalse:
 			[newObj := self allocateSlots: numSlots format: instSpec classIndex: classIndex].
