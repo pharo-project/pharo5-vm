@@ -21,7 +21,8 @@ findRequiredGlobals
 				(l isVariableBinding
 				 and: [l key isSymbol
 				 and: [SpurBootstrapPrototypes withAllSubclasses noneSatisfy: [:sbpc| sbpc name == l key]]]) ifTrue:
-					[(Smalltalk bindingOf: l key) == l
+					[((Smalltalk bindingOf: l key) == l
+					  or: [(Undeclared bindingOf: l key) == l])
 						ifTrue: [globals add: l]
 						ifFalse:
 							[self assert: (nonMetaClass bindingOf: l key) == l.

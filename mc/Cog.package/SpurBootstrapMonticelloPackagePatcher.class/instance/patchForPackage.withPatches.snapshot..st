@@ -2,22 +2,11 @@ patching
 patchForPackage: package withPatches: patches snapshot: snapshot
 	(package includesClass: Character) ifTrue:
 		[patches
-			addAll: ((self modifiedCharacterDefinitionsIn: snapshot definitions)
-						select:
-							[:def|
-							 patches noneSatisfy:
-								[:addition|
-								def isMethodDefinition
-								and: [addition definition isMethodDefinition
-								and: [addition definition selector = def selector
-								and: [addition definition className = def className
-								and: [addition definition classIsMeta = def classIsMeta]]]]]]
-						thenCollect:
-							[:def|
-							 ((def source includesSubString: 'DELETEME')
-								ifTrue: [MCRemoval]
-								ifFalse: [MCAddition]) of: def]);
-			add: (self immediateClassDefinitionFor: #Character
+			addAll: (self filteredDefinitionsAsPatches: (self modifiedCharacterDefinitionsIn: snapshot definitions)
+						patches: patches);
+			add: (self
+					classDefinitionFor: #Character
+					type: #immediate
 					from: snapshot definitions
 					comment: 'I represent a character by storing its associated Unicode as an unsigned 30-bit value.  Characters are created uniquely, so that all instances of a particular Unicode are identical.  My instances are encoded in tagged pointers in the VM, so called immediates, and therefore are pure immutable values.
 
@@ -28,11 +17,34 @@ patchForPackage: package withPatches: patches snapshot: snapshot
 	(package includesClass: SmallInteger) ifTrue:
 		[patches
 			add: (self
-					immediateClassDefinitionFor: #SmallInteger
+					classDefinitionFor: #SmallInteger
+					type: #immediate
 					from: snapshot definitions
 					comment: 'My instances are at least 31-bit numbers, stored in twos complement form. The allowable range in 32-bits is approximately +- 10^9 (+- 1billion).  In 64-bits my instances are 61-bit numbers, stored in twos complement form. The allowable range is approximately +- 10^18 (+- 1 quintillion).   The actual values are computed at start-up.  See SmallInteger class startUp:, minVal, maxVal.'
 					stamp: 'eem 11/20/2014 08:41')].
+	(package includesClass: Float) ifTrue:
+		[patches
+			add: (self
+					classDefinitionFor: #Float
+					type: #normal
+					from: snapshot definitions
+					comment: nil
+					stamp: nil);
+			add: (self
+					classDefinitionFor: #BoxedFloat64
+					type: #words
+					from: snapshot definitions
+					comment: 'My instances hold 64-bit Floats in heap objects.  This is the only representation on 32-bit systems.  But on 64-bit systems SmallFloat64 holds a subset of the full 64-bit double-precision range in immediate objects.'
+					stamp: 'eem 11/25/2014 07:54');
+			add: (self
+					classDefinitionFor: #SmallFloat64
+					type: #immediate
+					from: snapshot definitions
+					comment: 'My instances represent 64-bit Floats whose exponent fits in 8 bits as immediate objects.  This representation is only available on 64-bit systems, not 32-bit systems.'
+					stamp: 'eem 11/25/2014 07:54');
+			addAll: (self filteredDefinitionsAsPatches: (self modifiedFloatDefinitionsIn: snapshot definitions)
+						patches: patches)].
 	(package includesClass: CompiledMethod) ifTrue:
 		[patches
-			add: (self compiledMethodClassDefinition)].
+			add: self compiledMethodClassDefinition].
 	^MCPatch operations: patches

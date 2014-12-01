@@ -30,7 +30,7 @@ installableMethodFor: aCompiledMethod selector: selector className: className is
 		oop := (literal isLiteral or: [literal isVariableBinding])
 					ifTrue:
 						[literal isInteger
-							ifTrue: [oldHeap integerObjectOf: literal]
+							ifTrue: [oldInterpreter signed64BitIntegerFor: literal]
 							ifFalse: [literalMap
 										at: literal
 										ifAbsent: [self findLiteral: literal

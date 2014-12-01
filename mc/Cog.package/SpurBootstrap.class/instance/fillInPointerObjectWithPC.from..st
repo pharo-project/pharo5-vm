@@ -17,5 +17,6 @@ fillInPointerObjectWithPC: newObj from: oldObj
 		[method := oldHeap
 						fetchPointer: MethodIndex
 						ofObject: oldObj.
-		 (oldInterpreter primitiveIndexOf: method) > 0 ifTrue:
+		 (method ~= oldHeap nilObject
+		  and: [(oldInterpreter primitiveIndexOf: method) > 0]) ifTrue:
 			[self incrementPCField: InstructionPointerIndex ofObject: newObj by: 3]].

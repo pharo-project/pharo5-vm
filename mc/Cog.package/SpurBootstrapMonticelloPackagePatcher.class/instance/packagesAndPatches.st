@@ -9,15 +9,19 @@ packagesAndPatches
 	imageTypes ifNotNil:
 		[spurBootstrap imageTypes: imageTypes].
 	spurBootstrap prototypeClassNameMetaSelectorMethodDo:
-		[:className :isMeta :selector :method| | class methodReference source definition |
-		 class := Smalltalk classNamed: className.
-		 isMeta ifTrue:
-			[class := class class].
-		 methodReference := (class includesSelector: selector) ifTrue:
-								[(class >> selector) methodReference].
-		 (methodReference notNil
-		  and: [methodReference category = Categorizer default]) ifTrue:
-			[methodReference := nil].
+		[:className :isMeta :selector :method| | package category source definition |
+		 (Smalltalk classNamed: className)
+			ifNil: [package := self packageForMissingClassNamed: className]
+			ifNotNil:
+				[:behavior| | class methodReference |
+				 class := isMeta ifTrue: [behavior class] ifFalse: [behavior].
+				 (class includesSelector: selector) ifTrue:
+					[methodReference := (class >> selector) methodReference.
+					 category := methodReference category].
+				 package := (methodReference isNil
+							  or: [methodReference category = Categorizer default])
+								ifTrue: [PackageOrganizer default packageOfClass: class]
+								ifFalse: [PackageOrganizer default packageOfMethod: methodReference]].
 		 source := method getSourceFromFile asString allButFirst: method selector size - selector size.
 		 source first ~= selector first ifTrue:
 			[source replaceFrom: 1 to: selector size with: selector startingAt: 1].
@@ -25,20 +29,14 @@ packagesAndPatches
 										className: className
 										classIsMeta: isMeta
 										selector: selector
-										category: (methodReference
-													ifNotNil: [methodReference category]
-													ifNil: [SpurBootstrap
-															categoryForClass: className
-															meta: isMeta
-															selector: selector])
+										category: (category ifNil: [SpurBootstrap
+																	categoryForClass: className
+																	meta: isMeta
+																	selector: selector])
 										timeStamp: method timeStamp
 										source: source).
 		 (method pragmaAt: #remove) ifNotNil:
 			[definition := definition inverse].
-		 (packagesAndPatches
-				at: (methodReference
-						ifNotNil: [PackageOrganizer default packageOfMethod: methodReference]
-						ifNil: [PackageOrganizer default packageOfClass: class])
-				ifAbsentPut: [OrderedCollection new])
+		 (packagesAndPatches at: package ifAbsentPut: [OrderedCollection new])
 			add: definition].
 	^packagesAndPatches
