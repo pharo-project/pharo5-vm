@@ -1,18 +1,21 @@
-debug support
+simulation
 shortPrint: oop
+	<doNotGenerate>
 	| name classOop |
 	(objectMemory isImmediate: oop) ifTrue:
 		[(objectMemory isImmediateCharacter: oop) ifTrue:
 			[^(objectMemory characterValueOf: oop) < 256
 				ifTrue:
-					['=$' , (objectMemory characterValueOf: oop) printString , 
-					' (' , (String with: (Character value: (objectMemory characterValueOf: oop))) , ')']
+					['=$', (objectMemory characterValueOf: oop) printString,
+					' (', (String with: (Character value: (objectMemory characterValueOf: oop))), ')']
 				ifFalse:
-					['=$' , (objectMemory characterValueOf: oop) printString, '(???)']].
+					['=$', (objectMemory characterValueOf: oop) printString, '(???)']].
 		(objectMemory isIntegerObject: oop) ifTrue:
-			[^ '=' , (objectMemory integerValueOf: oop) printString , 
-			' (' , (objectMemory integerValueOf: oop) hex , ')'].
-		^'= UNKNOWN IMMEDIATE', ' (' , (objectMemory integerValueOf: oop) hex , ')'].
+			[^'=', (objectMemory integerValueOf: oop) printString,
+			' (', (objectMemory integerValueOf: oop) hex, ')'].
+		(objectMemory isImmediateFloat: oop) ifTrue:
+			[^ '=', (objectMemory floatValueOf: oop) printString, ' (', oop hex, ')'].
+		^'= UNKNOWN IMMEDIATE', ' (', (objectMemory integerValueOf: oop) hex, ')'].
 	(objectMemory addressCouldBeObj: oop) ifFalse:
 		[^(oop bitAnd: objectMemory allocationUnit - 1) ~= 0
 			ifTrue: [' is misaligned']
@@ -22,22 +25,29 @@ shortPrint: oop
 	(objectMemory isForwarded: oop) ifTrue:
 		[^' is a forwarded object to ', (objectMemory followForwarded: oop) hex,
 			' of slot size ', (objectMemory numSlotsOfAny: oop) printString].
+	(objectMemory isFloatInstance: oop) ifTrue:
+		[^'=', (objectMemory dbgFloatValueOf: oop) printString].
+	oop = objectMemory nilObject ifTrue:
+		[^'nil'].
+	oop = objectMemory falseObject ifTrue:
+		[^'false'].
+	oop = objectMemory trueObject ifTrue:
+		[^'true'].
+
 	classOop := objectMemory fetchClassOfNonImm: oop.
-	(objectMemory numSlotsOf: classOop) = metaclassNumSlots ifTrue:
-		[^'class ' , (self nameOfClass: oop)].
+	((self objCouldBeClassObj: oop)
+	 and: [(objectMemory numSlotsOf: classOop) = metaclassNumSlots]) ifTrue:
+		[^'class ', (self nameOfClass: oop)].
 	name := self nameOfClass: classOop.
 	name size = 0 ifTrue: [name := '??'].
-	name = 'String' ifTrue: [^ (self stringOf: oop) printString].
-	name = 'ByteString' ifTrue: [^ (self stringOf: oop) printString].
-	name = 'Symbol' ifTrue: [^ '#' , (self stringOf: oop)].
-	name = 'ByteSymbol' ifTrue: [^ '#' , (self stringOf: oop)].
-	name = 'Character' ifTrue: "SpurMemoryManager has immediate Characters; ObjectMemory does not"
-		[^ '=' , (Character value: (objectMemory integerValueOf: 
+	(#('String'  'ByteString') includes: name) ifTrue:
+		[^(self stringOf: oop) printString].
+	(#('Symbol'  'ByteSymbol') includes: name) ifTrue:
+		[^'#', (self stringOf: oop)].
+	name = 'Character' ifTrue: "SpurMemoryManager has immediate Characters (see above); ObjectMemory does not"
+		[^'=', (Character value: (objectMemory integerValueOf: 
 				(objectMemory fetchPointer: 0 ofObject: oop))) printString].
-	name = 'UndefinedObject' ifTrue: [^ 'nil'].
-	name = 'False' ifTrue: [^ 'false'].
-	name = 'True' ifTrue: [^ 'true'].
-	name = 'Float' ifTrue: [^ '=' , (self dbgFloatValueOf: oop) printString].
+
 	"Try to spot association-like things; they're all subclasses of LookupKey"
 	((objectMemory isPointersNonImm: oop)
 	 and: [((objectMemory instanceSizeOf: classOop) between: ValueIndex + 1 and: ValueIndex + 2)
@@ -53,4 +63,5 @@ shortPrint: oop
 				' ', (self shortPrint: (objectMemory fetchPointer: KeyIndex ofObject: oop)),
 				' -> ',
 				(objectMemory fetchPointer: ValueIndex ofObject: oop) hex8]].
+
 	^(('AEIOU' includes: name first) ifTrue: ['an '] ifFalse: ['a ']), name

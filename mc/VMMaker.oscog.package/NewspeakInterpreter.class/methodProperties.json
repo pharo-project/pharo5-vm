@@ -125,7 +125,6 @@
 		"copyBitsFrom:to:at:" : "tpr (auto pragmas 05/11) 12/29/2005 16:24",
 		"cr" : "eem (auto pragmas 12/08) 7/8/2008 20:29",
 		"createActualMessageTo:" : "eem (const to msg rewrite) 11/6/2014 11:00",
-		"dbgFloatValueOf:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"declareCVarsIn:" : "eem (const to msg rewrite) 11/13/2014 14:07",
 		"dispatchFunctionPointer:" : "eem 1/5/2009 09:27",
 		"displayBitsOf:Left:Top:Right:Bottom:" : "eem (const to msg rewrite) 11/6/2014 11:00",

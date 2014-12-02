@@ -35,6 +35,7 @@
 		"clearLeakMapAndMapAccessibleObjects" : "eem 2/27/2013 15:37",
 		"clone:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"compactClassFieldWidth" : "eem 8/19/2011 10:39",
+		"dbgFloatValueOf:" : "eem 12/1/2014 10:56",
 		"decrementFullGCLock" : "eem 10/5/2009 11:59",
 		"defaultEdenBytes" : "eem (auto pragmas 12/08) 11/24/2008 13:43",
 		"edenBytes" : "eem 6/8/2010 17:12",

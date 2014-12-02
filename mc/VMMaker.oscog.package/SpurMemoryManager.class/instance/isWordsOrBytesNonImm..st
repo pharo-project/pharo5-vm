@@ -1,3 +1,5 @@
 object testing
 isWordsOrBytesNonImm: objOop
-	^(self formatOf: objOop) >= self sixtyFourBitIndexableFormat
+	"Answer if the contains only indexable words or bytes (no oops). See comment in formatOf:"
+	"Note: Excludes CompiledMethods."
+	^self isPureBitsFormat: (self formatOf: objOop)

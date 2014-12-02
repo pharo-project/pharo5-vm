@@ -18,7 +18,7 @@ printOop: oop
 	self print: ': a(n) '.
 	self printNameOfClass: (cls := objectMemory fetchClassOfNonImm: oop) count: 5.
 	cls = (objectMemory splObj: ClassFloat) ifTrue:
-		[^self cr; printFloat: (self dbgFloatValueOf: oop); cr].
+		[^self cr; printFloat: (objectMemory dbgFloatValueOf: oop); cr].
 	fmt := objectMemory formatOf: oop.
 	fmt > objectMemory lastPointerFormat ifTrue:
 		[self print: ' nbytes '; printNum: (objectMemory numBytesOf: oop)].

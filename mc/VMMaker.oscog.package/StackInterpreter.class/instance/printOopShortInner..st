@@ -25,7 +25,7 @@ printOopShortInner: oop
 	(objectMemory isForwarded: oop) ifTrue:
 		[^self print: ' is a forwarder to '; printHex: (objectMemory followForwarded: oop)].
 	(self isFloatObject: oop) ifTrue:
-		[^self printFloat: (self dbgFloatValueOf: oop)].
+		[^self printFloat: (objectMemory dbgFloatValueOf: oop)].
 	classOop := objectMemory fetchClassOfNonImm: oop.
 	(objectMemory addressCouldBeObj: classOop) ifFalse:
 		[^self print: 'a ??'].
