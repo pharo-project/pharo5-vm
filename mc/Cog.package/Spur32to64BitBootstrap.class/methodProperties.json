@@ -2,7 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
-		"alterSystem" : "eem 11/19/2014 12:17",
+		"alterSystem" : "eem 12/1/2014 17:52",
 		"bootstrapImage" : "eem 11/19/2014 11:14",
 		"bootstrapImage:" : "eem 11/17/2014 13:26",
 		"bootstrapImageUsingFileDirectory:" : "eem 11/18/2014 08:40",
@@ -18,9 +18,11 @@
 		"findSymbol:" : "eem 11/19/2014 11:15",
 		"incrementPCField:ofObject:for:" : "eem 11/17/2014 20:15",
 		"initMaps" : "eem 11/19/2014 11:16",
+		"installSmallFloatInClassTable" : "eem 12/1/2014 18:06",
 		"isUnmappedObject:" : "eem 11/18/2014 15:58",
 		"map32BitOop:" : "eem 11/19/2014 09:14",
 		"nilWordSize" : "eem 11/19/2014 11:21",
 		"on:" : "eem 11/17/2014 18:10",
+		"smallFloatClass" : "eem 12/1/2014 18:06",
 		"symbolClass" : "eem 11/19/2014 11:15",
 		"writeSnapshot:headerFlags:screenSize:" : "eem 11/18/2014 08:40" } }
