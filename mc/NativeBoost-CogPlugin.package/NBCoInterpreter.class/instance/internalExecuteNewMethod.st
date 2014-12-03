@@ -7,17 +7,16 @@ internalExecuteNewMethod
 	 | methodHeader |
 	
 	"This tests that the newMethod is a compiled method and not a normal object acting as a method. The latter, since it is not a method, will have not header nor jitted code and cannot therefore be activated"
-	(self isCompiledMethod: newMethod) ifTrue: [
-		"Eagerly compile it if appropriate so that doits are fast."
+	"(self isCompiledMethod: newMethod) ifTrue: [
+		""Eagerly compile it if appropriate so that doits are fast.""
+		""If the method is a compiled method that is cogged we try to run it. The method may be a normal object that is used as a method. It should be handled in the common way""
 		methodHeader := self rawHeaderOf: newMethod.
-
-		"If the method is a compiled method that is cogged we try to run it. The method may be a normal object that is used as a method. It should be handled in the common way"
 		(self isCogMethodReference: methodHeader) ifTrue: [
 			self externalizeIPandSP.
 			self executeCoggedNewMethod: true methodHeader: methodHeader.
-			"we never reach here"
+			""we never reach here""
 			].
-	].
+	]."
 
 	"Here are handled both primitives and object as methods handling.
 	The primitiveFunctionPointer is a pointer to either the function implementing the primitive of the method or the function implementing the runWithIn for objects as methods"
