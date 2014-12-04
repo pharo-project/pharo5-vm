@@ -47,7 +47,7 @@
 		"generateCoerceToBooleanValueFrom:on:" : "eem 12/5/2012 18:42",
 		"generateCoerceToFloatObjectFrom:on:" : "eem 12/5/2012 18:42",
 		"generateCoerceToFloatValueFrom:on:" : "eem 12/5/2012 18:42",
-		"generateCoerceToObjectFromPtr:on:" : "acg 9/20/1999 23:44",
+		"generateCoerceToObjectFromPtr:on:" : "EstebanLorenzano 12/4/2014 15:04",
 		"generateCoerceToPtr:fromObject:on:" : "eem 12/5/2012 18:43",
 		"generateCoerceToSmallIntegerObjectFrom:on:" : "eem 12/5/2012 18:45",
 		"generateCoerceToSmallIntegerValueFrom:on:" : "eem 12/5/2012 18:45",

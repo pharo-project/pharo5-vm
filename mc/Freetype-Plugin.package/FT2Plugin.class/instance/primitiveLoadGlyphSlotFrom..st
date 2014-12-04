@@ -55,7 +55,7 @@ primitiveLoadGlyphSlotFrom: aFace
 				instantiateClass: interpreterProxy classByteArray
 				indexableSize: (self cCode: 'sizeof(FT_Glyph_Format)').
 	self touch: gfOop.
-	btw := self bytesPerWord.
+	btw := 8. "self bytesPerWord"
 	gfPtr := self cCode: '(FT_Glyph_Format *) pointerForOop(gfOop + btw)'.
 	self touch: gfPtr.
 	interpreterProxy failed ifTrue: [^nil].

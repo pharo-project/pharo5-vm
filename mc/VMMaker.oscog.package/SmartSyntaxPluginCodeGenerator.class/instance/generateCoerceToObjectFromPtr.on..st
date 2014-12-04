@@ -4,4 +4,4 @@ generateCoerceToObjectFromPtr: aNode on: aStream
 
 	aStream nextPutAll: '((int) '.
 	self emitCExpression: aNode on: aStream.
-	aStream nextPutAll: ') - 4'
+	aStream nextPutAll: ') - 8'
