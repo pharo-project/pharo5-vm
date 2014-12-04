@@ -255,7 +255,7 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
       evt->charCode = (zDelta > 0) ? 30 : 31;
       evt->pressCode = EventKeyChar;
       evt->modifiers = CtrlKeyBit;
-      evt->utf32Code = 0;
+      evt->utf32Code = evt->charCode;
       evt->reserved1 = 0;
     } else {
       buttonState = 64;
