@@ -55,6 +55,7 @@ initializeCTranslationDictionary
 	#to:do:			#generateToDo:on:indent:
 	#to:by:do:		#generateToByDo:on:indent:
 	#repeat 		#generateRepeat:on:indent:
+	#timesRepeat:	#generateTimesRepeat:on:indent:
 
 	#ifTrue:			#generateIfTrue:on:indent:
 	#ifFalse:		#generateIfFalse:on:indent:

@@ -8,6 +8,9 @@ findSelectorOfMethod: methArg
 		ifFalse: [meth := methArg].
 	 (objectMemory isOopCompiledMethod: meth) ifFalse:
 		[^objectMemory nilObject].
+	NewspeakVM ifTrue:
+		[(self maybeSelectorOfMethod: meth) ifNotNil:
+			[:selector| ^selector]].
 	classObj := self safeMethodClassOf: meth.
 	(self addressCouldBeClassObj: classObj) ifTrue:
 		[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: classObj.

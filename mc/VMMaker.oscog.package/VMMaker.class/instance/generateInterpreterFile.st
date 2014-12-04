@@ -11,6 +11,7 @@ generateInterpreterFile
 					ifFalse: [(ex respondsTo: #rearmHandlerDuring:)
 								ifTrue: [ex rearmHandlerDuring: [ex pass]]
 								ifFalse: [ex pass]]].
+	self reinitializeWordSizeFrom: cg.
 	self needsToRegenerateInterpreterFile ifFalse: [^nil].
 
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.

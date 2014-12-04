@@ -49,9 +49,9 @@ writeImageFileIO
 		ifTrue:
 			[self putLong: objectMemory firstSegmentBytes toFile: f.
 			 self putLong: objectMemory bytesLeftInOldSpace toFile: f.
-			 1 to: 2 do: [:i| self putLong: 0 toFile: f]	"Pad the rest of the header."]
+			 2 timesRepeat: [self putLong: 0 toFile: f]	"Pad the rest of the header."]
 		ifFalse:
-			[1 to: 4 do: [:i| self putLong: 0 toFile: f]].  "Pad the rest of the header."
+			[4 timesRepeat: [self putLong: 0 toFile: f]].  "Pad the rest of the header."
 
 	 objectMemory wordSize = 8 ifTrue:
 		[3 timesRepeat: [self putLong: 0 toFile: f]]. "Pad the rest of the header."
