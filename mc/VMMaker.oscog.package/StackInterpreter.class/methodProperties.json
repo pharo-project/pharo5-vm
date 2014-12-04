@@ -489,6 +489,7 @@
 		"maybeFixClonedCompiledMethod:" : "eem 7/14/2014 18:28",
 		"maybeFlagMethodAsInterpreted:" : "eem 1/30/2011 17:13",
 		"maybeRetryFailureDueToForwarding" : "eem 10/31/2014 09:25",
+		"maybeSelectorOfMethod:" : "eem 12/3/2014 12:22",
 		"maybeTraceStackOverflow" : "eem 11/27/2012 14:53",
 		"metaclassNumSlots" : "eem 8/9/2014 17:49",
 		"methodArg:" : "eem 9/12/2010 06:36",

@@ -167,6 +167,7 @@
 		"generateSmallIntegerConstant:on:indent:" : "eem 11/19/2014 16:22",
 		"generateSmalltalkMetaError:on:indent:" : "eem 2/26/2009 10:18",
 		"generateTimes:on:indent:" : "",
+		"generateTimesRepeat:on:indent:" : "eem 12/2/2014 11:41",
 		"generateToByDo:on:indent:" : "eem 11/10/2014 11:13",
 		"generateToByDoLimitExpression:negative:on:" : "eem 12/5/2013 08:42",
 		"generateToDo:on:indent:" : "eem 12/5/2013 08:43",
