@@ -1,5 +1,9 @@
 message sending
-executeNewMethod
+executeNewMethodWithPrimitive220
+	<doNotGenerate>
+	"ESTEBAN: This is not working fine, so I'm suppresing them. 
+	 So far, is also not used in NB so is not an immediate problem."
+	
 	"Execute newMethod - either primitiveFunctionPointer must be set directly
 	 (i.e. from primitiveExecuteMethod et al), or it would have been set probing
 	 the method cache (i.e. primitivePerform et al).
@@ -9,12 +13,12 @@ executeNewMethod
 	
 	"This tests that the newMethod is a compiled method and not a normal object acting as a method. The latter, since it is not a method, will have not header nor jitted code and cannot therefore be activated"
 	
-	"(self isCompiledMethod: newMethod) ifTrue: [
-		""Eagerly compile it if appropriate so that doits are fast.""
-		methodHeader := self rawHeaderOf: newMethod. ""ESTEBAN: Check below this is duplicated""
+	(self isCompiledMethod: newMethod) ifTrue: [
+		"Eagerly compile it if appropriate so that doits are fast."
+		methodHeader := self rawHeaderOf: newMethod. 
 		(self isCogMethodReference: methodHeader) ifTrue: [
 			self executeCoggedNewMethod: inInterpreter methodHeader: methodHeader.
-			^nil ] ]."
+			^nil ] ].
 
 	"Here are handled both primitives and object as methods handling.
 	The primitiveFunctionPointer is a pointer to either the function implementing the primitive of the method or the function implementing the runWithIn for objects as methods"
@@ -31,7 +35,6 @@ executeNewMethod
 			[self return: self popStack toExecutive: inInterpreter.
 			 ^nil]].
 	
-	methodHeader := self rawHeaderOf: newMethod.
 	(self isCogMethodReference: methodHeader) ifFalse:
 		[(self methodWithHeaderShouldBeCogged: methodHeader)
 			ifTrue:
