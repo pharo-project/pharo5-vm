@@ -135,7 +135,7 @@
 		"reverseBytesInMemory" : "eem 10/9/2013 14:33",
 		"rightType:" : "eem 7/15/2008 16:03",
 		"runLeakCheckerForFullGC:" : "eem 10/11/2013 13:22",
-		"safeObjectAfter:" : "eem 11/10/2014 12:49",
+		"safeObjectAfter:" : "eem 12/4/2014 12:48",
 		"safePrintStringOf:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"scavengeThreshold" : "eem 6/8/2010 17:12",
 		"scheduleIncrementalGC" : "eem 9/14/2013 08:53",

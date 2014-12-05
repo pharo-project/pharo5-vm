@@ -1,9 +1,10 @@
 {
 	"class" : {
 		"exportAPISelectors:" : "eem 7/14/2014 17:22",
+		"objectRepresentationClass" : "eem 10/9/2013 19:46",
 		"simulatorClass" : "eem 10/11/2013 16:22" },
 	"instance" : {
-		"assimilateNewSegment:" : "EstebanLorenzano 11/6/2014 15:46",
+		"assimilateNewSegment:" : "eem 11/19/2013 12:02",
 		"ceClassAtIndex:" : "eem 10/2/2013 09:17",
 		"ceSheduleScavenge" : "eem 5/31/2014 09:57",
 		"checkForLeaks" : "eem 11/17/2013 15:42",
@@ -23,8 +24,8 @@
 		"nullHeaderForMachineCodeMethod" : "eem 11/19/2013 12:31",
 		"remember:" : "eem 7/29/2014 07:35",
 		"scavengeThresholdAddress" : "eem 5/31/2014 09:49",
-		"smallIntegerTag" : "eem 8/7/2014 16:25",
+		"smallIntegerTag" : "eem 12/4/2014 16:18",
 		"startOfMemory" : "eem 12/6/2013 18:50",
-		"unalignedLongAt:" : "eem 5/14/2014 15:03",
-		"unalignedLongAt:put:" : "eem 5/14/2014 15:04",
+		"unalignedLongAt:" : "eem 12/4/2014 16:18",
+		"unalignedLongAt:put:" : "eem 12/4/2014 16:18",
 		"withoutForwardingOn:and:with:sendToCogit:" : "eem 11/18/2013 18:57" } }

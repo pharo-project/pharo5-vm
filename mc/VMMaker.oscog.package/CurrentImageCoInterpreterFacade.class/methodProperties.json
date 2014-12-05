@@ -1,6 +1,6 @@
 {
 	"class" : {
-		"forCogit:" : "eem 1/22/2014 16:00",
+		"forCogit:" : "eem 12/4/2014 16:17",
 		"objectMemoryClass" : "eem 6/1/2014 12:15",
 		"objectRepresentationClass" : "eem 10/9/2013 17:52" },
 	"instance" : {
@@ -15,6 +15,7 @@
 		"byteAt:" : "eem 8/25/2014 15:51",
 		"byteAt:put:" : "eem 8/25/2014 15:51",
 		"byteSizeOf:" : "eem 7/28/2014 07:39",
+		"bytesPerOop" : "eem 12/4/2014 16:22",
 		"cCoerceSimple:to:" : "eem 2/15/2011 10:16",
 		"callForCogCompiledCodeCompaction" : "eem 1/8/2011 13:25",
 		"canContextSwitchIfActivating:header:" : "eem 10/26/2012 16:16",
@@ -48,7 +49,7 @@
 		"inMemoryCStackPointerAddress" : "eem 12/19/2010 14:23",
 		"indexablePointersFormat" : "eem 6/1/2014 12:11",
 		"initialPCForHeader:method:" : "eem 11/14/2012 15:21",
-		"initialize" : "eem 8/28/2014 09:14",
+		"initialize" : "eem 12/4/2014 16:22",
 		"initializeObjectMap" : "eem 8/16/2013 11:10",
 		"instFormatFieldLSB" : "eem 8/22/2011 10:00",
 		"instFormatFieldWidth" : "eem 8/22/2011 10:00",

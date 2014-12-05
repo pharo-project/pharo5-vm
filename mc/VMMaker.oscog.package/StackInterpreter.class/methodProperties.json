@@ -354,7 +354,7 @@
 		"handleForwardedSelectorFaultFor:" : "eem 12/7/2013 11:57",
 		"handleForwardedSendFaultForTag:" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"handleSpecialSelectorSendFaultFor:" : "eem 12/10/2013 17:16",
-		"handleSpecialSelectorSendFaultFor:fp:sp:" : "eem 10/31/2013 07:46",
+		"handleSpecialSelectorSendFaultFor:fp:sp:" : "eem 12/3/2014 15:12",
 		"handleStackOverflow" : "eem 1/22/2014 10:59",
 		"handleStackOverflowOrEventAllowContextSwitch:" : "eem 10/9/2010 17:01",
 		"headerIndicatesAlternateBytecodeSet:" : "eem 10/31/2012 15:49",
