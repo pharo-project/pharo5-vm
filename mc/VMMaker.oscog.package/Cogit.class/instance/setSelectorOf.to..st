@@ -7,7 +7,8 @@ setSelectorOf: cogMethod to: aSelectorOop
 	"self disassembleMethod: cogMethod"
 	coInterpreter
 		compilationBreak: aSelectorOop
-		point: (objectMemory lengthOf: aSelectorOop).
+		point: (objectMemory numBytesOf: aSelectorOop)
+		isMNUCase: false.
 	self assert: cogMethod cmType = CMMethod.
 	cogMethod selector: aSelectorOop.
 	(objectMemory isYoung: aSelectorOop) ifTrue:

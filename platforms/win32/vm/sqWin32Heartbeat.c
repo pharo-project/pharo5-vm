@@ -271,7 +271,7 @@ ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
 int
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
 
-int 
+int
 ioUTCSecondsNow(void) { return ioUTCMicrosecondsNow() / MicrosecondsPerSecond; }
 
 

@@ -1,5 +1,5 @@
 garbage collection
-checkValidInlineCacheTag: cacheTag
+validInlineCacheTag: cacheTag
 	^cacheTag = ConstZero
 	  or: [((cacheTag bitAnd: 1 << objectMemory shiftForWord - 1) = 0
 		   and: [cacheTag

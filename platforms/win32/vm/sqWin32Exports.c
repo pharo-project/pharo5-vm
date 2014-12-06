@@ -49,4 +49,3 @@ void *os_exports[][3] = {
 	XVAR(fUseOpenGL)
 	{NULL,NULL, NULL}
 };
-

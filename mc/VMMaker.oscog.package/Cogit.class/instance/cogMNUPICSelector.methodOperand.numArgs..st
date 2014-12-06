@@ -9,7 +9,8 @@ cogMNUPICSelector: selector methodOperand: methodOperand numArgs: numArgs
 		[^0].
 	coInterpreter
 		compilationBreak: selector
-		point: (objectMemory lengthOf: selector).
+		point: (objectMemory numBytesOf: selector)
+		isMNUCase: true.
 	self assert: endCPICCase0 notNil.
 	startAddress := methodZone allocate: closedPICSize.
 	startAddress = 0 ifTrue:

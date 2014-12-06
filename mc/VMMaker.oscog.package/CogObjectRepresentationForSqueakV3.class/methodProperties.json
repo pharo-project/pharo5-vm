@@ -9,7 +9,6 @@
 		"branchIfInstanceOfBehavior:branches:" : "eem 8/7/2014 06:21",
 		"branchIfInstanceOfBehaviors:branches:" : "eem 8/7/2014 06:22",
 		"cacheTagIsMarked:" : "eem 10/9/2009 03:10",
-		"checkValidInlineCacheTag:" : "eem (const to msg rewrite) 11/13/2014 14:04",
 		"checkValidOopReference:" : "eem 5/9/2014 19:51",
 		"classForInlineCacheTag:" : "eem 7/7/2014 08:43",
 		"compactClassFieldMask" : "eem 8/19/2011 10:34",
@@ -74,4 +73,5 @@
 		"resetCountersIn:" : "eem 7/6/2014 10:32",
 		"shouldAnnotateObjectReference:" : "eem 4/3/2013 15:07",
 		"slotOffsetOfInstVarIndex:" : "eem (const to msg rewrite) 11/6/2014 10:37",
-		"smallIntegerIsOnlyImmediateType" : "eem 10/3/2013 10:17" } }
+		"smallIntegerIsOnlyImmediateType" : "eem 10/3/2013 10:17",
+		"validInlineCacheTag:" : "eem 12/5/2014 18:43" } }

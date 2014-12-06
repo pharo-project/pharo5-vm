@@ -1,5 +1,6 @@
-debugging traps
+debug support
 sendBreak: selectorString point: selectorLength receiver: receiverOrNil
+	<doNotGenerate> "C version is in platforms/Cross/vm/dispdbg.h"
 	"self shortPrintFrameAndCallers: localFP"
 	| i |
 	breakSelectorLength = selectorLength ifTrue:

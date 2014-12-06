@@ -40,7 +40,7 @@
 		"StackPageTraced",
 		"StackPageUnreached",
 		"V3PrimitiveBitsMask" ],
-	"commentStamp" : "eem 9/11/2013 18:30",
+	"commentStamp" : "eem 12/5/2014 11:32",
 	"instvars" : [
 		"currentBytecode",
 		"bytecodeSetSelector",

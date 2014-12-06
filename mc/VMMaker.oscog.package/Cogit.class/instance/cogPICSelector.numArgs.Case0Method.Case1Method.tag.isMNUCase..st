@@ -13,7 +13,8 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		[^self cCoerceSimple: YoungSelectorInPIC to: #'CogMethod *'].
 	coInterpreter
 		compilationBreak: selector
-		point: (objectMemory lengthOf: selector).
+		point: (objectMemory numBytesOf: selector)
+		isMNUCase: isMNUCase.
 	startAddress := methodZone allocate: closedPICSize.
 	startAddress = 0 ifTrue:
 		[^self cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].

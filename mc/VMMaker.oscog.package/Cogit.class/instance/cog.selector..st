@@ -13,7 +13,8 @@ cog: aMethodObj selector: aSelectorOop
 	"coInterpreter stringOf: aSelectorOop"
 	coInterpreter
 		compilationBreak: aSelectorOop
-		point: (objectMemory lengthOf: aSelectorOop).
+		point: (objectMemory lengthOf: aSelectorOop)
+		isMNUCase: false.
 	aMethodObj = breakMethod ifTrue: [self halt: 'Compilation of breakMethod'].
 	self cppIf: NewspeakVM
 		ifTrue: [cogMethod := methodZone findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop.

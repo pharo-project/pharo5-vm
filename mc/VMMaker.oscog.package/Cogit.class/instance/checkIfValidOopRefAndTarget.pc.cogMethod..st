@@ -22,14 +22,14 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 							[(self asserta: (objectRepresentation checkValidOopReference: cacheTag)) ifFalse:
 								[^4]]
 						ifFalse:
-							[(self asserta: (objectRepresentation checkValidInlineCacheTag: cacheTag)) ifFalse:
+							[(self asserta: (objectRepresentation validInlineCacheTag: cacheTag)) ifFalse:
 								[^5]].
 					((objectRepresentation couldBeObject: cacheTag)
 					 and: [objectMemory isReallyYoungObject: cacheTag]) ifTrue:
 						[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmRefersToYoung) ifFalse:
 							[^6]]]
 				ifFalse:
-					[(self asserta: (objectRepresentation checkValidInlineCacheTag: cacheTag)) ifFalse:
+					[(self asserta: (objectRepresentation validInlineCacheTag: cacheTag)) ifFalse:
 						[^7]]].
 		entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		entryPoint > methodZoneBase ifTrue:

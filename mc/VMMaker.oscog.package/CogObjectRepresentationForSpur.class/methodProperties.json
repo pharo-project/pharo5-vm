@@ -6,7 +6,6 @@
 		"allocateNPinnedSlots:" : "eem 7/9/2014 21:23",
 		"cacheTagIsMarked:" : "eem 11/18/2013 13:30",
 		"canPinObjects" : "eem 7/11/2014 10:07",
-		"checkValidInlineCacheTag:" : "eem 10/1/2013 17:44",
 		"checkValidOopReference:" : "eem 5/9/2014 09:59",
 		"classForInlineCacheTag:" : "eem 4/5/2014 09:52",
 		"couldBeObject:" : "eem 12/6/2013 18:41",

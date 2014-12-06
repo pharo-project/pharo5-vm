@@ -4,4 +4,5 @@ generateAllSpurConfigurations
 		generateNewspeakSpurStackVM;
 		generateSqueakSpurCogVM;
 		generateSqueakSpurCogSistaVM;
-		generateSqueakSpurStackVM
+		generateSqueakSpurStackVM;
+		generateSqueakSpurStack64VM

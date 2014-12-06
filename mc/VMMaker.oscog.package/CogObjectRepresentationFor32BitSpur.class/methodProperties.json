@@ -44,4 +44,5 @@
 		"numCharacterBits" : "eem 12/24/2013 18:51",
 		"numCountersFor:" : "eem 7/5/2014 17:54",
 		"numSmallIntegerBits" : "eem 10/2/2013 15:08",
-		"numSmallIntegerTagBits" : "eem 10/4/2013 16:48" } }
+		"numSmallIntegerTagBits" : "eem 10/4/2013 16:48",
+		"validInlineCacheTag:" : "eem 12/5/2014 18:52" } }

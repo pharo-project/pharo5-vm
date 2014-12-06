@@ -2,4 +2,5 @@ configurations
 generateAllStackConfigurationsUnderVersionControl
 	self generateNewspeakSpurStackVM;
 		generateSqueakStackVM;
-		generateSqueakSpurStackVM
+		generateSqueakSpurStackVM;
+		generateSqueakSpurStack64VM

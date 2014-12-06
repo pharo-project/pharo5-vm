@@ -10,7 +10,8 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 	 are effectively garbage collected on return."
 	coInterpreter
 		compilationBreak: cPIC selector
-		point: (objectMemory lengthOf: cPIC selector).
+		point: (objectMemory numBytesOf: cPIC selector)
+		isMNUCase: isMNUCase.
 	self allocateOpcodes: 5 bytecodes: 0.
 	self assert: (objectRepresentation inlineCacheTagIsYoung: caseNTag) not.
 	"Caller patches to open pic if caseNMethod is young."
@@ -19,7 +20,7 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 	 and: [coInterpreter methodHasCogMethod: caseNMethod])
 		ifTrue:
 			[operand := 0.
-			 target :=  (coInterpreter cogMethodOf: caseNMethod) asInteger + cmNoCheckEntryOffset]
+			 target := (coInterpreter cogMethodOf: caseNMethod) asInteger + cmNoCheckEntryOffset]
 		ifFalse:
 			[isMNUCase ifTrue:
 				[cPIC cpicHasMNUCase: true].

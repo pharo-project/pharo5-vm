@@ -1680,6 +1680,14 @@ parseVMArgument(int argc, char *argv[])
 		return 1; }
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
+      else if (!strcmp(argv[0], "--breakmnu")) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[1]);
+		return 2; }
+	else if (!strncmp(argv[0], "--breakmnu:", 10)) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[0] + 10);
+		return 1; }
 	else if (argc > 1 && !strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 

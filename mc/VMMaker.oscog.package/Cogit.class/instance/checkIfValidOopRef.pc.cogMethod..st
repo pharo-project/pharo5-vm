@@ -23,7 +23,7 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 		  and: [offset ~= cmNoCheckEntryOffset
 		  and: [(self cCoerceSimple: entryPoint - offset to: #'CogMethod *') cmType ~= CMOpenPIC]])
 			ifTrue: "linked non-super send, cacheTag is a cacheTag"
-				[(objectRepresentation checkValidInlineCacheTag: selectorOrCacheTag) ifFalse:
+				[(objectRepresentation validInlineCacheTag: selectorOrCacheTag) ifFalse:
 					[coInterpreter print: 'cache tag leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 					^1]]
 			ifFalse: "unlinked send or super send; cacheTag is a selector"

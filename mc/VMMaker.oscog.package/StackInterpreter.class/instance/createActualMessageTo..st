@@ -6,6 +6,7 @@ createActualMessageTo: lookupClass
 	| argumentArray message |
 	<inline: false> "This is a useful break-point"
 	self assert: ((objectMemory isImmediate: messageSelector) or: [objectMemory addressCouldBeObj: messageSelector]).
+	self mnuBreakpoint: messageSelector receiver: nil.
 	objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
 			[argumentArray := objectMemory

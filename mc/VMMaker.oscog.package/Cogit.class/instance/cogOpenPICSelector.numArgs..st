@@ -7,7 +7,8 @@ cogOpenPICSelector: selector numArgs: numArgs
 	| startAddress headerSize codeSize mapSize end |
 	coInterpreter
 		compilationBreak: selector
-		point: (objectMemory lengthOf: selector).
+		point: (objectMemory numBytesOf: selector)
+		isMNUCase: false.
 	startAddress := methodZone allocate: openPICSize.
 	startAddress = 0 ifTrue:
 		[^self cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
