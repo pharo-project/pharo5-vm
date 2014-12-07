@@ -5,8 +5,8 @@ declareCVarsIn: aCCodeGenerator
 	vmClass := aCCodeGenerator vmClass. "Generate primitiveTable etc based on vmClass, not just StackInterpreter"
 	aCCodeGenerator
 		addHeaderFile:'<stddef.h> /* for e.g. alloca */';
-		addHeaderFile:'<wchar.h>';
 		addHeaderFile:'<setjmp.h>';
+		addHeaderFile:'<wchar.h> /* for wint_t */';
 		addHeaderFile:'"vmCallback.h"';
 		addHeaderFile:'"sqMemoryFence.h"';
 		addHeaderFile:'"dispdbg.h"'.
@@ -21,7 +21,7 @@ declareCVarsIn: aCCodeGenerator
 		as: #usqInt
 		in: aCCodeGenerator.
 	"These are all pointers; char * because Slang has no support for C pointer arithmetic."
-	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit stackMemory)
+	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit stackMemory breakSelector)
 		as: #'char *'
 		in: aCCodeGenerator.
 	self declareC: #(stackPage overflowedPage)
@@ -79,10 +79,6 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #interruptCheckChain
 		declareC: 'void (*interruptCheckChain)(void) = 0'.
-	aCCodeGenerator
-		var: #breakSelector type: #'char *';
-		var: #breakSelectorLength
-		declareC: 'sqInt breakSelectorLength = -1'.
 
 	self declareCAsUSqLong: #(nextPollUsecs nextWakeupUsecs longRunningPrimitiveGCUsecs
 								longRunningPrimitiveStartUsecs longRunningPrimitiveStopUsecs
