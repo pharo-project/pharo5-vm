@@ -61,7 +61,7 @@
 		"primitiveCompareBytes" : "eem 11/17/2013 11:24",
 		"primitiveConstantFill" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"primitiveControlVMProfiling" : "eem (objmem refactor) 6/8/2010 17:12",
-		"primitiveCopyObject" : "eem 12/1/2014 14:16",
+		"primitiveCopyObject" : "eem 12/6/2014 12:15",
 		"primitiveCrashVM" : "eem 9/21/2011 14:36",
 		"primitiveDisablePowerManager" : "eem (auto pragmas 12/08) 11/25/2008 12:50",
 		"primitiveDiv" : "tpr 3/15/2004 20:24",

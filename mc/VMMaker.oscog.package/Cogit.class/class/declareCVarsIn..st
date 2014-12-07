@@ -62,8 +62,8 @@ declareCVarsIn: aCCodeGenerator
 		var: #primInvokeLabel type: #'AbstractInstruction *'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
-					stackOverflowCall sendMiss sendMissCall entry noCheckEntry dynSuperEntry
-					mnuCall interpretCall interpretLabel endCPICCase0 endCPICCase1)
+					stackOverflowCall sendMiss entry noCheckEntry dynSuperEntry
+					picMNUAbort picInterpretAbort endCPICCase0 endCPICCase1)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
 	aCCodeGenerator

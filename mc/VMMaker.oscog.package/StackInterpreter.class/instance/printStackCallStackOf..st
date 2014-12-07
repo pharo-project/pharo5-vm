@@ -6,7 +6,7 @@ printStackCallStackOf: frameOrContext
 	(objectMemory addressCouldBeObj: frameOrContext) ifTrue:
 		[((objectMemory isContext: frameOrContext)
 		  and: [self checkIsStillMarriedContext: frameOrContext currentFP: nil]) ifTrue:
-			[^self printStackCallStackOf: (self frameOfMarriedContext: frameOrContext)].
+			[^self printStackCallStackOf: (self frameOfMarriedContext: frameOrContext) asInteger].
 		 ^nil].
 	 
 	theFP := frameOrContext asVoidPointer.

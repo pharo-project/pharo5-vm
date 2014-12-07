@@ -1,11 +1,12 @@
 in-line cacheing
-cogMNUPICSelector: selector methodOperand: methodOperand numArgs: numArgs
+cogMNUPICSelector: selector receiver: rcvr methodOperand: methodOperand numArgs: numArgs
 	<api>
 	"Attempt to create a one-case PIC for an MNU.
 	 The tag for the case is at the send site and so doesn't need to be generated."
 	<returnTypeC: #'CogMethod *'>
 	| startAddress headerSize size end |
-	(objectMemory isYoung: selector) ifTrue:
+	((objectMemory isYoung: selector)
+	 or: [(objectRepresentation inlineCacheTagForInstance: rcvr) = self picAbortDiscriminatorValue]) ifTrue:
 		[^0].
 	coInterpreter
 		compilationBreak: selector
@@ -30,7 +31,7 @@ cogMNUPICSelector: selector methodOperand: methodOperand numArgs: numArgs
 	size := self generateInstructionsAt: startAddress + headerSize.
 	end := self outputInstructionsAt: startAddress + headerSize.
 	"The missOffset is the same as the interpretOffset."
-	self assert: missOffset = (interpretCall address + interpretCall machineCodeSize - startAddress).
+	self assert: missOffset = (picInterpretAbort address + picInterpretAbort machineCodeSize - startAddress).
 	self assert: startAddress + cmEntryOffset = entry address.
 	^self
 		fillInCPICHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')

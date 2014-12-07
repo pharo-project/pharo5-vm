@@ -12,7 +12,7 @@ compileCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag i
 	<var: #targetEntry type: #'void *'>
 	<var: #jumpNext type: #'AbstractInstruction *'>
 	self assert: case1Method notNil.
-	self compilePICProlog: numArgs.
+	self compilePICAbort: numArgs.
 	self assert: (objectRepresentation inlineCacheTagIsYoung: case1Tag) not.
 	(isMNUCase not
 	 and: [coInterpreter methodHasCogMethod: case1Method])
@@ -22,7 +22,7 @@ compileCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag i
 		ifFalse:
 			[self assert: (case1Method isNil or: [(objectMemory isYoungObject: case1Method) not]).
 			 operand := case1Method.
-			 targetEntry := case1Method isNil ifTrue: [mnuCall] ifFalse: [interpretLabel]].
+			 targetEntry := case1Method isNil ifTrue: [picMNUAbort] ifFalse: [picInterpretAbort]].
 
 	jumpNext := self compileCPICEntry.
 	self MoveCw: 0 R: SendNumArgsReg.
@@ -30,7 +30,7 @@ compileCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag i
 	endCPICCase0 := self CmpCw: case1Tag R: TempReg.
 	jumpNext jmpTarget: endCPICCase0.
 	self MoveCw: operand R: SendNumArgsReg.
-	self JumpLongZero: (isMNUCase ifTrue: [mnuCall] ifFalse: [targetEntry]) asInteger.
+	self JumpLongZero: (isMNUCase ifTrue: [picMNUAbort] ifFalse: [targetEntry]) asInteger.
 	endCPICCase1 := self MoveCw: cPIC asInteger R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).
 	^0

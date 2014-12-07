@@ -4,9 +4,11 @@ computeEntryOffsets
 	 need cmNoCheckEntryOffset up front to be able to generate the map starting from cmNoCheckEntryOffset"
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
+	| sendMissCall |
+	<var: 'sendMissCall' type: #'AbstractInstruction *'>
 	self allocateOpcodes: 20 bytecodes: 0.
 	methodOrBlockNumArgs := 0.
-	self compileAbort.
+	sendMissCall := self compileAbort.
 	self compileEntry.
 	self computeMaximumSizes.
 	self generateInstructionsAt: methodZoneBase + (self sizeof: CogMethod).

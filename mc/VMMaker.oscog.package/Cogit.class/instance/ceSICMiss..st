@@ -48,8 +48,9 @@ ceSICMiss: receiver
 	cacheTag := objectRepresentation inlineCacheTagForInstance: receiver.
 	((errorSelectorOrNil notNil and: [errorSelectorOrNil ~= SelectorDoesNotUnderstand])
 	 or: [(objectRepresentation inlineCacheTagIsYoung: cacheTag)
+	 or: [(backEnd inlineCacheTagAt: outerReturn) = self picAbortDiscriminatorValue
 	 or: [newTargetMethodOrNil isNil
-	 or: [objectMemory isYoung: newTargetMethodOrNil]]]) ifTrue:
+	 or: [objectMemory isYoung: newTargetMethodOrNil]]]]) ifTrue:
 		[result := self patchToOpenPICFor: targetMethod selector
 					numArgs: targetMethod cmNumArgs
 					receiver: receiver.

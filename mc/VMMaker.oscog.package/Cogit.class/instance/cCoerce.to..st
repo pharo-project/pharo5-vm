@@ -1,7 +1,8 @@
 simulation only
 cCoerce: value to: cTypeString
-	"Type coercion for translation only; just return the value when running in Smalltalk."
+	"Type coercion. For translation a cast will be emmitted. When running in Smalltalk
+	  answer a suitable wrapper for correct indexing."
 	<doNotGenerate>
-	^value == nil
-		ifTrue: [value]
-		ifFalse: [value coerceTo: cTypeString sim: objectMemory]
+	^value
+		ifNil: [value]
+		ifNotNil: [value coerceTo: cTypeString sim: objectMemory]

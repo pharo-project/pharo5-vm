@@ -17,6 +17,7 @@ ceCPICMiss: cPIC receiver: receiver
 	(objectMemory isOopForwarded: receiver) ifTrue:
 		[^coInterpreter ceSendFromInLineCacheMiss: cPIC].
 	outerReturn := coInterpreter stackTop.
+	self deny: (backEnd inlineCacheTagAt: outerReturn) = self picAbortDiscriminatorValue. 
 	cPIC cPICNumCases < numPICCases
 		ifTrue:
 			[self lookup: cPIC selector

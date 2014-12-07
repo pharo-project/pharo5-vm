@@ -62,7 +62,7 @@
 		"ceNewArraySlotSize:" : "eem 3/4/2014 17:25",
 		"ceNonLocalReturn:" : "eem 2/27/2013 13:50",
 		"ceReturnToInterpreter:" : "eem 10/1/2013 14:36",
-		"ceSend:super:to:numArgs:" : "eem 8/4/2014 12:10",
+		"ceSend:super:to:numArgs:" : "eem 12/6/2014 11:40",
 		"ceSendAbort:to:numArgs:" : "eem 10/1/2013 15:00",
 		"ceSendFromInLineCacheMiss:" : "eem 12/7/2013 14:15",
 		"ceSendMustBeBoolean:" : "eem 3/11/2011 10:47",

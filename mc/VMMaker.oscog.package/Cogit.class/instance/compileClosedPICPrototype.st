@@ -6,7 +6,7 @@ compileClosedPICPrototype
 	| numArgs jumpNext |
 	<var: #jumpNext type: #'AbstractInstruction *'>
 	numArgs := 0.
-	self compilePICProlog: numArgs.
+	self compilePICAbort: numArgs.
 	jumpNext := self compileCPICEntry.
 	self MoveCw: 16r5EAF00D R: SendNumArgsReg.
 	self JumpLong: 16r5EEDCA5E.

@@ -42,7 +42,7 @@
 		"compileCogMethod:" : "eem 11/30/2010 21:19",
 		"compileEntireMethod" : "eem 1/18/2011 10:05",
 		"compileFrameBuild" : "eem 10/30/2013 17:02",
-		"compileOpenPIC:numArgs:" : "eem (const to msg rewrite) 11/13/2014 14:05",
+		"compileOpenPIC:numArgs:" : "eem 12/6/2014 11:10",
 		"debugStackPointerFor:" : "eem 12/11/2010 11:03",
 		"declareCVarsIn:" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"doubleExtendedDoAnythingBytecode" : "eem 7/12/2013 15:31",
