@@ -15,5 +15,5 @@ primitiveAsyncFileWriteStart: fHandle fPosition: fPosition fromBuffer: buffer at
 			startIndex := startIndex - 1 * 4 + 1.
 			bufferSize := bufferSize * 4].
 	interpreterProxy success: (startIndex >= 1 and: [startIndex + count - 1 <= bufferSize]).
-	bufferPtr := (self cCoerce: (interpreterProxy firstIndexableField: buffer) to: 'int') + startIndex - 1.	"adjust for zero-origin indexing"
+	bufferPtr := (self cCoerce: (interpreterProxy firstIndexableField: buffer) to: #sqInt) + startIndex - 1.	"adjust for zero-origin indexing"
 	interpreterProxy failed ifFalse: [self cCode: 'asyncFileWriteStart(f, fPosition, bufferPtr, count)']

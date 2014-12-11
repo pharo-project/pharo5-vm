@@ -15,6 +15,6 @@ primitiveAsyncFileReadResult: fhandle intoBuffer: buffer at: start count: num
 			bufferSize := bufferSize * 4].
 	interpreterProxy success: (startIndex >= 1 and: [startIndex + count - 1 <= bufferSize]).
 
-	bufferPtr := (self cCoerce: (interpreterProxy firstIndexableField: buffer) to: 'int') + startIndex - 1. 	"adjust for zero-origin indexing"
+	bufferPtr := (self cCoerce: (interpreterProxy firstIndexableField: buffer) to:#sqInt) + startIndex - 1. 	"adjust for zero-origin indexing"
 	interpreterProxy failed ifFalse: [r := self cCode: 'asyncFileReadResult(f, bufferPtr, count)'].
 	^ r asOop: SmallInteger

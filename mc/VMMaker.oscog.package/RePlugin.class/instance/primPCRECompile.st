@@ -14,15 +14,14 @@ Compile the regular expression in patternStr, and if the compilation is successf
 	compileFlags := self rcvrCompileFlags.
 	interpreterProxy failed ifTrue:[^ nil].
 
-	pcrePtr := self cCode: '(int) pcre_compile(patternStrPtr, compileFlags, 
-					&errorStrBuffer, &errorOffset, NULL)'.
+	pcrePtr := self cCode: '(sqInt) pcre_compile(patternStrPtr, compileFlags, &errorStrBuffer, &errorOffset, NULL)'.
 	pcrePtr
 		ifTrue: [
 			self allocateByteArrayAndSetRcvrPCREPtrFromPCRE: pcrePtr.
-			extraPtr := self cCode: '(int) pcre_study((pcre *)pcrePtr, compileFlags, &errorStrBuffer)'.
+			extraPtr := self cCode: '(sqInt) pcre_study((pcre *)pcrePtr, compileFlags, &errorStrBuffer)'.
 			self allocateByteArrayAndSetRcvrExtraPtrFrom: extraPtr.
-			self rePluginFree: (self cCoerce: pcrePtr to: 'void *').
-			extraPtr ifTrue: [self rePluginFree: (self cCoerce: extraPtr to: 'void *')].
+			self rePluginFree: pcrePtr asVoidPointer.
+			extraPtr ifTrue: [self rePluginFree: extraPtr asVoidPointer].
 			interpreterProxy failed ifTrue:[^ nil].
 			interpreterProxy pop: 1 thenPush: interpreterProxy nilObject]
 		ifFalse: [
