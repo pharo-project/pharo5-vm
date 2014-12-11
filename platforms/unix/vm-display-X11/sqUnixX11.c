@@ -7067,7 +7067,7 @@ static int display_hostWindowSetPosition(int windowIndex, int x, int y)
 
 static int display_hostWindowSetTitle(int windowIndex, char *newTitle, int sizeOfTitle)
 { 
-  if (windowIndex != 1 && windowIndex != stWindow)
+  if (windowIndex != 1 && windowIndex != stParent && windowIndex != stWindow)
     return -1;
 
   XChangeProperty(stDisplay, stParent,

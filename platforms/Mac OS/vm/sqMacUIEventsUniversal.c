@@ -236,14 +236,14 @@ ignoreLastEvent()
         eventBufferPut = MAX_EVENT_BUFFER -1;
 }
 
-int
-ioSetInputSemaphore(int semaIndex)
+sqInt
+ioSetInputSemaphore(sqInt semaIndex)
 {
 	inputSemaphoreIndex = semaIndex;
 	return 1;
 }
 
-int
+sqInt
 ioGetNextEvent(sqInputEvent *evt)
 {
 	ioProcessEvents();
@@ -269,7 +269,7 @@ ioGetNextEvent(sqInputEvent *evt)
 	return true;
 }
 
-int
+sqInt
 ioGetButtonState(void)
 {
 	ioProcessEvents();
@@ -282,7 +282,7 @@ ioGetButtonState(void)
 	return buttonState;
 }
 
-int
+sqInt
 ioGetKeystroke(void)
 {
 	int keystate;
@@ -299,7 +299,7 @@ ioGetKeystroke(void)
 	return keystate;
 }
 
-int
+sqInt
 ioMousePoint(void)
 {
 	Point p;
@@ -314,7 +314,7 @@ ioMousePoint(void)
 	return (p.h << 16) | (p.v & 0xFFFF);  /* x is high 16 bits; y is low 16 bits */
 }
 
-int
+sqInt
 ioPeekKeystroke(void)
 {
 	int keystate;
@@ -340,40 +340,54 @@ IsKeyDown() { interpreterProxy->success(false); return null; }
 
 extern MenuHandle fileMenu, editMenu;
 
-static EventTypeSpec appEventCmdList[] = {{kEventClassCommand, kEventCommandProcess}};
+static EventTypeSpec appEventCmdList[] = {
+					{kEventClassCommand, kEventCommandProcess}
+};
 
-static EventTypeSpec appEventList[] = {{kEventClassApplication, kEventAppActivated},
-                                {kEventClassApplication, kEventAppDeactivated}};
+static EventTypeSpec appEventList[] = {
+					{kEventClassApplication, kEventAppActivated},
+					{kEventClassApplication, kEventAppDeactivated}
+};
 
-static EventTypeSpec windEventList[] = {{kEventClassWindow, kEventWindowDrawContent },
-                            { kEventClassWindow, kEventWindowHidden },
-                            { kEventClassWindow, kEventWindowActivated},
-							{ kEventClassWindow, kEventWindowBoundsChanged},
-							{ kEventClassWindow, kEventWindowResizeStarted},
-							{ kEventClassWindow, kEventWindowResizeCompleted},
-							{ kEventClassWindow, kEventWindowClose},
-							{ kEventClassWindow, kEventWindowCollapsed},
-                            { kEventClassWindow, kEventWindowDeactivated}};
+static EventTypeSpec windEventList[] = {
+#if !_LP64
+					{ kEventClassWindow, kEventWindowDrawContent },
+#endif
+					{ kEventClassWindow, kEventWindowHidden },
+					{ kEventClassWindow, kEventWindowActivated},
+					{ kEventClassWindow, kEventWindowBoundsChanged},
+					{ kEventClassWindow, kEventWindowResizeStarted},
+					{ kEventClassWindow, kEventWindowResizeCompleted},
+					{ kEventClassWindow, kEventWindowClose},
+					{ kEventClassWindow, kEventWindowCollapsed},
+					{ kEventClassWindow, kEventWindowDeactivated}
+};
 
 static EventTypeSpec windEventMouseList[] = {
-							{ kEventClassMouse, kEventMouseMoved},
-                            { kEventClassMouse, kEventMouseWheelMoved},
-                            { kEventClassMouse, kEventMouseDragged},
-                            { kEventClassMouse, kEventMouseUp},
-							{ kEventClassMouse, kEventMouseDown},
-		                    { kEventClassMouse, kEventMouseEntered },
-		                    { kEventClassMouse, kEventMouseExited }
-							};
+					{ kEventClassMouse, kEventMouseMoved},
+					{ kEventClassMouse, kEventMouseWheelMoved},
+					{ kEventClassMouse, kEventMouseDragged},
+					{ kEventClassMouse, kEventMouseUp},
+					{ kEventClassMouse, kEventMouseDown},
+					{ kEventClassMouse, kEventMouseEntered },
+					{ kEventClassMouse, kEventMouseExited }
+};
 
-static EventTypeSpec windEventKBList[] = {{ kEventClassKeyboard, kEventRawKeyDown},
-                            { kEventClassKeyboard, kEventRawKeyUp},
-							{ kEventClassKeyboard, kEventRawKeyRepeat},
-                            { kEventClassKeyboard, kEventRawKeyModifiersChanged}};
+static EventTypeSpec windEventKBList[] = {
+					{ kEventClassKeyboard, kEventRawKeyDown},
+					{ kEventClassKeyboard, kEventRawKeyUp},
+					{ kEventClassKeyboard, kEventRawKeyRepeat},
+					{ kEventClassKeyboard, kEventRawKeyModifiersChanged}
+};
 
 
-static EventTypeSpec appleEventEventList[] = {{ kEventClassAppleEvent, kEventAppleEvent}};
+static EventTypeSpec appleEventEventList[] = {
+					{ kEventClassAppleEvent, kEventAppleEvent}
+};
 
-static EventTypeSpec textInputEventList[] = {{ kEventClassTextInput, kEventTextInputUnicodeForKeyEvent}};
+static EventTypeSpec textInputEventList[] = {
+					{ kEventClassTextInput, kEventTextInputUnicodeForKeyEvent}
+};
 
 static pascal OSStatus MyAppEventHandler (EventHandlerCallRef myHandlerChain,
                 EventRef event, void* userData);
@@ -413,9 +427,8 @@ SetUpCarbonEvent()
 }
 
 void
-SetUpCarbonEventForWindowIndex(int index)
+SetUpCarbonEventForWindowIndex(sqInt index)
 {
-	extern 	void setWindowTrackingRgn(int index);
 /* Installing the window event handler */
     InstallWindowEventHandler(windowHandleFromIndex(index), NewEventHandlerUPP(MyWindowEventHandler), GetEventTypeCount(windEventList), windEventList, 0, NULL);
     InstallWindowEventHandler(windowHandleFromIndex(index), NewEventHandlerUPP(MyWindowEventMouseHandler), GetEventTypeCount(windEventMouseList), windEventMouseList, 0, NULL);
@@ -601,9 +614,11 @@ MyWindowEventHandler(EventHandlerCallRef myHandler,
 			}
             windowActive = 0;
              break;
+#if !_LP64
        case kEventWindowDrawContent:
             result = noErr;
             break;
+#endif
        case kEventWindowResizeStarted:
 			{
 				windowDescriptorBlock *targetWindowBlock;
@@ -614,7 +629,6 @@ MyWindowEventHandler(EventHandlerCallRef myHandler,
        case kEventWindowResizeCompleted:
             break;
 		case kEventWindowBoundsChanged: {
-			extern void setWindowTrackingRgn(int index);
 			setWindowTrackingRgn(windowIndexFromHandle((wHandleType)window));
 			GetWindowBounds(window,kWindowContentRgn,&globalBounds);
 			recordWindowEventCarbon(WindowEventMetricChange,globalBounds.left, globalBounds.top,
@@ -1008,7 +1022,7 @@ recordMouseEventCarbon(EventRef event,UInt32 whatHappened,Boolean noPointConvers
                                 &wheelMouseDirection);
             GetEventParameter( event,
                                 kEventParamMouseWheelDelta,
-                                typeLongInteger,
+                                typeSInt32,
                                 NULL,
                                 sizeof(long),
                                 NULL,
@@ -1035,7 +1049,7 @@ recordMouseEventCarbon(EventRef event,UInt32 whatHappened,Boolean noPointConvers
                GetEventParameter(
                        event,
                        kEventParamClickCount,
-                       typeLongInteger,
+                       typeSInt32,
                        NULL,
                        sizeof(typeUInt32),
                        NULL,
@@ -1160,7 +1174,7 @@ recordKeyboardEventCarbon(EventRef event)
     /*  kEventTextInputUnicodeForKeyEvent
         Required parameters:
         -->     kEventParamTextInputSendComponentInstance           typeComponentInstance
-        -->     kEventParamTextInputSendRefCon                      typeLongInteger
+        -->     kEventParamTextInputSendRefCon                      typeSInt32
         -->     kEventParamTextInputSendSLRec                       typeIntlWritingCode
         -->     kEventParamTextInputSendText                        typeUnicodeText
         -->     kEventParamTextInputSendKeyboardEvent               typeEventRef
@@ -1410,7 +1424,7 @@ doPendingFlush(void)
 
 }
 
-int
+sqInt
 ioProcessEvents(void)
 {
 	extern sqInt inIOProcessEvents;

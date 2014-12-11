@@ -126,7 +126,7 @@ Boolean			gSqueakWindowIsFloating,gSqueakWindowHasTitle=true,
 				gSqueakVMPathAnswersResources=false;
 long			gSqueakMouseMappings[4][4] = {{0},{0}};
 long			gSqueakBrowserMouseMappings[4][4] = {{0},{0}};
-usqInt          gMaxHeapSize=512*1024*1024;
+usqLong         gMaxHeapSize=512*1024*1024;
 UInt32			gSqueakWindowType=zoomDocProc,gSqueakWindowAttributes=0;
 long			gSqueakUIFlushPrimaryDeferNMilliseconds=20,
 				gSqueakUIFlushSecondaryCleanupDelayMilliseconds=20,
@@ -161,29 +161,37 @@ char *getVersionInfo(int verbose);
 /* Print an error message, possibly a stack trace, do /not/ exit.
  * Allows e.g. writing to a log file and stderr.
  */
+static void *printRegisterState(ucontext_t *uap);
+
 static void
 reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 {
 #if !defined(NOEXECINFO)
-	void *addrs[BACKTRACE_DEPTH];
+	void *addrs[BACKTRACE_DEPTH+1];
 	int depth;
 #endif
 	/* flag prevents recursive error when trying to print a broken stack */
 	static sqInt printingStack = false;
 
 	printf("\n%s%s%s\n\n", msg, date ? " " : "", date ? date : "");
-	printf("%s\n\n", getVersionInfo(1));
+	printf("%s\n%s\n\n", GetAttributeString(0), getVersionInfo(1));
 
 #if !defined(NOEXECINFO)
-	printf("C stack backtrace:\n");
-	fflush(stdout); /* backtrace_symbols_fd uses unbuffered i/o */
-	depth = backtrace(addrs, BACKTRACE_DEPTH);
+	printf("C stack backtrace & registers:\n");
+	if (uap) {
+		addrs[0] = printRegisterState(uap);
+		depth = 1 + backtrace(addrs + 1, BACKTRACE_DEPTH);
+	}
+	else
+		depth = backtrace(addrs, BACKTRACE_DEPTH);
 # if 0 /* Mac OS's backtrace_symbols_fd prints NULL byte droppings each line */
+	fflush(stdout); /* backtrace_symbols_fd uses unbuffered i/o */
 	backtrace_symbols_fd(addrs, depth, fileno(stdout));
 # else
 	{ int i; char **strings;
 	  strings = backtrace_symbols(addrs, depth);
-	  for (i = 0; i < depth; i++)
+	  printf("(%s)\n", strings[0]);
+	  for (i = 1; i < depth; i++)
 		printf("%s\n", strings[i]);
 	}
 # endif
@@ -246,13 +254,44 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 	fflush(stdout);
 }
 
+/* Attempt to dump the registers to stdout.  Only do so if we know how. */
+static void *
+printRegisterState(ucontext_t *uap)
+{
+#if __DARWIN_UNIX03 && __APPLE__ && __MACH__ && __i386__
+	_STRUCT_X86_THREAD_STATE32 *regs = &uap->uc_mcontext->__ss;
+	printf(	"\teax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n"
+			"\tedi 0x%08x esi 0x%08x ebp 0x%08x esp 0x%08x\n"
+			"\teip 0x%08x\n",
+			regs->__eax, regs->__ebx, regs->__ecx, regs->__edx,
+			regs->__edi, regs->__edi, regs->__ebp, regs->__esp,
+			regs->__eip);
+	return regs->__eip;
+#elif __APPLE__ && __MACH__ && __i386__
+	_STRUCT_X86_THREAD_STATE32 *regs = &uap->uc_mcontext->ss;
+	printf(	"\teax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n"
+			"\tedi 0x%08x esi 0x%08x ebp 0x%08x esp 0x%08x\n"
+			"\teip 0x%08x\n",
+			regs->eax, regs->ebx, regs->ecx, regs->edx,
+			regs->edi, regs->edi, regs->ebp, regs->esp,
+			regs->eip);
+	return regs->eip;
+#else
+	printf("don't know how to derive register state from a ucontext_t on this platform\n");
+	return 0;
+#endif
+}
+
 int blockOnError = 0; /* to allow attaching gdb on fatal error */
 
 static void
 block()
 { struct timespec while_away_the_hours;
+  char pwd[PATH_MAX+1];
 
 	printf("blocking e.g. to allow attaching debugger\n");
+	printf("pid: %d pwd: %s vm:%s\n",
+			(int)getpid(), argVec[0], getcwd(pwd,PATH_MAX+1));
 	while (1) {
 		while_away_the_hours.tv_sec = 3600;
 		nanosleep(&while_away_the_hours, 0);
@@ -276,8 +315,10 @@ static char vmLogDirA[PATH_MAX+1];
 static void
 getCrashDumpFilenameInto(char *buf)
 {
-	strcpy(buf,vmLogDirA);
-	vmLogDirA[0] && strcat(buf, "/");
+	if (vmLogDirA[0]) {
+		strcpy(buf,vmLogDirA);
+		strcat(buf, "/");
+	}
 	strcat(buf, "crash.dmp");
 }
 
@@ -449,7 +490,11 @@ main(int argc, char **argv, char **envp)
 		ProcessSerialNumber psn = { 0, kCurrentProcess };
 		ProcessInfoRec info;
 		info.processName = NULL;
+#if _LP64
+		info.processAppRef = NULL;
+#else
 		info.processAppSpec = NULL;
+#endif
 		info.processInfoLength = sizeof(ProcessInfoRec);
 		GetProcessInformation(&psn,&info);
 		if ((info.processMode & modeOnlyBackground) && TransformProcessType != NULL) {
@@ -515,7 +560,19 @@ main(int argc, char **argv, char **envp)
 		f = sqImageFileOpen(getImageName(), "rb");
  	}
 
+#if SPURVM
+  {	off_t here, size;
+
+	here = ftello(f);
+	if (fseek(f, 0, SEEK_END)) perror("fseek");
+	size = ftello(f);
+	if (fseek(f, here, SEEK_SET)) perror("fseek");
+	size = 1 << highBit(size-1);
+	readImageFromFileHeapSizeStartingAt(f, size + size / 4, 0);
+  }
+#else
 	readImageFromFileHeapSizeStartingAt(f, sqGetAvailableMemory(), 0);
+#endif
 	sqImageFileClose(f);
 
 	if (!gSqueakHeadless) {
@@ -541,7 +598,7 @@ main(int argc, char **argv, char **envp)
     return 0;
 }
 
-int ioExit(void) { return ioExitWithErrorCode(0); }
+sqInt ioExit(void) { return ioExitWithErrorCode(0); }
 
 sqInt
 ioExitWithErrorCode(int ec)
@@ -564,14 +621,16 @@ extern sqInt reportStackHeadroom;
 	return ec;
 }
 
-int ioDisablePowerManager(int disableIfNonZero) {
+sqInt
+ioDisablePowerManager(sqInt disableIfNonZero) {
 	#pragma unused(disableIfNonZero)
 	return 0;
 }
 
 /*** I/O Primitives ***/
 
-int ioBeep(void) {
+sqInt
+ioBeep(void) {
 	SysBeep(1000);
 	return 0;
 }
@@ -582,7 +641,8 @@ void SqueakTerminate() {
 	sqMacMemoryFree();
 }
 
-int ioFormPrint(int bitsAddr, int width, int height, int depth, double hScale, double vScale, int landscapeFlag) {
+sqInt
+ioFormPrint(sqInt bitsAddr, sqInt width, sqInt height, sqInt depth, double hScale, double vScale, sqInt landscapeFlag) {
 	/* experimental: print a form with the given bitmap, width, height, and depth at
 	   the given horizontal and vertical scales in the given orientation
            However John Mcintosh has introduced a printjob class and plugin to replace this primitive */
@@ -736,11 +796,11 @@ char * GetAttributeString(int id) {
 	return "";
 }
 
-int attributeSize(int id) {
-	return strlen(GetAttributeString(id));
-}
+sqInt
+attributeSize(sqInt id) { return strlen(GetAttributeString(id)); }
 
-int getAttributeIntoLength(int id, int byteArrayIndex, int length) {
+sqInt
+getAttributeIntoLength(sqInt id, sqInt byteArrayIndex, sqInt length) {
 	char *srcPtr, *dstPtr, *end;
 	int charsToMove;
 
@@ -933,13 +993,8 @@ fetchPreferences() {
 				if (gSqueakBrowserMouseMappings[i][j] < 0 || gSqueakBrowserMouseMappings[i][j] > 3)
 					gSqueakBrowserMouseMappings[i][j] = 0;
 				}
-    if (SqueakMaxHeapSizeType) {
-#if SQ_IMAGE64
+    if (SqueakMaxHeapSizeType)
         CFNumberGetValue(SqueakMaxHeapSizeType,kCFNumberLongLongType,(sqInt *) &gMaxHeapSize);
-#else
-        CFNumberGetValue(SqueakMaxHeapSizeType,kCFNumberLongType,(sqInt *) &gMaxHeapSize);
-#endif
-		}
 
 	if (SqueakUIFlushUseHighPercisionClock)
         gSqueakUIFlushUseHighPercisionClock = CFBooleanGetValue(SqueakUIFlushUseHighPercisionClock);
@@ -960,8 +1015,6 @@ fetchPreferences() {
         gSqueakQuitOnQuitAppleEvent = CFBooleanGetValue(SqueakQuitOnQuitAppleEvent);
     else
         gSqueakQuitOnQuitAppleEvent = false;
-
-
 }
 
 void cocoInterfaceForTilda(CFStringRef aStringRef, char *buffer,int max_size) {
@@ -1003,12 +1056,17 @@ getVersionInfo(int verbose)
   char *info= (char *)malloc(4096);
   info[0]= '\0';
 
+#if SPURVM
+# define ObjectMemory " Spur"
+#else
+# define ObjectMemory
+#endif
 #if defined(NDEBUG)
-# define BuildVariant "Production"
+# define BuildVariant "Production" ObjectMemory
 #elif DEBUGVM
-# define BuildVariant "Debug"
+# define BuildVariant "Debug" ObjectMemory
 # else
-# define BuildVariant "Assert"
+# define BuildVariant "Assert" ObjectMemory
 #endif
 
   if (verbose)

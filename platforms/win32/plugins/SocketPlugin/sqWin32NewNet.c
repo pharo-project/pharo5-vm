@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id$
+*   RCSID:   $Id: sqWin32NewNet.c 2452 2011-07-11 20:51:47Z eliot $
 *
 *   NOTES:
 *	1) TCP & UDP are now fully supported.
@@ -39,7 +39,7 @@ typedef unsigned long ULONG_PTR;
 #endif
 
 #ifndef NO_RCSID
-  static char RCSID[]="$Id$";
+  static char RCSID[]="$Id: sqWin32NewNet.c 2452 2011-07-11 20:51:47Z eliot $";
 #endif
 
 #ifndef NDEBUG

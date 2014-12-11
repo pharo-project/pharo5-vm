@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: Walt Disney Imagineering, Glendale, CA
 *   EMAIL:   Andreas.Raab@disney.com
-*   RCSID:   $Id$
+*   RCSID:   $Id: sqWin32Drop.c 3172 2014-12-11 00:33:15Z eliot $
 *
 *   NOTES:
 *****************************************************************************/
@@ -757,7 +757,7 @@ int dropRequestFileHandle(int dropIndex) {
   fileHandle = instantiateClassindexableSize(classByteArray(), fileRecordSize());
   wasBrowserMode = fBrowserMode;
   fBrowserMode = false;
-  sqFileOpen(fileValueOf(fileHandle),(int)dropName, strlen(dropName), 0);
+  sqFileOpen(fileValueOf(fileHandle),(sqInt)dropName, strlen(dropName), 0);
   fBrowserMode = wasBrowserMode;
   return fileHandle;
 }

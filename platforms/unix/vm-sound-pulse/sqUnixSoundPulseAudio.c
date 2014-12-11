@@ -25,7 +25,7 @@
  *   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  *   DEALINGS IN THE SOFTWARE.
  *
- * Last edited: 2010-04-13 07:45:37 by piumarta on ubuntu
+ * Last edited: 2014-03-07 08:25:10 by piumarta on emilia.local
  */
 
 /* ========== */

@@ -6,7 +6,7 @@
 *   AUTHOR:  
 *   ADDRESS: 
 *   EMAIL:   ]
-*   RCSID:   $Id$
+*   RCSID:   $Id: sqFilePluginBasicPrims.c 3092 2014-10-03 16:44:41Z eliot $
 *
 *   NOTES: See change log below.
 *	2005-03-26 IKP fix unaligned accesses to file[Size] members
@@ -245,11 +245,27 @@ sqInt sqFileOpen(SQFile *f, char* sqFileName, sqInt sqFileNameSize, sqInt writeF
 			   try opening it in write mode to create a new, empty file.
 			*/
 			setFile(f, fopen(cFileName, "w+b"));
+			/* and if w+b fails, try ab to open a write-only file in append mode,
+			   not wb which opens a write-only file but overwrites its contents.
+			 */
+			if (getFile(f) == NULL)
+				setFile(f, fopen(cFileName, "ab"));
 			if (getFile(f) != NULL) {
+			    /* New file created, set Mac file characteristics */
 			    char type[4],creator[4];
 				dir_GetMacFileTypeAndCreator(sqFileName, sqFileNameSize, type, creator);
 				if (strncmp(type,"BINA",4) == 0 || strncmp(type,"????",4) == 0 || *(int *)type == 0 ) 
 				    dir_SetMacFileTypeAndCreator(sqFileName, sqFileNameSize,"TEXT","R*ch");	
+			} else {
+				/* If the file could not be opened read/write and if a new file
+				   could not be created, then it may be that the file exists but
+				   does not permit read access. Try opening as a write only file,
+				   opened for append to preserve existing file contents.
+				*/
+				setFile(f, fopen(cFileName, "ab"));
+				if (getFile(f) == NULL) {
+					return interpreterProxy->success(false);
+				}
 			}
 		}
 		f->writable = true;
@@ -282,20 +298,24 @@ sqInt sqFileOpen(SQFile *f, char* sqFileName, sqInt sqFileNameSize, sqInt writeF
 sqInt
 sqFileStdioHandlesInto(SQFile files[3])
 {
-#if defined(_IONBF) && 0
+	/* streams connected to a terminal are supposed to be line-buffered anyway.
+	 * And for some reason this has no effect on e.g. Mac OS X.  So use
+	 * fgets instead of fread when reading from these streams.
+	 */
+#if defined(_IOLBF) && 0
 	if (isatty(fileno(stdin)))
-# if 0
-		setvbuf(stdin,0,_IONBF,1);
-# else
-		setvbuf(stdin,0,_IOFBF,0);
-# endif
+		setvbuf(stdin,0,_IOLBF,0);
 #endif
 	files[0].sessionID = thisSession;
 	files[0].file = stdin;
 	files[0].fileSize = 0;
 	files[0].writable = false;
 	files[0].lastOp = READ_OP;
+#if 0
 	files[0].isStdioStream = true;
+#else
+	files[0].isStdioStream = isatty(fileno(stdin));
+#endif
 	files[0].lastChar = EOF;
 
 	files[1].sessionID = thisSession;
@@ -331,6 +351,10 @@ size_t sqFileReadIntoAt(SQFile *f, size_t count, char* byteArrayIndex, size_t st
 #if COGMTVM
 	sqInt myThreadIndex;
 #endif
+#if COGMTVM && SPURVM
+	int wasPinned;
+	sqInt bufferOop = (sqInt)byteArrayIndex - BaseHeaderSize;
+#endif
 
 	if (!sqFileValid(f))
 		return interpreterProxy->success(false);
@@ -343,8 +367,15 @@ size_t sqFileReadIntoAt(SQFile *f, size_t count, char* byteArrayIndex, size_t st
 			fseek(file, 0, SEEK_CUR);  /* seek between writing and reading */
 	}
 	dst = byteArrayIndex + startIndex;
-#if COGMTVM
 	if (f->isStdioStream) {
+#if COGMTVM
+# if SPURVM
+		if (!(wasPinned = interpreterProxy->isPinned(bufferOop))) {
+			if (!(bufferOop = interpreterProxy->pinObject(bufferOop)))
+				return 0;
+			dst = bufferOop + BaseHeaderSize + startIndex;
+		}
+# else
 		if (interpreterProxy->isInMemory((sqInt)f)
 		 && interpreterProxy->isYoung((sqInt)f)
 		 || interpreterProxy->isInMemory((sqInt)dst)
@@ -352,17 +383,37 @@ size_t sqFileReadIntoAt(SQFile *f, size_t count, char* byteArrayIndex, size_t st
 			interpreterProxy->primitiveFailFor(PrimErrObjectMayMove);
 			return 0;
 		}
+# endif
 		myThreadIndex = interpreterProxy->disownVM(DisownVMLockOutFullGC);
-	}
-#endif
-	do {
-		clearerr(file);
-		bytesRead = fread(dst, 1, count, file);
-	} while (bytesRead <= 0 && ferror(file) && errno == EINTR);
+#endif /* COGMTVM */
+		/* Line buffering in fread can't be relied upon, at least on Mac OS X
+		 * and mingw win32.  So do it the hard way.
+		 */
+		bytesRead = 0;
+		do {
+			clearerr(file);
+			if (fread(dst, 1, 1, file) == 1) {
+				bytesRead += 1;
+				if (dst[bytesRead-1] == '\n'
+				 || dst[bytesRead-1] == '\r')
+					break;
+			}
+		}
+		while (bytesRead <= 0 && ferror(file) && errno == EINTR);
 #if COGMTVM
-	if (f->isStdioStream)
 		interpreterProxy->ownVM(myThreadIndex);
-#endif
+# if SPURVM
+		if (!wasPinned)
+			interpreterProxy->unpinObject(bufferOop);
+# endif
+#endif /* COGMTVM */
+	}
+	else
+		do {
+			clearerr(file);
+			bytesRead = fread(dst, 1, count, file);
+		}
+		while (bytesRead <= 0 && ferror(file) && errno == EINTR);
 	/* support for skipping back 1 character for stdio streams */
 	if (f->isStdioStream)
 		if (bytesRead > 0)

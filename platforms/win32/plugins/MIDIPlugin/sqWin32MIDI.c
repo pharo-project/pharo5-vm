@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id$
+*   RCSID:   $Id: sqWin32MIDI.c 2610 2012-09-16 01:27:19Z piumarta $
 *
 *   NOTES:
 *     1) For MIDI output the MIDI mapper is reported as first device
@@ -26,7 +26,7 @@
 #endif
 
 #ifndef NO_RCSID
-  static char RCSID[] = "$Id$";
+  static char RCSID[] = "$Id: sqWin32MIDI.c 2610 2012-09-16 01:27:19Z piumarta $";
 #endif
 
 /*** MIDI Parameters (used with sqMIDIParameter function) ***/

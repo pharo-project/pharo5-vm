@@ -112,7 +112,12 @@ void* ioGetWindowHandle(void)
 	return getSTWindow();
 }
 
-sqInt ioSetWindowWidthHeight(sqInt w, sqInt h) {
+sqInt
+ioSetWindowWidthHeight(sqInt w, sqInt h) {
+#if _LP64
+	/* SetWindowBounds is unsupported on 64-bits.  For now bail. */
+	return 0;
+#else
   Rect workArea;
   Rect newBounds;
   Rect oldBounds;
@@ -171,7 +176,12 @@ sqInt ioSetWindowWidthHeight(sqInt w, sqInt h) {
   /** And awayyyyyy we go **/
   giLocker = interpreterProxy->ioLoadFunctionFrom("getUIToLock", "");
   if (giLocker != 0) {
-    sqInt foo[6] = { 3, (int)SetWindowBounds, (int)win, kWindowStructureRgn, (int) (&(newBounds)), 0 };
+    sqInt foo[6] = { 3,
+					(sqInt)SetWindowBounds,
+					(sqInt)win,
+					kWindowStructureRgn,
+					(sqInt) &newBounds,
+					0 };
     ((sqInt (*) (void *)) giLocker)(foo);
     result = interpreterProxy->positive32BitIntegerFor(foo[5]);
   }
@@ -189,6 +199,7 @@ sqInt ioSetWindowWidthHeight(sqInt w, sqInt h) {
   if (result != 0) return 0;	 /* Failed */
 
   return 1;
+#endif /* _LP64 */
 }
 
 
@@ -225,10 +236,11 @@ sqInt ioIsWindowObscured(void) {
   return false;
 }
 
-int makeMainWindow(void);
-static int ioSetFullScreenActual(int fullScreen);
+sqInt makeMainWindow(void);
+static sqInt ioSetFullScreenActual(sqInt fullScreen);
 
-int ioSetFullScreen(int fullScreen) {
+sqInt
+ioSetFullScreen(sqInt fullScreen) {
         void *  giLocker;
 		int return_value=0;
 		if (gSqueakHeadless && !browserActiveAndDrawingContextOk()) return 0;
@@ -245,7 +257,8 @@ int ioSetFullScreen(int fullScreen) {
         return return_value;
 }
 
-static int ioSetFullScreenActual(int fullScreen) {
+static sqInt
+ioSetFullScreenActual(sqInt fullScreen) {
     Rect                screen, workArea;
     int                 width, height, maxWidth, maxHeight;
     int                 oldWidth, oldHeight;
@@ -295,7 +308,11 @@ static int ioSetFullScreenActual(int fullScreen) {
 			ProcessSerialNumber psn = { 0, kCurrentProcess };
 			ProcessInfoRec info;
 			info.processName = NULL;
+#if _LP64
+			info.processAppRef = NULL;
+#else
 			info.processAppSpec = NULL;
+#endif
 			info.processInfoLength = sizeof(ProcessInfoRec);
 			GetProcessInformation(&psn,&info);
 			SetFrontProcess(&psn);
@@ -383,9 +400,9 @@ static void sqShowWindowActual(int windowIndex){
 	}
 }
 
-int ioShowDisplay(
-	sqInt dispBitsIndex, int width, int height, int depth,
-	int affectedL, int affectedR, int affectedT, int affectedB) {
+sqInt
+ioShowDisplay(sqInt dispBitsIndex, sqInt width, sqInt height, sqInt depth,
+		sqInt affectedL, sqInt affectedR, sqInt affectedT, sqInt affectedB) {
 
 	if (gSqueakHeadless && !browserActiveAndDrawingContextOk()) return 1;
 	ioShowDisplayOnWindow( (unsigned char*)  dispBitsIndex,  width,  height,  depth, affectedL,  affectedR,  affectedT,  affectedB, 1);
@@ -409,9 +426,10 @@ static CGDataProviderDirectAccessCallbacks gProviderCallbacks = {
 static void * copy124BitsTheHardWay(unsigned int* dispBitsIndex, int width, int height, int depth, int desiredDepth,
 	int affectedL, int affectedR, int affectedT, int affectedB, int windowIndex, int *pitch);
 
-int ioShowDisplayOnWindow(
-	unsigned char*  dispBitsIndex, int width, int height, int depth,
-	int affectedL, int affectedR, int affectedT, int affectedB, int windowIndex) {
+sqInt
+ioShowDisplayOnWindow(
+	unsigned char*  dispBitsIndex, sqInt width, sqInt height, sqInt depth,
+	sqInt affectedL, sqInt affectedR, sqInt affectedT, sqInt affectedB, sqInt windowIndex) {
 
 	static CGColorSpaceRef colorspace = NULL;
 	extern CGContextRef SharedBrowserBitMapContextRef;
@@ -576,8 +594,13 @@ int ioShowDisplayOnWindow(
 }
 
 
-static void * copy124BitsTheHardWay(unsigned int* dispBitsIndex, int width, int height, int depth, int desiredDepth,
-	int affectedL, int affectedR, int affectedT, int affectedB, int windowIndex, int *pitch) {
+static void *
+copy124BitsTheHardWay(unsigned int* dispBitsIndex, int width, int height, int depth, int desiredDepth,
+	int affectedL, int affectedR, int affectedT, int affectedB, int windowIndex, int *pitch)
+{
+#if _LP64
+	error("copy124BitsTheHardWay unimplemented because GetGWorldPixMap is unavailable");
+#else
 
 	static GWorldPtr offscreenGWorld = nil;
 	QDErr error;
@@ -624,9 +647,12 @@ static void * copy124BitsTheHardWay(unsigned int* dispBitsIndex, int width, int 
 
 	/* create a mask region so that only the affected rectangle is copied */
 	SetRectRgn(maskRect, affectedL, affectedT, affectedR, affectedB);
-	CopyBits((BitMap *) *stPixMap,(BitMap *)*GetGWorldPixMap(offscreenGWorld), &srcRect, &dstRect, srcCopy, maskRect);
+	CopyBits((BitMap *) *stPixMap,
+			 (BitMap *)*GetGWorldPixMap(offscreenGWorld),
+			 &srcRect, &dstRect, srcCopy, maskRect);
 	*pitch = GetPixRowBytes(GetGWorldPixMap(offscreenGWorld));
 	return GetPixBaseAddr(GetGWorldPixMap(offscreenGWorld));
+#endif /* _LP64 */
 }
 
 void SetUpPixmap(void) {
@@ -757,7 +783,7 @@ displayReconfigurationCallback(	CGDirectDisplayID display,
 	postFullScreenUpdate();
 }
 
-int
+sqInt
 makeMainWindow(void) {
 	WindowPtr window;
 	char	shortImageName[256];
@@ -830,12 +856,10 @@ void SetWindowTitle(int windowIndex,char *title) {
 	CFRelease(tempTitle);
 }
 
-int ioForceDisplayUpdate(void) {
-	/* do nothing on a Mac */
-	return 0;
-}
+sqInt ioForceDisplayUpdate(void) { /* do nothing on a Mac */ return 0; }
 
-int ioHasDisplayDepth(int depth) {
+sqInt
+ioHasDisplayDepth(sqInt depth) {
 	/* Return true if this platform supports the given color display depth. */
 
 	switch (depth) {
@@ -850,7 +874,8 @@ int ioHasDisplayDepth(int depth) {
 	return false;
 }
 
-int ioScreenDepth(void) {
+sqInt
+ioScreenDepth(void) {
     GDHandle mainDevice;
 
 	if (gSqueakHeadless && !browserActiveAndDrawingContextOk()) return 32;
@@ -861,7 +886,8 @@ int ioScreenDepth(void) {
     return (*(*mainDevice)->gdPMap)->pixelSize;
 }
 
-int ioScreenSize(void) {
+sqInt
+ioScreenSize(void) {
 	int w, h;
     Rect portRect;
     extern Boolean gSqueakExplicitWindowOpenNeeded;
@@ -888,7 +914,8 @@ int ioScreenSize(void) {
 	return (w << 16) | (h & 0xFFFF);  /* w is high 16 bits; h is low 16 bits */
 }
 
-int ioSetCursor(sqInt cursorBitsIndex, int offsetX, int offsetY) {
+sqInt
+ioSetCursor(sqInt cursorBitsIndex, sqInt offsetX, sqInt offsetY) {
 	/* Old version; forward to new version. */
 	ioSetCursorWithMask(cursorBitsIndex, nil, offsetX, offsetY);
 	return 0;
@@ -896,7 +923,8 @@ int ioSetCursor(sqInt cursorBitsIndex, int offsetX, int offsetY) {
 
 Cursor macCursor;
 
-int ioSetCursorWithMask(sqInt cursorBitsIndex, sqInt cursorMaskIndex, int offsetX, int offsetY) {
+sqInt
+ioSetCursorWithMask(sqInt cursorBitsIndex, sqInt cursorMaskIndex, sqInt offsetX, sqInt offsetY) {
 	/* Set the 16x16 cursor bitmap. If cursorMaskIndex is nil, then make the mask the same as
 	   the cursor bitmap. If not, then mask and cursor bits combined determine how cursor is
 	   displayed:
@@ -1212,10 +1240,11 @@ Boolean FindBestMatch (VideoRequestRecPtr requestRecPtr, short bitDepth, unsigne
 			}
 		}
 	}
-	return (false);
+	return false;
 }
 
-int ioSetDisplayMode(int width, int height, int depth, int fullscreenFlag) {
+sqInt
+ioSetDisplayMode(sqInt width, sqInt height, sqInt depth, sqInt fullscreenFlag) {
 	/* Set the window to the given width, height, and color depth. Put the window
 	   into the full screen mode specified by fullscreenFlag. */
 
@@ -1227,14 +1256,12 @@ int ioSetDisplayMode(int width, int height, int depth, int fullscreenFlag) {
 
 	if (gSqueakHeadless && !browserActiveAndDrawingContextOk()) return 0;
 
-	if (QDGetCGDirectDisplayID == NULL)
-		return ioSetDisplayMode( width,  height,  depth,  fullscreenFlag);
-
+#if !_LP64
 	dominantGDevice = getThatDominateGDevice(getSTWindow());
-       if (dominantGDevice == null) {
-            success(false);
-            return 0;
-        }
+    if (dominantGDevice == null) {
+		success(false);
+		return 0;
+	}
 
 
 	mainDominateWindow = QDGetCGDirectDisplayID(dominantGDevice);
@@ -1244,6 +1271,7 @@ int ioSetDisplayMode(int width, int height, int depth, int fullscreenFlag) {
 	if ( err != CGDisplayNoErr ) {
 		return 0;
 	}
+#endif /* !_LP64 */
 
 	ioSetFullScreen(fullscreenFlag);
 

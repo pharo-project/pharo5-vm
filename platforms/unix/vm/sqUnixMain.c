@@ -912,7 +912,8 @@ block()
   char pwd[MAXPATHLEN+1];
 
 	printf("blocking e.g. to allow attaching debugger\n");
-	printf("pid: %d pwd: %s vm:%s\n", (int)getpid(), argVec[0], getwd(pwd));
+	printf("pid: %d pwd: %s vm:%s\n",
+			(int)getpid(), argVec[0], getcwd(pwd,MAXPATHLEN+1));
 	while (1) {
 		while_away_the_hours.tv_sec = 3600;
 		nanosleep(&while_away_the_hours, 0);
@@ -1961,7 +1962,7 @@ main(int argc, char **argv, char **envp)
   return 0;
 }
 
-int ioExit(void) { return ioExitWithErrorCode(0); }
+sqInt ioExit(void) { return ioExitWithErrorCode(0); }
 
 sqInt
 ioExitWithErrorCode(int ec)

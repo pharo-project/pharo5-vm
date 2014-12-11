@@ -309,8 +309,14 @@ pcbufferSIGPROFhandler(int sig, siginfo_t *info, ucontext_t *uap)
 	pctype pc = uap->uc_mcontext->ss.eip;
 #elif __APPLE__ && __MACH__ && __ppc__
 	pctype pc = uap->uc_mcontext->ss.srr0;
+#elif __DARWIN_UNIX03 && __APPLE__ && __MACH__ && __x86_64__
+	pctype pc = uap->uc_mcontext->__ss.__rip;
+#elif __APPLE__ && __MACH__ && __x86_64__
+	pctype pc = uap->uc_mcontext->ss.rip;
 #elif __linux__ && __i386__
 	pctype pc = uap->uc_mcontext.gregs[REG_EIP];
+#elif __linux__ && __x86_64__
+	pctype pc = uap->uc_mcontext.gregs[REG_RIP];
 #elif __linux__ && __arm__
 	pctype pc = uap->uc_mcontext.arm_pc;
 #elif __FreeBSD__ && __i386__

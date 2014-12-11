@@ -6,7 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: Walt Disney Imagineering, Glendale, CA
 *   EMAIL:   andreasr@wdi.disney.com
-*   RCSID:   $Id: b3dInit.c,v 1.1 2001/10/24 23:12:23 rowledge Exp $
+*   RCSID:   $Id: b3dInit.c 3004 2014-06-16 20:38:32Z eliot $
 *
 *   NOTES:
 *
