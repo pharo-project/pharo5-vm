@@ -46,6 +46,10 @@
 # undef ioMSecs
 #endif
 
+#ifdef ANDROID
+#include "androidUContext.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -85,6 +89,7 @@
 #define DefaultHeapSize		  20	     	/* megabytes BEYOND actual image size */
 #define DefaultMmapSize		1024     	/* megabytes of virtual memory */
 
+static int returnValue = 0;				/* return value of the VM required to clean the code from android */
        char  *documentName= 0;			/* name if launced from document */
        char   shortImageName[MAXPATHLEN+1];	/* image name */
        char   imageName[MAXPATHLEN+1];		/* full path to image */
@@ -303,7 +308,7 @@ static void pathCopyAbs(char *target, const char *src, size_t targetSize)
 static void
 recordPathsForVMName(const char *localVmName)
 {
-#if defined(__linux__)
+#if defined(__linux__) & !defined(ANDROID)
   char	 name[MAXPATHLEN+1];
   int    len;
 #endif
@@ -312,7 +317,7 @@ recordPathsForVMName(const char *localVmName)
 				? strrchr(localVmName,'/') + 1
 				: (char *)localVmName;
 
-#if defined(__linux__)
+#if defined(__linux__) & !defined(ANDROID)
   if ((len= readlink("/proc/self/exe", name, sizeof(name))) > 0)
     {
       struct stat st;
@@ -1033,6 +1038,7 @@ static struct moduleDescription moduleDescriptions[]=
   { &soundModule,   "sound",   "Sun"    },
   { &soundModule,   "sound",   "pulse"  },
   { &soundModule,   "sound",   "ALSA"   },
+  { &displayModule, "display", "android"   },
   { &soundModule,   "sound",   "null"   },
   { 0,              0,         0	}
 };
@@ -1922,18 +1928,24 @@ main(int argc, char **argv, char **envp)
   signal(SIGQUIT, sigquit);
 #endif
 
-  /* run Squeak */
-  if (runInterpreter) {
-	printPhaseTime(2);
-    interpret();
-  }
+    
+#ifdef ANDROID
+    returnValue = runVM();
+#else
+    /* run Squeak */
+    if (runInterpreter) {
+        printPhaseTime(2);
+        interpret();
+    }
+#endif
+    
 
   /* we need these, even if not referenced from main executable */
   (void)sq2uxPath;
   (void)ux2sqPath;
   sqDebugAnchor();
   
-  return 0;
+  return returnValue;
 }
 
 int ioExit(void) { return ioExitWithErrorCode(0); }

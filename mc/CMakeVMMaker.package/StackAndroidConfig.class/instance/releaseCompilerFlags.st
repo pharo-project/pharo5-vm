@@ -3,7 +3,7 @@ releaseCompilerFlags
 	^#(
 	'-DNOEXECINFO'
 	'-DANDROID'
-	'-DLSB_FIRST=0'
+	'-DLSB_FIRST=1'
 	'-DAVOID_OPENGL_H'
 	'-DSTACKVM'
 	'-DNO_VM_PROFILE'
