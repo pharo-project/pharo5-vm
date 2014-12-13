@@ -11,5 +11,6 @@ translateInDirectory: directory doInlining: inlineFlag
 	self initialize.
 	cg := self buildCodeGeneratorUpTo: InterpreterPlugin.
 	cg addMethodsForPrimitives: self translatedPrimitives.
+	self pruneUnusedInterpreterPluginMethodsIn: cg.
 	self storeString: cg generateCodeStringForPrimitives onFileNamed: (directory fullNameFor: fname).
 	^cg exportedPrimitiveNames asArray

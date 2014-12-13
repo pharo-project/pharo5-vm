@@ -8,11 +8,12 @@ translateInDirectory: directory doInlining: inlineFlag
 	fstat := directory entryAt: fname ifAbsent:[nil].
 	fstat ifNotNil:
 		[((self pluginClassesUpTo: self) allSatisfy:
-				[:aPluginClass| aPluginClass timeStamp < fstat modificationTime asSeconds]) ifTrue:
+				[:aPluginClass| aPluginClass timeStamp < fstat modificationTime asSeconds ]) ifTrue:
 			[^nil]].
 
 	self initialize.
 	cg := self buildCodeGeneratorUpTo: self.
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.
+	self pruneUnusedInterpreterPluginMethodsIn: cg.
 	cg storeCodeOnFile:  (directory fullNameFor: fname) doInlining: inlineFlag.
 	^cg exportedPrimitiveNames asArray

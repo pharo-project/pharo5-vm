@@ -24,4 +24,4 @@ primInLibraryFindSymbol
 	(interpreterProxy failed
 	 or: [address = 0]) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
-	interpreterProxy methodReturnValue: (interpreterProxy positive32BitIntegerFor: address asUnsignedInteger)
+	interpreterProxy methodReturnValue: (self positiveMachineIntegerFor: address asUnsignedInteger)

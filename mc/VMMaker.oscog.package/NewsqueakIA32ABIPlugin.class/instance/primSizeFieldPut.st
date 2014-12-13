@@ -8,7 +8,7 @@ primSizeFieldPut
 
 	valueOop := interpreterProxy stackValue: 0.
 	rcvr := interpreterProxy stackValue: 1.
-	value := interpreterProxy signed32BitValueOf: valueOop.
+	value := interpreterProxy signedMachineIntegerValueOf: valueOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 	(interpreterProxy isOopImmutable: rcvr) ifTrue:

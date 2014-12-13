@@ -1,6 +1,6 @@
 primitives-accessing
 primSizeField
-	"Answer the signed 32-bit integer comprising the size field (the first 32-bit field)."
+	"Answer the signed 32- or 64-bit integer comprising the size field (the first 32- or 64-bit field)."
 	"<Alien> primSizeField ^<Integer>
 		<primitive: 'primSizeField' error: errorCode module: 'IA32ABI'>"
 	| rcvr value valueOop |
@@ -8,5 +8,5 @@ primSizeField
 
 	rcvr := interpreterProxy stackValue: 0.
 	value := (self longAt: rcvr + interpreterProxy baseHeaderSize) signedIntFromLong.
-	valueOop := interpreterProxy signed32BitIntegerFor: value.
+	valueOop := self signedMachineIntegerFor: value.
 	^interpreterProxy methodReturnValue: valueOop

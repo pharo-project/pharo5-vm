@@ -17,6 +17,7 @@
 		"newFor:" : "eem 10/1/2010 20:35",
 		"pluginClassesUpTo:" : "eem 3/19/2013 10:04",
 		"preambleCCode" : "eem 11/4/2009 15:30",
+		"pruneUnusedInterpreterPluginMethodsIn:" : "eem 12/12/2014 16:46",
 		"requiresCrossPlatformFiles" : "tpr 7/2/2001 16:33",
 		"requiresPlatformFiles" : "tpr 11/21/2000 11:53",
 		"shouldBeTranslated" : "EstebanLorenzano 11/18/2014 17:13",
@@ -24,7 +25,7 @@
 		"shouldGenerateDeadCode" : "eem 11/22/2013 15:59",
 		"simulatorClass" : "ajh 8/21/2002 21:43",
 		"storeString:onFileNamed:" : "eem 5/17/2011 12:20",
-		"translateInDirectory:doInlining:" : "EstebanLorenzano 10/20/2014 11:23" },
+		"translateInDirectory:doInlining:" : "EstebanLorenzano 12/13/2014 09:47" },
 	"instance" : {
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",
 		"getInterpreter" : "ikp (auto pragmas 12/08) 8/3/2004 19:18",
@@ -35,5 +36,7 @@
 		"majorVersion" : "eem 12/7/2012 14:39",
 		"minorVersion" : "eem 12/7/2012 14:40",
 		"msg:" : "jcg (auto pragmas 12/08) 6/30/2008 17:36",
+		"positiveMachineIntegerFor:" : "eem 12/12/2014 12:32",
 		"setInterpreter:" : "eem 12/6/2012 13:12",
+		"signedMachineIntegerFor:" : "eem 12/12/2014 15:34",
 		"sizeof:" : "eem 12/1/2014 09:55" } }
