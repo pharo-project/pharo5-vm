@@ -2,13 +2,12 @@
 	"class" : {
 		"declareCVarsIn:" : "dtl 4/29/2006 10:48",
 		"isSuitablePluginForPlatform:" : "dtl 7/26/2010 22:51",
-		"requiredMethodNames" : "dtl 8/21/2011 22:14",
 		"shouldBeTranslated" : "dtl 7/26/2010 22:51" },
 	"instance" : {
 		"aioForward:withData:andFlags:" : "dtl (auto pragmas dtl 2010-11-28) 9/13/2005 22:03",
 		"primitiveAioDisable" : "dtl (auto pragmas dtl 2010-11-28) 12/19/2007 18:54",
 		"primitiveAioEnable" : "dtl (auto pragmas dtl 2010-11-28) 12/19/2007 18:56",
-		"primitiveAioHandle" : "dtl (auto pragmas dtl 2010-11-28) 12/19/2007 18:57",
+		"primitiveAioHandle" : "eem 12/12/2014 16:55",
 		"primitiveAioSuspend" : "dtl (auto pragmas dtl 2010-11-28) 12/19/2007 18:57",
 		"primitiveOSFileHandle" : "dtl (auto pragmas dtl 2010-11-28) 7/4/2003 19:18",
 		"primitiveOSSocketHandle" : "dtl (auto pragmas dtl 2010-11-28) 7/4/2003 19:18" } }
