@@ -9,7 +9,10 @@ nilOrBooleanConstantReceiverOf: aNode
 	 and: [#(true false) includes: val]) ifTrue:
 		[^val].
 	aNode isSend ifTrue:
-		[((#(or: and:) includes: aNode selector)
+		[aNode selector == #not ifTrue:
+			[(self nilOrBooleanConstantReceiverOf: aNode receiver) ifNotNil:
+				[:bool| ^bool not]].
+		 ((#(or: and:) includes: aNode selector)
 		 and: [aNode args last isStmtList
 		 and: [aNode args last statements size = 1]]) ifTrue:
 			[(self nilOrBooleanConstantReceiverOf: aNode receiver) ifNotNil:

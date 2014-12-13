@@ -1,4 +1,4 @@
-C translation
+C translation support
 initializeCTranslationDictionary 
 	"Initialize the dictionary mapping message names to actions for C code generation."
 

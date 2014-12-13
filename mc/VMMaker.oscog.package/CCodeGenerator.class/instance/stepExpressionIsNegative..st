@@ -1,4 +1,4 @@
-C translation
+C translation support
 stepExpressionIsNegative: aNode
 	"Answer if the step expression (the by: argument in a to:by:do:) is negative."
 	self isConstantNode: aNode valueInto: [:stepValue| ^stepValue < 0].

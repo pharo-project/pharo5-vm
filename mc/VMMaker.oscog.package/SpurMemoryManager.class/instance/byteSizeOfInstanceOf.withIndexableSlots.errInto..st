@@ -22,6 +22,6 @@ byteSizeOfInstanceOf: classObj withIndexableSlots: nElements errInto: errorBlock
 		[self firstCompiledMethodFormat]	-> "Assume nElements is derived from CompiledMethod>>basicSize."
 			[numSlots := nElements + (self bytesPerOop - 1) // self bytesPerOop] }
 		otherwise: [^errorBlock value: PrimErrBadReceiver negated]. "non-indexable"
-	numSlots >= (1 << (self bytesPerOop * 8 - self logBytesPerOop)) ifTrue:
-		[^errorBlock value: PrimErrLimitExceeded].
+	numSlots >= (1 asLong << (self bytesPerOop * 8 - self logBytesPerOop)) ifTrue:
+		[^errorBlock value: (nElements < 0 ifTrue: [PrimErrBadArgument] ifFalse: [PrimErrLimitExceeded])].
 	^self objectBytesForSlots: numSlots

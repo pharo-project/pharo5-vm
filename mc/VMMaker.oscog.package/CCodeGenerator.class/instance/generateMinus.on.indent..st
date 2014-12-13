@@ -2,6 +2,7 @@ C translation
 generateMinus: msgNode on: aStream indent: level
 	"Generate the C code for this message onto the given stream."
 
-	self emitCExpression: msgNode receiver on: aStream.
-	aStream nextPutAll: ' - '.
-	self emitCExpression: msgNode args first on: aStream.
+	(self generateAsConstantExpression: msgNode on: aStream) ifFalse:
+		[self emitCExpression: msgNode receiver on: aStream.
+		 aStream nextPutAll: ' - '.
+		 self emitCExpression: msgNode args first on: aStream]
