@@ -1,5 +1,6 @@
 iteration callbacks
 reap: info module: size names: ignored
+	<returnTypeC: #int>
 	| elfModuleName len moduleNameObj GetAttributeString |
 	<var: #info type: #'struct dl_phdr_info *'>
 	<var: 'elfModuleName' type: #'const char *'>

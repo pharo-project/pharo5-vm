@@ -1,6 +1,7 @@
 iteration callbacks
 reap: info module: size symlinks: ignored
 	"like reap:module:names:, but follows symlinks"
+	<returnTypeC: #int>
 	| elfModuleName len moduleNameObj GetAttributeString symLinkBuf |
 	<var: #info type: #'struct dl_phdr_info *'>
 	<var: 'elfModuleName' type: #'const char *'>
