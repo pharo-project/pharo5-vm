@@ -176,6 +176,15 @@ void HideSplashScreen(void);
 sqInputEvent *sqNextEventPut(void);
 int sqLaunchDrop(void);
 
+/**
+ * HACK: Hook for SDL2.
+ */
+static void (*ioCheckForEventsHooks)(void);
+
+EXPORT(void) setIoProcessEventsHandler(void * handler) {
+    ioCheckForEventsHooks = (void (*)())handler;
+}
+
 /****************************************************************************/
 /*                      Synchronization functions                           */
 /****************************************************************************/
@@ -1573,6 +1582,10 @@ ioProcessEvents(void)
 # endif
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+        /* HACK: for SDL2.*/
+        if(ioCheckForEventsHooks)
+            ioCheckForEventsHooks();
     }
 
 # ifndef NO_DIRECTINPUT
