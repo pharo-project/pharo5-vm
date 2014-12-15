@@ -1,3 +1,3 @@
 accessing
 internalPlugins
-	self required.
+	self required

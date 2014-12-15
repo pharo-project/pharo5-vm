@@ -5,7 +5,7 @@ buildMacOSX32
 	
 	PharoOSXConfig new  
 		"generateForDebug;"
-		addExternalPlugins: #( FT2Plugin );
+		addExternalPlugins: #( FT2Plugin SDL2DisplayPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		addThirdpartyLibraries: #(
 			'cairo' 

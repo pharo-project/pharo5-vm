@@ -4,7 +4,7 @@ buildUnix32
 	
 	PharoUnixConfig new
 		"generateForDebug;"
-		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
+		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin SDL2DisplayPlugin );
 		addThirdpartyLibraries: #( 
 			'libssh2' 
 			'libgit2'
