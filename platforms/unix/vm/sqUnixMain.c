@@ -152,7 +152,7 @@ extern void dumpPrimTraceLog(void);
 extern void printPhaseTime(int);
 char *getVersionInfo(int verbose);
 
-sqInt ioProcessEventsDefault(void);
+void ioProcessEventsDefault(void);
 
 void (*ioProcessEventsHandler) (void) = ioProcessEventsDefault;
 
