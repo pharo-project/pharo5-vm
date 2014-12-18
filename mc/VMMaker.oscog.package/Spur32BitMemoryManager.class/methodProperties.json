@@ -20,7 +20,7 @@
 		"coalesce:and:" : "eem 11/26/2014 15:55",
 		"dbgFloatValueOf:" : "eem 12/1/2014 10:56",
 		"fetchClassTagOf:" : "eem 9/11/2013 18:47",
-		"fetchLong32:ofFloatObject:" : "eem 12/15/2014 13:23",
+		"fetchLong32:ofFloatObject:" : "eem 12/17/2014 14:14",
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
 		"floatObjectOf:" : "eem 11/21/2014 16:23",
 		"floatValueOf:" : "eem 11/21/2014 17:18",
