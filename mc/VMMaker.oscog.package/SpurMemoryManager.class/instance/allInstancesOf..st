@@ -45,7 +45,7 @@ allInstancesOf: aClass
 	start := self startOfObject: freeChunk.
 	self freeChunkWithBytes: limit - start - bytes at: start + bytes.
 	totalFreeOldSpace := totalFreeOldSpace - bytes.
-	self setOverflowNumSlotsOf: freeChunk to: count.
+	self rawOverflowSlotsOf: freeChunk put: count.
 	self set: freeChunk classIndexTo: ClassArrayCompactIndex formatTo: self arrayFormat.
 	self possibleRootStoreInto: freeChunk.
 	self checkFreeSpace.

@@ -2,6 +2,6 @@
 	"class" : {
 		 },
 	"instance" : {
-		"testImmediateFloats" : "eem 12/1/2014 16:08",
+		"testImmediateFloats" : "eem 12/15/2014 15:44",
 		"testPointerTaggingDetagging" : "eem 6/25/2011 14:02",
 		"testUnalignedMemoryAccess" : "eem 6/25/2011 14:28" } }

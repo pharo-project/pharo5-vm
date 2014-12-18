@@ -126,6 +126,7 @@
 		"fetchByte:ofObject:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"fetchClassOf:" : "eem 11/10/2014 12:49",
 		"fetchClassOfNonImm:" : "eem 11/10/2014 12:49",
+		"fetchLong32:ofFloatObject:" : "eem 12/15/2014 13:23",
 		"fetchLong32:ofObject:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"fetchLong64:ofObject:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"fetchPointer:ofObject:" : "eem (const to msg rewrite) 11/13/2014 14:06",

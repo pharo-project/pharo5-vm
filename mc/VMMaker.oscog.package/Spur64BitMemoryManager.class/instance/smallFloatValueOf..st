@@ -9,7 +9,6 @@ smallFloatValueOf: oop
 	 rot sign:				[1s][     11 exponent     ][52mantissa]"
 	| rot |
 	<returnTypeC: #double>
-	<var: #result type: #double>
 	self assert: (oop bitAnd: self tagMask) = self smallFloatTag.
 	rot := oop >> self numTagBits.
 	rot > 1 ifTrue:

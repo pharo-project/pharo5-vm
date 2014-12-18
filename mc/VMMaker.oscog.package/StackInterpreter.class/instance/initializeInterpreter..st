@@ -7,7 +7,7 @@ initializeInterpreter: bytesToShift
 	self checkAssumedCompactClasses.
 	self initializeExtraClassInstVarIndices.
 	method := newMethod := objectMemory nilObject.
-	breakSelectorLength := objectMemory minSmallInteger.
+	self cCode: '' inSmalltalk: [breakSelectorLength := objectMemory minSmallInteger].
 	methodDictLinearSearchLimit := 8.
 	self flushMethodCache.
 	self flushAtCache.

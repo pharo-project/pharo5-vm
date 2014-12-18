@@ -19,10 +19,9 @@ unreachableMethods
 			[:m|
 			(visited includes: m) ifFalse:
 				[visited add: m.
-				 m export ifTrue:
-					[neededSelectors
-						add: m selector;
-						addAll: m allCalls]]]].
+				 neededSelectors
+					add: m selector;
+					addAll: m allCalls]]].
 	 neededSelectors size > previousSize]
 		whileTrue:
 			[previousSize := neededSelectors size].

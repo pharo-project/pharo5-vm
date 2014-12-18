@@ -21,7 +21,10 @@ shortPrint: oop
 			ifTrue: [' is misaligned']
 			ifFalse: [self whereIs: oop]].
 	(objectMemory isFreeObject: oop) ifTrue:
-		[^' is a free chunk of size ', (objectMemory sizeOfFree: oop) printString].
+		[^' is a free chunk of size ', (objectMemory sizeOfFree: oop) printString,
+			(objectMemory hasSpurMemoryManagerAPI
+				ifTrue: [' 0th: ', (objectMemory fetchPointer: 0 ofFreeChunk: oop) hex]
+				ifFalse: [''])].
 	(objectMemory isForwarded: oop) ifTrue:
 		[^' is a forwarded object to ', (objectMemory followForwarded: oop) hex,
 			' of slot size ', (objectMemory numSlotsOfAny: oop) printString].

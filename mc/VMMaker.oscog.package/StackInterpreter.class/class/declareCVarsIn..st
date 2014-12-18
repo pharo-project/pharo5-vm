@@ -24,6 +24,9 @@ declareCVarsIn: aCCodeGenerator
 	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit stackMemory breakSelector)
 		as: #'char *'
 		in: aCCodeGenerator.
+	aCCodeGenerator
+		var: #breakSelectorLength
+		declareC: 'sqInt breakSelectorLength = MinSmallInteger'.
 	self declareC: #(stackPage overflowedPage)
 		as: #'StackPage *'
 		in: aCCodeGenerator.

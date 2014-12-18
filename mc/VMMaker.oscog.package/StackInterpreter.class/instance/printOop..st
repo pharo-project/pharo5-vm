@@ -10,7 +10,10 @@ printOop: oop
 						ifTrue: [' is misaligned']
 						ifFalse: [self whereIs: oop]); cr].
 	(objectMemory isFreeObject: oop) ifTrue:
-		[^self print: ' is a free chunk of size '; printNum: (objectMemory sizeOfFree: oop); cr].
+		[self print: ' is a free chunk of size '; printNum: (objectMemory sizeOfFree: oop).
+		 objectMemory hasSpurMemoryManagerAPI ifTrue:
+			[self print: ' 0th: '; printHex: (objectMemory fetchPointer: 0 ofFreeChunk: oop)].
+		 ^self cr].
 	(objectMemory isForwarded: oop) ifTrue:
 		[^self
 			print: ' is a forwarded object to '; printHex: (objectMemory followForwarded: oop);
