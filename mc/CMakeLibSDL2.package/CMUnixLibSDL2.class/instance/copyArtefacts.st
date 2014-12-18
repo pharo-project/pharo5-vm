@@ -1,6 +1,7 @@
 generating actions
 copyArtefacts
 	super copyArtefacts.
+	"Copying link so we can access to the general name"
 	self 
-		copy: '${SDL2LibInstalled}' 
-		to: '${externalModulesDir}/libSDL2-2.0.so.0'.
+		copyLink: '${libSDL2LinkInstalled}' 
+		to: '${externalModulesDir}/${libraryLinkFileName}'
