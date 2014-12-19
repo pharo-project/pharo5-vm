@@ -9,13 +9,21 @@ printOopShortInner: oop
 				printChar: $$;
 				printChar: (objectMemory characterValueOf: oop);
 				printChar: $(;
-				printHex: (objectMemory integerValueOf: oop);
+				printHexnp: (objectMemory integerValueOf: oop);
 				printChar: $)].
-		^self
-			printNum: (objectMemory integerValueOf: oop);
-			printChar: $(;
-			printHex: (objectMemory integerValueOf: oop);
-			printChar: $)].
+		 (objectMemory isIntegerObject: oop) ifTrue:
+			[^self
+				printNum: (objectMemory integerValueOf: oop);
+				printChar: $(;
+				printHexnp: (objectMemory integerValueOf: oop);
+				printChar: $)].
+		 (objectMemory isImmediateFloat: oop) ifTrue:
+			[^self
+				printFloat: (objectMemory dbgFloatValueOf: oop);
+				printChar: $(;
+				printHexnp: oop;
+				printChar: $)].
+		 ^self print: 'unknown immediate '; printHexnp: oop].
 	(objectMemory addressCouldBeObj: oop) ifFalse:
 		[^self print: ((oop bitAnd: objectMemory allocationUnit - 1) ~= 0
 						ifTrue: [' is misaligned']
@@ -23,7 +31,7 @@ printOopShortInner: oop
 	(objectMemory isFreeObject: oop) ifTrue:
 		[^self print: ' is a free chunk'].
 	(objectMemory isForwarded: oop) ifTrue:
-		[^self print: ' is a forwarder to '; printHex: (objectMemory followForwarded: oop)].
+		[^self print: ' is a forwarder to '; printHexnp: (objectMemory followForwarded: oop)].
 	(self isFloatObject: oop) ifTrue:
 		[^self printFloat: (objectMemory dbgFloatValueOf: oop)].
 	classOop := objectMemory fetchClassOfNonImm: oop.
@@ -65,4 +73,4 @@ printOopShortInner: oop
 			[self space;
 				printOopShort: (objectMemory fetchPointer: KeyIndex ofObject: oop);
 				print: ' -> ';
-				printHex: (objectMemory fetchPointer: ValueIndex ofObject: oop)]]
+				printHexnp: (objectMemory fetchPointer: ValueIndex ofObject: oop)]]

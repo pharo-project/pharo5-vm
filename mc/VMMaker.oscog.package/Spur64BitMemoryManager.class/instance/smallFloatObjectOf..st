@@ -11,6 +11,7 @@ smallFloatObjectOf: aFloat
 	<inline: true>
 	<var: #aFloat type: #double>
 	| rawFloat rot |
+	<var: #rot type: #'unsigned long'>
 	self assert: (self isSmallFloatValue: aFloat).
 	rawFloat := self cCode: [(self cCoerce: (self addressOf: aFloat) to: 'sqLong *') at: 0]
 					inSmalltalk: [(aFloat at: 1) << 32 + (aFloat at: 2)].

@@ -278,6 +278,7 @@
 		"lengthOfMaybeImmediate:" : "eem 9/17/2013 13:57",
 		"literalCountOf:" : "eem 8/8/2014 15:08",
 		"literalCountOfMethodHeader:" : "eem 8/8/2014 10:17",
+		"loadFloatOrIntFrom:" : "eem 12/18/2014 13:26",
 		"loadImageSegmentFrom:outPointers:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"longPrintInstancesOf:" : "eem 6/19/2014 17:20",
 		"lowSpaceThreshold" : "eem 6/8/2010 17:12",

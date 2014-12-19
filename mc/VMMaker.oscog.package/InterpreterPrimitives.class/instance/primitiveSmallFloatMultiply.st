@@ -6,6 +6,6 @@ primitiveSmallFloatMultiply
 	<var: #arg type: #double>
 
 	rcvr := objectMemory smallFloatValueOf: (self stackValue: 1).
-	arg := self loadFloatOrIntFrom: self stackTop.
+	arg := objectMemory loadFloatOrIntFrom: self stackTop.
 	self successful ifTrue:
 		[self pop: 2 thenPushFloat: rcvr * arg]

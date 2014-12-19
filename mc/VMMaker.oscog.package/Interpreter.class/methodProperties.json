@@ -222,7 +222,6 @@
 		"literal:" : "tpr 3/24/2004 21:07",
 		"literal:ofMethod:" : "",
 		"loadBitBltFrom:" : "tpr (auto pragmas 12/08) 12/29/2005 16:26",
-		"loadFloatOrIntFrom:" : "eem 11/10/2014 12:49",
 		"loadInitialContext" : "dtl 4/22/2007 23:29",
 		"longJumpIfFalse" : "tpr 3/24/2004 18:37",
 		"longJumpIfTrue" : "tpr 3/24/2004 18:37",

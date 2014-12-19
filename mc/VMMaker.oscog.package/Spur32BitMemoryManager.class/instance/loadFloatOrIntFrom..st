@@ -1,4 +1,4 @@
-utilities
+interpreter access
 loadFloatOrIntFrom: floatOrInt
 	"If floatOrInt is an integer, then convert it to a C double float and return it.
 	 If it is a Float, then load its value and return it.
@@ -7,6 +7,6 @@ loadFloatOrIntFrom: floatOrInt
 	<inline: true>
 	<returnTypeC: #double>
 
-	(objectMemory isIntegerObject: floatOrInt) ifTrue:
-		[^(objectMemory integerValueOf: floatOrInt) asFloat].
-	^objectMemory floatValueOf: floatOrInt
+	(self isIntegerObject: floatOrInt) ifTrue:
+		[^(self integerValueOf: floatOrInt) asFloat].
+	^self floatValueOf: floatOrInt

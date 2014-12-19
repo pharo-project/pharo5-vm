@@ -10,7 +10,7 @@ smallFloatValueOf: oop
 	| rot |
 	<returnTypeC: #double>
 	self assert: (oop bitAnd: self tagMask) = self smallFloatTag.
-	rot := oop >> self numTagBits.
+	rot := oop asUnsignedInteger >> self numTagBits.
 	rot > 1 ifTrue:
 		[rot := rot + (self smallFloatExponentOffset << (self smallFloatMantissaBits + 1))].
 	rot := self rotateRight: rot.

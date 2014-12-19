@@ -489,6 +489,7 @@
 		"lengthOfMaybeImmediate:" : "eem 9/17/2013 13:57",
 		"literalCountOf:" : "eem 8/8/2014 15:08",
 		"literalCountOfMethodHeader:" : "eem 8/8/2014 20:12",
+		"loadFloatOrIntFrom:" : "eem 12/18/2014 13:26",
 		"loadImageSegmentFrom:outPointers:" : "eem 12/15/2014 12:13",
 		"logBytesPerOop" : "eem 12/15/2014 14:12",
 		"longPrintInstancesOf:" : "eem 6/19/2014 17:20",
