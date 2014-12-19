@@ -3,19 +3,16 @@ cloneObjects
 	"Clone all normal objects.  Of hidden objects only clone the freeLists object and
 	 the classTableRoot and class table pages. In particular, dont clone objStacks.
 	 The refs to the objStacks are nilled out in fillInHeap."
-	| freeListsObject |
+	| i freeListsObject |
+	i := 0.
 	freeListsObject := heap32 freeListsObject.
 	heap32 allOldSpaceObjectsDo:
-		[:obj32| | classIndex value |
-		classIndex := heap32 classIndexOf: obj32.
-		obj32 = freeListsObject
+		[:obj32|
+		(i := i + 1) >= 100000 ifTrue:
+			[Transcript nextPut: $:; flush. i := 0].
+		 obj32 = freeListsObject
 			ifTrue:
 				[self cloneFreeLists: obj32]
 			ifFalse:
-				[(heap32 isValidObjStackPage: obj32) ifFalse:
-					[((classIndex between: ClassLargeNegativeIntegerCompactIndex and: ClassLargePositiveIntegerCompactIndex)
-					  and: [interpreter32 initPrimCall.
-						value := interpreter32 signed64BitValueOf: obj32.
-						interpreter32 failed not
-					  and: [heap64 isIntegerValue: value]]) ifFalse:
-						[self clone: obj32]]]]
+				[(self shouldClone: obj32) ifTrue:
+					[self clone: obj32]]]

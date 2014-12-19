@@ -1,12 +1,16 @@
 bootstrap image
 fillInObjects
 	"interpreter32 printOop: obj32"
+	| i |
 	{heap32 markStack. heap32 weaklingStack. heap32 ephemeronQueue} do:
 		[:obj|
 		obj ~= heap32 nilObject ifTrue:
 			[map at: obj put: (map at: heap32 nilObject)]].
+	i := 0.
 	heap32 allObjectsDo:
 		[:obj32|
+		(i := i + 1) >= 10000 ifTrue:
+			[Transcript nextPut: $.; flush. i := 0].
 		(map at: obj32 ifAbsent: nil)
 			ifNotNil:
 				[:obj64| | format classIndex |
