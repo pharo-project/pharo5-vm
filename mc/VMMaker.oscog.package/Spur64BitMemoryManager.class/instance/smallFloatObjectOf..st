@@ -16,7 +16,7 @@ smallFloatObjectOf: aFloat
 	rawFloat := self cCode: [(self cCoerce: (self addressOf: aFloat) to: 'sqLong *') at: 0]
 					inSmalltalk: [(aFloat at: 1) << 32 + (aFloat at: 2)].
 	rot := self rotateLeft: rawFloat.
-	rot > 1 ifTrue:
+	rot > 1 ifTrue: "a.k.a. ~= +/-0.0"
 		[rot := rot - (self smallFloatExponentOffset << (self smallFloatMantissaBits + 1)).
 		 self assert: rot > 0].
 	^self cCode: [rot << self numTagBits + self smallFloatTag]

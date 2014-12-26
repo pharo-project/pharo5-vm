@@ -33,6 +33,10 @@ genBinaryVarOpVarInlinePrimitive: prim
 		"2032	through 2037, >, <, >=, <=. =, ~=, SmallInteger op SmallInteger => Boolean (flags?? then in jump bytecodes if ssTop is a flags value, just generate the instruction!!)"
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
+		[64] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+				self MoveXwr: ra R: rr R: rr ].
+		[65] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+				self MoveXbr: ra R: rr R: rr ]
 
 	}
 	otherwise: [^EncounteredUnknownBytecode].

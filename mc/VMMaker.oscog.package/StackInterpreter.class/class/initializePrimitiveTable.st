@@ -1,8 +1,9 @@
 initialization
 initializePrimitiveTable 
-	"This table generates a C function address table use in primitiveResponse along with dispatchFunctionPointerOn:in:"
+	"This table generates a C function address table used in slowPrimitiveResponse along with dispatchFunctionPointerOn:in:"
+	"self initializePrimitiveTable"
 
-	"NOTE: The real limit here is 2047 because of the method header layout but there is no point in going over the needed size"
+	"NOTE: The real limit here is 2047 because of the old method header layout but there is no point in going over the needed size"
 	MaxPrimitiveIndex := 575.	
 	MaxQuickPrimitiveIndex := 519.
 	PrimitiveTable := Array new: MaxPrimitiveIndex + 1.
@@ -197,9 +198,9 @@ initializePrimitiveTable
 
 		"SpurMemoryManager primitives"
 		(170 primitiveAsCharacter)
-		(171 primitiveCharacterValue)
+		(171 primitiveImmediateAsInteger)
 		(172 primitiveFail)
-		(173 primitiveSlotAt)	"c.f. (73 primitiveInstVarAt)"
+		(173 primitiveSlotAt)		"c.f. (73 primitiveInstVarAt)"
 		(174 primitiveSlotAtPut)	"c.f. (74 primitiveInstVarAtPut)"
 		(175 primitiveBehaviorHash)
 		(176 primitiveMaxIdentityHash)

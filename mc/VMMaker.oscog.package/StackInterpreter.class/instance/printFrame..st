@@ -12,13 +12,19 @@ printFrame: theFP
 			 (stackPages isFree: thePage) ifTrue:
 				[self printHexPtr: theFP; print: ' is on a free page?!'; cr.
 				 ^nil].
-			 theSP := self findSPOrNilOf: theFP
-						on: thePage
-						startingFrom: ((thePage = stackPage
-									and: [framePointer < thePage headFP])
-										ifTrue: [framePointer]
-										ifFalse: [thePage headFP])].
-	theSP isNil ifTrue:
+			 (thePage ~= stackPage
+			  and: [theFP = thePage headFP])
+				ifTrue: [theSP := thePage headSP]
+				ifFalse:
+					[theSP := self findSPOrNilOf: theFP
+								on: thePage
+								startingFrom: ((thePage = stackPage
+												and: [framePointer
+														between: thePage realStackLimit
+														and: thePage baseAddress])
+												ifTrue: [framePointer]
+												ifFalse: [thePage headFP])]].
+	theSP ifNil:
 		[self print: 'could not find sp; using bogus value'; cr.
-		 theSP := theFP + FoxReceiver].
+		 theSP := self frameReceiverOffset: theFP].
 	self printFrame: theFP WithSP: theSP

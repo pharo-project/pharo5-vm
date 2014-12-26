@@ -34,7 +34,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 			 thePage = stackPage
 				ifTrue: [theIPPtr := 0]
 				ifFalse:
-					[theIPPtr := theSP asUnsignedInteger.
+					[theIPPtr := theSP asInteger.
 					 theSP := theSP + objectMemory wordSize].
 			 [self assert: (thePage addressIsInPage: theFP).
 			  self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr asVoidPointer]).

@@ -28,4 +28,4 @@ primitivePin
 			  and: [objectMemory pinObject: obj]) = 0 ifTrue:
 				[^self primitiveFailFor: PrimErrNoMemory]].
 	
-	self pop: argumentCount - 1 thenPush: wasPinned
+	self pop: argumentCount + 1 thenPush: wasPinned

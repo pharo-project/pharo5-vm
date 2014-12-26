@@ -19,7 +19,7 @@ genBinaryVarOpConstInlinePrimitive: prim
 	prim caseOf: {
 		"0 through 6, +, -, *, /, //, \\, quo:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 		[0]	->	[self AddCq: untaggedVal R: rr].
-		[1]	->	[self SubCq: untaggedVal R: rr].
+		[1]	->	[self SubCq: untaggedVal R: rr ].
 		[2]	->	[self flag: 'could use MulCq:R'.
 				 objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: rr.
 				 self MoveCq: (objectMemory integerValueOf: val) R: TempReg.
@@ -31,6 +31,12 @@ genBinaryVarOpConstInlinePrimitive: prim
 		"2032	through 2037, >, <, >=, <=. =, ~=, SmallInteger op SmallInteger => Boolean (flags?? then in jump bytecodes if ssTop is a flags value, just generate the instruction!!)"
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
+		[64] ->	[self genConvertSmallIntegerToIntegerInReg: rr.
+				self MoveCq: val >> 1 R: TempReg.
+				self MoveXwr: TempReg R: rr R: rr ].
+		[65] ->	[self genConvertSmallIntegerToIntegerInReg: rr.
+				self MoveCq: val >> 1 R: TempReg.
+				self MoveXbr: TempReg R: rr R: rr ]
 
 	}
 	otherwise: [^EncounteredUnknownBytecode].

@@ -24,6 +24,12 @@ genUnaryInlinePrimitive: prim
 					genGetNumSlotsOf: rcvrReg into: resultReg;
 					genConvertIntegerToSmallIntegerInScratchReg: resultReg.
 				 self ssPushRegister: resultReg].
+			[3] ->	"03 unchecked byte numBytes"
+				[resultReg ifNil: [resultReg := rcvrReg].
+				 objectRepresentation
+					genGetNumBytesOf: rcvrReg into: resultReg;
+					genConvertIntegerToSmallIntegerInScratchReg: resultReg.
+				 self ssPushRegister: resultReg].
 				  }
 		otherwise:
 			[^EncounteredUnknownBytecode].

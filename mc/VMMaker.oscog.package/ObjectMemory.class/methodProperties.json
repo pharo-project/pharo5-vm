@@ -378,6 +378,7 @@
 		"shrinkThreshold:" : "eem 6/8/2010 17:12",
 		"signalLowSpace" : "eem 6/8/2010 17:12",
 		"signalLowSpace:" : "eem 6/8/2010 17:12",
+		"sixtyFourBitIndexableFormat" : "eem 12/23/2014 17:25",
 		"sizeBitsOf:" : "di 6/11/2004 16:34",
 		"sizeBitsOfSafe:" : "go 11/17/1998 15:57",
 		"sizeHeader:" : "eem (const to msg rewrite) 11/6/2014 10:59",

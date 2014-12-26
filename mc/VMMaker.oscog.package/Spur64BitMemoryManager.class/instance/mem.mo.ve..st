@@ -5,11 +5,11 @@ mem: destAddress mo: sourceAddress ve: bytes
 	dst := destAddress asInteger.
 	src := sourceAddress asInteger.
 	"Emulate the c library memmove function"
-	self assert: bytes \\ 8 = 0.
+	self assert: bytes \\ 4 = 0.
 	destAddress > sourceAddress
 		ifTrue:
-			[bytes - 8 to: 0 by: -8 do:
-				[:i| self longAt: dst + i put: (self longAt: src + i)]]
+			[bytes - 4 to: 0 by: -4 do:
+				[:i| self long32At: dst + i put: (self long32At: src + i)]]
 		ifFalse:
-			[0 to: bytes - 8 by: 8 do:
-				[:i| self longAt: dst + i put: (self longAt: src + i)]]
+			[0 to: bytes - 4 by: 4 do:
+				[:i| self long32At: dst + i put: (self long32At: src + i)]]
