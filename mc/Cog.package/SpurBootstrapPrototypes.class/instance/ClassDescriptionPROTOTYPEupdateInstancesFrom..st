@@ -8,11 +8,10 @@ ClassDescriptionPROTOTYPEupdateInstancesFrom: oldClass
 	contexts having an old instance as receiver it might crash the system if
 	the new receiver in which the context is executed has a different layout.
 	See bottom below for a simple example:"
-	self updateInstances: oldClass allInstances asArray from: oldClass isMeta: self isMeta.
-	"Now fix up instances in segments that are out on the disk."
-	ImageSegment allSubInstancesDo:
-		[:seg |
-		seg segUpdateInstancesOf: oldClass toBe: self isMeta: self isMeta].
+	self 
+		updateInstances: oldClass allInstances asArray 
+		from: oldClass 
+		isMeta: self isMeta.
 	^nil
 
 "This attempts to crash the VM by stepping off the end of an instance.
