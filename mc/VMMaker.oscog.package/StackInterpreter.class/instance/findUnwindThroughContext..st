@@ -17,7 +17,8 @@ findUnwindThroughContext: homeContext
 	ctxtOrNilOrZero = 0 ifTrue:
 		[theMethod := objectMemory fetchPointer: MethodIndex ofObject: homeContext.
 		 (self primitiveIndexOf: theMethod) = 198 ifTrue:
-			[^homeContext]].
+			[^homeContext].
+		 ^0].
 
 	"If an unwind was found, can the home context be found also?  No need to look if on the same page.
 	 No need to look if cannot return (ctxtOrNilOrZero = objectMemory nilObject)"
