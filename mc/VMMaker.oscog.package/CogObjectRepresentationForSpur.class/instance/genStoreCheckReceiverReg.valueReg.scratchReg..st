@@ -35,7 +35,7 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg
 	cogit
 		CallRT: ceStoreCheckTrampoline
 		registersToBeSavedMask: ((cogit registerMaskFor: valueReg)
-										bitAnd: cogit callerSavedRegMask).
+										bitOr: cogit callerSavedRegMask).
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

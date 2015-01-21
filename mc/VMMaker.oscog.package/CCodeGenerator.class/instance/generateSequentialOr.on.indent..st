@@ -5,7 +5,14 @@ generateSequentialOr: msgNode on: aStream indent: level
 	 to help with inlining later. Taking the last agument should do the correct
 	 thing even if your compiler is different."
 
-	self emitCExpression: msgNode receiver on: aStream indent: level.
-	aStream crtab: level; nextPutAll: ' || ('.
-	self emitCTestBlock: msgNode args last on: aStream indent: level.
-	aStream nextPutAll: ')'
+	(self nilOrBooleanConstantReceiverOf: msgNode receiver)
+		ifNil:
+			[self emitCExpression: msgNode receiver on: aStream indent: level.
+			 aStream crtab: level; nextPutAll: ' || ('.
+			 self emitCTestBlock: msgNode args last on: aStream indent: level.
+			 aStream nextPut: $)]
+		ifNotNil:
+			[:const |
+			const
+				ifTrue: [aStream nextPut: $1]
+				ifFalse: [self emitCTestBlock: msgNode args first on: aStream indent: level]]

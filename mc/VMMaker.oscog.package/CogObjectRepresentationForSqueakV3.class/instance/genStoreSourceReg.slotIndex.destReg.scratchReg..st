@@ -38,7 +38,7 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	cogit
 		CallRT: ceStoreCheckTrampoline
 		registersToBeSavedMask: ((cogit registerMaskFor: sourceReg)
-										bitAnd: cogit callerSavedRegMask).
+										bitOr: cogit callerSavedRegMask).
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

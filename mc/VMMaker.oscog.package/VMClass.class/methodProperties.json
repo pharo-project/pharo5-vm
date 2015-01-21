@@ -30,6 +30,7 @@
 		"isAccessor:" : "eem 2/11/2009 17:18",
 		"isCogitClass" : "eem 5/29/2009 09:49",
 		"isInterpreterClass" : "eem 2/12/2009 15:36",
+		"isNonArgumentImplicitReceiverVariableName:" : "eem 1/15/2015 12:31",
 		"isPluginClass" : "eem 12/14/2012 11:29",
 		"isStructClass" : "eem 11/26/2012 15:05",
 		"memoryManagerVersion" : "EstebanLorenzano 10/23/2014 14:28",

@@ -1,0 +1,3 @@
+accessing
+firstLongFormat
+	^objectMemory firstLongFormat

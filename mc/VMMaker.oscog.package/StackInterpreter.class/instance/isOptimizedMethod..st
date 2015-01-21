@@ -1,4 +1,5 @@
 compiled methods
 isOptimizedMethod: header
 	<api>
-	^ (header >> MethodHeaderOptimizedBitShift bitAnd: 1) = 1 
+	<option: #SistaVM>
+	^header >> MethodHeaderFlagBitPosition anyMask: 1

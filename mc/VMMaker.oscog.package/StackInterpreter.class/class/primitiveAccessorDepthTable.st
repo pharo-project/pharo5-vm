@@ -4,11 +4,11 @@ primitiveAccessorDepthTable
 	cg := CCodeGenerator new.
 	cg vmClass: StackInterpreter.
 	^self primitiveTable collect:
-		[:thing| |class  method |
+		[:thing| | implementingClass method |
 		(thing isInteger "quick prims, 0 for fast primitve fail"
 		 or: [thing == #primitiveFail
-		 or: [(class := self primitivesClass whichClassIncludesSelector: thing) isNil]])
+		 or: [(implementingClass := self primitivesClass whichClassIncludesSelector: thing) isNil]])
 			ifTrue: [-1]
 			ifFalse:
-				[method := (class >> thing) methodNode asTranslationMethodOfClass: TMethod.
+				[method := cg compileToTMethodSelector: thing in: implementingClass.
 				 cg accessorDepthForMethod: method]]

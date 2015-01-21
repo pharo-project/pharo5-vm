@@ -47,7 +47,7 @@
 		"genRemoveSmallIntegerTagsInScratchReg:" : "eem 10/1/2013 17:49",
 		"genSetCharacterTagsIn:" : "eem 12/24/2013 18:38",
 		"genSetSmallIntegerTagsIn:" : "eem 10/1/2013 17:49",
-		"genStoreCheckReceiverReg:valueReg:scratchReg:" : "eem 3/28/2014 11:58",
+		"genStoreCheckReceiverReg:valueReg:scratchReg:" : "eem 1/15/2015 09:59",
 		"genStoreImmediateInSourceReg:slotIndex:destReg:" : "eem 10/1/2013 16:57",
 		"genStoreSourceReg:slotIndex:destReg:scratchReg:" : "eem 12/9/2013 18:55",
 		"genStoreSourceReg:slotIndex:intoNewObjectInDestReg:" : "eem 10/2/2013 09:42",

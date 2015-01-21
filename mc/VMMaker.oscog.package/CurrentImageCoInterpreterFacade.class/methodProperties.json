@@ -38,6 +38,9 @@
 		"falseObject" : "eem 12/19/2010 13:09",
 		"fetchByte:ofObject:" : "eem 1/8/2011 14:42",
 		"fetchPointer:ofObject:" : "eem 8/5/2014 15:05",
+		"firstByteFormat" : "eem 1/15/2015 11:56",
+		"firstCompiledMethodFormat" : "eem 1/15/2015 11:55",
+		"firstLongFormat" : "eem 1/15/2015 11:57",
 		"formatOfClass:" : "eem 9/9/2013 11:54",
 		"framePointerAddress" : "eem 12/19/2010 14:25",
 		"freeStartAddress" : "eem 1/8/2011 13:34",
@@ -139,5 +142,6 @@
 		"transcript" : "eem 12/19/2010 14:56",
 		"trueObject" : "eem 12/19/2010 13:09",
 		"variablesBase" : "eem 8/25/2014 15:40",
+		"weakArrayFormat" : "eem 1/15/2015 11:53",
 		"wordSize" : "eem 8/25/2014 15:54",
 		"youngStartAddress" : "eem 9/9/2013 11:57" } }

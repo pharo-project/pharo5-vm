@@ -1,4 +1,4 @@
 indexing primitives
 primitiveAt
-
-	self commonAt: false.
+	<accessorDepth: 0>
+	self commonAt: false
