@@ -5,13 +5,14 @@ primitiveFloatAtPut
 	 onto the least significant word."
 	| rcvr index oopToStore valueToStore |
 	<var: #valueToStore type: #usqInt>
-	self initPrimCall.
 	oopToStore := self stackTop.
 	valueToStore := self positive32BitValueOf: oopToStore.
 	self successful ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	rcvr := self stackValue: 2.
 	index := self stackValue: 1.
+	(objectMemory isImmediateFloat: rcvr) ifTrue:
+		[^self primitiveFailFor: PrimErrBadReceiver].
 	index = ConstOne ifTrue:
 		[objectMemory storeLong32: (VMBIGENDIAN ifTrue: [0] ifFalse: [1])
 			ofObject: rcvr

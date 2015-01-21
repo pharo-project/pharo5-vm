@@ -7,6 +7,7 @@ externalInstVar: offset ofContext: aContext
 	 If the context is single but has a negative instruction pointer
 	 recognise that the instruction pointer is actually into machine
 	 code and convert it to the corresponding bytecode pc."
+	<inline: false>
 	| value |
 
 	self assert: (objectMemory isContext: aContext).

@@ -11,9 +11,10 @@ findMethodWithPrimitive: primitive FromContext: senderContext UpToContext: homeC
 		[^theContext].
 	 self isMarriedOrWidowedContext: theContext] whileFalse:
 		[theContext = homeContext ifTrue: [^0].
-		 (objectMemory fetchPointer: ClosureIndex ofObject: theContext) = objectMemory nilObject ifTrue:
+		 (primitive = 0
+		  or: [(objectMemory fetchPointer: ClosureIndex ofObject: theContext) ~= objectMemory nilObject]) ifFalse:
 		 	[theMethod := objectMemory fetchPointer: MethodIndex ofObject: theContext.
-			 (self primitiveIndexOf: theMethod) == primitive ifTrue:
+			 (self primitiveIndexOf: theMethod) = primitive ifTrue:
 				[^theContext]].
 		 theContext := objectMemory fetchPointer: SenderIndex ofObject: theContext].
 	(self isWidowedContext: theContext) ifTrue:

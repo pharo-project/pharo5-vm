@@ -5,7 +5,6 @@ primitiveFloatAt
 	 onto the least significant word."
 	| rcvr index result |
 	<var: #result type: #usqInt>
-	self initPrimCall.
 	rcvr := self stackValue: 1.
 	index := self stackTop.
 	index = ConstOne ifTrue:

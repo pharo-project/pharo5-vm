@@ -13,7 +13,7 @@ primitiveSlotAtPut
 	(objectMemory isImmediate: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrBadReceiver].
 	fmt := objectMemory formatOf: rcvr.
-	index := objectMemory integerValueOf: index.
+	index := (objectMemory integerValueOf: index) - 1.
 
 	fmt <= objectMemory lastPointerFormat ifTrue:
 		[numSlots := objectMemory numSlotsOf: rcvr.
