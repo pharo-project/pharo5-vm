@@ -14,6 +14,7 @@ implicitReceiverCacheAddressAt: mcpc
 				call ceImplicitReceiver
 	 and Lclass: .word; Lmixin: .word is somewhere on the heap."
 	<option: #NewspeakVM>
+	<var: #mcpc type: #'char *'>
 	<inline: true>
 	<returnTypeC: #usqInt>
 	^objectRepresentation canPinObjects

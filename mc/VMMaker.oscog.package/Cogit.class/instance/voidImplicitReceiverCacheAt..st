@@ -14,6 +14,7 @@ voidImplicitReceiverCacheAt: mcpc
 				call ceImplicitReceiver
 	 and Lclass: .word; Lmixin: .word is somewhere on the heap."
 	<option: #NewspeakVM>
+	<var: #mcpc type: #'char *'>
 	| cacheAddress |
 	self assert: NumOopsPerIRC = 2.
 	cacheAddress := self implicitReceiverCacheAddressAt: mcpc.

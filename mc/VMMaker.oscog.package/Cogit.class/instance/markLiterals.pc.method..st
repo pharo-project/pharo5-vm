@@ -33,7 +33,7 @@ markLiterals: annotation pc: mcpc method: cogMethod
 										[objectRepresentation
 											markAndTraceLiteral: mixin
 											in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
-											at: (self asAddress: cacheAddress + objectMemory bytesPerOop
+											at: (self asAddress: (cacheAddress + objectMemory bytesPerOop) asVoidPointer
 													put: [:val| backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: val])]]
 								ifFalse:
 									[backEnd
