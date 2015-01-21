@@ -6,19 +6,12 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32SerialPort.c 2155 2010-03-11 19:11:11Z andreas $
-*
-*   NOTES:
 *
 *****************************************************************************/
 #include <windows.h>
 #include "sq.h"
 
 #ifndef NO_SERIAL_PORT
-
-#ifndef NO_RCSID
-  static char RCSID[] = "$Id: sqWin32SerialPort.c 2155 2010-03-11 19:11:11Z andreas $";
-#endif
 
 /* Maximum number of serial ports supported */
 #define MAX_SERIAL_PORTS 256

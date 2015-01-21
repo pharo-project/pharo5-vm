@@ -86,7 +86,7 @@
 #include "sqMacUIAppleEvents.h"
 #include "sqMacImageIO.h"
 #include "sqMacUIClipBoard.h"
-#include "sqMacFileLogic.h"
+#include "sqMacUnixFileInterface.h"
 #include "sqMacUIEvents.h"
 #include "sqMacMemory.h"
 #include "sqMacEncoding.h"
@@ -1057,7 +1057,11 @@ getVersionInfo(int verbose)
   info[0]= '\0';
 
 #if SPURVM
-# define ObjectMemory " Spur"
+# if BytesPerOop == 8
+#	define ObjectMemory " Spur 64-bit"
+# else
+#	define ObjectMemory " Spur"
+# endif
 #else
 # define ObjectMemory
 #endif
@@ -1129,7 +1133,7 @@ isCFramePointerInUse()
 #if !defined(min)
 # define min(x,y) (((x)>(y))?(y):(x))
 #endif
-static char *p = 0;
+static char * volatile p = 0;
 
 static void
 sighandler(int sig) { p = (char *)&sig; }

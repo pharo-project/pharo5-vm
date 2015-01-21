@@ -6,7 +6,7 @@
 *   AUTHOR:  
 *   ADDRESS: 
 *   EMAIL:   ]
-*   RCSID:   $Id: sqFilePluginBasicPrims.c 3092 2014-10-03 16:44:41Z eliot $
+*   RCSID:   $Id: sqFilePluginBasicPrims.c 3219 2015-01-08 00:42:17Z eliot $
 *
 *   NOTES: See change log below.
 *	2005-03-26 IKP fix unaligned accesses to file[Size] members
@@ -79,10 +79,10 @@
 int thisSession = 0;
 extern struct VirtualMachine * interpreterProxy;
 
-/* Since SQFile instaces are held on the heap in 32-bit-aligned byte arrays we
+/* Since SQFile instances are held on the heap in 32-bit-aligned byte arrays we
  * may need to use memcpy to avoid alignment faults.
  */
-#if DOUBLE_WORD_ALIGNMENT
+#if OBJECTS_32BIT_ALIGNED
 static void setFile(SQFile *f, FILE *file)
 {
   void *in= (void *)&file;
@@ -104,7 +104,7 @@ static void setSize(SQFile *f, squeakFileOffsetType size)
 # define setSize(f,size) ((f)->fileSize = (size))
 #endif
 
-#if DOUBLE_WORD_ALIGNMENT
+#if OBJECTS_32BIT_ALIGNED
 static FILE *getFile(SQFile *f)
 {
   FILE *file;
@@ -117,7 +117,7 @@ static FILE *getFile(SQFile *f)
 # define getFile(f) ((FILE *)((f)->file))
 #endif
 
-#if DOUBLE_WORD_ALIGNMENT
+#if OBJECTS_32BIT_ALIGNED
 static squeakFileOffsetType getSize(SQFile *f)
 {
   squeakFileOffsetType size;

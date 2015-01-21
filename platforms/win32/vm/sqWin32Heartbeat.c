@@ -4,9 +4,6 @@
 *   CONTENT: 
 *
 *   AUTHOR:  Eliot Miranda
-*   ADDRESS: 
-*   EMAIL:   eliot@teleplace.com
-*   RCSID:   $Id$
 *
 *   NOTES: 
 *  August 3rd, 2008, EEM added heart-beat thread.

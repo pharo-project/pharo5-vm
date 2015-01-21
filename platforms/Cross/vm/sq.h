@@ -272,7 +272,7 @@ unsigned long ioHeartbeatFrequency(int);
 
 #if COGMTVM
 #define THRLOGSZ 256
-extern int thrlogidx = 0;
+extern int thrlogidx;
 extern char *thrlog[];
 
 /* Debug logging that defers printing.  Use like printf, e.g.

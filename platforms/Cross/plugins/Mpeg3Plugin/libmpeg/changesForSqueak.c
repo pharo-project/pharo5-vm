@@ -6,7 +6,7 @@
 *   AUTHOR:  John McIntosh, and others.
 *   ADDRESS: 
 *   EMAIL:   johnmci@smalltalkconsulting.com
-*   RCSID:   $Id: changesForSqueak.c 2414 2011-06-09 08:30:40Z andreas $
+*   RCSID:   $Id: changesForSqueak.c 3176 2014-12-12 19:53:24Z eliot $
 *
 *   NOTES: See change log below.
 *	12/27/2001 JMM added support to build as a OS-X Bundle, a bit werid because its a mixture of unix and mac OS
@@ -33,6 +33,7 @@
 // Sept 7nd, 2001 JMM added carbon logic
 // May 31st, 2002 JMM a few additions to make it compile on the mac with latest code
 
+#include <stdlib.h>
 #include <string.h>
 #include "mpeg3private.h"
 #include "changesForSqueak.h"

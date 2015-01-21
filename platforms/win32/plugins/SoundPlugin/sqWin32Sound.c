@@ -6,7 +6,6 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32Sound.c 2175 2010-04-03 17:54:34Z andreas $
 *
 *   NOTES:   For now we're supporting both, the DirectSound and the win32
 *            based interface. In the future we'll switch to DSound exclusively.
@@ -25,10 +24,6 @@
 #endif
 
 #ifndef NO_SOUND
-
-#ifndef NO_RCSID
-  static char RCSID[]="$Id: sqWin32Sound.c 2175 2010-04-03 17:54:34Z andreas $";
-#endif
 
 #define _LPCWAVEFORMATEX_DEFINED
 #undef WINNT

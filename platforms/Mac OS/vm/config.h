@@ -168,7 +168,6 @@
 #endif
 
 #define HAVE_LIBDL 1
-/* #undef	DOUBLE_WORD_ALIGNMENT */
 
 /* damage containment */
 
@@ -180,7 +179,11 @@
 
 /* other configured variables */
 
-#define VM_VERSION "4.0"
+#if SPURVM
+# define VM_VERSION "5.0"
+#else
+# define VM_VERSION "4.5"
+#endif
 #define VM_MODULE_PREFIX ""
 /* #undef VM_DLSYM_PREFIX */
 #define VM_X11DIR "/usr/X11R6/lib"

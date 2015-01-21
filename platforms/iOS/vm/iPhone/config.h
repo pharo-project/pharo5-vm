@@ -170,7 +170,6 @@
 #endif
 
 #define HAVE_LIBDL 1
-/* #undef	DOUBLE_WORD_ALIGNMENT */
 /* #undef	DOUBLE_WORD_ORDER */
 
 /* damage containment */
@@ -183,9 +182,11 @@
 
 /* other configured variables */
 
-#define SQ_VERSION "3.8g-6548"
-#define VM_VERSION "3.8a-2"
-#define VM_LIBDIR "/usr/local/lib/squeak/3.8a-2"
+#if SPURVM
+# define VM_VERSION "5.0"
+#else
+# define VM_VERSION "4.5"
+#endif
 #define VM_MODULE_PREFIX ""
 /* #undef VM_DLSYM_PREFIX */
 #define VM_X11DIR "/usr/X11R6/lib"

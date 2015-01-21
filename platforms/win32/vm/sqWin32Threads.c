@@ -4,9 +4,6 @@
 *   CONTENT: 
 *
 *   AUTHOR:  Eliot Miranda
-*   ADDRESS: 
-*   EMAIL:   eliot@teleplace.com
-*   RCSID:   $Id$
 *
 *   NOTES: See the comment of CogThreadManager in the VMMaker package for
 *          overall design documentation.

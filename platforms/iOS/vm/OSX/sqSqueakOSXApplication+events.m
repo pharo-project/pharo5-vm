@@ -227,6 +227,22 @@ static int buttonState=0;
 
 }
 
+- (void) recordKeyDownEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView>*) aView {
+	sqKeyboardEvent evt;
+	
+	evt.type = EventTypeKeyboard;
+	evt.timeStamp = (int) ioMSecs();
+	evt.charCode =	[theEvent keyCode];
+	evt.pressCode = EventKeyDown;
+	evt.modifiers = [self translateCocoaModifiersToSqueakModifiers: [theEvent modifierFlags]];
+	evt.utf32Code = 0;
+	evt.reserved1 = 0;
+	evt.windowIndex = (int)[[aView windowLogic] windowIndex];
+	[self pushEventToQueue: (sqInputEvent *) &evt];
+
+	interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);
+}
+
 - (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView>*) aView {
 	sqKeyboardEvent evt;
 	

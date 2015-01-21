@@ -504,10 +504,14 @@ static uint32_t genericCompareRow(uint32_t        width,
             a32 = *ptrA++;
             nextPixelIndexes -= ppwA;
         }
+        else
+            a32 <<= bppA;
         if (ppwB == 32)
         {
             if (nextPixelIndexes < pixelIndexes)
                 b32 = *ptrB++;
+            else
+                b32 <<= 1;
         }
         else
         {
@@ -516,25 +520,29 @@ static uint32_t genericCompareRow(uint32_t        width,
                 b32 = *ptrB++;
                 nextPixelIndexes -= ppwB<<27;
             }
+            else
+                b32 <<= bppB;
         }
         pixelIndexes = nextPixelIndexes;
     }
     return count;
 }
 
-uint32_t genericCompareColors(compare_operation_t *op, uint32_t log2bppA, uint32_t log2bppB)
+uint32_t genericCompareColors(const compare_operation_t *op, uint32_t log2bppA, uint32_t log2bppB)
 {
     uint32_t count = 0;
     uint32_t pixelIndexes;
+    uint32_t ppwA = 32 >> log2bppA;
+    uint32_t ppwB = 32 >> log2bppB;
     COPY_COMPARE_OP_TO_LOCALS(op, uint32_t, uint32_t);
-    srcABits += srcAY * srcAPitch + srcAX >> (5 - log2bppA);
-    srcBBits += srcBY * srcBPitch + srcBX >> (5 - log2bppB);
-    pixelIndexes = (srcAX & (srcADepth - 1)) + ((srcBX & (srcBDepth - 1)) << 27);
+    srcABits += srcAY * srcAPitch + (srcAX >> (5 - log2bppA));
+    srcBBits += srcBY * srcBPitch + (srcBX >> (5 - log2bppB));
+    pixelIndexes = (srcAX & (ppwA - 1)) + ((srcBX & (ppwB - 1)) << 27);
     /* This routine is never going to be especially fast, so just use a simple loop */
     while (height--)
     {
         count += genericCompareRow(width, srcABits, srcBBits, colorA, colorB, pixelIndexes,
-                    matchRule, tally, srcADepth, srcBDepth, 32 >> log2bppA, 32 >> log2bppB, srcAMSB, srcBMSB);
+                    matchRule, tally, srcADepth, srcBDepth, ppwA, ppwB, srcAMSB, srcBMSB);
         if (count && !tally)
             return count;
         srcABits += srcAPitch;
@@ -545,6 +553,9 @@ uint32_t genericCompareColors(compare_operation_t *op, uint32_t log2bppA, uint32
 
 void addGenericFastPaths(void)
 {
+    unsigned int i;
 	addFastPaths(fastPaths, sizeof fastPaths / sizeof *fastPaths);
+	for (i = 0; i < sizeof compareColorsFns / sizeof *compareColorsFns; i++)
+	    compareColorsFns[i] = genericCompareColors;
 }
 #endif /* ENABLE_FAST_BLT */

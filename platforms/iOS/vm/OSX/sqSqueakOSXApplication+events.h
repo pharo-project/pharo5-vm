@@ -43,6 +43,7 @@
 @interface sqSqueakOSXApplication (events) 
 
 - (void) recordCharEvent:(NSString *) unicodeString fromView: (NSView<sqSqueakOSXView> *) mainView;
+- (void) recordKeyDownEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView> *) aView ;
 - (void) recordKeyUpEvent:(NSEvent *)theEvent fromView: (NSView<sqSqueakOSXView> *) aView ;
 - (void) recordMouseEvent: (NSEvent*) theEvent fromView: (NSView<sqSqueakOSXView> *) aView;
 - (void) recordWheelEvent: (NSEvent*) theEvent  fromView: (NSView<sqSqueakOSXView> *) aView;

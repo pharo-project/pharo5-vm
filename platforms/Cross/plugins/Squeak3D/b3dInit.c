@@ -550,7 +550,7 @@ int b3dAddIndexedQuadObject(void *objBase, int objLength, int objFlags, int text
 	obj->nFaces = nQuads * 2;
 	obj->faces = (B3DInputFace*) (obj->vertices + obj->nVertices);
 	{
-		int i, nFaces = obj->nFaces;
+		int i;
 		B3DInputQuad *src = quadPtr;
 		B3DInputFace *dst = obj->faces;
 
