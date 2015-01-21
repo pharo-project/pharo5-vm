@@ -5,10 +5,9 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 	<var: #lisp type: #'char *'>
 	| methodField cogMethod theIP  |
 	<var: #cogMethod type: #'CogMethod *'>
-	self assert: stackPage = (stackPages stackPageFor: lifp) l: ln.
 	self assert: stackPage = stackPages mostRecentlyUsedPage l: ln.
+	self assert: (stackPage addressIsInPage: lifp) l: ln.
 	self assert: (self deferStackLimitSmashAround: #assertValidStackLimits: asSymbol with: ln).
-	self assert: lifp < stackPage baseAddress l: ln.
 	self assert: lisp < lifp l: ln.
 	self assert: lifp > lisp l: ln.
 	self assert: lisp >= (stackPage realStackLimit - self stackLimitOffset) l: ln.

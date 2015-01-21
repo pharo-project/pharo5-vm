@@ -4,10 +4,9 @@ assertValidExecutionPointe: lip r: lfp s: lsp imbar: inInterpreter line: ln
 	<var: #lfp type: #'char *'>
 	<var: #lsp type: #'char *'>
 	self assert: inInterpreter l: ln.
-	self assert: stackPage = (stackPages stackPageFor: lfp) l: ln.
 	self assert: stackPage = stackPages mostRecentlyUsedPage l: ln.
 	self assertValidStackLimits: ln.
-	self assert: lfp < stackPage baseAddress l: ln.
+	self assert: (stackPage addressIsInPage: lfp) l: ln.
 	self assert: lsp < lfp l: ln.
 	self assert: lfp > lsp l: ln.
 	self assert: lsp >= (stackPage realStackLimit - self stackLimitOffset) l: ln.

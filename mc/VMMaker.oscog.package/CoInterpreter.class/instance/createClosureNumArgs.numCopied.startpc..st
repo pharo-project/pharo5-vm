@@ -1,6 +1,7 @@
 trampolines
 createClosureNumArgs: numArgs numCopied: numCopied startpc: initialIP
 	<api>
+	<option: #SqueakV3ObjectMemory>
 	| context newClosure |
 	self assert: (self isMachineCodeFrame: framePointer).
 	"Do *not* include the return pc or copied values in the stack contents;

@@ -1,4 +1,4 @@
 forward compatibility
-ensureSemaphoreForwardedThroughContext: aSemaphore
+ensureSemaphoreUnforwardedThroughContext: aSemaphore
 	"Compatibility with SpurMemoryManager"
 	<inline: true>

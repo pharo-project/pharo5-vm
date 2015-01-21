@@ -13,7 +13,7 @@ synchronousSignal: aSemaphore
 			withValue: excessSignals + 1.
 		 ^false].
 
-	objectMemory ensureSemaphoreForwardedThroughContext: aSemaphore.
+	objectMemory ensureSemaphoreUnforwardedThroughContext: aSemaphore.
 
 	^self resume: (self removeFirstLinkOfList: aSemaphore)
 		preemptedYieldingIf: preemptionYields

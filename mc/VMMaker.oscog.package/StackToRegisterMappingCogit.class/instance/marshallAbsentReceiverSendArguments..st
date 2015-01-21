@@ -18,9 +18,9 @@ marshallAbsentReceiverSendArguments: numArgs
 					 self PushR: TempReg.
 					 2 to: numSpilled do:
 						[:index|
-						self MoveMw: index * BytesPerWord r: SPReg R: TempReg.
-						self MoveR: TempReg Mw: index - 1 * BytesPerWord r: SPReg].
-					 self MoveR: ReceiverResultReg Mw: numSpilled * BytesPerWord r: SPReg]
+						self MoveMw: index * objectMemory wordSize r: SPReg R: TempReg.
+						self MoveR: TempReg Mw: index - 1 * objectMemory wordSize r: SPReg].
+					 self MoveR: ReceiverResultReg Mw: numSpilled * objectMemory wordSize r: SPReg]
 				ifFalse:
 					[self PushR: ReceiverResultReg].
 			self ssFlushTo: simStackPtr]
