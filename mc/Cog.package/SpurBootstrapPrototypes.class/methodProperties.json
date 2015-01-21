@@ -5,6 +5,8 @@
 		"prototypeClassFor:" : "eem 11/26/2014 09:09" },
 	"instance" : {
 		"ArrayPROTOTYPEelementsExchangeIdentityWith:" : "eem 12/25/2014 17:51",
+		"ArrayPROTOTYPEelementsForwardIdentityTo:" : "eem 12/26/2014 16:20",
+		"ArrayPROTOTYPEelementsForwardIdentityTo:copyHash:" : "eem 12/26/2014 16:24",
 		"BehaviorPROTOTYPEallInstances" : "EstebanLorenzano 8/27/2014 14:37",
 		"BehaviorPROTOTYPEallInstancesDo:" : "EstebanLorenzano 8/27/2014 14:37",
 		"BehaviorPROTOTYPEallInstancesOrNil" : "EstebanLorenzano 8/27/2014 14:37",
@@ -68,7 +70,7 @@
 		"EncoderForV3PlusClosuresclassPROTOTYPEcallPrimitiveCode" : "EstebanLorenzano 8/27/2014 14:37",
 		"FloatclassPROTOTYPEbasicNew" : "eem 11/25/2014 07:54",
 		"FloatclassPROTOTYPEbasicNew:" : "eem 11/25/2014 07:54",
-		"FloatclassPROTOTYPEfromIEEE32Bit:" : "eem 11/25/2014 14:35",
+		"FloatclassPROTOTYPEfromIEEE32Bit:" : "eem 1/14/2015 17:25",
 		"InstructionClientPROTOTYPEcallPrimitive:" : "EstebanLorenzano 8/27/2014 14:37",
 		"InstructionStreamPROTOTYPEinterpretV3ClosuresExtension:in:for:" : "eem 9/4/2014 15:24",
 		"MethodNodeOLDSQUEAKPROTOTYPEgenerate:" : "EstebanLorenzano 8/27/2014 14:37",
