@@ -76,8 +76,9 @@ initializeBytecodeTableForSistaV1
 		(200 207	storeAndPopReceiverVariableBytecode)
 		(208 215	storeAndPopTemporaryVariableBytecode)
 		(216		popStackBytecode)
+		(217		unconditionnalTrapBytecode)
 
-		(217 223	unknownBytecode)
+		(218 223	unknownBytecode)
 
 		"2 byte bytecodes"
 		(224		extABytecode)

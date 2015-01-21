@@ -31,6 +31,7 @@
 		"MaxPrimitiveIndex",
 		"MaxQuickPrimitiveIndex",
 		"MethodHeaderArgCountShift",
+		"MethodHeaderOptimizedBitShift",
 		"MethodHeaderTempCountShift",
 		"MixinIndex",
 		"PrimitiveExternalCallIndex",

@@ -13,6 +13,9 @@ genJumpIf: boolean to: targetBytecodePC
 	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
+
+	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
+
 	self ssFlushTo: simStackPtr - 1.
 	desc := self ssTop.
 	self ssPop: 1.

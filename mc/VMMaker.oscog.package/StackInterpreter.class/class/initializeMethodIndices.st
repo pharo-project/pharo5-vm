@@ -7,6 +7,7 @@ initializeMethodIndices
 
 	tagBits := self objectMemoryClass numSmallIntegerTagBits.
 	LargeContextBit := 16r20000 << tagBits.  "This bit set in method headers if large context is needed."
+	MethodHeaderOptimizedBitShift := 28 + tagBits.
 	MethodHeaderTempCountShift := 18 + tagBits.
 	MethodHeaderArgCountShift := 24 + tagBits.
 	V3PrimitiveBitsMask := 16r100001FF << tagBits.

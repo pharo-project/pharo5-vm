@@ -10,6 +10,9 @@ genSpecialSelectorEqualsEquals
 	<var: #countTripped type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
+
+	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genSpecialSelectorEqualsEquals ].
+
 	self ssFlushTo: simStackPtr - 2.
 	primDescriptor := self generatorAt: byte0.
 

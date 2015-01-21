@@ -12,6 +12,9 @@ genSpecialSelectorComparison
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
+
+	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genSpecialSelectorComparison ].
+
 	self ssFlushTo: simStackPtr - 2.
 	primDescriptor := self generatorAt: byte0.
 	argIsInt := self ssTop type = SSConstant
