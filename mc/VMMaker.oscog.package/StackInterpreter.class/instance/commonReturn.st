@@ -12,7 +12,7 @@ commonReturn
 	<var: #thePage type: #'StackPage *'>
 
 	"If this is a method simply return to the  sender/caller."
-	(self frameIsBlockActivation: localFP) ifFalse:
+	(self iframeIsBlockActivation: localFP) ifFalse:
 		[^self commonCallerReturn].
 
 	"Since this is a block activation the closure is on the stack above any args and the frame."
@@ -68,7 +68,7 @@ commonReturn
 	"Now we have a frame to return to.  If it is on a different page we must free intervening pages and
 	 nil out intervening contexts.  We must free intervening stack pages because if we leave the pages
 	 to be divorced then their contexts will be divorced with intact senders and instruction pointers.  This
-	 code is similar to primitiveTerminateTo.  We must move any frames on itervening pages above the
+	 code is similar to primitiveTerminateTo.  We must move any frames on intervening pages above the
 	 frame linked to because these may be in use, e.g. via co-routining (see baseFrameReturn)."
 	self assert: stackPages pageListIsWellFormed.
 	newPage := stackPages stackPageFor: frameToReturnTo.
