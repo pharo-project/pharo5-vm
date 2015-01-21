@@ -28,4 +28,6 @@ postBecomeScanClassTable: effectsFlags
 					 "If the removed class is before the classTableIndex, set the
 					  classTableIndex to point to the empty slot so as to reuse it asap."
 					 (i << self classTableMajorIndexShift + j) < classTableIndex ifTrue:
-						[classTableIndex := i << self classTableMajorIndexShift + j]]]]]
+						[classTableIndex := i << self classTableMajorIndexShift + j]]]]].
+	"classTableIndex must never index the first page, which is reserved for classes known to the VM."
+	self assert: classTableIndex >= (1 << self classTableMajorIndexShift)

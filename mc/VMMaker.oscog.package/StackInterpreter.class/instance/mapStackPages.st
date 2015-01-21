@@ -1,6 +1,6 @@
 object memory support
 mapStackPages
-	<inline: false>
+	<inline: #never>
 	<var: #thePage type: #'StackPage *'>
 	<var: #theSP type: #'char *'>
 	<var: #theFP type: #'char *'>

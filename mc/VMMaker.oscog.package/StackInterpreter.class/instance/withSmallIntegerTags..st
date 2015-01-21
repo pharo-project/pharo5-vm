@@ -3,4 +3,6 @@ withSmallIntegerTags: value
 	<inline: true>
 	<var: #value type: #'char *'>
 	self assert: ((self oopForPointer: value) bitAnd: objectMemory wordSize - 1) = 0.
-	^(self oopForPointer: value) + 1
+	^(self
+		cCode: [self oopForPointer: value]
+		inSmalltalk: [value bitAnd: objectMemory maxCInteger]) + objectMemory smallIntegerTag

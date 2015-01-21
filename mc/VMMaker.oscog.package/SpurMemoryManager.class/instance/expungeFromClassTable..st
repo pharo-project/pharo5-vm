@@ -15,4 +15,6 @@ expungeFromClassTable: aBehavior
 	"If the removed class is before the classTableIndex, set the
 	 classTableIndex to point to the empty slot so as to reuse it asap."
 	classIndex < classTableIndex ifTrue:
-		[classTableIndex := classIndex]
+		[classTableIndex := classIndex].
+	"classTableIndex must never index the first page, which is reserved for classes known to the VM."
+	self assert: classTableIndex >= (1 << self classTableMajorIndexShift)

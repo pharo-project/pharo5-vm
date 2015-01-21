@@ -1,3 +1,3 @@
 inlining
 isAssertSelector: selector
-	^#(assert: asserta: assert:l: asserta:l: deny:) includes: selector
+	^#(assert: asserta: assert:l: asserta:l: deny: eassert:) includes: selector

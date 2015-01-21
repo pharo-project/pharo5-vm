@@ -1,6 +1,7 @@
 memory space primitives
 primitiveIsPinned
 	"Answer if the receiver is pinned, i.e. immobile."
+	<option: #SpurObjectMemory>
 	| obj |
 	obj := self stackTop.
 	((objectMemory isImmediate: obj)

@@ -7,6 +7,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	<inline: false>
 	<var: #page type: #'StackPage *'>
 	<var: #pointer type: #'char *'>
+	self assert: (objectMemory isContext: aContext).
 	self assert: (self isSingleContext: aContext).
 	self assert: (objectMemory goodContextSize: aContext).
 	page := self newStackPage.

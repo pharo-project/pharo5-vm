@@ -69,4 +69,9 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 					put: (oop := newOop)].
 			  (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
 				[theIPPtr := (theFP + FoxCallerSavedIP) asInteger.
-				 theFP := callerFP]]]
+				 theFP := callerFP].
+			 "And finally follow the caller context."
+			 self assert: theFP = thePage baseFP.
+			 oop := self frameCallerContext: theFP.
+			 (objectMemory isForwarded: oop) ifTrue:
+				[self frameCallerContext: theFP put: (objectMemory followForwarded: oop)]]]

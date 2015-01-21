@@ -7,7 +7,7 @@ objStack: objStack from: start do: aBlock
 	 unstable if aBlock causes elements to be removed."
 	<inline: true>
 	| size objStackPage numToEnumerate |
-	self assert: (self isValidObjStack: weaklingStack).
+	self eassert: (self isValidObjStack: weaklingStack).
 	size := self fetchPointer: ObjStackTopx ofObject: objStack.
 	objStackPage := self fetchPointer: ObjStackNextx ofObject: objStack.
 	[objStackPage ~= 0] whileTrue:

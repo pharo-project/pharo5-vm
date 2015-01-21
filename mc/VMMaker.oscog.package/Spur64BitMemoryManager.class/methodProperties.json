@@ -44,6 +44,7 @@
 		"largeObjectBytesForSlots:" : "eem 11/13/2014 12:15",
 		"loadFloatOrIntFrom:" : "eem 1/1/2015 13:35",
 		"logBytesPerOop" : "eem 11/14/2014 12:13",
+		"maxCInteger" : "eem 1/8/2015 14:41",
 		"maxSlotsForAlloc" : "eem 12/11/2014 11:27",
 		"maxSmallInteger" : "eem 11/19/2014 15:55",
 		"mem:mo:ve:" : "eem 12/18/2014 17:04",

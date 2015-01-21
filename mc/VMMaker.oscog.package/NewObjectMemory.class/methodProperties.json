@@ -146,6 +146,7 @@
 		"sizeBitsOf:" : "eem 4/30/2009 11:32",
 		"sizeBitsOfSafe:" : "eem 7/15/2008 16:01",
 		"sizeHeader:putBodySize:" : "eem (const to msg rewrite) 11/6/2014 11:00",
+		"smallIntegerTag" : "eem 1/8/2015 14:36",
 		"startOfFreeSpace" : "eem 4/30/2009 10:20",
 		"statGCEndUsecs" : "eem 6/8/2010 17:12",
 		"storeImageSegmentInto:outPointers:roots:" : "eem (const to msg rewrite) 11/6/2014 11:00",

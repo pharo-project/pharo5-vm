@@ -44,7 +44,6 @@
 		"compileFrameBuild" : "eem 10/30/2013 17:02",
 		"compileOpenPIC:numArgs:" : "eem 12/6/2014 11:10",
 		"debugStackPointerFor:" : "eem 12/11/2010 11:03",
-		"declareCVarsIn:" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"doubleExtendedDoAnythingBytecode" : "eem 7/12/2013 15:31",
 		"duplicateTopBytecode" : "eem 12/11/2010 14:04",
 		"ensureFixupAt:" : "eem 12/11/2010 15:13",

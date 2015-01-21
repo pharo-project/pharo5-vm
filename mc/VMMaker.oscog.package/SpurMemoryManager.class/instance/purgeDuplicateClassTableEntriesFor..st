@@ -10,4 +10,6 @@ purgeDuplicateClassTableEntriesFor: aClass
 		 (entry = aClass and: [index ~= expectedIndex]) ifTrue:
 			[self classAtIndex: index put: nilObj.
 			 index < classTableIndex ifTrue:
-				[classTableIndex := index]]]
+				[classTableIndex := index]]].
+	"classTableIndex must never index the first page, which is reserved for classes known to the VM."
+	self assert: classTableIndex >= (1 << self classTableMajorIndexShift)

@@ -117,6 +117,7 @@
 		"rawHeaderOf:put:" : "eem 12/19/2010 15:20",
 		"rumpCStackAddress" : "eem 8/25/2014 15:42",
 		"scavengeThresholdAddress" : "eem 1/8/2011 13:35",
+		"shiftForWord" : "eem 1/2/2015 13:45",
 		"sizeOfCallPrimitiveBytecode:" : "eem 11/14/2012 15:01",
 		"sizeOfLongStoreTempBytecode:" : "eem 11/14/2012 15:00",
 		"specialSelector:" : "eem 12/19/2010 15:03",

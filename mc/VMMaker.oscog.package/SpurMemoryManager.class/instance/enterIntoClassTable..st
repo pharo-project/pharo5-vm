@@ -25,7 +25,9 @@ enterIntoClassTable: aBehavior
 	 minorIndex to: self classTablePageSize - 1 do:
 		[:i|
 		(self fetchPointer: i ofObject: page) = nilObj ifTrue:
-			[classTableIndex := majorIndex << self classTableMajorIndexShift + i.
+			[classTableIndex := majorIndex << self classTableMajorIndexShift + i..
+			 "classTableIndex must never index the first page, which is reserved for classes known to the VM."
+			 self assert: classTableIndex >= (1 << self classTableMajorIndexShift).
 			 self storePointer: i
 				ofObject: page
 				withValue: aBehavior.

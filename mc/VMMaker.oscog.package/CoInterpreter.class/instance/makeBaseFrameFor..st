@@ -13,6 +13,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	<var: #cogMethod type: #'CogMethod *'>
 	"theIP must be typed as signed because it is assigned ceCannotResumePC and so maybe implicitly typed as unsigned."
 	<var: #theIP type: #sqInt>
+	self assert: (objectMemory isContext: aContext).
 	self assert: (self isSingleContext: aContext).
 	self assert: (objectMemory goodContextSize: aContext).
 	theIP := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.

@@ -2,7 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
-		"asUnsigned:" : "eem 11/20/2014 12:11",
+		"asUnsigned:" : "eem 1/8/2015 14:41",
 		"cStringOrNullFor:" : "eem 12/20/2012 10:02",
 		"failed" : "eem 5/24/2011 09:09",
 		"initPrimCall" : "eem 9/12/2010 06:35",
@@ -125,7 +125,7 @@
 		"primitiveInterruptChecksPerMSec" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveInterruptSemaphore" : "eem 6/29/2014 11:41",
 		"primitiveInvokeObjectAsMethod" : "eem 10/14/2013 13:39",
-		"primitiveIsPinned" : "eem 12/25/2014 15:08",
+		"primitiveIsPinned" : "eem 1/8/2015 17:12",
 		"primitiveIsRoot" : "eem 10/14/2013 11:09",
 		"primitiveIsWindowObscured" : "ar 1/6/2009 16:40",
 		"primitiveIsYoung" : "eem 10/14/2013 20:17",
@@ -170,7 +170,7 @@
 		"primitivePathToUsing" : "eem 3/27/2014 15:49",
 		"primitivePerformInSuperclass" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitivePerformWithArgs" : "eem (objmem refactor) 6/8/2010 17:12",
-		"primitivePin" : "eem 12/25/2014 15:05",
+		"primitivePin" : "eem 1/8/2015 17:11",
 		"primitivePointX" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitivePointY" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveProcessBindToThreadId" : "eem 11/21/2010 11:27",

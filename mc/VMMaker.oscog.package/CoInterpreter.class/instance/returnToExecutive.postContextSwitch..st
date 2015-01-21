@@ -21,6 +21,8 @@ returnToExecutive: inInterpreter postContextSwitch: switchedContext
 		 switchedContext
 			ifTrue:
 				[cogMethod := self mframeCogMethod: framePointer.
+				self assert: (instructionPointer > cogit minCogMethodAddress 
+							and: [instructionPointer < cogit maxCogMethodAddress]).
 				 (instructionPointer ~= (cogMethod asInteger + cogMethod stackCheckOffset)
 				  and: [cogit isSendReturnPC: instructionPointer])
 					ifTrue:

@@ -2,7 +2,7 @@ obj stacks
 noCheckPush: objOop onObjStack: objStack
 	"Push an element on an objStack.  Split from push:onObjStack: for testing."
 	| topx |
-	self assert: (self isValidObjStack: objStack).
+	self eassert: (self isValidObjStack: objStack).
 	self cCode: [] "for debugging markAndTrace: set (MarkStackRecord := OrderedCollection new)"
 		inSmalltalk:
 			[(self fetchPointer: ObjStackMyx ofObject: objStack) = MarkStackRootIndex ifTrue:

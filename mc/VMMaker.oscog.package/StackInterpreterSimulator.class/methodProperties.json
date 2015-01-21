@@ -243,7 +243,6 @@
 		"warning:" : "eem 10/12/2009 01:03",
 		"warpBits" : "yo 6/3/1999 16:10",
 		"withMemoryProtectionDo:" : "eem 7/3/2008 11:02",
-		"withSmallIntegerTags:" : "eem 6/20/2008 13:37",
 		"withoutSmallIntegerTags:" : "eem 6/23/2008 13:57",
 		"writeEnableMemory" : "eem (objmem refactor) 6/8/2010 17:12",
 		"writeProtectMemory" : "eem (objmem refactor) 6/8/2010 17:12" } }
