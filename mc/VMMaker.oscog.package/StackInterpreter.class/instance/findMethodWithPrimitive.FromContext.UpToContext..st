@@ -3,6 +3,7 @@ findMethodWithPrimitive: primitive FromContext: senderContext UpToContext: homeC
 	"See findUnwindThroughContext:.  Alas this is mutually recursive with
 	 findMethodWithPrimitive:FromFP:SP:ThroughContext: instead of iterative.
 	 We're doing the simplest thing that could possibly work.  Niceties can wait."
+	<inline: false>
 	| theContext theMethod |
 	self assert: (senderContext = objectMemory nilObject or: [objectMemory isContext: senderContext]).
 	self assert: (homeContext = objectMemory nilObject or: [objectMemory isContext: homeContext]).

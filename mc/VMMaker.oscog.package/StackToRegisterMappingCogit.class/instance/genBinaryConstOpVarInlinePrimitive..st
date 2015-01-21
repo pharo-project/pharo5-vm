@@ -31,6 +31,18 @@ genBinaryConstOpVarInlinePrimitive: prim
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 
 		"2032	through 2037, >, <, >=, <=. =, ~=, SmallInteger op SmallInteger => Boolean (flags?? then in jump bytecodes if ssTop is a flags value, just generate the instruction!!)"
+		[32] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpGreater opFalse: JumpLess destReg: ra ].
+		[33] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpLess opFalse: JumpGreater destReg: ra ].
+		[34] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpGreaterOrEqual opFalse: JumpLessOrEqual destReg: ra ].
+		[35] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpLessOrEqual opFalse: JumpGreaterOrEqual destReg: ra ].
+		[36] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpZero opFalse: JumpNonZero destReg: ra ].
+		[37] -> [ self CmpCq: val R: ra.
+				self genBinaryInlineComparison: JumpNonZero opFalse: JumpZero destReg: ra ].
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
 		[64] ->	[self genConvertSmallIntegerToIntegerInReg: ra.

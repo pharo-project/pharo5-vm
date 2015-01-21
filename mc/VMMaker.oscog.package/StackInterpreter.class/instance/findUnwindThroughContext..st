@@ -5,14 +5,18 @@ findUnwindThroughContext: homeContext
 		0			home context was found on sender chain with no intervening unwind-protects
 		nilObj		home context could not be found => cannotReturn
 		context		the context of an intervening unwind-protect implies home context was found"
-	| ctxtOrNilOrZero theMethod |
+	| onSamePage ctxtOrNilOrZero theMethod |
+	"Almost always (98%) the home is on the same page."
+	onSamePage := (self isStillMarriedContext: homeContext)
+					and: [(stackPages pageIndexFor: framePointer) = (stackPages pageIndexFor: (self frameOfMarriedContext: homeContext))].
 	"Since nothing changes we don't need to internalize."
 	ctxtOrNilOrZero := self findMethodWithPrimitive: 198 FromFP: framePointer UpToContext: homeContext.
-	ctxtOrNilOrZero = 0 ifTrue:
+	(onSamePage or: [ctxtOrNilOrZero = 0]) ifTrue:
 		[theMethod := objectMemory fetchPointer: MethodIndex ofObject: homeContext.
 		 (self primitiveIndexOf: theMethod) = 198 ifTrue:
 			[^homeContext].
 		 ^0].
+	"Found an unwind.  Can the home context be found also?"
 	ctxtOrNilOrZero = objectMemory nilObject ifFalse:
 		[(self findMethodWithPrimitive: 0 FromContext: ctxtOrNilOrZero UpToContext: homeContext)
 		  = objectMemory nilObject ifTrue:

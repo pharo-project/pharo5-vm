@@ -3,6 +3,7 @@ findMethodWithPrimitive: primitive FromFP: startFP UpToContext: homeContext
 	"See findUnwindThroughContext:.  Alas this is mutually recursive with
 	 findMethodWithPrimitive:FromContext:ThroughContext: instead of iterative.
 	 We're doing the simplest thing that could possibly work.  Niceties can wait."
+	<inline: true>
 	| theFP theFPAbove theSP theMethod senderContext |
 	<var: #startFP type: #'char *'>
 	<var: #theFP type: #'char *'>
