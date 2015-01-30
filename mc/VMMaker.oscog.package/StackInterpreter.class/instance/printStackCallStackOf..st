@@ -1,15 +1,19 @@
 debug printing
-printStackCallStackOf: frameOrContext
+printStackCallStackOf: aContextOrProcessOrFrame
 	<api>
 	| theFP context |
 	<var: #theFP type: #'char *'>
-	(objectMemory addressCouldBeObj: frameOrContext) ifTrue:
-		[((objectMemory isContext: frameOrContext)
-		  and: [self checkIsStillMarriedContext: frameOrContext currentFP: nil]) ifTrue:
-			[^self printStackCallStackOf: (self frameOfMarriedContext: frameOrContext) asInteger].
+	(objectMemory addressCouldBeObj: aContextOrProcessOrFrame) ifTrue:
+		[((objectMemory isContext: aContextOrProcessOrFrame)
+		  and: [self checkIsStillMarriedContext: aContextOrProcessOrFrame currentFP: nil]) ifTrue:
+			[^self printStackCallStackOf: (self frameOfMarriedContext: aContextOrProcessOrFrame) asInteger].
+		 (self couldBeProcess: aContextOrProcessOrFrame) ifTrue:
+			[^self printCallStackOf: (objectMemory
+										fetchPointer: SuspendedContextIndex
+										ofObject: aContextOrProcessOrFrame)].
 		 ^nil].
-	 
-	theFP := frameOrContext asVoidPointer.
+
+	theFP := aContextOrProcessOrFrame asVoidPointer.
 	[context := self shortReversePrintFrameAndCallers: theFP.
 	 ((self isMarriedOrWidowedContext: context)
 	  and:

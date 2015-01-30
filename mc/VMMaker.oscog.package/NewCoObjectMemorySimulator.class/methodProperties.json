@@ -76,6 +76,7 @@
 		"signalFinalization:" : "eem 6/10/2010 17:04",
 		"signed32BitIntegerFor:" : "eem 11/15/2011 13:16",
 		"signed32BitValueOf:" : "eem 11/15/2011 13:18",
+		"signedMachineIntegerValueOf:" : "eem 1/26/2015 16:28",
 		"sqGrowMemory:By:" : "eem 9/25/2013 00:22",
 		"sqMemoryExtraBytesLeft:" : "ar 2/25/2001 17:16",
 		"sqShrinkMemory:By:" : "eem 10/12/2009 04:27",

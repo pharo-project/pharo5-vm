@@ -9,6 +9,8 @@ runWithBreakCount: theBreakCount
 						[topWindow delete]]].
 				  ^self].
 	breakCount := theBreakCount.
+	self initStackPages.
+	self loadInitialContext.	
 	self internalizeIPandSP.
 	self fetchNextBytecode.
 	[true] whileTrue:

@@ -1,5 +1,5 @@
 compiled methods
-isOptimizedMethod: header
+isOptimizedMethod: methodObj
 	<api>
 	<option: #SistaVM>
-	^header >> MethodHeaderFlagBitPosition anyMask: 1
+	^self isOptimizedMethodHeader: (objectMemory methodHeaderOf: methodObj)

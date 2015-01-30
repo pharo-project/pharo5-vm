@@ -5,11 +5,7 @@ printCallStackOf: aContextOrProcessOrFrame
 	<inline: false>
 	(stackPages couldBeFramePointer: aContextOrProcessOrFrame) ifTrue:
 		[^self printCallStackFP: (self cCoerceSimple: aContextOrProcessOrFrame to: #'char *')].
-	((objectMemory isContext: aContextOrProcessOrFrame) not
-	and: [(objectMemory lengthOf: aContextOrProcessOrFrame) > MyListIndex
-	and: [objectMemory isContext: (objectMemory
-									fetchPointer: SuspendedContextIndex
-									ofObject: aContextOrProcessOrFrame)]]) ifTrue:
+	(self couldBeProcess: aContextOrProcessOrFrame) ifTrue:
 		[^self printCallStackOf: (objectMemory
 									fetchPointer: SuspendedContextIndex
 									ofObject: aContextOrProcessOrFrame)].

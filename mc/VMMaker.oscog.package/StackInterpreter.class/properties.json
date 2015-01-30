@@ -6,6 +6,8 @@
 		"AltBytecodeEncoderClassName",
 		"AltLongStoreBytecode",
 		"AlternateHeaderHasPrimFlag",
+		"AlternateHeaderIsOptimizedFlag",
+		"AlternateHeaderNumLiteralsMask",
 		"AtCacheEntries",
 		"AtCacheFixedFields",
 		"AtCacheFmt",

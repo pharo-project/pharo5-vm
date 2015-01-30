@@ -19,7 +19,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 			[theIPPtr := instructionPointer - method.
 			 method := objectMemory followForwarded: method.
 			 instructionPointer := method + theIPPtr].
-		(objectMemory isForwarded: newMethod) ifTrue:
+		(objectMemory isOopForwarded: newMethod) ifTrue:
 			[newMethod := objectMemory followForwarded: newMethod]].
 
 	self assert: stackPage ~= 0.

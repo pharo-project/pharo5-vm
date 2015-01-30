@@ -1,6 +1,7 @@
 arithmetic integer primitives
 primitiveBitShift 
 	| integerReceiver integerArgument shifted |
+	<var: #integerReceiver type: #sqInt>
 	integerArgument := self stackTop.
 	(objectMemory isIntegerObject: integerArgument) ifFalse:
 		[^self primitiveFail].

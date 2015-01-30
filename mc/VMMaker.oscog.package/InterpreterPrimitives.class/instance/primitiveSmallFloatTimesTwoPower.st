@@ -8,7 +8,7 @@ primitiveSmallFloatTimesTwoPower
 		ifTrue:
 			[rcvr := objectMemory smallFloatValueOf: (self stackValue: 1).
 			 arg := objectMemory integerValueOf: arg.
-			 self pop: 1
+			 self pop: 2
 				thenPushFloat: (self cCode: [self ld: rcvr exp: arg]
 									inSmalltalk: [rcvr timesTwoPower: arg])]
 		ifFalse:
