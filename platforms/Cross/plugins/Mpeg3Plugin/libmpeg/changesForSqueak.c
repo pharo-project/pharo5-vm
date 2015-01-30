@@ -34,6 +34,7 @@
 // May 31st, 2002 JMM a few additions to make it compile on the mac with latest code
 
 #include <string.h>
+#include <stdlib.h>
 #include "mpeg3private.h"
 #include "changesForSqueak.h"
 

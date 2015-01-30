@@ -12,7 +12,7 @@ typedef struct sqSSL {
 	char *certName;
 	char *peerName;
 
-	SSL_METHOD *method;
+	const SSL_METHOD *method;
 	SSL_CTX *ctx;
 	SSL *ssl;
 	BIO *bioRead;
