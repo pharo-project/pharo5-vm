@@ -7,4 +7,4 @@ primInIOProcessEventsFlagAddress
 	<export: true>
 	<var: 'inIOProcessEvents' declareC: 'extern int inIOProcessEvents'>
 	self cCode: '' inSmalltalk: [inIOProcessEvents = 0].
-	interpreterProxy methodReturnValue: (self positiveMachineIntegerFor: (self addressOf: inIOProcessEvents))
+	interpreterProxy methodReturnValue: (self positiveMachineIntegerFor: (self addressOf: inIOProcessEvents) asUnsignedInteger)

@@ -5,8 +5,8 @@ primitiveDrawArrays
 	| maxIdx minIdx mode texCoords normals colors vertices handle vtxSize ok |
 	<export: true>
 
-	interpreterProxy methodArgumentCount = 8 
-		ifFalse:[^interpreterProxy primitiveFail].
+	interpreterProxy methodArgumentCount = 8 ifFalse:
+		[^interpreterProxy primitiveFail].
 
 	maxIdx := interpreterProxy stackIntegerValue: 0.
 	minIdx := interpreterProxy stackIntegerValue: 1.
@@ -19,18 +19,17 @@ primitiveDrawArrays
 
 	self loadClientState: handle vertices: vertices colors: colors normals: normals texCoords: texCoords.
 	interpreterProxy failed ifTrue:[^nil].
-	doRangeChecks ifTrue:[
-		"Verify the vertex data itself"
+	doRangeChecks ifTrue:
+		["Verify the vertex data itself"
 		self checkVertexData: vertices.
 
 		"Verify min-max range in bounds for given vertex array"
 		vtxSize := (interpreterProxy slotSizeOf: vertices) / 3.
-		(minIdx < 0 or:[minIdx > maxIdx or:[maxIdx > vtxSize]])
-			ifTrue:[^interpreterProxy primitiveFail].
-	].
-	interpreterProxy failed ifTrue:[^nil].
-	ok := self cCode: 'b3dDrawArrays(handle, mode, minIdx, maxIdx)' 
-				inSmalltalk:[mode. false].
-	ok ifFalse:[^interpreterProxy primitiveFail].
-	interpreterProxy failed 
-		ifFalse:[interpreterProxy pop: interpreterProxy methodArgumentCount].
+		(minIdx < 0 or:[minIdx > maxIdx or:[maxIdx > vtxSize]]) ifTrue:
+			[interpreterProxy primitiveFail]].
+	interpreterProxy failed ifFalse:
+		[ok := self cCode: 'b3dDrawArrays(handle, mode, minIdx, maxIdx)' 
+					inSmalltalk:[mode. false].
+		 ok ifTrue:
+			[interpreterProxy pop: interpreterProxy methodArgumentCount]].
+	^nil "keep compiler quiet"

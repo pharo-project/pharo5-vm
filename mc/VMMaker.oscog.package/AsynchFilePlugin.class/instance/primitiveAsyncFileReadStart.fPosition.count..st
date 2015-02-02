@@ -4,4 +4,5 @@ primitiveAsyncFileReadStart: fHandle fPosition: fPosition count: count
 	<var: #f type: 'AsyncFile *'>
 	self primitive: 'primitiveAsyncFileReadStart' parameters: #(Oop SmallInteger SmallInteger).
 	f := self asyncFileValueOf: fHandle.
-	self cCode: 'asyncFileReadStart(f, fPosition, count)'
+	interpreterProxy failed ifTrue: [^nil].
+	self asyncFile: f Read: fPosition Start: count

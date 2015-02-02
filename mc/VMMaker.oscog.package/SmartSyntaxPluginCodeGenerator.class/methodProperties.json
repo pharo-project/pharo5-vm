@@ -14,6 +14,8 @@
 		"ccgLoad:expr:asNamedPtr:from:" : "acg 12/17/1999 07:29",
 		"ccgLoad:expr:asNamedPtr:from:andThen:" : "acg 12/17/1999 07:29",
 		"ccgLoad:expr:asNonIntegerValueFrom:" : "acg 12/17/1999 07:29",
+		"ccgLoad:expr:asOopPtrFrom:" : "eem 1/30/2015 12:29",
+		"ccgLoad:expr:asOopPtrFrom:andThen:" : "eem 1/30/2015 12:29",
 		"ccgLoad:expr:asRawOopFrom:" : "acg 12/17/1999 07:32",
 		"ccgLoad:expr:asUnsignedPtrFrom:andThen:" : "acg 12/17/1999 07:31",
 		"ccgLoad:expr:asUnsignedValueFrom:" : "eem 12/4/2014 11:31",
