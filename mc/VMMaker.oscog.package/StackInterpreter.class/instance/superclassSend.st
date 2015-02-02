@@ -10,5 +10,10 @@ superclassSend
 	superclass := self superclassOf: (self methodClassOf: method).
 	objectMemory ensureBehaviorHash: superclass.
 	lkupClassTag := objectMemory classTagForClass: superclass.
+	"To maintain the invariant that all receivers are unforwarded we need an explicit
+	 read barrier in the super send cases.  Even though we always follow receivers
+	 on become  e.g. super doSomethingWith: (self become: other) forwards the receiver
+	 self pushed on the stack."
+	self ensureReceiverUnforwarded.
 	self assert: lkupClassTag ~= objectMemory nilObject.
 	self commonSend

@@ -31,6 +31,8 @@ declareCVarsIn: aCCodeGenerator
 		as: #'StackPage *'
 		in: aCCodeGenerator.
 	aCCodeGenerator removeVariable: 'stackPages'.  "this is an implicit receiver in the translated code."
+	NewspeakVM ifFalse:
+		[aCCodeGenerator removeVariable: 'localAbsentReceiver'].
 	"This defines bytecodeSetSelector as 0 if MULTIPLEBYTECODESETS
 	 is not defined, for the benefit of the interpreter on slow machines."
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).

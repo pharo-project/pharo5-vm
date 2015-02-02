@@ -7,6 +7,5 @@ extSendAbsentSelfBytecode
 	extA := 0.
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
-	self shuffleArgumentsAndStoreAbsentReceiver: self receiver.
-	lkupClassTag := objectMemory classTagForClass: (objectMemory fetchClassOf: self receiver).
-	self commonSend
+	localAbsentReceiver := self receiver.
+	self commonSendAbsent

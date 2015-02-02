@@ -9,5 +9,5 @@ extSendBytecode
 	extB := 0.
 	rcvr := self internalStackValue: argumentCount.
 	lkupClassTag := objectMemory fetchClassTagOf: rcvr.
-	self assert: lkupClassTag ~= objectMemory nilObject.
+	self assert: (objectMemory classForClassTag: lkupClassTag) ~= objectMemory nilObject.
 	self commonSend

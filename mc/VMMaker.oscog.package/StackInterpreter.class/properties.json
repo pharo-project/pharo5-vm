@@ -57,6 +57,7 @@
 		"stackPointer",
 		"framePointer",
 		"localReturnValue",
+		"localAbsentReceiver",
 		"extA",
 		"extB",
 		"primitiveFunctionPointer",

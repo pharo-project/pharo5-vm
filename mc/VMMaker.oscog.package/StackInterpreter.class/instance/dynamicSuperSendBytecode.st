@@ -8,10 +8,13 @@ dynamicSuperSendBytecode
 	<inline: true>
 	argumentCount := self fetchByte.
 	messageSelector := self literal: self fetchByte.
+	"To maintain the invariant that all receivers are unforwarded we need an explicit
+	 read barrier in the super send cases."
+	self ensureReceiverUnforwarded.
 	rcvr := self internalStackValue: argumentCount.
 	mClassMixin := self methodClassOf: method.
 	mixinApplication := self 
-		findApplicationOfTargetMixin: mClassMixin
-		startingAtBehavior: (objectMemory fetchClassOf: rcvr).
+							findApplicationOfTargetMixin: mClassMixin
+							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
 	lkupClassTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
 	self commonSend
