@@ -18,7 +18,7 @@ ContextPROTOTYPEdoPrimitive: primitiveIndex method: meth receiver: aReceiver arg
 			contents: nil].
 
 	((primitiveIndex between: 201 and: 222)
-	 and: [aReceiver class includesBehavior: BlockClosure]) ifTrue:
+	 and: [(self objectClass: aReceiver) includesBehavior: BlockClosure]) ifTrue:
 		[((primitiveIndex between: 201 and: 205)			 "BlockClosure>>value[:value:...]"
 		  or: [primitiveIndex between: 221 and: 222]) ifTrue: "BlockClosure>>valueNoContextSwitch[:]"
 			[^aReceiver simulateValueWithArguments: arguments caller: self].

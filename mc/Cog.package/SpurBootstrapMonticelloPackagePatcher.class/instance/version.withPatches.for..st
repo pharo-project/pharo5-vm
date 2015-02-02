@@ -2,7 +2,7 @@ patching
 version: version withPatches: patches for: package
 	| snapshot ancestry possibleSpurAncestor actualAncestor |
 	snapshot := MCPatcher
-					apply: (self patchForPackage: package withPatches: patches snapshot: version snapshot)
+					apply: (self patches: patches forSnapshot: version snapshot)
 					to: version snapshot.
 	ancestry := MCWorkingAncestry new addAncestor: version info.
 	"this is a hack; we may not be patching w.r.t. a directory or trunk"

@@ -15,6 +15,8 @@ rehashImage
 	sim bootstrapping: true.
 	sim initializeInterpreter: 0.
 	sim instVarNamed: 'methodDictLinearSearchLimit' put: SmallInteger maxVal.
+	
+	sim redirectTranscriptToHost.
 
 	newHeap
 		setHashBitsOf: newHeap nilObject to: 1;

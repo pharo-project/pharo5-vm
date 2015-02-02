@@ -1,6 +1,10 @@
 patching
-patchForPackage: package withPatches: patches snapshot: snapshot
-	(package includesClass: Character) ifTrue:
+patches: patches forSnapshot: snapshot
+	"Add modified class defs for Character, SmallInteger, Float, BoxedFloat64, SmallFloat64 and COmpiledMethod.
+	 Remove ObjectHistory and ObjectHistoryMark (which Spur does not support)."
+	| defs |
+	defs := snapshot definitions.
+	(defs anySatisfy: [:d| d isClassDefinition and: [d className == #Character]]) ifTrue:
 		[patches
 			addAll: (self filteredDefinitionsAsPatches: (self modifiedCharacterDefinitionsIn: snapshot definitions)
 						patches: patches);
@@ -14,7 +18,7 @@ patchForPackage: package withPatches: patches snapshot: snapshot
 
 	The other languages can have the language tag if you like.  This will help to break the large default font (font set) into separately loadable chunk of fonts.  However, it is open to the each native speakers and writers to decide how to define the character equality, since the same Unicode code point may have different language tag thus simple #= comparison may return false.'
 					stamp: 'eem 8/12/2014 14:53')].
-	(package includesClass: SmallInteger) ifTrue:
+	(defs anySatisfy: [:def| def isClassDefinition and: [def className == #SmallInteger]]) ifTrue:
 		[patches
 			add: (self
 					classDefinitionFor: #SmallInteger
@@ -22,7 +26,7 @@ patchForPackage: package withPatches: patches snapshot: snapshot
 					from: snapshot definitions
 					comment: 'My instances are at least 31-bit numbers, stored in twos complement form. The allowable range in 32-bits is approximately +- 10^9 (+- 1billion).  In 64-bits my instances are 61-bit numbers, stored in twos complement form. The allowable range is approximately +- 10^18 (+- 1 quintillion).   The actual values are computed at start-up.  See SmallInteger class startUp:, minVal, maxVal.'
 					stamp: 'eem 11/20/2014 08:41')].
-	(package includesClass: Float) ifTrue:
+	(defs anySatisfy: [:def| def isClassDefinition and: [def className == #Float]]) ifTrue:
 		[patches
 			add: (self
 					classDefinitionFor: #Float
@@ -44,7 +48,12 @@ patchForPackage: package withPatches: patches snapshot: snapshot
 					stamp: 'eem 11/25/2014 07:54');
 			addAll: (self filteredDefinitionsAsPatches: (self modifiedFloatDefinitionsIn: snapshot definitions)
 						patches: patches)].
-	(package includesClass: CompiledMethod) ifTrue:
+	(defs anySatisfy: [:def| def isClassDefinition and: [def className == #CompiledMethod]]) ifTrue:
 		[patches
 			add: self compiledMethodClassDefinition].
+	(defs anySatisfy: [:def| def isClassDefinition and: [def className == #ObjectHistory]]) ifTrue:
+		[patches addAll:
+			(defs
+				select: [:def| #(ObjectHistory ObjectHistoryMark) includes: def className]
+				thenCollect: [:def| MCRemoval of: def])].
 	^MCPatch operations: patches
