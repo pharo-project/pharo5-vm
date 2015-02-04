@@ -1,4 +1,4 @@
-*SpurVMMakerPharoCompatibility
+*CogVMMakerPharoCompatibility
 genCallPrimitive: primitiveIndex
 	"139	11101111	iiiiiiii jjjjjjjj	Call Primitive #iiiiiiii + (jjjjjjjj * 256)"
 	(primitiveIndex < 1 or: [primitiveIndex > 65535]) ifTrue:
