@@ -6,8 +6,14 @@ initializeBytecodeTable
 		[:initalizer| ^self perform: initalizer].
 
 	NewspeakVM ifTrue:
-		[^MULTIPLEBYTECODESETS
-			ifTrue: [self initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid]
-			ifFalse: [self initializeBytecodeTableForNewspeakV3PlusClosures]].
+		[^(initializationOptions at: #SpurObjectMemory ifAbsent: false)
+			ifTrue:
+				[MULTIPLEBYTECODESETS
+					ifTrue: [self initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid]
+					ifFalse: [self initializeBytecodeTableForNewspeakV4]]
+			ifFalse:
+				[MULTIPLEBYTECODESETS
+					ifTrue: [self initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid]
+					ifFalse: [self initializeBytecodeTableForNewspeakV3PlusClosures]]].
 
 	^self initializeBytecodeTableForSqueakV3PlusClosures

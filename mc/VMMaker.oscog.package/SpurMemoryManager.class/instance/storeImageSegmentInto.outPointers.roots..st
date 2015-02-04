@@ -105,7 +105,7 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
 				and: outPointerArray savedHashes: savedOutHashes].
 
-	"We're done.  SHorten the results, restore hashes and return."
+	"We're done.  Shorten the results, restore hashes and return."
 	self shorten: segmentWordArray toIndexableSize: segAddr - (segmentWordArray + self baseHeaderSize) / 4.
 	self shorten: outPointerArray toIndexableSize: outIndex.
 	^self return: PrimNoErr

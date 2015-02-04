@@ -15,7 +15,7 @@
 		"initialiseModule" : "eem 6/22/2011 11:57",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 8/2/2012 14:12",
 		"moduleUnloaded:" : "JMM (auto pragmas 12/08) 1/21/2002 11:03",
-		"primitiveDirectoryCreate" : "ar (auto pragmas 12/08) 4/4/2006 20:50",
+		"primitiveDirectoryCreate" : "eem 2/3/2015 16:54",
 		"primitiveDirectoryDelete" : "ar (auto pragmas 12/08) 4/4/2006 20:49",
 		"primitiveDirectoryDelimitor" : "eem 9/19/2013 15:42",
 		"primitiveDirectoryEntry" : "EstebanLorenzano 8/2/2012 14:38",

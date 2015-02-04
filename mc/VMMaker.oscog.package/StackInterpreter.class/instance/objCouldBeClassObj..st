@@ -5,7 +5,7 @@ objCouldBeClassObj: objOop
 	<inline: false>
 	| fieldOop |
 	^(objectMemory isPointersNonImm: objOop)
-	  and: [(objectMemory numSlotsOf: objOop) > InstanceSpecificationIndex
+	  and: [(objectMemory numSlotsOfAny: objOop) > InstanceSpecificationIndex
 	  and: [fieldOop := objectMemory fetchPointer: SuperclassIndex ofObject: objOop.
 			((objectMemory isNonImmediate: fieldOop)
 			and:[ (objectMemory isPointersNonImm: fieldOop)

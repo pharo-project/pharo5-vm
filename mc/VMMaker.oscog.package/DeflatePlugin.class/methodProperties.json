@@ -9,7 +9,7 @@
 		"encodeLiteral:" : "ar (auto pragmas 12/08) 12/29/1999 20:37",
 		"encodeMatch:distance:" : "ar (auto pragmas 12/08) 12/29/1999 20:37",
 		"findMatch:lastLength:lastMatch:chainLength:goodMatch:" : "ar (auto pragmas 12/08) 12/29/1999 22:00",
-		"initialize" : "eem 7/18/2014 16:52",
+		"initialize" : "eem 2/3/2015 18:34",
 		"insertStringAt:" : "ar (auto pragmas 12/08) 12/29/1999 21:59",
 		"loadDeflateStreamFrom:" : "eem 7/18/2014 14:15",
 		"loadZipEncoderFrom:" : "eem 7/18/2014 17:04",

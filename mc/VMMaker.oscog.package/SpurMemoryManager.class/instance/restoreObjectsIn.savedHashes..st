@@ -1,6 +1,6 @@
 image segment in/out
 restoreObjectsIn: objArray savedHashes: savedHashes
-	"Enumerate the objects in objArray,unmarking them and restoring their hashes
+	"Enumerate the objects in objArray, unmarking them and restoring their hashes
 	 from the corresponding 32-bit slots in savedHashes.  The first unused entry in
 	 objArray will have a non-hash value entry in savedHashes.  Free savedHashes."
 	<inline: false>

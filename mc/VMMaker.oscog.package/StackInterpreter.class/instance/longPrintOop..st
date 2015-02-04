@@ -52,7 +52,7 @@ longPrintOop: oop
 			self cr]].
 	(objectMemory isCompiledMethod: oop)
 		ifFalse:
-			[startIP > 64 ifTrue: [self print: '...'; cr]]
+			[startIP > lastIndex ifTrue: [self print: '...'; cr]]
 		ifTrue:
 			[startIP := startIP * objectMemory wordSize + 1.
 			 lastIndex := objectMemory lengthOf: oop.
