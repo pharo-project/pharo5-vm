@@ -1,0 +1,3 @@
+*SpurVMMakerPharoCompatibility
+asUnsignedInteger
+	^ value
