@@ -6,7 +6,16 @@ rehashImage
 	| n sim rehashFlags dotDate rehashSym sizeSym |
 	rehashSym := map at: (self findSymbol: #rehash).
 	sizeSym := map at: (self findSymbol: #size).
-	sim := StackInterpreterSimulator onObjectMemory: newHeap.
+	sim := StackInterpreterSimulator 
+		onObjectMemory: newHeap 
+		options: { 
+			#IMMUTABILITY->false. 
+			#MULTIPLEBYTECODESETS->false. 
+			#NewspeakVM->false. 
+			#ObjectMemory->#Spur32BitMemoryManager. 
+			#SistaVM->false. 
+			#SqueakV3ObjectMemory->false.
+			#SpurObjectMemory->true } asDictionary.
 	sim 
 		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
 		imageName: 'spur image';
