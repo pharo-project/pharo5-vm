@@ -5,6 +5,10 @@ isConstantNode: aNode valueInto: aBlock
 	aNode isConstant ifTrue:
 		[aBlock value: aNode value.
 		 ^true].
+	(aNode isVariable
+	 and: [aNode name = #nil]) ifTrue:
+		[aBlock value: nil.
+		 ^true].
 	aNode isSend ifFalse:
 		[^false].
 	(self anyMethodNamed: aNode selector)

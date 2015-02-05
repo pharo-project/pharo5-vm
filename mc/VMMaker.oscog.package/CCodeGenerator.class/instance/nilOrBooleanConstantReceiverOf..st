@@ -12,6 +12,9 @@ nilOrBooleanConstantReceiverOf: aNode
 		[aNode selector == #not ifTrue:
 			[(self nilOrBooleanConstantReceiverOf: aNode receiver) ifNotNil:
 				[:bool| ^bool not]].
+		 ((#(isNil notNil) includes: aNode selector)
+		  and: [self isNilConstantReceiverOf: aNode]) ifTrue:
+			[^aNode selector == #isNil].
 		 ((#(or: and:) includes: aNode selector)
 		 and: [aNode args last isStmtList
 		 and: [aNode args last statements size = 1]]) ifTrue:

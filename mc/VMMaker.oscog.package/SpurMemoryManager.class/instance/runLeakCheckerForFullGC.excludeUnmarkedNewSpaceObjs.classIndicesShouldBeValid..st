@@ -2,7 +2,7 @@ debug support
 runLeakCheckerForFullGC: fullGCFlag excludeUnmarkedNewSpaceObjs: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: classIndicesShouldBeValid
 	<inline: false>
 	(fullGCFlag
-			ifTrue: [self leakCheckFullGC]
+			ifTrue: [self leakCheckFullGC or: [self leakCheckImageSegments]]
 			ifFalse: [self leakCheckNewSpaceGC]) ifTrue:
 		[fullGCFlag
 			ifTrue: [coInterpreter reverseDisplayFrom: 0 to: 7]

@@ -1,18 +1,19 @@
 image segment in/out
 mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outPointerArray
-	"scan through mapping oops and validating class references.
-	 Defer entering any class objects into the class table and/or
-	 pinning objects until a second pass."
+	"This is part of loadImageSegmentFrom:outPointers:.
+	 Scan through mapping oops and validating class references.  Defer
+	 entering any class objects into the class table and/or pinning objects
+	 until the second pass in assignClassIndicesAndPinFrom:to:outPointers:."
 	| numOutPointers objOop topHashBit topOopBit |
 	numOutPointers := self numSlotsOf: outPointerArray.
-	topHashBit := 1 bitShift: self identityHashFieldWidth - 1.
-	topOopBit := 1 bitShift: self bytesPerOop * 8 - 1.
+	topHashBit := 1 << self identityHashFieldWidth - 1.
+	topOopBit := 1 << self bytesPerOop * 8 - 1.
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:
 		[| classIndex hash oop mappedOop |
 		 (self isMarked: objOop) ifTrue:
 			[^PrimErrInappropriate].
-		 classIndex := self classIndexOf: objOop.
+		 classIndex := (self classIndexOf: objOop) - self firstClassIndexPun.
 		 "validate the class ref, but don't update it until any internal classes have been added to the class table."
 		 (classIndex anyMask: topHashBit)
 			ifTrue:

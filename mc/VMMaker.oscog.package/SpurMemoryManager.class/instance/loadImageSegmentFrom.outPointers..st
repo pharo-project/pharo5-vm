@@ -17,18 +17,17 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	(self objectBytesForSlots: segmentLimit) < (self allocationUnit "version info" + self baseHeaderSize "one object header") ifTrue:
 		[^PrimErrBadArgument].
 
-	"First thing is to verify format.  If Spur is ever ported to big-endian machines then the segment
-	 may have to be byte/word swapped, but so far it only runs on little-endian machines, so for now
-	 just fail if endinanness is wrong."
+	"Verify format.  If the format is wrong, word-swap (since ImageSegment data are 32-bit longs).
+	 If it is still wrong, undo the damage and fail."
 	segVersion := self longAt: segmentWordArray + self baseHeaderSize.
-	(coInterpreter readableFormat: (segVersion bitAnd: 16rFFFF "low 2 bytes")) ifFalse:
-		[self reverseBytesFrom: segmentWordArray + self baseHeaderSize
+	(coInterpreter readableFormat: (segVersion bitAnd: 16rFFFFFF "low 3 bytes")) ifFalse:
+		[self reverseBytesIn32BitWordsFrom: segmentWordArray + self baseHeaderSize
 			to: (self addressAfter: segmentWordArray).
 		 segVersion := self longAt: segmentWordArray + self baseHeaderSize.
-		 (coInterpreter readableFormat: (segVersion bitAnd: 16rFFFF "low 2 bytes")) ifFalse:
-			[self reverseBytesFrom: segmentWordArray + self baseHeaderSize
+		 (coInterpreter readableFormat: (segVersion bitAnd: 16rFFFFFF "low 3 bytes")) ifFalse:
+			[self reverseBytesIn32BitWordsFrom: segmentWordArray + self baseHeaderSize
 				to: (self addressAfter: segmentWordArray).
-		^PrimErrBadArgument]].
+			 ^PrimErrBadArgument]].
 
 	segmentStart := segmentWordArray + self baseHeaderSize + self allocationUnit.
 	segmentLimit := segmentLimit * self bytesPerOop + segmentWordArray + self baseHeaderSize.
@@ -38,7 +37,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	 ported to big-endian machines then the segment may have to be byte/word swapped,
 	 but so far it only runs on little-endian machines, so for now just fail if endinanness is wrong."
 	self flag: #endianness.
-	(segVersion >> 16) ~= (self imageSegmentVersion >> 16) ifTrue:
+	(segVersion >> 24 bitAnd: 16rFF) ~= (self imageSegmentVersion >> 24 bitAnd: 16rFF) ifTrue:
 		"Reverse the byte-type objects once"
 		[true
 			ifTrue: [^PrimErrBadArgument]

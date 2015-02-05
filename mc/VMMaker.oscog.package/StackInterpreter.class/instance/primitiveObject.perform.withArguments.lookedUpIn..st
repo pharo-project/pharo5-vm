@@ -1,5 +1,5 @@
 control primitives
-primitiveObject: actualReceiver perform: selector withArguments: argumentArray lookedUpIn: lookupClass
+primitiveObject: actualReceiver perform: selector withArguments: argumentArray lookedUpIn: lookupClassOrNil
 	"Common routine used by perform:withArgs:, perform:withArgs:inSuperclass:,
 	 object:perform:withArgs:inClass: et al.  Answer nil on success.
 
@@ -13,7 +13,7 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	 we know whether the send has succeeded.  So on failure we merely have to remove
 	 the actual receiver and arguments pushed, and on success we have to slide the actual
 	 receiver and arguments down to replace the original ones."
-
+	<inline: true>
 	| arraySize performArgCount delta |
 	(objectMemory isArray: argumentArray) ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
@@ -36,8 +36,14 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	messageSelector := selector.
 	self sendBreakpoint: messageSelector receiver: actualReceiver.
 	self printSends ifTrue:
-		[self printActivationNameForSelector: messageSelector startClass: lookupClass; cr].
-	self findNewMethodInClassTag: (objectMemory classTagForClass: lookupClass).
+		[self printActivationNameForSelector: messageSelector
+				startClass: (lookupClassOrNil isNil
+								ifTrue: [objectMemory fetchClassOf: actualReceiver]
+								ifFalse: [lookupClassOrNil]);
+			cr].
+	self findNewMethodInClassTag: (lookupClassOrNil isNil
+										ifTrue: [objectMemory fetchClassTagOf: actualReceiver]
+										ifFalse: [objectMemory classTagForClass: lookupClassOrNil]).
 
 	"Only test CompiledMethods for argument count - any other objects playacting as CMs will have to take their chances"
 	((objectMemory isOopCompiledMethod: newMethod)

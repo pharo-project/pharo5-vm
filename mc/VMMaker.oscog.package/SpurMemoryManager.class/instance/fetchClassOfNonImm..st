@@ -1,5 +1,6 @@
 object access
 fetchClassOfNonImm: objOop
+	<inline: #never>
 	| classIndex |
 	classIndex := self classIndexOf: objOop.
 	classIndex <= self classIsItselfClassIndexPun ifTrue:
