@@ -29,7 +29,7 @@
 	"instance" : {
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",
 		"getInterpreter" : "ikp (auto pragmas 12/08) 8/3/2004 19:18",
-		"getModuleName" : "ar (auto pragmas 12/08) 5/13/2000 02:00",
+		"getModuleName" : "eem 2/5/2015 14:33",
 		"halt" : "jcg 6/30/2008 17:36",
 		"isInterpreterPlugin" : "eem 3/17/2014 12:26",
 		"isSmartSyntaxPluginSimulator" : "eem 7/2/2014 19:06",
@@ -39,4 +39,6 @@
 		"positiveMachineIntegerFor:" : "eem 1/20/2015 15:19",
 		"setInterpreter:" : "eem 12/6/2012 13:12",
 		"signedMachineIntegerFor:" : "eem 1/20/2015 15:19",
-		"sizeof:" : "eem 12/1/2014 09:55" } }
+		"sizeof:" : "eem 12/1/2014 09:55",
+		"st:rn:cpy:" : "eem 2/5/2015 14:42",
+		"strlen:" : "eem 2/5/2015 14:42" } }

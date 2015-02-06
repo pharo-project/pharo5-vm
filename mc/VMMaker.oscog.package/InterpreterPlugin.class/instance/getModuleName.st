@@ -6,4 +6,6 @@ getModuleName
 	we're thinking it contains. This is important!"
 	<returnTypeC:'const char*'>
 	<export: true>
-	^moduleName
+	^self cCode: [moduleName]
+		inSmalltalk:
+			[self class codeGeneratorClass new pluginClass: self class]
