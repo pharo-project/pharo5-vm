@@ -40,6 +40,7 @@
 		"isNonIntegerObject:" : "eem 10/11/2013 17:14",
 		"isWordsNonImm:" : "eem 9/10/2013 15:35",
 		"largeObjectBytesForSlots:" : "eem 11/13/2014 12:15",
+		"lengthOf:format:" : "eem 2/6/2015 11:18",
 		"loadFloatOrIntFrom:" : "eem 12/18/2014 13:26",
 		"logBytesPerOop" : "eem 11/14/2014 12:13",
 		"maxCInteger" : "eem 1/8/2015 14:41",

@@ -15,6 +15,9 @@ fireEphemeronsOnEphemeronList
 		 ephemeron := manager followForwarded: ephemeronCorpse.
 		 self assert: (self isScavengeSurvivor: (manager keyOfEphemeron: ephemeron)) not.
 		 coInterpreter fireEphemeron: ephemeron.
-		 self copyAndForward: (manager keyOfEphemeron: ephemeron).
+		 manager
+			storePointerUnchecked: 0
+			ofObject: ephemeron
+			withValue: (self copyAndForward: (manager keyOfEphemeron: ephemeron)).
 		 self cCoerceSimple: (self scavengeReferentsOf: ephemeron) to: #void.
 		 ephemeronCorpse := self nextCorpseOrNil: ephemeronCorpse]
