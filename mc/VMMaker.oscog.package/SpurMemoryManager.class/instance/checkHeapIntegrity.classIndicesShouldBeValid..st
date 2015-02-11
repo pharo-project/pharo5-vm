@@ -80,11 +80,11 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 							 "don't be misled by CogMethods; they appear to be young, but they're not"
 							 (self isReallyYoung: fieldOop) ifTrue:
 								[containsYoung := true]]]].
-					containsYoung ifTrue:
-						[(self isRemembered: obj) ifFalse:
-							[coInterpreter print: 'unremembered object '; printHex: obj; print: ' contains young oop(s)'; cr.
-							 self eek.
-							 ok := false]]]].
+			 containsYoung ifTrue:
+				[(self isRemembered: obj) ifFalse:
+					[coInterpreter print: 'unremembered object '; printHex: obj; print: ' contains young oop(s)'; cr.
+					 self eek.
+					 ok := false]]]].
 	numRememberedObjectsInHeap ~= scavenger rememberedSetSize ifTrue:
 		[coInterpreter
 			print: 'root count mismatch. #heap roots ';

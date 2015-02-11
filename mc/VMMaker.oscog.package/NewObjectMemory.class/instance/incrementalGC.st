@@ -12,8 +12,8 @@ incrementalGC
 		 (this should be very rare)"
 		 statRootTableOverflows := statRootTableOverflows + 1.
 		 ^self fullGC].
-	self runLeakCheckerForFullGC: false.
-	coInterpreter preGCAction: GCModeIncr.
+	self runLeakCheckerFor: GCModeNewSpace.
+	coInterpreter preGCAction: GCModeNewSpace.
 	needGCFlag := false.
 	gcStartUsecs := self ioUTCMicrosecondsNow.
 	statSweepCount := statMarkCount := statMkFwdCount := statCompMoveCount := 0.
@@ -24,7 +24,7 @@ incrementalGC
 	1 to: weakRootCount do:
 		[:i| self finalizeReference: (weakRoots at: i)].
 	survivorCount := self sweepPhase.
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeNewSpace.
 	self incrementalCompaction.
 	statIncrGCs := statIncrGCs + 1.
 	statGCEndUsecs := self ioUTCMicrosecondsNow.
@@ -53,8 +53,9 @@ incrementalGC
 			[self biasToGrow.
 			 weDidGrow := true].
 		youngStart := freeStart].
-	coInterpreter postGCAction: GCModeIncr.
+	self attemptToShrink.
+	coInterpreter postGCAction: GCModeNewSpace.
 	
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeNewSpace.
 	weDidGrow ifTrue:
 		[self biasToGrowCheckGCLimit]

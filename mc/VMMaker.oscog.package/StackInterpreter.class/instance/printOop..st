@@ -12,12 +12,15 @@ printOop: oop
 	(objectMemory isFreeObject: oop) ifTrue:
 		[self print: ' is a free chunk of size '; printNum: (objectMemory sizeOfFree: oop).
 		 objectMemory hasSpurMemoryManagerAPI ifTrue:
-			[self print: ' 0th: '; printHex: (objectMemory fetchPointer: 0 ofFreeChunk: oop)].
+			[self print: ' 0th: '; printHex: (objectMemory fetchPointer: 0 ofFreeChunk: oop).
+			 objectMemory printHeaderTypeOf: oop].
 		 ^self cr].
 	(objectMemory isForwarded: oop) ifTrue:
-		[^self
+		[self
 			print: ' is a forwarded object to '; printHex: (objectMemory followForwarded: oop);
-			print: ' of slot size '; printNum: (objectMemory numSlotsOfAny: oop); cr].
+			print: ' of slot size '; printNum: (objectMemory numSlotsOfAny: oop).
+		 objectMemory printHeaderTypeOf: oop.
+		 ^self cr].
 	self print: ': a(n) '.
 	self printNameOfClass: (cls := objectMemory fetchClassOfNonImm: oop) count: 5.
 	cls = (objectMemory splObj: ClassFloat) ifTrue:

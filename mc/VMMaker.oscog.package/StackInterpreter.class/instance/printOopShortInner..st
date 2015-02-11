@@ -9,7 +9,7 @@ printOopShortInner: oop
 				printChar: $$;
 				printChar: (objectMemory characterValueOf: oop);
 				printChar: $(;
-				printHexnp: (objectMemory integerValueOf: oop);
+				printHexnp: (objectMemory characterValueOf: oop);
 				printChar: $)].
 		 (objectMemory isIntegerObject: oop) ifTrue:
 			[^self

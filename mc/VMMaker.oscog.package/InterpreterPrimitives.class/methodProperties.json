@@ -91,7 +91,7 @@
 		"primitiveFloatMultiply" : "eem 8/27/2010 10:26",
 		"primitiveFloatNotEqual" : "eem 11/25/2008 12:50",
 		"primitiveFloatSubtract" : "di 11/27/1998 11:46",
-		"primitiveFlushCache" : "eem 2/23/2009 13:14",
+		"primitiveFlushCache" : "eem 2/10/2015 18:35",
 		"primitiveFlushExternalPrimitives" : "eem 8/11/2008 10:38",
 		"primitiveForceDisplayUpdate" : "jm 5/17/1998 07:06",
 		"primitiveForceTenure" : "eem 10/15/2013 10:13",

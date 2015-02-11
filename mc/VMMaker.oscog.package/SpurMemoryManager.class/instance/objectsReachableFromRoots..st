@@ -85,5 +85,5 @@ objectsReachableFromRoots: arrayOfRoots
 	self shorten: freeChunk toIndexableSize: count.
 	self possibleRootStoreInto: freeChunk.
 	self checkFreeSpace.
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeImageSegment.
 	^freeChunk

@@ -1,4 +1,3 @@
 debug support
 leakCheckImageSegments
-	<api>
-	^(checkForLeaks bitAnd: 16) ~= 0
+	^(checkForLeaks bitAnd: GCModeImageSegment) ~= 0

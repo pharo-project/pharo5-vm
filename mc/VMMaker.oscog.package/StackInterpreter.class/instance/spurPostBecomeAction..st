@@ -18,6 +18,7 @@ spurPostBecomeAction: theBecomeEffectsFlags
 	<option: #SpurObjectMemory>
 	<inline: false> "For VM profiling"
 	self followForwardingPointersInStackZone: theBecomeEffectsFlags.
+	self flushAtCache.
 	theBecomeEffectsFlags ~= 0 ifTrue:
 		[(theBecomeEffectsFlags anyMask: BecameCompiledMethodFlag) ifTrue:
 			[self followForwardedMethodsInMethodCache.

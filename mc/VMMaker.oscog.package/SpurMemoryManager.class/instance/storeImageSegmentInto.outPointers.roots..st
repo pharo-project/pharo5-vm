@@ -23,8 +23,7 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 	<inline: false>
 	| arrayOfObjects savedInHashes savedOutHashes fillValue segStart segAddr endSeg outIndex |
 
-	self leakCheckImageSegments ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeImageSegment.
 
 	"First compute the transitive closure, collecting the sequence of objects to be stored in the arrayOfObjects array."
 	arrayOfObjects := self objectsReachableFromRoots: arrayOfRoots.

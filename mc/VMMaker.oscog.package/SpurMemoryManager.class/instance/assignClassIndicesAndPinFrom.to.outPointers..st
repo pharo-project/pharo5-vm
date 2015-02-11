@@ -3,7 +3,7 @@ assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPoin
 	"This is part of loadImageSegmentFrom:outPointers:.
 	 Make a final pass, assigning the real class indices and/or pinning pinned objects."
 	| objOop topHashBit |
-	topHashBit := 1 << self identityHashFieldWidth - 1.
+	topHashBit := 1 << (self identityHashFieldWidth - 1).
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:
 		[| classRef classOop classIndex |

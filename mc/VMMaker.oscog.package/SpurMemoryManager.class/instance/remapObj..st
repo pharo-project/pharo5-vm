@@ -9,13 +9,12 @@ remapObj: objOop
 	self assert: (self shouldRemapOop: objOop).
 	(self isForwarded: objOop)
 		ifTrue:
-			[resolvedObj := self followForwarded: objOop.
-			(self isInFutureSpace: resolvedObj) ifTrue: "already scavenged"
-				[^resolvedObj]]
+			[resolvedObj := self followForwarded: objOop]
 		ifFalse:
-			[self deny: (self isInFutureSpace: resolvedObj).
+			[self deny: (self isInFutureSpace: objOop).
 			 resolvedObj := objOop].
 	(scavengeInProgress
-	 and: [self isReallyYoung: resolvedObj]) ifTrue: "a becommed or compacted object whose target is in old space, or a CogMethod."
+	 and: [(self isReallyYoung: resolvedObj) "don't scavenge immediate, old, or CogMethod objects."
+	 and: [(self isInFutureSpace: resolvedObj) not]]) ifTrue: 
 		[^scavenger copyAndForward: resolvedObj].
 	^resolvedObj

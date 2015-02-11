@@ -17,5 +17,4 @@ flushExternalPrimitives
 									self flushExternalPrimitiveOf: oop]]].
 			oop := self objectAfter: oop].
 	self flushMethodCache.
-	self flushAtCache.
 	self flushExternalPrimitiveTable

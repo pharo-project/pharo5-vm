@@ -3,8 +3,7 @@ mapObjectReferencesInMachineCode: gcMode
 	<api>
 	"Update all references to objects in machine code."
 	gcMode caseOf: {
-		[GCModeScavenge]	-> [self mapObjectReferencesInMachineCodeForYoungGC].
-		[GCModeIncr]			-> [self mapObjectReferencesInMachineCodeForYoungGC].
+		[GCModeNewSpace]	-> [self mapObjectReferencesInMachineCodeForYoungGC].
 		[GCModeFull]			-> [self mapObjectReferencesInMachineCodeForFullGC].
 		[GCModeBecome]		-> [self mapObjectReferencesInMachineCodeForBecome] }.
 

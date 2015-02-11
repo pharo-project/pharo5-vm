@@ -10,6 +10,9 @@ printFrame: theFP WithSP: theSP
 	<var: #cogMethod type: #'CogBlockMethod *'>
 	<var: #homeMethod type: #'CogMethod *'>
 	self cCode: '' inSmalltalk: [self transcript ensureCr].
+	(stackPages couldBeFramePointer: theFP) ifNil:
+		[self printHexPtr: theFP; print: ' is not in the stack zone?!'; cr.
+		 ^nil].
 	(self isMachineCodeFrame: theFP)
 		ifTrue:
 			[| cogMethod homeMethod |

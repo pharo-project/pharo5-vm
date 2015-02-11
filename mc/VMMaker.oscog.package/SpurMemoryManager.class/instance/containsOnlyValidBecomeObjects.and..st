@@ -25,8 +25,8 @@ containsOnlyValidBecomeObjects: array1 and: array2
 		 effectsFlags := effectsFlags bitOr: (self becomeEffectFlagsFor: oop).
 		 size := size + (self bytesInObject: oop).
 		 fieldOffset := fieldOffset - self bytesPerOop].
-	"only set flags after checking all args."
-	becomeEffectsFlags := effectsFlags.
 	size >= (totalFreeOldSpace + (scavengeThreshold - freeStart)) ifTrue:
 		[^PrimErrNoMemory].
+	"only set flags after checking all args."
+	becomeEffectsFlags := effectsFlags.
 	^0

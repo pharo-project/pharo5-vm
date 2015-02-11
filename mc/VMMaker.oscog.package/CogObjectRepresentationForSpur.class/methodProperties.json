@@ -53,6 +53,7 @@
 		"genStoreSourceReg:slotIndex:intoNewObjectInDestReg:" : "eem 10/2/2013 09:42",
 		"generateObjectRepresentationTrampolines" : "eem 7/14/2014 17:00",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
+		"hasSpurMemoryManagerAPI" : "eem 2/10/2015 18:56",
 		"hasValidHeaderPostGC:" : "eem 10/1/2013 17:16",
 		"inlineCacheTagIsYoung:" : "eem 11/18/2013 15:17",
 		"inlineCacheTagsMayBeObjects" : "eem 11/25/2013 17:04",

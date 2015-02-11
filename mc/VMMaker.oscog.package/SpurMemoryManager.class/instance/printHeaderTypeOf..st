@@ -1,7 +1,7 @@
 debug printing
 printHeaderTypeOf: objOop
 	coInterpreter
-		print: ((self numSlotsOf: objOop) >= self numSlotsMask
+		print: ((self numSlotsOfAny: objOop) >= self numSlotsMask
 					ifTrue: [' hdr16 ']
 					ifFalse: [' hdr8 ']);
 		printChar: ((self isImmutable: objOop) ifTrue: [$i] ifFalse: [$.]);

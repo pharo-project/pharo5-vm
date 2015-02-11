@@ -33,6 +33,7 @@
 		"genNewArrayOfSize:initialized:" : "eem 5/31/2014 08:52",
 		"generateObjectRepresentationTrampolines" : "eem 7/14/2014 17:02",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
+		"hasSpurMemoryManagerAPI" : "eem 2/10/2015 18:56",
 		"inlineCacheTagForClass:" : "eem 7/7/2014 09:49",
 		"inlineCacheTagForInstance:" : "eem 7/7/2014 09:56",
 		"inlineCacheTagIsYoung:" : "eem 11/25/2013 17:03",

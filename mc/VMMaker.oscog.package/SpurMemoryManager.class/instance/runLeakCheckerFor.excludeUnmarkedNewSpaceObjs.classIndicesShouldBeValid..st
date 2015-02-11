@@ -1,0 +1,6 @@
+debug support
+runLeakCheckerFor: gcModes excludeUnmarkedNewSpaceObjs: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: classIndicesShouldBeValid
+	<inline: false>
+	self inLineRunLeakCheckerFor: gcModes
+		excludeUnmarkedNewSpaceObjs: excludeUnmarkedNewSpaceObjs
+		classIndicesShouldBeValid: classIndicesShouldBeValid

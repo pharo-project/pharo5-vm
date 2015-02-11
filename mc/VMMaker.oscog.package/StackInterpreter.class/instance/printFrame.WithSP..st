@@ -7,6 +7,9 @@ printFrame: theFP WithSP: theSP
 	<var: #theSP type: #'char *'>
 	<var: #addr type: #'char *'>
 	self cCode: '' inSmalltalk: [self transcript ensureCr].
+	(stackPages couldBeFramePointer: theFP) ifFalse:
+		[self printHexPtr: theFP; print: ' is not in the stack zone?!'; cr.
+		 ^nil].
 	theMethod := self frameMethod: theFP.
 	numArgs := self frameNumArgs: theFP.
 	self shortPrintFrame: theFP.

@@ -7,7 +7,7 @@ fullGC
 	fullGCLock > 0 ifTrue:
 		[self warning: 'aborting fullGC because fullGCLock > 0'.
 		 ^self].
-	self runLeakCheckerForFullGC: true.
+	self runLeakCheckerFor: GCModeFull.
 	self preGCAction: GCModeFull.
 	needGCFlag := false.
 	gcStartUsecs := self ioUTCMicrosecondsNow.
@@ -19,7 +19,7 @@ fullGC
 	"Sweep phase returns the number of survivors.
 	Use the up-to-date version instead the one from startup."
 	totalObjectCount := self sweepPhaseForFullGC.
-	self runLeakCheckerForFullGC: true.
+	self runLeakCheckerFor: GCModeFull.
 	self fullCompaction.
 	statFullGCs := statFullGCs + 1.
 	statGCEndUsecs := self ioUTCMicrosecondsNow.
@@ -27,5 +27,6 @@ fullGC
 	self capturePendingFinalizationSignals.
 
 	youngStart := freeStart.  "reset the young object boundary"
+	self attemptToShrink.
 	self postGCAction: GCModeFull.
-	self runLeakCheckerForFullGC: true
+	self runLeakCheckerFor: GCModeFull

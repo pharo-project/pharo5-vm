@@ -6,7 +6,7 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 	 until the second pass in assignClassIndicesAndPinFrom:to:outPointers:."
 	| numOutPointers objOop topHashBit topOopBit |
 	numOutPointers := self numSlotsOf: outPointerArray.
-	topHashBit := 1 << self identityHashFieldWidth - 1.
+	topHashBit := 1 << (self identityHashFieldWidth - 1).
 	topOopBit := 1 << self bytesPerOop * 8 - 1.
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:

@@ -4,8 +4,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	Returns PrimNoErr if the primitive succeeds."
 	"Implementation: Uses forwarding blocks to update references as done in compaction."
 	| start |
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeBecome.
 	(self isArray: array1) ifFalse:
 		[^PrimErrBadReceiver].
 	((self isArray: array2)
@@ -29,7 +28,6 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	coInterpreter postBecomeAction: 0.
 
 	self initializeMemoryFirstFree: freeStart. "re-initialize memory used for forwarding table"
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeBecome.
 
 	^PrimNoErr "success"

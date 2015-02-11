@@ -7,8 +7,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	"Implementation: Uses lazy forwarding to defer updating references until message send."
 	| ec |
 	self assert: becomeEffectsFlags = 0.
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeBecome.
 	(self isArray: array1) ifFalse:
 		[^PrimErrBadReceiver].
 	((self isArray: array2)
@@ -39,7 +38,6 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	becomeEffectsFlags := 0.
 
 	self assert: self validClassTableHashes.
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeBecome.
 
 	^PrimNoErr "success"

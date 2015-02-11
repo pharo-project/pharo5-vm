@@ -25,6 +25,7 @@ fullGC
 	self capturePendingFinalizationSignals.
 
 	youngStart := freeBlock.  "reset the young object boundary"
+	self attemptToShrink.
 	self postGCAction: GCModeFull.
 	DoAssertionChecks ifTrue:
 		[self clearLeakMapAndMapAccessibleObjects.

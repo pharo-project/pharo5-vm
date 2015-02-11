@@ -8,4 +8,4 @@ cogitPostGCAction: gcMode
 	self assert: self allMethodsHaveCorrectHeader.
 	"The youngReferrers should be correct after a GC since that is the point at which it is
 	 pruned.  But at other times false positives or free methods on the list are acceptable."
-	self assert: (gcMode = GCModeBecome or: [methodZone kosherYoungReferrers])
+	self assert: ((gcMode noMask: GCModeFull+GCModeNewSpace) or: [methodZone kosherYoungReferrers])

@@ -66,7 +66,6 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 		ifTrue: [self rawOverflowSlotsOf: segmentWordArray put: self allocationUnit / self bytesPerOop]
 		ifFalse: [self rawNumSlotsOf: segmentWordArray put: self allocationUnit / self bytesPerOop].
 	
-	self leakCheckImageSegments ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeImageSegment.
 
 	^self objectStartingAt: segmentStart

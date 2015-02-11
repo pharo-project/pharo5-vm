@@ -15,7 +15,6 @@ initializeInterpreter: bytesToShift
 	newMethod := nilObj.
 	lkupClass := nilObj.
 	self flushMethodCache.
-	self flushAtCache.
 	self loadInitialContext.
 	self initialCleanup.
 	interruptCheckCounter := 0.

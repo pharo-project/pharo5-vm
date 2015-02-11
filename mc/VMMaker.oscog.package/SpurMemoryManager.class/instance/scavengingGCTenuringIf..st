@@ -10,10 +10,10 @@ scavengingGCTenuringIf: tenuringCriterion
 			printNum: coInterpreter interpreterAllocationReserveBytes - (scavenger eden limit - freeStart); cr].
 	self checkMemoryMap.
 	self checkFreeSpace.
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeNewSpace.
 
 	coInterpreter
-		preGCAction: GCModeScavenge;
+		preGCAction: GCModeNewSpace;
 		"would prefer this to be in mapInterpreterOops, but
 		 compatibility with ObjectMemory dictates it goes here."
 		flushMethodCacheFrom: newSpaceStart to: newSpaceLimit.
@@ -29,7 +29,7 @@ scavengingGCTenuringIf: tenuringCriterion
 	statScavengeGCUsecs := statScavengeGCUsecs + statSGCDeltaUsecs.
 	statRootTableCount := scavenger rememberedSetSize.
 
-	coInterpreter postGCAction: GCModeScavenge.
+	coInterpreter postGCAction: GCModeNewSpace.
 
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeNewSpace.
 	self checkFreeSpace

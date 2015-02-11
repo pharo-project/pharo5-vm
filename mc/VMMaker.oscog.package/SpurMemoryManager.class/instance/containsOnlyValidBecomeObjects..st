@@ -4,7 +4,7 @@ containsOnlyValidBecomeObjects: array
 	 Otherwise answer an informative error code.
 	 Can't become: immediates!  Shouldn't become pinned objects."
 	| fieldOffset effectsFlags oop |
-	fieldOffset := self lastPointerOf: array.
+	fieldOffset := self lastPointerOfArray: array.
 	effectsFlags := 0.
 	"same size as array2"
 	[fieldOffset >= self baseHeaderSize] whileTrue:

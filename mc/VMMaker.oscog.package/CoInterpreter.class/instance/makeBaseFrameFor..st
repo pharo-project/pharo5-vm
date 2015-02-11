@@ -49,7 +49,7 @@ makeBaseFrameFor: aContext "<Integer>"
 			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
 			 (theIP signedIntFromLong > 0
 			  and: [(self methodHeaderHasPrimitive: header)
-			  and: [theIP = (1 + (objectMemory lastPointerOf: theMethod))]]) ifTrue:
+			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]]) ifTrue:
 				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages
 				longAt: (pointer := pointer - objectMemory wordSize)

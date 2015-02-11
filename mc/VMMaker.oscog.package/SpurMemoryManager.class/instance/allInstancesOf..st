@@ -49,7 +49,7 @@ allInstancesOf: aClass
 	self set: freeChunk classIndexTo: ClassArrayCompactIndex formatTo: self arrayFormat.
 	self possibleRootStoreInto: freeChunk.
 	self checkFreeSpace.
-	self runLeakCheckerForFullGC: false.
+	self runLeakCheckerFor: GCModeFull.
 	^freeChunk
 	
 	

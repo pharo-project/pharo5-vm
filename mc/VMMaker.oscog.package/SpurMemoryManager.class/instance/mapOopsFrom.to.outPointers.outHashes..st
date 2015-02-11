@@ -7,7 +7,7 @@ mapOopsFrom: segStart to: segAddr outPointers: outPointerArray outHashes: savedO
 	| objOop outIndex topHashBit topOopBit |
 	outIndex := 0.
 	self fillObj: outPointerArray numSlots: (self numSlotsOf: outPointerArray) with: nilObj.
-	topHashBit := 1 << self identityHashFieldWidth - 1.
+	topHashBit := 1 << (self identityHashFieldWidth - 1).
 	topOopBit := 1 << self bytesPerOop * 8 - 1.
 	objOop := self objectStartingAt: segStart.
 	[objOop < segAddr] whileTrue:

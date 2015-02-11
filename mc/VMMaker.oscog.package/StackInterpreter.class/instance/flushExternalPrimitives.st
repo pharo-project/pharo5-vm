@@ -12,5 +12,4 @@ flushExternalPrimitives
 				 primIdx = PrimitiveExternalCallIndex ifTrue: "It's primitiveExternalCall"
 					[self flushExternalPrimitiveOf: oop]]]].
 	self flushMethodCache.
-	self flushAtCache.
 	self flushExternalPrimitiveTable
