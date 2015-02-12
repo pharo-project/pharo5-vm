@@ -36,15 +36,11 @@ writeSnapshot: imageFileName ofTransformedImage: spurHeap headerFlags: headerFla
 			spurHeap allOldSpaceEntitiesDo: [:e| penultimate := ultimate. ultimate := e].
 			self assert: (spurHeap addressAfter: ultimate) = end]].
 	spurHeap checkFreeSpace.
-	spurHeap runLeakCheckerFor: 1 "GCModeFull"
-		excludeUnmarkedNewSpaceObjs: true
-		classIndicesShouldBeValid: true.
+	spurHeap runLeakCheckerForFullGC.
 	barriers ifNotNil: "old, pre-pigCompact segmented save"
 		[spurHeap segmentManager initializeFromFreeChunks: (barriers sort collect: [:b| spurHeap objectStartingAt: b])].
 	spurHeap checkFreeSpace.
-	spurHeap runLeakCheckerFor: 1 "GCModeFull"
-		excludeUnmarkedNewSpaceObjs: true
-		classIndicesShouldBeValid: true.
+	spurHeap runLeakCheckerForFullGC.
 	sim bereaveAllMarriedContextsForSnapshotFlushingExternalPrimitivesIf: true.
 	sim imageName: imageFileName.
 	sim writeImageFileIO.

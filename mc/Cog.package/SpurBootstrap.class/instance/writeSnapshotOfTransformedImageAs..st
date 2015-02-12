@@ -34,10 +34,10 @@ writeSnapshotOfTransformedImageAs: imageFileName
 	heap allOldSpaceEntitiesDo: [:e| penultimate := ultimate. ultimate := e].
 	self assert: (heap addressAfter: ultimate) = barriers last.
 	heap checkFreeSpace.
-	heap runLeakCheckerForFullGC: true.
+	heap runLeakCheckerForFullGC.
 	heap segmentManager initializeFromFreeChunks: (barriers sort collect: [:b| heap objectStartingAt: b]).
 	heap checkFreeSpace.
-	heap runLeakCheckerForFullGC: true.
+	heap runLeakCheckerForFullGC.
 	sim bereaveAllMarriedContextsForSnapshotFlushingExternalPrimitivesIf: true.
 	sim imageName: imageFileName.
 	sim writeImageFileIO
