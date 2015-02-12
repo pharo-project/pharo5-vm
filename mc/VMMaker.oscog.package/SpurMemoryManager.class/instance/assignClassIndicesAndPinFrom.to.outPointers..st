@@ -2,16 +2,15 @@ image segment in/out
 assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPointerArray
 	"This is part of loadImageSegmentFrom:outPointers:.
 	 Make a final pass, assigning the real class indices and/or pinning pinned objects."
-	| objOop topHashBit |
-	topHashBit := 1 << (self identityHashFieldWidth - 1).
+	| objOop |
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:
 		[| classRef classOop classIndex |
 		 "In the segment, class indices are offset indexes into the segment data,
 		  or into outPointers.  See mapOopsFrom:to:outPointers:outHashes:."
 		 classRef := (self classIndexOf: objOop) - self firstClassIndexPun.
-		 classOop := (classRef anyMask: topHashBit)
-						ifTrue: [self fetchPointer: classRef - topHashBit ofObject: outPointerArray]
+		 classOop := (classRef anyMask: TopHashBit)
+						ifTrue: [self fetchPointer: classRef - TopHashBit ofObject: outPointerArray]
 						ifFalse: [classRef * self allocationUnit + segmentStart].
 		 classIndex := self rawHashBitsOf: classOop.
 		 self assert: (classIndex > self lastClassIndexPun

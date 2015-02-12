@@ -1,6 +1,7 @@
 image segment in/out
 restoreObjectsIn: objArray savedHashes: savedHashes
-	"Enumerate the objects in objArray, unmarking them and restoring their hashes
+	"This is part of storeImageSegmentInto:outPointers:roots:.
+	 Enumerate the objects in objArray, unmarking them and restoring their hashes
 	 from the corresponding 32-bit slots in savedHashes.  The first unused entry in
 	 objArray will have a non-hash value entry in savedHashes.  Free savedHashes."
 	<inline: false>

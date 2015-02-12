@@ -1,6 +1,7 @@
 image segment in/out
 objectsReachableFromRoots: arrayOfRoots
-	"Answer an Array of all the objects only reachable from the argument, an Array of root objects,
+	"This is part of storeImageSegmentInto:outPointers:roots:.
+	 Answer an Array of all the objects only reachable from the argument, an Array of root objects,
 	 starting with arrayOfRoots.  If there is no space, answer a SmallInteger whose value is the
 	 number of slots required.  This is used to collect the objects to include in an image segment
 	 on Spur, separate from creating the segment, hence simplifying the implementation.

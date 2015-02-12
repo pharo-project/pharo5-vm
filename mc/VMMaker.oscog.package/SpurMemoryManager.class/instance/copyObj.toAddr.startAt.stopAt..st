@@ -1,6 +1,7 @@
 image segment in/out
 copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg
-	"Copy objOop into the segment beginning at segAddr, and forward it to the copy.
+	"This is part of storeImageSegmentInto:outPointers:roots:.
+	 Copy objOop into the segment beginning at segAddr, and forward it to the copy.
 	 If it is a class in the class table, set the copy's hash to 0 for reassignment on load,
 	 and mark it as a class by setting its isRemembered bit.
 	 Answer the next segmentAddr if successful.  Answer an appropriate error code if not"

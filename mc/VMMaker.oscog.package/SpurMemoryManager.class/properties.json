@@ -21,6 +21,8 @@
 		"ObjStackTopx",
 		"RemapBufferSize",
 		"RememberedSetRootIndex",
+		"TopHashBit",
+		"TopOopBit",
 		"WeaklingStackRootIndex" ],
 	"commentStamp" : "eem 10/3/2014 09:03",
 	"instvars" : [

@@ -1,6 +1,7 @@
 image segment in/out
 ifAProxy: objOop updateCopy: copy
-	"If the object being copied to the segment is weird and has exotic state,
+	"This is part of storeImageSegmentInto:outPointers:roots:.
+	 If the object being copied to the segment is weird and has exotic state,
 	 i.e. a married context or a jitted method, update the copy with the vanilla state."
 
 	((self isContext: objOop)

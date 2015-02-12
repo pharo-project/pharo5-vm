@@ -4,10 +4,8 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 	 Scan through mapping oops and validating class references.  Defer
 	 entering any class objects into the class table and/or pinning objects
 	 until the second pass in assignClassIndicesAndPinFrom:to:outPointers:."
-	| numOutPointers objOop topHashBit topOopBit |
+	| numOutPointers objOop |
 	numOutPointers := self numSlotsOf: outPointerArray.
-	topHashBit := 1 << (self identityHashFieldWidth - 1).
-	topOopBit := 1 << self bytesPerOop * 8 - 1.
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:
 		[| classIndex hash oop mappedOop |
@@ -15,11 +13,11 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 			[^PrimErrInappropriate].
 		 classIndex := (self classIndexOf: objOop) - self firstClassIndexPun.
 		 "validate the class ref, but don't update it until any internal classes have been added to the class table."
-		 (classIndex anyMask: topHashBit)
+		 (classIndex anyMask: TopHashBit)
 			ifTrue:
-				[classIndex - topHashBit >= numOutPointers ifTrue:
+				[classIndex - TopHashBit >= numOutPointers ifTrue:
 					[^PrimErrBadIndex].
-				 mappedOop := self fetchPointer: classIndex - topHashBit ofObject: outPointerArray.
+				 mappedOop := self fetchPointer: classIndex - TopHashBit ofObject: outPointerArray.
 				 hash := self rawHashBitsOf: mappedOop.
 				 (hash > self lastClassIndexPun and: [(self classOrNilAtIndex: hash) = mappedOop]) ifFalse:
 					[^PrimErrInappropriate]]
@@ -32,9 +30,9 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 			[:i|
 			 oop := self fetchPointer: i ofObject: objOop.
 			 (self isNonImmediate: oop) ifTrue:
-				[(oop anyMask: topOopBit)
+				[(oop anyMask: TopOopBit)
 					ifTrue:
-						[(oop := oop - topOopBit / self bytesPerOop) >= numOutPointers ifTrue:
+						[(oop := oop - TopOopBit / self bytesPerOop) >= numOutPointers ifTrue:
 							[^PrimErrBadIndex].
 						 mappedOop := self fetchPointer: oop ofObject: outPointerArray]
 					ifFalse:

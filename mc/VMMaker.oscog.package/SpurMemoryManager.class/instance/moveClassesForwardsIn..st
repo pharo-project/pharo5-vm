@@ -1,6 +1,7 @@
 image segment in/out
 moveClassesForwardsIn: arrayOfObjects
-	"Both to expand the max size of segment and to reduce the length of the
+	"This is part of storeImageSegmentInto:outPointers:roots:.
+	 Both to expand the max size of segment and to reduce the length of the
 	 load-time pass that adds classes to the class table, move classes to the
 	 front of arrayOfObjects, leaving the root array as the first element."
 	| there |

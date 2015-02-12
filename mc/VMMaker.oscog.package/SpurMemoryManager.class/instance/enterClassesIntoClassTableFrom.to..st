@@ -1,6 +1,7 @@
 image segment in/out
 enterClassesIntoClassTableFrom: segmentStart to: segmentLimit
- 	"Scan for classes contained in the segment, entering them into the class table,
+ 	"This is part of loadImageSegmentFrom:outPointers:.
+	 Scan for classes contained in the segment, entering them into the class table,
 	 and clearing their isRemembered: bit. Classes are at the front, after the root
 	 array and have the remembered bit set. If the attempt succeeds, answer 0,
 	 otherwise remove all entered entries and answer an error code."
