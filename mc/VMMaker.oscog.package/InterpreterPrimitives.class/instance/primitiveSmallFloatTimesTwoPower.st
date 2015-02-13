@@ -1,15 +1,16 @@
 arithmetic float primitives
 primitiveSmallFloatTimesTwoPower
+	"Multiply the receiver by the power of the argument."
 	<option: #Spur64BitMemoryManager>
 	| rcvr result arg twiceMaxExponent |
-	<var: #rcvr type: #double>
-	<var: #result type: #double>
 	arg := self stackTop.
 	(objectMemory isIntegerObject: arg) ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
-	rcvr := objectMemory smallFloatValueOf: (self stackValue: 1).
-	"N.B. SmallFloats are finite.  NaN and Infinity overflow into boxed floats."
-	rcvr = 0.0
+	rcvr := self stackValue: 1.
+	"N.B. SmallFloats are finite.  NaN and Infinity overflow into boxed floats.
+	 This is doing range checking work that is done in ldexp, but we include
+	 it explicitly to exemplify bit manipulation of SmallFloats."
+	(objectMemory isSmallFloatZero: rcvr)
 		ifTrue:
 			[result := rcvr]
 		ifFalse:
@@ -17,12 +18,11 @@ primitiveSmallFloatTimesTwoPower
 			 twiceMaxExponent := 2 * (1 << self floatExponentBits).
 			 arg < twiceMaxExponent negated
 				ifTrue:
-					[result := rcvr < 0.0 ifTrue: [-0.0] ifFalse: [0.0]]
+					[result := objectMemory mapSignedSmallFloatToSignedSmallFloatZero: rcvr]
 				ifFalse:
-					[arg > twiceMaxExponent
-						ifTrue:
-							[result := rcvr < 0.0 ifTrue: [-1.0e200 / 1.0e-200] ifFalse: [1.0e200 / 1.0e-200]]
-						ifFalse:
-							[result := self cCode: [self ld: rcvr exp: arg]
-											inSmalltalk: [rcvr timesTwoPower: arg]]]].
-	self pop: 2 thenPushFloat: result
+					["clip arg to at most int range; ldexp's last arg is of type int"
+					 arg > twiceMaxExponent ifTrue: [arg := twiceMaxExponent].
+					 result := objectMemory floatObjectOf: (self cCode: [self ld: (objectMemory smallFloatValueOf: rcvr)
+																				exp: (self cCoerceSimple: arg to: #int)]
+																inSmalltalk: [(objectMemory smallFloatValueOf: rcvr) timesTwoPower: arg])]].
+	self pop: 2 thenPush: result

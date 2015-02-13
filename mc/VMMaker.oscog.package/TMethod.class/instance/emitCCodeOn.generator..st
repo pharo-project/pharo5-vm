@@ -6,10 +6,10 @@ emitCCodeOn: aStream generator: aCodeGen
 	aCodeGen currentMethod: self.
 	self emitCCommentOn: aStream.	"place method comment before function"
 	aStream cr. 
-	self emitCFunctionPrototype: aStream generator: aCodeGen newlineBeforeName: true.
+	self emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: false.
 	aStream cr; nextPut: ${.
 	aStream cr; tab;
-		nextPutAll: '// '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self selector.
+		nextPutAll: '// '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self selector.	
 	self emitCLocalsOn: aStream generator: aCodeGen.
 	aCodeGen
 		pushScope: declarations

@@ -4,6 +4,7 @@
 		"requiresCrossPlatformFiles" : "ar 11/6/2005 16:20",
 		"simulatorClass" : "eem 10/21/2008 10:32" },
 	"instance" : {
+		"floatExponentBits" : "eem 2/12/2015 11:15",
 		"isFinite:" : "eem 2/11/2015 17:49",
 		"primitiveArcCos" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
 		"primitiveArcCosH" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
@@ -26,4 +27,4 @@
 		"primitiveSqrt" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
 		"primitiveTan" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
 		"primitiveTanH" : "ar (auto pragmas 12/08) 4/17/2006 21:33",
-		"primitiveTimesTwoPower" : "eem 2/11/2015 18:04" } }
+		"primitiveTimesTwoPower" : "eem 2/12/2015 10:03" } }
