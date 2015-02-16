@@ -25,6 +25,7 @@
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
 		"floatObjectOf:" : "eem 11/21/2014 16:24",
 		"floatValueOf:" : "eem 11/21/2014 17:22",
+		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
 		"identityHashFullWordMask" : "eem 11/18/2014 16:54",
 		"identityHashFullWordShift" : "eem 11/18/2014 16:54",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",

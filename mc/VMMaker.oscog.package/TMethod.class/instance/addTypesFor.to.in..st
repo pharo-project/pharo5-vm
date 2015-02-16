@@ -30,7 +30,7 @@ addTypesFor: node to: typeSet in: aCodeGen
 				^self]. "don't know; leave unspecified."
 			^types notEmpty ifTrue:
 				[typeSet add: types anyOne]].
-		 ^(aCodeGen returnTypeForSend: expr) ifNotNil:
+		 ^(aCodeGen returnTypeForSend: expr in: self) ifNotNil:
 			[:type| typeSet add: type]].
 	expr isVariable ifTrue:
 		[(aCodeGen typeOfVariable: expr name)

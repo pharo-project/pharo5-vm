@@ -35,4 +35,4 @@ primitiveDLSymInLibrary
 	self dlclose: lib.
 	ok ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
-	^interpreterProxy methodReturnValue: (interpreterProxy positive32BitIntegerFor: addr asUnsignedLong)
+	^interpreterProxy methodReturnValue: (interpreterProxy positiveMachineIntegerFor: addr asUnsignedLong)

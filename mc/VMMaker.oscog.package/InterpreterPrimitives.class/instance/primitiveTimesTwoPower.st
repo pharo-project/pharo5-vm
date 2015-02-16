@@ -1,7 +1,6 @@
 arithmetic float primitives
 primitiveTimesTwoPower
 	"Multiply the receiver by the power of the argument."
-	<option: #Spur64BitMemoryManager>
 	| rcvr result arg |
 	<var: #rcvr type: #double>
 	<var: #result type: #double>

@@ -24,7 +24,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 		 and: [(locals includes: (var := node variable name))
 		 and: [(declarations includesKey: var) not
 		 and: [node expression isSend
-		 and: [(type := aCodeGen returnTypeForSend: node expression) notNil]]]]) ifTrue:
+		 and: [(type := aCodeGen returnTypeForSend: node expression in: self) notNil]]]]) ifTrue:
 			[(#(sqInt void) includes: type) ifFalse:
 				["the $: is to map things like unsigned field : 3 to usqInt"
 				 declarations

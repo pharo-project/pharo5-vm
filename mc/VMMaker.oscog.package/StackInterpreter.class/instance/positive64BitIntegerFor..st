@@ -3,7 +3,7 @@ positive64BitIntegerFor: integerValue
 	<var: 'integerValue' type: #sqLong>
 	"Answer a Large Positive Integer object for the given integer value.  N.B. will *not* cause a GC."
 	| newLargeInteger highWord sz |
-	objectMemory wordSize = 8
+	objectMemory hasSixtyFourBitImmediates
 		ifTrue:
 			[(integerValue >= 0 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
 				[^objectMemory integerObjectOf: integerValue].

@@ -15,10 +15,10 @@ sendInvokeCallback: thunkPtr Stack: stackPtr Registers: regsPtr Jmpbuf: jmpBufPt
 	and: [primitiveFunctionPointer = 0]) ifFalse:
 		[^false].
 	self push: (self splObj: ClassAlien). "receiver"
-	self push: (self positive32BitIntegerFor: thunkPtr).
-	self push: (self positive32BitIntegerFor: stackPtr).
-	self push: (self positive32BitIntegerFor: regsPtr).
-	self push: (self positive32BitIntegerFor: jmpBufPtr).
+	self push: (self positiveMachineIntegerFor: thunkPtr).
+	self push: (self positiveMachineIntegerFor: stackPtr).
+	self push: (self positiveMachineIntegerFor: regsPtr).
+	self push: (self positiveMachineIntegerFor: jmpBufPtr).
 	self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector.
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:

@@ -99,7 +99,7 @@
 		"pixSwap:with:" : "ar (auto pragmas 12/08) 4/19/2001 15:38",
 		"primitiveCompareColorA:to:test:" : "tpr 12/19/2014 11:01",
 		"primitiveCopyBits" : "tpr (auto pragmas 12/08) 3/24/2004 13:06",
-		"primitiveDisplayString" : "nice 10/24/2013 01:38",
+		"primitiveDisplayString" : "eem 2/13/2015 11:33",
 		"primitiveDrawLoop" : "tpr (auto pragmas 12/08) 3/24/2004 13:56",
 		"primitivePixelValueAtX:y:" : "dtl 12/21/2013 10:06",
 		"primitiveWarpBits" : "ar (auto pragmas 12/08) 2/20/2001 21:10",

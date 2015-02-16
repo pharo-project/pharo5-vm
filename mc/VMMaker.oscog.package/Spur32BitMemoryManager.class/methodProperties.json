@@ -25,6 +25,7 @@
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
 		"floatObjectOf:" : "eem 11/21/2014 16:23",
 		"floatValueOf:" : "eem 11/21/2014 17:18",
+		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",
 		"initSegmentBridgeWithBytes:at:" : "eem 11/29/2013 12:29",
 		"instantiateClass:indexableSize:" : "eem 11/25/2014 13:22",

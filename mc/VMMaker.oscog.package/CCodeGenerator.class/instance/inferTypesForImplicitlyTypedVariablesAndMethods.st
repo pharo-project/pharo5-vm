@@ -13,6 +13,11 @@ inferTypesForImplicitlyTypedVariablesAndMethods
 					ifNotNil: [(Set withAll: methods)
 								addAll: apiMethods;
 								yourself].
+	"Make an initial pass to assign the return types of all simple mehtods that return constants."						
+	allMethods do:
+		[:m|
+		m isReturnConstant ifTrue:
+			[m inferReturnTypeIn: self]].
 	[| changedReturnType |
 	 changedReturnType := false.
 	 allMethods do:

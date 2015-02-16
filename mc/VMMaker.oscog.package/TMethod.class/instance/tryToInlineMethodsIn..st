@@ -11,6 +11,9 @@ tryToInlineMethodsIn: aCodeGen
 	parseTree
 		nodesDo:
 			[:node|
+			(self transformConditionalAssignment: node in: aCodeGen) ifNotNil:
+				[:replacement|
+				 sendsToInline at: node put: replacement].
 			(self inlineableFunctionCall: node in: aCodeGen) ifTrue:
 				[(self inlineFunctionCall: node in: aCodeGen) ifNotNil:
 					[:replacement|

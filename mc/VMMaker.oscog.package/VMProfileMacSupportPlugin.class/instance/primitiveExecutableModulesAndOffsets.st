@@ -48,13 +48,13 @@ primitiveExecutableModulesAndOffsets
 			 ^interpreterProxy primitiveFail].
 		interpreterProxy storePointer: i * 4 + 1 ofObject: interpreterProxy topRemappableOop withValue: valueObj.
 
-		valueObj := interpreterProxy positive32BitIntegerFor: start.
+		valueObj := interpreterProxy positiveMachineIntegerFor: start.
 		interpreterProxy failed ifTrue:
 			[interpreterProxy popRemappableOop.
 			 ^interpreterProxy primitiveFail].
 		interpreterProxy storePointer: i * 4 + 2 ofObject: interpreterProxy topRemappableOop withValue: valueObj.
 
-		valueObj := interpreterProxy positive32BitIntegerFor: size.
+		valueObj := interpreterProxy positiveMachineIntegerFor: size.
 		interpreterProxy failed ifTrue:
 			[interpreterProxy popRemappableOop.
 			 ^interpreterProxy primitiveFail].

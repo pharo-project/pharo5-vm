@@ -18,19 +18,11 @@ sendInvokeCallbackContext: vmCallbackContext
 		[^false].
 	self saveCStackStateForCallbackContext: vmCallbackContext.
 	self push: (self splObj: ClassAlien). "receiver"
-	self cppIf: objectMemory wordSize = 8
-		ifTrue:
-			[(self argumentCountOf: newMethod) = 4 ifTrue:
-				[self push: (self positive64BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
-				 self push: (self positive64BitIntegerFor: vmCallbackContext stackp asUnsignedInteger).
-				 self push: (self positive64BitIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
-			 self push: (self positive64BitIntegerFor: vmCallbackContext asUnsignedInteger)]
-		ifFalse:
-			[(self argumentCountOf: newMethod) = 4 ifTrue:
-				[self push: (self positive32BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
-				 self push: (self positive32BitIntegerFor: vmCallbackContext stackp asUnsignedInteger).
-				 self push: (self positive32BitIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
-			 self push: (self positive32BitIntegerFor: vmCallbackContext asUnsignedInteger)].
+	(self argumentCountOf: newMethod) = 4 ifTrue:
+		[self push: (self positiveMachineIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
+		 self push: (self positiveMachineIntegerFor: vmCallbackContext stackp asUnsignedInteger).
+		 self push: (self positiveMachineIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
+	self push: (self positiveMachineIntegerFor: vmCallbackContext asUnsignedInteger).
 	self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector.
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:

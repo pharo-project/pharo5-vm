@@ -325,6 +325,7 @@
 		"hasOverflowHeader:" : "eem 10/7/2013 13:46",
 		"hasPointerFields:" : "eem 3/21/2014 04:40",
 		"hasPointerFieldsNonImm:" : "eem 3/21/2014 04:07",
+		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
 		"hasSpurMemoryManagerAPI" : "eem 9/9/2013 11:00",
 		"hasYoungReferents:" : "eem 11/18/2013 15:31",
 		"hashBitsOf:" : "eem 9/21/2013 08:44",

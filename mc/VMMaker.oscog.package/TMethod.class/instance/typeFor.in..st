@@ -9,4 +9,4 @@ typeFor: aVariable in: aCodeGen
 			ifAbsent: [((locals includes: aVariable) or: [args includes: aVariable]) ifFalse:
 						[aCodeGen typeOfVariable: aVariable]]) ifNotNil:
 		[:decl|
-		aCodeGen extractTypeFor: aVariable fromDeclaration: decl]
+		aCodeGen extractTypeFor: aVariable asString fromDeclaration: decl]

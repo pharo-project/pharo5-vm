@@ -1,6 +1,8 @@
 type inference
-returnTypeForSend: aTSendNode
-	"Answer the return type for a send.  Absent sends default to #sqInt."
+returnTypeForSend: aTSendNode in: aTMethod
+	"Answer the return type for a send.  Absent sends default to #sqInt.
+	 The bitwise operators answer unsigned versions of their argument types, at least in gcc
+	 although this author can't find that in the C99 spec.  If you can find this, please let me know."
 	| sel |
 	^(self anyMethodNamed: (sel := aTSendNode selector))
 		ifNil: [kernelReturnTypes
@@ -8,6 +10,10 @@ returnTypeForSend: aTSendNode
 				ifAbsent:
 					[^sel
 						caseOf: {
+						[#bitAnd:]				->	[self unsignedTypeForBitwiseSend: aTSendNode in: aTMethod].
+						[#bitOr:]				->	[self unsignedTypeForBitwiseSend: aTSendNode in: aTMethod].
+						[#bitXor:]				->	[self unsignedTypeForBitwiseSend: aTSendNode in: aTMethod].
+						[#asVoidPointer]		->	[#'void *'].
 						[#asVoidPointer]		->	[#'void *'].
 						[#asUnsignedInteger]	->	[#usqInt].
 						[#asLong]				->	[#long].

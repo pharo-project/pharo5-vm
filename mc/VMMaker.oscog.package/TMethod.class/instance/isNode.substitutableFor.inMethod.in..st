@@ -67,6 +67,10 @@ isNode: aNode substitutableFor: argName inMethod: targetMeth in: aCodeGen
 		[:node|
 		(node isVariable and: [node name = argName]) ifTrue:
 			[usageCount := usageCount + 1]].
+	"(usageCount > 1 and: [count <= usageCount]) ifTrue:
+		[[UsageCounts := Dictionary new.
+		  self removeClassVarName: #UsageCounts].
+		 (UsageCounts at: usageCount ifAbsentPut: [Set new]) add: ({targetMeth. argName. aNode})]."
 	"Now only inline expressions if they are used only once or are simple
-	 w.r.t. the usage count; a heuristic that seems to work well enough."
-	^usageCount = 1 or: [count <= usageCount]
+	 w.r.t. the usage count, and the usage count is not large; a heuristic that seems to work well enough."
+	^usageCount = 1 or: [usageCount <= 7 and: [count <= usageCount]]
