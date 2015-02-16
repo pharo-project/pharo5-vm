@@ -32,6 +32,6 @@ launch: heap simulatorClass: simulatorClass headerFlags: headerFlags
 		instVarNamed: 'methodDictLinearSearchLimit' put: SmallInteger maxVal." "for now"
 	heap
 		setCheckForLeaks: 0;
-		runLeakCheckerForFullGC: true.
+		runLeakCheckerForFullGC.
 
 	sim halt; run

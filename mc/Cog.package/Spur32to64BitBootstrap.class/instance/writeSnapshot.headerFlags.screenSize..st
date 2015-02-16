@@ -2,7 +2,7 @@ snapshot
 writeSnapshot: imageFileName headerFlags: headerFlags screenSize: screenSizeInteger
 	heap64
 		checkFreeSpace;
-		runLeakCheckerForFullGC: true.
+		runLeakCheckerForFullGC.
 	interpreter64
 		setImageHeaderFlagsFrom: headerFlags;
 		setDisplayForm: nil;

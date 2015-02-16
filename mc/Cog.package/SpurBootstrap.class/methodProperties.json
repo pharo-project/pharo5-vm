@@ -61,7 +61,7 @@
 		"isOldObjABehavior:" : "eem 8/21/2014 08:07",
 		"isOnSpur" : "eem 8/19/2014 14:32",
 		"launch" : "eem 9/30/2013 15:42",
-		"launch:simulatorClass:headerFlags:" : "eem 1/13/2014 11:56",
+		"launch:simulatorClass:headerFlags:" : "eem 2/7/2015 10:26",
 		"launchSaved" : "eem 9/30/2013 15:41",
 		"launchSavedWithJIT" : "eem 9/30/2013 16:05",
 		"mapOldBehavior:toNewBehavior:" : "eem 2/10/2014 17:25",
@@ -76,7 +76,7 @@
 		"on:" : "eem 7/31/2014 21:09",
 		"prototypeClassNameMetaSelectorMethodDo:" : "eem 11/7/2014 14:40",
 		"recreateSpecialObjectsArray" : "eem 7/17/2014 14:17",
-		"rehashImage" : "EstebanLorenzano 2/3/2015 16:18",
+		"rehashImage" : "eem 2/13/2015 15:18",
 		"removeMethods" : "eem 8/23/2014 12:22",
 		"replaceMethods" : "eem 8/23/2014 16:40",
 		"replacementForCharacterMethod:" : "autoboot 8/27/2014 14:44",
@@ -90,6 +90,4 @@
 		"validate" : "EstebanLorenzano 12/10/2014 21:35",
 		"wordSize" : "eem 8/30/2013 10:59",
 		"wordSizeMask" : "eem 8/30/2013 10:59",
-		"writeSnapshot:ofTransformedImage:headerFlags:screenSize:" : "EstebanLorenzano 2/12/2015 11:34",
-		"writeSnapshotOfTransformedImage" : "eem 11/17/2013 16:04",
-		"writeSnapshotOfTransformedImageAs:" : "EstebanLorenzano 2/12/2015 11:35" } }
+		"writeSnapshot:ofTransformedImage:headerFlags:screenSize:" : "EstebanLorenzano 2/12/2015 11:34" } }
