@@ -1,3 +1,3 @@
 package properties
 libraryFileName
-	^ 'libssh2.dylib'
+	^ 'libssh2.1.dylib'

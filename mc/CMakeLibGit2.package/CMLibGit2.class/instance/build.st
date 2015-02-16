@@ -5,7 +5,7 @@ build
 		puts:
 '
 add_custom_command(OUTPUT "${libGit2Installed}"
-	COMMAND cmake -DCMAKE_INSTALL_PREFIX="${installPrefix}" ', self configurationFlags, ' . 
+	COMMAND cmake -DCMAKE_INSTALL_PREFIX="${installPrefix}" -DUSE_SSH=ON ', self configurationFlags, ' . 
 	WORKING_DIRECTORY "${libSourcesDir}"
 	DEPENDS "${unpackTarget}"
 	COMMAND make
