@@ -7,6 +7,6 @@ typeFor: aVariable in: aCodeGen
 	^(declarations
 			at: aVariable asString
 			ifAbsent: [((locals includes: aVariable) or: [args includes: aVariable]) ifFalse:
-						[aCodeGen typeOfVariable: aVariable]]) ifNotNil:
+						[aCodeGen typeOfVariable: aVariable asString]]) ifNotNil:
 		[:decl|
 		aCodeGen extractTypeFor: aVariable asString fromDeclaration: decl]

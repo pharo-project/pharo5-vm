@@ -14,7 +14,7 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 	meth := aCodeGen methodNamed: sel.
 	methArgs := meth args.
 	"convenient for debugging..."
-	self maybeBreakFor: aSendNode in: aCodeGen.
+	aCodeGen maybeBreakForInlineOf: aSendNode in: self.
 	(methArgs notEmpty and: [methArgs first beginsWith: 'self_in_']) ifTrue:
 		[methArgs := methArgs allButFirst].
 	methArgs size = aSendNode args size ifFalse:

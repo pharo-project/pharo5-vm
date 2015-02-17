@@ -1,5 +1,6 @@
 C code generator
-typeOfVariable: varName "<String>" 
+typeOfVariable: varName "<String>"
+	self assert: varName isString.
 	scopeStack reverseDo:
 		[:dict|
 		(dict includesKey: varName) ifTrue:

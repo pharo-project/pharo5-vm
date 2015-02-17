@@ -7,7 +7,7 @@ inlineGuardingConditional: aSendNode in: aCodeGen
 	| evaluateIfTrue replacementTree map lastNode evaluateLabel skipLabel method |
 	self assert: self == aCodeGen currentMethod.
 	self assert: (self isInlineableConditional: aSendNode in: aCodeGen).
-	self maybeBreakFor: aSendNode receiver in: aCodeGen.
+	aCodeGen maybeBreakForInlineOf: aSendNode in: self.
 	evaluateIfTrue := aSendNode selector = #ifTrue:.
 	method := (aCodeGen methodNamed: aSendNode receiver selector) copy.
 	replacementTree := method inlineFunctionCall: aSendNode receiver in: aCodeGen.

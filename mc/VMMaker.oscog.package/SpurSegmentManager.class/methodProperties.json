@@ -21,7 +21,7 @@
 		"initForBootstrap" : "eem 12/17/2013 17:01",
 		"initSegmentForInImageCompilationFrom:to:" : "eem 8/26/2014 09:32",
 		"initialize" : "eem 10/11/2013 09:42",
-		"initializeFromFreeChunks:" : "eem 1/13/2014 16:44",
+		"initializeFromFreeChunks:" : "eem 2/16/2015 11:51",
 		"insertSegmentFor:" : "eem 11/27/2013 12:46",
 		"isEmptySegment:" : "eem 5/21/2014 11:40",
 		"isInSegments:" : "eem 11/11/2013 16:48",

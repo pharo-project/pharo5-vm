@@ -38,6 +38,13 @@ isNode: aNode substitutableFor: argName inMethod: targetMeth in: aCodeGen
 	 with value[:value:*] messages though!"
 	aNode isStmtList ifTrue: [^true].
 
+	"Don't inline expressions unless type-compatible,"
+	aNode isSend ifTrue:
+		[(aCodeGen
+				isActualType: (aCodeGen returnTypeForSend: aNode in: self)
+				compatibleWithFormalType: (self typeFor: argName in: aCodeGen)) ifFalse:
+			[^false]].
+
 	count := 0.
 	constantExpression := true.
 	"scan expression tree; must contain only constants, builtin ops, and inlineable vars"

@@ -2,4 +2,6 @@ C translation
 generateLessThan: msgNode on: aStream indent: level
 	"Generate the C code for this message onto the given stream."
 
-	self emitSignedComparison: #< for: msgNode on: aStream indent: level
+	self emitCExpression: msgNode receiver on: aStream.
+	aStream nextPutAll: ' < '.
+	self emitCExpression: msgNode args first on: aStream.

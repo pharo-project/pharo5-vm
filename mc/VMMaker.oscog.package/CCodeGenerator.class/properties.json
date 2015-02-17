@@ -33,6 +33,7 @@
 		"optionsDictionary",
 		"breakSrcInlineSelector",
 		"breakDestInlineSelector",
+		"breakOnInline",
 		"vmMaker" ],
 	"name" : "CCodeGenerator",
 	"pools" : [

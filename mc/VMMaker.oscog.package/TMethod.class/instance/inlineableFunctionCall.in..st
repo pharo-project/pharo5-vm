@@ -2,7 +2,7 @@ inlining
 inlineableFunctionCall: aNode in: aCodeGen
 	"Answer true if the given send node is a call to a 'functional' method--a method whose body is a single return statement of some expression and whose actual parameters can all be directly substituted."
 
-	self maybeBreakFor: aNode in: aCodeGen.
+	aCodeGen maybeBreakForTestToInline: aNode in: self.
 	aNode isSend ifFalse:
 		[^false].
 	^(aCodeGen methodNamed: aNode selector)
