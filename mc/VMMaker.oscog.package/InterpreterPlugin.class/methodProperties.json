@@ -1,8 +1,9 @@
 {
 	"class" : {
 		"allCallsOn" : "tpr 12/17/2003 16:52",
+		"allCodeOlderThan:" : "eem 2/16/2015 15:13",
 		"baseDirectoryName" : "ar 5/12/2000 00:24",
-		"buildCodeGeneratorUpTo:" : "eem 11/10/2014 12:06",
+		"buildCodeGeneratorUpTo:" : "eem 2/16/2015 14:40",
 		"codeGeneratorClass" : "tpr 6/9/2003 16:41",
 		"declareCVarsIn:" : "ar 5/12/2000 00:34",
 		"declareHeaderFilesIn:" : "tpr 5/23/2001 17:14",
@@ -11,6 +12,7 @@
 		"hasHeaderFile" : "tpr 5/23/2001 17:03",
 		"isCPP" : "RMF 3/27/2000 09:39",
 		"isPluginClass" : "eem 12/14/2012 11:29",
+		"methodsToBePruned" : "eem 2/16/2015 18:50",
 		"moduleExtension" : "sma 4/22/2000 12:32",
 		"moduleName" : "sma 3/3/2000 12:24",
 		"moduleNameAndVersion" : "eem 2/10/2009 14:48",
@@ -25,7 +27,8 @@
 		"shouldGenerateDeadCode" : "eem 11/22/2013 15:59",
 		"simulatorClass" : "ajh 8/21/2002 21:43",
 		"storeString:onFileNamed:" : "eem 5/17/2011 12:20",
-		"translateInDirectory:doInlining:" : "EstebanLorenzano 12/13/2014 09:47" },
+		"translateInDirectory:doInlining:" : "eem 2/16/2015 15:12",
+		"translatedPrimitives" : "eem 2/16/2015 14:19" },
 	"instance" : {
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",
 		"getInterpreter" : "ikp (auto pragmas 12/08) 8/3/2004 19:18",

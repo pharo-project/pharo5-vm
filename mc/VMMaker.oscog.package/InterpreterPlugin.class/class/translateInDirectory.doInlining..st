@@ -1,14 +1,13 @@
 translation
 translateInDirectory: directory doInlining: inlineFlag
 "This is the default method for writing out sources for a plugin. Several classes need special handling, so look at all implementors of this message"
-	| cg fname fstat |
+	| cg fname |
 	 fname := self moduleName, '.c'.
 
 	"don't translate if the file is newer than my timeStamp"
-	fstat := directory entryAt: fname ifAbsent:[nil].
-	fstat ifNotNil:
-		[((self pluginClassesUpTo: self) allSatisfy:
-				[:aPluginClass| aPluginClass timeStamp < fstat modificationTime asSeconds ]) ifTrue:
+	(directory entryAt: fname ifAbsent: nil) ifNotNil:
+		[:fstat|
+		 (self allCodeOlderThan: fstat modificationTime) ifTrue:
 			[^nil]].
 
 	self initialize.

@@ -14,15 +14,18 @@ returnTypeForSend: sendNode in: aTMethod
 						[#-]						->	[self typeForArithmetic: sendNode in: aTMethod].
 						[#*]					->	[self typeForArithmetic: sendNode in: aTMethod].
 						[#/]						->	[self typeForArithmetic: sendNode in: aTMethod].
+						[#addressOf:]			->	[(self typeFor: sendNode receiver in: aTMethod)
+														ifNil: [#sqInt]
+														ifNotNil: [:type| type, (type last isLetter ifTrue: [' *'] ifFalse: ['*'])]].
 						[#at:]					->	[self typeForDereference: sendNode in: aTMethod].
 						[#bitAnd:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
 						[#bitOr:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
 						[#bitXor:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
-						[#asVoidPointer]		->	[#'void *'].
-						[#asVoidPointer]		->	[#'void *'].
-						[#asUnsignedInteger]	->	[#usqInt].
+						[#asFloat]				->	[#double].
 						[#asLong]				->	[#long].
+						[#asUnsignedInteger]	->	[#usqInt].
 						[#asUnsignedLong]		->	[#'unsigned long'].
+						[#asVoidPointer]		->	[#'void *'].
 						[#signedIntToLong]		->	[#usqInt]. "c.f. generateSignedIntToLong:on:indent:"
 						[#signedIntToShort]	->	[#usqInt]. "c.f. generateSignedIntToShort:on:indent:"
 						[#cCoerce:to:]			->	[sendNode args last value].
@@ -30,10 +33,6 @@ returnTypeForSend: sendNode in: aTMethod
 						otherwise: [#sqInt]]]
 		ifNotNil:
 			[:m|
-			m returnType ifNotNil:
-				[:type| "map fields to #usqInt"
-				((type beginsWith: 'unsigned')
-				 and: [(type includes: $:)
-				 and: [type last isDigit]])
-					ifTrue: [#usqInt]
-					ifFalse: [type]]]
+			 m returnType ifNotNil:
+				[:type|
+				 self baseTypeForType: type]]

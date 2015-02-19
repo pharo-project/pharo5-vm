@@ -1,3 +1,4 @@
 other
 fullGC
-	Smalltalk garbageCollect.
+	<returnTypeC: #sqInt>
+	Smalltalk garbageCollect

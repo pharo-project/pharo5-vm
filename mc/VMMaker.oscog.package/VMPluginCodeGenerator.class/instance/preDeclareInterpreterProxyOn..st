@@ -34,6 +34,11 @@ preDeclareInterpreterProxyOn: aStream
 								cr].
 						actual].
 	pluginFuncs do:
+		[:tMethod|
+		 tMethod recordDeclarationsIn: self.
+		 tMethod returnType ifNil:
+			[tMethod inferReturnTypeIn: self]].
+	pluginFuncs do:
 		[:tMethod| | functionName |
 		functionName := self cFunctionNameFor: tMethod selector.
 		aStream nextPutAll:

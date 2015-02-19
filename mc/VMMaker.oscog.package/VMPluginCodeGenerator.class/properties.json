@@ -9,7 +9,8 @@
 		"pluginClass",
 		"pluginName",
 		"pluginFunctionsUsed",
-		"inProgressSelectors" ],
+		"inProgressSelectors",
+		"inliningDone" ],
 	"name" : "VMPluginCodeGenerator",
 	"pools" : [
 		 ],
