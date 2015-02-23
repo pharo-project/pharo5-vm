@@ -24,4 +24,6 @@ initializeMiscConstants
 	MaxExternalPrimitiveTableSize := 4096. "entries"
 
 	MaxJumpBuf := 32. "max. callback depth"
-	FailImbalancedPrimitives := true
+	FailImbalancedPrimitives := initializationOptions at: #FailImbalancedPrimitives ifAbsentPut: [true].
+
+	CheckPrivacyViolations := initializationOptions at: #CheckPrivacyViolations ifAbsentPut: [false]

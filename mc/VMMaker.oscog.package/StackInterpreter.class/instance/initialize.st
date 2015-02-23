@@ -21,5 +21,6 @@ initialize
 	jmpDepth := 0.
 	longRunningPrimitiveStartUsecs := longRunningPrimitiveStopUsecs := 0.
 	maxExtSemTabSizeSet := false.
+	isPrivateSend := false.
 	statForceInterruptCheck := statStackOverflow := statCheckForEvents :=
 	statProcessSwitch := statIOProcessEvents := statStackPageDivorce := 0

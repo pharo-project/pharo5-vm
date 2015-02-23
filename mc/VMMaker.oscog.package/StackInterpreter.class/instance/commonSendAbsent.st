@@ -12,4 +12,6 @@ commonSendAbsent
 	self shuffleArgumentsAndStoreAbsentReceiver: localAbsentReceiver.
 	lkupClassTag := objectMemory fetchClassTagOf: localAbsentReceiver.
 	self assert: (objectMemory classForClassTag: lkupClassTag) ~= objectMemory nilObject.
+	CheckPrivacyViolations ifTrue:
+            [isPrivateSend := true].
 	self commonSend

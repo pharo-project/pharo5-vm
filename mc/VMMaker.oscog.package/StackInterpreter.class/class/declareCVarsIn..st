@@ -65,6 +65,8 @@ declareCVarsIn: aCCodeGenerator
 				array: vmClass primitiveAccessorDepthTable]
 		ifFalse:
 			[aCCodeGenerator removeVariable: #primitiveAccessorDepthTable].
+	(NewspeakVM and: [CheckPrivacyViolations]) ifFalse:
+		[aCCodeGenerator removeVariable: #isPrivateSend].
 	aCCodeGenerator
 		var: #primitiveFunctionPointer
 		declareC: 'void (*primitiveFunctionPointer)()'.

@@ -4,22 +4,17 @@ typeForArithmetic: sendNode in: aTMethod
 	 inline simple expressions.  Deal with pointer arithmetic, floating point arithmetic
 	 and promotion."
 	| rcvrType argType |
-	argType := self typeFor: sendNode args first in: aTMethod.
-	argType = #double ifTrue:
-		[^#double].
 	rcvrType := self typeFor: sendNode receiver in: aTMethod.
-	"deal with unknowns, answering nil."
-	(rcvrType isNil or: [argType isNil]) ifTrue:
-		[^nil].
+	argType := self typeFor: sendNode args first in: aTMethod.
 	"deal with pointer arithmetic"
-	(rcvrType last = $* or: [argType last = $*]) ifTrue:
-		[(sendNode selector == #-
-		  and: [rcvrType last = $* and: [argType last = $*]]) ifTrue:
-			[^#int].
-		 ^rcvrType last = $
+	((rcvrType notNil and: [rcvrType last = $*]) or: [argType notNil and: [argType last = $*]]) ifTrue:
+		[(rcvrType isNil or: [argType isNil]) ifTrue:
+			[^nil].
+		 (rcvrType last = $* and: [argType last = $*]) ifTrue:
+			[sendNode selector == #- ifTrue:
+				[^#int].
+			 self error: 'invalid pointer arithmetic'].
+		 ^rcvrType last = $*
 			ifTrue: [rcvrType]
 			ifFalse: [argType]].
-	"deal with promotion; answer the longest type, defaulting to the recever if they're the same"
-	^(self sizeOfIntegralCType: rcvrType) >= (self sizeOfIntegralCType: argType)
-		ifTrue: [rcvrType]
-		ifFalse: [argType]
+	^self promoteArithmeticTypes: rcvrType and: argType

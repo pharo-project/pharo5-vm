@@ -16,6 +16,7 @@ sizeOfIntegralCType: anIntegralCType "<String>"
 		['usqInt']	->	[BytesPerWord].
 		['int']		->	[4].
 		['short']		->	[2].
+		['short int']	->	[2].
 		['char']		->	[1].
 		['long']		->	[BytesPerWord].
 		['size_t']		->	[BytesPerWord].

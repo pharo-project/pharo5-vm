@@ -16,4 +16,7 @@ internalFindNewMethod
 		 lkupClass := objectMemory classForClassTag: lkupClassTag.
 		 self lookupMethodInClass: lkupClass.
 		 self internalizeIPandSP.
-		 self addNewMethodToCache: lkupClass]
+		 self addNewMethodToCache: lkupClass].
+	"Clear the flag set in commonSendAbsent and tested in lookupMethodInClass:"
+	(NewspeakVM and: [CheckPrivacyViolations]) ifTrue:
+		[isPrivateSend := false].

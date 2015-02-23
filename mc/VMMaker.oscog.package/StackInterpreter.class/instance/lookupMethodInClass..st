@@ -14,6 +14,14 @@ lookupMethodInClass: class
 			self sendBreakpoint: messageSelector receiver: nil.
 			^self lookupMethodInClass: (self superclassOf: currentClass)].
 		found := self lookupMethodInDictionary: dictionary.
+		(NewspeakVM
+		 and: [CheckPrivacyViolations
+		 and: [isPrivateSend not
+		 and: [messageSelector ~= (objectMemory splObj: SelectorDoesNotUnderstand)
+		 and: [(self accessModifierOfMethod: newMethod) ~= 0]]]]) ifTrue:
+			[self print: (self nameOfClass: currentClass); space.
+			 self printStringOf: (messageSelector); print: ' from '.
+			 self printStringOf: (self maybeSelectorOfMethod: method); cr].
 		found ifTrue: [^currentClass].
 		currentClass := self superclassOf: currentClass].
 
