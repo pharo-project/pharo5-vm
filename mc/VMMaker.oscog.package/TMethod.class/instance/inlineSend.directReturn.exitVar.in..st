@@ -19,34 +19,23 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 		[methArgs := methArgs allButFirst].
 	methArgs size = aSendNode args size ifFalse:
 		[^nil].
-	methArgs with: aSendNode args do:
-		[:formal :actual|
-		(actual isVariable
-		and: [(aCodeGen
-				variableOfType: (self typeFor: formal using: aCodeGen)
-				acceptsValueOfType: (self typeFor: actual name in: aCodeGen)) not]) ifTrue:
-			[aCodeGen logger
-				nextPutAll:
-					'type mismatch for formal ', formal, ' and actual ', actual name,
-					' when inlining ', sel, ' in ', selector, '. Use a cast.';
-				cr; flush]]. 
 	meth := meth copy.
 
 	"Propagate the return type of an inlined method"
-	(directReturn or:[exitVar notNil]) ifTrue:[
-		exitType := directReturn 
-			ifTrue:[returnType] 
-			ifFalse:[(self typeFor: exitVar in: aCodeGen) ifNil:[#sqInt]].
-		(exitType = #void or:[exitType = meth returnType]) 
-			ifFalse:[meth propagateReturnIn: aCodeGen]].
+	(directReturn or: [exitVar notNil]) ifTrue:
+		[exitType := directReturn 
+						ifTrue: [returnType] 
+						ifFalse: [(self typeFor: exitVar in: aCodeGen) ifNil: [#sqInt]].
+		(exitType = #void or: [exitType = meth returnType]) ifFalse:
+			[meth propagateReturnIn: aCodeGen]].
 
 	meth renameVarsForInliningInto: self except: #() in: aCodeGen.
 	meth renameLabelsForInliningInto: self.
 	self addVarsDeclarationsAndLabelsOf: meth except: #().
-	meth hasReturn ifTrue:[
-		directReturn ifFalse:[
-			exitLabel := self unusedLabelForInliningInto: self.
-			(meth exitVar: exitVar label: exitLabel) "is label used?"
+	meth hasReturn ifTrue:
+		[directReturn ifFalse:
+			[exitLabel := self unusedLabelForInliningInto: self.
+			 (meth exitVar: exitVar label: exitLabel) "is label used?"
 				ifTrue: [ labels add: exitLabel ]
 				ifFalse: [ exitLabel := nil ]]].
 	(inlineStmts := OrderedCollection new: 100)

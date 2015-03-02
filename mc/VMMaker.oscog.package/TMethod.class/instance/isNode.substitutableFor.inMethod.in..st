@@ -34,6 +34,10 @@ isNode: aNode substitutableFor: argName inMethod: targetMeth in: aCodeGen
 			[^true].
 		^targetMeth maySubstituteGlobal: aNode name in: aCodeGen].
 
+	"don't much up asserts with complex expansions"
+	(targetMeth usesVariableUninlinably: argName in: aCodeGen) ifTrue:
+		[^false].
+
 	"For now allow literal blocks to be substituted.  They better be accessed only
 	 with value[:value:*] messages though!"
 	aNode isStmtList ifTrue: [^true].

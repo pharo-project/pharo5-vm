@@ -1,5 +1,6 @@
 compaction
 freeMethod: cogMethod
+	<api>
 	<var: #cogMethod type: #'CogMethod *'>
 	<inline: false>
 	self assert: cogMethod cmType ~= CMFree.

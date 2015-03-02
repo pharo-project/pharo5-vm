@@ -1,9 +1,15 @@
 inlining
-maybeBreakForTestToInline: aNode in: aTMethod
+maybeBreakForTestToInline: aNodeOrSelector in: aTMethod
 	"convenient for debugging..."
-	(aNode isSend
-	and: [(breakSrcInlineSelector notNil or: [breakDestInlineSelector notNil])
-	and: [(breakSrcInlineSelector ifNil: [true] ifNotNil: [:srcSel| srcSel = aNode selector])
-	and: [(breakDestInlineSelector ifNil: [true] ifNotNil: [:dstSel| dstSel = aTMethod selector])
-	and: [breakOnInline ~~ true]]]]) ifTrue:
-		[aTMethod halt: aTMethod selector, ' ', aNode selector]
+	| selector |
+	selector := aNodeOrSelector isSymbol
+					ifTrue: [aNodeOrSelector]
+					ifFalse:
+						[aNodeOrSelector isSend
+							ifTrue: [aNodeOrSelector selector]
+							ifFalse: [^self]].
+	(breakSrcInlineSelectors size + breakDestInlineSelectors size > 0
+	and: [(breakSrcInlineSelectors isEmpty or: [breakSrcInlineSelectors includes: selector])
+	and: [(breakDestInlineSelectors isEmpty or: [(breakDestInlineSelectors includes: aTMethod selector)])
+	and: [breakOnInline ~~ true]]]) ifTrue:
+		[aTMethod halt: aTMethod selector, ' ', selector]

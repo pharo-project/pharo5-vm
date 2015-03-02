@@ -312,6 +312,7 @@
 		"followMaybeObjRefAt:" : "eem 1/14/2014 15:19",
 		"followMethodReferencesInClosedPIC:" : "eem 1/14/2014 15:22",
 		"framePointerAddress" : "eem 5/15/2014 09:51",
+		"freeMethod:" : "eem 2/24/2015 11:03",
 		"freePICsWithFreedTargets" : "eem 8/13/2012 13:13",
 		"freeUnmarkedMachineCode" : "eem 9/24/2014 12:03",
 		"gen:" : "eem 11/2/2012 10:46",

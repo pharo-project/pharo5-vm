@@ -11,6 +11,8 @@ inferReturnTypeFromReturnsIn: aCodeGen
 					s := Set new.
 					self addTypesFor: n expression to: s in: aCodeGen.
 					{n. s}]]"
+			
+	aCodeGen maybeBreakForTestToInline: selector in: self.
 	returnType ifNil: "the initial default"
 		[aCodeGen
 			pushScope: declarations

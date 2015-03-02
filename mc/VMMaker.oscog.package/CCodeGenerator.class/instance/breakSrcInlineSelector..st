@@ -1,3 +1,3 @@
 accessing
 breakSrcInlineSelector: aSelector
-	breakSrcInlineSelector := aSelector
+	breakSrcInlineSelectors add: aSelector

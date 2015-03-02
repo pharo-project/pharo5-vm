@@ -17,4 +17,6 @@ initialize
 	logger := (ProvideAnswerNotification new tag: #logger; signal) ifNil: [Transcript].
 	pools := IdentitySet new.
 	selectorTranslations := IdentityDictionary new.
-	suppressAsmLabels := false
+	suppressAsmLabels := false.
+	breakSrcInlineSelectors := IdentitySet new.
+	breakDestInlineSelectors := IdentitySet new

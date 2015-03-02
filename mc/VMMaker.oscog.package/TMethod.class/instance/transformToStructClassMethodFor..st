@@ -6,7 +6,7 @@ transformToStructClassMethodFor: aCCodeGenerator
 	 as this causes serious type redefinitions ``somewhere'' in the inliner."
 	| replacements selfNode typeForSelf |
 	self isStructAccessor ifTrue:
-		[^returnType := definingClass returnTypeForAccessor: selector].
+		[^self returnType: (definingClass returnTypeForAccessor: selector)].
 	replacements := IdentityDictionary new.
 	selfNode := TVariableNode new setName: 'self_in_', (aCCodeGenerator cFunctionNameFor: selector).
 	args do:

@@ -32,7 +32,7 @@ collectInlineList: inlineFlagOrSymbol
 	inlineList := Set new: methods size * 2.
 	(methods reject: [:m| selectorsOfMethodsNotToInline includes: m selector]) do:
 		[:m| | inlineIt hasUnrenamableCCode nodeCount |
-		(breakSrcInlineSelector = m selector
+		((breakSrcInlineSelectors includes: m selector)
 		 and: [breakOnInline isNil]) ifTrue:
 			[self halt].
 		inlineIt := #dontCare.

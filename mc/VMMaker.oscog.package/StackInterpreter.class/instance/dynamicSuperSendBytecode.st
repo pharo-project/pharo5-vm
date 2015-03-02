@@ -17,4 +17,6 @@ dynamicSuperSendBytecode
 							findApplicationOfTargetMixin: mClassMixin
 							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
 	lkupClassTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
+	CheckPrivacyViolations ifTrue:
+            [isPrivateSend := true].
 	self commonSend

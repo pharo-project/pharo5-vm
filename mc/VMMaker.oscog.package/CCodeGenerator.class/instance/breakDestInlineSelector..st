@@ -1,3 +1,3 @@
 accessing
 breakDestInlineSelector: aSelector
-	breakDestInlineSelector := aSelector
+	breakDestInlineSelectors add: aSelector

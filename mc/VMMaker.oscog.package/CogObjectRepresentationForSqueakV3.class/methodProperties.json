@@ -26,7 +26,7 @@
 		"genGetClassFormatOfNonInt:into:scratchReg:" : "eem (const to msg rewrite) 11/13/2014 14:04",
 		"genGetClassObjectOf:into:scratchReg:instRegIsReceiver:" : "eem (const to msg rewrite) 11/13/2014 14:04",
 		"genGetClassObjectOfNonCompact:into:" : "eem 7/31/2014 06:01",
-		"genGetClassTagOf:into:scratchReg:" : "eem (const to msg rewrite) 11/6/2014 10:37",
+		"genGetClassTagOf:into:scratchReg:" : "eem 2/23/2015 16:34",
 		"genGetCompactClassIndexNonImmOf:into:" : "eem 10/3/2013 10:12",
 		"genGetDoubleValueOf:into:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"genGetFixedFieldsOfPointerNonInt:into:scratchReg:" : "eem 2/3/2009 17:08",

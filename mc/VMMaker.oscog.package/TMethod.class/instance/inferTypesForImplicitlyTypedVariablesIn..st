@@ -5,8 +5,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 	 This for debugging:
 		(self copy inferTypesForImplicitlyTypedVariablesIn: aCodeGen)"
 	| alreadyExplicitlyTyped effectiveNodes |
-	"selector = #transformColor: ifTrue:
-		[self halt]."
+	aCodeGen maybeBreakForTestToInline: selector in: self.
 	alreadyExplicitlyTyped := declarations keys asSet.
 	effectiveNodes := Dictionary new. "this for debugging"
 	parseTree nodesDo:

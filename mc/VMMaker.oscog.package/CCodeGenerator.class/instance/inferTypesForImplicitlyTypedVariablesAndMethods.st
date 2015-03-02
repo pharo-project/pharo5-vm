@@ -6,33 +6,39 @@ inferTypesForImplicitlyTypedVariablesAndMethods
 	 done here."
 
 	"Iterate over all methods, inferring #void return types, until we reach a fixed point."
-	| firstTime allMethods |
-	firstTime := true.
+	| allMethods |
 	allMethods := apiMethods
 					ifNil: [methods]
 					ifNotNil: [(Set withAll: methods)
 								addAll: apiMethods;
 								yourself].
-	"Make an initial pass to assign the return types of all simple methods that return constants."						
+	"Make an initial pass to assign the return types of all simple methods that return constants,
+	 or those that have explicit return types."						
 	allMethods do:
 		[:m|
-		m isReturnConstant ifTrue:
+		m removeFinalSelfReturnIn: self. "must preceed recordDeclarationsIn: because it may set returnType"
+		m recordDeclarationsIn: self.
+		(m returnType isNil
+		 and: [m isReturnConstant]) ifTrue:
 			[m inferReturnTypeIn: self]].
+
+	"now iterate until we reach a fixed point"
 	[| changedReturnType |
 	 changedReturnType := false.
 	 allMethods do:
 		[:m|
-		 firstTime ifTrue:
-			[m removeFinalSelfReturnIn: self. "must preceed recordDeclarationsIn: because it may set returnType"
-			 m recordDeclarationsIn: self].
 		 m inferTypesForImplicitlyTypedVariablesIn: self.
 		 (m inferReturnTypeIn: self) ifTrue:
 			[changedReturnType := true]].
-	 firstTime := false.
 	 changedReturnType] whileTrue.
 
 	"Type all as-yet-untyped methods as the default"
 	methods do:
 		[:m|
 		m returnType ifNil:
-			[m returnType: (self implicitReturnTypeFor: m selector)]]
+			[m returnType: (self implicitReturnTypeFor: m selector)]].
+
+	"Make a final pass to type anything assigned from the default type"
+	allMethods do:
+		[:m|
+		 m inferTypesForImplicitlyTypedVariablesIn: self]

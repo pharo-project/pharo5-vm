@@ -22,6 +22,11 @@ returnTypeForSend: sendNode in: aTMethod
 						[#bitOr:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
 						[#bitXor:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
 						[#asFloat]				->	[#double].
+						[#atan]					->	[#double].
+						[#exp]					->	[#double].
+						[#log]					->	[#double].
+						[#sin]					->	[#double].
+						[#sqrt]					->	[#double].
 						[#asLong]				->	[#long].
 						[#asUnsignedInteger]	->	[#usqInt].
 						[#asUnsignedLong]		->	[#'unsigned long'].
@@ -29,7 +34,11 @@ returnTypeForSend: sendNode in: aTMethod
 						[#signedIntToLong]		->	[#usqInt]. "c.f. generateSignedIntToLong:on:indent:"
 						[#signedIntToShort]	->	[#usqInt]. "c.f. generateSignedIntToShort:on:indent:"
 						[#cCoerce:to:]			->	[sendNode args last value].
-						[#cCoerceSimple:to:]	->	[sendNode args last value] }
+						[#cCoerceSimple:to:]	->	[sendNode args last value].
+						[#ifTrue:ifFalse:]		->	[self typeForConditional: sendNode in: aTMethod].
+						[#ifFalse:ifTrue:]		->	[self typeForConditional: sendNode in: aTMethod].
+						[#ifTrue:]				->	[self typeForConditional: sendNode in: aTMethod].
+						[#ifFalse:]				->	[self typeForConditional: sendNode in: aTMethod] }
 						otherwise: [#sqInt]]]
 		ifNotNil:
 			[:m|
