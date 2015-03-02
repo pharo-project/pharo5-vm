@@ -12,9 +12,13 @@ maybeInlinePositive32BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: 4)
 							numSlots: 1.
-	objectMemory
-		storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
-		storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
-		storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
-		storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF).
+	self cppIf: VMBIGENDIAN
+		ifTrue:
+			[objectMemory
+				storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
+				storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
+				storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
+				storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF)]
+		ifFalse:
+			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: integerValue].
 	^newLargeInteger

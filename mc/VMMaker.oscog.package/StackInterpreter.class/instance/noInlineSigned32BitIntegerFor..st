@@ -16,8 +16,13 @@ noInlineSigned32BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: largeClass
 							format: (objectMemory byteFormatForNumBytes: 4)
 							numSlots: 1.
-	objectMemory storeByte: 3 ofObject: newLargeInteger withValue: ((value >> 24) bitAnd: 16rFF).
-	objectMemory storeByte: 2 ofObject: newLargeInteger withValue: ((value >> 16) bitAnd: 16rFF).
-	objectMemory storeByte: 1 ofObject: newLargeInteger withValue: ((value >> 8) bitAnd: 16rFF).
-	objectMemory storeByte: 0 ofObject: newLargeInteger withValue: (value bitAnd: 16rFF).
+	self cppIf: VMBIGENDIAN
+		ifTrue:
+			[objectMemory
+				storeByte: 3 ofObject: newLargeInteger withValue: ((value >> 24) bitAnd: 16rFF);
+				storeByte: 2 ofObject: newLargeInteger withValue: ((value >> 16) bitAnd: 16rFF);
+				storeByte: 1 ofObject: newLargeInteger withValue: ((value >> 8) bitAnd: 16rFF);
+				storeByte: 0 ofObject: newLargeInteger withValue: (value bitAnd: 16rFF)]
+		ifFalse:
+			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: value].
 	^newLargeInteger

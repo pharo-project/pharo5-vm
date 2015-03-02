@@ -21,13 +21,17 @@ positive64BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: sz)
 							numSlots: 8 / objectMemory bytesPerOop.
-	objectMemory
-		storeByte: 7 ofObject: newLargeInteger withValue: (integerValue >> 56 bitAnd: 16rFF);
-		storeByte: 6 ofObject: newLargeInteger withValue: (integerValue >> 48 bitAnd: 16rFF);
-		storeByte: 5 ofObject: newLargeInteger withValue: (integerValue >> 40 bitAnd: 16rFF);
-		storeByte: 4 ofObject: newLargeInteger withValue: (integerValue >> 32 bitAnd: 16rFF);
-		storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
-		storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
-		storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
-		storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF).
+	self cppIf: VMBIGENDIAN
+		ifTrue:
+			[objectMemory
+				storeByte: 7 ofObject: newLargeInteger withValue: (integerValue >> 56 bitAnd: 16rFF);
+				storeByte: 6 ofObject: newLargeInteger withValue: (integerValue >> 48 bitAnd: 16rFF);
+				storeByte: 5 ofObject: newLargeInteger withValue: (integerValue >> 40 bitAnd: 16rFF);
+				storeByte: 4 ofObject: newLargeInteger withValue: (integerValue >> 32 bitAnd: 16rFF);
+				storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
+				storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
+				storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
+				storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF)]
+		ifFalse:
+			[objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: integerValue].
 	^newLargeInteger

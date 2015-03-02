@@ -16,18 +16,20 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 			ifTrue:
 				[substitutionDict
 					at: argName
-					put: (self node: exprNode
+					put: (aCodeGen
+							node: exprNode
 							typeCompatibleWith: argName
 							inliningInto: meth selector
-							in: aCodeGen).
+							in: self).
 				 locals remove: argName]
 			ifFalse:
 				[stmtList addLast:
 					(TAssignmentNode new
 						setVariable: (TVariableNode new setName: argName)
-						expression: (self node: exprNode copy
+						expression: (aCodeGen
+										node: exprNode copy
 										typeCompatibleWith: argName
 										inliningInto: meth selector
-										in: aCodeGen))]].
+										in: self))]].
 	meth parseTree: (meth parseTree bindVariablesIn: substitutionDict).
 	^stmtList
