@@ -34,8 +34,9 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 	headerSize := self sizeof: CogMethod.
 	size := self generateInstructionsAt: startAddress + headerSize.
 	end := self outputInstructionsAt: startAddress + headerSize.
-	"The missOffset is th same as the interpretOffset."
-	self assert: missOffset = (picInterpretAbort address + picInterpretAbort machineCodeSize - startAddress).
+	"The missOffset is the same as the interpretOffset. On RISCs it includes an additional instruction."
+	self assert: missOffset = ((backEnd hasLinkRegister ifTrue: [backEnd callInstructionByteSize] ifFalse: [0])
+								+ picInterpretAbort address + picInterpretAbort machineCodeSize - startAddress).
 	self assert: startAddress + cmEntryOffset = entry address.
 	self assert: endCPICCase0 address = (startAddress + firstCPICCaseOffset).
 	self assert: endCPICCase1 address = (startAddress + firstCPICCaseOffset + cPICCaseSize).

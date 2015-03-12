@@ -1,7 +1,7 @@
 arithmetic float primitives
 primitiveAsFloat
-	| arg |
-	arg := self popInteger.
-	self successful
-		ifTrue: [self pushFloat: arg asFloat]
-		ifFalse: [self unPop: 1]
+	"N.B. This will answer inexact results for integers with > 53 bits of magnitude."
+	| rcvr |
+	rcvr := self stackTop.
+	self assert: (objectMemory isIntegerObject: rcvr).
+	self pop: 1 thenPushFloat: (objectMemory integerValueOf: rcvr) asFloat

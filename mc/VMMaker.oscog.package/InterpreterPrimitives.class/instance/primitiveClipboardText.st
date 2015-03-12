@@ -9,7 +9,7 @@ primitiveClipboardText
 			[s := self stackTop.
 			 (objectMemory isBytes: s) ifFalse: [^ self primitiveFail].
 			 self successful ifTrue:
-				[sz := objectMemory numBytesOf: s.
+				[sz := objectMemory numBytesOfBytes: s.
 				 self clipboardWrite: sz From: s + objectMemory baseHeaderSize At: 0.
 				 self pop: 1]]
 		ifFalse:

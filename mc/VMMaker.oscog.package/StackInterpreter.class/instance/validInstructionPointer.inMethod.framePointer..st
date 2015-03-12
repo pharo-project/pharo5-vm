@@ -8,4 +8,4 @@ validInstructionPointer: theInstrPointer inMethod: aMethod framePointer: fp
 	 Context(Part)>>reset have to be updated to skip the callPrimtiive bytecode otherwise."
 	"-1 for pre-increment in fetchNextBytecode"
 	^theInstrPointer >= (aMethod + (objectMemory lastPointerOf: aMethod) + objectMemory bytesPerOop - 1)
-	  and: [theInstrPointer < (aMethod + (objectMemory numBytesOf: aMethod) + objectMemory baseHeaderSize - 1)]
+	  and: [theInstrPointer < (aMethod + (objectMemory numBytesOfBytes: aMethod) + objectMemory baseHeaderSize - 1)]

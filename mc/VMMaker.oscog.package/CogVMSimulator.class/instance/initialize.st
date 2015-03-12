@@ -57,7 +57,7 @@ initialize
 	traceOn := true.
 	printSends := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
-	displayForm := 'Display has not yet been installed' asDisplayText form.
+	displayForm := fakeForm := 'Display has not yet been installed' asDisplayText form.
 	suppressHeartbeatFlag := deferSmash := deferredSmash := false.
 	systemAttributes := Dictionary new.
 	primTraceLog := CArrayAccessor on: (Array new: 256 withAll: 0).

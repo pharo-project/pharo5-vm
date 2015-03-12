@@ -313,6 +313,7 @@
 		"num32BitUnitsOf:" : "eem 7/28/2014 08:13",
 		"num64BitUnitsOf:" : "eem 7/28/2014 08:14",
 		"numBytesOf:" : "eem (const to msg rewrite) 11/6/2014 10:59",
+		"numBytesOfBytes:" : "eem 3/6/2015 10:32",
 		"numSlotsOf:" : "eem (const to msg rewrite) 11/13/2014 14:06",
 		"numSlotsOfAny:" : "eem 2/2/2015 18:36",
 		"numSmallIntegerBits" : "eem 11/19/2014 13:12",

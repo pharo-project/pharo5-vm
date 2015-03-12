@@ -16,6 +16,7 @@
 		"blx:" : "tpr 4/30/2014 11:45",
 		"bx:" : "tpr 4/30/2014 11:42",
 		"cResultRegister" : "lw 8/23/2012 23:04",
+		"callInstructionByteSize" : "eem 3/10/2015 16:40",
 		"callTargetFromReturnAddress:" : "tpr 6/5/2014 09:01",
 		"callerSavedRegisterMask" : "tpr 6/26/2014 08:13",
 		"canDivQuoRem" : "lw 7/31/2012 12:16",

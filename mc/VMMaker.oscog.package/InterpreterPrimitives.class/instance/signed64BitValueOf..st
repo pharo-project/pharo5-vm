@@ -10,7 +10,8 @@ signed64BitValueOf: oop
 		[^self cCoerce: (objectMemory integerValueOf: oop) to: #sqLong].
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
-		[^self primitiveFail].
+		[self primitiveFail.
+		 ^0].
 
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
@@ -22,14 +23,23 @@ signed64BitValueOf: oop
 			 ok := objectMemory isClassOfNonImm: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
-			ok ifFalse: [^self primitiveFail]].
-	sz := objectMemory numBytesOf: oop.
+			ok ifFalse:
+				[self primitiveFail.
+				 ^0]].
+	sz := objectMemory numBytesOfBytes: oop.
 	sz > (self sizeof: #sqLong) ifTrue:
-		[^self primitiveFail].
+		[self primitiveFail.
+		 ^0].
 
-	value := 0.
-	0 to: sz - 1 do: [:i |
-		value := value + ((self cCoerce: (objectMemory fetchByte: i ofObject: oop) to: #sqLong) <<  (i*8))].
+	self cppIf: VMBIGENDIAN
+		ifTrue:
+			[value := objectMemory fetchByte: sz - 1 ofObject: oop.
+			 sz - 2 to: 0 by: -1 do: [:i |
+				value := value << 8 + (objectMemory fetchByte: i ofObject: oop)]]
+		ifFalse:
+			[value := sz > 4
+						ifTrue: [objectMemory fetchLong64: 0 ofObject: oop]
+						ifFalse: [objectMemory fetchLong32: 0 ofObject: oop]].
 	"Filter out values out of range for the signed interpretation such as
 	16rFFFFFFFF... (positive w/ bit 64 set) and -16rFFFFFFFF... (negative w/ bit
 	64 set). Since the sign is implicit in the class we require that the high bit of
@@ -49,7 +59,8 @@ signed64BitValueOf: oop
 		 (negative and: [0 = (self cCode: [value << 1]
 									inSmalltalk: [value << 1 bitAnd: (1 << 64) - 1])]) ifTrue: 
 			[^value].
-		 ^self primitiveFail].
+		 self primitiveFail.
+		 ^0].
 	^negative
 		ifTrue:[0 - value]
 		ifFalse:[value]

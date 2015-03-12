@@ -27,22 +27,28 @@ signedMachineIntegerValueOf: oop
 		[^self primitiveFail].
 
 	((self sizeof: #'unsigned long') = 8
-	 and: [bs > 4])
-		ifTrue:
-			[value :=   (objectMemory fetchByte: 0 ofObject: oop)
-					+ ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
-					+ ((objectMemory fetchByte: 2 ofObject: oop) << 16)
-					+ ((objectMemory fetchByte: 3 ofObject: oop) << 24)
-					+ ((objectMemory fetchByte: 4 ofObject: oop) << 32)
-					+ ((objectMemory fetchByte: 5 ofObject: oop) << 40)
-					+ ((objectMemory fetchByte: 6 ofObject: oop) << 48)
-					+ ((objectMemory fetchByte: 7 ofObject: oop) << 56)]
+	and: [bs > 4]) ifTrue:
+		[value := self cppIf: VMBIGENDIAN
+					ifTrue:
+						[    (objectMemory fetchByte: 0 ofObject: oop)
+						 + ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
+						 + ((objectMemory fetchByte: 2 ofObject: oop) << 16)
+						 + ((objectMemory fetchByte: 3 ofObject: oop) << 24)
+						 + ((objectMemory fetchByte: 4 ofObject: oop) << 32)
+						 + ((objectMemory fetchByte: 5 ofObject: oop) << 40)
+						 + ((objectMemory fetchByte: 6 ofObject: oop) << 48)
+						 + ((objectMemory fetchByte: 7 ofObject: oop) << 56)]
+					ifFalse:
+						[objectMemory fetchLong64: 0 ofObject: oop]]
 		ifFalse:
-			[value :=   (objectMemory fetchByte: 0 ofObject: oop)
-					+ ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
-					+ ((objectMemory fetchByte: 2 ofObject: oop) << 16)
-					+ ((objectMemory fetchByte: 3 ofObject: oop) << 24)].
-
+			[value := self cppIf: VMBIGENDIAN
+						ifTrue:
+							[    (objectMemory fetchByte: 0 ofObject: oop)
+							 + ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
+							 + ((objectMemory fetchByte: 2 ofObject: oop) << 16)
+							 + ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
+						ifFalse:
+							[objectMemory fetchLong32: 0 ofObject: oop]].
 	
 	self cCode: []
 		inSmalltalk:

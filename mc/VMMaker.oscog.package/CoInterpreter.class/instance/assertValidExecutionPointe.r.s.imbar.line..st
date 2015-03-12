@@ -24,7 +24,7 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 							ifTrue: [self iframeSavedIP: lifp]
 							ifFalse: [lip].
 				 self assert: (theIP >= (methodField + (objectMemory lastPointerOf: methodField))
-							  and: [theIP < (methodField + (objectMemory numBytesOf: methodField) + objectMemory baseHeaderSize - 1)])
+							  and: [theIP < (methodField + (objectMemory numBytesOfBytes: methodField) + objectMemory baseHeaderSize - 1)])
 					l: ln].
 			 self assert: ((self iframeIsBlockActivation: lifp)
 					or: [(self pushedReceiverOrClosureOfFrame: lifp) = (self iframeReceiver: lifp)])

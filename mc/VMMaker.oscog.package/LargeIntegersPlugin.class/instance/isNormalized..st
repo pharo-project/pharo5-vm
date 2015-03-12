@@ -1,41 +1,34 @@
 oop functions
 isNormalized: anInteger 
-	| len maxVal minVal sLen class positive |
+	| len class positive pointer |
+	<var: #pointer type: #'unsigned char *'>
 	(interpreterProxy isIntegerObject: anInteger) ifTrue:
-		[^ true].
+		[^true].
 	class := interpreterProxy fetchClassOf: anInteger.
 	(positive := class = interpreterProxy classLargePositiveInteger) ifFalse:
 		[class = interpreterProxy classLargeNegativeInteger ifFalse:
 			[interpreterProxy primitiveFailFor: PrimErrBadArgument.
 			 ^false]].
+	pointer := interpreterProxy cCoerce: (interpreterProxy firstIndexableField: anInteger) to: #'unsigned char *'.
 	"Check for leading zero of LargeInteger"
-	len := self digitLength: anInteger.
-	len = 0 ifTrue:
-		[^ false].
-	(self unsafeByteOf: anInteger at: len) = 0 ifTrue:
-		[^ false].
+	len := self digitLengthOfNonImmediate: anInteger.
+	(len = 0 or: [(pointer at: len - 1) = 0]) ifTrue:
+		[^false].
 	"no leading zero, now check if anInteger is in SmallInteger range or not"
-	sLen := interpreterProxy bytesPerOop.
 	"maximal digitLength of aSmallInteger"
-	len > sLen ifTrue:
-		[^ true].
-	len < sLen ifTrue:
-		[^ false].
-	"len = sLen"
-	positive
-		ifTrue: [maxVal := interpreterProxy maxSmallInteger. "SmallInteger maxVal"
-				"all bytes of maxVal but the highest one are just FF's"
-				^ (self unsafeByteOf: anInteger at: sLen)
-					> (self cDigitOfCSI: maxVal at: sLen)]
-		ifFalse: [minVal := interpreterProxy minSmallInteger. "SmallInteger minVal"
-				"all bytes of minVal but the highest one are just 00's"
-			(self unsafeByteOf: anInteger at: sLen) < (self cDigitOfCSI: minVal at: sLen) ifTrue:
-				[^ false].
-			"if just one digit differs, then anInteger < minval (the corresponding digit byte is greater!)
-			and therefore a LargeNegativeInteger"
-			1
-				to: sLen
-				do: [:ix |
-					(self unsafeByteOf: anInteger at: ix) = (self cDigitOfCSI: minVal at: ix) ifFalse:
-						[^ true]]].
-	^ false
+	len ~= interpreterProxy bytesPerOop ifTrue:
+		[^len > interpreterProxy bytesPerOop].
+	positive ifTrue: "all bytes of but the highest one are just FF's"
+		[^(pointer at: interpreterProxy bytesPerOop - 1)
+			> (self cDigitOfCSI: interpreterProxy maxSmallInteger at: interpreterProxy bytesPerOop)].
+	"all bytes of but the highest one are just 00's"
+	(pointer at: interpreterProxy bytesPerOop - 1)
+	 < (self cDigitOfCSI: interpreterProxy minSmallInteger at: interpreterProxy bytesPerOop) ifTrue:
+		[^false].
+	"if just one digit differs, then anInteger < minval (the corresponding digit byte is greater!)
+	 and therefore a LargeNegativeInteger"
+	0 to: interpreterProxy bytesPerOop - 1 do:
+		[:ix |
+		(pointer at: ix) = (self cDigitOfCSI: interpreterProxy minSmallInteger at: ix + 1) ifFalse:
+			[^true]].
+	^false

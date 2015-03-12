@@ -1,7 +1,7 @@
 primitive support
 magnitude64BitValueOf: oop
 	"Convert the given object into an integer value.
-	The object may be either a positive SmallInteger or a eight-byte LargeInteger."
+	The object may be either a positive SmallInteger or an eight-byte LargeInteger."
 	| sz value ok smallIntValue |
 	<returnTypeC: #usqLong>
 	<var: #value type: #usqLong>
@@ -12,7 +12,8 @@ magnitude64BitValueOf: oop
 		^self cCoerce: smallIntValue to: #usqLong].
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
-		[^self primitiveFail].
+		[self primitiveFail.
+		 ^0].
 
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
@@ -22,12 +23,15 @@ magnitude64BitValueOf: oop
 			[ok := objectMemory isClassOfNonImm: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
-			ok ifFalse: [^self primitiveFail]].
-	sz := objectMemory numBytesOf: oop.
+			ok ifFalse:
+				[self primitiveFail.
+				 ^0]].
+	sz := objectMemory numBytesOfBytes: oop.
 	sz > (self sizeof: #sqLong) ifTrue:
-		[^self primitiveFail].
+		[self primitiveFail.
+		 ^0].
 
-	value := 0.
-	0 to: sz - 1 do: [:i |
-		value := value + ((self cCoerce: (objectMemory fetchByte: i ofObject: oop) to: #sqLong) <<  (i*8))].
+	value := objectMemory fetchByte: sz - 1 ofObject: oop.
+	sz - 2 to: 0 by: -1 do:
+		[:i | value := value << 8 + (objectMemory fetchByte: i ofObject: oop)].
 	^value

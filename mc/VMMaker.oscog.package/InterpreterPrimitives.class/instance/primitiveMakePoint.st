@@ -3,7 +3,7 @@ primitiveMakePoint
 	<inline: false>
 	| rcvr pt |
 	rcvr := self stackValue: 1.
-	((self isIntegerObject: rcvr) or: [self isFloatObject: rcvr]) ifFalse:
+	((objectMemory isIntegerObject: rcvr) or: [objectMemory isFloatObject: rcvr]) ifFalse:
 		[^self primitiveFail].
 	pt := objectMemory eeInstantiateSmallClass: (objectMemory splObj: ClassPoint) numSlots: YIndex + 1.
 	objectMemory

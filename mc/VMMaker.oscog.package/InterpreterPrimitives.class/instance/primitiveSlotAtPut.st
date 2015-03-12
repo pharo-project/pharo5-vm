@@ -33,7 +33,7 @@ primitiveSlotAtPut
 			[^self primitiveFailFor: PrimErrUnsupported].
 		 (self asUnsigned: value) > 16rFF ifTrue:
 			[^self primitiveFailFor: PrimErrBadArgument].
-		 numSlots := objectMemory numBytesOf: rcvr.
+		 numSlots := objectMemory numBytesOfBytes: rcvr.
 		 (self asUnsigned: index) < numSlots ifTrue:
 			[objectMemory storeByte: index ofObject: rcvr withValue: value.
 			 self pop: argumentCount + 1 thenPush: newValue.

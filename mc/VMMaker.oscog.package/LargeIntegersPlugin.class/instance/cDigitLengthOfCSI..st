@@ -8,7 +8,7 @@ cDigitLengthOfCSI: csi
 			[^2].
 		 csi < 16777216 ifTrue:
 			[^3].
-		 interpreterProxy bytesPerOop = 4
+		 self cppIf: interpreterProxy bytesPerOop = 4
 			ifTrue:
 				[^4]
 			ifFalse:
@@ -27,7 +27,7 @@ cDigitLengthOfCSI: csi
 		[^2].
 	csi > -16777216 ifTrue:
 		[^3].
-	interpreterProxy bytesPerOop = 4
+	self cppIf: interpreterProxy bytesPerOop = 4
 		ifTrue:
 			[^4]
 		ifFalse:

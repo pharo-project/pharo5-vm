@@ -10,7 +10,8 @@ signed32BitValueOf: oop
 		[^objectMemory integerValueOf: oop].
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
-		[^self primitiveFail].
+		[self primitiveFail.
+		 ^0].
 
 	ok := objectMemory isClassOfNonImm: oop
 					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
@@ -22,14 +23,20 @@ signed32BitValueOf: oop
 			 ok := objectMemory isClassOfNonImm: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
-			ok ifFalse: [^self primitiveFail]].
-	(objectMemory numBytesOf: oop) > 4 ifTrue:
+			 ok ifFalse:
+				[self primitiveFail.
+				 ^0]].
+	(objectMemory numBytesOfBytes: oop) > 4 ifTrue:
 		[^self primitiveFail].
 
-	value :=  (objectMemory fetchByte: 0 ofObject: oop) +
-			  ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
-			  ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
-			  ((objectMemory fetchByte: 3 ofObject: oop) << 24).
+	value := self cppIf: VMBIGENDIAN
+				ifTrue:
+					[ (objectMemory fetchByte: 0 ofObject: oop) +
+					 ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
+					 ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
+					 ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
+				ifFalse:
+					[objectMemory fetchLong32: 0 ofObject: oop].
 	self cCode: []
 		inSmalltalk:
 			[(value anyMask: 16r80000000) ifTrue:
@@ -47,7 +54,8 @@ signed32BitValueOf: oop
 		 (negative and: [0 = (self cCode: [value << 1]
 									inSmalltalk: [value << 1 bitAnd: (1 << 32) - 1])]) ifTrue: 
 			[^value].
-		 ^self primitiveFail].
+		 self primitiveFail.
+		 ^0].
 	^negative
 		ifTrue: [0 - value]
 		ifFalse: [value]

@@ -25,7 +25,7 @@ primitiveSlotAt
 	fmt >= objectMemory firstByteFormat ifTrue:
 		[fmt >= objectMemory firstCompiledMethodFormat ifTrue:
 			[^self primitiveFailFor: PrimErrUnsupported].
-		 numSlots := objectMemory numBytesOf: rcvr.
+		 numSlots := objectMemory numBytesOfBytes: rcvr.
 		 (self asUnsigned: index) < numSlots ifTrue:
 			[self pop: argumentCount + 1 thenPushInteger: (objectMemory fetchByte: index ofObject: rcvr).
 			 ^0].

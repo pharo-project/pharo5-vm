@@ -19,7 +19,7 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
+		pushLinkReg: false "The LinkReg has already been pushed in the abort sequence."
 		resultReg: nil.
 	jumpSICMiss jmpTarget: self Label.
 	^self genTrampolineFor: #ceSICMiss:
@@ -30,6 +30,6 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
+		pushLinkReg: false "The LinkReg has already been pushed in the abort sequence."
 		resultReg: nil
 		appendOpcodes: true

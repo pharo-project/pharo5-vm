@@ -193,7 +193,7 @@
 		"genStoreRemoteTempLongBytecode" : "eem 1/16/2009 18:09",
 		"genTraceStoreTrampoline" : "eem 12/12/2012 11:47",
 		"genUnconditionnalTrapBytecode" : "cb 1/15/2015 16:16",
-		"genUpArrowReturn" : "eem (const to msg rewrite) 11/6/2014 11:21",
+		"genUpArrowReturn" : "eem 3/10/2015 15:44",
 		"genV4SpecialSelectorSend" : "eem 11/2/2012 11:26",
 		"generateMissAbortTrampolines" : "eem 6/30/2014 11:58",
 		"generateTracingTrampolines" : "eem 12/12/2012 11:47",

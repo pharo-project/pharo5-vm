@@ -4,8 +4,6 @@ cDigitOfCSI: csi at: ix
 	LargePositiveInteger uses bytes of base two number, and each is a       
 	      'digit' base 256."
 	"ST indexed!"
-	ix < 1 ifTrue: [interpreterProxy primitiveFail. ^0].
-	ix > interpreterProxy bytesPerOop ifTrue: [^0].
 	^self
 		cCode: [(csi < 0
 					ifTrue: [0 - csi]

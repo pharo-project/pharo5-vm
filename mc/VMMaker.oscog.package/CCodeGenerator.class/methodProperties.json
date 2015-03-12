@@ -31,6 +31,7 @@
 		"anyMethodNamed:" : "eem 12/2/2013 17:12",
 		"apiMethods:" : "eem 7/5/2011 19:08",
 		"arrayInitializerCalled:for:sizeString:type:" : "eem 2/7/2014 10:35",
+		"baseTypeForPointerType:" : "eem 3/7/2015 16:25",
 		"baseTypeForType:" : "eem 2/17/2015 13:55",
 		"breakDestInlineSelector:" : "eem 2/23/2015 16:45",
 		"breakOnInline:" : "eem 2/16/2015 10:40",

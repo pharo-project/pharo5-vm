@@ -12,6 +12,8 @@ isClassOfNonImm: oop equalTo: classOop compactClassIndex: knownClassIndex
 	self assert: (self isImmediate: oop) not.
 
 	ccIndex := self classIndexOf: oop.
-	knownClassIndex ~= 0 ifTrue:
-		[^knownClassIndex = ccIndex].
-	^classOop = (self classAtIndex: ccIndex)
+	knownClassIndex ~= 0
+		ifTrue:
+			[^knownClassIndex = ccIndex]
+		ifFalse:
+			[^classOop = (self classAtIndex: ccIndex)]

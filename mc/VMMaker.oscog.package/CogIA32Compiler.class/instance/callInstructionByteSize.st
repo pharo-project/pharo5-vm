@@ -1,3 +1,3 @@
-assertions
+accessing
 callInstructionByteSize
 	^5
