@@ -5,4 +5,4 @@ commonCompilerFlags
 		'-DIMAGE_ENV_NAME="PHARO_IMAGE"'.
 		'-DDEFAULT_IMAGE_NAME="', self executableName, '.image"'.
 		'-DSPURVM'.
-		'-DSPUR_USE_EXECUTABLE_MEMORY' }
+		"'-DSPUR_USE_EXECUTABLE_MEMORY'" }
