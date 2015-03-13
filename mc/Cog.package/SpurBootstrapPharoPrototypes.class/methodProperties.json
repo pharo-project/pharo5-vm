@@ -15,6 +15,7 @@
 		"ContextPROTOTYPEsend:to:with:lookupIn:" : "eem 9/7/2014 14:19",
 		"ContextclassPROTOTYPEallInstances" : "EstebanLorenzano 8/27/2014 14:38",
 		"ContextclassPROTOTYPEallInstancesDo:" : "EstebanLorenzano 8/27/2014 14:38",
+		"MethodNodePROTOTYPEgenerate:using:ifQuick:" : "EstebanLorenzano 3/12/2015 15:30",
 		"ProtoObjectPROTOTYPEidentityHash" : "EstebanLorenzano 8/27/2014 14:38",
 		"SlotClassBuilderPROTOTYPEcomputeFormat:instSize:forSuper:ccIndex:" : "EstebanLorenzano 8/27/2014 14:38",
 		"SlotClassBuilderPROTOTYPEformat:variable:words:pointers:weak:" : "EstebanLorenzano 8/27/2014 14:38",
