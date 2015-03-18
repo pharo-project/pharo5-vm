@@ -1,5 +1,6 @@
 testing
 rotateable8bitImmediate: constant ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
+	<inline: true>
 	"For data processing operands, there is the immediate shifter_operand variant, 
 	where an 8 bit value is ring shifted _right_ by 2*i.
 	This is only suitable for quick constant(Cq), which don't change."

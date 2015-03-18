@@ -6,7 +6,7 @@ computeEntryOffsets
 	 are effectively garbage collected on return."
 	| sendMissCall |
 	<var: 'sendMissCall' type: #'AbstractInstruction *'>
-	self allocateOpcodes: 20 bytecodes: 0.
+	self allocateOpcodes: 24 bytecodes: 0.
 	methodOrBlockNumArgs := 0.
 	sendMissCall := self compileAbort.
 	self compileEntry.

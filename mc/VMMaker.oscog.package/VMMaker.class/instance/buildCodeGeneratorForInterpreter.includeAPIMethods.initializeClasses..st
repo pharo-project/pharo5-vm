@@ -4,7 +4,9 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 
 	| cg interpreterClasses apicg |
 	initializeClasses ifTrue:
-		[interpreterClass initializeWithOptions: optionsDictionary].
+		[interpreterClass initializeWithOptions: optionsDictionary.
+		 interpreterClass hasCogit ifTrue:
+			[interpreterClass cogitClass initializeWithOptions: optionsDictionary]].
 
 	(cg := self createCodeGenerator) vmClass: interpreterClass.
 

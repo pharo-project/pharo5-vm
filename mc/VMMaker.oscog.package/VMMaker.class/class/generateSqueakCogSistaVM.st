@@ -6,6 +6,7 @@ generateSqueakCogSistaVM
 		and: SistaStackToRegisterMappingCogit
 		with: #(	SistaVM true
 				MULTIPLEBYTECODESETS true
+				ISA IA32
 				bytecodeTableInitializer initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid)
 		to: (FileDirectory default pathFromURI: self sourceTree, '/sistasrc')
 		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
