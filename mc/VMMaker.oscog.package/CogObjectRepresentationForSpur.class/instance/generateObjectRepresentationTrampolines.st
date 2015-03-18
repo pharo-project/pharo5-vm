@@ -10,9 +10,9 @@ generateObjectRepresentationTrampolines
 									called: 'ceStoreCheckTrampoline'
 									arg: ReceiverResultReg
 									result: cogit returnRegForStoreCheck.
-	ceSheduleScavengeTrampoline := cogit
-											genSafeTrampolineFor: #ceSheduleScavenge
-											called: 'ceSheduleScavengeTrampoline'.
+	ceScheduleScavengeTrampoline := cogit
+											genTrampolineFor: #ceScheduleScavenge
+											called: 'ceScheduleScavengeTrampoline'.
 	ceSmallActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: false inBlock: false called: 'ceSmallMethodContext'.
 	ceSmallActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: true called: 'ceSmallBlockContext'.
 	ceLargeActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: true inBlock: false called: 'ceLargeMethodContext'.

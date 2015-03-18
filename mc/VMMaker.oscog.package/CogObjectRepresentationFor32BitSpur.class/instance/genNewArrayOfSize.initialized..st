@@ -28,6 +28,6 @@ genNewArrayOfSize: size initialized: initialized
 		MoveR: TempReg Aw: objectMemory freeStartAddress;
 		CmpCq: objectMemory getScavengeThreshold R: TempReg.
 	skip := cogit JumpBelow: 0.
-	cogit CallRT: ceSheduleScavengeTrampoline.
+	cogit CallRT: ceScheduleScavengeTrampoline.
 	skip jmpTarget: cogit Label.
 	^0

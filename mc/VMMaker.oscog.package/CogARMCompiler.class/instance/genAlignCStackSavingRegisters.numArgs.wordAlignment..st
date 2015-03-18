@@ -1,8 +1,11 @@
 abi
 genAlignCStackSavingRegisters: saveRegs numArgs: numArgs wordAlignment: alignment 
-	"ARM needs 8 byte stack alignment but it's hard to be sure where the stack is at this
-	 point due to the complexities of whether we push the return address or not.  So do
-	 a simple bitAnd to effectively round-down the SP - except the vagaries of the ARM
-	 instruction set means we actually need a BIC sp, sp, $7"
-
+"ARM doesn't push the first 4 arguments. Now, currently Cog doesn't use more than 4 args so we should never need to push any - but just in case we'll check for it"
+	| wordsPushedModAlignment delta |
+	wordsPushedModAlignment := ((saveRegs ifTrue: [self numberOfSaveableRegisters] ifFalse: [0])
+									+ (numArgs > 4 ifTrue:[numArgs - 4] ifFalse:[0]))
+									\\ alignment.
+	wordsPushedModAlignment ~= 0 ifTrue:
+		[delta := alignment - wordsPushedModAlignment.
+		 cogit SubCq: delta * 4 R: SPReg].
 	^0

@@ -43,6 +43,7 @@ computeMaximumSize
 			[SubCqR]				-> [rotateableAt0then4or20Block value].
 			[AndCqR]				-> [rotateableAt0then4or20Block value].
 			[OrCqR]					-> [rotateableAt0then4or20Block value].
+			[TstCqR]				-> [rotateableAt0then4or20Block value].
 			[XorCqR]				-> [rotateableAt0then4or20Block value].
 			[CmpCwR]				-> [^maxSize := 20].
 			[AddCwR]				-> [^maxSize := 20].

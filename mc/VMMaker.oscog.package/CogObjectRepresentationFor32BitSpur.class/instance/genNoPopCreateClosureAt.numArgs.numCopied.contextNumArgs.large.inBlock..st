@@ -26,7 +26,7 @@ genNoPopCreateClosureAt: bcpc numArgs: numArgs numCopied: numCopied contextNumAr
 		MoveR: TempReg Aw: objectMemory freeStartAddress;
 		CmpCq: objectMemory getScavengeThreshold R: TempReg.
 	skip := cogit JumpBelow: 0.
-	cogit CallRT: ceSheduleScavengeTrampoline.
+	cogit CallRT: ceScheduleScavengeTrampoline.
 	skip jmpTarget: cogit Label.
 
 	cogit

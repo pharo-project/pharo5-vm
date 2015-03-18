@@ -134,6 +134,7 @@
 		"SubRR",
 		"SubRdRd",
 		"TempReg",
+		"TstCqR",
 		"XorCqR",
 		"XorCwR",
 		"XorRR" ],

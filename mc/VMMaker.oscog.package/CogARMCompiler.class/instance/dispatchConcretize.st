@@ -50,30 +50,31 @@ dispatchConcretize
 		[RetN]						-> [^self concretizeRetN].
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeAddCqR].
-		[AddCwR]					-> [^self concretizeDataOperationCwR: 4].
-		[AddRR]						-> [^self concretizeDataOperationRR: 4].
+		[AddCwR]					-> [^self concretizeDataOperationCwR: AddOpcode].
+		[AddRR]						-> [^self concretizeDataOperationRR: AddOpcode].
 		"[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58]."
 		[AndCqR]					-> [^self concretizeAndCqR].
-		[AndCwR]					-> [^self concretizeDataOperationCwR: 0].
-		[AndRR]						-> [^self concretizeDataOperationRR: 0].
-		[BICCqR]					-> [^self   concretizeDataOperationCqR: 16rE].
-		[CmpCqR]					-> [^self concretizeCmpCqR].
-		[CmpCwR]					-> [^self concretizeCmpCwR].
-		[CmpRR]					-> [^self concretizeCmpRR].
+		[AndCwR]					-> [^self concretizeDataOperationCwR: AndOpcode].
+		[AndRR]						-> [^self concretizeDataOperationRR: AndOpcode].
+		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].
+		[CmpCqR]					-> [^self concretizeDataOperationCqR: CmpOpcode].
+		[CmpCwR]					-> [^self concretizeDataOperationCwR: CmpOpcode].
+		[CmpRR]					-> [^self concretizeDataOperationRR: CmpOpcode].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		"[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59]."
-		[OrCqR]						-> [^self concretizeDataOperationCqR: 16rC].
-		[OrCwR]					-> [^self concretizeDataOperationCwR: 16rC].
-		[OrRR]						-> [^self concretizeDataOperationRR: 16rC].
+		[OrCqR]						-> [^self concretizeDataOperationCqR: OrOpcode].
+		[OrCwR]					-> [^self concretizeDataOperationCwR: OrOpcode].
+		[OrRR]						-> [^self concretizeDataOperationRR: OrOpcode].
 		[SubCqR]					-> [^self concretizeSubCqR].
-		[SubCwR]					-> [^self concretizeDataOperationCwR: 2].
-		[SubRR]						-> [^self concretizeDataOperationRR: 2].
+		[SubCwR]					-> [^self concretizeDataOperationCwR: SubOpcode].
+		[SubRR]						-> [^self concretizeDataOperationRR: SubOpcode].
 		"[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C]."
 		[SqrtRd]						-> [^self concretizeSqrtRd].
-		[XorCqR]						-> [^self concretizeDataOperationCqR: 1].
-		[XorCwR]						-> [^self concretizeDataOperationCwR: 1].
-		[XorRR]							-> [^self concretizeDataOperationRR: 1].
+		[TstCqR]					-> [^self concretizeTstCqR].
+		[XorCqR]						-> [^self concretizeDataOperationCqR: XorOpcode].
+		[XorCwR]						-> [^self concretizeDataOperationCwR: XorOpcode].
+		[XorRR]							-> [^self concretizeDataOperationRR: XorOpcode].
 		[NegateR]						-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].

@@ -1,6 +1,5 @@
 abi
 genSaveRegisters
 	"Save the general purpose registers for a trampoline call."
-	"Save none, because we use only callee saved registers."
-	"cogit
-		gen: STMFD operand: 16r7F"
+	"Save none, because the ARM ABI only defines callee saved registers, no caller-saved regs."
+	"cogit gen: STMFD operand: 16r7F"

@@ -5,9 +5,10 @@ concretizeDataOperationCqR: opcode
 	<inline: true>
 	self 
 		rotateable8bitImmediate: (operands at: 0) 
-		ifTrue: [:rot :immediate | | reg |
-			reg := self concreteRegister: (operands at: 1).
-			self machineCodeAt: 0 put: (self type: 1 op: opcode set: 1 rn: reg rd: reg shifterOperand: ((rot>>1)"in this usage we have to halve the rot value" << 8 bitOr: immediate)).
+		ifTrue: [:rot :immediate | | rd rn |
+			rn := self concreteRegister: (operands at: 1).
+			rd := opcode = CmpOpcode ifTrue: [0] ifFalse:[rn].
+			self machineCodeAt: 0 put: (self type: 1 op: opcode set: 1 rn: rn rd: rd shifterOperand: ((rot>>1)"in this usage we have to halve the rot value" << 8 bitOr: immediate)).
 			^machineCodeSize := 4]
 		ifFalse: [^self concretizeDataOperationCwR: opcode].
 	

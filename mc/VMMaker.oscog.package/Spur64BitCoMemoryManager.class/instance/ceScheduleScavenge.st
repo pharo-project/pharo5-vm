@@ -1,5 +1,5 @@
 trampolines
-ceSheduleScavenge
+ceScheduleScavenge
 	<api>
 	self assert: freeStart >= scavengeThreshold.
 	self scheduleScavenge

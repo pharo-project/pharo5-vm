@@ -133,7 +133,7 @@ initialize
 						CmpCqR AddCqR SubCqR AndCqR OrCqR XorCqR MulCqR
 						CmpCwR AddCwR SubCwR AndCwR OrCwR XorCwR MulCwR
 
-						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd
+						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd TstCqR SqrtRd
 
 						"Conversion"
 						ConvertRRd

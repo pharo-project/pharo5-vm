@@ -4,6 +4,6 @@ concretizeNegateR
 	<inline: true>
 	| reg |
 	reg := self concreteRegister: (operands at: 0).
-	"rsb r?, r?, #0"
-	self machineCodeAt: 0 put: (self type: 1 op: 3 set: 0 rn: reg rd: reg).
+	"RSB destReg, srcReg, #0"
+	self machineCodeAt: 0 put: (self type: 1 op: RsbOpcode set: 0 rn: reg rd: reg).
 	^machineCodeSize := 4

@@ -1,4 +1,5 @@
 ARM convenience instructions
 bx: targetReg
-"return a BX targetReg instruction"
+"Branch to address in targetReg.
+	BX targetReg"
 	^self cond: AL bx: 0 target: targetReg

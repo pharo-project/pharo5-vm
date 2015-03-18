@@ -146,6 +146,6 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	cogit RetN: 0.
 	
 	jumpNeedScavenge jmpTarget:
-		(cogit CallRT: ceSheduleScavengeTrampoline).
+		(cogit CallRT: ceScheduleScavengeTrampoline).
 	cogit Jump: continuation.
 	^0

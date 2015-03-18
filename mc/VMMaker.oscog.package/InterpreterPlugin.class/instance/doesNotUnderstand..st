@@ -8,6 +8,12 @@ doesNotUnderstand: aMessage
 		ifNil: [^super doesNotUnderstand: aMessage]
 		ifNotNil:
 			[:tuple| | method |
+			 "First check the cache for validity; if the ast element of the tuple is the actual method
+			 then the cache is up-to-date.  if it is not, the method has changed and should be regenerated."
+			 method := tuple last.
+			 method == (method methodClass >> method selector) ifFalse:
+				[translatedMethodCache removeKey: aMessage selector.
+				 ^self doesNotUnderstand: aMessage].
 			 method := tuple first.
 			 tuple second
 				ifNil: [interpreterProxy primitiveFail]

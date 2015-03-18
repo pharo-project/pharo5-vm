@@ -48,7 +48,15 @@ initialize
 	GT := 12.
 	LE := 13.
 	AL := 14.
-	
+
+	AddOpcode := 	4.
+	AndOpcode := 0.
+	BicOpcode := 16rE.
+	CmpOpcode := 10.
+	OrOpcode := 16rC.
+	RsbOpcode := 3.
+	SubOpcode := 2.
+	XorOpcode := 1.
 	"Specific instructions"
 	LastRTLCode isNil ifTrue:
 		[CogRTLOpcodes initialize].

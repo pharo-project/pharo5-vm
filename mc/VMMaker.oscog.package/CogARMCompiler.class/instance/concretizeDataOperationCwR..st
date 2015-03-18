@@ -3,10 +3,11 @@ concretizeDataOperationCwR: opcode
 	"Will get inlined into concretizeAt: switch."
 	"Load the word into the RISCTempReg, then cmp R, RISCTempReg"
 	<inline: true>
-	| constant srcDestReg instrOffset|
+	| constant rn rd instrOffset|
 	constant := operands at: 0.
-	srcDestReg := (self concreteRegister: (operands at: 1)).
+	rn := (self concreteRegister: (operands at: 1)).
+	rd := opcode = CmpOpcode ifTrue: [0] ifFalse:[rn].
 	instrOffset := self at: 0 moveCw: constant intoR: RISCTempReg.
 	self machineCodeAt: instrOffset 
-		put: (self type: 0 op: opcode set: 1 rn: srcDestReg rd: srcDestReg shifterOperand: RISCTempReg).
+		put: (self type: 0 op: opcode set: 1 rn: rn rd: rd shifterOperand: RISCTempReg).
 	^machineCodeSize := instrOffset + 4

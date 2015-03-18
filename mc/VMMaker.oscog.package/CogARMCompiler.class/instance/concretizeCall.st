@@ -2,6 +2,12 @@ generate machine code - concretize
 concretizeCall
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
+	"build either a
+	BL offset
+	or
+	{move offset to offsetReg}
+	BLX offsetReg
+	instruction sequence. In production VMs we expect never to have long calls within generated code"
 	| offset |
 	self assert: (operands at: 0) ~= 0.
 	self assert: (operands at: 0) \\ 4 = 0.
