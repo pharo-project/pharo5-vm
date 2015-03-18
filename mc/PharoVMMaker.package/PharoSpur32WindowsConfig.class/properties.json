@@ -11,6 +11,6 @@
 	"name" : "PharoSpur32WindowsConfig",
 	"pools" : [
 		 ],
-	"super" : "CogWindowsConfig",
+	"super" : "NBCogWindowsConfig",
 	"traitcomposition" : "TPharoWindowsConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }
