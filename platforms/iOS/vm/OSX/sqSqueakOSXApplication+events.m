@@ -311,7 +311,7 @@ static int buttonState=0;
 	evt.charCode = keyCode;
 	evt.utf32Code = 0;
 	evt.reserved1 = 0;
-	evt.modifiers = modifierMap[(controlKey >> 8)];
+	evt.modifiers = modifierMap[((controlKey | optionKey | cmdKey | shiftKey) >> 8)];
 	evt.windowIndex = windowIndex;
 	[self pushEventToQueue:(sqInputEvent *) &evt];
 
