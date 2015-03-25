@@ -194,6 +194,16 @@ XColor		 stColorBlack;		/* black pixel value in stColormap */
 XColor		 stColorWhite;		/* white pixel value in stColormap */
 int		 savedWindowOrigin= -1;	/* initial origin of window */
 
+#define WHEEL_UP 	4
+#define WHEEL_DOWN 	5
+#define WHEEL_LEFT 	6
+#define WHEEL_RIGHT 	7
+
+#define ARROW_LEFT 	28
+#define ARROW_RIGHT 	29
+#define ARROW_UP	30
+#define ARROW_DOWN 	31
+
 #define		 SELECTION_ATOM_COUNT  10
 /* http://www.freedesktop.org/standards/clipboards-spec/clipboards.txt */
 Atom		 selectionAtoms[SELECTION_ATOM_COUNT];
@@ -383,6 +393,7 @@ static int  handleEvents(void);
 static void waitForCompletions(void);
 static Time getXTimestamp(void);
 static void claimSelection(void);
+static void recordWheelEvent(int keyCode);
 
 #if defined(DEBUG_SELECTIONS)
 static void printAtomName(Atom atom);
@@ -3627,19 +3638,22 @@ static void handleEvent(XEvent *evt)
 	  buttonState |= x2sqButton(evt->xbutton.button);
 	  recordMouseEvent();
 	  break;
-	case 4: case 5:	/* mouse wheel */
-	  {
-	    int keyCode= evt->xbutton.button + 26;	/* up/down */
-	    int modifiers= modifierState ^ CtrlKeyBit;
-	    recordKeyboardEvent(keyCode, EventKeyDown, modifiers, keyCode);
-	    recordKeyboardEvent(keyCode, EventKeyChar, modifiers, keyCode);
-	    recordKeyboardEvent(keyCode, EventKeyUp,   modifiers, keyCode);
-	  }
-	  break;
+	/* mouse wheel */
+	case WHEEL_UP:
+	    recordWheelEvent(ARROW_UP);
+	    break;
+	case WHEEL_DOWN:
+	    recordWheelEvent(ARROW_DOWN);
+	    break;
+	case WHEEL_LEFT:
+	    recordWheelEvent(ARROW_LEFT);
+	    break;
+	case WHEEL_RIGHT:
+	    recordWheelEvent(ARROW_RIGHT);
+	    break;
 	default:
 	  ioBeep();
-	  break;
-	}
+	  break;	}
       break;
 
     case ButtonRelease:
@@ -3888,6 +3902,13 @@ static void handleEvent(XEvent *evt)
 # undef noteEventState
 }
 
+void recordWheelEvent(int keyCode)
+{
+  int modifiers= CommandKeyBit | OptionKeyBit | CtrlKeyBit | ShiftKeyBit;
+  recordKeyboardEvent(keyCode, EventKeyDown, modifiers, keyCode);
+  recordKeyboardEvent(keyCode, EventKeyChar, modifiers, keyCode);
+  recordKeyboardEvent(keyCode, EventKeyUp,   modifiers, keyCode);
+}
 
 int handleEvents(void)
 {

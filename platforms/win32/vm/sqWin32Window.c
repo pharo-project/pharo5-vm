@@ -156,6 +156,11 @@ static int printerSetup = FALSE;
 
 #ifndef NO_WHEEL_MOUSE
 UINT g_WM_MOUSEWHEEL = 0;	/* RvL: 1999-04-19 The message we receive from wheel mices */
+#define ARROW_LEFT 	28
+#define ARROW_RIGHT 	29
+#define ARROW_UP	30
+#define ARROW_DOWN 	31
+static int recordWheelEvent(int keyCode, int virtKey);
 #endif
 
 /* misc declarations */
@@ -252,31 +257,21 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
     return sqLaunchDrop();
 
 #ifndef NO_WHEEL_MOUSE
-  /* RvL 1999-04-19 00:23
-     MOUSE WHEELING START */
+  /* Horizontal Mouse Wheel See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms645617%28v=vs.85%29.aspx */
   if( WM_MOUSEWHEEL == message || g_WM_MOUSEWHEEL == message ) {
-    /* Record mouse wheel msgs as CTRL-Up/Down */
-    short zDelta = (short) HIWORD(wParam);
-    if(inputSemaphoreIndex) {
-      sqKeyboardEvent *evt = (sqKeyboardEvent*) sqNextEventPut();
-      evt->type = EventTypeKeyboard;
-      evt->timeStamp = lastMessage->time;
-      evt->charCode = (zDelta > 0) ? 30 : 31;
-      evt->pressCode = EventKeyChar;
-      evt->modifiers = CtrlKeyBit;
-      evt->utf32Code = evt->charCode;
-      evt->reserved1 = 0;
-    } else {
-      buttonState = 64;
-      if (zDelta < 0) {
-	recordVirtualKey(message,VK_DOWN,lParam);
-      } else {
-	recordVirtualKey(message,VK_UP,lParam);
-      }
-    }
-    return 1;
+    if (zDelta > 0)
+      return recordWheelEvent(ARROW_UP, VK_UP);
+    else
+      return recordWheelEvent(ARROW_DOWN, VK_DOWN);
   }
-  /* MOUSE WHEELING END */
+
+  /* Horizontal Mouse Wheel See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms645614%28v=vs.85%29.aspx */
+  if( WM_MOUSEHWHEEL == message ) {
+    if (zDelta > 0)
+      return recordWheelEvent(ARROW_RIGHT, VK_RIGHT);
+    else
+      return recordWheelEvent(ARROW_LEFT, VK_LEFT);
+  }
 #endif
 
   switch(message) {
@@ -1095,6 +1090,28 @@ static int mapVirtualKey(int virtKey)
   }
   return 0;
 }
+
+#ifndef NO_WHEEL_MOUSE
+int recordWheelEvent(int keyCode, int virtKey)
+{
+    /* Record mouse wheel msgs as CTRL-Arrow */
+    short zDelta = (short) HIWORD(wParam);
+    if(inputSemaphoreIndex) {
+      sqKeyboardEvent *evt = (sqKeyboardEvent*) sqNextEventPut();
+      evt->type = EventTypeKeyboard;
+      evt->timeStamp = lastMessage->time;
+      evt->charCode = keyCode;
+      evt->pressCode = EventKeyChar;
+      evt->modifiers = CommandKeyBit | OptionKeyBit | CtrlKeyBit | ShiftKeyBit;
+      evt->utf32Code = evt->charCode;
+      evt->reserved1 = 0;
+    } else {
+      buttonState = 64;
+      recordVirtualKey(message,virtKey,lParam);
+    }
+    return 1;
+}
+#endif
 
 /****************************************************************************/
 /*              Event based primitive set                                   */
