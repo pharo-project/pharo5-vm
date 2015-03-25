@@ -7,6 +7,6 @@ genMulR: regSource R: regDest
 
 	cogit
 		gen: SMULL operand: regSource operand: regDest; "result in TempReg,RISCTempReg"
-		AddCq: 1 R: RISCTempReg; "turn -1,0 into 0,1"
-		AddCq: -1 R: RISCTempReg; "turn 0,1 into not oVerflow"
-		MoveR: TempReg R: regDest
+		gen: AddCqR operand: 1 operand: RISCTempReg; "turn -1,0 into 0,1"
+		gen: AddCqR operand: -1 operand: RISCTempReg; "turn 0,1 into not oVerflow"
+		gen: MoveRR operand: TempReg operand: regDest
