@@ -100,6 +100,8 @@
 		"SmalltalkImagePROTOTYPEcompactClassesArray" : "EstebanLorenzano 8/27/2014 14:37",
 		"SmalltalkImagePROTOTYPEgrowMemoryByAtLeast:" : "EstebanLorenzano 8/27/2014 14:37",
 		"SmalltalkImagePROTOTYPEmaxIdentityHash" : "EstebanLorenzano 8/27/2014 14:37",
+		"SmalltalkImagePROTOTYPEprimBytesLeft" : "eem 3/23/2015 10:00",
+		"SmalltalkImagePROTOTYPEprimitiveGarbageCollect" : "eem 3/23/2015 10:00",
 		"SpaceTallyPROTOTYPEspaceForInstancesOf:" : "EstebanLorenzano 8/27/2014 14:37",
 		"SystemDictionaryPROTOTYPEgrowMemoryByAtLeast:" : "EstebanLorenzano 8/27/2014 14:37",
 		"SystemDictionaryPROTOTYPEmaxIdentityHash" : "EstebanLorenzano 8/27/2014 14:37",
