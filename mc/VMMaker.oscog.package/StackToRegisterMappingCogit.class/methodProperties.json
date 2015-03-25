@@ -8,6 +8,7 @@
 		"initializeBytecodeTableForNewspeakV4" : "eem 11/3/2014 14:03",
 		"initializeBytecodeTableForSistaV1" : "cb 1/15/2015 16:14",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 8/8/2014 19:20",
+		"initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid" : "eem 3/24/2015 17:00",
 		"initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid" : "eem 07/29/2014 06:48",
 		"initializeMiscConstants" : "eem 6/1/2014 15:57",
 		"initializeSimStackConstants" : "eem 12/7/2010 17:32",
