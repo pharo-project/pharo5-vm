@@ -5,8 +5,13 @@ simulatedAddressFor: anObject
 	 into a Smalltalk message send or block evaluation.
 
 	 N.B. These addresses are at the top end of the bottom half of the address space
-	 so that they don't have the sign bit set and so will not look like negative numbers."
+	 so that they don't have the sign bit set and so will not look like negative numbers,
+	 unless they're the short-cut routines on ARM, where we want to use a bl, not a blx."
 	<doNotGenerate>
 	^simulatedAddresses
 		at: anObject
-		ifAbsentPut: [(simulatedAddresses size + 101 * objectMemory wordSize) negated bitAnd: self allButTopBitOfAddressSpaceMask]
+		ifAbsentPut:
+			[(simulatedAddresses size + 101 * objectMemory wordSize) negated
+				bitAnd: ((backEnd wantsNearAddressFor: anObject)
+							ifTrue: [self addressSpaceMask]
+							ifFalse: [self allButTopBitOfAddressSpaceMask])]

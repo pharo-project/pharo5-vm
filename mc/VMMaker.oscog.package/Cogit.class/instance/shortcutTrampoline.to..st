@@ -1,6 +1,10 @@
 simulation only
 shortcutTrampoline: aProcessorSimulationTrap to: aBlock
 	<doNotGenerate>
+	coInterpreter printFrameAtEachStep ifTrue:
+		[coInterpreter
+			printFrame: processor fp
+			WithSP: processor sp].
 	processor
 		simulateLeafCallOf: aProcessorSimulationTrap address
 		nextpc: aProcessorSimulationTrap nextpc
@@ -15,4 +19,8 @@ shortcutTrampoline: aProcessorSimulationTrap to: aBlock
 	processor
 		sp: coInterpreter stackPointer;
 		fp: coInterpreter framePointer;
-		simulateLeafReturnIn: coInterpreter memory
+		simulateLeafReturnIn: coInterpreter memory.
+	coInterpreter printFrameAtEachStep ifTrue:
+		[coInterpreter
+			printFrame: processor fp
+			WithSP: processor sp]

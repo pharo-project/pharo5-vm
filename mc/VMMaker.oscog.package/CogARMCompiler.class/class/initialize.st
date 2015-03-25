@@ -51,9 +51,10 @@ initialize
 
 	AddOpcode := 	4.
 	AndOpcode := 0.
-	BicOpcode := 16rE.
+	BicOpcode := 14.
 	CmpOpcode := 10.
-	OrOpcode := 16rC.
+	MoveOpcode := 13.
+	OrOpcode := 12.
 	RsbOpcode := 3.
 	SubOpcode := 2.
 	XorOpcode := 1.

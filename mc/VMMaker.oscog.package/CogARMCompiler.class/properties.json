@@ -25,6 +25,7 @@
 		"LS",
 		"LT",
 		"MI",
+		"MoveOpcode",
 		"NE",
 		"OrOpcode",
 		"PC",
