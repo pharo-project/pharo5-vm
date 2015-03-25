@@ -1357,10 +1357,10 @@ static int vm_parseArgument(int argc, char **argv)
       return parseModuleArgument(argc, argv, &type##Module, #type, name);
 
   moduleArg("--nodisplay",	display, "null");
-  moduleArg("--display",		display, "X11");
+  moduleArg("--display",	display, "X11");
   moduleArg("--headless",	display, "X11");
   moduleArg("--quartz",		display, "Quartz");
-  moduleArg("--nosound",		sound,   "null");
+  moduleArg("--nosound",	sound,   "null");
 
 # undef moduleArg
 
@@ -1479,21 +1479,19 @@ static int vm_parseArgument(int argc, char **argv)
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
-      else if (!strcmp(argv[0], "--textenc"))
-	{
-	  char *buf= (char *)malloc(strlen(argv[1]) + 1);
-	  int len, i;
-	  strcpy(buf, argv[1]);
-	  len= strlen(buf);
-	  for (i= 0;  i < len;  ++i)
-	    buf[i]= toupper(buf[i]);
-	  if ((!strcmp(buf, "UTF8")) || (!strcmp(buf, "UTF-8")))
-	    textEncodingUTF8= 1;
-	  else
-	    setEncoding(&uxTextEncoding, buf);
-	  free(buf);
-	  return 2;
-	}
+      else if (!strcmp(argv[0], "--textenc")) {
+		int i, len = strlen(argv[1]);
+		char *buf = (char *)alloca(len + 1);
+		for (i = 0;  i < len;  ++i)
+			buf[i] = toupper(argv[1][i]);
+		if ((!strcmp(buf, "UTF8")) || (!strcmp(buf, "UTF-8")))
+			textEncodingUTF8 = 1;
+		else {
+			textEncodingUTF8 = 0;
+			setEncoding(&uxTextEncoding, buf);
+		}
+		return 2;
+	  }
     }
   return 0;	/* option not recognised */
 }
@@ -1784,21 +1782,13 @@ void imgInit(void)
       if (extraMemory)
 	useMmap= 0;
       else
-#if SPURVM
-	{ off_t size = (long)sb.st_size;
-
-	  size = 1 << highBit(size-1);
-	  size = size + size / 4;
-#    ifdef DEBUG_IMAGE
-      printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, size, useMmap);
-#    endif
-	  readImageFromFileHeapSizeStartingAt(f, size + size / 4, 0);
-	}
-#else
 	extraMemory= DefaultHeapSize * 1024 * 1024;
 #    ifdef DEBUG_IMAGE
       printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, extraMemory, useMmap);
 #    endif
+#if SPURVM
+	  readImageFromFileHeapSizeStartingAt(f, 0, 0);
+#else
       extraMemory += (long)sb.st_size;
       readImageFromFileHeapSizeStartingAt(f, extraMemory, 0);
 #endif
@@ -1834,6 +1824,14 @@ extern void initGlobalStructure(void); // this is effectively null if a global r
 int
 main(int argc, char **argv, char **envp)
 {
+  /* check the interpreter's size assumptions for basic data types */
+  if (sizeof(int) != 4) error("This C compiler's integers are not 32 bits.");
+  if (sizeof(double) != 8) error("This C compiler's floats are not 64 bits.");
+  if (sizeof(sqLong) != 8) error("This C compiler's long longs are not 64 bits.");
+#if 0
+  if (sizeof(time_t) != 4) error("This C compiler's time_t's are not 32 bits.");
+#endif
+
   fldcw(0x12bf);	/* signed infinity, round to nearest, REAL8, disable intrs, disable signals */
   mtfsfi(0);		/* disable signals, IEEE mode, round to nearest */
 

@@ -424,15 +424,12 @@ main(int argc, char **argv, char **envp)
 #endif
 
 	/* check the interpreter's size assumptions for basic data types */
-	if (sizeof(int) != 4) {
-		error("This C compiler's integers are not 32 bits.");
-	}
-	if (sizeof(double) != 8) {
-		error("This C compiler's floats are not 64 bits.");
-	}
-	if (sizeof(time_t) != 4) {
-		error("This C compiler's time_t's are not 32 bits.");
-	}
+	if (sizeof(int) != 4) error("This C compiler's integers are not 32 bits.");
+	if (sizeof(double) != 8) error("This C compiler's floats are not 64 bits.");
+	if (sizeof(sqLong) != 8) error("This C compiler's long longs are not 64 bits.");
+#if 0
+	if (sizeof(time_t) != 4) error("This C compiler's time_t's are not 32 bits.");
+#endif
 
 	/* Make parameters global for access from pluggable primitives */
 	argCnt= argc;
@@ -561,15 +558,7 @@ main(int argc, char **argv, char **envp)
  	}
 
 #if SPURVM
-  {	off_t here, size;
-
-	here = ftello(f);
-	if (fseek(f, 0, SEEK_END)) perror("fseek");
-	size = ftello(f);
-	if (fseek(f, here, SEEK_SET)) perror("fseek");
-	size = 1 << highBit(size-1);
-	readImageFromFileHeapSizeStartingAt(f, size + size / 4, 0);
-  }
+	readImageFromFileHeapSizeStartingAt(f, 0, 0);
 #else
 	readImageFromFileHeapSizeStartingAt(f, sqGetAvailableMemory(), 0);
 #endif
