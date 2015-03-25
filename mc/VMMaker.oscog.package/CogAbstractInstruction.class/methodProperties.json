@@ -104,6 +104,7 @@
 		"relocateCallBeforeReturnPC:by:" : "eem 3/9/2009 09:43",
 		"relocateJumpBeforeFollowingAddress:by:" : "eem 3/9/2009 09:37",
 		"resolveJumpTarget" : "lw 8/1/2012 19:56",
+		"saveAndRestoreLinkRegAround:" : "eem 3/19/2015 14:53",
 		"setLabelOffset:" : "eem 2/11/2009 11:29",
 		"setsConditionCodesFor:" : "eem 1/21/2009 08:49",
 		"stackPageInterruptHeadroomBytes" : "eem 2/14/2009 16:06",

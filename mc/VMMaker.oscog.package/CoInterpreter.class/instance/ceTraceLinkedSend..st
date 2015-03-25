@@ -20,6 +20,6 @@ ceTraceLinkedSend: theReceiver
 		[self printActivationNameFor: cogMethod methodObject
 			receiver: theReceiver
 			isBlock: false
-			firstTemporary: nil;
+			firstTemporary: (self cCode: [nil] inSmalltalk: [0]);
 			cr].
 	self sendBreakpoint: cogMethod selector receiver: theReceiver

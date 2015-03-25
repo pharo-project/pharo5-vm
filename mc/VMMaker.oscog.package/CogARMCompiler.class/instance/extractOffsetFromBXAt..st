@@ -1,7 +1,7 @@
 testing
-extractOffsetFromBXAt: address
+extractOffsetFromBXAt: addr
 "this should return the long call/jump target"
-	^(objectMemory byteAt: address -4) 
-		+ ((objectMemory byteAt: address - 8) << 8) 
-		+ ((objectMemory byteAt: address - 12) << 16) 
-		+ ((objectMemory byteAt: address - 16) << 24)
+	^(objectMemory byteAt: addr -4) 
+		+ ((objectMemory byteAt: addr - 8) << 8) 
+		+ ((objectMemory byteAt: addr - 12) << 16) 
+		+ ((objectMemory byteAt: addr - 16) << 24)

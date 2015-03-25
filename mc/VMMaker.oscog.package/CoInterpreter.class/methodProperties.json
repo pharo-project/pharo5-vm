@@ -70,7 +70,7 @@
 		"ceSistaTrap:" : "eem 9/23/2014 12:22",
 		"ceStackOverflow:" : "eem 9/12/2013 10:07",
 		"ceTraceBlockActivation" : "eem 11/1/2013 14:10",
-		"ceTraceLinkedSend:" : "eem (const to msg rewrite) 11/5/2014 18:08",
+		"ceTraceLinkedSend:" : "eem 3/19/2015 16:09",
 		"ceTraceStoreOf:into:" : "eem (objmem refactor) 6/8/2010 17:12",
 		"checkAssertsEnabledInCoInterpreter" : "eem 6/1/2009 17:26",
 		"checkCodeIntegrity:" : "eem 2/7/2015 10:12",

@@ -11,7 +11,8 @@ genFramelessStorePop: popBoolean ReceiverVariable: slotIndex
 		[self ensureReceiverResultRegContainsSelf.
 		 self ssStorePop: popBoolean toPreferredReg: TempReg.
 		 traceStores > 0 ifTrue:
-			[self CallRT: ceTraceStoreTrampoline].
+			[backEnd saveAndRestoreLinkRegAround:
+				[self CallRT: ceTraceStoreTrampoline]].
 		 ^objectRepresentation
 			genStoreImmediateInSourceReg: TempReg
 			slotIndex: slotIndex
@@ -23,7 +24,8 @@ genFramelessStorePop: popBoolean ReceiverVariable: slotIndex
 	self ensureReceiverResultRegContainsSelf.
 	 traceStores > 0 ifTrue:
 		[self MoveR: valueReg R: TempReg.
-		 self CallRT: ceTraceStoreTrampoline].
+		 backEnd saveAndRestoreLinkRegAround:
+			[self CallRT: ceTraceStoreTrampoline]].
 	^objectRepresentation
 		genStoreSourceReg: valueReg
 		slotIndex: slotIndex

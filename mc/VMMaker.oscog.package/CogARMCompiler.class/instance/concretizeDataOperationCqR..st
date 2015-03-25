@@ -1,5 +1,5 @@
 generate machine code - concretize
-concretizeDataOperationCqR: opcode
+concretizeDataOperationCqR: armOpcode
 	"Will get inlined into concretizeAt: switch."
 	"4 == Add, 2 == Sub, Xor == 1, And == 0, Or == 12, Bic == 14"
 	<inline: true>
@@ -8,7 +8,7 @@ concretizeDataOperationCqR: opcode
 		ifTrue: [:rot :immediate | | rd rn |
 			rn := self concreteRegister: (operands at: 1).
 			rd := opcode = CmpOpcode ifTrue: [0] ifFalse:[rn].
-			self machineCodeAt: 0 put: (self type: 1 op: opcode set: 1 rn: rn rd: rd shifterOperand: ((rot>>1)"in this usage we have to halve the rot value" << 8 bitOr: immediate)).
+			self machineCodeAt: 0 put: (self type: 1 op: armOpcode set: 1 rn: rn rd: rd shifterOperand: ((rot>>1)"in this usage we have to halve the rot value" << 8 bitOr: immediate)).
 			^machineCodeSize := 4]
-		ifFalse: [^self concretizeDataOperationCwR: opcode].
+		ifFalse: [^self concretizeDataOperationCwR: armOpcode].
 	

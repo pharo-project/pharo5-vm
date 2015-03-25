@@ -5,6 +5,10 @@ dispatchConcretize
 	 to get around the branch size limits in the SqueakV3 (blue book derived)
 	 bytecode set."
 	<returnTypeC: #void>
+	cond ifNotNil:
+		[self concretizeConditionalInstruction.
+		 ^self].
+		 
 	opcode caseOf: {
 		"Noops & Pseudo Ops"
 		[Label]					-> [^self concretizeLabel].
@@ -13,9 +17,6 @@ dispatchConcretize
 		[Fill32]					-> [^self concretizeFill32].
 		[FillFromWord]			-> [^self concretizeFillFromWord].
 		[Nop]					-> [^self concretizeNop].
-		"Specific Control/Data Movement"
-		"[LDM]					-> [^self concretizeLDM].
-		[STM]					-> [^self concretizeSTM]."
 		"Control"
 		[Call]						-> [^self concretizeCall].
 		[JumpR]						-> [^self concretizeJumpR].
@@ -110,4 +111,5 @@ dispatchConcretize
 		[ConvertRRd]		-> [^self concretizeConvertRRd].
 		"ARM specific opcodes" 
 		[LDMFD]			-> [^self concretizeLDMFD].
-		[STMFD]			-> [^self concretizeSTMFD]	}
+		[STMFD]			-> [^self concretizeSTMFD].
+		[SMULL]			-> [^self concretizeSMULL]	}

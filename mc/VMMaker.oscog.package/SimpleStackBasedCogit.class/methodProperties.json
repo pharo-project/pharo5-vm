@@ -25,7 +25,7 @@
 		"compileFallbackToInterpreterPrimitive" : "eem 10/3/2013 14:34",
 		"compileFrameBuild" : "eem 08/08/2014 10:42",
 		"compileGetErrorCode" : "eem 12/6/2013 14:50",
-		"compileInterpreterPrimitive:" : "eem (const to msg rewrite) 11/6/2014 11:21",
+		"compileInterpreterPrimitive:" : "eem 3/19/2015 16:39",
 		"compileOpenPIC:numArgs:" : "eem 12/6/2014 11:10",
 		"doubleExtendedDoAnythingBytecode" : "eem 7/12/2013 15:31",
 		"duplicateTopBytecode" : "eem 5/6/2009 10:20",

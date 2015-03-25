@@ -20,7 +20,7 @@ compileInterpreterPrimitive: primitiveRoutine
 	flags := coInterpreter primitivePropertyFlags: primitiveIndex.
 	(flags anyMask: PrimCallDoNotJIT) ifTrue:
 		[^ShouldNotJIT].
- 
+
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick if so"
 		objectMemory wordSize = 4
@@ -116,7 +116,9 @@ compileInterpreterPrimitive: primitiveRoutine
 			self CmpCq: 0 R: TempReg.
 			jmp := self JumpNonZero: 0.
 			"Fetch result from stack"
-			self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg.
+			self MoveMw: (backEnd hasLinkRegister ifTrue: [0] ifFalse: [objectMemory wordSize])
+				r: SPReg
+				R: ReceiverResultReg.
 			self flag: 'currently caller pushes result'.
 			self RetN: objectMemory wordSize].	"return to caller, popping receiver"
 

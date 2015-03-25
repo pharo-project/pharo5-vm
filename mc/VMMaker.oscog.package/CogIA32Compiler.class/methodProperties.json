@@ -147,6 +147,7 @@
 		"rewriteInlineCacheTag:at:" : "eem 10/13/2009 12:44",
 		"rewriteJumpLongAt:target:" : "eem 6/21/2009 14:51",
 		"s:i:b:" : "eem 12/23/2008 18:20",
+		"saveAndRestoreLinkRegAround:" : "eem 3/19/2015 15:04",
 		"setsConditionCodesFor:" : "eem 9/9/2009 13:07",
 		"shiftSetsConditionCodesFor:" : "eem 1/21/2009 09:03",
 		"sizeHasModrm:at:" : "eem 10/13/2009 12:44",
