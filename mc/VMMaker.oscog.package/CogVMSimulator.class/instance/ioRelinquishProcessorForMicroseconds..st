@@ -9,12 +9,12 @@ ioRelinquishProcessorForMicroseconds: microseconds
 	Display reverse: (0@0 extent: 16@16).
 	Sensor peekEvent ifNotNil:
 		[self forceInterruptCheck].
-	Processor activeProcess == UIManager default uiProcess ifTrue:
+	Processor activeProcess == UIManager default  uiProcess ifTrue:
 		[World doOneCycle].
 	microseconds >= 1000
 		ifTrue: [self isThreadedVM ifTrue:
 					[self forceInterruptCheckFromHeartbeat].
 				(Delay forMilliseconds: microseconds + 999 // 1000) wait]
 		ifFalse: [Processor yield].
-	byteCount := byteCount + microseconds - 1.
+	byteCount := byteCount + (microseconds * ByteCountsPerMicrosecond) - 1.
 	self incrementByteCount

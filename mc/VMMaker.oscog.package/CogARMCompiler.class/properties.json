@@ -16,8 +16,6 @@
 		"CPSRReg",
 		"CS",
 		"CmpOpcode",
-		"CondHI",
-		"CondLS",
 		"EQ",
 		"GE",
 		"GT",

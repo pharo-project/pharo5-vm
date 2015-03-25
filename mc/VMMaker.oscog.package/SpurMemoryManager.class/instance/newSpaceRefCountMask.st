@@ -5,6 +5,6 @@ newSpaceRefCountMask
 	 table to be pruned when full by using these bits as a reference
 	 count of newSpace objects from the remembered table. Objects
 	 with a high count should be tenured to prune the remembered table."
-	^ (1 << self greyBitShift)
-	 | (1 << self pinnedBitShift)
-	 | (1 << self rememberedBitShift)
+	^1 << self greyBitShift
+	  bitOr: (1 << self pinnedBitShift
+	  bitOr: 1 << self rememberedBitShift)

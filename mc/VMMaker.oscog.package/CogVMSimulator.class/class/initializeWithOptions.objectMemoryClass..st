@@ -16,5 +16,9 @@ initializeWithOptions: optionsDictionaryOrArray objectMemoryClass: objectMemoryC
 			ifFalse: [CoInterpreter])
 		initializeWithOptions: initializationOptions.
 
+	ByteCountsPerMicrosecond := initializationOptions
+										at: #ByteCountsPerMicrosecond
+										ifAbsent: [10].
+
 	(self cogitClass withAllSuperclasses copyUpTo: Cogit) reverseDo:
 		[:c| c initializeWithOptions: initializationOptions]

@@ -31,13 +31,13 @@ okayOop: signedOop
 
 	"specific header bit checks"
 	unusedBits := (1 << self classIndexFieldWidth)
-				   | (1 << (self identityHashFieldWidth + 32)).
+				   bitOr: (1 << (self identityHashFieldWidth + 32)).
 	((self long64At: oop) bitAnd: unusedBits) ~= 0 ifTrue:
 		[self error: 'some unused header bits are set; should be zero'. ^false].
 
-	unusedBitsInYoungObjects := (1 << self greyBitShift)
-								   | (1 << self pinnedBitShift)
-								   | (1 << self rememberedBitShift).
+	unusedBitsInYoungObjects := ((1 << self greyBitShift)
+								   bitOr: (1 << self pinnedBitShift))
+								   bitOr: (1 << self rememberedBitShift).
 	((self longAt: oop) bitAnd: unusedBitsInYoungObjects) ~= 0 ifTrue:
 		[self error: 'some header bits unused in young objects are set; should be zero'. ^false].
 	^true
