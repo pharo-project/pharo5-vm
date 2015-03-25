@@ -21,6 +21,6 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 		resultReg: resultRegOrNil
 		saveRegs: saveRegs.
 	backEnd genLoadStackPointers.
-	backEnd hasLinkRegister ifTrue:
+	(pushLinkReg and: [backEnd hasLinkRegister]) ifTrue:
 		[self PopR: LinkReg].
 	self RetN: 0

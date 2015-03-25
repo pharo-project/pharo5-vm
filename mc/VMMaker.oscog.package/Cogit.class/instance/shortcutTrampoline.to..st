@@ -1,10 +1,8 @@
 simulation only
 shortcutTrampoline: aProcessorSimulationTrap to: aBlock
 	<doNotGenerate>
-	coInterpreter printFrameAtEachStep ifTrue:
-		[coInterpreter
-			printFrame: processor fp
-			WithSP: processor sp].
+	backEnd hasLinkRegister ifTrue:
+		[processor pushWord: processor lr in: coInterpreter memory].
 	processor
 		simulateLeafCallOf: aProcessorSimulationTrap address
 		nextpc: aProcessorSimulationTrap nextpc
@@ -20,7 +18,5 @@ shortcutTrampoline: aProcessorSimulationTrap to: aBlock
 		sp: coInterpreter stackPointer;
 		fp: coInterpreter framePointer;
 		simulateLeafReturnIn: coInterpreter memory.
-	coInterpreter printFrameAtEachStep ifTrue:
-		[coInterpreter
-			printFrame: processor fp
-			WithSP: processor sp]
+	backEnd hasLinkRegister ifTrue:
+		[processor lr: (processor popWordIn: coInterpreter memory)]
