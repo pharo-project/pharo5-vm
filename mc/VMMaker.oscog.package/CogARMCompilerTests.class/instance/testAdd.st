@@ -28,7 +28,7 @@ testAdd
 				In: inst machineCode object
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'mov	sl, #', (n bitAnd: 16rFF << 24) asString.
+					herIntended := 'mov	sl, #', (n bitAnd: 16rFF << 24) signedIntFromLong asString.
 					self assert: (plainJane match: herIntended)].
 			self processor
 				disassembleInstructionAt: 4
