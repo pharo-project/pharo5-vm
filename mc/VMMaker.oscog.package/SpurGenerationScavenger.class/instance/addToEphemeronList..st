@@ -4,7 +4,7 @@ addToEphemeronList: ephemeronCorpse
 	 Later on its surviving copy must be scanned to nil weak references.
 	 Thread the corpse onto the weakList.  Later, the weakList can be followed, and
 	 the forwarding pointer followed to locate the survivor."
-	<inline: false>
+	<inline: #never> "Should be too infrequent to lower icache density of copyAndForward:"
 	| ephemeronListOffset |
 	self assert: (self isScavengeSurvivor: (manager keyOfEphemeron: (manager followForwarded: ephemeronCorpse))) not.
 

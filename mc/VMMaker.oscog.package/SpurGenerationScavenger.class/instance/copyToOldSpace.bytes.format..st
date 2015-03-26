@@ -1,7 +1,7 @@
 scavenger
 copyToOldSpace: survivor bytes: bytesInObject format: formatOfSurvivor
 	"Copy survivor to oldSpace.  Answer the new oop of the object."
-	<inline: true>
+	<inline: #never> "Should be too infrequent to lower icache density of copyAndForward:"
 	| nTenures startOfSurvivor newStart newOop |
 	self assert: (formatOfSurvivor = (manager formatOf: survivor)
 				and: [((manager isMarked: survivor) not or: [tenureCriterion = MarkOnTenure])
