@@ -160,7 +160,7 @@ UINT g_WM_MOUSEWHEEL = 0;	/* RvL: 1999-04-19 The message we receive from wheel m
 #define ARROW_RIGHT 	29
 #define ARROW_UP	30
 #define ARROW_DOWN 	31
-static int recordWheelEvent(int keyCode, int virtKey);
+static int recordWheelEvent(int keyCode, int virtKey, UINT message, LPARAM lParam);
 #endif
 
 /* misc declarations */
@@ -257,20 +257,22 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
     return sqLaunchDrop();
 
 #ifndef NO_WHEEL_MOUSE
-  /* Horizontal Mouse Wheel See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms645617%28v=vs.85%29.aspx */
+  /* Vertical Mouse Wheel See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms645617%28v=vs.85%29.aspx */
   if( WM_MOUSEWHEEL == message || g_WM_MOUSEWHEEL == message ) {
+    short zDelta = (short) HIWORD(wParam);
     if (zDelta > 0)
-      return recordWheelEvent(ARROW_UP, VK_UP);
+      return recordWheelEvent(ARROW_UP, VK_UP, message, lParam);
     else
-      return recordWheelEvent(ARROW_DOWN, VK_DOWN);
+      return recordWheelEvent(ARROW_DOWN, VK_DOWN, message, lParam);
   }
 
   /* Horizontal Mouse Wheel See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms645614%28v=vs.85%29.aspx */
   if( WM_MOUSEHWHEEL == message ) {
+    short zDelta = (short) HIWORD(wParam);
     if (zDelta > 0)
-      return recordWheelEvent(ARROW_RIGHT, VK_RIGHT);
+      return recordWheelEvent(ARROW_RIGHT, VK_RIGHT, message, lParam);
     else
-      return recordWheelEvent(ARROW_LEFT, VK_LEFT);
+      return recordWheelEvent(ARROW_LEFT, VK_LEFT, message, lParam);
   }
 #endif
 
@@ -1092,10 +1094,8 @@ static int mapVirtualKey(int virtKey)
 }
 
 #ifndef NO_WHEEL_MOUSE
-int recordWheelEvent(int keyCode, int virtKey)
+int recordWheelEvent(int keyCode, int virtKey, UINT message, LPARAM lParam)
 {
-    /* Record mouse wheel msgs as CTRL-Arrow */
-    short zDelta = (short) HIWORD(wParam);
     if(inputSemaphoreIndex) {
       sqKeyboardEvent *evt = (sqKeyboardEvent*) sqNextEventPut();
       evt->type = EventTypeKeyboard;
