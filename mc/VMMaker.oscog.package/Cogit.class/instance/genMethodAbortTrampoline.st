@@ -12,6 +12,10 @@ genMethodAbortTrampoline
 	self CmpCq: 0 R: ReceiverResultReg.
 	jumpSICMiss := self JumpNonZero: 0.
 
+	"The abort sequencer has pushed the LinkReg a second time.
+	 Overwrite it with the right one."
+	backEnd hasLinkRegister ifTrue:
+		[self MoveR: LinkReg Mw: 0 r: SPReg].
 	self compileTrampolineFor: #ceStackOverflow:
 		numArgs: 1
 		arg: SendNumArgsReg
@@ -19,7 +23,7 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: false "The LinkReg has already been pushed in the abort sequence."
+		pushLinkReg: false "The LinkReg has already been set above."
 		resultReg: nil.
 	jumpSICMiss jmpTarget: self Label.
 	^self genTrampolineFor: #ceSICMiss:
@@ -30,6 +34,6 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: false "The LinkReg has already been pushed in the abort sequence."
+		pushLinkReg: true "Push the LinkReg for the ceMethodAbort call."
 		resultReg: nil
 		appendOpcodes: true

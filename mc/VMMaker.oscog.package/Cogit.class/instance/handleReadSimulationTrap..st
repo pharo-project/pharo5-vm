@@ -1,9 +1,11 @@
 simulation only
 handleReadSimulationTrap: aProcessorSimulationTrap
 	<doNotGenerate>
-	| variableValue |
+	| variableValue accessor |
 	variableValue := (simulatedVariableGetters at: aProcessorSimulationTrap address) value asInteger.
+	accessor := aProcessorSimulationTrap registerAccessor.
 	processor
-		perform: aProcessorSimulationTrap registerAccessor
+		perform: accessor
 		with: variableValue signedIntToLong.
-	processor pc: aProcessorSimulationTrap nextpc
+	accessor ~~ #pc: ifTrue:
+		[processor pc: aProcessorSimulationTrap nextpc]

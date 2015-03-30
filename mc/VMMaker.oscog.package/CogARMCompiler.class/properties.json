@@ -28,6 +28,7 @@
 		"MI",
 		"MRS",
 		"MSR",
+		"MoveNotOpcode",
 		"MoveOpcode",
 		"NE",
 		"OrOpcode",

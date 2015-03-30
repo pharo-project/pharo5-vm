@@ -59,6 +59,7 @@ initialize
 	SubOpcode := 2.
 	XorOpcode := 1.
 	SMLALOpcode := 7.
+	MoveNotOpcode := 15.
 
 	CPSRReg := 16.
 	OverflowFlag := 1 << 28.
