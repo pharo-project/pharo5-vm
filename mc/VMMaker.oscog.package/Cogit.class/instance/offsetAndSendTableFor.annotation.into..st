@@ -9,12 +9,13 @@ offsetAndSendTableFor: entryPoint annotation: annotation into: binaryBlock
 		ifTrue:
 			[self assert: annotation = IsSendCall.
 			 (entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
-				ifTrue: [binaryBlock value: cmEntryOffset value: sendTrampolines]
-				ifFalse:
-					[(entryPoint bitAnd: entryPointMask) = dynSuperEntryAlignment
+				ifTrue: [binaryBlock value: cmEntryOffset value: ordinarySendTrampolines]
+				ifFalse: [(entryPoint bitAnd: entryPointMask) = selfSendEntryAlignment
+					ifTrue: [binaryBlock value: cmSelfSendEntryOffset value: selfSendTrampolines]
+					ifFalse: [(entryPoint bitAnd: entryPointMask) = dynSuperEntryAlignment
 						ifTrue: [binaryBlock value: cmDynSuperEntryOffset value: dynamicSuperSendTrampolines]
-						ifFalse: [binaryBlock value: cmNoCheckEntryOffset value: superSendTrampolines]]]
+						ifFalse: [binaryBlock value: cmNoCheckEntryOffset value: superSendTrampolines]]]]
 		ifFalse:
 			[(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
-				ifTrue: [binaryBlock value: cmEntryOffset value: sendTrampolines]
+				ifTrue: [binaryBlock value: cmEntryOffset value: ordinarySendTrampolines]
 				ifFalse: [binaryBlock value: cmNoCheckEntryOffset value: superSendTrampolines]]

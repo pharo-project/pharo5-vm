@@ -27,9 +27,15 @@ ceSICMiss: receiver
 	self assert: targetMethod selector ~= objectMemory nilObject.
 	self cppIf: NewspeakVM ifTrue:
 		[self assert: (targetMethod asInteger + cmEntryOffset = entryPoint
-					or: [targetMethod asInteger + cmDynSuperEntryOffset = entryPoint]).
+					or: [targetMethod asInteger + cmSelfSendEntryOffset = entryPoint
+					or: [targetMethod asInteger + cmDynSuperEntryOffset = entryPoint]]).
 		 "Avoid the effort of implementing PICs for the relatively low dynamic frequency
 		  dynamic super send and simply rebind the send site."
+		 targetMethod asInteger + cmSelfSendEntryOffset = entryPoint ifTrue:
+			[^coInterpreter
+				ceSelfSend: targetMethod selector
+				to: receiver
+				numArgs: targetMethod cmNumArgs].
 		 targetMethod asInteger + cmDynSuperEntryOffset = entryPoint ifTrue:
 			[^coInterpreter
 				ceDynamicSuperSend: targetMethod selector

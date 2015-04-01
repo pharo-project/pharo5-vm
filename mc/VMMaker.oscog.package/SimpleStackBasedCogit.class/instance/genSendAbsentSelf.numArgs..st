@@ -4,4 +4,4 @@ genSendAbsentSelf: selector numArgs: numArgs
 	 Then send."
 	<inline: false>
 	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genSend: selector numArgs: numArgs
+	^self genSend: selector numArgs: numArgs sendTable: selfSendTrampolines

@@ -63,6 +63,7 @@
 		"ceNewArraySlotSize:" : "eem 1/20/2015 15:09",
 		"ceNonLocalReturn:" : "eem 12/31/2014 14:03",
 		"ceReturnToInterpreter:" : "eem 10/1/2013 14:36",
+		"ceSelfSend:to:numArgs:" : "rmacnak 3/29/2015 20:23",
 		"ceSend:super:to:numArgs:" : "eem 12/6/2014 11:40",
 		"ceSendAbort:to:numArgs:" : "eem 10/1/2013 15:00",
 		"ceSendFromInLineCacheMiss:" : "eem 12/7/2013 14:15",

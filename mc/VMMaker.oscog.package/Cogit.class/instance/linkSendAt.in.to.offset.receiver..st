@@ -7,7 +7,8 @@ linkSendAt: callSiteReturnAddress in: sendingMethod to: targetMethod offset: the
 	self cppIf: NewspeakVM
 		ifTrue: [self assert: (theEntryOffset = cmEntryOffset
 							or: [theEntryOffset = cmNoCheckEntryOffset
-							or: [theEntryOffset = cmDynSuperEntryOffset]])]
+							or: [theEntryOffset = cmSelfSendEntryOffset
+							or: [theEntryOffset = cmDynSuperEntryOffset]]])]
 		ifFalse: [self assert: (theEntryOffset = cmEntryOffset
 							or: [theEntryOffset = cmNoCheckEntryOffset])].
 	self assert: (callSiteReturnAddress between: methodZoneBase and: methodZone freeStart).

@@ -13,20 +13,23 @@ targetMethodAndSendTableFor: entryPoint into: binaryBlock
 			[(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
 				ifTrue:
 					[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
-					 sendTable := sendTrampolines]
+					 sendTable := ordinarySendTrampolines]
+			ifFalse: [(entryPoint bitAnd: entryPointMask) = selfSendEntryAlignment
+				ifTrue:
+					[targetMethod := self cCoerceSimple: entryPoint - cmSelfSendEntryOffset to: #'CogMethod *'.
+					 sendTable := selfSendTrampolines]
+			ifFalse: [(entryPoint bitAnd: entryPointMask) = dynSuperEntryAlignment
+				ifTrue:
+					[targetMethod := self cCoerceSimple: entryPoint - cmDynSuperEntryOffset to: #'CogMethod *'.
+					 sendTable := dynamicSuperSendTrampolines]
 				ifFalse:
-					[(entryPoint bitAnd: entryPointMask) = dynSuperEntryAlignment
-						ifTrue:
-							[targetMethod := self cCoerceSimple: entryPoint - cmDynSuperEntryOffset to: #'CogMethod *'.
-							 sendTable := dynamicSuperSendTrampolines]
-						ifFalse:
-							[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
-							 sendTable := superSendTrampolines]]]
+					[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
+					 sendTable := superSendTrampolines]]]]
 		ifFalse:
 			[(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
 				ifTrue:
 					[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
-					 sendTable := sendTrampolines]
+					 sendTable := ordinarySendTrampolines]
 				ifFalse:
 					[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 					 sendTable := superSendTrampolines]].

@@ -61,3 +61,4 @@ genSpecialSelectorEqualsEquals
 	countTripped jmpTarget: self Label.
 	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
 		numArgs: 1
+		sendTable: ordinarySendTrampolines

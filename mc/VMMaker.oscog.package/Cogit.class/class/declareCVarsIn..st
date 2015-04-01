@@ -8,8 +8,9 @@ declareCVarsIn: aCCodeGenerator
 			[:simulationVariableNotNeededForRealVM|
 			aCCodeGenerator removeVariable: simulationVariableNotNeededForRealVM].
 	NewspeakVM ifFalse:
-		[#(	'dynSuperEntry' 'dynSuperEntryAlignment' 'dynamicSuperSendTrampolines'
-			'ceImplicitReceiverTrampoline' 'ceEnclosingObjectTrampoline' 'cmDynSuperEntryOffset'
+		[#(	'selfSendEntry' 'selfSendEntryAlignment' 'dynSuperEntry' 'dynSuperEntryAlignment'
+			'selfSendTrampolines' 'dynamicSuperSendTrampolines' 'ceImplicitReceiverTrampoline'
+			'ceEnclosingObjectTrampoline' 'cmSelfSendEntryOffset' 'cmDynSuperEntryOffset'
 			'numIRCs' 'indexOfIRC' 'theIRCs') do:
 				[:variableNotNeededInNormalVM|
 				aCCodeGenerator removeVariable: variableNotNeededInNormalVM]].
@@ -62,7 +63,7 @@ declareCVarsIn: aCCodeGenerator
 		var: #primInvokeLabel type: #'AbstractInstruction *'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
-					stackOverflowCall sendMiss entry noCheckEntry dynSuperEntry
+					stackOverflowCall sendMiss entry noCheckEntry selfSendEntry dynSuperEntry
 					picMNUAbort picInterpretAbort endCPICCase0 endCPICCase1)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
@@ -71,10 +72,12 @@ declareCVarsIn: aCCodeGenerator
 		declareVar: #blockStarts type: #'BlockStart *';
 		declareVar: #fixups type: #'BytecodeFixup *'.
 	aCCodeGenerator
-		var: #sendTrampolines
-			declareC: 'sqInt sendTrampolines[NumSendTrampolines]';
+		var: #ordinarySendTrampolines
+			declareC: 'sqInt ordinarySendTrampolines[NumSendTrampolines]';
 		var: #superSendTrampolines
 			declareC: 'sqInt superSendTrampolines[NumSendTrampolines]';
+		var: #selfSendTrampolines
+			declareC: 'sqInt selfSendTrampolines[NumSendTrampolines]';
 		var: #dynamicSuperSendTrampolines
 			declareC: 'sqInt dynamicSuperSendTrampolines[NumSendTrampolines]';
 		var: #trampolineAddresses
@@ -96,7 +99,7 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size printString, ']',
+				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size, ']',
 							(self tableInitializerFor: bytecodeGenTable
 								in: aCCodeGenerator);
 			var: #primitiveGeneratorTable

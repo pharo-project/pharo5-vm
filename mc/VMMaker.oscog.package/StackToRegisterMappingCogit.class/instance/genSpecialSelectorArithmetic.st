@@ -96,6 +96,7 @@ genSpecialSelectorArithmetic
 		[annotateInst ifTrue: [self annotateBytecode: instToAnnotate].
 		 self MoveCq: argInt R: Arg0Reg].
 	self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
-		numArgs: 1.
+		numArgs: 1
+		sendTable: ordinarySendTrampolines.
 	jumpContinue jmpTarget: self Label.
 	^0

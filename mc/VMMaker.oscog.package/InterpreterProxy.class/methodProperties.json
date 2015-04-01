@@ -160,6 +160,7 @@
 		"storePointer:ofObject:withValue:" : "ar 10/10/1998 21:25",
 		"success:" : "eem 2/16/2015 13:59",
 		"superclassOf:" : "ar 9/16/1998 20:51",
+		"synthesizeStackFor:with:" : "tfel 3/30/2015 16:13",
 		"tenuringIncrementalGC" : "eem 2/16/2015 14:01",
 		"topRemappableOop" : "ar 3/6/2009 11:09",
 		"trueObject" : "ar 9/16/1998 20:41",

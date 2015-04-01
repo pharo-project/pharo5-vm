@@ -11,4 +11,4 @@ genSendAbsentOuter: selector numArgs: numArgs depth: depth
 	self MoveCq: depth R: SendNumArgsReg.
 	self CallRT: ceEnclosingObjectTrampoline.
 	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genMarshalledSend: selector numArgs: numArgs
+	^self genMarshalledSend: selector numArgs: numArgs sendTable: ordinarySendTrampolines

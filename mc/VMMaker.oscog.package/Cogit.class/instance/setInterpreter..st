@@ -27,10 +27,11 @@ setInterpreter: aCoInterpreter
 	breakBlock ifNil: [self breakPC: breakPC].
 	(backEnd := processor abstractInstructionCompilerClass new) cogit: self.
 	(methodLabel := processor abstractInstructionCompilerClass new) cogit: self.
-	sendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+	ordinarySendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	superSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	NewspeakVM ifTrue:
-		[dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
+		[selfSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+		 dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
 	"debug metadata"
 	objectReferencesInRuntime := CArrayAccessor on: (Array new: NumObjRefsInRuntime).
 	runtimeObjectRefIndex := 0.

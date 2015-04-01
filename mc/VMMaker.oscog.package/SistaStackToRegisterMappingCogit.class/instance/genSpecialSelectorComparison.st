@@ -107,3 +107,4 @@ genSpecialSelectorComparison
 		[self MoveCq: argInt R: Arg0Reg].
 	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
 		numArgs: 1
+		sendTable: ordinarySendTrampolines

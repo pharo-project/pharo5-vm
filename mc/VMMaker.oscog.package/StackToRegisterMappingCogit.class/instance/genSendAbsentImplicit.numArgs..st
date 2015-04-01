@@ -9,4 +9,4 @@ genSendAbsentImplicit: selector numArgs: numArgs
 	result ~= 0 ifTrue:
 		[^result].
 	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genMarshalledSend: selector numArgs: numArgs
+	^self genMarshalledSend: selector numArgs: numArgs sendTable: ordinarySendTrampolines

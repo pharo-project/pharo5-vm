@@ -11,6 +11,7 @@ compileOpenPIC: selector numArgs: numArgs
 	self compilePICAbort: numArgs.
 	self cppIf: NewspeakVM ifTrue:
 		[self Nop. "1st nop differentiates dynSuperEntry from no-check entry if using nextMethod"
+		 selfSendEntry := self Nop.
 		 dynSuperEntry := self Nop].
 	entry := objectRepresentation genGetClassTagOf: ReceiverResultReg into: ClassReg scratchReg: TempReg.
 

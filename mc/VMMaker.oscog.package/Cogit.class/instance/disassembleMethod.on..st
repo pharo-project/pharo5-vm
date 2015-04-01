@@ -14,8 +14,9 @@ disassembleMethod: surrogateOrAddress on: aStream
 	
 	cogMethod cmType = CMMethod ifTrue:
 		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'.
-		self cppIf: NewspeakVM
-			ifTrue: [mapEntries at: cogMethod asInteger + dynSuperEntryAlignment put: 'dynSuperEntry']].
+		self cppIf: NewspeakVM ifTrue:
+			[mapEntries at: cogMethod asInteger + selfSendEntryAlignment put: 'selfSendEntry'.
+			mapEntries at: cogMethod asInteger + dynSuperEntryAlignment put: 'dynSuperEntry']].
 
 	cogMethod cmType = CMClosedPIC ifTrue:
 		[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.

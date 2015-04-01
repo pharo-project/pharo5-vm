@@ -14,14 +14,16 @@ computeEntryOffsets
 	self generateInstructionsAt: methodZoneBase + (self sizeof: CogMethod).
 	cmEntryOffset := entry address - methodZoneBase.
 	cmNoCheckEntryOffset := noCheckEntry address - methodZoneBase.
-	self cppIf: NewspeakVM
-		ifTrue: [cmDynSuperEntryOffset := dynSuperEntry address - methodZoneBase].
+	self cppIf: NewspeakVM ifTrue:
+		[cmSelfSendEntryOffset := selfSendEntry address - methodZoneBase.
+		 cmDynSuperEntryOffset := dynSuperEntry address - methodZoneBase].
 	missOffset := sendMissCall address + sendMissCall machineCodeSize - methodZoneBase.
 	entryPointMask := objectMemory wordSize - 1.
 	[self cppIf: NewspeakVM
 		ifTrue: [(cmEntryOffset bitAnd: entryPointMask) = (cmNoCheckEntryOffset bitAnd: entryPointMask)
+				or: [(cmEntryOffset bitAnd: entryPointMask) = (cmSelfSendEntryOffset bitAnd: entryPointMask)
 				or: [(cmEntryOffset bitAnd: entryPointMask) = (cmDynSuperEntryOffset bitAnd: entryPointMask)
-				or: [(cmNoCheckEntryOffset bitAnd: entryPointMask) = (cmDynSuperEntryOffset bitAnd: entryPointMask)]]]
+				or: [(cmNoCheckEntryOffset bitAnd: entryPointMask) = (cmDynSuperEntryOffset bitAnd: entryPointMask)]]]]
 		ifFalse: [(cmEntryOffset bitAnd: entryPointMask) = (cmNoCheckEntryOffset bitAnd: entryPointMask)]] whileTrue:
 		[entryPointMask := entryPointMask + entryPointMask + 1].
 	entryPointMask >= (methodZone roundUpLength: 1) ifTrue:
@@ -31,7 +33,12 @@ computeEntryOffsets
 	self assert: checkedEntryAlignment ~= uncheckedEntryAlignment.
 	self cppIf: NewspeakVM
 		ifTrue:
-			[cmDynSuperEntryOffset := dynSuperEntry address - methodZoneBase.
+			[cmSelfSendEntryOffset := selfSendEntry address - methodZoneBase.
+			 selfSendEntryAlignment := cmSelfSendEntryOffset bitAnd: entryPointMask.
+			 cmDynSuperEntryOffset := dynSuperEntry address - methodZoneBase.
 			 dynSuperEntryAlignment := cmDynSuperEntryOffset bitAnd: entryPointMask.
+			self assert: selfSendEntryAlignment ~= checkedEntryAlignment.
+			self assert: selfSendEntryAlignment ~= uncheckedEntryAlignment.
 			self assert: dynSuperEntryAlignment ~= checkedEntryAlignment.
-			self assert: dynSuperEntryAlignment ~= uncheckedEntryAlignment]
+			self assert: dynSuperEntryAlignment ~= uncheckedEntryAlignment.
+			self assert: dynSuperEntryAlignment ~= selfSendEntryAlignment]

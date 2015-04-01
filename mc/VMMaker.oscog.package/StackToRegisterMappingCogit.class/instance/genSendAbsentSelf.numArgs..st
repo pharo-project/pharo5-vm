@@ -9,4 +9,4 @@ genSendAbsentSelf: selector numArgs: numArgs
 	self ssAllocateCallReg: ReceiverResultReg.
 	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
 	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genMarshalledSend: selector numArgs: numArgs
+	^self genMarshalledSend: selector numArgs: numArgs sendTable: selfSendTrampolines
