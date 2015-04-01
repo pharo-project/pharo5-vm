@@ -8,10 +8,10 @@ declareCVarsIn: aCCodeGenerator
 			[:simulationVariableNotNeededForRealVM|
 			aCCodeGenerator removeVariable: simulationVariableNotNeededForRealVM].
 	NewspeakVM ifFalse:
-		[#(	'selfSendEntry' 'selfSendEntryAlignment' 'dynSuperEntry' 'dynSuperEntryAlignment'
-			'selfSendTrampolines' 'dynamicSuperSendTrampolines' 'ceImplicitReceiverTrampoline'
-			'ceEnclosingObjectTrampoline' 'cmSelfSendEntryOffset' 'cmDynSuperEntryOffset'
-			'numIRCs' 'indexOfIRC' 'theIRCs') do:
+		[#(	'selfSendEntry' 'selfSendEntryAlignment' 'cmSelfSendEntryOffset'
+			'dynSuperEntry' 'dynSuperEntryAlignment' 'cmDynSuperEntryOffset'
+			'selfSendTrampolines' 'dynamicSuperSendTrampolines' 'implicitReceiverSendTrampolines'
+			'ceEnclosingObjectTrampoline' 'numIRCs' 'indexOfIRC' 'theIRCs') do:
 				[:variableNotNeededInNormalVM|
 				aCCodeGenerator removeVariable: variableNotNeededInNormalVM]].
 	aCCodeGenerator removeConstant: #COGMTVM. "this should be defined at compile time"
@@ -20,7 +20,10 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'<setjmp.h>';
 		addHeaderFile:'"sqCogStackAlignment.h"';
 		addHeaderFile:'"dispdbg.h"'; "must preceed cointerp.h & cogit.h otherwise NoDbgRegParms gets screwed up"
-		addHeaderFile:'"cogmethod.h"';
+		addHeaderFile:'"cogmethod.h"'.
+	NewspeakVM ifTrue:
+		[aCCodeGenerator addHeaderFile:'"nssendcache.h"'].
+	aCCodeGenerator
 		addHeaderFile:'#if COGMTVM';
 		addHeaderFile:'"cointerpmt.h"';
 		addHeaderFile:'#else';
@@ -63,7 +66,8 @@ declareCVarsIn: aCCodeGenerator
 		var: #primInvokeLabel type: #'AbstractInstruction *'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
-					stackOverflowCall sendMiss entry noCheckEntry selfSendEntry dynSuperEntry
+					stackOverflowCall sendMiss
+					entry noCheckEntry selfSendEntry dynSuperEntry
 					picMNUAbort picInterpretAbort endCPICCase0 endCPICCase1)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
@@ -80,6 +84,8 @@ declareCVarsIn: aCCodeGenerator
 			declareC: 'sqInt selfSendTrampolines[NumSendTrampolines]';
 		var: #dynamicSuperSendTrampolines
 			declareC: 'sqInt dynamicSuperSendTrampolines[NumSendTrampolines]';
+		var: #implicitReceiverSendTrampolines
+			declareC: 'sqInt implicitReceiverSendTrampolines[NumSendTrampolines]';
 		var: #trampolineAddresses
 			declareC: 'static char *trampolineAddresses[NumTrampolines*2]';
 		var: #objectReferencesInRuntime

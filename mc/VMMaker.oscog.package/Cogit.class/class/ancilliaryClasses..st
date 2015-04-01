@@ -13,5 +13,5 @@ ancilliaryClasses: options
 		CogBlockMethod.
 		CogMethod },
 	((options at: #NewspeakVM ifAbsent: [false])
-		ifTrue: [{NewspeakCogMethod}]
+		ifTrue: [{NewspeakCogMethod. NSSendCache}]
 		ifFalse: [#()])

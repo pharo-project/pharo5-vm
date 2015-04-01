@@ -1,11 +1,13 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	"Override to avoid repeating StackInterpreter's declarations and add our own extensions"
-	
 	self class == thisContext methodClass ifFalse: [^self]. "Don't duplicate decls in subclasses"
 	aCCodeGenerator
 		addHeaderFile:'"sqCogStackAlignment.h"';
-		addHeaderFile:'"cogmethod.h"';
+		addHeaderFile:'"cogmethod.h"'.
+	NewspeakVM ifTrue:
+		[aCCodeGenerator addHeaderFile:'"nssendcache.h"'].
+	aCCodeGenerator
 		addHeaderFile: (aCCodeGenerator isThreadedVM 
 			ifTrue: ['"cointerpmt.h"'] 
 			ifFalse: ['"cointerp.h"']);

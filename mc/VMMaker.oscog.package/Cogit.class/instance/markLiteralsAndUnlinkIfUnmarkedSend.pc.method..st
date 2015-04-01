@@ -2,7 +2,8 @@ garbage collection
 markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 	"Mark and trace literals.  Unlink sends that have unmarked cache tags or targets."
 	<var: #mcpc type: #'char *'>
-	| literal |
+	<var: #nsSendCache type: #'NSSendCache *'>
+	| literal nsSendCache |
 	annotation = IsObjectReference ifTrue:
 		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
 		 (objectRepresentation
@@ -10,9 +11,34 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 				in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
 				atpc: mcpc asUnsignedInteger) ifTrue:
 			[codeModified := true]].
-	(self isSendAnnotation: annotation) ifTrue:
+
+	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
+		[ | entryPoint targetMethod sel eo |
+		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+		entryPoint := nsSendCache target.
+		entryPoint ~= 0 ifTrue: "Send is linked"
+			[targetMethod := entryPoint - cmNoCheckEntryOffset.
+			(self markAndTraceOrFreeCogMethod: targetMethod
+				firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger) ifTrue:	
+					[nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
+		sel := nsSendCache selector.
+			(objectMemory isForwarded: sel)
+				ifFalse: [objectMemory markAndTrace: sel]
+				ifTrue: [sel := objectMemory followForwarded: literal.
+						nsSendCache selector: sel.
+						self markAndTraceUpdatedLiteral: sel in: (self cCoerceSimple: cogMethod to: #'CogMethod *')].
+		eo := nsSendCache enclosingObject.
+		eo ~= 0 ifTrue:
+			[(objectMemory isForwarded: eo)
+				ifFalse: [objectMemory markAndTrace: eo]
+				ifTrue: [eo := objectMemory followForwarded: literal.
+						nsSendCache enclosingObject: eo.
+						self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
+
+	annotation = IsSendCall ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | cacheTagMarked |
+			self assert: annotation ~= IsNSSendCall.
 			 cacheTagMarked := tagCouldBeObj and: [objectRepresentation cacheTagIsMarked: cacheTag].
 			 entryPoint > methodZoneBase
 				ifTrue: "It's a linked send."
@@ -33,32 +59,6 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 							markAndTraceCacheTagLiteral: cacheTag
 							in: cogMethod
 							atpc: mcpc asUnsignedInteger) ifTrue:
-						[codeModified := true].
-					 self cppIf: NewspeakVM ifTrue:
-						[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-							[| cacheAddress class mixin |
-							 (objectRepresentation
-									markAndTraceCacheTagLiteral: cacheTag
-									in: cogMethod
-									atpc: mcpc asUnsignedInteger) ifTrue:
-								[codeModified := true].  "cacheTag is selector"
-							 self assert: NumOopsPerIRC = 2.
-							 cacheAddress := self implicitReceiverCacheAddressAt: mcpc.
-							 (class := backEnd unalignedLongAt: cacheAddress) ~= 0
-								ifTrue:
-									[(objectRepresentation cacheTagIsMarked: class)
-										ifTrue:
-											[(mixin := backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop) ~= 0 ifTrue:
-												[objectRepresentation
-													markAndTraceLiteral: mixin
-													in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
-													at: (self asAddress: cacheAddress + objectMemory bytesPerOop
-															put: [:val| backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: val])]]
-										ifFalse:
-											[backEnd
-												unalignedLongAt: cacheAddress put: 0;
-												unalignedLongAt: cacheAddress + objectMemory bytesPerOop put: 0.
-											 codeModified := true]]
-								ifFalse:
-									[self assert: (backEnd unalignedLongAt: cacheAddress + objectMemory bytesPerOop) = 0]]]]]].
+						[codeModified := true]]]].
+
 	^0 "keep scanning"

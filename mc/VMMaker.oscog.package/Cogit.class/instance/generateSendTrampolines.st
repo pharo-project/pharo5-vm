@@ -18,40 +18,10 @@ generateSendTrampolines
 					arg: 0
 					arg: ReceiverResultReg
 					arg: SendNumArgsReg).
-	self cppIf: NewspeakVM
-		ifTrue:
-			[0 to: NumSendTrampolines - 2 do:
-				[:numArgs|
-				dynamicSuperSendTrampolines
-					at: numArgs
-					put: (self genTrampolineFor: #ceDynamicSuperSend:to:numArgs:
-							  called: (self trampolineName: 'ceDynSuperSend' numArgs: numArgs)
-							  arg: ClassReg
-							  arg: ReceiverResultReg
-							  arg: numArgs)].
-			dynamicSuperSendTrampolines
-				at: NumSendTrampolines - 1
-				put: (self genTrampolineFor: #ceDynamicSuperSend:to:numArgs:
-							called: (self trampolineName: 'ceDynSuperSend' numArgs: -1)
-							arg: ClassReg
-							arg: ReceiverResultReg
-							arg: SendNumArgsReg).
-			0 to: NumSendTrampolines - 2 do:
-				[:numArgs|
-				selfSendTrampolines
-					at: numArgs
-					put: (self genTrampolineFor: #ceSelfSend:to:numArgs:
-							  called: (self trampolineName: 'ceSelfSend' numArgs: numArgs)
-							  arg: ClassReg
-							  arg: ReceiverResultReg
-							  arg: numArgs)].
-			selfSendTrampolines
-				at: NumSendTrampolines - 1
-				put: (self genTrampolineFor: #ceSelfSend:to:numArgs:
-							called: (self trampolineName: 'ceSelfSend' numArgs: -1)
-							arg: ClassReg
-							arg: ReceiverResultReg
-							arg: SendNumArgsReg)].
+
+	"Generate these in the middle so they are within [firstSend, lastSend]."
+	self cppIf: NewspeakVM ifTrue: [self generateNewspeakSendTrampolines].
+
 	0 to: NumSendTrampolines - 2 do:
 		[:numArgs|
 		superSendTrampolines

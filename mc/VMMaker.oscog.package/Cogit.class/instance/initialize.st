@@ -13,4 +13,7 @@ initialize
 											ifFalse: [CogMethodSurrogate64]].
 	cogBlockMethodSurrogateClass := wordSize = 4
 											ifTrue: [CogBlockMethodSurrogate32]
-											ifFalse: [CogBlockMethodSurrogate64]
+											ifFalse: [CogBlockMethodSurrogate64].
+	nsSendCacheSurrogateClass := wordSize = 4
+											ifTrue: [NSSendCacheSurrogate32]
+											ifFalse: [NSSendCacheSurrogate64].

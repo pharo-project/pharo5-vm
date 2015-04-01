@@ -31,8 +31,8 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(1 124 124 genReturnTopFromMethod		return needsFrameIfInBlock: isMappedInBlock -1)
 		(1 125 125 genReturnTopFromBlock		return needsFrameNever: -1)
 
-		(3 126 126 genDynamicSuperSendBytecode isMapped)			"Newspeak"
-		(2 127 127 genPushImplicitReceiverBytecode isMapped hasIRC)	"Newspeak"
+		(3 126 126 unknownBytecode)		"Was non-absent Newspeak super"
+		(2 127 127 unknownBytecode)		"Was push implicit receiver"
 
 		(2 128 128 extendedPushBytecode needsFrameNever: 1)
 		(2 129 129 extendedStoreBytecode)
@@ -45,13 +45,9 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(1 136 136 duplicateTopBytecode needsFrameNever: 1)
 
 		(1 137 137 genPushActiveContextBytecode)
-		(2 138 138 genPushNewArrayBytecode)),
+		(2 138 138 genPushNewArrayBytecode)
 
-		((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
-			ifTrue: [#((3 139 139 callPrimitiveBytecode))]									"V3PlusClosures on Spur"
-			ifFalse: [#((2 139 139 genPushEnclosingObjectBytecode isMapped))]),	"Newspeak"
-
-	  #(
+		(3 139 139 callPrimitiveBytecode)
 		(3 140 140 genPushRemoteTempLongBytecode)
 		(3 141 141 genStoreRemoteTempLongBytecode)
 		(3 142 142 genStoreAndPopRemoteTempLongBytecode)

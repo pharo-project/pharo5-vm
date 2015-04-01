@@ -5,4 +5,4 @@ implicitReceiveCacheAt: callSiteReturnAddress
 	<option: #NewspeakVM>
 	<var: #callSiteReturnAddress type: #'char *'>
 	<inline: false>
-	^self literalBeforeFollowingAddress: callSiteReturnAddress asUnsignedInteger - 10
+	^self literalBeforeFollowingAddress: callSiteReturnAddress asUnsignedInteger - 5 "sizeofcall"

@@ -42,6 +42,8 @@
 		"send:super:numArgs:" : "eem 11/26/2010 11:02",
 		"sendToAbsentDynamicSuperclass:numArgs:" : "eem 1/11/2013 16:59",
 		"sendToAbsentImplicitReceiver:numArgs:" : "eem 1/11/2013 16:58",
+		"sendToAbsentOuter:numArgs:depth:" : "rmacnak 3/30/2015 20:58",
+		"sendToAbsentSelf:numArgs:" : "rmacnak 3/30/2015 20:59",
 		"stackPointerAt:" : "eem 11/26/2010 11:58",
 		"stackPointers" : "eem 8/2/2014 08:58",
 		"stackp" : "eem 11/26/2010 11:58",

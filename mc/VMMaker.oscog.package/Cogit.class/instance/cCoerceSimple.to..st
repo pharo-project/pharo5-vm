@@ -7,6 +7,8 @@ cCoerceSimple: value to: cTypeString
 			ifFalse: [self cogMethodSurrogateAt: value asUnsignedInteger]].
 	cTypeString == #'CogBlockMethod *' ifTrue:
 		[^self cogBlockMethodSurrogateAt: value asUnsignedInteger].
+	cTypeString == #'NSSendCache *' ifTrue:
+		[^self nsSendCacheSurrogateAt: value asUnsignedInteger].
 	(cTypeString == #'AbstractInstruction *'
 	 and: [value isBehavior]) ifTrue:
 		[^processor abstractInstructionCompilerClass].

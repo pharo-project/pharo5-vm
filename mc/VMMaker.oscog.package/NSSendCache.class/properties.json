@@ -1,0 +1,19 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"selector",
+		"numArgs",
+		"classTag",
+		"enclosingObject",
+		"target" ],
+	"name" : "NSSendCache",
+	"pools" : [
+		"CogMethodConstants",
+		"VMBasicConstants" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

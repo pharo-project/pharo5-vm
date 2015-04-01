@@ -1,11 +1,24 @@
 bytecode generators
 genSendAbsentImplicit: selector numArgs: numArgs
-	"Get the implicit receiver and shuffle arguments if necessary.
-	 Then send."
+	| nsSendCache |
 	<inline: false>
-	| result |
-	result := self genGetImplicitReceiverFor: selector forPush: false.
-	result ~= 0 ifTrue:
-		[^result].
+	(objectMemory isYoung: selector) ifTrue:
+		[hasYoungReferent := true].
+
+	nsSendCache := theIRCs + (NumOopsPerNSC * objectMemory bytesPerOop * indexOfIRC).
+	indexOfIRC := indexOfIRC + 1.
+	self assert: (objectMemory isInOldSpace: nsSendCache).
+	self initializeNSSendCache: nsSendCache selector: selector numArgs: numArgs.
+
+	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
+
+	"This leaves the method receiver on the stack, which might not be the implicit receiver. But we care
+	 not: the callee will use ReceiverResultReg to build its frame, not the value beneath the arguments."
 	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genSend: selector numArgs: numArgs
+
+	"Load the cache last so it is a fixed distance from the call."
+	self MoveCw: nsSendCache R: SendNumArgsReg.
+	self CallNewspeakSend: (implicitReceiverSendTrampolines at: (numArgs min: NumSendTrampolines - 1)).
+
+	self PushR: ReceiverResultReg.
+	^0

@@ -16,8 +16,14 @@ initializeMiscConstants
 	NumSendTrampolines := 4.
 	"Currently not even the ceImplicitReceiverTrampoline contains object references."
 	NumObjRefsInRuntime := 0.
-	"The implicit receiver cache has two entries, class and mixin oops."
-	NumOopsPerIRC := 2.
+
+	NSCSelectorIndex := (NSSendCache instVarNames indexOf: #selector) - 1.
+	NSCNumArgsIndex := (NSSendCache instVarNames indexOf: #numArgs) - 1.
+	NSCClassTagIndex := (NSSendCache instVarNames indexOf: #classTag) - 1.
+	NSCEnclosingObjectIndex := (NSSendCache instVarNames indexOf: #enclosingObject) - 1.
+	NSCTargetIndex := (NSSendCache instVarNames indexOf: #target) - 1.
+	NumOopsPerNSC := NSSendCache instVarNames size.
+
 	"Max size to alloca when compiling.
 	 Mac OS X 10.6.8 segfaults approaching 8Mb.
 	 Linux 2.6.9 segfaults above 11Mb.

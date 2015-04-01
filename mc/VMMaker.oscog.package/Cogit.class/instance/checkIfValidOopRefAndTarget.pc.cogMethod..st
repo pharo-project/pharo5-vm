@@ -1,7 +1,8 @@
 garbage collection
 checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 	<var: #mcpc type: #'char *'>
-	| literal entryPoint |
+	<var: #nsSendCache type: #'NSSendCache *'>
+	| literal entryPoint nsSendCache |
 	annotation = IsObjectReference ifTrue:
 		[literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
 		 (self asserta: (objectRepresentation checkValidOopReference: literal)) ifFalse:
@@ -10,7 +11,25 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 		 and: [objectMemory isReallyYoungObject: literal]) ifTrue:
 			[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmRefersToYoung) ifFalse:
 				[^2]]].
-	(self isSendAnnotation: annotation) ifTrue:
+
+	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
+		[ | classTag enclosingObject nsTargetMethod |
+		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+		(self asserta: (objectRepresentation checkValidOopReference: nsSendCache selector)) ifFalse:
+			[^9].
+		classTag := nsSendCache classTag.
+		(self asserta: (classTag = 0 or: [objectRepresentation validInlineCacheTag: classTag])) ifFalse:
+			[^10].
+		enclosingObject := nsSendCache enclosingObject.
+		(self asserta: (enclosingObject = 0 or: [objectRepresentation checkValidOopReference: enclosingObject])) ifFalse:
+			[^11].
+		entryPoint := nsSendCache target.
+		entryPoint ~= 0 ifTrue: [
+			nsTargetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
+			(self asserta: (nsTargetMethod cmType = CMMethod)) ifFalse:
+				[^12]]]].
+
+	annotation = IsSendCall ifTrue:
 		[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmType = CMMethod) ifFalse:
 			[^3].
 		 self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:

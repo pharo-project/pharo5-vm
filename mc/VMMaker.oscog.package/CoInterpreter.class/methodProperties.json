@@ -1,8 +1,8 @@
 {
 	"class" : {
-		"ancilliaryClasses:" : "eem 8/21/2013 16:01",
+		"ancilliaryClasses:" : "rmacnak 3/27/2015 22:20",
 		"apiExportHeaderName" : "eem 2/10/2009 16:33",
-		"declareCVarsIn:" : "EstebanLorenzano 10/23/2014 14:17",
+		"declareCVarsIn:" : "EstebanLorenzano 4/1/2015 13:03",
 		"defaultObjectMemoryClass" : "eem 9/30/2013 13:18",
 		"exportAPISelectors:" : "eem 8/21/2013 13:07",
 		"hasCogit" : "eem 3/17/2015 13:45",
@@ -58,6 +58,7 @@
 		"ceCounterTripped:" : "eem 7/25/2014 21:46",
 		"ceDynamicSuperSend:to:numArgs:" : "eem 8/4/2014 12:09",
 		"ceEnclosingObjectAt:" : "eem 10/7/2014 11:01",
+		"ceImplicitReceiverSend:receiver:" : "rmacnak 3/30/2015 21:40",
 		"ceInterpretMethodFromPIC:receiver:" : "eem 10/24/2014 13:35",
 		"ceMNUFromPICMNUMethod:receiver:" : "eem 1/20/2014 18:54",
 		"ceNewArraySlotSize:" : "eem 1/20/2015 15:09",

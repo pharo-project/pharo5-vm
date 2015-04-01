@@ -31,7 +31,8 @@ setInterpreter: aCoInterpreter
 	superSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	NewspeakVM ifTrue:
 		[selfSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
-		 dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
+		dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+		implicitReceiverSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
 	"debug metadata"
 	objectReferencesInRuntime := CArrayAccessor on: (Array new: NumObjRefsInRuntime).
 	runtimeObjectRefIndex := 0.
