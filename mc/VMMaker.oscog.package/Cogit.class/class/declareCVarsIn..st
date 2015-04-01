@@ -105,7 +105,7 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size, ']',
+				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size asString, ']',
 							(self tableInitializerFor: bytecodeGenTable
 								in: aCCodeGenerator);
 			var: #primitiveGeneratorTable
