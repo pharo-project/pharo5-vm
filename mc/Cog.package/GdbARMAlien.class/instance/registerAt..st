@@ -1,3 +1,3 @@
 accessing
 registerAt: index 
-	^self perform: (self registerStateNames at: index + 1)
+	^self perform: (self registerStateGetters at: index + 1)

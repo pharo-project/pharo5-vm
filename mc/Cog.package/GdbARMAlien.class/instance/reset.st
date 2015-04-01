@@ -1,3 +1,4 @@
 accessing
 reset
-	self primitiveResetCPU
+	self priorPc: 0;
+		primitiveResetCPU

@@ -13,12 +13,12 @@ writePopPushDetailsIn: memory in: transcript for: aCogit
 							>> 12) hex , ' to ' , (self sp - 4) hex; cr].
 	(self instructionIsLDRSP: instr)
 		ifTrue: [| val |
-			val := self r10 > memory size
-						ifTrue: [aCogit simulatedVariableAt: self r10]
-						ifFalse: [memory unsignedLongAt: self r10 + 1 bigEndian: false].
-			^transcript tab; nextPutAll: 'LOAD SP ' , val hex , ' from ' , self r10 hex; cr].
+			val := self sl > memory size
+						ifTrue: [aCogit simulatedVariableAt: self sl]
+						ifFalse: [memory unsignedLongAt: self sl + 1 bigEndian: false].
+			^transcript tab; nextPutAll: 'LOAD SP ' , val hex , ' from ' , self sl hex; cr].
 	(self instructionIsSTRSP: instr)
-		ifTrue: [^transcript tab; nextPutAll: 'STORE SP ' , self sp hex , ' to ' , self r10 hex; cr].
+		ifTrue: [^transcript tab; nextPutAll: 'STORE SP ' , self sp hex , ' to ' , self sl hex; cr].
 	(self instructionIsAlignSP: instr)
 		ifTrue: [^transcript tab; nextPutAll: 'ALIGN SP ' , self sp hex; cr].
 	(self instructionIsAddSP: instr) ifTrue:[^transcript tab; nextPutAll: 'ADD ', (instr bitAnd: 16rFF) asString,' to SP = ' , self sp hex; cr]

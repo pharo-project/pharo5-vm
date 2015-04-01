@@ -9,15 +9,20 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 				[operand := operand - 16r1000000].
 			 operand := operand * 4 + address + 8 bitAnd: aSymbolManager addressSpaceMask]
 		ifFalse:
-			[opcode := word >> 21 bitAnd: 16rF.
-			 opcode ~= CogARMCompiler orOpcode ifTrue:
-				[^anInstructionString].
-			rotate := word >> 8 bitAnd: 16rF.
-			 mode := word >> 25 bitAnd: 7.
-			 "CogARMCompiler always uses a 0 rotate in the last operand of the final ORR when building long constants."
-			 (mode = 1 and: [rotate ~= 0]) ifTrue:
-				[^anInstructionString].
-			 operand := aSymbolManager backEnd literalBeforeFollowingAddress: address + 4].
+			[((self instructionIsAnyLoadStore: word)
+			  and: [(word >> 16 bitAnd: 15) = CogARMCompiler VarBaseReg])
+				ifTrue:
+					[operand := aSymbolManager varBaseAddress + (word bitAnd: 1 << 12 - 1)]
+				ifFalse:
+					[opcode := word >> 21 bitAnd: 16rF.
+					 opcode ~= CogARMCompiler orOpcode ifTrue:
+						[^anInstructionString].
+					 rotate := word >> 8 bitAnd: 16rF.
+					 mode := word >> 25 bitAnd: 7.
+					 "CogARMCompiler always uses a 0 rotate in the last operand of the final ORR when building long constants."
+					 (mode = 1 and: [rotate ~= 0]) ifTrue:
+						[^anInstructionString].
+					 operand := aSymbolManager backEnd literalBeforeFollowingAddress: address + 4]].
 	"is there an intersting address with this?"
 	^(aSymbolManager lookupAddress: operand)
 		ifNotNil: [:string| anInstructionString, ' = ', (operand printStringRadix: 16), ' = ', string]

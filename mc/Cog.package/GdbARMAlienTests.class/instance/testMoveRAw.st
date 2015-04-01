@@ -28,4 +28,4 @@ testMoveRAw
 	self processor singleStepIn: memory readExecuteOnlyBelow: memory size / 2.
 	self processor singleStepIn: memory readExecuteOnlyBelow: memory size / 2.
 	self processor singleStepIn: memory readExecuteOnlyBelow: memory size / 2.
-	self assert:[(memory unsignedLongAt: (processor r10) + 1) = processor r5]
+	self assert:[(memory unsignedLongAt: (processor sl) + 1) = processor r5]

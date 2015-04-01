@@ -1,7 +1,7 @@
 printing
 printOn: aStream
 	aStream nextPutAll: 'an ARMAlien('.
-	self registerState allButLast with: self registerStateNames allButLast do: [ :state :i |
+	self registerState allButLast with: self registerStateGetters allButLast do: [ :state :i |
 		aStream 
 			<< i << ': ' 
 			<< (state abs > 15 ifTrue: [state hex] ifFalse: [state asString]) 

@@ -3,21 +3,20 @@ handleExecutionPrimitiveFailureIn: memoryArray "<Bitmap|ByteArray>" minimumAddre
 	"Handle an execution primitive failure.  Convert out-of-range call and absolute
 	 memory read into register instructions into ProcessorSimulationTrap signals."
 	"self printRegistersOn: Transcript"
-	| pcOnEntry pc |
+	| pcOnEntry pc instr |
 	pcOnEntry := self pc.
-	self endCondition = 5 ifTrue:
+	self endCondition = InstructionPrefetchError ifTrue:
 		[self pc: self priorPc].
+
 	((pc := self pc) between: minimumAddress and: memoryArray byteSize - 1) ifTrue:
-		[(self instructionTypeAt: pc in: memoryArray)
-			caseOf: {
-				[#Call] 			-> [^self handleCallFailureAt: pc in: memoryArray].
-				[#LongCall] 	-> [^self handleLongCallFailureAt: pc in: memoryArray].
-				[#Jump] 		-> [^self handleJmpFailureAt: pc in: memoryArray].
-				[#LongJump] 	-> [^self handleLongJmpFailureAt: pc in: memoryArray].
-				[#MoveAwR]	-> [^self handleMoveAwRFailureAt: pc in: memoryArray].
-				[#MoveMbrR]	-> [^self handleMoveMbrRFailureAt: pc in: memoryArray].
-				[#MoveRAw]	-> [^self handleMoveRAwFailureAt: pc in: memoryArray].
-				[#MoveRMbr]	-> [^self handleMoveRMbrFailureAt: pc in: memoryArray].
-				[#Ret]			-> [^self handleRetFailureAt: pc in: memoryArray].} 
-			otherwise: [^self handleExecutionPrimitiveFailureAt: pc in: memoryArray]].
+		[instr := memoryArray unsignedLongAt:  pc + 1 bigEndian: false.
+
+		 (self endCondition = InstructionPrefetchError) ifTrue:
+			[^self handleFailingBranch: instr to: pcOnEntry at: pc].
+
+		 (self instructionIsAnyLoadStore: instr) ifTrue:
+			[^self handleFailingLoadStore: instr at: pc].
+
+		 ^self handleExecutionPrimitiveFailureAt: pc in: memoryArray].
+
 	^self reportPrimitiveFailure
