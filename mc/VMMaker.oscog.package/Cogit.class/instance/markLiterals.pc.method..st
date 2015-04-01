@@ -4,7 +4,7 @@ markLiterals: annotation pc: mcpc method: cogMethod
 	 Additionally in Newspeak, void push implicits that have unmarked classes."
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| literal nsSendCache |
+	| literal |
 	annotation = IsObjectReference ifTrue:
 		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
 		 (objectRepresentation
@@ -14,7 +14,7 @@ markLiterals: annotation pc: mcpc method: cogMethod
 			[codeModified := true]].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[ | sel eo |
+		[| nsSendCache sel eo |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 		sel := nsSendCache selector.
 			(objectMemory isForwarded: sel)
@@ -23,8 +23,8 @@ markLiterals: annotation pc: mcpc method: cogMethod
 						nsSendCache selector: sel.
 						self markAndTraceUpdatedLiteral: sel in: (self cCoerceSimple: cogMethod to: #'CogMethod *')].
 		eo := nsSendCache enclosingObject.
-		eo ~= 0 ifTrue: [
-			(objectMemory isForwarded: eo)
+		eo ~= 0 ifTrue:
+			[(objectMemory isForwarded: eo)
 				ifFalse: [objectMemory markAndTrace: eo]
 				ifTrue: [eo := objectMemory followForwarded: literal.
 						nsSendCache enclosingObject: eo.

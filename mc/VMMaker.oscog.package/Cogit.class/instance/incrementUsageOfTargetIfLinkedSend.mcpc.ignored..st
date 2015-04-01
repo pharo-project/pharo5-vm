@@ -2,11 +2,12 @@ compaction
 incrementUsageOfTargetIfLinkedSend: annotation mcpc: mcpc ignored: superfluity
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| entryPoint nsSendCache |
+	| entryPoint |
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		nsSendCache classTag ~= 0 ifTrue: "send is linked"
+		[|  nsSendCache |
+		 nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+		 nsSendCache classTag ~= 0 ifTrue: "send is linked"
 			[ | targetMethod |
 			entryPoint := nsSendCache target.
 			targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
@@ -16,7 +17,7 @@ incrementUsageOfTargetIfLinkedSend: annotation mcpc: mcpc ignored: superfluity
 
 	annotation = IsSendCall ifTrue:
 		[self assert: annotation ~= IsNSSendCall.
-		entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
+		 entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase ifTrue: "It's a linked send."
 			[self targetMethodAndSendTableFor: entryPoint into:
 				[:targetMethod :sendTable|

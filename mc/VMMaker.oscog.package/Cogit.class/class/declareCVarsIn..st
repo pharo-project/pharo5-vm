@@ -1,7 +1,7 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	#(	'coInterpreter' 'objectMemory' 'methodZone' 'objectRepresentation'
-		'cogBlockMethodSurrogateClass' 'cogMethodSurrogateClass'
+		'cogBlockMethodSurrogateClass' 'cogMethodSurrogateClass' 'nsSendCacheSurrogateClass'
 		'threadManager' 'processor' 'lastNInstructions' 'simulatedAddresses'
 		'simulatedTrampolines' 'simulatedVariableGetters' 'simulatedVariableSetters'
 		'printRegisters' 'printInstructions' 'clickConfirm' 'singleStep') do:

@@ -2,18 +2,20 @@ in-line cacheing
 unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| entryPoint nsSendCache |
+	| entryPoint |
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		(entryPoint := nsSendCache target) ~= 0 ifTrue:
-			[ | targetMethod |
-			targetMethod := entryPoint - cmNoCheckEntryOffset.
-			targetMethod = theCogMethod ifTrue:
-				[nsSendCache classTag: 0.
-				nsSendCache enclosingObject: 0.
-				nsSendCache target: 0]].
-		^0 "keep scanning"]].
+	self cppIf: NewspeakVM ifTrue:
+		[| nsSendCache |
+		 annotation = IsNSSendCall ifTrue:
+			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			(entryPoint := nsSendCache target) ~= 0 ifTrue:
+				[ | targetMethod |
+				targetMethod := entryPoint - cmNoCheckEntryOffset.
+				targetMethod = theCogMethod ifTrue:
+					[nsSendCache classTag: 0.
+					nsSendCache enclosingObject: 0.
+					nsSendCache target: 0]].
+			^0 "keep scanning"]].
 
 	annotation = IsSendCall ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.

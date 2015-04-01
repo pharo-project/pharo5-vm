@@ -1,6 +1,5 @@
 garbage collection
 checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
-	| nsSendCache |
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
 	annotation = IsObjectReference ifTrue:
@@ -11,7 +10,7 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 			^1]].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[ | enclosingObject |
+		[| nsSendCache enclosingObject |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 		[(objectRepresentation checkValidOopReference: nsSendCache selector) ifFalse:
 			[coInterpreter print: 'selector leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.

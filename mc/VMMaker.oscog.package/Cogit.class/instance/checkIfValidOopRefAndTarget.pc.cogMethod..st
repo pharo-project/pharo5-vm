@@ -2,7 +2,7 @@ garbage collection
 checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| literal entryPoint nsSendCache |
+	| literal entryPoint |
 	annotation = IsObjectReference ifTrue:
 		[literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
 		 (self asserta: (objectRepresentation checkValidOopReference: literal)) ifFalse:
@@ -13,7 +13,7 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 				[^2]]].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[ | classTag enclosingObject nsTargetMethod |
+		[ | nsSendCache classTag enclosingObject nsTargetMethod |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 		(self asserta: (objectRepresentation checkValidOopReference: nsSendCache selector)) ifFalse:
 			[^9].

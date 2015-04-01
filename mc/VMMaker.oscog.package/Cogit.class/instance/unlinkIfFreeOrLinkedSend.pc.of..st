@@ -2,16 +2,18 @@ in-line cacheing
 unlinkIfFreeOrLinkedSend: annotation pc: mcpc of: theSelector
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| entryPoint nsSendCache |
+	| entryPoint |
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		(entryPoint := nsSendCache target) ~= 0 ifTrue:
-			[ | targetMethod |
-			targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
-			(targetMethod cmType = CMFree or: [nsSendCache selector = theSelector]) ifTrue:
-				[nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
-		^0 "keep scanning"]].
+	self cppIf: NewspeakVM ifTrue:
+		[| nsSendCache |
+		 annotation = IsNSSendCall ifTrue:
+			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			 (entryPoint := nsSendCache target) ~= 0 ifTrue:
+				[ | targetMethod |
+				targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
+				(targetMethod cmType = CMFree or: [nsSendCache selector = theSelector]) ifTrue:
+					[nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
+			^0 "keep scanning"]].
 
 	annotation = IsSendCall ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.

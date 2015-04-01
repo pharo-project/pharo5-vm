@@ -3,7 +3,6 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 	<var: #mcpc type: #'char *'>
 	<var: #targetMethod type: #'CogMethod *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| nsSendCache |
 	annotation = IsObjectReference ifTrue:
 		[| literal mappedLiteral |
 		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
@@ -17,7 +16,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 				[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[ | oop mappedOop |
+		[| nsSendCache oop mappedOop |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 		oop := nsSendCache selector.	
 		mappedOop := objectRepresentation remapObject: oop.

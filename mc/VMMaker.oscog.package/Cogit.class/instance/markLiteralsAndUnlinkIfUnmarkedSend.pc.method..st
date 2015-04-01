@@ -3,7 +3,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 	"Mark and trace literals.  Unlink sends that have unmarked cache tags or targets."
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
-	| literal nsSendCache |
+	| literal |
 	annotation = IsObjectReference ifTrue:
 		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
 		 (objectRepresentation
@@ -13,7 +13,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 			[codeModified := true]].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[ | entryPoint targetMethod sel eo |
+		[| nsSendCache entryPoint targetMethod sel eo |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 		entryPoint := nsSendCache target.
 		entryPoint ~= 0 ifTrue: "Send is linked"
@@ -38,7 +38,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 	annotation = IsSendCall ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | cacheTagMarked |
-			self assert: annotation ~= IsNSSendCall.
+			 self assert: annotation ~= IsNSSendCall.
 			 cacheTagMarked := tagCouldBeObj and: [objectRepresentation cacheTagIsMarked: cacheTag].
 			 entryPoint > methodZoneBase
 				ifTrue: "It's a linked send."
