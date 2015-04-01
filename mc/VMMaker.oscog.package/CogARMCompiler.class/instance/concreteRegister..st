@@ -14,16 +14,18 @@ concreteRegister: registerIndex
 	 unused register at the moment.."
 	^registerIndex
 		caseOf: {
-			[TempReg]				-> [R7].
+			[TempReg]				-> [R0].
 			[ClassReg]				-> [R8].
-			[ReceiverResultReg]	-> [R9].
+			[ReceiverResultReg]	-> [R7].
 			[SendNumArgsReg]		-> [R6].
-			[SPReg]					-> [SP].
+			[SPReg]					-> [SP]. "R13"
 			[FPReg]					-> [R11].
 			[Arg0Reg]				-> [R4].
 			[Arg1Reg]				-> [R5].
-			[LinkReg]				-> [LR].
-			[PCReg]					-> [PC] }
+			[VarBaseReg]			-> [ConcreteVarBaseReg]. "Must be callee saved"
+			[RISCTempReg]			-> [ConcreteIPReg]. "a.k.a. IP"
+			[LinkReg]				-> [LR]. "R14"
+			[PCReg]					-> [PC] "R15" }
 		otherwise:
 			[self assert: (registerIndex between: R0 and: PC).
 			 registerIndex]

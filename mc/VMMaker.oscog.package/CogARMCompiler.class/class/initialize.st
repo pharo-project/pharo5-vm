@@ -20,8 +20,8 @@ initialize
 	R9 := 9.
 	R10 := 10.
 	R11 := 11.
-	R12 := 12..
-	SP := 13..
+	R12 := 12.
+	SP := 13.
 	LR := 14.
 	PC := 15.
 	
@@ -29,8 +29,9 @@ initialize
 	CArg1Reg := 1.
 	CArg2Reg := 2.
 	CArg3Reg := 3.
-	
-	RISCTempReg := R10.
+
+	ConcreteVarBaseReg := 10.
+	ConcreteIPReg := 12. "IP, The Intra-Procedure-call scratch register."
 	
 	"Condition Codes. Note that cc=16rF is NOT ALLOWED as a condition; it specifies an extension instruction. See e.g.ARM_ARM v5 DDI01001.pdf A3.2.1"
 	EQ := 0.
@@ -54,12 +55,12 @@ initialize
 	BicOpcode := 14.
 	CmpOpcode := 10.
 	MoveOpcode := 13.
+	MoveNotOpcode := 15.
 	OrOpcode := 12.
 	RsbOpcode := 3.
 	SubOpcode := 2.
 	XorOpcode := 1.
 	SMLALOpcode := 7.
-	MoveNotOpcode := 15.
 
 	CPSRReg := 16.
 	OverflowFlag := 1 << 28.

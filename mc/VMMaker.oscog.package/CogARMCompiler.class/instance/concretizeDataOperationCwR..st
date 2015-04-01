@@ -7,7 +7,7 @@ concretizeDataOperationCwR: armOpcode
 	constant := operands at: 0.
 	rn := (self concreteRegister: (operands at: 1)).
 	rd := armOpcode = CmpOpcode ifTrue: [0] ifFalse:[rn].
-	instrOffset := self at: 0 moveCw: constant intoR: RISCTempReg.
+	instrOffset := self at: 0 moveCw: constant intoR: ConcreteIPReg.
 	self machineCodeAt: instrOffset 
-		put: (self type: 0 op: armOpcode set: 1 rn: rn rd: rd shifterOperand: RISCTempReg).
+		put: (self type: 0 op: armOpcode set: 1 rn: rn rd: rd shifterOperand: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

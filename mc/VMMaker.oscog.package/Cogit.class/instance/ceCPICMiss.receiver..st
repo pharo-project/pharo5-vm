@@ -47,7 +47,7 @@ ceCPICMiss: cPIC receiver: receiver
 		isMNUCase: errorSelectorOrNil = SelectorDoesNotUnderstand.
 	"Jump back into the pic at its entry in case this is an MNU."
 	coInterpreter
-		executeCogMethod: cPIC
+		executeCogPIC: cPIC
 		fromLinkedSendWithReceiver: receiver
 		andCacheTag: (backEnd inlineCacheTagAt: outerReturn).
 	"NOTREACHED"

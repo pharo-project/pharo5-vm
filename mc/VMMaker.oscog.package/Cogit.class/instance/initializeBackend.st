@@ -6,4 +6,6 @@ initializeBackend
 	methodLabel opcode: Label.
 	methodLabel operands at: 0 put: 0.
 	methodLabel operands at: 1 put: 0. "label offset"
-	callerSavedRegMask := backEnd callerSavedRegisterMask
+	callerSavedRegMask := backEnd callerSavedRegisterMask.
+	backEnd hasVarBaseRegister ifTrue:
+		[self assert: ((self registerMaskFor: VarBaseReg) noMask: callerSavedRegMask)]

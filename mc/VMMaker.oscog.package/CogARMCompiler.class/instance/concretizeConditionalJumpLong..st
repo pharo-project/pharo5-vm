@@ -9,7 +9,7 @@ concretizeConditionalJumpLong: conditionCode
 	| jumpTarget instrOffset|
 	<var: #jumpTarget type: #'AbstractInstruction *'>
 	jumpTarget := self longJumpTargetAddress.
-	instrOffset := self at: 0 moveCw: jumpTarget intoR: RISCTempReg.
+	instrOffset := self at: 0 moveCw: jumpTarget intoR: ConcreteIPReg.
 	"bx RISCTempReg"
-	self machineCodeAt: instrOffset put: (self cond: conditionCode bx: 0 target: RISCTempReg).
+	self machineCodeAt: instrOffset put: (self cond: conditionCode bx: 0 target: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

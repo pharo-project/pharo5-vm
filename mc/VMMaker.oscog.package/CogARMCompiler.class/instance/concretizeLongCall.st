@@ -9,7 +9,7 @@ concretizeLongCall
 	| jumpTarget instrOffset|
 	<var: #jumpTarget type: #'AbstractInstruction *'>
 	jumpTarget := self longJumpTargetAddress.
-	instrOffset := self at: 0 moveCw: jumpTarget intoR: RISCTempReg.
-	"blx RISCTempReg"
-	self machineCodeAt: instrOffset put: (self blx: RISCTempReg).
+	instrOffset := self at: 0 moveCw: jumpTarget intoR: ConcreteIPReg.
+	"blx ConcreteIPReg"
+	self machineCodeAt: instrOffset put: (self blx: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

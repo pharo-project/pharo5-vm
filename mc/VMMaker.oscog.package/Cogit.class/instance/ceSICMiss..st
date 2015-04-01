@@ -88,7 +88,7 @@ ceSICMiss: receiver
 	processor flushICacheFrom: outerReturn - 1 - extent to: outerReturn - 1.
 	"Jump back into the pic at its entry in case this is an MNU (newTargetMethodOrNil is nil)"
 	coInterpreter
-		executeCogMethod: pic
+		executeCogPIC: pic
 		fromLinkedSendWithReceiver: receiver
 		andCacheTag: (backEnd inlineCacheTagAt: outerReturn).
 	"NOTREACHED"

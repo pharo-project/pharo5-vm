@@ -28,8 +28,8 @@ concretizeAndCqR
 					hb := (operands at: 0) highBit.
 					1 << hb = (val +1)
 						ifTrue: [ "MVN temp reg, 0, making 0xffffffff"
-							self machineCodeAt: 0 put:(self mvn: RISCTempReg imm: 0 ror: 0).
+							self machineCodeAt: 0 put:(self mvn: ConcreteIPReg imm: 0 ror: 0).
 							"Then AND reg, temp reg, lsr #(32-hb)"
-							 self machineCodeAt: 4 put:(self ands: reg rn: reg rm: RISCTempReg lsr: (32-hb )).
+							 self machineCodeAt: 4 put:(self ands: reg rn: reg rm: ConcreteIPReg lsr: (32-hb )).
 							^machineCodeSize :=8]
 						ifFalse: [^self concretizeDataOperationCwR: AndOpcode]]]

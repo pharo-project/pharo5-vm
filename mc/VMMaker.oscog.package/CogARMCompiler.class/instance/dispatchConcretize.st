@@ -55,6 +55,7 @@ dispatchConcretize
 		[AddRR]						-> [^self concretizeDataOperationRR: AddOpcode].
 		"[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58]."
 		[AndCqR]					-> [^self concretizeAndCqR].
+		[AndCqRR]					-> [^self concretizeAndCqRR].
 		[AndCwR]					-> [^self concretizeDataOperationCwR: AndOpcode].
 		[AndRR]						-> [^self concretizeDataOperationRR: AndOpcode].
 		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].

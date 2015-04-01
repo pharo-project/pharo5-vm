@@ -10,8 +10,4 @@ simulatedAddressFor: anObject
 	<doNotGenerate>
 	^simulatedAddresses
 		at: anObject
-		ifAbsentPut:
-			[(simulatedAddresses size + 101 * objectMemory wordSize) negated
-				bitAnd: ((backEnd wantsNearAddressFor: anObject)
-							ifTrue: [self addressSpaceMask]
-							ifFalse: [self allButTopBitOfAddressSpaceMask])]
+		ifAbsentPut: [self fakeAddressFor: anObject index: simulatedAddresses size]

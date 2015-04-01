@@ -41,8 +41,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 	forEntry
 		ifFalse:
 			[entryLabel := cogit Label.
-			 cogit MoveR: sourceReg R: destReg.
-			 cogit AndCq: objectMemory tagMask R: destReg.
+			 cogit AndCq: objectMemory tagMask R: sourceReg R: destReg.
 			 jumpNotImm := cogit JumpZero: 0.
 			 cogit AndCq: 1 R: destReg.
 			 jumpCompare := cogit Jump: 0.
@@ -59,8 +58,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 			 jumpCompare := cogit Jump: 0.
 			 cogit AlignmentNops: objectMemory wordSize.
 			 entryLabel := cogit Label.
-			 cogit MoveR: sourceReg R: destReg.
-			 cogit AndCq: objectMemory tagMask R: destReg.
+			 cogit AndCq: objectMemory tagMask R: sourceReg R: destReg.
 			 cogit JumpNonZero: immLabel.
 			 self flag: #endianness.
 			 "Get least significant half of header word in destReg"

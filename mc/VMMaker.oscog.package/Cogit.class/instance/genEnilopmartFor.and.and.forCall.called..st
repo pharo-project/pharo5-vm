@@ -15,6 +15,7 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 forCall: forCall called: tra
 	<returnTypeC: #'void (*genEnilopmartForandandforCallcalled(sqInt regArg1, sqInt regArg2, sqInt regArg3, sqInt forCall, sqInt trampolineName))(void)'>
 	| size endAddress enilopmart |
 	opcodeIndex := 0.
+	backEnd maybeEstablishVarBase. "Must happen first; value may be used in genLoadStackPointers"
 	backEnd genLoadStackPointers.
 	regArg3 ifNotNil: [self PopR: regArg3].
 	regArg2 ifNotNil: [self PopR: regArg2].

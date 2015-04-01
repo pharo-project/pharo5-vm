@@ -9,12 +9,16 @@ computeMaximumSize
 		caseOf: {
 			[Label]					-> [^maxSize := 0].
 			[AlignmentNops]		-> [^maxSize := (operands at: 0) - 1].
-			[MoveAwR]				-> [^maxSize := 20].
+			[MoveAwR]				-> [^maxSize := (self isAddressRelativeToVarBase: (operands at: 0))
+														ifTrue: [4]
+														ifFalse: [20]].
 			[MoveCqR]				-> [^self rotateable8bitImmediate: (operands at: 0)
 											ifTrue: [:r :i| maxSize := 4]
 											ifFalse: [maxSize := 16]].
 			[MoveCwR]				-> [^maxSize := 16].
-			[MoveRAw]				-> [^maxSize := 20].
+			[MoveRAw]				-> [^maxSize := (self isAddressRelativeToVarBase: (operands at: 1))
+														ifTrue: [4]
+														ifFalse: [20]].
 			[MoveRMwr]			-> [self is12BitValue: (operands at: 1)
 											ifTrue: [ :u :i | ^maxSize := 4]
 											ifFalse: [ ^maxSize := 20 ]].
@@ -27,7 +31,9 @@ computeMaximumSize
 			[MoveMbrR]				-> [self is12BitValue: (operands at: 0)
 											ifTrue: [ :u :i | ^maxSize := 4]
 											ifFalse: [ ^maxSize := 20 ]].
-			[PrefetchAw] 			-> [^maxSize := 20].
+			[PrefetchAw] 			-> [^maxSize := (self isAddressRelativeToVarBase: (operands at: 1))
+														ifTrue: [4]
+														ifFalse: [20]].
 			[Call]					-> [^maxSize := 20 "recomputed in #sizePCDependentInstruction."].
 			[RetN]					-> [^(operands at: 0) = 0 
 											ifTrue: [maxSize := 4]
@@ -45,6 +51,9 @@ computeMaximumSize
 											ifTrue: [:r :i| maxSize := 4]
 											ifFalse: [maxSize := 20]].
 			[AndCqR]				-> [^self rotateable8bitImmediate: (operands at: 0)
+											ifTrue: [:r :i| maxSize := 4]
+											ifFalse: [maxSize := 20]].
+			[AndCqRR]				-> [^self rotateable8bitImmediate: (operands at: 0)
 											ifTrue: [:r :i| maxSize := 4]
 											ifFalse: [maxSize := 20]].
 			[OrCqR]					-> [^self rotateable8bitImmediate: (operands at: 0)

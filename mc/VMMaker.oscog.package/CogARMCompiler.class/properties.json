@@ -16,6 +16,8 @@
 		"CPSRReg",
 		"CS",
 		"CmpOpcode",
+		"ConcreteIPReg",
+		"ConcreteVarBaseReg",
 		"EQ",
 		"GE",
 		"GT",
