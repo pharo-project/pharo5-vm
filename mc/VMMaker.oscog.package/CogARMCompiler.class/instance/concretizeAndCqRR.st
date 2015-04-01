@@ -31,7 +31,7 @@ concretizeAndCqRR
 						ifTrue: "MVN temp reg, 0, making 0xffffffff"
 							[self machineCodeAt: 0 put:(self mvn: ConcreteIPReg imm: 0 ror: 0).
 							"Then AND reg, temp reg, lsr #(32-hb)"
-							 self machineCodeAt: 4 put: (self ands: dstReg rn: srcReg rm: ConcreteIPReg lsr: 32 - hb).
+							 self machineCodeAt: 4 put: (self dataOpType: AndOpcode rd: dstReg rn: srcReg rm: ConcreteIPReg lsr: 32 - hb).
 							^machineCodeSize := 8]
 						ifFalse:
 							[^self concretizeDataOperationCwR: AndOpcode]]]

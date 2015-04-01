@@ -15,6 +15,8 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 	<var: #callerFP type: #'char *'>
 	<var: #theIPPtr type: #usqInt>
 
+	self externalWriteBackHeadFramePointers.
+
 	(theBecomeEffectsFlags anyMask: BecameCompiledMethodFlag) ifTrue:
 		[(objectMemory isForwarded: method) ifTrue:
 			[theIPPtr := instructionPointer - method.

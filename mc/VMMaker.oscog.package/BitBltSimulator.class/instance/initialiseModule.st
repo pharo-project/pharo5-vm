@@ -13,3 +13,4 @@ initialiseModule
 	ditherThresholds16 := self class ditherThresholds16.
 	ditherValues16 := self class ditherValues16.
 	dither8Lookup := self class dither8Lookup.
+	^true

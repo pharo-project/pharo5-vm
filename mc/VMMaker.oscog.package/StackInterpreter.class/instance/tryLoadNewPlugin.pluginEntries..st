@@ -24,6 +24,8 @@ tryLoadNewPlugin: pluginString pluginEntries: pluginEntries
 									thenCollect: [:psc| psc simulatorClass]) asSet.
 			simulatorClasses isEmpty ifTrue: [self transcript show: ' ... not found'. ^nil].
 			simulatorClasses size > 1 ifTrue: [^self error: 'This won''t work...'].
+			(plugins copyWithoutAll: simulatorClasses) notEmpty ifTrue:
+				[plugins := plugins copyWithoutAll: simulatorClasses].
 			plugins size > 1 ifTrue:
 				[self transcript show: '...multiple plugin classes; choosing ', plugins last name].
 			realPluginClass := plugins last. "hopefully lowest in the hierarchy..."

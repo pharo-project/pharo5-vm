@@ -1,3 +1,3 @@
-as yet unclassified
+accessing
 numArgs
 	^memory unsignedLongAt: address + 5

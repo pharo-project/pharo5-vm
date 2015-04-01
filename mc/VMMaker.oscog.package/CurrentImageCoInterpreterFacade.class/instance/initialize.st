@@ -14,7 +14,4 @@ initialize
 			put: objectMemory;
 		instVarNamed: 'primitiveTable'
 			put: (CArrayAccessor on: CoInterpreter primitiveTable copy).
-	variables := Dictionary new.
-	#('stackLimit') do:
-		[:l| self addressForLabel: l].
-	self initializeObjectMap
+	variables := Dictionary new
