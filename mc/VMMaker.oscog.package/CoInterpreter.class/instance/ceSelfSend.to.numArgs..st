@@ -18,7 +18,6 @@ ceSelfSend: selector to: rcvr numArgs: numArgs
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
-	true ifTrue: [^self ceSend: selector super: 0 to: rcvr numArgs: numArgs].
 	"self printExternalHeadFrame"
 	"self printStringOf: selector"
 	cogit assertCStackWellAligned.

@@ -12,7 +12,10 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 forCall: forCall called: tra
 						reg1val				pc = target address
 						reg2val
 		stackPointer ->	reg3val"
+
+	<var: #trampolineName type: #'char *'>
 	<returnTypeC: #'void (*genEnilopmartForandandforCallcalled(sqInt regArg1, sqInt regArg2, sqInt regArg3, sqInt forCall, sqInt trampolineName))(void)'>
+
 	| size endAddress enilopmart |
 	opcodeIndex := 0.
 	backEnd maybeEstablishVarBase. "Must happen first; value may be used in genLoadStackPointers"

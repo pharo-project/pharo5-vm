@@ -9,15 +9,9 @@ initializeBytecodeTable
 					ifAbsent:
 						[NewspeakVM
 							ifTrue:
-								[(initializationOptions at: #SpurObjectMemory ifAbsent: false)
-									ifTrue:
-										[MULTIPLEBYTECODESETS
-											ifTrue: [#initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid]
-											ifFalse: [#initializeBytecodeTableForNewspeakV4]]
-									ifFalse:
-										[MULTIPLEBYTECODESETS
-											ifTrue: [#initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid]
-											ifFalse: [#initializeBytecodeTableForNewspeakV3PlusClosures]]]
+								[MULTIPLEBYTECODESETS
+									ifTrue: [#initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid]
+									ifFalse: [#initializeBytecodeTableForNewspeakV4]]
 							ifFalse:
 								[#initializeBytecodeTableForSqueakV3PlusClosures]].
 	"Now make sure all classes in the hierarchy have initialized to the same bytecode table."

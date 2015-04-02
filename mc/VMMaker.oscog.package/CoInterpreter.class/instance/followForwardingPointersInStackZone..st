@@ -19,6 +19,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 	<var: #thePage type: #'StackPage *'>
 	<var: #theSP type: #'char *'>
 	<var: #theFP type: #'char *'>
+	<var: #offset type: #'char *'>
 	<var: #callerFP type: #'char *'>
 	<var: #theIPPtr type: #usqInt>
 

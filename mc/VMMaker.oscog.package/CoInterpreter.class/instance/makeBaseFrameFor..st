@@ -26,7 +26,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	"first word on stack is caller context of base frame"
 	stackPages
 		longAt: (pointer := page baseAddress)
-		put: (objectMemory fetchPointer: SenderIndex ofObject: aContext).
+		put: (objectMemory followObjField: SenderIndex ofObject: aContext).
 	"second word is the context itself; needed for cannotReturn processing; see ceBaseReturn:."
 	stackPages
 		longAt: (pointer := pointer - objectMemory wordSize)
@@ -138,11 +138,13 @@ makeBaseFrameFor: aContext "<Integer>"
 		put: rcvr.
 	stackPtrIndex := self quickFetchInteger: StackPointerIndex ofObject: aContext.
 	self assert: ReceiverIndex + stackPtrIndex < (objectMemory lengthOf: aContext).
+	"Copy the non-argument temps and stack contents to the stack.
+	 Follow these to avoid any stale self references from super sends."
 	numArgs + 1 to: stackPtrIndex do:
 		[:i|
 		stackPages
 			longAt: (pointer := pointer - objectMemory wordSize)
-			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
+			put: (objectMemory followField: ReceiverIndex + i ofObject: aContext)].
 	"top of stack is the instruction pointer"
 	stackPages longAt: (pointer := pointer - objectMemory wordSize) put: theIP.
 	page headSP: pointer.

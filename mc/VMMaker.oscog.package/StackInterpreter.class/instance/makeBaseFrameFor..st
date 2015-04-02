@@ -45,7 +45,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	"saved caller ip is sender context in base frame"
 	stackPages
 		longAt: (pointer := pointer - objectMemory wordSize)
-		put: (objectMemory fetchPointer: SenderIndex ofObject: aContext).
+		put: (objectMemory followObjField: SenderIndex ofObject: aContext).
 	"base frame's saved fp is null"
 	stackPages
 		longAt: (pointer := pointer - objectMemory wordSize)

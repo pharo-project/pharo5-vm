@@ -18,9 +18,9 @@ returnTypeForSend: sendNode in: aTMethod
 														ifNil: [#sqInt]
 														ifNotNil: [:type| type, (type last isLetter ifTrue: [' *'] ifFalse: ['*'])]].
 						[#at:]					->	[self typeForDereference: sendNode in: aTMethod].
-						[#bitAnd:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
-						[#bitOr:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
-						[#bitXor:]				->	[self unsignedTypeForBitwiseSend: sendNode in: aTMethod].
+						[#bitAnd:]				->	[self typeForArithmetic: sendNode in: aTMethod].
+						[#bitOr:]				->	[self typeForArithmetic: sendNode in: aTMethod].
+						[#bitXor:]				->	[self typeForArithmetic: sendNode in: aTMethod].
 						[#asFloat]				->	[#double].
 						[#atan]					->	[#double].
 						[#exp]					->	[#double].

@@ -11,6 +11,7 @@ primitiveAdoptInstance
 
 	arg := self stackObjectValue: 0.
 	rcvr := self stackObjectValue: 1.
+	self successful ifFalse:[^nil].
 
 	err := objectMemory changeClassOf: arg to: rcvr.
 	err = 0
