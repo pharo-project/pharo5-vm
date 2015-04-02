@@ -1,13 +1,17 @@
 disassembly
 decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: address
+"Decode what we can of the instruction and decorate it with useful stuff"
 	| word opcode rotate mode operand |
 	word := aSymbolManager objectMemory longAt: address.
 	(self instructionIsAnyB: word)
 		ifTrue:
-			[operand := word bitAnd: 16rFFFFFF.
-			 (operand anyMask: 16r800000) ifTrue:
-				[operand := operand - 16r1000000].
-			 operand := operand * 4 + address + 8 bitAnd: aSymbolManager addressSpaceMask]
+			[((self instructionIsB: word) or: [self instructionIsBL: word])
+				ifTrue:["We can extract the offset from a plain B/BL instruction"
+					operand := self extractOffsetFromBL: word..
+					 operand := operand + address + 8 bitAnd: aSymbolManager addressSpaceMask].
+			((self instructionIsBX: word) or: [self instructionIsBLX: word])
+				ifTrue:["We can extract the offset from a  BX/BLX instructions register"			
+					operand := (self perform: (self registerStateGetters at: (word bitAnd: 15) + 1))]]
 		ifFalse:
 			[((self instructionIsAnyLoadStore: word)
 			  and: [(word >> 16 bitAnd: 15) = CogARMCompiler VarBaseReg])
