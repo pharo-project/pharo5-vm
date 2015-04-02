@@ -4,9 +4,10 @@ genPushClosureCopyCopiedValuesBytecode
 	 and defer generating code for it until after the method and any other preceeding
 	 blocks.  The block's actual code will be compiled later."
 	"143   10001111 llllkkkk jjjjjjjj iiiiiiii	Push Closure Num Copied llll Num Args kkkk BlockSize jjjjjjjjiiiiiiii"
-	| numArgs numCopied |
+	| startpc numArgs numCopied |
 	self assert: needsFrame.
-	self addBlockStartAt: bytecodePC + 4 "0 relative"
+	startpc := bytecodePC + (self generatorAt: byte0) numBytes.
+	self addBlockStartAt: startpc "0 relative"
 		numArgs: (numArgs := byte1 bitAnd: 16rF)
 		numCopied: (numCopied := byte1 >> 4)
 		span: (byte2 << 8) + byte3.
@@ -18,7 +19,7 @@ genPushClosureCopyCopiedValuesBytecode
 			and: SendNumArgsReg
 			and: ClassReg.
 		 objectRepresentation
-			genNoPopCreateClosureAt: bytecodePC + 5 "1 relative"
+			genNoPopCreateClosureAt: startpc + 1 "1 relative"
 			numArgs: numArgs
 			numCopied: numCopied
 			contextNumArgs: methodOrBlockNumArgs
@@ -43,7 +44,7 @@ genPushClosureCopyCopiedValuesBytecode
 		ifFalse: [self ssAllocateCallReg: SendNumArgsReg
 					and: ReceiverResultReg].
 	objectRepresentation
-		genCreateClosureAt: bytecodePC + 5 "1 relative"
+		genCreateClosureAt: startpc + 1 "1 relative"
 		numArgs: numArgs
 		numCopied: numCopied
 		contextNumArgs: methodOrBlockNumArgs

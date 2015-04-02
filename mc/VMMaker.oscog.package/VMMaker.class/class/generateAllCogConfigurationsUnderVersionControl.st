@@ -4,5 +4,4 @@ generateAllCogConfigurationsUnderVersionControl
 		generateSqueakCogVM;
 		generateSqueakCogMTVM;
 		generateSqueakSpurCogVM;
-		generateSqueakCogSistaVM;
 		generateSqueakSpurCogSistaVM

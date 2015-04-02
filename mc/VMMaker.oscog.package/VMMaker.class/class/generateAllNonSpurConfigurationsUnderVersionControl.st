@@ -2,5 +2,4 @@ configurations
 generateAllNonSpurConfigurationsUnderVersionControl
 	self generateSqueakCogVM;
 		generateSqueakCogMTVM;
-		generateSqueakStackVM;
-		generateSqueakCogSistaVM
+		generateSqueakStackVM
