@@ -3,7 +3,7 @@ genBinaryVarOpVarInlinePrimitive: prim
 	"Var op var version of binary inline primitives."
 	"SistaV1: 248		11111000 	iiiiiiii		mjjjjjjj		Call Primitive #iiiiiiii + (jjjjjjj * 256) m=1 means inlined primitive, no hard return after execution.
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#binaryInlinePrimitive:"
-	| ra rr |
+	| ra rr adjust |
 	(rr := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
 		[self ssAllocateRequiredReg:
 			(rr := optStatus isReceiverResultRegLive
@@ -46,8 +46,12 @@ genBinaryVarOpVarInlinePrimitive: prim
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
 		[64] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+				adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
+				adjust ~= 0 ifTrue: [ self AddCq: adjust R: ra. ]. 
 				self MoveXwr: ra R: rr R: rr ].
 		[65] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+				adjust := objectMemory baseHeaderSize - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
+				self AddCq: adjust R: ra.
 				self MoveXbr: ra R: rr R: rr ]
 
 	}

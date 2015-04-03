@@ -45,10 +45,10 @@ genBinaryVarOpConstInlinePrimitive: prim
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
 		[64] ->	[self genConvertSmallIntegerToIntegerInReg: rr.
-				self MoveCq: val >> 1 R: TempReg.
+				self MoveCq: (objectMemory integerValueOf: val) + (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1 R: TempReg.
 				self MoveXwr: TempReg R: rr R: rr ].
 		[65] ->	[self genConvertSmallIntegerToIntegerInReg: rr.
-				self MoveCq: val >> 1 R: TempReg.
+				self MoveCq: (objectMemory integerValueOf: val) + objectMemory baseHeaderSize - 1 R: TempReg.
 				self MoveXbr: TempReg R: rr R: rr ]
 
 	}
