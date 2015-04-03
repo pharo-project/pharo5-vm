@@ -48,7 +48,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 					 theSP := theSP + objectMemory wordSize].
 			 [self assert: (thePage addressIsInPage: theFP).
 			  self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr asVoidPointer]).
-			  offset := self frameStackedReceiverOffset: theFP.
+			  offset := self frameReceiverLocation: theFP.
 	 		  [theSP <= offset] whileTrue:
 				[oop := stackPages longAt: theSP.
 				 (objectMemory isOopForwarded: oop) ifTrue:

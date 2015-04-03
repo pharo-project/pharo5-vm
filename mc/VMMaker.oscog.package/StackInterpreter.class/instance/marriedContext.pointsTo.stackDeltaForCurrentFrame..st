@@ -28,7 +28,7 @@ marriedContext: spouseContext pointsTo: anOop stackDeltaForCurrentFrame: stackDe
 						and: [anOop = (self frameContext: (self frameCallerFP: theFP))]) ifTrue:
 							[^true]]].
 	"Now check receiver, temps and stack contents"
-	rcvrOffset := self frameReceiverOffset: theFP.
+	rcvrOffset := self frameReceiverLocation: theFP.
 	 [theSP <= rcvrOffset] whileTrue:
 		[anOop = (stackPages longAt: theSP) ifTrue:
 			[^true].

@@ -1,5 +1,5 @@
 frame access
-frameReceiverOffset: theFP
+frameReceiverLocation: theFP
 	<inline: true>
 	<var: #theFP type: #'char *'>
 	^theFP + FoxReceiver

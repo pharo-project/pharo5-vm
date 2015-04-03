@@ -14,7 +14,7 @@ findSPOrNilOf: theFP on: thePage startingFrom: startFrame
 	startFrame = theFP ifTrue:
 		[thePage headSP >= startFrame ifTrue:
 			["If the SP is invalid return the pointer to the receiver field."
-			 ^self frameReceiverOffset: aFrame].
+			 ^self frameReceiverLocation: theFP].
 		 "Skip the instruction pointer on top of stack of inactive pages."
 		^thePage = stackPage
 			ifTrue: [thePage headSP]

@@ -33,7 +33,7 @@ printFrame: theFP
 								[self frameCallerSP: frameAbove]]].
 	theSP ifNil:
 		[self print: 'could not find sp; using bogus value'; cr.
-		 theSP := self frameReceiverOffset: theFP].
+		 theSP := self frameReceiverLocation: theFP].
 	self printFrame: theFP WithSP: theSP.
 	frameAbove ifNotNil:
 		[self printFrameThing: 'frame pc' at: frameAbove + FoxCallerSavedIP]

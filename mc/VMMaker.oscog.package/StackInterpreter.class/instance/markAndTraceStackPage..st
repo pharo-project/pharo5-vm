@@ -17,7 +17,7 @@ markAndTraceStackPage: thePage
 	"Skip the instruction pointer on top of stack of inactive pages."
 	thePage = stackPage ifFalse:
 		[theSP := theSP + objectMemory wordSize].
-	[frameRcvrOffset := self frameReceiverOffset: theFP.
+	[frameRcvrOffset := self frameReceiverLocation: theFP.
 	 [theSP <= frameRcvrOffset] whileTrue:
 		[oop := stackPages longAt: theSP.
 		 (objectMemory isOopForwarded: oop) ifTrue:

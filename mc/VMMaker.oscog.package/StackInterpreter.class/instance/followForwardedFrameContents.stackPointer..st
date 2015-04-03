@@ -14,7 +14,7 @@ followForwardedFrameContents: theFP stackPointer: theSP
 			 and: [objectMemory isForwarded: oop]) ifTrue:
 				[stackPages longAt: ptr put: (objectMemory followForwarded: oop)]].
 	theSP
-		to: (self frameReceiverOffset: theFP)
+		to: (self frameReceiverLocation: theFP)
 		by: objectMemory wordSize
 		do: [:ptr| | oop |
 			oop := stackPages longAt: ptr.

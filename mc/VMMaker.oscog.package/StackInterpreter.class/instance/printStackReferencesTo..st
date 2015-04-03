@@ -14,7 +14,7 @@ printStackReferencesTo: oop
 			 "Skip the instruction pointer on top of stack of inactive pages."
 			 thePage = stackPage ifFalse:
 				[theSP := theSP + objectMemory wordSize].
-			 [[theSP <= (self frameReceiverOffset: theFP)] whileTrue:
+			 [[theSP <= (self frameReceiverLocation: theFP)] whileTrue:
 				[oop = (stackPages longAt: theSP) ifTrue:
 					[self print: 'FP: '; printHexnp: theFP; print: ' @ '; printHexnp: theSP; cr].
 				 theSP := theSP + objectMemory wordSize].
