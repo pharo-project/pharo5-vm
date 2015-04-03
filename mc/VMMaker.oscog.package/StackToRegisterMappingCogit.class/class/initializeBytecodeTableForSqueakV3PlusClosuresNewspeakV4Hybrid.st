@@ -5,4 +5,4 @@ initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid
 
 	super initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid..
 	numPushNilsFunction := #v3or4:Num:Push:Nils:.
-	pushNilSizeFunction := #v3or4PushNilSize:
+	pushNilSizeFunction := #v3or4PushNilSize:numInitialNils:

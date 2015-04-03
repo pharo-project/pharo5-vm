@@ -8,5 +8,4 @@ recordProcessing
 	printInstructions ifTrue:
 		[printRegisters ifTrue:
 			[coInterpreter transcript cr].
-		 coInterpreter transcript nextPutAll: inst; cr; flush.
-		processor writePopPushDetailsIn: coInterpreter memory in: coInterpreter transcript for: self]
+		 coInterpreter transcript nextPutAll: inst; cr; flush]

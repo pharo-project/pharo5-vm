@@ -20,7 +20,7 @@ compileBlockBodies
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
-		  (result := self compileAbstractInstructionsFrom: blockStart startpc + ((self pushNilSize: methodObj) * blockStart numInitialNils)
+		  (result := self compileAbstractInstructionsFrom: blockStart startpc + (self pushNilSize: methodObj numInitialNils: blockStart numInitialNils)
 						through: blockStart startpc + blockStart span - 1) < 0 ifTrue:
 			[^result].
 		  "If the final simStackPtr is less than the initial simStackPtr then scanBlock: over-

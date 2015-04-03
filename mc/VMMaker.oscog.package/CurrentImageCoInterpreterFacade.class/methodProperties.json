@@ -71,6 +71,7 @@
 		"isLabelRelativeToCogitVarBaseReg:" : "eem 3/31/2015 16:51",
 		"isNonImmediate:" : "eem 4/18/2014 15:55",
 		"isNonIntegerObject:" : "eem 12/19/2010 13:50",
+		"isOptimizedMethod:" : "eem 4/2/2015 16:51",
 		"isQuickPrimitiveIndex:" : "eem 11/14/2012 15:04",
 		"isReadMediatedContextInstVarIndex:" : "eem 8/16/2013 11:20",
 		"isThreadedVM" : "eem 12/19/2010 14:25",

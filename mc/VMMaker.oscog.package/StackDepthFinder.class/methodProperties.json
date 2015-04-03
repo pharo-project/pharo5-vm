@@ -29,6 +29,7 @@
 		"push:" : "eem 11/26/2010 11:53",
 		"pushActiveContext" : "eem 11/26/2010 10:59",
 		"pushClosureCopyNumCopiedValues:numArgs:blockSize:" : "eem 11/26/2010 12:36",
+		"pushClosureTemps:" : "eem 4/2/2015 16:24",
 		"pushConsArrayWithElements:" : "eem 11/26/2010 12:19",
 		"pushConstant:" : "eem 11/26/2010 11:01",
 		"pushExplicitOuter:" : "eem 11/15/2012 14:18",

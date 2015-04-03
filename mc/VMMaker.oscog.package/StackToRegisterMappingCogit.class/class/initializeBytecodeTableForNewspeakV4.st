@@ -3,7 +3,7 @@ initializeBytecodeTableForNewspeakV4
 	"StackToRegisterMappingCogit initializeBytecodeTableForNewspeakV4"
 
 	numPushNilsFunction := #v4:Num:Push:Nils:.
-	pushNilSizeFunction := #v4PushNilSize:.
+	pushNilSizeFunction := #v4PushNilSize:numInitialNils:.
 	NSSendIsPCAnnotated := true. "IsNSSendCall used by SendAbsentImplicit"
 	FirstSpecialSelector := 80.
 	self flag:

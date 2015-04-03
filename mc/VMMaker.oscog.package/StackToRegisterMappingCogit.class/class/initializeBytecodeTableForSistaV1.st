@@ -3,7 +3,7 @@ initializeBytecodeTableForSistaV1
 	"StackToRegisterMappingCogit initializeBytecodeTableForSistaV1"
 
 	numPushNilsFunction := #sistaV1:Num:Push:Nils:.
-	pushNilSizeFunction := #sistaV1PushNilSize:.
+	pushNilSizeFunction := #sistaV1PushNilSize:numInitialNils:.
 	FirstSpecialSelector := 96.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which
