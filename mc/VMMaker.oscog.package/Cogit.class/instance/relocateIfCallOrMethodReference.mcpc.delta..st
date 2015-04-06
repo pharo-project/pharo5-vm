@@ -1,8 +1,7 @@
 compaction
 relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 	<var: #mcpc type: #'char *'>
-	| entryPoint offset sendTable targetMethod unlinkedRoutine |
-	<var: #sendTable type: #'sqInt *'>
+	| entryPoint targetMethod unlinkedRoutine |
 	<var: #targetMethod type: #'CogMethod *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
 
@@ -27,10 +26,10 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 							target, so only adjust by the target method's displacement."
 						[nsSendCache target: entryPoint + targetMethod objectHeader]
 					ifFalse: "send target was freed, unlink"
-						[nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
+						[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
 			^0]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		entryPoint <= methodZoneBase ifTrue: "send is not linked; just relocate"
 			[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: delta negated.
@@ -39,21 +38,21 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 		self
 			offsetAndSendTableFor: entryPoint
 			annotation: annotation
-			into: [:off :table| offset := off. sendTable := table].
-		 targetMethod := self cCoerceSimple: entryPoint - offset to: #'CogMethod *'.
-		 targetMethod cmType = CMMethod ifTrue: "send target not freed; just relocate."
-			[backEnd
-				relocateCallBeforeReturnPC: mcpc asInteger
-				by: (delta - targetMethod objectHeader) negated.
-			 ^0].
-		"Target was freed; map back to an unlinked send; but include this method's reocation"
-		 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-		 unlinkedRoutine := unlinkedRoutine - delta.
-		 backEnd
-			rewriteInlineCacheAt: mcpc asInteger
-			tag: targetMethod selector
-			target: unlinkedRoutine.
-		 ^0].
+			into: [:offset :sendTable|
+				 targetMethod := self cCoerceSimple: entryPoint - offset to: #'CogMethod *'.
+				 targetMethod cmType = CMMethod ifTrue: "send target not freed; just relocate."
+					[backEnd
+						relocateCallBeforeReturnPC: mcpc asInteger
+						by: (delta - targetMethod objectHeader) negated.
+					 ^0].
+				 "Target was freed; map back to an unlinked send; but include this method's reocation"
+				 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
+				 unlinkedRoutine := unlinkedRoutine - delta.
+				 backEnd
+					rewriteInlineCacheAt: mcpc asInteger
+					tag: targetMethod selector
+					target: unlinkedRoutine.
+				 ^0]].
 
 	annotation = IsRelativeCall ifTrue:
 		[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: delta negated.

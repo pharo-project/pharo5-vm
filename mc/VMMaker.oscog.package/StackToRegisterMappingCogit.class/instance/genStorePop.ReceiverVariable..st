@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genStorePop: popBoolean ReceiverVariable: slotIndex
 	<inline: false>
 	| topReg valueReg constVal |

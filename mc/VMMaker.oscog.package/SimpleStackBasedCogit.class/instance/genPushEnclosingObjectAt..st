@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushEnclosingObjectAt: level
 	"Uncached push enclosing object"
 	self MoveCq: level R: SendNumArgsReg.

@@ -4,7 +4,7 @@ structureOfACogMethod
 	 instances of CogMethod.  In actuality they are structures in memory in the CogMethodZone..  There
 	 are four real kinds, defined by the cmType field, free space: CMFree, methods: CMMethod, closed
 	 PICs: CMClosedPIC (finite polymorphic inline caches with up to 6 entries), and open PICs: CMOpenPIC
-	 (infinite megamorphicinline caches that probe the first-level method lookup cache).  There is a sixth
+	 (infinite megamorphicinline caches that probe the first-level method lookup cache).  There is a fifth
 	 kind of method, which is merely a header, for blocks: CMBlock, one which exists only within CMMethods,
 	 and exist only to allow block activations to refer to something that looks like a CogMethod.
 
@@ -22,9 +22,9 @@ structureOfACogMethod
 	 which is pointed to by the blockEntryOffset field in the CogMethod.
 
 	 Following either the return in the method, or the block dispatch, is the meta data which identifies
-	 intersting points in the machine code.  This meta data starts at the end of teh structure and is read
+	 intersting points in the machine code.  This meta data starts at the end of the structure and is read
 	 backwards towards the start of the method, and is terminated by a null byte.  So the blockSize is
 	 used to find the start of the metadata.  The metadata reveals where object references, sends and
-	 pc-mapping points exist in the machine code.  Hence the metadata is parsed when garbage collect-
-	 ing to find and update object references."
+	 pc-mapping points exist in the machine code.  The metadata is parsed when garbage collecting to
+	 find and update object references, and when unlinking sends for method cache flushing.."
 	 

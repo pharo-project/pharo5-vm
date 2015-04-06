@@ -98,6 +98,6 @@ initializeBytecodeTableForNewspeakV4
 		(3 251 251 genStoreRemoteTempLongBytecode)
 		(3 252 252 genStoreAndPopRemoteTempLongBytecode)
 		(3 253 253 genExtPushClosureBytecode block v4:Block:Code:Size:)
-		(3 254 254	genExtSendAbsentOuterBytecode isMapped)
+		(3 254 254	genExtSendAbsentOuterBytecode isMapped hasIRC)
 
 		(3 255 255	unknownBytecode))

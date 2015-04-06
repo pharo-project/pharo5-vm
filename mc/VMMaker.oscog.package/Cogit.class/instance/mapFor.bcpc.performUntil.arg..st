@@ -68,7 +68,7 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 				[| annotation nextBcpc isBackwardBranch |
 				annotation := mapByte >> AnnotationShift.
 				mcpc := mcpc + (mapByte bitAnd: DisplacementMask).
-				(self isPCMappedAnnotation: annotation alternateInstructionSet: bsOffset > 0) ifTrue:
+				(self isPCMappedAnnotation: annotation) ifTrue:
 					[[byte := (objectMemory fetchByte: bcpc ofObject: aMethodObj) + bsOffset.
 					  descriptor := self generatorAt: byte.
 					  isInBlock
@@ -97,8 +97,9 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 					 bcpc := nextBcpc.
 					 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [0]]]
 			ifFalse:
-				[mcpc := mcpc + (mapByte >= DisplacementX2N
-									ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
-									ifFalse: [mapByte])].
+				[self assert: (mapByte >> AnnotationShift = IsDisplacementX2N
+							or: [mapByte >> AnnotationShift = IsAnnotationExtension]).
+				 mapByte < (IsAnnotationExtension << AnnotationShift) ifTrue:
+					[mcpc := mcpc + (mapByte - DisplacementX2N << AnnotationShift)]].
 		 map := map - 1].
 	^0

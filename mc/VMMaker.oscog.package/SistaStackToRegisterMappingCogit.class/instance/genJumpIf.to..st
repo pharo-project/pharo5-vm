@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genJumpIf: boolean to: targetBytecodePC
 	"The heart of performance counting in Sista.  Conditional branches are 6 times less
 	 frequent than sends and can provide basic block frequencies (send counters can't).

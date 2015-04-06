@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genSendAbsentDynamicSuper: selector numArgs: numArgs
 	"OK, we could do better and avoid spilling ReceiverResultReg if we refactored
 	 marshallImplicitReceiverSendArguments: to take a flag saying whether the

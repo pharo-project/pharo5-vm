@@ -60,6 +60,8 @@ computeMaximumSize
 		[RetN]					-> [^maxSize := (operands at: 0) = 0
 													ifTrue: [1]
 													ifFalse: [3]].
+		[Stop]					-> [^maxSize := 1].
+
 		"Arithmetic"
 		[AddCqR]		-> [^maxSize := (self isQuick: (operands at: 0))
 											ifTrue: [3]

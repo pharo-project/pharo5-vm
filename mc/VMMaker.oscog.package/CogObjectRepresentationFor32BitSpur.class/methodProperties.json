@@ -38,6 +38,7 @@
 		"genRemoveSmallIntegerTagsInScratchReg:" : "eem 10/1/2013 17:49",
 		"genSetSmallIntegerTagsIn:" : "eem 10/1/2013 17:49",
 		"genShiftAwaySmallIntegerTagsInScratchReg:" : "eem 10/2/2013 22:12",
+		"illegalClassTag" : "rmacnak 4/4/2015 16:36",
 		"inlineCacheTagForClass:" : "eem 8/7/2014 04:48",
 		"inlineCacheTagForInstance:" : "eem 7/7/2014 09:57",
 		"jumpNotSmallIntegerUnsignedValueInRegister:" : "eem 10/2/2013 14:41",

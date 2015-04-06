@@ -33,7 +33,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 					[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]].
 		^0 "keep scanning"]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | mappedCacheTag |
 			 (tagCouldBeObj
@@ -50,7 +50,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 				  since they don't have the cogMethod to hand and can't add it to youngReferrers,
 				  the method must remain in youngReferrers if the targetMethod's selector is young."
 				 entryPoint > methodZoneBase ifTrue: "It's a linked send."
-					[self targetMethodAndSendTableFor: entryPoint into:
+					[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 						[:targetMethod :ignored|
 						 (objectMemory isYoung: targetMethod selector) ifTrue:
 							[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]]]]].

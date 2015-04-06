@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 firstSpecialSelectorBytecodeOffset
 	<inline: true>
 	^self cppIf: MULTIPLEBYTECODESETS

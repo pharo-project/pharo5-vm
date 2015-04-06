@@ -6,11 +6,12 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"selector",
-		"numArgs",
 		"classTag",
 		"enclosingObject",
-		"target" ],
+		"target",
+		"selector",
+		"numArgs",
+		"depth" ],
 	"name" : "NSSendCache",
 	"pools" : [
 		"CogMethodConstants",

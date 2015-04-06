@@ -1,7 +1,7 @@
 tests-method map
 testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 	<doNotGenerate>
-	| bcMethod subMethods prevMcpc isAltInstSet |
+	| bcMethod subMethods prevMcpc |
 	"self disassembleMethod: cogMethod"
 	"coInterpreter symbolicMethod: cogMethod methodObject"
 	"coInterpreter printOop: cogMethod methodObject"
@@ -15,10 +15,9 @@ testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 								coInterpreter: coInterpreter
 								objectMemory: objectMemory].
 	subMethods := self subMethodsAsRangesFor: cogMethod.
-	isAltInstSet := coInterpreter headerIndicatesAlternateBytecodeSet: cogMethod methodHeader.
 	self mapFor: cogMethod do:
-		[:annotation :mcpc| | subMethod bcpc mappedpc |
-		(self isPCMappedAnnotation: annotation alternateInstructionSet: isAltInstSet) ifTrue:
+		[:annotation :mcpc| | subMethod subCogMethod bcpc mappedpc |
+		(self isPCMappedAnnotation: annotation) ifTrue:
 			[subMethod := subMethods
 								detect: [:range| range includes: mcpc]
 								ifNone: ["a trailing call ceNonLocalReturnTrampoline's following
@@ -28,10 +27,12 @@ testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 				[bcpc := self
 							bytecodePCFor: mcpc
 							startBcpc: subMethod startpc
-							in: subMethod cogMethod.
+							in: (subCogMethod := subMethod cogMethod).
 				self assert: bcpc ~= 0.
-				mappedpc := self mcPCFor: bcpc startBcpc: subMethod startpc in: subMethod cogMethod.
-				self assert: mappedpc > (subMethod cogMethod address + self noCheckEntryOffset).
+				mappedpc := self mcPCFor: bcpc startBcpc: subMethod startpc in: subCogMethod.
+				subCogMethod stackCheckOffset = 0
+					ifTrue: [self assert: mappedpc > (subCogMethod address + self noCheckEntryOffset)]
+					ifFalse: [self assert: mappedpc >= (subCogMethod address + subCogMethod stackCheckOffset)].
 				"mcpc = mappedpc is obviously what we want and expect.  prevMcpc = mappedpc hacks
 				 around frame building accessors where the first bytecode is mapped twice, once for the
 				 stack check and once for the context inst var access.  The bytecode pc can only map

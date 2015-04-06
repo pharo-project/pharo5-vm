@@ -13,24 +13,25 @@ markLiterals: annotation pc: mcpc method: cogMethod
 				atpc: mcpc asUnsignedInteger) ifTrue:
 			[codeModified := true]].
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[| nsSendCache sel eo |
-		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		sel := nsSendCache selector.
-			(objectMemory isForwarded: sel)
-				ifFalse: [objectMemory markAndTrace: sel]
-				ifTrue: [sel := objectMemory followForwarded: literal.
-						nsSendCache selector: sel.
-						self markAndTraceUpdatedLiteral: sel in: (self cCoerceSimple: cogMethod to: #'CogMethod *')].
-		eo := nsSendCache enclosingObject.
-		eo ~= 0 ifTrue:
-			[(objectMemory isForwarded: eo)
-				ifFalse: [objectMemory markAndTrace: eo]
-				ifTrue: [eo := objectMemory followForwarded: literal.
-						nsSendCache enclosingObject: eo.
-						self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
+	self cppIf: NewspeakVM ifTrue:
+		[annotation = IsNSSendCall ifTrue:
+			[| nsSendCache sel eo |
+			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			sel := nsSendCache selector.
+				(objectMemory isForwarded: sel)
+					ifFalse: [objectMemory markAndTrace: sel]
+					ifTrue: [sel := objectMemory followForwarded: literal.
+							nsSendCache selector: sel.
+							self markAndTraceUpdatedLiteral: sel in: (self cCoerceSimple: cogMethod to: #'CogMethod *')].
+			eo := nsSendCache enclosingObject.
+			eo ~= 0 ifTrue:
+				[(objectMemory isForwarded: eo)
+					ifFalse: [objectMemory markAndTrace: eo]
+					ifTrue: [eo := objectMemory followForwarded: literal.
+							nsSendCache enclosingObject: eo.
+							self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj |
 			 tagCouldBeObj ifTrue:

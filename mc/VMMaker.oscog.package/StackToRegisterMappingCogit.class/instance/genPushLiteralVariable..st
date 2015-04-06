@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushLiteralVariable: literalIndex
 	<inline: false>
 	| association freeReg |

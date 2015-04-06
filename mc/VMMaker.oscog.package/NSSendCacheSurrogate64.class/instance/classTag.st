@@ -1,3 +1,3 @@
 accessing
 classTag
-	^memory unsignedLongLongAt: address + 17
+	^memory unsignedLongLongAt: address + 1

@@ -55,3 +55,18 @@ generateNewspeakSendTrampolines
 			genNSSendTrampolineFor: #ceImplicitReceiverSend:receiver:
 			numArgs: self numRegArgs + 1
 			called: (self trampolineName: 'ceImplicitReceiverSend' numArgs: -1)).
+
+	0 to: NumSendTrampolines - 2 do:
+		[:numArgs|
+		outerSendTrampolines
+			at: numArgs
+			put: (self 
+				genNSSendTrampolineFor: #ceOuterSend:receiver:
+				numArgs: numArgs
+				called: (self trampolineName: 'ceOuterSend' numArgs: numArgs))].
+	outerSendTrampolines
+		at: NumSendTrampolines - 1
+		put: (self 
+			genNSSendTrampolineFor: #ceOuterSend:receiver:
+			numArgs: self numRegArgs + 1
+			called: (self trampolineName: 'ceOuterSend' numArgs: -1)).

@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	<inline: false>
 	| jmpSingle jmpDone valueReg |

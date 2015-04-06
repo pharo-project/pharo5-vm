@@ -4,22 +4,26 @@ mapFor: cogMethod performUntil: functionSymbol arg: arg
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #functionSymbol declareC: 'int (*functionSymbol)(sqInt annotation, char *mcpc, sqInt arg)'>
 	<inline: true>
-	| mcpc map mapByte result |
+	| mcpc map mapByte annotation result |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.
 	[(mapByte := coInterpreter byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
 			ifTrue:
 				[mcpc := mcpc + (mapByte bitAnd: DisplacementMask).
+				 "If this is an IsSendCall annotation, peek ahead for an IsAnnotationExtension, and consume it."
+				 ((annotation := mapByte >> AnnotationShift) = IsSendCall
+				  and: [(mapByte := coInterpreter byteAt: map - 1) >> AnnotationShift = IsAnnotationExtension]) ifTrue:
+					[annotation := annotation + (mapByte bitAnd: DisplacementMask).
+					 map := map - 1].
 				 result := self perform: functionSymbol
-							   with: mapByte >> AnnotationShift
+							   with: annotation
 							   with: (self cCoerceSimple: mcpc to: #'char *')
 							   with: arg.
 				 result ~= 0 ifTrue:
 					[^result]]
 			ifFalse:
-				[mcpc := mcpc + (mapByte >= DisplacementX2N
-									ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
-									ifFalse: [mapByte])].
+				[mapByte < (IsAnnotationExtension << AnnotationShift) ifTrue:
+					[mcpc := mcpc + (mapByte - DisplacementX2N << AnnotationShift)]].
 		 map := map - 1].
 	^0

@@ -7,9 +7,10 @@ findMapLocationForMcpc: targetMcpc inMethod: cogMethod
 	mcpc = targetMcpc ifTrue: [^map].
 	[(mapByte := coInterpreter byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.
-		 mcpc := mcpc + (annotation = IsDisplacementX2N
-							ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
-							ifFalse: [mapByte bitAnd: DisplacementMask]).
+		 annotation ~= IsAnnotationExtension ifTrue:
+			[mcpc := mcpc + (annotation = IsDisplacementX2N
+								ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
+								ifFalse: [mapByte bitAnd: DisplacementMask])].
 		 mcpc >= targetMcpc ifTrue:
 			[self assert: mcpc = targetMcpc.
 			 ^map].

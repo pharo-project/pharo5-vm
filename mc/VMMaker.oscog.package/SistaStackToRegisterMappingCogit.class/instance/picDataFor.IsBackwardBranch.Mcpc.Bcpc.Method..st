@@ -33,9 +33,13 @@ picDataFor: descriptor IsBackwardBranch: IsBackwardBranch Mcpc: mcpc Bcpc: bcpc 
 	self targetMethodAndSendTableFor: entryPoint into: "It's a linked send; find which kind."
 		[:targetMethod :sendTable|
 		 tuple := self picDataForSendTo: targetMethod
-					methodClassIfSuper: (sendTable = superSendTrampolines ifTrue:
+					methodClassIfSuper: (sendTable = superSendTrampolines
+											ifTrue:
 												[coInterpreter methodClassOf:
-													(self cCoerceSimple: cogMethodArg to: #'CogMethod *') methodObject])
+													(self cCoerceSimple: cogMethodArg to: #'CogMethod *') methodObject]
+											ifFalse: "Difficult to find the directed send class at this point in time ;-)"
+												[sendTable = directedSuperSendTrampolines ifTrue:
+													[objectMemory nilObject]])
 					at: mcpc
 					bcpc: bcpc + 1].
 	tuple = 0 ifTrue: [^PrimErrNoMemory].

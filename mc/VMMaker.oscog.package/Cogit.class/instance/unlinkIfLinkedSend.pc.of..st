@@ -9,14 +9,14 @@ unlinkIfLinkedSend: annotation pc: mcpc of: theSelector
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 			nsSendCache selector = theSelector ifTrue:
-				[nsSendCache classTag: 0; enclosingObject: 0; target: 0].
+				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0].
 			^0 "keep scanning"]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
-				[self targetMethodAndSendTableFor: entryPoint into:
+				[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 					[:targetMethod :sendTable| 
 					 targetMethod selector = theSelector ifTrue:
 						[self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]].

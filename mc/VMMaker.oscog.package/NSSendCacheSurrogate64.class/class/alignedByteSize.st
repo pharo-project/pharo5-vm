@@ -1,3 +1,3 @@
 accessing
 alignedByteSize
-	^40
+	^48

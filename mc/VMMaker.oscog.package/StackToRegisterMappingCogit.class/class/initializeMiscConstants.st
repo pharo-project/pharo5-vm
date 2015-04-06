@@ -2,5 +2,5 @@ class initialization
 initializeMiscConstants
 	super initializeMiscConstants.
 	NumTrampolines := NewspeakVM
-							ifTrue: [66]
+							ifTrue: [70]
 							ifFalse: [52]

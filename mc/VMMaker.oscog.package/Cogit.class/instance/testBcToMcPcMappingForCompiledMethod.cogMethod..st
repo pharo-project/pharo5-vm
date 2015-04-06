@@ -3,11 +3,10 @@ testBcToMcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 	<doNotGenerate>
 	"self disassembleMethod: cogMethod"
 	"self printPCMapPairsFor: cogMethod on: Transcript"
-	| aMethodObj currentSubMethod subMethods bsOffset |
+	| aMethodObj subMethods bsOffset |
 	aMethodObj := cogMethod methodObject.
 	subMethods := self subMethodsAsRangesFor: cogMethod.
-	currentSubMethod := subMethods first.
-	currentSubMethod endPC: (self endPCOf: aMethodObj).
+	subMethods first endPC: (self endPCOf: aMethodObj).
 	bsOffset := self bytecodeSetOffsetFor: aMethodObj.
 	self bcpcsAndDescriptorsFor: aMethodObj bsOffset: bsOffset do:
 		[:bcpc :byte :desc :nExts| | subMethod |
@@ -21,9 +20,10 @@ testBcToMcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 								inHomeMethod: cogMethod.
 		self assert: cogBlockMethod address = (blockSubMethod first - (self sizeof: CogBlockMethod))].
 	self bcpcsAndDescriptorsFor: aMethodObj bsOffset: bsOffset do:
-		[:bcpc :byte :desc :nExts| | absMcpc mappedBcpc |
+		[:bcpc :byte :desc :nExts| | currentSubMethod subCogMethod absMcpc mappedBcpc |
 		currentSubMethod := self innermostSubMethodFor: bcpc in: subMethods startingAt: 1.
-		(currentSubMethod cogMethod stackCheckOffset > 0
+		subCogMethod := currentSubMethod cogMethod.
+		(subCogMethod stackCheckOffset > 0
 		 and: [desc isNil or: [desc isMapped]]) ifTrue:
 			["The first bytecode and backward branch bytecodes are mapped to their pc.
 			  Other bytecodes map to their following pc."
@@ -35,15 +35,12 @@ testBcToMcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 								 self
 									mcPCForBackwardBranch: mappedBcpc
 									startBcpc: currentSubMethod startpc
-									in: currentSubMethod cogMethod]
+									in: subCogMethod]
 							ifFalse: "All others use the generic mapper"
 								[mappedBcpc := desc ifNil: [bcpc] ifNotNil: [bcpc + desc numBytes].
 								 self
 									mcPCFor: mappedBcpc
 									startBcpc: currentSubMethod startpc
-									in: currentSubMethod cogMethod].
-			 self assert: absMcpc > (currentSubMethod cogMethod asInteger + self noCheckEntryOffset).
-			 self assert: (self
-							bytecodePCFor: absMcpc
-							startBcpc: currentSubMethod startpc
-							in: currentSubMethod cogMethod) = mappedBcpc]]
+									in: subCogMethod].
+			 self assert: absMcpc >= (subCogMethod asInteger + subCogMethod stackCheckOffset).
+			 self assert: (self bytecodePCFor: absMcpc startBcpc: currentSubMethod startpc in: subCogMethod) = mappedBcpc]]

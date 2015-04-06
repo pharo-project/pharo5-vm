@@ -66,7 +66,7 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 				linkSendAt: (stackPages longAt: stackPointer)
 				in: (self mframeHomeMethod: framePointer)
 				to: cogMethod
-				offset: cogit dynSuperEntryOffset
+				offset: cogit entryOffset
 				receiver: rcvr].
 		 instructionPointer := self popStack.
 		 self executeNewMethod.

@@ -1,5 +1,5 @@
 accessing
 selector: aValue
 	^memory
-		unsignedLongLongAt: address + 1
+		unsignedLongLongAt: address + 25
 		put: aValue

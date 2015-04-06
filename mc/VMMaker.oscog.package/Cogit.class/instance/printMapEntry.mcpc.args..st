@@ -2,8 +2,7 @@ disassembly
 printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 	"Print the Map entry's mcpc, its annotation and the corresponding bytecode pc, if any."
 	<doNotGenerate>
-	[:aStream :codeRanges :cogMethod| | isAltInstSet |
-	isAltInstSet := coInterpreter headerIndicatesAlternateBytecodeSet: cogMethod methodHeader.
+	[:aStream :codeRanges :cogMethod|
 	self startMcpcAndCogMethodForMcpc: mcpc in: cogMethod do:
 		[:startmcpc :subMethod| | name codeRange |
 		"Find the start of the block by searching the code ranges."
@@ -17,7 +16,7 @@ printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 			next: 20 - name size put: Character space;
 			nextPut: $(;
 			nextPutAll: (self findMapLocationForMcpc: mcpc inMethod: cogMethod) hex.
-		(self isPCMappedAnnotation: annotation alternateInstructionSet: isAltInstSet) ifTrue:
+		(self isPCMappedAnnotation: annotation) ifTrue:
 			[aStream
 				nextPutAll: ', bc: ';
 				print: (self bytecodePCFor: mcpc startBcpc: codeRange startpc in: subMethod)].

@@ -1,3 +1,3 @@
 accessing
 enclosingObject
-	^memory unsignedLongLongAt: address + 25
+	^memory unsignedLongLongAt: address + 9

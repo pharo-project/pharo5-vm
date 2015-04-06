@@ -2,7 +2,8 @@ method map
 generateMapAt: addressOrNull start: startAddress
 	"Generate the method map at addressrNull (or compute it if adressOrNull is null).
 	 Answer the length of the map in byes.  Each entry in the map is in two parts.  In the
-	 least signficant bits are a displacement of how far from the start or previous entry.
+	 least signficant bits are a displacement of how far from the start or previous entry,
+	 unless it is an IsAnnotationExtension byte, in which case those bits are the extension.
 	 In the most signficant bits are the type of annotation at the point reached.  A null
 	 byte ends the map."
 	| length location |
@@ -13,7 +14,7 @@ generateMapAt: addressOrNull start: startAddress
 		[:i| | annotation mcpc delta maxDelta mapEntry |
 		 annotation := self addressOf: (annotations at: i).
 		 mcpc := annotation instruction address + annotation instruction machineCodeSize.
-		 [(delta := mcpc - location) > MaxUnitDisplacement] whileTrue:
+		 [(delta := mcpc - location) > DisplacementMask] whileTrue:
 			[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
 			 self assert: maxDelta >> AnnotationShift <= DisplacementMask.
 			 addressOrNull ~= 0 ifTrue:
@@ -27,12 +28,19 @@ generateMapAt: addressOrNull start: startAddress
 			 location := location + maxDelta.
 			 length := length + 1].
 		 addressOrNull ~= 0 ifTrue:
-			[mapEntry := delta + (annotation annotation << AnnotationShift).
+			[mapEntry := delta + ((annotation annotation min: IsSendCall) << AnnotationShift).
 			 objectMemory byteAt: addressOrNull - length put: mapEntry.
 			 self traceMap: annotation
 				  byte: mapEntry
 				  at: addressOrNull - length
-				  for: mcpc].
+				  for: mcpc.
+			 annotation annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
+				[mapEntry := IsAnnotationExtension << AnnotationShift + (annotation annotation - IsSendCall).
+				 objectMemory byteAt: addressOrNull - (length := length + 1) put: mapEntry.
+				 self traceMap: annotation
+					  byte: mapEntry
+					  at: addressOrNull - length
+					  for: mcpc]].
 		 location := location + delta.
 		 length := length + 1].
 	addressOrNull ~= 0 ifTrue:

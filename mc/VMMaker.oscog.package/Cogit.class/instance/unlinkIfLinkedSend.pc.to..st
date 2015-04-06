@@ -12,16 +12,14 @@ unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 				[ | targetMethod |
 				targetMethod := entryPoint - cmNoCheckEntryOffset.
 				targetMethod = theCogMethod ifTrue:
-					[nsSendCache classTag: 0.
-					nsSendCache enclosingObject: 0.
-					nsSendCache target: 0]].
+					[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
 			^0 "keep scanning"]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
-				[self targetMethodAndSendTableFor: entryPoint into:
+				[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 					[:targetMethod :sendTable| 
 					 targetMethod asInteger = theCogMethod ifTrue:
 						[self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]].

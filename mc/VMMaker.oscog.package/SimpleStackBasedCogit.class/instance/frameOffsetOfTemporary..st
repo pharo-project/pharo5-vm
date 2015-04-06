@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 frameOffsetOfTemporary: index
 	^index < methodOrBlockNumArgs
 		ifTrue: [FoxCallerSavedIP + ((methodOrBlockNumArgs - index) * objectMemory wordSize)]

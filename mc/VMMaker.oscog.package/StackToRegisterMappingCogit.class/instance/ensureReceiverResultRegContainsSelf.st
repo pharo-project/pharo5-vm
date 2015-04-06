@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 ensureReceiverResultRegContainsSelf
 	needsFrame
 		ifTrue:

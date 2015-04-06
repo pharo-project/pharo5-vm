@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genStorePop: popBoolean LiteralVariable: litVarIndex
 	<inline: false>
 	| topReg valueReg association constVal |

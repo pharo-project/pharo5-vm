@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 marshallAbsentReceiverSendArguments: numArgs
 	"Shuffle arguments if necessary and push receiver."
 	numArgs = 0

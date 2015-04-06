@@ -3,5 +3,5 @@ initializeMiscConstants
 	super initializeMiscConstants.
 	MaxLiteralCountForCompile := initializationOptions at: #MaxLiteralCountForCompile ifAbsent: [60].
 	NumTrampolines := NewspeakVM
-							ifTrue: [56]
+							ifTrue: [60]
 							ifFalse: [42]

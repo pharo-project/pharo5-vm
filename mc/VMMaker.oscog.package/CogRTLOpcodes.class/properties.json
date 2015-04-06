@@ -131,6 +131,7 @@
 		"SPReg",
 		"SendNumArgsReg",
 		"SqrtRd",
+		"Stop",
 		"SubCqR",
 		"SubCwR",
 		"SubRR",

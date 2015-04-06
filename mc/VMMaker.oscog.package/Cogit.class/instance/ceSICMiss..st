@@ -15,28 +15,36 @@ ceSICMiss: receiver
 	| pic innerReturn outerReturn entryPoint targetMethod newTargetMethodOrNil errorSelectorOrNil cacheTag extent result |
 	<var: #pic type: #'CogMethod *'>
 	<var: #targetMethod type: #'CogMethod *'>
+	<var: #callerMethod type: #'CogMethod *'>
 	"Whether we can relink to a PIC or not we need to pop off the inner return and identify the target method."
-	innerReturn := coInterpreter popStack.
+	innerReturn := coInterpreter popStack asUnsignedInteger.
 	targetMethod := self cCoerceSimple: innerReturn - missOffset to: #'CogMethod *'.
 	(objectMemory isOopForwarded: receiver) ifTrue:
 		[^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
-	outerReturn := coInterpreter stackTop.
+	outerReturn := coInterpreter stackTop asUnsignedInteger.
 	self assert: (outerReturn between: methodZoneBase and: methodZone freeStart).
 	entryPoint := backEnd callTargetFromReturnAddress: outerReturn.
 
 	self assert: targetMethod selector ~= objectMemory nilObject.
 	self cppIf: NewspeakVM ifTrue:
-		[self assert: (targetMethod asInteger + cmEntryOffset = entryPoint
-					or: [targetMethod asInteger + cmSelfSendEntryOffset = entryPoint
-					or: [targetMethod asInteger + cmDynSuperEntryOffset = entryPoint]]).
-		 "Avoid the effort of implementing PICs for the relatively low dynamic frequency
-		  dynamic super send and simply rebind the send site."
-		 targetMethod asInteger + cmSelfSendEntryOffset = entryPoint ifTrue:
+		[| callerMethod annotation |
+		 self assert: targetMethod asInteger + cmEntryOffset = entryPoint.
+		 callerMethod := coInterpreter mframeHomeMethod: coInterpreter framePointer.
+		 self assert: (outerReturn
+						between: callerMethod asUnsignedInteger + cmNoCheckEntryOffset
+						and: callerMethod asUnsignedInteger + callerMethod blockSize).
+		 annotation := self annotationForMcpc: outerReturn in: callerMethod.
+		 self assert: annotation >= IsSendCall.
+		 "Avoid the effort of implementing PICs for the relatively high dynamic frequency
+		  self send and simply rebind the send site (for now)."
+		 annotation = IsNSSelfSend ifTrue:
 			[^coInterpreter
 				ceSelfSend: targetMethod selector
 				to: receiver
 				numArgs: targetMethod cmNumArgs].
-		 targetMethod asInteger + cmDynSuperEntryOffset = entryPoint ifTrue:
+		 "Avoid the effort of implementing PICs for the relatively low dynamic frequency
+		  dynamic super send and simply rebind the send site."
+		 annotation = IsNSDynamicSuperSend ifTrue:
 			[^coInterpreter
 				ceDynamicSuperSend: targetMethod selector
 				to: receiver

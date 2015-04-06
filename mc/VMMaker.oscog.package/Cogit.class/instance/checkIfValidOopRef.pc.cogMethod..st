@@ -1,5 +1,6 @@
 garbage collection
 checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
+	"Check for a valid object reference, if any, at a map entry.  Answer a code unique to each error for debugging."
 	<var: #mcpc type: #'char *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
 	annotation = IsObjectReference ifTrue:
@@ -9,18 +10,19 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 			[coInterpreter print: 'object ref leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 			^1]].
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[| nsSendCache enclosingObject |
-		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		[(objectRepresentation checkValidOopReference: nsSendCache selector) ifFalse:
-			[coInterpreter print: 'selector leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
-			^1]].
-		(enclosingObject := nsSendCache enclosingObject) ~= 0 ifTrue:
-			[[(objectRepresentation checkValidOopReference: enclosingObject) ifFalse:
-				[coInterpreter print: 'enclosing object leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
-				^1]]]]].
+	self cppIf: NewspeakVM ifTrue:
+		[annotation = IsNSSendCall ifTrue:
+			[| nsSendCache enclosingObject |
+			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			[(objectRepresentation checkValidOopReference: nsSendCache selector) ifFalse:
+				[coInterpreter print: 'selector leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
+				^1]].
+			(enclosingObject := nsSendCache enclosingObject) ~= 0 ifTrue:
+				[[(objectRepresentation checkValidOopReference: enclosingObject) ifFalse:
+					[coInterpreter print: 'enclosing object leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
+					^1]]]]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[| entryPoint selectorOrCacheTag offset |
 		 entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint <= methodZoneBase

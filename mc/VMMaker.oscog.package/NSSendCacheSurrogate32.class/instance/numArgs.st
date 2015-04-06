@@ -1,3 +1,3 @@
 accessing
 numArgs
-	^memory unsignedLongAt: address + 5
+	^memory unsignedLongAt: address + 17

@@ -8,15 +8,15 @@ unlinkIfLinkedSend: annotation pc: mcpc ignored: superfluity
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-			nsSendCache classTag ~= 0 ifTrue: "Send is linked"
-				[nsSendCache classTag: 0; enclosingObject: 0; target: 0].
+			nsSendCache classTag ~= objectRepresentation illegalClassTag ifTrue: "Send is linked"
+				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0].
 			^0 "keep scanning"]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
-				[self targetMethodAndSendTableFor: entryPoint into:
+				[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 					[:targetMethod :sendTable| 
 					 self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]].
 

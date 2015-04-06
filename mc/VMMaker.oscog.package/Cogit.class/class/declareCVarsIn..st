@@ -10,7 +10,8 @@ declareCVarsIn: aCCodeGenerator
 	NewspeakVM ifFalse:
 		[#(	'selfSendEntry' 'selfSendEntryAlignment' 'cmSelfSendEntryOffset'
 			'dynSuperEntry' 'dynSuperEntryAlignment' 'cmDynSuperEntryOffset'
-			'selfSendTrampolines' 'dynamicSuperSendTrampolines' 'implicitReceiverSendTrampolines'
+			'selfSendTrampolines' 'dynamicSuperSendTrampolines'
+			'implicitReceiverSendTrampolines' 'outerSendTrampolines'
 			'ceEnclosingObjectTrampoline' 'numIRCs' 'indexOfIRC' 'theIRCs') do:
 				[:variableNotNeededInNormalVM|
 				aCCodeGenerator removeVariable: variableNotNeededInNormalVM]].
@@ -86,6 +87,8 @@ declareCVarsIn: aCCodeGenerator
 			declareC: 'sqInt dynamicSuperSendTrampolines[NumSendTrampolines]';
 		var: #implicitReceiverSendTrampolines
 			declareC: 'sqInt implicitReceiverSendTrampolines[NumSendTrampolines]';
+		var: #outerSendTrampolines
+			declareC: 'sqInt outerSendTrampolines[NumSendTrampolines]';
 		var: #trampolineAddresses
 			declareC: 'static char *trampolineAddresses[NumTrampolines*2]';
 		var: #objectReferencesInRuntime
@@ -105,7 +108,7 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size asString, ']',
+				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size, ']',
 							(self tableInitializerFor: bytecodeGenTable
 								in: aCCodeGenerator);
 			var: #primitiveGeneratorTable

@@ -60,6 +60,7 @@ dispatchConcretize
 		[JumpFPOrdered]			-> [^self concretizeConditionalJump: 16rB].
 		[JumpFPUnordered]			-> [^self concretizeConditionalJump: 16rA].
 		[RetN]						-> [^self concretizeRetN].
+		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeAddCqR].
 		[AddCwR]					-> [^self concretizeAddCwR].

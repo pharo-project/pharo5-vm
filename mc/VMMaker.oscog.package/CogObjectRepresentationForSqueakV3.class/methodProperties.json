@@ -51,6 +51,7 @@
 		"genStoreSourceReg:slotIndex:intoNewObjectInDestReg:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"generateObjectRepresentationTrampolines" : "eem 7/14/2014 17:01",
 		"hasValidHeaderPostGC:" : "eem 8/17/2011 11:30",
+		"illegalClassTag" : "rmacnak 4/4/2015 16:37",
 		"inlineCacheTagForClass:" : "eem 7/7/2014 09:53",
 		"inlineCacheTagForInstance:" : "eem 7/7/2014 09:57",
 		"inlineCacheTagIsYoung:" : "eem 10/9/2009 03:09",

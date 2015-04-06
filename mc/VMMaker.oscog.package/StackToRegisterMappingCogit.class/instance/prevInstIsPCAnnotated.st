@@ -6,8 +6,7 @@ prevInstIsPCAnnotated
 	annotationIndex > 0 ifFalse:
 		[^false].
 	annotation := self addressOf: (annotations at: annotationIndex - 1).
-	(self isPCMappedAnnotation: annotation annotation
-			alternateInstructionSet: bytecodeSetOffset > 0) ifFalse:
+	(self isPCMappedAnnotation: annotation annotation) ifFalse:
 		[^false].
 	prevIndex := opcodeIndex - 1.
 	[prevIndex <= 0 ifTrue: [^false].

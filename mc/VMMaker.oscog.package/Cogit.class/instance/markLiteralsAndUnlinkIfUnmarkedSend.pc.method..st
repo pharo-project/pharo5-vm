@@ -12,37 +12,38 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 				atpc: mcpc asUnsignedInteger) ifTrue:
 			[codeModified := true]].
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
-		[| nsSendCache entryPoint targetMethod sel eo |
-		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-		entryPoint := nsSendCache target.
-		entryPoint ~= 0 ifTrue: "Send is linked"
-			[targetMethod := entryPoint - cmNoCheckEntryOffset.
-			(self markAndTraceOrFreeCogMethod: targetMethod
-				firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger) ifTrue:	
-					[nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
-		sel := nsSendCache selector.
+	self cppIf: NewspeakVM ifTrue:
+		[annotation = IsNSSendCall ifTrue:
+			[| nsSendCache entryPoint targetMethod sel eo |
+			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			entryPoint := nsSendCache target.
+			entryPoint ~= 0 ifTrue: "Send is linked"
+				[targetMethod := entryPoint - cmNoCheckEntryOffset.
+				 (self markAndTraceOrFreeCogMethod: targetMethod
+					firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger) ifTrue:	
+						[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+			sel := nsSendCache selector.
 			(objectMemory isForwarded: sel)
 				ifFalse: [objectMemory markAndTrace: sel]
 				ifTrue: [sel := objectMemory followForwarded: literal.
 						nsSendCache selector: sel.
 						self markAndTraceUpdatedLiteral: sel in: (self cCoerceSimple: cogMethod to: #'CogMethod *')].
-		eo := nsSendCache enclosingObject.
-		eo ~= 0 ifTrue:
-			[(objectMemory isForwarded: eo)
-				ifFalse: [objectMemory markAndTrace: eo]
-				ifTrue: [eo := objectMemory followForwarded: literal.
-						nsSendCache enclosingObject: eo.
-						self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
+			eo := nsSendCache enclosingObject.
+			eo ~= 0 ifTrue:
+				[(objectMemory isForwarded: eo)
+					ifFalse: [objectMemory markAndTrace: eo]
+					ifTrue: [eo := objectMemory followForwarded: literal.
+							nsSendCache enclosingObject: eo.
+							self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
 
-	annotation = IsSendCall ifTrue:
+	annotation = IsNSSendCall ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | cacheTagMarked |
 			 self assert: annotation ~= IsNSSendCall.
 			 cacheTagMarked := tagCouldBeObj and: [objectRepresentation cacheTagIsMarked: cacheTag].
 			 entryPoint > methodZoneBase
 				ifTrue: "It's a linked send."
-					[self targetMethodAndSendTableFor: entryPoint into:
+					[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 						[:targetMethod :sendTable| 
 						 (cacheTagMarked not
 						  or: [self markAndTraceOrFreeCogMethod: targetMethod

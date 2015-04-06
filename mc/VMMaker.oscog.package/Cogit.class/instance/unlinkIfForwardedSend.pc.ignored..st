@@ -8,18 +8,18 @@ unlinkIfForwardedSend: annotation pc: mcpc ignored: superfluity
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
-			nsSendCache classTag ~= 0 ifTrue:
-				[(objectMemory isForwardedClassIndex: nsSendCache classTag) ifTrue: [
-					nsSendCache classTag: 0; enclosingObject: 0; target: 0]].
+			 (nsSendCache classTag ~= objectRepresentation illegalClassTag
+			  and: [objectMemory isForwardedClassIndex: nsSendCache classTag]) ifTrue:
+				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
 			"Should we check if the enclosing object's class is forwarded as well?"
-			^0 "keep scanning"]].
+			^0 "keep scanning"].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send, but maybe a super send or linked to an OpenPIC, in which case the cache tag will be a selector...."
 				[(objectMemory isForwardedClassIndex: (backEnd inlineCacheTagAt: mcpc asInteger)) ifTrue:
-					[self targetMethodAndSendTableFor: entryPoint into:
+					[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
 						[:targetMethod :sendTable|
 						 self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]].
 

@@ -4,7 +4,7 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 	| cogit coInterpreter |
 	self initializeWithOptions: (self asOptionsDictionary: optionsDictionaryOrArray).
 	cogit := self new.
-	coInterpreter := CurrentImageCoInterpreterFacade new cogit: cogit; yourself.
+	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
 			setInterpreter: coInterpreter;
 			singleStep: true;
@@ -17,8 +17,10 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 		[:m| | cm |
 		(m isQuick not
 		 and: [aBlock value: m]) ifTrue:
-			[Transcript nextPut: $.; flush.
-			 [cm := cogit
+			[coInterpreter voidHeaderToMethodMap.
+			 Transcript nextPut: $.; flush.
+			 [coInterpreter.
+			  cm := cogit
 						cog: (coInterpreter oopForObject: m)
 						selector: (coInterpreter oopForObject: m selector).
 			   cm isNil and: [coInterpreter isCogCompiledCodeCompactionCalledFor]] whileTrue:

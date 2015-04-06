@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushTemporaryVariable: index
 	"If a frameless method (not a block), only argument temps can be accessed.
 	 This is assured by the use of needsFrameIfMod16GENumArgs: in pushTemp."

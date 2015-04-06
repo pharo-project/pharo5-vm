@@ -15,7 +15,7 @@ markYoungObjects: annotation pc: mcpc method: cogMethod
 		 nsSendCache enclosingObject ~= 0 ifTrue:
 			[objectRepresentation markAndTraceLiteralIfYoung: nsSendCache enclosingObject]]].
 
-	annotation = IsSendCall ifTrue:
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj |
 			 tagCouldBeObj ifTrue:

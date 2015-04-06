@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	<inline: false>
 	self assert: needsFrame.

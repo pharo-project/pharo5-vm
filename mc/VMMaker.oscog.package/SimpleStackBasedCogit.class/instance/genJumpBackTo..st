@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genJumpBackTo: targetBytecodePC
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"

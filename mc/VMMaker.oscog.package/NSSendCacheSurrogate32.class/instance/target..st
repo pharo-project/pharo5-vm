@@ -1,5 +1,5 @@
 accessing
 target: aValue
 	^memory
-		unsignedLongAt: address + 17
+		unsignedLongAt: address + 9
 		put: aValue

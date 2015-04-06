@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genJumpIf: boolean to: targetBytecodePC
 	<inline: false>
 	| desc fixup ok |

@@ -1,5 +1,5 @@
 accessing
 numArgs: aValue
 	^memory
-		unsignedLongAt: address + 5
+		unsignedLongAt: address + 17
 		put: aValue

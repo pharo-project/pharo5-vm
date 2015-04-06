@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushMaybeContextReceiverVariable: slotIndex 
 	<inline: false>
 	| jmpSingle jmpDone |

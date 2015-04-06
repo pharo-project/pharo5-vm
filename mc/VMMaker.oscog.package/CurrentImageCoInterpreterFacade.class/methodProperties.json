@@ -45,7 +45,7 @@
 		"framePointerAddress" : "eem 12/19/2010 14:25",
 		"freeStartAddress" : "eem 1/8/2011 13:34",
 		"functionPointerFor:inClass:" : "eem 1/8/2011 12:52",
-		"functionPointerForCompiledMethod:primitiveIndex:" : "eem 1/8/2011 13:10",
+		"functionPointerForCompiledMethod:primitiveIndex:" : "eem 4/4/2015 16:55",
 		"getCheckAllocFiller" : "tpr 6/7/2014 17:58",
 		"headerIndicatesAlternateBytecodeSet:" : "eem 11/1/2012 18:19",
 		"inMemoryCFramePointerAddress" : "eem 12/19/2010 14:20",
@@ -144,6 +144,7 @@
 		"transcript" : "eem 12/19/2010 14:56",
 		"trueObject" : "eem 12/19/2010 13:09",
 		"variablesBase" : "eem 8/25/2014 15:40",
+		"voidHeaderToMethodMap" : "eem 4/4/2015 16:41",
 		"weakArrayFormat" : "eem 1/15/2015 11:53",
 		"wordSize" : "eem 8/25/2014 15:54",
 		"youngStartAddress" : "eem 9/9/2013 11:57" } }

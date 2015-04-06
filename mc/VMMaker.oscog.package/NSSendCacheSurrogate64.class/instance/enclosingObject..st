@@ -1,5 +1,5 @@
 accessing
 enclosingObject: aValue
 	^memory
-		unsignedLongLongAt: address + 25
+		unsignedLongLongAt: address + 9
 		put: aValue

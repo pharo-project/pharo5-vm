@@ -4,13 +4,7 @@ linkSendAt: callSiteReturnAddress in: sendingMethod to: targetMethod offset: the
 	<var: #sendingMethod type: #'CogMethod *'>
 	<var: #targetMethod type: #'CogMethod *'>
 	| inlineCacheTag address extent |
-	self cppIf: NewspeakVM
-		ifTrue: [self assert: (theEntryOffset = cmEntryOffset
-							or: [theEntryOffset = cmNoCheckEntryOffset
-							or: [theEntryOffset = cmSelfSendEntryOffset
-							or: [theEntryOffset = cmDynSuperEntryOffset]]])]
-		ifFalse: [self assert: (theEntryOffset = cmEntryOffset
-							or: [theEntryOffset = cmNoCheckEntryOffset])].
+	self assert: (theEntryOffset = cmEntryOffset or: [theEntryOffset = cmNoCheckEntryOffset]).
 	self assert: (callSiteReturnAddress between: methodZoneBase and: methodZone freeStart).
 	inlineCacheTag := theEntryOffset = cmNoCheckEntryOffset
 						ifTrue: [targetMethod selector "i.e. no change"]

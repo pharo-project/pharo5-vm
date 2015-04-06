@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushEnclosingObjectAt: level
 	"Uncached push enclosing object"
 	optStatus isReceiverResultRegLive: false.

@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genSendAbsentSelf: selector numArgs: numArgs
 	"Shuffle arguments if necessary and push receiver.
 	 Then send."

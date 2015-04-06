@@ -13,10 +13,7 @@ disassembleMethod: surrogateOrAddress on: aStream
 		at: cogMethod asInteger + cmEntryOffset put: 'entry'.
 	
 	cogMethod cmType = CMMethod ifTrue:
-		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'.
-		self cppIf: NewspeakVM ifTrue:
-			[mapEntries at: cogMethod asInteger + selfSendEntryAlignment put: 'selfSendEntry'.
-			mapEntries at: cogMethod asInteger + dynSuperEntryAlignment put: 'dynSuperEntry']].
+		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'].
 
 	cogMethod cmType = CMClosedPIC ifTrue:
 		[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
@@ -30,17 +27,16 @@ disassembleMethod: surrogateOrAddress on: aStream
 		performUntil: #collectMapEntry:address:into:
 		arg: mapEntries.
 
-	self cppIf: NewspeakVM
-		ifTrue:
-			[objectRepresentation canPinObjects ifFalse:
-				[mapEntries keys do:
-					[:a|
-					(mapEntries at: a) = #IsNSSendCall ifTrue:
-						[mapEntries
-							at: a + backEnd jumpShortByteSize
-								put: {'Class'. #disassembleCachedOop:. (objectMemory wordSize)};
-							at: a + backEnd jumpShortByteSize + objectMemory bytesPerOop
-								put: {'ImplicitReceiver'. #disassembleCachedOop:. (objectMemory wordSize)}]]]].
+	NewspeakVM ifTrue:
+		[objectRepresentation canPinObjects ifFalse:
+			[mapEntries keys do:
+				[:a|
+				(mapEntries at: a) = #IsNSSendCall ifTrue:
+					[mapEntries
+						at: a + backEnd jumpShortByteSize
+							put: {'Class'. #disassembleCachedOop:. (objectMemory wordSize)};
+						at: a + backEnd jumpShortByteSize + objectMemory bytesPerOop
+							put: {'ImplicitReceiver'. #disassembleCachedOop:. (objectMemory wordSize)}]]]].
 
 	"This would all be far more elegant and simple if we used blocks.
 	 But there are no blocks in C and the basic enumerators here need
@@ -51,7 +47,7 @@ disassembleMethod: surrogateOrAddress on: aStream
 			[mapEntries keysAndValuesDo:
 				[:mcpc :label| | bcpc |
 				((range includes: mcpc)
-				 and: [(#(IsSendCall HasBytecodePC) includes: label)
+				 and: [(AnnotationsWithBytecodePCs includes: label)
 				 and: [range cogMethod stackCheckOffset > 0]]) ifTrue:
 					[bcpc := self bytecodePCFor: mcpc startBcpc: range startpc in: range cogMethod.
 					 bcpc ~= 0 ifTrue:
