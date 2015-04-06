@@ -21,7 +21,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 				[targetMethod := entryPoint - cmNoCheckEntryOffset.
 				 (self markAndTraceOrFreeCogMethod: targetMethod
 					firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger) ifTrue:	
-						[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+						[self voidNSSendCache: nsSendCache]].
 			sel := nsSendCache selector.
 			(objectMemory isForwarded: sel)
 				ifFalse: [objectMemory markAndTrace: sel]

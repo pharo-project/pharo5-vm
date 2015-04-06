@@ -12,7 +12,7 @@ unlinkIfFreeOrLinkedSend: annotation pc: mcpc of: theSelector
 				[ | targetMethod |
 				targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 				(targetMethod cmType = CMFree or: [nsSendCache selector = theSelector]) ifTrue:
-					[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+					[self voidNSSendCache: nsSendCache]].
 			^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

@@ -106,7 +106,6 @@
 		"forceInterruptCheckFromHeartbeat" : "eem 9/30/2010 13:21",
 		"frameCallerContext:" : "eem (const to msg rewrite) 11/5/2014 18:08",
 		"frameOfMarriedContext:" : "eem (objmem refactor) 6/8/2010 17:12",
-		"framePointer" : "eem 1/8/2009 16:39",
 		"fullDisplay" : "eem (objmem refactor) 6/8/2010 17:12",
 		"fullDisplayUpdate" : "eem 11/25/2008 13:32",
 		"functionForPrimitiveExternalCall:" : "eem 4/8/2009 10:43",

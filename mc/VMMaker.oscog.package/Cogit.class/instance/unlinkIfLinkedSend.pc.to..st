@@ -12,7 +12,7 @@ unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 				[ | targetMethod |
 				targetMethod := entryPoint - cmNoCheckEntryOffset.
 				targetMethod = theCogMethod ifTrue:
-					[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+					[self voidNSSendCache: nsSendCache]].
 			^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

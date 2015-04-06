@@ -9,7 +9,7 @@ unlinkIfLinkedSend: annotation pc: mcpc ignored: superfluity
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 			nsSendCache classTag ~= objectRepresentation illegalClassTag ifTrue: "Send is linked"
-				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0].
+				[self voidNSSendCache: nsSendCache].
 			^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

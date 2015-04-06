@@ -12,7 +12,7 @@ unlinkIfLinkedSendToFree: annotation pc: mcpc ignored: superfluity
 			(entryPoint := nsSendCache target) ~= 0 ifTrue: "It's a linked send."
 				[nsTargetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 				nsTargetMethod cmType = CMFree ifTrue:
-					[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+					[self voidNSSendCache: nsSendCache]].
 			^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

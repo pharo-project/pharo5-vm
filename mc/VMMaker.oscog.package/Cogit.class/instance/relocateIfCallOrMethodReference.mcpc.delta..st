@@ -26,7 +26,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 							target, so only adjust by the target method's displacement."
 						[nsSendCache target: entryPoint + targetMethod objectHeader]
 					ifFalse: "send target was freed, unlink"
-						[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+						[self voidNSSendCache: nsSendCache]].
 			^0]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

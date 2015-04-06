@@ -1,5 +1,9 @@
 simulation stack
 marshallAbsentReceiverSendArguments: numArgs
+	self assert: needsFrame.
+	self ssAllocateCallReg: ReceiverResultReg.
+	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
+
 	"Spill everything on the simulated stack that needs spilling (that below arguments).
 	 Marshall arguments to stack and/or registers depending on arg count.
 	 If the args don't fit in registers push receiver and args (spill everything).  Assume

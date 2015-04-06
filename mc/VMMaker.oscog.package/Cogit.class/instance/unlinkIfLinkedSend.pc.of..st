@@ -9,7 +9,7 @@ unlinkIfLinkedSend: annotation pc: mcpc of: theSelector
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 			nsSendCache selector = theSelector ifTrue:
-				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0].
+				[self voidNSSendCache: nsSendCache].
 			^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:

@@ -10,7 +10,7 @@ unlinkIfForwardedSend: annotation pc: mcpc ignored: superfluity
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 			 (nsSendCache classTag ~= objectRepresentation illegalClassTag
 			  and: [objectMemory isForwardedClassIndex: nsSendCache classTag]) ifTrue:
-				[nsSendCache classTag: objectRepresentation illegalClassTag; enclosingObject: 0; target: 0]].
+				[self voidNSSendCache: nsSendCache]].
 			"Should we check if the enclosing object's class is forwarded as well?"
 			^0 "keep scanning"].
 
