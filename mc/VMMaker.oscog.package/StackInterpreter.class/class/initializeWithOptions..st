@@ -3,9 +3,9 @@ initializeWithOptions: optionsDictionary
 	"StackInterpreter initializeWithOptions: Dictionary new"
 
 	super initializeWithOptions: optionsDictionary.
-	self initializeBytecodeTable.
 	self initializeMiscConstants. "must preceed other initialization."
 	self initializeAssociationIndex.
+	self initializeBytecodeTable.
 	self initializeCaches.
 	self initializeCharacterIndex.
 	self initializeCharacterScannerIndices.

@@ -5,9 +5,9 @@ initializeWithOptions: optionsDictionary
 		 aSuperclass withAllSubclasses do:
 			[:class| class initializationOptions: optionsDictionary]].
 	super initializeWithOptions: optionsDictionary.
-	self initializeBytecodeTable.
 	self initializeMiscConstants. "must preceed other initialization."
 	self initializeErrorCodes.
 	self initializeCogMethodConstants.
 	self initializeAnnotationConstants.
+	self initializeBytecodeTable.
 	self initializePrimitiveTable
