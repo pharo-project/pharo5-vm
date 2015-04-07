@@ -32,7 +32,7 @@
 		"initializeErrorCodes" : "eem 6/30/2014 06:54",
 		"initializeMiscConstants" : "rmacnak 3/30/2015 21:04",
 		"initializePrimitiveTable" : "eem 5/15/2014 13:24",
-		"initializeWithOptions:" : "eem 3/24/2015 17:09",
+		"initializeWithOptions:" : "EstebanLorenzano 4/7/2015 15:17",
 		"isAcceptableAncilliaryClass:" : "eem 10/30/2013 15:47",
 		"isCogitClass" : "eem 5/29/2009 09:56",
 		"isNonArgumentImplicitReceiverVariableName:" : "eem 11/16/2013 12:56",
