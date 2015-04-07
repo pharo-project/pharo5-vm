@@ -12,7 +12,7 @@ targetMethodAndSendTableFor: entryPoint annotation: annotation into: binaryBlock
 	annotation = IsSendCall ifTrue:
 		[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
 		 sendTable := ordinarySendTrampolines] ifFalse:
-	[(SistaVM and: [annotation = IsDirectedSuperSend]) ifTrue:
+	[(BytecodeSetHasDirectedSuperSend and: [annotation = IsDirectedSuperSend]) ifTrue:
 		[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 		 sendTable := directedSuperSendTrampolines] ifFalse:
 	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:

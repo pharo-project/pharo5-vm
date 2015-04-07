@@ -19,6 +19,6 @@
 	"name" : "InterpreterStackPage",
 	"pools" : [
 		"VMBasicConstants",
-		"VMSqueakV3BytecodeConstants" ],
+		"VMBytecodeConstants" ],
 	"super" : "VMStructType",
 	"type" : "normal" }

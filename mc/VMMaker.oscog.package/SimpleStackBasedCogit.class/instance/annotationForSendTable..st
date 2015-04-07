@@ -9,8 +9,8 @@ annotationForSendTable: sendTable
 		[^IsNSDynamicSuperSend].
 	(NewspeakVM and: [sendTable == implicitReceiverSendTrampolines]) ifTrue:
 		[^IsNSImplicitReceiverSend].
-	(SistaVM and: [sendTable == directedSuperSendTrampolines]) ifTrue:
-		[^IsNSImplicitReceiverSend].
+	(BytecodeSetHasDirectedSuperSend and: [sendTable == directedSuperSendTrampolines]) ifTrue:
+		[^IsDirectedSuperSend].
 	sendTable == superSendTrampolines ifTrue:
 		[^IsSuperSend].
 	self assert: sendTable == ordinarySendTrampolines.

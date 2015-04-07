@@ -14,7 +14,7 @@
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
 		"CogCompilationConstants",
-		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants" ],
+		"VMBytecodeConstants",
+		"VMSqueakClassIndices" ],
 	"super" : "CogObjectRepresentation",
 	"type" : "normal" }

@@ -8,7 +8,7 @@ offsetAndSendTableFor: entryPoint annotation: annotation into: binaryBlock
 	annotation = IsSendCall ifTrue:
 		[offset := cmEntryOffset.
 		 sendTable := ordinarySendTrampolines] ifFalse:
-	[(SistaVM and: [annotation = IsDirectedSuperSend]) ifTrue:
+	[(BytecodeSetHasDirectedSuperSend and: [annotation = IsDirectedSuperSend]) ifTrue:
 		[offset := cmNoCheckEntryOffset.
 		 sendTable := directedSuperSendTrampolines] ifFalse:
 	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:

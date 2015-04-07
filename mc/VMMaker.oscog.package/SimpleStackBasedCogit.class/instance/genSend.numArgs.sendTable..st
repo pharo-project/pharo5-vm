@@ -12,6 +12,9 @@ genSend: selector numArgs: numArgs sendTable: sendTable
 	self MoveMw: numArgs * objectMemory wordSize r: SPReg R: ReceiverResultReg.
 	numArgs > 2 ifTrue:
 		[self MoveCq: numArgs R: SendNumArgsReg].
+	(BytecodeSetHasDirectedSuperSend
+	 and: [annotation = IsDirectedSuperSend]) ifTrue:
+		[self annotate: (self MoveCw: tempOop R: TempReg) objRef: tempOop].
 	self MoveCw: selector R: ClassReg.
 	self annotate: (self Call: (sendTable at: (numArgs min: NumSendTrampolines - 1)))
 		with: annotation.

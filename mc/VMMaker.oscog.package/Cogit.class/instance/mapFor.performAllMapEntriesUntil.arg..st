@@ -5,7 +5,7 @@ mapFor: cogMethod performAllMapEntriesUntil: functionSymbol arg: arg
 	| mcpc map mapByte result |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.
-	[(mapByte := coInterpreter byteAt: map) ~= MapEnd] whileTrue:
+	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
 			ifTrue:
 				[mcpc := mcpc + (mapByte bitAnd: DisplacementMask)]

@@ -5,7 +5,7 @@ printPCMapPairsFor: cogMethod on: aStream
 	| mcpc map mapByte annotation |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.
-	[(mapByte := coInterpreter byteAt: map) ~= MapEnd] whileTrue:
+	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.
 		 annotation ~= IsAnnotationExtension ifTrue:
 			[mcpc := mcpc + (annotation = IsDisplacementX2N

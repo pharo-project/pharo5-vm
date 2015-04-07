@@ -13,7 +13,7 @@ generateCogMethod: selector
 	self computeMaximumSizes.
 	methodLabel concretizeAt: methodZone freeStart.
 	codeSize := self generateInstructionsAt: methodLabel address + headerSize.
-	mapSize := self generateMapAt: 0 start: methodLabel address + cmNoCheckEntryOffset.
+	mapSize := self generateMapAt: nil start: methodLabel address + cmNoCheckEntryOffset.
 	totalSize := methodZone roundUpLength: headerSize + codeSize + mapSize.
 	totalSize > MaxMethodSize ifTrue:
 		[^self cCoerceSimple: MethodTooBig to: #'CogMethod *'].

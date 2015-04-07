@@ -6,10 +6,10 @@ annotationForMcpc: mcpc in: cogHomeMethod
 	mapLocation := self findMapLocationForMcpc: mcpc inMethod: cogHomeMethod.
 	mapLocation = 0 ifTrue:
 		[^0].
-	mapByte := coInterpreter byteAt: mapLocation.
+	mapByte := objectMemory byteAt: mapLocation.
 	annotation := mapByte >> AnnotationShift.
 	annotation = IsSendCall ifTrue:
-		[mapByte := coInterpreter byteAt: mapLocation - 1.
+		[mapByte := objectMemory byteAt: mapLocation - 1.
 		 mapByte >> AnnotationShift = IsAnnotationExtension ifTrue:
 			[annotation := annotation + (mapByte bitAnd: DisplacementMask)]].
 	^annotation

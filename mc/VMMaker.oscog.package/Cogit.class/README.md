@@ -74,7 +74,7 @@ numAbstractOpcodes <Integer>
 blockStarts <Array of <BlockStart>>
 	the starts of blocks in the current method
 blockCount
-	the index into blockStarts as they are being noted, and hence eventuakly teh total number of blocks in the current method
+	the index into blockStarts as they are being noted, and hence eventually the total number of blocks in the current method
 labelCounter <Integer>
 	a nicety for numbering labels not needed in the production system but probably not expensive enough to worry about
 ceStackOverflowTrampoline <Integer>

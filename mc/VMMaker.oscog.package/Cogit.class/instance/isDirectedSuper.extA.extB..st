@@ -9,5 +9,5 @@ isDirectedSuper: descriptor extA: exta extB: extb
 													with jjj (+ (Extend B bitAnd: 63) * 8) Arguments]"
 	<inline: true>
 	^descriptor notNil
-	  and: [descriptor == #genExtSendSuperBytecode
+	  and: [descriptor generator == #genExtSendSuperBytecode
 	  and: [extb >= 64]]

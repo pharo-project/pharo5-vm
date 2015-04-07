@@ -4,9 +4,10 @@ nextDescriptorAndExtensionsInto: aTrinaryBlock
 	<inline: true>
 	| savedB0 savedB1 savedB2 savedB3 savedEA savedEB descriptor bcpc |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
+	descriptor := self generatorAt: byte0.
 	savedB0 := byte0. savedB1 := byte1. savedB2 := byte2. savedB3 := byte3.
 	savedEA := extA. savedEB := extB.
-	bcpc := bytecodePC.
+	bcpc := bytecodePC + descriptor numBytes.
 	[bcpc > endPC ifTrue:
 		[^aTrinaryBlock value: nil value: 0 value: 0].
 	 byte0 := (objectMemory fetchByte: bcpc ofObject: methodObj)  + bytecodeSetOffset.

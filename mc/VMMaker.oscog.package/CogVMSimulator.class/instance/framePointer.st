@@ -1,4 +1,3 @@
-accessing
+debug support
 framePointer
-	<api>
 	^framePointer

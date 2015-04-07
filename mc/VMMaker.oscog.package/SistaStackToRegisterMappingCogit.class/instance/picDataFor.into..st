@@ -11,7 +11,7 @@ picDataFor: cogMethod into: arrayObj
 	errCode := self
 					mapFor: (self cCoerceSimple: cogMethod to: #'CogBlockMethod *')
 					bcpc: (coInterpreter startPCOfMethod: cogMethod methodObject)
-					performUntil: #picDataFor:IsBackwardBranch:Mcpc:Bcpc:Method:
+					withAnnotationPerformUntil: #picDataFor:Annotation:Mcpc:Bcpc:Method:
 					arg: cogMethod asVoidPointer.
 	errCode ~= 0 ifTrue:
 		[self assert: errCode = PrimErrNoMemory.

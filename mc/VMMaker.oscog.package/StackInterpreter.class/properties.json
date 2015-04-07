@@ -130,11 +130,11 @@
 	"name" : "StackInterpreter",
 	"pools" : [
 		"VMBasicConstants",
+		"VMBytecodeConstants",
 		"VMMethodCacheConstants",
 		"VMObjectIndices",
 		"VMSpurObjectRepresentationConstants",
 		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants",
 		"VMStackFrameOffsets" ],
 	"super" : "InterpreterPrimitives",
 	"type" : "normal" }

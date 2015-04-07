@@ -123,6 +123,7 @@
 		"PCReg",
 		"PopR",
 		"PrefetchAw",
+		"PushCq",
 		"PushCw",
 		"PushR",
 		"RISCTempReg",

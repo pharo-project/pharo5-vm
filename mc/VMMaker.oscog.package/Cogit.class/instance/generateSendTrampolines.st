@@ -21,6 +21,25 @@ generateSendTrampolines
 
 	"Generate these in the middle so they are within [firstSend, lastSend]."
 	self cppIf: NewspeakVM ifTrue: [self generateNewspeakSendTrampolines].
+	self cppIf: BytecodeSetHasDirectedSuperSend ifTrue:
+		[0 to: NumSendTrampolines - 2 do:
+			[:numArgs|
+			directedSuperSendTrampolines
+				at: numArgs
+				put: (self genTrampolineFor: #ceSend:above:to:numArgs:
+						  called: (self trampolineName: 'ceDirectedSuperSend' numArgs: numArgs)
+						  arg: ClassReg
+						  arg: TempReg
+						  arg: ReceiverResultReg
+						  arg: numArgs)].
+		directedSuperSendTrampolines
+			at: NumSendTrampolines - 1
+			put: (self genTrampolineFor: #ceSend:above:to:numArgs:
+						called: (self trampolineName: 'ceDirectedSuperSend' numArgs: -1)
+						arg: ClassReg
+						arg: TempReg
+						arg: ReceiverResultReg
+						arg: SendNumArgsReg)].
 
 	0 to: NumSendTrampolines - 2 do:
 		[:numArgs|

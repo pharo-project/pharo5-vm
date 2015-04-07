@@ -75,4 +75,5 @@
 		"shouldAnnotateObjectReference:" : "eem 4/3/2013 15:07",
 		"slotOffsetOfInstVarIndex:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"smallIntegerIsOnlyImmediateType" : "eem 10/3/2013 10:17",
-		"validInlineCacheTag:" : "eem 12/5/2014 18:43" } }
+		"validInlineCacheTag:" : "eem 12/5/2014 18:43",
+		"valueOfAssociation:" : "eem 4/6/2015 09:28" } }

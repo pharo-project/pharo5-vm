@@ -100,9 +100,9 @@
 	"pools" : [
 		"SpurMemoryManagementConstants",
 		"VMBasicConstants",
+		"VMBytecodeConstants",
 		"VMObjectIndices",
 		"VMSpurObjectRepresentationConstants",
-		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants" ],
+		"VMSqueakClassIndices" ],
 	"super" : "CogClass",
 	"type" : "normal" }

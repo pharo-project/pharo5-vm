@@ -29,6 +29,8 @@ setInterpreter: aCoInterpreter
 	(methodLabel := processor abstractInstructionCompilerClass new) cogit: self.
 	ordinarySendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	superSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+	BytecodeSetHasDirectedSuperSend ifTrue:
+		[directedSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
 	NewspeakVM ifTrue:
 		[selfSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 		dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).

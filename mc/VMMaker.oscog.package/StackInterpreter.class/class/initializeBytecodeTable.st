@@ -2,6 +2,8 @@ initialization
 initializeBytecodeTable
 	"StackInterpreter initializeBytecodeTable"
 
+	BytecodeSetHasDirectedSuperSend := false.
+
 	(initializationOptions at: #bytecodeTableInitializer ifAbsent: nil) ifNotNil:
 		[:initalizer| ^self perform: initalizer].
 

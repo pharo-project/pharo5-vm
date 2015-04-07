@@ -5,7 +5,7 @@ findMapLocationForMcpc: targetMcpc inMethod: cogMethod
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.
 	mcpc = targetMcpc ifTrue: [^map].
-	[(mapByte := coInterpreter byteAt: map) ~= MapEnd] whileTrue:
+	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.
 		 annotation ~= IsAnnotationExtension ifTrue:
 			[mcpc := mcpc + (annotation = IsDisplacementX2N

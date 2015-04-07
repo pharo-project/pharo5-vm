@@ -17,7 +17,7 @@ generateMapAt: addressOrNull start: startAddress
 		 [(delta := mcpc - location) > DisplacementMask] whileTrue:
 			[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
 			 self assert: maxDelta >> AnnotationShift <= DisplacementMask.
-			 addressOrNull ~= 0 ifTrue:
+			 addressOrNull ifNotNil:
 				[objectMemory
 					byteAt: addressOrNull - length
 					put: maxDelta >> AnnotationShift + DisplacementX2N.
@@ -27,23 +27,25 @@ generateMapAt: addressOrNull start: startAddress
 					  for: mcpc].
 			 location := location + maxDelta.
 			 length := length + 1].
-		 addressOrNull ~= 0 ifTrue:
+		 addressOrNull ifNotNil:
 			[mapEntry := delta + ((annotation annotation min: IsSendCall) << AnnotationShift).
 			 objectMemory byteAt: addressOrNull - length put: mapEntry.
 			 self traceMap: annotation
 				  byte: mapEntry
 				  at: addressOrNull - length
-				  for: mcpc.
-			 annotation annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
+				  for: mcpc].
+		 location := location + delta.
+		 length := length + 1.
+		 annotation annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
+			[addressOrNull ifNotNil:
 				[mapEntry := IsAnnotationExtension << AnnotationShift + (annotation annotation - IsSendCall).
-				 objectMemory byteAt: addressOrNull - (length := length + 1) put: mapEntry.
+				 objectMemory byteAt: addressOrNull - length put: mapEntry.
 				 self traceMap: annotation
 					  byte: mapEntry
 					  at: addressOrNull - length
-					  for: mcpc]].
-		 location := location + delta.
-		 length := length + 1].
-	addressOrNull ~= 0 ifTrue:
+					  for: mcpc].
+			 length := length + 1]].
+	addressOrNull ifNotNil:
 		[objectMemory byteAt: addressOrNull - length put: MapEnd.
 		 self traceMap: MapEnd
 			  byte: MapEnd

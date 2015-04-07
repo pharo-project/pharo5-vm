@@ -13,7 +13,7 @@ generateOpenPICPrototype
 	headerSize := self sizeof: CogMethod.
 	methodLabel concretizeAt: methodZoneBase.
 	codeSize := self generateInstructionsAt: methodZoneBase + headerSize.
-	mapSize := self generateMapAt: 0 start: methodZoneBase + cmNoCheckEntryOffset.
+	mapSize := self generateMapAt: nil start: methodZoneBase + cmNoCheckEntryOffset.
 	openPICSize := (methodZone roundUpLength: headerSize + codeSize) + (methodZone roundUpLength: mapSize).
 	"self cCode: ''
 		inSmalltalk:

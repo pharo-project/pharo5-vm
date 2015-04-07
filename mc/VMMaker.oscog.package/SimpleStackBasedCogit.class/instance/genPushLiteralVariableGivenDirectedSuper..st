@@ -6,6 +6,6 @@ genPushLiteralVariableGivenDirectedSuper: literalIndex
 	self nextDescriptorAndExtensionsInto:
 		[:descriptor :exta :extb|
 		(self isDirectedSuper: descriptor extA: exta extB: extb) ifTrue:
-			[self ssPushConstant: (self getLiteral: literalIndex).
+			[tempOop := self getLiteral: literalIndex.
 			 ^0]].
 	^self genPushLiteralVariable: literalIndex

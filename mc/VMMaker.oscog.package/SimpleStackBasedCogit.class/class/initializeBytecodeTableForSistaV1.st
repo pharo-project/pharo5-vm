@@ -2,6 +2,7 @@ class initialization
 initializeBytecodeTableForSistaV1
 	"SimpleStackBasedCogit initializeBytecodeTableForSistaV1"
 
+	BytecodeSetHasDirectedSuperSend := true.
 	FirstSpecialSelector := 96.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which

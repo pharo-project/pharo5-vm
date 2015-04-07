@@ -3,6 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"BytecodeSetHasDirectedSuperSend",
 		"CtxtTempFrameStart",
 		"LargeContextBit",
 		"LargeContextSize",
@@ -12,7 +13,7 @@
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		 ],
-	"name" : "VMSqueakV3BytecodeConstants",
+	"name" : "VMBytecodeConstants",
 	"pools" : [
 		"VMBasicConstants" ],
 	"super" : "SharedPool",

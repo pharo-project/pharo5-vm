@@ -1,6 +1,6 @@
 class initialization
 initializeMiscConstants
 	super initializeMiscConstants.
-	NumTrampolines := NewspeakVM
-							ifTrue: [70]
-							ifFalse: [52]
+	NumTrampolines := 52
+						+ (NewspeakVM ifTrue: [18] ifFalse: [0])
+						+ (BytecodeSetHasDirectedSuperSend ifTrue: [4] ifFalse: [0])

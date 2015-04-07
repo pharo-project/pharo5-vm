@@ -209,6 +209,7 @@ computeMaximumSize
 											ifFalse: [3]].
 		[PopR]			-> [^maxSize := 1].
 		[PushR]			-> [^maxSize := 1].
+		[PushCq]		-> [^maxSize := (self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
 		[PushCw]		-> [^maxSize := 5].
 		[PrefetchAw]	-> [^maxSize := self hasSSEInstructions ifTrue: [7] ifFalse: [0]].
 		"Conversion"

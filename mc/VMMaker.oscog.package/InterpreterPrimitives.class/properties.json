@@ -21,10 +21,10 @@
 	"name" : "InterpreterPrimitives",
 	"pools" : [
 		"VMBasicConstants",
+		"VMBytecodeConstants",
 		"VMMethodCacheConstants",
 		"VMObjectIndices",
 		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants",
 		"VMStackFrameOffsets" ],
 	"super" : "VMClass",
 	"type" : "normal" }
