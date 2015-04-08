@@ -12,7 +12,7 @@ incrementUsageOfTargetIfLinkedSend: annotation mcpc: mcpc ignored: superfluity
 				[ | targetMethod |
 				entryPoint := nsSendCache target.
 				targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
-				self assert: (self isPCWithinMethodZone: targetMethod asUnsignedInteger).
+				self assert: (self isPCWithinMethodZone: targetMethod).
 				targetMethod cmUsageCount < (CMMaxUsageCount // 2) ifTrue:
 					[targetMethod cmUsageCount: targetMethod cmUsageCount + 1]]]].
 

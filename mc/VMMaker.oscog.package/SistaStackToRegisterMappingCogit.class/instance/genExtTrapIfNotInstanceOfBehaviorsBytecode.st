@@ -23,6 +23,7 @@ genExtTrapIfNotInstanceOfBehaviorsBytecode
 	self ssFlushNoUpdateTo: simStackPtr.
 	self CallRT: ceTrapTrampoline.
 	label := self Label.
+	self annotateBytecode: label.
 	0 to: numBranches - 1 do:
 		[:i|
 		(branches at: i) jmpTarget: label].

@@ -8,8 +8,19 @@ cog: aMethodObj selector: aSelectorOop
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	self assert: ((coInterpreter methodHasCogMethod: aMethodObj) not
-				or: [(self noAssertMethodClassAssociationOf: aMethodObj) = objectMemory nilObject]).
+	"In Newspeak we support annonymous accessors and hence tolerate the same
+	 method being cogged multiple times.  But only if the method class association is nil."
+	NewspeakVM
+		ifTrue:
+			[(coInterpreter methodHasCogMethod: aMethodObj) ifTrue:
+				[cogMethod := coInterpreter cogMethodOf: aMethodObj.
+				 self deny: cogMethod selector = aSelectorOop.
+				 cogMethod selector = aSelectorOop ifTrue:
+					[^cogMethod].
+				 (coInterpreter methodClassAssociationOf: aMethodObj) ~= objectMemory nilObject ifTrue:
+					[self warnMultiple: cogMethod selectors: aSelectorOop.
+					^nil]]]
+		ifFalse: [self deny: (coInterpreter methodHasCogMethod: aMethodObj)].
 	"coInterpreter stringOf: aSelectorOop"
 	coInterpreter
 		compilationBreak: aSelectorOop

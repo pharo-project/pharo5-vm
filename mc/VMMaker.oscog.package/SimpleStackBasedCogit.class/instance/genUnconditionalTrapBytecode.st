@@ -1,4 +1,4 @@
 bytecode generators
-genUnconditionnalTrapBytecode
+genUnconditionalTrapBytecode
 	"SistaV1: *	217		Trap"
 	^EncounteredUnknownBytecode
