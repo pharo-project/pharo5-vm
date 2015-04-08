@@ -43,7 +43,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	self flag: #endianness.
 	cogit
 		MoveAw: objectMemory freeStartAddress R: ReceiverResultReg;
-		MoveCq: (self cCoerceSimple: header to: #usqInt) R: TempReg;
+		MoveCq: (self low32BitsOf: header) R: TempReg;
 		MoveR: TempReg Mw: 0 r: ReceiverResultReg;
 		MoveCq: header >> 32 R: TempReg;
 		MoveR: TempReg Mw: 4 r: ReceiverResultReg;

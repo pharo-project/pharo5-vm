@@ -15,7 +15,7 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 					[self error: 'linking callsite to invalid address']].
 	callDistance := (callTargetAddress - (callSiteReturnAddress + 8 "pc offset"- 4 "return offset")) signedIntToLong.
 	
-	self assert: (self isQuick: callDistance). "we don't support long call updates, yet"
+	self assert: (self isInImmediateJumpRange: callDistance). "we don't support long call updates, yet"
 	call := self cond: AL br: 1 offset: callDistance.
 	objectMemory longAt:  callSiteReturnAddress - 4 put: call.
 	

@@ -5,7 +5,7 @@
 		"declareCVarsIn:" : "eem 12/13/2010 21:55",
 		"initializeBytecodeTableForNewspeakV3PlusClosures" : "rmacnak 3/28/2015 16:51",
 		"initializeBytecodeTableForNewspeakV4" : "rmacnak 4/4/2015 15:39",
-		"initializeBytecodeTableForSistaV1" : "eem 4/7/2015 10:42",
+		"initializeBytecodeTableForSistaV1" : "eem 4/7/2015 15:52",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 8/8/2014 19:19",
 		"initializeMiscConstants" : "eem 4/6/2015 12:21",
 		"initializePrimitiveTableForNewsqueak" : "eem 9/13/2014 15:07",

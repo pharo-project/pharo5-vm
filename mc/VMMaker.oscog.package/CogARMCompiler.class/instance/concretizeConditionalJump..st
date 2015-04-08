@@ -8,7 +8,7 @@ concretizeConditionalJump: conditionCode
 	<inline: true>
 	| offset |
 	offset := self computeJumpTargetOffsetPlus: 8.
- 	(self isQuick: offset)
+ 	(self isInImmediateJumpRange: offset)
 		ifTrue: [
 			self machineCodeAt: 0 put: (self cond: conditionCode br: 0 offset: offset). "B offset"
 			^machineCodeSize := 4]

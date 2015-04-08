@@ -33,7 +33,7 @@ sizePCDependentInstructionAt: eventualAbsoluteAddress
 			[maximumSpan := target - (eventualAbsoluteAddress + 2)].
 	address := eventualAbsoluteAddress.
 	^machineCodeSize := opcode = Call 
-				ifTrue: [(self isQuick: maximumSpan) ifTrue: [4] ifFalse: [20]]
-				ifFalse: [(self isLongJump not and: [self isQuick: maximumSpan])
+				ifTrue: [(self isInImmediateJumpRange: maximumSpan) ifTrue: [4] ifFalse: [20]]
+				ifFalse: [(self isLongJump not and: [self isInImmediateJumpRange: maximumSpan])
 								ifTrue: [4]
 								ifFalse: [20]] "load address to register, add"

@@ -12,7 +12,7 @@ concretizeCall
 	self assert: (operands at: 0) ~= 0.
 	self assert: (operands at: 0) \\ 4 = 0.
 	offset := (operands at: 0) signedIntFromLong - (address + 8 "normal pc offset") signedIntFromLong.
-	(self isQuick: offset)
+	(self isInImmediateJumpRange: offset)
 		ifTrue: [
 			self machineCodeAt: 0 put: (self bl: offset). "BL offset"
 			^machineCodeSize := 4]
