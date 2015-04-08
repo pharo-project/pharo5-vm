@@ -1,6 +1,6 @@
 generate machine code
 computeMaximumSize
-	"Because we don't use Thumb, each ARM instruction has 4 bytes. Some abstract opcodes need more than one instruction."
+	"Because we don't use Thumb, each ARM instruction has 4 bytes. Some abstract opcodes need more than one instruction. We only handle those in this caseOf: and let the default return 4"
 	
 	(opcode between: FirstShortJump and: LastJump) ifTrue:
 		[^maxSize := 16].
@@ -88,6 +88,9 @@ computeMaximumSize
 											ifTrue: [:r :i| maxSize := 4]
 											ifFalse: [maxSize := 20]].
 			[PushCw]				-> [^maxSize := 20].
+			[PushCq]				-> [^self rotateable8bitImmediate: (operands at: 0)
+											ifTrue: [:r :i| maxSize := 8]
+											ifFalse: [maxSize := 20]].
 		}
 		otherwise: [^maxSize := 4].
 	^4 "to keep C compiler quiet"

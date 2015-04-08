@@ -8,7 +8,7 @@
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 4/2/2015 16:41",
 		"initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid" : "eem 4/2/2015 16:42",
 		"initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid" : "eem 4/2/2015 16:42",
-		"initializeMiscConstants" : "eem 4/6/2015 12:21",
+		"initializeNumTrampolines" : "eem 4/7/2015 17:10",
 		"initializeSimStackConstants" : "eem 12/7/2010 17:32",
 		"initializeWithOptions:" : "eem 4/6/2012 14:25",
 		"isAcceptableAncilliaryClass:" : "eem 10/31/2013 00:02",

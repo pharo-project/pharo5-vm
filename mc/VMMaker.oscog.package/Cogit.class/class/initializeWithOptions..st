@@ -10,4 +10,5 @@ initializeWithOptions: optionsDictionary
 	self initializeCogMethodConstants.
 	self initializeAnnotationConstants.
 	self initializeBytecodeTable.
+	self initializeNumTrampolines.
 	self initializePrimitiveTable

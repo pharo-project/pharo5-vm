@@ -3,11 +3,21 @@ concretizeMoveCqR
 	"Will get inlined into concretizeAt: switch."
 	"If the quick constant is in fact a shiftable 8bit, generate the apropriate MOV, otherwise do what is necessary for a whole word."
 	<inline: true>
+	|word reg|
+	word := operands at: 0.
+	reg := self concreteRegister: (operands at: 1).
 	self 
 		rotateable8bitImmediate: (operands at: 0) 
-		ifTrue: [:rot :immediate | | reg |
-			reg := self concreteRegister: (operands at: 1).
+		ifTrue: [:rot :immediate |
 			self machineCodeAt: 0 put: (self mov: reg imm: immediate ror: rot).
 			^machineCodeSize := 4]
-		ifFalse: [^self concretizeMoveCwR].
+		ifFalse: [|invVal|
+			word <0
+				ifTrue:[invVal := -1 - word]
+				ifFalse:[invVal := word bitInvert32].
+			self rotateable8bitImmediate: invVal
+				ifTrue: [ :rot :immediate |
+					self machineCodeAt: 0 put: (self mvn: reg imm: immediate ror: rot).
+					^machineCodeSize := 4]
+				ifFalse: [^self concretizeMoveCwR]]
 	
