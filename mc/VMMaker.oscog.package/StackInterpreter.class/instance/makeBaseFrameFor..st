@@ -21,10 +21,12 @@ makeBaseFrameFor: aContext "<Integer>"
 	"If the frame is a closure activation then the closure should be on the stack in
 	 the pushed receiver position (closures receiver the value[:value:] messages).
 	 Otherwise it should be the receiver proper."
-	maybeClosure := objectMemory followField: ClosureIndex ofObject: aContext.
+	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aContext.
 	maybeClosure ~= objectMemory nilObject
 		ifTrue:
-			[numArgs := self argumentCountOfClosure: maybeClosure.
+			[(objectMemory isForwarded: maybeClosure) ifTrue:
+				[maybeClosure := objectMemory fixFollowedField: ClosureIndex ofObject: aContext withInitialValue: maybeClosure].
+			 numArgs := self argumentCountOfClosure: maybeClosure.
 			 stackPages longAt: pointer put: maybeClosure]
 		ifFalse:
 			[| header |

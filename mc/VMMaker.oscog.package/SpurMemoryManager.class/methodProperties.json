@@ -461,6 +461,7 @@
 		"isSemaphoreOop:" : "eem 6/29/2014 10:21",
 		"isUnambiguouslyForwarder:" : "eem 7/9/2014 11:34",
 		"isValidClassIndex:" : "eem 2/14/2014 14:16",
+		"isValidClassTag:" : "eem 4/9/2015 10:40",
 		"isValidFreeObject:" : "eem 1/16/2015 11:38",
 		"isValidObjStack:" : "eem 10/31/2013 20:41",
 		"isValidObjStackAt:" : "eem 10/18/2013 10:16",

@@ -38,7 +38,9 @@ makeBaseFrameFor: aContext "<Integer>"
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aContext.
 	maybeClosure ~= objectMemory nilObject
 		ifTrue:
-			[numArgs := self argumentCountOfClosure: maybeClosure.
+			[(objectMemory isForwarded: maybeClosure) ifTrue:
+				[maybeClosure := objectMemory fixFollowedField: ClosureIndex ofObject: aContext withInitialValue: maybeClosure].
+			 numArgs := self argumentCountOfClosure: maybeClosure.
 			 stackPages
 				longAt: (pointer := pointer - objectMemory wordSize)
 				put: maybeClosure]
@@ -138,13 +140,11 @@ makeBaseFrameFor: aContext "<Integer>"
 		put: rcvr.
 	stackPtrIndex := self quickFetchInteger: StackPointerIndex ofObject: aContext.
 	self assert: ReceiverIndex + stackPtrIndex < (objectMemory lengthOf: aContext).
-	"Copy the non-argument temps and stack contents to the stack.
-	 Follow these to avoid any stale self references from super sends."
 	numArgs + 1 to: stackPtrIndex do:
 		[:i|
 		stackPages
 			longAt: (pointer := pointer - objectMemory wordSize)
-			put: (objectMemory followField: ReceiverIndex + i ofObject: aContext)].
+			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"top of stack is the instruction pointer"
 	stackPages longAt: (pointer := pointer - objectMemory wordSize) put: theIP.
 	page headSP: pointer.

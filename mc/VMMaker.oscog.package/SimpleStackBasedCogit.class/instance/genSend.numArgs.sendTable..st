@@ -10,6 +10,9 @@ genSend: selector numArgs: numArgs sendTable: sendTable
 	self assert: (numArgs between: 0 and: 255). "say"
 	self assert: (objectMemory addressCouldBeOop: selector).
 	self MoveMw: numArgs * objectMemory wordSize r: SPReg R: ReceiverResultReg.
+	"Deal with stale super sends; see SpurMemoryManager's class comment."
+	(self annotationIsForUncheckedEntryPoint: annotation) ifTrue:
+		[objectRepresentation genEnsureOopInRegNotForwarded: ReceiverResultReg scratchReg: TempReg].
 	numArgs > 2 ifTrue:
 		[self MoveCq: numArgs R: SendNumArgsReg].
 	(BytecodeSetHasDirectedSuperSend

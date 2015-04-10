@@ -21,7 +21,7 @@
 		"genConvertSmallIntegerToCharacterInReg:" : "eem 12/24/2013 18:31",
 		"genEnsureObjInRegNotForwarded:scratchReg:" : "eem 6/4/2014 16:48",
 		"genEnsureObjInRegNotForwarded:scratchReg:updatingMw:r:" : "eem 11/3/2014 18:17",
-		"genEnsureOopInRegNotForwarded:scratchReg:" : "eem 6/7/2014 14:40",
+		"genEnsureOopInRegNotForwarded:scratchReg:" : "eem 4/9/2015 11:00",
 		"genFetchIndexRegister:from:into:" : "eem 10/3/2013 10:07",
 		"genGetActiveContextNumArgs:large:inBlock:" : "eem 5/31/2014 21:46",
 		"genGetClassIndexOfNonImm:into:" : "eem 10/3/2013 10:15",

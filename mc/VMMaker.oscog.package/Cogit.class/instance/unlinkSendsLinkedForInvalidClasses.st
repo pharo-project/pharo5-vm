@@ -1,5 +1,5 @@
 jit - api
-unlinkSendsToForwardedClasses
+unlinkSendsLinkedForInvalidClasses
 	<api>
 	<option: #SpurObjectMemory>
 	"Unlink all sends in cog methods whose class tag is that of a forwarded class."
@@ -12,7 +12,7 @@ unlinkSendsToForwardedClasses
 		[cogMethod cmType = CMMethod
 			ifTrue:
 				[self mapFor: cogMethod
-					 performUntil: #unlinkIfForwardedSend:pc:ignored:
+					 performUntil: #unlinkIfInvalidClassSend:pc:ignored:
 					 arg: 0]
 			ifFalse:
 				[(cogMethod cmType = CMClosedPIC
