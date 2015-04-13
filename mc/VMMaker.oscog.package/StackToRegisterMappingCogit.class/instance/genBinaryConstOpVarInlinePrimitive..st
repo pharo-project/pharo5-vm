@@ -45,15 +45,15 @@ genBinaryConstOpVarInlinePrimitive: prim
 				self genBinaryInlineComparison: JumpNonZero opFalse: JumpZero destReg: ra ].
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
-		[64] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+		[64] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				adjust ~= 0 ifTrue: [ self AddCq: adjust R: ra. ]. 
-				self MoveCq: val R: TempReg.
+				self annotate: (self MoveCw: val R: TempReg) objRef: val.
 				self MoveXwr: ra R: TempReg R: ra].
-		[65] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+		[65] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := objectMemory baseHeaderSize - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				self AddCq: adjust R: ra.
-				self MoveCq: val R: TempReg.
+				self annotate: (self MoveCw: val R: TempReg) objRef: val.
 				self MoveXbr: ra R: TempReg R: ra]
 
 	}

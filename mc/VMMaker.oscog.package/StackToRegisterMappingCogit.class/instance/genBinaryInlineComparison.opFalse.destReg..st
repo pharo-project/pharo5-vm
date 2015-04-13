@@ -15,7 +15,13 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 					+ branchDescriptor numBytes
 					+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
 			postBranchPC := nextPC + branchDescriptor numBytes.
-			self ssPushConstant: objectMemory trueObject. "dummy object"
+			(self fixupAt: nextPC - initialPC) targetInstruction = 0
+				ifTrue: "The next instruction is dead.  we can skip it."
+					[deadCode := true.
+				 	 self ensureFixupAt: targetBytecodePC - initialPC.
+					 self ensureFixupAt: postBranchPC - initialPC]
+				ifFalse:
+					[self ssPushConstant: objectMemory trueObject]. "dummy value"
 			self gen: (branchDescriptor isBranchTrue ifTrue: [opTrue] ifFalse: [opFalse])
 				operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 			self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC)]

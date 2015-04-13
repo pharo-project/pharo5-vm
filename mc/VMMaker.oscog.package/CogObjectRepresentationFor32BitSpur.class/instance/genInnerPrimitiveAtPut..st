@@ -2,7 +2,7 @@ primitive generators
 genInnerPrimitiveAtPut: retNoffset
 	"Implement the guts of primitiveAtPut"
 	| formatReg jumpImmediate jumpBadIndex
-	  jumpSmallSize jumpNotIndexablePointers jumpNotIndexableBits
+	  jumpNotIndexablePointers jumpNotIndexableBits
 	  jumpIsContext jumpIsCompiledMethod jumpIsBytes jumpHasFixedFields
 	  jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
 	  jumpWordsOutOfBounds jumpBytesOutOfBounds jumpBytesOutOfRange
@@ -12,7 +12,6 @@ genInnerPrimitiveAtPut: retNoffset
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
-	<var: #jumpSmallSize type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
 	<var: #jumpHasFixedFields type: #'AbstractInstruction *'>
@@ -35,12 +34,7 @@ genInnerPrimitiveAtPut: retNoffset
 		into: (formatReg := SendNumArgsReg)
 		leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
 
-	"get numSlots into ClassReg."
-	cogit MoveCq: 0 R: ClassReg. "N.B. MoveMb:r:R: does not zero other bits"
-	cogit MoveMb: 7 r: ReceiverResultReg R: ClassReg. "MSB of header"
-	cogit CmpCq: objectMemory numSlotsMask R: ClassReg.
-	jumpSmallSize := cogit JumpBelow: 0.
-	cogit MoveMw: -8 r: ReceiverResultReg R: ClassReg. "LSW of overflow size header"
+	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
 
 	"dispatch on format in a combination of highest dynamic frequency order first and convenience.
 		  0 = 0 sized objects (UndefinedObject True False et al)
@@ -57,8 +51,7 @@ genInnerPrimitiveAtPut: retNoffset
 		12 - 15 16-bit indexable
 		16 - 23 byte indexable
 		24 - 31 compiled method"
-	jumpSmallSize jmpTarget:
-					(cogit CmpCq: objectMemory weakArrayFormat R: formatReg).
+	cogit CmpCq: objectMemory weakArrayFormat R: formatReg.
 	jumpNotPointers := cogit JumpAbove: 0.
 	"optimistic store check; assume index in range (almost always is)."
 	self genStoreCheckReceiverReg: ReceiverResultReg valueReg: Arg1Reg scratchReg: TempReg.
@@ -159,7 +152,7 @@ genInnerPrimitiveAtPut: retNoffset
 	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label)))))))))).
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
-	self genConvertIntegerToSmallIntegerInScratchReg: Arg0Reg.
+	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
 
 	jumpBadIndex jmpTarget: (jumpImmediate jmpTarget: cogit Label).
 

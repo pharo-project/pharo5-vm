@@ -32,7 +32,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 
 		(1 126 127 unknownBytecode)
 
-		(2 128 128 extendedPushBytecode needsFrameNever: 1)
+		(2 128 128 extendedPushBytecode)
 		(2 129 129 extendedStoreBytecode)
 		(2 130 130 extendedStoreAndPopBytecode)
 		(2 131 131 genExtendedSendBytecode isMapped)
@@ -46,7 +46,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(2 138 138 genPushNewArrayBytecode)),
 
 		((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
-			ifTrue: [#((3 139 139 callPrimitiveBytecode))]
+			ifTrue: [#((3 139 139 genCallPrimitiveBytecode))]
 			ifFalse: [#((1 139 139 unknownBytecode))]),
 
 	  #(

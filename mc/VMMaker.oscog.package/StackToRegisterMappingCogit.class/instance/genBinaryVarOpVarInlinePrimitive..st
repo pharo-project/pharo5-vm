@@ -45,14 +45,15 @@ genBinaryVarOpVarInlinePrimitive: prim
 				self genBinaryInlineComparison: JumpNonZero opFalse: JumpZero destReg: rr ].
 
 		"2064	through 2068, Pointer Object>>at:, Byte Object>>at:, Short16 Word Object>>at: LongWord32 Object>>at: Quad64Word Object>>at:. obj op 0-rel SmallInteger => oop"
-		[64] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+		[64] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				adjust ~= 0 ifTrue: [ self AddCq: adjust R: ra. ]. 
 				self MoveXwr: ra R: rr R: rr ].
-		[65] ->	[self genConvertSmallIntegerToIntegerInReg: ra.
+		[65] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := objectMemory baseHeaderSize - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				self AddCq: adjust R: ra.
-				self MoveXbr: ra R: rr R: rr ]
+				self MoveXbr: ra R: rr R: rr.
+				objectRepresentation genConvertIntegerToSmallIntegerInReg: rr]
 
 	}
 	otherwise: [^EncounteredUnknownBytecode].

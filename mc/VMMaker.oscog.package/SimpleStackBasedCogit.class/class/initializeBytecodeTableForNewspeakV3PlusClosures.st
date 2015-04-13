@@ -34,7 +34,7 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(3 126 126 unknownBytecode)		"Was non-absent Newspeak super"
 		(2 127 127 unknownBytecode)		"Was push implicit receiver"
 
-		(2 128 128 extendedPushBytecode needsFrameNever: 1)
+		(2 128 128 extendedPushBytecode)
 		(2 129 129 extendedStoreBytecode)
 		(2 130 130 extendedStoreAndPopBytecode)
 		(2 131 131 genExtendedSendBytecode isMapped)
@@ -47,7 +47,7 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(1 137 137 genPushActiveContextBytecode)
 		(2 138 138 genPushNewArrayBytecode)
 
-		(3 139 139 callPrimitiveBytecode)
+		(3 139 139 genCallPrimitiveBytecode)
 		(3 140 140 genPushRemoteTempLongBytecode)
 		(3 141 141 genStoreRemoteTempLongBytecode)
 		(3 142 142 genStoreAndPopRemoteTempLongBytecode)

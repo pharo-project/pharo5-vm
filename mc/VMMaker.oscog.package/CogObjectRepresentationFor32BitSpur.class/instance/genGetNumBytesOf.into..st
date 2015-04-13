@@ -9,7 +9,7 @@ genGetNumBytesOf: srcReg into: destReg
 	self genGetRawSlotSizeOfNonImm: srcReg into: TempReg.
 	cogit CmpCq: objectMemory numSlotsMask R: TempReg.
 	jmp := cogit JumpLess: 0.
-	cogit MoveMw: objectMemory wordSize negated r: srcReg R: destReg.
+	self genGetOverflowSlotsOf: srcReg into: destReg.
 	jmp jmpTarget: (cogit LogicalShiftLeftCq: objectMemory shiftForWord R: destReg). 
 	"Now: destReg = numSlots << shiftForWord"
 	cogit MoveMw: 0 r: srcReg R: TempReg.

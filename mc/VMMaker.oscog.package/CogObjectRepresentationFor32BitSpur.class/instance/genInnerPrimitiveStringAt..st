@@ -1,7 +1,7 @@
 primitive generators
 genInnerPrimitiveStringAt: retNoffset
 	"Implement the guts of primitiveStringAt; dispatch on size"
-	| formatReg jumpNotIndexable jumpSmallSize jumpBadIndex done
+	| formatReg jumpNotIndexable jumpBadIndex done
 	  jumpIsBytes jumpIsShorts jumpIsWords jumpWordTooBig
 	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds |
 	<inline: true>
@@ -11,7 +11,6 @@ genInnerPrimitiveStringAt: retNoffset
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
 	<var: #jumpIsWords type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
-	<var: #jumpSmallSize type: #'AbstractInstruction *'>
 	<var: #jumpWordTooBig type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
@@ -28,12 +27,7 @@ genInnerPrimitiveStringAt: retNoffset
 		into: (formatReg := SendNumArgsReg)
 		leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
 
-	"get numSlots into ClassReg."
-	cogit MoveCq: 0 R: ClassReg. "N.B. MoveMb:r:R: does not zero other bits"
-	cogit MoveMb: 7 r: ReceiverResultReg R: ClassReg. "MSB of header"
-	cogit CmpCq: objectMemory numSlotsMask R: ClassReg.
-	jumpSmallSize := cogit JumpLess: 0.
-	cogit MoveMw: -8 r: ReceiverResultReg R: ClassReg. "LSW of overflow size header"
+	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
 
 	"dispatch on format in a combination of highest dynamic frequency order first and convenience.
 		  0 = 0 sized objects (UndefinedObject True False et al)
@@ -50,8 +44,7 @@ genInnerPrimitiveStringAt: retNoffset
 		12 - 15 16-bit indexable
 		16 - 23 byte indexable
 		24 - 31 compiled method"
-	jumpSmallSize jmpTarget:
-					(cogit CmpCq: objectMemory firstByteFormat R: formatReg).
+	cogit CmpCq: objectMemory firstByteFormat R: formatReg.
 	jumpIsBytes := cogit JumpGreaterOrEqual: 0.
 					cogit CmpCq: objectMemory firstShortFormat R: formatReg.
 	jumpIsShorts := cogit JumpGreaterOrEqual: 0.

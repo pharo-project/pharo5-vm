@@ -26,7 +26,6 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg
 									ifTrue: [objectMemory baseHeaderSize - 1 - (objectMemory rememberedBitShift // 8)]
 									ifFalse:[objectMemory rememberedBitShift // 8].
 	mask := 1 << (objectMemory rememberedBitShift \\ 8).
-	"N.B. MoveMb:r:R: does not zero other bits"
 	cogit MoveMb: rememberedBitByteOffset r: destReg R: scratchReg.
 	cogit AndCq: mask R: scratchReg.
 	jmpAlreadyRemembered := cogit JumpNonZero: 0.
@@ -34,8 +33,9 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg
 	self assert: destReg == ReceiverResultReg.
 	cogit
 		CallRT: ceStoreCheckTrampoline
-		registersToBeSavedMask: ((cogit registerMaskFor: valueReg)
-										bitOr: cogit callerSavedRegMask).
+		registersToBeSavedMask: (((cogit registerMaskFor: valueReg)
+										bitOr: cogit callerSavedRegMask)
+										bitClear: (cogit registerMaskFor: ReceiverResultReg)).
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

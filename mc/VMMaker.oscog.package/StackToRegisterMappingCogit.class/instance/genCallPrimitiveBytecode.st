@@ -4,7 +4,9 @@ genCallPrimitiveBytecode
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#inlinePrimitiveBytecode:"
 	| prim |
 	byte2 < 128 ifTrue:
-		[^EncounteredUnknownBytecode].
+		[^bytecodePC = initialPC
+			ifTrue: [0]
+			ifFalse: [EncounteredUnknownBytecode]].
 	prim := byte2 - 128 << 8 + byte1.
 
 	prim < 1000 ifTrue:

@@ -93,7 +93,7 @@ initializeBytecodeTableForNewspeakV4
 		(2 246 248	unknownBytecode)
 
 		"3 byte bytecodes"
-		(3 249 249 callPrimitiveBytecode)
+		(3 249 249 genCallPrimitiveBytecode)
 		(3 250 250 genPushRemoteTempLongBytecode)
 		(3 251 251 genStoreRemoteTempLongBytecode)
 		(3 252 252 genStoreAndPopRemoteTempLongBytecode)

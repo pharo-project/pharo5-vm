@@ -6,14 +6,13 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 	 context.. Hack: If the object has a pointer format other than 2 leave the number of
 	 fixed fields in formatReg.  Used by primitiveSize, primitiveAt, and primitiveAtPut"
 	<returnTypeC: #'AbstractInstruction *'>
-	| jumpNotIndexable jumpSmallSize
+	| jumpNotIndexable
 	  jumpBytesDone jumpShortsDone jumpArrayDone jump32BitLongsDone
 	  jumpIsBytes jumpHasFixedFields jumpIsShorts jumpIsContext  |
 	<inline: true>
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
-	<var: #jumpSmallSize type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpArrayDone type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
@@ -25,12 +24,7 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 		into: formatReg
 		leastSignificantHalfOfBaseHeaderIntoScratch: scratchReg.
 
-	"get numSlots into destReg."
-	cogit MoveCq: 0 R: destReg. "N.B. MoveMb:r:R: does not zero other bits"
-	cogit MoveMb: 7 r: sourceReg R: destReg. "MSB of header"
-	cogit CmpCq: objectMemory numSlotsMask R: destReg.
-	jumpSmallSize := cogit JumpLess: 0.
-	cogit MoveMw: -8 r: sourceReg R: destReg. "LSW of overflow size header"
+	self genGetNumSlotsOf: sourceReg into: destReg.
 
 	"dispatch on format in a combination of highest dynamic frequency order first and convenience.
 		  0 = 0 sized objects (UndefinedObject True False et al)
@@ -47,8 +41,7 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 		12 - 15 16-bit indexable
 		16 - 23 byte indexable
 		24 - 31 compiled method"
-	jumpSmallSize jmpTarget:
-					(cogit CmpCq: objectMemory firstByteFormat R: formatReg).
+	cogit CmpCq: objectMemory firstByteFormat R: formatReg.
 	jumpIsBytes := cogit JumpGreaterOrEqual: 0.
 					cogit CmpCq: objectMemory arrayFormat R: formatReg.
 	jumpArrayDone := cogit JumpZero: 0.

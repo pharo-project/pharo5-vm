@@ -12,25 +12,27 @@ genUnaryInlinePrimitive: prim
 					(rcvrReg := optStatus isReceiverResultRegLive
 							ifTrue: [Arg0Reg]
 							ifFalse: [ReceiverResultReg])]].
+	(resultReg := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: rcvrReg))) ifNil:
+		[self ssAllocateRequiredReg: (resultReg := Arg1Reg)].
 	self ssTop popToReg: rcvrReg.
 	self ssPop: 1.
-	(resultReg := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
-		[self ssFlushUpThroughRegister: rcvrReg].
 	prim
 		caseOf: {
+					"00		unchecked class"
 			[1] ->	"01		unchecked pointer numSlots"
-				[resultReg ifNil: [resultReg := rcvrReg].
-				 objectRepresentation
+				[objectRepresentation
 					genGetNumSlotsOf: rcvrReg into: resultReg;
-					genConvertIntegerToSmallIntegerInScratchReg: resultReg.
-				 self ssPushRegister: resultReg].
-			[3] ->	"03 unchecked byte numBytes"
-				[resultReg ifNil: [resultReg := rcvrReg].
-				 objectRepresentation
+					genConvertIntegerToSmallIntegerInReg: resultReg].
+					"02		unchecked pointer basicSize"
+			[3] ->	"03		unchecked byte numBytes"
+				[objectRepresentation
 					genGetNumBytesOf: rcvrReg into: resultReg;
-					genConvertIntegerToSmallIntegerInScratchReg: resultReg.
-				 self ssPushRegister: resultReg].
+					genConvertIntegerToSmallIntegerInReg: resultReg].
+					"04		unchecked short16Type format numShorts"
+					"05		unchecked word32Type format numWords"
+					"06		unchecked doubleWord64Type format numDoubleWords"
 				  }
 		otherwise:
-			[^EncounteredUnknownBytecode].
+			[^EncounteredUnknownBytecode]..
+	self ssPushRegister: resultReg.
 	^0

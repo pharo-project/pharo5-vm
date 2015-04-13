@@ -4,9 +4,10 @@ genGetNumSlotsOf: srcReg into: destReg
 	 srcReg may equal destReg."
 	<var: #jmp type: #'AbstractInstruction *'>
 	| jmp |
-	self genGetRawSlotSizeOfNonImm: srcReg into: TempReg.
-	cogit CmpCq: objectMemory numSlotsMask R: TempReg.
+	self assert: srcReg ~= destReg.
+	self genGetRawSlotSizeOfNonImm: srcReg into: destReg.
+	cogit CmpCq: objectMemory numSlotsMask R: destReg.
 	jmp := cogit JumpLess: 0.
-	cogit MoveMw: objectMemory wordSize negated r: srcReg R: TempReg.
-	jmp jmpTarget: (cogit MoveR: TempReg R: destReg).
+	self genGetOverflowSlotsOf: srcReg into: destReg.
+	jmp jmpTarget: cogit Label.
 	^0

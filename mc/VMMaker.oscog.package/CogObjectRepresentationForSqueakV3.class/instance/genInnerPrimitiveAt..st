@@ -67,7 +67,7 @@ genInnerPrimitiveAt: retNoffset
 		MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg;
 		CmpCq: 16r3FFFFFFF R: ReceiverResultReg.
 	jumpLarge := cogit JumpAbove: 0.
-	self genConvertIntegerToSmallIntegerInScratchReg: ReceiverResultReg.
+	self genConvertIntegerToSmallIntegerInReg: ReceiverResultReg.
 	cogit RetN: retNoffset.
 	jumpLarge jmpTarget: (cogit CallRT: cePositive32BitIntegerTrampoline).
 	cogit

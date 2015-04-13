@@ -162,8 +162,8 @@ computeMaximumSize
 											ifTrue: [1]
 											ifFalse: [0])].
 		[MoveMbrR]		-> [^maxSize := ((self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [6])
+											ifTrue: [4]
+											ifFalse: [7])
 										+ ((self concreteRegister: (operands at: 1)) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
