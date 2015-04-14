@@ -4,16 +4,8 @@ genUnaryInlinePrimitive: prim
 	"SistaV1: 248		11111000 	iiiiiiii		mjjjjjjj		Call Primitive #iiiiiiii + (jjjjjjj * 256) m=1 means inlined primitive, no hard return after execution.
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#unaryInlinePrimitive:"
 	| rcvrReg resultReg |
-	self ssTop type = SSRegister
-		ifTrue: [rcvrReg := self ssTop register]
-		ifFalse:
-			[(rcvrReg := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
-				[self ssAllocateRequiredReg:
-					(rcvrReg := optStatus isReceiverResultRegLive
-							ifTrue: [Arg0Reg]
-							ifFalse: [ReceiverResultReg])]].
-	(resultReg := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: rcvrReg))) ifNil:
-		[self ssAllocateRequiredReg: (resultReg := Arg1Reg)].
+	rcvrReg := self allocateOneRegister.
+	resultReg := self allocateRegisterNotConflictingWith: (self registerMaskFor: rcvrReg).
 	self ssTop popToReg: rcvrReg.
 	self ssPop: 1.
 	prim

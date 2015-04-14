@@ -12,12 +12,12 @@ ssAllocatePreferredReg: preferredReg
 		(liveRegs bitAnd: preferredMask) ~= 0 ifTrue:
 			[lastPreferred := i]].
 	"If preferredReg is not live we can allocate it."
-	(liveRegs bitAnd: (self registerMaskFor: preferredReg)) = 0 ifTrue:
+	(self register: preferredReg isInMask: liveRegs) ifFalse:
 		[^preferredReg].
 	"If any other is not live we can allocate it."
 	GPRegMin to: GPRegMax do:
 		[:reg|
-		(liveRegs bitAnd: (self registerMaskFor: reg)) = 0 ifTrue:
+		(self register: reg isInMask: liveRegs) ifFalse:
 			[^reg]].
 	"All live, must spill"
 	self ssFlushTo: lastPreferred.

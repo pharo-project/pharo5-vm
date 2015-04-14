@@ -5,7 +5,6 @@ genBinaryVarOpVarInlinePrimitive: prim
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#binaryInlinePrimitive:"
 	| ra rr adjust |
 	self allocateTwoRegistersInto: [:rTop :rNext | ra := rTop. rr := rNext ].
-	(rr = ReceiverResultReg or: [ra = ReceiverResultReg]) ifTrue: [ optStatus isReceiverResultRegLive: false ].
 	self ssTop popToReg: ra.
 	self ssPop: 1.
 	self ssTop popToReg: rr.

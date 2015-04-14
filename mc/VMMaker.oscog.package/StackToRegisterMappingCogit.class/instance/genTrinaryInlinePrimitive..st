@@ -5,20 +5,8 @@ genTrinaryInlinePrimitive: prim
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#trinaryInlinePrimitive:"
 
 	| ra1 ra2 rr adjust |
-	(ra2 := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
-		[self ssAllocateRequiredReg: (ra2 := Arg1Reg)].
-	(ra1 := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: ra2))) ifNil:
-		[self ssAllocateRequiredReg: (ra1 := Arg0Reg)].
-	prim = 0
-		ifTrue:
-			[rr := ReceiverResultReg.
-			 ((self ssValue: 2) type = SSRegister
-			  and: [(self ssValue: 2) register = ReceiverResultReg]) ifFalse:
-				[self ssAllocateRequiredReg: rr]]
-		ifFalse:
-			[(rr := backEnd availableRegisterOrNilFor: (self liveRegisters bitOr: (self registerMaskFor: ra1 and: ra2))) ifNil:
-				[self ssAllocateRequiredReg: (rr := ReceiverResultReg)].
-			 optStatus isReceiverResultRegLive: false].
+	"The store check requires rr to be ReceiverResultReg"
+	self allocateThreeRegistersInto: [:rTop :rNext :rThird | ra2 := rTop. ra1 := rNext. rr := rThird ] thirdIsReceiver: prim = 0.
 	self assert: (rr ~= ra1 and: [rr ~= ra2 and: [ra1 ~= ra2]]).
 	self ssTop popToReg: ra2.
 	self ssPop: 1.

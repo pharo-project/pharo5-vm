@@ -4,13 +4,7 @@ genBinaryConstOpVarInlinePrimitive: prim
 	"SistaV1: 248		11111000 	iiiiiiii		mjjjjjjj		Call Primitive #iiiiiiii + (jjjjjjj * 256) m=1 means inlined primitive, no hard return after execution.
 	 See EncoderForSistaV1's class comment and StackInterpreter>>#binaryInlinePrimitive:"
 	| ra val untaggedVal adjust |
-	(ra := backEnd availableRegisterOrNilFor: self liveRegisters) ifNil:
-		[self ssAllocateRequiredReg:
-			(ra := optStatus isReceiverResultRegLive
-					ifTrue: [Arg0Reg]
-					ifFalse: [ReceiverResultReg])].
-	ra = ReceiverResultReg ifTrue:
-		[optStatus isReceiverResultRegLive: false].
+	ra := self allocateOneRegister.
 	self ssTop popToReg: ra.
 	self ssPop: 1.
 	val := self ssTop constant.
