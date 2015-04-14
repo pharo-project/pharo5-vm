@@ -29,9 +29,8 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(124 returnTopFromMethod)
 		(125 returnTopFromBlock)
 
-		"2 of the 3 Newspeak bytecodes"
-		(126 dynamicSuperSendBytecode)
-		(127 pushImplicitReceiverBytecode)
+		(126 unknownBytecode) "Was non-absent dynamic super send"
+		(127 unknownBytecode) "Was push implicit receiver"
 
 		(128 extendedPushBytecode)
 		(129 extendedStoreBytecode)
@@ -44,13 +43,10 @@ initializeBytecodeTableForNewspeakV3PlusClosures
 		(136 duplicateTopBytecode)
 
 		(137 pushActiveContextBytecode)
-		(138 pushNewArrayBytecode)),
+		(138 pushNewArrayBytecode)
 
-	((initializationOptions at: #SpurObjectMemory ifAbsent: [false])
-		ifTrue: [#((139 callPrimitiveBytecode))]					"V3PlusClosures on Spur"
-		ifFalse: [#((139 pushEnclosingObjectBytecode))]),	"Newspeak on V3"
+		(139 callPrimitiveBytecode) "Was push enclosing object"
 
-	  #(
 		(140 pushRemoteTempLongBytecode)
 		(141 storeRemoteTempLongBytecode)
 		(142 storeAndPopRemoteTempLongBytecode)

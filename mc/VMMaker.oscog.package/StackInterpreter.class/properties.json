@@ -3,6 +3,9 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"AccessModifierPrivate",
+		"AccessModifierProtected",
+		"AccessModifierPublic",
 		"AltBytecodeEncoderClassName",
 		"AltLongStoreBytecode",
 		"AlternateHeaderHasPrimFlag",

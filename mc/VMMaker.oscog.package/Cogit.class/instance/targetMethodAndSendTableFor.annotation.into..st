@@ -18,15 +18,12 @@ targetMethodAndSendTableFor: entryPoint annotation: annotation into: binaryBlock
 	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
 		[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
 		 sendTable := selfSendTrampolines] ifFalse:
-	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
+	[(NewspeakVM and: [annotation = IsNSDynamicSuperSend]) ifTrue:
 		[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
-		 sendTable := selfSendTrampolines] ifFalse:
-	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
-		[targetMethod := self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *'.
-		 sendTable := selfSendTrampolines] ifFalse:
+		 sendTable := dynamicSuperSendTrampolines] ifFalse:
 	[self assert: annotation = IsSuperSend.
 	 targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
-	 sendTable := superSendTrampolines]]]]].
+	 sendTable := superSendTrampolines]]]].
 
 	binaryBlock
 		value: targetMethod

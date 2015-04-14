@@ -11,7 +11,7 @@
 		"initializePrimitiveTableForNewsqueak" : "eem 9/13/2014 15:07",
 		"initializePrimitiveTableForSqueak" : "eem 9/13/2014 15:07" },
 	"instance" : {
-		"annotationForSendTable:" : "eem 4/6/2015 14:44",
+		"annotationForSendTable:" : "rmacnak 4/12/2015 17:20",
 		"bytecodeFixupClass" : "eem 11/22/2010 11:09",
 		"cPICMissTrampolineFor:" : "eem 12/3/2010 17:05",
 		"ceClosureCopyDescriptor:" : "eem 11/1/2012 17:56",

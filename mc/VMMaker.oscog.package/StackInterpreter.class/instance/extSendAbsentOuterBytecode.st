@@ -12,4 +12,6 @@ extSendAbsentOuterBytecode
 							enclosingObjectAt: depth
 							withObject: self receiver 
 							withMixin: (self methodClassOf: method).
+	CheckPrivacyViolations ifTrue:
+            [isPrivateSend := true].
 	self commonSendAbsent

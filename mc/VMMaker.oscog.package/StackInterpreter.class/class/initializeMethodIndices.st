@@ -16,4 +16,7 @@ initializeMethodIndices
 	"The position of the unused flag bit in the method header, not including tag bit(s).
 	 Bits 28 & 29 are either used as an accessModifer code in Newspeak (public, private, protected)
 	 or are free for use as flag bits."
-	MethodHeaderFlagBitPosition := 28 + tagBits
+	MethodHeaderFlagBitPosition := 28 + tagBits.
+	AccessModifierPublic := 2r00.
+	AccessModifierPrivate := 2r01.
+	AccessModifierProtected := 2r10.

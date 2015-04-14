@@ -14,15 +14,12 @@ offsetAndSendTableFor: entryPoint annotation: annotation into: binaryBlock
 	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
 		[offset := cmEntryOffset.
 		 sendTable := selfSendTrampolines] ifFalse:
-	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
+	[(NewspeakVM and: [annotation = IsNSDynamicSuperSend]) ifTrue:
 		[offset := cmEntryOffset.
-		 sendTable := selfSendTrampolines] ifFalse:
-	[(NewspeakVM and: [annotation = IsNSSelfSend]) ifTrue:
-		[offset := cmEntryOffset.
-		 sendTable := selfSendTrampolines] ifFalse:
+		 sendTable := dynamicSuperSendTrampolines] ifFalse:
 	[self assert: annotation = IsSuperSend.
 	 offset := cmNoCheckEntryOffset.
-	 sendTable := superSendTrampolines]]]]].
+	 sendTable := superSendTrampolines]]]].
 
 	binaryBlock
 		value: offset
