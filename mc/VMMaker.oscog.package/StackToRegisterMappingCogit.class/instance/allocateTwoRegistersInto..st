@@ -1,5 +1,6 @@
 simulation stack
 allocateTwoRegistersInto: binaryBlock
+	<inline: true>
 	| topRegistersMask rTop rNext |
 	
 	topRegistersMask := 0.

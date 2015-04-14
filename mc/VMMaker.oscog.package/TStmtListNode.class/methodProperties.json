@@ -2,6 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
+		"addReadBeforeAssignedIn:to:assignments:" : "eem 4/13/2015 19:17",
 		"args" : "",
 		"assignLastExpressionTo:" : "eem 2/13/2015 17:16",
 		"bindVariableUsesIn:" : "jm 12/10/1998 18:26",

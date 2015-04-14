@@ -1,5 +1,6 @@
 simulation stack
 allocateThreeRegistersInto: trinaryBlock thirdIsReceiver: thirdIsReceiver
+	<inline: true>
 	| topRegistersMask rTop rNext rThird |
 	
 	topRegistersMask := 0.
