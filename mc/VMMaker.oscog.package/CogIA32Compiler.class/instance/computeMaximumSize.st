@@ -196,9 +196,12 @@ computeMaximumSize
 											ifTrue: [5]
 											ifFalse: [4]].
 		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
-							^maxSize := (self concreteRegister: (operands at: 2)) = EBP
+							^maxSize := ((self concreteRegister: (operands at: 2)) = EBP
 											ifTrue: [4]
-											ifFalse: [3]].
+											ifFalse: [3])
+										+ ((self concreteRegister: (operands at: 0)) >= 4
+											ifTrue: [2]
+											ifFalse: [0])].
 		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= ESP.
 							^maxSize := (self concreteRegister: (operands at: 1)) = EBP
 											ifTrue: [4]

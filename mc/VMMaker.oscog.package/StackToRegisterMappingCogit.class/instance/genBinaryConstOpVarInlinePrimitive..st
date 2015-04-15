@@ -25,14 +25,15 @@ genBinaryConstOpVarInlinePrimitive: prim
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 
 		"2032	through 2037, >, <, >=, <=. =, ~=, SmallInteger op SmallInteger => Boolean (flags?? then in jump bytecodes if ssTop is a flags value, just generate the instruction!!)"
+		"CmpCqR is SubRCq so everything is reversed, but because no CmpRCq things are reversed again and we invert the sense of the jumps."
 		[32] -> [ self CmpCq: val R: ra.
-				self genBinaryInlineComparison: JumpGreater opFalse: JumpLess destReg: ra ].
+				self genBinaryInlineComparison: JumpLessOrEqual opFalse: JumpGreater destReg: ra ].
 		[33] -> [ self CmpCq: val R: ra.
-				self genBinaryInlineComparison: JumpLess opFalse: JumpGreater destReg: ra ].
+				self genBinaryInlineComparison: JumpGreaterOrEqual opFalse: JumpLess destReg: ra ].
 		[34] -> [ self CmpCq: val R: ra.
-				self genBinaryInlineComparison: JumpGreaterOrEqual opFalse: JumpLessOrEqual destReg: ra ].
+				self genBinaryInlineComparison: JumpLess opFalse: JumpGreaterOrEqual destReg: ra ].
 		[35] -> [ self CmpCq: val R: ra.
-				self genBinaryInlineComparison: JumpLessOrEqual opFalse: JumpGreaterOrEqual destReg: ra ].
+				self genBinaryInlineComparison: JumpGreater opFalse: JumpLessOrEqual destReg: ra ].
 		[36] -> [ self CmpCq: val R: ra.
 				self genBinaryInlineComparison: JumpZero opFalse: JumpNonZero destReg: ra ].
 		[37] -> [ self CmpCq: val R: ra.
