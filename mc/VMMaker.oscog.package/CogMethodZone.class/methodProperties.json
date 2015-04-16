@@ -17,7 +17,7 @@
 		"ensureInYoungReferrers:" : "eem 8/4/2014 12:15",
 		"findPreviouslyCompiledVersionOf:with:" : "eem 7/9/2014 19:58",
 		"freeMethod:" : "eem 2/24/2015 11:02",
-		"freeOlderMethodsForCompaction" : "eem 5/31/2010 12:15",
+		"freeOlderMethodsForCompaction" : "eem 4/14/2015 17:11",
 		"freeStart" : "eem 12/3/2013 13:41",
 		"freeStart:" : "eem 8/13/2012 10:28",
 		"kosherYoungReferrers" : "eem (const to msg rewrite) 11/6/2014 11:51",

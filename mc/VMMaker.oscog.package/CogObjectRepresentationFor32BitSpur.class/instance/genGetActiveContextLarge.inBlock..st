@@ -9,12 +9,11 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	<var: #jumpSingle type: #'AbstractInstruction *'>
 	<var: #loopHead type: #'AbstractInstruction *'>
 	<var: #exit type: #'AbstractInstruction *'>
-	cogit
-		MoveMw: FoxMethod r: FPReg R: TempReg;
-		MoveR: TempReg R: ClassReg;
-		AndCq: MFMethodFlagHasContextFlag R: TempReg.
-	jumpSingle := cogit JumpZero: 0.
-	cogit
+	cogit "load the flag; stash it in both TempReg & ClassReg; do the compare (a prime candidated for use of AndCq:R:R:)"
+		MoveMw: FoxMethod r: FPReg R: ClassReg;
+		AndCq: MFMethodFlagHasContextFlag R: ClassReg R: TempReg.
+	jumpSingle := cogit JumpZero: 0. "jump if flag bit not set"
+	cogit "since the flag bit was set, get the context in the receiver reg and return"
 		MoveMw: FoxThisContext r: FPReg R: ReceiverResultReg;
 		RetN: 0.
 	jumpSingle jmpTarget: cogit Label.
@@ -71,7 +70,9 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		MoveR: TempReg Mw: objectMemory baseHeaderSize + (MethodIndex * objectMemory wordSize) r: ReceiverResultReg;
 		MoveR: ReceiverResultReg Mw: FoxThisContext r: FPReg.
 
-	"Now compute stack pointer; this is stackPointer (- 1 for return pc if a CISC) - framePointer - 4 (1 each for saved pc, method, context, receiver) + 1 (1-relative)"
+	"Now compute stack pointer; this is stackPointer (- 1 for return pc if a CISC) - framePointer - 4 (1 each for saved pc, method, context, receiver) + 1 (1-relative) + numArgs"
+	"TPR note - the code here is actually doing
+	context stackPointer := ((((fp - sp) / 4) - [3|4]) + num args) asSmallInteger"
 	cogit
 		MoveR: FPReg R: TempReg;
 		SubR: SPReg R: TempReg;
@@ -103,6 +104,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		[:i|
 		temp := longAt(FPReg + ((SendNumArgs - i + 2) * BytesPerWord)). +2 for saved pc and savedfp
 		longAtput(FPReg + FoxMFReceiver + (i * BytesPerWord), temp)]"
+	"TPR note: this is a prime candidate for passing off to the backend to do at least faintly optimal code"
 	cogit MoveCq: 1 R: ClassReg.
 	loopHead := cogit CmpR: SendNumArgsReg R: ClassReg.
 	exit := cogit JumpGreater: 0.
@@ -117,7 +119,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		Jump: loopHead.
 	exit jmpTarget: cogit Label.
 
-	"Finally copy the temps.
+	"Finally nil or copy the non-argument temps.
 	 ClassReg := FPReg + FoxMFReceiver.
 	 SendNumArgsReg := SendNumArgsReg+ReceiverIndex.
 	 [ClassReg := ClassReg - 4.
@@ -126,6 +128,8 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 			ifFalse: [ClassReg >= SPReg]] whileTrue:
 		[receiver[SendNumArgsReg] := *ClassReg.
 		 SendNumArgsReg := SendNumArgsReg + 1]]"
+	coInterpreter marryFrameCopiesTemps ifFalse:
+		[cogit MoveCq: objectMemory nilObject R: TempReg].
 	cogit
 		MoveR: FPReg R: ClassReg;
 		AddCq: FoxMFReceiver R: ClassReg;
@@ -133,11 +137,13 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	loopHead :=
 	cogit SubCq: objectMemory wordSize R: ClassReg.
 	cogit CmpR: SPReg R: ClassReg.
+	"If on a CISC there's a retpc for the trampoline call on top of stack; if on a RISC there isn't."
 	exit := cogit backEnd hasLinkRegister
 				ifTrue: [cogit JumpBelowOrEqual: 0]
 				ifFalse: [cogit JumpBelow: 0].
+	coInterpreter marryFrameCopiesTemps ifTrue:
+		[cogit MoveMw: 0 r: ClassReg R: TempReg].
 	cogit
-		MoveMw: 0 r: ClassReg R: TempReg;
 		MoveR: TempReg Xwr: SendNumArgsReg R: ReceiverResultReg;
 		AddCq: 1 R: SendNumArgsReg;
 		Jump: loopHead.
@@ -146,6 +152,6 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	cogit RetN: 0.
 	
 	jumpNeedScavenge jmpTarget:
-		(cogit CallRT: ceScheduleScavengeTrampoline).
+		(cogit backEnd saveAndRestoreLinkRegAround: [cogit CallRT: ceScheduleScavengeTrampoline]). "We need to push the LR here for ARM, and pop it back after the callRT:"
 	cogit Jump: continuation.
 	^0

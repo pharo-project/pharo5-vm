@@ -6,7 +6,7 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
-	"If on a RISC processor, the return address needs to be pushed to the
+	"If on an ARM-like RISC processor, the return address needs to be pushed to the
 	 stack so that the interpreter sees the same stack layout as on CISC."
 	(pushLinkReg and: [backEnd hasLinkRegister]) ifTrue:
 		[self PushR: LinkReg].
@@ -21,6 +21,6 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 		resultReg: resultRegOrNil
 		saveRegs: saveRegs.
 	backEnd genLoadStackPointers.
-	(pushLinkReg and: [backEnd hasLinkRegister]) ifTrue:
-		[self PopR: LinkReg].
-	self RetN: 0
+	(pushLinkReg and: [backEnd hasLinkRegister])
+		ifTrue: [self PopR: PCReg] "since we know there is no SP messing to do, might as well pop the stacked return address straight into PC"
+		ifFalse:[ self RetN: 0]

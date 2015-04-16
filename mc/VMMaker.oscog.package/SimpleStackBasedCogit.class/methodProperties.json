@@ -79,7 +79,7 @@
 		"genLongUnconditionalForwardJump" : "eem 11/2/2012 10:57",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 6/7/2014 14:30",
 		"genPopStackBytecode" : "eem (const to msg rewrite) 11/6/2014 11:21",
-		"genPrimReturnEnterCogCodeEnilopmart:" : "eem 3/25/2015 23:24",
+		"genPrimReturnEnterCogCodeEnilopmart:" : "tpr 4/13/2015 16:51",
 		"genPrimitiveAdd" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveAsCharacter" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveAsFloat" : "eem (const to msg rewrite) 11/6/2014 11:21",

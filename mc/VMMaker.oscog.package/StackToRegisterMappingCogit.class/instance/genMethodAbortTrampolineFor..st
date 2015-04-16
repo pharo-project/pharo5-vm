@@ -13,8 +13,13 @@ genMethodAbortTrampolineFor: numArgs
 	self CmpCq: 0 R: ReceiverResultReg.
 	jumpSICMiss := self JumpNonZero: 0.
 
-	"The abort sequencer has pushed the LinkReg a second time.
-	 Overwrite it with the right one."
+	"The abort sequence has pushed the LinkReg a second time - because a stack
+	 overflow can only happen after building a frame, which pushes LinkReg anyway, and
+	 we still need to push LinkReg in case we get to this routine from a sendMissAbort.
+	 (On ARM there is a simpler way; use two separate abort calls since all instructions are 32-bits
+	  but on x86 the zero receiver reg, call methodAbort sequence is smaller; we may fix this one day).
+	 Overwrite that duplicate with the right one - the return address for the call to the abort trampoline.
+	 The only reason it matters is an assert in ceStackOverflow: uses it"
 	backEnd hasLinkRegister ifTrue:
 		[self MoveR: LinkReg Mw: 0 r: SPReg].
 	self compileTrampolineFor: #ceStackOverflow:

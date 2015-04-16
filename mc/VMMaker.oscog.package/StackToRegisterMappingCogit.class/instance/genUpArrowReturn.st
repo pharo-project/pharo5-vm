@@ -2,12 +2,18 @@ bytecode generators
 genUpArrowReturn
 	"Generate a method return from within a method or a block.
 	 Frameless method activation looks like
+	 CISCs (x86):
 				receiver
 				args
 		sp->	ret pc.
+	 RISCs (ARM):
+				receiver
+				args
+				ret pc in LR.
+	 A fully framed activation is described in CoInterpreter class>initializeFrameIndices.
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
 	inBlock ifTrue:
-		[self assert: needsFrame.
+		[self assert: needsFrame. 
 		 self annotateBytecode: (self CallRT: ceNonLocalReturnTrampoline).
 		 ^0].
 	needsFrame

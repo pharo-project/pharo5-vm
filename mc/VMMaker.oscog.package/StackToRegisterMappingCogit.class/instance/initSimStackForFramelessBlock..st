@@ -23,7 +23,7 @@ initSimStackForFramelessBlock: startpc
 			annotateUse: false;
 			register: SPReg;
 			offset: ((backEnd hasLinkRegister
-						ifTrue: [methodOrBlockNumArgs - 1- i]
-						ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);
+								ifTrue: [methodOrBlockNumArgs - 1- i]
+								ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);
 			bcptr: startpc].
 	simSpillBase := simStackPtr := methodOrBlockNumTemps - 1
