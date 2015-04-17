@@ -21,7 +21,7 @@
 	"instance" : {
 		"addBlockStartAt:numArgs:numCopied:span:" : "eem 1/28/2011 11:16",
 		"allocateOneRegister" : "cb 4/13/2015 15:23",
-		"allocateRegisterNotConflictingWith:" : "cb 4/13/2015 15:24",
+		"allocateRegisterNotConflictingWith:" : "eem 4/16/2015 15:21",
 		"allocateThreeRegistersInto:thirdIsReceiver:" : "eem 4/13/2015 15:45",
 		"allocateTwoRegistersInto:" : "eem 4/13/2015 15:45",
 		"annotateBytecodeIfAnnotated:" : "eem 11/30/2012 15:58",
@@ -54,7 +54,7 @@
 		"ensureReceiverResultRegContainsSelf" : "eem 12/11/2010 12:52",
 		"evaluate:at:" : "eem 6/1/2014 17:40",
 		"fixupAt:" : "eem 12/11/2010 18:02",
-		"freeRegisterNotConflictingWith:" : "cb 4/13/2015 12:24",
+		"freeRegisterNotConflictingWith:" : "eem 4/16/2015 15:21",
 		"genBinaryConstOpVarInlinePrimitive:" : "eem 4/15/2015 17:08",
 		"genBinaryInlineComparison:opFalse:destReg:" : "eem 4/10/2015 20:27",
 		"genBinaryVarOpConstInlinePrimitive:" : "eem 4/14/2015 10:15",

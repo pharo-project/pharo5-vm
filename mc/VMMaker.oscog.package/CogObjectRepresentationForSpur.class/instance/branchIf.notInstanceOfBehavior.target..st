@@ -4,7 +4,6 @@ branchIf: reg notInstanceOfBehavior: classObj target: targetFixUp
 	 through. Cannot change the value of reg (may be used afterwards)."
 	| classIndex |
 	<inline: true>
-	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	classIndex := objectMemory classTagForClass: classObj.
 	(objectMemory isImmediateClass: classObj)
 		ifTrue:

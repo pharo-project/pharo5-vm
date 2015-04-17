@@ -1,8 +1,9 @@
 sista support
 noneImmediateBranchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 	"All classes in arrayObj are not immediate"
-	<inline: true>
 	| label numJumps jumps classObj |
+	<inline: true>
+	<var: #jumps type: #'AbstractInstruction **'>
 	cogit MoveR: reg R: TempReg.
 	jumps := self alloca: (objectMemory numSlotsOf: arrayObj) type: (self cCode: [#'AbstractInstruction *'] inSmalltalk: [cogit backEnd class])..
 	(self genJumpImmediateInScratchReg: TempReg) jmpTarget: targetFixUp.
