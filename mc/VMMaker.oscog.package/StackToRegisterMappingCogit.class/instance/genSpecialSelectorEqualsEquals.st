@@ -85,5 +85,5 @@ genSpecialSelectorEqualsEquals
 			[self ssPushConstant: objectMemory trueObject]. "dummy value"
 	self gen: (branchDescriptor isBranchTrue ifTrue: [JumpZero] ifFalse: [JumpNonZero])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
+		deadCode ifFalse: [self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC)].
 	^0

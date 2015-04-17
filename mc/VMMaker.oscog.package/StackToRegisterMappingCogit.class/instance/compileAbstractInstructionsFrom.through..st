@@ -14,12 +14,9 @@ compileAbstractInstructionsFrom: start through: end
 	fixup := self fixupAt: bytecodePC - initialPC.
 	fixup targetInstruction asUnsignedInteger > 0
 		ifTrue:
-			[deadCode := false.
-	 		 fixup targetInstruction asUnsignedInteger >= 2 ifTrue:
-				[self merge: fixup
-					afterContinuation: (descriptor notNil
-										and: [descriptor isUnconditionalBranch
-											or: [descriptor isReturn]]) not]]
+			[fixup targetInstruction asUnsignedInteger >= 2 ifTrue:
+				[self merge: fixup afterContinuation: deadCode not].
+			deadCode := false]
 		ifFalse: "If there's no fixup following a return there's no jump to that code and it is dead."
 			[(descriptor notNil and: [descriptor isReturn]) ifTrue:
 				[deadCode := true]].

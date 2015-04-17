@@ -71,7 +71,7 @@
 		"ceSendAbort:to:numArgs:" : "eem 10/1/2013 15:00",
 		"ceSendFromInLineCacheMiss:" : "eem 12/7/2013 14:15",
 		"ceSendMustBeBoolean:" : "eem 3/11/2011 10:47",
-		"ceSistaTrap:" : "eem 9/23/2014 12:22",
+		"ceSistaTrap" : "cb 4/16/2015 16:19",
 		"ceStackOverflow:" : "eem 9/12/2013 10:07",
 		"ceTraceBlockActivation" : "eem 11/1/2013 14:10",
 		"ceTraceLinkedSend:" : "eem 3/19/2015 16:09",
