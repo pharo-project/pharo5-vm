@@ -31,3 +31,4 @@ genFramelessStorePop: popBoolean ReceiverVariable: slotIndex
 		slotIndex: slotIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
+		inFrame: false

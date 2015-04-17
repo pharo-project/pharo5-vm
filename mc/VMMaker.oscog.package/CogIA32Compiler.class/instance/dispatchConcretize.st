@@ -29,7 +29,9 @@ dispatchConcretize
 		[XCHGRR]				-> [^self concretizeXCHGRR].
 		"Control"
 		[Call]					-> [^self concretizeCall].
+		[CallFull]				-> [^self concretizeCall].
 		[JumpR]					-> [^self concretizeJumpR].
+		[JumpFull]				-> [^self concretizeJumpLong].
 		[JumpLong]				-> [^self concretizeJumpLong].
 		[JumpLongZero]		-> [^self concretizeConditionalJumpLong: 16r4].
 		[JumpLongNonZero]	-> [^self concretizeConditionalJumpLong: 16r5].

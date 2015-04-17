@@ -38,6 +38,6 @@ sizePCDependentInstructionAt: eventualAbsoluteAddress
 												ifTrue: [5]
 												ifFalse: [6]]]
 							ifFalse:
-								[opcode = JumpLong
+								[(opcode = JumpLong or: [opcode = JumpFull])
 									ifTrue: [5]
 									ifFalse: [6]]

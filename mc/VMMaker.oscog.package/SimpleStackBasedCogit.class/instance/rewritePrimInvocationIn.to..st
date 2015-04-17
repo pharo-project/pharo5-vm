@@ -15,14 +15,14 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 			[address := cogMethod asUnsignedInteger
 						+ (externalPrimJumpOffsets at: cogMethod cmNumArgs).
 			extent := backEnd
-						rewriteJumpLongAt: address
+						rewriteJumpFullAt: address
 						target: (self cCode: [primFunctionPointer asUnsignedInteger]
 									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])]
 		ifFalse:
 			[address := cogMethod asUnsignedInteger
 						+ (externalPrimCallOffsets at: cogMethod cmNumArgs).
 			extent := backEnd
-						rewriteCallAt: address
+						rewriteCallFullAt: address
 						target: (self cCode: [primFunctionPointer asUnsignedInteger]
 									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])].
 	processor flushICacheFrom: address to: address + extent

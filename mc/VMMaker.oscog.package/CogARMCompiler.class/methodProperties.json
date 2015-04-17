@@ -130,6 +130,8 @@
 		"isInImmediateJumpRange:" : "tpr 4/3/2015 19:33",
 		"isJumpAt:" : "eem 3/18/2015 16:12",
 		"isPCDependent" : "eem 10/12/2013 14:41",
+		"jumpLongByteSize" : "eem 4/16/2015 10:48",
+		"jumpLongConditionalByteSize" : "eem 4/16/2015 10:49",
 		"jumpLongTargetBeforeFollowingAddress:" : "tpr 5/4/2014 10:38",
 		"jumpTargetPCAt:" : "eem 3/18/2015 16:18",
 		"ldr:rn:plus:imm:" : "tpr 3/12/2015 18:22",

@@ -16,7 +16,7 @@
 		"fillInCounters:atStartAddress:" : "eem 7/4/2014 12:08",
 		"fillInMethodHeader:size:selector:" : "eem 7/5/2014 11:35",
 		"fillInOPICHeader:size:numArgs:selector:" : "eem 7/5/2014 10:54",
-		"genExtTrapIfNotInstanceOfBehaviorsBytecode" : "cb 4/7/2015 10:07",
+		"genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode" : "cb 4/16/2015 10:13",
 		"genJumpIf:to:" : "cb 1/15/2015 17:10",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 7/1/2014 19:54",
 		"genSpecialSelectorComparison" : "eem 3/30/2015 17:31",

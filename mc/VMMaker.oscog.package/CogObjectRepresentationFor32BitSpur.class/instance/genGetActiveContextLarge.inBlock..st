@@ -130,6 +130,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		 SendNumArgsReg := SendNumArgsReg + 1]]"
 	coInterpreter marryFrameCopiesTemps ifFalse:
 		[cogit MoveCq: objectMemory nilObject R: TempReg].
+	"Could usefully use AddCq:R:R:"
 	cogit
 		MoveR: FPReg R: ClassReg;
 		AddCq: FoxMFReceiver R: ClassReg;
@@ -139,8 +140,8 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	cogit CmpR: SPReg R: ClassReg.
 	"If on a CISC there's a retpc for the trampoline call on top of stack; if on a RISC there isn't."
 	exit := cogit backEnd hasLinkRegister
-				ifTrue: [cogit JumpBelowOrEqual: 0]
-				ifFalse: [cogit JumpBelow: 0].
+				ifTrue: [cogit JumpBelow: 0]
+				ifFalse: [cogit JumpBelowOrEqual: 0].
 	coInterpreter marryFrameCopiesTemps ifTrue:
 		[cogit MoveMw: 0 r: ClassReg R: TempReg].
 	cogit

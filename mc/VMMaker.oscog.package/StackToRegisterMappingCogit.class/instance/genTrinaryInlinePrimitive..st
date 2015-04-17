@@ -21,7 +21,7 @@ genTrinaryInlinePrimitive: prim
 		[0] ->	[ adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				adjust ~= 0 ifTrue: [ self AddCq: adjust R: ra1. ]. 
 				self MoveR: ra2 Xwr: ra1 R: rr.
-				objectRepresentation genStoreCheckReceiverReg: rr valueReg: ra2 scratchReg: TempReg].
+				objectRepresentation genStoreCheckReceiverReg: rr valueReg: ra2 scratchReg: TempReg inFrame: true].
 		[1] ->	[ objectRepresentation genConvertSmallIntegerToIntegerInReg: ra2.
 				adjust := objectMemory baseHeaderSize - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				self AddCq: adjust R: ra1.

@@ -1,5 +1,5 @@
 compile abstract instructions
-genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg
+genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg inFrame: inFrame
 	| jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRoot mask rootBitByteOffset |
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
@@ -34,11 +34,20 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	jmpAlreadyRoot := cogit JumpNonZero: 0.
 	"Root bit is not set.  Call store check to insert dest into root table."
 	self assert: destReg == ReceiverResultReg.
-	cogit
-		CallRT: ceStoreCheckTrampoline
-		registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
-										bitOr: cogit callerSavedRegMask)
-										bitClear: (cogit registerMaskFor: ReceiverResultReg)).
+	inFrame
+		ifTrue:
+			[cogit
+				CallRT: ceStoreCheckTrampoline
+				registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
+												bitOr: cogit callerSavedRegMask)
+												bitClear: (cogit registerMaskFor: ReceiverResultReg))]
+		ifFalse:
+			[cogit backEnd saveAndRestoreLinkRegAround:
+				[cogit
+					CallRT: ceStoreCheckTrampoline
+					registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
+													bitOr: cogit callerSavedRegMask)
+													bitClear: (cogit registerMaskFor: ReceiverResultReg))]].
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

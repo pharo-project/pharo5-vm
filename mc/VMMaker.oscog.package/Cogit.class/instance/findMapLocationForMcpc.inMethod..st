@@ -13,6 +13,11 @@ findMapLocationForMcpc: targetMcpc inMethod: cogMethod
 								ifFalse: [mapByte bitAnd: DisplacementMask])].
 		 mcpc >= targetMcpc ifTrue:
 			[self assert: mcpc = targetMcpc.
+			 annotation = IsDisplacementX2N ifTrue:
+				[map := map - 1.
+				 mapByte := objectMemory byteAt: map.
+				 annotation := mapByte >> AnnotationShift.
+				 self assert: annotation > IsAnnotationExtension].
 			 ^map].
 		 map := map - 1].
 	^0

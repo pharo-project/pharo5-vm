@@ -31,6 +31,7 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 		genStoreSourceReg: ClassReg
 		slotIndex: slotIndex
 		destReg: ReceiverResultReg
-		scratchReg: TempReg.
+		scratchReg: TempReg
+		inFrame: true.
 	jmpDone jmpTarget: self Label.
 	^0

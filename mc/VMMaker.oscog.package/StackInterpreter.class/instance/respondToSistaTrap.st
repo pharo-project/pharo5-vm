@@ -1,7 +1,7 @@
 sista bytecodes
 respondToSistaTrap
 	| ourContext tos |
-	<sharedCodeInCase: #extTrapIfNotInstanceOfBehaviorsBytecode>
+	<sharedCodeInCase: #unconditionnalTrapBytecode>
 	messageSelector := objectMemory splObj: SelectorSistaTrap.
 	tos := self internalPopStack.
 	ourContext := self ensureFrameIsMarried: localFP SP: localSP.

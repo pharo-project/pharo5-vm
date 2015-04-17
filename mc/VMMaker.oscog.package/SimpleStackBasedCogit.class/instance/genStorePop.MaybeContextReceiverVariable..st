@@ -22,7 +22,8 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 		genStoreSourceReg: ClassReg
 		slotIndex: slotIndex
 		destReg: ReceiverResultReg
-		scratchReg: TempReg.
+		scratchReg: TempReg
+		inFrame: true.
 	jmpDone jmpTarget: self Label.
 	popBoolean ifTrue:
 		[self AddCq: objectMemory wordSize R: SPReg].

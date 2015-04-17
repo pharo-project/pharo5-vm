@@ -98,7 +98,7 @@ initializeBytecodeTableForSistaV1
 		(234		extSendBytecode)
 		(235		extSendSuperBytecode)
 
-		(236		extTrapIfNotInstanceOfBehaviorsBytecode)
+		(236		unknownBytecode)
 
 		(237		extUnconditionalJump)
 		(238		extJumpIfTrue)
@@ -122,6 +122,8 @@ initializeBytecodeTableForSistaV1
 		(251		pushRemoteTempLongBytecode)
 		(252		storeRemoteTempLongBytecode)
 		(253		storeAndPopRemoteTempLongBytecode)
+				
+		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
-		(254 255	unknownBytecode)
+		(255		unknownBytecode)
 	)

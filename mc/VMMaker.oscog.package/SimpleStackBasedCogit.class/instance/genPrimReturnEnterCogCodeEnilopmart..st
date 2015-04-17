@@ -104,6 +104,6 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		 should be up-to-date.  Need to save and restore the link reg around this call."
 		 jmpSample jmpTarget: self Label.
 		 backEnd saveAndRestoreLinkRegAround:
-			[self CallRT: (self cCode: '(unsigned long)ceCheckProfileTick'
+			[self CallFullRT: (self cCode: '(unsigned long)ceCheckProfileTick'
 						inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick])].
 		 self Jump: continuePostSample]

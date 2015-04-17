@@ -29,7 +29,7 @@ compileCallFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg:
 		regOrConst0 < 0
 			ifTrue: [backEnd genPassReg: regOrConst0 asArgument: 0]
 			ifFalse: [backEnd genPassConst: regOrConst0 asArgument: 0]].
-	self CallRT: (self cCode: [aRoutine asUnsignedInteger]
+	self CallFullRT: (self cCode: [aRoutine asUnsignedInteger]
 					   inSmalltalk: [self simulatedTrampolineFor: aRoutine]).
 	resultRegOrNil ifNotNil:
 		[backEnd genWriteCResultIntoReg: resultRegOrNil].

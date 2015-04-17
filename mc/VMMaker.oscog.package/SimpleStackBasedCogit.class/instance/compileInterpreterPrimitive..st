@@ -71,12 +71,12 @@ compileInterpreterPrimitive: primitiveRoutine
 				((flags anyMask: PrimCallCollectsProfileSamples)
 					ifTrue: [cePrimReturnEnterCogCodeProfiling]
 					ifFalse: [cePrimReturnEnterCogCode]).
-			 self JumpRT: primitiveRoutine asInteger.
+			 self JumpFullRT: primitiveRoutine asInteger.
 			 primInvokeLabel := self Label.
 			 jmp := jmpSamplePrim := continuePostSamplePrim := nil]
 		ifFalse:
 			["Call the C primitive routine."
-			self CallRT: primitiveRoutine asInteger.
+			self CallFullRT: primitiveRoutine asInteger.
 			primInvokeLabel := self Label.
 			(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 				[self assert: (flags anyMask: PrimCallNeedsNewMethod).
@@ -128,7 +128,7 @@ compileInterpreterPrimitive: primitiveRoutine
 			["Call ceCheckProfileTick: to record sample and then continue."
 			jmpSamplePrim jmpTarget: self Label.
 			self assert: (flags anyMask: PrimCallNeedsNewMethod).
-			self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
+			self CallFullRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 							   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 			"reenter the post-primitive call flow"
 			self Jump: continuePostSamplePrim].
@@ -137,7 +137,7 @@ compileInterpreterPrimitive: primitiveRoutine
 		jmpSampleNonPrim jmpTarget: self Label.
 		self MoveCq: 0 R: TempReg.
 		self MoveR: TempReg Aw: coInterpreter newMethodAddress.
-		self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
+		self CallFullRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 						   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 		"reenter the post-primitive call flow"
 		self Jump: continuePostSampleNonPrim].

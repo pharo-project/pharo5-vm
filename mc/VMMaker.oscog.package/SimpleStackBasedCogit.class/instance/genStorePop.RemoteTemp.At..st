@@ -13,3 +13,4 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 		slotIndex: slotIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
+		inFrame: needsFrame

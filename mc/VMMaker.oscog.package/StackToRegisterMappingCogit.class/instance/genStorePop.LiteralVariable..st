@@ -44,3 +44,4 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 		slotIndex: ValueIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
+		inFrame: needsFrame

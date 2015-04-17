@@ -5,4 +5,4 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 		   Mw: index * objectMemory wordSize + objectMemory baseHeaderSize
 		   r: destReg.
 	"now the check"
-	^self genStoreCheckReceiverReg: destReg valueReg: sourceReg scratchReg: scratchReg
+	^self genStoreCheckReceiverReg: destReg valueReg: sourceReg scratchReg: scratchReg inFrame: true

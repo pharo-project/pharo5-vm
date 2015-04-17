@@ -54,7 +54,10 @@ genInnerPrimitiveAtPut: retNoffset
 	cogit CmpCq: objectMemory weakArrayFormat R: formatReg.
 	jumpNotPointers := cogit JumpAbove: 0.
 	"optimistic store check; assume index in range (almost always is)."
-	self genStoreCheckReceiverReg: ReceiverResultReg valueReg: Arg1Reg scratchReg: TempReg.
+	self genStoreCheckReceiverReg: ReceiverResultReg
+		valueReg: Arg1Reg
+		scratchReg: TempReg
+		inFrame: false.
 
 	cogit CmpCq: objectMemory arrayFormat R: formatReg.
 	jumpNotIndexablePointers := cogit JumpBelow: 0.

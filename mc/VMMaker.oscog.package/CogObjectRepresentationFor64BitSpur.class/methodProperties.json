@@ -2,7 +2,11 @@
 	"class" : {
 		"defaultObjectMemoryClass" : "eem 1/22/2014 15:53" },
 	"instance" : {
+		"allImmediate:branchIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
 		"allocateCounters:" : "eem 7/9/2014 21:21",
+		"branch2CasesIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
+		"branchIf:hasNotImmediateTag:target:" : "cb 4/16/2015 12:19",
+		"fetchImmediateTagOtherThanTag1:tag2:" : "cb 4/16/2015 12:00",
 		"genFetchIndexRegister:from:into:" : "eem 10/3/2013 10:07",
 		"illegalClassTag" : "rmacnak 4/4/2015 16:37",
 		"inlineCacheTagForClass:" : "eem 8/7/2014 04:48",

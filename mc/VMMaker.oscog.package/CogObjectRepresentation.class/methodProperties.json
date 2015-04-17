@@ -6,8 +6,6 @@
 	"instance" : {
 		"allYoungObjectsAgeInFullGC" : "eem 11/18/2013 10:58",
 		"allocateCounters:" : "eem 7/5/2014 17:55",
-		"branchIfInstanceOfBehavior:branches:" : "eem 8/7/2014 06:21",
-		"branchIfInstanceOfBehaviors:branches:" : "eem 8/7/2014 06:22",
 		"canPinObjects" : "eem 7/11/2014 10:07",
 		"checkValidObjectReference:" : "eem 5/9/2014 19:35",
 		"createsArraysInline" : "eem 6/1/2014 11:36",

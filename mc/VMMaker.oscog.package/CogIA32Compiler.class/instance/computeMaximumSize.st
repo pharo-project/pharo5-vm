@@ -28,8 +28,10 @@ computeMaximumSize
 		[XCHGRR]				-> [^maxSize := 2].
 		"Control"
 		[Call]					-> [^maxSize := 5].
+		[CallFull]				-> [^maxSize := 5].
 		[JumpR]					-> [^maxSize := 2].
 		[Jump]					-> [self resolveJumpTarget. ^maxSize := 5].
+		[JumpFull]				-> [self resolveJumpTarget. ^maxSize := 5].
 		[JumpLong]				-> [self resolveJumpTarget. ^maxSize := 5].
 		[JumpZero]				-> [self resolveJumpTarget. ^maxSize := 6].
 		[JumpNonZero]			-> [self resolveJumpTarget. ^maxSize := 6].
