@@ -2,6 +2,7 @@ bytecode generators
 genSpecialSelectorEqualsEqualsWithForwarders
 	| primDescriptor nextPC nExts branchDescriptor unforwardRcvr argReg targetBytecodePC
 	unforwardArg  rcvrReg jumpNotEqual jumpEqual postBranchPC label fixup |
+	<var: #fixup type: #'BytecodeFixup *'>
 	<var: #jumpEqual type: #'AbstractInstruction *'>
 	<var: #jumpNotEqual type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
@@ -11,7 +12,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 
 	nextPC := bytecodePC + primDescriptor numBytes.
 	nExts := 0.
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + (byte0 bitAnd: 256).
+	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
 	 branchDescriptor isExtension] whileTrue:
 		[nExts := nExts + 1.
 		 nextPC := nextPC + branchDescriptor numBytes].

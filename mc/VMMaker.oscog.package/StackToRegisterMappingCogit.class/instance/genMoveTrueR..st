@@ -1,5 +1,5 @@
 bytecode generator support
-genMoveTrueR: register
+genMoveTrueR: reg
 	<inline: true>
-	^ self genMoveConstant: objectMemory trueObject R: register
+	^ self genMoveConstant: objectMemory trueObject R: reg
 	

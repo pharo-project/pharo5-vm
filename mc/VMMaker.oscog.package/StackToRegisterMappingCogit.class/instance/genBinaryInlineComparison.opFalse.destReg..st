@@ -4,7 +4,7 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 	| nextPC branchDescriptor nExts |	
 	nextPC := bytecodePC + 3.
 	nExts := 0.	
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + (byte0 bitAnd: 256).
+	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
 	 branchDescriptor isExtension] whileTrue:
 		[nExts := nExts + 1.
 	 	 nextPC := nextPC + branchDescriptor numBytes].

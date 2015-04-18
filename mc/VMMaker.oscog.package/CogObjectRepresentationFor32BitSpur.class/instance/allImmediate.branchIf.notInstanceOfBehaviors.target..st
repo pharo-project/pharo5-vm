@@ -6,3 +6,4 @@ allImmediate: immediateMask branchIf: reg notInstanceOfBehaviors: arrayObj targe
 	cogit MoveR: reg R: TempReg.
 	jmpImmediate := self genJumpNotImmediateInScratchReg: TempReg.
 	jmpImmediate jmpTarget: targetFixUp.
+	^0

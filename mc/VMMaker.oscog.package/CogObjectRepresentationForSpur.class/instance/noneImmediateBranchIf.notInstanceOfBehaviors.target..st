@@ -17,4 +17,4 @@ noneImmediateBranchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 	label := self Label.
 	0 to: numJumps do: [:i |
 		(jumps at: i) jmpTarget: label ].
-	
+	^0
