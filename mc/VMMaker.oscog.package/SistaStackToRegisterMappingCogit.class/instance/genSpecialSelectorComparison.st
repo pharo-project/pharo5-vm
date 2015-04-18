@@ -7,7 +7,7 @@ genSpecialSelectorComparison
 	 will then continue to the conditional branch which will trip and enter the abort."
 	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor nExts
 	  rcvrIsInt argIsInt rcvrInt argInt result jumpNotSmallInts inlineCAB annotateInst
-	  counterAddress countTripped |
+	  counterAddress countTripped counterReg |
 	<var: #countTripped type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
@@ -77,16 +77,17 @@ genSpecialSelectorComparison
 					ifFalse: [self OrR: ReceiverResultReg R: TempReg]]].
 	jumpNotSmallInts := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 
-	self ssAllocateRequiredReg: SendNumArgsReg. "Use this as the count reg."
+	counterReg := self allocateRegisterNotConflictingWith: (self registerMaskFor: ReceiverResultReg and: Arg0Reg). "Use this as the count reg, can't conflict with the registers for the arg and the receiver"
+	self ssAllocateRequiredReg: counterReg. "Use this as the count reg."
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
 	self assert: objectMemory wordSize = CounterBytes.
-	self MoveAw: counterAddress R: SendNumArgsReg.
-	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
+	self MoveAw: counterAddress R: counterReg.
+	self SubCq: 16r10000 R: counterReg. "Count executed"
 	"If counter trips simply abort the inlined comparison and send continuing to the following
 	 branch *without* writing back.  A double decrement will not trip the second time."
 	countTripped := self JumpCarry: 0.
-	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
+	self MoveR: counterReg Aw: counterAddress. "write back"
 
 	argIsInt
 		ifTrue: [annotateInst
@@ -99,8 +100,8 @@ genSpecialSelectorComparison
 				ifTrue: [primDescriptor opcode]
 				ifFalse: [self inverseBranchFor: primDescriptor opcode])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-	self SubCq: 1 R: SendNumArgsReg. "Count untaken"
-	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
+	self SubCq: 1 R: counterReg. "Count untaken"
+	self MoveR: counterReg Aw: counterAddress. "write back"
 	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
 	countTripped jmpTarget: (jumpNotSmallInts jmpTarget: self Label).
 	argIsInt ifTrue:
