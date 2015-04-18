@@ -6,10 +6,8 @@ genInnerPrimitiveIdentical: retNoffset orNotIf: orNot
 	jumpCmp := orNot
 					ifTrue: [cogit JumpZero: 0]
 					ifFalse: [cogit JumpNonZero: 0].
-	cogit annotate: (cogit MoveCw: objectMemory trueObject R: ReceiverResultReg)
-		objRef: objectMemory trueObject.
+	cogit genMoveTrueR: ReceiverResultReg.
 	cogit RetN: retNoffset.
-	jumpCmp jmpTarget: (cogit annotate: (cogit MoveCw: objectMemory falseObject R: ReceiverResultReg)
-								objRef: objectMemory falseObject).
+	jumpCmp jmpTarget: (cogit genMoveFalseR: ReceiverResultReg).
 	cogit RetN: retNoffset.
 	^0

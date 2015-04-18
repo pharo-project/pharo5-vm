@@ -13,6 +13,7 @@
 		"ceStoreCheckTrampoline" ],
 	"name" : "CogObjectRepresentation",
 	"pools" : [
+		"CogCompilationConstants",
 		"CogMethodConstants",
 		"CogRTLOpcodes",
 		"VMBasicConstants",

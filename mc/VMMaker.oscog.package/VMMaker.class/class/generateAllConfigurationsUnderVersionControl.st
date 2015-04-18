@@ -1,4 +1,4 @@
 configurations
 generateAllConfigurationsUnderVersionControl
-	self generateAllStackConfigurationsUnderVersionControl;
-		generateAllCogConfigurationsUnderVersionControl
+	self generateAllNewspeakConfigurationsUnderVersionControl;
+		generateAllSqueakConfigurationsUnderVersionControl

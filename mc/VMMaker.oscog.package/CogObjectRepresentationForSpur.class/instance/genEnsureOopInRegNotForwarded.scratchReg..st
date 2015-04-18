@@ -1,26 +1,6 @@
 compile abstract instructions
 genEnsureOopInRegNotForwarded: reg scratchReg: scratch
-	"Make sure that the oop in reg is not forwarded.  This routine assumes the object will
-	 never be forwarded to an immediate, as it is used to unforward  literal variables (associations). 
-	 Use the fact that isForwardedObjectClassIndexPun is a power of two to save an instruction."
-	| skip loop ok |
-	<var: #ok type: #'AbstractInstruction *'>
-	<var: #skip type: #'AbstractInstruction *'>
-	<var: #loop type: #'AbstractInstruction *'>
-	self assert: reg ~= scratch.
-	cogit MoveR: reg R: scratch.
-	skip := self genJumpImmediateInScratchReg: scratch.
-	loop := cogit Label.
-	"notionally
-		self genGetClassIndexOfNonImm: reg into: scratch.
-		cogit CmpCq: objectMemory isForwardedObjectClassIndexPun R: TempReg.
-	 but the following is an instruction shorter:"
-	cogit MoveMw: 0 r: reg R: scratch.
-	cogit
-		AndCq: objectMemory classIndexMask - objectMemory isForwardedObjectClassIndexPun
-		R: scratch.
-	ok := cogit JumpNonZero:  0.
-	self genLoadSlot: 0 sourceReg: reg destReg: reg.
-	cogit Jump: loop.
-	skip jmpTarget: (ok jmpTarget: cogit Label).
-	^0
+	^ self 
+		genEnsureOopInRegNotForwarded: reg 
+		scratchReg: scratch 
+		jumpBackTo: cogit Label "label is just before the forwarder check"

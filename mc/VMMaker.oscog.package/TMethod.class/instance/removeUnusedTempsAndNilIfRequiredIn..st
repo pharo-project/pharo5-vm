@@ -6,7 +6,7 @@ removeUnusedTempsAndNilIfRequiredIn: aCodeGen
 	| refs readBeforeAssigned |
 	refs := self removeUnusedTempsIn: aCodeGen.
 	"reset the locals to be only those still referred to"
-	locals := locals select: [:e| refs includes: e].
+	"locals := locals select: [:e| refs includes: e].
 	(locals notEmpty
 	 and: [(readBeforeAssigned := (self findReadBeforeAssignedIn: locals)) notEmpty]) ifTrue:
 		[readBeforeAssigned := readBeforeAssigned reject: [:v| (self declarationAt: v) beginsWith: 'extern'].
@@ -15,5 +15,5 @@ removeUnusedTempsAndNilIfRequiredIn: aCodeGen
 				[:var|
 				TAssignmentNode new
 					setVariable: (TVariableNode new setName: var; yourself)
-					expression: (TConstantNode new setValue: 0; yourself)])].
+					expression: (TConstantNode new setValue: 0; yourself)])]."
 	^refs

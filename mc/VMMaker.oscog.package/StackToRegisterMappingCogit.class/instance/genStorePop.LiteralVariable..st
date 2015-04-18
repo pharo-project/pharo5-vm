@@ -13,7 +13,7 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	(self ssTop type = SSConstant
 	 and: [(objectRepresentation shouldAnnotateObjectReference: constVal) not]) ifTrue:
 		[self ssAllocateRequiredReg: ReceiverResultReg.
-		 self annotate: (self MoveCw: association R: ReceiverResultReg) objRef: association.
+		self genMoveConstant: association R: ReceiverResultReg.
 		 objectRepresentation
 			genEnsureObjInRegNotForwarded: ReceiverResultReg
 			scratchReg: TempReg.

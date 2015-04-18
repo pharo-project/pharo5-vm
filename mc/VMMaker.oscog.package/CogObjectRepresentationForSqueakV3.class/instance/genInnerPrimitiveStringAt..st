@@ -41,8 +41,7 @@ genInnerPrimitiveStringAt: retNOffset
 	cogit CmpR: ClassReg R: Arg1Reg.
 	jumpBounds := cogit JumpAboveOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
-	cogit annotate: (cogit MoveCw: objectMemory characterTable R: Arg0Reg)
-		objRef: objectMemory characterTable.
+	cogit genMoveConstant: objectMemory characterTable R: Arg0Reg.
 	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg;
 		AddCq: objectMemory baseHeaderSize / objectMemory wordSize R: ReceiverResultReg.
 	cogit MoveXwr: ReceiverResultReg R: Arg0Reg R: ReceiverResultReg.

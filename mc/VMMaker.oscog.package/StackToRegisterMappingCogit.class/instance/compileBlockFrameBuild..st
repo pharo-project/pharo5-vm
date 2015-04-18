@@ -9,9 +9,7 @@ compileBlockFrameBuild: blockStart
 	blockStart numInitialNils > 0 ifTrue:
 		[blockStart numInitialNils > 1
 			ifTrue:
-				[self
-					annotate: (self MoveCw: objectMemory nilObject R: TempReg)
-					objRef: objectMemory nilObject.
+				[self genMoveConstant: objectMemory nilObject R: TempReg.
 				 1 to: blockStart numInitialNils do:
 					[:ign| self PushR: TempReg]]
 			ifFalse:

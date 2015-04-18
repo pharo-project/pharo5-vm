@@ -28,12 +28,8 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 		ifFalse: "This is the path where the inlined comparison is *not* followed immediately by a branch"
 			[| condJump jump |
 			condJump := self gen: opTrue operand: 0.
-	 		self 
-				annotate: (self MoveCw: objectMemory falseObject R: destReg) 
-				objRef: objectMemory falseObject.
+			self genMoveFalseR: destReg.
 	 		jump := self Jump: 0.
-			condJump jmpTarget: (self 
-				annotate: (self MoveCw: objectMemory trueObject R: destReg) 
-				objRef: objectMemory trueObject).
+			condJump jmpTarget: (self genMoveTrueR: destReg).
 			jump jmpTarget: self Label].
 	^ 0

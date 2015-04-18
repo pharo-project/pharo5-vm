@@ -1,0 +1,6 @@
+configurations
+generateAllSqueakConfigurationsUnderVersionControl
+	self generateSqueakCogVM;
+		generateSqueakCogMTVM;
+		generateSqueakSpurCogVM;
+		generateSqueakSpurCogSistaVM

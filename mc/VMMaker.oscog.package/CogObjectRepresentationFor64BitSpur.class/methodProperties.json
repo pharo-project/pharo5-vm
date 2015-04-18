@@ -7,7 +7,7 @@
 		"branch2CasesIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
 		"branchIf:hasNotImmediateTag:target:" : "cb 4/16/2015 12:19",
 		"fetchImmediateTagOtherThanTag1:tag2:" : "cb 4/16/2015 12:00",
-		"genFetchIndexRegister:from:into:" : "eem 10/3/2013 10:07",
+		"genFetchIndexRegister:from:into:" : "cb 4/17/2015 15:23",
 		"illegalClassTag" : "rmacnak 4/4/2015 16:37",
 		"inlineCacheTagForClass:" : "eem 8/7/2014 04:48",
 		"inlineCacheTagForInstance:" : "eem 7/7/2014 09:56",

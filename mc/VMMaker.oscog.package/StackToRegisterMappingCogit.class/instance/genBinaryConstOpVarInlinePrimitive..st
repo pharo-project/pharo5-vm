@@ -43,12 +43,12 @@ genBinaryConstOpVarInlinePrimitive: prim
 		[64] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				adjust ~= 0 ifTrue: [ self AddCq: adjust R: ra. ]. 
-				self annotate: (self MoveCw: val R: TempReg) objRef: val.
+				self genMoveConstant: val R: TempReg.
 				self MoveXwr: ra R: TempReg R: ra].
 		[65] ->	[objectRepresentation genConvertSmallIntegerToIntegerInReg: ra.
 				adjust := objectMemory baseHeaderSize - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"
 				self AddCq: adjust R: ra.
-				self annotate: (self MoveCw: val R: TempReg) objRef: val.
+				self genMoveConstant: val R: TempReg.
 				self MoveXbr: ra R: TempReg R: ra.
 				objectRepresentation genConvertIntegerToSmallIntegerInReg: ra]
 	}

@@ -13,7 +13,6 @@
 		"ceLargeActiveContextInBlockTrampoline" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
-		"CogCompilationConstants",
 		"VMBytecodeConstants",
 		"VMSqueakClassIndices" ],
 	"super" : "CogObjectRepresentation",

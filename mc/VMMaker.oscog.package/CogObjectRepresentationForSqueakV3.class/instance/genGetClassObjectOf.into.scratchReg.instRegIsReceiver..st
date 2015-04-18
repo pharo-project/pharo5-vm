@@ -23,9 +23,7 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 	cogit MoveMw: objectMemory classFieldOffset r: instReg R: destReg.
 	cogit AndCq: AllButTypeMask signedIntFromLong R: destReg.
 	jumpGotClass := cogit Jump: 0.
-	jumpIsInt jmpTarget:
-		(cogit annotate: (cogit MoveCw: objectMemory classSmallInteger R: destReg)
-				objRef: objectMemory classSmallInteger).
+	jumpIsInt jmpTarget: (cogit genMoveConstant: objectMemory classSmallInteger R: destReg).
 	jumpGotClass2 := cogit Jump: 0.
 	"Don't have to subtract one from the destReg compactClassArray index because of the header word."
 	self assert: objectMemory baseHeaderSize = objectMemory wordSize.

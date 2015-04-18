@@ -12,14 +12,12 @@ compileAbstractInstructionsFrom: start through: end
 	[self cCode: '' inSmalltalk:
 		[(debugBytecodePointers includes: bytecodePC) ifTrue: [self halt]].
 	fixup := self fixupAt: bytecodePC - initialPC.
-	fixup targetInstruction asUnsignedInteger > 0
-		ifTrue:
-			[fixup targetInstruction asUnsignedInteger >= 2 ifTrue:
-				[self merge: fixup afterContinuation: deadCode not].
-			deadCode := false]
-		ifFalse: "If there's no fixup following a return there's no jump to that code and it is dead."
-			[(descriptor notNil and: [descriptor isReturn]) ifTrue:
-				[deadCode := true]].
+	"If there's no fixup following a return there's no jump to that code and it is dead."
+	(descriptor notNil and: [descriptor isReturn]) ifTrue: [deadCode := true].
+	fixup targetInstruction asUnsignedInteger > 0 ifTrue:
+		[fixup targetInstruction asUnsignedInteger >= 2 ifTrue:
+			[self merge: fixup afterContinuation: deadCode not].
+		deadCode := false].
 	 self cCode: '' inSmalltalk:
 		[deadCode ifFalse:
 			[self assert: simStackPtr + (needsFrame ifTrue: [0] ifFalse: [1])

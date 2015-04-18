@@ -15,11 +15,9 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: Arg0Reg R: ReceiverResultReg. "N.B. FLAGS := RRReg - Arg0Reg"
 	jumpTrue := self gen: jumpOpcode.
-	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
-		objRef: objectMemory falseObject.
+	self genMoveFalseR: ReceiverResultReg.
 	self RetN: 0.
-	jumpTrue jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
-								objRef: objectMemory trueObject).
+	jumpTrue jmpTarget: (self genMoveTrueR: ReceiverResultReg).
 	self RetN: 0.
 	
 	"Argument may be a Float : let us check or fail"

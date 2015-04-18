@@ -417,7 +417,7 @@
 		"storeByte:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeImageSegmentInto:outPointers:roots:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeLong32:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
-		"storeLong64:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
+		"storeLong64:ofObject:withValue:" : "cb 4/17/2015 09:58",
 		"storePointer:ofObject:withValue:" : "eem (const to msg rewrite) 11/13/2014 14:06",
 		"storePointerUnchecked:ofObject:withValue:" : "eem (const to msg rewrite) 11/13/2014 14:06",
 		"storeShort16:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",

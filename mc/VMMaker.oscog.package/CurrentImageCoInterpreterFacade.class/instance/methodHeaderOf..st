@@ -1,3 +1,3 @@
 accessing
-methodHeaderOf: oop
-	^(self objectForOop: oop) header
+methodHeaderOf: methodOop
+	^self rawHeaderOf: methodOop

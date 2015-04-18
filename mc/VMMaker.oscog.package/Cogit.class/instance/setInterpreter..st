@@ -43,5 +43,5 @@ setInterpreter: aCoInterpreter
 	trampolineAddresses := CArrayAccessor on: (Array new: NumTrampolines * 2).
 	trampolineTableIndex := 0.
 
-	compilationTrace ifNil: [compilationTrace := 0].
+	compilationTrace ifNil: [compilationTrace := self class initializationOptions at: #compilationTrace ifAbsent: [0]].
 	extA := extB := 0
