@@ -39,7 +39,7 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 						val := operand > memory memory size
 											ifTrue: [aSymbolManager simulatedVariableAt: operand ]
 											ifFalse: [memory longAt: operand].
-						^anInstructionString, '; Load SP (', val hex, ') from ', (addressinatorBlock value: operand)].
+						^anInstructionString, '; Load SP (', (val ifNil:['unknown'] ifNotNil:[:v| v hex]) , ') from ', (addressinatorBlock value: operand)].
 					(self instructionIsSTRSP: word) ifTrue:[
 						^anInstructionString, '; Save SP (', self sp hex, ') to ',  (addressinatorBlock value: operand)].
 					]
@@ -61,4 +61,4 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 						[^anInstructionString].
 					 operand := aSymbolManager backEnd literalBeforeFollowingAddress: address + 4]].
 	"is there an interesting address with this?"
-	^anInstructionString, (addressinatorBlock value: operand)
+	^anInstructionString", (addressinatorBlock value: operand) <-------------- NEEDS FIXING BETTERER"
