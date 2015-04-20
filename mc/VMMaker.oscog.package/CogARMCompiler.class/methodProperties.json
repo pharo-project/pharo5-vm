@@ -178,6 +178,7 @@
 		"popR:" : "tpr 3/12/2015 18:34",
 		"pushLinkRegisterByteSize" : "eem 3/18/2015 15:35",
 		"pushR:" : "tpr 3/12/2015 18:35",
+		"relocateCallBeforeReturnPC:by:" : "eem 4/19/2015 18:15",
 		"rewriteCallAt:target:" : "tpr 4/17/2015 20:14",
 		"rewriteCallFullAt:target:" : "tpr 4/17/2015 20:09",
 		"rewriteInlineCacheAt:tag:target:" : "tpr 4/17/2015 20:15",

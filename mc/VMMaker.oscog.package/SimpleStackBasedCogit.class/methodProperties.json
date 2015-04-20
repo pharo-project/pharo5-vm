@@ -33,7 +33,7 @@
 		"extendedStoreBytecode" : "eem 1/8/2009 14:20",
 		"firstSpecialSelectorBytecodeOffset" : "eem 8/8/2014 15:00",
 		"frameOffsetOfTemporary:" : "eem (const to msg rewrite) 11/6/2014 11:21",
-		"genBlockReturn" : "eem (const to msg rewrite) 11/6/2014 11:21",
+		"genBlockReturn" : "eem 4/19/2015 17:57",
 		"genCallPrimitiveBytecode" : "eem 4/10/2015 12:17",
 		"genDoubleArithmetic:preOpCheck:" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genDoubleComparison:invert:" : "eem (const to msg rewrite) 11/6/2014 11:21",

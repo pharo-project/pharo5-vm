@@ -104,7 +104,7 @@
 		"operands:" : "eem 2/15/2009 16:15",
 		"printStateOn:" : "lw 8/7/2012 19:54",
 		"relocateCallBeforeReturnPC:by:" : "eem 3/9/2009 09:43",
-		"relocateJumpBeforeFollowingAddress:by:" : "eem 3/9/2009 09:37",
+		"relocateJumpLongBeforeFollowingAddress:by:" : "eem 4/19/2015 18:10",
 		"resolveJumpTarget" : "lw 8/1/2012 19:56",
 		"rewriteCallFullAt:target:" : "eem 4/19/2015 08:35",
 		"rewriteJumpFullAt:target:" : "eem 4/19/2015 08:34",
