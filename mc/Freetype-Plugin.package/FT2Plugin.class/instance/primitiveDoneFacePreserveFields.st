@@ -4,13 +4,14 @@ primitiveDoneFacePreserveFields
 	Nil out the handle field, but do not nil the other fields,
 	as their values are needed even if the face cannot be re-opened
 	in the future due to a missing font file etc."
-
 	| rcvr face |
+
+	<var: #face type: 'FT_Face'>
+	
 	rcvr := self 
 				primitive: 'primitiveDoneFacePreserveFields'
 				parameters: #()
 				receiver: #FT2Face.
-	self var: #face type: 'FT_Face'.
 	face := self ftHandleValueFromReceiver: rcvr.
 	face isNil ifTrue: [^interpreterProxy primitiveFail].
 	self touch: face.

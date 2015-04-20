@@ -1,9 +1,11 @@
 primitives-FT2Face
 primitiveGetFaceCharMap
 	| face rcvr encoding stringOop charmap |
-	self var: #face declareC: 'FT_Face face'.
-	self var: #charmap type: 'FT_CharMap'.
-	self var: #encoding declareC: 'FT_Encoding encoding'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	<var: #charmap type: 'FT_CharMap'>
+	<var: #encoding declareC: 'FT_Encoding encoding'>
+	
 	rcvr := self 
 				primitive: 'primitiveGetFaceCharMap'
 				parameters: #()

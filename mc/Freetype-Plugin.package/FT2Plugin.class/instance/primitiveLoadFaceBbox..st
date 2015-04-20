@@ -1,11 +1,11 @@
 primitives-FT2Face
 primitiveLoadFaceBbox: aRectangle 
 	| rcvr face pointOop rectOop |
+	<var: #face type: 'FT_Face'>
 	rcvr := self 
 				primitive: 'primitiveLoadFaceBbox'
 				parameters: #(#Rectangle)
 				receiver: #FT2Face.
-	self var: #face type: 'FT_Face'.
 	rectOop := aRectangle.
 	(interpreterProxy isPointers: rectOop) 
 		ifFalse: [^interpreterProxy primitiveFail].

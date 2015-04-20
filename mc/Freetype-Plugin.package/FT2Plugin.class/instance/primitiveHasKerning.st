@@ -1,8 +1,9 @@
 primitives-FT2Kerning
 primitiveHasKerning
-
 	| rcvr face |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+
 	rcvr := self 
 				primitive: 'primitiveHasKerning'
 				parameters: #()

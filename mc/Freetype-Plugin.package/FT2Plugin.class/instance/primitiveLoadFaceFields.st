@@ -2,13 +2,14 @@ primitives-FT2Face
 primitiveLoadFaceFields
 	"Fill in many of the receiver's (an FT2Face) fields (other than its handle)
 	from the FT_Face record that it points to."
-
 	| rcvr face strOop |
+
+	<var: #face type: 'FT_Face'>
+	
 	rcvr := self 
 				primitive: 'primitiveLoadFaceFields'
 				parameters: #()
 				receiver: #FT2Face.
-	self var: #face type: 'FT_Face'.
 	face := self ftHandleValueFromReceiver: rcvr.
 	face isNil ifTrue: [^interpreterProxy primitiveFail].
 	self touch: face.

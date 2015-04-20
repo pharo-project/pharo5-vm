@@ -1,10 +1,11 @@
 primitives-FT2GlyphSlot
 primitiveNumberOfOutlineCountours
 	"Assumes that primitiveLoadGlyph:flags: has been called earlier to set face->glyph."
-
 	| rcvr gs face aFace contoursSize |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #gs declareC: 'FT_GlyphSlot gs'.	"ptr to struct"
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #gs declareC: 'FT_GlyphSlot gs'>	"ptr to struct"
+
 	rcvr := self 
 				primitive: 'primitiveNumberOfOutlineCountours'
 				parameters: #()

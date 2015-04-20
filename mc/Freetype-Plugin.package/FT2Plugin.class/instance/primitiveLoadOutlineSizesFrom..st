@@ -1,10 +1,11 @@
 primitives-FT2Outline
 primitiveLoadOutlineSizesFrom: aFace
 	"Assumes that primitiveLoadGlyph:flags: has been called earlier to set face->glyph."
-
 	| rcvr gs face |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #gs declareC: 'FT_GlyphSlot gs'.	"ptr to struct"
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #gs declareC: 'FT_GlyphSlot gs'>	"ptr to struct"
+
 	rcvr := self 
 				primitive: 'primitiveLoadOutlineSizesFromFace'
 				parameters: #(FT2Face)

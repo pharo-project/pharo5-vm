@@ -1,11 +1,12 @@
 primitives-FT2Face
 primitiveSetTransform: matrixWordArray delta: deltaWordArray
 	| face rcvr matrix delta deltasqIntPtr matrixsqIntPtr |
-	self var: #face declareC: 'FT_Face face'.
-	self var: #matrix declareC: 'FT_Matrix matrix'.
-	self var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'.
-	self var: #delta declareC: 'FT_Vector delta'.
-	self var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	<var: #matrix declareC: 'FT_Matrix matrix'>
+	<var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'>
+	<var: #delta declareC: 'FT_Vector delta'>
+	<var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'>
 
 	rcvr := self 
 				primitive: 'primitiveSetTransform'

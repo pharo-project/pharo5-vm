@@ -1,12 +1,13 @@
 primitives-FT2GlyphSlot
 primitiveGetSfntTableOS2
 	"return the bytes from the OS/2 table"
-
 	| face rcvr buffer returnedHandle extraByteArrayPtr |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #extraByteArrayPtr declareC: 'char *extraByteArrayPtr'.
-	self var: #aPointer declareC: 'const char *aPointer'.
-	self var: #buffer declareC: 'char *buffer'.
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #extraByteArrayPtr declareC: 'char *extraByteArrayPtr'>
+	"<var: #aPointer declareC: 'const char *aPointer'>"
+	<var: #buffer declareC: 'char *buffer'>
+
 	rcvr := self 
 				primitive: 'primitiveGetSfntTableOS2'
 				parameters: #()

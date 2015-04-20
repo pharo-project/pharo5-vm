@@ -2,15 +2,17 @@ primitives-FT2Face
 primitiveNewMemoryFaceFrom: aFreeTypeExternalMemory size: byteSize index: anInteger
 	"Fill in the receiver's (a FT2Face object) fields
 	from the address and fields of a newly opened FT_Face object."
-
 	| rcvr face memPointer |
+	
+	<var: #face type: 'FT_Face'>	"a pointer"
+	<var: #memPointer declareC: 'void *memPointer'>
+
 	rcvr := self primitive: 'primitiveNewMemoryFaceFromExternalMemoryAndIndex'
 		parameters: #(Oop SmallInteger SmallInteger)
 		receiver: #FT2Face.
+		
 	self touch: rcvr.
 
-	self var: #face type: 'FT_Face'.	"a pointer"
-	self var: #memPointer declareC: 'void *memPointer'.
 	errorCode := 0.
 
 	memPointer := self ftHandleValueFromReceiver: aFreeTypeExternalMemory.

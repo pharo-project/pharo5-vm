@@ -1,8 +1,10 @@
 primitives-FT2Face
 primitiveSetFaceCharMap: encodingString 
 	| face rcvr encoding |
-	self var: #face declareC: 'FT_Face face'.
-	self var: #encoding declareC: 'FT_Encoding encoding'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	<var: #encoding declareC: 'FT_Encoding encoding'>
+	
 	rcvr := self 
 				primitive: 'primitiveSetFaceCharMap'
 				parameters: #(#Oop)

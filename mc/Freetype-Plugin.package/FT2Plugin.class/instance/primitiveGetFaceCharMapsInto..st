@@ -1,9 +1,11 @@
 primitives-FT2Face
 primitiveGetFaceCharMapsInto: array 
 	| face rcvr stringOop charmap numCharmaps arrayOop |
-	self var: #face type: 'FT_Face'.
-	self var: #charmap type: 'FT_CharMap *'.
-	self var: #numCharmaps type: 'int'.
+	
+	<var: #face type: 'FT_Face'>
+	<var: #charmap type: 'FT_CharMap *'>
+	<var: #numCharmaps type: 'int'>
+	
 	rcvr := self 
 				primitive: 'primitiveGetFaceCharMapsIntoArray'
 				parameters: #(#Array)

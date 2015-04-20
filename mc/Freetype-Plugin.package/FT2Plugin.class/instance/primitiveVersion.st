@@ -1,9 +1,11 @@
 primitives-FT2Version
 primitiveVersion
 	| rcvr apatch amajor aminor |
-	self var: #amajor type: 'int'.
-	self var: #aminor type: 'int'.
-	self var: #apatch type: 'int'.
+	
+	<var: #amajor type: 'int'>
+	<var: #aminor type: 'int'>
+	<var: #apatch type: 'int'>
+	
 	rcvr := self
 				primitive: 'primitiveVersion'
 				parameters: #()

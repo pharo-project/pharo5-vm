@@ -1,10 +1,11 @@
 primitives-FT2Face
 primitiveGetFaceGlyphName: glyphIndex 
 	"return a String"
-
 	| face rcvr string buffer |
-	self var: #face type: 'FT_Face'.
-	self var: #buffer declareC: 'char buffer[100]'.
+	
+	<var: #face type: 'FT_Face'>
+	<var: #buffer declareC: 'char buffer[100]'>
+	
 	rcvr := self 
 				primitive: 'primitiveGetFaceGlyphName'
 				parameters: #(#SmallInteger)

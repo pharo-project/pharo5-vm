@@ -3,9 +3,10 @@ primitiveGetFaceCharIndex: charIndex
 	"Return the Freetype glyph index of the given character code, in the 
 	current encoding. 
 	Return value of 0 means 'undefined character code'."
-
 	| rcvr face result |
-	self var: #face type: 'FT_Face'.
+
+	<var: #face type: 'FT_Face'>
+
 	rcvr := self 
 				primitive: 'primitiveGetFaceCharIndex'
 				parameters: #(SmallInteger)

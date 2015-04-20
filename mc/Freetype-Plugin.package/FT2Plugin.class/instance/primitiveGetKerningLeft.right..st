@@ -1,12 +1,11 @@
 primitives-FT2Kerning
 primitiveGetKerningLeft: leftGlyph right: rightGlyph
-
 	| rcvr face pointOop kernMode result |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #result type: 'FT_Vector'.
-	self cCode: '
-		result.x=3;
-		result.y=4;' inSmalltalk: [ result := 3@4].
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #result type: 'FT_Vector'>
+
+	self cCode: 'result.x=3; result.y=4;' inSmalltalk: [ result := 3@4 ].
 	self touch: result.
 
 	rcvr := self 
