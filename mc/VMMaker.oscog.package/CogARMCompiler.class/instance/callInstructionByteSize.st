@@ -1,4 +1,4 @@
 accessing
 callInstructionByteSize
-	"we only get to use quick B[LX] calls. We hope"
+	"ARM calls and jumps span +/- 32 mb, more than enough for intra-zone calls and jumps."
 	^4

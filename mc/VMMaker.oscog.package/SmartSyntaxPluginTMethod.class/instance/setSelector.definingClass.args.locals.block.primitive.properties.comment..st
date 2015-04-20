@@ -11,9 +11,6 @@ setSelector: sel definingClass: class args: argList locals: localList block: aBl
 	primitive := aNumber.
 	properties := methodProperties.
 	comment := aComment.
-
-	self haltIf: self selector = #primitiveGetFaceGlyphName.
-
 	parseTree := aBlockNode asTranslatorNodeIn: self.
 	labels := Set new.
 	complete := false.  "set to true when all possible inlining has been done"

@@ -130,7 +130,6 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		 SendNumArgsReg := SendNumArgsReg + 1]]"
 	coInterpreter marryFrameCopiesTemps ifFalse:
 		[cogit MoveCq: objectMemory nilObject R: TempReg].
-	"Could usefully use AddCq:R:R:"
 	cogit
 		MoveR: FPReg R: ClassReg;
 		AddCq: FoxMFReceiver R: ClassReg;

@@ -1,5 +1,5 @@
 generate machine code - concretize
-concretizeConditionalJumpLong: conditionCode
+concretizeConditionalJumpFull: conditionCode
 	"Will get inlined into concretizeAt: switch."
 	"Sizing/generating jumps.
 		Jump targets can be to absolute addresses or other abstract instructions.
@@ -10,6 +10,7 @@ concretizeConditionalJumpLong: conditionCode
 	<var: #jumpTarget type: #'AbstractInstruction *'>
 	jumpTarget := self longJumpTargetAddress.
 	instrOffset := self at: 0 moveCw: jumpTarget intoR: ConcreteIPReg.
+	self assert: instrOffset = 16.
 	"bx RISCTempReg"
 	self machineCodeAt: instrOffset put: (self cond: conditionCode bx: 0 target: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

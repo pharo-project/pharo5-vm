@@ -16,7 +16,7 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 	callDistance := (callTargetAddress - (callSiteReturnAddress + 8 "pc offset"- 4 "return offset")) signedIntToLong.
 	
 	self assert: (self isInImmediateJumpRange: callDistance). "we don't support long call updates, yet"
-	call := self cond: AL br: 1 offset: callDistance.
+	call := self bl: callDistance.
 	objectMemory longAt:  callSiteReturnAddress - 4 put: call.
 	
 	"The cacheTag is loaded byte by byte. Each byte needs to be encoded with minimal right ring rotation. See also #at:moveCw:intoR:"

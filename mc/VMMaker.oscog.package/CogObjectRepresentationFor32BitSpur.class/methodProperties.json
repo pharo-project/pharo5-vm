@@ -14,7 +14,7 @@
 		"genConvertSmallIntegerToIntegerInReg:" : "eem 12/6/2013 14:51",
 		"genCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"genFetchIndexRegister:from:into:" : "cb 4/17/2015 15:23",
-		"genGetActiveContextLarge:inBlock:" : "eem 4/16/2015 10:03",
+		"genGetActiveContextLarge:inBlock:" : "tpr 4/16/2015 10:09",
 		"genGetClassTagOf:into:scratchReg:" : "eem 7/7/2014 11:57",
 		"genGetHashFieldNonImmOf:asSmallIntegerInto:" : "eem 12/6/2013 14:50",
 		"genGetHashFieldNonImmOf:into:" : "eem 10/3/2013 14:48",

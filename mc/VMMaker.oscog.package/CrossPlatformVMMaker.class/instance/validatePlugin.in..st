@@ -13,5 +13,5 @@ validatePlugin: plName in: listOfPlugins
 				ifTrue: [plugin := plName]].
 	plugin ifNil: [^ self couldNotFindPluginClass: plName].
 	plugin shouldBeTranslated ifFalse:
-		[self error: 'untranslateable plugin class ', plugin name].
+		[self error: 'untranslateable plugin class ', plName].
 	^plugin

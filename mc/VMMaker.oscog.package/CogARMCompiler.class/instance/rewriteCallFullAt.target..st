@@ -1,6 +1,6 @@
 inline cacheing
-rewriteJumpLongAt: callSiteReturnAddress target: callTargetAddress
-	"Rewrite a long jump instruction to jump to a different target.  This variant
+rewriteCallFullAt: callSiteReturnAddress target: callTargetAddress
+	"Rewrite a callFull instruction to jump to a different target.  This variant
 	 is used to rewrite cached primitive calls.   Answer the extent of the
 	 code change which is used to compute the range of the icache to flush."
 	<var: #callSiteReturnAddress type: #usqInt>
@@ -8,8 +8,8 @@ rewriteJumpLongAt: callSiteReturnAddress target: callTargetAddress
 	"cogit disassembleFrom: callSiteReturnAddress - 40 to: callSiteReturnAddress + 9"
 
 	"check that the instruction involved is actually a long jump BX ip (reg 12)
-	(CogARMCompiler new bx: 12) hex"
-	self assert: (objectMemory longAt:  callSiteReturnAddress - 4) = 16rE12FFF1C .
+	(CogARMCompiler new blx: 12) hex '16rE12FFF3C'"
+	self assert: (objectMemory longAt:  callSiteReturnAddress - 4) = 16rE12FFF3C .
 	
 	"The callTargetAddress is loaded byte by byte."
 	objectMemory byteAt: callSiteReturnAddress - 20 put: (callTargetAddress >> 24 bitAnd: 16rFF).

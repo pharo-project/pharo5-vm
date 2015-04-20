@@ -17,12 +17,19 @@ dispatchConcretize
 		[Fill32]					-> [^self concretizeFill32].
 		[FillFromWord]			-> [^self concretizeFillFromWord].
 		[Nop]					-> [^self concretizeNop].
+		"ARM Specific Control/Data Movement" 
+		[LDMFD]				-> [^self concretizeLDMFD].
+		[STMFD]				-> [^self concretizeSTMFD].
+		[SMULL]				-> [^self concretizeSMULL]	.
+		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].
 		"Control"
-		[Call]						-> [^self concretizeCall].
+		[Call]						-> [^self concretizeCall]. "call code within code space"
+		[CallFull]					-> [^self concretizeCallFull]. "call code anywhere in address space"
 		[JumpR]						-> [^self concretizeJumpR].
-		[JumpLong]					-> [^self concretizeConditionalJumpLong: AL].
-		[JumpLongZero]			-> [^self concretizeConditionalJumpLong: EQ].
-		[JumpLongNonZero]		-> [^self concretizeConditionalJumpLong: NE].
+		[JumpFull]					-> [^self concretizeJumpFull]."jump within address space"
+		[JumpLong]					-> [^self concretizeConditionalJump: AL]."jumps witihn code space"
+		[JumpLongZero]			-> [^self concretizeConditionalJump: EQ].
+		[JumpLongNonZero]		-> [^self concretizeConditionalJump: NE].
 		[Jump]						-> [^self concretizeConditionalJump: AL].
 		[JumpZero]					-> [^self concretizeConditionalJump: EQ].
 		[JumpNonZero]				-> [^self concretizeConditionalJump: NE].
@@ -42,37 +49,37 @@ dispatchConcretize
 		[JumpBelowOrEqual]		-> [^self concretizeConditionalJump: LS].
 		[JumpFPEqual]				-> [^self concretizeFPConditionalJump: EQ].
 		[JumpFPNotEqual]			-> [^self concretizeFPConditionalJump: NE].
-		"[JumpFPLess]				-> [^self concretizeFPConditionalJump: LT].
+		[JumpFPLess]				-> [^self concretizeFPConditionalJump: LT].
 		[JumpFPGreaterOrEqual]	-> [^self concretizeFPConditionalJump: GE].
 		[JumpFPGreater]			-> [^self concretizeFPConditionalJump: GT].
 		[JumpFPLessOrEqual]		-> [^self concretizeFPConditionalJump: LE].
 		[JumpFPOrdered]			-> [^self concretizeFPConditionalJump: VC].
-		[JumpFPUnordered]			-> [^self concretizeFPConditionalJump: VS]."
+		[JumpFPUnordered]			-> [^self concretizeFPConditionalJump: VS].
 		[RetN]						-> [^self concretizeRetN].
+		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeAddCqR].
 		[AddCwR]					-> [^self concretizeDataOperationCwR: AddOpcode].
 		[AddRR]						-> [^self concretizeDataOperationRR: AddOpcode].
-		"[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58]."
+		[AddRdRd]					-> [^self concretizeAddRdRd].
 		[AndCqR]					-> [^self concretizeAndCqR].
 		[AndCqRR]					-> [^self concretizeAndCqRR].
 		[AndCwR]					-> [^self concretizeDataOperationCwR: AndOpcode].
 		[AndRR]						-> [^self concretizeDataOperationRR: AndOpcode].
-		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].
 		[CmpCqR]					-> [^self concretizeDataOperationCqR: CmpOpcode].
 		[CmpCwR]					-> [^self concretizeDataOperationCwR: CmpOpcode].
 		[CmpRR]					-> [^self concretizeDataOperationRR: CmpOpcode].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
-		"[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
-		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59]."
+		[DivRdRd]					-> [^self concretizeDivRdRd].
+		[MulRdRd]					-> [^self concretizeMulRdRd].
 		[OrCqR]						-> [^self concretizeDataOperationCqR: OrOpcode].
 		[OrCwR]					-> [^self concretizeDataOperationCwR: OrOpcode].
 		[OrRR]						-> [^self concretizeDataOperationRR: OrOpcode].
 		[SubCqR]					-> [^self concretizeSubCqR].
 		[SubCwR]					-> [^self concretizeDataOperationCwR: SubOpcode].
 		[SubRR]						-> [^self concretizeDataOperationRR: SubOpcode].
-		"[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C]."
-		[SqrtRd]						-> [^self concretizeSqrtRd].
+		[SubRdRd]					-> [^self concretizeSubRdRd].
+		[SqrtRd]					-> [^self concretizeSqrtRd].
 		[TstCqR]					-> [^self concretizeTstCqR].
 		[XorCqR]						-> [^self concretizeDataOperationCqR: XorOpcode].
 		[XorCwR]						-> [^self concretizeDataOperationCwR: XorOpcode].
@@ -91,8 +98,6 @@ dispatchConcretize
 		[MoveRR]			-> [^self concretizeMoveRR].
 		[MoveAwR]			-> [^self concretizeMoveAwR].
 		[MoveRAw]			-> [^self concretizeMoveRAw].
-		"While the two MoveMbR and MoveMwR are quite similar (off by 1 bit), they differ way more to
-		MoveM16R and MoveM64R. Because of that, they are not merged."
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
 		[MoveRMbr]			-> [^self concretizeMoveRMbr].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
@@ -109,10 +114,5 @@ dispatchConcretize
 		[PushCq]			-> [^self concretizePushCq].
 		[PushCw]			-> [^self concretizePushCw].
 		[PrefetchAw]		-> [^self concretizePrefetchAw].
-		[Stop]				-> [^self concretizeStop].
 		"Conversion"
-		[ConvertRRd]		-> [^self concretizeConvertRRd].
-		"ARM specific opcodes" 
-		[LDMFD]			-> [^self concretizeLDMFD].
-		[STMFD]			-> [^self concretizeSTMFD].
-		[SMULL]			-> [^self concretizeSMULL]	}
+		[ConvertRRd]		-> [^self concretizeConvertRRd]}

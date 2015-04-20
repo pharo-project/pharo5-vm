@@ -1,5 +1,5 @@
 generate machine code - concretize
-concretizeLongCall
+concretizeCallFull
 	"Will get inlined into concretizeAt: switch."
 	"Sizing/generating calls.
 		Jump targets can be to absolute addresses or other abstract instructions.
@@ -12,4 +12,5 @@ concretizeLongCall
 	instrOffset := self at: 0 moveCw: jumpTarget intoR: ConcreteIPReg.
 	"blx ConcreteIPReg"
 	self machineCodeAt: instrOffset put: (self blx: ConcreteIPReg).
+	self assert: instrOffset = 16.
 	^machineCodeSize := instrOffset + 4
