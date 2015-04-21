@@ -1,19 +1,23 @@
 UI
 openAsMorphNoTranscript
 	"Open a morphic view on this simulation."
-	| localImageName theWindow |
-	localImageName := imageName asFileReference basename.
-	theWindow := (SystemWindow labelled: 'Simulation of ' , localImageName) model: self.
+	| localImageName borderWidth window |
+	localImageName := FileDirectory default localNameFor: imageName.
+	window := (SystemWindow labelled: 'Simulation of ' , localImageName) model: self.
 
-	theWindow addMorph: (displayView := ImageMorph new image: displayForm)
+	window addMorph: (displayView := ImageMorph new image: displayForm)
 		frame: (0@0 corner: 1@0.95).
 
-	theWindow addMorph: (PluggableTextMorph on: self
+	window addMorph: (PluggableTextMorph on: self
 						text: #byteCountText accept: nil
 						readSelection: nil menu: #utilitiesMenu:) hideScrollBarsIndefinitely
 		frame: (0@0.95 corner: 1@1).
 
-	theWindow openInWorldExtent: (self desiredDisplayExtent
-								+ (2 * theWindow borderWidth)
-								+ (0@theWindow labelHeight)
+	borderWidth := [SystemWindow borderWidth] "Squeak 4.1"
+						on: MessageNotUnderstood
+						do: [:ex| 0]. "3.8"
+	borderWidth := borderWidth + window borderWidth.
+	window openInWorldExtent: (self desiredDisplayExtent
+								+ (2 * borderWidth)
+								+ (0@window labelHeight)
 								* (1@(1/0.95))) rounded

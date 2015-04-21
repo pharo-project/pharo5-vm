@@ -5,7 +5,7 @@ runForNBytes: nBytecodes
 	This can be run repeatedly."
 	| endCount |
 	self initStackPages.
-	self loadInitialContext.	
+	self loadInitialContext.
 	endCount := byteCount + nBytecodes.
 	self internalizeIPandSP.
 	self fetchNextBytecode.

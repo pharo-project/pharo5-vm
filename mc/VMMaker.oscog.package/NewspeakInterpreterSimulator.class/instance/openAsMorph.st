@@ -2,13 +2,15 @@ UI
 openAsMorph
 	"Open a morphic view on this simulation."
 	| window localImageName |
-	localImageName := imageName asFileReference basename.
+	localImageName := imageName
+							ifNotNil: [FileDirectory default localNameFor: imageName]
+							ifNil: [' synthetic image'].
 	window := (SystemWindow labelled: 'Simulation of ', localImageName) model: self.
 
 	window addMorph: (displayView := ImageMorph new image: displayForm)
 		frame: (0@0 corner: 1@0.8).
 
-	transcript := ThreadSafeTranscript new.
+	transcript := TranscriptStream on: (String new: 10000).
 	window addMorph: (PluggableTextMorph
 							on: transcript text: nil accept: nil
 							readSelection: nil menu: #codePaneMenu:shifted:)
@@ -22,4 +24,5 @@ openAsMorph
 	window openInWorldExtent: (self desiredDisplayExtent
 								+ (2 * window borderWidth)
 								+ (0@window labelHeight)
-								* (1@(1/0.8))) rounded
+								* (1@(1/0.8))) rounded.
+	^window

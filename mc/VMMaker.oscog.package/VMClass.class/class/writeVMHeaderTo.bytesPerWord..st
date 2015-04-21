@@ -25,6 +25,6 @@ writeVMHeaderTo: aStream bytesPerWord: bytesPerWord
 	aStream cr.
 
 	aStream
-		nextPutAll: '#define MinSmallInteger '; print: self objectMemoryClass new minSmallInteger; cr;
-		nextPutAll: '#define MaxSmallInteger '; print: self objectMemoryClass new maxSmallInteger; cr;
+		nextPutAll: '#define MinSmallInteger '; print: self objectMemoryClass minSmallInteger; cr;
+		nextPutAll: '#define MaxSmallInteger '; print: self objectMemoryClass maxSmallInteger; cr;
 		cr.

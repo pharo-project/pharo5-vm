@@ -1,0 +1,14 @@
+{
+	"category" : "CogVMMakerPharoCompatibility-Fake",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "Project",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

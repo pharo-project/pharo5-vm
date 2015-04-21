@@ -10,7 +10,7 @@ runWithBreakCount: theBreakCount
 				  ^self].
 	breakCount := theBreakCount.
 	self initStackPages.
-	self loadInitialContext.	
+	self loadInitialContext.
 	self internalizeIPandSP.
 	self fetchNextBytecode.
 	[true] whileTrue:
