@@ -5,7 +5,7 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 	addressinatorBlock := [:value|
 		(aSymbolManager lookupAddress: value)
 		ifNotNil: [:string| ' = ', value hex, ' = ', string]
-		ifNil: [' = ', value hex]].
+		ifNil: ['']].
 	
 	word := (memory:= aSymbolManager objectMemory) longAt: address.
 	(self instructionIsAnyB: word)
@@ -16,7 +16,10 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 					 operand := operand + address + 8 bitAnd: aSymbolManager addressSpaceMask].
 			((self instructionIsBX: word) or: [self instructionIsBLX: word])
 				ifTrue:["We can extract the offset from a  BX/BLX instructions register"			
-					operand := (self perform: (self registerStateGetters at: (word bitAnd: 15) + 1))]]
+					operand := (self perform: (self registerStateGetters at: (word bitAnd: 15) + 1))].
+			
+			(aSymbolManager lookupAddress: operand) ifNotNil:
+				[:name| ^anInstructionString, ' = ', operand hex, ' = ', name]]
 		ifFalse:
 			[(self instructionIsAnyLoadStore: word)
 				ifTrue: [|baseR|
@@ -61,4 +64,4 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 						[^anInstructionString].
 					 operand := aSymbolManager backEnd literalBeforeFollowingAddress: address + 4]].
 	"is there an interesting address with this?"
-	^anInstructionString", (addressinatorBlock value: operand) <-------------- NEEDS FIXING BETTERER"
+	^anInstructionString, (addressinatorBlock value: operand)
