@@ -522,7 +522,7 @@
 		"registerMaskFor:and:and:and:and:and:" : "eem 3/28/2015 13:40",
 		"relativeLabelForPC:" : "eem 12/5/2010 11:58",
 		"relocateCallsAndSelfReferencesInMethod:" : "eem 1/20/2014 19:27",
-		"relocateCallsInClosedPIC:" : "eem 4/19/2015 18:09",
+		"relocateCallsInClosedPIC:" : "tpr 4/20/2015 12:10",
 		"relocateIfCallOrMethodReference:mcpc:delta:" : "eem 4/4/2015 18:25",
 		"relocateMethodsPreCompaction" : "eem 6/26/2009 12:46",
 		"remapIfObjectRef:pc:hasYoung:" : "eem 4/3/2015 15:36",
