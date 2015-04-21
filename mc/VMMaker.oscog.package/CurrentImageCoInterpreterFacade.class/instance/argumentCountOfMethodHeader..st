@@ -1,3 +1,4 @@
 accessing
 argumentCountOfMethodHeader: aSmallIntegerOop
-	^(headerToMethodMap at: aSmallIntegerOop) numArgs
+	"a.k.a. (headerToMethodMap at: aSmallIntegerOop) numArgs"
+	^coInterpreter argumentCountOfMethodHeader: aSmallIntegerOop

@@ -6,4 +6,6 @@ CallFullRT: callTarget
 	 See also Call which calls within our *code* space"
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	^self annotateCall: (self CallFull: callTarget)
+	^backEnd fullCallsAreRelative
+		ifTrue: [self annotateCall: (self CallFull: callTarget)]
+		ifFalse: [self CallFull: callTarget]

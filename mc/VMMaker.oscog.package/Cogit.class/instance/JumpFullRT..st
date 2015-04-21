@@ -6,4 +6,6 @@ JumpFullRT: callTarget
 	 See also JumpLong et al. which jump within our *code* space"
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	^self annotateCall: (self JumpFull: callTarget)
+	^backEnd fullCallsAreRelative
+		ifTrue: [self annotateCall: (self JumpFull: callTarget)]
+		ifFalse: [self JumpFull: callTarget]

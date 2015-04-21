@@ -4,6 +4,7 @@
 		"specificOpcodes" : "eem 1/24/2012 13:16" },
 	"instance" : {
 		"cResultRegister" : "eem 12/13/2010 18:55",
+		"callFullTargetFromReturnAddress:" : "eem 4/20/2015 17:31",
 		"callInstructionByteSize" : "eem 2/13/2009 12:29",
 		"callTargetFromReturnAddress:" : "eem 3/9/2009 09:34",
 		"callerSavedRegisterMask" : "eem 12/13/2010 18:49",
@@ -90,6 +91,7 @@
 		"concretizeXorRR" : "eem 2/7/2009 19:37",
 		"dispatchConcretize" : "eem 4/19/2015 08:50",
 		"flushICacheFrom:to:" : "eem 6/17/2009 19:53",
+		"fullCallsAreRelative" : "eem 4/20/2015 18:22",
 		"genDivR:R:Quo:Rem:" : "eem 10/30/2013 23:26",
 		"genGetLeafCallStackPointerFunction" : "eem 3/29/2009 19:44",
 		"genJumpFPEqual:" : "eem 4/17/2009 15:47",

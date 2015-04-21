@@ -1,4 +1,4 @@
-generate machine code - concretize
+generate machine code
 padIfPossibleWithNopsFrom: startAddr to: endAddr
 	| nullBytes |
 	nullBytes := (endAddr - startAddr + 1) \\ 4.

@@ -1,4 +1,4 @@
-generate machine code - concretize
+generate machine code - support
 nopsFrom: startAddr to: endAddr
 "fill with MOV R0, R0 no-op instructions"
 	self assert: endAddr - startAddr + 1 \\ 4 = 0.

@@ -1,6 +1,7 @@
 testing
 extractOffsetFromBL: instr
-"we are told this is a BL <offset> instruction, so work out the offset it encodes"
+	"we are told this is a BL <offset> instruction, so work out the offset it encodes"
+	<inline: true>
 	| relativeJump |
 	relativeJump := instr bitAnd: 16r00FFFFFF.
 	relativeJump := (relativeJump bitAt: 24) = 1 

@@ -8,5 +8,5 @@ concretizeJumpFull
 	jumpTarget := self longJumpTargetAddress.
 	instrOffset := self at: 0 moveCw: jumpTarget intoR: ConcreteIPReg.
 	"bx ConcreteIPReg"
-	self machineCodeAt: instrOffset put: (self cond: AL bx: 0 target: ConcreteIPReg).
+	self machineCodeAt: instrOffset put: (self bx: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

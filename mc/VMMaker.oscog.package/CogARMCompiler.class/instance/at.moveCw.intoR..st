@@ -1,4 +1,4 @@
-generate machine code - concretize
+generate machine code - support
 at: offset moveCw: constant intoR: destReg
 	"This loads aWord into the inter-opcode temporary register. Because most ARM instruction enable using a (8-12bit) offset relative to a register, the LS Byte can be included in that instruction, saving one instruction. This is done in a decorator, e.g. CmpCqR"
 	"Generates:along the lines of
