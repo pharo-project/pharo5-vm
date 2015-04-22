@@ -39,7 +39,7 @@
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
 		"genGetRawSlotSizeOfNonImm:into:" : "eem 4/10/2015 18:09",
 		"genInnerPrimitiveAsCharacter:inReg:" : "eem 12/24/2013 18:53",
-		"genInnerPrimitiveCharacterValue:" : "eem 12/24/2013 18:37",
+		"genInnerPrimitiveCharacterValue:" : "eem 4/20/2015 19:57",
 		"genInnerPrimitiveIdentical:orNotIf:" : "cb 4/17/2015 15:24",
 		"genInnerPrimitiveIdentityHash:" : "eem 2/12/2014 13:45",
 		"genInnerPrimitiveNew:" : "eem 10/4/2013 15:04",

@@ -8,8 +8,7 @@ concretizeConditionalInstruction
 	cond := nil.
 	self dispatchConcretize.
 	cond := savedCond.
-	3 to: machineCodeSize by: 4 do:
-		[:i| | topByte |
-		 topByte := machineCode at: i.
-		 self assert: (topByte bitClear: 15) = 0.
-		 machineCode at: i put: cond << 4 + topByte]
+	0 to: machineCodeSize-1 by: 4 do:
+		[:i| | instr |
+		instr := (self machineCodeAt: i) bitClear: 16rF<<28.
+		self machineCodeAt: i put: (instr bitOr: (cond bitAnd: 16rF)<<28)]

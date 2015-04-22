@@ -8,10 +8,10 @@ mapFor: cogMethod performAllMapEntriesUntil: functionSymbol arg: arg
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
 			ifTrue:
-				[mcpc := mcpc + (mapByte bitAnd: DisplacementMask)]
+				[mcpc := mcpc + ((mapByte bitAnd: DisplacementMask) * backEnd codeGranularity)]
 			ifFalse:
 				[mapByte < (IsAnnotationExtension << AnnotationShift) ifTrue:
-					[mcpc := mcpc + (mapByte - DisplacementX2N << AnnotationShift)]].
+					[mcpc := mcpc + ((mapByte - DisplacementX2N << AnnotationShift) * backEnd codeGranularity)]].
 		 result := self perform: functionSymbol
 					   with: mapByte >> AnnotationShift
 					   with: (self cCoerceSimple: mcpc to: #'char *')

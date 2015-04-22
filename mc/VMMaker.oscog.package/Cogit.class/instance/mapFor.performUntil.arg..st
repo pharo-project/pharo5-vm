@@ -10,7 +10,7 @@ mapFor: cogMethod performUntil: functionSymbol arg: arg
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
 			ifTrue:
-				[mcpc := mcpc + (mapByte bitAnd: DisplacementMask).
+				[mcpc := mcpc + ((mapByte bitAnd: DisplacementMask) * backEnd codeGranularity).
 				 "If this is an IsSendCall annotation, peek ahead for an IsAnnotationExtension, and consume it."
 				 ((annotation := mapByte >> AnnotationShift) = IsSendCall
 				  and: [(mapByte := objectMemory byteAt: map - 1) >> AnnotationShift = IsAnnotationExtension]) ifTrue:
@@ -24,6 +24,6 @@ mapFor: cogMethod performUntil: functionSymbol arg: arg
 					[^result]]
 			ifFalse:
 				[mapByte < (IsAnnotationExtension << AnnotationShift) ifTrue:
-					[mcpc := mcpc + (mapByte - DisplacementX2N << AnnotationShift)]].
+					[mcpc := mcpc + ((mapByte - DisplacementX2N << AnnotationShift) * backEnd codeGranularity)]].
 		 map := map - 1].
 	^0

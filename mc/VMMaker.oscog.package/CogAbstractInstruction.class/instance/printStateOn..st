@@ -27,10 +27,10 @@ printStateOn: aStream
 						 operand printOn: aStream base: 16]]]].
 	machineCodeSize ifNotNil:
 		[(machineCodeSize between: 1 and: machineCode size) ifTrue:
-			[0 to: machineCodeSize - 1 do:
+			[0 to: machineCodeSize - 1 by: self codeGranularity do:
 				[:i|
 				 aStream space.
-				 (machineCode at: i) printOn: aStream base: 16]]].
+				 (self machineCodeAt: i) printOn: aStream base: 16]]].
 	address ifNotNil:
 		[aStream nextPut: $@.
 		 address printOn: aStream base: 16].

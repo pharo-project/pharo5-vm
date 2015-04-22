@@ -88,7 +88,7 @@
 		"genPrimitiveBitOr" : "eem 11/25/2010 15:03",
 		"genPrimitiveBitShift" : "eem 12/6/2013 14:52",
 		"genPrimitiveBitXor" : "eem 11/25/2010 15:06",
-		"genPrimitiveCharacterValue" : "eem 12/24/2013 16:48",
+		"genPrimitiveCharacterValue" : "eem 4/20/2015 20:03",
 		"genPrimitiveClass" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveClosureValue" : "eem 12/1/2010 10:12",
 		"genPrimitiveDiv" : "eem 12/6/2013 14:50",

@@ -1,8 +1,7 @@
 inline cacheing
-outputMachineCodeAt: address
-	"By default move machine code a byte at a time
-	  Subclasses with coarser granularity can override as desired."
+outputMachineCodeAt: targetAddress
+	"Override to move machine code a word at a time."
 	<inline: true>
 	0 to: machineCodeSize - 1 by: 4 do:
 		[:j|
-		objectMemory longAt: address + j put: (machineCode at: j // 4)]
+		objectMemory longAt: targetAddress + j put: (machineCode at: j // 4)]

@@ -8,9 +8,10 @@ printPCMapPairsFor: cogMethod on: aStream
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.
 		 annotation ~= IsAnnotationExtension ifTrue:
-			[mcpc := mcpc + (annotation = IsDisplacementX2N
-								ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
-								ifFalse: [mapByte bitAnd: DisplacementMask])].
+			[mcpc := mcpc + (backEnd codeGranularity
+								* (annotation = IsDisplacementX2N
+									ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
+									ifFalse: [mapByte bitAnd: DisplacementMask]))].
 		 aStream ensureCr.
 		 map printOn: aStream base: 16.
 		 aStream nextPutAll: ': '.

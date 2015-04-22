@@ -10,4 +10,6 @@ initializeErrorCodes
 	ShouldNotJIT := -8.
 	MaxNegativeErrorCode := ShouldNotJIT.
 	"Internal errors returned by generator routines to other generator routines"
-	BadRegisterSet := 1
+	BadRegisterSet := 1.
+	"Internal successes answered by CogObjectRepresentation to JIT, etc"
+	UnfailingPrimitive := 2.

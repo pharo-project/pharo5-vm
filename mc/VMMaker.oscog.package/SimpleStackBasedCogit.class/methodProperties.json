@@ -89,7 +89,7 @@
 		"genPrimitiveBitOr" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveBitShift" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveBitXor" : "eem (const to msg rewrite) 11/6/2014 11:21",
-		"genPrimitiveCharacterValue" : "eem (const to msg rewrite) 11/6/2014 11:21",
+		"genPrimitiveCharacterValue" : "eem 4/20/2015 20:03",
 		"genPrimitiveClass" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveClosureValue" : "eem 12/12/2012 11:46",
 		"genPrimitiveDiv" : "eem (const to msg rewrite) 11/6/2014 11:21",

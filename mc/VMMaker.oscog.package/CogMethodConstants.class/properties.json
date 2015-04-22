@@ -25,6 +25,7 @@
 		"PrimCallNeedsNewMethod",
 		"PrimCallNeedsPrimitiveFunction",
 		"ShouldNotJIT",
+		"UnfailingPrimitive",
 		"UnimplementedPrimitive",
 		"YoungSelectorInPIC" ],
 	"commentStamp" : "",

@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		"NumOperands" ],
-	"commentStamp" : "eem 7/17/2012 15:04",
+	"commentStamp" : "eem 4/21/2015 09:12",
 	"instvars" : [
 		"opcode",
 		"machineCodeSize",

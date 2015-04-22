@@ -29,8 +29,8 @@ symbolicOn: aStream
 		[machineCodeSize > machineCode size
 			ifTrue: [aStream nextPutAll: ' no mcode']
 			ifFalse:
-				[0 to: machineCodeSize - 1 do:
+				[0 to: machineCodeSize - 1 by: self codeGranularity do:
 					[:i|
 					 aStream space.
-					 (machineCode at: i) printOn: aStream base: 16]]].
+					 (self machineCodeAt: i) printOn: aStream base: 16]]].
 	aStream nextPut: $)

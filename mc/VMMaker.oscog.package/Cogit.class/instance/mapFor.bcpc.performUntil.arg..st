@@ -67,7 +67,7 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 			ifTrue:
 				[| annotation nextBcpc isBackwardBranch |
 				annotation := mapByte >> AnnotationShift.
-				mcpc := mcpc + (mapByte bitAnd: DisplacementMask).
+				mcpc := mcpc + ((mapByte bitAnd: DisplacementMask) * backEnd codeGranularity).
 				(self isPCMappedAnnotation: annotation) ifTrue:
 					[[byte := (objectMemory fetchByte: bcpc ofObject: aMethodObj) + bsOffset.
 					  descriptor := self generatorAt: byte.
@@ -100,6 +100,6 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 				[self assert: (mapByte >> AnnotationShift = IsDisplacementX2N
 							or: [mapByte >> AnnotationShift = IsAnnotationExtension]).
 				 mapByte < (IsAnnotationExtension << AnnotationShift) ifTrue:
-					[mcpc := mcpc + (mapByte - DisplacementX2N << AnnotationShift)]].
+					[mcpc := mcpc + ((mapByte - DisplacementX2N << AnnotationShift) * backEnd codeGranularity)]].
 		 map := map - 1].
 	^0

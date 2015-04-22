@@ -8,9 +8,10 @@ findMapLocationForMcpc: targetMcpc inMethod: cogMethod
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.
 		 annotation ~= IsAnnotationExtension ifTrue:
-			[mcpc := mcpc + (annotation = IsDisplacementX2N
-								ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
-								ifFalse: [mapByte bitAnd: DisplacementMask])].
+			[mcpc := mcpc + (backEnd codeGranularity
+								* (annotation = IsDisplacementX2N
+									ifTrue: [mapByte - DisplacementX2N << AnnotationShift]
+									ifFalse: [mapByte bitAnd: DisplacementMask]))].
 		 mcpc >= targetMcpc ifTrue:
 			[self assert: mcpc = targetMcpc.
 			 annotation = IsDisplacementX2N ifTrue:
