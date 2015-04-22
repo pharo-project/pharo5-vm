@@ -1,5 +1,7 @@
 {
 	"class" : {
+		"ISA" : "eem 4/21/2015 22:53",
+		"identifyingPredefinedMacros" : "eem 4/21/2015 22:40",
 		"initialize" : "eem 7/17/2012 15:00",
 		"specificOpcodes" : "eem 1/24/2012 13:16" },
 	"instance" : {

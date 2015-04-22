@@ -34,4 +34,5 @@ concretizeAndCqRR
 							 self machineCodeAt: 4 put: (self dataOpType: AndOpcode rd: dstReg rn: srcReg rm: ConcreteIPReg lsr: 32 - hb).
 							^machineCodeSize := 8]
 						ifFalse:
-							[^self concretizeDataOperationCwR: AndOpcode]]]
+							[^self concretizeDataOperationCwR: AndOpcode]]].
+	^0 "to keep Slang happy"

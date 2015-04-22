@@ -61,7 +61,7 @@
 		"XorOpcode" ],
 	"commentStamp" : "lw 8/23/2012 19:38",
 	"instvars" : [
-		"cond" ],
+		"conditionOrNil" ],
 	"name" : "CogARMCompiler",
 	"pools" : [
 		 ],

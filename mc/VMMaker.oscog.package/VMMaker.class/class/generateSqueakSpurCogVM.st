@@ -4,8 +4,7 @@ generateSqueakSpurCogVM
 	^VMMaker
 		generate: CoInterpreter
 		and: StackToRegisterMappingCogit
-		with: #(	ObjectMemory Spur32BitCoMemoryManager
-				ISA IA32)
+		with: #(ObjectMemory Spur32BitCoMemoryManager)
 		to: (FileDirectory default pathFromURI: self sourceTree, '/spursrc')
 		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including:#()

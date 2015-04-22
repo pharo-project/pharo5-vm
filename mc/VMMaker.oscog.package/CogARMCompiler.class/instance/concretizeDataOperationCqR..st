@@ -23,4 +23,5 @@ concretizeDataOperationCqR: armOpcode
 							 self machineCodeAt: 4 put:(self dataOpType: armOpcode rd: rd  rn: rn rm: ConcreteIPReg lsr: (32-hb)).
 							^machineCodeSize :=8]].
 					^self concretizeDataOperationCwR: armOpcode].
+	^0 "to keep Slang happy"
 	

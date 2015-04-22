@@ -4,7 +4,7 @@ ancilliaryClasses: options
 		[Cogit initializeMiscConstants].
 	^{	CogMethodZone.
 		CogAbstractInstruction.
-		ProcessorClass basicNew abstractInstructionCompilerClass.
+		self activeCompilerClass.
 		CogBlockStart.
 		CogBytecodeDescriptor.
 		CogBytecodeFixup.

@@ -13,9 +13,10 @@ concretizeLoadEffectiveAddressMwrR
 			self machineCodeAt: 0 
 				"add destReg, srcReg, #immediate ROR rot"
 				put: (self add: destReg rn: srcReg imm: immediate ror: rot<<1).
-			^machineCodeSize := 4]
+			machineCodeSize := 4]
 		ifFalse:
 			[instrOffset := self at: 0 moveCw: offset intoR: ConcreteIPReg.
 			"add destReg, srcReg, ConcreteIPReg"
 			self machineCodeAt: 16 put: (self add: destReg rn: srcReg rm: ConcreteIPReg).
-			^machineCodeSize := instrOffset + 4 ]
+			machineCodeSize := instrOffset + 4].
+	^machineCodeSize "to keep Slang happy"

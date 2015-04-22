@@ -6,7 +6,7 @@ generateMainVM
 	 code is generated."
 
 	self generateInterpreterFile;
-		generateCogitFile;
+		generateCogitFiles;
 		processFilesForCoreVM;
 		generateInternalPlugins;
 		generateExportsFile

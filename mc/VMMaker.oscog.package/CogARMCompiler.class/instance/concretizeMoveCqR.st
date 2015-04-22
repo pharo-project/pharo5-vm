@@ -19,5 +19,5 @@ concretizeMoveCqR
 				ifTrue: [ :rot :immediate |
 					self machineCodeAt: 0 put: (self mvn: reg imm: immediate ror: rot).
 					^machineCodeSize := 4]
-				ifFalse: [^self concretizeMoveCwR]]
-	
+				ifFalse: [^self concretizeMoveCwR]].
+	^0 "to keep Slang happy"

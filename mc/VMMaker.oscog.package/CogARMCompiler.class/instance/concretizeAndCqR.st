@@ -32,4 +32,5 @@ concretizeAndCqR
 							"Then AND reg, temp reg, lsr #(32-hb)"
 							 self machineCodeAt: 4 put:(self dataOpType: AndOpcode rd: reg rn: reg rm: ConcreteIPReg lsr: (32-hb )).
 							^machineCodeSize :=8]
-						ifFalse: [^self concretizeDataOperationCwR: AndOpcode]]]
+						ifFalse: [^self concretizeDataOperationCwR: AndOpcode]]].
+	^0 "to keep Slang happy"

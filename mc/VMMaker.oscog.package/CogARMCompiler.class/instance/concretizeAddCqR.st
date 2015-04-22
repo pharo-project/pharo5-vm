@@ -14,4 +14,5 @@ concretizeAddCqR
 					reg := self concreteRegister: (operands at: 1).
 					self machineCodeAt: 0 put: (self subs: reg rn: reg imm: immediate ror: rot).
 					^machineCodeSize := 4]
-				ifFalse: [^self concretizeDataOperationCwR: 4]]
+				ifFalse: [^self concretizeDataOperationCwR: 4]].
+	^0 "to keep Slang happy"

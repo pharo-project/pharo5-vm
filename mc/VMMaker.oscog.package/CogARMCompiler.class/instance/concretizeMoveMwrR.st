@@ -16,4 +16,5 @@ concretizeMoveMwrR
 			[instrOffset := self at: 0 moveCw: offset intoR: ConcreteIPReg.
 			"ldr destReg, [srcReg, ConcreteIPReg]"
 			self machineCodeAt: instrOffset put: (self ldr: destReg rn: srcReg rm: ConcreteIPReg).
-			^machineCodeSize := instrOffset + 4]
+			^machineCodeSize := instrOffset + 4].
+	^0 "to keep Slang happy"

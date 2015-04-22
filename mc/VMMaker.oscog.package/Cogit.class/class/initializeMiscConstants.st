@@ -9,7 +9,7 @@ initializeMiscConstants
 			[EagerInstructionDecoration isNil ifTrue:
 				[EagerInstructionDecoration := false]]. "speeds up single stepping but could lose fidelity"
 
-	ProcessorClass := (initializationOptions at: #ISA ifAbsent: [#IA32]) caseOf: {
+	ProcessorClass := (initializationOptions at: #ISA ifAbsentPut: [#IA32]) caseOf: {
 							[#IA32] 	->	[BochsIA32Alien].
 							[#ARMv5]	->	[GdbARMAlien]. }.
 

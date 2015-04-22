@@ -5,7 +5,7 @@ dispatchConcretize
 	 to get around the branch size limits in the SqueakV3 (blue book derived)
 	 bytecode set."
 	<returnTypeC: #void>
-	cond ifNotNil:
+	conditionOrNil ifNotNil:
 		[self concretizeConditionalInstruction.
 		 ^self].
 		 
