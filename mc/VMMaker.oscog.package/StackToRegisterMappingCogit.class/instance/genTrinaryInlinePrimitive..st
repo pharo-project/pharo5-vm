@@ -6,7 +6,9 @@ genTrinaryInlinePrimitive: prim
 
 	| ra1 ra2 rr adjust |
 	"The store check requires rr to be ReceiverResultReg"
-	self allocateThreeRegistersInto: [:rTop :rNext :rThird | ra2 := rTop. ra1 := rNext. rr := rThird ] thirdIsReceiver: prim = 0.
+	self 
+		allocateRegForStackTopThreeEntriesInto: [:rTop :rNext :rThird | ra2 := rTop. ra1 := rNext. rr := rThird ] 
+		thirdIsReceiver: prim = 0.
 	self assert: (rr ~= ra1 and: [rr ~= ra2 and: [ra1 ~= ra2]]).
 	self ssTop popToReg: ra2.
 	self ssPop: 1.

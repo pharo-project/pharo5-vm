@@ -28,15 +28,15 @@ genVanillaSpecialSelectorEqualsEquals
 		ifFalse: 
 			[rcvrIsConstant
 				ifFalse:
-					[self allocateTwoRegistersInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
+					[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
 					 self ssTop popToReg: argReg.
 					 (self ssValue:1) popToReg: rcvrReg]
 				ifTrue:
-					[argReg := self allocateOneRegister.
+					[argReg := self allocateRegForStackTopEntry.
 					 self ssTop popToReg: argReg]]
 		ifTrue:
 			[self assert: rcvrIsConstant not.
-			 rcvrReg := self allocateOneRegister.
+			 rcvrReg := self allocateRegForStackEntryAt: 1.
 			 (self ssValue:1) popToReg: rcvrReg].
 	
 	argIsConstant 

@@ -24,5 +24,5 @@ relocateCallsInClosedPIC: cPIC
 	self assert: cPIC cPICNumCases > 0.
 	pc := pc - cPICCaseSize.
 	"Finally relocate the load of the PIC and the jump to the overflow routine ceCPICMiss:receiver:"
-	backEnd relocateMethodReferenceBeforeAddress: pc + backEnd loadLiteralByteSize by: delta.
+	backEnd relocateMethodReferenceBeforeAddress: pc + backEnd loadPICLiteralByteSize by: delta.
 	backEnd relocateJumpLongBeforeFollowingAddress: pc + cPICEndSize by: delta negated

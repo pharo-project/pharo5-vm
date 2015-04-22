@@ -1,3 +1,0 @@
-simulation stack
-availableRegisterOrNil
-	^backEnd availableRegisterOrNilFor: self liveRegisters

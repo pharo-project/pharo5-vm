@@ -36,15 +36,15 @@ genSpecialSelectorEqualsEqualsWithForwarders
 		ifTrue: 
 			[unforwardRcvr
 				ifTrue:
-					[self allocateTwoRegistersInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
+					[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
 					 self ssTop popToReg: argReg.
 					 (self ssValue:1) popToReg: rcvrReg]
 				ifFalse:
-					[argReg := self allocateOneRegister.
+					[argReg := self allocateRegForStackTopEntry.
 					 self ssTop popToReg: argReg]]
 		ifFalse:
 			[self assert: unforwardRcvr.
-			 rcvrReg := self allocateOneRegister.
+			 rcvrReg := self allocateRegForStackEntryAt: 1.
 			 (self ssValue:1) popToReg: rcvrReg].
 		
 	argReg ifNotNil: [ regMask := self registerMaskFor: regMask ].
@@ -63,7 +63,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 							+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
 	postBranchPC := nextPC + branchDescriptor numBytes.
 
-	counterReg := self allocateRegisterNotConflictingWith: regMask. "Use this as the count reg, can't conflict with the registers for the arg and the receiver of #==."
+	counterReg := self allocateRegNotConflictingWith: regMask. "Use this as the count reg, can't conflict with the registers for the arg and the receiver of #==."
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
 	self assert: objectMemory wordSize = CounterBytes.

@@ -21,7 +21,7 @@ genJumpIf: boolean to: targetBytecodePC
 	self ssPop: 1.
 	desc popToReg: TempReg.
 
-	counterReg := self allocateRegisterNotConflictingWith: 0.
+	counterReg := self allocateAnyReg.
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	counterIndex := counterIndex + 1.
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.

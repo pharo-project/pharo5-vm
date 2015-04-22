@@ -18,6 +18,6 @@ compileClosedPICPrototype
 		self JumpLongZero: 16rCA5E10 + (h * 16).
 		h = 1 ifTrue:
 			[endCPICCase1 := self Label]].
-	self MoveCw: 16rAB5CE55 R: ClassReg.
+	self MoveCw: methodZoneBase R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).
 	^0

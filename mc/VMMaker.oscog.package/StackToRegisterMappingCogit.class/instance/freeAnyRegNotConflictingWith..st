@@ -1,5 +1,5 @@
 simulation stack
-freeRegisterNotConflictingWith: regMask
+freeAnyRegNotConflictingWith: regMask
 	"Spill the closest register on stack not conflicting with regMask. 
 	Assertion Failure if regMask has already all the registers"
 	<var: #desc type: #'CogSimStackEntry *'>

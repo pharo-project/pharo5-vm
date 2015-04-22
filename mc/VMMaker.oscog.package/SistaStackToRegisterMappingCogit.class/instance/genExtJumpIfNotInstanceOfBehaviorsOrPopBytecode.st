@@ -4,7 +4,7 @@ genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode
 								
 	| reg literal distance targetFixUp |
 	
-	reg := self allocateOneRegister.
+	reg := self allocateRegForStackTopEntry.
 	self ssTop popToReg: reg.
 	
 	literal := self getLiteral: (extA * 256 + byte1).

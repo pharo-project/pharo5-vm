@@ -1,5 +1,5 @@
 simulation stack
-allocateThreeRegistersInto: trinaryBlock thirdIsReceiver: thirdIsReceiver
+allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsReceiver
 	<inline: true>
 	| topRegistersMask rTop rNext rThird |
 	
@@ -19,14 +19,14 @@ allocateThreeRegistersInto: trinaryBlock thirdIsReceiver: thirdIsReceiver
 				(self register: ReceiverResultReg isInMask: self liveRegisters) ifTrue: 
 					[ self ssAllocateRequiredReg: ReceiverResultReg ].
 				optStatus isReceiverResultRegLive: false ]
-			ifFalse: [ rThird := self allocateRegisterNotConflictingWith: topRegistersMask ].
+			ifFalse: [ rThird := self allocateRegNotConflictingWith: topRegistersMask ].
 		topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rThird) ].
 	
 	rTop ifNil: [ 
-		rTop := self allocateRegisterNotConflictingWith: topRegistersMask.
+		rTop := self allocateRegNotConflictingWith: topRegistersMask.
 		topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rTop) ].
 	
-	rNext ifNil: [ rNext := self allocateRegisterNotConflictingWith: topRegistersMask ].
+	rNext ifNil: [ rNext := self allocateRegNotConflictingWith: topRegistersMask ].
 	
 	^ trinaryBlock value: rTop value: rNext value: rThird
 	

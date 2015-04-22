@@ -1,5 +1,5 @@
 simulation stack
-allocateTwoRegistersInto: binaryBlock
+allocateRegForStackTopTwoEntriesInto: binaryBlock
 	<inline: true>
 	| topRegistersMask rTop rNext |
 	
@@ -10,9 +10,9 @@ allocateTwoRegistersInto: binaryBlock
 	(self ssValue: 1) type = SSRegister ifTrue: 
 		[ topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: (rNext := (self ssValue: 1) register))].
 	
-	rTop ifNil: [ rTop := self allocateRegisterNotConflictingWith: topRegistersMask ].
+	rTop ifNil: [ rTop := self allocateRegNotConflictingWith: topRegistersMask ].
 	
-	rNext ifNil: [ rNext := self allocateRegisterNotConflictingWith: (self registerMaskFor: rTop) ].
+	rNext ifNil: [ rNext := self allocateRegNotConflictingWith: (self registerMaskFor: rTop) ].
 	
 	^ binaryBlock value: rTop value: rNext
 	
