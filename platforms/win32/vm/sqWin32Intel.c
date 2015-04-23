@@ -241,8 +241,9 @@ int __cdecl DPRINTF(const char *fmt, ...)
   va_end(al);
   return 1;
 }
+
 /*
-//Esteban: Looks like not needed anymore. I will need to try. 
+//Esteban: Looks like not needed anymore. I will need to try.
 #if !defined(_MSC_VER) && !defined(NODBGPRINT)
 
 // redefining printf doesn't seem like a good idea to me...
@@ -286,7 +287,7 @@ fprintf(FILE *fp, const char *fmt, ...)
 int __cdecl
 putchar(int c) { return printf("%c",c); }
 
-#endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
+#endif /-* !defined(_MSC_VER) && !defined(NODBGPRINT) *-/
 */
 
 /****************************************************************************/
