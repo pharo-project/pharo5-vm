@@ -241,7 +241,8 @@ int __cdecl DPRINTF(const char *fmt, ...)
   va_end(al);
   return 1;
 }
-
+/*
+//Esteban: Looks like not needed anymore. I will need to try. 
 #if !defined(_MSC_VER) && !defined(NODBGPRINT)
 
 // redefining printf doesn't seem like a good idea to me...
@@ -255,7 +256,7 @@ printf(const char *fmt, ...)
   if (!fIsConsole) {
 	wvsprintf(consoleBuffer, fmt, al);
 	OutputLogMessage(consoleBuffer);
-	if(IsWindow(stWindow)) /* not running as service? */
+	if(IsWindow(stWindow)) /-* not running as service? *-/
 	  OutputConsoleString(consoleBuffer);
   }
   result = vfprintf(stdout, fmt, al);
@@ -273,7 +274,7 @@ fprintf(FILE *fp, const char *fmt, ...)
     {
       wvsprintf(consoleBuffer, fmt, al);
       OutputLogMessage(consoleBuffer);
-      if(IsWindow(stWindow)) /* not running as service? */
+      if(IsWindow(stWindow)) /-* not running as service? *-/
         OutputConsoleString(consoleBuffer);
     }
   result = vfprintf(fp, fmt, al);
@@ -286,6 +287,7 @@ int __cdecl
 putchar(int c) { return printf("%c",c); }
 
 #endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
+*/
 
 /****************************************************************************/
 /*                   Message Processing                                     */
