@@ -1,11 +1,9 @@
 abstract instructions
 genMulR: regSource R: regDest
-	"Use SMULL to produce a 64-bit result, implicitly in TempReg,RISCTempReg.
-	 Test the top word for 0 or 1 and set oVerflow if not equal.  Move result in
-	 TempReg into regDest."
+	"Use SMULL to produce a 64-bit result, explicitly in RISCTempReg,regDest.
+	 By comparing RISCTempReg with regDest ASR 31(which effectively makes it 0 or -1) we know that the result being EQ means the hi reg and the top bit of the lo reg are the same - ie no overflow. The condition code can then be forced to oVerflow by use of MSR APSR_nzcvq, #1, lsl 28"
 
 	cogit
-		gen: SMULL operand: regSource operand: regDest; "result in TempReg,RISCTempReg"
-		gen: AddCqR operand: 1 operand: RISCTempReg; "turn -1,0 into 0,1"
-		gen: AddCqR operand: -1 operand: RISCTempReg; "turn 0,1 into not oVerflow"
-		gen: MoveRR operand: TempReg operand: regDest
+		gen: SMULL operand: regSource operand: regDest; "result in RISCTempReg,regDest"
+		gen: CMPSMULL operand: RISCTempReg operand: regDest;
+		gen: MSR operand: 1

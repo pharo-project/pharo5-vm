@@ -1,68 +1,37 @@
 bytecode generators
 genVanillaSpecialSelectorEqualsEquals
-	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor nExts
-	  jumpEqual jumpNotEqual rcvrReg argReg argIsConstant rcvrIsConstant  |
-	<var: #jumpEqual type: #'AbstractInstruction *'>
-	<var: #jumpNotEqual type: #'AbstractInstruction *'>
+	| nextPC postBranchPC targetBytecodePC branchDescriptor
+	  rcvrReg argReg argIsConstant rcvrIsConstant  |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
-	primDescriptor := self generatorAt: byte0.
-
-	nextPC := bytecodePC + primDescriptor numBytes.
-	nExts := 0.
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
-	 branchDescriptor isExtension] whileTrue:
-		[nExts := nExts + 1.
-		 nextPC := nextPC + branchDescriptor numBytes].
-	"If branching the stack must be flushed for the merge"
-	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifTrue:
-		[self ssFlushTo: simStackPtr - 2].
-
-	"Don't use ReceiverResultReg for receiver to keep ReceiverResultReg live.
-	 Optimize e.g. rcvr == nil, the common case for ifNil: et al."
+	
+	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
 	
 	argIsConstant := self ssTop type = SSConstant.
-	rcvrIsConstant := argIsConstant and: [ (self ssValue:1) type = SSConstant ].
+	"they can't be both constants because we do not have instructions manipulating two constants, 
+	if this is the case, which can happen due to annotable constants that can be moved in memory 
+	with become and therefore can't resolve #== at compilation time, still write the rcvr into a 
+	register as if it was not a constant. It's uncommon anyway."
+	rcvrIsConstant := argIsConstant not and: [(self ssValue: 1) type = SSConstant]. 
 	
-	argIsConstant
-		ifFalse: 
-			[rcvrIsConstant
-				ifFalse:
-					[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
-					 self ssTop popToReg: argReg.
-					 (self ssValue:1) popToReg: rcvrReg]
-				ifTrue:
-					[argReg := self allocateRegForStackTopEntry.
-					 self ssTop popToReg: argReg]]
-		ifTrue:
-			[self assert: rcvrIsConstant not.
-			 rcvrReg := self allocateRegForStackEntryAt: 1.
-			 (self ssValue:1) popToReg: rcvrReg].
+	self 
+		allocateEqualsEqualsRegistersArgNeedsReg: argIsConstant not 
+		rcvrNeedsReg: rcvrIsConstant not 
+		into: [ :rcvr :arg | rcvrReg:= rcvr. argReg := arg ].
 	
-	argIsConstant 
-		ifTrue: [ self genCompConstant: self ssTop constant R: rcvrReg ]
-		ifFalse: [ rcvrIsConstant
-			ifTrue: [ self genCompConstant: (self ssValue: 1) constant R: argReg ]
-			ifFalse: [ self CmpR: argReg R: rcvrReg ] ].
-		
-	self ssPop: 2.
-
 	"If not followed by a branch, resolve to true or false."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
-		[jumpNotEqual := self JumpNonZero: 0.
-		 self genMoveTrueR: rcvrReg.
-		 jumpEqual := self Jump: 0.
-		 jumpNotEqual jmpTarget: (self genMoveFalseR: rcvrReg).
-		 jumpEqual jmpTarget: self Label.
-		 self ssPushRegister: rcvrReg.
-		 ^0].
+		[ ^ self genEqualsEqualsNoBranchArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg].
+	
+	"If branching the stack must be flushed for the merge"
+	self ssFlushTo: simStackPtr - 2.
+	
+	self genEqualsEqualsComparisonArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg.
+	self ssPop: 2.
 
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
-	targetBytecodePC := nextPC
-							+ branchDescriptor numBytes
-							+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
-	postBranchPC := nextPC + branchDescriptor numBytes.
 	(self fixupAt: nextPC - initialPC) targetInstruction = 0
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.

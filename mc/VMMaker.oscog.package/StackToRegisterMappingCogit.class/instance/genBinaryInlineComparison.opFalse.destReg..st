@@ -1,21 +1,14 @@
 inline primitive generators
 genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 	"Inlined comparison. opTrue = jump for true and opFalse = jump for false"
-	| nextPC branchDescriptor nExts |	
-	nextPC := bytecodePC + 3.
-	nExts := 0.	
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
-	 branchDescriptor isExtension] whileTrue:
-		[nExts := nExts + 1.
-	 	 nextPC := nextPC + branchDescriptor numBytes].
+	| nextPC branchDescriptor targetBytecodePC postBranchPC |	
+		
+	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
+	
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse])
 		ifTrue: "This is the path where the inlined comparison is followed immediately by a branch"
-			[| targetBytecodePC postBranchPC |
-			targetBytecodePC := nextPC
-					+ branchDescriptor numBytes
-					+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
-			postBranchPC := nextPC + branchDescriptor numBytes.
-			(self fixupAt: nextPC - initialPC) targetInstruction = 0
+			[ (self fixupAt: nextPC - initialPC) targetInstruction = 0
 				ifTrue: "The next instruction is dead.  we can skip it."
 					[deadCode := true.
 				 	 self ensureFixupAt: targetBytecodePC - initialPC.

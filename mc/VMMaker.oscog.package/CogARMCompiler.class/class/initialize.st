@@ -68,7 +68,7 @@ initialize
 	"Specific instructions"
 	LastRTLCode isNil ifTrue:
 		[CogRTLOpcodes initialize].
-	specificOpcodes := #(SMULL MSR MRS LDMFD STMFD BICCqR).
+	specificOpcodes := #(SMULL MSR MRS LDMFD STMFD BICCqR CMPSMULL).
 	refs := (thisContext method literals select: [:l| l isVariableBinding and: [classPool includesKey: l key]]) collect:
 				[:ea| ea key].
 	(classPool keys reject: [:k| (specificOpcodes includes: k) or: [refs includes: k]]) do:

@@ -6,9 +6,11 @@ genStorePop: popBoolean ReceiverVariable: slotIndex
 			[ self 
 				genStorePop: popBoolean 
 				ReceiverVariable: slotIndex 
-				traceBlock: [ backEnd saveAndRestoreLinkRegAround: [self CallRT: ceTraceStoreTrampoline] ] ]
+				traceBlock: [ backEnd saveAndRestoreLinkRegAround: [self CallRT: ceTraceStoreTrampoline] ]
+				inFrame: needsFrame ]
 		ifTrue: 
 			[ self 
 				genStorePop: popBoolean 
 				ReceiverVariable: slotIndex 
-				traceBlock: [ self CallRT: ceTraceStoreTrampoline ] ]
+				traceBlock: [ self CallRT: ceTraceStoreTrampoline ]
+				inFrame: needsFrame ]

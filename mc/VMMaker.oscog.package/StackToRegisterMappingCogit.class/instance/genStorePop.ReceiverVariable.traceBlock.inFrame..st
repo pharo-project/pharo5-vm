@@ -1,5 +1,5 @@
 bytecode generator support
-genStorePop: popBoolean ReceiverVariable: slotIndex traceBlock: block
+genStorePop: popBoolean ReceiverVariable: slotIndex traceBlock: block inFrame: inFrame
 	<inline: true>
 	| topReg |
 	self ssFlushUpThroughReceiverVariable: slotIndex.
@@ -24,4 +24,4 @@ genStorePop: popBoolean ReceiverVariable: slotIndex traceBlock: block
 		slotIndex: slotIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
-		inFrame: true
+		inFrame: inFrame

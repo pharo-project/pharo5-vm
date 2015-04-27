@@ -20,6 +20,8 @@ computeMaximumSize
 											ifTrue: [:r :i| maxSize := 4]
 											ifFalse: [maxSize := 20]].
 		[SMULL]				-> [^maxSize := 4].
+		[MSR]					-> [^maxSize := 4].
+		[CMPSMULL]			-> [^maxSize := 4]. "special compare for genMulR:R: usage"
 		"Control"
 		[Call]					-> [^maxSize := 4].
 		[CallFull]				-> [^maxSize := 20].

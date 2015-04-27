@@ -15,8 +15,7 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	association := self getLiteral: litVarIndex.
 	
 	"Avoid store check for immediate values"
-	(objectRepresentation isUnannotatableConstant: self ssTop) 
-		ifTrue:
+	(objectRepresentation isUnannotatableConstant: self ssTop) ifTrue:
 			[ assocReg := self allocateAnyReg.
 			self genMoveConstant: association R: assocReg.
 			 objectRepresentation
@@ -32,9 +31,7 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 			 ^objectRepresentation
 				genStoreImmediateInSourceReg: TempReg
 				slotIndex: ValueIndex
-				destReg: assocReg ]
-			ifFalse: [ self assert: needsFrame. "because ReceiverResult reg is used for storeCheckTrampoline" ].
-		
+				destReg: assocReg ].
 		
 	topReg := self allocateRegForStackTopEntryNotConflictingWith: (self registerMaskFor: ReceiverResultReg).
 	self ssStorePop: popBoolean toReg: topReg.

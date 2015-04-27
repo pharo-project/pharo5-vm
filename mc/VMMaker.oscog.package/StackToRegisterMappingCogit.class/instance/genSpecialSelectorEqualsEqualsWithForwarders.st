@@ -1,76 +1,39 @@
 bytecode generators
 genSpecialSelectorEqualsEqualsWithForwarders
-	| primDescriptor nextPC nExts branchDescriptor unforwardRcvr argReg targetBytecodePC
-	unforwardArg  rcvrReg jumpNotEqual jumpEqual postBranchPC label fixup |
+	| nextPC branchDescriptor unforwardRcvr argReg targetBytecodePC
+	unforwardArg  rcvrReg postBranchPC label fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
-	<var: #jumpEqual type: #'AbstractInstruction *'>
-	<var: #jumpNotEqual type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	
-	primDescriptor := self generatorAt: byte0.
+	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
 
-	nextPC := bytecodePC + primDescriptor numBytes.
-	nExts := 0.
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
-	 branchDescriptor isExtension] whileTrue:
-		[nExts := nExts + 1.
-		 nextPC := nextPC + branchDescriptor numBytes].
-	"If branching the stack must be flushed for the merge"
-	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifTrue:
-		[self ssFlushTo: simStackPtr - 2].
-
+	"If an operand is an annotable constant, it may be forwarded, so we need to store it into a 
+	register so the forwarder check can jump back to the comparison after unforwarding the constant.
+	However, if one of the operand is an unnanotable constant, does not allocate a register for it 
+	(machine code will use operations on constants) and does not generate forwarder checks."
 	unforwardRcvr := (objectRepresentation isUnannotatableConstant: (self ssValue: 1)) not.
 	unforwardArg := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 
-	"if the rcvr or the arg is an annotable constant, we need to push it to a register 
-	else the forwarder check can't jump back to the comparison after unforwarding the constant"
-	unforwardArg
-		ifTrue: 
-			[unforwardRcvr
-				ifTrue:
-					[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
-					 self ssTop popToReg: argReg.
-					 (self ssValue:1) popToReg: rcvrReg]
-				ifFalse:
-					[argReg := self allocateRegForStackTopEntry.
-					 self ssTop popToReg: argReg]]
-		ifFalse:
-			[self assert: unforwardRcvr.
-			 rcvrReg := self allocateRegForStackEntryAt: 1.
-			 (self ssValue:1) popToReg: rcvrReg].
-
-	label := self Label.
-	
-	"Here we can use Cq because the constant does not need to be annotated"
-	self assert: (unforwardArg not or: [argReg notNil]).
-	self assert: (unforwardRcvr not or: [rcvrReg notNil]).
-	unforwardArg 
-		ifFalse: [ self CmpCq: self ssTop constant R: rcvrReg ]
-		ifTrue: [ unforwardRcvr
-			ifFalse: [ self CmpCq: (self ssValue: 1) constant R: argReg ]
-			ifTrue: [ self CmpR: argReg R: rcvrReg ] ].
-			 
-	self ssPop: 2.
+	self 
+		allocateEqualsEqualsRegistersArgNeedsReg: unforwardArg 
+		rcvrNeedsReg: unforwardRcvr 
+		into: [ :rcvr :arg | rcvrReg:= rcvr. argReg := arg ].
 
 	"If not followed by a branch, resolve to true or false."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
-		[jumpEqual := self JumpZero: 0.
-		 unforwardArg ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label ].
-		 unforwardRcvr ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: rcvrReg scratchReg: TempReg jumpBackTo: label ].
-		 self genMoveFalseR: rcvrReg.
-		 jumpNotEqual := self Jump: 0.
-		 jumpEqual jmpTarget: (self genMoveTrueR: rcvrReg).
-		 jumpNotEqual jmpTarget: self Label.
-		 self ssPushRegister: rcvrReg.
-		 ^0].
+		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
+	
+	"If branching the stack must be flushed for the merge"
+	self ssFlushTo: simStackPtr - 2.
+	
+	label := self Label.
+	self genEqualsEqualsComparisonArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
+	self ssPop: 2.
 
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
-	targetBytecodePC := nextPC
-							+ branchDescriptor numBytes
-							+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
-	postBranchPC := nextPC + branchDescriptor numBytes.
 	(self fixupAt: nextPC - initialPC) targetInstruction = 0
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
@@ -83,35 +46,23 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	branchDescriptor isBranchTrue ifTrue: 
 		[ deadCode ifFalse: [ fixup := self ensureNonMergeFixupAt: postBranchPC - initialPC ].
 		self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-		unforwardArg ifTrue: [ (deadCode or: [ unforwardRcvr ]) 
-			ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label ]
-			ifFalse: [ objectRepresentation 
-				genEnsureOopInRegNotForwarded: argReg 
-				scratchReg: TempReg 
-				ifForwarder: label
-				ifNotForwarder: fixup ] ].
-		unforwardRcvr ifTrue: [ deadCode 
-			ifTrue: [objectRepresentation genEnsureOopInRegNotForwarded: rcvrReg scratchReg: TempReg jumpBackTo: label ]
-			ifFalse: [objectRepresentation 
-				genEnsureOopInRegNotForwarded: rcvrReg 
-				scratchReg: TempReg 
-				ifForwarder: label
-				ifNotForwarder: fixup ] ] ].
+		self 
+			genEqualsEqualsForwarderChecksArg: unforwardArg 
+			rcvr: unforwardRcvr 
+			argReg: argReg 
+			rcvrReg: rcvrReg 
+			label: label 
+			fixup: fixup 
+			canBeDead: deadCode ].
 	branchDescriptor isBranchFalse ifTrue: 
 		[ fixup := self ensureNonMergeFixupAt: targetBytecodePC - initialPC.
 		self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-		unforwardArg ifTrue: [ unforwardRcvr 
-			ifFalse: [objectRepresentation 
-				genEnsureOopInRegNotForwarded: argReg 
-				scratchReg: TempReg 
-				ifForwarder: label
-				ifNotForwarder: fixup ]
-			ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label ] ].
-		unforwardRcvr ifTrue: 
-			[ objectRepresentation 
-				genEnsureOopInRegNotForwarded: rcvrReg 
-				scratchReg: TempReg 
-				ifForwarder: label
-				ifNotForwarder: fixup ].
-		"Not reached"].
+		self 
+			genEqualsEqualsForwarderChecksArg: unforwardArg 
+			rcvr: unforwardRcvr 
+			argReg: argReg 
+			rcvrReg: rcvrReg 
+			label: label 
+			fixup: fixup 
+			canBeDead: false].
 	^0

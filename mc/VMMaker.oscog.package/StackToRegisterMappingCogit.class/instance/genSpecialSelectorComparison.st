@@ -1,6 +1,6 @@
 bytecode generators
 genSpecialSelectorComparison
-	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor nExts
+	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor
 	  rcvrIsInt argIsInt rcvrInt argInt result jumpNotSmallInts inlineCAB annotateInst |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
@@ -32,12 +32,9 @@ genSpecialSelectorComparison
 											ifTrue: [objectMemory trueObject]
 											ifFalse: [objectMemory falseObject])].
 
-	nextPC := bytecodePC + primDescriptor numBytes.
-	nExts := 0.
-	[branchDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + (byte0 bitAnd: 256).
-	 branchDescriptor isExtension] whileTrue:
-		[nExts := nExts + 1.
-		 nextPC := nextPC + branchDescriptor numBytes].
+	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
+
 	"Only interested in inlining if followed by a conditional branch."
 	inlineCAB := branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse].
 	"Further, only interested in inlining = and ~= if there's a SmallInteger constant involved.
@@ -47,10 +44,6 @@ genSpecialSelectorComparison
 	inlineCAB ifFalse:
 		[^self genSpecialSelectorSend].
 
-	targetBytecodePC := nextPC
-							+ branchDescriptor numBytes
-							+ (self spanFor: branchDescriptor at: nextPC exts: nExts in: methodObj).
-	postBranchPC := nextPC + branchDescriptor numBytes.
 	argIsInt
 		ifTrue:
 			[(self ssValue: 1) popToReg: ReceiverResultReg.

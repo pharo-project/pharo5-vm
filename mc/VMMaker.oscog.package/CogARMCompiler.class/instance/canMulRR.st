@@ -1,4 +1,4 @@
 testing
 canMulRR
 	<inline: true>
-	^true
+	^false

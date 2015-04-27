@@ -29,10 +29,6 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 			slotIndex: slotIndex
 			destReg: tempVectReg].
 	topReg := self allocateRegForStackTopEntryNotConflictingWith: (self registerMaskFor: ReceiverResultReg).
-	self ssPop: 1.
-	"for the ceStoreCheck call in genStoreSourceReg:... below"
-	self ssAllocateCallReg: topReg and: ReceiverResultReg.
-	self ssPush: 1.
 	topSpilled := self ssTop spilled.
 	self ssStorePop: (popBoolean or: [topSpilled]) toReg: topReg.
 	popBoolean ifFalse:

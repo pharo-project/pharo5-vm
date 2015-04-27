@@ -21,6 +21,8 @@ dispatchConcretize
 		[LDMFD]				-> [^self concretizeLDMFD].
 		[STMFD]				-> [^self concretizeSTMFD].
 		[SMULL]				-> [^self concretizeSMULL]	.
+		[CMPSMULL]				-> [^self concretizeCMPSMULL].
+		[MSR]						-> [^self concretizeMSR].
 		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].
 		"Control"
 		[Call]						-> [^self concretizeCall]. "call code within code space"
