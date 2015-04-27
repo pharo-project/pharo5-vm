@@ -1,15 +1,13 @@
 bytecode generator support
 genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	<inline: false>
-	| topReg valueReg constVal topSpilled |
+	| topReg valueReg topSpilled |
 	self assert: needsFrame.
 	optStatus isReceiverResultRegLive: false.
 	"N.B.  No need to check the stack for references because we generate code for
 	 remote temp loads that stores the result in a register, deferring only the register push."
 	"Avoid store check for immediate values"
-	constVal := self ssTop maybeConstant.
-	(self ssTop type = SSConstant
-	 and: [(objectRepresentation shouldAnnotateObjectReference: constVal) not]) ifTrue:
+	(objectRepresentation isUnannotatableConstant: self ssTop) ifTrue:
 		[self ssAllocateRequiredReg: ReceiverResultReg.
 		 self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
 		 self ssStorePop: popBoolean toPreferredReg: TempReg.
