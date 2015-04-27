@@ -4,6 +4,7 @@ freeAnyRegNotConflictingWith: regMask
 	Assertion Failure if regMask has already all the registers"
 	<var: #desc type: #'CogSimStackEntry *'>
 	| reg index |
+	self assert: needsFrame.
 	index := simSpillBase max: 0.
 	[reg isNil and: [index < simStackPtr] ] whileTrue: 
 		[ | desc |

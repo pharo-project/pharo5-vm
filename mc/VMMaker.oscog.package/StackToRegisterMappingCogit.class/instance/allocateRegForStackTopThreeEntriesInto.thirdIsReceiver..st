@@ -16,8 +16,7 @@ allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsRec
 		[ thirdIsReceiver 
 			ifTrue:
 				[ rThird := ReceiverResultReg.  "Free ReceiverResultReg if it was not free"
-				(self register: ReceiverResultReg isInMask: self liveRegisters) ifTrue: 
-					[ self ssAllocateRequiredReg: ReceiverResultReg ].
+				self ssAllocateRequiredReg: ReceiverResultReg.
 				optStatus isReceiverResultRegLive: false ]
 			ifFalse: [ rThird := self allocateRegNotConflictingWith: topRegistersMask ].
 		topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rThird) ].
