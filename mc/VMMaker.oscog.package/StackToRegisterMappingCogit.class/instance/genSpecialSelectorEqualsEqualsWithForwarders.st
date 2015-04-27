@@ -43,26 +43,31 @@ genSpecialSelectorEqualsEqualsWithForwarders
 			[self ssPushConstant: objectMemory trueObject]. "dummy value"
 
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
-	branchDescriptor isBranchTrue ifTrue: 
-		[ deadCode ifFalse: [ fixup := self ensureNonMergeFixupAt: postBranchPC - initialPC ].
-		self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-		self 
-			genEqualsEqualsForwarderChecksArg: unforwardArg 
-			rcvr: unforwardRcvr 
-			argReg: argReg 
-			rcvrReg: rcvrReg 
-			label: label 
-			fixup: fixup 
-			canBeDead: deadCode ].
-	branchDescriptor isBranchFalse ifTrue: 
-		[ fixup := self ensureNonMergeFixupAt: targetBytecodePC - initialPC.
-		self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-		self 
-			genEqualsEqualsForwarderChecksArg: unforwardArg 
-			rcvr: unforwardRcvr 
-			argReg: argReg 
-			rcvrReg: rcvrReg 
-			label: label 
-			fixup: fixup 
-			canBeDead: false].
+	branchDescriptor isBranchTrue 
+		ifTrue: 
+			[ fixup := self ensureNonMergeFixupAt: postBranchPC - initialPC.
+			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+		ifFalse: "branchDescriptor is branchFalse"
+			[ fixup := self ensureNonMergeFixupAt: targetBytecodePC - initialPC.
+			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
+		
+	"The forwarders checks need to jump back to the comparison (label) if a forwarder is found, else 
+	jump forward either to the next forwarder check or to the postBranch or branch target (fixup)."
+	unforwardArg ifTrue: 
+		[ unforwardRcvr
+			ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label ]
+			ifFalse: [ objectRepresentation 
+				genEnsureOopInRegNotForwarded: argReg 
+				scratchReg: TempReg 
+				ifForwarder: label
+				ifNotForwarder: fixup ] ].
+	unforwardRcvr ifTrue: 
+		[ objectRepresentation 
+			genEnsureOopInRegNotForwarded: rcvrReg 
+			scratchReg: TempReg 
+			ifForwarder: label
+			ifNotForwarder: fixup ].
+		
+	"Not reached, execution flow have jumped to fixup"
+	
 	^0

@@ -39,7 +39,11 @@ genVanillaSpecialSelectorEqualsEquals
 			 self ensureFixupAt: postBranchPC - initialPC]
 		ifFalse:
 			[self ssPushConstant: objectMemory trueObject]. "dummy value"
+		
 	self gen: (branchDescriptor isBranchTrue ifTrue: [JumpZero] ifFalse: [JumpNonZero])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-		deadCode ifFalse: [self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC)].
+
+	"If the branch is dead, then we can just fall through postBranchPC (only a nop in-between), else 
+	we need to jump over the code of the branch"
+	deadCode ifFalse: [self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC)].
 	^0

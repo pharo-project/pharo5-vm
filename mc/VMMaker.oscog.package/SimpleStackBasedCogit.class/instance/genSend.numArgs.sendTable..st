@@ -17,7 +17,7 @@ genSend: selector numArgs: numArgs sendTable: sendTable
 		[self MoveCq: numArgs R: SendNumArgsReg].
 	(BytecodeSetHasDirectedSuperSend
 	 and: [annotation = IsDirectedSuperSend]) ifTrue:
-		[self annotate: (self MoveCw: tempOop R: TempReg) objRef: tempOop].
+		[self genMoveConstant: tempOop R: TempReg].
 	self MoveCw: selector R: ClassReg.
 	self annotate: (self Call: (sendTable at: (numArgs min: NumSendTrampolines - 1)))
 		with: annotation.

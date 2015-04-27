@@ -18,12 +18,10 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
 	jumpTrue := self gen: jumpOpcode.
-	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
-		objRef: objectMemory falseObject.
+	self genMoveFalseR: ReceiverResultReg.
 	self flag: 'currently caller pushes result'.
 	self RetN: objectMemory wordSize * 2.
-	jumpTrue jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
-						objRef: objectMemory trueObject).
+	jumpTrue jmpTarget: (self genMoveTrueR: ReceiverResultReg).
 	self RetN: objectMemory wordSize * 2.
 	
 	"Argument may be a Float : let us check or fail"
@@ -42,12 +40,10 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	objectRepresentation genGetDoubleValueOf: ClassReg into: DPFPReg1.
 	self CmpRd: DPFPReg1 Rd: DPFPReg0.
 	jumpCond := self perform: jumpFPOpcodeGenerator with: 0. "FP jumps are a little weird"
-	self annotate: (self MoveCw: objectMemory falseObject R: ReceiverResultReg)
-		objRef: objectMemory falseObject.
+	self genMoveFalseR: ReceiverResultReg.
 	self flag: 'currently caller pushes result'.
 	self RetN: objectMemory wordSize * 2.
-	jumpCond jmpTarget: (self annotate: (self MoveCw: objectMemory trueObject R: ReceiverResultReg)
-							objRef: objectMemory trueObject).
+	jumpCond jmpTarget: (self genMoveTrueR: ReceiverResultReg).
 	self RetN: objectMemory wordSize * 2.
 
 	objectRepresentation smallIntegerIsOnlyImmediateType

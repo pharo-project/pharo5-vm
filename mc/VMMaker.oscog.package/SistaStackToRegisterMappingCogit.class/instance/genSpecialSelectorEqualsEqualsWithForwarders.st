@@ -37,17 +37,13 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	"Only interested in inlining if followed by a conditional branch."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
 		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
-
-	counterReg := self allocateRegNotConflictingWith: regMask. "Use this as the count reg, can't conflict with the registers for the arg and the receiver of #==."
-	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
-	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: objectMemory wordSize = CounterBytes.
-	self MoveAw: counterAddress R: counterReg.
-	self SubCq: 16r10000 R: counterReg. "Count executed"
-	"If counter trips simply abort the inlined comparison and send continuing to the following
-	 branch *without* writing back.  A double decrement will not trip the second time."
-	countTripped := self JumpCarry: 0.
-	self MoveR: counterReg Aw: counterAddress. "write back"
+	
+	self 
+		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
+			counterReg := cReg. 
+			counterAddress := cAddress. 
+			countTripped := countTripBranch ] 
+		counterRegNotConflictingWith: regMask.
 	
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
 	
@@ -70,11 +66,8 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	unforwardRcvr ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: rcvrReg scratchReg: TempReg jumpBackTo: label ].
 	self ssPop: -2. 
 	
-	"the jump has not been taken and forwarders have been followed."
-	self SubCq: 1 R: counterReg. "Count untaken"
-	self MoveR: counterReg Aw: counterAddress. "write back"
+	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
 	self Jump: fixup.
-	
 	countTripped jmpTarget: self Label.
 	
 	"inlined version of #== ignoring the branchDescriptor if the counter trips to have normal state for the optimizer"

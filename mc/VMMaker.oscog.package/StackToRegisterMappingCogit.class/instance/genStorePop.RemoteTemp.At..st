@@ -10,7 +10,6 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	 ReceiverResultReg was unused after the literal variable store, unlikely given
 	 that methods return self by default."
 	self assert: needsFrame.
-	optStatus isReceiverResultRegLive: false.
 	"N.B.  No need to check the stack for references because we generate code for
 	 remote temp loads that stores the result in a register, deferring only the register push."
 	"Avoid store check for immediate values"
@@ -34,6 +33,8 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	popBoolean ifFalse:
 		[topSpilled ifFalse: [self ssPop: 1].
 		 self ssPushRegister: topReg].
+	self ssAllocateRequiredReg: ReceiverResultReg.
+	optStatus isReceiverResultRegLive: false.
 	self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
 	 traceStores > 0 ifTrue:
 		[self MoveR: topReg R: TempReg.

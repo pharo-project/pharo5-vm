@@ -26,8 +26,7 @@ compileFrameBuild
 	self MoveR: SPReg R: FPReg.
 	methodLabel addDependent: (self annotateAbsolutePCRef:
 		(self PushCw: methodLabel asInteger)). "method"
-	self annotate: (self MoveCw: objectMemory nilObject R: SendNumArgsReg)
-		objRef: objectMemory nilObject.
+	self genMoveConstant: objectMemory nilObject R: SendNumArgsReg.
 	self PushR: SendNumArgsReg. "context"
 	self PushR: ReceiverResultReg.
 	methodOrBlockNumArgs + 1 to: (coInterpreter temporaryCountOfMethodHeader: methodHeader) do:

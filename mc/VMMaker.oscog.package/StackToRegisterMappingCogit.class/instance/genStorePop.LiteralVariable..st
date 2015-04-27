@@ -36,7 +36,7 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	topReg := self allocateRegForStackTopEntryNotConflictingWith: (self registerMaskFor: ReceiverResultReg).
 	self ssStorePop: popBoolean toReg: topReg.
 	optStatus isReceiverResultRegLive: false.
-	self ssAllocateCallReg: ReceiverResultReg. "for ceStoreCheck call in genStoreSourceReg: has to be ReceiverResultReg"
+	self ssAllocateRequiredReg: ReceiverResultReg. "for ceStoreCheck call in genStoreSourceReg: has to be ReceiverResultReg"
 	self genMoveConstant: association R: ReceiverResultReg.
 	objectRepresentation genEnsureObjInRegNotForwarded: ReceiverResultReg scratchReg: TempReg.
 	traceStores > 0 ifTrue:

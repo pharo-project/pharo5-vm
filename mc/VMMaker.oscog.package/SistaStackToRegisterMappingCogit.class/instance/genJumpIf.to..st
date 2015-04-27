@@ -20,17 +20,16 @@ genJumpIf: boolean to: targetBytecodePC
 	desc := self ssTop.
 	self ssPop: 1.
 	desc popToReg: TempReg.
-
-	counterReg := self allocateAnyReg.
-	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
+	
+	self 
+		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
+			counterReg := cReg. 
+			counterAddress := cAddress. 
+			countTripped := countTripBranch ] 
+		counterRegNotConflictingWith: 0.
 	counterIndex := counterIndex + 1.
-	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: objectMemory wordSize = CounterBytes.
-	retry := self MoveAw: counterAddress R: counterReg.
-	self SubCq: 16r10000 R: counterReg. "Count executed"
-	"Don't write back if we trip; avoids wrapping count back to initial value, and if we trip we don't execute."
-	countTripped := self JumpCarry: 0.
-	self MoveR: counterReg Aw: counterAddress. "write back"
+	
+	retry := self Label.
 
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
@@ -39,8 +38,7 @@ genJumpIf: boolean to: targetBytecodePC
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
-	self SubCq: 1 R: counterReg. "Count untaken"
-	self MoveR: counterReg Aw: counterAddress. "write back"
+	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
 
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]

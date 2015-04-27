@@ -13,7 +13,7 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	 ceStoreContextInstVarTrampoline and ceStoreCheckTrampoline."
 	self ensureReceiverResultRegContainsSelf.
 	self ssPop: 1.
-	self ssAllocateCallReg: ClassReg and: SendNumArgsReg. "for the ceStoreCheck call in genStoreSourceReg:... below"
+	self ssAllocateCallReg: ClassReg and: SendNumArgsReg. "for ceStoreContextInstVarTrampoline"
 	self ssPush: 1.
 	objectRepresentation
 		genLoadSlot: SenderIndex

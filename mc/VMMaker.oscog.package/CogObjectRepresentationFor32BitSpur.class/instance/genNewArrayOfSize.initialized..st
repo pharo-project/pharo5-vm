@@ -19,7 +19,7 @@ genNewArrayOfSize: size initialized: initialized
 		MoveCq: header >> 32 R: TempReg;
 		MoveR: TempReg Mw: 4 r: ReceiverResultReg.
 	(initialized and: [size > 0]) ifTrue:
-		[cogit MoveCw: objectMemory nilObject R: TempReg.
+		[cogit genMoveConstant: objectMemory nilObject R: TempReg.
 		 1 to: size do:
 			[:i| cogit MoveR: TempReg Mw: i * 4 + 4 r: ReceiverResultReg]].
 	cogit

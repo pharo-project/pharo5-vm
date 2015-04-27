@@ -70,16 +70,12 @@ genSpecialSelectorComparison
 					ifFalse: [self OrR: ReceiverResultReg R: TempReg]]].
 	jumpNotSmallInts := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 
-	counterReg := self allocateRegNotConflictingWith: (self registerMaskFor: ReceiverResultReg and: Arg0Reg). "Use this as the count reg, can't conflict with the registers for the arg and the receiver"
-	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
-	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: objectMemory wordSize = CounterBytes.
-	self MoveAw: counterAddress R: counterReg.
-	self SubCq: 16r10000 R: counterReg. "Count executed"
-	"If counter trips simply abort the inlined comparison and send continuing to the following
-	 branch *without* writing back.  A double decrement will not trip the second time."
-	countTripped := self JumpCarry: 0.
-	self MoveR: counterReg Aw: counterAddress. "write back"
+	self 
+		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
+			counterReg := cReg. 
+			counterAddress := cAddress. 
+			countTripped := countTripBranch ] 
+		counterRegNotConflictingWith: (self registerMaskFor: ReceiverResultReg and: Arg0Reg).
 
 	argIsInt
 		ifTrue: [annotateInst
@@ -92,10 +88,12 @@ genSpecialSelectorComparison
 				ifTrue: [primDescriptor opcode]
 				ifFalse: [self inverseBranchFor: primDescriptor opcode])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-	self SubCq: 1 R: counterReg. "Count untaken"
-	self MoveR: counterReg Aw: counterAddress. "write back"
+		
+	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
+	
 	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
 	countTripped jmpTarget: (jumpNotSmallInts jmpTarget: self Label).
+	
 	argIsInt ifTrue:
 		[self MoveCq: argInt R: Arg0Reg].
 	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)

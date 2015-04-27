@@ -11,7 +11,7 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	 return self by default."
 	self assert: needsFrame.
 	association := self getLiteral: litVarIndex.
-	self annotate: (self MoveCw: association R: ReceiverResultReg) objRef: association.
+	self genMoveConstant: association R: ReceiverResultReg.
 	objectRepresentation
 		genEnsureObjInRegNotForwarded: ReceiverResultReg
 		scratchReg: TempReg.
