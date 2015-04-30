@@ -23,6 +23,6 @@ genEnsureOopInRegNotForwarded: reg scratchReg: scratch ifForwarder: fwdJumpTarge
 	cogit Jump: fwdJumpTarget.
 	finished := nonFwdJumpTargetOrZero = 0
 		ifTrue: [ cogit Label ]
-		ifFalse: [ nonFwdJumpTargetOrZero ].
+		ifFalse: [ self cCoerceSimple: nonFwdJumpTargetOrZero to: #'AbstractInstruction *' ].
 	skip jmpTarget: (ok jmpTarget: finished).
 	^0

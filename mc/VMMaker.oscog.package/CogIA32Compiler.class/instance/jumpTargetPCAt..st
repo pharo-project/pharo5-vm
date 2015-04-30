@@ -1,6 +1,6 @@
 disassembly
 jumpTargetPCAt: pc
-	<returnTypeC: #sqInt>
+	<returnTypeC: #usqInt>
 	| size byte offset |
 	size := self instructionSizeAt: pc.
 	size = 2

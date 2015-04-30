@@ -1,6 +1,6 @@
 compile abstract instructions
 genEnsureOopInRegNotForwarded: reg scratchReg: scratch jumpBackTo: instruction
-	<inline: true>
+	<var: #instruction type: #'AbstractInstruction *'>
 	^ self 
 		genEnsureOopInRegNotForwarded: reg 
 		scratchReg: scratch 

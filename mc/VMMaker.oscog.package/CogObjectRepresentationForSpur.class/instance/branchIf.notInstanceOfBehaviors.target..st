@@ -4,7 +4,7 @@ branchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 	 otherwise fall-through. reg should not be edited."
 	
 	| allImmediate noneImmediate immediateMask numNonImmediates classObj |
-	<inline: true>
+	<var: #targetFixUp type: #'AbstractInstruction *'>
 	
 	"let me tell you all about it, let me falsify"
 	allImmediate := true. noneImmediate := true. immediateMask := 0. numNonImmediates := 0.

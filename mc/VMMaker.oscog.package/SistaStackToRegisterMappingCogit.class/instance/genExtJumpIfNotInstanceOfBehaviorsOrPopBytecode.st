@@ -16,7 +16,7 @@ genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode
 	distance := extB * 256 + byte2.
 	extB := 0.
 	
-	targetFixUp := (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) asUnsignedInteger.
+	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'..
 		
 	(objectMemory isArrayNonImm: literal)
 		ifTrue: [objectRepresentation branchIf: reg notInstanceOfBehaviors: literal target: targetFixUp]

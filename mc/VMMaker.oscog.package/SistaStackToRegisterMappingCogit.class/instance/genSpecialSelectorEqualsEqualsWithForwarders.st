@@ -9,6 +9,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	  counterAddress countTripped unforwardArg unforwardRcvr argReg rcvrReg regMask |
 	<var: #fixup type: #'BytecodeFixup *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
+	<var: #label type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 

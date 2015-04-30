@@ -2,7 +2,6 @@ bytecode generators
 genSpecialSelectorEqualsEqualsWithForwarders
 	| nextPC branchDescriptor unforwardRcvr argReg targetBytecodePC
 	unforwardArg  rcvrReg postBranchPC label fixup |
-	<var: #fixup type: #'BytecodeFixup *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #label type: #'AbstractInstruction *'>
 	
@@ -45,10 +44,10 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
 	branchDescriptor isBranchTrue 
 		ifTrue: 
-			[ fixup := self ensureNonMergeFixupAt: postBranchPC - initialPC.
+			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
 			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
 		ifFalse: "branchDescriptor is branchFalse"
-			[ fixup := self ensureNonMergeFixupAt: targetBytecodePC - initialPC.
+			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
 		
 	"The forwarders checks need to jump back to the comparison (label) if a forwarder is found, else 

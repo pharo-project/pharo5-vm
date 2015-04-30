@@ -1,6 +1,7 @@
 inline primitive generators
 genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 	"Inlined comparison. opTrue = jump for true and opFalse = jump for false"
+	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	| nextPC branchDescriptor targetBytecodePC postBranchPC |	
 		
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 

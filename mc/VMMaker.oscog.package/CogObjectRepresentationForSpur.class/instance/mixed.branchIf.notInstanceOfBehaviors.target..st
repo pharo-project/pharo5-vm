@@ -1,7 +1,10 @@
 sista support
 mixed: numNonImmediates branchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 	| jmpImmediate jumps label numCases classObj index |
+	<var: #label type: #'AbstractInstruction *'>
+	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jumps type: #'AbstractInstruction **'>
+	<var: #targetFixUp type: #'AbstractInstruction *'>
 	numCases := objectMemory numSlotsOf: arrayObj.
 	cogit MoveR: reg R: TempReg.
 	jmpImmediate := self genJumpImmediateInScratchReg: TempReg.
