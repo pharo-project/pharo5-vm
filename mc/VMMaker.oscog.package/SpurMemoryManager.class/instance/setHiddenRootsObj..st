@@ -3,7 +3,7 @@ setHiddenRootsObj: anOop
 	hiddenRootsObj := anOop.
 	self cCode: [self assert: self validClassTableRootPages]
 		inSmalltalk: [numClassTablePages ifNotNil:
-						[self assert: self validClassTableRootPages]]..
+						[self assert: self validClassTableRootPages]].
 	classTableFirstPage := self fetchPointer: 0 ofObject: hiddenRootsObj.
 	self assert: (self numSlotsOf: classTableFirstPage) - 1 = self classTableMinorIndexMask.
 	"Set classTableIndex to the start of the last used page (excepting first page).

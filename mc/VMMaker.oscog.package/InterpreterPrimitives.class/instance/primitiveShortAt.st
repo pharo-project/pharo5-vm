@@ -5,7 +5,7 @@ primitiveShortAt
 	 Note that the index specifies the i-th 16-bit entry, not the i-th byte or word."
 
 	| index rcvr value |
-	index := self stackTop..
+	index := self stackTop.
 	(objectMemory isIntegerObject: index) ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	rcvr := self stackValue: 1.

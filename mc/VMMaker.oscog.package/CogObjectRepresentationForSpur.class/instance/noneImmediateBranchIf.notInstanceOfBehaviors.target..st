@@ -6,7 +6,7 @@ noneImmediateBranchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 	<var: #label type: #'AbstractInstruction *'>
 	<var: #jumps type: #'AbstractInstruction **'>
 	cogit MoveR: reg R: TempReg.
-	jumps := self alloca: (objectMemory numSlotsOf: arrayObj) type: (self cCode: [#'AbstractInstruction *'] inSmalltalk: [cogit backEnd class])..
+	jumps := self alloca: (objectMemory numSlotsOf: arrayObj) type: (self cCode: [#'AbstractInstruction *'] inSmalltalk: [cogit backEnd class]).
 	(self genJumpImmediateInScratchReg: TempReg) jmpTarget: targetFixUp.
 	self genGetClassIndexOfNonImm: reg into: TempReg.
 	0 to: (numJumps := objectMemory numSlotsOf: arrayObj) - 1 do:

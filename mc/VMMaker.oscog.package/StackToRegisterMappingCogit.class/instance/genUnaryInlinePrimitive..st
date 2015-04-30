@@ -25,6 +25,6 @@ genUnaryInlinePrimitive: prim
 					"06		unchecked doubleWord64Type format numDoubleWords"
 				  }
 		otherwise:
-			[^EncounteredUnknownBytecode]..
+			[^EncounteredUnknownBytecode].
 	self ssPushRegister: resultReg.
 	^0

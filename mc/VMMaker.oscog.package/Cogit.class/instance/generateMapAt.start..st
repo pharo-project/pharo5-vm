@@ -34,7 +34,7 @@ generateMapAt: addressOrNull start: startAddress
 				  byte: mapEntry
 				  at: addressOrNull - length
 				  for: mcpc].
-		 location := location + (delta * backEnd codeGranularity)..
+		 location := location + (delta * backEnd codeGranularity).
 		 length := length + 1.
 		 annotation annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
 			[addressOrNull ifNotNil:

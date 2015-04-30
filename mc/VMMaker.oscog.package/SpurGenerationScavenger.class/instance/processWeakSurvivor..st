@@ -2,7 +2,7 @@ weakness and ephemerality
 processWeakSurvivor: weakObj
 	"Process a weak survivor on the weakList.  Those of its fields
 	 which have not survived the scavenge should be nilled, and if any
-	 are, the coInterpreter should be informed via signalFinalization:..
+	 are, the coInterpreter should be informed via signalFinalization:.
 	 Answer if the weakObj has any young referents."
 	| weakObjShouldMourn hasYoungReferents numStrongSlots  |
 	weakObjShouldMourn := hasYoungReferents := false.
@@ -24,7 +24,7 @@ processWeakSurvivor: weakObj
 					[referent := manager followForwarded: referent.
 					 "weakObj is either young or already in remembered table; no need to check"
 					 self assert: ((manager isReallyYoungObject: weakObj)
-								or: [manager isRemembered: weakObj])..
+								or: [manager isRemembered: weakObj]).
 					 manager storePointerUnchecked: i ofObject: weakObj withValue: referent].
 				(self isMaybeOldScavengeSurvivor: referent)
 					ifTrue:
