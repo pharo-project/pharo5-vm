@@ -242,7 +242,7 @@ int __cdecl DPRINTF(const char *fmt, ...)
 #if !defined(_MSC_VER) && !defined(NODBGPRINT)
 
 // redefining printf doesn't seem like a good idea to me...
-
+/*
 int __cdecl
 printf(const char *fmt, ...)
 { va_list al;
@@ -251,7 +251,7 @@ printf(const char *fmt, ...)
   va_start(al, fmt);
   wvsprintf(consoleBuffer, fmt, al);
   OutputLogMessage(consoleBuffer);
-  if(IsWindow(stWindow)) /* not running as service? */
+  if(IsWindow(stWindow)) /-* not running as service? *-/
     OutputConsoleString(consoleBuffer);
   result = vfprintf(stdout, fmt, al);
   va_end(al);
@@ -268,7 +268,7 @@ fprintf(FILE *fp, const char *fmt, ...)
     {
       wvsprintf(consoleBuffer, fmt, al);
       OutputLogMessage(consoleBuffer);
-      if(IsWindow(stWindow)) /* not running as service? */
+      if(IsWindow(stWindow)) /-* not running as service? *-/
         OutputConsoleString(consoleBuffer);
     }
   result = vfprintf(fp, fmt, al);
@@ -282,7 +282,7 @@ putchar(int c)
 {
   return printf("%c",c);
 }
-
+*/
 #endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
 
 /****************************************************************************/
