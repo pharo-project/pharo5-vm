@@ -3,8 +3,8 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	| nextPC branchDescriptor unforwardRcvr argReg targetBytecodePC
 	unforwardArg  rcvrReg postBranchPC label fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
-	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
+	<var: #label type: #'AbstractInstruction *'>
 	
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
 		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].

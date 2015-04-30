@@ -11,7 +11,7 @@ allocateEqualsEqualsRegistersArgNeedsReg: argNeedsReg rcvrNeedsReg: rcvrNeedsReg
 					 self ssTop popToReg: argReg.
 					 (self ssValue: 1) popToReg: rcvrReg]
 				ifFalse:
-					[argReg := self allocateRegForStackTopEntry.
+					[argReg := self allocateRegForStackEntryAt: 0.
 					 self ssTop popToReg: argReg]]
 		ifFalse:
 			[self assert: rcvrNeedsReg.

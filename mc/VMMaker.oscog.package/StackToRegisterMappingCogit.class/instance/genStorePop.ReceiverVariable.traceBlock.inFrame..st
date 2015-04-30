@@ -12,7 +12,7 @@ genStorePop: popBoolean ReceiverVariable: slotIndex traceBlock: block inFrame: i
 			genStoreImmediateInSourceReg: TempReg
 			slotIndex: slotIndex
 			destReg: ReceiverResultReg].
-	topReg := self allocateRegForStackTopEntryNotConflictingWith: (self registerMaskFor: ReceiverResultReg).
+	topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
 	self ssStorePop: popBoolean toReg: topReg.
 	"Note that ReceiverResultReg remains live after ceStoreCheckTrampoline."
 	self ensureReceiverResultRegContainsSelf.

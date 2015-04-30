@@ -1,9 +1,8 @@
 bytecode generator support
-genExecutionCountLogicInto: trinaryBlock counterRegNotConflictingWith: regMask
+genExecutionCountLogicInto: binaryBlock counterReg: counterReg
 	<var: #countTripped type: #'AbstractInstruction *'>
 	<inline: true>
-	| counterReg counterAddress countTripped |
-	counterReg := self allocateRegNotConflictingWith: regMask.
+	| counterAddress countTripped |
 	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
 	self flag: 'will need to use MoveAw32:R: if 64 bits'.
 	self assert: objectMemory wordSize = CounterBytes.
@@ -13,4 +12,4 @@ genExecutionCountLogicInto: trinaryBlock counterRegNotConflictingWith: regMask
 	 branch *without* writing back.  A double decrement will not trip the second time."
 	countTripped := self JumpCarry: 0.
 	self MoveR: counterReg Aw: counterAddress. "write back"
-	trinaryBlock value: counterReg value: counterAddress value: countTripped
+	binaryBlock value: counterAddress value: countTripped

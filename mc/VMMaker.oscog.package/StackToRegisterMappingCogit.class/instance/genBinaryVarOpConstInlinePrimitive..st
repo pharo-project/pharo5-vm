@@ -6,7 +6,7 @@ genBinaryVarOpConstInlinePrimitive: prim
 	| rr val untaggedVal |
 	val := self ssTop constant.
 	self ssPop: 1.
-	rr := self allocateRegForStackTopEntry.
+	rr := self allocateRegForStackEntryAt: 0.
 	self ssTop popToReg: rr.
 	self ssPop: 1.
 	untaggedVal := val - objectMemory smallIntegerTag.

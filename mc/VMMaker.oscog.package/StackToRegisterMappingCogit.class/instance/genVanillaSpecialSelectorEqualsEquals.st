@@ -2,7 +2,6 @@ bytecode generators
 genVanillaSpecialSelectorEqualsEquals
 	| nextPC postBranchPC targetBytecodePC branchDescriptor
 	  rcvrReg argReg argIsConstant rcvrIsConstant  |
-	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 

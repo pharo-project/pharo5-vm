@@ -14,7 +14,7 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	 remote temp loads that stores the result in a register, deferring only the register push."
 	"Avoid store check for immediate values"
 	(objectRepresentation isUnannotatableConstant: self ssTop) ifTrue:
-		[ tempVectReg := self allocateAnyReg.
+		[ tempVectReg := self allocateRegNotConflictingWith: 0.
 		 self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: tempVectReg.
 		 self ssStorePop: popBoolean toReg: TempReg.
 		 traceStores > 0 ifTrue:
@@ -27,7 +27,7 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 			genStoreImmediateInSourceReg: TempReg
 			slotIndex: slotIndex
 			destReg: tempVectReg].
-	topReg := self allocateRegForStackTopEntryNotConflictingWith: (self registerMaskFor: ReceiverResultReg).
+	topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
 	topSpilled := self ssTop spilled.
 	self ssStorePop: (popBoolean or: [topSpilled]) toReg: topReg.
 	popBoolean ifFalse:

@@ -38,12 +38,12 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
 		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
 	
+	counterReg := self allocateRegNotConflictingWith: regMask.
 	self 
-		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
-			counterReg := cReg. 
+		genExecutionCountLogicInto: [ :cAddress :countTripBranch | 
 			counterAddress := cAddress. 
 			countTripped := countTripBranch ] 
-		counterRegNotConflictingWith: regMask.
+		counterReg: counterReg.
 	
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
 	

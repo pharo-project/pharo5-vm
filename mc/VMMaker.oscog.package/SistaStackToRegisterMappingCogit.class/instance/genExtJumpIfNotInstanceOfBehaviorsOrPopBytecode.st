@@ -7,9 +7,9 @@ genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode
 	"We loose the information of in which register is stack top 
 	when jitting the branch target so we need to flush everything. 
 	We could use a fixed register here...."
-	self ssFlushTo: simStackPtr.
-	reg := self allocateRegForStackTopEntry.
+	reg := self allocateRegForStackEntryAt: 0.
 	self ssTop popToReg: reg.
+	self ssFlushTo: simStackPtr. "flushed but the value is still in reg"
 	
 	literal := self getLiteral: (extA * 256 + byte1).
 	extA := 0.

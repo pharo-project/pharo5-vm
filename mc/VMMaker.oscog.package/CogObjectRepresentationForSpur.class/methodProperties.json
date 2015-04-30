@@ -25,7 +25,7 @@
 		"genEnsureObjInRegNotForwarded:scratchReg:updatingMw:r:" : "eem 11/3/2014 18:17",
 		"genEnsureOopInRegNotForwarded:scratchReg:" : "cb 4/17/2015 13:32",
 		"genEnsureOopInRegNotForwarded:scratchReg:ifForwarder:ifNotForwarder:" : "eem 4/17/2015 16:32",
-		"genEnsureOopInRegNotForwarded:scratchReg:jumpBackTo:" : "cb 4/17/2015 13:26",
+		"genEnsureOopInRegNotForwarded:scratchReg:jumpBackTo:" : "cb 4/27/2015 15:25",
 		"genFetchIndexRegister:from:into:" : "eem 10/3/2013 10:07",
 		"genGetActiveContextNumArgs:large:inBlock:" : "eem 5/31/2014 21:46",
 		"genGetBits:ofFormatByteOf:into:baseHeaderIntoScratch:" : "eem 4/14/2015 12:23",

@@ -70,12 +70,12 @@ genSpecialSelectorComparison
 					ifFalse: [self OrR: ReceiverResultReg R: TempReg]]].
 	jumpNotSmallInts := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 
+	counterReg := self allocateRegNotConflictingWith: (self registerMaskFor: ReceiverResultReg and: Arg0Reg).
 	self 
-		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
-			counterReg := cReg. 
+		genExecutionCountLogicInto: [ :cAddress :countTripBranch | 
 			counterAddress := cAddress. 
 			countTripped := countTripBranch ] 
-		counterRegNotConflictingWith: (self registerMaskFor: ReceiverResultReg and: Arg0Reg).
+		counterReg: counterReg.
 
 	argIsInt
 		ifTrue: [annotateInst

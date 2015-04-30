@@ -1,5 +1,7 @@
 simulation stack
 allocateRegForStackTopTwoEntriesInto: binaryBlock
+	"Answers registers for the 2 top values on stack. If the values are already in registers, answers
+	these registers, else allocate registers not conflicting with each others."
 	<inline: true>
 	| topRegistersMask rTop rNext |
 	

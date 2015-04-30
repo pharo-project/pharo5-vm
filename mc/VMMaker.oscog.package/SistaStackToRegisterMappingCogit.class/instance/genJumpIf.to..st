@@ -21,16 +21,16 @@ genJumpIf: boolean to: targetBytecodePC
 	self ssPop: 1.
 	desc popToReg: TempReg.
 	
+	"We prefer calleeSaved to avoid saving it across the trap trip trampoline"
+	counterReg := self allocateRegPreferringCalleeSavedNotConflictingWith: 0. 
+	retry := self Label.
 	self 
-		genExecutionCountLogicInto: [ :cReg :cAddress :countTripBranch | 
-			counterReg := cReg. 
+		genExecutionCountLogicInto: [ :cAddress :countTripBranch | 
 			counterAddress := cAddress. 
 			countTripped := countTripBranch ] 
-		counterRegNotConflictingWith: 0.
+		counterReg: counterReg.
 	counterIndex := counterIndex + 1.
 	
-	retry := self Label.
-
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
 	 their distance send mustBeBoolean."
@@ -46,14 +46,23 @@ genJumpIf: boolean to: targetBytecodePC
 		R: TempReg.
 	ok := self JumpZero: 0.
 	self MoveCq: 0 R: counterReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
+	
+	"If counterReg is caller saved then save it"
+	(self register: counterReg isInMask: callerSavedRegMask) ifTrue: [ self PushR: counterReg ].
+	
 	countTripped jmpTarget:
 		(self CallRT: (boolean == objectMemory falseObject
 						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
 						ifFalse: [ceSendMustBeBooleanAddTrueTrampoline])).
+						
 	"If we're in an image which hasn't got the Sista code loaded then the ceCounterTripped:
 	 trampoline will return directly to machine code, returning the boolean.  So the code should
 	 jump back to the retry point. The trampoline makes sure that TempReg has been reloaded."
 	self annotateBytecode: self Label.
+	
+	"If counterReg is caller saved then restore it"
+	(self register: counterReg isInMask: callerSavedRegMask) ifTrue: [ self PopR: counterReg ].
+	
 	self Jump: retry.
 	ok jmpTarget: self Label.
 	^0

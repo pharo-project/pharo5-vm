@@ -7,6 +7,6 @@ returnRegForStoreCheck
 	 reload ReceiverResultReg cheaply.  Otherwise we don't care about the result
 	 and use the cResultRegister, effectively a no-op (see compileTrampoline...)"
 
-	^((self registerMaskFor: ReceiverResultReg) anyMask: callerSavedRegMask)
+	^(self register: ReceiverResultReg isInMask: callerSavedRegMask)
 		ifTrue: [ReceiverResultReg]
 		ifFalse: [backEnd cResultRegister]

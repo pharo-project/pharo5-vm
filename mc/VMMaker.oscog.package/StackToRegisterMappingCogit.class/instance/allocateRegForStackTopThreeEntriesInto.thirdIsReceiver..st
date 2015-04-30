@@ -1,5 +1,8 @@
 simulation stack
 allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsReceiver
+	"Answers registers for the 3 top values on stack. If the values are already in registers, answers
+	these registers, else allocate registers not conflicting with each others.
+	If thirdIsReceiver is true, allocate ReceiverResultReg for stackTop - 2 (for ceStoreCheck)."
 	<inline: true>
 	| topRegistersMask rTop rNext rThird |
 	

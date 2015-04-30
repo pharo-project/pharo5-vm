@@ -2,7 +2,7 @@ bytecode generator support
 genPushLiteralVariable: literalIndex
 	<inline: false>
 	| association freeReg |
-	freeReg := self allocateAnyReg.
+	freeReg := self allocateRegNotConflictingWith: 0.
 	association := self getLiteral: literalIndex.
 	"N.B. Do _not_ use ReceiverResultReg to avoid overwriting receiver in assignment in frameless methods."
 	"So far descriptors are not rich enough to describe the entire dereference so generate the register
