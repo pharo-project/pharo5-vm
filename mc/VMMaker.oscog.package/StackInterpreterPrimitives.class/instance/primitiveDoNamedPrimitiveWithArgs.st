@@ -47,7 +47,7 @@ primitiveDoNamedPrimitiveWithArgs
 				FromModule: moduleName + BaseHeaderSize
 				OfLength: moduleLength.
 	addr = 0 ifTrue:
-		[^self primitiveFailFor: -1]. "could not find function; answer generic failure (see below)"
+		[^self primitiveFailFor: PrimErrNotFound ]. "could not find function; answer generic failure (see below)"
 
 	"Cannot fail this primitive from now on.  Can only fail the external primitive."
 	objectMemory pushRemappableOop: (argumentArray := self popStack).
