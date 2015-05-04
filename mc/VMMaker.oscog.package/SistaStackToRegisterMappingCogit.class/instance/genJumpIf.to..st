@@ -47,11 +47,6 @@ genJumpIf: boolean to: targetBytecodePC
 	ok := self JumpZero: 0.
 	self MoveCq: 0 R: counterReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
 
-	self flag: 'Hi Clément.  You can''t just save things to the Smalltalk stack.  You can /only/ save things that execution expects to be there on a context''s stack, because this frame may get mapped to a context object and then back, and gc''ed etc.  The counter reg does not contain an object so is a complete no-no on the Smalltalk stack.  On the C stack in the trampoline is OK, not on the Smalltalk stack in method execution.  So instead of saving and restoring the counterReg around the call, something we can''t do, we can reload it after the call'.
-	false ifTrue:
-		["If counterReg is caller saved then save it"
-		(self register: counterReg isInMask: callerSavedRegMask) ifTrue: [ self PushR: counterReg ]].
-
 	countTripped jmpTarget:
 		(self CallRT: (boolean == objectMemory falseObject
 						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
@@ -62,16 +57,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 jump back to the retry point. The trampoline makes sure that TempReg has been reloaded."
 	self annotateBytecode: self Label.
 
-	self flag: 'see above'.
-	false ifTrue:
-		["If counterReg is caller saved then restore it"
-		(self register: counterReg isInMask: callerSavedRegMask) ifTrue: [ self PopR: counterReg ]].
-
-	"Note we /can't/ save and restore the counterReg's contents around the call since the stack can
-	 only contain what an interpreted context's stack would contain at the corresponding point.  The
-	 counter is not an object, so can't be written to the stack. Hence we reload it after the call."
-	self MoveAw: counterAddress R: counterReg.
-
 	self Jump: retry.
+	
 	ok jmpTarget: self Label.
 	^0

@@ -13,7 +13,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 
-	((coInterpreter isOptimizedMethod: methodObj) or: [needsFrame not]) ifTrue: [ ^ super genSpecialSelectorEqualsEquals ].
+	((coInterpreter isOptimizedMethod: methodObj) or: [needsFrame not]) ifTrue: [ ^ self genSpecialSelectorEqualsEqualsWithForwardersWithoutCounters ].
 
 	regMask := 0.
 	
