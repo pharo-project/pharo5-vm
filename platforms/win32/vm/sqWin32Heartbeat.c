@@ -1,7 +1,7 @@
 /****************************************************************************
-*   PROJECT: Win32 time functions and heartbeat logic for Stack VM
+*   PROJECT: Squeak port for Win32 (NT / Win95)
 *   FILE:    sqWin32Heartbeat.c
-*   CONTENT: 
+*   CONTENT: Win32 time functions and heartbeat logic for Stack VM
 *
 *   AUTHOR:  Eliot Miranda
 *
@@ -215,6 +215,7 @@ ioUpdateVMTimezone()
 {
 	__int64 utcNow, localNow;
 
+	updateMicrosecondClock();
 	GetSystemTimeAsFileTime((FILETIME *)&utcNow);
 	FileTimeToLocalFileTime((FILETIME *)&utcNow,(FILETIME *)&localNow);
 	vmGMTOffset = (localNow - utcNow) / (__int64)TocksPerMicrosecond;
