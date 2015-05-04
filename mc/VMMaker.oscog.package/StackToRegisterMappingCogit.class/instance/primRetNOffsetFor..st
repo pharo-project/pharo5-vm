@@ -1,3 +1,3 @@
 primitive generators
 primRetNOffsetFor: nargs
-	self shouldNotImplement
+	^ 2 * objectMemory wordSize
