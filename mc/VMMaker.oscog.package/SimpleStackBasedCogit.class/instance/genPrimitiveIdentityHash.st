@@ -1,6 +1,6 @@
 primitive generators
 genPrimitiveIdentityHash
 	| r |
-	(r := objectRepresentation genInnerPrimitiveIdentityHash: objectMemory wordSize) < 0 ifTrue:
+	(r := objectRepresentation genInnerPrimitiveIdentityHash: (self primRetNOffsetFor: 0)) < 0 ifTrue:
 		[^r].
 	^self compileFallbackToInterpreterPrimitive

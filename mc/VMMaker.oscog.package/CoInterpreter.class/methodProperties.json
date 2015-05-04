@@ -62,7 +62,7 @@
 		"ceInterpretMethodFromPIC:receiver:" : "eem 10/24/2014 13:35",
 		"ceMNUFromPICMNUMethod:receiver:" : "eem 1/20/2014 18:54",
 		"ceNewArraySlotSize:" : "eem 1/20/2015 15:09",
-		"ceNonLocalReturn:" : "eem 12/31/2014 14:03",
+		"ceNonLocalReturn:" : "eem 4/30/2015 12:06",
 		"ceOuterSend:receiver:" : "rmacnak 4/4/2015 15:13",
 		"ceReturnToInterpreter:" : "eem 10/1/2013 14:36",
 		"ceSelfSend:to:numArgs:" : "eem 4/4/2015 14:55",
@@ -353,6 +353,7 @@
 		"updateStateOfSpouseContextForFrame:WithSP:" : "eem (const to msg rewrite) 11/5/2014 18:08",
 		"validInstructionPointer:inMethod:framePointer:" : "eem 11/28/2012 11:07",
 		"validStackPageBaseFrame:" : "eem (const to msg rewrite) 11/5/2014 18:08",
+		"varBaseAddress" : "tpr 4/30/2015 13:08",
 		"voidVMStateForSnapshotFlushingExternalPrimitivesIf:" : "eem 12/11/2013 10:04",
 		"warning:" : "eem 10/12/2009 01:04",
 		"whereIs:" : "eem 3/19/2014 16:31" } }

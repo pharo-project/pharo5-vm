@@ -96,7 +96,6 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		ifFalse:
 			[self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
 			 self PushR: ClassReg].											"Restore return pc on CISCs"
-	self flag: 'currently caller pushes result'.
 	self RetN: objectMemory wordSize.	"return to caller, popping receiver"
 
 	profiling ifTrue:

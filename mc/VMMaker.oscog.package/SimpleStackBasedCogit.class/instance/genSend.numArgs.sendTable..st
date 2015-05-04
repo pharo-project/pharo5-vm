@@ -21,6 +21,5 @@ genSend: selector numArgs: numArgs sendTable: sendTable
 	self MoveCw: selector R: ClassReg.
 	self annotate: (self Call: (sendTable at: (numArgs min: NumSendTrampolines - 1)))
 		with: annotation.
-	self flag: 'currently caller pushes result'.
 	self PushR: ReceiverResultReg.
 	^0

@@ -8,6 +8,7 @@ at: offset moveCw: constant intoR: destReg
 	ORR destReg, destReg, #<constantByte0>, 0
 	with minimal choice of the rotation (last digit)"
 	"The same area can be modified multiple times, because the opperation is (inclusive) or."
+	 <var: 'constant' type: #usqInt>
 	<inline: true>
 	"self assert: destReg < 12."
 

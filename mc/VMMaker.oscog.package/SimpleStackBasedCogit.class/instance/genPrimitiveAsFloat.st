@@ -14,7 +14,6 @@ genPrimitiveAsFloat
 					scratchReg: ClassReg
 					scratchReg: TempReg.
 	self MoveR: SendNumArgsReg R: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize.
+	self RetN: (self primRetNOffsetFor: 0).
 	jumpFailAlloc jmpTarget: self Label.
 	^self compileFallbackToInterpreterPrimitive

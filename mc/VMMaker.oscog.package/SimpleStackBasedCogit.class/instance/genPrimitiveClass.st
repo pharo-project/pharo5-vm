@@ -14,6 +14,5 @@ genPrimitiveClass
 			scratchReg: TempReg
 			instRegIsReceiver: methodOrBlockNumArgs = 0.
 		 self MoveR: ClassReg R: ReceiverResultReg].
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize.
+	self RetN: (self primRetNOffsetFor: 0).
 	^0

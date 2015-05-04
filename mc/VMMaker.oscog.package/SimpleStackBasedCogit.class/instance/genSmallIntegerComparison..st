@@ -7,15 +7,14 @@ genSmallIntegerComparison: jumpOpcode
 	| jumpFail jumpTrue |
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	<var: #jumpTrue type: #'AbstractInstruction *'>
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpFail := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
 	jumpTrue := self gen: jumpOpcode.
 	self genMoveFalseR: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpTrue jmpTarget: (self genMoveTrueR: ReceiverResultReg).
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpFail jmpTarget: self Label.
 	^0

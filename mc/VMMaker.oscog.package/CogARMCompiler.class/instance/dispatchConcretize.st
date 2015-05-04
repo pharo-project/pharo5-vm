@@ -18,8 +18,6 @@ dispatchConcretize
 		[FillFromWord]			-> [^self concretizeFillFromWord].
 		[Nop]					-> [^self concretizeNop].
 		"ARM Specific Control/Data Movement" 
-		[LDMFD]				-> [^self concretizeLDMFD].
-		[STMFD]				-> [^self concretizeSTMFD].
 		[SMULL]				-> [^self concretizeSMULL]	.
 		[CMPSMULL]				-> [^self concretizeCMPSMULL].
 		[MSR]						-> [^self concretizeMSR].

@@ -4,7 +4,7 @@ genPrimitiveNotIdentical
 		receiver (also in ResultReceiverReg)
 		arg
 		return address"
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: Arg0Reg.
 	^objectRepresentation
-		genInnerPrimitiveIdentical: objectMemory wordSize * 2
+		genInnerPrimitiveIdentical: (self primRetNOffsetFor: 1)
 		orNotIf: true

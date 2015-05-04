@@ -7,7 +7,7 @@ genPrimitiveAdd
 	| jumpNotSI jumpOvfl |
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpOvfl type: #'AbstractInstruction *'>
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ClassReg.
@@ -15,7 +15,6 @@ genPrimitiveAdd
 	self AddR: ClassReg R: TempReg.
 	jumpOvfl := self JumpOverflow: 0.
 	self MoveR: TempReg R: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpOvfl jmpTarget: (jumpNotSI jmpTarget: self Label).
 	^0

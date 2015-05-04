@@ -1,0 +1,3 @@
+primitive generators
+primRetNOffsetFor: nargs
+	self shouldNotImplement

@@ -13,16 +13,15 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	backEnd hasDoublePrecisionFloatingPointSupport ifFalse:
 		[^self genSmallIntegerComparison: jumpOpcode].
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
 	jumpTrue := self gen: jumpOpcode.
 	self genMoveFalseR: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpTrue jmpTarget: (self genMoveTrueR: ReceiverResultReg).
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	
 	"Argument may be a Float : let us check or fail"
 	jumpDouble jmpTarget: self Label.
@@ -41,10 +40,9 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	self CmpRd: DPFPReg1 Rd: DPFPReg0.
 	jumpCond := self perform: jumpFPOpcodeGenerator with: 0. "FP jumps are a little weird"
 	self genMoveFalseR: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpCond jmpTarget: (self genMoveTrueR: ReceiverResultReg).
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 
 	objectRepresentation smallIntegerIsOnlyImmediateType
 		ifTrue: [jumpFail jmpTarget: self Label]

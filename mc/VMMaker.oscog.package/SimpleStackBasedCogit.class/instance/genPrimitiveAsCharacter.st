@@ -4,9 +4,9 @@ genPrimitiveAsCharacter
 	na := coInterpreter argumentCountOf: methodObj.
 	na <= 1 ifTrue:
 		[na = 1 ifTrue:
-			[self MoveMw: objectMemory wordSize r: SPReg R: Arg0Reg].
+			[self genLoadArgAtDepth: 0 into: Arg0Reg].
 		 (r := objectRepresentation
-				genInnerPrimitiveAsCharacter: 0
+				genInnerPrimitiveAsCharacter: (self primRetNOffsetFor: na)
 				inReg: (na = 0 ifTrue: [ReceiverResultReg] ifFalse: [Arg0Reg])) < 0 ifTrue:
 			[^r]].
 	^self compileFallbackToInterpreterPrimitive

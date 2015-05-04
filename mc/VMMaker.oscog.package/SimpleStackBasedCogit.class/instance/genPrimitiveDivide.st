@@ -5,7 +5,7 @@ genPrimitiveDivide
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpInexact type: #'AbstractInstruction *'>
 	<var: #jumpOverflow type: #'AbstractInstruction *'>
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	"We must shift away the tags, not just subtract them, so that the
@@ -23,7 +23,6 @@ genPrimitiveDivide
 	jumpOverflow := self JumpGreaterOrEqual: 0.
 	objectRepresentation genConvertIntegerToSmallIntegerInReg: TempReg.
 	self MoveR: TempReg R: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpOverflow jmpTarget: (jumpInexact jmpTarget: (jumpZero jmpTarget: (jumpNotSI jmpTarget: self Label))).
 	^0

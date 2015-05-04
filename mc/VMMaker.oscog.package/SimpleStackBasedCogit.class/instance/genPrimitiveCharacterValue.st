@@ -1,7 +1,7 @@
 primitive generators
 genPrimitiveCharacterValue
 	| r |
-	(r := objectRepresentation genInnerPrimitiveCharacterValue: objectMemory wordSize) < 0 ifTrue:
+	(r := objectRepresentation genInnerPrimitiveCharacterValue: (self primRetNOffsetFor: 0)) < 0 ifTrue:
 		[^r].
 	^r = UnfailingPrimitive
 		ifTrue: [0]

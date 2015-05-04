@@ -6,7 +6,7 @@ genPrimitiveDiv
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpExact type: #'AbstractInstruction *'>
 	<var: #jumpSameSign type: #'AbstractInstruction *'>
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	self MoveR: TempReg R: ClassReg.
 	self MoveR: TempReg R: Arg1Reg.
 	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
@@ -31,8 +31,7 @@ genPrimitiveDiv
 	jumpSameSign jmpTarget: (convert := self Label).
 	objectRepresentation genConvertIntegerToSmallIntegerInReg: TempReg.
 	self MoveR: TempReg R: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	"test for overflow; the only case is SmallInteger minVal // -1"
 	jumpExact jmpTarget:
 		(self CmpCq: (1 << (objectRepresentation numSmallIntegerBits - 1)) R: TempReg).

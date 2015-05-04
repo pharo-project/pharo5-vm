@@ -5,11 +5,11 @@ genSpecialSelectorEqualsEquals
 	<var: #jumpPush type: #'AbstractInstruction *'>
 	self PopR: Arg0Reg.
 	objectRepresentation
-		genEnsureObjInRegNotForwarded: Arg0Reg
+		genEnsureOopInRegNotForwarded: Arg0Reg
 		scratchReg: TempReg.
 	self MoveMw: 0 r: SPReg R: ClassReg.
 	objectRepresentation
-		genEnsureObjInRegNotForwarded: ClassReg
+		genEnsureOopInRegNotForwarded: ClassReg
 		scratchReg: TempReg.
 	self CmpR: Arg0Reg R: ClassReg.
 	jumpNotEqual := self JumpNonZero: 0.

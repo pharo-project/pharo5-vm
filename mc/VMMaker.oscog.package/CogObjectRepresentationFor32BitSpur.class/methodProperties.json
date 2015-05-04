@@ -25,7 +25,7 @@
 		"genGetSizeOf:into:formatReg:scratchReg:abortJumpsInto:" : "eem 4/10/2015 18:08",
 		"genInnerPrimitiveAt:" : "eem 4/10/2015 18:11",
 		"genInnerPrimitiveAtPut:" : "eem 4/15/2015 19:03",
-		"genInnerPrimitiveIdentityHash:" : "eem 2/12/2014 13:45",
+		"genInnerPrimitiveIdentityHash:" : "eem 4/30/2015 13:15",
 		"genInnerPrimitiveMirrorNew:" : "eem 5/19/2014 19:00",
 		"genInnerPrimitiveMirrorNewWithArg:" : "eem 4/6/2015 15:17",
 		"genInnerPrimitiveNew:" : "eem 12/6/2013 14:51",

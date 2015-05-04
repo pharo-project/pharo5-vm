@@ -12,7 +12,7 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	<var: #compare type: #'AbstractInstruction *'>
 	<var: #jumpFail type: #'AbstractInstruction *'>
 
-	self MoveMw: objectMemory wordSize r: SPReg R: TempReg.
+	self genLoadArgAtDepth: 0 into: TempReg.
 	objectRepresentation genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0.
 	self MoveR: TempReg R: ClassReg.
 	jumpImmediate := objectRepresentation genJumpImmediateInScratchReg: TempReg.
@@ -25,10 +25,9 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 		ifFalse: [compare := self CmpRd: DPFPReg1 Rd: DPFPReg0].
 	jumpCond := self perform: jumpOpcodeGenerator with: 0. "FP jumps are a little weird"
 	self genMoveFalseR: ReceiverResultReg.
-	self flag: 'currently caller pushes result'.
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpCond jmpTarget: (self genMoveTrueR: ReceiverResultReg).
-	self RetN: objectMemory wordSize * 2.
+	self RetN: (self primRetNOffsetFor: 1).
 	jumpImmediate jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
 		[jumpNonInt := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg].

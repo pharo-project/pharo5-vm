@@ -1,9 +1,9 @@
 primitive generators
 genPrimitiveStringAtPut
 	| r |
-	self MoveMw: objectMemory wordSize * 2 r: SPReg R: Arg0Reg.
-	self MoveMw: objectMemory wordSize r: SPReg R: Arg1Reg.
-	((r := objectRepresentation genInnerPrimitiveStringAtPut: objectMemory wordSize * 3) < 0
+	self genLoadArgAtDepth: 1 into: Arg0Reg.
+	self genLoadArgAtDepth: 0 into: Arg1Reg.
+	((r := objectRepresentation genInnerPrimitiveStringAtPut: (self primRetNOffsetFor: 2)) < 0
 	 and: [r ~= UnimplementedPrimitive]) ifTrue:
 		[^r].
 	^self compileFallbackToInterpreterPrimitive

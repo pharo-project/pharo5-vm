@@ -10,7 +10,7 @@ genInnerPrimitiveIdentityHash: retNoffset
 	cogit CmpCq: ConstZero R: TempReg.
 	jumpNotSet := cogit JumpZero: 0.
 	cogit MoveR: TempReg R: ReceiverResultReg.
-	ret := cogit RetN: 0.
+	ret := cogit RetN: retNoffset.
 	jumpImm jmpTarget: (cogit MoveR: ReceiverResultReg R: ClassReg).
 	jumpSI := self genJumpSmallIntegerInScratchReg: ClassReg.
 	jumpSI jmpTarget: ret.

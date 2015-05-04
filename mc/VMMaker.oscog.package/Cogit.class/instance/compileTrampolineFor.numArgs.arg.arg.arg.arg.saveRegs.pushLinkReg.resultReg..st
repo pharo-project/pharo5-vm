@@ -6,11 +6,7 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
-	"If on an ARM-like RISC processor, the return address needs to be pushed to the
-	 stack so that the interpreter sees the same stack layout as on CISC."
-	(pushLinkReg and: [backEnd hasLinkRegister]) ifTrue:
-		[self PushR: LinkReg].
-	self genSmalltalkToCStackSwitch.
+	self genSmalltalkToCStackSwitch: pushLinkReg.
 	self
 		compileCallFor: aRoutine
 		numArgs: numArgs

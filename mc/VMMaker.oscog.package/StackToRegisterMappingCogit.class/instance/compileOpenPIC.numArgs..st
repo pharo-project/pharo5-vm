@@ -80,10 +80,7 @@ compileOpenPIC: selector numArgs: numArgs
 	"Last probe missed.  Call ceSendFromInLineCacheMiss: to do the full lookup."
 	jumpSelectorMiss jmpTarget: self Label.
 	backEnd genPushRegisterArgsForNumArgs: numArgs.
-	"because genPushRegisterArgsForNumArgs: doesn't push LinkReg on ARM..."
-	backEnd hasLinkRegister ifTrue:
-		[self PushR: LinkReg].
-	self genSmalltalkToCStackSwitch.
+	self genSmalltalkToCStackSwitch: true.
 	methodLabel addDependent: (self annotateAbsolutePCRef: (self MoveCw: methodLabel asInteger R: SendNumArgsReg)).
 	self 
 		compileCallFor: #ceSendFromInLineCacheMiss:

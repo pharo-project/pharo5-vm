@@ -119,7 +119,6 @@ compileInterpreterPrimitive: primitiveRoutine
 			self MoveMw: (backEnd hasLinkRegister ifTrue: [0] ifFalse: [objectMemory wordSize])
 				r: SPReg
 				R: ReceiverResultReg.
-			self flag: 'currently caller pushes result'.
 			self RetN: objectMemory wordSize].	"return to caller, popping receiver"
 
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
