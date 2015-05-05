@@ -6,7 +6,6 @@
 		"initializeNumTrampolines" : "eem 4/7/2015 17:10",
 		"initializeWithOptions:" : "eem 4/6/2012 14:55" },
 	"instance" : {
-		"allocateRegPreferringCalleeSavedNotConflictingWith:" : "cb 4/26/2015 12:33",
 		"compileBlockBodies" : "eem 4/2/2015 16:44",
 		"compileCogMethod:" : "eem 7/5/2014 17:21",
 		"compileFrameBuild" : "eem 7/7/2014 07:05",
@@ -19,7 +18,7 @@
 		"genExecutionCountLogicInto:counterReg:" : "cb 4/26/2015 13:36",
 		"genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode" : "eem 4/28/2015 14:42",
 		"genFallsThroughCountLogicCounterReg:counterAddress:" : "cb 4/25/2015 16:13",
-		"genJumpIf:to:" : "cb 4/29/2015 10:30",
+		"genJumpIf:to:" : "cb 5/5/2015 11:36",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 5/1/2015 16:24",
 		"genSpecialSelectorComparison" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",

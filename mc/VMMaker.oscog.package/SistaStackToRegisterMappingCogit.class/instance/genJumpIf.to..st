@@ -8,7 +8,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 decrements the lower half.  N.B. We *do not* eliminate dead branches (true ifTrue:/true ifFalse:)
 	 so that scanning for send and branch data is simplified and that branch data is correct."
 	<inline: false>
-	| desc ok counterAddress countTripped retry counterReg |
+	| desc ok counterAddress countTripped retry |
 	<var: #ok type: #'AbstractInstruction *'>
 	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
@@ -21,14 +21,15 @@ genJumpIf: boolean to: targetBytecodePC
 	self ssPop: 1.
 	desc popToReg: TempReg.
 
-	"We prefer calleeSaved to avoid saving it across the trap trip trampoline"
-	counterReg := self allocateRegPreferringCalleeSavedNotConflictingWith: 0. 
+	"We need SendNumArgsReg because of the mustBeBooleanTrampoline"
+	self ssAllocateRequiredReg: SendNumArgsReg.
+
 	retry := self Label.
 	self 
 		genExecutionCountLogicInto: [ :cAddress :countTripBranch | 
 			counterAddress := cAddress. 
 			countTripped := countTripBranch ] 
-		counterReg: counterReg.
+		counterReg: SendNumArgsReg.
 	counterIndex := counterIndex + 1.
 
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
@@ -38,14 +39,14 @@ genJumpIf: boolean to: targetBytecodePC
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
-	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
+	self genFallsThroughCountLogicCounterReg: SendNumArgsReg counterAddress: counterAddress.
 
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.
 	ok := self JumpZero: 0.
-	self MoveCq: 0 R: counterReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
+	self MoveCq: 0 R: SendNumArgsReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
 
 	countTripped jmpTarget:
 		(self CallRT: (boolean == objectMemory falseObject
