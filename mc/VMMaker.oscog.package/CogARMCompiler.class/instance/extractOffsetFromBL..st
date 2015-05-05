@@ -4,7 +4,7 @@ extractOffsetFromBL: instr
 	<inline: true>
 	| relativeJump |
 	relativeJump := instr bitAnd: 16r00FFFFFF.
-	relativeJump := ((relativeJump bitAnd: 1<<24) >> 24) = 1
+	relativeJump := (relativeJump anyMask: 1<<23)
 						ifTrue: [((relativeJump bitOr: 16r3F000000) << 2) signedIntFromLong]
 						ifFalse: [relativeJump << 2].
 	^relativeJump

@@ -1,6 +1,7 @@
 generate machine code - concretize
 concretizeRetN
 	"Will get inlined into concretizeAt: switch."
+	<var: #offset type: #sqInt>
 	<inline: true>
 	| offset |
 	offset := operands at: 0.

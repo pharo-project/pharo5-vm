@@ -1,6 +1,7 @@
 generate machine code - concretize
 concretizeMoveRMbr
 	"Will get inlined into concretizeAt: switch."
+	<var: #offset type: #sqInt>
 	<inline: true>
 	| srcReg offset baseReg instrOffset|
 	srcReg := self concreteRegister: (operands at: 0).

@@ -1,6 +1,7 @@
 generate machine code - concretize
 concretizeMoveMwrR
 	"Will get inlined into concretizeAt: switch."
+	<var: #offset type: #sqInt>
 	<inline: true>
 	| srcReg offset destReg instrOffset|
 	offset := operands at: 0.

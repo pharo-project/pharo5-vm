@@ -5,6 +5,7 @@ concretizeMoveM16rR
 	or 
 	move offset to ConcreteIPReg
 	ldrh destReg, [srcReg, ConcreteIPReg]"
+	<var: #offset type: #sqInt>
 	<inline: true>
 	| srcReg offset destReg instrOffset|
 	offset := operands at: 0.
