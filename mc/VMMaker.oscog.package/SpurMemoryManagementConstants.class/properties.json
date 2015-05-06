@@ -4,10 +4,11 @@
 		 ],
 	"classvars" : [
 		"DontTenure",
-		"DontTenureButDoUnmark",
 		"MarkOnTenure",
+		"MaxRTRefCount",
 		"TenureByAge",
-		"TenureByClass" ],
+		"TenureByClass",
+		"TenureToShrinkRT" ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],

@@ -9,4 +9,6 @@ copyToFutureSpace: survivor bytes: bytesInObject
 	newStart := futureSurvivorStart.
 	futureSurvivorStart := futureSurvivorStart + bytesInObject.
 	manager mem: newStart asVoidPointer cp: startOfSurvivor asVoidPointer y: bytesInObject.
+	tenureCriterion = TenureToShrinkRT ifTrue:
+		[manager rtRefCountOf: newStart + (survivor - startOfSurvivor) put: 0].
 	^newStart + (survivor - startOfSurvivor)

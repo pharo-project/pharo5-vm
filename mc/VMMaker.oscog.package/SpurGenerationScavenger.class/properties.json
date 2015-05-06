@@ -17,6 +17,7 @@
 		"previousRememberedSetSize",
 		"rememberedSetRedZone",
 		"rememberedSetLimit",
+		"refCountToShrinkRT",
 		"weakList",
 		"ephemeronList",
 		"tenureCriterion",

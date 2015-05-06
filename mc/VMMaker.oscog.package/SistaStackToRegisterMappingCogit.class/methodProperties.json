@@ -10,6 +10,7 @@
 		"compileCogMethod:" : "eem 7/5/2014 17:21",
 		"compileFrameBuild" : "eem 7/7/2014 07:05",
 		"disassembleMethod:on:" : "eem 7/4/2014 15:45",
+		"estimateOfAbstractOpcodesPerBytecodes" : "cb 5/6/2015 09:21",
 		"fillInCPICHeader:size:numArgs:numCases:hasMNUCase:selector:" : "eem 7/5/2014 10:55",
 		"fillInCounters:atEndAddress:" : "eem 9/23/2013 07:23",
 		"fillInCounters:atStartAddress:" : "eem 7/4/2014 12:08",

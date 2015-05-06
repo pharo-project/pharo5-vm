@@ -8,4 +8,4 @@ initializeRememberedSet
 	rememberedSet := manager firstIndexableField: obj.
 	rememberedSetSize := 0.
 	rememberedSetLimit := manager numSlotsOf: obj.
-	rememberedSetRedZone := rememberedSetLimit * 3 + 3 // 4
+	self setRememberedSetRedZone

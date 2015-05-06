@@ -2,6 +2,6 @@
 	"class" : {
 		 },
 	"instance" : {
+		"computeRefCountToShrinkRT" : "eem 5/5/2015 19:18",
 		"manager:" : "eem 10/9/2013 13:29",
-		"remember:" : "eem 9/25/2013 23:59",
 		"scavenge:" : "eem 7/31/2014 20:51" } }

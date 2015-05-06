@@ -1,4 +1,4 @@
-store check
+remembered set
 growRememberedSet
 	| obj numSlots newObj base |
 	<inline: false> "Don't ruin locality in remember:"
@@ -22,5 +22,5 @@ growRememberedSet
 			setIsMarkedOf: obj to: false].
 	manager freeObject: obj.
 	rememberedSet := base.
-	rememberedSetLimit := numSlots * 2.
-	rememberedSetRedZone := rememberedSetLimit * 3 + 3 // 4
+	rememberedSetLimit := manager numSlotsOf: newObj.
+	self setRememberedSetRedZone

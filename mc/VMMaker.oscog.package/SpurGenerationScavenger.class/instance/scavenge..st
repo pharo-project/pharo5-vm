@@ -14,6 +14,7 @@ scavenge: tenuringCriterion
 
 	 Answer the limit of pastSpace, to allow the memory manager to bounds check survivors."
 	tenureCriterion := tenuringCriterion.
+	self strategizeToLimitRememberedTable.
 	self scavengeLoop.
 	self processWeaklings.
 	self computeTenuringThreshold.

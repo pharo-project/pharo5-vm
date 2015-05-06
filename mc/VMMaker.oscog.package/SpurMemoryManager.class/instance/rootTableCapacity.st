@@ -1,3 +1,4 @@
 scavenger
 rootTableCapacity
-	^self numSlotsOf: self rememberedSetObj
+	<cmacro: '() GIV(rememberedSetLimit)'>
+	^scavenger rememberedSetLimit

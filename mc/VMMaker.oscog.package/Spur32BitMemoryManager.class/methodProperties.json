@@ -58,6 +58,7 @@
 		"oldRawNumSlotsOf:" : "eem 4/5/2014 12:04",
 		"rawOverflowSlotsOf:" : "eem 10/10/2013 09:24",
 		"rawOverflowSlotsOf:put:" : "eem 4/5/2014 12:08",
+		"rtRefCountOf:put:" : "eem 5/5/2015 17:37",
 		"set:classIndexTo:formatTo:" : "eem 3/21/2014 04:26",
 		"setClassIndexOf:to:" : "eem 9/22/2013 15:47",
 		"setFormatOf:to:" : "eem 9/22/2013 17:59",
