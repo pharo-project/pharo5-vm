@@ -668,7 +668,7 @@
 		"remapCallbackState" : "eem 9/14/2013 11:13",
 		"removeFirstLinkOfList:" : "eem 6/29/2014 19:33",
 		"removeProcess:fromList:" : "eem 6/29/2014 19:33",
-		"respondToSistaTrap" : "cb 4/27/2015 10:28",
+		"respondToSistaTrap" : "cb 5/5/2015 16:25",
 		"respondToUnknownBytecode" : "eem 7/26/2014 06:54",
 		"restoreCStackStateForCallbackContext:" : "eem 11/5/2010 17:03",
 		"restoreStackLimit" : "eem 2/8/2009 11:19",

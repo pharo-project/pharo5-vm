@@ -16,6 +16,6 @@ noneImmediateBranchIf: reg notInstanceOfBehaviors: arrayObj target: targetFixUp
 		jumps at: i put: (cogit JumpZero: 0) ].
 	cogit Jump: targetFixUp.
 	label := self Label.
-	0 to: numJumps do: [:i |
+	0 to: numJumps - 1 do: [:i |
 		(jumps at: i) jmpTarget: label ].
 	^0

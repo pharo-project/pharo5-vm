@@ -3,4 +3,4 @@ recordLastInstruction
 	<doNotGenerate>
 	^self recordInstruction: (processor
 								disassembleNextInstructionIn: coInterpreter memory
-								for: (EagerInstructionDecoration ifTrue: [self]))
+								for: ((EagerInstructionDecoration or: [printInstructions]) ifTrue: [self]))

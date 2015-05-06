@@ -11,4 +11,4 @@ ceSistaTrap
 	^self
 		ceSendAbort: (objectMemory splObj: SelectorSistaTrap)
 		to: context
-		numArgs: 1
+		numArgs: 0

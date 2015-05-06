@@ -8,18 +8,20 @@ genJumpIf: boolean to: targetBytecodePC
 	 decrements the lower half.  N.B. We *do not* eliminate dead branches (true ifTrue:/true ifFalse:)
 	 so that scanning for send and branch data is simplified and that branch data is correct."
 	<inline: false>
-	| desc ok counterAddress countTripped retry |
+	| ok counterAddress countTripped retry |
 	<var: #ok type: #'AbstractInstruction *'>
-	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
 
 	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
+	
+	branchReachedOnlyForCounterTrip ifTrue: 
+		[ branchReachedOnlyForCounterTrip := false.
+		^ self genCounterTripOnlyJumpIf: boolean to: targetBytecodePC ].
 
 	self ssFlushTo: simStackPtr - 1.
-	desc := self ssTop.
+	self ssTop popToReg: TempReg.
 	self ssPop: 1.
-	desc popToReg: TempReg.
 
 	"We need SendNumArgsReg because of the mustBeBooleanTrampoline"
 	self ssAllocateRequiredReg: SendNumArgsReg.
@@ -47,7 +49,7 @@ genJumpIf: boolean to: targetBytecodePC
 		R: TempReg.
 	ok := self JumpZero: 0.
 	self MoveCq: 0 R: SendNumArgsReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
-
+	
 	countTripped jmpTarget:
 		(self CallRT: (boolean == objectMemory falseObject
 						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]

@@ -5,5 +5,5 @@ respondToSistaTrap
 	messageSelector := objectMemory splObj: SelectorSistaTrap.
 	ourContext := self ensureFrameIsMarried: localFP SP: localSP.
 	self internalPush: ourContext.
-	argumentCount := 1.
+	argumentCount := 0.
 	self normalSend

@@ -73,4 +73,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	
 	"inlined version of #== ignoring the branchDescriptor if the counter trips to have normal state for the optimizer"
 	self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
+	
+	(self fixupAt: nextPC - initialPC) targetInstruction = 0 ifTrue: [ branchReachedOnlyForCounterTrip := true ].
+	
 	^ 0
