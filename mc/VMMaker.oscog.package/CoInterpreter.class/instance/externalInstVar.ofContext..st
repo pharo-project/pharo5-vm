@@ -19,7 +19,8 @@ externalInstVar: offset ofContext: aContext
 		 ^(offset = InstructionPointerIndex
 		    and: [(objectMemory isIntegerObject: value)
 		    and: [value signedIntFromLong < 0]])
-			ifTrue: [self mustMapMachineCodePC: (objectMemory integerValueOf: value)
+			ifTrue: [self externalWriteBackHeadFramePointers.
+					self mustMapMachineCodePC: (objectMemory integerValueOf: value)
 						context: aContext]
 			ifFalse: [value]].
 

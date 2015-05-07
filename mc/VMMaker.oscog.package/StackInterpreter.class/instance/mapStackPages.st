@@ -10,7 +10,8 @@ mapStackPages
 		[:i| | thePage theSP theFP callerFP theIPPtr theIP oop |
 		thePage := stackPages stackPageAt: i.
 		thePage isFree ifFalse:
-			[theSP := thePage headSP.
+			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
+			 theSP := thePage headSP.
 			 theFP := thePage  headFP.
 			 "Skip the instruction pointer on top of stack of inactive pages."
 			 thePage = stackPage

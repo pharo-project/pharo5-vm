@@ -31,7 +31,8 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 		[:i| | thePage theFP callerFP ptr oop |
 		thePage := stackPages stackPageAt: i.
 		thePage isFree ifFalse:
-			[theFP := thePage  headFP.
+			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
+			 theFP := thePage  headFP.
 			 "Skip the instruction pointer on top of stack of inactive pages."
 			 theIPPtr := thePage = stackPage ifTrue: [0] ifFalse: [thePage headSP asUnsignedInteger].
 			 [self assert: (thePage addressIsInPage: theFP).

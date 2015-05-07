@@ -9,6 +9,7 @@ markAndTraceStackPage: thePage
 	<inline: false>
 
 	self assert: (stackPages isFree: thePage) not.
+	self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
 	self assert: thePage trace ~= StackPageTraced.
 	thePage trace: StackPageTraced.
 

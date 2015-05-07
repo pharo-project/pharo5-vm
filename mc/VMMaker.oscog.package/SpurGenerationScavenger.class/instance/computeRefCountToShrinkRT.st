@@ -18,10 +18,13 @@ computeRefCountToShrinkRT
 	 Only by selectively pruning the remembered table of nodes that shared data, was a balance achieved
 	 whereby the remembered table population was kept small, and tenuring rates were low."
 	<inline: #never>
-	| counts |
-	<var: 'counts' declareC: 'long counts[MaxRTRefCount + 1]'>
-	self cCode: '' inSmalltalk: [counts := CArrayAccessor on: (Array new: MaxRTRefCount + 1)].
+	| population |
+	<var: 'population' declareC: 'long population[MaxRTRefCount + 1]'>
+	self cCode: [self me: population ms: 0 et: (self sizeof: #long) * (MaxRTRefCount + 1)]
+		inSmalltalk: [population := CArrayAccessor on: (Array new: MaxRTRefCount + 1 withAll: 0)].
 	self assert: self allNewSpaceObjectsHaveZeroRTRefCount.
-	self referenceCountRememberedReferents.
-	self totalRememberedReferentCounts: counts.
-	self setRefCountToShrinkRT: counts
+	self referenceCountRememberedReferents: population.
+	self setRefCountToShrinkRT: population
+
+	"For debugging:
+	(manager allNewSpaceObjectsDo: [:o| manager rtRefCountOf: o put: 0])"

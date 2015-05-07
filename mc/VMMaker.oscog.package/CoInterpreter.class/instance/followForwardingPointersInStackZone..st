@@ -34,11 +34,12 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 		[:i| | thePage theSP theFP callerFP oop offset |
 		thePage := stackPages stackPageAt: i.
 		thePage isFree ifFalse:
-			[theFP := thePage  headFP.
+			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
+			 theFP := thePage headFP.
 			 theIPPtr := thePage = stackPage ifTrue: [0] ifFalse: [thePage headSP asUnsignedInteger].
 			 [self assert: (thePage addressIsInPage: theFP).
 			  self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr asVoidPointer]).
-			 (self isMachineCodeFrame: theFP)
+			  (self isMachineCodeFrame: theFP)
 				ifTrue:
 					[oop := stackPages longAt: theFP + FoxMFReceiver.
 					 (objectMemory isOopForwarded: oop) ifTrue:
