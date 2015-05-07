@@ -6,17 +6,21 @@ removeUnusedTempsAndNilIfRequiredIn: aCodeGen
 	| refs readBeforeAssigned |
 	refs := self removeUnusedTempsIn: aCodeGen.
 	"reset the locals to be only those still referred to"
-	"locals := locals select: [:e| refs includes: e].
+	locals := locals select: [:e| refs includes: e].
 	(locals notEmpty
-	 and: [(readBeforeAssigned := (self findReadBeforeAssignedIn: locals)) notEmpty]) ifTrue:
+	 and: [aCodeGen
+			pushScope: declarations
+			while: [(readBeforeAssigned := (self findReadBeforeAssignedIn: locals in: aCodeGen)) notEmpty]]) ifTrue:
 		[readBeforeAssigned := readBeforeAssigned reject:
-			[:v| | d | ""don't initialize externa and/or arrays""
+			[:v| | d | "don't initialize externa and/or arrays"
 			 d := self declarationAt: v.
-			 (d beginsWith: 'extern') or: [d includes: $[]].
+			 (d beginsWith: 'extern') 
+				or: [(d includes: $[) 
+				or: [ d includes: $= ] ] ].
 		 parseTree statements addAllFirst:
 			(readBeforeAssigned asSortedCollection collect:
 				[:var|
 				TAssignmentNode new
 					setVariable: (TVariableNode new setName: var; yourself)
-					expression: (TConstantNode new setValue: 0; yourself)])]."
+					expression: (TConstantNode new setValue: 0; yourself)])].
 	^refs
