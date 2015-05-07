@@ -3,7 +3,7 @@ primitiveTranslateFaceGlyphSlotOutline: deltaWordArray
 	| face delta rcvr deltasqIntPtr |
 	
 	<var: #face declareC: 'FT_Face face'>
-	<var: #delta declareC: 'FT_Vector delta'>
+	<var: #delta declareC: 'FT_Vector delta = {0}'>
 	<var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'>
 	
 	rcvr := self 

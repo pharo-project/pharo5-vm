@@ -3,9 +3,9 @@ primitiveSetTransform: matrixWordArray delta: deltaWordArray
 	| face rcvr matrix delta deltasqIntPtr matrixsqIntPtr |
 	
 	<var: #face declareC: 'FT_Face face'>
-	<var: #matrix declareC: 'FT_Matrix matrix'>
+	<var: #matrix declareC: 'FT_Matrix matrix = {0}'>
 	<var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'>
-	<var: #delta declareC: 'FT_Vector delta'>
+	<var: #delta declareC: 'FT_Vector delta = {0}'>
 	<var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'>
 
 	rcvr := self 

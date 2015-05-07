@@ -3,7 +3,7 @@ primitiveTransformFaceGlyphSlotOutline: matrixWordArray
 	| face matrix rcvr matrixsqIntPtr |
 	
 	<var: #face declareC: 'FT_Face face'>
-	<var: #matrix declareC: 'FT_Matrix matrix'>
+	<var: #matrix declareC: 'FT_Matrix matrix = {0}'>
 	<var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'>
 	
 	rcvr := self 

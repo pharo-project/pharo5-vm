@@ -4,7 +4,8 @@ setSigChldHandler
 
 	<returnTypeC: 'void'>
 	| sigchldHandlerAction |
-	<var: 'sigchldHandlerAction' type: #'struct sigaction'>
+	<var: 'sigchldHandlerAction' declareC: #'struct sigaction sigchldHandlerAction = {{0}}'>
+	
 	self cppIf: #'SA_NOCLDSTOP' defined
 		ifTrue:
 			[self cCode: 'sigchldHandlerAction.sa_sigaction = reapChildProcess'
