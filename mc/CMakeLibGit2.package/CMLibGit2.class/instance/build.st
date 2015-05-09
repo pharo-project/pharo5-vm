@@ -22,6 +22,6 @@ add_custom_command(OUTPUT "${libGit2Installed}"
 	is looking for a rule to make libssh2."
 ,'
 add_custom_command(OUTPUT "${externalModulesDir}/', libssh2 libraryFileName, '"
-	COMMAND cd "${thirdpartyDir}/libssh2" && make libssh2Include
+	COMMAND cd "${thirdpartyDir}/libssh2" && make ', libssh2 canonicalName, '
 )
 '
