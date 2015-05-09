@@ -21,7 +21,7 @@ add_custom_command(OUTPUT "${libGit2Installed}"
 	"This custom command is needed if libgit2 is being build before libssh2 and make
 	is looking for a rule to make libssh2."
 ,'
-add_custom_command(OUTPUT "${unpackTarget}" "${externalModulesDir}/', libssh2 libraryFileName, '"
+add_custom_command(OUTPUT "${externalModulesDir}/', libssh2 libraryFileName, '"
 	COMMAND cd "${thirdpartyDir}/libssh2" && make libssh2Include
 )
 '
