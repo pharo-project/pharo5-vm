@@ -18,7 +18,7 @@ bytecodePrimAtPut
 			 messageSelector := self specialSelector: 17.
 			 (self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifFalse:
 				[argumentCount := 2.
-				 ^self commonSend: LookupRuleOrdinary].
+				 ^self commonSend].
 			 primitiveFunctionPointer == #primitiveAtPut
 				ifTrue: [self install: rcvr inAtCache: atCache at: atIx string: false]
 				ifFalse:
@@ -26,7 +26,7 @@ bytecodePrimAtPut
 						ifTrue: [self install: rcvr inAtCache: atCache at: atIx string: true]
 						ifFalse:
 							[argumentCount := 2.
-							 ^self commonSend: LookupRuleOrdinary]]].
+							 ^self commonSend]]].
 		 self successful ifTrue:
 			[self commonVariable: rcvr at: (objectMemory integerValueOf: index) put: value cacheIndex: atIx].
 		 self successful ifTrue:

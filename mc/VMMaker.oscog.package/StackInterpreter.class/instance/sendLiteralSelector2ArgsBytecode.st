@@ -7,4 +7,4 @@ sendLiteralSelector2ArgsBytecode
 	rcvr := self internalStackValue: 2.
 	lkupClassTag := objectMemory fetchClassTagOf: rcvr.
 	self assert: lkupClassTag ~= objectMemory nilObject.
-	self commonSend: LookupRuleOrdinary
+	self commonSend

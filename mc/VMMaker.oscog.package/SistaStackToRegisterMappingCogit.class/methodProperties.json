@@ -24,7 +24,7 @@
 		"genMustBeBooleanTrampolineFor:called:" : "eem 5/1/2015 16:24",
 		"genSpecialSelectorComparison" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
-		"genSpecialSelectorEqualsEqualsWithForwarders" : "cb 5/5/2015 13:42",
+		"genSpecialSelectorEqualsEqualsWithForwarders" : "eem 5/10/2015 09:17",
 		"genSpecialSelectorEqualsEqualsWithForwardersWithoutCounters" : "cb 4/29/2015 14:40",
 		"genUnconditionalTrapBytecode" : "cb 4/28/2015 09:59",
 		"genUnoptimizedSpecialSelectorComparison" : "cb 4/28/2015 12:53",
