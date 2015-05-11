@@ -1,4 +1,4 @@
 remembered set
 setRememberedSetRedZone
-	self halt.
+	"self halt."
 	^super setRememberedSetRedZone
