@@ -1,7 +1,8 @@
 private-accessing
 compiledMethodClassDefinition
 	^MCAddition of: 
-		(MCClassDefinition name: #CompiledMethod
+		(MCClassDefinition new
+			initializeWithName: #CompiledMethod
 			superclassName: #ByteArray
 			category: #'Kernel-Methods'
 			instVarNames: #()

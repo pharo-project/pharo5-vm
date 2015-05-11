@@ -5,8 +5,8 @@ patchDefinition: aMCMethodDefinition withRewriter: aRBParseTreeRewriter
 					parseMethod: aMCMethodDefinition source
 					onError: [:str :pos | self halt].
 	aRBParseTreeRewriter executeTree: parseTree.
-	^MCMethodDefinition 
-		className: aMCMethodDefinition className
+	^MCMethodDefinition new
+		initializeWithClassName: aMCMethodDefinition className
 		classIsMeta:aMCMethodDefinition classIsMeta
 		selector: aMCMethodDefinition selector
 		category: aMCMethodDefinition category

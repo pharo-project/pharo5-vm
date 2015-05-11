@@ -19,14 +19,15 @@ packagesAndPatches
 					[methodReference := (class >> selector) methodReference.
 					 category := methodReference category].
 				 package := (methodReference isNil
-							  or: [methodReference category = Categorizer default])
+							  or: [methodReference category = Categorizer default
+							  or: [methodReference category first = $*]]) "This for Scorch's override of InstructionClient>>classPrimitive:"
 								ifTrue: [PackageOrganizer default packageOfClass: class]
 								ifFalse: [PackageOrganizer default packageOfMethod: methodReference]].
 		 source := method getSourceFromFile asString allButFirst: method selector size - selector size.
 		 source first ~= selector first ifTrue:
 			[source replaceFrom: 1 to: selector size with: selector startingAt: 1].
-		 definition := MCAddition of: (MCMethodDefinition
-										className: className
+		 definition := MCAddition of: (MCMethodDefinition new
+										initializeWithClassName: className
 										classIsMeta: isMeta
 										selector: selector
 										category: (category ifNil: [SpurBootstrap

@@ -5,8 +5,8 @@ classDefinitionFor: className type: typeSymbol from: definitions comment: commen
 					detect: [:d| d isClassDefinition and: [d className = className]]
 					ifNone:
 						[self assert: (#(BoxedFloat64 SmallFloat64) includes: className).
-						 MCClassDefinition
-							name: className
+						 MCClassDefinition new
+							initializeWithName: className
 							superclassName: #Float
 							traitComposition: '{}'
 							classTraitComposition: '{}'

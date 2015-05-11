@@ -14,8 +14,8 @@ modifiedFloatDefinitionsIn: definitions
 							and: 59]]]].
 	^(floatPrims collect:
 		[:d|
-		 MCMethodDefinition 
-			className: d className
+		 MCMethodDefinition new
+			initializeWithClassName: d className
 			classIsMeta: false
 			selector: d selector
 			category: d category
@@ -23,8 +23,8 @@ modifiedFloatDefinitionsIn: definitions
 			source: d source, 'DELETEME']),
 	 (floatPrims collect:
 		[:d|
-		 MCMethodDefinition 
-			className: #BoxedFloat64
+		 MCMethodDefinition new
+			initializeWithClassName: #BoxedFloat64
 			classIsMeta: false
 			selector: d selector
 			category: d category
@@ -32,8 +32,8 @@ modifiedFloatDefinitionsIn: definitions
 			source: d source]),
 	 (floatPrims collect:
 		[:d|
-		 MCMethodDefinition 
-			className: #SmallFloat64
+		 MCMethodDefinition new
+			initializeWithClassName: #SmallFloat64
 			classIsMeta: false
 			selector: d selector
 			category: d category
