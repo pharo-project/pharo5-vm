@@ -1,6 +1,6 @@
 compile abstract instructions
 genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsReceiver: instRegIsReceiver
-	"Fetch the instance's class into destReg.  If the instance is forwarded, follow forwarding."
+	"Fetch the instance's class into destReg.  If the instance is not the receiver and is forwarded, follow forwarding."
 	| jumpIsImm jumpNotForwarded loop |
 	<var: #jumpIsImm type: #'AbstractInstruction *'>
 	<var: #jumpNotForwarded type: #'AbstractInstruction *'>

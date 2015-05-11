@@ -21,3 +21,14 @@ initializeCaches
 	AtCacheMask := (AtCacheEntries-1) * atCacheEntrySize.
 	AtPutBase := AtCacheEntries * atCacheEntrySize.
 	AtCacheTotalSize := AtCacheEntries * atCacheEntrySize * 2.
+
+	"LookupRuleOuter is [0, 255], with the value being the lexical depth. Note that an
+	 outer send to lexical depth 0 is equivalent to a self send. Implicit receiver and
+	 outer sends are encoded as adjacent values to allow a quick range check to
+	 determine whether the absent receiver might differ from the method receiver.
+	 Note also Smalltalk super sends use ordinary send lookup rules."
+	LookupRuleSelf := 0.
+	LookupRuleImplicit := 256.
+	LookupRuleDynamicSuper := 257.
+	LookupRuleOrdinary := 258.
+	LookupRuleMNU := 259.

@@ -91,7 +91,7 @@
 		"integerAt:" : "eem (objmem refactor) 6/8/2010 17:12",
 		"integerAt:put:" : "eem (objmem refactor) 6/8/2010 17:12",
 		"internalCannotReturn:" : "eem 6/27/2008 14:13",
-		"internalFindNewMethod" : "eem 9/9/2013 17:50",
+		"internalFindNewMethod:" : "rmacnak 4/18/2015 15:06",
 		"internalMustBeBoolean" : "eem 6/27/2008 14:13",
 		"interpreterAllocationReserveBytes" : "eem 11/14/2013 15:01",
 		"invalidCompactClassError:" : "eem 12/30/2008 12:28",

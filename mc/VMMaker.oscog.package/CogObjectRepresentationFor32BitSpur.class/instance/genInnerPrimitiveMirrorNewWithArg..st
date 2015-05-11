@@ -62,8 +62,8 @@ genInnerPrimitiveMirrorNewWithArg: retNoffset
 	self genGetHashFieldNonImmOf: Arg0Reg into: halfHeaderReg.
 	jumpUnhashed := cogit JumpZero: 0.
 
-	"The basicNew: code (genInnerPrimitiveNewWithArg:) expects class in ReceiverResultReg
-	 and size in Arg0Reg.  Shuffle args to match, undoing on failure."
+	"The basicNew: code below (copied from genInnerPrimitiveNewWithArg:) expects class
+	 in ReceiverResultReg and size in Arg0Reg.  Shuffle args to match, undoing on failure."
 	cogit
 		PushR: ReceiverResultReg;
 		MoveR: Arg0Reg R: ReceiverResultReg;
@@ -71,9 +71,6 @@ genInnerPrimitiveMirrorNewWithArg: retNoffset
 
 	"get freeStart as early as possible so as not to wait later..."
 	cogit MoveAw: objectMemory freeStartAddress R: Arg1Reg.
-	"get class's hash & fail if 0"
-	self genGetHashFieldNonImmOf: ReceiverResultReg into: halfHeaderReg.
-	jumpUnhashed := cogit JumpZero: 0.
 	"get class's format inst var for inst spec (format field)"
 	self genLoadSlot: InstanceSpecificationIndex sourceReg: ReceiverResultReg destReg: instSpecReg.
 	cogit LogicalShiftRightCq: objectMemory fixedFieldsFieldWidth + self numSmallIntegerTagBits R: instSpecReg.

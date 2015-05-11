@@ -111,7 +111,7 @@ initializePrimitiveTableForNewsqueak
 
 		"System Primitives (110-119)"
 		(110 genPrimitiveIdentical 1)
-		(111 genPrimitiveClass)
+		(111 genPrimitiveClass -1)			"For VMMirror support 1 argument classOf: as well as class"
 		"(112 primitiveBytesLeft)"
 		"(113 primitiveQuit)"
 		"(114 primitiveExitToDebugger)"

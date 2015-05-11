@@ -14,4 +14,4 @@ extSendAbsentOuterBytecode
 							withMixin: (self methodClassOf: method).
 	CheckPrivacyViolations ifTrue:
             [isPrivateSend := true].
-	self commonSendAbsent
+	self commonSendAbsent: depth

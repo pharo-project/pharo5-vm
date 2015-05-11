@@ -10,4 +10,4 @@ extSendAbsentSelfBytecode
 	localAbsentReceiver := self receiver.
 	CheckPrivacyViolations ifTrue:
             [isPrivateSend := true].
-	self commonSendAbsent
+	self commonSendAbsent: LookupRuleSelf

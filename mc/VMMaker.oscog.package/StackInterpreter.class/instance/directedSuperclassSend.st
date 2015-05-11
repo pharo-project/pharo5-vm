@@ -19,4 +19,4 @@ directedSuperclassSend
 	 self pushed on the stack."
 	self ensureReceiverUnforwarded.
 	self assert: lkupClassTag ~= objectMemory nilObject.
-	self commonSend
+	self commonSend: LookupRuleOrdinary

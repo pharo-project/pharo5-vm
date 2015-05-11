@@ -1,8 +1,8 @@
 compile abstract instructions
 genEnsureObjInRegNotForwarded: reg scratchReg: scratch updatingMw: offset r: baseReg
-	"Make sure that the object in reg is not forwarded, and update the field reg[offset] is
-	 updated if the object in reg is forwarded.
-	 Use the fact that isForwardedObjectClassIndexPun is a power of two to save an instruction."
+	"Make sure that the object in reg is not forwarded, and the field reg[offset] is updated
+	 if the object in reg is forwarded. Use the fact that isForwardedObjectClassIndexPun is
+	 a power of two to save an instruction."
 	| loop imm ok |
 	<var: #ok type: #'AbstractInstruction *'>
 	<var: #imm type: #'AbstractInstruction *'>

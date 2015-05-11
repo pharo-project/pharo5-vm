@@ -15,4 +15,4 @@ extSendAbsentDynamicSuperBytecode
 	lkupClassTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
 	CheckPrivacyViolations ifTrue:
             [isPrivateSend := true].
-	self commonSend
+	self commonSend: LookupRuleDynamicSuper

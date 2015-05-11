@@ -11,4 +11,4 @@ commonSendAbsentImplicit
 								implicitReceiverFor: self receiver
 								mixin: (self methodClassOf: method)
 								implementing: messageSelector.
-	self commonSendAbsent
+	self commonSendAbsent: LookupRuleImplicit

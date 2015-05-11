@@ -3,6 +3,11 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"LookupRuleDynamicSuper",
+		"LookupRuleImplicit",
+		"LookupRuleMNU",
+		"LookupRuleOrdinary",
+		"LookupRuleSelf",
 		"MethodCacheClass",
 		"MethodCacheEntries",
 		"MethodCacheEntrySize",

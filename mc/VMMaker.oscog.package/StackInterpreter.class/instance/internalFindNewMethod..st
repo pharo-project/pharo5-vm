@@ -1,5 +1,5 @@
 message sending
-internalFindNewMethod
+internalFindNewMethod: lookupRule
 	"Find the compiled method to be run when the current messageSelector is sent to the class 'lkupClass', setting the values of 'newMethod' and 'primitiveIndex'."
 	<inline: true>
 	(self inlineLookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifFalse:
