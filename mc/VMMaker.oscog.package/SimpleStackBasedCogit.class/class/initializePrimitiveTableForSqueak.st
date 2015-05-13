@@ -1,6 +1,7 @@
 class initialization
 initializePrimitiveTableForSqueak
-	"Initialize the table of primitive generators.  This does not include normal primitives implemented in the coInterpreter."
+	"Initialize the table of primitive generators.  This does not include normal primitives implemented in the coInterpreter.
+	 N.B. primitives that don't have an explicit arg count (the integer following the generator) may be variadic."
 	"SimpleStackBasedCogit initializePrimitiveTableForSqueak"
 	MaxCompiledPrimitiveIndex := 222.
 	primitiveTable := CArrayAccessor on: (Array new: MaxCompiledPrimitiveIndex + 1).
@@ -77,9 +78,9 @@ initializePrimitiveTableForSqueak
 		(63 genPrimitiveStringAt		1)
 		(64 genPrimitiveStringAtPut		2)
 		"The stream primitives no longer pay their way; normal Smalltalk code is faster."
-		"(65 primitiveFail)""was primitiveNext"
-		"(66 primitiveFail)" "was primitiveNextPut"
-		"(67 primitiveFail)" "was primitiveAtEnd"
+		(65 genFastPrimFail)"was primitiveNext"
+		(66 genFastPrimFail) "was primitiveNextPut"
+		(67 genFastPrimFail) "was primitiveAtEnd"
 
 		"StorageManagement Primitives (68-79)"
 		"(68 primitiveObjectAt)"
@@ -107,11 +108,9 @@ initializePrimitiveTableForSqueak
 		"(88 primitiveSuspend)"
 		"(89 primitiveFlushCache)"
 
-		"Input/Output Primitives (90-109); We won't compile any of these"
-
 		"System Primitives (110-119)"
 		(110 genPrimitiveIdentical 1)
-		(111 genPrimitiveClass)
+		(111 genPrimitiveClass)				"Support both class and Context>>objectClass:"
 		"(112 primitiveBytesLeft)"
 		"(113 primitiveQuit)"
 		"(114 primitiveExitToDebugger)"
@@ -120,23 +119,15 @@ initializePrimitiveTableForSqueak
 		"(117 primitiveExternalCall)"
 		"(118 primitiveDoPrimitiveWithArgs)"
 		"(119 primitiveFlushCacheSelective)"
-			"Squeak 2.2 and earlier use 119.  Squeak 2.3 and later use 116.
-			Both are supported for backward compatibility."
 
-		"Miscellaneous Primitives (120-127); We won't compile any of these"
-
-		"Squeak Primitives Start Here"
-
-		"Squeak Miscellaneous Primitives (128-149); We won't compile any of these"
-
-		"File Primitives (150-169) - NO LONGER INDEXED; We won't compile any of these"
 		(169 genPrimitiveNotIdentical 1)
 
 		(170 genPrimitiveAsCharacter)			"SmallInteger>>asCharacter, Character class>>value:"
 		(171 genPrimitiveCharacterValue 0)	"Character>>value"
-		"Sound Primitives (170-199) - NO LONGER INDEXED; We won't compile any of these"
+			
+		"(173 primitiveSlotAt 1)"
+		"(174 primitiveSlotAtPut 2)"
 		(175 genPrimitiveIdentityHash	0)		"Behavior>>identityHash"
-		"Sound Primitives (170-199) - NO LONGER INDEXED; We won't compile any of these"
 
 		"Old closure primitives"
 		"(186 primitiveFail)" "was primitiveClosureValue"
@@ -146,9 +137,6 @@ initializePrimitiveTableForSqueak
 		"(188 primitiveExecuteMethodArgsArray)"
 		"(189 primitiveExecuteMethod)"
 
-		"Sound Primitives (continued) - NO LONGER INDEXED; We won't compile any of these"
-		"(190 194 primitiveFail)"
-
 		"Unwind primitives"
 		"(195 primitiveFindNextUnwindContext)"
 		"(196 primitiveTerminateTo)"
@@ -156,7 +144,7 @@ initializePrimitiveTableForSqueak
 		(198 genFastPrimFail "primitiveMarkUnwindMethod")
 		(199 genFastPrimFail "primitiveMarkHandlerMethod")
 
-		"new closure primitives (were Networking primitives)"
+		"new closure primitives"
 		"(200 primitiveClosureCopyWithCopiedValues)"
 		(201 genPrimitiveClosureValue	0) "value"
 		(202 genPrimitiveClosureValue	1) "value:"
@@ -165,12 +153,10 @@ initializePrimitiveTableForSqueak
 		(205 genPrimitiveClosureValue	4) "value:value:value:value:"
 		"(206 genPrimitiveClosureValueWithArgs)" "valueWithArguments:"
 
-		"(207 209 primitiveFail)"	"reserved for Cog primitives"
-
 		"(210 primitiveContextAt)"
 		"(211 primitiveContextAtPut)"
 		"(212 primitiveContextSize)"
-		"(213 217 primitiveFail)"	"reserved for Cog primitives"
+
 		"(218 primitiveDoNamedPrimitiveWithArgs)"
 		"(219 primitiveFail)"	"reserved for Cog primitives"
 
@@ -179,5 +165,23 @@ initializePrimitiveTableForSqueak
 		(221 genPrimitiveClosureValue	0) "valueNoContextSwitch"
 		(222 genPrimitiveClosureValue	1) "valueNoContextSwitch:"
 
-		"(223 229 primitiveFail)"	"reserved for Cog primitives"
+		"(541 primitiveSmallFloatAdd				1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(542 primitiveSmallFloatSubtract			1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(543 primitiveSmallFloatLessThan			1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(544 primitiveSmallFloatGreaterThan		1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(545 primitiveSmallFloatLessOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(546 primitiveSmallFloatGreaterOrEqual	1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(547 primitiveSmallFloatEqual				1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(548 primitiveSmallFloatNotEqual			1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(549 primitiveSmallFloatMultiply			1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(550 primitiveSmallFloatDivide				1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(551 primitiveSmallFloatTruncated			0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(552 primitiveSmallFloatFractionalPart		0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(553 primitiveSmallFloatExponent			0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(554 primitiveSmallFloatTimesTwoPower	1	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(555 primitiveSmallFloatSquareRoot		0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(556 primitiveSmallFloatSine				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(557 primitiveSmallFloatArctan				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(558 primitiveSmallFloatLogN				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(559 primitiveSmallFloatExp				0	processorHasDoublePrecisionFloatingPointSupport:)"
 	)
