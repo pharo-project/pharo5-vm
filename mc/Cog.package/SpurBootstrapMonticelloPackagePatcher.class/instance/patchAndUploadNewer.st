@@ -3,8 +3,8 @@ patchAndUploadNewer
 	"Look for unbranched versions on the default repository that are newer than the
 	 image''s versions. Download and patch them and upload the patched versions."
 	"(SpurBootstrapMonticelloPackagePatcher new
-		from: 'spurpackages'
-		to: 'trunkpackages')
+		from: 'trunkpackages'
+		to: 'spurpackages')
 			patchAndUploadNewer"
 	| repo sourceRepo |
 	sourceDir deleteLocalFiles.

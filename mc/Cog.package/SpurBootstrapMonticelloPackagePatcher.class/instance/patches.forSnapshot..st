@@ -1,8 +1,9 @@
 patching
-patches: patches forSnapshot: snapshot
+patches: basePatches forSnapshot: snapshot
 	"Add modified class defs for Character, SmallInteger, Float, BoxedFloat64, SmallFloat64 and COmpiledMethod.
 	 Remove ObjectHistory and ObjectHistoryMark (which Spur does not support)."
-	| defs |
+	| patches defs |
+	patches  := basePatches copy.
 	defs := snapshot definitions.
 	(defs anySatisfy: [:d| d isClassDefinition and: [d className == #Character]]) ifTrue:
 		[patches

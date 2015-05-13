@@ -4,8 +4,8 @@ patchAndUploadUnpatchedInTrunk
 	 latest patched versions there-in. Download and patch them and upload the patched
 	 versions."
 	"(SpurBootstrapMonticelloPackagePatcher new
-		from: 'spurpackages'
-		to: 'trunkpackages')
+		from: 'trunkpackages'
+		to: 'spurpackages')
 			patchAndUploadUnpatchedInTrunk"
 	| trunk sourceRepo cacheRepo |
 	sourceDir assureExistence; deleteLocalFiles.

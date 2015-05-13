@@ -5,6 +5,20 @@ patchAsNeeded
 	self packagesAndPatches keysAndValuesDo:
 		[:package :patches|
 		 (self filesForPackage: package in: sourceDir) do:
-			[:packageFile|
-			 (destDir includesKey: packageFile) ifFalse:
-				[self patchPackage: packageFile with: patches for: package]]]
+			[:packageFile| | spurPackageFile |
+			 spurPackageFile := self spurBranchNameForInfo: packageFile package: package.
+			 ((destDir includesKey: packageFile) or: [destDir includesKey: spurPackageFile])
+				ifTrue:
+					[Transcript
+						cr; nextPutAll: destDir fullName; nextPutAll: ' contains either ';
+						nextPutAll: packageFile; nextPutAll: ' or '; nextPutAll: spurPackageFile;
+						nextPutAll: '; not saving'; flush]
+				ifFalse:
+					[self patchPackage: packageFile with: patches for: package]]]
+
+	"| patcher |
+	 patcher := SpurBootstrapMonticelloPackagePatcher new
+					from: 'trunkpackages'
+					to: 'spurpackages'.
+	patcher trunk cacheAllFileNamesDuring:
+		[patcher patchAsNeeded]"
