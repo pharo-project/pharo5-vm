@@ -6,7 +6,7 @@ storeAPIExportHeader: headerName OnFile: fullHeaderPath
 	| header |
 	header := String streamContents:
 				[:s|
-				 "s nextPutAll: (self fileHeaderVersionStampForSourceClass: nil); cr."
+				 s nextPutAll: (self fileHeaderVersionStampForSourceClass: nil); cr.
 				 self emitCAPIExportHeaderOn: s].
 	(self needToGenerateHeader: headerName file: fullHeaderPath contents: header) ifTrue:
 		[self storeHeaderOnFile: fullHeaderPath contents: header]
