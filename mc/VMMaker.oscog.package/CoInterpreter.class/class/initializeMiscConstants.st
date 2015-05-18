@@ -31,6 +31,8 @@ initializeMiscConstants
 	TraceVMCallback := self objectMemoryClass basicNew integerObjectOf: 11.
 	TraceVMCallbackReturn := self objectMemoryClass basicNew integerObjectOf: 12.
 	TraceStackOverflow := self objectMemoryClass basicNew integerObjectOf: 13.
+	TracePrimitiveFailure := self objectMemoryClass basicNew integerObjectOf: 14.
+	TracePrimitiveRetry := self objectMemoryClass basicNew integerObjectOf: 15.
 
 	TraceIsFromMachineCode := 1.
 	TraceIsFromInterpreter := 2.

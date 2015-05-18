@@ -21,4 +21,5 @@ fillInCPICHeader: pic size: size numArgs: numArgs numCases: numCases hasMNUCase:
 	self assert: pic cPICNumCases = numCases.
 	self assert: (backEnd callTargetFromReturnAddress: pic asInteger + missOffset) = (self picAbortTrampolineFor: numArgs).
 	self assert: size = (methodZone roundUpLength: size).
+	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + size.
 	^pic

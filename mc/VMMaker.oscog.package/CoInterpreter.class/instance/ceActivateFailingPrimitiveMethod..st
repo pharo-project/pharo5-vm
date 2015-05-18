@@ -6,7 +6,7 @@ ceActivateFailingPrimitiveMethod: aPrimitiveMethod
 	 cogged.  Note that we could always interpret but want the efficiency
 	 of executing machine code if it is available."
 	<api>
-	| methodHeader |
+	| methodHeader result |
 	self assert: primFailCode ~= 0.
 	self assert: newMethod = aPrimitiveMethod.
 	"If we're on Spur, check for forwarders and retry,
@@ -25,7 +25,10 @@ ceActivateFailingPrimitiveMethod: aPrimitiveMethod
 					ifFalse: [self assert: evaluable isBlock].
 				 evaluable value].
 		 self successful ifTrue:
-			[^self]].
+			[result := self stackTop.
+			 self stackTopPut: instructionPointer.
+			 self push: result.
+			 cogit ceEnterCogCodePopReceiverReg]].
 	methodHeader := self rawHeaderOf: aPrimitiveMethod.
 	(self isCogMethodReference: methodHeader)
 		ifTrue: [self activateCoggedNewMethod: false]

@@ -8,15 +8,17 @@ accessorsAndAssignmentsForMethod: method actuals: actualParameters depth: depth 
 	actualParameters with: method args do:
 		[:actual :argName|
 		 (actual isVariable or: [actual isSend]) ifTrue:
-			[assignments add: (TAssignmentNode new
+			[(actual isSend and: [self isStackAccessor: actual selector given: interpreterClass]) ifTrue:
+				[roots add: actual].
+			assignments add: (TAssignmentNode new
 									setVariable: (TVariableNode new setName: argName)
 									expression: actual)]].
 	method parseTree nodesDo:
 		[:node|
 		node isSend ifTrue:
-			[(interpreterClass isStackAccessor: node selector) ifTrue:
+			[(self isStackAccessor: node selector given: interpreterClass) ifTrue:
 				[roots add: node].
-			 (interpreterClass isObjectAccessor: node selector) ifTrue:
+			 (self isObjectAccessor: node selector given: interpreterClass) ifTrue:
 				[accessors add: node].
 			 (self accessorDepthDeterminationFollowsSelfSends
 			  and: [node receiver isVariable

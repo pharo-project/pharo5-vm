@@ -66,7 +66,7 @@ ceOuterSend: cacheAddress receiver: methodReceiver
 						enclosingObject: enclosingObject
 						target: cogMethod
 						caller: self mframeHomeMethodExport]
-				ifFalse: [self error: 'What does this mean? C.f. case in ceSend:...'].
+				ifFalse: ["Out of code memory. Fall through to interpret."].
 			instructionPointer := self popStack.
 			self executeNewMethod.
 			self error: 'UNREACHABLE 1'].

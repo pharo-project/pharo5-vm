@@ -5,4 +5,6 @@ maybeTraceStackOverflow
 			thing: TraceStackOverflow
 			source: ((self isMachineCodeFrame: framePointer)
 						ifTrue: [TraceIsFromMachineCode]
-						ifFalse: [TraceIsFromInterpreter])]
+						ifFalse: [TraceIsFromInterpreter])].
+	cogit recordPrimTrace ifTrue:
+		[self fastLogPrim: TraceStackOverflow]

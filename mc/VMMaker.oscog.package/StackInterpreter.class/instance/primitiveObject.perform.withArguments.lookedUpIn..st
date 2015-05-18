@@ -21,15 +21,15 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	"Check if number of arguments is reasonable; MaxNumArgs isn't available
 	 so just use LargeContextSize"
 	arraySize := objectMemory numSlotsOf: argumentArray.
-	arraySize > LargeContextSlots ifTrue:
+	arraySize > (LargeContextSlots - CtxtTempFrameStart) ifTrue:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
 
 	performArgCount := argumentCount.
 	"Push newMethod to save it in case of failure,
-	 then push the actual receiver and args out of the array."
+	 then push the actual receiver and the args in the array."
 	self push: newMethod.
 	self push: actualReceiver.
-	"Copy the arguments to the stack, and execute"
+	"Copy the arguments to the stack, in case of MNU, and lookup"
 	1 to: arraySize do:
 		[:index| self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray)].
 	argumentCount := arraySize.
@@ -48,7 +48,14 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 	"Only test CompiledMethods for argument count - any other objects playacting as CMs will have to take their chances"
 	((objectMemory isOopCompiledMethod: newMethod)
 	  and: [(self argumentCountOf: newMethod) ~= argumentCount]) ifTrue:
-		["Restore the state by popping all those array entries and pushing back the selector and array, and fail"
+		["Restore the state by popping the array entries, the actual receiver and the saved
+		  newMethod, leaving the selector and array, and fail.  N.B.  If an MNU has happened
+		  then argumentCount will match newMethod, so this code will not be reached."
+		 "These asserts check that an MNU has not occurred if the argumentCount doesn't match the newMethod."
+		 self assert: (self stackTop = (arraySize = 0
+											ifTrue: [actualReceiver]
+											ifFalse: [(objectMemory fetchPointer: arraySize - 1 ofObject: argumentArray)])).
+		 self assert:  argumentCount = arraySize.
 		 self pop: arraySize + 1.
 		 newMethod := self popStack.
 		 ^self primitiveFailFor: PrimErrBadNumArgs].

@@ -44,4 +44,5 @@ fillInMethodHeader: method size: size selector: selector
 	self assert: (backEnd callTargetFromReturnAddress: method asInteger + missOffset)
 				= (self methodAbortTrampolineFor: method cmNumArgs).
 	self assert: size = (methodZone roundUpLength: size).
+	processor flushICacheFrom: method asUnsignedInteger to: method asUnsignedInteger + size.
 	^method

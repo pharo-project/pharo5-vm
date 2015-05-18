@@ -21,4 +21,5 @@ fillInOPICHeader: pic size: size numArgs: numArgs selector: selector
 	self assert: pic cmNumArgs = numArgs.
 	self assert: (backEnd callTargetFromReturnAddress: pic asInteger + missOffset) = (self picAbortTrampolineFor: numArgs).
 	self assert: size = (methodZone roundUpLength: size).
+	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + size.
 	^pic

@@ -39,6 +39,6 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 	address := self addressOfEndOfCase: cPIC cPICNumCases - 1 inCPIC: cPIC.
 	size := self generateInstructionsAt: address.
 	end := self outputInstructionsAt: address.
-	processor flushICacheFrom: address to: cPIC asInteger + closedPICSize.
+	processor flushICacheFrom: cPIC asInteger to: cPIC asInteger + closedPICSize.
 	cPIC cPICNumCases: cPIC cPICNumCases + 1.
 	^0

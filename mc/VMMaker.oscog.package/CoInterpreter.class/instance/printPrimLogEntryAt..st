@@ -11,6 +11,12 @@ printPrimLogEntryAt: i
 				[self print: '**FullGC**'. ^nil].
 			 intOrSelector = TraceCodeCompaction ifTrue:
 				[self print: '**CompactCode**'. ^nil].
+			 intOrSelector = TraceStackOverflow ifTrue:
+				[self print: '**StackOverflow**'. ^nil].
+			 intOrSelector = TracePrimitiveFailure ifTrue:
+				[self print: '**PrimitiveFailure**'. ^nil].
+			 intOrSelector = TracePrimitiveRetry ifTrue:
+				[self print: '**PrimitiveRetry**'. ^nil].
 			 self print: '???']
 		ifFalse:
 			[intOrSelector = 0

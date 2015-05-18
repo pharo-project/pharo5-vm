@@ -33,5 +33,4 @@ generateCogMethod: selector
 	postCompileHook notNil ifTrue:
 		[self perform: postCompileHook with: method with: primInvokeLabel.
 		 postCompileHook := nil].
-	processor flushICacheFrom: startAddress to: startAddress + headerSize + codeSize.
 	^method

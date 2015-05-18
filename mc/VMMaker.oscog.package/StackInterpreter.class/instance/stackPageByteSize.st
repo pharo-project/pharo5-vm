@@ -1,7 +1,7 @@
 stack pages
 stackPageByteSize
 	"Answer a page size that is a power-of-two and contains a useful number of frames.
-	 Room for 512 bytes of frames gives around 40 frames a page which is a
+	 Room for 256 slots for frames gives around 40 frames a page which is a
 	 good compromise between overflow rate and latency in divorcing a page."
 	<inline: false>
 	| pageBytes largeSize smallSize |

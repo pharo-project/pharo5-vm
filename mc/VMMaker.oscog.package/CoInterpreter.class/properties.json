@@ -35,6 +35,8 @@
 		"TraceIsFromMachineCode",
 		"TraceOwnVM",
 		"TracePreemptDisowningThread",
+		"TracePrimitiveFailure",
+		"TracePrimitiveRetry",
 		"TraceSources",
 		"TraceStackOverflow",
 		"TraceThreadSwitch",
