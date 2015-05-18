@@ -1,4 +1,6 @@
 accessing
-startPCOfMethodHeader: aSmallIntegerOop
-	"a.k.a. (headerToMethodMap at: aSmallIntegerOop) initialPC - 1"
-	^coInterpreter startPCOfMethodHeader: aSmallIntegerOop
+startPCOfMethodHeader: headerIntegerOop
+	^(headerToMethodMap at: headerIntegerOop) initialPC - 1
+	"a.k.a.
+	^coInterpreter startPCOfMethodHeader: headerIntegerOop,
+	 but only if the CompiledMethod header formats match"

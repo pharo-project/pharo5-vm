@@ -1,9 +1,10 @@
 bytecode generator support
 genEqualsEqualsNoBranchArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg
 	"Generates the machine code for #== in the case where the instruction is not followed by a branch"
+	| label jumpEqual jumpNotEqual |
+	<var: #label type: #'AbstractInstruction *'>
 	<var: #jumpEqual type: #'AbstractInstruction *'>
 	<var: #jumpNotEqual type: #'AbstractInstruction *'>
-	| label jumpEqual jumpNotEqual |
 	label := self Label.
 	self genEqualsEqualsComparisonArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
