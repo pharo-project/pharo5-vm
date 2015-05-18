@@ -370,7 +370,6 @@
 		"setEndOfMemory:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"setHashBitsOf:to:" : "eem 6/23/2012 18:52",
 		"setHeapBase:memoryLimit:endOfMemory:" : "eem 12/5/2013 11:50",
-		"setHeapGrowthToSizeGCRatio:" : "EstebanLorenzano 6/25/2014 10:11",
 		"setIsMarkedOf:to:" : "eem 3/27/2014 15:14",
 		"setMemoryLimit:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"setSizeOfFree:to:" : "go 11/13/1998 17:04",
