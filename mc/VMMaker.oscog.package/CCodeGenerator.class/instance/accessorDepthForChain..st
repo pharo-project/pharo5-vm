@@ -5,6 +5,7 @@ accessorDepthForChain: chain "OrderedCollection"
 	accessorDepth := 0.
 	chain do:
 		[:node|
-		 (node isAssignment and: [node expression isVariable]) ifFalse:
+		 ((node isAssignment and: [node expression isVariable])
+		  or: [node isSend and: [SpurMemoryManager isSameLevelObjectAccessor: node selector]]) ifFalse:
 			[accessorDepth := accessorDepth + 1]].
 	^accessorDepth

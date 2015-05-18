@@ -40,9 +40,10 @@ accessorsAndAssignmentsForMethod: method actuals: actualParameters depth: depth 
 							 accessors addAll: subAccessors.
 							 assignments addAll: subAssignments]]]].
 		(node isAssignment
+		 and: [(node expression isSend and: [SpurMemoryManager isTerminalObjectAccessor: node expression selector]) not
 		 and: [(roots includes: node expression)
 			or: [(accessors includes: node expression)
-			or: [node expression isVariable and: [node expression name ~= 'nil']]]]) ifTrue:
+			or: [node expression isVariable and: [node expression name ~= 'nil']]]]]) ifTrue:
 			[assignments add: node]].
 	^aTrinaryBlock
 		value: roots

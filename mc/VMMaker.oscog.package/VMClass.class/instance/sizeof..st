@@ -15,7 +15,7 @@ sizeof: objectSymbolOrClass
 					#char #'unsigned char' #'signed char')
 						indexOf: objectSymbolOrClass
 						ifAbsent:
-							[objectSymbolOrClass = #sqInt ifTrue: [^self class objectMemoryClass bytesPerOop].
+							[(#(usqInt sqInt) includes: objectSymbolOrClass) ifTrue: [^self class objectMemoryClass bytesPerOop].
 							 self error: 'unrecognized C type name'].
 		^#(8 8 8
 			4 4 4
