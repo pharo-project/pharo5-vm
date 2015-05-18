@@ -240,6 +240,7 @@
 		"updateStateOfSpouseContextForFrame:WithSP:" : "eem 7/6/2008 22:36",
 		"utilitiesMenu:" : "eem 10/28/2014 15:14",
 		"validOop:" : "eem (objmem refactor) 6/8/2010 17:12",
+		"veryDeepCopyWith:" : "eem 5/15/2015 11:03",
 		"vmPathGet:Length:" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"vmPathSize" : "",
 		"warning:" : "eem 10/12/2009 01:03",

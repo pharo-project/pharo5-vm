@@ -20,7 +20,7 @@
 		"stackToRegisterMapping" : "eem 10/4/2013 14:22" },
 	"instance" : {
 		"addBlockStartAt:numArgs:numCopied:span:" : "eem 1/28/2011 11:16",
-		"allocateEqualsEqualsRegistersArgNeedsReg:rcvrNeedsReg:into:" : "eem 5/14/2015 18:59",
+		"allocateEqualsEqualsRegistersArgNeedsReg:rcvrNeedsReg:into:" : "eem 5/15/2015 11:35",
 		"allocateRegForStackEntryAt:" : "cb 4/26/2015 12:25",
 		"allocateRegForStackEntryAt:notConflictingWith:" : "cb 4/26/2015 12:24",
 		"allocateRegForStackTopThreeEntriesInto:thirdIsReceiver:" : "cb 4/26/2015 12:27",

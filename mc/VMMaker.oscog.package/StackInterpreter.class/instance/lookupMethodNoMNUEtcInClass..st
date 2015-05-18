@@ -1,4 +1,4 @@
-callback support
+message sending
 lookupMethodNoMNUEtcInClass: class
 	"Lookup messageSelector in class.  Answer 0 on success. Answer the splObj: index
 	 for the error selector to use on failure rather than performing MNU processing etc."

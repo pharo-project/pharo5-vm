@@ -205,7 +205,7 @@
 		"rewriteInlineCacheAt:tag:target:" : "eem 4/20/2015 18:03",
 		"rewriteInlineCacheTag:at:" : "tpr 4/24/2015 15:08",
 		"rewriteJumpFullAt:target:" : "eem 4/20/2015 17:46",
-		"rotateable8bitImmediate:ifTrue:ifFalse:" : "tpr 3/18/2015 14:45",
+		"rotateable8bitImmediate:ifTrue:ifFalse:" : "tpr 5/14/2015 16:48",
 		"saveAndRestoreLinkRegAround:" : "eem 3/19/2015 15:18",
 		"setsConditionCodesFor:" : "tpr 5/23/2014 22:29",
 		"shiftSetsConditionCodesFor:" : "tpr 5/23/2014 22:40",

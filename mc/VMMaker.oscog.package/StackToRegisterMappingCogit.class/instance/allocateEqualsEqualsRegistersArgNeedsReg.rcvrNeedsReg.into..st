@@ -18,10 +18,11 @@ allocateEqualsEqualsRegistersArgNeedsReg: argNeedsReg rcvrNeedsReg: rcvrNeedsReg
 						[self AddCq: objectMemory wordSize R: SPReg]]]
 		ifFalse:
 			[self assert: rcvrNeedsReg.
-			rcvrReg := self allocateRegForStackEntryAt: 1.
-			(self ssValue: 1) popToReg: rcvrReg].
+			 self deny: self ssTop spilled.
+			 rcvrReg := self allocateRegForStackEntryAt: 1.
+			 (self ssValue: 1) popToReg: rcvrReg].
 		
 	self assert: (argNeedsReg not or: [argReg notNil]).
 	self assert: (rcvrNeedsReg not or: [rcvrReg notNil]).
-	
+
 	binaryBlock value: rcvrReg value: argReg
