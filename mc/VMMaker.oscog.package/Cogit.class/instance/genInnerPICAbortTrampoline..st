@@ -22,7 +22,7 @@ genInnerPICAbortTrampoline: name
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
+		pushLinkReg: false
 		resultReg: nil.
 	jumpMNUCase jmpTarget: self Label.
 	^self genTrampolineFor: #ceMNUFromPICMNUMethod:receiver:
@@ -33,6 +33,6 @@ genInnerPICAbortTrampoline: name
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
+		pushLinkReg: false
 		resultReg: nil
 		appendOpcodes: true

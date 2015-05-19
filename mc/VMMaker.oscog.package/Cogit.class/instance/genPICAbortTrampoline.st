@@ -6,4 +6,6 @@ genPICAbortTrampoline
 	 MNU dispatch in a closed PIC.  It distinguishes the two by testing
 	 ClassReg.  If the register is zero then this is an MNU."
 	opcodeIndex := 0.
+	backEnd hasLinkRegister ifTrue:
+		[self PushR: LinkReg].
 	^self genInnerPICAbortTrampoline: 'cePICAbort'
