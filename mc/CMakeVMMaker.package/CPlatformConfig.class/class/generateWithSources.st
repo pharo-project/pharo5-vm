@@ -1,4 +1,4 @@
-as yet unclassified
+public
 generateWithSources
 
 	^ self new generateSources; generate.

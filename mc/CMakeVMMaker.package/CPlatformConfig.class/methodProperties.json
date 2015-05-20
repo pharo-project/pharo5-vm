@@ -1,6 +1,7 @@
 {
 	"class" : {
 		"browsePluginRules:" : "IgorStasenko 6/5/2012 01:56",
+		"defaultVMMakerOptions" : "EstebanLorenzano 5/20/2015 15:45",
 		"generate" : "IgorStasenko 3/18/2011 00:59",
 		"generateWithSources" : "IgorStasenko 3/18/2011 00:58" },
 	"instance" : {
@@ -93,7 +94,7 @@
 		"prepareForCogGeneration" : "IgorStasenko 3/18/2011 00:28",
 		"prepareForGeneration" : "IgorStasenko 3/18/2011 00:26",
 		"prepareForStackVMGeneration" : "IgorStasenko 3/18/2011 00:35",
-		"prepareVMMaker" : "MarianoMartinezPeck 4/19/2011 13:20",
+		"prepareVMMaker" : "EstebanLorenzano 5/20/2015 15:42",
 		"setExtraTargetProperties:" : "Igor.Stasenko 1/15/2011 17:00",
 		"setGlobalOptions:" : "",
 		"setGlobalOptionsAfterDetermineSystem:" : "EstebanLorenzano 2/15/2013 16:47",

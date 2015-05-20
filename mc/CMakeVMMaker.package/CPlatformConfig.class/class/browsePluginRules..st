@@ -1,4 +1,4 @@
-as yet unclassified
+utils
 browsePluginRules: aPlugin
 	
 	| nm |
