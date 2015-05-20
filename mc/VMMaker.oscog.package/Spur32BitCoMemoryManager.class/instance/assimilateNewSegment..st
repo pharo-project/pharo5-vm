@@ -5,7 +5,7 @@ assimilateNewSegment: segInfo
 	<var: #segInfo type: #'SpurSegmentInfo *'>
 	super assimilateNewSegment: segInfo.
 	self 
-		cppIf: #SPUR_USE_EXECUTABLE_MEMORY
+		cppIf: #PHAROVM_USE_EXECUTABLE_MEMORY
 		ifTrue: [ coInterpreter sqMakeMemoryExecutableFrom: segInfo segStart To: segInfo segLimit ]
 		ifFalse: [ coInterpreter sqMakeMemoryNotExecutableFrom: segInfo segStart To: segInfo segLimit ]
 		

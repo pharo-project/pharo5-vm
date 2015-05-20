@@ -1,5 +1,6 @@
 primitives
 primitiveSerialPortOpenByName: portName baudRate: baudRate stopBitsType: stopBitsType parityType: parityType dataBits: dataBits inFlowControlType: inFlowControl outFlowControlType: outFlowControl xOnByte: xOnChar xOffByte: xOffChar
+	<option: #PharoVM>
 	<var: #port type: 'char *'>
 
 	| port portNameSize |

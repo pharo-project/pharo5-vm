@@ -1,14 +1,8 @@
 directory primitives
-makeDirEntryName: entryName 
-	size: entryNameSize
-	createDate: createDate 
-	modDate: modifiedDate
-	isDir: dirFlag 
-	fileSize: fileSize
-	posixPermissions: posixPermissions
-	isSymlink: symlinkFlag
+makeDirEntryName: entryName size: entryNameSize createDate: createDate modDate: modifiedDate isDir: dirFlag fileSize: fileSize posixPermissions: posixPermissions isSymlink: symlinkFlag
 
 	| modDateOop createDateOop nameString results stringPtr posixPermissionsOop fileSizeOop |
+
 	<var: 'entryName' type: 'char *'>
 	<var: 'stringPtr' type: 'char *'>
 	<var: 'fileSize' type: 'squeakFileOffsetType '>

@@ -11,9 +11,7 @@ requiredMethodNames: options
 
 	"InterpreterProxy is the internal analogue of sqVirtualMachine.c, so make sure to keep all those"
 	InterpreterProxy organization categories do: [:cat |
-		((cat ~= 'initialize') 
-			and: [ cat ~= 'private' ]
-			and: [ cat ~= '-- all --' ]) ifTrue: [
+		((cat ~= 'initialize') and: [cat ~= 'private']) ifTrue: [
 			requiredList addAll: (InterpreterProxy organization listAtCategoryNamed: cat)]].
 	
 	^requiredList

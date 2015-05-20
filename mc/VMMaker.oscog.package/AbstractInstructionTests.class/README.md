@@ -1,1 +1,0 @@
-Use for a test: ClosureCompilerTest>>#closureCases

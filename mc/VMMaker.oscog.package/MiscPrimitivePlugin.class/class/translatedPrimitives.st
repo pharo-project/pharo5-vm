@@ -10,7 +10,7 @@ translatedPrimitives
 		(ByteString translate:from:to:table:)	
 		(ByteString findFirstInString:inSet:startingAt:)
 		(ByteString indexOfAscii:inString:startingAt:)
-		(String findSubstringViaPrimitive:in:startingAt:matchTable:)
+		(ByteString findSubstring:in:startingAt:matchTable:)
 		(ByteArray hashBytes:startingWith:)
 		(SampledSound convert8bitSignedFrom:to16Bit:)
 	)

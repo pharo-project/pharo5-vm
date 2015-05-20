@@ -58,7 +58,7 @@
 		"primitiveSocketConnectionStatus:" : "tpr (auto pragmas 12/08) 12/29/2005 17:17",
 		"primitiveSocketCreateNetwork:type:receiveBufferSize:sendBufSize:semaIndex:" : "tpr (auto pragmas 12/08) 12/30/2005 15:57",
 		"primitiveSocketCreateNetwork:type:receiveBufferSize:sendBufSize:semaIndex:readSemaIndex:writeSemaIndex:" : "tpr (auto pragmas 12/08) 12/30/2005 15:57",
-		"primitiveSocketCreateRaw:type:receiveBufferSize:sendBufSize:semaIndex:readSemaIndex:writeSemaIndex:" : "EstebanLorenzano 5/30/2012 15:18",
+		"primitiveSocketCreateRaw:type:receiveBufferSize:sendBufSize:semaIndex:readSemaIndex:writeSemaIndex:" : "ar 1/6/2009 14:16",
 		"primitiveSocketDestroy:" : "tpr (auto pragmas 12/08) 12/29/2005 17:18",
 		"primitiveSocketError:" : "tpr (auto pragmas 12/08) 12/29/2005 17:18",
 		"primitiveSocketListenWithOrWithoutBacklog" : "ar (auto pragmas 12/08) 5/24/2000 13:38",

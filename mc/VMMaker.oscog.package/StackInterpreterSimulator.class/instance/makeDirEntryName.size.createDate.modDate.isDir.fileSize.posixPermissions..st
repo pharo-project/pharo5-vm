@@ -1,14 +1,9 @@
-as yet unclassified
-makeDirEntryName: entryName 
-	size: entryNameSize
-	createDate: createDate 
-	modDate: modifiedDate
-	isDir: dirFlag 
-	fileSize: posixPermissions
-	posixPermissions: fileSize
+file primitives
+makeDirEntryName: entryName size: entryNameSize createDate: createDate modDate: modifiedDate isDir: dirFlag fileSize: fileSize posixPermissions: posixPermissions
+	<option: #PharoVM>
+	<var: 'entryName' type: 'char *'>
 
 	| modDateOop createDateOop nameString results |
-	<var: 'entryName' type: 'char *'>
 
 	results			:= objectMemory instantiateClass: (objectMemory splObj: ClassArray) indexableSize: 5.
 	nameString		:= objectMemory instantiateClass: (objectMemory splObj: ClassString) indexableSize: entryNameSize.

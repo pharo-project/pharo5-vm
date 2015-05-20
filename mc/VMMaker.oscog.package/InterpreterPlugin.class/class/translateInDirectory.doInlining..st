@@ -6,8 +6,10 @@ translateInDirectory: directory doInlining: inlineFlag
 
 	"don't translate if the file is newer than my timeStamp"
 	(directory entryAt: fname ifAbsent: nil) ifNotNil:
-		[:fstat|
-		 (self allCodeOlderThan: fstat modificationTime asSeconds) ifTrue:
+		[:fstat| | mTime |
+		mTime := fstat modificationTime.
+		(mTime isKindOf: DateAndTime) ifTrue: [ mTime := mTime asSeconds ].
+		 (self allCodeOlderThan: mTime) ifTrue:
 			[^nil]].
 
 	self initialize.

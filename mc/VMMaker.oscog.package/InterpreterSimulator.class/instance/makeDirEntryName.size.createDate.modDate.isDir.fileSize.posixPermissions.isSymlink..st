@@ -1,15 +1,9 @@
-as yet unclassified
-makeDirEntryName: entryName 
-	size: entryNameSize
-	createDate: createDate 
-	modDate: modifiedDate
-	isDir: dirFlag 
-	fileSize: posixPermissions
-	posixPermissions: fileSize
-	isSymlink: symlinkFlag
+file primitives
+makeDirEntryName: entryName size: entryNameSize createDate: createDate modDate: modifiedDate isDir: dirFlag fileSize: posixPermissions posixPermissions: fileSize isSymlink: symlinkFlag
+	<option: #PharoVM>
+	<var: 'entryName' type: 'char *'>
 
 	| modDateOop createDateOop nameString results |
-	<var: 'entryName' type: 'char *'>
 
 	"allocate storage for results, remapping newly allocated
 	 oops in case GC happens during allocation"

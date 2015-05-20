@@ -10,8 +10,10 @@ needsToRegenerateCogitFile
 
 	"don't translate if the file is newer than my timeStamp"
 	(self coreVMDirectory entryAt: cogitClass processorSpecificSourceFileName ifAbsent: [nil]) ifNotNil:
-		[:fstat|
-		tStamp < fstat modificationTime asSeconds ifTrue:
+		[:fstat| | mTime |
+		mTime := fstat modificationTime.
+		(mTime isKindOf: DateAndTime) ifTrue: [ mTime := mTime asSeconds ]. 
+		tStamp < mTime ifTrue:
 			[^self confirm: ('The ', self configurationNameIfAny, cogitClass printString,
 							', ', cogitClass activeCompilerClass, '\classes have not been modified since the ',
 							cogitClass processorSpecificSourceFileName,

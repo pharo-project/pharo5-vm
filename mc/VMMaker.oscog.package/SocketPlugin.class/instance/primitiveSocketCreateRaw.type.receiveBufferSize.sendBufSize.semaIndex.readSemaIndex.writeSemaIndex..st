@@ -1,7 +1,5 @@
 primitives
 primitiveSocketCreateRaw: netType type: protoType receiveBufferSize: recvBufSize sendBufSize: sendBufSize semaIndex: semaIndex readSemaIndex: aReadSema writeSemaIndex: aWriteSema 
-	"New IPV6 implementation removes this... and nobody is using (and it wont compile)"
-	<doNotGenerate>
 	| socketOop s okToCreate |
 	<var: #s type: 'SocketPtr '>
 	self primitive: 'primitiveSocketCreateRAW' parameters: #(#SmallInteger #SmallInteger #SmallInteger #SmallInteger #SmallInteger #SmallInteger #SmallInteger ).

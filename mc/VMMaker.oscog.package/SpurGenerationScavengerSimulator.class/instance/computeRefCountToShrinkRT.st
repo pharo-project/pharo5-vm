@@ -1,4 +1,4 @@
 remembered set
 computeRefCountToShrinkRT
-	"self halt."
+	self halt.
 	^super computeRefCountToShrinkRT
