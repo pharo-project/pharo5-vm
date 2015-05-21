@@ -40,8 +40,10 @@ extern unsigned long getfp();
 	 * ARM DUI 0041C Page 9-7
 	 */
 #  if __GNUC__
-#   define getfp() ({ register unsigned long fp;					\
-					  asm volatile ("mov %0, r11" : "=r"(fp) : );	\
+/* # define getsp() ({ void *sp; asm volatile ("mov %0, %%sp" : "=r"(sp) : ); sp;}) */
+
+#   define getfp() ({ unsigned long fp;					\
+					  asm volatile ("mov %0, %%fp" : "=r"(fp) : );	\
 					  fp; })
 #  else
 extern unsigned long getfp();
@@ -61,11 +63,18 @@ extern unsigned long (*ceGetSP)(); /* provided by Cogit */
 } while (0)
 # else
 	/* on RISCs, LinkReg implies stack ptr unchanged when doing cGetSP */
+	/* the sp & fp are assigned to local vars so we can print them in GDB */
+	/* The alignment for the stack is specified in the ABI doc but the  */
+	/* FP alignment is by guess and experiment */
 #	define assertCStackWellAligned() do {									\
 	extern sqInt cFramePointerInUse;										\
+	unsigned long theFP;                                                    \
+	unsigned long theSP;                                                    \
+	theFP = getfp();                                                        \
+	theSP = ceGetSP();                                                      \
 	if (cFramePointerInUse)													\
-		assert((getfp() & STACK_ALIGN_MASK) == STACK_FP_ALIGN_BYTES);		\
-	assert((ceGetSP() & STACK_ALIGN_MASK) == STACK_FP_ALIGN_BYTES);			\
+		assert((theFP & STACK_ALIGN_MASK) == 4);		\
+	assert((theSP & STACK_ALIGN_MASK) == 0);			\
 } while (0)
 # endif
 #else /* defined(STACK_ALIGN_BYTES) */
