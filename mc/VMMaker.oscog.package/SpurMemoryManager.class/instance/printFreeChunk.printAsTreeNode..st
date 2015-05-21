@@ -1,5 +1,5 @@
 debug printing
-printFreeChunk: freeChunk isNextChunk: isNextChunk
+printFreeChunk: freeChunk printAsTreeNode: printAsTreeNode
 	| numBytes |
 	numBytes := self bytesInObject: freeChunk.
 	coInterpreter
@@ -8,7 +8,7 @@ printFreeChunk: freeChunk isNextChunk: isNextChunk
 		print: ' next '; printHexPtrnp: (self fetchPointer: self freeChunkNextIndex
 											ofFreeChunk: freeChunk).
 	(numBytes >= (self numFreeLists * self allocationUnit)
-	 and: [isNextChunk not]) ifTrue:
+	 and: [printAsTreeNode]) ifTrue:
 		[coInterpreter
 			print: ' ^ '; printHexPtrnp: (self fetchPointer: self freeChunkParentIndex
 											ofFreeChunk: freeChunk);

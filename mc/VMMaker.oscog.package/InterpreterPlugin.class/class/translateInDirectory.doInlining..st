@@ -8,7 +8,7 @@ translateInDirectory: directory doInlining: inlineFlag
 	(directory entryAt: fname ifAbsent: nil) ifNotNil:
 		[:fstat| | mTime |
 		mTime := fstat modificationTime.
-		(mTime isKindOf: DateAndTime) ifTrue: [ mTime := mTime asSeconds ].
+		mTime isInteger ifFalse: [mTime := mTime asSeconds].
 		 (self allCodeOlderThan: mTime) ifTrue:
 			[^nil]].
 

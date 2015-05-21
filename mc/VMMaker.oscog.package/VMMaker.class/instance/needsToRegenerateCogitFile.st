@@ -12,7 +12,7 @@ needsToRegenerateCogitFile
 	(self coreVMDirectory entryAt: cogitClass processorSpecificSourceFileName ifAbsent: [nil]) ifNotNil:
 		[:fstat| | mTime |
 		mTime := fstat modificationTime.
-		(mTime isKindOf: DateAndTime) ifTrue: [ mTime := mTime asSeconds ]. 
+		mTime isInteger ifFalse: [mTime := mTime asSeconds].
 		tStamp < mTime ifTrue:
 			[^self confirm: ('The ', self configurationNameIfAny, cogitClass printString,
 							', ', cogitClass activeCompilerClass, '\classes have not been modified since the ',

@@ -16,7 +16,7 @@ needsToRegenerateInterpreterFile
 	(self coreVMDirectory entryAt: self interpreterFilename ifAbsent: [nil]) ifNotNil:
 		[:fstat| | mTime |
 		mTime := fstat modificationTime.
-		(mTime isKindOf: DateAndTime) ifTrue: [ mTime := mTime asSeconds ].
+		mTime isInteger ifFalse: [mTime := mTime asSeconds].
 		tStamp < mTime ifTrue:
 			[^self confirm: 'The ', self configurationNameIfAny, 'interpreter classes have not been modified since\ the interpreter file was last generated.\Do you still want to regenerate the source file?' withCRs]].
 	^true

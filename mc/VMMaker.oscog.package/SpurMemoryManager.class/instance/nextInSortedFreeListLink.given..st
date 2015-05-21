@@ -4,4 +4,4 @@ nextInSortedFreeListLink: freeChunk given: prevFree
 		The Art of Computer Programming, Vol 1, D.E. Knuth, 3rd Ed, Sec 2.2.4 `Circular Lists', exercise. 18
 		http://en.wikipedia.org/wiki/XOR_linked_list."
 	<api>
-	^(self fetchPointer: self freeChunkNextIndex ofFreeChunk: freeChunk) bitXor: prevFree
+	^((self fetchPointer: self freeChunkNextIndex ofFreeChunk: freeChunk) bitXor: prevFree) asUnsignedInteger

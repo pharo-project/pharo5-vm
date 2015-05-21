@@ -4,6 +4,8 @@ checkTraversableSortedFreeList
 	<api>
 	<inline: false>
 	prevFree := prevPrevFree := 0.
+	firstFreeChunk = 0 ifTrue:
+		[^lastFreeChunk = 0].
 	freeChunk := firstFreeChunk.
 	self allOldSpaceEntitiesDo:
 		[:o| | objOop next limit |
