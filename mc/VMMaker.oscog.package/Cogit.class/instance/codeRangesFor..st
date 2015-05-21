@@ -17,7 +17,8 @@ codeRangesFor: cogMethod
 				from: cogMethod asInteger + (self sizeof: CogMethod)
 				to: end
 				cogMethod: cogMethod
-				startpc: (coInterpreter startPCOfMethodHeader: cogMethod methodHeader) }].
+				startpc: (cogMethod cmType ~= CMOpenPIC ifTrue:
+							[coInterpreter startPCOfMethodHeader: cogMethod methodHeader]) }].
 	pc := blockEntry := cogMethod blockEntryOffset + cogMethod asInteger.
 	starts := OrderedCollection with: cogMethod.
 	[pc < end] whileTrue:

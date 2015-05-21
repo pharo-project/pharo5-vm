@@ -1,10 +1,11 @@
 generate machine code
-fillInOPICHeader: pic size: size numArgs: numArgs selector: selector
+fillInOPICHeader: pic numArgs: numArgs selector: selector
 	<returnTypeC: #'CogMethod *'>
 	<var: #pic type: #'CogMethod *'>
+	<inline: true>
 	pic cmType: CMOpenPIC.
 	pic objectHeader: 0.
-	pic blockSize: size.
+	pic blockSize: openPICSize.
 	"pic methodObject: 0.""This is also the nextOpenPIC link so don't initialize it"
 	methodZone addToOpenPICList: pic.
 	pic methodHeader: 0.
@@ -20,6 +21,6 @@ fillInOPICHeader: pic size: size numArgs: numArgs selector: selector
 	self assert: pic selector = selector.
 	self assert: pic cmNumArgs = numArgs.
 	self assert: (backEnd callTargetFromReturnAddress: pic asInteger + missOffset) = (self picAbortTrampolineFor: numArgs).
-	self assert: size = (methodZone roundUpLength: size).
-	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + size.
+	self assert: openPICSize = (methodZone roundUpLength: openPICSize).
+	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + openPICSize.
 	^pic

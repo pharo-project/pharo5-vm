@@ -21,7 +21,9 @@ setInterpreter: aCoInterpreter
 	simulatedVariableGetters := Dictionary new.
 	simulatedVariableSetters := Dictionary new.
 	traceStores := 0.
-	traceFlags := 8. "record prim trace on by default (see Cogit class>>decareCVarsIn:)"
+	traceFlags := (self class initializationOptions at: #recordPrimTrace ifAbsent: [true])
+					ifTrue: [8] "record prim trace on by default (see Cogit class>>decareCVarsIn:)"
+					ifFalse: [0].
 	debugPrimCallStackOffset := 0.
 	singleStep := printRegisters := printInstructions := clickConfirm := false.
 	breakBlock ifNil: [self breakPC: breakPC].

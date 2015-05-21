@@ -4,6 +4,7 @@
 		 ],
 	"classvars" : [
 		"BadRegisterSet",
+		"NumSendTrampolines",
 		"SSBaseOffset",
 		"SSConstant",
 		"SSIllegal",

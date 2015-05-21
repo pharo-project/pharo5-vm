@@ -4,7 +4,7 @@ cogMNUPICSelector: selector receiver: rcvr methodOperand: methodOperand numArgs:
 	"Attempt to create a one-case PIC for an MNU.
 	 The tag for the case is at the send site and so doesn't need to be generated."
 	<returnTypeC: #'CogMethod *'>
-	| startAddress headerSize size end |
+	| startAddress size end |
 	((objectMemory isYoung: selector)
 	 or: [(objectRepresentation inlineCacheTagForInstance: rcvr) = self picAbortDiscriminatorValue]) ifTrue:
 		[^0].
@@ -27,16 +27,15 @@ cogMNUPICSelector: selector receiver: rcvr methodOperand: methodOperand numArgs:
 		methodOperand: methodOperand
 		numArgs: numArgs.
 	self computeMaximumSizes.
-	headerSize := self sizeof: CogMethod.
-	size := self generateInstructionsAt: startAddress + headerSize.
-	end := self outputInstructionsAt: startAddress + headerSize.
+	methodLabel concretizeAt: startAddress.
+	size := self generateInstructionsAt: startAddress + (self sizeof: CogMethod).
+	end := self outputInstructionsAt: startAddress + (self sizeof: CogMethod).
 	"The missOffset is the same as the interpretOffset. On RISCs it includes an additional instruction."
 	self assert: missOffset = ((backEnd hasLinkRegister ifTrue: [backEnd callInstructionByteSize] ifFalse: [0])
 								+ picInterpretAbort address + picInterpretAbort machineCodeSize - startAddress).
 	self assert: startAddress + cmEntryOffset = entry address.
 	^self
 		fillInCPICHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
-		size: closedPICSize
 		numArgs: numArgs
 		numCases: 1
 		hasMNUCase: true

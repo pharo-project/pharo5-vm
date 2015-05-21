@@ -42,7 +42,6 @@
 		"NSSendIsPCAnnotated",
 		"NumObjRefsInRuntime",
 		"NumOopsPerNSC",
-		"NumSendTrampolines",
 		"NumTrampolines",
 		"ProcessorClass" ],
 	"commentStamp" : "eem 4/6/2015 15:56",

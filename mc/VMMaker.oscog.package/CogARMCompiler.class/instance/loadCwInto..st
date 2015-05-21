@@ -5,8 +5,8 @@ loadCwInto: destReg
 	| operand distance |
 	operand := operands at: 0.
 	"First try and encode as a pc-relative reference..."
-	(cogit addressIsInCodeZone: operand) ifTrue:
-		[distance := operand  - (address + 8).
+	(cogit addressIsInCurrentCompilation: operand) ifTrue:
+		[distance := operand - (address + 8).
 		 self rotateable8bitImmediate: distance
 		 	ifTrue: [ :rot :immediate |
 		 		self machineCodeAt: 0 put: (self add: destReg rn: PC imm: immediate ror: rot).

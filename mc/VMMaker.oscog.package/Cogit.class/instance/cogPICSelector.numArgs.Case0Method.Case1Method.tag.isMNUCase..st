@@ -8,7 +8,7 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		- a CompiledMethod; link to ceMNUFromPICMNUMethod:receiver:"
 	<var: #case0CogMethod type: #'CogMethod *'>
 	<returnTypeC: #'CogMethod *'>
-	| startAddress headerSize size end |
+	| startAddress size end |
 	(objectMemory isYoung: selector) ifTrue:
 		[^self cCoerceSimple: YoungSelectorInPIC to: #'CogMethod *'].
 	coInterpreter
@@ -31,9 +31,9 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		isMNUCase: isMNUCase
 		numArgs: numArgs.
 	self computeMaximumSizes.
-	headerSize := self sizeof: CogMethod.
-	size := self generateInstructionsAt: startAddress + headerSize.
-	end := self outputInstructionsAt: startAddress + headerSize.
+	methodLabel concretizeAt: startAddress.
+	size := self generateInstructionsAt: startAddress + (self sizeof: CogMethod).
+	end := self outputInstructionsAt: startAddress + (self sizeof: CogMethod).
 	"The missOffset is the same as the interpretOffset. On RISCs it includes an additional instruction."
 	self assert: missOffset = ((backEnd hasLinkRegister ifTrue: [backEnd callInstructionByteSize] ifFalse: [0])
 								+ picInterpretAbort address + picInterpretAbort machineCodeSize - startAddress).
@@ -42,7 +42,6 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 	self assert: endCPICCase1 address = (startAddress + firstCPICCaseOffset + cPICCaseSize).
 	^self
 		fillInCPICHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
-		size: closedPICSize
 		numArgs: numArgs
 		numCases: 2
 		hasMNUCase: isMNUCase

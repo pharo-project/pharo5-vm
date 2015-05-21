@@ -4,7 +4,7 @@ cogOpenPICSelector: selector numArgs: numArgs
 	 Should become a probe of the first-level method lookup cache followed by a
 	 call of ceSendFromOpenPIC: if the probe fails."
 	<returnTypeC: #'CogMethod *'>
-	| startAddress headerSize codeSize mapSize end |
+	| startAddress codeSize mapSize end |
 	coInterpreter
 		compilationBreak: selector
 		point: (objectMemory numBytesOf: selector)
@@ -21,14 +21,12 @@ cogOpenPICSelector: selector numArgs: numArgs
 	self compileOpenPIC: selector numArgs: numArgs.
 	self computeMaximumSizes.
 	methodLabel concretizeAt: startAddress.
-	headerSize := self sizeof: CogMethod.
-	codeSize := self generateInstructionsAt: startAddress + headerSize.
+	codeSize := self generateInstructionsAt: startAddress + (self sizeof: CogMethod).
 	mapSize := self generateMapAt: startAddress + openPICSize - 1 start: startAddress + cmNoCheckEntryOffset.
 	self assert: entry address - startAddress = cmEntryOffset.
-	self assert: headerSize + codeSize + mapSize <= openPICSize.
-	end := self outputInstructionsAt: startAddress + headerSize.
+	self assert: (methodZone roundUpLength: (self sizeof: CogMethod) + codeSize) + (methodZone roundUpLength: mapSize) <= openPICSize.
+	end := self outputInstructionsAt: startAddress + (self sizeof: CogMethod).
 	^self
 		fillInOPICHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
-		size: openPICSize
 		numArgs: numArgs
 		selector: selector 

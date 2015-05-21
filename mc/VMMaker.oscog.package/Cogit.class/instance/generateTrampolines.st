@@ -4,6 +4,7 @@ generateTrampolines
 	 Read the class-side method trampolines for documentation on the various trampolines"
 	| methodZoneStart |
 	methodZoneStart := methodZoneBase.
+	methodLabel address: methodZoneStart.
 	self allocateOpcodes: 80 bytecodes: 0.
 	initialPC := 0.
 	endPC := numAbstractOpcodes - 1.

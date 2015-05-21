@@ -18,6 +18,7 @@
 		"bcpc" ],
 	"name" : "CogAbstractInstruction",
 	"pools" : [
+		"CogCompilationConstants",
 		"CogRTLOpcodes" ],
 	"super" : "VMStructType",
 	"type" : "normal" }

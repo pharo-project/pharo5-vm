@@ -1,11 +1,12 @@
 generate machine code
-fillInCPICHeader: pic size: size numArgs: numArgs numCases: numCases hasMNUCase: hasMNUCase selector: selector
+fillInCPICHeader: pic numArgs: numArgs numCases: numCases hasMNUCase: hasMNUCase selector: selector
 	<returnTypeC: #'CogMethod *'>
 	<var: #pic type: #'CogMethod *'>
+	<inline: true>
 	self assert: (objectMemory isYoung: selector) not.
 	pic cmType: CMClosedPIC.
 	pic objectHeader: 0.
-	pic blockSize: size.
+	pic blockSize: closedPICSize.
 	pic methodObject: 0.
 	pic methodHeader: 0.
 	pic selector: selector.
@@ -20,6 +21,6 @@ fillInCPICHeader: pic size: size numArgs: numArgs numCases: numCases hasMNUCase:
 	self assert: pic cmNumArgs = numArgs.
 	self assert: pic cPICNumCases = numCases.
 	self assert: (backEnd callTargetFromReturnAddress: pic asInteger + missOffset) = (self picAbortTrampolineFor: numArgs).
-	self assert: size = (methodZone roundUpLength: size).
-	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + size.
+	self assert: closedPICSize = (methodZone roundUpLength: closedPICSize).
+	processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + closedPICSize.
 	^pic
