@@ -1,0 +1,4 @@
+*CMakeVMMaker
+moduleNameForGenerate
+	^ self moduleName
+	

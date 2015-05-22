@@ -1,10 +1,14 @@
 code generation
 generate
+	| pluginName moduleName |
 
-	| name |
 	output := String new writeStream.
 
-	name := plugin moduleName.
+	moduleName := self moduleName.
+	"99% of the time is the same as moduleName, but not always. 
+	 Check ThreadedFFIPlugin as an example."
+	pluginName := plugin moduleName. 
+	
 #(	vmGen config setGlobalOptions: self.
 	
 	self 
@@ -16,13 +20,13 @@ generate
 	self set: 'CMAKE_CONFIGURATION_TYPES' to: 'Release'.
 ).
 
-	self message: (internal ifTrue: [ 'Adding internal plugin: '] ifFalse: ['Adding external plugin: '])  , name.
+	self message: (internal ifTrue: [ 'Adding internal plugin: '] ifFalse: ['Adding external plugin: '])  , moduleName.
 
 	self 
-		set: #pluginName toString: name;
-		set: #pluginSrc toString: '${srcPluginsDir}/', name;
-		set: #pluginCross toString: '${crossDir}/plugins/', name;
-		set: #pluginPlatform toString: '${targetPlatform}/plugins/', name.
+		set: #pluginName toString: moduleName;
+		set: #pluginSrc toString: '${srcPluginsDir}/', moduleName;
+		set: #pluginCross toString: '${crossDir}/plugins/', moduleName;
+		set: #pluginPlatform toString: '${targetPlatform}/plugins/', moduleName.
 
 	"clear LINKLIBS variable"
 	self set: #LINKLIBS to: ''.		
@@ -30,7 +34,7 @@ generate
 	internal 
 		ifTrue: [ self puts: 'add_definitions(-DSQUEAK_BUILTIN_PLUGIN)'].
 	
-	self addSources: { name , '.c' } prefixed: '${pluginSrc}/'.
+	self addSources: { pluginName , '.c' } prefixed: '${pluginSrc}/'.
 
 	" default include directories for plugin "
 	self includeDirectories: '${pluginSrc} ${pluginCross} ${targetPlatform}/plugins/${pluginName}'.
@@ -46,9 +50,9 @@ generate
 	
 	" generate a static lib for internal plugin, or shared for external"
 	internal ifTrue: [
-		self cmd: 'add_library' params:  name , ' STATIC ${sources}'.
+		self cmd: 'add_library' params:  moduleName , ' STATIC ${sources}'.
 	] ifFalse: [
-		self cmd: 'add_library' params: name , ' SHARED ${sources}'.
+		self cmd: 'add_library' params: moduleName , ' SHARED ${sources}'.
 		
 	"	self cmd: 'set_property' params: 'TARGET ' , name , ' PROPERTY LINK_FLAGS -bundle'"
 	].
@@ -57,19 +61,19 @@ generate
 	
 	self isExternal ifTrue: [
 		self cmd: 'target_link_libraries'
-			params: self moduleName , ' ${LINKLIBS}'.
+			params: moduleName, ' ${LINKLIBS}'.
 		].
 	
 	" see senders of #linkFlags "
 	self 
 		cmd: 'set_property' 
-		params: 'TARGET ', name, ' PROPERTY LINK_FLAGS "${linkFlags}"'.
+		params: 'TARGET ', moduleName, ' PROPERTY LINK_FLAGS "${linkFlags}"'.
 	
 	"set dependencies"
-	self puts: 'IF (',self moduleName , '_dependencies)'.
+	self puts: 'IF (', moduleName , '_dependencies)'.
 	
 	self cmd: 'add_dependencies'
-		params: name , ' ${', self moduleName , '_dependencies}'.
+		params: moduleName , ' ${', moduleName , '_dependencies}'.
 	
-	self puts: 'ENDIF (',self moduleName , '_dependencies)'.
+	self puts: 'ENDIF (', moduleName , '_dependencies)'.
 	self saveFile.

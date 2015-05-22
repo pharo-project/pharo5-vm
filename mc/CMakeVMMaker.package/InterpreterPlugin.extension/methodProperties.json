@@ -2,6 +2,7 @@
 	"class" : {
 		"addExtraCMakeRules:" : "Igor.Stasenko 12/21/2010 14:26",
 		"browseSettings" : "",
-		"generateFor:internal:" : "Igor.Stasenko 12/22/2010 01:10" },
+		"generateFor:internal:" : "Igor.Stasenko 12/22/2010 01:10",
+		"moduleNameForGenerate" : "EstebanLorenzano 5/22/2015 14:41" },
 	"instance" : {
 		 } }

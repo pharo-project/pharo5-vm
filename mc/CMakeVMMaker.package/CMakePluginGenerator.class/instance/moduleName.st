@@ -1,3 +1,3 @@
 accessing
 moduleName 
-	^plugin moduleName
+	^plugin moduleNameForGenerate
