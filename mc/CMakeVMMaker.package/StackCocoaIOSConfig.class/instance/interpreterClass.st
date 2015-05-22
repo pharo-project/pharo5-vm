@@ -1,3 +1,3 @@
 source generation
 interpreterClass
-	^ StackInterpreter
+	^ StackInterpreterPrimitives

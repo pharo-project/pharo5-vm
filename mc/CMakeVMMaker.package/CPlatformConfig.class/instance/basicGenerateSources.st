@@ -9,12 +9,10 @@ basicGenerateSources
 	[[
 		maker := self prepareVMMaker.
 		maker interpreterClass: self interpreterClass.
-		self cogitClass ifNotNil: [:cg | 
-			maker 
-				instVarNamed: 'optionsDictionary' 
-				put:  (maker options copy
-					at: #Cogit put: self cogitClass name;
-					yourself).
+		"If #cogitClass is nil it will add Cogit->'nil' pair. 
+		 This is *CORRECT*, check VMClass class>>#cogitClass for insigts on the use"
+		maker options: { #Cogit. self cogitClass name }.
+		self cogitClass ifNotNil: [ :cg | 
 			cg initializeWithOptions: maker options ].
 		maker generateEntire
 	] on: ProvideAnswerNotification do: [:ex | ex resume: true ]]

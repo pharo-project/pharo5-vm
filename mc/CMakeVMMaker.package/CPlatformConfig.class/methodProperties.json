@@ -11,7 +11,7 @@
 		"addInternalPlugins:" : "IgorStasenko 7/6/2011 04:58",
 		"addThirdpartyLibraries:" : "EstebanLorenzano 2/17/2014 15:06",
 		"addThirdpartyLibrary:" : "EstebanLorenzano 2/20/2014 13:09",
-		"basicGenerateSources" : "EstebanLorenzano 9/12/2014 16:18",
+		"basicGenerateSources" : "EstebanLorenzano 5/22/2015 12:54",
 		"buildDir" : "EstebanLorenzano 5/26/2014 15:53",
 		"buildDir:" : "MarianoMartinezPeck 4/4/2011 23:04",
 		"buildDirName" : "MarianoMartinezPeck 4/12/2011 21:56",
@@ -94,7 +94,7 @@
 		"prepareForCogGeneration" : "IgorStasenko 3/18/2011 00:28",
 		"prepareForGeneration" : "IgorStasenko 3/18/2011 00:26",
 		"prepareForStackVMGeneration" : "IgorStasenko 3/18/2011 00:35",
-		"prepareVMMaker" : "EstebanLorenzano 5/20/2015 15:42",
+		"prepareVMMaker" : "EstebanLorenzano 5/22/2015 08:43",
 		"setExtraTargetProperties:" : "Igor.Stasenko 1/15/2011 17:00",
 		"setGlobalOptions:" : "",
 		"setGlobalOptionsAfterDetermineSystem:" : "EstebanLorenzano 2/15/2013 16:47",
@@ -107,4 +107,5 @@
 		"topDir" : "GuillermoPolito 6/17/2013 15:12",
 		"topDir:" : "GuillermoPolito 6/17/2013 15:30",
 		"validateSourcesPresent" : "EstebanLorenzano 5/22/2014 10:03",
+		"vmMakerOptions" : "EstebanLorenzano 5/22/2015 12:25",
 		"write:toFile:" : "EstebanLorenzano 12/19/2014 14:48" } }
