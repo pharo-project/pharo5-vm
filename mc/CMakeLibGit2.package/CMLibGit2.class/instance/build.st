@@ -25,12 +25,12 @@ ExternalProject_Add(
                 -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath=''\$ORIGIN:\$ORIGIN/Plugins''
 )
 
-ExternalProject_Add_Step(libgit2 fix_lib_links
+ExternalProject_Add_Step(libgit2 fix_libgit2_links
         COMMAND cd ${installPrefix}/lib && ln -s ${libraryFileName}.22.0 ${libraryFileName}
         DEPENDEES install
 )
 
-ExternalProject_Add_Step(libgit2 copy_artefacts_to_results
+ExternalProject_Add_Step(libgit2 copy_libgit2_artefacts_to_results
         COMMAND cp ${libGit2Installed} ${externalModulesDir}/${libraryFileName}
         DEPENDEES fix_lib_links
 )

@@ -21,7 +21,7 @@ ExternalProject_Add(
 		LDFLAGS=-m32
 )
 
-ExternalProject_Add_Step(libgit2 copy_artefacts_to_results
+ExternalProject_Add_Step(libssh2 copy_libssh2_artefacts_to_results
         COMMAND cp ${libSSH2Installed} ${externalModulesDir}/${libraryFileName}
         DEPENDEES install
 )
