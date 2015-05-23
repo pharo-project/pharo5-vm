@@ -26,5 +26,5 @@ ExternalProject_Add(
 )
 
 #make sure libssh2 is build before libgit2
-add_dependencies(libgit2_external libssh2)
+add_dependencies(libgit2 libssh2)
 '

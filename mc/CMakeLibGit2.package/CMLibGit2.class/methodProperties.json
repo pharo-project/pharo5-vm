@@ -3,11 +3,12 @@
 		"canonicalName" : "EstebanLorenzano 4/5/2013 20:28" },
 	"instance" : {
 		"archiveMD5Sum" : "MaxLeske 3/9/2015 21:01",
-		"build" : "MaxLeske 5/23/2015 16:31",
+		"build" : "MaxLeske 5/23/2015 16:48",
 		"copyArtefacts" : "EstebanLorenzano 4/9/2013 12:49",
 		"defineAsTarget" : "EstebanLorenzano 4/5/2013 20:23",
 		"defineGlobalTargets" : "EstebanLorenzano 4/5/2013 20:23",
 		"dependencies" : "EstebanLorenzano 2/16/2015 17:43",
 		"downloadURL" : "MaxLeske 3/9/2015 21:02",
+		"generate" : "MaxLeske 5/23/2015 16:49",
 		"setVariables" : "EstebanLorenzano 4/9/2013 11:34",
 		"unpackedDirName" : "MaxLeske 3/9/2015 21:02" } }
