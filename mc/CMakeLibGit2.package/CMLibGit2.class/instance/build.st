@@ -10,10 +10,10 @@ build
 include(ExternalProject)
 ExternalProject_Add(
 	libgit2
-	OUTPUT "${libGit2Installed}"
-	WORKING_DIRECTORY "${libSourcesDir}"
+	INSTALL_DIR "${libGit2Installed}"
+	SOURCE_DIR "${libSourcesDir}"
+	BUILD_IN_SOURCE 1
 	DEPENDS "${unpackTarget}" "', libssh2 targetForLinking, '"
-	COMMENT "Building ${libName}"
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH="${installPrefix}"
 		-DUSE_SSH=ON
 		-DBUILD_CLAR=OFF
