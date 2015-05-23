@@ -22,7 +22,7 @@ ExternalProject_Add(
                 -DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
                 #on Unix/Solaris systems $ORIGIN refers to the path of the executable
                 #"-Wl,<option>" is a flag for gcc to pas the arguments through to the linker
-                -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath=''\$ORIGIN:\$ORIGIN/Plugins''
+                -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath-link=.
 )
 
 ExternalProject_Add_Step(libgit2 fix_libgit2_links
