@@ -10,7 +10,7 @@ ExternalProject_Add(
 	URL ${url} #automatically downloads extracts and verifies
 	URL_MD5 ${md5sum}
 	DOWNLOAD_DIR ${workDir}
-	INSTALL_DIR ${libSSH2Installed}
+	INSTALL_DIR ${installPrefix}
 	PREFIX ${workDir} #base directory
 	SOURCE_DIR ${libSourcesDir}
 	BUILD_COMMAND make
