@@ -6,7 +6,7 @@ build
 '
 include(ExternalProject)
 ExternalProject_Add(
-	libgit2_external #target name (new target, not the same as libgit2)
+	libgit2 #target name
 	URL ${url} #automatically downloads extracts and verifies
 	URL_MD5 ${md5sum}
 	DOWNLOAD_DIR ${workDir}
@@ -26,5 +26,5 @@ ExternalProject_Add(
 )
 
 #make sure libssh2 is build before libgit2
-add_dependencies(libgit2_external libssh2)
+add_dependencies(libgit2 libssh2)
 '

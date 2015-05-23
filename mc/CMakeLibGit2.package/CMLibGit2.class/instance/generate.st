@@ -5,4 +5,5 @@ generate
 	
 	self 
 		setVariables;
-		build
+		build;
+		copyArtefacts
