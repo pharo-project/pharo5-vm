@@ -32,7 +32,7 @@ ExternalProject_Add_Step(libgit2 fix_libgit2_links
 
 ExternalProject_Add_Step(libgit2 copy_libgit2_artefacts_to_results
         COMMAND cp ${libGit2Installed} ${externalModulesDir}/${libraryFileName}
-        DEPENDEES fix_lib_links
+        DEPENDEES fix_libgit2_links
 )
 
 #make sure libssh2 is built before libgit2
