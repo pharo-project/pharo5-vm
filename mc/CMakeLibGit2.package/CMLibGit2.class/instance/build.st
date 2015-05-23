@@ -1,31 +1,30 @@
 generating actions
 build
-	| libssh2Include libssh2 |
-	libssh2 := CMThirdpartyLibrary named: 'libssh2' config: vmGen config.
-	libssh2Include := '${thirdpartyDir}/', libssh2 canonicalName, '/', libssh2 unpackedDirName, '/include'.
-	
+
 	gen 
 		puts:
 '
 include(ExternalProject)
 ExternalProject_Add(
-	libgit2
-	INSTALL_DIR "${libGit2Installed}"
-	SOURCE_DIR "${libSourcesDir}"
-	BUILD_IN_SOURCE 1
-	DEPENDS "${unpackTarget}" "', libssh2 targetForLinking, '"
-	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH="${installPrefix}"
+	libgit2 #target name
+	URL ${url} #automatically downloads extracts and verifies
+	URL_MD5 ${md5sum}
+	DOWNLOAD_DIR ${workDir}
+	INSTALL_DIR ${libGit2Installed}
+	PREFIX ${workDir} #base directory
+	SOURCE_DIR ${libSourcesDir}
+	#on Unix/Solaris systems $ORIGIN refers to the path of the executable
+	#"-Wl,<option>" is a flag for gcc to pas the arguments through to the linker
+	-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath=''\$ORIGIN:\$ORIGIN/Plugins''
+	#arguments to the external cmake command
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${installPrefix}
 		-DUSE_SSH=ON
 		-DBUILD_CLAR=OFF
 		-DLIBSSH2_FOUND=ON
-		-DLIBSSH2_INCLUDE_DIR="', libssh2Include, '"
-		-DLIBSSH2_LIBRARIES="', libssh2 targetForLinking, '" ', self configurationFlags, '
-)'
-
-	"This custom command is needed if libgit2 is being build before libssh2 and make
-	is looking for a rule to make libssh2."
-,'
-add_custom_command(OUTPUT "', libssh2 targetForLinking, '"
-	COMMAND cd "${thirdpartyDir}/libssh2" && make ', libssh2 buildTarget, '
+		-DLIBSSH2_INCLUDE_DIR=${installPrefix}/include
+		-DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
 )
+
+#make sure libssh2 is build before libgit2
+add_dependencies(libgit2 libssh2)
 '
