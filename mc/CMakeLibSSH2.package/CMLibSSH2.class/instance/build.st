@@ -15,6 +15,9 @@ ExternalProject_Add(
 	SOURCE_DIR "${libSourcesDir}"
 	BUILD_COMMAND make
 	#external command (not built with cmake)
-	CONFIGURE_COMMAND ./configure --prefix=${installPrefix} CFLAGS=''-m32'' LDFLAGS=''-m32''
+	CONFIGURE_COMMAND <SOUCRCE_DIR>/configure
+		--prefix=${installPrefix}
+		CFLAGS=-m32
+		LDFLAGS=-m32
 )
 '
