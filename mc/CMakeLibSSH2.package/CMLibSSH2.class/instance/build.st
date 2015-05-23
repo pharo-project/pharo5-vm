@@ -6,16 +6,15 @@ build
 '
 include(ExternalProject)
 ExternalProject_Add(
-        libssh2
-        URL "${url}"
-        URL_MD5 "${md5sum}"
-        DOWNLOAD_DIR "${workDir}"
-        INSTALL_DIR ${libSSH2Installed}
-        PREFIX "${workDir}"
-        BUILD_IN_SOURCE 1
-        SOURCE_DIR "${libSourcesDir}"
-        TMP_DIR "${workDir}"
-        BUILD_COMMAND make
-        CONFIGURE_COMMAND ./configure --prefix=${installPrefix} CFLAGS=''-m32'' LDFLAGS=''-m32''
+	libssh2_external #target name (new target, not the same as libssh2)
+	URL "${url}" #automatically downloads extracts and verifies
+	URL_MD5 "${md5sum}"
+	DOWNLOAD_DIR "${workDir}"
+	INSTALL_DIR ${libSSH2Installed}
+	PREFIX "${workDir}" #base directory
+	SOURCE_DIR "${libSourcesDir}"
+	BUILD_COMMAND make
+	#external command (not built with cmake)
+	CONFIGURE_COMMAND ./configure --prefix=${installPrefix} CFLAGS=''-m32'' LDFLAGS=''-m32''
 )
 '

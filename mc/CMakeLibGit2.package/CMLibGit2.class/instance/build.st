@@ -6,7 +6,7 @@ build
 '
 include(ExternalProject)
 ExternalProject_Add(
-	libgit2 #target name
+	libgit2_external #target name (new target, not the same as libgit2)
 	URL ${url} #automatically downloads extracts and verifies
 	URL_MD5 ${md5sum}
 	DOWNLOAD_DIR ${workDir}
