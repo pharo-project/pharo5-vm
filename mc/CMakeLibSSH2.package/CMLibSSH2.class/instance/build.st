@@ -20,4 +20,9 @@ ExternalProject_Add(
 		CFLAGS=-m32
 		LDFLAGS=-m32
 )
+
+ExternalProject_Add_Step(libgit2 copy_artefacts_to_results
+        COMMAND cp ${libSSH2Installed} ${externalModulesDir}/${libraryFileName}
+        DEPENDEES install
+)
 '

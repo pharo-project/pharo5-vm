@@ -30,6 +30,11 @@ ExternalProject_Add_Step(libgit2 fix_lib_links
         DEPENDEES install
 )
 
-#make sure libssh2 is build before libgit2
+ExternalProject_Add_Step(libgit2 copy_artefacts_to_results
+        COMMAND cp ${libGit2Installed} ${externalModulesDir}/${libraryFileName}
+        DEPENDEES fix_lib_links
+)
+
+#make sure libssh2 is built before libgit2
 add_dependencies(libgit2 libssh2)
 '
