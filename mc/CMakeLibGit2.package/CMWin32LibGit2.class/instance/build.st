@@ -26,7 +26,7 @@ ExternalProject_Add(
 		#we need to pass this so that libgit2 explicitly depends on libssh2,
 		#otherwise the link will be missing in the library.
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
-		-G "MSYS Makefiles''
+		-G "MSYS Makefiles"
 		-DCMAKE_C_FLAGS=''-m32''
 		-DCMAKE_CXX_FLAGS=''-m32''.
 )
