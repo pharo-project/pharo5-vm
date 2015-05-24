@@ -2,7 +2,7 @@ generating actions
 build
 	| libssh2 libssh2Libs |
 	libssh2 := CMThirdpartyLibrary named: 'libssh2' config: vmGen config.
-	libssh2Libs := '${installPrefix}/lib', libssh2 libraryFileName.
+	libssh2Libs := '${installPrefix}/lib/', libssh2 libraryFileName.
 
 	gen 
 		puts:
