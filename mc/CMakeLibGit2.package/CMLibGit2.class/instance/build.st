@@ -35,7 +35,6 @@ ExternalProject_Add(
 #libtool does something weird when creating the symlinks, so create that missing link manually
 ExternalProject_Add_Step(libgit2 fix_libgit2_links
 	COMMAND cd ${installPrefix}/lib && ln -s ${libraryFileName}.22.0 ${libraryFileName}
-	DEPENDERS copy_libgit2_artefacts_to_results
 	DEPENDEES install
 )
 
