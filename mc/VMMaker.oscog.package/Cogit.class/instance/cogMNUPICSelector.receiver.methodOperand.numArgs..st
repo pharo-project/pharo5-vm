@@ -17,17 +17,14 @@ cogMNUPICSelector: selector receiver: rcvr methodOperand: methodOperand numArgs:
 	startAddress = 0 ifTrue:
 		[coInterpreter callForCogCompiledCodeCompaction.
 		 ^0].
-	methodLabel
-		address: startAddress;
-		dependent: nil.
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
 	self allocateOpcodes: numPICCases * 7 bytecodes: 0.
+	methodLabel address: startAddress; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self compileMNUCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		methodOperand: methodOperand
 		numArgs: numArgs.
 	self computeMaximumSizes.
-	methodLabel concretizeAt: startAddress.
 	size := self generateInstructionsAt: startAddress + (self sizeof: CogMethod).
 	end := self outputInstructionsAt: startAddress + (self sizeof: CogMethod).
 	"The missOffset is the same as the interpretOffset. On RISCs it includes an additional instruction."

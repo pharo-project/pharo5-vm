@@ -32,6 +32,6 @@ compileCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag i
 	jumpNext jmpTarget: endCPICCase0.
 	self MoveCw: operand R: SendNumArgsReg.
 	self JumpLongZero: (isMNUCase ifTrue: [picMNUAbort] ifFalse: [targetEntry]) asInteger.
-	endCPICCase1 := self MoveCw: cPIC asInteger R: ClassReg.
+	endCPICCase1 := self MoveCw: cPIC asUnsignedInteger R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).
 	^0

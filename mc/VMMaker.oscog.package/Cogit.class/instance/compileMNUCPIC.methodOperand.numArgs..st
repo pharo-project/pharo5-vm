@@ -13,6 +13,6 @@ compileMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs
 					ifFalse: [methodOperand].
 	self MoveCw: operand R: SendNumArgsReg.
 	self JumpLong: picMNUAbort asInteger.
-	jumpNext jmpTarget: (self MoveCw: cPIC asInteger R: ClassReg).
+	jumpNext jmpTarget: (self MoveCw: cPIC asUnsignedInteger R: ClassReg).
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).
 	^0

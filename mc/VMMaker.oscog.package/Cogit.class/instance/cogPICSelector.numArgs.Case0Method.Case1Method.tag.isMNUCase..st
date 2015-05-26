@@ -18,12 +18,10 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 	startAddress := methodZone allocate: closedPICSize.
 	startAddress = 0 ifTrue:
 		[^self cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
-	methodLabel
-		address: startAddress;
-		dependent: nil.
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
 	self allocateOpcodes: numPICCases * 7 bytecodes: 0.
+	methodLabel address: startAddress; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self compileCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		Case0: case0CogMethod
 		Case1Method: case1MethodOrNil
@@ -31,7 +29,6 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		isMNUCase: isMNUCase
 		numArgs: numArgs.
 	self computeMaximumSizes.
-	methodLabel concretizeAt: startAddress.
 	size := self generateInstructionsAt: startAddress + (self sizeof: CogMethod).
 	end := self outputInstructionsAt: startAddress + (self sizeof: CogMethod).
 	"The missOffset is the same as the interpretOffset. On RISCs it includes an additional instruction."

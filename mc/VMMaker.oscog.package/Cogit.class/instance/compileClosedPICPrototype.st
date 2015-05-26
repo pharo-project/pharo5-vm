@@ -3,6 +3,7 @@ compileClosedPICPrototype
 	"Compile the abstract instructions for a full closed PIC used to initialize closedPICSize.
 	 The loads into SendNumArgsReg are those for optional method objects which may be
 	 used in MNU cases."
+	<inline: true>
 	| numArgs jumpNext |
 	<var: #jumpNext type: #'AbstractInstruction *'>
 	numArgs := 0.
@@ -18,6 +19,6 @@ compileClosedPICPrototype
 		self JumpLongZero: 16rCA5E10 + (h * 16).
 		h = 1 ifTrue:
 			[endCPICCase1 := self Label]].
-	self MoveCw: methodZoneBase R: ClassReg.
+	self MoveCw: methodLabel address R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).
 	^0

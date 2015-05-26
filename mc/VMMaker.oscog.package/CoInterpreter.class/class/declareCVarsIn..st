@@ -8,7 +8,7 @@ declareCVarsIn: aCCodeGenerator
 	NewspeakVM ifTrue:
 		[aCCodeGenerator addHeaderFile:'"nssendcache.h"'].
 	aCCodeGenerator
-		addHeaderFile: (aCCodeGenerator isThreadedVM 
+		addHeaderFile: (aCCodeGenerator vmClass isThreadedVM 
 			ifTrue: ['"cointerpmt.h"'] 
 			ifFalse: ['"cointerp.h"']);
 		addHeaderFile:'"cogit.h"'.
