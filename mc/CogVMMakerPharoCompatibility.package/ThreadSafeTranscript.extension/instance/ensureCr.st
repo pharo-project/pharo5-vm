@@ -1,3 +1,3 @@
 *CogVMMakerPharoCompatibility
-callPrimitiveCode
-	^ 139
+ensureCr
+	stream ensureCr
