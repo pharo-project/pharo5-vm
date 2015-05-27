@@ -13,7 +13,7 @@
 		"coInterpreter:" : "eem 9/14/2013 11:19",
 		"computeRefCountToShrinkRT" : "eem 5/6/2015 09:36",
 		"computeTenuringThreshold" : "eem 10/12/2013 14:39",
-		"copyAndForward:" : "eem 5/5/2015 18:40",
+		"copyAndForward:" : "eem 2/13/2015 17:45",
 		"copyToFutureSpace:bytes:" : "eem 5/5/2015 18:43",
 		"copyToOldSpace:bytes:format:" : "eem 5/5/2015 19:55",
 		"corpseForCorpseOffset:" : "eem 5/22/2014 13:29",
