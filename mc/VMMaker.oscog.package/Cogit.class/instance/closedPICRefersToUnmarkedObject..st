@@ -12,10 +12,11 @@ closedPICRefersToUnmarkedObject: cPIC
 	offsetToLiteral := backEnd jumpLongByteSize.
 	1 to: cPIC cPICNumCases do:
 		[:i|
-		object := backEnd literalBeforeFollowingAddress: pc - offsetToLiteral - backEnd loadLiteralByteSize.
-		((objectRepresentation couldBeObject: object)
-		 and: [(objectMemory isMarked: object) not]) ifTrue:
-			[^true].
+		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+			[object := backEnd literalBeforeFollowingAddress: pc - offsetToLiteral - backEnd loadLiteralByteSize.
+			 ((objectRepresentation couldBeObject: object)
+			  and: [(objectMemory isMarked: object) not]) ifTrue:
+				[^true]].
 		object := backEnd literalBeforeFollowingAddress: pc - offsetToLiteral.
 		((objectRepresentation couldBeObject: object)
 		 and: [(objectMemory isMarked: object) not]) ifTrue:
