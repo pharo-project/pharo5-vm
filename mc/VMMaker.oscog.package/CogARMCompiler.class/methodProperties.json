@@ -217,7 +217,7 @@
 		"str:rn:rm:" : "tpr 3/12/2015 18:39",
 		"strb:rn:plus:imm:" : "tpr 3/12/2015 18:39",
 		"strb:rn:rm:" : "tpr 3/12/2015 18:40",
-		"sub:rn:imm:ror:" : "eem 4/21/2015 18:14",
+		"sub:rn:imm:ror:" : "tpr 4/21/2015 18:21",
 		"subs:rn:imm:ror:" : "tpr 4/21/2015 18:21",
 		"tst:rn:imm:ror:" : "tpr 3/12/2015 18:32",
 		"type:op:set:rn:rd:" : "tpr 4/29/2014 16:02",

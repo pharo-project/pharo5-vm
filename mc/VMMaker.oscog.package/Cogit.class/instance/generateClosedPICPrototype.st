@@ -14,7 +14,8 @@ generateClosedPICPrototype
 	firstCPICCaseOffset := endCPICCase0 address - methodZoneBase.
 	cPICCaseSize := endCPICCase1 address - endCPICCase0 address.
 	cPICEndSize := closedPICSize - (numPICCases - 1 * cPICCaseSize + firstCPICCaseOffset).
-	closedPICSize := methodZone roundUpLength: closedPICSize
+	closedPICSize := methodZone roundUpLength: closedPICSize.
+	self assert: picInterpretAbort address = (methodLabel address + self picInterpretAbortOffset)
 	"self cCode: ''
 		inSmalltalk:
 			[| end |

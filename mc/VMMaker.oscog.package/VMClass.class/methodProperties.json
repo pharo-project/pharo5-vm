@@ -23,7 +23,7 @@
 		"initializationOptions:" : "eem 9/30/2013 13:02",
 		"initialize" : "eem 1/9/2015 10:44",
 		"initializeMiscConstants" : "EstebanLorenzano 5/20/2015 11:28",
-		"initializePrimitiveErrorCodes" : "EstebanLorenzano 11/18/2014 16:11",
+		"initializePrimitiveErrorCodes" : "eem 6/16/2014 12:09",
 		"initializeWithOptions:" : "eem 1/9/2015 10:45",
 		"interpreterClass" : "eem 9/7/2014 13:40",
 		"interpreterVersion" : "EstebanLorenzano 10/23/2014 14:19",
