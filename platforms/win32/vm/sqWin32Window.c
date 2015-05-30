@@ -1274,6 +1274,13 @@ int recordKeyboardEvent(MSG *msg) {
   evt->modifiers |= ctrl ? CtrlKeyBit : 0;
   evt->windowIndex = msg->hwnd == stWindow ? 0 : (int) msg->hwnd;
   evt->utf32Code = keyCode;
+
+  /* so the image can distinguish between control sequence 
+     like SOH and characters with modifier like ctrl+a */
+  if(evt->pressCode == EventKeyChar && ctrl)
+  {
+    evt->utf32Code = keyCode + 96;
+  }
   /* clean up reserved */
   evt->reserved1 = 0;
   /* note: several keys are not reported as character events;
