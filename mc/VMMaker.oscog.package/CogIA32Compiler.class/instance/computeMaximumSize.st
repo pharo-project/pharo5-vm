@@ -90,6 +90,11 @@ computeMaximumSize
 											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
+		[TstCqR]		-> [^maxSize := ((self isQuick: (operands at: 0)) and: [(self concreteRegister: (operands at: 1)) < 4])
+											ifTrue: [3]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+														ifTrue: [5]
+														ifFalse: [6]]].
 		[AddCwR]		-> [^maxSize := (self concreteRegister: (operands at: 1)) = EAX
 														ifTrue: [5]
 														ifFalse: [6]].

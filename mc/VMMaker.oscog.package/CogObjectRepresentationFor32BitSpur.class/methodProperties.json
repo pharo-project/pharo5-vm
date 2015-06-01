@@ -33,6 +33,7 @@
 		"genInnerPrimitiveStringAt:" : "eem 4/14/2015 12:39",
 		"genInnerPrimitiveStringAtPut:" : "eem 4/14/2015 12:38",
 		"genJumpNotSmallIntegerInScratchReg:" : "eem 10/1/2013 06:52",
+		"genJumpSmallInteger:" : "eem 5/29/2015 18:14",
 		"genJumpSmallIntegerInScratchReg:" : "eem 10/1/2013 06:52",
 		"genNewArrayOfSize:initialized:" : "cb 4/25/2015 15:06",
 		"genNoPopCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem 4/7/2015 16:53",

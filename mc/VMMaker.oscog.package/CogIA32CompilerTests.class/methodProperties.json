@@ -9,6 +9,7 @@
 		"concreteCompilerClass" : "eem 1/20/2009 14:55",
 		"processor" : "eem 1/20/2009 14:54",
 		"strip:" : "eem 1/20/2009 14:54",
+		"testAndCqR" : "eem 5/29/2015 18:58",
 		"testArithmeticShiftRightRR" : "eem 1/20/2009 17:50",
 		"testCMPXCHGAwR" : "eem 7/9/2009 12:42",
 		"testCMPXCHGMwrR" : "eem 7/9/2009 13:36",
@@ -26,5 +27,6 @@
 		"testMoveXbrRR" : "eem 2/3/2009 22:21",
 		"testMoveXwrRR" : "eem 2/3/2009 22:12",
 		"testMul" : "eem 9/12/2009 14:42",
+		"testTstCqR" : "eem 5/29/2015 18:54",
 		"testXCHGAwR" : "eem 7/22/2009 15:57",
 		"testXCHGMwrR" : "eem 7/22/2009 15:58" } }

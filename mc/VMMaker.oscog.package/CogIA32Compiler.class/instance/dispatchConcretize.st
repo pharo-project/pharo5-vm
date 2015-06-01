@@ -71,6 +71,7 @@ dispatchConcretize
 		[AndCqR]					-> [^self concretizeAndCqR].
 		[AndCwR]					-> [^self concretizeAndCwR].
 		[AndRR]						-> [^self concretizeAndRR].
+		[TstCqR]					-> [^self concretizeTstCqR].
 		[CmpCqR]					-> [^self concretizeCmpCqR].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
 		[CmpRR]					-> [^self concretizeCmpRR].

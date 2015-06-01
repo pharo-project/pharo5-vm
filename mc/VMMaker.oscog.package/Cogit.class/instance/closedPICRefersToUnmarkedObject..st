@@ -5,8 +5,9 @@ closedPICRefersToUnmarkedObject: cPIC
 	<var: #cPIC type: #'CogMethod *'>
 	| pc offsetToLiteral object entryPoint targetMethod |
 	<var: #targetMethod type: #'CogMethod *'>
-	(objectMemory isMarked: cPIC selector)  ifFalse:
-		[^true].
+	(objectMemory isImmediate: cPIC selector) ifFalse:
+		[(objectMemory isMarked: cPIC selector) ifFalse:
+			[^true]].
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	"First jump is unconditional; subsequent ones are conditional"
 	offsetToLiteral := backEnd jumpLongByteSize.
