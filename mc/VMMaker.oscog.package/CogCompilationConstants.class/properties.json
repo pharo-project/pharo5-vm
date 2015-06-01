@@ -9,7 +9,8 @@
 		"SSConstant",
 		"SSIllegal",
 		"SSRegister",
-		"SSSpill" ],
+		"SSSpill",
+		"UnimplementedOperation" ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],

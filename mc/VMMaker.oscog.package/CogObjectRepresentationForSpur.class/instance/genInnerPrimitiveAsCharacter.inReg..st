@@ -4,8 +4,7 @@ genInnerPrimitiveAsCharacter: retNOffset inReg: reg
 	<var: 'jumpNotInt' type: #'AbstractInstruction *'>
 	<var: 'jumpOutOfRange' type: #'AbstractInstruction *'>
 	reg ~= ReceiverResultReg ifTrue:
-		[cogit MoveR: reg R: TempReg.
-		 jumpNotInt := self genJumpNotSmallIntegerInScratchReg: TempReg].
+		[jumpNotInt := self genJumpNotSmallInteger: reg].
 	cogit MoveR: reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
 	cogit CmpCq: (1 << 30) - 1 R: TempReg.

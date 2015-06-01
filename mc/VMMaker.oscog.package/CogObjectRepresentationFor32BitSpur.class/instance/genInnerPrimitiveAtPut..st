@@ -22,10 +22,8 @@ genInnerPrimitiveAtPut: retNoffset
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexablePointers type: #'AbstractInstruction *'>
 
-	cogit MoveR: ReceiverResultReg R: TempReg.
-	jumpImmediate := self genJumpImmediateInScratchReg: TempReg.
-	cogit MoveR: Arg0Reg R: TempReg.
-	jumpBadIndex := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpImmediate := self genJumpImmediate: ReceiverResultReg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
 	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
 	cogit SubCq: 1 R: Arg0Reg. "1-rel => 0-rel"
 

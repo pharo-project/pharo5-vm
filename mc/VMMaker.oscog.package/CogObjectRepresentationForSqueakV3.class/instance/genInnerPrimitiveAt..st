@@ -12,11 +12,9 @@ genInnerPrimitiveAt: retNoffset
 	<var: #jumpFmtLt8 type: #'AbstractInstruction *'>
 	<var: #jumpFmtGt11 type: #'AbstractInstruction *'>
 	<var: #jumpLarge type: #'AbstractInstruction *'>
-	cogit MoveR: ReceiverResultReg R: TempReg.
-	jumpSI := self genJumpSmallIntegerInScratchReg: TempReg.
-	cogit MoveR: Arg0Reg R: TempReg.
+	jumpSI := self genJumpSmallInteger: ReceiverResultReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpNotSI := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := self genJumpNotSmallInteger: Arg0Reg.
 	self
 		genGetSizeOf: ReceiverResultReg
 		into: ClassReg

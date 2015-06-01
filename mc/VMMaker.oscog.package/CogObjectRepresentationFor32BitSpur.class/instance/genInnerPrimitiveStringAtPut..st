@@ -1,8 +1,7 @@
 primitive generators
 genInnerPrimitiveStringAtPut: retNoffset
 	"Implement the guts of primitiveStringAtPut"
-	| formatReg jumpImmediate jumpBadIndex jumpBadArg
-	  jumpWordsDone jumpBytesOutOfRange
+	| formatReg jumpBadIndex jumpBadArg jumpWordsDone jumpBytesOutOfRange
 	  jumpIsBytes jumpNotString jumpIsCompiledMethod
 	  jumpBytesOutOfBounds jumpWordsOutOfBounds jumpShortsUnsupported |
 	<inline: true>
@@ -10,16 +9,12 @@ genInnerPrimitiveStringAtPut: retNoffset
 	<var: #jumpBadArg type: #'AbstractInstruction *'>
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
-	<var: #jumpImmediate type: #'AbstractInstruction *'>
 	<var: #jumpWordsDone type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpShortsUnsupported type: #'AbstractInstruction *'>
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
 
-	cogit MoveR: ReceiverResultReg R: TempReg.
-	jumpImmediate := self genJumpImmediateInScratchReg: TempReg.
-	cogit MoveR: Arg0Reg R: TempReg.
-	jumpBadIndex := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
 	cogit MoveR: Arg1Reg R: TempReg.
 	jumpBadArg := self genJumpNotCharacterInScratchReg: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
@@ -101,6 +96,6 @@ genInnerPrimitiveStringAtPut: retNoffset
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
 
-	jumpBadIndex jmpTarget: (jumpImmediate jmpTarget: cogit Label).
+	jumpBadIndex jmpTarget: cogit Label.
 
 	^0

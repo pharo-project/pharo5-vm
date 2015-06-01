@@ -4,15 +4,14 @@ genInnerPrimitiveIdentityHash: retNoffset
 	<var: #jumpSI type: #'AbstractInstruction *'>
 	<var: #jumpImm type: #'AbstractInstruction *'>
 	<var: #jumpNotSet type: #'AbstractInstruction *'>
-	cogit MoveR: ReceiverResultReg R: ClassReg.
-	jumpImm := self genJumpImmediateInScratchReg: ClassReg.
+	jumpImm := self genJumpImmediate: ReceiverResultReg.
 	self genGetHashFieldNonImmOf: ReceiverResultReg asSmallIntegerInto: TempReg.
 	cogit CmpCq: ConstZero R: TempReg.
 	jumpNotSet := cogit JumpZero: 0.
 	cogit MoveR: TempReg R: ReceiverResultReg.
 	ret := cogit RetN: retNoffset.
-	jumpImm jmpTarget: (cogit MoveR: ReceiverResultReg R: ClassReg).
-	jumpSI := self genJumpSmallIntegerInScratchReg: ClassReg.
+	jumpImm jmpTarget: cogit Label.
+	jumpSI := self genJumpSmallInteger: ReceiverResultReg.
 	jumpSI jmpTarget: ret.
 	self genConvertCharacterToSmallIntegerInReg: ReceiverResultReg.
 	cogit Jump: ret.

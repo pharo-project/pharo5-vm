@@ -3,10 +3,9 @@ genInnerPrimitiveSize: retNoffset
 	| jumpImm jumpNotIndexable jumpIsContext |
 	"c.f. StackInterpreter>>stSizeOf: lengthOf:baseHeader:format: fixedFieldsOf:format:length:"
 	<var: #jumpImm type: #'AbstractInstruction *'>
-	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
-	cogit MoveR: ReceiverResultReg R: TempReg.
-	jumpImm := self genJumpImmediateInScratchReg: TempReg.
+	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
+	jumpImm := self genJumpImmediate: ReceiverResultReg.
 	self
 		genGetSizeOf: ReceiverResultReg
 		into: ClassReg

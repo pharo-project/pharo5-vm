@@ -1,18 +1,14 @@
 primitive generators
 genInnerPrimitiveStringAt: retNOffset
-	| jumpSI jumpNotSI jumpNotByteIndexable jumpBounds jumpShortHeader jumpSkip |
+	| jumpNotSI jumpNotByteIndexable jumpBounds jumpShortHeader jumpSkip |
 	"c.f. StackInterpreter>>stSizeOf: lengthOf:baseHeader:format: fixedFieldsOf:format:length:"
-	<var: #jumpSI type: #'AbstractInstruction *'>
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpNotByteIndexable type: #'AbstractInstruction *'>
 	<var: #jumpBounds type: #'AbstractInstruction *'>
 	<var: #jumpShortHeader type: #'AbstractInstruction *'>
 	<var: #jumpSkip type: #'AbstractInstruction *'>
-	cogit MoveR: ReceiverResultReg R: TempReg.
-	jumpSI := self genJumpSmallIntegerInScratchReg: TempReg.
-	cogit MoveR: Arg0Reg R: TempReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpNotSI := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := self genJumpNotSmallInteger: Arg0Reg.
 	cogit
 		MoveMw: 0 r: ReceiverResultReg R: TempReg;	"self baseHeader: receiver"
 		MoveR: TempReg R: ClassReg;					"copy header word; we'll need it later"
@@ -46,9 +42,8 @@ genInnerPrimitiveStringAt: retNOffset
 		AddCq: objectMemory baseHeaderSize / objectMemory wordSize R: ReceiverResultReg.
 	cogit MoveXwr: ReceiverResultReg R: Arg0Reg R: ReceiverResultReg.
 	cogit RetN: retNOffset.
-	jumpSI jmpTarget:
-	(jumpNotSI jmpTarget:
+	jumpNotSI jmpTarget:
 	(jumpNotByteIndexable jmpTarget:
 	(jumpBounds jmpTarget:
-		cogit Label))).
+		cogit Label)).
 	^0

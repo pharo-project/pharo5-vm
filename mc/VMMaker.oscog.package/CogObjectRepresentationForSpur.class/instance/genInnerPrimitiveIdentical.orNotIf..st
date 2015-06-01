@@ -3,8 +3,7 @@ genInnerPrimitiveIdentical: retNoffset orNotIf: orNot
 	| jumpImmediate jumpCmp |
 	<var: #jumpCmp type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
-	cogit MoveR: Arg0Reg R: TempReg.
-	jumpImmediate := self genJumpImmediateInScratchReg: TempReg.
+	jumpImmediate := self genJumpImmediate: Arg0Reg.
 	self genEnsureObjInRegNotForwarded: Arg0Reg scratchReg: TempReg.
 	jumpImmediate jmpTarget:
 		(cogit CmpR: Arg0Reg R: ReceiverResultReg).

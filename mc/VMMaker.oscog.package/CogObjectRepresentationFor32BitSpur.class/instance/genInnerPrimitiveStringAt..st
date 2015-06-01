@@ -17,9 +17,8 @@ genInnerPrimitiveStringAt: retNoffset
 	<var: #jumpShortsOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
 
-	cogit MoveR: Arg0Reg R: TempReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpBadIndex := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
 	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
 	cogit SubCq: 1 R: Arg1Reg. "1-rel => 0-rel"
 
