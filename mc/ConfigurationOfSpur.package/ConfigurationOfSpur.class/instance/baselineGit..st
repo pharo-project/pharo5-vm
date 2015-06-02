@@ -31,7 +31,6 @@ baselineGit: spec
 					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
 					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
 			package: 'Freetype-Plugin' with: [ spec requires: #('VMMaker') ];
-			package: 'SqueakSSL-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
@@ -47,7 +46,6 @@ baselineGit: spec
 				'VMConstruction-Plugins-OSProcessPlugin' 
 				'Qwaq-VMProfiling-Plugins' 
 				'Freetype-Plugin'
-				'SqueakSSL-Plugin'
 				'ObjectiveC-Plugin'
 				'Applescript-Core') ].
 		
@@ -67,7 +65,6 @@ baselineGit: spec
 							'Alien-Core'
 							'CogVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
-			 	package: 'SqueakSSL-Plugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
 				package: 'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];
 				package: 'CMakeLibGit2' with: [ spec requires: 'CMakeVMMaker' ];
@@ -78,5 +75,5 @@ baselineGit: spec
 				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
 				group: 'pharoCompatibility' with: #('CogVMMakerPharoCompatibility' 'SpurVMMakerPharoCompatibility');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
-				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
+				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin');
 				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
