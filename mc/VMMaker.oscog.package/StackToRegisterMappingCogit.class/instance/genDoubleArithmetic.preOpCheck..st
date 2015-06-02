@@ -36,7 +36,7 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	jumpFailClass jmpTarget: self Label.
 	preOpCheckOrNil ifNotNil:
 		[jumpFailCheck jmpTarget: jumpFailClass getJmpTarget].
-	backEnd genPushRegisterArgsForNumArgs: methodOrBlockNumArgs.
+	backEnd genPushRegisterArgsForNumArgs: methodOrBlockNumArgs scratchReg: SendNumArgsReg.
 	jumpFailClass := self Jump: 0.
 	jumpImmediate jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:

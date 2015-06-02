@@ -1,5 +1,5 @@
 smalltalk calling convention
-genPushRegisterArgsForNumArgs: numArgs
+genPushRegisterArgsForNumArgs: numArgs scratchReg: ignored
 	"Ensure that the register args are pushed before the retpc for arity <= self numRegArgs."
 	"This is easy on a RISC like ARM because the return address is in the link register.  Putting
 	 the receiver and args above the return address means the CoInterpreter has a single
