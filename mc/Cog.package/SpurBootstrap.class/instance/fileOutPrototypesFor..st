@@ -15,8 +15,11 @@ fileOutPrototypesFor: imageTypeOrArrayOfTypes
 			ifFalse: [classNameString := className].
 		(method pragmaAt: #remove)
 			ifNil:
-				[category := (class ifNotNil: [class organization categoryOfElement: selector]) ifNil:
-								[self class categoryForClass: className meta: isMeta selector: selector].
+				[category := class ifNotNil: [class organization categoryOfElement: selector].
+				 (category notNil and: [category first = $*]) ifTrue:
+					[category := nil].
+				 category ifNil:
+					[category := self class categoryForClass: className meta: isMeta selector: selector].
 				preamble := classNameString, ' methodsFor: ' , category asString printString, ' stamp: ''', method timeStamp, ''''.
 				internalStream nextPut: $!; nextChunkPut: preamble; cr.
 				source := method getSourceFromFile asString.

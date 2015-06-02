@@ -48,6 +48,7 @@ categoryForClass: className meta: isMeta selector: selector
 															-> [#'bytecode generation'].
 			[#(EncoderForV3PlusClosures class callPrimitiveCode)]
 															-> [#'bytecode decoding'].
+			[#(InstructionClient callPrimitive:)]				-> [#'instruction decoding'].
 			[#(MethodContext failPrimitiveWith:)]			-> [#'system simulation'].
 			[#(MethodContext class allInstances)]			-> [#enumerating].
 			[#(MethodContext class allInstancesDo:)]		-> [#enumerating].

@@ -17,7 +17,9 @@ packagesAndPatches
 				 class := isMeta ifTrue: [behavior class] ifFalse: [behavior].
 				 (class includesSelector: selector) ifTrue:
 					[methodReference := (class >> selector) methodReference.
-					 category := methodReference category].
+					 category := methodReference category.
+					 category first = $* ifTrue:
+						[category := nil]].
 				 package := (methodReference isNil
 							  or: [methodReference category = Categorizer default
 							  or: [methodReference category first = $*]]) "This for Scorch's override of InstructionClient>>classPrimitive:"
