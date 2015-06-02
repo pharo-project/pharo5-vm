@@ -120,7 +120,7 @@
 		"genPassConst:asArgument:" : "lw 8/23/2012 22:53",
 		"genPassReg:asArgument:" : "lw 8/23/2012 22:52",
 		"genPushRegisterArgsForAbortMissNumArgs:" : "eem 3/20/2015 11:26",
-		"genPushRegisterArgsForNumArgs:" : "tpr 6/29/2014 01:22",
+		"genPushRegisterArgsForNumArgs:scratchReg:" : "eem 6/1/2015 16:43",
 		"genRemoveNArgsFromStack:" : "eem 3/19/2015 12:37",
 		"genRestoreRegs" : "eem 3/12/2015 13:26",
 		"genRestoreRegsExcept:" : "tpr 4/30/2015 13:39",

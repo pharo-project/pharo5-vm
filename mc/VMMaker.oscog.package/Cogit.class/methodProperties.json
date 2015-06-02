@@ -339,7 +339,7 @@
 		"genInnerPICAbortTrampoline:" : "eem 5/18/2015 12:28",
 		"genLoadCStackPointersForPrimCall" : "eem 6/15/2009 09:38",
 		"genMethodAbortTrampoline" : "eem 3/26/2015 13:35",
-		"genNSSendTrampolineFor:numArgs:called:" : "rmacnak 3/30/2015 21:08",
+		"genNSSendTrampolineFor:numArgs:called:" : "eem 6/1/2015 16:45",
 		"genNonLocalReturnTrampoline" : "tpr 4/10/2015 14:27",
 		"genPICAbortTrampoline" : "eem 5/18/2015 12:28",
 		"genReturnTrampolineFor:called:arg:" : "eem 3/18/2015 15:05",
