@@ -20,7 +20,17 @@ genNSSendTrampolineFor: aRoutine numArgs: numArgs called: aString
 	self CmpCq: 0 R: TempReg.
 	jumpItsTheReceiverStupid := self JumpZero: 0.
 	self MoveR: TempReg R: ReceiverResultReg.
-	"We don't patch stack(-numArgs). See comment in ceImplicitReceiverSend:receiver:"
+	"Now set the stacked receiver, if needed.  If there are reg args this is
+	 not required; see genPushRegisterArgsForNumArgs:numArgs: below."
+	(self numRegArgs = 0 or: [numArgs > self numRegArgs]) ifTrue:
+		[numArgs >= (NumSendTrampolines - 1)
+			ifTrue: "arbitrary argument count"
+				[self MoveMw: NSCNumArgsIndex * objectMemory wordSize r: SendNumArgsReg R: TempReg.
+				 backEnd hasLinkRegister ifFalse:
+					[self AddCq: 1 R: TempReg]..
+				 self MoveR: ReceiverResultReg Xwr: TempReg R: SPReg]
+			ifFalse: "Known argument count"
+				[self MoveR: TempReg Mw: (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]) + numArgs * objectMemory wordSize r: SPReg]].
 	jumpItsTheReceiverStupid jmpTarget: self Label.
 	self MoveMw: NSCTargetIndex * objectMemory wordSize r: SendNumArgsReg R: TempReg.
 	self JumpR: TempReg.

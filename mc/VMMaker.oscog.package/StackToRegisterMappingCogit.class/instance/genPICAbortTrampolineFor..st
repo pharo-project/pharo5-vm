@@ -7,4 +7,4 @@ genPICAbortTrampolineFor: numArgs
 	 ClassReg.  If the register is zero then this is an MNU."
 	opcodeIndex := 0. 
 	backEnd genPushRegisterArgsForAbortMissNumArgs: numArgs.
-	^self genInnerPICAbortTrampoline: (self trampolineName: 'cePICAbort' numArgs: (numArgs <= self numRegArgs ifTrue: [numArgs] ifFalse: [-1]))
+	^self genInnerPICAbortTrampoline: (self trampolineName: 'cePICAbort' numRegArgs: numArgs)

@@ -26,5 +26,5 @@ genCallPICEnilopmartNumArgs: numArgs
 	enilopmart := methodZoneBase.
 	methodZoneBase := self alignUptoRoutineBoundary: endAddress.
 	backEnd nopsFrom: endAddress to: methodZoneBase - 1.
-	self recordGeneratedRunTime: (self trampolineName: 'ceCallPIC' numArgs: numArgs) address: enilopmart.
+	self recordGeneratedRunTime: (self trampolineName: 'ceCallPIC' numRegArgs: numArgs) address: enilopmart.
 	^self cCoerceSimple: enilopmart to: #'void (*)(void)'

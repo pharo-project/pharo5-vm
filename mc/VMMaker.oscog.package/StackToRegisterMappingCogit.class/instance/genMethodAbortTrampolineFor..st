@@ -34,7 +34,7 @@ genMethodAbortTrampolineFor: numArgs
 	jumpSICMiss jmpTarget: self Label.
 	backEnd genPushRegisterArgsForAbortMissNumArgs: numArgs.
 	^self genTrampolineFor: #ceSICMiss:
-		called: (self trampolineName: 'ceMethodAbort' numArgs: (numArgs <= self numRegArgs ifTrue: [numArgs] ifFalse: [-1]))
+		called: (self trampolineName: 'ceMethodAbort' numRegArgs: numArgs)
 		numArgs: 1
 		arg: ReceiverResultReg
 		arg: nil

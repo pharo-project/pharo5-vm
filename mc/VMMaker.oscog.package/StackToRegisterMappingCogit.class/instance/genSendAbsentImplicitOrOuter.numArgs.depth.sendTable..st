@@ -12,8 +12,8 @@ genSendAbsentImplicitOrOuter: selector numArgs: numArgs depth: depth sendTable: 
 
 	self ssAllocateCallReg: SendNumArgsReg.
 
-	"This leaves the method receiver on the stack, which might not be the implicit receiver. But we care
-	 not: the callee will use ReceiverResultReg to build its frame, not the value beneath the arguments."
+	"This may leave the method receiver on the stack, which might not be the implicit receiver.
+	 But the lookup trampoline will establish an on-stack receiver once it locates it."
 	self marshallAbsentReceiverSendArguments: numArgs.
 
 	"Load the cache last so it is a fixed distance from the call."
