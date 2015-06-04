@@ -7,8 +7,10 @@ compactCogCompiledCode
 	self freePICsWithFreedTargets.
 	methodZone planCompaction.
 	coInterpreter updateStackZoneReferencesToCompiledCodePreCompaction.
-	self relocateMethodsPreCompaction.
+	methodZone relocateMethodsPreCompaction.
 	methodZone compactCompiledCode.
 	self assert: self allMethodsHaveCorrectHeader.
 	self assert: methodZone kosherYoungReferrers.
-	processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone freeStart asUnsignedInteger
+	processor
+		flushICacheFrom: methodZoneBase asUnsignedInteger
+		to: methodZone freeStart asUnsignedInteger

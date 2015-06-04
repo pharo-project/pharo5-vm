@@ -40,10 +40,12 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 			annotation: annotation
 			into: [:offset :sendTable|
 				 targetMethod := self cCoerceSimple: entryPoint - offset to: #'CogMethod *'.
-				 targetMethod cmType = CMMethod ifTrue: "send target not freed; just relocate."
+				 targetMethod cmType ~= CMFree ifTrue: "send target not freed; just relocate."
 					[backEnd
 						relocateCallBeforeReturnPC: mcpc asInteger
 						by: (delta - targetMethod objectHeader) negated.
+					 SistaVM ifTrue: "See comment in planCompaction"
+						[methodZone restorePICUsageCount: targetMethod].
 					 ^0].
 				 "Target was freed; map back to an unlinked send; but include this method's reocation"
 				 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).

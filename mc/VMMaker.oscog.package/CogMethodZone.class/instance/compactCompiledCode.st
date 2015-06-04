@@ -19,6 +19,8 @@ compactCompiledCode
 				  and: [(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger]) ifTrue:
 					[source nextMethodOrIRCs: unpairedMethodList.
 					 unpairedMethodList := source asUnsignedInteger]].
+		 SistaVM ifTrue:
+			[self clearSavedPICUsageCount: source].
 		 source cmType = CMOpenPIC ifTrue:
 			[source nextOpenPIC: openPICList asUnsignedInteger.
 			 openPICList := source].
@@ -48,7 +50,9 @@ compactCompiledCode
 								[dest nextMethodOrIRCs: unpairedMethodList.
 								 unpairedMethodList := dest asUnsignedInteger]]]
 				ifFalse:
-					[dest cmType = CMOpenPIC ifTrue:
+					[SistaVM ifTrue:
+						[self clearSavedPICUsageCount: dest].
+					dest cmType = CMOpenPIC ifTrue:
 						[dest nextOpenPIC: openPICList asUnsignedInteger.
 						 openPICList := dest]].
 			 dest cmUsageCount > 0 ifTrue:

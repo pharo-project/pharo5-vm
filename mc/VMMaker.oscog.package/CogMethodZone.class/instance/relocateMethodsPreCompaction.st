@@ -6,12 +6,12 @@ relocateMethodsPreCompaction
 	 the calls invoke the same target."
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
-	[cogMethod < methodZone limitZony] whileTrue:
+	cogMethod := cogit cCoerceSimple: baseAddress to: #'CogMethod *'.
+	[cogMethod < mzFreeStart] whileTrue:
 		[cogMethod cmType ~= CMFree ifTrue:
 			[cogMethod cmType = CMClosedPIC
-				ifTrue: [self relocateCallsInClosedPIC: cogMethod]
-				ifFalse: [self relocateCallsAndSelfReferencesInMethod: cogMethod]].
-		 cogMethod := methodZone methodAfter: cogMethod].
-	methodZone relocateAndPruneYoungReferrers.
+				ifTrue: [cogit relocateCallsInClosedPIC: cogMethod]
+				ifFalse: [cogit relocateCallsAndSelfReferencesInMethod: cogMethod]].
+		 cogMethod := self methodAfter: cogMethod].
+	self relocateAndPruneYoungReferrers.
 	^true
