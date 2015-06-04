@@ -1,7 +1,8 @@
 {
 	"class" : {
 		"defaultObjectMemoryClass" : "eem 1/22/2014 15:53",
-		"initialize" : "eem 9/27/2009 10:21" },
+		"initialize" : "eem 9/27/2009 10:21",
+		"numTrampolines" : "eem 6/4/2015 11:47" },
 	"instance" : {
 		"allYoungObjectsAgeInFullGC" : "eem 3/29/2009 14:12",
 		"allocateCounters:" : "eem 7/5/2014 17:56",

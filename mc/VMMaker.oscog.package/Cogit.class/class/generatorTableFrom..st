@@ -16,11 +16,12 @@ generatorTableFrom: anArray
 						isBranchTrue: (tuple includes: #isBranchTrue);
 						isBranchFalse: (tuple includes: #isBranchFalse);
 						isExtension: (tuple includes: #extension);
-						hasIRC: (tuple includes: #hasIRC);
+						isInstVarRef: (tuple includes: #isInstVarRef);	"for Spur"
+						hasIRC: (tuple includes: #hasIRC);			"for Newspeak"
 						yourself.
-		"As a hack to cut down on descriptor flags, use opcode to tag unusedBytecode for
-		 scanning. Currently descriptors are exactly 16 bytes with all 8 flag bits used.  As
-		 another hack to eliminate a test in scanMethod mark unknows as extensions."
+		"As a hack to cut down on descriptor flags, use opcode to tag unusedBytecode for scanning.
+		 Currently descriptors are exactly 16 bytes with all 8 flag bits used (in Newspeak at least 17 bytes,
+		 9 flag bits).  As another hack to eliminate a test in scanMethod mark unknowns as extensions."
 		descriptor generator == #unknownBytecode ifTrue:
 			[descriptor opcode: Nop; isExtension: true].
 		descriptor isBlockCreation ifTrue:

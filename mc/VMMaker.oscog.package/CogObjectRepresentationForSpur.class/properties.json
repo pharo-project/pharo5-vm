@@ -10,7 +10,8 @@
 		"ceSmallActiveContextInMethodTrampoline",
 		"ceSmallActiveContextInBlockTrampoline",
 		"ceLargeActiveContextInMethodTrampoline",
-		"ceLargeActiveContextInBlockTrampoline" ],
+		"ceLargeActiveContextInBlockTrampoline",
+		"ceStoreCheckContextReceiverTrampoline" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
 		"VMBytecodeConstants",

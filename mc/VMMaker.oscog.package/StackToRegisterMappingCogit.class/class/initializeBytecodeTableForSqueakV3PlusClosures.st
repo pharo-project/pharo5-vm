@@ -13,11 +13,11 @@ initializeBytecodeTableForSqueakV3PlusClosures
  selectors either because in the Cointerpreter they are not inlined or because they
  are inlined only to instances of classes for which there will always be a method.'.
 	self generatorTableFrom: #(
-		(1    0   15 genPushReceiverVariableBytecode needsFrameNever: 1)
+		(1    0   15 genPushReceiverVariableBytecode isInstVarRef needsFrameNever: 1)
 		(1  16   31 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)
-		(1  96 103 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
 		(1 104 111 genStoreAndPopTemporaryVariableBytecode)
 		(1 112 112 genPushReceiverBytecode needsFrameNever: 1)
 		(1 113 113 genPushConstantTrueBytecode needsFrameNever: 1)
@@ -34,12 +34,12 @@ initializeBytecodeTableForSqueakV3PlusClosures
 
 		(1 126 127 unknownBytecode)
 
-		(2 128 128 extendedPushBytecode)
-		(2 129 129 extendedStoreBytecode)
-		(2 130 130 extendedStoreAndPopBytecode)
+		(2 128 128 extendedPushBytecode isInstVarRef) "well, maybe inst var ref"
+		(2 129 129 extendedStoreBytecode isInstVarRef) "well, maybe inst var ref"
+		(2 130 130 extendedStoreAndPopBytecode isInstVarRef) "well, maybe inst var ref"
 		(2 131 131 genExtendedSendBytecode isMapped)
-		(3 132 132 doubleExtendedDoAnythingBytecode isMapped)
-		(2 133 133 genExtendedSuperBytecode isMapped)
+		(3 132 132 doubleExtendedDoAnythingBytecode isMapped) "well, maybe inst var ref"
+		(2 133 133 genExtendedSuperBytecode isInstVarRef isMapped)
 		(2 134 134 genSecondExtendedSendBytecode isMapped)
 		(1 135 135 genPopStackBytecode needsFrameNever: -1)
 		(1 136 136 duplicateTopBytecode needsFrameNever: 1)

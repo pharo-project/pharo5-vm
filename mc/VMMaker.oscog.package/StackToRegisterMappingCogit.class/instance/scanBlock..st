@@ -23,6 +23,7 @@ scanBlock: blockStart
 			  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
 				ifTrue: [needsFrame := true]
 				ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]].
+		 objectRepresentation maybeNoteDescriptor: descriptor blockStart: blockStart.
 		 (pushingNils
 		  and: [descriptor isExtension not]) ifTrue:
 			["Count the initial number of pushed nils acting as temp initializers.  We can't tell

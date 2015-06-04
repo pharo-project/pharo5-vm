@@ -44,11 +44,17 @@ printMethodHeader: cogMethod on: aStream
 			 cogMethod stackCheckOffset > 0 ifTrue:
 				[aStream nextPut: $/.
 				 cogMethod asInteger + cogMethod stackCheckOffset printOn: aStream base: 16].
-			cogMethod cmType ~= CMBlock ifTrue:
-				[aStream
-					crtab;
-					nextPutAll: 'cmRefersToYoung: ';
-					nextPutAll: (cogMethod cmRefersToYoung ifTrue: ['yes'] ifFalse: ['no'])].
+			cogMethod cmType = CMBlock
+				ifTrue:
+					[aStream
+						crtab;
+						nextPutAll: 'cbUsesInstVars ';
+						nextPutAll: (cogMethod cbUsesInstVars ifTrue: ['yes'] ifFalse: ['no'])]
+				ifFalse:
+					[aStream
+						crtab;
+						nextPutAll: 'cmRefersToYoung: ';
+						nextPutAll: (cogMethod cmRefersToYoung ifTrue: ['yes'] ifFalse: ['no'])].
 			cogMethod cmType = CMMethod ifTrue:
 				[([cogMethod nextMethodOrIRCs] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
 					[:nmoircs| aStream crtab; nextPutAll: 'nextMethodOrIRCs: '.

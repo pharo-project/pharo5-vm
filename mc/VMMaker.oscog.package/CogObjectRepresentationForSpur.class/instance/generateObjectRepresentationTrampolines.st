@@ -10,6 +10,7 @@ generateObjectRepresentationTrampolines
 									called: 'ceStoreCheckTrampoline'
 									arg: ReceiverResultReg
 									result: cogit returnRegForStoreCheck.
+	ceStoreCheckContextReceiverTrampoline := self genStoreCheckContextReceiverTrampoline.
 	ceScheduleScavengeTrampoline := cogit
 											genSafeTrampolineFor: #ceScheduleScavenge
 											called: 'ceScheduleScavengeTrampoline'.

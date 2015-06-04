@@ -21,6 +21,7 @@ scanBlock: blockStart
 			  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
 				ifTrue: [needsFrame := true]
 				ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]].
+		 objectRepresentation maybeNoteDescriptor: descriptor blockStart: blockStart.
 		 pc := self nextBytecodePCFor: descriptor at: pc exts: nExts in: methodObj.
 		 descriptor isExtension
 			ifTrue: [nExts := nExts + 1]

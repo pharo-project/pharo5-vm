@@ -5,7 +5,7 @@ genPrimitiveClosureValue
 	 block entry or the no-context-switch entry, as appropriate, and we're done.  If not,
 	 invoke the interpreter primitive."
 	| jumpFailNArgs jumpFail1 jumpFail2 jumpFail3 jumpFail4 jumpBCMethod primitiveRoutine result |
-	<var: #jumpFail5 type: #'AbstractInstruction *'>
+	<var: #jumpFail1 type: #'AbstractInstruction *'>
 	<var: #jumpFail2 type: #'AbstractInstruction *'>
 	<var: #jumpFail3 type: #'AbstractInstruction *'>
 	<var: #jumpFail4 type: #'AbstractInstruction *'>
@@ -20,9 +20,10 @@ genPrimitiveClosureValue
 	objectRepresentation genGetCompactClassIndexNonImmOf: ClassReg into: TempReg.
 	objectRepresentation genCmpClassMethodContextCompactIndexR: TempReg.
 	jumpFail2 := self JumpNonZero: 0.
-	"This could be deferred to the prologue (compileBlockFrameBuild:) if blocks were
-	 scanned to see if they referred to the receiver.  But for now this is safe if slow."
-	objectRepresentation hasSpurMemoryManagerAPI ifTrue:
+	"We defer unforwarding the receiver to the prologue; scanning blocks
+	 for inst var refs and only unforwarding if the block refers to inst vars."
+	(false
+	 and: [objectRepresentation hasSpurMemoryManagerAPI]) ifTrue:
 		[objectRepresentation
 			genLoadSlot: ReceiverIndex sourceReg: ClassReg destReg: SendNumArgsReg;
 			genEnsureOopInRegNotForwarded: SendNumArgsReg

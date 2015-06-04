@@ -7,7 +7,7 @@ genEnsureOopInRegNotForwarded: reg scratchReg: scratch updatingMw: offset r: bas
 	<var: #ok type: #'AbstractInstruction *'>
 	<var: #imm type: #'AbstractInstruction *'>
 	<var: #loop type: #'AbstractInstruction *'>
-	self assert: reg ~= scratch.
+	self assert: (reg ~= scratch and: [baseReg ~= scratch]).
 	loop := cogit Label.
 	imm := self genJumpImmediate: reg.
 	"notionally

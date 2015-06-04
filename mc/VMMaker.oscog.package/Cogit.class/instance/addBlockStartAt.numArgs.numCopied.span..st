@@ -28,5 +28,6 @@ addBlockStartAt: bcpc numArgs: numArgs numCopied: numCopied span: span
 		numArgs: numArgs;
 		numCopied: numCopied;
 		stackCheckLabel: nil;
+		hasInstVarRef: false;
 		span: span.
 	^blockStart

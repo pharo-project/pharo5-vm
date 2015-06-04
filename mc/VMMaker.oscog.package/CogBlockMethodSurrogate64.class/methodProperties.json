@@ -2,6 +2,8 @@
 	"class" : {
 		"alignedByteSize" : "eem 10/9/2013 16:00" },
 	"instance" : {
+		"cbUsesInstVars" : "eem 6/4/2015 09:09",
+		"cbUsesInstVars:" : "eem 6/4/2015 09:09",
 		"cmHomeMethod" : "eem 2/14/2011 16:30",
 		"cmIsUnlinked" : "eem 2/26/2009 16:48",
 		"cmIsUnlinked:" : "eem 2/26/2009 16:48",

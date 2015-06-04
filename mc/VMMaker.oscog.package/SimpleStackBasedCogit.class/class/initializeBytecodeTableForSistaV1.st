@@ -14,7 +14,7 @@ initializeBytecodeTableForSistaV1
 	self generatorTableFrom: #(
 		"1 byte bytecodes"
 		"pushes"
-		(1    0   15 genPushReceiverVariableBytecode)
+		(1    0   15 genPushReceiverVariableBytecode isInstVarRef)
 		(1  16   31 genPushLiteralVariable16CasesBytecode	needsFrameNever: 1)
 		(1  32   63 genPushLiteralConstantBytecode			needsFrameNever: 1)
 		(1  64   75 genPushTemporaryVariableBytecode)
@@ -57,7 +57,7 @@ initializeBytecodeTableForSistaV1
 													v3:ShortForward:Branch:Distance:)
 
 		"stores"
-		(1 200 207 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
 		(1 208 215 genStoreAndPopTemporaryVariableBytecode)
 
 		(1 216 216 genPopStackBytecode needsFrameNever: -1)
@@ -71,7 +71,7 @@ initializeBytecodeTableForSistaV1
 		(2 225 225 extBBytecode extension)
 
 		"pushes"
-		(2 226 226 genExtPushReceiverVariableBytecode)		"Needs a frame for context inst var access"
+		(2 226 226 genExtPushReceiverVariableBytecode isInstVarRef)		"Needs a frame for context inst var access"
 		(2 227 227 genExtPushLiteralVariableBytecode		needsFrameNever: 1)
 		(2 228 228 genExtPushLiteralBytecode					needsFrameNever: 1)
 		(2 229 229 genLongPushTemporaryVariableBytecode)
@@ -94,10 +94,10 @@ initializeBytecodeTableForSistaV1
 		(2 239 239 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
 		"stores"
-		(2 240 240 genExtStoreAndPopReceiverVariableBytecode)
+		(2 240 240 genExtStoreAndPopReceiverVariableBytecode isInstVarRef)
 		(2 241 241 genExtStoreAndPopLiteralVariableBytecode)
 		(2 242 242 genLongStoreAndPopTemporaryVariableBytecode)
-		(2 243 243 genExtStoreReceiverVariableBytecode)
+		(2 243 243 genExtStoreReceiverVariableBytecode isInstVarRef)
 		(2 244 244 genExtStoreLiteralVariableBytecode)
 		(2 245 245 genLongStoreTemporaryVariableBytecode)
 

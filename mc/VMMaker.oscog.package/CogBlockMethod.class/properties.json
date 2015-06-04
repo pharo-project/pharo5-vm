@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "eem 8/19/2014 17:07",
+	"commentStamp" : "eem 6/4/2015 09:06",
 	"instvars" : [
 		"objectHeader",
 		"homeOffset",
@@ -16,6 +16,7 @@
 		"cpicHasMNUCase",
 		"cmUsageCount",
 		"cmUsesPenultimateLit",
+		"cbUsesInstVars",
 		"cmUnusedFlags",
 		"stackCheckOffset" ],
 	"name" : "CogBlockMethod",

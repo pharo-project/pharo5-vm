@@ -13,7 +13,7 @@ initializeBytecodeTableForNewspeakV4
  are inlined only to instances of classes for which there will always be a method.'.
 	self generatorTableFrom: #(
 		"1 byte bytecodes"
-		(1    0   15 genPushReceiverVariableBytecode)
+		(1    0   15 genPushReceiverVariableBytecode isInstVarRef)
 		(1  16   31 genPushLiteralVariable16CasesBytecode needsFrameNever: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   75 genPushTemporaryVariableBytecode)
@@ -32,7 +32,7 @@ initializeBytecodeTableForNewspeakV4
 		(1 144 159 genSendLiteralSelector2ArgsBytecode isMapped)
 		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)
 
-		(1 176 183 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
 		(1 184 191 genStoreAndPopTemporaryVariableBytecode)
 
 		(1 192 199 genShortUnconditionalJump	branch v3:ShortForward:Branch:Distance:)
@@ -53,16 +53,16 @@ initializeBytecodeTableForNewspeakV4
 		"2 byte bytecodes"
 		(2 224 224 extABytecode extension)
 		(2 225 225 extBBytecode extension)
-		(2 226 226 genExtPushReceiverVariableBytecode)
+		(2 226 226 genExtPushReceiverVariableBytecode isInstVarRef)
 		(2 227 227 genExtPushLiteralVariableBytecode		needsFrameNever: 1)
 		(2 228 228 genExtPushLiteralBytecode					needsFrameNever: 1)
 		(2 229 229 genExtPushIntegerBytecode				needsFrameNever: 1)
 		(2 230 230 genLongPushTemporaryVariableBytecode)
 		(2 231 231 genPushNewArrayBytecode)
-		(2 232 232 genExtStoreReceiverVariableBytecode)
+		(2 232 232 genExtStoreReceiverVariableBytecode isInstVarRef)
 		(2 233 233 genExtStoreLiteralVariableBytecode)
 		(2 234 234 genLongStoreTemporaryVariableBytecode)
-		(2 235 235 genExtStoreAndPopReceiverVariableBytecode)
+		(2 235 235 genExtStoreAndPopReceiverVariableBytecode isInstVarRef)
 		(2 236 236 genExtStoreAndPopLiteralVariableBytecode)
 		(2 237 237 genLongStoreAndPopTemporaryVariableBytecode)
 

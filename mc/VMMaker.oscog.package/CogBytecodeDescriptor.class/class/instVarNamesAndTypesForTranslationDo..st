@@ -2,7 +2,10 @@ translation
 instVarNamesAndTypesForTranslationDo: aBinaryBlock
 	"enumerate aBinaryBlock with the names and C type strings for the inst vars to include in a BytecodeDescriptor struct."
 
-	self instVarNames do:
+	"With hasIRC there are 9 flag bits.  Excluding hasIRC in non-Newspeak VMs keeps the descriptor compact."
+	(NewspeakVM
+		ifTrue: [self instVarNames]
+		ifFalse: [self instVarNames copyWithout: 'hasIRC']) do:
 		[:ivn|
 		aBinaryBlock
 			value: ivn

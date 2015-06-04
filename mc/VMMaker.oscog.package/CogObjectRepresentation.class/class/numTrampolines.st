@@ -1,0 +1,3 @@
+accessing
+numTrampolines
+	^1
