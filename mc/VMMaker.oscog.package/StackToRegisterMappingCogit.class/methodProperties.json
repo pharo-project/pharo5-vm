@@ -66,7 +66,7 @@
 		"genDoubleArithmetic:preOpCheck:" : "eem 6/3/2015 10:16",
 		"genDoubleComparison:invert:" : "eem 6/3/2015 09:32",
 		"genEqualsEqualsComparisonArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 4/24/2015 11:22",
-		"genEqualsEqualsNoBranchArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "eem 5/14/2015 18:39",
+		"genEqualsEqualsNoBranchArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 6/4/2015 16:26",
 		"genExtPushClosureBytecode" : "eem 4/1/2015 15:45",
 		"genExternalizePointersForPrimitiveCall" : "eem 11/21/2010 16:39",
 		"genJumpBackTo:" : "eem 11/25/2010 13:38",
