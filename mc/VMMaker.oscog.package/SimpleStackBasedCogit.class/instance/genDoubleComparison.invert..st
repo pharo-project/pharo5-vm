@@ -12,10 +12,9 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	<var: #compare type: #'AbstractInstruction *'>
 	<var: #jumpFail type: #'AbstractInstruction *'>
 
-	self genLoadArgAtDepth: 0 into: TempReg.
+	self genLoadArgAtDepth: 0 into: ClassReg.
 	objectRepresentation genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0.
-	self MoveR: TempReg R: ClassReg.
-	jumpImmediate := objectRepresentation genJumpImmediateInScratchReg: TempReg.
+	jumpImmediate := objectRepresentation genJumpImmediate: ClassReg.
 	objectRepresentation genGetCompactClassIndexNonImmOf: ClassReg into: SendNumArgsReg.
 	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpFail := self JumpNonZero: 0.
@@ -30,7 +29,7 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	self RetN: (self primRetNOffsetFor: 1).
 	jumpImmediate jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
-		[jumpNonInt := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg].
+		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: ClassReg scratchReg: TempReg].
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.
 	self ConvertR: ClassReg Rd: DPFPReg1.
 	self Jump: compare.

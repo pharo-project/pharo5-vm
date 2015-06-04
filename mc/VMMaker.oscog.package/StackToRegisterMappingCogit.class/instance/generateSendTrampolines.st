@@ -1,7 +1,7 @@
 initialization
 generateSendTrampolines
 	"Override to generate code to push the register arg(s) for <= numRegArg arity sends."
-	0 to: NumSendTrampolines - 2 do:
+	0 to: NumSendTrampolines - 1 do:
 		[:numArgs|
 		ordinarySendTrampolines
 			at: numArgs
@@ -11,21 +11,12 @@ generateSendTrampolines
 					  arg: ClassReg
 					  arg: 0
 					  arg: ReceiverResultReg
-					  arg: numArgs)].
-	ordinarySendTrampolines
-		at: NumSendTrampolines - 1
-		put: (self genSendTrampolineFor: #ceSend:super:to:numArgs:
-					numArgs: self numRegArgs + 1
-					called: (self trampolineName: 'ceSend' numArgs: -1)
-					arg: ClassReg
-					arg: 0
-					arg: ReceiverResultReg
-					arg: SendNumArgsReg).
+					  arg: (self numArgsOrSendNumArgsReg: numArgs))].
 
 	"Generate these in the middle so they are within [firstSend, lastSend]."
 	self cppIf: NewspeakVM ifTrue: [self generateNewspeakSendTrampolines].
 	self cppIf: BytecodeSetHasDirectedSuperSend ifTrue:
-		[0 to: NumSendTrampolines - 2 do:
+		[0 to: NumSendTrampolines - 1 do:
 			[:numArgs|
 			directedSuperSendTrampolines
 				at: numArgs
@@ -35,18 +26,9 @@ generateSendTrampolines
 						  arg: ClassReg
 						  arg: TempReg
 						  arg: ReceiverResultReg
-						  arg: numArgs)].
-		directedSuperSendTrampolines
-			at: NumSendTrampolines - 1
-			put: (self genSendTrampolineFor: #ceSend:above:to:numArgs:
-						numArgs: self numRegArgs + 1
-						called: (self trampolineName: 'ceDirectedSuperSend' numArgs: -1)
-						arg: ClassReg
-						arg: TempReg
-						arg: ReceiverResultReg
-						arg: SendNumArgsReg)].
+						  arg: (self numArgsOrSendNumArgsReg: numArgs))]].
 
-	0 to: NumSendTrampolines - 2 do:
+	0 to: NumSendTrampolines - 1 do:
 		[:numArgs|
 		superSendTrampolines
 			at: numArgs
@@ -56,15 +38,6 @@ generateSendTrampolines
 					  arg: ClassReg
 					  arg: 1
 					  arg: ReceiverResultReg
-					  arg: numArgs)].
-	superSendTrampolines
-		at: NumSendTrampolines - 1
-		put: (self genSendTrampolineFor: #ceSend:super:to:numArgs:
-					numArgs: self numRegArgs + 1
-					called: (self trampolineName: 'ceSuperSend' numArgs: -1)
-					arg: ClassReg
-					arg: 1
-					arg: ReceiverResultReg
-					arg: SendNumArgsReg).
+					  arg: (self numArgsOrSendNumArgsReg: numArgs))].
 	firstSend := ordinarySendTrampolines at: 0.
 	lastSend := superSendTrampolines at: NumSendTrampolines - 1

@@ -33,10 +33,8 @@ compileOpenPIC: selector numArgs: numArgs
 		r: ClassReg
 		R: SendNumArgsReg.
 	"If the method is compiled jump to its unchecked entry-point, otherwise interpret it."
-	objectRepresentation
-		genLoadSlot: HeaderIndex sourceReg: SendNumArgsReg destReg: TempReg.
-	self MoveR: TempReg R: ClassReg.
-	jumpBCMethod := objectRepresentation genJumpSmallIntegerInScratchReg: TempReg.
+	objectRepresentation genLoadSlot: HeaderIndex sourceReg: SendNumArgsReg destReg: ClassReg.
+	jumpBCMethod := objectRepresentation genJumpImmediate: ClassReg.
 	jumpBCMethod jmpTarget: picInterpretAbort.
 	self AddCq: cmNoCheckEntryOffset R: ClassReg.
 	self JumpR: ClassReg.

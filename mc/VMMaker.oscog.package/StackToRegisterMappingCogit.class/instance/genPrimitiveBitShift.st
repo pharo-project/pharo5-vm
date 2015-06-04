@@ -42,9 +42,8 @@ nonInt:
 	<var: #jumpTooBig type: #'AbstractInstruction *'>
 	<var: #jumpInRange type: #'AbstractInstruction *'>
 	self assert: self numRegArgs >= 1.
-	self MoveR: Arg0Reg R: TempReg.
 	self MoveR: Arg0Reg R: ClassReg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.
 	(self lastOpcode setsConditionCodesFor: JumpNegative) ifFalse:
 		[self CmpCq: 0 R: ClassReg]. "N.B. FLAGS := ClassReg - 0"

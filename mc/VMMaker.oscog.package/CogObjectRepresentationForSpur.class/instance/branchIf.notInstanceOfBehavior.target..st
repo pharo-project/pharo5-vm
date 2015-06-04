@@ -10,8 +10,7 @@ branchIf: reg notInstanceOfBehavior: classObj target: targetFixUp
 		ifTrue:
 			[self branchIf: reg hasNotImmediateTag: classIndex target: targetFixUp ]
 		ifFalse:
-			[cogit MoveR: reg R: TempReg.
-			(self genJumpImmediateInScratchReg: TempReg) jmpTarget: targetFixUp.
+			[(self genJumpImmediate: reg) jmpTarget: targetFixUp.
 			 self genGetClassIndexOfNonImm: reg into: TempReg.
 			 self genCmpClassIndex: classIndex R: TempReg.
 			 cogit JumpNonZero: targetFixUp ].

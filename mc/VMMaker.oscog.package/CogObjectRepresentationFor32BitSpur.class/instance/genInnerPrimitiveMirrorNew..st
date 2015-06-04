@@ -33,8 +33,7 @@ genInnerPrimitiveMirrorNew: retNoffset
 	cogit MoveAw: objectMemory freeStartAddress R: Arg1Reg.
 
 	"validate class arg; sigh, this mirror crap hobbles unfairly; there is a better way with selector namespaces..."
-	cogit MoveR: Arg0Reg R: TempReg.
-	jumpImmediate := self genJumpImmediateInScratchReg: TempReg.
+	jumpImmediate := self genJumpImmediate: Arg0Reg.
 
 	"Is the class arg pointers with at least 3 fields?"
 	self genGetFormatOf: Arg0Reg
@@ -53,9 +52,9 @@ genInnerPrimitiveMirrorNew: retNoffset
 
 	"get class's format inst var for both inst spec (format field) and num fixed fields"
 	self genLoadSlot: InstanceSpecificationIndex sourceReg: Arg0Reg destReg: instSpecReg.
-	cogit MoveR: instSpecReg R: TempReg.
-	jumpBadFormat := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpBadFormat := self genJumpNotSmallInteger: instSpecReg scratchReg: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: instSpecReg.
+	cogit MoveR: instSpecReg R: TempReg.
 	cogit LogicalShiftRightCq: objectMemory fixedFieldsFieldWidth R: TempReg.
 	cogit AndCq: objectMemory formatMask R: TempReg.
 	cogit AndCq: objectMemory fixedFieldsOfClassFormatMask R: instSpecReg.

@@ -3,10 +3,9 @@ genPrimitiveMultiply
 	| jumpNotSI jumpOvfl |
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpOvfl type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
 	self MoveR: Arg0Reg R: ClassReg.
 	self MoveR: ReceiverResultReg R: Arg1Reg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg..
 	objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ClassReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: Arg1Reg.
 	self MulR: Arg1Reg R: ClassReg.

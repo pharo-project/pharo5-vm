@@ -41,12 +41,10 @@ genInnerPrimitiveMirrorNewWithArg: retNoffset
 	maxSlots := objectMemory numSlotsMask - 1.
 
 	"check size and fail if not a +ve integer"
-	cogit MoveR: Arg1Reg R: TempReg.
-	jumpNElementsNonInt := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNElementsNonInt := self genJumpNotSmallInteger: Arg1Reg scratchReg: TempReg.
 
 	"Is the class arg pointers with at least 3 fields?"
-	cogit MoveR: Arg0Reg R: TempReg.
-	jumpImmediate := self genJumpImmediateInScratchReg: TempReg.
+	jumpImmediate := self genJumpImmediate: Arg0Reg.
 
 	self genGetFormatOf: Arg0Reg
 		into: TempReg

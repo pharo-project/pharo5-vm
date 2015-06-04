@@ -6,8 +6,7 @@ mixed: numNonImmediates branchIf: reg notInstanceOfBehaviors: arrayObj target: t
 	<var: #jumps type: #'AbstractInstruction **'>
 	<var: #targetFixUp type: #'AbstractInstruction *'>
 	numCases := objectMemory numSlotsOf: arrayObj.
-	cogit MoveR: reg R: TempReg.
-	jmpImmediate := self genJumpImmediateInScratchReg: TempReg.
+	jmpImmediate := self genJumpImmediate: reg.
 	
 	"Rcvr is non immediate"
 	jumps := self alloca: numNonImmediates type: (self cCode: [#'AbstractInstruction *'] inSmalltalk: [cogit backEnd class]).

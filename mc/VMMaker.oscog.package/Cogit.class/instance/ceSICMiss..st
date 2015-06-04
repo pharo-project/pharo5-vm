@@ -86,7 +86,7 @@ ceSICMiss: receiver
 			 pic asInteger = InsufficientCodeSpace ifTrue:
 				[coInterpreter callForCogCompiledCodeCompaction].
 			^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
-		 processor flushICacheFrom: pic asInteger to: pic asInteger + closedPICSize].
+		 processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + closedPICSize].
 	"Relink the send site to the pic.  If to an open PIC then reset the cache tag to the selector,
 	 for the benefit of the cacheTag assert check in checkIfValidObjectRef:pc:cogMethod:."
 	extent := pic cmType = CMOpenPIC
@@ -99,7 +99,7 @@ ceSICMiss: receiver
 					[backEnd
 						rewriteCallAt: outerReturn
 						target: pic asInteger + cmEntryOffset].
-	processor flushICacheFrom: outerReturn - 1 - extent to: outerReturn - 1.
+	processor flushICacheFrom: outerReturn asUnsignedInteger - 1 - extent to: outerReturn asUnsignedInteger - 1.
 	"Jump back into the pic at its entry in case this is an MNU (newTargetMethodOrNil is nil)"
 	coInterpreter
 		executeCogPIC: pic

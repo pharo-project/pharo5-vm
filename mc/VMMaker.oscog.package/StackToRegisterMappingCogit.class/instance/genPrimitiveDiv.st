@@ -6,10 +6,9 @@ genPrimitiveDiv
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpExact type: #'AbstractInstruction *'>
 	<var: #jumpSameSign type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
 	self MoveR: Arg0Reg R: ClassReg.
 	self MoveR: Arg0Reg R: Arg1Reg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	"We must shift away the tags, not just subtract them, so that the
 	 overflow case doesn't actually overflow the machine instruction."
 	objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ClassReg.

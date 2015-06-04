@@ -17,5 +17,5 @@ linkSendAt: callSiteReturnAddress in: sendingMethod to: targetMethod offset: the
 				tag: inlineCacheTag
 				target: address.
 	processor
-		flushICacheFrom: callSiteReturnAddress - 1 - extent
-		to: callSiteReturnAddress - 1
+		flushICacheFrom: callSiteReturnAddress asUnsignedInteger - 1 - extent
+		to: callSiteReturnAddress asUnsignedInteger - 1

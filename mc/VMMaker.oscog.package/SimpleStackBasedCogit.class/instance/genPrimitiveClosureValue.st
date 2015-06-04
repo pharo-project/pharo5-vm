@@ -20,6 +20,15 @@ genPrimitiveClosureValue
 	objectRepresentation genGetCompactClassIndexNonImmOf: ClassReg into: TempReg.
 	objectRepresentation genCmpClassMethodContextCompactIndexR: TempReg.
 	jumpFail2 := self JumpNonZero: 0.
+	"This could be deferred to the prologue (compileBlockFrameBuild:) if blocks were
+	 scanned to see if they referred to the receiver.  But for now this is safe if slow."
+	objectRepresentation hasSpurMemoryManagerAPI ifTrue:
+		[objectRepresentation
+			genLoadSlot: ReceiverIndex sourceReg: ClassReg destReg: SendNumArgsReg;
+			genEnsureOopInRegNotForwarded: SendNumArgsReg
+			scratchReg: TempReg
+			updatingSlot: ReceiverIndex
+			in: ClassReg].
 	objectRepresentation genLoadSlot: MethodIndex sourceReg: ClassReg destReg: SendNumArgsReg.
 	jumpFail3 := objectRepresentation genJumpImmediate: SendNumArgsReg.
 	objectRepresentation genGetFormatOf: SendNumArgsReg into: TempReg.

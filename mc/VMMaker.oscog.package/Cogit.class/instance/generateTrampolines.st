@@ -20,4 +20,4 @@ generateTrampolines
 
 	"finish up"
 	self recordGeneratedRunTime: 'methodZoneBase' address: methodZoneBase.
-	processor flushICacheFrom: methodZoneStart to: methodZoneBase
+	processor flushICacheFrom: methodZoneStart asUnsignedInteger to: methodZoneBase asUnsignedInteger
