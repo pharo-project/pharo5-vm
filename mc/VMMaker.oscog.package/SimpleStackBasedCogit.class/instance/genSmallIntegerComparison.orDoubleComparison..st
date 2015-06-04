@@ -13,9 +13,8 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	backEnd hasDoublePrecisionFloatingPointSupport ifFalse:
 		[^self genSmallIntegerComparison: jumpOpcode].
-	self genLoadArgAtDepth: 0 into: TempReg.
-	self MoveR: TempReg R: ClassReg.
-	jumpDouble := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	self genLoadArgAtDepth: 0 into: ClassReg.
+	jumpDouble := objectRepresentation genJumpNotSmallInteger: ClassReg scratchReg: TempReg.
 	self CmpR: ClassReg R: ReceiverResultReg. "N.B. FLAGS := RRReg - ClassReg"
 	jumpTrue := self gen: jumpOpcode.
 	self genMoveFalseR: ReceiverResultReg.
@@ -26,8 +25,7 @@ genSmallIntegerComparison: jumpOpcode orDoubleComparison: jumpFPOpcodeGenerator
 	"Argument may be a Float : let us check or fail"
 	jumpDouble jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
-		[self MoveR: ClassReg R: TempReg.
-		 jumpNonInt := objectRepresentation genJumpImmediateInScratchReg: TempReg].
+		[jumpNonInt := objectRepresentation genJumpImmediate: ClassReg].
 	objectRepresentation genGetCompactClassIndexNonImmOf: ClassReg into: SendNumArgsReg.
 	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpFail := self JumpNonZero: 0.

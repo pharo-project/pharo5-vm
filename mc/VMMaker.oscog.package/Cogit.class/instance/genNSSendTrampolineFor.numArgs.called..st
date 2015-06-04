@@ -37,7 +37,7 @@ genNSSendTrampolineFor: aRoutine numArgs: numArgs called: aString
 
 	jumpMiss jmpTarget: self Label.
 	objectRepresentation
-		genEnsureObjInRegNotForwarded: ReceiverResultReg
+		genEnsureOopInRegNotForwarded: ReceiverResultReg
 		scratchReg: TempReg
 		updatingMw: FoxMFReceiver
 		r: FPReg.

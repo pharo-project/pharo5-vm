@@ -5,9 +5,8 @@ genPrimitiveMod
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpExact type: #'AbstractInstruction *'>
 	<var: #jumpSameSign type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
 	self MoveR: Arg0Reg R: ClassReg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ClassReg.
 	jumpZero := self JumpZero: 0.
 	self MoveR: ClassReg R: Arg1Reg.

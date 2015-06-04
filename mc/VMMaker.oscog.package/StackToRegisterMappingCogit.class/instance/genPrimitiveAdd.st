@@ -3,9 +3,8 @@ genPrimitiveAdd
 	| jumpNotSI jumpOvfl |
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpOvfl type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
 	self MoveR: Arg0Reg R: ClassReg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ClassReg.
 	self AddR: ReceiverResultReg R: ClassReg.
 	jumpOvfl := self JumpOverflow: 0.

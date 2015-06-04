@@ -2,8 +2,7 @@ primitive generators
 genPrimitiveBitAnd
 	| jumpNotSI |
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
-	jumpNotSI := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	"Whether the SmallInteger tags are zero or non-zero, oring them together will preserve them."
 	self AndR: Arg0Reg R: ReceiverResultReg.
 	self RetN: 0.

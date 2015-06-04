@@ -11,10 +11,9 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	<var: #jumpNonInt type: #'AbstractInstruction *'>
 	<var: #jumpFailCheck type: #'AbstractInstruction *'>
 	<var: #doOp type: #'AbstractInstruction *'>
-	self MoveR: Arg0Reg R: TempReg.
 	objectRepresentation genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0.
 	self MoveR: Arg0Reg R: ClassReg.
-	jumpImmediate := objectRepresentation genJumpImmediateInScratchReg: TempReg.
+	jumpImmediate := objectRepresentation genJumpImmediate: Arg0Reg.
 	objectRepresentation genGetCompactClassIndexNonImmOf: Arg0Reg into: SendNumArgsReg.
 	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpFailClass := self JumpNonZero: 0.
@@ -40,7 +39,7 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	jumpFailClass := self Jump: 0.
 	jumpImmediate jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
-		[jumpNonInt := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg].
+		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: Arg0Reg].
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.
 	self ConvertR: ClassReg Rd: DPFPReg1.
 	self Jump: doOp.

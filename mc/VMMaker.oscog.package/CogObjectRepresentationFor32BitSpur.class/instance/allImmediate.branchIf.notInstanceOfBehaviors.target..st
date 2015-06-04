@@ -4,7 +4,6 @@ allImmediate: immediateMask branchIf: reg notInstanceOfBehaviors: arrayObj targe
 	< inline: true>	
 	<var: #targetFixUp type: #'AbstractInstruction *'>
 	self assert: immediateMask = objectMemory tagMask.
-	cogit MoveR: reg R: TempReg.
-	jmpImmediate := self genJumpNotImmediateInScratchReg: TempReg.
+	jmpImmediate := self genJumpNotImmediate: reg.
 	jmpImmediate jmpTarget: targetFixUp.
 	^0

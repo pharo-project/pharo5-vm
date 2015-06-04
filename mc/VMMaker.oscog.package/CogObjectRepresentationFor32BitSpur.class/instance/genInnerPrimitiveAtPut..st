@@ -23,7 +23,7 @@ genInnerPrimitiveAtPut: retNoffset
 	<var: #jumpNotIndexablePointers type: #'AbstractInstruction *'>
 
 	jumpImmediate := self genJumpImmediate: ReceiverResultReg.
-	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
 	cogit SubCq: 1 R: Arg0Reg. "1-rel => 0-rel"
 
@@ -90,8 +90,7 @@ genInnerPrimitiveAtPut: retNoffset
 	jumpNotPointers jmpTarget:
 		(cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg).
 	jumpIsCompiledMethod := cogit JumpAboveOrEqual: 0.
-	cogit MoveR: Arg1Reg R: TempReg.
-	jumpNonSmallIntegerValue := self genJumpNotSmallIntegerInScratchReg: TempReg.
+	jumpNonSmallIntegerValue := self genJumpNotSmallInteger: Arg1Reg scratchReg: TempReg.
 					cogit CmpCq: objectMemory firstByteFormat R: formatReg.
 	jumpIsBytes := cogit JumpAboveOrEqual: 0.
 					cogit CmpCq: objectMemory firstShortFormat R: formatReg.

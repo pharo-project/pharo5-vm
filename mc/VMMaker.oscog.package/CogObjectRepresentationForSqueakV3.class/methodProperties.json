@@ -43,7 +43,6 @@
 		"genJumpNotSmallIntegerInScratchReg:" : "eem 2/15/2009 10:20",
 		"genJumpSmallInteger:" : "eem 5/29/2015 18:14",
 		"genJumpSmallIntegerInScratchReg:" : "eem 2/15/2009 10:19",
-		"genLoadSlot:sourceReg:destReg:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"genNewArrayOfSize:initialized:" : "eem 5/31/2014 08:52",
 		"genRemoveSmallIntegerTagsInScratchReg:" : "eem 1/22/2009 12:04",
 		"genSetSmallIntegerTagsIn:" : "eem 1/22/2009 12:05",
