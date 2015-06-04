@@ -25,4 +25,4 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 						rewriteCallFullAt: address
 						target: (self cCode: [primFunctionPointer asUnsignedInteger]
 									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])].
-	processor flushICacheFrom: address to: address + extent
+	processor flushICacheFrom: address asUnsignedInteger to: address asUnsignedInteger + extent

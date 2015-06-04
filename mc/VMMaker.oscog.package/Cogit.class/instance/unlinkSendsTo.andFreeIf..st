@@ -31,4 +31,4 @@ unlinkSendsTo: targetMethodObject andFreeIf: freeIfTrue
 		ifTrue: [self unlinkSendsToFree]
 		ifFalse:
 			[codeModified ifTrue: "After possibly updating inline caches we need to flush the icache."
-				[processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger]]
+				[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]]

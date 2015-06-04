@@ -23,4 +23,4 @@ markAndTraceMachineCodeForNewSpaceGC
 	objectMemory leakCheckNewSpaceGC ifTrue:
 		[self assert: self allMachineCodeObjectReferencesValid].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
-		[processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger]
+		[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]

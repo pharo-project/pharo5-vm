@@ -97,7 +97,7 @@
 		"contextInstructionPointer:frame:" : "eem (const to msg rewrite) 11/5/2014 18:08",
 		"convertToMachineCodeFrame:bcpc:" : "eem 2/24/2015 10:55",
 		"createClosureNumArgs:numCopied:startpc:" : "eem 1/20/2015 15:11",
-		"defaultCogCodeSize" : "eem 12/16/2008 16:59",
+		"defaultCogCodeSize" : "tpr 6/3/2015 09:13",
 		"deferStackLimitSmashAround:" : "eem 7/17/2013 12:12",
 		"deferStackLimitSmashAround:with:" : "eem 7/17/2013 12:11",
 		"divorceAMachineCodeFrameWithCogMethod:in:" : "eem (const to msg rewrite) 11/5/2014 18:08",

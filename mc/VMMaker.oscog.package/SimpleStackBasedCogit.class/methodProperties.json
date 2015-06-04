@@ -213,7 +213,7 @@
 		"recordCallOffsetIn:of:" : "eem 6/21/2009 15:02",
 		"register:isInMask:" : "cb 4/13/2015 12:55",
 		"returnRegForStoreCheck" : "cb 4/26/2015 12:35",
-		"rewritePrimInvocationIn:to:" : "eem 4/16/2015 12:15",
+		"rewritePrimInvocationIn:to:" : "tpr 6/2/2015 13:10",
 		"setInterpreter:" : "eem 6/22/2009 09:03",
 		"v3:Block:Code:Size:" : "eem 11/1/2012 17:47",
 		"v3:Long:Branch:Distance:" : "eem 11/1/2012 13:02",

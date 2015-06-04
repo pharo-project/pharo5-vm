@@ -23,6 +23,6 @@ generateCaptureCStackPointers: captureFramePointer
 				self MoveR: TempReg Aw: self cStackPointerAddress].
 	self RetN: 0.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
-	processor flushICacheFrom: startAddress to: methodZoneBase.
+	processor flushICacheFrom: startAddress asUnsignedInteger to: methodZoneBase asUnsignedInteger.
 	self recordGeneratedRunTime: 'ceCaptureCStackPointers' address: startAddress.
 	ceCaptureCStackPointers := self cCoerceSimple: startAddress to: #'void (*)(void)'

@@ -29,4 +29,4 @@ mapObjectReferencesInMachineCodeForFullGC
 		cogMethod := methodZone methodAfter: cogMethod].
 	methodZone pruneYoungReferrers.
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
-		[processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[processor flushICacheFrom: codeBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]
