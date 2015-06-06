@@ -57,7 +57,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 				ifFalse:  "cacheTag is selector"
 					[(objectRepresentation
 							markAndTraceCacheTagLiteral: cacheTag
-							in: cogMethod
+							in: (self cCoerceSimple: cogMethod to: #'CogMethod *')
 							atpc: mcpc asUnsignedInteger) ifTrue:
 						[codeModified := true]]]].
 

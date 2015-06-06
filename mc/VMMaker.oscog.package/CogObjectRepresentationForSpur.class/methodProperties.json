@@ -57,7 +57,7 @@
 		"genSetCharacterTagsIn:" : "eem 12/24/2013 18:38",
 		"genSetSmallIntegerTagsIn:" : "eem 10/1/2013 17:49",
 		"genSpecialSelectorEqualsEqualsGuts" : "cb 4/17/2015 10:03",
-		"genStoreCheckContextReceiverTrampoline" : "eem 6/4/2015 11:38",
+		"genStoreCheckContextReceiverTrampoline" : "tpr 6/4/2015 15:16",
 		"genStoreCheckReceiverReg:valueReg:scratchReg:inFrame:" : "eem 4/15/2015 19:05",
 		"genStoreImmediateInSourceReg:slotIndex:destReg:" : "eem 10/1/2013 16:57",
 		"genStoreSourceReg:slotIndex:destReg:scratchReg:" : "eem 4/15/2015 19:02",

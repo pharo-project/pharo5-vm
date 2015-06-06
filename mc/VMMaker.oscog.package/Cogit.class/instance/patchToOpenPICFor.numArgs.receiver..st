@@ -26,7 +26,7 @@ patchToOpenPICFor: selector numArgs: numArgs receiver: receiver
 				tag: selector
 				target: oPIC asInteger + cmEntryOffset.
 	processor
-		flushICacheFrom: outerReturn asUnsignedInteger - 1 - extent to: outerReturn asUnsignedInteger - 1;
+		flushICacheFrom: outerReturn asUnsignedInteger - extent to: outerReturn asUnsignedInteger;
 		flushICacheFrom: oPIC asUnsignedInteger to: oPIC asUnsignedInteger + openPICSize.
 	"Jump into the oPIC at its entry"
 	coInterpreter executeCogMethod: oPIC fromLinkedSendWithReceiver: receiver.
