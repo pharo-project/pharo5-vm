@@ -18,4 +18,4 @@ loadCwInto: destReg
 		 				^4]
 					ifFalse: []]].
 	"If this fails, use the conventional and painfully long 4 instruction sequence."
-	^self at: 0 moveCw: operand intoR: destReg
+	^self moveCw: operand intoR: destReg

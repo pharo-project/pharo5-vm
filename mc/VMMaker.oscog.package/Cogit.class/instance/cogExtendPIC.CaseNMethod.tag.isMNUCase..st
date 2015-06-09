@@ -13,6 +13,7 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 		point: (objectMemory numBytesOf: cPIC selector)
 		isMNUCase: isMNUCase.
 	self allocateOpcodes: 5 bytecodes: 0.
+	literalsManager resetLiterals: 5.
 	methodLabel address: cPIC asUnsignedInteger; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self assert: (objectRepresentation inlineCacheTagIsYoung: caseNTag) not.
 	"Caller patches to open pic if caseNMethod is young."

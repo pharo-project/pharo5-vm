@@ -12,16 +12,12 @@ dispatchConcretize
 	opcode caseOf: {
 		"Noops & Pseudo Ops"
 		[Label]					-> [^self concretizeLabel].
+		[Literal]					-> [^self concretizeLiteral].
 		[AlignmentNops]		-> [^self concretizeAlignmentNops].
 		[Fill16]					-> [^self concretizeFill16].
 		[Fill32]					-> [^self concretizeFill32].
 		[FillFromWord]			-> [^self concretizeFillFromWord].
 		[Nop]					-> [^self concretizeNop].
-		"ARM Specific Control/Data Movement" 
-		[SMULL]				-> [^self concretizeSMULL]	.
-		[CMPSMULL]				-> [^self concretizeCMPSMULL].
-		[MSR]						-> [^self concretizeMSR].
-		[BICCqR]					-> [^self concretizeDataOperationCqR: BicOpcode].
 		"Control"
 		[Call]						-> [^self concretizeCall]. "call code within code space"
 		[CallFull]					-> [^self concretizeCallFull]. "call code anywhere in address space"
@@ -92,6 +88,10 @@ dispatchConcretize
 		[ArithmeticShiftRightRR]			-> [^self concretizeArithmeticShiftRightRR].
 		[LogicalShiftLeftRR]				-> [^self concretizeLogicalShiftLeftRR].
 		[LogicalShiftRightRR]			-> [^self concretizeLogicalShiftRightRR].
+		"ARM Specific Arithmetic" 
+		[SMULL]			-> [^self concretizeSMULL]	.
+		[CMPSMULL]		-> [^self concretizeCMPSMULL].
+		[MSR]				-> [^self concretizeMSR].
 		"Data Movement"
 		[MoveCqR]			-> [^self concretizeMoveCqR].
 		[MoveCwR]			-> [^self concretizeMoveCwR].

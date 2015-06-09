@@ -1,5 +1,5 @@
 compile abstract instructions
-gen: opcode "<Integer>" operand: operandOne "<Integer|CogAbstractInstruction>"  operand: operandTwo "<Integer|CogAbstractInstruction>"
+gen: opcode "<Integer>" operand: operandOne "<Integer|CogAbstractInstruction>" operand: operandTwo "<Integer|CogAbstractInstruction>"
 	| abstractInstruction |
 	<inline: false>
 	<returnTypeC: #'AbstractInstruction *'>

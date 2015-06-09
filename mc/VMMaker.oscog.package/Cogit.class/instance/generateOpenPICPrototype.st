@@ -7,6 +7,7 @@ generateOpenPICPrototype
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
 	self allocateOpcodes: 100 bytecodes: 0.
+	literalsManager resetLiterals: 10.
 	methodLabel
 		address: methodZoneBase;
 		dependent: nil.

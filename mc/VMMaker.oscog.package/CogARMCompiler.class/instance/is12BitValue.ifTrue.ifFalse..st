@@ -6,6 +6,6 @@ is12BitValue: constant ifTrue: trueAlternativeBlock	ifFalse: falseAlternativeBlo
 	constant abs <= 4095 "(2 raisedTo: 12)-1"
 		ifTrue:
 			[constant >= 0 
-				ifTrue: [trueAlternativeBlock value: 1 value: constant]
-				ifFalse: [trueAlternativeBlock value: 0 value: constant abs]]
-		ifFalse: falseAlternativeBlock
+				ifTrue: [^trueAlternativeBlock value: 1 value: constant]
+				ifFalse: [^trueAlternativeBlock value: 0 value: constant abs]]
+		ifFalse: [^falseAlternativeBlock value]

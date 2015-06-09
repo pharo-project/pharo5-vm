@@ -1,0 +1,11 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"allocateLiterals:" : "eem 6/8/2015 17:06",
+		"checkLiteral:forInstruction:" : "eem 6/8/2015 11:20",
+		"checkQuickConstant:forInstruction:" : "eem 6/8/2015 11:20",
+		"cogit:" : "eem 6/7/2015 12:08",
+		"dumpLiterals" : "eem 6/7/2015 11:42",
+		"mustDumpLiterals:" : "eem 6/7/2015 11:42",
+		"resetLiterals:" : "eem 6/8/2015 17:32" } }

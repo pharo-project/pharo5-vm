@@ -19,7 +19,7 @@ concretizeMoveRMbr
 					[self machineCodeAt: 0 put: (self adds: ConcreteIPReg rn: ConcreteVarBaseReg imm: offset - cogit varBaseAddress ror: 0).
 					 instrOffset := 4]
 				ifFalse:
-					[instrOffset := self at: 0 moveCw: offset intoR: ConcreteIPReg].
+					[instrOffset := self moveCw: offset intoR: ConcreteIPReg].
 			"strb 	srcReg, [baseReg, ConcreteIPReg]"
 			self machineCodeAt: instrOffset put: (self strb: srcReg rn: baseReg rm: ConcreteIPReg).
 			^machineCodeSize := instrOffset + 4 ].

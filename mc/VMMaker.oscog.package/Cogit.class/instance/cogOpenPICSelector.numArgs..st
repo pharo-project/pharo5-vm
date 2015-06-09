@@ -18,6 +18,7 @@ cogOpenPICSelector: selector numArgs: numArgs
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
 	self allocateOpcodes: 100 bytecodes: 0.
+	literalsManager resetLiterals: 10.
 	self compileOpenPIC: selector numArgs: numArgs.
 	self computeMaximumSizes.
 	methodLabel concretizeAt: startAddress.

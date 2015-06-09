@@ -80,6 +80,7 @@
 		"hasYoungReferent",
 		"primitiveIndex",
 		"backEnd",
+		"literalsManager",
 		"callerSavedRegMask",
 		"postCompileHook",
 		"primInvokeLabel",

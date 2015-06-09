@@ -1,0 +1,14 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"allocateLiterals:" : "eem 6/9/2015 09:27",
+		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
+		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
+		"cogit:" : "eem 6/8/2015 17:36",
+		"dumpLiterals" : "eem 6/8/2015 19:33",
+		"literalInstructionAt:" : "eem 6/9/2015 08:49",
+		"literalInstructionInRange:" : "eem 6/9/2015 09:35",
+		"locateLiteral:" : "eem 6/9/2015 09:36",
+		"mustDumpLiterals:" : "eem 6/8/2015 11:17",
+		"resetLiterals:" : "eem 6/8/2015 19:23" } }

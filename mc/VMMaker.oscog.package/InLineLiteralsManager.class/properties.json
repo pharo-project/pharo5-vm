@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 6/7/2015 12:07",
+	"instvars" : [
+		 ],
+	"name" : "InLineLiteralsManager",
+	"pools" : [
+		 ],
+	"super" : "VMClass",
+	"type" : "normal" }

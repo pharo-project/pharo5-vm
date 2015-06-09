@@ -3,6 +3,7 @@ outputInstructionsForGeneratedRuntimeAt: startAddress
 	"Output instructions generated for one of the generated run-time routines, a trampoline, etc"
 	| size endAddress |
 	<inline: false>
+	literalsManager dumpLiterals.
 	self computeMaximumSizes.
 	size := self generateInstructionsAt: startAddress.
 	endAddress := self outputInstructionsAt: startAddress.

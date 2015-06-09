@@ -20,6 +20,7 @@ compileAbstractInstructionsFrom: start through: end
 		 opcodeIndex = nextOpcodeIndex ifTrue:
 			[self Label].
 		 fixup targetInstruction: (self abstractInstructionAt: nextOpcodeIndex)].
+	 self maybeDumpLiterals: descriptor.
 	 bytecodePC := self nextBytecodePCFor: descriptor at: bytecodePC exts: nExts in: methodObj.
 	 result = 0 and: [bytecodePC <= end]]
 		whileTrue:

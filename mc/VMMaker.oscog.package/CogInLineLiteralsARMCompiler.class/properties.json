@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "NullLiteralsManager",
+	"name" : "CogInLineLiteralsARMCompiler",
 	"pools" : [
 		 ],
-	"super" : "VMClass",
+	"super" : "CogARMCompiler",
 	"type" : "normal" }

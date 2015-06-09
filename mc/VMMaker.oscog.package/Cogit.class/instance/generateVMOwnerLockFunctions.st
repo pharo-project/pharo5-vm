@@ -14,6 +14,7 @@ generateVMOwnerLockFunctions
 			ceTryLockVMOwner := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
 
 			opcodeIndex := 0.
+			literalsManager resetLiterals: 1.
 			initialPC := 0.
 			endPC := numAbstractOpcodes - 1.
 			startAddress := methodZoneBase.

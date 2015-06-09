@@ -30,7 +30,7 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 	numAbstractOpcodes := numberOfAbstractOpcodes.
 	abstractOpcodes := CArrayAccessor on:
 						((1 to: numAbstractOpcodes) collect:
-							[:ign| processor abstractInstructionCompilerClass for: self]).
+							[:ign| CogCompilerClass for: self]).
 	fixups := CArrayAccessor on:
 						((1 to: numAbstractOpcodes) collect:
 							[:ign| self bytecodeFixupClass new]).
