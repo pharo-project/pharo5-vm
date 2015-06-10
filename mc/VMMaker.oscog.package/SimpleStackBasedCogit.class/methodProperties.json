@@ -220,5 +220,6 @@
 		"v3:ShortForward:Branch:Distance:" : "eem 11/2/2012 10:25",
 		"v4:Block:Code:Size:" : "eem 11/13/2012 14:43",
 		"v4:Long:Branch:Distance:" : "eem 11/5/2012 16:25",
+		"v4:Long:BranchIfNotInstanceOf:Distance:" : "cb 6/10/2015 10:33",
 		"v4:LongForward:Branch:Distance:" : "eem 11/5/2012 16:25",
 		"voidCogCompiledCode" : "eem 9/8/2009 14:35" } }
