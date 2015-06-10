@@ -10,7 +10,7 @@ genTrampolineFor: aRoutine called: trampolineName numArgs: numArgs arg: regOrCon
 	<inline: false>
 	startAddress := methodZoneBase.
 	appendBoolean ifFalse:
-		[opcodeIndex := 0].
+		[self zeroOpcodeIndex].
 	self compileTrampolineFor: aRoutine
 		numArgs: numArgs
 		arg: regOrConst0

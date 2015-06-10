@@ -1,3 +1,9 @@
 translation
 activeCompilerClass
-	^CogAbstractInstruction subclasses detect: [:compilerClass| compilerClass ISA == (initializationOptions at: #ISA)]
+	^initializationOptions
+		at: #CogCompilerClass
+		ifPresent: [:compilerClassName| Smalltalk classNamed: compilerClassName]
+		ifAbsent:
+			[CogAbstractInstruction subclasses detect:
+				[:compilerClass|
+				 compilerClass ISA == (initializationOptions at: #ISA)]]

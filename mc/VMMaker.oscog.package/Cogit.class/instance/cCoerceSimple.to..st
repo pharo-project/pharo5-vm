@@ -11,5 +11,5 @@ cCoerceSimple: value to: cTypeString
 		[^self nsSendCacheSurrogateAt: value asUnsignedInteger].
 	(cTypeString == #'AbstractInstruction *'
 	 and: [value isBehavior]) ifTrue:
-		[^processor abstractInstructionCompilerClass].
+		[^CogCompilerClass].
 	^super cCoerceSimple: value to: cTypeString

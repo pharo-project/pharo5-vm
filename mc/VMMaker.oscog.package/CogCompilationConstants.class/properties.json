@@ -4,6 +4,7 @@
 		 ],
 	"classvars" : [
 		"BadRegisterSet",
+		"CogCompilerClass",
 		"NumSendTrampolines",
 		"SSBaseOffset",
 		"SSConstant",

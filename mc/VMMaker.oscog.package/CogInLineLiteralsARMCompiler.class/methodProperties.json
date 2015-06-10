@@ -1,0 +1,18 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"callFullTargetFromReturnAddress:" : "eem 4/20/2015 17:38",
+		"extract32BitOperandFrom4InstructionsPreceeding:" : "eem 4/20/2015 17:34",
+		"inlineCacheTagAt:" : "eem 4/20/2015 18:44",
+		"insert32BitOperand:into4InstructionsPreceeding:" : "eem 4/20/2015 17:59",
+		"isPCDependent" : "eem 10/12/2013 14:41",
+		"literalBeforeFollowingAddress:" : "eem 5/27/2015 11:15",
+		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
+		"moveCw:intoR:" : "eem 6/8/2015 14:53",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 4/21/2015 14:20",
+		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 4/20/2015 18:00",
+		"rewriteInlineCacheAt:tag:target:" : "eem 4/20/2015 18:03",
+		"rewriteInlineCacheTag:at:" : "tpr 4/24/2015 15:08",
+		"sizePCDependentInstructionAt:" : "eem 4/19/2015 08:32",
+		"storeLiteral:beforeFollowingAddress:" : "tpr 4/30/2015 16:41" } }

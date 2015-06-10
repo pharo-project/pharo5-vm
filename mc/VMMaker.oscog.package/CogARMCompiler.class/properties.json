@@ -57,6 +57,7 @@
 		"SP",
 		"STMFD",
 		"SubOpcode",
+		"TstOpcode",
 		"VC",
 		"VS",
 		"XorOpcode" ],

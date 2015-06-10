@@ -1,0 +1,3 @@
+initialization
+cogit: aCogit
+	<doNotGenerate>

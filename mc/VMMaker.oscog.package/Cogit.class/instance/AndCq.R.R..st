@@ -5,7 +5,7 @@ AndCq: quickConstant R: srcReg R: destReg
 	| first |
 	<var: 'first' type: #'AbstractInstruction *'>
 	backEnd hasThreeAddressArithmetic ifTrue:
-		[^self gen: AndCqRR operand: quickConstant operand: srcReg operand: destReg].
+		[^self gen: AndCqRR quickConstant: quickConstant operand: srcReg operand: destReg].
 	first := self gen: MoveRR operand: srcReg operand: destReg.
-	self gen: AndCqR operand: quickConstant operand: destReg.
+	self gen: AndCqR quickConstant: quickConstant operand: destReg.
 	^first

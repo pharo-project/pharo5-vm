@@ -7,5 +7,5 @@ concretizeTstCqR
 			reg := self concreteRegister: (operands at: 1).
 			self machineCodeAt: 0 put: (self tst: reg rn: reg imm: immediate ror: rot).
 			^machineCodeSize := 4]
-		ifFalse: [^self concretizeDataOperationCwR: 8].
+		ifFalse: [^self concretizeDataOperationCwR: TstOpcode].
 	^0 "to keep Slang happy"

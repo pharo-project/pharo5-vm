@@ -27,8 +27,9 @@ setInterpreter: aCoInterpreter
 	debugPrimCallStackOffset := 0.
 	singleStep := printRegisters := printInstructions := clickConfirm := false.
 	breakBlock ifNil: [self breakPC: breakPC].
-	(backEnd := processor abstractInstructionCompilerClass new) cogit: self.
-	(methodLabel := processor abstractInstructionCompilerClass new) cogit: self.
+	backEnd := CogCompilerClass for: self.
+	methodLabel := CogCompilerClass for: self.
+	(literalsManager := backEnd class literalsManagerClass new) cogit: self.
 	ordinarySendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	superSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	BytecodeSetHasDirectedSuperSend ifTrue:

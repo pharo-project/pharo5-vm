@@ -16,7 +16,7 @@ concretizePushCq
 			self rotateable8bitImmediate: invVal
 				ifTrue: [ :rot :immediate |
 					self machineCodeAt: 0 put: (self mvn: ConcreteIPReg imm: immediate ror: rot).
-					^machineCodeSize := 4]
-				ifFalse: [instrOffset := self at: 0 moveCw: word intoR: ConcreteIPReg]].
+					instrOffset := 4]
+				ifFalse: [instrOffset := self moveCw: word intoR: ConcreteIPReg]].
 	self machineCodeAt: instrOffset put: (self pushR: ConcreteIPReg).
 	^machineCodeSize := instrOffset + 4

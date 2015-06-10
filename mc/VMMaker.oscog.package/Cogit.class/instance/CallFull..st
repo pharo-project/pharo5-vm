@@ -2,4 +2,4 @@ abstract instructions
 CallFull: jumpTarget
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	^self gen: CallFull operand: jumpTarget
+	^self gen: CallFull literal: jumpTarget

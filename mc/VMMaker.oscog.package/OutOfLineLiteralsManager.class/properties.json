@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 6/7/2015 12:10",
+	"instvars" : [
+		"cogit",
+		"firstOpcodeIndex",
+		"nextLiteralIndex",
+		"lastDumpedLiteralIndex",
+		"literals",
+		"literalsSize" ],
+	"name" : "OutOfLineLiteralsManager",
+	"pools" : [
+		"CogCompilationConstants",
+		"CogRTLOpcodes" ],
+	"super" : "VMClass",
+	"type" : "normal" }

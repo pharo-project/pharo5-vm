@@ -24,6 +24,7 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 forCall: forCall called: tra
 	regArg2 ifNotNil: [self PopR: regArg2].
 	self PopR: regArg1.
 	self genEnilopmartReturn: forCall.
+	literalsManager dumpLiterals.
 	self computeMaximumSizes.
 	size := self generateInstructionsAt: methodZoneBase.
 	endAddress := self outputInstructionsAt: methodZoneBase.

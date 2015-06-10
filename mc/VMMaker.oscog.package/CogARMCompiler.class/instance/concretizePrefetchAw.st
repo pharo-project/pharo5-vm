@@ -7,7 +7,7 @@ concretizePrefetchAw
 	(self isAddressRelativeToVarBase: addressOperand) ifTrue:
 		[self machineCodeAt: 0 put: (self pld: ConcreteVarBaseReg plus: 1 offset: addressOperand - cogit varBaseAddress).
 		 ^machineCodeSize := 4].
-	instrOffset := self at: 0 moveCw: addressOperand intoR: ConcreteIPReg.
+	instrOffset := self moveCw: addressOperand intoR: ConcreteIPReg.
 	"pld	[ConcreteIPReg]"
 	self machineCodeAt: instrOffset put: (self pld: ConcreteIPReg plus: 1offset: 0).
 	^machineCodeSize := instrOffset + 4

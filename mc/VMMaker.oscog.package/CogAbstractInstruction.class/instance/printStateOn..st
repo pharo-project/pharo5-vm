@@ -30,7 +30,9 @@ printStateOn: aStream
 			[0 to: machineCodeSize - 1 by: self codeGranularity do:
 				[:i|
 				 aStream space.
-				 (self machineCodeAt: i) printOn: aStream base: 16]]].
+				 (self machineCodeAt: i)
+					ifNil: [aStream nextPut: $.]
+					ifNotNil: [:mc| mc printOn: aStream base: 16]]]].
 	address ifNotNil:
 		[aStream nextPut: $@.
 		 address printOn: aStream base: 16].

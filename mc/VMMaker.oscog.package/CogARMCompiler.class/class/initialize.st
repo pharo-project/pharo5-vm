@@ -58,9 +58,10 @@ initialize
 	MoveNotOpcode := 15.
 	OrOpcode := 12.
 	RsbOpcode := 3.
-	SubOpcode := 2.
-	XorOpcode := 1.
 	SMLALOpcode := 7.
+	SubOpcode := 2.
+	TstOpcode := 8.
+	XorOpcode := 1.
 
 	CPSRReg := 16.
 	OverflowFlag := 1 << 28.
@@ -68,7 +69,7 @@ initialize
 	"Specific instructions"
 	LastRTLCode isNil ifTrue:
 		[CogRTLOpcodes initialize].
-	specificOpcodes := #(SMULL MSR MRS LDMFD STMFD BICCqR CMPSMULL).
+	specificOpcodes := #(SMULL MSR MRS LDMFD STMFD CMPSMULL).
 	refs := (thisContext method literals select: [:l| l isVariableBinding and: [classPool includesKey: l key]]) collect:
 				[:ea| ea key].
 	(classPool keys reject: [:k| (specificOpcodes includes: k) or: [refs includes: k]]) do:
