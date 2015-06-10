@@ -54,32 +54,32 @@ dispatchConcretize
 		[RetN]						-> [^self concretizeRetN].
 		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
-		[AddCqR]					-> [^self concretizeAddCqR].
-		[AddCwR]					-> [^self concretizeDataOperationCwR: AddOpcode].
-		[AddRR]						-> [^self concretizeDataOperationRR: AddOpcode].
-		[AddRdRd]					-> [^self concretizeAddRdRd].
-		[AndCqR]					-> [^self concretizeAndCqR].
+		[AddCqR]					-> [^self concretizeNegateableDataOperationCqR: AddOpcode].
+		[AndCqR]					-> [^self concretizeInvertibleDataOperationCqR: AndOpcode].
 		[AndCqRR]					-> [^self concretizeAndCqRR].
+		[CmpCqR]					-> [^self concretizeNegateableDataOperationCqR: CmpOpcode].
+		[OrCqR]						-> [^self concretizeDataOperationCqR: OrOpcode].
+		[SubCqR]					-> [^self concretizeSubCqR].
+		[TstCqR]					-> [^self concretizeTstCqR].
+		[XorCqR]					-> [^self concretizeInvertibleDataOperationCqR: XorOpcode].
+		[AddCwR]					-> [^self concretizeDataOperationCwR: AddOpcode].
 		[AndCwR]					-> [^self concretizeDataOperationCwR: AndOpcode].
-		[AndRR]						-> [^self concretizeDataOperationRR: AndOpcode].
-		[CmpCqR]					-> [^self concretizeDataOperationCqR: CmpOpcode].
 		[CmpCwR]					-> [^self concretizeDataOperationCwR: CmpOpcode].
+		[OrCwR]					-> [^self concretizeDataOperationCwR: OrOpcode].
+		[SubCwR]					-> [^self concretizeDataOperationCwR: SubOpcode].
+		[XorCwR]					-> [^self concretizeDataOperationCwR: XorOpcode].
+		[AddRR]						-> [^self concretizeDataOperationRR: AddOpcode].
+		[AndRR]						-> [^self concretizeDataOperationRR: AndOpcode].
 		[CmpRR]					-> [^self concretizeDataOperationRR: CmpOpcode].
+		[OrRR]						-> [^self concretizeDataOperationRR: OrOpcode].
+		[SubRR]						-> [^self concretizeDataOperationRR: SubOpcode].
+		[XorRR]						-> [^self concretizeDataOperationRR: XorOpcode].
+		[AddRdRd]					-> [^self concretizeAddRdRd].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		[DivRdRd]					-> [^self concretizeDivRdRd].
 		[MulRdRd]					-> [^self concretizeMulRdRd].
-		[OrCqR]						-> [^self concretizeDataOperationCqR: OrOpcode].
-		[OrCwR]					-> [^self concretizeDataOperationCwR: OrOpcode].
-		[OrRR]						-> [^self concretizeDataOperationRR: OrOpcode].
-		[SubCqR]					-> [^self concretizeSubCqR].
-		[SubCwR]					-> [^self concretizeDataOperationCwR: SubOpcode].
-		[SubRR]						-> [^self concretizeDataOperationRR: SubOpcode].
 		[SubRdRd]					-> [^self concretizeSubRdRd].
 		[SqrtRd]					-> [^self concretizeSqrtRd].
-		[TstCqR]					-> [^self concretizeTstCqR].
-		[XorCqR]						-> [^self concretizeDataOperationCqR: XorOpcode].
-		[XorCwR]						-> [^self concretizeDataOperationCwR: XorOpcode].
-		[XorRR]							-> [^self concretizeDataOperationRR: XorOpcode].
 		[NegateR]						-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].

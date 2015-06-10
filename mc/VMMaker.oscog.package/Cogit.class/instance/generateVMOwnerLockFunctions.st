@@ -5,6 +5,7 @@ generateVMOwnerLockFunctions
 	self cppIf: COGMTVM
 		ifTrue:
 			[self allocateOpcodes: backEnd numLowLevelLockOpcodes bytecodes: 0.
+			self zeroOpcodeIndex.
 			initialPC := 0.
 			endPC := numAbstractOpcodes - 1.
 			startAddress := methodZoneBase.
@@ -13,8 +14,7 @@ generateVMOwnerLockFunctions
 			self recordGeneratedRunTime: 'ceTryLockVMOwner' address: startAddress.
 			ceTryLockVMOwner := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
 
-			opcodeIndex := 0.
-			literalsManager resetLiterals: 1.
+			self zeroOpcodeIndex.
 			initialPC := 0.
 			endPC := numAbstractOpcodes - 1.
 			startAddress := methodZoneBase.

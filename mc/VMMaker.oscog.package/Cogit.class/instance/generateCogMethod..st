@@ -9,7 +9,7 @@ generateCogMethod: selector
 	| codeSize headerSize mapSize totalSize startAddress result method |
 	<var: #method type: #'CogMethod *'>
 	headerSize := self sizeof: CogMethod.
-	methodLabel address: headerSize negated.
+	methodLabel address: methodZone freeStart.
 	self computeMaximumSizes.
 	methodLabel concretizeAt: methodZone freeStart.
 	codeSize := self generateInstructionsAt: methodLabel address + headerSize.

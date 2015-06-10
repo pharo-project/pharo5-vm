@@ -7,7 +7,7 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 	<var: #jmpSample type: #'AbstractInstruction *'>
 	<var: #continuePostSample type: #'AbstractInstruction *'>
 	<var: #jmpFail type: #'AbstractInstruction *'>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 
 	profiling ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick: if so.

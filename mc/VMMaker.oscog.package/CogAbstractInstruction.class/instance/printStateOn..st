@@ -32,7 +32,11 @@ printStateOn: aStream
 				 aStream space.
 				 (self machineCodeAt: i)
 					ifNil: [aStream nextPut: $.]
-					ifNotNil: [:mc| mc printOn: aStream base: 16]]]].
+					ifNotNil:
+						[:mc|
+						mc isInteger
+							ifTrue: [mc printOn: aStream base: 16]
+							ifFalse: [mc printOn: aStream]]]]].
 	address ifNotNil:
 		[aStream nextPut: $@.
 		 address printOn: aStream base: 16].

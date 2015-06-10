@@ -13,7 +13,7 @@
 		"canDivQuoRem" : "eem 3/28/2015 12:48",
 		"canMulRR" : "eem 3/28/2015 12:48",
 		"codeGranularity" : "eem 4/21/2015 09:17",
-		"computeMaximumSize" : "eem 5/29/2015 19:00",
+		"computeMaximumSize" : "eem 6/10/2015 10:24",
 		"computeShiftRRSize" : "eem 1/21/2009 06:54",
 		"concreteDPFPRegister:" : "eem 4/16/2009 11:00",
 		"concreteRegister:" : "eem 12/11/2010 19:09",

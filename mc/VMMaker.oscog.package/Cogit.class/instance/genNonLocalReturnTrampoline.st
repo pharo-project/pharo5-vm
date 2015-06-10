@@ -1,6 +1,6 @@
 initialization
 genNonLocalReturnTrampoline
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	"write the return address to the coInterpreter instructionPointerAddress;
 	 following the CallRT to this CISCs will have pushed it on the stack, so pop it first; RISCs will have it in
 	 their link register so just write it directly."

@@ -1,5 +1,5 @@
 testing
 mustDumpLiterals: opcodeIndex
 	<inline: true>
-	^cogit opcodeIndex >= firstOpcodeIndex
-	  and: [cogit opcodeIndex - firstOpcodeIndex >= cogit backEnd outOfLineLiteralOpcodeLimit]
+	^cogit getOpcodeIndex >= firstOpcodeIndex
+	  and: [cogit getOpcodeIndex - firstOpcodeIndex >= cogit backEnd outOfLineLiteralOpcodeLimit]

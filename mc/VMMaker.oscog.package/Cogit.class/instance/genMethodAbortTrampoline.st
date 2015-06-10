@@ -8,7 +8,7 @@ genMethodAbortTrampoline
 	 receiver must always contain an object (and hence be non-zero) on SIC miss."
 	| jumpSICMiss |
 	<var: #jumpSICMiss type: #'AbstractInstruction *'>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	self CmpCq: 0 R: ReceiverResultReg.
 	jumpSICMiss := self JumpNonZero: 0.
 

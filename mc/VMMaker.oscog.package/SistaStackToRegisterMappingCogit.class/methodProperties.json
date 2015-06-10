@@ -21,7 +21,7 @@
 		"genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode" : "eem 4/28/2015 14:42",
 		"genFallsThroughCountLogicCounterReg:counterAddress:" : "cb 4/25/2015 16:13",
 		"genJumpIf:to:" : "cb 5/5/2015 13:45",
-		"genMustBeBooleanTrampolineFor:called:" : "eem 5/1/2015 16:24",
+		"genMustBeBooleanTrampolineFor:called:" : "eem 6/9/2015 21:54",
 		"genSpecialSelectorComparison" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorEqualsEqualsWithForwarders" : "eem 5/10/2015 09:17",

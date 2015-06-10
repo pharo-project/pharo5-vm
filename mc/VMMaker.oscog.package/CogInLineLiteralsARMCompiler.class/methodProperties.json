@@ -4,9 +4,10 @@
 	"instance" : {
 		"callFullTargetFromReturnAddress:" : "eem 4/20/2015 17:38",
 		"extract32BitOperandFrom4InstructionsPreceeding:" : "eem 4/20/2015 17:34",
+		"getDefaultCogCodeSize" : "eem 6/10/2015 14:03",
 		"inlineCacheTagAt:" : "eem 4/20/2015 18:44",
 		"insert32BitOperand:into4InstructionsPreceeding:" : "eem 4/20/2015 17:59",
-		"isPCDependent" : "eem 10/12/2013 14:41",
+		"isPCDependent" : "eem 6/9/2015 21:04",
 		"literalBeforeFollowingAddress:" : "eem 5/27/2015 11:15",
 		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
 		"moveCw:intoR:" : "eem 6/8/2015 14:53",
