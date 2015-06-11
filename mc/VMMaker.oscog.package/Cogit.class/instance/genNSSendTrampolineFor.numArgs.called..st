@@ -8,7 +8,7 @@ genNSSendTrampolineFor: aRoutine numArgs: numArgs called: aString
 	| jumpMiss jumpItsTheReceiverStupid |
 	<var: #jumpMiss type: #'AbstractInstruction *'>
 	<var: #jumpItsTheReceiverStupid type: #'AbstractInstruction *'>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	objectRepresentation
 		genGetInlineCacheClassTagFrom: ReceiverResultReg
 		into: ClassReg

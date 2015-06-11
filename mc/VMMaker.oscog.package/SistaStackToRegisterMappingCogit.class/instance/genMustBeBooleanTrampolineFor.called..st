@@ -12,7 +12,7 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	| jumpMBB |
 	<var: #jumpMBB type: #'AbstractInstruction *'>
 	<inline: false>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	self CmpCq: 0 R: SendNumArgsReg.
 	jumpMBB := self JumpZero: 0.
 	"Open-code self compileTrampolineFor: #ceCounterTripped: numArgs: 1 arg: TempReg ...

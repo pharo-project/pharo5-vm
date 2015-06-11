@@ -7,8 +7,9 @@ generateInstructions
 	pcDependentInstructions := OrderedCollection new.
 	opcodes do:
 		[:abstractInstruction|
-		abstractInstruction address: address.
-		abstractInstruction computeMaximumSize.
+		abstractInstruction
+			address: address;
+			maxSize: abstractInstruction computeMaximumSize.
 		address := address + abstractInstruction maxSize].
 	address := 0.
 	opcodes do:

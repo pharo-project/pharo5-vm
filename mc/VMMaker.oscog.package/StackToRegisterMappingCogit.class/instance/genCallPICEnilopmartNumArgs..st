@@ -5,7 +5,7 @@ genCallPICEnilopmartNumArgs: numArgs
 	 register args in the abort/miss trampolines."
 	<returnTypeC: 'void (*genCallPICEnilopmartNumArgs(sqInt numArgs))(void)'>
 	| size endAddress enilopmart |
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	backEnd maybeEstablishVarBase. "Must happen first; value may be used in genLoadStackPointers"
 	backEnd genLoadStackPointers.
 	self PopR: ClassReg. "cacheTag"

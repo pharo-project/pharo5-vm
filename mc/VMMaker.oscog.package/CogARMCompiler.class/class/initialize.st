@@ -50,10 +50,12 @@ initialize
 	LE := 13.
 	AL := 14.
 
+	"Table A3-2 in sec A3.4 Data-processing instructions of the AARM."
 	AddOpcode := 	4.
 	AndOpcode := 0.
 	BicOpcode := 14.
 	CmpOpcode := 10.
+	CmpNotOpcode := 11.
 	MoveOpcode := 13.
 	MoveNotOpcode := 15.
 	OrOpcode := 12.

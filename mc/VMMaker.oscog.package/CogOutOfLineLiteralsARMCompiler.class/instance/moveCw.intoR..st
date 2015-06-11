@@ -4,5 +4,11 @@ moveCw: constant intoR: destReg
 	 Literals are stored out-of-line; emit a LDR with the relevant offset."
 	 <var: 'constant' type: #usqInt>
 	<inline: true>
-	self machineCodeAt: 0 put: (self ldr: destReg rn: PC plusImm: address - dependent address).
+	self assert: (cogit addressIsInCurrentCompilation: dependent address).
+	self machineCodeAt: 0
+		put: (self
+				ldr: destReg
+				rn: PC
+				plus: (dependent address >= (address + 8) ifTrue: [1] ifFalse: [0])
+				imm: (dependent address - (address + 8)) abs).
 	^machineCodeSize := 4

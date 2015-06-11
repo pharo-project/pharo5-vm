@@ -6,7 +6,7 @@ generateClosedPICPrototype
 	numPICCases := 6.
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
-	self allocateOpcodes: numPICCases * 7 bytecodes: 0.
+	self allocateOpcodes: numPICCases * 9 bytecodes: 0.
 	literalsManager resetLiterals: numPICCases * 2.
 	methodLabel address: methodZoneBase; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self compileClosedPICPrototype.

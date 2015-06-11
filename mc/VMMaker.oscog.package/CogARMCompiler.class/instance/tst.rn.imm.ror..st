@@ -4,4 +4,4 @@ tst: ignored rn: srcReg imm: immediate ror: rot
 "also note that TST has no destReg
 	TST srcReg, #immediate ROR rot"
 
-	^self type: 1 op: 8 set: 1 rn: srcReg rd: 0 shifterOperand: ((rot>>1) <<8 bitOr: immediate)
+	^self type: 1 op: TstOpcode set: 1 rn: srcReg rd: 0 shifterOperand: ((rot>>1) <<8 bitOr: immediate)

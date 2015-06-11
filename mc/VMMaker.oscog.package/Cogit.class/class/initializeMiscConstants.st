@@ -6,7 +6,7 @@ initializeMiscConstants
 		ifTrue:
 			[EagerInstructionDecoration := initializationOptions at: #EagerInstructionDecoration]
 		ifFalse:
-			[EagerInstructionDecoration isNil ifTrue:
+			[EagerInstructionDecoration ifNil:
 				[EagerInstructionDecoration := false]]. "speeds up single stepping but could lose fidelity"
 
 	ProcessorClass := (initializationOptions at: #ISA ifAbsentPut: [#IA32]) caseOf: {

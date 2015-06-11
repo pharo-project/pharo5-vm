@@ -17,14 +17,13 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 forCall: forCall called: tra
 	<returnTypeC: #'void (*genEnilopmartForandandforCallcalled(sqInt regArg1, sqInt regArg2, sqInt regArg3, sqInt forCall, char *trampolineName))(void)'>
 
 	| size endAddress enilopmart |
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	backEnd maybeEstablishVarBase. "Must happen first; value may be used in genLoadStackPointers"
 	backEnd genLoadStackPointers.
 	regArg3 ifNotNil: [self PopR: regArg3].
 	regArg2 ifNotNil: [self PopR: regArg2].
 	self PopR: regArg1.
 	self genEnilopmartReturn: forCall.
-	literalsManager dumpLiterals.
 	self computeMaximumSizes.
 	size := self generateInstructionsAt: methodZoneBase.
 	endAddress := self outputInstructionsAt: methodZoneBase.

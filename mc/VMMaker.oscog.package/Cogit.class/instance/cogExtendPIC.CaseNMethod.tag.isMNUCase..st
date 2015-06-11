@@ -33,7 +33,7 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 					[target := cPIC asInteger + self picInterpretAbortOffset]].
 	self CmpCw: caseNTag R: TempReg.
 	self MoveCw: operand R: SendNumArgsReg.
-	self JumpLongZero: target.
+	self DumpJumpLongZero: target.
 	self MoveCw: cPIC asUnsignedInteger R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: cPIC cmNumArgs).
 	self computeMaximumSizes.

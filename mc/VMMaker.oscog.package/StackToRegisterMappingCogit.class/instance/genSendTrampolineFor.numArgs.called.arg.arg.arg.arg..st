@@ -7,7 +7,7 @@ genSendTrampolineFor: aRoutine numArgs: numArgs called: aString arg: regOrConst0
 	| startAddress |
 	<inline: false>
 	startAddress := methodZoneBase.
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	backEnd genPushRegisterArgsForNumArgs: numArgs scratchReg: SendNumArgsReg.
 	self genTrampolineFor: aRoutine
 		called: aString

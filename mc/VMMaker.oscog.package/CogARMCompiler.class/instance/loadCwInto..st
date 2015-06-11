@@ -4,18 +4,19 @@ loadCwInto: destReg
 	 the size of the instructions generated to do so."
 	| operand distance |
 	operand := operands at: 0.
+	(self isAnInstruction: operand) ifTrue:
+		[operand := (cogit cCoerceSimple: operand to: #'AbstractInstruction *') address].
 	"First try and encode as a pc-relative reference..."
 	(cogit addressIsInCurrentCompilation: operand) ifTrue:
 		[distance := operand - (address + 8).
-		 self rotateable8bitImmediate: distance
-		 	ifTrue: [ :rot :immediate |
-		 		self machineCodeAt: 0 put: (self add: destReg rn: PC imm: immediate ror: rot).
+		 self rotateable8bitSignedImmediate: distance
+		 	ifTrue:
+				[:rot :immediate :negate|
+		 		 self machineCodeAt: 0 put: (negate
+												ifTrue: [self sub: destReg rn: PC imm: immediate ror: rot]
+												ifFalse: [self add: destReg rn: PC imm: immediate ror: rot]).
 		 		^4]
 		 	ifFalse:
-		 		[self rotateable8bitImmediate: distance negated
-		 			ifTrue: [ :rot :immediate |
-		 				self machineCodeAt: 0 put: (self sub: destReg rn: PC imm: immediate ror: rot).
-		 				^4]
-					ifFalse: []]].
-	"If this fails, use the conventional and painfully long 4 instruction sequence."
+		 		[self deny: (self isAnInstruction: (operands at: 0))]].
+	"If this fails, use the conventional literal load sequence."
 	^self moveCw: operand intoR: destReg

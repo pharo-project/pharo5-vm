@@ -7,48 +7,55 @@ generateMapAt: addressOrNull start: startAddress
 	 In the most signficant bits are the type of annotation at the point reached.  A null
 	 byte ends the map."
 	| length location |
-	<var: #annotation type: #'InstructionAnnotation *'>
+	<var: #instruction type: #'AbstractInstruction *'>
 	length := 0.
 	location := startAddress.
-	0 to: annotationIndex - 1 do:
-		[:i| | annotation mcpc delta maxDelta mapEntry |
-		 annotation := self addressOf: (annotations at: i).
-		 mcpc := annotation instruction address + annotation instruction machineCodeSize.
-		 [(delta := mcpc - location / backEnd codeGranularity) > DisplacementMask] whileTrue:
-			[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
-			 self assert: maxDelta >> AnnotationShift <= DisplacementMask.
+	0 to: opcodeIndex - 1 do:
+		[:i| | instruction mcpc delta maxDelta mapEntry |
+		instruction := self abstractInstructionAt: i.
+		instruction annotation ifNotNil:
+			[:annotation|
+			 self flag: 'if this is moved into e.g. CogAbstractInstruction>>annotationAddress then e.g. a push const can annotate the lit synth instr, not the reg push'.
+			 mcpc := instruction address + instruction machineCodeSize.
+			 [(delta := mcpc - location / backEnd codeGranularity) > DisplacementMask] whileTrue:
+				[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
+				 self assert: maxDelta >> AnnotationShift <= DisplacementMask.
+				 addressOrNull ifNotNil:
+					[objectMemory
+						byteAt: addressOrNull - length
+						put: maxDelta >> AnnotationShift + DisplacementX2N.
+					 self traceMap: IsDisplacementX2N
+						instruction: instruction
+						byte: maxDelta >> AnnotationShift + DisplacementX2N
+						at: addressOrNull - length
+						for: mcpc].
+				 location := location + (maxDelta * backEnd codeGranularity).
+				 length := length + 1].
 			 addressOrNull ifNotNil:
-				[objectMemory
-					byteAt: addressOrNull - length
-					put: maxDelta >> AnnotationShift + DisplacementX2N.
-				 self traceMap: IsDisplacementX2N
-					  byte: maxDelta >> AnnotationShift + DisplacementX2N
-					  at: addressOrNull - length
-					  for: mcpc].
-			 location := location + (maxDelta * backEnd codeGranularity).
-			 length := length + 1].
-		 addressOrNull ifNotNil:
-			[mapEntry := delta + ((annotation annotation min: IsSendCall) << AnnotationShift).
-			 objectMemory byteAt: addressOrNull - length put: mapEntry.
-			 self traceMap: annotation
-				  byte: mapEntry
-				  at: addressOrNull - length
-				  for: mcpc].
-		 location := location + (delta * backEnd codeGranularity).
-		 length := length + 1.
-		 annotation annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
-			[addressOrNull ifNotNil:
-				[mapEntry := IsAnnotationExtension << AnnotationShift + (annotation annotation - IsSendCall).
+				[mapEntry := delta + ((annotation min: IsSendCall) << AnnotationShift).
 				 objectMemory byteAt: addressOrNull - length put: mapEntry.
 				 self traceMap: annotation
-					  byte: mapEntry
-					  at: addressOrNull - length
-					  for: mcpc].
-			 length := length + 1]].
+					instruction: instruction
+					byte: mapEntry
+					at: addressOrNull - length
+					for: mcpc].
+			 location := location + (delta * backEnd codeGranularity).
+			 length := length + 1.
+			 annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
+				[addressOrNull ifNotNil:
+					[mapEntry := IsAnnotationExtension << AnnotationShift + (annotation - IsSendCall).
+					 objectMemory byteAt: addressOrNull - length put: mapEntry.
+					 self traceMap: annotation
+						instruction: instruction
+						byte: mapEntry
+						at: addressOrNull - length
+						for: mcpc].
+				 length := length + 1]]].
 	addressOrNull ifNotNil:
 		[objectMemory byteAt: addressOrNull - length put: MapEnd.
 		 self traceMap: MapEnd
-			  byte: MapEnd
-			  at: addressOrNull - length
-			  for: 0].
+			instruction: nil
+			byte: MapEnd
+			at: addressOrNull - length
+			for: 0].
 	^length + 1
