@@ -15,7 +15,7 @@ genSendAbsentImplicitOrOuter: selector numArgs: numArgs depth: depth sendTable: 
 	self marshallAbsentReceiverSendArguments: numArgs.
 
 	"Load the cache last so it is a fixed distance from the call."
-	self MoveCw: nsSendCache R: SendNumArgsReg.
+	self MoveUniqueCw: nsSendCache R: SendNumArgsReg.
 	self CallNewspeakSend: (sendTable at: (numArgs min: NumSendTrampolines - 1)).
 
 	self PushR: ReceiverResultReg.
