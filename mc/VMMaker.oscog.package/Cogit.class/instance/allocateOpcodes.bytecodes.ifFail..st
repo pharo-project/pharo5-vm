@@ -12,20 +12,17 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 	<cmacro: '(numberOfAbstractOpcodes,numberOfBytecodes,failBlock) do { \
 		int opcodeSize = sizeof(AbstractInstruction) * (numAbstractOpcodes = (numberOfAbstractOpcodes)); \
 		int fixupSize = sizeof(BytecodeFixup) * numAbstractOpcodes; \
-		int annotationSize = sizeof(InstructionAnnotation) * ((numAbstractOpcodes + 3) / 4); \
-		int allocSize = opcodeSize + fixupSize + annotationSize; \
+		int allocSize = opcodeSize + fixupSize; \
 		if (allocSize > MaxStackAllocSize) failBlock; \
 		abstractOpcodes = alloca(allocSize); \
 		bzero(abstractOpcodes, opcodeSize + fixupSize); \
 		fixups = (void *)((char *)abstractOpcodes + opcodeSize); \
-		annotations = (void *)((char *)fixups + fixupSize); \
-		opcodeIndex = labelCounter = annotationIndex = 0; \
+		opcodeIndex = labelCounter = 0; \
 } while (0)'>
-	| opcodeSize fixupSize annotationSize allocSize |
+	| opcodeSize fixupSize allocSize |
 	opcodeSize := (self sizeof: CogAbstractInstruction) * numberOfAbstractOpcodes.
 	fixupSize := (self sizeof: CogBytecodeFixup) * numberOfAbstractOpcodes.
-	annotationSize := (self sizeof: CogInstructionAnnotation) * ((numberOfAbstractOpcodes + 3) / 4).
-	allocSize := opcodeSize + fixupSize + annotationSize.
+	allocSize := opcodeSize + fixupSize.
 	allocSize > MaxStackAllocSize ifTrue: [^failBlock value].
 	numAbstractOpcodes := numberOfAbstractOpcodes.
 	abstractOpcodes := CArrayAccessor on:
@@ -34,7 +31,4 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 	fixups := CArrayAccessor on:
 						((1 to: numAbstractOpcodes) collect:
 							[:ign| self bytecodeFixupClass new]).
-	annotations := CArrayAccessor on:
-						((1 to: numAbstractOpcodes + 3 // 4) collect:
-							[:ign| CogInstructionAnnotation new]).
-	opcodeIndex := labelCounter := annotationIndex := 0
+	opcodeIndex := labelCounter := 0

@@ -9,13 +9,17 @@ usesOutOfLineLiteral
 		[JumpFull]		-> [^true].
 		"Arithmetic"
 		[AddCqR]		-> [^self rotateable8bitSignedImmediate: (operands at: 0) ifTrue: [:r :i :n| false] ifFalse: [true]].
-		[AndCqR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
-		[AndCqRR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
-		[CmpCqR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
+		[AndCqR]		-> [^self rotateable8bitBitwiseImmediate: (operands at: 0)
+								ifTrue: [:r :i :n| false]
+								ifFalse: [1 << (operands at: 0) highBit ~= ((operands at: 0) + 1)]].
+		[AndCqRR]		-> [^self rotateable8bitBitwiseImmediate: (operands at: 0)
+								ifTrue: [:r :i :n| false]
+								ifFalse: [1 << (operands at: 0) highBit ~= ((operands at: 0) + 1)]].
+		[CmpCqR]		-> [^self rotateable8bitSignedImmediate: (operands at: 0) ifTrue: [:r :i :n| false] ifFalse: [true]].
 		[OrCqR]			-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
-		[SubCqR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
+		[SubCqR]		-> [^self rotateable8bitSignedImmediate: (operands at: 0) ifTrue: [:r :i :n| false] ifFalse: [true]].
 		[TstCqR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
-		[XorCqR]		-> [^self rotateable8bitImmediate: (operands at: 0) ifTrue: [:r :i| false] ifFalse: [true]].
+		[XorCqR]		-> [^self rotateable8bitBitwiseImmediate: (operands at: 0) ifTrue: [:r :i :n| false] ifFalse: [true]].
 		[AddCwR]		-> [^true].
 		[AndCwR]		-> [^true].
 		[CmpCwR]		-> [^true].

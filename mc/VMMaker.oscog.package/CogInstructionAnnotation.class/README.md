@@ -1,1 +1,0 @@
-I am an annotation for a specific generated instruction.  I add information such as "this is an instruction corresponding to a bytecode pc", "this is an instruction containing an object reference", etc.

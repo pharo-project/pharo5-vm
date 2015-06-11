@@ -6,7 +6,6 @@ ancilliaryClasses: options
 		CogBlockStart.
 		CogBytecodeDescriptor.
 		CogBytecodeFixup.
-		CogInstructionAnnotation.
 		CogPrimitiveDescriptor.
 		CogBlockMethod.
 		CogMethod },

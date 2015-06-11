@@ -2,7 +2,7 @@
 	"class" : {
 		"literalsManagerClass" : "eem 6/8/2015 16:50" },
 	"instance" : {
-		"concretizeLiteral" : "eem 6/9/2015 21:23",
+		"concretizeLiteral" : "eem 6/10/2015 17:37",
 		"getDefaultCogCodeSize" : "eem 6/10/2015 14:02",
 		"inlineCacheTagAt:" : "eem 6/10/2015 16:18",
 		"isPCDependent" : "eem 6/9/2015 21:12",
@@ -12,6 +12,6 @@
 		"outOfLineLiteralOpcodeLimit" : "eem 6/9/2015 21:00",
 		"pcRelativeAddressAt:" : "eem 6/10/2015 16:18",
 		"setLiteralOpcodeIndex:" : "eem 6/9/2015 09:36",
-		"sizePCDependentInstructionAt:" : "eem 6/8/2015 20:38",
+		"sizePCDependentInstructionAt:" : "eem 6/10/2015 17:44",
 		"updateLabel:" : "eem 6/9/2015 09:46",
-		"usesOutOfLineLiteral" : "eem 6/10/2015 13:40" } }
+		"usesOutOfLineLiteral" : "eem 6/10/2015 18:01" } }

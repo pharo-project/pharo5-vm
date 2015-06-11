@@ -12,12 +12,10 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes
 	<cmacro: '(numberOfAbstractOpcodes,numberOfBytecodes) do { \
 		int opcodeSize = sizeof(AbstractInstruction) * (numAbstractOpcodes = (numberOfAbstractOpcodes)); \
 		int fixupSize = sizeof(BytecodeFixup) * numAbstractOpcodes; \
-		int annotationSize = sizeof(InstructionAnnotation) * ((numAbstractOpcodes + 3) / 4); \
-		abstractOpcodes = alloca(opcodeSize + fixupSize + annotationSize); \
+		abstractOpcodes = alloca(opcodeSize + fixupSize); \
 		bzero(abstractOpcodes, opcodeSize + fixupSize); \
 		fixups = (void *)((char *)abstractOpcodes + opcodeSize); \
-		annotations = (void *)((char *)fixups + fixupSize); \
-		opcodeIndex = labelCounter = annotationIndex = 0; \
+		opcodeIndex = labelCounter = 0; \
 } while (0)'>
 	numAbstractOpcodes := numberOfAbstractOpcodes.
 	abstractOpcodes := CArrayAccessor on:
@@ -26,7 +24,4 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes
 	fixups := CArrayAccessor on:
 						((1 to: numAbstractOpcodes) collect:
 							[:ign| self bytecodeFixupClass new]).
-	annotations := CArrayAccessor on:
-						((1 to: numAbstractOpcodes + 3 // 4) collect:
-							[:ign| CogInstructionAnnotation new]).
-	opcodeIndex := labelCounter := annotationIndex := 0
+	opcodeIndex := labelCounter := 0

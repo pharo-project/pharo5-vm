@@ -134,14 +134,9 @@ computeMaximumSize
 		[MoveCqR]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes]
 										ifFalse:
-											[self rotateable8bitImmediate: (operands at: 0)
-												ifTrue: [:r :i| 4]
-												ifFalse:
-													[| val invVal |
-													invVal := (val := operands at: 0) < 0 ifTrue: [-1 - val] ifFalse: [val bitInvert32].
-													self rotateable8bitImmediate: invVal
-														ifTrue: [:r :i| 4]
-														ifFalse: [self literalLoadInstructionBytes]]]].
+											[self rotateable8bitBitwiseImmediate: (operands at: 0)
+												ifTrue: [:r :i :n| 4]
+												ifFalse: [self literalLoadInstructionBytes]]].
 		[MoveCwR]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes]
 										ifFalse:
@@ -190,14 +185,9 @@ computeMaximumSize
 		[PushCq]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes + 4]
 										ifFalse:
-											[self rotateable8bitImmediate: (operands at: 0)
-												ifTrue: [:r :i| 8]
-												ifFalse:
-													[| val invVal |
-													invVal := (val := operands at: 0) < 0 ifTrue: [-1 - val] ifFalse: [val bitInvert32].
-													self rotateable8bitImmediate: invVal
-														ifTrue: [:r :i| 8]
-														ifFalse: [self literalLoadInstructionBytes + 4]]]].
+											[self rotateable8bitBitwiseImmediate: (operands at: 0)
+												ifTrue: [:r :i :n| 8]
+												ifFalse: [self literalLoadInstructionBytes + 4]]].
 		[PrefetchAw] 			-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 										ifTrue: [4]
 										ifFalse: [self literalLoadInstructionBytes + 4]].

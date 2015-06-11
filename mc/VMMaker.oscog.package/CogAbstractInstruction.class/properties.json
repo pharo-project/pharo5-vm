@@ -9,6 +9,7 @@
 		"opcode",
 		"machineCodeSize",
 		"maxSize",
+		"annotation",
 		"machineCode",
 		"operands",
 		"address",
