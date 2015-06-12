@@ -5,4 +5,5 @@ maybeDumpLiterals: descriptor
 	((literalsManager mustDumpLiterals: opcodeIndex)
 	  or: [descriptor isUnconditionalBranch
 	  or: [descriptor isReturn]]) ifTrue:
-		[literalsManager dumpLiterals]
+		[literalsManager dumpLiterals: (descriptor isUnconditionalBranch
+										or: [descriptor isReturn]) not]

@@ -1,5 +1,5 @@
 translation
 isNonArgumentImplicitReceiverVariableName: aString
 	^#('cogit' 'coInterpreter'
-		'methodZone'
+		'methodZone' 'literalsManager'
 		'objectMemory' 'objectRepresentation' 'manager') includes: aString

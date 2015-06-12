@@ -70,7 +70,6 @@ declareCVarsIn: aCCodeGenerator
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
 	aCCodeGenerator
-		declareVar: #annotations type: #'InstructionAnnotation *';
 		declareVar: #blockStarts type: #'BlockStart *';
 		declareVar: #fixups type: #'BytecodeFixup *'.
 	aCCodeGenerator

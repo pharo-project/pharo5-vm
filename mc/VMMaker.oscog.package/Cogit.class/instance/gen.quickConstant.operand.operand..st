@@ -3,7 +3,6 @@ gen: opcode "<Integer>" quickConstant: operandOne "<Integer>" operand: operandTw
 	"Quick constants are those the back end is free to encode as compactly as possible.""<Integer|CogAbstractInstruction>"
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	<var: #abstractInstruction type: #'AbstractInstruction *'>
 	^literalsManager
 		checkQuickConstant: operandOne
 		forInstruction: (self gen: opcode operand: operandOne operand: operandTwo operand: operandThree)

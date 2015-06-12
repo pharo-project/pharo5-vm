@@ -5,7 +5,6 @@ gen: opcode "<Integer>" uniqueLiteral: operandOne "<Integer>" operand: operandTw
 	 must hence always be encoded in a form that allows updating to refer to a different value."
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	<var: #abstractInstruction type: #'AbstractInstruction *'>
 	^literalsManager
 		uniqueLiteral: operandOne
 		forInstruction: (self gen: opcode operand: operandOne operand: operandTwo)

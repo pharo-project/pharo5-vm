@@ -1,4 +1,4 @@
 testing
-mustDumpLiterals: opcodeIndex
+mustDumpLiterals: currentOpcodeIndex
 	<inline: true>
 	^false

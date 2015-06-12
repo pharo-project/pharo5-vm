@@ -5,7 +5,6 @@ gen: opcode "<Integer>" operand: operandOne "<Integer|CogAbstractInstruction>" l
 	 must hence always be encoded in a form that allows updating to refer to a different value."
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	<var: #abstractInstruction type: #'AbstractInstruction *'>
 	^literalsManager
 		checkLiteral: operandTwo
 		forInstruction: (self gen: opcode operand: operandOne operand: operandTwo)
