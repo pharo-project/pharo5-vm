@@ -5,11 +5,11 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 	<var: #nsSendCache type: #'NSSendCache *'>
 	annotation = IsObjectReference ifTrue:
 		[| literal mappedLiteral |
-		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
+		 literal := literalsManager fetchLiteralAtAnnotatedAddress: mcpc asUnsignedInteger using: backEnd.
 		 (objectRepresentation couldBeObject: literal) ifTrue:
 			[mappedLiteral := objectRepresentation remapObject: literal.
 			 literal ~= mappedLiteral ifTrue:
-				[backEnd storeLiteral: mappedLiteral beforeFollowingAddress: mcpc asInteger.
+				[literalsManager storeLiteral: mappedLiteral atAnnotatedAddress: mcpc asUnsignedInteger using: backEnd.
 				 codeModified := true].
 			 (hasYoungPtr ~= 0
 			  and: [objectMemory isYoung: mappedLiteral]) ifTrue:

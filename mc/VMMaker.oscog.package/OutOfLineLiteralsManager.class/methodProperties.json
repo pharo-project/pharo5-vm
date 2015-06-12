@@ -4,13 +4,16 @@
 	"instance" : {
 		"allocateLiteral:" : "eem 6/10/2015 19:30",
 		"allocateLiterals:" : "eem 6/9/2015 09:27",
+		"assertValidAnnotation:for:" : "eem 6/11/2015 16:07",
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
 		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
-		"cogit:" : "eem 6/8/2015 17:36",
+		"cogit:" : "eem 6/11/2015 16:44",
 		"dumpLiterals:" : "eem 6/11/2015 14:15",
+		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
 		"literalInstructionAt:" : "eem 6/9/2015 08:49",
 		"literalInstructionInRange:" : "eem 6/9/2015 09:35",
 		"locateLiteral:" : "eem 6/11/2015 12:47",
 		"mustDumpLiterals:" : "eem 6/11/2015 13:16",
 		"resetLiterals:" : "eem 6/8/2015 19:23",
+		"storeLiteral:atAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
 		"uniqueLiteral:forInstruction:" : "eem 6/10/2015 19:37" } }

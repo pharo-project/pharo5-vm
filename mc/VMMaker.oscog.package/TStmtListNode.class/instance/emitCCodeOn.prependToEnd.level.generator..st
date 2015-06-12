@@ -16,4 +16,5 @@ emitCCodeOn: aStream prependToEnd: aNodeOrNil level: level generator: aCodeGen
 		(self stream: aStream endsWithAnyOf: '};') ifFalse:
 			[s needsTrailingSemicolon ifTrue:
 				[aStream nextPut: $;]].
-		aStream cr].
+		aStream peekLast ~~ Character cr ifTrue:
+			[aStream cr]].
