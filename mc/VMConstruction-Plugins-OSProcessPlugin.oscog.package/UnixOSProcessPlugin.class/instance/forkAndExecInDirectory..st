@@ -66,15 +66,7 @@ forkAndExecInDirectory: useSignalHandler
 	stdIn := interpreterProxy stackObjectValue: 7.
 	executableFile := interpreterProxy stackObjectValue: 8.
 
-	((interpreterProxy isIntegerObject: workingDir)
-	 or: [(interpreterProxy isIntegerObject: envOffsets)
-	 or: [(interpreterProxy isIntegerObject: envVecBuffer)
-	 or: [(interpreterProxy isIntegerObject: argOffsets)
-	 or: [(interpreterProxy isIntegerObject: argVecBuffer)
-	 or: [(interpreterProxy isIntegerObject: stdErr)
-	 or: [(interpreterProxy isIntegerObject: stdOut)
-	 or: [(interpreterProxy isIntegerObject: stdIn)
-	 or: [interpreterProxy isIntegerObject: executableFile]]]]]]]]) ifTrue:
+	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 
 	"Turn off the interval timer. If this is not done, then the program which we exec in

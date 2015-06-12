@@ -1,4 +1,4 @@
 private - handle conversion
 sizeOfHandle
-
-	^ self cCode: 'sizeof(HANDLE)' inSmalltalk: [4]
+	<inline: true>
+	^self cCode: 'sizeof(HANDLE)' inSmalltalk: [interpreterProxy wordSize]

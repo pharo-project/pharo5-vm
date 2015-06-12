@@ -6,9 +6,8 @@ primitiveGetSession
 
 	| sessionOop sessionByteArrayPointer thisSessionID sessionIDSize |
 	<export: true>
-	<var: 'sessionByteArrayPointer' declareC: 'unsigned char *sessionByteArrayPointer'>
-	<var: 'copyByteArrayPointer' declareC: 'unsigned char *copyByteArrayPointer'>
-	<var: 'thisSessionID' type: 'SESSIONIDENTIFIERTYPE'>
+	<var: 'sessionByteArrayPointer' type: #'unsigned char *'>
+	<var: 'thisSessionID' type: #SESSIONIDENTIFIERTYPE>
 	thisSessionID := self getThisSessionIdentifier.
 	sessionIDSize := self sizeof: thisSessionID.
 	sessionOop := interpreterProxy
@@ -19,7 +18,13 @@ primitiveGetSession
 	thisSessionID isNil ifTrue:
 		[^ interpreterProxy primitiveFail].	"The session ID is not permitted to be zero"
 	self copyBytesFrom: (self cCode: '(unsigned char *)&thisSessionID'
-							inSmalltalk: [thisSessionID asByteArray asString])
+							inSmalltalk:
+								[| bytes |
+								 bytes := ByteString new: sessionIDSize.
+								 1 to: sessionIDSize do:
+									[:i|
+									bytes at: i put: (i <= thisSessionID digitLength ifTrue: [thisSessionID digitAt: i] ifFalse: [0]) asCharacter].
+								 bytes])
 		to: sessionByteArrayPointer
 		length: sessionIDSize.
 	interpreterProxy pop: 1 thenPush: sessionOop
