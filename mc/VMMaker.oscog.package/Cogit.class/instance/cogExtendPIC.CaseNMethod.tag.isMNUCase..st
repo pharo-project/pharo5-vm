@@ -12,7 +12,7 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 		compilationBreak: cPIC selector
 		point: (objectMemory numBytesOf: cPIC selector)
 		isMNUCase: isMNUCase.
-	self allocateOpcodes: 5 bytecodes: 0.
+	self allocateOpcodes: 8 bytecodes: 0.
 	literalsManager resetLiterals: 5.
 	methodLabel address: cPIC asUnsignedInteger; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self assert: (objectRepresentation inlineCacheTagIsYoung: caseNTag) not.
@@ -32,7 +32,7 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 				ifFalse:
 					[target := cPIC asInteger + self picInterpretAbortOffset]].
 	self CmpCw: caseNTag R: TempReg.
-	self MoveCw: operand R: SendNumArgsReg.
+	self MoveUniqueCw: operand R: SendNumArgsReg.
 	self DumpJumpLongZero: target.
 	self MoveCw: cPIC asUnsignedInteger R: ClassReg.
 	self JumpLong: (self cPICMissTrampolineFor: cPIC cmNumArgs).

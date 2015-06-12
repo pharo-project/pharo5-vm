@@ -2,14 +2,15 @@ translation
 ancilliaryClasses: options
 	ProcessorClass ifNil:
 		[Cogit initializeMiscConstants].
-	^{	CogMethodZone.
+	^(self activeCompilerClass withAllSuperclasses copyUpThrough: CogAbstractInstruction),
+	  {	CogMethodZone.
 		CogBlockStart.
 		CogBytecodeDescriptor.
 		CogBytecodeFixup.
 		CogPrimitiveDescriptor.
 		CogBlockMethod.
-		CogMethod },
-	(self activeCompilerClass withAllSuperclasses copyUpThrough: CogAbstractInstruction),
+		CogMethod.
+		self activeCompilerClass literalsManagerClass},
 	((options at: #NewspeakVM ifAbsent: [false])
 		ifTrue: [{NewspeakCogMethod. NSSendCache}]
 		ifFalse: [#()])

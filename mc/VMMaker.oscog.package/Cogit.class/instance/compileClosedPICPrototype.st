@@ -9,13 +9,13 @@ compileClosedPICPrototype
 	numArgs := 0.
 	self compilePICAbort: numArgs.
 	jumpNext := self compileCPICEntry.
-	self MoveCw: 16r5EAF00D R: SendNumArgsReg.
+	self MoveUniqueCw: 16r5EAF00D R: SendNumArgsReg.
 	self DumpJumpLong: methodZoneBase + 16rCA5E10.
 	jumpNext jmpTarget: (endCPICCase0 := self Label).
 	1 to: numPICCases - 1 do:
 		[:h|
 		self CmpCw: 16rBABE1F15+h R: TempReg.
-		self MoveCw: 16rBADA550 + h R: SendNumArgsReg.
+		self MoveUniqueCw: 16rBADA550 + h R: SendNumArgsReg.
 		self DumpJumpLongZero: 16rCA5E10 + (h * 16).
 		h = 1 ifTrue:
 			[endCPICCase1 := self Label]].

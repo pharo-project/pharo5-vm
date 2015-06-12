@@ -5,7 +5,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 	<var: #nsSendCache type: #'NSSendCache *'>
 	| literal |
 	annotation = IsObjectReference ifTrue:
-		[literal := backEnd literalBeforeFollowingAddress: mcpc asUnsignedInteger.
+		[literal := literalsManager fetchLiteralAtAnnotatedAddress: mcpc asUnsignedInteger using: backEnd.
 		 (objectRepresentation
 				markAndTraceLiteral: literal
 				in: (self cCoerceSimple: cogMethod to: #'CogMethod *')

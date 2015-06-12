@@ -15,8 +15,8 @@ generateMapAt: addressOrNull start: startAddress
 		instruction := self abstractInstructionAt: i.
 		instruction annotation ifNotNil:
 			[:annotation|
-			 self flag: 'if this is moved into e.g. CogAbstractInstruction>>annotationAddress then e.g. a push const can annotate the lit synth instr, not the reg push'.
-			 mcpc := instruction address + instruction machineCodeSize.
+			 literalsManager assertValidAnnotation: annotation for: instruction.
+			 mcpc := instruction mapEntryAddress.
 			 [(delta := mcpc - location / backEnd codeGranularity) > DisplacementMask] whileTrue:
 				[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
 				 self assert: maxDelta >> AnnotationShift <= DisplacementMask.

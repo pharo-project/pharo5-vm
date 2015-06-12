@@ -11,7 +11,7 @@ compileMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs
 	operand := (methodOperand isNil or: [objectMemory isYoungObject: methodOperand])
 					ifTrue: [0]
 					ifFalse: [methodOperand].
-	self MoveCw: operand R: SendNumArgsReg.
+	self MoveUniqueCw: operand R: SendNumArgsReg.
 	self DumpJumpLong: picMNUAbort asInteger.
 	jumpNext jmpTarget: (self MoveCw: cPIC asUnsignedInteger R: ClassReg).
 	self JumpLong: (self cPICMissTrampolineFor: numArgs).

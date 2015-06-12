@@ -5,7 +5,7 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 	<var: #nsSendCache type: #'NSSendCache *'>
 	annotation = IsObjectReference ifTrue:
 		[| literal |
-		 literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
+		 literal := literalsManager fetchLiteralAtAnnotatedAddress: mcpc asUnsignedInteger using: backEnd.
 		 (objectRepresentation checkValidOopReference: literal) ifFalse:
 			[coInterpreter print: 'object ref leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 			^1]].

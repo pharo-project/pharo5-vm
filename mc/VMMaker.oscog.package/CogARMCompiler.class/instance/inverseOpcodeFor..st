@@ -1,8 +1,8 @@
 generate machine code - support
-inverseOpcodeFor: opcode
+inverseOpcodeFor: armOpcode
 	"Several of the opcodes are inverses.  Answer the inverse for an opcode if it has one.
 	 See Table A3-2 in sec A3.4 Data-processing instructions of the AARM."
-	^opcode caseOf: {
+	^armOpcode caseOf: {
 			[AddOpcode]		->	[SubOpcode].
 			[AndOpcode]		->	[BicOpcode].
 			[BicOpcode]		->	[AndOpcode].

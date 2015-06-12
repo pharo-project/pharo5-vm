@@ -1,3 +1,3 @@
 compile abstract instructions
-dumpLiterals
+dumpLiterals: generateBranchAround
 	<inline: true>

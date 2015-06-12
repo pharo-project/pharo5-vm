@@ -6,7 +6,7 @@ computeMaximumSizes
 	<inline: false>
 	<var: #abstractInstruction type: #'AbstractInstruction *'>
 	| relativeAddress |
-	literalsManager dumpLiterals.
+	literalsManager dumpLiterals: false.
 	relativeAddress := 0.
 	0 to: opcodeIndex - 1 do:
 		[:i| | abstractInstruction |

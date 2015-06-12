@@ -5,7 +5,7 @@ markYoungObjects: annotation pc: mcpc method: cogMethod
 	<var: #nsSendCache type: #'NSSendCache *'>
 	| literal |
 	annotation = IsObjectReference ifTrue:
-		[literal := backEnd literalBeforeFollowingAddress: mcpc asInteger.
+		[literal := literalsManager fetchLiteralAtAnnotatedAddress: mcpc asUnsignedInteger using: backEnd.
 		 objectRepresentation markAndTraceLiteralIfYoung: literal].
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:

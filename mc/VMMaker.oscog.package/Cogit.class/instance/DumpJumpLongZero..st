@@ -7,5 +7,5 @@ DumpJumpLongZero: jumpTarget
 	| inst |
 	<var: 'inst' type: #'AbstractInstruction *'>
 	inst := self gen: JumpLongZero operand: jumpTarget asInteger.
-	literalsManager dumpLiterals.
+	literalsManager dumpLiterals: false.
 	^inst
