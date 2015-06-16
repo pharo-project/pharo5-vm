@@ -12,7 +12,10 @@
 		"nextLiteralIndex",
 		"lastDumpedLiteralIndex",
 		"literals",
-		"literalsSize" ],
+		"literalsSize",
+		"savedFirstOpcodeIndex",
+		"savedNextLiteralIndex",
+		"savedLastDumpedLiteralIndex" ],
 	"name" : "OutOfLineLiteralsManager",
 	"pools" : [
 		"CogCompilationConstants",

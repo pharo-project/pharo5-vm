@@ -30,7 +30,7 @@ generateCogMethod: selector
 	method := self fillInMethodHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
 					size: totalSize
 					selector: selector.
-	postCompileHook notNil ifTrue:
-		[self perform: postCompileHook with: method with: primInvokeLabel.
+	postCompileHook ifNotNil:
+		[self perform: postCompileHook with: method.
 		 postCompileHook := nil].
 	^method

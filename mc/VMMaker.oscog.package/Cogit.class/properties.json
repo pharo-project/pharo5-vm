@@ -83,7 +83,6 @@
 		"literalsManager",
 		"callerSavedRegMask",
 		"postCompileHook",
-		"primInvokeLabel",
 		"methodLabel",
 		"stackCheckLabel",
 		"blockEntryLabel",

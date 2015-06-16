@@ -6,4 +6,5 @@ setInterpreter: aCoInterpreter
 	<doNotGenerate>
 	super setInterpreter: aCoInterpreter.
 	externalPrimJumpOffsets := CArrayAccessor on: (Array new: MaxNumArgs + 1).
-	externalPrimCallOffsets := CArrayAccessor on: (Array new: MaxNumArgs + 1)
+	externalPrimCallOffsets := CArrayAccessor on: (Array new: MaxNumArgs + 1).
+	externalSetPrimOffsets := CArrayAccessor on: (Array new: MaxNumArgs + 1)

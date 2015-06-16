@@ -14,9 +14,11 @@
 		"moveCw:intoR:" : "eem 6/10/2015 13:46",
 		"outOfLineLiteralOpcodeLimit" : "eem 6/9/2015 21:00",
 		"pcRelativeAddressAt:" : "eem 6/10/2015 16:18",
-		"rewriteInlineCacheAt:tag:target:" : "eem 6/10/2015 18:40",
+		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 6/15/2015 12:05",
+		"rewriteInlineCacheAt:tag:target:" : "eem 6/15/2015 12:05",
 		"setIsUnique" : "eem 6/10/2015 19:27",
 		"setLiteralOpcodeIndex:" : "eem 6/10/2015 19:27",
 		"sizePCDependentInstructionAt:" : "eem 6/10/2015 17:44",
+		"storeLiteral:beforeFollowingAddress:" : "eem 6/14/2015 10:02",
 		"updateLabel:" : "eem 6/9/2015 09:46",
 		"usesOutOfLineLiteral" : "eem 6/10/2015 18:01" } }

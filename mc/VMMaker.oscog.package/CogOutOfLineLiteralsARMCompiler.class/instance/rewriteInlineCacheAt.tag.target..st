@@ -16,5 +16,5 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 		longAt: (self pcRelativeAddressAt: callSiteReturnAddress - 8) put: cacheTag.
 	self assert: (self inlineCacheTagAt: callSiteReturnAddress) = cacheTag.
 	"self cCode: ''
-		inSmalltalk: [cogit disassembleFrom: callSiteReturnAddress - 20 to: callSiteReturnAddress - 1]."
+		inSmalltalk: [cogit disassembleFrom: callSiteReturnAddress - 8 to: (self pcRelativeAddressAt: callSiteReturnAddress - 8)]."
 	^4

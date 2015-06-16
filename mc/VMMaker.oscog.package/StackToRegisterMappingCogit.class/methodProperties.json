@@ -39,7 +39,7 @@
 		"ceCallCogCodePopReceiverArg1Arg0Regs" : "eem 7/3/2014 16:46",
 		"ceShortCutTraceStore:" : "eem 12/20/2013 10:26",
 		"compileAbstractInstructionsFrom:through:" : "eem 6/7/2015 16:54",
-		"compileBlockBodies" : "eem 6/10/2015 17:32",
+		"compileBlockBodies" : "eem 6/15/2015 17:08",
 		"compileBlockFrameBuild:" : "cb 4/17/2015 15:29",
 		"compileBlockFramelessEntry:" : "eem 6/30/2011 17:26",
 		"compileCogMethod:" : "eem 11/30/2010 21:19",

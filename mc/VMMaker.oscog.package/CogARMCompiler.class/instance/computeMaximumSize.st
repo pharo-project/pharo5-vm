@@ -181,7 +181,10 @@ computeMaximumSize
 											[((self isAnInstruction: (operands at: 0)) "i.e. a label, which by definition will be in the current compilation."
 											   or: [cogit addressIsInCurrentCompilation: (operands at: 0)])
 												ifTrue: [8]
-												ifFalse: [self literalLoadInstructionBytes + 4]]].
+												ifFalse:
+													[self rotateable8bitBitwiseImmediate: (operands at: 0)
+														ifTrue: [:r :i :n| 8]
+														ifFalse: [self literalLoadInstructionBytes + 4]]]].
 		[PushCq]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes + 4]
 										ifFalse:
