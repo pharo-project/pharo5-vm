@@ -4,6 +4,6 @@ activeCompilerClass
 		at: #CogCompilerClass
 		ifPresent: [:compilerClassName| Smalltalk classNamed: compilerClassName]
 		ifAbsent:
-			[CogAbstractInstruction subclasses detect:
+			[(CogAbstractInstruction subclasses detect:
 				[:compilerClass|
-				 compilerClass ISA == (initializationOptions at: #ISA)]]
+				 compilerClass ISA == (initializationOptions at: #ISA)]) defaultCompilerClass]
