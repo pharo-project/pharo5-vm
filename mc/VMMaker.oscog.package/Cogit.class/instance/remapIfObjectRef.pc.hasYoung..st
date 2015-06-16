@@ -17,7 +17,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 
 	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
 		[| nsSendCache oop mappedOop |
-		nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+		nsSendCache := self nsSendCacheFromReturnAddress: mcpc.
 		oop := nsSendCache selector.	
 		mappedOop := objectRepresentation remapObject: oop.
 		oop ~= mappedOop ifTrue:
@@ -40,7 +40,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 			  and: [objectRepresentation couldBeObject: cacheTag]) ifTrue:
 				[mappedCacheTag := objectRepresentation remapObject: cacheTag.
 				 cacheTag ~= mappedCacheTag ifTrue:
-					[backEnd rewriteInlineCacheTag: mappedCacheTag at: mcpc asInteger.
+					[backEnd rewriteInlineCacheTag: mappedCacheTag at: mcpc asUnsignedInteger.
 					 codeModified := true].
 				 (hasYoungPtr ~= 0
 				  and: [objectMemory isYoung: mappedCacheTag]) ifTrue:

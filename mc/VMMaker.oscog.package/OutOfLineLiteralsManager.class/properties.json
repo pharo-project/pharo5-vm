@@ -8,6 +8,7 @@
 	"instvars" : [
 		"cogit",
 		"objectMemory",
+		"objectRepresentation",
 		"firstOpcodeIndex",
 		"nextLiteralIndex",
 		"lastDumpedLiteralIndex",

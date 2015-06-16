@@ -10,7 +10,7 @@ mapObjectReferencesInClosedPIC: cPIC
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
-			[(self updateMaybeClassRefAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
+			[(self updateMaybeClassRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 				[refersToYoung := true]].
 		(self updateMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 			[refersToYoung := true].

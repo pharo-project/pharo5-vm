@@ -1,4 +1,4 @@
 garbage collection
 classRefInClosedPICAt: mcpc
 	<inline: true>
-	^backEnd literalBeforeFollowingAddress: mcpc - backEnd loadLiteralByteSize
+	^cogit backEnd literalBeforeFollowingAddress: mcpc - cogit backEnd loadLiteralByteSize

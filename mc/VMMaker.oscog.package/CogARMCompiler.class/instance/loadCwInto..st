@@ -4,7 +4,7 @@ loadCwInto: destReg
 	 the size of the instructions generated to do so."
 	| operand distance |
 	operand := operands at: 0.
-	(self isAnInstruction: operand) ifTrue:
+	(self isAnInstruction: (cogit cCoerceSimple: operand to: #'AbstractInstruction *')) ifTrue:
 		[operand := (cogit cCoerceSimple: operand to: #'AbstractInstruction *') address].
 	"First try and encode as a pc-relative reference..."
 	(cogit addressIsInCurrentCompilation: operand) ifTrue:
@@ -17,6 +17,6 @@ loadCwInto: destReg
 												ifFalse: [self add: destReg rn: PC imm: immediate ror: rot]).
 		 		^4]
 		 	ifFalse:
-		 		[self deny: (self isAnInstruction: (operands at: 0))]].
+		 		[self deny: (self isAnInstruction: (cogit cCoerceSimple: (operands at: 0) to: #'AbstractInstruction *'))]].
 	"If this fails, use the conventional literal load sequence."
 	^self moveCw: operand intoR: destReg

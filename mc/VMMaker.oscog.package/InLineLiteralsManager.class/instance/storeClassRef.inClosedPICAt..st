@@ -2,4 +2,4 @@ garbage collection
 storeClassRef: classObj inClosedPICAt: address
 	<var: #address type: #usqInt>
 	<inline: true>
-	backEnd storeLiteral: classObj beforeFollowingAddress: address - backEnd loadLiteralByteSize
+	cogit backEnd storeLiteral: classObj beforeFollowingAddress: address - cogit backEnd loadLiteralByteSize

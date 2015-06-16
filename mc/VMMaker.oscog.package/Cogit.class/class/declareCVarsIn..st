@@ -89,7 +89,7 @@ declareCVarsIn: aCCodeGenerator
 		var: #trampolineAddresses
 			declareC: 'static char *trampolineAddresses[NumTrampolines*2]';
 		var: #objectReferencesInRuntime
-			declareC: 'static sqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
+			declareC: 'static usqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
 		var: #labelCounter
 			type: #int;
 		var: #traceFlags

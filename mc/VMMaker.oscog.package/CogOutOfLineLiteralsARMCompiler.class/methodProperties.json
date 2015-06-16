@@ -2,7 +2,7 @@
 	"class" : {
 		"literalsManagerClass" : "eem 6/8/2015 16:50" },
 	"instance" : {
-		"concretizeLiteral" : "eem 6/10/2015 17:37",
+		"concretizeLiteral" : "eem 6/16/2015 13:04",
 		"getDefaultCogCodeSize" : "eem 6/10/2015 14:02",
 		"inlineCacheTagAt:" : "eem 6/15/2015 17:50",
 		"isPCDependent" : "eem 6/9/2015 21:12",
@@ -14,11 +14,13 @@
 		"moveCw:intoR:" : "eem 6/10/2015 13:46",
 		"outOfLineLiteralOpcodeLimit" : "eem 6/9/2015 21:00",
 		"pcRelativeAddressAt:" : "eem 6/15/2015 17:48",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 6/16/2015 12:30",
 		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 6/15/2015 12:05",
 		"rewriteInlineCacheAt:tag:target:" : "eem 6/15/2015 12:05",
+		"rewriteInlineCacheTag:at:" : "eem 6/16/2015 12:39",
 		"setIsUnique" : "eem 6/10/2015 19:27",
 		"setLiteralOpcodeIndex:" : "eem 6/10/2015 19:27",
 		"sizePCDependentInstructionAt:" : "eem 6/10/2015 17:44",
 		"storeLiteral:beforeFollowingAddress:" : "eem 6/14/2015 10:02",
 		"updateLabel:" : "eem 6/9/2015 09:46",
-		"usesOutOfLineLiteral" : "eem 6/10/2015 18:01" } }
+		"usesOutOfLineLiteral" : "eem 6/16/2015 12:54" } }

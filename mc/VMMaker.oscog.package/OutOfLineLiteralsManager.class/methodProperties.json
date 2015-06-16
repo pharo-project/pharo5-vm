@@ -1,6 +1,7 @@
 {
 	"class" : {
-		"declareCVarsIn:" : "eem 6/15/2015 20:34" },
+		"declareCVarsIn:" : "eem 6/15/2015 20:34",
+		"isNonArgumentImplicitReceiverVariableName:" : "eem 6/16/2015 10:25" },
 	"instance" : {
 		"allocateLiteral:" : "eem 6/10/2015 19:30",
 		"allocateLiterals:" : "eem 6/9/2015 09:27",
@@ -8,11 +9,13 @@
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
 		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
 		"classRefInClosedPICAt:" : "eem 6/16/2015 09:29",
-		"cogit:" : "eem 6/11/2015 16:44",
+		"cogit:" : "eem 6/16/2015 11:36",
 		"dumpLiterals:" : "eem 6/11/2015 14:15",
 		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
-		"literalInstructionAt:" : "eem 6/9/2015 08:49",
-		"literalInstructionInRange:" : "eem 6/15/2015 18:03",
+		"literalBytesFollowingBranchInClosedPIC" : "eem 6/16/2015 11:40",
+		"literalBytesFollowingJumpInClosedPIC" : "eem 6/16/2015 11:32",
+		"literalInstructionAt:" : "eem 6/16/2015 12:06",
+		"literalInstructionInRange:" : "eem 6/16/2015 13:01",
 		"locateLiteral:" : "eem 6/11/2015 12:47",
 		"mustDumpLiterals:" : "eem 6/11/2015 13:16",
 		"objRefInClosedPICAt:" : "eem 6/16/2015 09:26",

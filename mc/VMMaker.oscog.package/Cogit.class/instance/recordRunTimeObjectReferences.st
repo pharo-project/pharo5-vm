@@ -11,5 +11,5 @@ recordRunTimeObjectReferences
 				[self error: 'attempt to generate run-time routine containing young object reference.  Cannot initialize Cogit run-time.'].
 			 objectReferencesInRuntime
 				at: runtimeObjectRefIndex
-				put: (instruction address + instruction machineCodeSize) asInteger.
+				put: instruction mapEntryAddress asUnsignedInteger.
 			 runtimeObjectRefIndex := runtimeObjectRefIndex + 1]]
