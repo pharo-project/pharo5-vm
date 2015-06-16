@@ -1,7 +1,5 @@
 garbage collection
-checkMaybeObjRefAt: mcpc
-	| maybeObject |
-	maybeObject := backEnd literalBeforeFollowingAddress: mcpc.
+checkMaybeObjRefInClosedPIC: maybeObject
 	maybeObject = 0 ifTrue:
 		[^true].
 	(objectRepresentation couldBeObject: maybeObject) ifFalse:

@@ -5,14 +5,14 @@ mapObjectReferencesInClosedPIC: cPIC
 	<var: #cPIC type: #'CogMethod *'>
 	| pc refersToYoung |
 	pc := cPIC asInteger + firstCPICCaseOffset.
-	refersToYoung := self updateMaybeObjRefAt: pc - backEnd jumpLongByteSize.
+	refersToYoung := self updateMaybeObjRefInClosedPICAt: pc - backEnd jumpLongByteSize.
 	pc := pc + cPICCaseSize.
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
-			[(self updateMaybeObjRefAt: pc - backEnd jumpLongConditionalByteSize - backEnd loadLiteralByteSize) ifTrue:
+			[(self updateMaybeClassRefAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 				[refersToYoung := true]].
-		(self updateMaybeObjRefAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
+		(self updateMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 			[refersToYoung := true].
 		pc := pc + cPICCaseSize].
 	^refersToYoung
