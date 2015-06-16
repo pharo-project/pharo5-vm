@@ -1,6 +1,6 @@
 {
 	"class" : {
-		 },
+		"declareCVarsIn:" : "eem 6/15/2015 20:34" },
 	"instance" : {
 		"allocateLiteral:" : "eem 6/10/2015 19:30",
 		"allocateLiterals:" : "eem 6/9/2015 09:27",
