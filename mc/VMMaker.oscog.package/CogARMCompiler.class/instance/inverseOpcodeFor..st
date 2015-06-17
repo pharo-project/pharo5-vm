@@ -10,4 +10,6 @@ inverseOpcodeFor: armOpcode
 			[MoveOpcode]		->	[MoveNotOpcode].
 			[MoveNotOpcode]	->	[MoveOpcode].
 			[SubOpcode]		->	[AddOpcode] }
-		otherwise: [self error: 'opcode has no inverse']
+		otherwise:
+			[self error: 'opcode has no inverse'.
+			 -1]

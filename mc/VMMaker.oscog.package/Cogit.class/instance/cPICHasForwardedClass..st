@@ -8,7 +8,7 @@ cPICHasForwardedClass: cPIC
 		- backEnd jumpLongConditionalByteSize.
 	2 to: cPIC cPICNumCases do:
 		[:i| | classIndex |
-		classIndex := backEnd literalBeforeFollowingAddress: pc - backEnd loadLiteralByteSize.
+		classIndex := literalsManager classRefInClosedPICAt: pc.
 		(objectMemory isForwardedClassIndex: classIndex) ifTrue:
 			[^true].
 		pc := pc + cPICCaseSize].

@@ -54,14 +54,13 @@ declareCVarsIn: aCCodeGenerator
 		var: #ceUnlockVMOwner
 			declareC: 'void (*ceUnlockVMOwner)(void)';
 		var: #postCompileHook
-			declareC: 'void (*postCompileHook)(CogMethod *, void *)';
+			declareC: 'void (*postCompileHook)(CogMethod *)';
 		var: #openPICList declareC: 'CogMethod *openPICList = 0';
 		var: #maxMethodBefore type: #'CogBlockMethod *'.
 	aCCodeGenerator
 		declareVar: 'aMethodLabel' type: #'AbstractInstruction'; "Has to come lexicographically before backEnd & methodLabel"
 		var: #backEnd declareC: 'AbstractInstruction * const backEnd = &aMethodLabel';
-		var: #methodLabel declareC: 'AbstractInstruction * const methodLabel = &aMethodLabel';
-		var: #primInvokeLabel type: #'AbstractInstruction *'.
+		var: #methodLabel declareC: 'AbstractInstruction * const methodLabel = &aMethodLabel'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
 					stackOverflowCall sendMiss
@@ -90,7 +89,7 @@ declareCVarsIn: aCCodeGenerator
 		var: #trampolineAddresses
 			declareC: 'static char *trampolineAddresses[NumTrampolines*2]';
 		var: #objectReferencesInRuntime
-			declareC: 'static sqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
+			declareC: 'static usqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
 		var: #labelCounter
 			type: #int;
 		var: #traceFlags

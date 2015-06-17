@@ -6,7 +6,6 @@ compileCogMethod: selector
 						  or: [objectMemory isYoung: selector].
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.
 	inBlock := false.
-	primInvokeLabel := nil.
 	postCompileHook := nil.
 	maxLitIndex := -1.
 	extra := ((primitiveIndex := coInterpreter primitiveIndexOf: methodObj) > 0

@@ -49,6 +49,7 @@ compileInterpreterPrimitive: primitiveRoutine
 	"If required, set primitiveFunctionPointer and newMethod"
 	(flags anyMask: PrimCallNeedsPrimitiveFunction) ifTrue:
 		[self MoveCw: primitiveRoutine asInteger R: TempReg.
+		 primSetFunctionLabel :=
 		 self MoveR: TempReg Aw: coInterpreter primitiveFunctionPointerAddress].
 	(flags anyMask: PrimCallNeedsNewMethod+PrimCallMayCallBack) ifTrue:
 		["The ceActivateFailingPrimitiveMethod: machinery can't handle framelessness."

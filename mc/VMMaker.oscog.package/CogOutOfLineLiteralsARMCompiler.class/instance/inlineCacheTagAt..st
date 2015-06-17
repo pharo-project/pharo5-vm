@@ -1,3 +1,3 @@
 inline cacheing
-inlineCacheTagAt: address
-	^objectMemory longAt: (self pcRelativeAddressAt: address - 8)
+inlineCacheTagAt: followingAddress
+	^objectMemory longAt: (self pcRelativeAddressAt: followingAddress - 8)

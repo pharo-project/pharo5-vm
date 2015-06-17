@@ -15,6 +15,7 @@ compileBlockBodies
 		[blockStart := self blockStartAt: compiledBlocksCount.
 		 self scanBlock: blockStart.
 		 initialOpcodeIndex := opcodeIndex.
+		 literalsManager saveForBlockCompile.
 		 self cppIf: #NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
@@ -39,6 +40,7 @@ compileBlockBodies
 					inSmalltalk: [initialOpcodeIndex to: opcodeIndex - 1 do:
 									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
+				 literalsManager resetForBlockCompile.
 				 self cppIf: #NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].

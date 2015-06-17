@@ -29,5 +29,5 @@ concretizeInvertibleDataOperationCqR: armOpcode
 					 "Then armOpcode reg, temp reg, lsr #(32-hb)"
 					 self machineCodeAt: 4 put: (self dataOpType: armOpcode rd: rn  rn: rn rm: ConcreteIPReg lsr: 32 - hb).
 					^machineCodeSize := 8]].
-			 ^self concretizeDataOperationCwR: armOpcode].
+			 ^self concretizeDataOperationCqR: armOpcode].
 	^0 "to keep Slang happy"

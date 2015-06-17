@@ -9,8 +9,13 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 					primitiveIndexOfMethod: cogMethod methodObject
 					header: cogMethod methodHeader.
 	flags := coInterpreter primitivePropertyFlags: primIndex.
+	(flags anyMask: PrimCallNeedsPrimitiveFunction) ifTrue:
+		[backEnd
+			storeLiteral: primFunctionPointer asUnsignedInteger
+			beforeFollowingAddress: cogMethod asUnsignedInteger
+									+ (externalSetPrimOffsets at: cogMethod cmNumArgs)].
 	"See compileInterpreterPrimitive:"
-	(flags bitAnd: PrimCallMayCallBack) ~= 0
+	(flags anyMask: PrimCallMayCallBack)
 		ifTrue:
 			[address := cogMethod asUnsignedInteger
 						+ (externalPrimJumpOffsets at: cogMethod cmNumArgs).
@@ -25,4 +30,6 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 						rewriteCallFullAt: address
 						target: (self cCode: [primFunctionPointer asUnsignedInteger]
 									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])].
-	processor flushICacheFrom: address asUnsignedInteger to: address asUnsignedInteger + extent
+	processor
+		flushICacheFrom: cogMethod asUnsignedInteger + cmNoCheckEntryOffset
+		to: address asUnsignedInteger + extent
