@@ -34,7 +34,7 @@ picDataFor: descriptor Annotation: annotation Mcpc: mcpc Bcpc: bcpc Method: cogM
 			sendTable = superSendTrampolines ifTrue:
 				[methodClassIfSuper := coInterpreter methodClassOf: (self cCoerceSimple: cogMethodArg to: #'CogMethod *') methodObject].
 			sendTable = directedSuperSendTrampolines ifTrue:
-				[association := backEnd literalBeforeInlineCacheTagAt: mcpc.
+				[association := backEnd literalBeforeInlineCacheTagAt: mcpc asUnsignedInteger.
 				 methodClassIfSuper := objectRepresentation valueOfAssociation: association].
 			tuple := self picDataForSendTo: targetMethod
 						methodClassIfSuper: methodClassIfSuper
