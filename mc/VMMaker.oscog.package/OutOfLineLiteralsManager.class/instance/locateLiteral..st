@@ -21,7 +21,7 @@ locateLiteral: aLiteral
 		operand0: aLiteral;
 		setLiteralOpcodeIndex: -1. "means as-yet-unassigned; see literalInstructionInRange:"
 	nextLiteralIndex := nextLiteralIndex + 1.
-	"Record the opcodeIndex of the first dependent instructuon (the first instruction that references an out-of-line literal)"
+	"Record the opcodeIndex of the first dependent instruction (the first instruction that references an out-of-line literal)"
 	firstOpcodeIndex > cogit getOpcodeIndex ifTrue:
 		[firstOpcodeIndex := cogit getOpcodeIndex - 1].
 	^litInst
