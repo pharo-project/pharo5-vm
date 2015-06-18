@@ -1,4 +1,4 @@
-inline cacheing
+generate machine code
 outputMachineCodeAt: targetAddress
 	"Override to move machine code a word at a time."
 	<inline: true>

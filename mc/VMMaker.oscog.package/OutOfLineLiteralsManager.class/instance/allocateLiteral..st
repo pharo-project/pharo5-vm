@@ -8,12 +8,7 @@ allocateLiteral: aLiteral
 	nextLiteralIndex >= literalsSize ifTrue:
 		[self allocateLiterals: literalsSize + 8].
 	litInst := self literalInstructionAt: nextLiteralIndex.
-	litInst
-		opcode: Literal;
-		operand0: aLiteral;
-		setIsUnique;
-		setLiteralOpcodeIndex: -1; "means as-yet-unassigned; see literalInstructionInRange:"
-		dependent: nil.
+	litInst initializeUniqueLiteral: aLiteral.
 	nextLiteralIndex := nextLiteralIndex + 1.
 	"Record the opcodeIndex of the first dependent instruction (the first instruction that references an out-of-line literal)"
 	firstOpcodeIndex > cogit getOpcodeIndex ifTrue:

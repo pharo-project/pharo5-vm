@@ -19,10 +19,7 @@ allocateLiterals: initialNumLiterals
 				[:i|
 				existingInst := self literalInstructionAt: i.
 				newInst := self addressOf: (newLiterals at: i).
-				newInst
-					opcode: Literal;
-					operand0: (existingInst operands at: 0);
-					setLiteralOpcodeIndex: existingInst literalOpcodeIndex.
+				newInst cloneLiteralFrom: existingInst.
 				self assert: existingInst dependent isNil.
 				existingInst dependent: newInst].
 			0 to: cogit getOpcodeIndex - 1 do:

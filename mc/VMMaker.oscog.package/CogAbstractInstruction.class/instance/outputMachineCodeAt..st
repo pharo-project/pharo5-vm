@@ -1,4 +1,4 @@
-encoding
+generate machine code
 outputMachineCodeAt: targetAddress
 	"By default move machine code a byte at a time
 	  Subclasses with coarser granularity can override as desired."
