@@ -1,7 +1,7 @@
 compile abstract instructions
 locateLiteral: aLiteral
 	"Search for a Literal instruction that is in-range and answer it.  Otherwise
-	 allocate a new Literal instruction for the literal and answer it."
+	 allocate a new sharable Literal instruction for the literal and answer it."
 	<returnTypeC: #'AbstractInstruction *'>
 	<inline: false>
 	| litInst |
@@ -19,7 +19,9 @@ locateLiteral: aLiteral
 	litInst
 		opcode: Literal;
 		operand0: aLiteral;
-		setLiteralOpcodeIndex: -1. "means as-yet-unassigned; see literalInstructionInRange:"
+		setIsSharable;
+		setLiteralOpcodeIndex: -1; "means as-yet-unassigned; see literalInstructionInRange:"
+		dependent: nil.
 	nextLiteralIndex := nextLiteralIndex + 1.
 	"Record the opcodeIndex of the first dependent instruction (the first instruction that references an out-of-line literal)"
 	firstOpcodeIndex > cogit getOpcodeIndex ifTrue:

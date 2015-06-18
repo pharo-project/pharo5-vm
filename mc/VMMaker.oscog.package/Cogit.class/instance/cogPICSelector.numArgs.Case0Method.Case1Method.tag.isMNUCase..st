@@ -21,7 +21,6 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
 	self allocateOpcodes: numPICCases * 9 bytecodes: 0.
-	literalsManager resetLiterals: numPICCases * 2.
 	methodLabel address: startAddress; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self compileCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		Case0: case0CogMethod

@@ -7,4 +7,4 @@ initializeBackend
 	callerSavedRegMask := backEnd callerSavedRegisterMask.
 	backEnd hasVarBaseRegister ifTrue:
 		[self assert: ((self registerMaskFor: VarBaseReg) noMask: callerSavedRegMask)].
-	literalsManager allocateLiterals: 4; resetLiterals: 4
+	literalsManager allocateLiterals: 4; resetLiterals

@@ -21,7 +21,6 @@ compileCogMethod: selector
 	self allocateOpcodes: (numBytecodes + extra) * self estimateOfAbstractOpcodesPerBytecodes
 		bytecodes: numBytecodes
 		ifFail: [^coInterpreter cCoerceSimple: MethodTooBig to: #'CogMethod *'].
-	literalsManager resetLiterals: (objectMemory literalCountOf: methodObj).
 	(numBlocks := self scanMethod) < 0 ifTrue:
 		[^coInterpreter cCoerceSimple: numBlocks to: #'CogMethod *'].
 	numCleanBlocks := self scanForCleanBlocks.

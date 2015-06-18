@@ -1,6 +1,6 @@
 compile abstract instructions
 allocateLiteral: aLiteral
-	"Allocate a n unsharable Literal instruction for the literal and answer it."
+	"Allocate an unsharable Literal instruction for the literal and answer it."
 	<returnTypeC: #'AbstractInstruction *'>
 	<inline: true>
 	| litInst |
@@ -12,7 +12,8 @@ allocateLiteral: aLiteral
 		opcode: Literal;
 		operand0: aLiteral;
 		setIsUnique;
-		setLiteralOpcodeIndex: -1. "means as-yet-unassigned; see literalInstructionInRange:"
+		setLiteralOpcodeIndex: -1; "means as-yet-unassigned; see literalInstructionInRange:"
+		dependent: nil.
 	nextLiteralIndex := nextLiteralIndex + 1.
 	"Record the opcodeIndex of the first dependent instruction (the first instruction that references an out-of-line literal)"
 	firstOpcodeIndex > cogit getOpcodeIndex ifTrue:

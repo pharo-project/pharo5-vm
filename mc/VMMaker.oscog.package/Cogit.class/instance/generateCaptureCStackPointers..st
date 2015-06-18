@@ -10,7 +10,6 @@ generateCaptureCStackPointers: captureFramePointer
 	| startAddress |
 	<inline: false>
 	self allocateOpcodes: 32 bytecodes: 0.
-	literalsManager resetLiterals: 5.
 	initialPC := 0.
 	endPC := numAbstractOpcodes - 1.
 	startAddress := methodZoneBase.

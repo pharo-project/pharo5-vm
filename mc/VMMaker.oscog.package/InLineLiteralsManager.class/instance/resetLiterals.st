@@ -1,0 +1,3 @@
+initialization
+resetLiterals
+	<inline: true>

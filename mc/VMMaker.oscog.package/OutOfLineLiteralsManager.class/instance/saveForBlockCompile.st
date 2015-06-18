@@ -1,4 +1,4 @@
-compile abstract instructions
+initialization
 saveForBlockCompile
 	savedFirstOpcodeIndex := firstOpcodeIndex.
 	savedNextLiteralIndex := nextLiteralIndex.

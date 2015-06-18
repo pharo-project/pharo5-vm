@@ -5,7 +5,6 @@ maybeGenerateCheckFeatures
 	backEnd numCheckFeaturesOpcodes = 0 ifTrue:
 		[^nil].
 	self allocateOpcodes: backEnd numCheckFeaturesOpcodes bytecodes: 0.
-	literalsManager resetLiterals: 1.
 	initialPC := 0.
 	endPC := numAbstractOpcodes - 1.
 	startAddress := methodZoneBase.

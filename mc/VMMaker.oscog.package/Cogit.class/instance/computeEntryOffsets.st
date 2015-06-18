@@ -7,7 +7,6 @@ computeEntryOffsets
 	| sendMissCall |
 	<var: 'sendMissCall' type: #'AbstractInstruction *'>
 	self allocateOpcodes: 24 bytecodes: 0.
-	literalsManager resetLiterals: 5.
 	methodOrBlockNumArgs := 0.
 	sendMissCall := self compileAbort.
 	self compileEntry.
