@@ -2,7 +2,7 @@ initialization
 cloneLiteralFrom: existingLiteral
 	"For out-of-line literal support, clone a literal from a literal."
 	<var: 'existingLiteral' type: #'AbstractInstruction *'>
-	self assert: (existingLiteral opcode = Literal and: [dependent isNil]).
+	self assert: (existingLiteral opcode = Literal and: [dependent isNil and: [address isNil]]).
 	opcode := Literal.
 	annotation := existingLiteral annotation.
 	operands

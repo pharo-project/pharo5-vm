@@ -2,11 +2,12 @@
 	"class" : {
 		"IPReg" : "eem 3/27/2015 18:11",
 		"ISA" : "eem 4/21/2015 22:53",
+		"PCReg" : "eem 6/18/2015 14:41",
 		"VarBaseReg" : "eem 3/27/2015 18:45",
 		"defaultCompilerClass" : "eem 6/15/2015 17:47",
 		"filteredInstVarNames" : "eem 6/10/2015 16:40",
 		"identifyingPredefinedMacros" : "eem 4/21/2015 22:40",
-		"initialize" : "eem 6/10/2015 10:45",
+		"initialize" : "eem 6/18/2015 14:41",
 		"isAbstract" : "eem 6/15/2015 19:22",
 		"machineCodeDeclaration" : "eem 6/10/2015 16:38",
 		"orOpcode" : "eem 3/18/2015 09:20",

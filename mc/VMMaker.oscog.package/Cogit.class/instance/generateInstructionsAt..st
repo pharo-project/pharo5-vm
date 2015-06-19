@@ -27,8 +27,8 @@ generateInstructionsAt: eventualAbsoluteAddress
 			ifFalse:
 				[absoluteAddress := abstractInstruction concretizeAt: absoluteAddress]].
 	0 to: pcDependentIndex - 1 do:
-		[:i|
-		fixup := self fixupAt: i.
+		[:j|
+		fixup := self fixupAt: j.
 		abstractInstruction := self abstractInstructionAt: fixup instructionIndex.
 		breakPC = absoluteAddress ifTrue:
 			[self halt: 'breakPC reached in generateInstructionsAt:'].

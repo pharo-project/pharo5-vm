@@ -2,8 +2,9 @@ initialization
 initializeSharableLiteral: literal
 	"For out-of-line literal support, initialize a sharable literal."
 	opcode := Literal.
-	dependent := nil. "separate := nil for Slang"
-	annotation := nil.
+	annotation := nil. "separate := nil for Slang"
+	address := nil.
+	dependent := nil.
 	operands
 		at: 0 put: literal;
 		at: 1 put: true;		"isSharable/isUnique not"

@@ -7,8 +7,11 @@ concretizeLiteral
 				ifTrue: [literalAsInstruction address]
 				ifFalse: [self cCode: [literalAsInstruction asUnsignedInteger]
 							inSmalltalk: [literalAsInstruction]].
-	self assert: (dependent notNil and: [dependent opcode = Literal and: [dependent address = address]]).
+	self assert: (dependent notNil and: [dependent opcode = Literal]).
 	dependent annotation ifNotNil:
 		[self assert: annotation isNil.
 		 annotation := dependent annotation].
-	self machineCodeAt: 0 put: literal
+	dependent address ifNotNil: [self assert: dependent address = address].
+	dependent address: address.
+	self machineCodeAt: 0 put: literal.
+	machineCodeSize := 4

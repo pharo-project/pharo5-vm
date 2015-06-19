@@ -12,7 +12,8 @@ dumpLiterals: generateBranchAround
 	lastDumpedLiteralIndex to: nextLiteralIndex - 1 do:
 		[:i|
 		litInst := self literalInstructionAt: i.
-		(cogit gen: Literal operand: (litInst operands at: 0)) dependent: litInst].
+		(cogit gen: Literal operand: (litInst operands at: 0)) dependent: litInst.
+		litInst setLiteralOpcodeIndex: cogit getOpcodeIndex].
 	generateBranchAround ifTrue:
 		[jump jmpTarget: cogit Label].
 

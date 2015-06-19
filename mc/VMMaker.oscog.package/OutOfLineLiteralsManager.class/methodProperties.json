@@ -10,7 +10,7 @@
 		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
 		"classRefInClosedPICAt:" : "eem 6/16/2015 17:33",
 		"cogit:" : "eem 6/16/2015 11:36",
-		"dumpLiterals:" : "eem 6/11/2015 14:15",
+		"dumpLiterals:" : "eem 6/18/2015 16:17",
 		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
 		"literalBytesFollowingBranchInClosedPIC" : "eem 6/16/2015 11:40",
 		"literalBytesFollowingJumpInClosedPIC" : "eem 6/16/2015 11:32",

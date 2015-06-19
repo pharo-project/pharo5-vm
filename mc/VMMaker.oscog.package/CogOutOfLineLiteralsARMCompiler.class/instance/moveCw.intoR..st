@@ -5,6 +5,7 @@ moveCw: constant intoR: destReg
 	 <var: 'constant' type: #usqInt>
 	<inline: true>
 	self assert: (cogit addressIsInCurrentCompilation: dependent address).
+	self assert: (dependent address - (address + 8)) abs < (1<<12).
 	self machineCodeAt: 0
 		put: (self
 				ldr: destReg

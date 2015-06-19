@@ -4,4 +4,4 @@ isPCDependent
 	 that refers to a literal depends on the address of the literal, so add them in addition to the jumps."
 	^self isJump
 	  or: [opcode = AlignmentNops
-	  or: [dependent notNil and: [dependent opcode = Literal]]]
+	  or: [opcode ~= Literal and: [dependent notNil and: [dependent opcode = Literal]]]]

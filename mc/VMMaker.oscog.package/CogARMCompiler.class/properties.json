@@ -18,6 +18,7 @@
 		"CmpNotOpcode",
 		"CmpOpcode",
 		"ConcreteIPReg",
+		"ConcretePCReg",
 		"ConcreteVarBaseReg",
 		"EQ",
 		"GE",

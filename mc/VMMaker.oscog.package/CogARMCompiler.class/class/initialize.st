@@ -32,6 +32,7 @@ initialize
 
 	ConcreteVarBaseReg := 10.
 	ConcreteIPReg := 12. "IP, The Intra-Procedure-call scratch register."
+	ConcretePCReg := 15.
 	
 	"Condition Codes. Note that cc=16rF is NOT ALLOWED as a condition; it specifies an extension instruction. See e.g.ARM_ARM v5 DDI01001.pdf A3.2.1"
 	EQ := 0.
