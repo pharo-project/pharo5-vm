@@ -23,7 +23,7 @@ closedPICRefersToUnmarkedObject: cPIC
 		((objectRepresentation couldBeObject: object)
 		 and: [(objectMemory isMarked: object) not]) ifTrue:
 			[^true].
-		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc - offsetToJump.
+		entryPoint := literalsManager cPICCase: i jumpTargetBefore: pc - offsetToJump.
 		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
 		self assert: (entryPoint > methodZoneBase and: [entryPoint < methodZone freeStart]).
 		(entryPoint asUnsignedInteger < cPIC asUnsignedInteger

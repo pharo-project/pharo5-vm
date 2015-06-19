@@ -7,7 +7,7 @@ noTargetsFreeInClosedPIC: cPIC
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	1 to: cPIC cPICNumCases do:
 		[:i|
-		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
+		entryPoint := literalsManager cPICCase: i jumpTargetBefore: pc.
 		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
 		(entryPoint < cPIC asInteger
 		 or: [entryPoint > (cPIC asInteger + cPIC blockSize)]) ifTrue:

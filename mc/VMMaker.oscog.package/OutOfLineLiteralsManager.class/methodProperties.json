@@ -6,6 +6,8 @@
 		"allocateLiteral:" : "eem 6/18/2015 13:31",
 		"allocateLiterals:" : "eem 6/18/2015 13:33",
 		"assertValidAnnotation:for:" : "eem 6/11/2015 16:07",
+		"cPICCase:jumpTargetBefore:" : "eem 6/18/2015 18:41",
+		"cPICCase:relocateJumpLongBefore:by:" : "eem 6/18/2015 18:41",
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
 		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
 		"classRefInClosedPICAt:" : "eem 6/16/2015 17:33",

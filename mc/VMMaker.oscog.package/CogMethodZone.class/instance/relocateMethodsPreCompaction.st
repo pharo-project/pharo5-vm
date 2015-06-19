@@ -7,7 +7,7 @@ relocateMethodsPreCompaction
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	cogMethod := cogit cCoerceSimple: baseAddress to: #'CogMethod *'.
-	[cogMethod asUnsignedInteger] whileTrue:
+	[cogMethod asUnsignedInteger < mzFreeStart] whileTrue:
 		[cogMethod cmType ~= CMFree ifTrue:
 			[cogMethod cmType = CMClosedPIC
 				ifTrue: [cogit relocateCallsInClosedPIC: cogMethod]

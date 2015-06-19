@@ -21,10 +21,7 @@ generateMapAt: addressOrNull start: startAddress
 				[maxDelta := (delta min: MaxX2NDisplacement) bitClear: DisplacementMask.
 				 self assert: maxDelta >> AnnotationShift <= DisplacementMask.
 				 addressOrNull ifNotNil:
-					[objectMemory
-						byteAt: addressOrNull - length
-						put: maxDelta >> AnnotationShift + DisplacementX2N.
-					 self traceMap: IsDisplacementX2N
+					[self addToMap: IsDisplacementX2N
 						instruction: instruction
 						byte: maxDelta >> AnnotationShift + DisplacementX2N
 						at: addressOrNull - length
@@ -33,29 +30,14 @@ generateMapAt: addressOrNull start: startAddress
 				 length := length + 1].
 			 addressOrNull ifNotNil:
 				[mapEntry := delta + ((annotation min: IsSendCall) << AnnotationShift).
-				 objectMemory byteAt: addressOrNull - length put: mapEntry.
-				 self traceMap: annotation
-					instruction: instruction
-					byte: mapEntry
-					at: addressOrNull - length
-					for: mcpc].
+				 self addToMap: annotation instruction: instruction byte: mapEntry at: addressOrNull - length for: mcpc].
 			 location := location + (delta * backEnd codeGranularity).
 			 length := length + 1.
 			 annotation > IsSendCall ifTrue: "Add the necessary IsAnnotationExtension"
 				[addressOrNull ifNotNil:
 					[mapEntry := IsAnnotationExtension << AnnotationShift + (annotation - IsSendCall).
-					 objectMemory byteAt: addressOrNull - length put: mapEntry.
-					 self traceMap: annotation
-						instruction: instruction
-						byte: mapEntry
-						at: addressOrNull - length
-						for: mcpc].
+					 self addToMap: annotation instruction: instruction byte: mapEntry at: addressOrNull - length for: mcpc].
 				 length := length + 1]]].
 	addressOrNull ifNotNil:
-		[objectMemory byteAt: addressOrNull - length put: MapEnd.
-		 self traceMap: MapEnd
-			instruction: nil
-			byte: MapEnd
-			at: addressOrNull - length
-			for: 0].
+		[self addToMap: MapEnd instruction: nil byte: MapEnd at: addressOrNull - length for: 0].
 	^length + 1

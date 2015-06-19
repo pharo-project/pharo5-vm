@@ -7,7 +7,7 @@ cPIC: cPIC HasTarget: targetMethod
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	1 to: cPIC cPICNumCases do:
 		[:i|
-		target = (backEnd jumpLongTargetBeforeFollowingAddress: pc) ifTrue:
+		target = (literalsManager cPICCase: i jumpTargetBefore: pc) ifTrue:
 			[^true].
 		pc := pc + cPICCaseSize].
 	^false

@@ -4,6 +4,8 @@
 	"instance" : {
 		"allocateLiterals:" : "eem 6/8/2015 17:06",
 		"assertValidAnnotation:for:" : "eem 6/11/2015 16:05",
+		"cPICCase:jumpTargetBefore:" : "eem 6/18/2015 18:37",
+		"cPICCase:relocateJumpLongBefore:by:" : "eem 6/18/2015 18:37",
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 11:20",
 		"checkQuickConstant:forInstruction:" : "eem 6/8/2015 11:20",
 		"classRefInClosedPICAt:" : "eem 6/16/2015 11:10",

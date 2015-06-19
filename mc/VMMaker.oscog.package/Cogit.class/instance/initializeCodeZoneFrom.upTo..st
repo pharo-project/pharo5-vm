@@ -7,13 +7,13 @@ initializeCodeZoneFrom: startAddress upTo: endAddress
 	minValidCallAddress := (codeBase min: coInterpreter interpretAddress)
 								min: coInterpreter primitiveFailAddress.
 	self initializeBackend.
+	methodZone manageFrom: methodZoneBase to: endAddress.
 	self maybeGenerateCheckFeatures.
 	self maybeGenerateICacheFlush.
 	self generateVMOwnerLockFunctions.
 	ceGetSP := self cCoerceSimple: self genGetLeafCallStackPointer to: #'unsigned long (*)(void)'.
 	self generateStackPointerCapture.
 	self generateTrampolines.
-	self cCode: '' inSmalltalk: [methodZone zoneEnd: endAddress]. "so that simulator works"
 	methodZone manageFrom: methodZoneBase to: endAddress.
 	self computeEntryOffsets.
 	self generateClosedPICPrototype.
