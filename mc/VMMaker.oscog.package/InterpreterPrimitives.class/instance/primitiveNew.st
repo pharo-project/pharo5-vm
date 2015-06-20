@@ -3,7 +3,7 @@ primitiveNew
 	self cppIf: NewspeakVM
 		ifTrue: "For the mirror prims check that the class obj is actually a valid class."
 			[(argumentCount < 1
-			  or: [self addressCouldBeClassObj: self stackTop]) ifFalse:
+			  or: [self objCouldBeClassObj: self stackTop]) ifFalse:
 				[self primitiveFailFor: PrimErrBadArgument]].
 	objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
