@@ -9,11 +9,13 @@ commonAt: stringy
 	<inline: true> "to get it inlined in primitiveAt and primitiveStringAt"
 	self initPrimCall.
 	rcvr := self stackValue: 1.
+	index := self stackTop.
 	(objectMemory isImmediate: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	index := self stackTop.
 	"No need to test for large positive integers here.  No object has 1g elements"
-	(objectMemory isIntegerObject: index) ifFalse:
+	((objectMemory isNonIntegerObject: index)
+	 or: [argumentCount > 1 "e.g. object:basicAt:"
+		 and: [objectMemory isObjectForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	index := objectMemory integerValueOf: index.
 	result := self stObject: rcvr at: index.

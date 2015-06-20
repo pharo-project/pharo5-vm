@@ -6,6 +6,12 @@ primitiveAllInstances
 
 	<export: true>
 	| result |
+	self cppIf: NewspeakVM
+		ifTrue: "For the mirror prims check that the class obj is actually a valid class."
+			[(argumentCount < 1
+			  or: [(objectMemory isNonImmediate: self stackTop)
+				  and: [self objCouldBeClassObj: self stackTop]]) ifFalse:
+				[self primitiveFailFor: PrimErrBadArgument]].
 	result := objectMemory allInstancesOf: self stackTop.
 	(objectMemory isIntegerObject: result) ifTrue:
 		[objectMemory growToAccomodateContainerWithNumSlots: (objectMemory integerValueOf: result).

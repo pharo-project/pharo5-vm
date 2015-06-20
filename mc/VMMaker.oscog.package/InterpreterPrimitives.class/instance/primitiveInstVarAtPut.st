@@ -2,10 +2,13 @@ object access primitives
 primitiveInstVarAtPut
 	| newValue index rcvr hdr fmt totalLength fixedFields |
 	newValue := self stackTop.
-	index := self stackIntegerValue: 1.
+	index := self stackValue: 1.
 	rcvr := self stackValue: 2.
-	self successful ifFalse:
+	((objectMemory isNonIntegerObject: index)
+	 or: [argumentCount > 2 "e.g. object:instVarAt:put:"
+		and: [objectMemory isOopForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
+	index := objectMemory integerValueOf: index.
 	hdr := objectMemory baseHeader: rcvr.
 	fmt := objectMemory formatOfHeader: hdr.
 	totalLength := objectMemory lengthOf: rcvr baseHeader: hdr format: fmt.
