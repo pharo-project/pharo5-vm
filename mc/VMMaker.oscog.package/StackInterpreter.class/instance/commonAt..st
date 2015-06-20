@@ -15,7 +15,7 @@ commonAt: stringy
 	"No need to test for large positive integers here.  No object has 1g elements"
 	((objectMemory isNonIntegerObject: index)
 	 or: [argumentCount > 1 "e.g. object:basicAt:"
-		 and: [objectMemory isObjectForwarded: rcvr]]) ifTrue:
+		 and: [objectMemory isForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	index := objectMemory integerValueOf: index.
 	result := self stObject: rcvr at: index.
