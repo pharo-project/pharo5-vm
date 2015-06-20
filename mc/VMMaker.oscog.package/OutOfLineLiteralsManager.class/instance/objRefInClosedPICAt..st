@@ -1,4 +1,4 @@
 garbage collection
-objRefInClosedPICAt: mcpc
+objRefInClosedPICAt: address
 	<inline: true>
-	^objectMemory longAt: mcpc
+	^objectMemory longAt: address
