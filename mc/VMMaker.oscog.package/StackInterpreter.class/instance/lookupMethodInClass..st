@@ -14,9 +14,7 @@ lookupMethodInClass: class
 			self sendBreakpoint: messageSelector receiver: nil.
 			^self lookupMethodInClass: (self superclassOf: currentClass)].
 		found := self lookupMethodInDictionary: dictionary.
-		found ifTrue:
-			[self maybeCheckPrivacyOfNewMethod: currentClass.
-			 ^currentClass].
+		found ifTrue: [^currentClass].
 		currentClass := self superclassOf: currentClass].
 
 	"Could not find #doesNotUnderstand: -- unrecoverable error."

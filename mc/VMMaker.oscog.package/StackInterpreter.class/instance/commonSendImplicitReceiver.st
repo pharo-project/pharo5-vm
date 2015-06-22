@@ -1,13 +1,13 @@
 send bytecodes
-commonSend
-	"Send a message, starting lookup with the receiver's class."
+commonSendImplicitReceiver
 	"Assume: messageSelector and argumentCount have been set, and that 
 	the receiver and arguments have been pushed onto the stack,"
 	"Note: This method is inlined into the interpreter dispatch loop."
-	<sharedCodeInCase: #singleExtendedSendBytecode>
+	<sharedCodeInCase: #extSendAbsentImplicitBytecode>
 	self sendBreakpoint: messageSelector receiver: (self internalStackValue: argumentCount).
 	self printSends ifTrue:
 		[self printActivationNameForSelector: messageSelector startClass: (objectMemory classForClassTag: lkupClassTag); cr].
-	self internalFindNewMethod: LookupRuleOrdinary.
+	self internalFindNewMethodImplicitReceiver.
+	self shuffleArgumentsAndStoreAbsentReceiver: localAbsentReceiver.
 	self internalExecuteNewMethod.
 	self fetchNextBytecode

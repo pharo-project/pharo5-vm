@@ -18,6 +18,7 @@ initialize
 	ConstMinusOne := objectMemory integerObjectOf: -1.
 
 	methodCache := Array new: MethodCacheSize.
+	nsMethodCache := Array new: NSMethodCacheSize.
 	atCache := Array new: AtCacheTotalSize.
 	self flushMethodCache.
 	gcSemaphoreIndex := 0.

@@ -32,7 +32,8 @@ declareCVarsIn: aCCodeGenerator
 		in: aCCodeGenerator.
 	aCCodeGenerator removeVariable: 'stackPages'.  "this is an implicit receiver in the translated code."
 	NewspeakVM ifFalse:
-		[aCCodeGenerator removeVariable: 'localAbsentReceiver'].
+		[aCCodeGenerator removeVariable: 'localAbsentReceiver'.
+		 aCCodeGenerator removeVariable: 'localAbsentReceiverOrZero'].
 	"This defines bytecodeSetSelector as 0 if MULTIPLEBYTECODESETS
 	 is not defined, for the benefit of the interpreter on slow machines."
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).
@@ -44,6 +45,9 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #methodCache
 		declareC: 'long methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
+	aCCodeGenerator
+		var: #nsMethodCache
+		declareC: 'long nsMethodCache[NSMethodCacheSize + 1 /* ', (NSMethodCacheSize + 1) printString, ' */]'.
 	aCCodeGenerator
 		var: #atCache
 		declareC: 'sqInt atCache[AtCacheTotalSize + 1 /* ', (AtCacheTotalSize + 1) printString, ' */]'.
@@ -65,8 +69,6 @@ declareCVarsIn: aCCodeGenerator
 				array: vmClass primitiveAccessorDepthTable]
 		ifFalse:
 			[aCCodeGenerator removeVariable: #primitiveAccessorDepthTable].
-	(NewspeakVM and: [CheckPrivacyViolations]) ifFalse:
-		[aCCodeGenerator removeVariable: #isPrivateSend].
 	aCCodeGenerator
 		var: #primitiveFunctionPointer
 		declareC: 'void (*primitiveFunctionPointer)()'.

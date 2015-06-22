@@ -27,6 +27,7 @@ initialize
 	enableCog := true.
 
 	methodCache := Array new: MethodCacheSize.
+	nsMethodCache := Array new: NSMethodCacheSize.
 	atCache := Array new: AtCacheTotalSize.
 	self flushMethodCache.
 	cogCompiledCodeCompactionCalledFor := false.

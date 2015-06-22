@@ -8,10 +8,4 @@ extSendAbsentOuterBytecode
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
 	depth := self fetchByte.
-	localAbsentReceiver := self 
-							enclosingObjectAt: depth
-							withObject: self receiver 
-							withMixin: (self methodClassOf: method).
-	CheckPrivacyViolations ifTrue:
-            [isPrivateSend := true].
-	self commonSendAbsent: depth
+	self commonSendOuter: depth

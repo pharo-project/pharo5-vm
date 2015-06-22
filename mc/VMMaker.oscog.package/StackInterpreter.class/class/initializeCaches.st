@@ -2,7 +2,9 @@ initialization
 initializeCaches
 
 	| atCacheEntrySize |
-	MethodCacheEntries := 1024. 
+	NewspeakVM
+		ifTrue: [MethodCacheEntries := 512]
+		ifFalse: [MethodCacheEntries := 1024].
 	MethodCacheSelector := 1.
 	MethodCacheClass := 2.
 	MethodCacheMethod := 3.
@@ -11,6 +13,18 @@ initializeCaches
 	MethodCacheMask := (MethodCacheEntries - 1) * MethodCacheEntrySize.
 	MethodCacheSize := MethodCacheEntries * MethodCacheEntrySize.
 	CacheProbeMax := 3.
+
+	NSMethodCacheEntries := 512.
+	NSMethodCacheSelector := 1.
+	NSMethodCacheClassTag := 2.
+	NSMethodCacheCallingMethod := 3.
+	NSMethodCacheDepthOrLookupRule := 4.
+	NSMethodCacheTargetMethod := 5.
+	NSMethodCachePrimFunction := 6.
+	NSMethodCacheActualReceiver := 7.
+	NSMethodCacheEntrySize := 8.	"Must be power of two for masking scheme."
+	NSMethodCacheMask := NSMethodCacheEntries - 1 * NSMethodCacheEntrySize.
+	NSMethodCacheSize := NSMethodCacheEntries * NSMethodCacheEntrySize.
 
 	AtCacheEntries := 8.  "Must be a power of two"
 	AtCacheOop := 1.

@@ -7,7 +7,7 @@ generateNewspeakSpurStackVM
 				MULTIPLEBYTECODESETS true
 				NewspeakVM true
 				FailImbalancedPrimitives false
-				CheckPrivacyViolations true)
+				EnforceAccessControl true)
 		to: (FileDirectory default directoryNamed: self sourceTree, '/nsspurstacksrc') fullName
 		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
 		including: #()

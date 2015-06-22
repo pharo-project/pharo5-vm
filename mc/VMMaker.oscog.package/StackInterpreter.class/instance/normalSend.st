@@ -9,4 +9,4 @@ normalSend
 	rcvr := self internalStackValue: argumentCount.
 	lkupClassTag := objectMemory fetchClassTagOf: rcvr.
 	self assert: lkupClassTag ~= objectMemory nilObject.
-	self commonSend
+	self commonSendOrdinary

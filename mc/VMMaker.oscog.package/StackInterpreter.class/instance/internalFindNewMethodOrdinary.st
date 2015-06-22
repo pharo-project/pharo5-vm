@@ -1,5 +1,5 @@
 message sending
-internalFindNewMethod: lookupRule
+internalFindNewMethodOrdinary
 	"Find the compiled method to be run when the current messageSelector is sent to the class 'lkupClass', setting the values of 'newMethod' and 'primitiveIndex'."
 	<inline: true>
 	(self inlineLookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifFalse:
@@ -14,9 +14,8 @@ internalFindNewMethod: lookupRule
 			(self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifTrue:
 				[^nil]].
 		 lkupClass := objectMemory classForClassTag: lkupClassTag.
-		 self lookupMethodInClass: lkupClass.
+		 self cppIf: #NewspeakVM
+			ifTrue: [self lookupOrdinarySend]
+			ifFalse: [self lookupMethodInClass: lkupClass].
 		 self internalizeIPandSP.
 		 self addNewMethodToCache: lkupClass].
-	"Clear the flag set in commonSendAbsent and tested in lookupMethodInClass:"
-	(NewspeakVM and: [CheckPrivacyViolations]) ifTrue:
-		[isPrivateSend := false].

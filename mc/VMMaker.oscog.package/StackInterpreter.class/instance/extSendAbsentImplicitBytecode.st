@@ -7,4 +7,4 @@ extSendAbsentImplicitBytecode
 	extA := 0.
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
-	self commonSendAbsentImplicit
+	self commonSendImplicitReceiver.

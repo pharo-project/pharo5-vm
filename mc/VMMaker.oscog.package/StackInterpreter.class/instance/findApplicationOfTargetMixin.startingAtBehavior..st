@@ -10,6 +10,14 @@ findApplicationOfTargetMixin: targetMixin startingAtBehavior: aBehavior
 	mixinApplication := aBehavior.
 	[mixinApplication = objectMemory nilObject
 	 or: [mixinApplication = targetMixin
-	 or: [(mixin := objectMemory fetchPointer: MixinIndex ofObject: mixinApplication) = targetMixin]]] whileFalse:
-		[mixinApplication := objectMemory fetchPointer: SuperclassIndex ofObject: mixinApplication].
+	 or: [(mixin := objectMemory followObjField: MixinIndex ofObject: mixinApplication) = targetMixin]]] whileFalse:
+		[mixinApplication := objectMemory followObjField: SuperclassIndex ofObject: mixinApplication].
+
+	mixinApplication = objectMemory nilObject ifTrue: [
+		self print: 'looking for '; cr.
+		self longPrintOop: targetMixin; cr.
+		self print: ' in behavior '; cr.
+		self longPrintOop: aBehavior; cr.
+	].
+
 	^mixinApplication

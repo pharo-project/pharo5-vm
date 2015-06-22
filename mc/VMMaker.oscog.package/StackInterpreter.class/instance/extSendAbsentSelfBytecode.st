@@ -7,7 +7,4 @@ extSendAbsentSelfBytecode
 	extA := 0.
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
-	localAbsentReceiver := self receiver.
-	CheckPrivacyViolations ifTrue:
-            [isPrivateSend := true].
-	self commonSendAbsent: LookupRuleSelf
+	self commonSendOuter: 0

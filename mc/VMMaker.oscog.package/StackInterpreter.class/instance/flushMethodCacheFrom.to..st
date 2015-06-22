@@ -15,4 +15,6 @@ flushMethodCacheFrom: memStart to: memEnd
 										and: [self oop: (methodCache at: probe + MethodCacheMethod) isLessThan: memEnd]])
 						ifTrue: [methodCache at: probe + MethodCacheSelector put: 0]].
 			probe := probe + MethodCacheEntrySize].
+	self cppIf: NewspeakVM 
+		ifTrue: [1 to: NSMethodCacheSize do: [ :i | nsMethodCache at: i put: 0 ]].
 	self flushAtCache

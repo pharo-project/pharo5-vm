@@ -6,4 +6,6 @@ accessModifierOfMethodHeader: header
 		 01 private
 		 10 protected
 		 11 undefined"
-	^header >> MethodHeaderFlagBitPosition bitAnd: 3
+	^self cppIf: EnforceAccessControl
+		ifTrue: [header >> MethodHeaderFlagBitPosition bitAnd: 3]
+		ifFalse: [AccessModifierPublic]

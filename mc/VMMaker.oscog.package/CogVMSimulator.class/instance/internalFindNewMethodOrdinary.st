@@ -1,5 +1,5 @@
 testing
-internalFindNewMethod: lookupRule
+internalFindNewMethodOrdinary
 "
 	| cName |
 	traceOn ifTrue:
@@ -10,10 +10,7 @@ internalFindNewMethod: lookupRule
 "
 	messageSelector = (objectMemory splObj: SelectorDoesNotUnderstand) ifTrue: [self halt].
 
-	sendCount := sendCount + 1.
-
-	printSends ifTrue:
-		[self cr; print: byteCount; space; printStringOf: messageSelector].
+	self logSend: messageSelector.
 "
 	(sendCount > 1000 and: [sendCount\\10 = 0]) ifTrue:
 		[Transcript print: sendCount; space.
@@ -25,4 +22,4 @@ internalFindNewMethod: lookupRule
 		messageQueue == nil ifTrue: [messageQueue := OrderedCollection new].
 		messageQueue addLast: (self stringOf: messageSelector)].
 "
-	super internalFindNewMethod: lookupRule
+	^super internalFindNewMethodOrdinary

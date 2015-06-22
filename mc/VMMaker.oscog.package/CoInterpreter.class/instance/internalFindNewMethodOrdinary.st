@@ -1,5 +1,5 @@
 message sending
-internalFindNewMethod: lookupRule
+internalFindNewMethodOrdinary
 	"Find the compiled method to be run when the current messageSelector is
 	 sent to the given class, setting the values of newMethod and primitiveIndex."
 	| ok |
@@ -17,7 +17,7 @@ internalFindNewMethod: lookupRule
 					[lkupClassTag := self handleForwardedSendFaultForTag: lkupClassTag].
 				(self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifTrue:
 					[^self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector]].
-			 lkupClass := objectMemory classForClassTag: lkupClassTag.
+			lkupClass := objectMemory classForClassTag: lkupClassTag.
 			self lookupMethodInClass: lkupClass.
 			self internalizeIPandSP.
 			self addNewMethodToCache: lkupClass]

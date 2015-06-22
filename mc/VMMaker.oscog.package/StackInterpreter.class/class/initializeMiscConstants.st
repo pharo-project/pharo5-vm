@@ -26,4 +26,4 @@ initializeMiscConstants
 	MaxJumpBuf := 32. "max. callback depth"
 	FailImbalancedPrimitives := initializationOptions at: #FailImbalancedPrimitives ifAbsentPut: [true].
 
-	CheckPrivacyViolations := initializationOptions at: #CheckPrivacyViolations ifAbsentPut: [false]
+	EnforceAccessControl := initializationOptions at: #EnforceAccessControl ifAbsentPut: [false]
