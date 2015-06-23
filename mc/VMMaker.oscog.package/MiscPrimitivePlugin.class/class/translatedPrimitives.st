@@ -1,6 +1,7 @@
 translation
 translatedPrimitives
 	"an assorted list of various primitives"
+	PharoVM ifTrue: [ ^ self translatedPrimitivesForPharo ].
 	^#(
 		(Bitmap compress:toByteArray:)
 		(Bitmap decompress:fromByteArray:at:)
