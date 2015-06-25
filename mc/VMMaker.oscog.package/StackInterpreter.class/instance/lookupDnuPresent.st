@@ -8,7 +8,7 @@ lookupDnuPresent
 	OUT: newMethod
 	OUT: primitiveIndex
 	RESULT: LookupRuleMNU"
-
+	<option: #NewspeakVM>
 	| currentClass dictionary found |
 	self createActualMessageTo: lkupClass.
 	messageSelector := objectMemory splObj: SelectorDoesNotUnderstand.

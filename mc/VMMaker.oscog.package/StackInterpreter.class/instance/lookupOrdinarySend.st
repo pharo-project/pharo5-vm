@@ -7,7 +7,7 @@ lookupOrdinarySend
 	OUT: newMethod
 	OUT: primitiveIndex
 	RESULT: LookupOrdinary or LookupDNU"
-
+	<option: #NewspeakVM>
 	| currentClass dictionary found |
 	self assert: (self addressCouldBeClassObj: lkupClass).
 	currentClass := lkupClass.
