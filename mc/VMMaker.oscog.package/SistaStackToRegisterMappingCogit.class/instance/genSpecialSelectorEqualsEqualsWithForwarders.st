@@ -40,6 +40,9 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
 		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
 	
+	"If branching the stack must be flushed for the merge"
+	self ssFlushTo: simStackPtr - 2.
+	
 	unforwardArg ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg ].
 	unforwardRcvr ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: rcvrReg scratchReg: TempReg ].
 	
@@ -51,9 +54,6 @@ genSpecialSelectorEqualsEqualsWithForwarders
 		counterReg: counterReg.
 	
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
-	
-	"If branching the stack must be flushed for the merge"
-	self ssFlushTo: simStackPtr - 2.
 	
 	self genEqualsEqualsComparisonArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	
