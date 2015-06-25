@@ -14,42 +14,53 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 	depending on whether the target method is cogged or not."
 	<api>
 	<option: #NewspeakVM>
-	| classTag errSelIdx cogMethod mClassMixin mixinApplication |
+	| classTag errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
-	"self printExternalHeadFrame"
-	"self printStringOf: selector"
+
 	cogit assertCStackWellAligned.
 	self assert: (objectMemory addressCouldBeOop: rcvr).
 	self sendBreakpoint: selector receiver: rcvr.
-	mClassMixin := self mMethodClass.
-	mixinApplication := self 
-							findApplicationOfTargetMixin: mClassMixin
-							startingAtBehavior: (objectMemory fetchClassOf: rcvr).
-	self assert: (objectMemory lengthOf: mixinApplication) > (InstanceSpecificationIndex + 1).
-	classTag := objectMemory classTagForClass: (self superclassOf: mixinApplication).
+
+	classTag := objectMemory fetchClassTagOf: rcvr.
+	messageSelector := selector.
 	argumentCount := numArgs.
-	(self lookupInMethodCacheSel: selector classTag: classTag)
-		ifTrue:"check for coggability because method is in the cache"
-			[self
-				ifAppropriateCompileToNativeCode: newMethod
-				selector: selector]
-		ifFalse:
-			[(objectMemory isOopForwarded: selector) ifTrue:
-				[^self
-					ceDynamicSuperSend: (self handleForwardedSelectorFaultFor: selector)
-					to: rcvr
-					numArgs: numArgs].
-			 (objectMemory isForwardedClassTag: classTag) ifTrue:
-				[^self
-					ceDynamicSuperSend: selector
-					to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
-					numArgs: numArgs].
-			 messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
-				self assert: false "NOTREACHED"]].
+	method := (self mframeHomeMethod: framePointer) methodObject.
+
+	(self
+		inlineLookupInNSMethodCacheSel: messageSelector
+		classTag: classTag
+		method: method
+		lookupRule: LookupRuleDynamicSuper)
+			ifTrue:
+				["check for coggability because method is in the cache"
+				self
+					ifAppropriateCompileToNativeCode: newMethod
+					selector: selector]
+			ifFalse:
+				[(objectMemory isOopForwarded: selector) ifTrue:
+					[self
+						ceDynamicSuperSend: (self handleForwardedSelectorFaultFor: selector)
+						to: rcvr
+						numArgs: numArgs.
+					self unreachable].
+				 (objectMemory isForwardedClassTag: classTag) ifTrue:
+					[self
+						ceDynamicSuperSend: selector
+						to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
+						numArgs: numArgs.
+					self unreachable].
+				lkupClassTag := classTag.
+				errSelIdx := self lookupDynamicSuperSendNoMNU: rcvr.
+				errSelIdx ~= 0 ifTrue:
+					[self assert: errSelIdx == SelectorDoesNotUnderstand.
+					self handleMNU: errSelIdx 
+						InMachineCodeTo: rcvr
+						classForMessage: (objectMemory classForClassTag: classTag).
+					self unreachable].
+				self addNewMethodToNSCache: LookupRuleSelf].
+
 	"Method found and has a cog method.  Attempt to link to it."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[cogMethod := self cogMethodOf: newMethod.
@@ -70,7 +81,7 @@ ceDynamicSuperSend: selector to: rcvr numArgs: numArgs
 				receiver: rcvr].
 		 instructionPointer := self popStack.
 		 self executeNewMethod.
-		 self assert: false "NOTREACHED"].
+		 self unreachable].
 	instructionPointer := self popStack.
-	^self interpretMethodFromMachineCode
-	"NOTREACHED"
+	self interpretMethodFromMachineCode.
+	self unreachable.

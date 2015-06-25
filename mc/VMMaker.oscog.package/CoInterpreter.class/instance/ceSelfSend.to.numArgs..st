@@ -18,33 +18,49 @@ ceSelfSend: selector to: rcvr numArgs: numArgs
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
-	"self printExternalHeadFrame"
-	"self printStringOf: selector"
+
 	cogit assertCStackWellAligned.
 	self assert: (objectMemory addressCouldBeOop: rcvr).
 	self sendBreakpoint: selector receiver: rcvr.
+
 	classTag := objectMemory fetchClassTagOf: rcvr.
+	messageSelector := selector.
 	argumentCount := numArgs.
-	(self lookupInMethodCacheSel: selector classTag: classTag)
-		ifTrue:"check for coggability because method is in the cache"
-			[self
-				ifAppropriateCompileToNativeCode: newMethod
-				selector: selector]
-		ifFalse:
-			[(objectMemory isOopForwarded: selector) ifTrue:
-				[^self
-					ceSelfSend: (self handleForwardedSelectorFaultFor: selector)
-					to: rcvr
-					numArgs: numArgs].
-			 (objectMemory isForwardedClassTag: classTag) ifTrue:
-				[^self
-					ceSelfSend: selector
-					to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
-					numArgs: numArgs].
-			 messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
-				self assert: false "NOTREACHED"]].
+	method := (self mframeHomeMethod: framePointer) methodObject.
+
+	(self
+		inlineLookupInNSMethodCacheSel: messageSelector
+		classTag: classTag
+		method: method
+		lookupRule: LookupRuleSelf)
+			ifTrue:
+				["check for coggability because method is in the cache"
+				self
+					ifAppropriateCompileToNativeCode: newMethod
+					selector: selector]
+			ifFalse:
+				[(objectMemory isOopForwarded: selector) ifTrue:
+					[self
+						ceSelfSend: (self handleForwardedSelectorFaultFor: selector)
+						to: rcvr
+						numArgs: numArgs.
+					self unreachable].
+			 	(objectMemory isForwardedClassTag: classTag) ifTrue:
+					[self
+						ceSelfSend: selector
+						to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
+						numArgs: numArgs.
+					self unreachable].
+				lkupClassTag := classTag.
+				errSelIdx := self lookupOuterSendNoMNU: rcvr depth: 0.
+				errSelIdx ~= 0 ifTrue:
+					[self assert: errSelIdx == SelectorDoesNotUnderstand.
+					self handleMNU: errSelIdx 
+						InMachineCodeTo: rcvr
+						classForMessage: (objectMemory classForClassTag: classTag).
+					self unreachable].
+				self addNewMethodToNSCache: LookupRuleSelf].
+
 	"Method found and has a cog method.  Attempt to link to it."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[cogMethod := self cogMethodOf: newMethod.
@@ -65,7 +81,7 @@ ceSelfSend: selector to: rcvr numArgs: numArgs
 				receiver: rcvr].
 		 instructionPointer := self popStack.
 		 self executeNewMethod.
-		 self assert: false "NOTREACHED"].
+		 self unreachable].
 	instructionPointer := self popStack.
-	^self interpretMethodFromMachineCode
-	"NOTREACHED"
+	self interpretMethodFromMachineCode.
+	self unreachable.
