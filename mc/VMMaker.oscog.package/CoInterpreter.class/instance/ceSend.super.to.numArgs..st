@@ -46,7 +46,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 					to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
 					numArgs: numArgs].
 			 messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 				[(errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
 											receiver: rcvr

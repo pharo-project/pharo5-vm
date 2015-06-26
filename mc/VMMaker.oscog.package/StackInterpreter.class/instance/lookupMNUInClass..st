@@ -1,5 +1,5 @@
 message sending
-lookupMethodNoMNUEtcInClass: class
+lookupMNUInClass: class
 	"Lookup messageSelector in class.  Answer 0 on success. Answer the splObj: index
 	 for the error selector to use on failure rather than performing MNU processing etc."
 	| currentClass dictionary found |
@@ -12,14 +12,8 @@ lookupMethodNoMNUEtcInClass: class
 			 ^SelectorCannotInterpret].
 		found := self lookupMethodInDictionary: dictionary.
 		self cppIf: #NewspeakVM
-			ifTrue:
-				[found ifTrue:
-					[(self accessModifierOfMethod: newMethod) == AccessModifierPublic
-						ifTrue: [self addNewMethodToCache: class. ^0].
-					(self accessModifierOfMethod: newMethod) == AccessModifierProtected
-						ifTrue: [^SelectorDoesNotUnderstand]]]
-			ifFalse:
-				[found ifTrue: [self addNewMethodToCache: class. ^0]].
+			ifTrue: [found ifTrue: [lkupClass := class. self addNewMethodToNSCache: LookupRuleMNU. ^0]]
+			ifFalse: [found ifTrue: [self addNewMethodToCache: class. ^0]].
 		currentClass := self superclassOf: currentClass].
 	lkupClass := class.
 	^SelectorDoesNotUnderstand

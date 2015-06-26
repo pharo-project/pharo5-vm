@@ -7,7 +7,7 @@ lookup: selector for: receiver methodAndErrorSelectorInto: binaryBlock
 	| methodOrSelectorIndex |
 	<inline: true>
 	methodOrSelectorIndex := coInterpreter
-									lookup: selector
+									lookupOrdinary: selector
 									receiver: receiver.
 	methodOrSelectorIndex asUnsignedInteger > coInterpreter maxLookupNoMNUErrorCode ifTrue:
 		[(objectMemory isOopCompiledMethod: methodOrSelectorIndex) ifFalse:
@@ -19,7 +19,7 @@ lookup: selector for: receiver methodAndErrorSelectorInto: binaryBlock
 		^binaryBlock value: methodOrSelectorIndex value: nil].
 	methodOrSelectorIndex = SelectorDoesNotUnderstand ifTrue:
 		[methodOrSelectorIndex := coInterpreter
-										lookup: (objectMemory splObj: SelectorDoesNotUnderstand)
+										lookupMNU: (objectMemory splObj: SelectorDoesNotUnderstand)
 										receiver: receiver.
 		 methodOrSelectorIndex asUnsignedInteger > coInterpreter maxLookupNoMNUErrorCode ifTrue:
 			[self assert: (objectMemory isOopCompiledMethod: methodOrSelectorIndex).

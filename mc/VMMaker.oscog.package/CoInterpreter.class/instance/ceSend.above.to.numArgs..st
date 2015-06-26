@@ -41,7 +41,7 @@ ceSend: selector above: startAssociationArg to: rcvr numArgs: numArgs
 					to: rcvr
 					numArgs: numArgs].
 			 messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 				[(errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
 											receiver: rcvr

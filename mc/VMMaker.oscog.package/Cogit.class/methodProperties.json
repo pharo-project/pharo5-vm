@@ -433,7 +433,7 @@
 		"linkSendAt:in:to:offset:receiver:" : "tpr 6/4/2015 15:00",
 		"linkedSuperSendCacheTags" : "eem 11/18/2013 12:51",
 		"loadSubsequentBytesForDescriptor:at:" : "eem 6/1/2014 17:25",
-		"lookup:for:methodAndErrorSelectorInto:" : "eem 9/30/2014 09:51",
+		"lookup:for:methodAndErrorSelectorInto:" : "rmacnak 6/24/2015 21:09",
 		"lookupAddress:" : "eem 8/13/2012 10:30",
 		"lookupCHexString:" : "eem 1/22/2009 17:05",
 		"mapEndFor:" : "eem 4/6/2015 09:00",

@@ -26,7 +26,7 @@
 		"generateAllStackConfigurationsUnderVersionControl" : "eem 12/5/2014 15:03",
 		"generateConfiguration" : "eem 6/13/2014 00:14",
 		"generateEitherSqueakCogVM" : "eem 4/21/2015 22:49",
-		"generateNewspeakSpurCogVM" : "rmacnak 5/18/2015 23:09",
+		"generateNewspeakSpurCogVM" : "rmacnak 6/24/2015 21:25",
 		"generateNewspeakSpurStack64VM" : "rmacnak 5/18/2015 23:09",
 		"generateNewspeakSpurStackVM" : "rmacnak 5/18/2015 21:53",
 		"generateSqueakCogMTVM" : "eem 5/1/2014 09:11",

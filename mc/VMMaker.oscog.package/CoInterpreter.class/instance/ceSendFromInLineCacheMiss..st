@@ -26,7 +26,7 @@ ceSendFromInLineCacheMiss: cogMethodOrPIC
 				[self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc".
 				 ^self ceSendFromInLineCacheMiss: cogMethodOrPIC].
 			 messageSelector := cogMethodOrPIC selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
 				"NOTREACHED"
 				self assert: false]].

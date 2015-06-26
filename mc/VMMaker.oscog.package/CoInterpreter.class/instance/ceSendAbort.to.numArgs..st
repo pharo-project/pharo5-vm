@@ -23,7 +23,7 @@ ceSendAbort: selector to: rcvr numArgs: numArgs
 				selector: selector]
 		ifFalse:
 			[messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
 				"NOTREACHED"
 				self assert: false]].

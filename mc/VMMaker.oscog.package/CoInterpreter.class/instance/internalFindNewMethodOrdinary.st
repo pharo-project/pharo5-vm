@@ -18,6 +18,8 @@ internalFindNewMethodOrdinary
 				(self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifTrue:
 					[^self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector]].
 			lkupClass := objectMemory classForClassTag: lkupClassTag.
-			self lookupMethodInClass: lkupClass.
+			self cppIf: #NewspeakVM
+				ifTrue: [self lookupOrdinarySend]
+				ifFalse: [self lookupMethodInClass: lkupClass].
 			self internalizeIPandSP.
 			self addNewMethodToCache: lkupClass]

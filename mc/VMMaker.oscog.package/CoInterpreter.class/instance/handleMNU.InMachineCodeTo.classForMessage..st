@@ -14,7 +14,7 @@ handleMNU: selectorIndex InMachineCodeTo: rcvr classForMessage: classForMessage
 				ifAppropriateCompileToNativeCode: newMethod
 				selector: messageSelector]
 		ifFalse:
-			[errSelIdx := self lookupMethodNoMNUEtcInClass: (classForThisMessage := lkupClass).
+			[errSelIdx := self lookupMNUInClass: (classForThisMessage := lkupClass).
 			 errSelIdx ~= 0 ifTrue:
 				[selectorIndex = SelectorDoesNotUnderstand ifTrue:
 					[self error: 'Recursive not understood error encountered'].
