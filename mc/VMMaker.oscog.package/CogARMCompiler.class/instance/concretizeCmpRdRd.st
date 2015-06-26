@@ -1,4 +1,11 @@
 generate machine code - concretize
 concretizeCmpRdRd
-	self assert: false.
-	self notYetImplemented
+	"Will get inlined into concretizeAt: switch."
+	<inline: true>
+	"Compare FP regB with FP regA and leave the FP status reg ready to be transferred back to ARM with next instruction"
+	| regB regA |
+	regA := self concreteDPFPRegister: (operands at:0).
+	regB := self concreteDPFPRegister: (operands at: 1).
+	machineCode at: 0 put:(self fcmpFrom: regB to: regA).
+	^machineCodeSize := 4
+		

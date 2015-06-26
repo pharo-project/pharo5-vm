@@ -1,5 +1,6 @@
 ARM convenience instructions
 fmstat
-	"unconditional transfer FP status to cpsr to choose jumps etc. Manually fudged for now"
+	"FMSTAT or VMRS unconditional transfer FP status to cpsr to choose jumps etc.
+	ARM_ARM v5 DDI 01001.pdf pp. C4-72"
 	<inline: true>
-	^16rEF1FA10
+	^2r11101110111100011111101000010000

@@ -195,6 +195,6 @@ computeMaximumSize
 										ifTrue: [4]
 										ifFalse: [self literalLoadInstructionBytes + 4]].
 		"Conversion"
-		[ConvertRRd]			-> [^4].
+		[ConvertRRd]			-> [^8].
 		}.
 	^0 "to keep C compiler quiet"

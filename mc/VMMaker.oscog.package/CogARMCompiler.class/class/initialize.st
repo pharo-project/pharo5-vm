@@ -8,6 +8,7 @@ initialize
 	super initialize.
 	self ~~ CogARMCompiler ifTrue: [^self].
 	
+	"ARM general registers"
 	R0 := 0.
 	R1 := 1.
 	R2 := 2.
@@ -24,6 +25,16 @@ initialize
 	SP := 13.
 	LR := 14.
 	PC := 15.
+	"ARM VFP Double precision floating point registers"
+	D0 := 0.
+	D1 := 1.
+	D2 := 2.
+	D3 := 3.
+	D4 := 4.
+	D5 := 5.
+	D6 := 6.
+	D7 := 7.
+	
 	
 	CArg0Reg := 0.
 	CArg1Reg := 1.

@@ -1,4 +1,10 @@
 generate machine code - concretize
 concretizeSqrtRd
-	self assert: false.
-	self notYetImplemented
+	"Will get inlined into concretizeAt: switch."
+	<inline: true>
+	"Square root of FP regLHS into regLHS"
+	| regLHS  |
+	regLHS := self concreteDPFPRegister: (operands at: 1).
+	machineCode at: 0 put:(self fsqrtd: regLHS).
+	^machineCodeSize := 4
+	

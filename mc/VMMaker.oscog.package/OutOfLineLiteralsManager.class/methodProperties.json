@@ -9,7 +9,7 @@
 		"cPICCase:jumpTargetBefore:" : "eem 6/18/2015 18:41",
 		"cPICCase:relocateJumpLongBefore:by:" : "eem 6/18/2015 18:41",
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
-		"checkQuickConstant:forInstruction:" : "eem 6/9/2015 09:18",
+		"checkQuickConstant:forInstruction:" : "tpr 6/24/2015 18:33",
 		"classRefInClosedPICAt:" : "eem 6/19/2015 16:12",
 		"cogit:" : "eem 6/16/2015 11:36",
 		"dumpLiterals:" : "eem 6/18/2015 16:17",
