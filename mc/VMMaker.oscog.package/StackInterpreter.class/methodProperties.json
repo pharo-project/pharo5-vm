@@ -387,7 +387,6 @@
 		"initializePageTraceToInvalid:" : "eem 11/7/2013 11:47",
 		"inlineLookupInMethodCacheSel:classTag:" : "eem 11/10/2014 12:49",
 		"inlineLookupInNSMethodCacheSel:classTag:method:lookupRule:" : "rmacnak 5/23/2015 14:49",
-		"inlinePrimitiveBytecode:" : "eem 8/7/2014 06:55",
 		"instVar:ofContext:" : "eem 11/3/2014 10:05",
 		"instVar:ofContext:put:" : "eem 10/27/2014 18:54",
 		"install:inAtCache:at:string:" : "eem 10/2/2013 11:04",
