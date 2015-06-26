@@ -125,7 +125,7 @@
 		"externalWriteBackHeadStackPointer" : "eem 11/13/2014 13:11",
 		"externalizeIPandSP" : "eem 5/8/2009 16:36",
 		"fastLogPrim:" : "eem 5/15/2015 17:10",
-		"findNewMethodInClassTag:" : "rmacnak 6/24/2015 21:45",
+		"findNewMethodInClassTag:" : "rmacnak 6/25/2015 21:55",
 		"flushBecommedClassesInMethodZone" : "eem 4/9/2015 10:21",
 		"flushExternalPrimitiveOf:" : "eem 12/12/2012 11:26",
 		"flushMethodCache" : "eem 10/31/2013 11:07",
