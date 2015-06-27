@@ -15,9 +15,9 @@ lookupOrdinarySend
 		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: currentClass.
 		found := self lookupMethodInDictionary: dictionary.
 		found ifTrue:
-			[(self accessModifierOfMethod: newMethod) == AccessModifierPublic
-				ifTrue: [^self].
-			(self accessModifierOfMethod: newMethod) == AccessModifierProtected
-				ifTrue: [^self lookupDnuPresent]].
+			[(self isPublicMethod: newMethod) ifTrue:
+				[^self].
+			(self isProtectedMethod: newMethod) ifTrue:
+				[^self lookupDnuPresent]].
 		currentClass := self superclassOf: currentClass].
 	^self lookupDnuPresent

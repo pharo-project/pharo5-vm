@@ -8,6 +8,6 @@ lookupLexical: selector from: mixin rule: rule
 	mixinApplication := self findApplicationOfTargetMixin: mixin startingAtBehavior: receiverClass.
 	dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: mixinApplication.
 	found := self lookupMethodInDictionary: dictionary.
-	(found and: [(self accessModifierOfMethod: newMethod) = AccessModifierPrivate])
-		ifTrue: [^rule].
+	(found and: [(self isPrivateMethod: newMethod)]) ifTrue:
+		[^rule].
 	^self lookupProtected: selector startingAt: receiverClass rule: rule

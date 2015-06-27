@@ -1,4 +1,5 @@
 compiled methods
 isPublicMethod: methodObj
 	<option: #NewspeakVM>
-	^(self accessModifierOfMethod: methodObj) = 0
+	<inline: true>
+	^(self accessModifierOfMethod: methodObj) = AccessModifierPublic

@@ -1,4 +1,5 @@
 compiled methods
 isProtectedMethod: methodObj
 	<option: #NewspeakVM>
-	^(self accessModifierOfMethod: methodObj) = 2
+	<inline: true>
+	^(self accessModifierOfMethod: methodObj) = AccessModifierProtected

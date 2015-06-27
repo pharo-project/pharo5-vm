@@ -14,12 +14,13 @@ lookupOrdinaryNoMNUEtcInClass: class
 		self cppIf: #NewspeakVM
 			ifTrue:
 				[found ifTrue:
-					[(self accessModifierOfMethod: newMethod) == AccessModifierPublic
-						ifTrue: [self addNewMethodToCache: class. ^0].
-					(self accessModifierOfMethod: newMethod) == AccessModifierProtected
-						ifTrue: [lkupClass := class. ^SelectorDoesNotUnderstand]]]
+					[(self isPublicMethod: newMethod) ifTrue:
+						[self addNewMethodToCache: class. ^0].
+					(self isProtectedMethod: newMethod) ifTrue:
+						[lkupClass := class. ^SelectorDoesNotUnderstand]]]
 			ifFalse:
-				[found ifTrue: [self addNewMethodToCache: class. ^0]].
+				[found ifTrue:
+					[self addNewMethodToCache: class. ^0]].
 		currentClass := self superclassOf: currentClass].
 	lkupClass := class.
 	^SelectorDoesNotUnderstand

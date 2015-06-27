@@ -31,11 +31,16 @@ declareCVarsIn: aCCodeGenerator
 		as: #'StackPage *'
 		in: aCCodeGenerator.
 	aCCodeGenerator removeVariable: 'stackPages'.  "this is an implicit receiver in the translated code."
-	NewspeakVM ifFalse:
-		[aCCodeGenerator
-			removeVariable: 'localAbsentReceiver';
-			removeVariable: 'localAbsentReceiverOrZero';
-			removeVariable: 'nsMethodCache'].
+	NewspeakVM
+		ifTrue:
+			[aCCodeGenerator
+				const: #EnforceAccessControl
+				declareC: ('#if !defined(EnforceAccessControl) /* Allow EnforceAccessControl to be overridden on the compiler command line */\# define EnforceAccessControl ', (aCCodeGenerator cLiteralFor: EnforceAccessControl),'\#endif') withCRs]
+		ifFalse:
+			[aCCodeGenerator
+				removeVariable: 'localAbsentReceiver';
+				removeVariable: 'localAbsentReceiverOrZero';
+				removeVariable: 'nsMethodCache'].
 	"This defines bytecodeSetSelector as 0 if MULTIPLEBYTECODESETS
 	 is not defined, for the benefit of the interpreter on slow machines."
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).
