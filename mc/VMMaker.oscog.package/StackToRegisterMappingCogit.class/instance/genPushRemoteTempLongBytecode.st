@@ -1,10 +1,11 @@
 bytecode generators
 genPushRemoteTempLongBytecode
-	| newReg |
+	| newReg freeReg |
 	newReg := self allocateRegNotConflictingWith: 0.
-	self MoveMw: (self frameOffsetOfTemporary: byte2) r: FPReg R: newReg.
+	freeReg := self availableRegNotConflictingWith: (self registerMaskFor: newReg).
+	self MoveMw: (self frameOffsetOfTemporary: byte2) r: FPReg R: (freeReg ifNil: newReg).
 	objectRepresentation
 		genLoadSlot: byte1
-		sourceReg: newReg
+		sourceReg: (freeReg ifNil: newReg)
 		destReg: newReg.
 	^self ssPushRegister: newReg
