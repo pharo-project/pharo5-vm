@@ -23,14 +23,20 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 					[operand := (self perform: (self registerStateGetters at: (word bitAnd: 15) + 1))]]
 		ifFalse:
 			[(self instructionIsAnyLoadStore: word)
-				ifTrue: [|baseR|
+				ifTrue:
+					[|baseR lit|
 					"first see if this is a load via the varBase register - quick access globals. We'll trust
 					that nobody makes a nasty instruction that uses this reg in a mean way" 
 					operand := (baseR := (word >> 16 bitAnd: 15)) = CogARMCompiler VarBaseReg
 									ifTrue: [aSymbolManager varBaseAddress + (word bitAnd: 1 << 12 - 1)]
 									ifFalse: [self pc = address ifTrue:
 												[(self register: baseR) + (self extractOffsetFromLoadStore: word)]].
-
+					"See if this is a pc-relative literal load"
+					baseR = CogARMCompiler PCReg ifTrue:
+						[lit := memory longAt: (aSymbolManager backEnd pcRelativeAddressAt: address).
+						 ^(aSymbolManager lookupAddress: lit)
+							ifNotNil: [:label| anInstructionString, ' ', label]
+							ifNil: [anInstructionString, ' ', lit hex]].
 					"look for SP operations -pop/push"
 					 (self instructionIsPush: word) ifTrue: "push - "
 						[|srcR|
@@ -46,14 +52,15 @@ decorateDisassembly: anInstructionString for: aSymbolManager fromAddress: addres
 						[^anInstructionString, '; Save SP to ', (addressinatorBlock value: operand)]]
 				ifFalse:
 					["check for SP changers not relating to read/writing data"
-					(self instructionIsAlignSP: word) ifTrue:
+					 (self instructionIsAlignSP: word) ifTrue:
 						[^anInstructionString, ' ALIGN SP ', (self pc = address ifTrue: [self sp hex] ifFalse: [''])].
-					(self instructionIsAddSP: word) ifTrue:
+					 (self instructionIsAddSP: word) ifTrue:
 						[^anInstructionString, ' ADD ', (word bitAnd: 16rFF) asString,' to SP ', (self pc = address ifTrue: ['= ' , self sp hex] ifFalse: [''])].
 
-					"check for the end of a mov/orr/orr/orr set filling a reg with a const"
-					opcode := word >> 21 bitAnd: 16rF.
-					 opcode ~= CogARMCompiler orOpcode ifTrue:
+					 "check for the end of a mov/orr/orr/orr set filling a reg with a const"
+					 opcode := word >> 21 bitAnd: 16rF.
+					 (opcode ~= CogARMCompiler orOpcode
+					  or: [aSymbolManager cogit backEnd literalLoadInstructionBytes = 4]) ifTrue:
 						[^anInstructionString].
 					 rotate := word >> 8 bitAnd: 16rF.
 					 mode := word >> 25 bitAnd: 7.

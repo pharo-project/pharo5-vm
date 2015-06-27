@@ -13,10 +13,14 @@ disassembleFrom: startAddress to: endAddress in: memory for: aSymbolManager "<Co
 			label isArray
 				ifTrue: [label first == #literal
 							ifTrue:
-								[aStream
+								[label size = 4 ifTrue:
+									[aStream nextPutAll: label last; nextPut: $:; cr].
+								 aStream
 									nextPutAll: (address printStringBase: 16 length: 8 padded: true) asLowercase;
 									nextPut: $:; space;
-									nextPutAll: (aSymbolManager lookupAddress: (aSymbolManager objectMemory longAt: address))]
+									nextPutAll: ((aSymbolManager objectMemory longAt: address) printStringBase: 16 length: 8 padded: true) asLowercase.
+								 (aSymbolManager lookupAddress: (aSymbolManager objectMemory longAt: address)) ifNotNil:
+									[:name| aStream space; nextPutAll: name]]
 							ifFalse:
 								[aStream
 									nextPutAll: label first;
@@ -29,13 +33,23 @@ disassembleFrom: startAddress to: endAddress in: memory for: aSymbolManager "<Co
 				ifFalse: [aStream nextPutAll: label; nextPut: $:; cr]].
 		string ifNotNil:
 			[aStream nextPutAll: (self decorateDisassembly: string for: aSymbolManager fromAddress: address).
-			 ((string includesSubString: ': ldr ')
-			  and: [(index := string indexOfSubCollection: ' [pc, #' startingAt: 1) > 0]) ifTrue:
-				[offset := Integer readFrom: (ReadStream on: string from: index + 6 to: string size).
-				 offset := address + 8 + offset.
-				 labelDictionary
-					at: offset
-					ifAbsentPut: []]].
+			 (string includesSubString: ': ldr	') ifTrue:"i.e. colon space 'ldr' tab" 
+				[(index := string indexOfSubCollection: ' [pc, #' startingAt: 1) > 0
+					ifTrue:
+						[offset := Integer readFrom: (ReadStream on: string from: index + 7 to: (string indexOf: $] startingAt: index + 7) - 1)]
+					ifFalse:
+						[(string indexOfSubCollection: ' [pc]' startingAt: 1) > 0 ifTrue:
+							[offset := 0]].
+				 offset ifNotNil:
+					[offset := address + 8 + offset.
+					 labelDictionary
+						at: offset
+						ifPresent:
+							[:entry|
+							entry isString
+								ifTrue: [labelDictionary at: offset put: {#literal. offset. 4. entry}]
+								ifFalse: [self assert: (entry isArray and: [entry first == #literal])]]
+						ifAbsentPut: [{#literal. offset. 4}]]]].
 		aStream cr; flush.
 		address := address + size]
 			valueWithArguments: (self
