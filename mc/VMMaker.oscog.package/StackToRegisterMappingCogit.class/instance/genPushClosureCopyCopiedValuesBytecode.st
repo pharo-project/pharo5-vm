@@ -12,44 +12,8 @@ genPushClosureCopyCopiedValuesBytecode
 		numCopied: (numCopied := byte1 >> 4)
 		span: (byte2 << 8) + byte3.
 
-	objectRepresentation createsClosuresInline ifTrue:
-		[self assert: objectRepresentation getActiveContextAllocatesInMachineCode.
-		 optStatus isReceiverResultRegLive: false.
-		 self ssAllocateCallReg: ReceiverResultReg
-			and: SendNumArgsReg
-			and: ClassReg.
-		 objectRepresentation
-			genNoPopCreateClosureAt: startpc + 1 "1 relative"
-			numArgs: numArgs
-			numCopied: numCopied
-			contextNumArgs: methodOrBlockNumArgs
-			large: (coInterpreter methodNeedsLargeContext: methodObj)
-			inBlock: inBlock.
-		 1 to: numCopied do:
-			[:i| | reg |
-			 reg := self ssStorePop: true toPreferredReg: TempReg.
-			 objectRepresentation
-				genStoreSourceReg: reg
-				slotIndex: ClosureFirstCopiedValueIndex + numCopied - i
-				intoNewObjectInDestReg: ReceiverResultReg].
-		 ^self ssPushRegister: ReceiverResultReg].
+	^ objectRepresentation createsClosuresInline 
+		ifTrue: [ self genInlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
+		ifFalse: [ self genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
 
-	numCopied > 0 ifTrue:
-		[self ssFlushTo: simStackPtr].
-	optStatus isReceiverResultRegLive: false.
-	objectRepresentation getActiveContextAllocatesInMachineCode
-		ifTrue: [self ssAllocateCallReg: ReceiverResultReg
-					and: SendNumArgsReg
-					and: ClassReg]
-		ifFalse: [self ssAllocateCallReg: SendNumArgsReg
-					and: ReceiverResultReg].
-	objectRepresentation
-		genCreateClosureAt: startpc + 1 "1 relative"
-		numArgs: numArgs
-		numCopied: numCopied
-		contextNumArgs: methodOrBlockNumArgs
-		large: (coInterpreter methodNeedsLargeContext: methodObj)
-		inBlock: inBlock.
-	numCopied > 0 ifTrue:
-		[self ssPop: numCopied].
-	^self ssPushRegister: ReceiverResultReg
+	

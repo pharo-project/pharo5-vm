@@ -481,7 +481,6 @@
 		"lookupMethodFor:InDictionary:" : "eem 11/10/2014 12:49",
 		"lookupMethodInClass:" : "rmacnak 5/23/2015 16:46",
 		"lookupMethodInDictionary:" : "eem 11/10/2014 12:49",
-		"lookupMethodNoMNUEtcInClass:" : "eem 6/26/2015 14:45",
 		"lookupOrdinaryNoMNUEtcInClass:" : "eem 6/26/2015 14:45",
 		"lookupOrdinarySend" : "eem 6/26/2015 14:46",
 		"lookupOuterSend:" : "rmacnak 5/23/2015 16:40",
