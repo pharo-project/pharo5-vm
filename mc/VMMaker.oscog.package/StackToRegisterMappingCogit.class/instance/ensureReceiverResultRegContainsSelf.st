@@ -2,13 +2,10 @@ bytecode generator support
 ensureReceiverResultRegContainsSelf
 	needsFrame
 		ifTrue:
-			[(optStatus isReceiverResultRegLive
-			 and: [optStatus ssEntry = (self addressOf: simSelf)]) ifFalse:
+			[optStatus isReceiverResultRegLive ifFalse:
 				[self ssAllocateRequiredReg: ReceiverResultReg.
 				 (self addressOf: simSelf) storeToReg: ReceiverResultReg].
-			optStatus
-				isReceiverResultRegLive: true;
-				ssEntry: (self addressOf: simSelf)]
+			optStatus isReceiverResultRegLive: true]
 		ifFalse:
 			[self assert: (simSelf type = SSRegister
 						  and: [simSelf register = ReceiverResultReg]).

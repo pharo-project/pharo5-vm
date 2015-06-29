@@ -1,13 +1,15 @@
 simulation stack
 initSimStackForFramefulMethod: startpc
 	<var: #desc type: #'CogSimStackEntry *'>
-	optStatus isReceiverResultRegLive: false.
 	simSelf
 		type: SSBaseOffset;
 		spilled: true;
 		annotateUse: false;
 		register: FPReg;
 		offset: FoxMFReceiver.
+	optStatus 
+		isReceiverResultRegLive: false;
+		ssEntry: (self addressOf: simSelf).
 	simSpillBase := methodOrBlockNumTemps. "N.B. Includes num args"
 	simStackPtr := simSpillBase - 1.
 	"args"
