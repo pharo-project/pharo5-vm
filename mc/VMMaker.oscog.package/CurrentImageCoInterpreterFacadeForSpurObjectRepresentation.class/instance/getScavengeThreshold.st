@@ -1,3 +1,5 @@
 accessing
 getScavengeThreshold
-	^objectMemory getScavengeThreshold ifNil: [16r24680]
+	^variables
+		at: 'scavengeThreshold'
+		ifAbsentPut: [objectMemory getScavengeThreshold ifNil: [16r24680]]
