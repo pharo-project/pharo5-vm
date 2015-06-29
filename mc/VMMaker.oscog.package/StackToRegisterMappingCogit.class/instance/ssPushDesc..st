@@ -20,6 +20,5 @@ ssPushDesc: simStackEntry
 				spilled: false;
 				annotateUse: false;
 				bcptr: bytecodePC].
-	simSpillBase > simStackPtr ifTrue:
-		[simSpillBase := simStackPtr max: 0].
+	self updateSimSpillBase.
 	^0

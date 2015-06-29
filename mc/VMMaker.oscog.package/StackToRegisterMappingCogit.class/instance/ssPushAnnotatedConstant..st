@@ -1,8 +1,7 @@
 simulation stack
 ssPushAnnotatedConstant: literal
 	self ssPush: 1.
-	simSpillBase > simStackPtr ifTrue:
-		[simSpillBase := simStackPtr max: 0].
+	self updateSimSpillBase.
 	self ssTop
 		type: SSConstant;
 		annotateUse: true;

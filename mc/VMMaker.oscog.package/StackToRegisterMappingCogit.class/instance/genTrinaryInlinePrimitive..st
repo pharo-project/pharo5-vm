@@ -6,11 +6,11 @@ genTrinaryInlinePrimitive: prim
 
 	| ra1 ra2 rr adjust needsStoreCheck |
 	"The store check requires rr to be ReceiverResultReg"
+	needsStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	self 
 		allocateRegForStackTopThreeEntriesInto: [:rTop :rNext :rThird | ra2 := rTop. ra1 := rNext. rr := rThird ] 
-		thirdIsReceiver: prim = 0.
+		thirdIsReceiver: (prim = 0 and: [ needsStoreCheck ]).
 	self assert: (rr ~= ra1 and: [rr ~= ra2 and: [ra1 ~= ra2]]).
-	needsStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	self ssTop popToReg: ra2.
 	self ssPop: 1.
 	self ssTop popToReg: ra1.
