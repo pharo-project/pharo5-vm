@@ -12,8 +12,10 @@ genPushClosureCopyCopiedValuesBytecode
 		numCopied: (numCopied := byte1 >> 4)
 		span: (byte2 << 8) + byte3.
 
-	^ objectRepresentation createsClosuresInline 
+	objectRepresentation createsClosuresInline 
 		ifTrue: [ self genInlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
-		ifFalse: [ self genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
+		ifFalse: [ self genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied ].
+		
+	^ 0
 
 	

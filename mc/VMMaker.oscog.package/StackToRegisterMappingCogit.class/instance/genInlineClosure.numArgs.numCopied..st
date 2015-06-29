@@ -20,4 +20,4 @@ genInlineClosure: startpc numArgs: numArgs numCopied: numCopied
 			genStoreSourceReg: reg
 			slotIndex: ClosureFirstCopiedValueIndex + numCopied - i
 			intoNewObjectInDestReg: ReceiverResultReg].
-	 ^self ssPushRegister: ReceiverResultReg
+	 self ssPushRegister: ReceiverResultReg

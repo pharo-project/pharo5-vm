@@ -13,6 +13,8 @@ genExtPushClosureBytecode
 		span: byte2 + (extB << 8).
 	extA := extB := 0.
 
-	^ objectRepresentation createsClosuresInline
+	objectRepresentation createsClosuresInline
 		ifTrue: [ self genInlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
-		ifFalse: [ self genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied ]
+		ifFalse: [ self genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied ].
+		
+	^ 0

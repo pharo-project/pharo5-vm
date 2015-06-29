@@ -19,4 +19,4 @@ genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied
 		inBlock: inBlock.
 	numCopied > 0 ifTrue:
 		[self ssPop: numCopied].
-	^self ssPushRegister: ReceiverResultReg
+	self ssPushRegister: ReceiverResultReg
