@@ -34,7 +34,3 @@ growOldSpaceByAtLeast: minAmmount
 		 self checkFreeSpace.
 		 segmentManager checkSegments.
 		 segInfo segSize]
-	
-
-maxOldSpaceSize
-totalBytesInSegments
