@@ -25,3 +25,5 @@ initialize
 	heapMap := CogCheck32BitHeapMap new.
 
 	"N.B. We *don't* initialize extraRoots because we don't simulate it."
+
+	maxOldSpaceSize := self class initializationOptions at: #maxOldSpaceSize ifAbsent: [0]

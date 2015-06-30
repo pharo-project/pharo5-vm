@@ -74,6 +74,7 @@
 		"extraRoots",
 		"lowSpaceThreshold",
 		"totalFreeOldSpace",
+		"maxOldSpaceSize",
 		"firstFreeChunk",
 		"lastFreeChunk",
 		"numCompactionPasses",
