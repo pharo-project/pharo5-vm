@@ -14,7 +14,8 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	<var: #jumpEqual type: #'AbstractInstruction *'>
 	<var: #jumpNotEqual type: #'AbstractInstruction *'>
 
-	((coInterpreter isOptimizedMethod: methodObj) or: [needsFrame not]) ifTrue: [ ^ self genSpecialSelectorEqualsEqualsWithForwardersWithoutCounters ].
+	((coInterpreter isOptimizedMethod: methodObj) or: [needsFrame not]) ifTrue:
+		[^super genSpecialSelectorEqualsEqualsWithForwarders].
 
 	regMask := 0.
 	

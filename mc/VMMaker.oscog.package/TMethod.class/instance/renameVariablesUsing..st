@@ -2,7 +2,7 @@ inlining support
 renameVariablesUsing: aDictionary
 	"Rename all variables according to old->new mappings of the given dictionary."
 
-	| newDecls |
+	| newDecls newProperties |
 	"map args and locals"
 	args := args collect: [ :arg | aDictionary at: arg ifAbsent: [ arg ]].
 	locals := locals collect: [ :v | aDictionary at: v ifAbsent: [ v ]].
@@ -22,6 +22,14 @@ renameVariablesUsing: aDictionary
 							ifFalse: [decl])]
 			ifNil: [newDecls at: oldName put: decl]].
 	self newDeclarations: newDecls.
+
+	newProperties := properties copy.
+	newProperties pragmas do:
+		[:pragma| | mappedArgs |
+		mappedArgs := pragma arguments collect: [:arg| arg isString ifTrue: [aDictionary at: arg ifAbsent: arg] ifFalse: [arg]].
+		mappedArgs ~= pragma arguments ifTrue:
+			[pragma setArguments: mappedArgs]].
+	self properties: newProperties.
 
 	"map variable names in parse tree"
 	parseTree nodesDo:
