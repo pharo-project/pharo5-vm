@@ -20,7 +20,7 @@ ExternalProject_Add(
 	#external command (not built with cmake)
 	CONFIGURE_COMMAND ${libSourcesDir}/configure
 		--prefix=${installPrefix}
-		--exec-prefix=''${installPrefix}''
+		--exec-prefix=${installPrefix}
 		CFLAGS=-m32
 		LDFLAGS=-m32
 )
