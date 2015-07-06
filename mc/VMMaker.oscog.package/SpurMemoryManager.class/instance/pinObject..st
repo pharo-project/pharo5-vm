@@ -24,6 +24,7 @@ pinObject: objOop
 		[becomeEffectsFlags := self becomeEffectFlagsFor: objOop.
 		 self setIsPinnedOf: oldClone to: true.
 		 self forward: objOop to: oldClone.
+		 self followSpecialObjectsOop.
 		 coInterpreter postBecomeAction: becomeEffectsFlags.
 		 self postBecomeScanClassTable: becomeEffectsFlags.
 		 becomeEffectsFlags := 0].

@@ -25,7 +25,9 @@ spurPostBecomeAction: theBecomeEffectsFlags
 		 (theBecomeEffectsFlags anyMask: BecameActiveClassFlag) ifTrue:
 			[self flushBecommedClassesInMethodCache.
 			 self flushBecommedClassesInMethodZone]. "for CoInterpreter"
-		 self followForwardingPointersInScheduler.
-		 self followForwardingPointersInSpecialObjectsArray.
-		 self followForwardingPointersInProfileState].
+		 (theBecomeEffectsFlags anyMask: BecamePointerObjectFlag) ifTrue:
+			[self followForwardingPointersInScheduler.
+			 self followForwardingPointersInSpecialObjectsArray].
+		 (theBecomeEffectsFlags anyMask: BecamePointerObjectFlag + BecameCompiledMethodFlag) ifTrue:
+			[self followForwardingPointersInProfileState]].
 	self followForwardingPointersInStackZone: theBecomeEffectsFlags
