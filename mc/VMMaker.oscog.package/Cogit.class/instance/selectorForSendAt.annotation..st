@@ -13,6 +13,6 @@ selectorForSendAt: mcpc annotation: annotation
 						targetMethod selector]
 					ifFalse:
 						[backEnd inlineCacheTagAt: mcpc].
-	^coInterpreter isCurrentImageFacade
+	^(annotation ~= IsNSSendCall and: [coInterpreter isCurrentImageFacade])
 		ifTrue: [coInterpreter objectForOop: selector]
 		ifFalse: [selector]

@@ -4,6 +4,7 @@
 	"instance" : {
 		"concretizeLiteral" : "eem 6/18/2015 15:50",
 		"getDefaultCogCodeSize" : "eem 6/10/2015 14:02",
+		"implicitReceiveCacheAt:" : "eem 7/7/2015 12:50",
 		"inlineCacheTagAt:" : "eem 6/15/2015 17:50",
 		"isPCDependent" : "eem 6/18/2015 15:46",
 		"isSharable" : "eem 6/18/2015 11:05",
