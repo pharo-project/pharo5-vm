@@ -18,7 +18,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
 			entryPoint := nsSendCache target.
 			entryPoint ~= 0 ifTrue: "Send is linked"
-				[targetMethod := entryPoint - cmNoCheckEntryOffset.
+				[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 				 (self markAndTraceOrFreeCogMethod: targetMethod
 					firstVisit: targetMethod asUnsignedInteger > mcpc asUnsignedInteger) ifTrue:	
 						[self voidNSSendCache: nsSendCache]].

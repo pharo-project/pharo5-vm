@@ -1,3 +1,4 @@
 inline cacheing
-inlineCacheTagAt: followingAddress
-	^objectMemory longAt: (self pcRelativeAddressAt: followingAddress - 8)
+inlineCacheTagAt: callSiteReturnAddress
+	<inline: true>
+	^objectMemory longAt: (self pcRelativeAddressAt: (callSiteReturnAddress - 8) asUnsignedInteger)
