@@ -1,4 +1,4 @@
-translating builtins
+C translation
 generateV3RemapOopIn: aNode on: aStream indent: level
 	"Generate call on remapOop: for the variable oopOrList (or all of the
 	 variables in oopOrList) before evaluating aBlock, and restore them after.
@@ -10,11 +10,12 @@ generateV3RemapOopIn: aNode on: aStream indent: level
 	idList class == Array ifFalse: [idList := Array with: idList].
 	idList do:
 		[:each | 
-		 aStream 
+		 aStream
+			tab: level;
 			nextPutAll: 'pushRemappableOop(';
 			nextPutAll: each asString;
 			nextPutAll: ');']
-		separatedBy: [aStream crtab: level].
+		separatedBy: [aStream cr].
 	aStream cr.
 	aNode args second emitCCodeOn: aStream level: level generator: self.
 	level timesRepeat: [aStream tab].

@@ -47,6 +47,7 @@
 		"minorVersion" : "eem 12/7/2012 14:40",
 		"msg:" : "jcg (auto pragmas 12/08) 6/30/2008 17:36",
 		"positiveMachineIntegerFor:" : "eem 1/20/2015 15:19",
+		"remapOop:in:" : "eem 7/2/2014 15:29",
 		"setInterpreter:" : "eem 12/6/2012 13:12",
 		"signedMachineIntegerFor:" : "eem 1/20/2015 15:19",
 		"sizeof:" : "eem 6/24/2015 11:48",
