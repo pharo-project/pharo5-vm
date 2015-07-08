@@ -169,6 +169,11 @@ extern const pthread_key_t tltiIndex;
 # define VM_LABEL(foo) 0
 #endif
 
+/* warnPrintf is provided (and needed) on the win32 platform.
+ * But it may be mentioned elsewhere, so provide a suitable def.
+ */
+#define warnPrintf printf
+
 #endif /* macintoshSqueak */
 
 
