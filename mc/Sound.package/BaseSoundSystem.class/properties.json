@@ -10,5 +10,5 @@
 	"name" : "BaseSoundSystem",
 	"pools" : [
 		 ],
-	"super" : "AbstractSoundSystem",
+	"super" : "SoundSystem",
 	"type" : "normal" }
