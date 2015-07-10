@@ -32,11 +32,12 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	(calloutState ffiRetHeader anyMask: FFIFlagPointer+FFIFlagStructure) ifTrue:
 		["Note: Order is important here since FFIFlagPointer + FFIFlagStructure is used to represent
 		 'typedef void* VoidPointer' and VoidPointer must be returned as pointer *not* as struct."
-		^(calloutState ffiRetHeader anyMask: FFIFlagPointer)
+		 (calloutState ffiRetHeader anyMask: FFIFlagPointer)
 			ifTrue:
-				[self ffiReturnPointer: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState]
+				[oop := self ffiReturnPointer: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState]
 			ifFalse:
-				[self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState]].
+				[oop := self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
+		 ^oop].
 	
 	(atomicType >> 1) = (FFITypeSingleFloat > 1)
 		ifTrue:

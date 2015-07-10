@@ -8,9 +8,9 @@
 		"numIntRegArgs" : "djm 4/12/2014 19:13" },
 	"instance" : {
 		"dispatchFunctionPointer:with:with:with:with:" : "djm 4/19/2014 17:42",
-		"ffiCalloutTo:SpecOnStack:in:" : "eem 7/8/2015 10:28",
+		"ffiCalloutTo:SpecOnStack:in:" : "eem 7/10/2015 13:37",
 		"ffiPushDoubleFloat:in:" : "djm 4/17/2014 09:01",
-		"ffiPushPointer:in:" : "djm 4/20/2014 15:56",
+		"ffiPushPointer:in:" : "eem 7/10/2015 13:41",
 		"ffiPushSignedByte:in:" : "djm 4/12/2014 19:28",
 		"ffiPushSignedChar:in:" : "djm 4/12/2014 19:28",
 		"ffiPushSignedInt:in:" : "djm 4/12/2014 19:29",

@@ -14,4 +14,4 @@ primitiveFFIAllocate
 			indexableSize: 4.
 	ptr := interpreterProxy firstIndexableField: oop.
 	ptr at: 0 put: addr.
-	interpreterProxy pop: 2 thenPush: oop
+	^interpreterProxy pop: 2 thenPush: oop

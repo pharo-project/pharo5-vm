@@ -3,9 +3,12 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 	<doNotGenerate>
 	| evaluable function result savedFramePointer savedStackPointer savedArgumentCount rpc |
 	evaluable := simulatedTrampolines at: aProcessorSimulationTrap address.
-	function := evaluable
-					isBlock ifTrue: ['aBlock; probably some plugin primitive']
-					ifFalse: [evaluable selector].
+	function := evaluable isBlock
+					ifTrue: ['aBlock; probably some plugin primitive']
+					ifFalse:
+						[evaluable receiver == backEnd ifTrue:
+							[^self handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable].
+						 evaluable selector].
 	function ~~ #ceBaseFrameReturn: ifTrue:
 		[coInterpreter assertValidExternalStackPointers].
 	(function beginsWith: 'ceShort') ifTrue:

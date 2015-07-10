@@ -1,4 +1,4 @@
 other
 tenuringIncrementalGC
-	<returnTypeC: #sqInt>
+	<returnTypeC: #void>
 	Smalltalk forceTenuring; garbageCollectMost
