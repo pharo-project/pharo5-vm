@@ -112,7 +112,7 @@
 		"genPrimitiveSubtract" : "eem 6/3/2015 09:51",
 		"genPushActiveContextBytecode" : "eem 5/31/2014 16:50",
 		"genPushClosureCopyCopiedValuesBytecode" : "cb 6/29/2015 14:52",
-		"genPushEnclosingObjectAt:" : "eem 10/7/2014 11:04",
+		"genPushEnclosingObjectAt:" : "rmacnak 7/10/2015 20:28",
 		"genPushLiteral:" : "eem 11/21/2010 11:29",
 		"genPushLiteralVariable:" : "cb 4/26/2015 12:25",
 		"genPushLiteralVariableGivenDirectedSuper:" : "eem 4/6/2015 10:03",
