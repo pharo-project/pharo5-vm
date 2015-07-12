@@ -1,4 +1,4 @@
 testing
 canDivQuoRem
 	<inline: true>
-	^false
+	^true

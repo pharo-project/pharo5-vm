@@ -1,5 +1,6 @@
 simulation only
 handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable
+
 	self assert: aProcessorSimulationTrap type = #call.
 	processor
 		simulateLeafCallOf: aProcessorSimulationTrap address
@@ -11,5 +12,5 @@ handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable
 										in: coInterpreter memory).
 	self recordInstruction: {'(simulated return to '. processor retpcIn: coInterpreter memory. ')'}.
 	processor
-		smashCallerSavedRegistersWithValuesFrom: 16r80000000 by: objectMemory wordSize;
+		smashABICallerSavedRegistersWithValuesFrom: 16r80000000 by: objectMemory wordSize;
 		simulateLeafReturnIn: coInterpreter memory

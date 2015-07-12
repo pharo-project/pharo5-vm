@@ -1,6 +1,7 @@
 primitive generators
 genPrimitiveDiv
 	| jumpNotSI jumpZero jumpExact jumpSameSign convert |
+	"this is for primitive 12"
 	<var: #convert type: #'AbstractInstruction *'>
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpNotSI type: #'AbstractInstruction *'>

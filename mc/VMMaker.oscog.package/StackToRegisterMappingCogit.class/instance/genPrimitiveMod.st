@@ -1,6 +1,7 @@
 primitive generators
 genPrimitiveMod
 	| jumpNotSI jumpZero jumpExact jumpSameSign |
+	"this is for primitive 11"
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpExact type: #'AbstractInstruction *'>
