@@ -1,7 +1,6 @@
 primitive generators
 genPrimitiveQuo
 	| jumpNotSI jumpZero jumpOverflow |
-	"this is for primitive 13"
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpOverflow type: #'AbstractInstruction *'>

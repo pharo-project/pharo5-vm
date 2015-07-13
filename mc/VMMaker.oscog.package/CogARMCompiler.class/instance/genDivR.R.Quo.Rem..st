@@ -2,7 +2,7 @@ abstract instructions
 genDivR: abstractRegDivisor R: abstractRegDividend Quo: abstractRegQuotient Rem: abstractRegRemainder
 "Currently no instruction level support for divide on ARM. See also #canDivQuoRem"
 	| rDividend rDivisor rQuotient rRemainder divRemFunctionAddr |
-	<var: #divRemFunctionAddr type: #usqInt>
+
 	self assert: abstractRegDividend ~= abstractRegDivisor.
 	self assert: abstractRegQuotient ~= abstractRegRemainder.
 	rDividend := self concreteRegister: abstractRegDividend.

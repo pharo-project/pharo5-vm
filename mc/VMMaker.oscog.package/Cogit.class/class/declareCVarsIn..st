@@ -118,4 +118,6 @@ declareCVarsIn: aCCodeGenerator
 	(self organization listAtCategoryNamed: #'abstract instructions') do:
 		[:s|
 		aCCodeGenerator addSelectorTranslation: s to: 'g', (aCCodeGenerator cFunctionNameFor: s)].
-	aCCodeGenerator addSelectorTranslation: #halt: to: 'haltmsg'
+	aCCodeGenerator addSelectorTranslation: #halt: to: 'haltmsg'.
+
+	self activeCompilerClass declareCVarsIn: aCCodeGenerator

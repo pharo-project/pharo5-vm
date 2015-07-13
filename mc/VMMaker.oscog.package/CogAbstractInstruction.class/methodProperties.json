@@ -2,6 +2,7 @@
 	"class" : {
 		"ISA" : "eem 4/21/2015 22:52",
 		"byteSizeForSimulator:" : "eem 6/8/2015 15:16",
+		"declareCVarsIn:" : "eem 7/13/2015 12:08",
 		"defaultCompilerClass" : "eem 6/15/2015 17:46",
 		"for:" : "eem 12/20/2008 16:29",
 		"identifyingPredefinedMacros" : "eem 4/21/2015 22:40",

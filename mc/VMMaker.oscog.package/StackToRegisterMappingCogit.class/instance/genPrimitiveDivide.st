@@ -1,7 +1,6 @@
 primitive generators
 genPrimitiveDivide
 	| jumpNotSI jumpZero jumpInexact jumpOverflow |
-	"this is for primitive 10"
 	<var: #jumpNotSI type: #'AbstractInstruction *'>
 	<var: #jumpZero type: #'AbstractInstruction *'>
 	<var: #jumpInexact type: #'AbstractInstruction *'>
