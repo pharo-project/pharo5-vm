@@ -1,5 +1,6 @@
 simulation only
 handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable
+	<doNotGenerate>
 
 	self assert: aProcessorSimulationTrap type = #call.
 	processor
