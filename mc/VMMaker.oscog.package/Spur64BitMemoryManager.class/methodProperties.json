@@ -56,6 +56,7 @@
 		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:52",
 		"minSmallInteger" : "eem 11/19/2014 15:12",
 		"negativeSmallFloatZero" : "eem 2/12/2015 09:36",
+		"newInputEventAccessorOfSize:" : "eem 7/14/2015 12:30",
 		"numFreeLists" : "eem 11/18/2014 09:08",
 		"numSlotsForShortening:toIndexableSize:" : "eem 10/18/2014 18:42",
 		"numSmallIntegerBits" : "eem 11/19/2014 13:13",

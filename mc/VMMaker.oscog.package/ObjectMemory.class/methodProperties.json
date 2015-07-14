@@ -301,6 +301,7 @@
 		"methodHeaderOf:" : "eem 8/8/2014 09:43",
 		"minSlotsForShortening" : "eem 2/22/2011 11:25",
 		"minSmallInteger" : "eem 11/19/2014 15:10",
+		"newInputEventAccessorOfSize:" : "eem 7/14/2015 12:26",
 		"newObjectHash" : "",
 		"newSpaceSize" : "eem 10/12/2013 09:24",
 		"nilObject" : "eem 3/26/2009 20:34",
