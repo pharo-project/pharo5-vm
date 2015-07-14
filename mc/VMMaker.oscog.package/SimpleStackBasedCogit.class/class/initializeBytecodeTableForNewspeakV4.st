@@ -69,13 +69,13 @@ initializeBytecodeTableForNewspeakV4
 		(2 238 238 genExtSendBytecode isMapped)
 		(2 239 239 genExtSendSuperBytecode isMapped)
 		(2 240 240 genExtSendAbsentImplicitBytecode isMapped hasIRC)
-		(2 241 241 genExtSendAbsentDynamicSuperBytecode isMapped)
+		(2 241 241 genExtSendAbsentDynamicSuperBytecode isMapped hasIRC)
 
 		(2 242 242 genExtUnconditionalJump	branch isMapped "because of interrupt check" v4:Long:Branch:Distance:)
 		(2 243 243 genExtJumpIfTrue			branch isBranchTrue isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 		(2 244 244 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
-		(2 245 245 genExtSendAbsentSelfBytecode isMapped)
+		(2 245 245 genExtSendAbsentSelfBytecode isMapped hasIRC)
 
 		(2 246 248	unknownBytecode)
 

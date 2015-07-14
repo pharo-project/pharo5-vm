@@ -26,31 +26,6 @@ ceSICMiss: receiver
 	entryPoint := backEnd callTargetFromReturnAddress: outerReturn.
 
 	self assert: targetMethod selector ~= objectMemory nilObject.
-	self cppIf: NewspeakVM ifTrue:
-		[| callerMethod annotation |
-		 self assert: targetMethod asInteger + cmEntryOffset = entryPoint.
-		 callerMethod := coInterpreter mframeHomeMethod: coInterpreter getFramePointer.
-		 self assert: (outerReturn
-						between: callerMethod asUnsignedInteger + cmNoCheckEntryOffset
-						and: callerMethod asUnsignedInteger + callerMethod blockSize).
-		 annotation := self annotationForMcpc: outerReturn in: callerMethod.
-		 self assert: annotation >= IsSendCall.
-		 "Avoid the effort of implementing PICs for the relatively high dynamic frequency
-		  self send and simply rebind the send site (for now)."
-		 annotation = IsNSSelfSend ifTrue:
-			[coInterpreter
-				ceSelfSend: targetMethod selector
-				to: receiver
-				numArgs: targetMethod cmNumArgs.
-			self unreachable].
-		 "Avoid the effort of implementing PICs for the relatively low dynamic frequency
-		  dynamic super send and simply rebind the send site."
-		 annotation = IsNSDynamicSuperSend ifTrue:
-			[coInterpreter
-				ceDynamicSuperSend: targetMethod selector
-				to: receiver
-				numArgs: targetMethod cmNumArgs.
-			self unreachable]].
 	self assert: targetMethod asInteger + cmEntryOffset = entryPoint.
 
 	self lookup: targetMethod selector

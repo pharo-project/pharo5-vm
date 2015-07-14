@@ -2,7 +2,7 @@ bytecode generators
 genSendAbsentOuter: selector numArgs: numArgs depth: depth
 	<inline: false>
 	^self
-		genSendAbsentImplicitOrOuter: selector
+		genNSSend: selector
 		numArgs: numArgs
 		depth: depth
 		sendTable: outerSendTrampolines

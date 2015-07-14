@@ -2,7 +2,7 @@ bytecode generators
 genSendAbsentImplicit: selector numArgs: numArgs
 	<inline: false>
 	^self
-		genSendAbsentImplicitOrOuter: selector
+		genNSSend: selector
 		numArgs: numArgs
-		depth: 255 "Unused"
+		depth: LookupRuleImplicit
 		sendTable: implicitReceiverSendTrampolines

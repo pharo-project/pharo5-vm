@@ -1,5 +1,8 @@
 bytecode generators
 genSendAbsentDynamicSuper: selector numArgs: numArgs
 	<inline: false>
-	self marshallAbsentReceiverSendArguments: numArgs.
-	^self genSend: selector numArgs: numArgs sendTable: dynamicSuperSendTrampolines
+	^self
+		genNSSend: selector
+		numArgs: numArgs
+		depth: LookupRuleDynamicSuper
+		sendTable: dynamicSuperSendTrampolines

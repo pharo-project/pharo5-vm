@@ -10,6 +10,7 @@ lookupDynamicSuperSend
 
 	| methodMixin methodMixinApplication |
 	localAbsentReceiver := self receiver.
+	localAbsentReceiverOrZero := 0.
 	methodMixin := self methodClassOf: method.
 	methodMixinApplication := self
 		findApplicationOfTargetMixin: methodMixin

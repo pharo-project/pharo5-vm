@@ -6,21 +6,19 @@ generateNewspeakSendTrampolines
 		[:numArgs|
 		selfSendTrampolines
 			at: numArgs
-			put: (self genTrampolineFor: #ceSelfSend:to:numArgs:
-					  called: (self trampolineName: 'ceSelfSend' numArgs: numArgs)
-					  arg: ClassReg
-					  arg: ReceiverResultReg
-					  arg: (self numArgsOrSendNumArgsReg: numArgs))].
+			put: (self 
+				genNSSendTrampolineFor: #ceSelfSend:receiver:
+				numArgs: numArgs enclosingObjectCheck: false
+				called: (self trampolineName: 'ceSelfSend' numArgs: numArgs))].
 
 	0 to: NumSendTrampolines - 1 do:
 		[:numArgs|
 		dynamicSuperSendTrampolines
 			at: numArgs
-			put: (self genTrampolineFor: #ceDynamicSuperSend:to:numArgs:
-					  called: (self trampolineName: 'ceDynSuperSend' numArgs: numArgs)
-					  arg: ClassReg
-					  arg: ReceiverResultReg
-					  arg: (self numArgsOrSendNumArgsReg: numArgs))].
+			put: (self 
+				genNSSendTrampolineFor: #ceDynamicSuperSend:receiver:
+				numArgs: numArgs enclosingObjectCheck: false
+				called: (self trampolineName: 'ceDynamicSuperSend' numArgs: numArgs))].
 
 	0 to: NumSendTrampolines - 1 do:
 		[:numArgs|
@@ -28,7 +26,7 @@ generateNewspeakSendTrampolines
 			at: numArgs
 			put: (self 
 				genNSSendTrampolineFor: #ceImplicitReceiverSend:receiver:
-				numArgs: numArgs
+				numArgs: numArgs enclosingObjectCheck: true
 				called: (self trampolineName: 'ceImplicitReceiverSend' numArgs: numArgs))].
 
 	0 to: NumSendTrampolines - 1 do:
@@ -37,6 +35,6 @@ generateNewspeakSendTrampolines
 			at: numArgs
 			put: (self 
 				genNSSendTrampolineFor: #ceOuterSend:receiver:
-				numArgs: numArgs
+				numArgs: numArgs enclosingObjectCheck: true
 				called: (self trampolineName: 'ceOuterSend' numArgs: numArgs))].
 
