@@ -1,3 +1,3 @@
 initialize-release
 initialize
-	buttons := 0
+	buttons := modifiers := 0

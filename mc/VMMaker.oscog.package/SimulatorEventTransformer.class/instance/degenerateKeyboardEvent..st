@@ -8,7 +8,7 @@ degenerateKeyboardEvent: aMorphicEvent
 					[#keyDown]	->	[EventKeyDown].
 					[#keyUp]		->	[EventKeyUp].
 					[#keystroke]	->	[EventKeyChar] }.
-		aMorphicEvent buttons bitAnd: 7.
+		modifiers.
 		aMorphicEvent keyValue.
 		0.
 		0 }

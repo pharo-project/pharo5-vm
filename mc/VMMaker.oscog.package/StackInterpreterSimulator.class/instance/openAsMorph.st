@@ -7,9 +7,10 @@ openAsMorph
 							ifNil: [' synthetic image'].
 	window := (SystemWindow labelled: 'Simulation of ', localImageName) model: self.
 
-	window addMorph: (displayView := ImageMorph new image: displayForm)
+	window addMorph: (displayView := SimulatorImageMorph new image: displayForm)
 			frame: (0@0 corner: 1@0.8).
 	displayView activeHand addEventListener: self.
+	eventTransformer := SimulatorEventTransformer new.
 
 	transcript := TranscriptStream on: (String new: 10000).
 	window addMorph: (PluggableTextMorph

@@ -6,7 +6,8 @@
 		"Default" ],
 	"commentStamp" : "eem 7/14/2015 17:05",
 	"instvars" : [
-		"buttons" ],
+		"buttons",
+		"modifiers" ],
 	"name" : "SimulatorEventTransformer",
 	"pools" : [
 		"EventSensorConstants" ],

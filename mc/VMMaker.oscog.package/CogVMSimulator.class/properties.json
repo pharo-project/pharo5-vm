@@ -24,6 +24,7 @@
 		"quitBlock",
 		"transcript",
 		"displayView",
+		"eventTransformer",
 		"printFrameAtEachStep",
 		"printBytecodeAtEachStep",
 		"systemAttributes",

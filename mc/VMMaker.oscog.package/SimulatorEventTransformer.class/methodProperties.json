@@ -4,6 +4,10 @@
 		"eventTypeMouse" : "eem 7/14/2015 17:31" },
 	"instance" : {
 		"degenerateEvent:" : "eem 7/14/2015 23:38",
-		"degenerateKeyboardEvent:" : "eem 7/14/2015 23:23",
-		"degenerateMouseEvent:" : "eem 7/14/2015 23:40",
-		"initialize" : "eem 7/14/2015 23:31" } }
+		"degenerateEvent:for:" : "eem 7/15/2015 14:28",
+		"degenerateKeyboardEvent:" : "eem 7/15/2015 14:23",
+		"degenerateKeyboardEvent:for:" : "eem 7/15/2015 14:23",
+		"degenerateMouseEvent:" : "eem 7/15/2015 14:22",
+		"degenerateMouseEvent:for:" : "eem 7/15/2015 14:25",
+		"initialize" : "eem 7/15/2015 14:22",
+		"windowIndex" : "eem 7/15/2015 14:08" } }
