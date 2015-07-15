@@ -59,6 +59,7 @@ initialize
 	printSends := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
 	displayForm := fakeForm := 'Display has not yet been installed' asDisplayText form.
+	eventQueue := SharedQueue new.
 	suppressHeartbeatFlag := deferSmash := deferredSmash := false.
 	systemAttributes := Dictionary new.
 	primTraceLog := CArrayAccessor on: (Array new: 256 withAll: 0).

@@ -6,7 +6,8 @@ openAsMorphNoTranscript
 	window := (SystemWindow labelled: 'Simulation of ' , localImageName) model: self.
 
 	window addMorph: (displayView := ImageMorph new image: displayForm)
-		frame: (0@0 corner: 1@0.95).
+			frame: (0@0 corner: 1@0.95).
+	displayView activeHand addEventListener: self.
 
 	window addMorph: (PluggableTextMorph on: self
 						text: #byteCountText accept: nil

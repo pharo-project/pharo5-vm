@@ -1,8 +1,0 @@
-{
-	"class" : {
-		 },
-	"instance" : {
-		"testKeyEventDegeneration" : "tty 2/15/2014 11:23",
-		"testMouseEventDegeneration" : "tty 2/15/2014 11:24",
-		"testNullEventDegeneration" : "tty 2/15/2014 11:24",
-		"testStackInterpreterSimulatorDisplayViewAccess" : "tty 2/15/2014 11:48" } }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation-Morphic",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Default" ],
+	"commentStamp" : "eem 7/14/2015 17:05",
+	"instvars" : [
+		 ],
+	"name" : "SimulatorEventTransformer",
+	"pools" : [
+		"EventSensorConstants" ],
+	"super" : "Object",
+	"type" : "normal" }

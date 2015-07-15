@@ -36,7 +36,8 @@
 		"externalSemaphoreSignalResponses",
 		"extSemTabSize",
 		"debugStackDepthDictionary",
-		"performFilters" ],
+		"performFilters",
+		"eventQueue" ],
 	"name" : "CogVMSimulator",
 	"pools" : [
 		 ],

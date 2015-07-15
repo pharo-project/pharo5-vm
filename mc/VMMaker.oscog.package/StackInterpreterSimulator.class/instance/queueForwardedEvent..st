@@ -1,5 +1,5 @@
-event forwarding
-queueForwardedEvent:evt
-	eventQueue isNil
-		ifTrue:[eventQueue := SharedQueue new].
-	eventQueue nextPut: evt.
+I/O primitives support
+queueForwardedEvent: event
+	eventQueue ifNil:
+		[eventQueue := SharedQueue new].
+	eventQueue nextPut: event
