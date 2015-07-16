@@ -235,7 +235,7 @@
 		"ceCheckFeatures" : "eem 7/15/2009 13:55",
 		"ceEnterCogCodePopReceiverReg" : "eem 10/22/2009 18:15",
 		"ceReturnToInterpreterPC" : "eem 6/23/2009 17:56",
-		"ceSICMiss:" : "rmacnak 7/12/2015 21:27",
+		"ceSICMiss:" : "eem 7/15/2015 19:54",
 		"checkAssertsEnabledInCogit" : "eem 6/1/2009 17:27",
 		"checkEnoughOpcodes" : "eem 8/22/2011 10:23",
 		"checkIfValidOopRef:pc:cogMethod:" : "eem 6/11/2015 16:43",
