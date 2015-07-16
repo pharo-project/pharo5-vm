@@ -76,6 +76,8 @@ compileOpenPIC: selector numArgs: numArgs
 
 	"Last probe missed.  Call ceSendFromInLineCacheMiss: to do the full lookup."
 	jumpSelectorMiss jmpTarget: self Label.
+	self numRegArgs > 0 ifTrue:
+		[backEnd genPushRegisterArgsForNumArgs: numArgs scratchReg: SendNumArgsReg].
 	self genSmalltalkToCStackSwitch: true.
 	methodLabel addDependent: (self annotateAbsolutePCRef: (self MoveCw: methodLabel asInteger R: SendNumArgsReg)).
 	self 

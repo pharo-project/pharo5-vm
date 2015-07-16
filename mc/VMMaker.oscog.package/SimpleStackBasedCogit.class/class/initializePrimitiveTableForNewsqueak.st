@@ -100,7 +100,7 @@ initializePrimitiveTableForNewsqueak
 		"(80 primitiveFail)"							"Blue Book: primitiveBlockCopy"
 		"(81 primitiveFail)"							"Blue Book: primitiveValue"
 		"(82 primitiveFail)"							"Blue Book: primitiveValueWithArgs"
-		"(83 primitivePerform)"
+		(83 genPrimitivePerform)
 		"(84 primitivePerformWithArgs)"
 		"(85 primitiveSignal)"
 		"(86 primitiveWait)"

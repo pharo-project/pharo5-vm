@@ -20,6 +20,7 @@
 		"stackToRegisterMapping" : "eem 10/4/2013 14:22" },
 	"instance" : {
 		"addBlockStartAt:numArgs:numCopied:span:" : "eem 6/4/2015 09:53",
+		"adjustArgumentsForPerform:" : "eem 7/15/2015 17:27",
 		"allocateEqualsEqualsRegistersArgNeedsReg:rcvrNeedsReg:into:" : "eem 5/15/2015 11:35",
 		"allocateRegForStackEntryAt:" : "cb 4/26/2015 12:25",
 		"allocateRegForStackEntryAt:notConflictingWith:" : "cb 4/26/2015 12:24",
@@ -46,7 +47,6 @@
 		"compileCogMethod:" : "eem 11/30/2010 21:19",
 		"compileEntireMethod" : "eem 1/18/2011 10:05",
 		"compileFrameBuild" : "eem 10/30/2013 17:02",
-		"compileOpenPIC:numArgs:" : "eem 6/3/2015 09:43",
 		"debugStackPointerFor:" : "eem 12/11/2010 11:03",
 		"doubleExtendedDoAnythingBytecode" : "eem 7/12/2013 15:31",
 		"duplicateTopBytecode" : "eem 12/11/2010 14:04",
@@ -106,6 +106,7 @@
 		"genPrimitiveNewMethod" : "eem 5/4/2015 10:25",
 		"genPrimitiveNewWithArg" : "eem 5/16/2014 11:34",
 		"genPrimitiveNotIdentical" : "eem 12/24/2013 16:17",
+		"genPrimitivePerform" : "eem 7/15/2015 17:58",
 		"genPrimitiveQuo" : "eem 6/3/2015 09:52",
 		"genPrimitiveSize" : "eem 10/3/2013 14:37",
 		"genPrimitiveStringAt" : "eem 10/3/2013 14:37",

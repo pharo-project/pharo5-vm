@@ -1,26 +1,28 @@
-in-line cacheing
-compileOpenPIC: selector numArgs: numArgs
-	"Compile the code for an open PIC.  Perform a probe of the first-level method
-	 lookup cache followed by a call of ceSendFromInLineCacheMiss: if the probe fails.
-	 Override to push the register args when calling ceSendFromInLineCacheMiss:"
-	| jumpSelectorMiss jumpClassMiss itsAHit jumpBCMethod |
+primitive generators
+genLookupForPerformNumArgs: numArgs
+	"Compile the code for a probe of the first-level method cache for a perform primtiive.
+	 The selector is assumed to be in Arg0Reg.  Defer to adjustArgumentsForPerform: to
+	 adjust the arguments before the jump to the method."
+	| jumpSelectorMiss jumpClassMiss jumpInterpret itsAHit |
 	<var: #jumpSelectorMiss type: #'AbstractInstruction *'>
 	<var: #jumpClassMiss type: #'AbstractInstruction *'>
+	<var: #jumpInterpret type: #'AbstractInstruction *'>
 	<var: #itsAHit type: #'AbstractInstruction *'>
-	<var: #jumpBCMethod type: #'AbstractInstruction *'>
-	self compilePICAbort: numArgs.
-	entry := objectRepresentation genGetClassTagOf: ReceiverResultReg into: ClassReg scratchReg: TempReg.
 
-	"Do first of three probes.  See CoInterpreter>>lookupInMethodCacheSel:classTag:"
+	"N.B.  Can't assume TempReg already contains the tag because a method can
+	 of course be invoked via the unchecked entry-point, e.g. as does perform:."
+	objectRepresentation genGetInlineCacheClassTagFrom: ReceiverResultReg into: ClassReg forEntry: false.
+
+	"Do first of three probes.  See StackInterpreter>>lookupInMethodCacheSel:classTag:"
 	self flag: #lookupInMethodCacheSel:classTag:. "so this method shows up as a sender of lookupInMethodCacheSel:class:"
 	self MoveR: ClassReg R: SendNumArgsReg.
-	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
+	self XorR: Arg0Reg R: ClassReg.
 	self LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
 	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
-	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
+	self CmpR: Arg0Reg R: TempReg.
 	jumpSelectorMiss := self JumpNonZero: 0.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
@@ -29,27 +31,28 @@ compileOpenPIC: selector numArgs: numArgs
 	jumpClassMiss := self JumpNonZero: 0.
 
 	itsAHit := self Label.
-	"Fetch the method.  The interpret trampoline requires the bytecoded method in SendNumArgsReg"
+	"Fetch the method, and check it is cogged."
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheMethod << objectMemory shiftForWord)
 		r: ClassReg
 		R: SendNumArgsReg.
-	"If the method is compiled jump to its unchecked entry-point, otherwise interpret it."
+	"If the method is not compiled fall back on the interpreter primitive."
 	objectRepresentation genLoadSlot: HeaderIndex sourceReg: SendNumArgsReg destReg: ClassReg.
-	jumpBCMethod := objectRepresentation genJumpImmediate: ClassReg.
-	jumpBCMethod jmpTarget: picInterpretAbort.
+	jumpInterpret := objectRepresentation genJumpImmediate: ClassReg.
+	"Adjust arguments and jump to the method's unchecked entry-point."
 	self AddCq: cmNoCheckEntryOffset R: ClassReg.
+	self adjustArgumentsForPerform: numArgs.
 	self JumpR: ClassReg.
 
 	"First probe missed.  Do second of three probes.  Shift hash right one and retry."
 	jumpSelectorMiss jmpTarget: (jumpClassMiss jmpTarget: self Label).
 	self MoveR: SendNumArgsReg R: ClassReg.
-	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
+	self XorR: Arg0Reg R: ClassReg.
 	self LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
 	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
-	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
+	self CmpR: Arg0Reg R: TempReg.
 	jumpSelectorMiss := self JumpNonZero: 0.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
@@ -60,14 +63,14 @@ compileOpenPIC: selector numArgs: numArgs
 	"Second probe missed.  Do last probe.  Shift hash right two and retry."
 	jumpSelectorMiss jmpTarget: self Label.
 	self MoveR: SendNumArgsReg R: ClassReg.
-	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
+	self XorR: Arg0Reg R: ClassReg.
 	objectMemory shiftForWord > 2 ifTrue:
 		[self LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg].
 	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheSelector << objectMemory shiftForWord)
 		r: ClassReg
 		R: TempReg.
-	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
+	self CmpR: Arg0Reg R: TempReg.
 	jumpSelectorMiss := self JumpNonZero: 0.
 	self MoveMw: coInterpreter methodCacheAddress asUnsignedInteger + (MethodCacheClass << objectMemory shiftForWord)
 		r: ClassReg
@@ -75,18 +78,7 @@ compileOpenPIC: selector numArgs: numArgs
 	self CmpR: SendNumArgsReg R: TempReg.
 	self JumpZero: itsAHit.
 
-	"Last probe missed.  Call ceSendFromInLineCacheMiss: to do the full lookup."
-	jumpSelectorMiss jmpTarget: self Label.
-	backEnd genPushRegisterArgsForNumArgs: numArgs scratchReg: SendNumArgsReg.
-	self genSmalltalkToCStackSwitch: true.
-	methodLabel addDependent: (self annotateAbsolutePCRef: (self MoveCw: methodLabel asInteger R: SendNumArgsReg)).
-	self 
-		compileCallFor: #ceSendFromInLineCacheMiss:
-		numArgs: 1
-		arg: SendNumArgsReg
-		arg: nil
-		arg: nil
-		arg: nil
-		resultReg: nil
-		saveRegs: false
-	"Note that this call does not return."
+	"Last probe missed.  Caller will generate the call to fall back on the interpreter primitive."
+	jumpSelectorMiss jmpTarget:
+	(jumpInterpret jmpTarget: self Label).
+	^0
