@@ -28,7 +28,7 @@ ExternalProject_Add(
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
 		-DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
-		#"-Wl,<option>" is a flag for gcc to pas the arguments through to the linker
+		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
 		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins''.
 )
 

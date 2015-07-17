@@ -1,3 +1,3 @@
 package properties
 libraryFileName
-	^ 'libssh2-1.dll'
+	^ 'libssh2.dll'
