@@ -25,11 +25,10 @@ ExternalProject_Add(
 		LDFLAGS=-m32
 )
 
-# for some reason not necessary on windows...
-#ExternalProject_Add_Step(libssh2 copy_libssh2_artefacts_to_results
-#        COMMAND cp ${libSSH2Installed} ${externalModulesDir}/${libraryFileName}
-#        DEPENDEES install
-#)
+ExternalProject_Add_Step(libssh2 copy_libssh2_artefacts_to_results
+        COMMAND cp ${libSSH2Installed} ${externalModulesDir}/${libraryFileName}
+        DEPENDEES install
+)
 
 
 #make sure openssl is built before libgit2
