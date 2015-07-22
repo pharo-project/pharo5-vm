@@ -1,12 +1,11 @@
 object access primitives
 primitiveBehaviorHash
 	| hashOrError |
-	self cppIf: NewspeakVM
-		ifTrue:
-			[argumentCount > 0 ifTrue:
-				[((objectMemory isNonImmediate: self stackTop)
-				  and: [self objCouldBeClassObj: self stackTop]) ifFalse:
-					[^self primitiveFailFor: PrimErrBadArgument]]].
+	NewspeakVM ifTrue: "For the mirror prims check that the class obj is actually a valid class."
+		[argumentCount > 0 ifTrue:
+			[((objectMemory isNonImmediate: self stackTop)
+			  and: [self objCouldBeClassObj: self stackTop]) ifFalse:
+				[^self primitiveFailFor: PrimErrBadArgument]]].
 	self assert: ((objectMemory isNonImmediate: self stackTop)
 				  and: [self addressCouldBeClassObj: self stackTop]).
 	hashOrError := objectMemory ensureBehaviorHash: self stackTop.

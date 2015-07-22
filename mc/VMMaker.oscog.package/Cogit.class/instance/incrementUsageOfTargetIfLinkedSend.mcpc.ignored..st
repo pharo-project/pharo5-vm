@@ -4,7 +4,7 @@ incrementUsageOfTargetIfLinkedSend: annotation mcpc: mcpc ignored: superfluity
 	<var: #nsSendCache type: #'NSSendCache *'>
 	| entryPoint |
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[annotation = IsNSSendCall ifTrue:
 			[| nsSendCache |
 			 nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

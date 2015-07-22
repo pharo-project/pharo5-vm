@@ -5,7 +5,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 	<var: #targetMethod type: #'CogMethod *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			["Retrieve the send cache before relocating the stub call. Fetching the send

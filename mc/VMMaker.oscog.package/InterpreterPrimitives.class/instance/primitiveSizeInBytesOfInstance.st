@@ -5,7 +5,7 @@ primitiveSizeInBytesOfInstance
 	 size of an instance of the receiver with that many indexable elements."
 	<option: #SpurObjectMemory>
 	| byteSize err |
-	self cppIf: NewspeakVM
+	NewspeakVM
 		ifTrue: "Support VMMirror>>byteSizeOfInstanceOf:WithIndexableVariables:"
 			[argumentCount > 2 ifTrue:
 				[^self primitiveFailFor: PrimErrBadNumArgs]]

@@ -15,7 +15,7 @@ validInstructionPointer: instrPointer inMethod: aMethod framePointer: fp
 			 theInstrPointer := self iframeSavedIP: fp]
 		ifFalse:
 			[theInstrPointer := instrPointer.
-			self cppIf: NewspeakVM
+			 NewspeakVM
 				ifTrue:
 					[(self isMachineCodeFrame: fp) ifTrue:
 						[cogMethod := self mframeHomeMethod: fp.

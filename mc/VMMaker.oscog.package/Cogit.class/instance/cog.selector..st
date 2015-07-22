@@ -27,14 +27,14 @@ cog: aMethodObj selector: aSelectorOop
 		point: (objectMemory lengthOf: aSelectorOop)
 		isMNUCase: false.
 	aMethodObj = breakMethod ifTrue: [self halt: 'Compilation of breakMethod'].
-	self cppIf: NewspeakVM
-		ifTrue: [cogMethod := methodZone findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop.
-				cogMethod ifNotNil:
-					[(coInterpreter methodHasCogMethod: aMethodObj) not ifTrue:
-						[self assert: (coInterpreter rawHeaderOf: aMethodObj) = cogMethod methodHeader.
-						 cogMethod methodObject: aMethodObj.
-						 coInterpreter rawHeaderOf: aMethodObj put: cogMethod asInteger].
-					^cogMethod]].
+	NewspeakVM ifTrue:
+		[cogMethod := methodZone findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop.
+		 cogMethod ifNotNil:
+			[(coInterpreter methodHasCogMethod: aMethodObj) not ifTrue:
+				[self assert: (coInterpreter rawHeaderOf: aMethodObj) = cogMethod methodHeader.
+				 cogMethod methodObject: aMethodObj.
+				 coInterpreter rawHeaderOf: aMethodObj put: cogMethod asInteger].
+			^cogMethod]].
 	"If the generators for the alternate bytecode set are missing then interpret."
 	(coInterpreter methodUsesAlternateBytecodeSet: aMethodObj)
 		ifTrue:

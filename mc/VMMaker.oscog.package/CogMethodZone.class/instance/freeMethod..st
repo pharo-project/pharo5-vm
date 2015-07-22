@@ -14,12 +14,12 @@ freeMethod: cogMethod
 		 (coInterpreter rawHeaderOf: cogMethod methodObject) asInteger = cogMethod asInteger
 			ifTrue:
 				[coInterpreter rawHeaderOf: cogMethod methodObject put: cogMethod methodHeader.
-				 self cppIf: NewspeakVM ifTrue:
+				 NewspeakVM ifTrue:
 					[(objectRepresentation canPinObjects and: [cogMethod nextMethodOrIRCs ~= 0]) ifTrue:
 						[objectRepresentation freeIRCs: cogMethod nextMethodOrIRCs]]]
 			ifFalse:
 				[self assert: (cogit noAssertMethodClassAssociationOf: cogMethod methodObject) = objectMemory nilObject.
-				 self cppIf: NewspeakVM ifTrue:
+				 NewspeakVM ifTrue:
 					[self removeFromUnpairedMethodList: cogMethod]].
 		 cogit maybeFreeCountersOf: cogMethod].
 	cogMethod cmType = CMOpenPIC ifTrue:

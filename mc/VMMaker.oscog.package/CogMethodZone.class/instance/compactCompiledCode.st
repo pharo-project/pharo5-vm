@@ -7,14 +7,14 @@ compactCompiledCode
 	source := coInterpreter cCoerceSimple: baseAddress to: #'CogMethod *'.
 	openPICList := nil.
 	methodCount := 0.
-	self cppIf: NewspeakVM ifTrue: [unpairedMethodList := nil].
+	NewspeakVM ifTrue: [unpairedMethodList := nil].
 	[source < self limitZony
 	 and: [source cmType ~= CMFree]] whileTrue:
 		[self assert: (cogit cogMethodDoesntLookKosher: source) = 0.
 		 source objectHeader: objectHeaderValue.
 		 source cmUsageCount > 0 ifTrue:
 			[source cmUsageCount: source cmUsageCount // 2].
-		 self cppIf: NewspeakVM ifTrue:
+		 NewspeakVM ifTrue:
 				[(source cmType = CMMethod
 				  and: [(coInterpreter rawHeaderOf: source methodObject) asInteger ~= source asInteger]) ifTrue:
 					[source nextMethodOrIRCs: unpairedMethodList.
@@ -46,7 +46,7 @@ compactCompiledCode
 							[coInterpreter rawHeaderOf: dest methodObject put: dest asInteger]
 						ifFalse:
 							[self assert: (cogit noAssertMethodClassAssociationOf: dest methodObject) = objectMemory nilObject.
-							 self cppIf: NewspeakVM ifTrue:
+							 NewspeakVM ifTrue:
 								[dest nextMethodOrIRCs: unpairedMethodList.
 								 unpairedMethodList := dest asUnsignedInteger]]]
 				ifFalse:

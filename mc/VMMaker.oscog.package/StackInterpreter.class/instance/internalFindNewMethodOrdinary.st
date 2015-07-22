@@ -14,7 +14,7 @@ internalFindNewMethodOrdinary
 			(self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifTrue:
 				[^nil]].
 		 lkupClass := objectMemory classForClassTag: lkupClassTag.
-		 self cppIf: #NewspeakVM
+		 NewspeakVM
 			ifTrue: [self lookupOrdinarySend]
 			ifFalse: [self lookupMethodInClass: lkupClass].
 		 self internalizeIPandSP.

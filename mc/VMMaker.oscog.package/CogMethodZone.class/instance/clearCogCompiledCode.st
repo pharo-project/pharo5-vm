@@ -3,7 +3,7 @@ clearCogCompiledCode
 	"Free all methods"
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	self cppIf: NewspeakVM ifTrue: [unpairedMethodList := nil].
+	NewspeakVM ifTrue: [unpairedMethodList := nil].
 	cogMethod := coInterpreter cCoerceSimple: baseAddress to: #'CogMethod *'.
 	[cogMethod asUnsignedInteger < mzFreeStart] whileTrue:
 		[cogMethod cmType = CMMethod ifTrue:

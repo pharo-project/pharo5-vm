@@ -16,11 +16,11 @@ fillInMethodHeader: method size: size selector: selector
 			[originalMethod := self cCoerceSimple: methodHeader to: #'CogMethod *'.
 			self assert: originalMethod blockSize = size.
 			methodHeader := originalMethod methodHeader.
-			self cppIf: NewspeakVM ifTrue:
+			NewspeakVM ifTrue:
 				[methodZone addToUnpairedMethodList: method]]
 		ifFalse:
 			[coInterpreter rawHeaderOf: methodObj put: method asInteger.
-			self cppIf: NewspeakVM ifTrue:
+			 NewspeakVM ifTrue:
 				[method nextMethodOrIRCs: theIRCs]].
 	method methodHeader: methodHeader.
 	method selector: selector.
