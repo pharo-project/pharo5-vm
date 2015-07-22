@@ -135,7 +135,7 @@
 		"generateInlineCppIfElse:on:indent:" : "eem 6/23/2011 10:10",
 		"generateInlineCppIfElseAsArgument:on:indent:" : "eem 6/23/2011 10:10",
 		"generateInlineDirective:on:indent:" : "",
-		"generateIntegerObjectOf:on:indent:" : "eem 12/12/2014 20:10",
+		"generateIntegerObjectOf:on:indent:" : "eem 7/18/2015 12:57",
 		"generateIntegerValueOf:on:indent:" : "eem 11/18/2014 19:01",
 		"generateIsIntegerObject:on:indent:" : "eem 12/15/2014 15:02",
 		"generateIsNil:on:indent:" : "",
