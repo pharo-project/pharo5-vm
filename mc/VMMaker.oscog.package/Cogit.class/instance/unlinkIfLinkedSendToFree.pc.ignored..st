@@ -5,7 +5,7 @@ unlinkIfLinkedSendToFree: annotation pc: mcpc ignored: superfluity
 	<var: #nsTargetMethod type: #'CogMethod *'>
 	| entryPoint |
 
-	NewspeakVM ifTrue:
+	self cppIf: NewspeakVM ifTrue:
 		[| nsSendCache nsTargetMethod |
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

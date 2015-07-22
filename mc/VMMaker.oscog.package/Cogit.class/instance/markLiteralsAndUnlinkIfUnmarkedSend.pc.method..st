@@ -12,7 +12,7 @@ markLiteralsAndUnlinkIfUnmarkedSend: annotation pc: mcpc method: cogMethod
 				atpc: mcpc asUnsignedInteger) ifTrue:
 			[codeModified := true]].
 
-	NewspeakVM ifTrue:
+	self cppIf: NewspeakVM ifTrue:
 		[annotation = IsNSSendCall ifTrue:
 			[| nsSendCache entryPoint targetMethod sel eo |
 			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

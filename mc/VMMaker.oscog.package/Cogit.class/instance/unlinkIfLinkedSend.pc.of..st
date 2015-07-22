@@ -4,7 +4,7 @@ unlinkIfLinkedSend: annotation pc: mcpc of: theSelector
 	<var: #nsSendCache type: #'NSSendCache *'>
 	| entryPoint |
 
-	NewspeakVM ifTrue:
+	self cppIf: NewspeakVM ifTrue:
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
