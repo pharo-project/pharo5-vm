@@ -1064,6 +1064,21 @@ void SetupKeymap()
     iKeymap[keymap[i]] = i;
 }
 
+/* some ctrl+ shortcuts doesn't generate press events on windows but the
+   image expects them (ctrl+1/ctrl+tab ...) */
+static int shouldGenExtreKeypressEvent(int pressCode) {
+  // digit 0-9
+  if((pressCode >= 48 && pressCode <= 57))
+  {
+      return 1;
+  }
+  // tab
+  if(pressCode == 9)
+  {
+      return 1;
+  }
+  return 0;
+}
 
 /* Map a virtual key into something the Mac understands */
 static int mapVirtualKey(int virtKey)
@@ -1286,7 +1301,8 @@ int recordKeyboardEvent(MSG *msg) {
   /* note: several keys are not reported as character events;
      most noticably the mapped virtual keys. For those we
      generate extra character events here */
-  if(pressCode == EventKeyDown && virtCode != 0) {
+  if(pressCode == EventKeyDown && 
+     (virtCode != 0 || (ctrl && shouldGenExtreKeypressEvent(keyCode)))) {
     /* generate extra character event */
     sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
     *extra = *evt;
