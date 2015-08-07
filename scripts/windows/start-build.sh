@@ -56,7 +56,8 @@ function checkForCMake() {
 function fixHeadersAndLibs() {
   echo "Fixing headers and libraries..."
   mingw_dir=$(which mingw-get)
-  mingw_dir=${mingw_dir%*/bin/*}
+  mingw_dir="${mingw_dir%*/bin/*}"
+  pharovm_dir="${build_dir}/pharo-vm"
 
   # copy fixed float.h
   float_path=$(find "${mingw_dir}/lib/gcc/" -regex ".*/include/float.h")

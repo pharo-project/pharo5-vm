@@ -50,7 +50,7 @@ echo Done.
 
 :: cd back to original directory
 cd %scriptDirectory%
-exit /b
+goto :eof
 
 :: functions
 :cdToBuildDirectory
