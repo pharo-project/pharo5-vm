@@ -81,7 +81,6 @@
 		"longAt:put:" : "",
 		"longPrint:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:" : "eem 10/4/2013 14:19",
-		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:" : "EstebanLorenzano 5/20/2015 12:16",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 5/20/2015 12:17",
 		"nameOfClass:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"nextLongFrom:" : "th 4/15/2000 17:19",

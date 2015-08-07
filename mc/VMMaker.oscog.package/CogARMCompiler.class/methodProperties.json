@@ -113,6 +113,7 @@
 		"extractOffsetFromBL:" : "eem 5/4/2015 10:29",
 		"faddd:with:" : "tpr 6/20/2015 21:59",
 		"fcmpFrom:to:" : "tpr 6/26/2015 10:58",
+		"fcmpeFrom:to:" : "eem 8/6/2015 17:29",
 		"fdivd:by:" : "tpr 6/26/2015 10:58",
 		"fldd:rn:plus:imm:" : "tpr 6/20/2015 22:01",
 		"flushICacheFrom:to:" : "tpr 6/4/2015 15:09",

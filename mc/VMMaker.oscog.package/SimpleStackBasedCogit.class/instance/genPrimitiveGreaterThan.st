@@ -1,3 +1,5 @@
 primitive generators
 genPrimitiveGreaterThan
-	^self genSmallIntegerComparison: JumpGreater orDoubleComparison: #JumpFPGreater: asSymbol
+	^self genSmallIntegerComparison: JumpGreater
+		orDoubleComparison: #JumpFPGreater:
+		invert: false
