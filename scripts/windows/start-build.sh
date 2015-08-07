@@ -61,7 +61,7 @@ function fixHeadersAndLibs() {
 
   # copy fixed float.h
   float_path=$(find "${mingw_dir}/lib/gcc/" -regex ".*/include/float.h")
-  cp "platforms/win32/extras/float.h" ${float_path%*/}
+  cp "${pharovm-dir}/platforms/win32/extras/float.h" ${float_path%*/}
 
   # add missing defs to _mingw.h
   echo "#define off64_t _off64_t" >> "${mingw_dir}/include/_mingw.h"
@@ -72,7 +72,7 @@ function fixHeadersAndLibs() {
   # echo "#define off_t _off_t" >> "${mingw_dir}/mingw32/include/_mingw.h"
 
   # copy libcrtdll (obsolete but needed)
-  cp "platforms/win32/extras/libcrtdll.a" "${mingw_dir}/lib"
+  cp "${pharovm_dir}/platforms/win32/extras/libcrtdll.a" "${mingw_dir}/lib"
 }
 
 
