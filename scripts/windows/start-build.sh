@@ -75,6 +75,12 @@ function fixHeadersAndLibs() {
   cp "${pharovm_dir}/platforms/win32/extras/libcrtdll.a" "${mingw_dir}/lib"
 }
 
+function fixMissingLibraries() {
+	# Needed by libgit2. Apparently it is common practice to copy this dll to the
+	# directory of the executable (see http://stackoverflow.com/questions/4984612/program-cant-find-libgcc-s-dw2-1-dll)
+	cp "${mingw_dir}\bin\libgcc_s_dw2-1.dll"
+}
+
 
 # main program
 ################
@@ -85,3 +91,4 @@ checkForCMake
 fixHeadersAndLibs
 echo "Running build script..."
 "${build_dir}/pharo-vm/scripts/build.sh" > "${build_dir}/build.log"
+fixMissingLibraries
