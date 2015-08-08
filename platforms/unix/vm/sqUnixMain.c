@@ -129,7 +129,7 @@ static int    installHandlers=	1;	/* 0 to disable sigusr1 & sigsegv handlers */
        int    uxDropFileCount=	0;	/* number of dropped items	*/
        char **uxDropFileNames=	0;	/* dropped filenames		*/
 
-       int    textEncodingUTF8= 0;	/* 1 if copy from external selection uses UTF8 */
+       int    textEncodingUTF8= 1;	/* 1 if copy from external selection uses UTF8 */
 
 #if defined(IMAGE_DUMP)
 static int    dumpImageFile=	0;	/* 1 after SIGHUP received */
