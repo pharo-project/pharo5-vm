@@ -12,6 +12,7 @@
 # '\' -> '/', ':' -> '', '//' -> '/'
 # the last replacement is just to allow for POSIX paths as arguments too
 build_dir="$(echo /${1} | sed -e 's/\\/\//g' -e 's/://' -e 's/\/\//\//g')"
+pharovm_dir="${build_dir}/pharo-vm"
 
 # functions
 ###############
@@ -57,7 +58,6 @@ function fixHeadersAndLibs() {
   echo "Fixing headers and libraries..."
   mingw_dir=$(which mingw-get)
   mingw_dir="${mingw_dir%*/bin/*}"
-  pharovm_dir="${build_dir}/pharo-vm"
 
   # copy fixed float.h
   float_path=$(find "${mingw_dir}/lib/gcc/" -regex ".*/include/float.h")
@@ -78,7 +78,7 @@ function fixHeadersAndLibs() {
 function fixMissingLibraries() {
 	# Needed by libgit2. Apparently it is common practice to copy this dll to the
 	# directory of the executable (see http://stackoverflow.com/questions/4984612/program-cant-find-libgcc-s-dw2-1-dll)
-	cp "${mingw_dir}/bin/libgcc_s_dw2-1.dll"
+	cp "${mingw_dir}/bin/libgcc_s_dw2-1.dll" "${pharovm_dir/results}"
 }
 
 
