@@ -63,7 +63,7 @@ winpath() {
 **Note:**
 While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see [Documentation of script operations](https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#documentation-of-script-operations)).
 
-1. [Download the build setup script](https://github.com/theseion/pharo-vm/blob/master/scripts/windows/setup.cmd)
+1. [Download the build setup script](https://raw.githubusercontent.com/theseion/pharo-vm/master/scripts/windows/setup.cmd)
 2. Either double click on the script (the shell window will close immediately after the build) or launch the script from a shell. In either case output will be logged to `<currentDirectory>/vm-build/build-setup.log` and `<currentDirectory>/vm-build/build.log` (which you can `tail` if you want).
 3. Wait for the build to finish
 4. The built objects reside in `<currentDirectory>/vm-build/pharo-vm/results`

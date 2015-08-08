@@ -78,7 +78,7 @@ function fixHeadersAndLibs() {
 function fixMissingLibraries() {
 	# Needed by libgit2. Apparently it is common practice to copy this dll to the
 	# directory of the executable (see http://stackoverflow.com/questions/4984612/program-cant-find-libgcc-s-dw2-1-dll)
-	cp "${mingw_dir}\bin\libgcc_s_dw2-1.dll"
+	cp "${mingw_dir}/bin/libgcc_s_dw2-1.dll"
 }
 
 
