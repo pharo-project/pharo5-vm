@@ -11,7 +11,7 @@ There are two options:
 Either choice is fine, just make sure that Git is on your `PATH`. You can test if it is by [opening a (new) cmd shell](http://www.google.com/search?q=windows+open+cmd) and typing `git`. If it's on the `PATH` you'll see the help page. If Git is not yet on your `PATH` you need to [add it](http://www.google.com/search?q=windows+add+PATH).
 
 ##Advanced environment setup
-*If you only want to quickly build the VM you can skip this section and continue with https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#starting-the-build*
+*If you only want to quickly build the VM you can skip this section and continue with [Starting the build] (https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#starting-the-build)*
 
 There are a couple more things we require to build the VM:
 
@@ -61,9 +61,9 @@ winpath() {
 
 ##Starting the build
 **Note:**
-While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#documentation-of-script-operations).
+While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see [Documentation of script operations]https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#documentation-of-script-operations).
 
-1. [Download the build setup script](...)
+1. [Download the build setup script](https://github.com/theseion/pharo-vm/blob/master/scripts/windows/setup.cmd)
 2. Either double click on the script (the shell window will close immediately after the build) or launch the script from a shell. In either case output will be logged to `<currentDirectory>/vm-build/build-setup.log` and `<currentDirectory>/vm-build/build.log` (which you can `tail` if you want).
 3. Wait for the build to finish
 4. The built objects reside in `<currentDirectory>/vm-build/pharo-vm/results`
@@ -97,7 +97,7 @@ For GCC 4.6.1+ float.h (`<mingw_directory>/lib/gcc/<version>/include/float.h`) a
 ##Add 32-bit dependencies
 For 64-bit machines (e.g. Windows 8.1 Pro) we need to add `libcrtdll.dll` (which is obsolete on those platforms).
 
-1. `cp <pharovmDirectory>/platforms/win32/extras/libcrtdll.a <mingwDirectory>/lib
+1. `cp <pharovmDirectory>/platforms/win32/extras/libcrtdll.a <mingwDirectory>/lib`
 2. The _mingw.h header has to be amended to deal with changes in some typedefs. Add the following to the end of _mingw.h:
 
 ```
