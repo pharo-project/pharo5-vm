@@ -1,16 +1,16 @@
 Windows Build Setup:
 ====================
 
-###Prerequisites
-We provide a set of scripts which automates the build process on Windws platforms. The only thing you need to have in advance is an installation of Git (as of this writing it is nearly impossible to install Git from a script without compiling it).
+##Prerequisites
+We provide a set of scripts which automates the build process on Windows platforms. The only thing you need to have in advance is an installation of Git (as of this writing it is nearly impossible to install Git from a script without compiling it).
 There are two options:
 
-- the official [Git for windows](http://git-scm.com/downloads/win) (leightweight)
-- [msysgit](...) (installs some extra stuff)
+- the official [Git client for Windows](http://git-scm.com/download/win)
+- [Git for Windows / msysGit](http://msysgit.github.io)
 
-Either choice is fine, just make sure that Git is on your `PATH`. You can test if it is by [opening a (new) cmd shell](...) and typing `git`. If it's on the `PATH` you'll see the help page. If Git is not yet on your `PATH` you need to [add it](http://www.google.com/search?q=windows+add+PATH&btnI).
+Either choice is fine, just make sure that Git is on your `PATH`. You can test if it is by [opening a (new) cmd shell](http://www.google.com/search?q=windows+open+cmd) and typing `git`. If it's on the `PATH` you'll see the help page. If Git is not yet on your `PATH` you need to [add it](http://www.google.com/search?q=windows+add+PATH).
 
-###Advanced environment setup
+##Advanced environment setup
 *If you only want to quickly build the VM you can skip this section.*
 
 There are a couple more things we require to build the VM:
@@ -18,22 +18,22 @@ There are a couple more things we require to build the VM:
 - [MinGW](...) + msys
 - [CMake](http://cmake.org)
 
-The scripts will download these dependencies if they're not present but they will only be added to the temporary (process) `PATH`. If you intend to build the VM multiple times you'll achieve shorter build times by having these dependencies preinstalled and on you `PATH`.
+The scripts will download these dependencies if they're not present but they will only be added to the temporary (process) `PATH`. If you intend to build the VM multiple times you'll achieve shorter build times by having these dependencies preinstalled and on your `PATH`.
 
-####MinGW + msys installation
+###MinGW + msys installation
 1. Download the [MinGW setup installer] (http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/) and run it. Make sure to [add the MinGW binaries to your `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 2. Install the following additional MinGW packages by running the following command in a shell (cmd shell will work):
   ```mingw-get install msys-unzip msys-wget msys-zip```
 3. Make sure that the msys paths appear on the `PATH` **before** the Windows default paths. Otherwise you will experience build failures because of name clashes (e.g. the build scripts use the GNU `find` program which clashes with the Windows `find` program)
 
-####CMake installation
+###CMake installation
 Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
 
 To check if everything is installed, open a shell (again, cmd will work) execute the different commands: `git`, `make` and `cmake`.
 
 
-####Notes:
+###Notes:
 Should you need a copy of crtdll32.dll, it lives in C:\Windows\SysWOW64 on 4-bit system. The build process fails to find it on such machines.
 
 
@@ -59,7 +59,7 @@ winpath() {
 ```
 
 
-###Starting the build
+##Starting the build
 **Note:**
 While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see [Documentation of script operations]).
 
@@ -73,7 +73,7 @@ While the setup script is actually part of this repository, we recommend that yo
 Documentation of script operations
 ====================================
 
-###General
+##General
 1. create a build directory
 2. download MinGW and msys, add them to `PATH` and install packages
 3. download CMake and add it to `PATH`
@@ -81,12 +81,12 @@ Documentation of script operations
 5. fix build environment (see below)
 6. run the actual build script
 
-###Modify repository configuration before checkout
+##Modify repository configuration before checkout
 1. clone the repository with the `--no-checkout` option
 2. set the `text` configuration option to `auto`: `git config --add core.text auto`
 3. `git checkout -f HEAD`
 
-###Modify float.h
+##Modify float.h
 For GCC 4.6.1+ float.h (`<mingw_directory>/lib/gcc/<version>/include/float.h`) add this to the end of the file:
 ```
 #ifndef _MINGW_FLOAT_H_
@@ -94,7 +94,7 @@ For GCC 4.6.1+ float.h (`<mingw_directory>/lib/gcc/<version>/include/float.h`) a
 #endif
 ```
 
-###Add 32-bit dependencies
+##Add 32-bit dependencies
 For 64-bit machines (e.g. Windows 8.1 Pro) we need to add `libcrtdll.dll` (which is obsolete on those platforms).
 
 1. `cp <pharovmDirectory>/platforms/win32/extras/libcrtdll.a <mingwDirectory>/lib
