@@ -11,7 +11,7 @@ There are two options:
 Either choice is fine, just make sure that Git is on your `PATH`. You can test if it is by [opening a (new) cmd shell](http://www.google.com/search?q=windows+open+cmd) and typing `git`. If it's on the `PATH` you'll see the help page. If Git is not yet on your `PATH` you need to [add it](http://www.google.com/search?q=windows+add+PATH).
 
 ##Advanced environment setup
-*If you only want to quickly build the VM you can skip this section.*
+*If you only want to quickly build the VM you can skip this section and continue with https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#starting-the-build*
 
 There are a couple more things we require to build the VM:
 
@@ -21,20 +21,20 @@ There are a couple more things we require to build the VM:
 The scripts will download these dependencies if they're not present but they will only be added to the temporary (process) `PATH`. If you intend to build the VM multiple times you'll achieve shorter build times by having these dependencies preinstalled and on your `PATH`.
 
 ###MinGW + msys installation
-1. Download the [MinGW setup installer] (http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/) and run it. Make sure to [add the MinGW binaries to your `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
+1. Download the [MinGW setup installer] (http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/mingw-get-inst/) and run it. Make sure to [add the MinGW binaries to your `PATH`](http://www.google.com/search?q=windows+add+PATH).
 2. Install the following additional MinGW packages by running the following command in a shell (cmd shell will work):
   ```mingw-get install msys-unzip msys-wget msys-zip```
 3. Make sure that the msys paths appear on the `PATH` **before** the Windows default paths. Otherwise you will experience build failures because of name clashes (e.g. the build scripts use the GNU `find` program which clashes with the Windows `find` program)
 
 ###CMake installation
-Install [CMake](http://www.cmake.org/): during installation, in install options , make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
+Install [CMake](http://www.cmake.org/): during installation, in install options, make sure that you choose to [add CMake to `PATH`](http://www.google.com/search?q=windows+add+PATH&btnI).
 
 
 To check if everything is installed, open a shell (again, cmd will work) execute the different commands: `git`, `make` and `cmake`.
 
 
 ###Notes:
-Should you need a copy of crtdll32.dll, it lives in C:\Windows\SysWOW64 on 4-bit system. The build process fails to find it on such machines.
+Should you need a copy of crtdll32.dll, it lives in C:\Windows\SysWOW64 on 64-bit system. The build process fails to find it on such machines.
 
 
 If you need to find out where the msys paths are, you can add the following to your `.profile` and start an msys shell:
@@ -61,7 +61,7 @@ winpath() {
 
 ##Starting the build
 **Note:**
-While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see [Documentation of script operations]).
+While the setup script is actually part of this repository, we recommend that you follow the steps below and don't clone the repository yourself (see https://github.com/theseion/pharo-vm/blob/master/README-Win32.md#documentation-of-script-operations).
 
 1. [Download the build setup script](...)
 2. Either double click on the script (the shell window will close immediately after the build) or launch the script from a shell. In either case output will be logged to `<currentDirectory>/vm-build/build-setup.log` and `<currentDirectory>/vm-build/build.log` (which you can `tail` if you want).
