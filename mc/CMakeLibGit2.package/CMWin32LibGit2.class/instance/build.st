@@ -22,14 +22,14 @@ ExternalProject_Add(
 		-DUSE_SSH=ON
 		-DBUILD_CLAR=OFF
 		-DLIBSSH2_FOUND=ON
-		-DLIBSSH2_INCLUDE_DIR=${installPrefix}/include
+		-DLIBSSH2_INCLUDE_DIRS=${installPrefix}/include
 		#libgit2 uses package config to search for the library (which won''t find ours).
 		#we need to pass this so that libgit2 explicitly depends on libssh2,
 		#otherwise the link will be missing in the library.
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
 		-G "MSYS Makefiles"
-		-DCMAKE_C_FLAGS=''-m32''
-		-DCMAKE_CXX_FLAGS=''-m32''.
+		-DCMAKE_C_FLAGS=''-m32 -static-libgcc''
+		-DCMAKE_CXX_FLAGS=''-m32 -static-libgcc''.
 )
 
 ExternalProject_Add_Step(libgit2 copy_libgit2_artefacts_to_results
