@@ -29,13 +29,13 @@ ExternalProject_Add(
 		-DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
 		-DCMAKE_OSX_ARCHITECTURES=''i386''
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
-		#"-Wl,<option>" is a flag for gcc to pas the arguments through to the linker
+		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
 		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,@executable_path:@executable_path/Plugins''.
 )
 
 #libtool does something weird when creating the symlinks, so create that missing link manually
 ExternalProject_Add_Step(libgit2 fix_libgit2_links
-	COMMAND cd ${installPrefix}/lib && ln -s libgit2.0.22.0.dylib ${libraryFileName}
+	COMMAND cd ${installPrefix}/lib && ln -s libgit2.0.23.0.dylib ${libraryFileName}
 	DEPENDEES install
 )
 
