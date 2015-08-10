@@ -165,6 +165,7 @@
 #define xResClass	"pharo-vm"
 #define xResName	"Pharo"
 
+
 char		*displayName= 0;	/* name of display, or 0 for $DISPLAY */
 Display		*stDisplay= null;	/* Squeak display */
 int		 isConnectedToXServer=0;/* True when connected to an X server */
@@ -462,6 +463,16 @@ void   browserProcessCommand(void);       /* see sqUnixMozilla.c */
 
 static inline int min(int x, int y) { return (x < y) ? x : y; }
 
+
+struct itimerval onePulseIdle;
+volatile sig_atomic_t usr_interrupt = 0;
+volatile sig_atomic_t stopXAwakeningLoop = 0;
+long alreadyBeIdle = 0;
+long needToPutBack = 0;
+XEvent eventCaptureForIdle;
+
+pthread_t waitingForEventFromX;
+sigset_t mask, oldmask, XAwakeningLoopMask, XAwakeningLoopOldmask;
 
 #if 0
 
@@ -4834,10 +4845,80 @@ static sqInt display_ioBeep(void)
   return 0;
 }
 
+void
+catch_signal (int sig)
+{
+  usr_interrupt = 1;
+  if(sig == SIGIO) printf("I have catch a SIGIO \n"); 
+  if(sig == SIGINT) printf("I have catch a SIGINT \n");
+  if(sig == SIGUSR1) printf("I have catch a SIGUSR1 \n");
+  if(sig == SIGUSR2) printf("I have catch a SIGUSR2 \n");
+  if(sig == SIGALRM) printf("I have catch a SIGALRM \n");
+}
+
+
+
+void
+initSignal (sigset_t *mask)
+{
+  sigemptyset (mask);
+  //sigaddset (mask, SIGIO); 
+  //signal (SIGIO, catch_signal);
+  sigaddset (mask, SIGCONT);
+  signal (SIGCONT, catch_signal);
+  sigaddset (mask, SIGALRM);
+  signal (SIGALRM, catch_signal);
+  sigaddset (mask, SIGINT);
+  signal (SIGINT, catch_signal);
+
+}
+
+
+void
+catch_signal_XAwakeningLoop (int sig)
+{
+  stopXAwakeningLoop = 1;
+}
+
+static void *XAwakeningLoop (void *pid){  
+	sigemptyset (&XAwakeningLoopMask);
+	sigaddset (&XAwakeningLoopOldmask, SIGUSR2);
+	printf("1\n");
+	while(1){
+		printf("2\n");
+		stopXAwakeningLoop = 0;
+		signal (SIGUSR2, catch_signal_XAwakeningLoop);
+		sigprocmask (SIG_BLOCK, &XAwakeningLoopMask, &XAwakeningLoopOldmask);
+		\\printf("3\n");
+		while(!stopXAwakeningLoop) sigsuspend (&XAwakeningLoopOldmask);
+		sigprocmask (SIG_UNBLOCK, &XAwakeningLoopMask, NULL);
+		\\printf("4 \n");
+		XNextEvent(stDisplay, &eventCaptureForIdle);
+		usr_interrupt = 1;needToPutBack = 1;
+		
+		}
+	}
+
 
 static sqInt display_ioRelinquishProcessorForMicroseconds(sqInt microSeconds)
 {
-  aioSleepForUsecs(handleEvents() ? 0 : microSeconds);
+	long value;
+	// pthread_cond_t 
+    pthread_kill(waitingForEventFromX,SIGUSR2);
+		/* Set up the mask of signals to temporarily block. */	
+    usr_interrupt = 0;
+    needToPutBack = 0;
+    value = ioGoIdle();
+	//onePulseIdle.it_value.tv_usec = value;
+	signal (SIGIO, catch_signal);
+    signal (SIGALRM, catch_signal);
+	sigprocmask (SIG_BLOCK, &mask, &oldmask);
+	//setitimer(ITIMER_REAL, &onePulseIdle, &onePulseIdle);
+	while(!usr_interrupt) sigsuspend (&oldmask);
+	sigprocmask (SIG_UNBLOCK, &mask, NULL);
+	if(needToPutBack) XPutBackEvent(stDisplay, &eventCaptureForIdle);
+	ioComebackFromIdle();
+    //printf(" Unlock \n");  
   return 0;
 }
 
@@ -6627,6 +6708,7 @@ static sqInt display_ioGLinitialise(void) { return 0; }
 static sqInt display_ioGLcreateRenderer(glRenderer *r, sqInt x, sqInt y, sqInt w, sqInt h, sqInt flags) { return 0; }
 static void display_ioGLdestroyRenderer(glRenderer *r) {}
 static void display_ioGLswapBuffers(glRenderer *r) {}
+
 static sqInt display_ioGLmakeCurrentRenderer(glRenderer *r) { return 0; }
 static void display_ioGLsetBufferRect(glRenderer *r, sqInt x, sqInt y, sqInt w, sqInt h) {}
 
@@ -6953,6 +7035,13 @@ static char *display_winSystemName(void)
 
 static void display_winInit(void)
 {
+  pthread_create (&waitingForEventFromX, NULL, XAwakeningLoop, 0);
+  onePulseIdle.it_interval.tv_sec = 0;
+  onePulseIdle.it_interval.tv_usec = 0;
+  onePulseIdle.it_value.tv_sec = 0;
+  initSignal(&mask);
+  
+  
   if (!strcmp(argVec[0], "headlessSqueak"))
     headless= 1;
 
