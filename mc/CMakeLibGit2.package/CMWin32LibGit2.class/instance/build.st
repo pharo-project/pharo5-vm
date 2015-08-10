@@ -28,9 +28,9 @@ ExternalProject_Add(
 		#otherwise the link will be missing in the library.
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
 		-G "MSYS Makefiles"
-		-DCMAKE_C_FLAGS=''-m32''
-		-DCMAKE_CXX_FLAGS=''-m32''
-		-DCMAKE_SHARED_LINKER_FLAGS=''-static-libgcc''.
+		-DCMAKE_C_FLAGS=''-m32 -static-libgcc''
+		-DCMAKE_CXX_FLAGS=''-m32 -static-libgcc''
+		-DCMAKE_SHARED_LINKER_FLAGS=''-static-libgcc''
 )
 
 ExternalProject_Add_Step(libgit2 copy_libgit2_artefacts_to_results

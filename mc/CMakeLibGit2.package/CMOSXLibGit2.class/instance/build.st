@@ -30,7 +30,7 @@ ExternalProject_Add(
 		-DCMAKE_OSX_ARCHITECTURES=''i386''
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
 		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
-		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,@executable_path:@executable_path/Plugins''.
+		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,@executable_path:@executable_path/Plugins''
 )
 
 #libtool does something weird when creating the symlinks, so create that missing link manually

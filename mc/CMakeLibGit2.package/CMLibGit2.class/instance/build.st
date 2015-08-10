@@ -29,7 +29,7 @@ ExternalProject_Add(
 		-DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
 		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
-		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins''.
+		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins''
 )
 
 #libtool does something weird when creating the symlinks, so create that missing link manually
