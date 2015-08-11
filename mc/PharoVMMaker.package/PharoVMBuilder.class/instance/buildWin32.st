@@ -8,7 +8,7 @@ buildWin32
 		addThirdpartyLibraries: #(
 			'cairo'
 			'libssh2'
-			'libgit2'
+			"'libgit2'"
 			'libsdl2');
 		generateSources; 
 		generate.

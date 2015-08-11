@@ -4189,6 +4189,10 @@ static void initWindow(char *displayName)
   XRectangle windowBounds= { 0, 0, 640, 480 };  /* default window bounds */
   int right, bottom;
 
+  // Some libraries require Xlib multi-threading support. When using
+  // multi-threading XInitThreads() has to be first Xlib function called.
+  XInitThreads();
+
   XSetErrorHandler(xError);
 
   stDisplay= XOpenDisplay(displayName);

@@ -16,7 +16,7 @@ primitiveForwardSignalToSemaphore
 	<var: 'priorHandler' declareC: 'union {void *handler; unsigned char bytes[sizeof(void *)];} priorHandler'>
 	<var: 'hPtr' declareC: 'char *hPtr'>
 	index := interpreterProxy stackValue: 0.
-	(index == interpreterProxy nilObject)
+	index = interpreterProxy nilObject
 		ifTrue:
 			[semaphoreIndex := 0]
 		ifFalse:
@@ -27,7 +27,7 @@ primitiveForwardSignalToSemaphore
 					[^ interpreterProxy primitiveFail]].
 	sigNum := interpreterProxy stackIntegerValue: 1.
 	handler := self forwardSignal: sigNum toSemaphoreAt: semaphoreIndex.
-	(handler == self sigErrorNumber) ifTrue: [^ interpreterProxy primitiveFail].
+	handler = self sigErrorNumber ifTrue: [^ interpreterProxy primitiveFail].
 	priorHandlerObject := interpreterProxy
 		instantiateClass: interpreterProxy classByteArray
 		indexableSize: self sizeOfPointer.

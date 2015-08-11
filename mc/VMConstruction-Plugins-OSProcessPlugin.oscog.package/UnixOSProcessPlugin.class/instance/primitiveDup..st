@@ -5,9 +5,9 @@ primitiveDup: fileDescriptor
 
 	| result fd |
 	<export: true>
-	<var: 'oldfd' type: 'int'>
-	<var: 'result' type: 'int'>
+	<var: 'fd' type: #int>
+	<var: 'result' type: #int>
 	fd := interpreterProxy stackIntegerValue: 0.
-	result := self cCode: 'dup(fd)' inSmalltalk: [-1].
+	result := self cCode: [self dup: fd] inSmalltalk: [-1].
 	interpreterProxy pop: 2; pushInteger: result
 

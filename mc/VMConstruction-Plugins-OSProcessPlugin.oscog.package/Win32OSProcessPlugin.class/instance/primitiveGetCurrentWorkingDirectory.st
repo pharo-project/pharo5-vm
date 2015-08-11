@@ -8,7 +8,7 @@ primitiveGetCurrentWorkingDirectory
 	<var: 'requiredLen' type: #DWORD>
 	<var: 'cwdLen' type: #DWORD>
 
-	charSize := self sizeof: #TCHAR asSymbol.
+	charSize := self sizeof: #TCHAR.
 
 	"Determine required size of result buffer (this form counts the terminating null)"
 	requiredLen := self cCode: 'GetCurrentDirectory(0, 0)' inSmalltalk: [0].

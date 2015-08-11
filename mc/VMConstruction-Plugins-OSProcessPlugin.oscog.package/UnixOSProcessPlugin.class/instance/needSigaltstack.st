@@ -23,17 +23,17 @@ needSigaltstack
 	self cppIf: #'SA_DISABLE' defined
 		ifTrue:
 			[(self cCode: 'sigstack.ss_size == 0 || (sigstack.ss_flags & SA_DISABLE)'
-					inSmalltalk: [sigstack touch]) ifFalse:
+					inSmalltalk: [self touch: (sigstack := nil)]) ifFalse:
 				[^true]]
 		ifFalse: "e.g. Mac OS documents SA_DISABLE but defines SS_DISABLE"
 			[(self cCode: 'sigstack.ss_size == 0 || (sigstack.ss_flags & SS_DISABLE)'
-					inSmalltalk: [sigstack touch]) ifFalse:
+					inSmalltalk: [self touch: sigstack]) ifFalse:
 				[^true]].
 
 	"16k words is also the ammount the ITimer heartbeat routines allocate."
-	SigStackSize := 1024 * (self sizeof: #'void *' asSymbol) * 16 max: #MINSIGSTKSZ asSymbol.
+	SigStackSize := 1024 * (self sizeof: #'void *') * 16 max: #MINSIGSTKSZ.
 	nil = (self cCode: 'sigstack.ss_size = SigStackSize, sigstack.ss_sp = malloc(SigStackSize)'
-			inSmalltalk: [SigStackSize touch]) ifTrue:
+			inSmalltalk: [self touch: SigStackSize]) ifTrue:
 		[self msg: 'sigstack malloc failed'.
 		 useSignalStack := 0.
 		 ^false].
