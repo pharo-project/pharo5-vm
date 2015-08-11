@@ -25,7 +25,7 @@ set log=%buildDirectory%\build-setup.log
 
 :: clone repository, set windows specific configuration and checkout
 if not exist %pharoDirectory% (
-  git clone --depth=1 --no-checkout https://github.com/theseion/pharo-vm.git
+  git clone --depth=1 --no-checkout https://github.com/pharo-project/pharo-vm.git
   cd pharo-vm
   git config --add core.text auto
   git checkout -f HEAD
