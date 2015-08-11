@@ -32,12 +32,12 @@
 # undef SM_CMONITORS
 # define HMONITOR_DECLARED
 # include "multimon.h"
-#else 
-/** 
-  	TODO: REMOVE, THIS IS ADDED BECAUSE MINGW BUILD IS FAILING IN THE CI 
+#else
+/**
+    TODO: REMOVE, THIS IS ADDED BECAUSE MINGW BUILD IS FAILING IN THE CI
 	Esteban 2014/08/01
-**/
-# ifndef MONITOR_DEFAULTTONEAREST 
+ **/
+# ifndef MONITOR_DEFAULTTONEAREST
 #  define MONITOR_DEFAULTTONEAREST 2
 WINUSERAPI HMONITOR WINAPI MonitorFromPoint(POINT,DWORD);
 WINUSERAPI HMONITOR WINAPI MonitorFromRect(LPCRECT,DWORD);
@@ -48,6 +48,10 @@ WINUSERAPI HMONITOR WINAPI MonitorFromWindow(HWND,DWORD);
 #include "sq.h"
 #include "sqWin32Prefs.h"
 #include "sqSCCSVersion.h"
+
+#ifndef NO_RCSID
+static TCHAR RCSID[]= TEXT("$Id: sqWin32Window.c 1693 2007-06-03 02:09:21Z andreas $");
+#endif
 
 /****************************************************************************/
 /* General Squeak declarations and definitions                              */
@@ -182,6 +186,15 @@ void HideSplashScreen(void);
 sqInputEvent *sqNextEventPut(void);
 int sqLaunchDrop(void);
 
+/**
+ * HACK: Hook for SDL2.
+ */
+static void (*ioCheckForEventsHooks)(void);
+
+EXPORT(void) setIoProcessEventsHandler(void * handler) {
+    ioCheckForEventsHooks = (void (*)())handler;
+}
+
 /****************************************************************************/
 /*                      Synchronization functions                           */
 /****************************************************************************/
@@ -261,7 +274,7 @@ LRESULT CALLBACK MainWndProcW(HWND hwnd,
       evt->charCode = (zDelta > 0) ? 30 : 31;
       evt->pressCode = EventKeyChar;
       evt->modifiers = CtrlKeyBit;
-      evt->utf32Code = 0;
+      evt->utf32Code = evt->charCode;
       evt->reserved1 = 0;
     } else {
       buttonState = 64;
@@ -1571,16 +1584,26 @@ ioProcessEvents(void)
      so we won't get anything painted unless we use GetMessage() if there
      is a dirty rect. */
 	lastMessage = &msg;
-	while(PeekMessage(&msg,NULL,0,0,PM_NOREMOVE)) {
-		GetMessage(&msg,NULL,0,0);
-# ifndef NO_PLUGIN_SUPPORT
-		if (msg.hwnd == NULL)
-			pluginHandleEvent(&msg);
-# endif
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-    }
 
+    if(ioCheckForEventsHooks)
+	{
+		/* HACK for SDL 2 */
+        ioCheckForEventsHooks();
+	}
+	else
+	{
+	
+		while(PeekMessage(&msg,NULL,0,0,PM_NOREMOVE)) {
+			GetMessage(&msg,NULL,0,0);
+# ifndef NO_PLUGIN_SUPPORT
+			if (msg.hwnd == NULL)
+				pluginHandleEvent(&msg);
+# endif
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+
+		}
+	}
 # ifndef NO_DIRECTINPUT
 	/* any buffered mouse input which hasn't been processed is obsolete */
 	DumpBufferedMouseTrail();
