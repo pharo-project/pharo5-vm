@@ -2,5 +2,5 @@ primitive generators
 genPrimitiveLessOrEqual
 	^self
 		genSmallIntegerComparison: JumpLessOrEqual
-		orDoubleComparison: #JumpFPGreater:
+		orDoubleComparison: #JumpFPGreaterOrEqual:
 		invert: true
