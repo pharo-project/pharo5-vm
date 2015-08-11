@@ -26,11 +26,11 @@ ExternalProject_Add(
 		#we need to pass this so that libgit2 explicitly depends on libssh2,
 		#otherwise the link will be missing in the library.
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
-		-DCMAKE_C_FLAGS="-m32"
-		-DCMAKE_CXX_FLAGS="-m32"
+		-DCMAKE_C_FLAGS=-m32
+		-DCMAKE_CXX_FLAGS=-m32
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
-		#"-Wl,<option>" is a flag for gcc to pas the arguments through to the linker
-		-DCMAKE_SHARED_LINKER_FLAGS="-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins"
+		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
+		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins
 )
 
 #libtool does something weird when creating the symlinks, so create that missing link manually
