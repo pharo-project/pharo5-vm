@@ -21,20 +21,22 @@ ExternalProject_Add(
 		-DUSE_SSH=ON
 		-DBUILD_CLAR=OFF
 		-DLIBSSH2_FOUND=ON
-		-DLIBSSH2_INCLUDE_DIR=${installPrefix}/include
+		-DLIBSSH2_INCLUDE_DIRS=${installPrefix}/include
 		#libgit2 uses package config to search for the library (which won''t find ours).
 		#we need to pass this so that libgit2 explicitly depends on libssh2,
 		#otherwise the link will be missing in the library.
 		-DLIBSSH2_LIBRARIES=', libssh2Libs, '
-		-DCMAKE_C_FLAGS=''-m32'' -DCMAKE_CXX_FLAGS=''-m32''
+		-DCMAKE_C_FLAGS=-m32
+		-DCMAKE_CXX_FLAGS=-m32
+		-DCMAKE_OSX_ARCHITECTURES=i386
 		#on Unix/Solaris systems $ORIGIN refers to the path of the executable
 		#"-Wl,<option>" is a flag for gcc to pass the arguments through to the linker
-		-DCMAKE_SHARED_LINKER_FLAGS=''-Wl,-rpath,\$ORIGIN:\$ORIGIN/Plugins''
+		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,@executable_path:@executable_path/Plugins
 )
 
 #libtool does something weird when creating the symlinks, so create that missing link manually
 ExternalProject_Add_Step(libgit2 fix_libgit2_links
-	COMMAND cd ${installPrefix}/lib && ln -s ${libraryFileName}.22.0 ${libraryFileName}
+	COMMAND cd ${installPrefix}/lib && ln -s libgit2.0.23.0.dylib ${libraryFileName}
 	DEPENDEES install
 )
 

@@ -10,6 +10,7 @@ extraVMSettings: maker
 	maker cmd: 'add_custom_command' params: 'OUTPUT ', res ,
 	'
 		COMMAND 	windres --include-dir ${targetPlatform}/misc -D_WIN32 -i ${buildDir}/Cog.rc -o ', res , '
+		MAIN_DEPENDENCY "resource.o"
 		COMMENT "Generating resource file..."
 	'.
 	
