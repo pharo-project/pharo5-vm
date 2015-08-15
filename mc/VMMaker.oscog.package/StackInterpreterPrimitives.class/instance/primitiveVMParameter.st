@@ -64,7 +64,7 @@ primitiveVMParameter
 		66	the byte size of a stack page
 		67	the max allowed size of old space (Spur only; nil otherwise; 0 implies no limit except that of the underlying platform)
 		68	the average number of live stack pages when scanned by GC (at scavenge/gc/become et al)
-		69 reserved for more Cog-related info
+		69	the maximum number of live stack pages when scanned by GC (at scavenge/gc/become et al)
 		70	the vmProxyMajorVersion (the interpreterProxy VM_MAJOR_VERSION)
 		71	the vmProxyMinorVersion (the interpreterProxy VM_MINOR_VERSION)
 	Note: Thanks to Ian Piumarta for this primitive."
@@ -148,7 +148,7 @@ primitiveVMParameter
 			[objectMemory
 				storePointerUnchecked: 66 ofObject: result withValue: (objectMemory integerObjectOf: objectMemory maxOldSpaceSize)].
 		objectMemory storePointer: 67 ofObject: result withValue: (objectMemory floatObjectOf: stackPages statAverageLivePagesWhenMapping).
-		"69 (68 zero rel) reserved for more Cog-related info"
+		objectMemory storePointerUnchecked: 68 ofObject: result withValue: (objectMemory integerObjectOf: stackPages statMaxPageCountWhenMapping).
 		objectMemory
 			storePointerUnchecked: 69
 			ofObject: result
@@ -238,7 +238,7 @@ primitiveVMParameter
 		 and: [objectMemory hasSpurMemoryManagerAPI]) ifTrue:
 			[result := objectMemory integerObjectOf: objectMemory maxOldSpaceSize].
 		arg = 68 ifTrue: [result := objectMemory floatObjectOf: stackPages statAverageLivePagesWhenMapping].
-		"(arg = 69) ifTrue: [result := objectMemory nilObject]." "reserved for more Cog-related info"
+		arg = 69 ifTrue: [result := objectMemory integerObjectOf: stackPages statMaxPageCountWhenMapping].
 		arg = 70 ifTrue: [result := self integerObjectOf: (self cCode: 'VM_PROXY_MAJOR' inSmalltalk: [self class vmProxyMajorVersion])].
 		arg = 71 ifTrue: [result := self integerObjectOf: (self cCode: 'VM_PROXY_MINOR' inSmalltalk: [self class vmProxyMinorVersion])].
 

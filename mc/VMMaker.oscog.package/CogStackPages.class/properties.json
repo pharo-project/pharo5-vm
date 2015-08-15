@@ -13,7 +13,8 @@
 		"overflowLimit",
 		"bytesPerPage",
 		"statNumMaps",
-		"statPageCountWhenMappingSum" ],
+		"statPageCountWhenMappingSum",
+		"statMaxPageCountWhenMapping" ],
 	"name" : "CogStackPages",
 	"pools" : [
 		"VMBasicConstants" ],

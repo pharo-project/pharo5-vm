@@ -1,4 +1,4 @@
 initialization
 initialize
 	"Here we can initialize the variables C initializes to zero.  #initialize methods do /not/ get translated."
-	statNumMaps := statPageCountWhenMappingSum := 0
+	statNumMaps := statPageCountWhenMappingSum := statMaxPageCountWhenMapping := 0
