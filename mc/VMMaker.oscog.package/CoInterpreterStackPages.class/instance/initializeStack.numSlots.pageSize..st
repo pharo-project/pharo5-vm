@@ -13,7 +13,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 		inSmalltalk:
 			[self assert: objectMemory startOfMemory - coInterpreter cogCodeSize - Cogit guardPageSize - coInterpreter methodCacheSize - coInterpreter primTraceLogSize - coInterpreter rumpCStackSize
 					= (stackSlots * objectMemory wordSize roundUpTo: objectMemory allocationUnit)].
-	structStackPageSize := coInterpreter sizeof: InterpreterStackPage.
+	structStackPageSize := coInterpreter sizeof: CogStackPage.
 	bytesPerPage := slotsPerPage * objectMemory wordSize.
 	numPages := coInterpreter numStkPages.
 
@@ -26,7 +26,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 					[pageMap := Dictionary new.
 					 ((0 to: numPages - 1) collect:
 						[:i|
-						 InterpreterStackPage surrogateClass new
+						 CogStackPage surrogateClass new
 							address: pageStructBase + (i * structStackPageSize)
 							simulator: coInterpreter
 							zoneBase: coInterpreter stackZoneBase

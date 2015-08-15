@@ -22,7 +22,7 @@ makeBaseFrameFor: aContext "<Integer>"
 				ifTrue: [objectMemory integerValueOf: theIP]
 				ifFalse: [HasBeenReturnedFromMCPC].
 	theMethod := objectMemory followObjField: MethodIndex ofObject: aContext.
-	page := self newStackPage.
+	page := stackPages newStackPage.
 	"first word on stack is caller context of base frame"
 	stackPages
 		longAt: (pointer := page baseAddress)

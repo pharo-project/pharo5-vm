@@ -10,7 +10,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	self assert: (objectMemory isContext: aContext).
 	self assert: (self isSingleContext: aContext).
 	self assert: (objectMemory goodContextSize: aContext).
-	page := self newStackPage.
+	page := stackPages newStackPage.
 	pointer := page baseAddress.
 	theIP := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.
 	theMethod := objectMemory followObjField: MethodIndex ofObject: aContext.

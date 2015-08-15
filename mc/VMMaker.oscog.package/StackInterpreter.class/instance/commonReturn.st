@@ -84,7 +84,7 @@ commonReturn
 					[thePage := stackPages stackPageFor: theFP.
 					 theFP ~= thePage headFP ifTrue:
 						["Since we've just deallocated a page we know that newStackPage won't deallocate an existing one."
-						 self moveFramesIn: thePage through: (self findFrameAbove: theFP inPage: thePage) toPage: self newStackPage].
+						 self moveFramesIn: thePage through: (self findFrameAbove: theFP inPage: thePage) toPage: stackPages newStackPage].
 					 currentCtx := self frameCallerContext: thePage baseFP.
 					 stackPages freeStackPage: thePage]
 				ifFalse:

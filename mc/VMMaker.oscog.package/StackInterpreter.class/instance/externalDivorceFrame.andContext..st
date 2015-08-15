@@ -22,7 +22,7 @@ externalDivorceFrame: theFP andContext: ctxt
 		ifTrue: "If we're divorcing the top frame we can simply peel it off."
 			[theIP := stackPages longAt: thePage headSP]
 		ifFalse: "othewise move all frames above to a new stack and then peel the frame off."
-			[newPage := self newStackPage.
+			[newPage := stackPages newStackPage.
 			 theIP := self oopForPointer: (self frameCallerSavedIP: frameAbove).
 			 frameAbove := self moveFramesIn: thePage through: frameAbove toPage: newPage.
 			 onCurrent

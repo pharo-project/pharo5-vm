@@ -16,7 +16,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 
 	"The lFoo's are to get around the foo->variable scheme in the C call to allocStackPages below."
 	<var: #theStackPages type: #'char *'>
-	| page structStackPageSize pageStructBase count |
+	| numPages page structStackPageSize pageStructBase count |
 	<var: #page type: #'StackPage *'>
 	<var: #pageStructBase type: #'char *'>
 	self cCode: ''
@@ -25,9 +25,9 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 			 self assert: stackMemory == theStackPages].
 	stackMemory := theStackPages. "For initialization in the C code."
 	self cCode: '' inSmalltalk: [pageSizeInSlots := slotsPerPage].
-	structStackPageSize := interpreter sizeof: InterpreterStackPage.
+	structStackPageSize := coInterpreter sizeof: CogStackPage.
 	bytesPerPage := slotsPerPage * objectMemory wordSize.
-	numPages := stackSlots // (slotsPerPage + (structStackPageSize / objectMemory wordSize)).
+	numPages := coInterpreter numStkPages.
 
 	"Because stack pages grow down baseAddress is at the top of a stack page and so to avoid
 	 subtracting BytesPerWord from baseAddress and lastAddress in the init loop below we simply
@@ -36,7 +36,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 	pages := self cCode: '(StackPage *)pageStructBase'
 				  inSmalltalk:
 						[pageStructBase class.
-						 (1 to: numPages) collect: [:i| InterpreterStackPage new]].
+						 (1 to: numPages) collect: [:i| CogStackPage new]].
 
 	"Simulation only.  Since addresses are negative the offset is positive.  To make all
 	 stack addresses negative we make the offset a page more than it needs to be so the
@@ -46,8 +46,8 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 		- pageByteSize * (numPages + 1)"
 	self cCode: '' inSmalltalk: [indexOffset := (numPages + 1) * slotsPerPage].
 	"make sure there's enough headroom"
-	self assert: interpreter stackPageByteSize - interpreter stackLimitBytes - interpreter stackLimitOffset
-				>= interpreter stackPageHeadroom.
+	self assert: coInterpreter stackPageByteSize - coInterpreter stackLimitBytes - coInterpreter stackLimitOffset
+				>= coInterpreter stackPageHeadroom.
 	0 to: numPages - 1 do:
 		[:index|
 		 page := self stackPageAt: index.
@@ -55,7 +55,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 			lastAddress: (self cCode: '(char *)theStackPages + (index * GIV(bytesPerPage))'
 							inSmalltalk: [(index * slotsPerPage - indexOffset) * objectMemory wordSize]);
 			baseAddress: (page lastAddress + bytesPerPage);
-			stackLimit: page baseAddress - interpreter stackLimitBytes;
+			stackLimit: page baseAddress - coInterpreter stackLimitBytes;
 			realStackLimit: page stackLimit;
 			baseFP: 0;
 			nextPage: (self stackPageAt: (index = (numPages - 1) ifTrue: [0] ifFalse: [index + 1]));
@@ -89,7 +89,7 @@ initializeStack: theStackPages numSlots: stackSlots pageSize: slotsPerPage
 							== (memIndex + slotsPerPage - 1).
 				 index < (numPages - 1) ifTrue:
 					[self assert: (self stackPageFor: page baseAddress + objectMemory wordSize) == (self stackPageAt: index + 1)]].
-		interpreter initializePageTraceToInvalid: page].
+		coInterpreter initializePageTraceToInvalid: page].
 
 	mostRecentlyUsedPage := self stackPageAt: 0.
 	page := mostRecentlyUsedPage.

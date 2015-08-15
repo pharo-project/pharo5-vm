@@ -33,7 +33,7 @@ baseFrameReturn
 					  Make the interior frame the top frame."
 					 frameAbove := self findFrameAbove: theFP inPage: thePage.
 					 "Since we've just deallocated a page we know that newStackPage won't deallocate an existing one."
-					 newPage := self newStackPage.
+					 newPage := stackPages newStackPage.
 					 self assert: newPage = stackPage.
 					 self moveFramesIn: thePage through: frameAbove toPage: newPage.
 					 stackPages markStackPageMostRecentlyUsed: newPage.
