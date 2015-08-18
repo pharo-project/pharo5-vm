@@ -7,7 +7,7 @@ lookupProtectedNoMNU: selector startingAt: mixinApplication rule: rule
 	[lookupClass = objectMemory nilObject] whileFalse:
 		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: lookupClass.
 		found := self lookupMethodInDictionary: dictionary.
-		(found and: [(self accessModifierOfMethod: newMethod) ~= AccessModifierPrivate])
-			ifTrue: [^0].
+		(found and: [(self isPrivateMethod: newMethod) not]) ifTrue:
+			[^0].
 		lookupClass := self superclassOf: lookupClass].
 	^SelectorDoesNotUnderstand
