@@ -473,7 +473,6 @@
 		"lookupDnuAbsent" : "rmacnak 5/23/2015 16:35",
 		"lookupDnuPresent" : "eem 6/25/2015 12:42",
 		"lookupDynamicSuperSend" : "rmacnak 7/12/2015 20:42",
-		"lookupDynamicSuperSendNoMNU:" : "rmacnak 7/12/2015 20:42",
 		"lookupImplicitReceiverSend" : "rmacnak 5/23/2015 16:39",
 		"lookupInMethodCacheSel:classTag:" : "eem 7/21/2014 06:32",
 		"lookupLexical:from:rule:" : "eem 6/26/2015 15:00",
