@@ -6,6 +6,7 @@ writeSnapshot: imageFileName headerFlags: headerFlags screenSize: screenSizeInte
 	interpreter64
 		setImageHeaderFlagsFrom: headerFlags;
 		setDisplayForm: nil;
+		setSavedWindowSize: savedWindowSize;
 		imageName: imageFileName;
 		writeImageFileIO.
 	Transcript cr; show: 'Done!'
