@@ -6,6 +6,5 @@ printStackPageListInUse
 	page := stackPages mostRecentlyUsedPage.
 	n := 0.
 	[(stackPages isFree: page) ifFalse:
-		[self printStackPage: page useCount: n; cr.
-		 n := n + 1].
+		[self printStackPage: page useCount: (n := n + 1); cr].
 	 (page := page prevPage) ~= stackPages mostRecentlyUsedPage] whileTrue

@@ -5,5 +5,4 @@ printStackPagesInUse
 	0 to: numStackPages - 1 do:
 		[:i|
 		(stackPages isFree: (stackPages stackPageAt: i)) ifFalse:
-			[self printStackPage: (stackPages stackPageAt: i) useCount: n; cr.
-			 n := n + 1]]
+			[self printStackPage: (stackPages stackPageAt: i) useCount: (n := n + 1); cr]]

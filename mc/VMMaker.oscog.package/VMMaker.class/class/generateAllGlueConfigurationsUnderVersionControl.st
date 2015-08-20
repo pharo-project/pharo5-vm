@@ -1,4 +1,0 @@
-configurations
-generateAllGlueConfigurationsUnderVersionControl
-	self generateGlueSpurStackVM;
-		generateGlueSpurCogVM
