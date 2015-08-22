@@ -4,11 +4,13 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 	 Scan through mapping oops and validating class references.  Defer
 	 entering any class objects into the class table and/or pinning objects
 	 until the second pass in assignClassIndicesAndPinFrom:to:outPointers:."
-	| numOutPointers objOop |
+	| numOutPointers numSegObjs objOop |
 	numOutPointers := self numSlotsOf: outPointerArray.
+	numSegObjs := 0.
 	objOop := self objectStartingAt: segmentStart.
 	[objOop < segmentLimit] whileTrue:
 		[| classIndex hash oop mappedOop |
+		 numSegObjs := numSegObjs + 1.
 		 (self isMarked: objOop) ifTrue:
 			[^PrimErrInappropriate].
 		 classIndex := (self classIndexOf: objOop) - self firstClassIndexPun.
@@ -42,4 +44,4 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 							[^PrimErrBadIndex]].
 				 self storePointerUnchecked: i ofObject: objOop withValue: mappedOop]].
 		 objOop := self objectAfter: objOop limit: segmentLimit].
-	^0
+	^numSegObjs negated
