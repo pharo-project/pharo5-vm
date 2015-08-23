@@ -452,4 +452,32 @@ extern DWORD ticksForBlitting; /* time needed for actual blts */
 #  define STACK_SIZE_PARAM_IS_A_RESERVATION 0x00010000
 #endif
 
+/* Windows long path support : 
+   prepend path name with \\?\ to use long path supporting win 
+   file functiosn
+*/
+#define MAX_LONG_FILE_PATH 32767
+/* alloca should work, although there are some restriction on the
+   stack size */
+#define USE_ALLOCA_FOR_LONG_PATHS 1
+#define LONG_PATH_PREFIX_SIZE 4
+#ifdef USE_ALLOCA_FOR_LONG_PATHS
+#include <malloc.h>
+  #define CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(buffer, size, fileNameString, fileNameLength)  {	\
+    buffer = (WCHAR*)alloca((size+4+1)*sizeof(WCHAR));\
+    buffer[0] = L'\\';buffer[1] = L'\\'; buffer[2] = L'?'; buffer[3] = L'\\';\
+    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + 4, size);\
+    buffer[size + 4] = 0;\
+    size += 4;}
+  #define FREE_WIDECHAR_PATH(buffer) ;
+#else
+  #define CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(buffer, size, fileNameString, fileNameLength)  {	\
+    buffer = (WCHAR*)malloc((size+4+1)*sizeof(WCHAR));\
+    buffer[0] = L'\\';buffer[1] = L'\\'; buffer[2] = L'?'; buffer[3] = L'\\';\
+    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + 4, size);\
+    buffer[size + 4] = 0;\
+    size += 4;}
+  #define FREE_WIDECHAR_PATH(buffer) free(buffer);
+#endif
+
 #endif /* SQ_WIN_32_H */
