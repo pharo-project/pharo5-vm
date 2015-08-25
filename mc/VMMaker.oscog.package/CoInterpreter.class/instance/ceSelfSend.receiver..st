@@ -33,14 +33,15 @@ ceSelfSend: cacheAddress receiver: methodReceiver
 			ifFalse:
 				[self deny: (objectMemory isOopForwarded: messageSelector).
 				self deny: (objectMemory isForwardedClassTag: methodReceiverClassTag).
-				lkupClassTag := methodReceiverClassTag.
 				errSelIdx := self lookupOuterSendNoMNU: methodReceiver depth: 0.
 				errSelIdx ~= 0 ifTrue:
 					[self assert: errSelIdx == SelectorDoesNotUnderstand.
+					self assert: localAbsentReceiver == methodReceiver.
 					self handleMNU: errSelIdx 
 						InMachineCodeTo: methodReceiver
-						classForMessage: (objectMemory classForClassTag: methodReceiverClassTag).
+						classForMessage: lkupClass.
 					self unreachable].
+				lkupClassTag := methodReceiverClassTag.
 				self addNewMethodToNSCache: LookupRuleSelf].
 
 	(self maybeMethodHasCogMethod: newMethod) 

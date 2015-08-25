@@ -35,14 +35,15 @@ ceImplicitReceiverSend: cacheAddress receiver: methodReceiver
 			ifFalse:
 				[self deny: (objectMemory isOopForwarded: messageSelector).
 				self deny: (objectMemory isForwardedClassTag: methodReceiverClassTag).
-				lkupClassTag := methodReceiverClassTag.
 				errSelIdx := self lookupImplicitReceiverSendNoMNU: methodReceiver.
 				errSelIdx ~= 0 ifTrue:
 					[self assert: errSelIdx == SelectorDoesNotUnderstand.
+					self assert: localAbsentReceiver == methodReceiver.
 					self handleMNU: errSelIdx 
 						InMachineCodeTo: methodReceiver
-						classForMessage: (objectMemory classForClassTag: methodReceiverClassTag).
+						classForMessage: lkupClass.
 					self unreachable].
+				lkupClassTag := methodReceiverClassTag.
 				self addNewMethodToNSCache: LookupRuleImplicit].
 
 	"Fix stacked receiver."

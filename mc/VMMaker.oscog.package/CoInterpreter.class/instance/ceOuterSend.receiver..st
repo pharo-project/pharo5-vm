@@ -36,18 +36,16 @@ ceOuterSend: cacheAddress receiver: methodReceiver
 			ifFalse:
 				[self deny: (objectMemory isOopForwarded: messageSelector).
 				self deny: (objectMemory isForwardedClassTag: methodReceiverClassTag).
-				lkupClassTag := methodReceiverClassTag. "Successful lookup cached under the sender's class"
 				errSelIdx := self lookupOuterSendNoMNU: methodReceiver depth: depth.
 				errSelIdx ~= 0 ifTrue:
 					[self assert: errSelIdx == SelectorDoesNotUnderstand.
 					"Fix stacked receiver."
 					self stackValue: argumentCount + 1 "ret addr" put: localAbsentReceiver.
-					"Failed lookup continues with the enclosing object's class"
-					lkupClassTag := objectMemory classForClassTag: localAbsentReceiver.
 					self handleMNU: errSelIdx 
 						InMachineCodeTo: localAbsentReceiver
-						classForMessage: lkupClassTag.
+						classForMessage: lkupClass.
 					self unreachable].
+				lkupClassTag := methodReceiverClassTag. "Successful lookup cached under the sender's class"
 				self addNewMethodToNSCache: depth].
 
 	"Fix stacked receiver."
