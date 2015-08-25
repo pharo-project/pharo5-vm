@@ -9,7 +9,7 @@ cd "$IMAGE_DIR" 2> /dev/null
 IMAGE_DIR=`pwd -P`
 
 # PREPARE VM MAKER IMAGE ===================================================
-wget -O- get.pharo.org/40+vm | bash
+wget -O- get.pharo.org/50+vm | bash
 
 echo -e "LOADING VM MAKER SOURCES INTO IMAGE"
 set -x
