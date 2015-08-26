@@ -15,5 +15,5 @@ lookupDynamicSuperSendNoMNU: methodReceiver
 	methodMixinApplication := self
 		findApplicationOfTargetMixin: methodMixin
 		startingAtBehavior: (objectMemory fetchClassOf: localAbsentReceiver).
-	lkupClass := self superclassOf: methodMixinApplication. "For use by MNU"
+	lkupClass := self superclassOf: methodMixinApplication. "MNU lookup starts here."
 	^self lookupProtectedNoMNU: messageSelector startingAt: lkupClass rule: LookupRuleDynamicSuper

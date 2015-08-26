@@ -2,12 +2,12 @@ message sending
 lookupProtected: selector startingAt: mixinApplication rule: rule
 	"A shared part of the lookup for self, outer or implicit receiver sends that did not find a
 	private lexically visible method, and (Newspeak) super sends."
-	| lookupClass dictionary found |
-	lookupClass := mixinApplication.
-	[lookupClass = objectMemory nilObject] whileFalse:
-		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: lookupClass.
+	| currentClass dictionary found |
+	currentClass := mixinApplication.
+	[currentClass = objectMemory nilObject] whileFalse:
+		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: currentClass.
 		found := self lookupMethodInDictionary: dictionary.
 		(found and: [(self isPrivateMethod: newMethod) not]) ifTrue:
-			[^0].
-		lookupClass := self superclassOf: lookupClass].
-	^self lookupDnuAbsent
+			[^rule].
+		currentClass := self superclassOf: currentClass].
+	^self lookupMNU

@@ -6,7 +6,7 @@ lookupOrdinarySend
 	IN: argumentCount
 	OUT: newMethod
 	OUT: primitiveIndex
-	RESULT: LookupOrdinary or LookupDNU"
+	RESULT: LookupRuleOrdinary or LookupRuleMNU"
 	<option: #NewspeakVM>
 	| currentClass dictionary found |
 	self assert: (self addressCouldBeClassObj: lkupClass).
@@ -16,8 +16,8 @@ lookupOrdinarySend
 		found := self lookupMethodInDictionary: dictionary.
 		found ifTrue:
 			[(self isPublicMethod: newMethod) ifTrue:
-				[^self].
+				[^LookupRuleOrdinary].
 			(self isProtectedMethod: newMethod) ifTrue:
-				[^self lookupDnuPresent]].
+				[^self lookupMNU]].
 		currentClass := self superclassOf: currentClass].
-	^self lookupDnuPresent
+	^self lookupMNU

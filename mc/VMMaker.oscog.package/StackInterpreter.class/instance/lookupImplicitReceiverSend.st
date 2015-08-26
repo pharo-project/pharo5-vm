@@ -38,5 +38,5 @@ lookupImplicitReceiverSend
 	"There is no lexically visible method, so the implicit receiver is the method receiver."
 	localAbsentReceiverOrZero := 0.
 	localAbsentReceiver := methodReceiver.
-	lkupClass := objectMemory fetchClassOf: methodReceiver. "For use by MNU"
+	lkupClass := objectMemory fetchClassOf: methodReceiver. "MNU lookup starts here."
 	^self lookupProtected: messageSelector startingAt: lkupClass rule: LookupRuleImplicit.

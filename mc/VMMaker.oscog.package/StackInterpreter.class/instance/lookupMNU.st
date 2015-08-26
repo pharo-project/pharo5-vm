@@ -1,14 +1,16 @@
 message sending
-lookupDnuPresent
-	"A present receiver send lookup failed. Replace the arguments on the stack with
-	 a Message and lookup #doesNotUndestand:.
+lookupMNU
+	"A send lookup failed. Replace the arguments on the stack with a Message and lookup
+	 #doesNotUndestand: starting at lkupClass. Note that MNU lookup ignores access modifiers.
+	 This makes it different from an ordinary send of #doesNotUnderstand:, which must only
+	 find public methods.
 	IN: lkupClass
 	IN: messageSelector
 	IN: argumentCount
 	OUT: newMethod
 	OUT: primitiveIndex
 	RESULT: LookupRuleMNU"
-	<option: #NewspeakVM>
+
 	| currentClass dictionary found |
 	self createActualMessageTo: lkupClass.
 	messageSelector := objectMemory splObj: SelectorDoesNotUnderstand.
