@@ -1,5 +1,5 @@
 initialization
-initializePrimitiveTable 
+initializePrimitiveTable
 	"This table generates a C function address table used in slowPrimitiveResponse along with dispatchFunctionPointerOn:in:"
 	"self initializePrimitiveTable"
 
@@ -199,7 +199,7 @@ initializePrimitiveTable
 		"SpurMemoryManager primitives"
 		(170 primitiveAsCharacter)
 		(171 primitiveImmediateAsInteger)
-		(172 primitiveFail)
+		(172 primitiveFetchNextMourner)
 		(173 primitiveSlotAt)		"c.f. (73 primitiveInstVarAt)"
 		(174 primitiveSlotAtPut)	"c.f. (74 primitiveInstVarAtPut)"
 		(175 primitiveBehaviorHash)
@@ -258,7 +258,7 @@ initializePrimitiveTable
 		(221 primitiveClosureValueNoContextSwitch) "valueNoContextSwitch"
 		(222 primitiveClosureValueNoContextSwitch) "valueNoContextSwitch:"
 
-		(223 229 primitiveFail)	"reserved for Cog primitives (see 228 & 229 in CoInterpreterMTS"
+		(223 229 primitiveFail)	"reserved for Cog primitives (see 228 & 229 in CoInterpreterMT"
 
 		(230 primitiveRelinquishProcessor)
 		(231 primitiveForceDisplayUpdate)
@@ -302,9 +302,8 @@ initializePrimitiveTable
 		(264 519 nil) "primitiveLoadInstVar"
 
 		(520 primitiveFail)
-		"MIDI Primitives (521-539) - NO LONGER INDEXED"
-		(521 529 primitiveFail)
-		(530 539 primitiveFail)  "reserved for extended MIDI primitives"
+		(521 529 primitiveFail) "Reserved for Spur primitives"
+		(530 539 primitiveFail)
 
 		(540 primitiveFail)
 		(541 primitiveSmallFloatAdd)

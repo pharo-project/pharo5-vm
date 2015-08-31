@@ -19,7 +19,7 @@ Instance Variables
 	coInterpreter				<StackInterpreter|CoInterpreter (StackInterpreterSimulator|CogVMSimulator)>
 	edenBytes					<Integer>
 	endOfMemory				<Integer address>
-	ephemeronQueue			<Integer objStack oop>
+	mournQueue			<Integer objStack oop>
 	extraRootCount			<Integer>
 	extraRoots					<Array of: oop>
 	falseObj					<Integer oop>
@@ -104,8 +104,8 @@ edenBytes
 endOfMemory
 	- the address past the last oldSpace segment
 
-ephemeronQueue
-	- the oopStack holding triggered ephemerons
+mournQueue
+	- the oopStack holding triggered ephemerons, and, depending on finalization scheme, bereaved weak arrays
 
 extraRootCount
 	- the count of extra roots
@@ -150,7 +150,7 @@ heapSizeAtPreviousGC
 	- the size of the heap at the most recent GC, used to decide if a full GC is needed after a scavenge.  See heapGrowthToSizeGCRatio.
 
 hiddenRootsObj
-	- the root page of the class table and some other toos (e.g. the ephemeron queue). its first
+	- the root page of the class table and some other roots (e.g. the mourn queue). its first
 	  numClassTablePages elements are pages containing classes. Remaining slots hold other
 	  roots the VM needs.  Must be the fifth object in oldSpace.
 
@@ -161,7 +161,7 @@ lastFreeChunk
 	- the free chunk at the highest address discovered during global gc's sweep through the heap.  used in compaction.
 
 lastHash
-	- the last object hash value.  a pseudo-random number generator.
+	- the last object hash value.  the seed to the pseudo-random number generator for identity hashes.
 
 lowSpaceThreshold
 	- the ammount of free memory below which the low space condition should be signalled.

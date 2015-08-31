@@ -12,5 +12,5 @@ nilUnmarkedWeaklingSlots
 		[:weakling| | anyUnmarked |
 		anyUnmarked := self nilUnmarkedWeaklingSlotsIn: weakling.
 		anyUnmarked ifTrue:
-			[coInterpreter signalFinalization: weakling]].
+			[coInterpreter fireFinalization: weakling]].
 	self emptyObjStack: weaklingStack

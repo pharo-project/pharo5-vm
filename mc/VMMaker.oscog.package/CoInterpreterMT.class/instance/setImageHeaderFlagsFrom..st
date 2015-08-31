@@ -8,6 +8,7 @@ setImageHeaderFlagsFrom: headerFlags
 	flagInterpretedMethods := (headerFlags bitAnd: 8) ~= 0.
 	preemptionYields := (headerFlags bitAnd: 16) = 0.
 	noThreadingOfGUIThread := (headerFlags bitAnd: 32) ~= 0.
+	newFinalization := (headerFlags bitAnd: 64) ~= 0.
 
 	processHasThreadId ifFalse:
 		[self print: 'warning, processHasThreadId flag is unset; cannot function as a threaded VM if so.'; cr]

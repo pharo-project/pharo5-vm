@@ -29,10 +29,10 @@ initialize
 	ObjStackLimit := ObjStackPageSlots - ObjStackFixedSlots.
 	"The hiddenHootsObject contains the classTable pages and up to 8 additional objects.
 	 Currently we use four; the three objStacks, the mark stack, the weaklings and the
-	 ephemeron queue, and the rememberedSet."
+	 mourn queue, and the rememberedSet."
 	MarkStackRootIndex := self basicNew classTableRootSlots.
 	WeaklingStackRootIndex := MarkStackRootIndex + 1.
-	EphemeronQueueRootIndex := MarkStackRootIndex + 2.
+	MournQueueRootIndex := MarkStackRootIndex + 2.
 	RememberedSetRootIndex := MarkStackRootIndex + 3.
 
 	MarkObjectsForEnumerationPrimitives := false.

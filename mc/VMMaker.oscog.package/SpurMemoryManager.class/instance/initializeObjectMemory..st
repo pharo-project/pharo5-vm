@@ -35,7 +35,7 @@ initializeObjectMemory: bytesToShift
 	self setHiddenRootsObj: (self objectAfter: freeListObj).
 	markStack := self swizzleObjStackAt: MarkStackRootIndex.
 	weaklingStack := self swizzleObjStackAt: WeaklingStackRootIndex.
-	ephemeronQueue := self swizzleObjStackAt: EphemeronQueueRootIndex.
+	mournQueue := self swizzleObjStackAt: MournQueueRootIndex.
 	self assert: self validObjStacks.
 	self assert: (self isEmptyObjStack: markStack).
 	self assert: (self isEmptyObjStack: weaklingStack).

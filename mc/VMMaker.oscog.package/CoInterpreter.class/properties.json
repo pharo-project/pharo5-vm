@@ -63,11 +63,9 @@
 		"statCodeCompactionCount",
 		"statCodeCompactionUsecs",
 		"lastUncoggableInterpretedBlockMethod",
-		"processHasThreadId",
 		"flagInterpretedMethods",
 		"maxLiteralCountForCompile",
-		"minBackwardJumpCountForCompile",
-		"noThreadingOfGUIThread" ],
+		"minBackwardJumpCountForCompile" ],
 	"name" : "CoInterpreter",
 	"pools" : [
 		"CogMethodConstants",
