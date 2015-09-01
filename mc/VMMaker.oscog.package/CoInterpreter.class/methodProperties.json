@@ -160,7 +160,7 @@
 		"getDesiredCogCodeSize" : "eem (objmem refactor) 6/8/2010 17:12",
 		"getFramePointer" : "eem 4/6/2015 22:40",
 		"getGCMode" : "eem 5/7/2014 08:33",
-		"getImageHeaderFlags" : "eem 8/28/2015 18:06",
+		"getImageHeaderFlags" : "eem 9/1/2015 11:29",
 		"handleForwardedSendFaultForReceiver:stackDelta:" : "eem (const to msg rewrite) 11/5/2014 18:08",
 		"handleMNU:InMachineCodeTo:classForMessage:" : "rmacnak 6/24/2015 21:19",
 		"heapBase" : "eem 8/12/2014 15:41",

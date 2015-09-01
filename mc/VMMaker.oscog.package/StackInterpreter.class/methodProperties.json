@@ -347,7 +347,7 @@
 		"getErrorObjectFromPrimFailCode" : "eem 2/10/2015 17:21",
 		"getFullScreenFlag" : "JMM 4/17/2002 12:02",
 		"getGCMode" : "eem 5/7/2014 08:33",
-		"getImageHeaderFlags" : "eem 8/28/2015 18:05",
+		"getImageHeaderFlags" : "eem 9/1/2015 11:30",
 		"getInterruptKeycode" : "JMM 4/17/2002 12:02",
 		"getInterruptPending" : "JMM 4/17/2002 12:02",
 		"getLongFromFile:swap:" : "eem 12/5/2014 12:04",
