@@ -23,7 +23,9 @@
 		"foreignCallbackProcessSlot",
 		"willNotThreadWarnCount",
 		"activeProcessAffined",
-		"relinquishing" ],
+		"relinquishing",
+		"processHasThreadId",
+		"noThreadingOfGUIThread" ],
 	"name" : "CoInterpreterMT",
 	"pools" : [
 		"VMThreadingConstants" ],

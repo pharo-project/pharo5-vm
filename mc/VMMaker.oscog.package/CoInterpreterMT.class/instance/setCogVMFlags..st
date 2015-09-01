@@ -7,6 +7,8 @@ setCogVMFlags: flags
 	 Bit 3: if set, implies a threaded VM will not dosown the VM if owned by the GUI thread."
 	flags asUnsignedInteger > 31 ifTrue:
 		[^self primitiveFailFor: PrimErrUnsupported].
+	processHasThreadId := (flags bitAnd: 1) ~= 0.
 	flagInterpretedMethods := (flags bitAnd: 2) ~= 0.
 	preemptionYields := (flags bitAnd: 4) = 0.
+	noThreadingOfGUIThread := (flags bitAnd: 8) ~= 0.
 	newFinalization := (flags bitAnd: 16) ~= 0

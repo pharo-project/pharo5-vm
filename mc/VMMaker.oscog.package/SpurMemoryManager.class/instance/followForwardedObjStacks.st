@@ -4,4 +4,4 @@ followForwardedObjStacks
 	 So they need their slots followed."
 	self followForwardedInObjStack: markStack atIndex: MarkStackRootIndex.
 	self followForwardedInObjStack: weaklingStack atIndex: WeaklingStackRootIndex.
-	self followForwardedInObjStack: ephemeronQueue atIndex: EphemeronQueueRootIndex
+	self followForwardedInObjStack: mournQueue atIndex: MournQueueRootIndex

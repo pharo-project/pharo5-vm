@@ -4,7 +4,7 @@ updateRootOfObjStackAt: objStackRootIndex with: newRootPage
 		ofObject: hiddenRootsObj
 		withValue: newRootPage.
 	objStackRootIndex caseOf: {
-		[MarkStackRootIndex]			->	[markStack := newRootPage].
-		[WeaklingStackRootIndex]		->	[weaklingStack := newRootPage].
-		[EphemeronQueueRootIndex]	->	[ephemeronQueue := newRootPage] }.
+		[MarkStackRootIndex]		->	[markStack := newRootPage].
+		[WeaklingStackRootIndex]	->	[weaklingStack := newRootPage].
+		[MournQueueRootIndex]	->	[mournQueue := newRootPage] }.
 	^newRootPage

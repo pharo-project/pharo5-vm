@@ -17,7 +17,8 @@
 		"profileProcess",
 		"profileSemaphore",
 		"nextProfileTick",
-		"preemptionYields" ],
+		"preemptionYields",
+		"newFinalization" ],
 	"name" : "InterpreterPrimitives",
 	"pools" : [
 		"VMBasicConstants",
