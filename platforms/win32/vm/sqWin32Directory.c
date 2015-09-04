@@ -144,19 +144,16 @@ DWORD convertToSqueakTime(SYSTEMTIME st)
 
 void read_permissions(sqInt *posixPermissions, WCHAR* path, int pathLength, int attr)
 {
-
-  if(attr & FILE_ATTRIBUTE_DIRECTORY) {
-    *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
-  }
+  *posixPermissions |= S_IRUSR | (S_IRUSR>>3) | (S_IRUSR>>6);
   if(!(attr & FILE_ATTRIBUTE_READONLY)) {
     *posixPermissions |= S_IWUSR | (S_IWUSR>>3) | (S_IWUSR>>6);
   }
-  if (path && path[pathLength - 4] == '.') {
+  if(attr & FILE_ATTRIBUTE_DIRECTORY) {
+    *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+  }
+  else if (path && path[pathLength - 4] == '.') {
     WCHAR *ext = &path[pathLength - 3];
-    if(attr & FILE_ATTRIBUTE_DIRECTORY) {
-      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
-    }
-    else if (!_wcsicmp (ext, L"COM")) {
+    if (!_wcsicmp (ext, L"COM")) {
       *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
     }
     else if (!_wcsicmp (ext, L"EXE")) {
