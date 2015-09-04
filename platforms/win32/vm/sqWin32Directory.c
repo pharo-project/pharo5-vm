@@ -144,19 +144,30 @@ DWORD convertToSqueakTime(SYSTEMTIME st)
 
 void read_permissions(sqInt *posixPermissions, WCHAR* path, int pathLength, int attr)
 {
+
+  if(attr & FILE_ATTRIBUTE_DIRECTORY) {
+    *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+  }
   if(!(attr & FILE_ATTRIBUTE_READONLY)) {
     *posixPermissions |= S_IWUSR | (S_IWUSR>>3) | (S_IWUSR>>6);
   }
   if (path && path[pathLength - 4] == '.') {
     WCHAR *ext = &path[pathLength - 3];
-    if (!_wcsicmp (ext, L"COM"))
-      { *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);}
-    else if (!_wcsicmp (ext, L"EXE"))
-      { *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);}
-    else if (!_wcsicmp (ext, L"BAT"))
-      { *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);}
-    else if (!_wcsicmp (ext, L"CMD"))
-      { *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);}
+    if(attr & FILE_ATTRIBUTE_DIRECTORY) {
+      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+    }
+    else if (!_wcsicmp (ext, L"COM")) {
+      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+    }
+    else if (!_wcsicmp (ext, L"EXE")) {
+      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+    }
+    else if (!_wcsicmp (ext, L"BAT")) {
+      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+    }
+    else if (!_wcsicmp (ext, L"CMD")) { 
+      *posixPermissions |= S_IXUSR | (S_IXUSR>>3) | (S_IXUSR>>6);
+    }
   }
 }
 
@@ -164,10 +175,10 @@ int dir_Create(char *pathString, int pathLength)
 {
     WCHAR* win32Path;
     int sz;
-    /* convert the file name into a null-terminated C string */
+
+    /* convert the file name into a null-terminated wide char string */
     sz = MultiByteToWideChar(CP_UTF8, 0, pathString, pathLength, NULL, 0);
     if(sz > MAX_LONG_FILE_PATH) return 0;
-
     CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(win32Path, sz, pathString, pathLength);
 
     if(CreateDirectoryW(win32Path,NULL))
@@ -203,6 +214,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
     static char* lastString = NULL; /* cached last path */
     static int lastStringLength = 0; /* cached length of last path */
     WCHAR* win32Path = NULL;
+    WCHAR* win32PathOrRoot = NULL;
     FILETIME fileTime;
     SYSTEMTIME sysTime;
     int i, sz;
@@ -215,7 +227,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
     *modificationDate = 0;
     *isDirectory      = false;
     *sizeIfFile       = 0;
-    *posixPermissions = S_IFREG | S_IRUSR | (S_IRUSR>>3) | (S_IRUSR>>6);
+    *posixPermissions = 0;
     *isSymlink        = 0;
     
     /* check for a dir cache hit (but NEVER on the top level) */
@@ -257,6 +269,8 @@ int dir_Lookup(char *pathString, int pathLength, int index,
                     *modificationDate = 0;
                     *isDirectory      = true;
                     *sizeIfFile       = 0;
+		    *posixPermissions |= S_IFREG | S_IRUSR | (S_IRUSR>>3) | (S_IRUSR>>6);
+		    *posixPermissions |= S_IWUSR | (S_IWUSR>>3) | (S_IWUSR>>6);
                     return ENTRY_FOUND;
                 }
         return NO_MORE_ENTRIES;
@@ -273,7 +287,7 @@ int dir_Lookup(char *pathString, int pathLength, int index,
     lastString[pathLength] = 0;
     lastStringLength = pathLength;
     
-    /* convert the path to a win32 string */
+    /* convert the file name into a null-terminated wide char string */
     sz = MultiByteToWideChar(CP_UTF8, 0, pathString, pathLength, NULL, 0);
     if(sz > MAX_LONG_FILE_PATH) return BAD_PATH;
     /* we may add a slash and we add a '*' (see below) */
@@ -294,13 +308,21 @@ int dir_Lookup(char *pathString, int pathLength, int index,
       win32Path[sz-2] = '*';
       win32Path[sz-1] = 0;
     }
+    
+    if(wcslen(win32Path) == LONG_PATH_PREFIX_SIZE + 4) {
+      win32PathOrRoot = &win32Path[LONG_PATH_PREFIX_SIZE];
+    }
+    else {
+      win32PathOrRoot = win32Path;
+    }
+
     /* and go looking for entries */
-    findHandle = FindFirstFileW(win32Path,&findData);
+    findHandle = FindFirstFileW(win32PathOrRoot,&findData);
     if(findHandle == INVALID_HANDLE_VALUE) {
         /* Directory could be empty, so we must check for that */
         DWORD dwErr = GetLastError();
 	FREE_WIDECHAR_PATH(win32Path);
-        return (dwErr == ERROR_NO_MORE_FILES) ? NO_MORE_ENTRIES : BAD_PATH;
+	return (dwErr == ERROR_NO_MORE_FILES || dwErr == ERROR_ACCESS_DENIED) ? NO_MORE_ENTRIES : BAD_PATH;
     }
     while(1) {
         /* check for '.' or '..' directories */
@@ -374,7 +396,7 @@ int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int name
     *modificationDate = 0;
     *isDirectory      = false;
     *sizeIfFile       = 0;
-    *posixPermissions = S_IFREG | S_IRUSR | (S_IRUSR>>3) | (S_IRUSR>>6);
+    *posixPermissions = 0;
     *isSymlink        = 0;
     
 #if !defined(_WIN32_WCE)
@@ -398,14 +420,16 @@ int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int name
             *modificationDate = 0;
             *isDirectory      = true;
             *sizeIfFile       = 0;
+	    *posixPermissions |= S_IFREG | S_IRUSR | (S_IRUSR>>3) | (S_IRUSR>>6);
+	    *posixPermissions |= S_IWUSR | (S_IWUSR>>3) | (S_IWUSR>>6);
             return ENTRY_FOUND;
         }
         return NO_MORE_ENTRIES;
     }
 #endif /* !defined(_WIN32_WCE) */
+
     
-    /* convert the path to a win32 string */
-    
+    /* convert the file name into a null-terminated wide char string */
     sz = MultiByteToWideChar(CP_UTF8, 0, pathString, pathLength, NULL, 0);
     fsz = MultiByteToWideChar(CP_UTF8, 0, nameString, nameStringLength, NULL, 0);
     fullSize = fsz+sz+1;
@@ -413,7 +437,6 @@ int dir_EntryLookup(char *pathString, int pathLength, char* nameString, int name
     if (fullSize > MAX_LONG_FILE_PATH) {
       return BAD_PATH;
     }
-
     CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(win32Path, fullSize, pathString, pathLength);
     
     if (hasCaseSensitiveDuplicate(win32Path)) {
@@ -487,7 +510,7 @@ int dir_Delete(char *pathString, int pathLength) {
     /* Delete the existing directory with the given path. */
     WCHAR* win32Path;
     int sz;
-    /* convert the file name into a null-terminated C string */
+    /* convert the file name into a null-terminated wide char string */
     sz = MultiByteToWideChar(CP_UTF8, 0, pathString, pathLength, NULL, 0);
     if(sz > MAX_LONG_FILE_PATH) return 0;
     CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(win32Path, sz, pathString, pathLength);

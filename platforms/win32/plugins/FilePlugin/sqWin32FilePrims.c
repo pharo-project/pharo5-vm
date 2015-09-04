@@ -108,7 +108,7 @@ sqInt sqFileClose(SQFile *f) {
 sqInt sqFileDeleteNameSize(char* fileNameIndex, sqInt fileNameSize) {
   WCHAR* win32Path;
   int sz;
-  /* convert the file name into a null-terminated C string */
+  /* convert the file name into a null-terminated wide char string */
   sz = MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, NULL, 0);
   if(sz > MAX_LONG_FILE_PATH)
     FAIL();
@@ -161,11 +161,10 @@ sqInt sqFileOpen(SQFile *f, char* fileNameIndex, sqInt fileNameSize, sqInt write
   WCHAR* win32Path = NULL;
   int sz;
 
-  /* convert the file name into a null-terminated C string */
+  /* convert the file name into a null-terminated wide char string */
   sz = MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, NULL, 0);
   if(sz > MAX_LONG_FILE_PATH)
     FAIL();
-  //  win32Path = (WCHAR*)alloca((sz+1)*sizeof(WCHAR));
   CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(win32Path, sz, fileNameIndex, fileNameSize);
 
   if(hasCaseSensitiveDuplicate(win32Path)) {
@@ -262,12 +261,11 @@ sqInt sqFileRenameOldSizeNewSize(char* oldNameIndex, sqInt oldNameSize, char* ne
   WCHAR* newPath = NULL;
   int sz, sz2;
 
-  /* convert the file name into a null-terminated C string */
+  /* convert the both file names into a null-terminated wide char string */
   sz = MultiByteToWideChar(CP_UTF8, 0, oldNameIndex, oldNameSize, NULL,0);
   if(sz > MAX_LONG_FILE_PATH)
     FAIL();
 
-  /* convert the file name into a null-terminated C string */
   sz2 = MultiByteToWideChar(CP_UTF8, 0, newNameIndex, newNameSize, NULL,0);
   if(sz2 > MAX_LONG_FILE_PATH)
     FAIL();
@@ -378,11 +376,10 @@ sqImageFile sqImageFileOpen(char *fileName, char *mode)
 	  if(*modePtr == 'a') return 0;
       modePtr++;
     }
-  /* convert the file name into a null-terminated C string */
+  /* convert the both file names into a null-terminated wide char string */
   sz = MultiByteToWideChar(CP_UTF8, 0, fileName, -1, NULL,0);
   if(sz > MAX_LONG_FILE_PATH)
     FAIL();
-
   CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(win32Path, sz, fileName, -1);
 
   if(hasCaseSensitiveDuplicate(win32Path))

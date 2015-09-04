@@ -464,19 +464,19 @@ extern DWORD ticksForBlitting; /* time needed for actual blts */
 #ifdef USE_ALLOCA_FOR_LONG_PATHS
 #include <malloc.h>
   #define CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(buffer, size, fileNameString, fileNameLength)  {	\
-    buffer = (WCHAR*)alloca((size+4+1)*sizeof(WCHAR));\
-    buffer[0] = L'\\';buffer[1] = L'\\'; buffer[2] = L'?'; buffer[3] = L'\\';\
-    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + 4, size);\
-    buffer[size + 4] = 0;\
-    size += 4;}
+    buffer = (WCHAR*)alloca((size+LONG_PATH_PREFIX_SIZE+1)*sizeof(WCHAR));\
+    buffer[0] = L'\\';buffer[1] = L'\\'; buffer[2] = L'?'; buffer[3] = L'\\'; \
+    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + LONG_PATH_PREFIX_SIZE, size);\
+    buffer[size + LONG_PATH_PREFIX_SIZE] = 0;\
+    size += LONG_PATH_PREFIX_SIZE;}
   #define FREE_WIDECHAR_PATH(buffer) ;
 #else
   #define CONVERT_MULTIBYTE_TO_WIDECHAR_PATH(buffer, size, fileNameString, fileNameLength)  {	\
-    buffer = (WCHAR*)malloc((size+4+1)*sizeof(WCHAR));\
+    buffer = (WCHAR*)malloc((size+LONG_PATH_PREFIX_SIZE+1)*sizeof(WCHAR));\
     buffer[0] = L'\\';buffer[1] = L'\\'; buffer[2] = L'?'; buffer[3] = L'\\';\
-    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + 4, size);\
-    buffer[size + 4] = 0;\
-    size += 4;}
+    MultiByteToWideChar(CP_UTF8, 0, fileNameString, fileNameLength, buffer + LONG_PATH_PREFIX_SIZE, size);\
+    buffer[size + LONG_PATH_PREFIX_SIZE] = 0;\
+    size += LONG_PATH_PREFIX_SIZE;}
   #define FREE_WIDECHAR_PATH(buffer) free(buffer);
 #endif
 
