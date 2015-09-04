@@ -66,7 +66,15 @@ forkAndExecInDirectory: useSignalHandler
 	stdIn := interpreterProxy stackObjectValue: 7.
 	executableFile := interpreterProxy stackObjectValue: 8.
 
-	interpreterProxy failed ifTrue:
+	((interpreterProxy isIntegerObject: workingDir)
+	 or: [(interpreterProxy isIntegerObject: envOffsets)
+	 or: [(interpreterProxy isIntegerObject: envVecBuffer)
+	 or: [(interpreterProxy isIntegerObject: argOffsets)
+	 or: [(interpreterProxy isIntegerObject: argVecBuffer)
+	 or: [(interpreterProxy isIntegerObject: stdErr)
+	 or: [(interpreterProxy isIntegerObject: stdOut)
+	 or: [(interpreterProxy isIntegerObject: stdIn)
+	 or: [interpreterProxy isIntegerObject: executableFile]]]]]]]]) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 
 	"Turn off the interval timer. If this is not done, then the program which we exec in
@@ -77,35 +85,24 @@ forkAndExecInDirectory: useSignalHandler
 	self cCode: 'intervalTimer.it_value.tv_usec = 0'.
 	self cCode: 'setitimer (ITIMER_REAL, &intervalTimer, &saveIntervalTimer)'.
 
-	pid := self fork.
-	pid < 0 ifTrue: 
-		[self perror: 'fork'.
-		^self primitiveFail].
-
-	pid ~= 0 ifTrue:
+	(pid := self fork) ~= 0 ifTrue:
 		["Normal return to Smalltalk - this is the old parent process."
-		 "Enable the timer again before resuming Smalltalk."
+		
+		pid = -1
+			ifTrue: [ self perror: 'fork' ].
+			"Pop 9 arguments plus receiver, push pid. pid -1 represent an error OSProcess has to handle."
+		interpreterProxy
+			pop: 10;
+			pushInteger: pid.
+			 "Enable the timer again before resuming Smalltalk."
 		 self cCode: 'setitimer (ITIMER_REAL, &saveIntervalTimer, 0L)'.
-		 interpreterProxy failed ifFalse: "Pop 9 arguments plus receiver, push pid."
-			[interpreterProxy pop: 10; pushInteger: pid].
 		^nil].
 
 	"This is the new child process"
-	"If a new working directory has been specified, try to chdir() to it."
-	workingDir ~= interpreterProxy nilObject ifTrue:
-		[pwdPtr := interpreterProxy arrayValueOf: workingDir.
-		 (interpreterProxy failed or: [pwdPtr = 0]) ifTrue:
-			[interpreterProxy primitiveFailFor: PrimErrBadArgument.
-			 self cCode: 'fprintf(stderr, "bad workingDir parameter\n")'.
-			 self cCode: '_exit(-1)'].
-		 (self chdir: pwdPtr) ~= 0 ifTrue:
-			[interpreterProxy primitiveFailFor: PrimErrNotFound.
-			 self perror: 'chdir'.
-			 self cCode: '_exit(-1)']].
-
-	"Pointer to name of the file to execute."
-	progNamePtr := interpreterProxy arrayValueOf: executableFile.
-
+	"Do not send primitive fail at that point, we are in the child and it won't reach the parent."
+	
+	"Do the dup / connect to the streams first so that the parent can receive the error messages."
+	
 	"Dup the file handles to attach the new child process to the right streams
 	 on descriptors 0, 1 and 2."
 	stdErr = interpreterProxy nilObject ifFalse: [self dupToStdErr: stdErr].
@@ -118,6 +115,23 @@ forkAndExecInDirectory: useSignalHandler
 	"3 = First Unix file descriptor after stdin, stdout, stderr."
 	3 to: self descriptorTableSize - 1 do:
 		[:fd| self close: fd].
+
+	
+	"If a new working directory has been specified, try to chdir() to it."
+	workingDir ~= interpreterProxy nilObject ifTrue:
+		[pwdPtr := interpreterProxy arrayValueOf: workingDir.
+		 (interpreterProxy failed or: [pwdPtr = 0]) ifTrue:
+			["interpreterProxy primitiveFailFor: PrimErrBadArgument."
+			 self cCode: 'fprintf(stderr, "Fork: bad workingDir parameter\n")'.
+			 self cCode: '_exit(-1)'].
+		 (self chdir: pwdPtr) ~= 0 ifTrue:
+			["interpreterProxy primitiveFailFor: PrimErrNotFound."
+			 self perror: 'Fork/chdir'.
+			 self cCode: '_exit(-1)']].
+
+	"Pointer to name of the file to execute."
+	progNamePtr := interpreterProxy arrayValueOf: executableFile.
+
 
 	"Set up the environment, a C array of pointers to C strings, where each string
 	 is of the form 'KEY=value'. Refer to previously allocated object memory rather
