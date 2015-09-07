@@ -1,3 +1,4 @@
 method prototypes
 WeakFinalizationListclassPROTOTYPEhasNewFinalization
-	^ false
+	"new finalization is always true"
+	^ true
