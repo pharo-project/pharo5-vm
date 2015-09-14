@@ -5,7 +5,8 @@ primitiveSetOrHasIdentityHash
 		[| hasHash |
 		 hasHash := (objectMemory isNonImmediate: self stackTop)
 						and: [objectMemory hasIdentityHash: self stackTop].
-		 self pop: argumentCount + 1 thenPushBool: hasHash].
+		 self pop: argumentCount + 1 thenPushBool: hasHash.
+		 ^self].
 	hash := self stackIntegerValue: 0.
 	thisReceiver := self stackObjectValue: 1.
 	self successful ifTrue:
