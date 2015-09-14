@@ -1,5 +1,6 @@
 #A fast-track on building vm on Windows 10 (64bits)
 This is a short summary of steps that works on Windows 10 64bits to build the VM.
+
 **IMPORTANT: Versions of tools are important, when explicited.**
 
 - install win10 64bits
