@@ -41,6 +41,15 @@ unzip MacOSX10.6.sdk.zip
 rm MacOSX10.6.sdk.zip
 ```
 
+Windows:
+--------
+Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
+
+iOS:
+----
+Building the VM under iOS requires a more complex setup which is described in the separate [iOS readme](README-iOS.md) file.
+
+
 Building the VM
 ================
 (For Windows build, see below)
@@ -87,14 +96,6 @@ bash build.sh
 Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.
 
 5. Finally, run the freshly compiled VM from `results`.
-
-Building for Windows:
----------------------
-Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
-
-Building for iOS:
------------------
-Building the VM under iOS requires a more complex setup which is described in the separate [iOS readme](README-iOS.md) file.
 
 Acknowledge
 ===========
