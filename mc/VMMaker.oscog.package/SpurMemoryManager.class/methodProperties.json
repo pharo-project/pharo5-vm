@@ -325,6 +325,7 @@
 		"growHeadroom:" : "eem 10/16/2013 09:58",
 		"growOldSpaceByAtLeast:" : "eem 6/29/2015 17:43",
 		"growToAccomodateContainerWithNumSlots:" : "eem 3/11/2014 13:04",
+		"hasIdentityHash:" : "eem 9/14/2015 10:35",
 		"hasOverflowHeader:" : "eem 10/7/2013 13:46",
 		"hasPointerFields:" : "eem 3/21/2014 04:40",
 		"hasPointerFieldsNonImm:" : "eem 3/21/2014 04:07",

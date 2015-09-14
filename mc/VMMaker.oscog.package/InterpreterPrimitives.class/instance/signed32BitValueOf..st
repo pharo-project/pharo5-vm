@@ -6,16 +6,27 @@ signed32BitValueOf: oop
 	<inline: false>
 	<returnTypeC: #int>
 	<var: #value type: #int>
+	<var: #value64 type: #long>
 	(objectMemory isIntegerObject: oop) ifTrue:
-		[^objectMemory integerValueOf: oop].
+		[objectMemory wordSize = 4
+			ifTrue:
+				[^objectMemory integerValueOf: oop]
+			ifFalse: "Must fail for SmallIntegers with digitLength > 4"
+				[| value64 |
+				 value64 := objectMemory integerValueOf: oop.
+				 (self cCode: [(self cCoerceSimple: value64 to: #int) ~= value64]
+						inSmalltalk: [value64 >> 31 ~= 0 and: [value64 >> 31 ~= -1]]) ifTrue:
+					[self primitiveFail. value64 := 0].
+				 ^value64]].
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
 		[self primitiveFail.
 		 ^0].
 
-	ok := objectMemory isClassOfNonImm: oop
-					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
-					compactClassIndex: ClassLargePositiveIntegerCompactIndex.
+	ok := objectMemory
+			isClassOfNonImm: oop
+			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
+			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
 	ok
 		ifTrue: [negative := false]
 		ifFalse:

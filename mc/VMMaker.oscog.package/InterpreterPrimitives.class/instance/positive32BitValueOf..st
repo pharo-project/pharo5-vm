@@ -6,14 +6,19 @@ positive32BitValueOf: oop
 	| value ok sz |
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[value := objectMemory integerValueOf: oop.
-		 value < 0 ifTrue: [self primitiveFail. value := 0].
+		 (value < 0
+		  or: [objectMemory wordSize > 4
+		  and: [self cCode: [(self cCoerceSimple: value to: #'unsigned int') ~= value]
+					inSmalltalk: [value >> 32 ~= 0]]]) ifTrue:
+			[self primitiveFail. value := 0].
 		 ^value].
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
 		[self primitiveFail.
 		 ^0].
 
-	ok := objectMemory isClassOfNonImm: oop
+	ok := objectMemory
+			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
 	ok ifFalse:
