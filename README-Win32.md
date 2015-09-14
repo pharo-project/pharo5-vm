@@ -1,7 +1,9 @@
-Windows Build Setup:
-====================
+#Windows Build Setup:
 
 ##Prerequisites
+
+**NOTE: I'm update the instructions, it will be more clear next days. [Here](README-Win32-fasttrack.md) is a fast track on building VM on windows right now.**
+
 We provide a set of scripts which automates the build process on Windows platforms. The only thing you need to have in advance is an installation of Git (as of this writing it is nearly impossible to install Git from a script without compiling it).
 There are two options:
 
@@ -16,7 +18,7 @@ Either choice is fine, just make sure that Git is on your `PATH`. You can test i
 There are a couple more things we require to build the VM:
 
 - [MinGW](...) + msys
-- [CMake](http://cmake.org)
+- [CMake](http://cmake.org) **IMPORTANT: You has to install [CMake 2.8.8](http://www.cmake.org/files/v2.8/cmake-2.8.8-win32-x86.exe), this is the only version we certify that works (and we know some newer versions are not generating proper scripts). Of course, we will change this in the future :)**
 
 The scripts will download these dependencies if they're not present but they will only be added to the temporary (process) `PATH`. If you intend to build the VM multiple times you'll achieve shorter build times by having these dependencies preinstalled and on your `PATH`.
 
