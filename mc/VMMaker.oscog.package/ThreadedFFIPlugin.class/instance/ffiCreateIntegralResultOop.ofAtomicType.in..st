@@ -41,5 +41,5 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 		ifFalse:
 			[interpreterProxy characterObjectOf:
 				(retVal bitAnd: (self cppIf: #SPURVM
-									ifTrue: [16rFFFFFFFF]
+									ifTrue: [Byte0Mask]
 									ifFalse: [255]))]

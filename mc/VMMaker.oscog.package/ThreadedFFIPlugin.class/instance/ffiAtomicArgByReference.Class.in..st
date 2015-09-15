@@ -42,7 +42,7 @@ ffiAtomicArgByReference: oop Class: oopClass in: calloutState
 		[(isString
 		  or: [oopClass = interpreterProxy classByteArray]) ifTrue:"String/Symbol/ByteArray"
 			[^self ffiPushPointer: (interpreterProxy firstIndexableField: oop) in: calloutState].
-		isAlien ifTrue:
+		(isAlien or: [oopClass = interpreterProxy classExternalAddress]) ifTrue:
 			[^self ffiPushPointer: (self pointerForOop: (self startOfData: oop)) in: calloutState].
 		atomicType = FFITypeVoid ifFalse:
 			[^FFIErrorCoercionFailed]].
