@@ -1,5 +1,5 @@
 primitives
-"cpuAlien <BochsIA32Alien>" primitiveDisassembleAt: address "<Integer>" InMemory: memory "<Bitmap|ByteArray|WordArray>"
+"cpuAlien <BochsIA32|X86Alien>" primitiveDisassembleAt: address "<Integer>" InMemory: memory "<Bitmap|ByteArray|WordArray>"
 	"Return an Array of the instruction length and its decompilation as a string for the instruction at address in memory."
 	| cpuAlien cpu instrLenOrErr resultObj log logLen logObj logObjData |
 	<var: #cpu type: #'void *'>

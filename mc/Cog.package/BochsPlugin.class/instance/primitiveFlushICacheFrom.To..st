@@ -1,5 +1,5 @@
 primitives
-"cpuAlien <BochsIA32Alien>" primitiveFlushICacheFrom: startAddress "<Integer>" To: endAddress "<Integer>"
+"cpuAlien <BochsIA32|X86Alien>" primitiveFlushICacheFrom: startAddress "<Integer>" To: endAddress "<Integer>"
 	"Flush the icache in the requested range"
 	| cpuAlien cpu |
 	<var: #cpu type: 'void *'>

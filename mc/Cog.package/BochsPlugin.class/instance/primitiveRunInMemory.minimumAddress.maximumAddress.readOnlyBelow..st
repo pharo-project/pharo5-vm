@@ -1,5 +1,5 @@
 primitives
-"cpuAlien <BochsIA32Alien>" primitiveRunInMemory: memory "<Bitmap|ByteArray|WordArray>" minimumAddress: minAddress "<Integer>" maximumAddress: maxAddress "<Integer>" readOnlyBelow: minWriteMaxExecAddress "<Integer>"
+"cpuAlien <BochsIA32|X86Alien>" primitiveRunInMemory: memory "<Bitmap|ByteArray|WordArray>" minimumAddress: minAddress "<Integer>" maximumAddress: maxAddress "<Integer>" readOnlyBelow: minWriteMaxExecAddress "<Integer>"
 	"Run the cpu using the first argument as the memory and the following arguments defining valid addresses, running until it halts or hits an exception."
 	| cpuAlien cpu memorySize maybeErr |
 	<var: #cpu type: #'void *'>

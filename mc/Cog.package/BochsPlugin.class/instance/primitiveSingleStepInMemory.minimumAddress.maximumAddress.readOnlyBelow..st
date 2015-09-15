@@ -1,5 +1,5 @@
 primitives
-"cpuAlien <BochsIA32Alien>" primitiveSingleStepInMemory: memory "<Bitmap|ByteArray|WordArray>" minimumAddress: minAddress "<Integer>" maximumAddress: maxAddress "<Integer>" readOnlyBelow: minWriteMaxExecAddress "<Integer>"
+"cpuAlien <BochsIA32|X86Alien>" primitiveSingleStepInMemory: memory "<Bitmap|ByteArray|WordArray>" minimumAddress: minAddress "<Integer>" maximumAddress: maxAddress "<Integer>" readOnlyBelow: minWriteMaxExecAddress "<Integer>"
 	"Single-step the cpu using the first argument as the memory and the following arguments defining valid addresses."
 	| cpuAlien cpu memorySize maybeErr |
 	<var: #cpu type: #'void *'>

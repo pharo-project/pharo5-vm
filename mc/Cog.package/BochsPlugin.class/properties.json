@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-ProcessorPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 9/14/2015 16:30",
+	"instvars" : [
+		"prevInterruptCheckChain" ],
+	"name" : "BochsPlugin",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

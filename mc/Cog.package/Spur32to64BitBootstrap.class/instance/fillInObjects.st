@@ -2,7 +2,7 @@ bootstrap image
 fillInObjects
 	"interpreter32 printOop: obj32"
 	| i |
-	{heap32 markStack. heap32 weaklingStack. heap32 ephemeronQueue} do:
+	{heap32 markStack. heap32 weaklingStack. heap32 mournQueue} do:
 		[:obj|
 		obj ~= heap32 nilObject ifTrue:
 			[map at: obj put: (map at: heap32 nilObject)]].
