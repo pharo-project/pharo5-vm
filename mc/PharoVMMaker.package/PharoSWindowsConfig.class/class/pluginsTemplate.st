@@ -1,6 +1,6 @@
 accessing
 pluginsTemplate
-	^'Pharo {1} ships with this plugins already built:
+	^'{4} {1} ships with this plugins already built:
 		
 Internal: 
 =========

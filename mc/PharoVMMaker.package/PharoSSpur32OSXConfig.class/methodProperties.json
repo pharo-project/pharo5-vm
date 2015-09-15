@@ -1,6 +1,7 @@
 {
 	"class" : {
-		 },
+		"licenseTemplate" : "EstebanLorenzano 9/15/2015 12:58",
+		"pluginsTemplate" : "EstebanLorenzano 9/15/2015 12:58" },
 	"instance" : {
 		"CFBundleVersion" : "EstebanLorenzano 11/14/2014 13:22",
 		"commonCompilerFlags" : "EstebanLorenzano 9/15/2015 12:01",
