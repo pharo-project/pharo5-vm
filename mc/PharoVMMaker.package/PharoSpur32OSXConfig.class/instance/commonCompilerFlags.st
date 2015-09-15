@@ -1,3 +1,3 @@
 settings
 commonCompilerFlags
-	^ super commonCompilerFlags, #('-DSPURVM' "'-DPHAROVM_USE_EXECUTABLE_MEMORY'")
+	^ super commonCompilerFlags, #('-DSPURVM' '-DPharoVM' "'-DPHAROVM_USE_EXECUTABLE_MEMORY'")

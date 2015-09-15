@@ -1,3 +1,3 @@
 settings
 commonCompilerFlags
-	^ super commonCompilerFlags, #('-DSPURVM')
+	^ super commonCompilerFlags, #('-DSPURVM' '-DPharoVM')

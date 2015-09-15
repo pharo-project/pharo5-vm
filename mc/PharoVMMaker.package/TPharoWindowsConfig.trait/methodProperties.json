@@ -1,7 +1,6 @@
 {
 	"class" : {
-		"licenseTemplate" : "",
-		"pluginsTemplate" : "" },
+		 },
 	"instance" : {
 		"executableName" : "",
 		"externalPlugins" : "",
