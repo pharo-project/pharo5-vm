@@ -39,7 +39,7 @@ signed64BitValueOf: oop
 		ifFalse:
 			[value := sz > 4
 						ifTrue: [objectMemory fetchLong64: 0 ofObject: oop]
-						ifFalse: [objectMemory fetchLong32: 0 ofObject: oop]].
+						ifFalse: [(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger]].
 	"Filter out values out of range for the signed interpretation such as
 	16rFFFFFFFF... (positive w/ bit 64 set) and -16rFFFFFFFF... (negative w/ bit
 	64 set). Since the sign is implicit in the class we require that the high bit of

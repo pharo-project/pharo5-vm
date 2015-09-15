@@ -48,7 +48,7 @@ signedMachineIntegerValueOf: oop
 							 + ((objectMemory fetchByte: 2 ofObject: oop) << 16)
 							 + ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
 						ifFalse:
-							[objectMemory fetchLong32: 0 ofObject: oop]].
+							[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger]].
 	
 	self cCode: []
 		inSmalltalk:
