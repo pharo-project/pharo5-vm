@@ -1,0 +1,3 @@
+encoding
+concreteRegister: value
+	^value

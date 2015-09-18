@@ -3,5 +3,5 @@ disassembleOpcodesIn: memory to: aStream
 	self processor
 		disassembleFrom: opcodes first address
 		to: opcodes last address + opcodes last machineCodeSize - 1
-		in: memory
+		in: (self memoryAsBytes: memory)
 		on: aStream

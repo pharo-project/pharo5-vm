@@ -1,5 +1,14 @@
 {
 	"class" : {
-		 },
+		"initialize" : "eem 9/17/2015 11:21",
+		"machineCodeDeclaration" : "eem 9/17/2015 14:52" },
 	"instance" : {
-		 } }
+		"computeMaximumSize" : "eem 9/17/2015 11:16",
+		"concretizeAndCqR" : "eem 9/17/2015 15:41",
+		"concretizeAt:" : "eem 9/17/2015 14:59",
+		"dispatchConcretize" : "eem 5/29/2015 18:26",
+		"isQuick:" : "eem 9/17/2015 15:42",
+		"machineCodeBytes" : "eem 9/17/2015 14:56",
+		"mod:RM:RO:" : "eem 9/17/2015 17:23",
+		"rexR:x:b:" : "eem 9/17/2015 15:25",
+		"rexw:r:x:b:" : "eem 9/17/2015 17:19" } }
