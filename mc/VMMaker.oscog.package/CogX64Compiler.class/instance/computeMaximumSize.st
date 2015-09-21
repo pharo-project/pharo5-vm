@@ -68,32 +68,32 @@ computeMaximumSize
 											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
 														ifTrue: [6]
 														ifFalse: [7]]].
-		"[AndCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
+		[AndCqR]		-> [^(self isQuick: (operands at: 0))
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
 		[CmpCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
 		[OrCqR]			-> [^(self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
 		[SubCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
-		[TstCqR]		-> [^((self isQuick: (operands at: 0)) and: [(self concreteRegister: (operands at: 1)) < 4])
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
-		[AddCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
+		[TstCqR]		-> [^(self isQuick: (operands at: 0))
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
+		"[AddCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[AndCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[CmpCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[OrCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].

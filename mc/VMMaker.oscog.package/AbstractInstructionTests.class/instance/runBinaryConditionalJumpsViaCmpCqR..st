@@ -35,7 +35,7 @@ runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 				[:a| | taken expected |
 				self processor
 					reset;
-					perform: reg2 with: a signedIntToLong.
+					perform: reg2 with: (processor convertIntegerToInternal: a).
 				[self processor singleStepIn: memory.
 				 self processor pc ~= nop address] whileTrue.
 				taken := (self processor perform: reg1) = 1.
@@ -44,7 +44,7 @@ runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 								ifFalse: [a perform: relation with: b].
 				assertPrintBar
 					ifTrue:
-						[self assert: taken = expected]
+						[self assert: taken equals: expected]
 					ifFalse:
 						[Transcript
 							nextPutAll: 'CmpCqR '; print: b; space; nextPutAll: reg2; tab; tab;
