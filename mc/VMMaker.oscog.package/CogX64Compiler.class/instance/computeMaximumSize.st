@@ -63,12 +63,12 @@ computeMaximumSize
 		[Stop]						-> [^1].
 
 		"Arithmetic"
-		"[AddCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
-														ifTrue: [5]
-														ifFalse: [6]]].
-		[AndCqR]		-> [^(self isQuick: (operands at: 0))
+		[AddCqR]		-> [^(self isQuick: (operands at: 0))
+											ifTrue: [4]
+											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
+														ifTrue: [6]
+														ifFalse: [7]]].
+		"[AndCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
 											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
 														ifTrue: [5]
@@ -115,7 +115,7 @@ computeMaximumSize
 											ifFalse: [0])].
 		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
 		[LogicalShiftRightCqR]		-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
-		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
+		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]]."
 		[LogicalShiftLeftRR]			-> [^self computeShiftRRSize].
 		[LogicalShiftRightRR]		-> [^self computeShiftRRSize].
 		[ArithmeticShiftRightRR]		-> [^self computeShiftRRSize].
@@ -124,7 +124,7 @@ computeMaximumSize
 		[SubRdRd]					-> [^4].
 		[MulRdRd]					-> [^4].
 		[DivRdRd]					-> [^4].
-		[SqrtRd]					-> [^4]."
+		[SqrtRd]					-> [^4].
 		"Data Movement"
 		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [3] ifFalse: [(self is32BitSignedImmediate: (operands at: 0)) ifTrue: [7] ifFalse: [10]]].
 		[MoveCwR]		-> [^10].
