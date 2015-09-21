@@ -12,7 +12,9 @@
 		"coerceTo:sim:" : "eem 1/26/2015 14:29",
 		"hex8" : "eem 5/21/2010 11:09",
 		"signedBitShift:" : "eem 3/19/2009 16:15",
+		"signedInt64FromLong" : "eem 9/18/2015 12:10",
 		"signedIntFromLong" : "eem 2/15/2009 10:17",
 		"signedIntFromShort" : "eem 3/2/2009 18:32",
 		"signedIntToLong" : "di 7/14/2004 12:27",
+		"signedIntToLong64" : "eem 9/21/2015 11:11",
 		"signedIntToShort" : "eem 3/2/2009 17:03" } }

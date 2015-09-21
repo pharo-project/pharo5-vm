@@ -1,5 +1,5 @@
 generate machine code
 machineCodeBytes
 	"Answer the maximum number of bytes of machine code generated for any abstract instruction.
-	 e.g. lock movsd  0x400(%rsp),%xmm4 => f0 f2 0f 10 a4 24 00 04 00 00"
-	^10
+	 e.g. movq $0x12345678ABCDEF0, %rax; jmp *%rax => 48 B8 F0 DE BC 9A 78 56 34 12 FF E0"
+	^12

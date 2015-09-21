@@ -27,10 +27,10 @@ computeMaximumSize
 		[XCHGMwrR]			-> [^7].
 		[XCHGRR]				-> [^2]."
 		"Control"
-		[CallFull]					-> [^5].
+		[CallFull]					-> [^12].
 		[Call]						-> [^5].
 		[JumpR]						-> [^2].
-		[JumpFull]					-> [self resolveJumpTarget. ^5].
+		[JumpFull]					-> [self resolveJumpTarget. ^12].
 		[JumpLong]					-> [self resolveJumpTarget. ^5].
 		[Jump]						-> [self resolveJumpTarget. ^5].
 		[JumpZero]					-> [self resolveJumpTarget. ^6].
@@ -98,15 +98,15 @@ computeMaximumSize
 		[CmpCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[OrCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[SubCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[XorCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[AddRR]			-> [^2].
-		[AndRR]			-> [^2].
-		[CmpRR]		-> [^2].
-		[OrRR]			-> [^2].
-		[XorRR]			-> [^2].
-		[SubRR]			-> [^2].
-		[NegateR]		-> [^2].
-		[LoadEffectiveAddressMwrR]
+		[XorCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]]."
+		[AddRR]			-> [^3].
+		[AndRR]			-> [^3].
+		[CmpRR]		-> [^3].
+		[OrRR]			-> [^3].
+		[XorRR]			-> [^3].
+		[SubRR]			-> [^3].
+		[NegateR]		-> [^3].
+		"[LoadEffectiveAddressMwrR]
 						-> [^((self isQuick: (operands at: 0))
 											ifTrue: [3]
 											ifFalse: [6])
@@ -126,11 +126,11 @@ computeMaximumSize
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4]."
 		"Data Movement"
-		"[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [2] ifFalse: [5]].
-		[MoveCwR]		-> [^5].
-		[MoveRR]		-> [^2].
+		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [3] ifFalse: [(self is32BitSignedImmediate: (operands at: 0)) ifTrue: [7] ifFalse: [10]]].
+		[MoveCwR]		-> [^10].
+		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
-		[MoveAwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
+		"[MoveAwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveRAw]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
 											ifTrue: [3]
