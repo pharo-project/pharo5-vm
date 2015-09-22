@@ -63,42 +63,18 @@ computeMaximumSize
 		[Stop]						-> [^1].
 
 		"Arithmetic"
-		[AddCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		[AndCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		[CmpCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		[OrCqR]			-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		[SubCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		[TstCqR]		-> [^(self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = RAX
-														ifTrue: [6]
-														ifFalse: [7]]].
-		"[AddCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[AndCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[CmpCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[OrCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[SubCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[XorCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]]."
+		[AddCqR]		-> [^self computeSizeOfArithCqR].
+		[AndCqR]		-> [^self computeSizeOfArithCqR].
+		[CmpCqR]		-> [^self computeSizeOfArithCqR].
+		[OrCqR]			-> [^self computeSizeOfArithCqR].
+		[SubCqR]		-> [^self computeSizeOfArithCqR].
+		[TstCqR]		-> [^self computeSizeOfArithCqR].
+		[AddCwR]		-> [^self computeSizeOfArithCwR].
+		[AndCwR]		-> [^self computeSizeOfCwR].
+		[CmpCwR]		-> [^self computeSizeOfCwR].
+		[OrCwR]		-> [^self computeSizeOfCwR].
+		[SubCwR]		-> [^self computeSizeOfCwR].
+		[XorCwR]		-> [^self computeSizeOfCwR].
 		[AddRR]			-> [^3].
 		[AndRR]			-> [^3].
 		[CmpRR]		-> [^3].

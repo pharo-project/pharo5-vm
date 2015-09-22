@@ -4,7 +4,4 @@ concretizeAt: actualAddress
 	 setting machineCodeSize, and answer the following address."
 
 	self assert: actualAddress \\ 4 = 0.
-	address := actualAddress.
-	self dispatchConcretize.
-	self assert: (maxSize = nil or: [maxSize >= machineCodeSize]).
-	^actualAddress + machineCodeSize
+	^super concretizeAt: actualAddress

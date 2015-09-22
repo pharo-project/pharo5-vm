@@ -2,7 +2,7 @@ printing
 printStateOn: aStream
 	| opcodeName orneryOperands format |
 	<doNotGenerate> "Smalltalk-side only"
-	opcode isNil ifTrue:
+	opcode ifNil:
 		[^self].
 	aStream space; nextPut: $(; nextPutAll: (opcodeName := self class nameForOpcode: opcode).
 	orneryOperands := operands isCObjectAccessor

@@ -4,6 +4,4 @@ nameForOpcode: opcode "<Integer>"
 		ifNotNil:
 			[:opcodeName| opcodeName]
 		ifNil:
-			[(self classPool keyAtValue: opcode ifAbsent: [])
-				ifNotNil: [:opcodeName| opcodeName]
-				ifNil: [opcode printString]]
+			[self localNameForOpcode: opcode]

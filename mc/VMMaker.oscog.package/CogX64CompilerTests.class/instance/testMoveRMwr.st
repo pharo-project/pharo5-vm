@@ -1,6 +1,6 @@
 tests
 testMoveRMwr
-	"self new testMoveRMwr"
+	"self new testMoveRM0wr"
 	self concreteCompilerClass registersWithNamesDo:
 		[:sreg :srname|
 		self concreteCompilerClass registersWithNamesDo:

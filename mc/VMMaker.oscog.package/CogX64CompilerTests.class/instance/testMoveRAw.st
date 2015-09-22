@@ -1,17 +1,17 @@
 tests
-testMoveMwrR
-	"self new testMoveMwrR"
+testMoveRAw
+	"self new testMoveRAw"
 	self concreteCompilerClass registersWithNamesDo:
-		[:sreg :srname|
-		self concreteCompilerClass registersWithNamesDo:
-			[:dreg :drname| | inst len |
-			inst := self gen: MoveMwrR operand: 0 operand: sreg operand: dreg.
+		[:reg :regname|
+		#(16r555555 16rAAAAAA) do:
+			[:addr| | inst len |
+			inst := self gen: MoveRAw operand: reg operand: addr.
 			len := inst concretizeAt: 0.
 			self processor
 				disassembleInstructionAt: 0
 				In: inst machineCode object
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'movl (', srname, '), ', drname.
+					herIntended := 'movl ', regname, ', 0x', (addr hex allButFirst: 3).
 					self assert: (plainJane match: herIntended).
 					self assert: len = sz]]]

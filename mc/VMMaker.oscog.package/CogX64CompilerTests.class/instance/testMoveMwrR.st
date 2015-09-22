@@ -1,9 +1,9 @@
 tests
-testMoveM0wrR
-	"self new testMoveM0wrR"
-	CogIA32CompilerForTests registersWithNamesDo:
+testMoveMwrR
+	"self new testMoveMwrR"
+	self concreteCompilerClass registersWithNamesDo:
 		[:sreg :srname|
-		CogIA32CompilerForTests registersWithNamesDo:
+		self concreteCompilerClass registersWithNamesDo:
 			[:dreg :drname| | inst len |
 			inst := self gen: MoveMwrR operand: 0 operand: sreg operand: dreg.
 			len := inst concretizeAt: 0.
