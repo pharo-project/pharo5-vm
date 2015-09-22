@@ -1,3 +1,3 @@
-generating machine code
+accessing
 processor
 	self subclassResponsibility

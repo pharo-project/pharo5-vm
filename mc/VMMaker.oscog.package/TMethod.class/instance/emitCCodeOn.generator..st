@@ -5,7 +5,7 @@ emitCCodeOn: aStream generator: aCodeGen
 
 	aCodeGen currentMethod: self.
 	self emitCCommentOn: aStream.	"place method comment and method name before function."
-	aStream crtab; nextPutAll: '/* '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self selector; nextPutAll: ' */'.	
+	aStream crtab; nextPutAll: '/* '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self smalltalkSelector; nextPutAll: ' */'.	
 	aStream cr. 
 	self emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: false.
 	aStream cr; nextPut: ${.

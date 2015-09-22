@@ -12,7 +12,7 @@ runSubCqR: assertPrintBar
 			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
 			self processor
 				reset;
-				perform: rsetter with: b signedIntToLong.
+				perform: rsetter with: (processor convertIntegerToInternal: b).
 			[[processor pc < len] whileTrue:
 				[self processor singleStepIn: memory]]
 				on: Error
@@ -27,14 +27,14 @@ runSubCqR: assertPrintBar
 				[:ireg :getter :setter| | expected |
 				expected := getter == rgetter ifTrue: [b - a] ifFalse: [0].
 				assertPrintBar
-					ifTrue: [self assert: (self processor perform: getter) signedIntFromLong = expected]
+					ifTrue: [self assert: (self processor convertInternalToInteger: (self processor perform: getter)) equals: expected]
 					ifFalse:
-						[(self processor perform: getter) signedIntFromLong ~= expected ifTrue:
+						[(self processor convertInternalToInteger: (self processor perform: getter)) ~= expected ifTrue:
 							[bogus := true]]].
 				assertPrintBar ifFalse:
 					[Transcript
 						nextPutAll: rgetter; nextPut: $(; print: b; nextPutAll: ') - '; print: a; nextPutAll: ' = ';
-						print: (self processor perform: rgetter) signedIntFromLong; cr; flush.
+						print: (self processor convertInternalToInteger: (self processor perform: rgetter)); cr; flush.
 					 bogus ifTrue:
 						[self processor printRegistersOn: Transcript.
 						 Transcript show: (self processor disassembleInstructionAt: 0 In: memory); cr]]]]

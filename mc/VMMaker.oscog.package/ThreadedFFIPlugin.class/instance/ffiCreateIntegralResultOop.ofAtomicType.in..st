@@ -39,7 +39,4 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 				ifTrue:[interpreterProxy signed64BitIntegerFor: retVal] "signed return"
 				ifFalse:[interpreterProxy positive64BitIntegerFor: retVal]]
 		ifFalse:
-			[interpreterProxy characterObjectOf:
-				(retVal bitAnd: (self cppIf: #SPURVM
-									ifTrue: [16rFFFFFFFF]
-									ifFalse: [255]))]
+			[interpreterProxy characterObjectOf: (retVal bitAnd: Byte0Mask)]

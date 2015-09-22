@@ -30,16 +30,16 @@ runBinaryConditionalJumps: assertPrintBar
 			[:a :b| | taken |
 			self processor
 				reset;
-				perform: reg2 with: a signedIntToLong;
-				perform: reg3 with: b signedIntToLong.
+				perform: reg2 with: (processor convertIntegerToInternal: a);
+				perform: reg3 with: (processor convertIntegerToInternal: b).
 			[self processor singleStepIn: memory.
 			 self processor pc ~= nop address] whileTrue.
 			taken := (self processor perform: reg1) = 1.
 			assertPrintBar
 				ifTrue:
-					[self assert: taken = (signednessOrResult == #unsigned
-											ifTrue: [(a bitAnd: mask) perform: relation with: (b bitAnd: mask)]
-											ifFalse: [a perform: relation with: b])]
+					[self assert: taken equals: (signednessOrResult == #unsigned
+												ifTrue: [(a bitAnd: mask) perform: relation with: (b bitAnd: mask)]
+												ifFalse: [a perform: relation with: b])]
 				ifFalse:
 					[Transcript
 						nextPutAll: reg2; nextPut: $(; print: a; nextPutAll: ') '; nextPutAll: relation; space;

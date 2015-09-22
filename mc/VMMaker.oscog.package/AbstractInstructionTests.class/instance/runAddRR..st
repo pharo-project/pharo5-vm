@@ -15,8 +15,8 @@ runAddRR: assertPrintBar
 				[:a :b| | bogus |
 				self processor
 					reset;
-					perform: srsetter with: a signedIntToLong;
-					perform: drsetter with: b signedIntToLong.
+					perform: srsetter with: (processor convertIntegerToInternal: a);
+					perform: drsetter with: (processor convertIntegerToInternal: b).
 				[[processor pc < len] whileTrue:
 					[self processor singleStepIn: memory]]
 					on: Error
@@ -24,7 +24,7 @@ runAddRR: assertPrintBar
 				"self processor printRegistersOn: Transcript.
 				 Transcript show: (self processor disassembleInstructionAt: 0 In: memory); cr"
 				assertPrintBar
-					ifTrue: [self assert: processor pc = inst machineCodeSize]
+					ifTrue: [self assert: processor pc equals: inst machineCodeSize]
 					ifFalse: [bogus := processor pc ~= inst machineCodeSize].
 				self concreteCompilerClass dataRegistersWithAccessorsDo:
 					[:ireg :getter :setter| | expected |
@@ -36,15 +36,15 @@ runAddRR: assertPrintBar
 												ifTrue: [a]
 												ifFalse: [0]].
 					assertPrintBar
-						ifTrue: [self assert: (self processor perform: getter) signedIntFromLong = expected]
+						ifTrue: [self assert: (self processor convertInternalToInteger: (self processor perform: getter)) equals: expected]
 						ifFalse:
-							[(self processor perform: getter) signedIntFromLong ~= expected ifTrue:
+							[(self processor convertInternalToInteger: (self processor perform: getter)) ~= expected ifTrue:
 								[bogus := true]]].
 					assertPrintBar ifFalse:
 						[Transcript
 							nextPutAll: drgetter; nextPut: $(; print: b; nextPutAll: ') + ';
 							nextPutAll: srgetter; nextPut: $(; print: a; nextPutAll: ') = ';
-							print: (self processor perform: drgetter) signedIntFromLong; cr; flush.
+							print: (self processor convertInternalToInteger: (self processor perform: drgetter)); cr; flush.
 						 bogus ifTrue:
 							[self processor printRegistersOn: Transcript.
 							 Transcript show: (self processor disassembleInstructionAt: 0 In: memory); cr]]]]]

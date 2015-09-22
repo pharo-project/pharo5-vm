@@ -35,7 +35,7 @@ runBinaryConditionalJumpsViaSubCqR: assertPrintBar
 				[:a| | taken result expected |
 				self processor
 					reset;
-					perform: setreg2 with: a signedIntToLong.
+					perform: setreg2 with: (self processor convertIntegerToInternal: a).
 				[self processor singleStepIn: memory.
 				 self processor pc ~= nop address] whileTrue.
 				taken := (self processor perform: reg1) = 1.

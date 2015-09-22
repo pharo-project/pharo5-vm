@@ -15,7 +15,7 @@ primAllocateExecutablePage
 		[^interpreterProxy primitiveFailFor: PrimErrNoCMemory].
 	alien := interpreterProxy
 				instantiateClass: interpreterProxy classAlien
-				indexableSize: 8.
+				indexableSize: 2 * interpreterProxy bytesPerOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	ptr := interpreterProxy firstIndexableField: alien.
