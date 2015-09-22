@@ -1,10 +1,10 @@
 primitives
 primitiveNewCPU
 	| cpu |
-	<var: #cpu type: 'void *'>
+	<var: #cpu type: #'void *'>
 	self primitive: #primitiveNewCPU parameters: #().
 
-	cpu := self cCode: 'newCPU()' inSmalltalk: [0].
+	cpu := self newCPU.
 	cpu = 0 ifTrue:
 		[^interpreterProxy primitiveFail].
 	interpreterProxy

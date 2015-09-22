@@ -6,7 +6,7 @@ primitives
 	cpuAlien := self primitive: #primitiveSingleStepInMemoryMinAddressMaxAddressReadWrite
 					parameters: #(WordsOrBytes Unsigned Unsigned Unsigned)
 					receiver: #Oop.
-	(cpu := self startOfData: cpuAlien) = 0 ifTrue:
+	(cpu := self cCoerceSimple: (self startOfData: cpuAlien) to: #'void *') = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	memorySize := interpreterProxy byteSizeOf: memory cPtrAsOop.
 	maybeErr := self singleStepCPU: cpu

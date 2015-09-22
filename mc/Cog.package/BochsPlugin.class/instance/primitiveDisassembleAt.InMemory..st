@@ -3,10 +3,13 @@ primitives
 	"Return an Array of the instruction length and its decompilation as a string for the instruction at address in memory."
 	| cpuAlien cpu instrLenOrErr resultObj log logLen logObj logObjData |
 	<var: #cpu type: #'void *'>
+	<var: #log type: #'char *'>
+	<var: #logLen type: #long>
+	<var: #logObjData type: #'char *'>
 	cpuAlien := self primitive: #primitiveDisassembleAtInMemory
 					parameters: #(Unsigned WordsOrBytes)
 					receiver: #Oop.
-	(cpu := self startOfData: cpuAlien) = 0 ifTrue:
+	(cpu := self cCoerceSimple: (self startOfData: cpuAlien) to: #'void *') = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	instrLenOrErr := self disassembleFor: cpu
 						At: address
@@ -29,7 +32,7 @@ primitives
 		[interpreterProxy popRemappableOop.
 		 ^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	logObjData := interpreterProxy arrayValueOf: logObj.
-	self cCode: 'memcpy(logObjData, log, logLen)' inSmalltalk: [logObjData. log].
+	self mem: logObjData cp: log y: logLen.
 	resultObj := interpreterProxy popRemappableOop.
 	interpreterProxy
 		storePointer: 0

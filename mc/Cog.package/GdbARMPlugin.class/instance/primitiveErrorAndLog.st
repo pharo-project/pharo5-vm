@@ -26,6 +26,6 @@ primitiveErrorAndLog
 
 		resultObj := interpreterProxy popRemappableOop.
 		logObjData := interpreterProxy arrayValueOf: logObj.
-		self cCode: 'memcpy(logObjData, log, logLen)' inSmalltalk: [logObjData. log].
+		self mem: logObjData cp: log y: logLen.
 		interpreterProxy storePointer: 1 ofObject: resultObj withValue: logObj].
 	interpreterProxy pop: 1 thenPush: resultObj

@@ -9,6 +9,8 @@
 		"cResultRegister" : "lw 11/17/2012 21:38",
 		"cResultRegister:" : "lw 11/17/2012 21:38",
 		"callOpcode" : "lw 7/11/2012 14:36",
+		"convertIntegerToInternal:" : "eem 9/21/2015 11:34",
+		"convertInternalToInteger:" : "eem 9/21/2015 11:35",
 		"decorateDisassembly:for:" : "eem 4/20/2015 11:11",
 		"decorateDisassembly:for:fromAddress:" : "lw 8/24/2012 19:18",
 		"disassembleFrom:to:in:for:labels:on:" : "eem 6/9/2015 22:33",
