@@ -11,6 +11,6 @@ testArithmeticShiftRightRR
 								ifTrue: [3]
 								ifFalse:
 									[srgetter = #rax
-										ifTrue: [5]
-										ifFalse: [7]])
+										ifTrue: [7]
+										ifFalse: [9]])
 			"self processor disassembleFrom: 0 to: inst machineCodeSize in: inst machineCode object on: Transcript"]]

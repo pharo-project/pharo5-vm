@@ -13,6 +13,6 @@ testAndCqR
 				into: [:str :sz| | plainJane herIntended |
 					"Convert e.g. '00000000: movl %rax, 0x2(%rax) : 48 89 40 02' to  'movl %rax, 0x2(%rax)'"
 					plainJane := self strip: str.
-					herIntended := 'andl $0x', (const printStringBase: 16 length: 16 padded: true), ', ', regname.
+					herIntended := 'andq $0x', (const printStringBase: 16 length: 16 padded: true), ', ', regname.
 					self assert: (plainJane match: herIntended).
 					self assert: len = sz]]]

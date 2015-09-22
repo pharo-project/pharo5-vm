@@ -7,15 +7,17 @@ testTstCqR
 			[:const| | op regname inst len constString|
 			inst := self gen: TstCqR operand: const operand: reg.
 			len := inst concretizeAt: 0.
-			((inst isQuick: const) and: [reg < 4])
+			(inst isQuick: const)
 				ifTrue:
 					[op := 'testb'.
-					 regname := #('%al' '%cl' '%dl' '%bl') at: reg + 1.
+					 regname := reg < 8
+									ifTrue: [#('%al' '%cl' '%dl' '%bl' '%spl' '%bpl' '%sil' '%dil') at: reg + 1]
+									ifFalse: [theRegname, 'b'].
 					 constString := const printStringBase: 16 length: 2 padded: true]
 				ifFalse:
-					[op := 'testl'.
+					[op := 'testq'.
 					 regname := theRegname.
-					 constString := const printStringBase: 16 length: 8 padded: true].
+					 constString := const printStringBase: 16 length: 16 padded: true].
 			self processor
 				disassembleInstructionAt: 0
 				In: inst machineCode object
