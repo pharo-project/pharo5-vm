@@ -5,7 +5,7 @@ CallRT: callTarget registersToBeSavedMask: registersToBeSaved
 	<var: 'lastInst' type: #'AbstractInstruction *'>
 	callerSavedRegsToBeSaved := callerSavedRegMask bitAnd: registersToBeSaved.
 
-	GPRegMax to: GPRegMin by: -1 do:
+	backEnd maxAbstractGeneralPurposeReg to: backEnd minAbstractGeneralPurposeReg by: -1 do:
 		[:reg|
 		(reg ~= TempReg
 		 and: [callerSavedRegsToBeSaved anyMask: (self registerMaskFor: reg)]) ifTrue:
@@ -13,7 +13,7 @@ CallRT: callTarget registersToBeSavedMask: registersToBeSaved
 	
 	lastInst := self CallRT: callTarget.
 
-	GPRegMin to: GPRegMax do:
+	backEnd minAbstractGeneralPurposeReg to: backEnd maxAbstractGeneralPurposeReg do:
 		[:reg|
 		(reg ~= TempReg
 		 and: [callerSavedRegsToBeSaved anyMask: (self registerMaskFor: reg)]) ifTrue:

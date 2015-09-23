@@ -12,12 +12,14 @@ abstractRegisterForConcreteRegister: reg
 	(self concreteRegister: RISCTempReg) = reg ifTrue: [^RISCTempReg].
 	(self concreteRegister: PCReg) = reg ifTrue: [^PCReg].
 	(self concreteRegister: VarBaseReg) = reg ifTrue: [^VarBaseReg].
+	(self concreteRegister: Scratch0Reg) = reg ifTrue: [^Scratch0Reg].
 	self error: 'could not find abstract register'.
 	^0
 
 	"({	TempReg. ReceiverResultReg. ClassReg. SendNumArgsReg. Arg0Reg. Arg1Reg.
 		FPReg. SPReg.
-		LinkReg. RISCTempReg. PCReg. VarBaseReg} collect: [:i| self basicNew concreteRegister: i]) sort"
+		LinkReg. RISCTempReg. PCReg. VarBaseReg.
+		Scratch0Reg } collect: [:i| self basicNew concreteRegister: i]) sort"
 
 	"While the below works fine in Smalltalk it of course doesn't work in C ;)"
 	

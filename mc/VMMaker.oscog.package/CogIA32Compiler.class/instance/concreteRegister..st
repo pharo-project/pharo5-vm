@@ -7,7 +7,7 @@ concreteRegister: registerIndex
 	[1] IA-32 Intel® Architecture Software Developer's Manual Volume 2A: Instruction Set Reference, A-M
 
 
-	N.B. EAX ECX & EDX are caller-save (scratch) registers.  Hence we use ECX for class and EDC for
+	N.B. EAX ECX & EDX are caller-save (scratch) registers.  Hence we use ECX for class and EDX for
 		receiver/result since these are written in all normal sends.  EBX ESI & EDI are callee-save."
 
 	^registerIndex

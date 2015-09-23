@@ -10,6 +10,7 @@ initializeMiscConstants
 				[EagerInstructionDecoration := false]]. "speeds up single stepping but could lose fidelity"
 
 	ProcessorClass := (initializationOptions at: #ISA ifAbsentPut: [#IA32]) caseOf: {
+							[#X64] 		->	[BochsX64Alien].
 							[#IA32] 	->	[BochsIA32Alien].
 							[#ARMv5]	->	[GdbARMAlien]. }.
 	CogCompilerClass := self activeCompilerClass.

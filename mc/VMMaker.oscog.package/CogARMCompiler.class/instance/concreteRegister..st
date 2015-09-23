@@ -11,7 +11,7 @@ concreteRegister: registerIndex
 	 R10 is used as temporary inside a single abstract opcode implementation"
 	"R0-R3 are used when calling back to the interpreter. Using them would require
 	 saving and restoring their values, so they are omitted so far. R12 is the only
-	 unused register at the moment.."
+	 scratch register at the moment.."
 	^registerIndex
 		caseOf: {
 			[TempReg]				-> [R0].
@@ -24,6 +24,7 @@ concreteRegister: registerIndex
 			[Arg1Reg]				-> [R5].
 			[VarBaseReg]			-> [ConcreteVarBaseReg]. "Must be callee saved"
 			[RISCTempReg]			-> [ConcreteIPReg]. "a.k.a. IP"
+			[Scratch0Reg]			-> [R12].
 			[LinkReg]				-> [LR]. "R14"
 			[PCReg]					-> [PC] "R15" }
 		otherwise:
