@@ -4,7 +4,7 @@
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52" },
 	"instance" : {
 		"codeGranularity" : "eem 9/22/2015 12:15",
-		"computeMaximumSize" : "eem 9/22/2015 16:25",
+		"computeMaximumSize" : "eem 9/22/2015 19:27",
 		"computeShiftRRSize" : "eem 9/21/2015 12:56",
 		"computeSizeOfArithCqR" : "eem 9/22/2015 08:20",
 		"computeSizeOfArithCwR" : "eem 9/22/2015 08:20",
@@ -22,6 +22,7 @@
 		"concretizeJump" : "eem 9/18/2015 12:32",
 		"concretizeMoveCqR" : "eem 9/21/2015 11:06",
 		"concretizeMoveCwR" : "eem 9/18/2015 12:02",
+		"concretizeMoveMwrR" : "eem 9/22/2015 19:37",
 		"concretizeMoveRMwr" : "eem 9/22/2015 16:24",
 		"concretizeMoveRR" : "eem 9/22/2015 15:18",
 		"concretizeNegateR" : "eem 9/21/2015 11:29",
