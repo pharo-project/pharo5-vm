@@ -33,8 +33,9 @@ testDivQuoRem
 					memory atAllPut: 0; replaceFrom: 1 to: instructions size with: instructions startingAt: 1; at: instructions size + 1 put: self processor nopOpcode.
 					#(-768 -456 -123 123 456 789)
 						with: #(987 654 321 -321 -654 -987)
-						do: [:dd :dv| "| calc |
-							calc := ((dd quo: dv) bitAnd: 16rFFFFFFFF) hex, ' := ', (dd bitAnd: 16rFFFFFFFF) hex, ' quo: ', (dv bitAnd: 16rFFFFFFFF) hex, '. ', ((dd rem: dv) bitAnd: 16rFFFFFFFF) hex, ' := ', (dd bitAnd: 16rFFFFFFFF) hex, ' rem: ', (dv bitAnd: 16rFFFFFFFF) hex.
+						do: [:dd :dv| "| calc mask |
+							mask := 16rFFFFFFFFFFFFFFFF.
+							calc := ((dd quo: dv) bitAnd: mask) hex, ' := ', (dd bitAnd: mask) hex, ' quo: ', (dv bitAnd: mask) hex, '. ', ((dd rem: dv) bitAnd: mask) hex, ' := ', (dd bitAnd: mask) hex, ' rem: ', (dv bitAnd: mask) hex.
 							calc := calc."
 							"Transcript cr; cr; nextPutAll: op; cr; nextPutAll: calc; cr.
 							 self processor

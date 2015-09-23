@@ -7,59 +7,59 @@ genDivR: abstractRegDivisor R: abstractRegDividend Quo: abstractRegQuotient Rem:
 	rDivisor := self concreteRegister: abstractRegDivisor.
 	rQuotient := self concreteRegister: abstractRegQuotient.
 	rRemainder := self concreteRegister: abstractRegRemainder.
-	"IDIV r does a signed divide of EDX:EAX by r, EAX := Quotient, EDX := Remainder.
-	 Since we must sign extend the dividend into EDX we must substitute another register if EDX is an input"
-	(rDividend = EDX or: [rDivisor = EDX]) ifTrue:
+	"IDIV r does a signed divide of RDX:RAX by r, RAX := Quotient, RDX := Remainder.
+	 Since we must sign extend the dividend into RDX we must substitute another register if RDX is an input."
+	(rDividend = RDX or: [rDivisor = RDX]) ifTrue:
 		[| rUnused |
 		"Slang, sigh..."
-		rUnused := EAX.
-		[rUnused <= EDI] whileTrue:
-			[(rUnused ~= ESP and: [rUnused ~= EBP and: [rUnused ~= EDX
+		rUnused := RAX.
+		[rUnused <= RDI] whileTrue:
+			[(rUnused ~= RSP and: [rUnused ~= RBP and: [rUnused ~= RDX
 			  and: [rUnused ~= rDividend and: [rUnused ~= rDivisor
 			  and: [rUnused ~= rQuotient and: [rUnused ~= rRemainder]]]]]]) ifTrue:
 				[cogit PushR: rUnused.
-				cogit MoveR: EDX R: rUnused.
-				rDividend = EDX
+				cogit MoveR: RDX R: rUnused.
+				rDividend = RDX
 					ifTrue: [self genDivR: rDivisor R: rUnused Quo: rQuotient Rem: rRemainder]
 					ifFalse: [self genDivR: rUnused R: rDividend Quo: rQuotient Rem: rRemainder].
 				cogit PopR: rUnused.
 				^self].
 			  rUnused := rUnused + 1].
 		self error: 'couldn''t find unused register in genDivR:R:Quo:Rem:'].
-	"If either output does not include EAX or EDX we must save and restore EAX and/or EDX."
-	(saveRestoreEAX := rQuotient ~= EAX and: [rRemainder ~= EAX]) ifTrue:
-		[cogit PushR: EAX].
-	(saveRestoreEDX := rQuotient ~= EDX and: [rRemainder ~= EDX]) ifTrue:
-		[cogit PushR: EDX].
+	"If either output does not include RAX or RDX we must save and restore RAX and/or RDX."
+	(saveRestoreEAX := rQuotient ~= RAX and: [rRemainder ~= RAX]) ifTrue:
+		[cogit PushR: RAX].
+	(saveRestoreEDX := rQuotient ~= RDX and: [rRemainder ~= RDX]) ifTrue:
+		[cogit PushR: RDX].
 	saveRestoreExchanged := -1.
-	rDividend ~= EAX ifTrue:
-		[rDivisor = EAX
+	rDividend ~= RAX ifTrue:
+		[rDivisor = RAX
 			ifTrue: [((rDividend ~= rQuotient and: [rDividend ~= rRemainder])
-					and: [rDividend ~= EDX or: [saveRestoreEDX not]]) ifTrue:
+					and: [rDividend ~= RDX or: [saveRestoreEDX not]]) ifTrue:
 						[cogit PushR: (saveRestoreExchanged := rDividend)].
 					cogit gen: XCHGRR operand: rDivisor operand: rDividend]
-			ifFalse: [cogit MoveR: rDividend R: EAX]].
-	"CDQ sign-extends EAX into EDX as required for IDIV"
+			ifFalse: [cogit MoveR: rDividend R: RAX]].
+	"CDQ sign-extends RAX into RDX as required for IDIV"
 	cogit gen: CDQ.
-	cogit gen: IDIVR operand: (rDivisor = EAX ifTrue: [rDividend] ifFalse: [rDivisor]).
+	cogit gen: IDIVR operand: (rDivisor = RAX ifTrue: [rDividend] ifFalse: [rDivisor]).
 	"Must not overwrite result while juggling"
-	(rQuotient = EDX and: [rRemainder = EAX])
+	(rQuotient = RDX and: [rRemainder = RAX])
 		ifTrue: [cogit gen: XCHGRR operand: rQuotient operand: rRemainder]
 		ifFalse:
-			[rQuotient = EDX
+			[rQuotient = RDX
 				ifTrue:
-					[rRemainder ~= EDX ifTrue:
-						[cogit MoveR: EDX R: rRemainder].
-					rQuotient ~= EAX ifTrue:
-						[cogit MoveR: EAX R: rQuotient]]
+					[rRemainder ~= RDX ifTrue:
+						[cogit MoveR: RDX R: rRemainder].
+					rQuotient ~= RAX ifTrue:
+						[cogit MoveR: RAX R: rQuotient]]
 				ifFalse:
-					[rQuotient ~= EAX ifTrue:
-						[cogit MoveR: EAX R: rQuotient].
-					rRemainder ~= EDX ifTrue:
-						[cogit MoveR: EDX R: rRemainder]]].
+					[rQuotient ~= RAX ifTrue:
+						[cogit MoveR: RAX R: rQuotient].
+					rRemainder ~= RDX ifTrue:
+						[cogit MoveR: RDX R: rRemainder]]].
 	saveRestoreExchanged >= 0 ifTrue:
 		[cogit PopR: saveRestoreExchanged].
 	saveRestoreEDX ifTrue:
-		[cogit PopR: EDX].
+		[cogit PopR: RDX].
 	saveRestoreEAX ifTrue:
-		[cogit PopR: EAX]
+		[cogit PopR: RAX]

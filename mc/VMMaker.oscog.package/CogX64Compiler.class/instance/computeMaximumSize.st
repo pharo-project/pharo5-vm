@@ -13,19 +13,22 @@ computeMaximumSize
 		[FillFromWord]			-> [^4].
 		[Nop]					-> [^1].
 		"Specific Control/Data Movement"
-		"[CDQ]					-> [^1].
-		[IDIVR]					-> [^2].
-		[IMULRR]				-> [^3].
+		[CDQ]					-> [^2].
+		[IDIVR]					-> [^3].
+		[IMULRR]				-> [^4].
 		[CPUID]					-> [^2].
-		[CMPXCHGAwR]			-> [^7].
-		[CMPXCHGMwrR]		-> [^8].
+		[CMPXCHGAwR]			-> [^8].
+		[CMPXCHGMwrR]		-> [^9].
 		[LFENCE]				-> [^3].
 		[MFENCE]				-> [^3].
 		[SFENCE]				-> [^3].
 		[LOCK]					-> [^1].
-		[XCHGAwR]				-> [^6].
-		[XCHGMwrR]			-> [^7].
-		[XCHGRR]				-> [^2]."
+		"[XCHGAwR]				-> [^6].
+		[XCHGMwrR]			-> [^7]."
+		[XCHGRR]				-> [^((self concreteRegister: (operands at: 0)) = RAX
+									   or: [(self concreteRegister: (operands at: 1)) = RAX])
+											ifTrue: [2]
+											ifFalse: [3]].
 		"Control"
 		[CallFull]					-> [^12].
 		[Call]						-> [^5].
@@ -70,11 +73,11 @@ computeMaximumSize
 		[SubCqR]		-> [^self computeSizeOfArithCqR].
 		[TstCqR]		-> [^self computeSizeOfArithCqR].
 		[AddCwR]		-> [^self computeSizeOfArithCwR].
-		[AndCwR]		-> [^self computeSizeOfCwR].
-		[CmpCwR]		-> [^self computeSizeOfCwR].
-		[OrCwR]		-> [^self computeSizeOfCwR].
-		[SubCwR]		-> [^self computeSizeOfCwR].
-		[XorCwR]		-> [^self computeSizeOfCwR].
+		[AndCwR]		-> [^self computeSizeOfArithCwR].
+		[CmpCwR]		-> [^self computeSizeOfArithCwR].
+		[OrCwR]		-> [^self computeSizeOfArithCwR].
+		[SubCwR]		-> [^self computeSizeOfArithCwR].
+		[XorCwR]		-> [^self computeSizeOfArithCwR].
 		[AddRR]			-> [^3].
 		[AndRR]			-> [^3].
 		[CmpRR]		-> [^3].
@@ -107,14 +110,17 @@ computeMaximumSize
 		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
 		"[MoveAwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[MoveRAw]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]].
+		[MoveRAw]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]]."
 		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
-											ifTrue: [3]
-											ifFalse: [6])
-										+ ((self concreteRegister: (operands at: 2)) = ESP
-											ifTrue: [1]
-											ifFalse: [0])].
-		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
+									ifTrue: [((operands at: 1) = 0
+											and: [((self concreteRegister: (operands at: 2)) bitAnd: 7) ~= RBP])
+												ifTrue: [3]
+												ifFalse: [4]]
+									ifFalse: [7])
+								+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP
+									ifTrue: [1]
+									ifFalse: [0])].
+		"[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
 											ifTrue: [5]
 											ifFalse: [8])
 										+ ((self concreteRegister: (operands at: 2)) = ESP
@@ -168,12 +174,12 @@ computeMaximumSize
 		[MoveRXwrR]	-> [self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
 							^(self concreteRegister: (operands at: 2)) = EBP
 											ifTrue: [4]
-											ifFalse: [3]].
-		[PopR]			-> [^1].
-		[PushR]			-> [^1].
+											ifFalse: [3]]."
+		[PopR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
+		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
-		[PushCw]		-> [^5].
-		[PrefetchAw]	-> [^self hasSSEInstructions ifTrue: [7] ifFalse: [0]]."
+		[PushCw]		-> [^self computeSizeOfArithCwR - 1].
+		[PrefetchAw]	-> [^self hasSSEInstructions ifTrue: [12] ifFalse: [0]].
 		"Conversion"
 		"[ConvertRRd]	-> [^4]" }.
 	^0 "to keep C compiler quiet"
