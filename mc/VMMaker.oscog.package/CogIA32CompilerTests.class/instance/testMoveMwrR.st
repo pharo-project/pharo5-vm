@@ -1,19 +1,41 @@
 tests
 testMoveMwrR
 	"self new testMoveMwrR"
-	CogIA32CompilerForTests registersWithNamesDo:
+	self concreteCompilerClass registersWithNamesDo:
 		[:sreg :srname|
-		CogIA32CompilerForTests registersWithNamesDo:
-			[:dreg :drname|
-			((1 to: 19 by: 3) collect: [:po2| 2 raisedToInteger: po2]) do:
-				[:offset| | inst len |
+		self concreteCompilerClass registersWithNamesDo:
+			[:dreg :drname| | inst len |
+			#(0 64 65536 -64 -65536) do:
+				[:offset|
 				inst := self gen: MoveMwrR operand: offset operand: sreg operand: dreg.
 				len := inst concretizeAt: 0.
 				self processor
 					disassembleInstructionAt: 0
 					In: inst machineCode object
-					into: [:str :sz| | plainJane herIntended |
+					into: [:str :sz| | plainJane herIntended po |
 						plainJane := self strip: str.
-						herIntended := 'movl 0x', (offset hex allButFirst: 3), '(', srname, '), ', drname.
+						po := offset bitAnd: 1 << self processor bitsInWord - 1.
+						herIntended := 'movl ', (offset = 0 ifTrue: [''] ifFalse: ['0x', (po printStringBase: 16)]), '(', srname, '), ', drname.
 						self assert: (plainJane match: herIntended).
 						self assert: len = sz]]]]
+
+	"| failures |
+	 failures := Dictionary new.
+	 self concreteCompilerClass registersWithNamesDo:
+		[:sreg :srname|
+		self concreteCompilerClass registersWithNamesDo:
+			[:dreg :drname| | inst len |
+			#(0 64 65536 -64 -65536) do:
+				[:offset|
+				inst := self gen: MoveMwrR operand: offset operand: sreg operand: dreg.
+				len := inst concretizeAt: 0.
+				self processor
+					disassembleInstructionAt: 0
+					In: inst machineCode object
+					into: [:str :sz| | plainJane herIntended po |
+						plainJane := self strip: str.
+						po := offset bitAnd: 1 << self processor bitsInWord - 1.
+						herIntended := 'movl ', (offset = 0 ifTrue: [''] ifFalse: ['0x', (po printStringBase: 16)]), '(', srname, '), ', drname.
+						((plainJane match: herIntended) and: [len = sz]) ifFalse:
+							[failures at: herIntended put: plainJane]]]]].
+	 failures"
