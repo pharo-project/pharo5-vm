@@ -109,8 +109,12 @@ computeMaximumSize
 		[MoveCwR]		-> [^10].
 		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
-		"[MoveAwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[MoveRAw]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]]."
+		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
+								ifTrue: [7]
+								ifFalse: [(self concreteRegister: (operands at: 1)) = RAX ifTrue: [10] ifFalse: [14]]].
+		[MoveRAw]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
+								ifTrue: [7]
+								ifFalse: [(self concreteRegister: (operands at: 0)) = RAX ifTrue: [10] ifFalse: [14]]].
 		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
 											and: [((self concreteRegister: (operands at: 2)) bitAnd: 7) ~= RBP])
