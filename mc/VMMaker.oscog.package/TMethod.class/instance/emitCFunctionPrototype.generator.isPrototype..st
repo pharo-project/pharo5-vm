@@ -12,6 +12,8 @@ emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: isPrototype "<B
 						[aStream nextPutAll: 'extern ']].
 			 (isPrototype or: [inline ~~ #always]) ifFalse: [aStream nextPutAll: 'inline '].
 			 aStream nextPutAll: returnType].
+	functionAttributes ifNotNil:
+		[aStream space; nextPutAll: functionAttributes].
 	isPrototype ifTrue: [aStream space] ifFalse: [aStream cr].
 	(returnType last = $)
 	and: [returnType includesSubString: (aCodeGen cFunctionNameFor: selector)]) ifTrue:

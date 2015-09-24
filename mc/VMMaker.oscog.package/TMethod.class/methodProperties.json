@@ -2,6 +2,7 @@
 	"class" : {
 		"initialize" : "ar 11/18/1999 20:06" },
 	"instance" : {
+		"addFunctionAttribute:" : "eem 9/24/2015 10:30",
 		"addLabelsTo:" : "eem 7/26/2014 07:34",
 		"addTypeForSelf" : "eem 3/3/2009 08:46",
 		"addTypesFor:to:in:" : "eem 2/15/2015 10:24",
@@ -37,7 +38,7 @@
 		"emitCCodeOn:generator:" : "eem 9/15/2015 11:29",
 		"emitCCommentOn:" : "eem 5/21/2010 17:06",
 		"emitCFunctionPrototype:generator:" : "eem 2/12/2015 10:45",
-		"emitCFunctionPrototype:generator:isPrototype:" : "eem 6/11/2015 15:10",
+		"emitCFunctionPrototype:generator:isPrototype:" : "eem 9/24/2015 10:19",
 		"emitCLocalsOn:generator:" : "tpr 5/14/2013 16:50",
 		"emitInlineOn:level:generator:" : "eem 4/13/2015 17:38",
 		"emitProxyFunctionPrototype:generator:" : "eem 3/3/2009 08:59",
@@ -58,6 +59,8 @@
 		"findReadBeforeAssignedIn:in:" : "eem 4/22/2015 17:43",
 		"fixUpReturns:postlog:" : "TPR 3/2/2000 16:19",
 		"freeVariableReferences" : "eem 5/20/2010 17:04",
+		"functionAttributes" : "eem 9/24/2015 10:18",
+		"functionAttributes:" : "eem 9/24/2015 10:18",
 		"harmonizeSignedAndUnsignedTypesIn:" : "eem 11/1/2013 14:42",
 		"hasMoreSendsThan:" : "eem 9/20/2008 17:33",
 		"hasProperties" : "eem 9/13/2010 12:12",

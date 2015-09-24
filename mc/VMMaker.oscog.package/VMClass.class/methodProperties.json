@@ -13,7 +13,6 @@
 		"declareInterpreterVersionIn:defaultName:" : "eem 7/1/2011 13:37",
 		"defaultIntegerBaseInDebugger" : "eem 3/18/2013 11:33",
 		"defaultObjectMemoryClass" : "eem 9/30/2013 13:16",
-		"emitExportPragma" : "bgf 3/15/2009 21:09",
 		"exportAPISelectors:" : "eem 8/21/2013 13:37",
 		"exportAPISelectorsFor:" : "eem 5/20/2010 16:41",
 		"getVMMaker" : "eem 12/19/2010 18:40",
