@@ -20,8 +20,8 @@ concreteRegister: registerIndex
 			[SendNumArgsReg]		-> [R9].
 			[SPReg]					-> [RSP].
 			[FPReg]					-> [RBP].
-			[Arg0Reg]				-> [RSI].
-			[Arg1Reg]				-> [RDI].
+			[Arg0Reg]				-> [RDI]. "So as to agree with C ABI arg 0"
+			[Arg1Reg]				-> [RSI]. "So as to agree with C ABI arg 1"
 			[VarBaseReg]			-> [RBX]. "Must be callee saved"
 			[RISCTempReg]			-> [R8].
 			[Scratch0Reg]			-> [R10].
