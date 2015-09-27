@@ -40,12 +40,9 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 					format: objectMemory indexablePointersFormat
 					classIndex: ClassMethodContextCompactIndex.
 	self flag: #endianness.
+	cogit MoveAw: objectMemory freeStartAddress R: ReceiverResultReg.
+	self genLoadHeaderIntoNewInstance: header.
 	cogit
-		MoveAw: objectMemory freeStartAddress R: ReceiverResultReg;
-		MoveCq: (self low32BitsOf: header) R: TempReg;
-		MoveR: TempReg Mw: 0 r: ReceiverResultReg;
-		MoveCq: header >> 32 R: TempReg;
-		MoveR: TempReg Mw: 4 r: ReceiverResultReg;
 		MoveR: ReceiverResultReg R: TempReg;
 		AddCq: (objectMemory smallObjectBytesForSlots: slotSize) R: TempReg;
 		MoveR: TempReg Aw: objectMemory freeStartAddress;
@@ -70,9 +67,9 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		MoveR: TempReg Mw: objectMemory baseHeaderSize + (MethodIndex * objectMemory wordSize) r: ReceiverResultReg;
 		MoveR: ReceiverResultReg Mw: FoxThisContext r: FPReg.
 
-	"Now compute stack pointer; this is stackPointer (- 1 for return pc if a CISC) - framePointer - 4 (1 each for saved pc, method, context, receiver) + 1 (1-relative) + numArgs"
+	"Now compute stack pointer; this is stackPointer (- 1 for return pc if a CISC) - framePointer - wordSize (1 each for saved pc, method, context, receiver) + 1 (1-relative) + numArgs"
 	"TPR note - the code here is actually doing
-	context stackPointer := ((((fp - sp) / 4) - [3|4]) + num args) asSmallInteger"
+	context stackPointer := ((((fp - sp) / wordSize) - [3|4]) + num args) asSmallInteger"
 	cogit
 		MoveR: FPReg R: TempReg;
 		SubR: SPReg R: TempReg;
@@ -102,8 +99,8 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	 from 1 to numArgs (SendNumArgsReg), and from ReceiverIndex + 1 to ReceiverIndex + numArgs.
 	 1 to: numArgs do:
 		[:i|
-		temp := longAt(FPReg + ((SendNumArgs - i + 2) * BytesPerWord)). +2 for saved pc and savedfp
-		longAtput(FPReg + FoxMFReceiver + (i * BytesPerWord), temp)]"
+		temp := longAt(FPReg + ((SendNumArgs - i + 2) * wordSize)). +2 for saved pc and savedfp
+		longAtput(FPReg + FoxMFReceiver + (i * wordSize), temp)]"
 	"TPR note: this is a prime candidate for passing off to the backend to do at least faintly optimal code"
 	cogit MoveCq: 1 R: ClassReg.
 	loopHead := cogit CmpR: SendNumArgsReg R: ClassReg.
@@ -122,7 +119,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	"Finally nil or copy the non-argument temps.
 	 ClassReg := FPReg + FoxMFReceiver.
 	 SendNumArgsReg := SendNumArgsReg+ReceiverIndex.
-	 [ClassReg := ClassReg - 4.
+	 [ClassReg := ClassReg - wordSize.
 	  backEnd hasLinkRegister
 			ifTrue: [ClassReg > SPReg]
 			ifFalse: [ClassReg >= SPReg]] whileTrue:

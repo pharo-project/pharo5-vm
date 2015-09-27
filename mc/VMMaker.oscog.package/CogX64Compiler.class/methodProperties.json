@@ -62,6 +62,7 @@
 		"genSubstituteReturnAddress:" : "eem 5/6/2009 10:40",
 		"hasDoublePrecisionFloatingPointSupport" : "eem 9/21/2015 13:00",
 		"hasLinkRegister" : "eem 9/23/2015 17:32",
+		"hasThreeAddressArithmetic" : "eem 3/28/2015 12:46",
 		"is32BitSignedImmediate:" : "eem 9/18/2015 12:26",
 		"isAddressRelativeToVarBase:" : "eem 9/23/2015 17:54",
 		"isBigEndian" : "eem 3/28/2015 23:54",
