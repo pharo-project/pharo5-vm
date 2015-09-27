@@ -129,20 +129,17 @@ computeMaximumSize
 											ifFalse: [8])
 										+ ((self concreteRegister: (operands at: 2)) = ESP
 											ifTrue: [1]
-											ifFalse: [0])].
+											ifFalse: [0])]."
 		[MoveMbrR]		-> [^((self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [7])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
+											ifTrue: [5]
+											ifFalse: [8])
+										+ ((self concreteRegister: (operands at: 1)) = RSP
 											ifTrue: [1]
 											ifFalse: [0])].
-		[MoveRMbr]		-> [^((self isQuick: (operands at: 1))
-											ifTrue: [3]
-											ifFalse: [6])
-										+ ((self concreteRegister: (operands at: 2)) = ESP
-											ifTrue: [1]
-											ifFalse: [0])].
-		[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
+		[MoveRMbr]		-> [^(self concreteRegister: (operands at: 2)) = RSP
+								ifTrue: [8]
+								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [4] ifFalse: [7]]].
+		"[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
 											ifTrue: [4]
 											ifFalse: [7])
 										+ ((self concreteRegister: (operands at: 1)) = ESP

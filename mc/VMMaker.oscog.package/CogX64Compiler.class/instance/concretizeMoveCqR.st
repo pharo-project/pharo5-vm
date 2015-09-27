@@ -16,7 +16,7 @@ concretizeMoveCqR
 		^machineCodeSize := 3].
 	machineCode
 		at: 1 put: 16rC7;
-		at: 2 put: (self mod: ModReg RM: reg RO: reg);
+		at: 2 put: (self mod: ModReg RM: reg RO: 0);
 		at: 3 put: (value bitAnd: 16rFF);
 		at: 4 put: (value >> 8 bitAnd: 16rFF);
 		at: 5 put: (value >> 16 bitAnd: 16rFF);

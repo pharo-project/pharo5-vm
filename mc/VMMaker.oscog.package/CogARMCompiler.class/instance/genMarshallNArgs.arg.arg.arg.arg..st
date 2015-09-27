@@ -13,18 +13,18 @@ genMarshallNArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg
 	 register assignments the principal author has grown accustomed to."
 	<inline: true>
 	numArgs = 0 ifTrue: [^self].
-	regOrConst0 < 0
+	regOrConst0 >= 0
 		ifTrue: [cogit MoveCq: regOrConst0 R: CArg0Reg]
 		ifFalse: [cogit MoveR: regOrConst0 R: CArg0Reg].
 	numArgs = 1 ifTrue: [^self].
-	regOrConst1 < 0
+	regOrConst1 >= 0
 		ifTrue: [cogit MoveCq: regOrConst1 R: CArg1Reg]
 		ifFalse: [cogit MoveR: regOrConst1 R: CArg1Reg].
 	numArgs = 2 ifTrue: [^self].
-	regOrConst2 < 0
+	regOrConst2 >= 0
 		ifTrue: [cogit MoveCq: regOrConst2 R: CArg2Reg]
 		ifFalse: [cogit MoveR: regOrConst2 R: CArg2Reg].
 	numArgs = 3 ifTrue: [^self].
-	regOrConst3 < 0
+	regOrConst3 >= 0
 		ifTrue: [cogit MoveCq: regOrConst3 R: CArg3Reg]
 		ifFalse: [cogit MoveR: regOrConst3 R: CArg3Reg]
