@@ -1,3 +1,3 @@
 accessing
 headSP
-	^memory unsignedLongLongAt: address + 9
+	^memory long64At: address + 9

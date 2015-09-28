@@ -10,7 +10,7 @@
 		"cPICCase:relocateJumpLongBefore:by:" : "eem 6/18/2015 18:41",
 		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
 		"checkQuickConstant:forInstruction:" : "tpr 6/24/2015 18:33",
-		"classRefInClosedPICAt:" : "eem 6/19/2015 16:12",
+		"classRefInClosedPICAt:" : "eem 9/28/2015 15:04",
 		"cogit:" : "eem 6/16/2015 11:36",
 		"dumpLiterals:" : "eem 6/18/2015 16:17",
 		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:48",

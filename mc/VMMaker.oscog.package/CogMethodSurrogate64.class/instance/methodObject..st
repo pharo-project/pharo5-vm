@@ -1,5 +1,5 @@
 accessing
 methodObject: aValue
 	^memory
-		unsignedLongLongAt: address + baseHeaderSize + 9
+		long64At: address + baseHeaderSize + 9
 		put: aValue

@@ -1,3 +1,3 @@
 accessing
 stackLimit
-	^memory unsignedLongLongAt: address + 1
+	^memory long64At: address + 1

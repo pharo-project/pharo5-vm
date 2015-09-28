@@ -1,3 +1,3 @@
 accessing
 methodObject
-	^memory unsignedLongLongAt: address + 9 + baseHeaderSize
+	^memory long64At: address + 9 + baseHeaderSize

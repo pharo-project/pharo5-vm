@@ -13,7 +13,6 @@
 		"genConvertSmallIntegerToCharacterInReg:" : "eem 12/24/2013 18:52",
 		"genConvertSmallIntegerToIntegerInReg:" : "eem 12/6/2013 14:51",
 		"genFetchIndexRegister:from:into:" : "cb 4/17/2015 15:23",
-		"genGetClassTagOf:into:scratchReg:" : "eem 7/7/2014 11:57",
 		"genGetHashFieldNonImmOf:asSmallIntegerInto:" : "eem 12/6/2013 14:50",
 		"genGetHashFieldNonImmOf:into:" : "eem 10/3/2013 14:48",
 		"genGetInlineCacheClassTagFrom:into:forEntry:" : "eem 5/23/2015 16:56",

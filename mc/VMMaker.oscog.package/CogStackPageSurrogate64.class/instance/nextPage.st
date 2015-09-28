@@ -1,3 +1,3 @@
 accessing
 nextPage
-	^stackPages surrogateAtAddress: (memory unsignedLongLongAt: address + 65)
+	^stackPages surrogateAtAddress: (memory long64At: address + 65)

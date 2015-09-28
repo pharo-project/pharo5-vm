@@ -105,8 +105,8 @@ computeMaximumSize
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4].
 		"Data Movement"
-		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [3] ifFalse: [(self is32BitSignedImmediate: (operands at: 0)) ifTrue: [7] ifFalse: [10]]].
-		[MoveCwR]		-> [^10].
+		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [3] ifFalse: [(self is32BitSignedImmediate: (operands at: 0)) ifTrue: [7] ifFalse: [self moveCwRByteSize]]].
+		[MoveCwR]		-> [^self moveCwRByteSize].
 		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
@@ -196,7 +196,7 @@ computeMaximumSize
 		[PopR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
-		[PushCw]		-> [^self computeSizeOfArithCwR - 1].
+		[PushCw]		-> [^self pushCwByteSize].
 		[PrefetchAw]	-> [^self hasSSEInstructions ifTrue: [12] ifFalse: [0]].
 		"Conversion"
 		"[ConvertRRd]	-> [^4]" }.

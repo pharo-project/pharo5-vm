@@ -1,3 +1,3 @@
 accessing
 numArgs
-	^memory unsignedLongLongAt: address + 33
+	^memory long64At: address + 33

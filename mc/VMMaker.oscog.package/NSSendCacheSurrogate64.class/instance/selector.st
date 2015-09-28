@@ -1,3 +1,3 @@
 accessing
 selector
-	^memory unsignedLongLongAt: address + 25
+	^memory long64At: address + 25

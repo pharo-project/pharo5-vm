@@ -1,3 +1,3 @@
 accessing
 depth
-	^memory unsignedLongLongAt: address + 41
+	^memory long64At: address + 41

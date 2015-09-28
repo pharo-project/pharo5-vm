@@ -65,30 +65,30 @@ dispatchConcretize
 		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeArithCqRWithRO: 0 raxOpcode: 15r05].
-		[AddCwR]					-> [^self concretizeAddCwR].
+		[AddCwR]					-> [^self concretizeArithCwR: 16r03].
 		[AddRR]						-> [^self concretizeAddRR].
 		[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58].
 		[AndCqR]					-> [^self concretizeArithCqRWithRO: 4 raxOpcode: 16r25].
-		[AndCwR]					-> [^self concretizeAndCwR].
+		[AndCwR]					-> [^self concretizeArithCwR: 16r23].
 		[AndRR]						-> [^self concretizeAndRR].
 		[TstCqR]					-> [^self concretizeTstCqR].
 		[CmpCqR]					-> [^self concretizeArithCqRWithRO: 7 raxOpcode: 16r3D].
-		[CmpCwR]					-> [^self concretizeCmpCwR].
+		[CmpCwR]					-> [^self concretizeArithCwR: 16r39].
 		[CmpRR]					-> [^self concretizeCmpRR].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59].
 		[OrCqR]						-> [^self concretizeArithCqRWithRO: 1 raxOpcode: 16r0D].
-		[OrCwR]					-> [^self concretizeOrCwR].
+		[OrCwR]					-> [^self concretizeArithCwR: 16r0B].
 		[OrRR]						-> [^self concretizeOrRR].
 		[SubCqR]					-> [^self concretizeArithCqRWithRO: 5 raxOpcode: 16r2D].
-		[SubCwR]					-> [^self concretizeSubCwR].
+		[SubCwR]					-> [^self concretizeArithCwR: 16r2B].
 		[SubRR]						-> [^self concretizeSubRR].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].
-		[SqrtRd]						-> [^self concretizeSqrtRd].
-		[XorCwR]						-> [^self concretizeXorCwR].
-		[XorRR]							-> [^self concretizeXorRR].
-		[NegateR]						-> [^self concretizeNegateR].
+		[SqrtRd]					-> [^self concretizeSqrtRd].
+		[XorCwR]					-> [^self concretizeArithCwR: 16r33].
+		[XorRR]						-> [^self concretizeXorRR].
+		[NegateR]					-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeShiftCqRegOpcode: 7].
 		[LogicalShiftRightCqR]			-> [^self concretizeShiftCqRegOpcode: 5].

@@ -1,3 +1,3 @@
 accessing
 lastAddress
-	^memory unsignedLongLongAt: address + 49
+	^memory long64At: address + 49

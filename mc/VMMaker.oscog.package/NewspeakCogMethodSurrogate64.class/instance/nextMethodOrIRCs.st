@@ -1,3 +1,3 @@
 accessing
 nextMethodOrIRCs
-	^memory unsignedLongLongAt: address + 33 + baseHeaderSize
+	^memory long64At: address + 33 + baseHeaderSize

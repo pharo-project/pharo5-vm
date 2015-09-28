@@ -1,3 +1,3 @@
 accessing
 target
-	^memory unsignedLongLongAt: address + 17
+	^memory long64At: address + 17

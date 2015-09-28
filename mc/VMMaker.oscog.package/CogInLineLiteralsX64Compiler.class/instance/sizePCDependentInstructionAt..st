@@ -39,7 +39,7 @@ sizePCDependentInstructionAt: eventualAbsoluteAddress
 												ifFalse: [6]]]
 							ifFalse:
 								[opcode caseOf:
-									{	[JumpLong]	->	[5].
-										[JumpFull]	->	[12].
-										[Call]		->	[5].
-										[CallFull]	->	[12] }]
+									{	[JumpLong]				->	[5].
+										[JumpFull]				->	[12].
+										[JumpLongZero]		->	[6].
+										[JumpLongNonZero]	->	[6] }]

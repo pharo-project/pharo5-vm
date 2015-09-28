@@ -1,5 +1,5 @@
 accessing
 depth: aValue
 	^memory
-		unsignedLongLongAt: address + 41
+		long64At: address + 41
 		put: aValue
