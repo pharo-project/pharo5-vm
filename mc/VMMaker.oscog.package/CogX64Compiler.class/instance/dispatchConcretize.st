@@ -64,24 +64,24 @@ dispatchConcretize
 		[RetN]						-> [^self concretizeRetN].
 		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
-		[AddCqR]					-> [^self concretizeAddCqR].
+		[AddCqR]					-> [^self concretizeArithCqRWithRO: 0 raxOpcode: 15r05].
 		[AddCwR]					-> [^self concretizeAddCwR].
 		[AddRR]						-> [^self concretizeAddRR].
 		[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58].
-		[AndCqR]					-> [^self concretizeAndCqR].
+		[AndCqR]					-> [^self concretizeArithCqRWithRO: 4 raxOpcode: 16r25].
 		[AndCwR]					-> [^self concretizeAndCwR].
 		[AndRR]						-> [^self concretizeAndRR].
 		[TstCqR]					-> [^self concretizeTstCqR].
-		[CmpCqR]					-> [^self concretizeCmpCqR].
+		[CmpCqR]					-> [^self concretizeArithCqRWithRO: 7 raxOpcode: 16r3D].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
 		[CmpRR]					-> [^self concretizeCmpRR].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59].
-		[OrCqR]						-> [^self concretizeOrCqR].
+		[OrCqR]						-> [^self concretizeArithCqRWithRO: 1 raxOpcode: 16r0D].
 		[OrCwR]					-> [^self concretizeOrCwR].
 		[OrRR]						-> [^self concretizeOrRR].
-		[SubCqR]					-> [^self concretizeSubCqR].
+		[SubCqR]					-> [^self concretizeArithCqRWithRO: 5 raxOpcode: 16r2D].
 		[SubCwR]					-> [^self concretizeSubCwR].
 		[SubRR]						-> [^self concretizeSubRR].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].
@@ -90,11 +90,11 @@ dispatchConcretize
 		[XorRR]							-> [^self concretizeXorRR].
 		[NegateR]						-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
-		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].
-		[LogicalShiftRightCqR]			-> [^self concretizeLogicalShiftRightCqR].
-		[LogicalShiftLeftCqR]			-> [^self concretizeLogicalShiftLeftCqR].
-		[ArithmeticShiftRightRR]			-> [^self concretizeArithmeticShiftRightRR].
-		[LogicalShiftLeftRR]				-> [^self concretizeLogicalShiftLeftRR].
+		[ArithmeticShiftRightCqR]		-> [^self concretizeShiftCqRegOpcode: 7].
+		[LogicalShiftRightCqR]			-> [^self concretizeShiftCqRegOpcode: 5].
+		[LogicalShiftLeftCqR]			-> [^self concretizeShiftCqRegOpcode: 4].
+		[ArithmeticShiftRightRR]			-> [^self concretizeShiftRegRegOpcode: 7].
+		[LogicalShiftLeftRR]				-> [^self concretizeShiftRegRegOpcode: 4].
 		"Data Movement"
 		[MoveCqR]			-> [^self concretizeMoveCqR].
 		[MoveCwR]			-> [^self concretizeMoveCwR].

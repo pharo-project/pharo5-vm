@@ -91,10 +91,10 @@ computeMaximumSize
 											ifFalse: [6])
 										+ ((self concreteRegister: (operands at: 1)) = ESP
 											ifTrue: [1]
-											ifFalse: [0])].
-		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
-		[LogicalShiftRightCqR]		-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
-		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]]."
+											ifFalse: [0])]."
+		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
+		[LogicalShiftRightCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
+		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[LogicalShiftLeftRR]			-> [^self computeShiftRRSize].
 		[LogicalShiftRightRR]		-> [^self computeShiftRRSize].
 		[ArithmeticShiftRightRR]		-> [^self computeShiftRRSize].
@@ -133,10 +133,12 @@ computeMaximumSize
 		[MoveMbrR]		-> [^((self isQuick: (operands at: 0))
 											ifTrue: [5]
 											ifFalse: [8])
-										+ ((self concreteRegister: (operands at: 1)) = RSP
+										+ (((self concreteRegister: (operands at: 1)) = RSP
+											or: [(self concreteRegister: (operands at: 1)) = R12])
 											ifTrue: [1]
 											ifFalse: [0])].
-		[MoveRMbr]		-> [^(self concreteRegister: (operands at: 2)) = RSP
+		[MoveRMbr]		-> [^((self concreteRegister: (operands at: 2)) = RSP
+							  or: [(self concreteRegister: (operands at: 2)) = R12])
 								ifTrue: [8]
 								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [4] ifFalse: [7]]].
 		"[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
@@ -170,15 +172,17 @@ computeMaximumSize
 											ifFalse: [3])
 										+ ((self concreteRegister: (operands at: 0)) >= 4
 											ifTrue: [2]
-											ifFalse: [0])].
-		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= ESP.
-							^(self concreteRegister: (operands at: 1)) = EBP
-											ifTrue: [4]
-											ifFalse: [3]].
-		[MoveRXwrR]	-> [self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
-							^(self concreteRegister: (operands at: 2)) = EBP
-											ifTrue: [4]
-											ifFalse: [3]]."
+											ifFalse: [0])]."
+		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
+							^((self concreteRegister: (operands at: 1)) = RBP
+							   or: [(self concreteRegister: (operands at: 1)) = R13])
+											ifTrue: [5]
+											ifFalse: [4]].
+		[MoveRXwrR]	-> [self assert: (self concreteRegister: (operands at: 1)) ~= RSP.
+							^((self concreteRegister: (operands at: 2)) = RBP
+							   or: [(self concreteRegister: (operands at: 2)) = R13])
+											ifTrue: [5]
+											ifFalse: [4]].
 		[PopR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].

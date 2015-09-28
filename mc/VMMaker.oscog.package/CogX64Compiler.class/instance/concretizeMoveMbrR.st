@@ -12,7 +12,7 @@ concretizeMoveMbrR
 		at: 0 put: (self rexR: destReg x: 0 b: srcReg);
 		at: 1 put: 16r0f;
 		at: 2 put: 16rb6.
-	srcReg ~= RSP ifTrue:
+	(srcReg ~= RSP and: [srcReg ~= R12]) ifTrue:
 		[(self isQuick: offset) ifTrue:
 			[machineCode
 				at: 3 put: (self mod: ModRegRegDisp8 RM: srcReg RO: destReg);
@@ -25,7 +25,7 @@ concretizeMoveMbrR
 			at: 6 put: (offset >> 16 bitAnd: 16rFF);
 			at: 7 put: (offset >> 24 bitAnd: 16rFF).
 		^machineCodeSize := 8].
-	"RSP:"
+	"RSP & R12:"
 	(self isQuick: offset) ifTrue:
 		[machineCode
 			at: 3 put: (self mod: ModRegRegDisp8 RM: srcReg RO: destReg);

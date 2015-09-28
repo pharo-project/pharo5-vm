@@ -12,8 +12,9 @@ testMoveMbrR
 				self processor
 					disassembleInstructionAt: 0
 					In: inst machineCode object
-					into: [:str :sz| | plainJane herIntended |
+					into: [:str :sz| | plainJane herIntended po |
+						po := offset bitAnd: 1 << self processor bitsInWord - 1.
 						plainJane := self strip: str.
-						herIntended := 'movzbl 0x', (offset hex allButFirst: 3), '(', srname, '), ', drname.
+						herIntended := 'movzbq ', (offset = 0 ifTrue: [''] ifFalse: ['0x', (po printStringBase: 16 length: 16 padded: true)]), '(', srname, '), ', drname.
 						self assert: (plainJane match: herIntended).
 						self assert: len = sz]]]]
