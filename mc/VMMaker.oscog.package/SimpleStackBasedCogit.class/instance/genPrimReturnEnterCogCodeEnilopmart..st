@@ -8,6 +8,7 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 	<var: #continuePostSample type: #'AbstractInstruction *'>
 	<var: #jmpFail type: #'AbstractInstruction *'>
 	self zeroOpcodeIndex.
+	backEnd maybeEstablishVarBase. "Must happen sometime"
 
 	profiling ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick: if so.

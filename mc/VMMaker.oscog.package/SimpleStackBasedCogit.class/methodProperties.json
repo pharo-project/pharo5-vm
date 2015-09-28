@@ -85,7 +85,7 @@
 		"genMustBeBooleanTrampolineFor:called:" : "eem 6/9/2015 21:54",
 		"genNSSend:numArgs:depth:sendTable:" : "rmacnak 7/13/2015 19:18",
 		"genPopStackBytecode" : "eem (const to msg rewrite) 11/6/2014 11:21",
-		"genPrimReturnEnterCogCodeEnilopmart:" : "eem 6/9/2015 21:54",
+		"genPrimReturnEnterCogCodeEnilopmart:" : "eem 9/28/2015 12:02",
 		"genPrimitiveAdd" : "eem 4/30/2015 11:40",
 		"genPrimitiveAsCharacter" : "eem 4/30/2015 11:42",
 		"genPrimitiveAsFloat" : "eem 4/30/2015 11:43",

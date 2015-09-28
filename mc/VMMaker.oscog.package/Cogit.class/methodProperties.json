@@ -437,7 +437,7 @@
 		"loadSubsequentBytesForDescriptor:at:" : "eem 6/1/2014 17:25",
 		"lookup:for:methodAndErrorSelectorInto:" : "rmacnak 6/24/2015 21:09",
 		"lookupAddress:" : "eem 8/13/2012 10:30",
-		"lookupCHexString:" : "eem 1/22/2009 17:05",
+		"lookupCHexString:" : "eem 9/28/2015 11:46",
 		"mapEndFor:" : "eem 4/6/2015 09:00",
 		"mapFor:bcpc:performUntil:arg:" : "eem 4/21/2015 09:26",
 		"mapFor:do:" : "eem 10/17/2010 13:16",

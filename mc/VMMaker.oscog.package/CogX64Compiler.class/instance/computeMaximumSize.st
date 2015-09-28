@@ -148,13 +148,16 @@ computeMaximumSize
 								+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		"[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
-											ifTrue: [4]
-											ifFalse: [7])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
-											ifTrue: [1]
-											ifFalse: [0])].
-		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
+		[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
+									ifTrue: [((operands at: 0) = 0
+											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
+												ifTrue: [4]
+												ifFalse: [5]]
+									ifFalse: [8])
+								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+									ifTrue: [1]
+									ifFalse: [0])].
+		"[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
 											ifTrue: [5]
 											ifFalse: [8])
 										+ ((self concreteRegister: (operands at: 1)) = ESP

@@ -11,7 +11,7 @@ concretizeMoveRAw
 		[save1 := operands at: 1.
 		 operands
 			at: 1 put: addressOperand - cogit varBaseAddress;
-			at: 2 put: VarBaseReg.
+			at: 2 put: RBX.
 		 self concretizeMoveRMwr.
 		 operands
 			at: 1 put: save1;
