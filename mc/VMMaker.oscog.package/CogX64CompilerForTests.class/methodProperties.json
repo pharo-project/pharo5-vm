@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"byteRegistersWithNamesDo:" : "eem 9/28/2015 10:19",
 		"dataRegistersWithAccessorsDo:" : "eem 9/17/2015 11:27",
 		"dataRegistersWithAccessorsExcept:do:" : "eem 9/17/2015 11:28",
 		"fp64RegistersWithAccessorsDo:" : "eem 9/18/2010 17:04",

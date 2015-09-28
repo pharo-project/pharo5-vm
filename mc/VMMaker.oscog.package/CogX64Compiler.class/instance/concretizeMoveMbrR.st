@@ -13,7 +13,11 @@ concretizeMoveMbrR
 		at: 1 put: 16r0f;
 		at: 2 put: 16rb6.
 	(srcReg ~= RSP and: [srcReg ~= R12]) ifTrue:
-		[(self isQuick: offset) ifTrue:
+		[(offset = 0 and: [destReg ~= RBP and: [destReg ~= R13]]) ifTrue:
+			[machineCode
+				at: 3 put: (self mod: ModRegInd RM: srcReg RO: destReg).
+			 ^machineCodeSize := 4].
+		 (self isQuick: offset) ifTrue:
 			[machineCode
 				at: 3 put: (self mod: ModRegRegDisp8 RM: srcReg RO: destReg);
 				at: 4 put: (offset bitAnd: 16rFF).
@@ -26,6 +30,11 @@ concretizeMoveMbrR
 			at: 7 put: (offset >> 24 bitAnd: 16rFF).
 		^machineCodeSize := 8].
 	"RSP & R12:"
+	(offset = 0 and: [destReg ~= RBP and: [destReg ~= R13]]) ifTrue:
+		[machineCode
+			at: 3 put: (self mod: ModRegInd RM: srcReg RO: destReg);
+			at: 4 put: (self s: SIB1 i: 4 b: srcReg).
+		 ^machineCodeSize := 5].
 	(self isQuick: offset) ifTrue:
 		[machineCode
 			at: 3 put: (self mod: ModRegRegDisp8 RM: srcReg RO: destReg);
