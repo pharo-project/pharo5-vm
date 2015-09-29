@@ -23,7 +23,7 @@
 		"fetchLong32:ofFloatObject:" : "eem 12/17/2014 14:14",
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
 		"floatObjectOf:" : "eem 11/21/2014 16:23",
-		"floatValueOf:" : "eem 11/21/2014 17:18",
+		"floatValueOf:" : "EstebanLorenzano 9/29/2015 16:44",
 		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",
 		"initSegmentBridgeWithBytes:at:" : "eem 11/29/2013 12:29",
