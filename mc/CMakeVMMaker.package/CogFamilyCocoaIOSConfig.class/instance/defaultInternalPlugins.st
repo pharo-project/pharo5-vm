@@ -26,7 +26,7 @@ defaultInternalPlugins
 		SoundGenerationPlugin 
 		SoundPlugin
 		StarSqueakPlugin 
-		SurfacePlugin 
+		"SurfacePlugin" 
 		UnixAioPlugin
 		UnixOSProcessPlugin
 		)
