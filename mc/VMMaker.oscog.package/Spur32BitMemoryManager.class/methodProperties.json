@@ -8,7 +8,7 @@
 		"wordSize" : "eem 11/13/2014 15:24" },
 	"instance" : {
 		"addressAfter:" : "eem 9/11/2013 15:19",
-		"allocateSlots:format:classIndex:" : "eem 11/17/2014 17:51",
+		"allocateSlots:format:classIndex:" : "eem 09/28/2015 18:48",
 		"allocateSlotsForPinningInOldSpace:bytes:format:classIndex:" : "eem 7/5/2014 20:28",
 		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 10/2/2014 10:53",
 		"areIntegers:and:" : "eem 11/19/2014 14:01",

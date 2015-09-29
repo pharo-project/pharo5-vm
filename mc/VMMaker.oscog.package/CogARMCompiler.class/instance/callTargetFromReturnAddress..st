@@ -1,6 +1,6 @@
 inline cacheing
 callTargetFromReturnAddress: callSiteReturnAddress
-	"Answer the address that the call immediately preceeding callSiteReturnAddress will jump to."
+	"Answer the address that the call immediately preceding callSiteReturnAddress will jump to."
 	"this is also used by #jumpLongTargetBeforeFollowingAddress:."
 	| callDistance call |
 	call := self instructionBeforeAddress: callSiteReturnAddress.

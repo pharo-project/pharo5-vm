@@ -2,7 +2,7 @@ jump bytecodes
 attemptToSwitchToMachineCode: bcpc
 	"Attempt to convert the current interpreted activation into a machine code
 	 activation, and if this is popssible, jump into machine code.  bcpc is the
-	 0-relative pc of the backward branch bytecode (not any preceeding extension)."
+	 0-relative pc of the backward branch bytecode (not any preceding extension)."
 	| cogMethod pc |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>

@@ -1,7 +1,7 @@
 {
 	"class" : {
 		"ancilliaryClasses:" : "eem 10/31/2013 00:01",
-		"callingConvention" : "eem 3/21/2013 15:45",
+		"callingConvention" : "eem 09/28/2015 18:48",
 		"declareCVarsIn:" : "eem 4/2/2015 16:40",
 		"initializeBytecodeTableForNewspeakV4" : "rmacnak 7/12/2015 20:34",
 		"initializeBytecodeTableForSistaV1" : "cb 6/10/2015 10:40",
@@ -17,7 +17,7 @@
 		"pushNilSizeFunction" : "eem 11/15/2012 16:28",
 		"requiredMethodNames:" : "eem 07/29/2014 06:48",
 		"shouldGenerateTypedefFor:" : "eem 10/31/2013 00:05",
-		"stackToRegisterMapping" : "eem 10/4/2013 14:22" },
+		"stackToRegisterMapping" : "eem 09/28/2015 18:49" },
 	"instance" : {
 		"addBlockStartAt:numArgs:numCopied:span:" : "eem 6/4/2015 09:53",
 		"adjustArgumentsForPerform:" : "eem 7/15/2015 17:27",
@@ -68,7 +68,7 @@
 		"genDoubleComparison:invert:" : "eem 6/3/2015 09:32",
 		"genEqualsEqualsComparisonArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 4/24/2015 11:22",
 		"genEqualsEqualsNoBranchArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 6/4/2015 16:26",
-		"genExtPushClosureBytecode" : "cb 6/29/2015 14:52",
+		"genExtPushClosureBytecode" : "eem 09/28/2015 18:48",
 		"genExternalizePointersForPrimitiveCall" : "eem 11/21/2010 16:39",
 		"genInlineClosure:numArgs:numCopied:" : "cb 6/29/2015 14:52",
 		"genJumpBackTo:" : "eem 11/25/2010 13:38",
@@ -113,7 +113,7 @@
 		"genPrimitiveStringAtPut" : "eem 12/9/2013 18:29",
 		"genPrimitiveSubtract" : "eem 6/3/2015 09:51",
 		"genPushActiveContextBytecode" : "eem 5/31/2014 16:50",
-		"genPushClosureCopyCopiedValuesBytecode" : "cb 6/29/2015 14:52",
+		"genPushClosureCopyCopiedValuesBytecode" : "eem 09/28/2015 18:48",
 		"genPushEnclosingObjectAt:" : "rmacnak 7/10/2015 20:28",
 		"genPushLiteral:" : "eem 11/21/2010 11:29",
 		"genPushLiteralVariable:" : "cb 4/26/2015 12:25",

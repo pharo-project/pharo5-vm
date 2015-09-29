@@ -1,7 +1,7 @@
 bytecode generators
 genPushClosureCopyCopiedValuesBytecode
 	"Block compilation.  At this point in the method create the block.  Note its start
-	 and defer generating code for it until after the method and any other preceeding
+	 and defer generating code for it until after the method and any other preceding
 	 blocks.  The block's actual code will be compiled later."
 	"143   10001111 llllkkkk jjjjjjjj iiiiiiii	Push Closure Num Copied llll Num Args kkkk BlockSize jjjjjjjjiiiiiiii"
 	| startpc numArgs numCopied |

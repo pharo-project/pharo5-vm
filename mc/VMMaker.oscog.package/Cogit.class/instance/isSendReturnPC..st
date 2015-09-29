@@ -1,9 +1,9 @@
 jit - api
 isSendReturnPC: retpc
 	<api>
-	"Answer if the instruction preceeding retpc is a call instruction."
+	"Answer if the instruction preceding retpc is a call instruction."
 	| target |
-	(backEnd isCallPreceedingReturnPC: retpc) ifFalse:
+	(backEnd isCallprecedingReturnPC: retpc) ifFalse:
 		[^false].
 	target := backEnd callTargetFromReturnAddress: retpc.
 	^(target between: firstSend and: lastSend)

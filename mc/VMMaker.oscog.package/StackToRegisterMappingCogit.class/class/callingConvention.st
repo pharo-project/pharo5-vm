@@ -10,7 +10,7 @@ callingConvention
 
 	 To save the CoInterpreter from change we shuffle the retpc and push the register args in
 	 the prolog so that the frame format is unchanged by register args.  Also, the trampolines for
-	 unlinked sends do the same, as does the code preceeding an interpreter primitive.  It turns
+	 unlinked sends do the same, as does the code preceding an interpreter primitive.  It turns
 	 out that this protocol is faster than always pushing arguments.  Comparing benchFib with the
 	 shuffling protocol against an always-push protocol on a 2.66 GHz Core i7 (MacBook Pro) , the
 	 shuffling protocol is 6.3% faster than the always push protocol.

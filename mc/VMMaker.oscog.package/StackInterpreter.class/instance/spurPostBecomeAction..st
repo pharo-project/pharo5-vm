@@ -21,7 +21,7 @@ spurPostBecomeAction: theBecomeEffectsFlags
 	theBecomeEffectsFlags ~= 0 ifTrue:
 		[(theBecomeEffectsFlags anyMask: BecameCompiledMethodFlag) ifTrue:
 			[self followForwardedMethodsInMethodCache.
-			 self followForwardedMethodsInMethodZone]. "for CoInterpreter; must preceed followForwardingPointersInStackZone:"
+			 self followForwardedMethodsInMethodZone]. "for CoInterpreter; must precede followForwardingPointersInStackZone:"
 		 (theBecomeEffectsFlags anyMask: BecameActiveClassFlag) ifTrue:
 			[self flushBecommedClassesInMethodCache.
 			 self flushBecommedClassesInMethodZone]. "for CoInterpreter"

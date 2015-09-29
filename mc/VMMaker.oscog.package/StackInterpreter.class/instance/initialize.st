@@ -1,7 +1,7 @@
 initialization
 initialize
 	"Here we can initialize the variables C initializes to zero.  #initialize methods do /not/ get translated."
-	checkAllocFiller := false. "must preceed initializeObjectMemory:"
+	checkAllocFiller := false. "must precede initializeObjectMemory:"
 	primFailCode := 0.
 	stackLimit := 0. "This is also the initialization flag for the stack system."
 	stackPage := overflowedPage := 0.

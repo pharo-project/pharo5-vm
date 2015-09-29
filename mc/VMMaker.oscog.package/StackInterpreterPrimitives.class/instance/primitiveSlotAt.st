@@ -2,7 +2,7 @@ object access primitives
 primitiveSlotAt
 	"Answer a slot in an object.  This numbers all slots from 1, ignoring the distinction between
 	 named and indexed inst vars.  In objects with both named and indexed inst vars, the named
-	 inst vars preceed the indexed ones.  In non-object indexed objects (objects that contain
+	 inst vars precede the indexed ones.  In non-object indexed objects (objects that contain
 	 bits, not object references) this primitive answers the raw integral value at each slot. 
 	 e.g. for Strings it answers the character code, not the Character object at each slot."
 	| index rcvr fmt numSlots |

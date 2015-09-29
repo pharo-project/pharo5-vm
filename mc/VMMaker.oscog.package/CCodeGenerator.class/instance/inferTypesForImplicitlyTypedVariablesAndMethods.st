@@ -16,7 +16,7 @@ inferTypesForImplicitlyTypedVariablesAndMethods
 	 or those that have explicit return types."						
 	allMethods do:
 		[:m|
-		m removeFinalSelfReturnIn: self. "must preceed recordDeclarationsIn: because it may set returnType"
+		m removeFinalSelfReturnIn: self. "must precede recordDeclarationsIn: because it may set returnType"
 		m recordDeclarationsIn: self.
 		(m returnType isNil
 		 and: [m isReturnConstant]) ifTrue:

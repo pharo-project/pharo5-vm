@@ -7,7 +7,7 @@ markAccessibleObjectsAndFireEphemerons
 
 	marking := true.
 	"This must come first to enable stack page reclamation.  It clears
-	  the trace flags on stack pages and so must preceed any marking.
+	  the trace flags on stack pages and so must precede any marking.
 	  Otherwise it will clear the trace flags of reached pages."
 	coInterpreter initStackPageGC.
 	self markAndTraceHiddenRoots.

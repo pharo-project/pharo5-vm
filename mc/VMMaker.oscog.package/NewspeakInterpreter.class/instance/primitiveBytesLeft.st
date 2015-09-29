@@ -1,7 +1,7 @@
 memory space primitives
 primitiveBytesLeft
 	"Reports bytes available at this moment. For more meaningful 
-	results, calls to this primitive should be preceeded by a full 
+	results, calls to this primitive should be precedeed by a full 
 	or incremental garbage collection."
 	| aBool |
 	self methodArgumentCount = 0

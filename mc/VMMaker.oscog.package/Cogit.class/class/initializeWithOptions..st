@@ -5,7 +5,7 @@ initializeWithOptions: optionsDictionary
 		 aSuperclass withAllSubclasses do:
 			[:class| class initializationOptions: optionsDictionary]].
 	super initializeWithOptions: optionsDictionary.
-	self initializeMiscConstants. "must preceed other initialization."
+	self initializeMiscConstants. "must precede other initialization."
 	self initializeErrorCodes.
 	self initializeCogMethodConstants.
 	self initializeAnnotationConstants.
