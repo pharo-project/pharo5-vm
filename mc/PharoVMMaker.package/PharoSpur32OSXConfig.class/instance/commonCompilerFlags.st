@@ -1,3 +1,7 @@
 settings
 commonCompilerFlags
-	^ super commonCompilerFlags, #('-DSPURVM' '-DPharoVM' "'-DPHAROVM_USE_EXECUTABLE_MEMORY'")
+	^ super commonCompilerFlags, #(
+		'-DUSE_CORE_GRAPHICS' 
+		'-DSPURVM' 
+		'-DPharoVM' 
+		"'-DPHAROVM_USE_EXECUTABLE_MEMORY'")

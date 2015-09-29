@@ -1,3 +1,6 @@
 settings
 commonCompilerFlags
-	^ super commonCompilerFlags, #('-DSPURVM' '-DPharoVM')
+	^ super commonCompilerFlags, #(
+		'-DUSE_CORE_GRAPHICS' 
+		'-DSPURVM' 
+		'-DPharoVM')
