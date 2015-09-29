@@ -12,7 +12,7 @@
 		"literalBeforeFollowingAddress:" : "eem 9/28/2015 19:01",
 		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
 		"moveCw:intoR:" : "eem 6/8/2015 14:53",
-		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:02",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:07",
 		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 9/28/2015 19:02",
 		"rewriteInlineCacheAt:tag:target:" : "eem 9/28/2015 19:02",
 		"rewriteInlineCacheTag:at:" : "eem 9/28/2015 19:02",
