@@ -14,9 +14,9 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 	self assert: (self isInImmediateJumpRange: callDistance). "we don't support long call updates here"
 	call := self bl: callDistance.
 	objectMemory longAt: callSiteReturnAddress - 4 put: call.
-	self insert32BitOperand: cacheTag into4InstructionsPreceeding: callSiteReturnAddress - 4.
+	self insert32BitOperand: cacheTag into4InstructionsPreceding: callSiteReturnAddress - 4.
 	self assert: (self callTargetFromReturnAddress: callSiteReturnAddress) signedIntToLong = callTargetAddress.
-	self assert: (self extract32BitOperandFrom4InstructionsPreceeding: callSiteReturnAddress - 4) = cacheTag.
+	self assert: (self extract32BitOperandFrom4InstructionsPreceding: callSiteReturnAddress - 4) = cacheTag.
 	"self cCode: ''
 		inSmalltalk: [cogit disassembleFrom: callSiteReturnAddress - 20 to: callSiteReturnAddress - 1]."
 	^20

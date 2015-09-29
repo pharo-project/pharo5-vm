@@ -90,7 +90,7 @@
 		"isAFixup:" : "eem 2/15/2009 16:33",
 		"isAnInstruction:" : "eem 6/10/2015 09:02",
 		"isBigEndian" : "eem 3/28/2015 23:54",
-		"isCallPreceedingReturnPC:" : "eem 3/20/2009 11:21",
+		"isCallPrecedingReturnPC:" : "eem 9/28/2015 19:04",
 		"isJump" : "eem 12/25/2008 10:53",
 		"isLongJump" : "lw 8/7/2012 20:19",
 		"isPCDependent" : "eem 12/25/2008 10:55",

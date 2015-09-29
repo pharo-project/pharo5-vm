@@ -7,6 +7,6 @@ rewriteFullTransferAt: callSiteReturnAddress target: callTargetAddress expectedI
 	<var: #callTargetAddress type: #usqInt>
 	"cogit disassembleFrom: callSiteReturnAddress - 20 to: callSiteReturnAddress - 1"
 	self assert: (self instructionBeforeAddress: callSiteReturnAddress) = expectedInstruction.
-	self insert32BitOperand: callTargetAddress into4InstructionsPreceeding: callSiteReturnAddress - 4.
+	self insert32BitOperand: callTargetAddress into4InstructionsPreceding: callSiteReturnAddress - 4.
 	self assert: (self callFullTargetFromReturnAddress: callSiteReturnAddress) signedIntToLong = callTargetAddress.
 	^20

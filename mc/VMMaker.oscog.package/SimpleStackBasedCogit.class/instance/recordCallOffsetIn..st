@@ -8,7 +8,7 @@ recordCallOffsetIn: cogMethod
 	(externalSetPrimOffsets at: cogMethod cmNumArgs) isNil
 		ifTrue: [externalSetPrimOffsets at: cogMethod cmNumArgs put: offset]
 		ifFalse: [self assert: (externalSetPrimOffsets at: cogMethod cmNumArgs) = offset].
-	offsetTable := (backEnd isCallPreceedingReturnPC: primInvokeLabel address asUnsignedInteger)
+	offsetTable := (backEnd isCallPrecedingReturnPC: primInvokeLabel address asUnsignedInteger)
 						ifTrue: [externalPrimCallOffsets]
 						ifFalse: [externalPrimJumpOffsets].
 	offset := primInvokeLabel address - cogMethod asInteger.

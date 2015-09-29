@@ -1,5 +1,5 @@
 testing
-insert32BitOperand: operand into4InstructionsPreceeding: addr
+insert32BitOperand: operand into4InstructionsPreceding: addr
 	<inline: true>
 	objectMemory
 		byteAt: addr -   4 put: (operand			bitAnd: 16rFF);

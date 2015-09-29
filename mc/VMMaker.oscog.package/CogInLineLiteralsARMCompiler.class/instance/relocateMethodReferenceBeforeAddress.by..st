@@ -11,6 +11,6 @@ relocateMethodReferenceBeforeAddress: pc by: delta
 							ifFalse: [pc].
 	"If the load is not done via pc-relative addressing we have to relocate."
 	(self isPCRelativeValueLoad: (self instructionBeforeAddress: pcPreceedingLoad)) ifFalse:
-		[reference := self extract32BitOperandFrom4InstructionsPreceeding: pcPreceedingLoad.
+		[reference := self extract32BitOperandFrom4InstructionsPreceding: pcPreceedingLoad.
 		 reference := reference + delta.
-		 self insert32BitOperand: reference into4InstructionsPreceeding: pcPreceedingLoad]
+		 self insert32BitOperand: reference into4InstructionsPreceding: pcPreceedingLoad]

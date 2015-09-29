@@ -1,5 +1,5 @@
 testing
-extract32BitOperandFrom4InstructionsPreceeding: addr
+extract32BitOperandFrom4InstructionsPreceding: addr
 	<inline: true>
 	^(objectMemory byteAt: addr -4) 
 	 + ((objectMemory byteAt: addr - 8) << 8) 
