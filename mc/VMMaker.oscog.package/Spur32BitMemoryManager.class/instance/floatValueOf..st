@@ -9,7 +9,7 @@ floatValueOf: oop
 	<var: #result type: #double>
 	isFloat := self isFloatInstance: oop.
 	isFloat ifTrue:
-		[self cCode: '' inSmalltalk: [result := 0.0].
+		[self cCode: '' inSmalltalk: [result := Float new: 2].
 		 self fetchFloatAt: oop + self baseHeaderSize into: result.
 		 ^result].
 	coInterpreter primitiveFail.
