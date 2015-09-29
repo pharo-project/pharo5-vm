@@ -1,6 +1,6 @@
 {
 	"class" : {
-		 },
+		"isConcreteRISCTempRegister:" : "eem 9/28/2015 18:26" },
 	"instance" : {
 		"concreteRegister:" : "eem 9/28/2015 10:56",
 		"isPCDependent" : "eem 9/18/2015 09:12" } }

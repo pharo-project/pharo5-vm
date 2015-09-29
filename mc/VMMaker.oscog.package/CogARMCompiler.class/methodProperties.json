@@ -9,6 +9,7 @@
 		"identifyingPredefinedMacros" : "eem 4/21/2015 22:40",
 		"initialize" : "tpr 6/24/2015 18:34",
 		"isAbstract" : "eem 6/15/2015 19:22",
+		"isConcreteRISCTempRegister:" : "eem 9/28/2015 18:25",
 		"machineCodeDeclaration" : "eem 6/10/2015 16:38",
 		"orOpcode" : "eem 3/18/2015 09:20",
 		"specificOpcodes" : "eem 6/7/2014 06:51" },

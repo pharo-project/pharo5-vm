@@ -12,7 +12,7 @@ runSubCwR: assertPrintBar
 			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
 			self processor
 				reset;
-				perform: rsetter with: b signedIntToLong.
+				perform: rsetter with: (self processor convertIntegerToInternal: b).
 			[[processor pc < len] whileTrue:
 				[self processor singleStepIn: memory]]
 				on: Error
@@ -25,16 +25,17 @@ runSubCwR: assertPrintBar
 				ifFalse: [bogus := processor pc ~= inst machineCodeSize].
 			self concreteCompilerClass dataRegistersWithAccessorsDo:
 				[:ireg :getter :setter| | expected |
-				expected := getter == rgetter ifTrue: [b - a] ifFalse: [0].
-				assertPrintBar
-					ifTrue: [self assert: (self processor perform: getter) signedIntFromLong = expected]
-					ifFalse:
-						[(self processor perform: getter) signedIntFromLong ~= expected ifTrue:
-							[bogus := true]]].
-				assertPrintBar ifFalse:
-					[Transcript
-						nextPutAll: rgetter; nextPut: $(; print: b; nextPutAll: ') - '; print: a; nextPutAll: ' = ';
-						print: (self processor perform: rgetter) signedIntFromLong; cr; flush.
-					 bogus ifTrue:
-						[self processor printRegistersOn: Transcript.
-						 Transcript show: (self processor disassembleInstructionAt: 0 In: memory); cr]]]]
+				(self concreteCompilerClass isConcreteRISCTempRegister: ireg) ifFalse:
+					[expected := getter == rgetter ifTrue: [b - a] ifFalse: [0].
+					assertPrintBar
+						ifTrue: [self assert: (self processor convertInternalToInteger: (self processor perform: getter)) equals: expected]
+						ifFalse:
+							[(self processor convertInternalToInteger: (self processor perform: getter)) ~= expected ifTrue:
+								[bogus := true]]].
+					assertPrintBar ifFalse:
+						[Transcript
+							nextPutAll: rgetter; nextPut: $(; print: b; nextPutAll: ') - '; print: a; nextPutAll: ' = ';
+							print: (self processor convertInternalToInteger: (self processor perform: rgetter)); cr; flush.
+						 bogus ifTrue:
+							[self processor printRegistersOn: Transcript.
+							 Transcript show: (self processor disassembleInstructionAt: 0 In: memory); cr]]]]]
