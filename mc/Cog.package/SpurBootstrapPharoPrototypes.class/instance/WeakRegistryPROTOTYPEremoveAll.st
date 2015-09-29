@@ -1,0 +1,3 @@
+method prototypes
+WeakRegistryPROTOTYPEremoveAll
+	<indirect>

@@ -38,4 +38,12 @@
 		"TraitBehaviorPROTOTYPEkindOfSubclass" : "EstebanLorenzano 8/27/2014 14:38",
 		"VirtualMachinePROTOTYPEisSpur" : "EstebanLorenzano 11/14/2014 15:54",
 		"VirtualMachinePROTOTYPEsetGCParameters" : "EstebanLorenzano 8/27/2014 14:38",
-		"WeakFinalizationListclassPROTOTYPEhasNewFinalization" : "EstebanLorenzano 9/25/2015 14:53" } }
+		"WeakFinalizationListclassPROTOTYPEhasNewFinalization" : "EstebanLorenzano 9/25/2015 14:53",
+		"WeakKeyDictionaryPROTOTYPEfinalizeValues" : "EstebanLorenzano 9/29/2015 17:49",
+		"WeakKeyDictionaryPROTOTYPEfinalizer:" : "EstebanLorenzano 9/29/2015 17:49",
+		"WeakKeyDictionaryPROTOTYPEfixCollisionsFrom:" : "EstebanLorenzano 9/29/2015 17:48",
+		"WeakRegistryPROTOTYPEadd:executor:" : "EstebanLorenzano 9/29/2015 17:55",
+		"WeakRegistryPROTOTYPEfinalizeValues" : "EstebanLorenzano 9/29/2015 17:55",
+		"WeakRegistryPROTOTYPEinstallFinalizer" : "EstebanLorenzano 9/29/2015 17:55",
+		"WeakRegistryPROTOTYPEremoveAll" : "EstebanLorenzano 9/29/2015 17:55",
+		"WeakRegistryPROTOTYPEsize" : "EstebanLorenzano 9/29/2015 17:55" } }
