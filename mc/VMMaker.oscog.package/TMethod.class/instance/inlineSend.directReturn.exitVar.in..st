@@ -29,6 +29,16 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 		(exitType = #void or: [exitType = meth returnType]) ifFalse:
 			[meth propagateReturnIn: aCodeGen]].
 
+	"Propagate any unusual argument types to untyped argument variables"
+	methArgs
+		with: aSendNode args
+		do: [:formal :actual|
+			(meth declarationAt: formal ifAbsent: nil) ifNil:
+				[(self typeFor: actual in: aCodeGen) ifNotNil:
+					[:type|
+					type ~= #sqInt ifTrue:
+						[meth declarationAt: formal put: type, ' ', formal]]]].
+
 	meth renameVarsForInliningInto: self except: #() in: aCodeGen.
 	meth renameLabelsForInliningInto: self.
 	self addVarsDeclarationsAndLabelsOf: meth except: #().

@@ -19,7 +19,7 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 					put: (aCodeGen
 							node: exprNode
 							typeCompatibleWith: argName
-							inliningInto: meth selector
+							inliningInto: meth
 							in: self).
 				 locals remove: argName]
 			ifFalse:
@@ -29,7 +29,7 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 						expression: (aCodeGen
 										node: exprNode copy
 										typeCompatibleWith: argName
-										inliningInto: meth selector
+										inliningInto: meth
 										in: self))]].
 	meth parseTree: (meth parseTree bindVariablesIn: substitutionDict).
 	^stmtList

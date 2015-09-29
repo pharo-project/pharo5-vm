@@ -40,5 +40,12 @@ nilOrBooleanConstantReceiverOf: aNode
 		  and: [receiver isInteger
 		  and: [(self isConstantNode: aNode args first valueInto: [:v| argument := v])
 		  and: [argument isInteger]]]]) ifTrue:
-			[^receiver perform: aNode selector with: argument]].
+			[^receiver perform: aNode selector with: argument].
+		 "Inlining for e.g. CharacterTable ifNil: [...] ifNotNil: [...]], which compiles to CharacterTable == nil ifTrue: [...] ifFalse: [...]"
+		( aNode selector == #==
+		 and: [aNode args first isVariable
+		 and: [aNode args first name = 'nil'
+		 and: [aNode receiver isConstant
+		 and: [aNode receiver value == nil]]]]) ifTrue:
+			[^true]].
 	^nil
