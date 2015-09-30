@@ -2,7 +2,7 @@
 
 ##Prerequisites
 
-**NOTE: I'm update the instructions, it will be more clear next days. [Here](README-Win32-fasttrack.md) is a fast track on building VM on windows right now.**
+**NOTE: I'm updating the instructions, it will be more clear next days. [Here](README-Win32-fasttrack.md) is a fast track (the "happy path") for building VM on windows right now.**
 
 We provide a set of scripts which automates the build process on Windows platforms. The only thing you need to have in advance is an installation of Git (as of this writing it is nearly impossible to install Git from a script without compiling it).
 There are two options:
@@ -96,7 +96,7 @@ For GCC 4.6.1+ float.h (`<mingw_directory>/lib/gcc/<version>/include/float.h`) a
 #endif
 ```
 
-##Add 32-bit dependencies
+## Add 32-bit dependencies
 For 64-bit machines (e.g. Windows 8.1 Pro) we need to add `libcrtdll.dll` (which is obsolete on those platforms).
 
 1. `cp <pharovmDirectory>/platforms/win32/extras/libcrtdll.a <mingwDirectory>/lib`
@@ -105,4 +105,12 @@ For 64-bit machines (e.g. Windows 8.1 Pro) we need to add `libcrtdll.dll` (which
 ```
 #define off64_t _off64_t
 #define off_t _off_t
+```
+
+## Configure Git for long paths
+In order to get rid of the GeniePlugin message about path being too long, make sure your version of Git is above 1.8.x (current version installed on 2015-09-29 is 2.5.3).
+
+```
+git config core.text auto
+git config --system core.longpaths true
 ```
