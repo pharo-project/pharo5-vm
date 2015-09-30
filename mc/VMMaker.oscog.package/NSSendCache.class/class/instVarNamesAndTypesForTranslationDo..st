@@ -1,4 +1,4 @@
-as yet unclassified
+translation
 instVarNamesAndTypesForTranslationDo: aBinaryBlock
 
 	self allInstVarNames do:
