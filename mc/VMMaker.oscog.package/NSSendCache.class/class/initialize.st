@@ -1,4 +1,4 @@
-as yet unclassified
+class initialization
 initialize
 	"self initialize"
 	(Smalltalk classNamed: #NSSendCacheSurrogate32) ifNotNil:

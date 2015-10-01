@@ -39,6 +39,7 @@ utilitiesMenu: aMenuMorph
 		add: 'print context...' action: [(self promptHex: 'print context') ifNotNil: [:oop| self printContext: oop]];
 		addLine;
 		add: 'inspect object memory' target: objectMemory action: #inspect;
+		add: 'run leak checker' action: [Cursor execute showWhile: [self runLeakChecker]];
 		add: 'inspect cointerpreter' action: #inspect;
 		add: 'inspect cogit' target: cogit action: #inspect;
 		add: 'inspect method zone' target: cogit methodZone action: #inspect.

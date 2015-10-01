@@ -1,5 +1,5 @@
 testing
-containsAddress: address
+containsAddress: anAddress
 	<inline: true>
-	^self asUnsignedInteger <= address asUnsignedInteger
-	  and: [self asUnsignedInteger + self blockSize >= address asUnsignedInteger]
+	^self asUnsignedInteger <= anAddress asUnsignedInteger
+	  and: [self asUnsignedInteger + self blockSize >= anAddress asUnsignedInteger]
