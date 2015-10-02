@@ -398,7 +398,7 @@
 		"halt" : "eem 10/22/2010 10:49",
 		"halt:" : "eem 9/2/2011 17:10",
 		"handleABICallOrJumpSimulationTrap:evaluable:" : "tpr 7/13/2015 11:05",
-		"handleCallOrJumpSimulationTrap:" : "eem 7/10/2015 10:43",
+		"handleCallOrJumpSimulationTrap:" : "eem 9/30/2015 15:00",
 		"handleReadSimulationTrap:" : "eem 3/26/2015 11:06",
 		"handleSimulationTrap:" : "eem 10/19/2010 18:13",
 		"handleWriteSimulationTrap:" : "eem 11/21/2013 16:02",

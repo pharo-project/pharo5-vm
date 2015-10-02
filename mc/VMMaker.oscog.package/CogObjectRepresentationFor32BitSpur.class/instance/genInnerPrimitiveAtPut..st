@@ -6,11 +6,12 @@ genInnerPrimitiveAtPut: retNoffset
 	  jumpIsContext jumpIsCompiledMethod jumpIsBytes jumpHasFixedFields
 	  jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
 	  jumpWordsOutOfBounds jumpBytesOutOfBounds jumpBytesOutOfRange
-	  jumpNonSmallIntegerValue jumpShortsUnsupported jumpNotPointers
+	  jumpNonSmallIntegerValue jumpNegative jumpShortsUnsupported jumpNotPointers
 	  |
 	<inline: true>
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
+	<var: #jumpNegative type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
@@ -103,6 +104,9 @@ genInnerPrimitiveAtPut: retNoffset
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
+	(self lastOpcode setsConditionCodesFor: JumpNegative) ifFalse:
+		[self CmpCq: 0 R: ClassReg]. "N.B. FLAGS := ClassReg - 0"
+	jumpNegative := cogit JumpNegative: 0.
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg0Reg.
 	cogit MoveR: TempReg Xwr: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
@@ -140,6 +144,7 @@ genInnerPrimitiveAtPut: retNoffset
 	jumpShortsDone := cogit Jump: 0."
 
 	jumpIsContext jmpTarget: 
+	(jumpNegative jmpTarget:
 	(jumpNotIndexableBits jmpTarget:
 	(jumpBytesOutOfRange jmpTarget:
 	(jumpIsCompiledMethod jmpTarget:
@@ -149,7 +154,7 @@ genInnerPrimitiveAtPut: retNoffset
 	(jumpWordsOutOfBounds jmpTarget:
 	(jumpNotIndexablePointers jmpTarget:
 	(jumpNonSmallIntegerValue jmpTarget:
-	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label)))))))))).
+	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label))))))))))).
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
