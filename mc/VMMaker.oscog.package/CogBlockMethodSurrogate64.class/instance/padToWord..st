@@ -1,5 +1,5 @@
 accessing
 padToWord: aValue
 	^memory
-		unsignedLongLongAt: address + 5
+		unsignedLong64At: address + 5
 		put: aValue

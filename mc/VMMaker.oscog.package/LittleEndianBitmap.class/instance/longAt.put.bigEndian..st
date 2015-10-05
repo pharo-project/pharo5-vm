@@ -10,16 +10,16 @@ longAt: byteIndex put: aValue bigEndian: bigEndian
 							[self errorImproperStore].
 						aValue].
 	bigEndian ifTrue:
-		[value := (value >> 24 bitAnd: 16rFF)
-				 + (value >> 8 bitAnd: 16rFF00)
- 				 + ((value bitAnd: 16rFF00) << 8)
-				 + ((value bitAnd: 16rFF) << 24)].
+		[value := ((value bitShift: -24) bitAnd: 16rFF)
+				 + ((value bitShift: -8) bitAnd: 16rFF00)
+ 				 + ((value bitAnd: 16rFF00) bitShift: 8)
+				 + ((value bitAnd: 16rFF) bitShift: 24)].
 	lowBits = 0 ifTrue:
 		[self at: wordIndex put: value.
 		 ^aValue].
-	mask := 16rFFFFFFFF bitAnd: 16rFFFFFFFF << (lowBits * 8).
-	self at: wordIndex put: (((self at: wordIndex) bitAnd: mask bitInvert) bitXor: (value << (lowBits * 8) bitAnd: mask)).
-	self at: wordIndex + 1 put: (((self at: wordIndex + 1) bitAnd: mask) bitXor: (value >> (4 - lowBits * 8) bitAnd: mask bitInvert)).
+	mask := 16rFFFFFFFF bitShift: lowBits * -8.
+	self at: wordIndex put: (((self at: wordIndex) bitAnd: mask) bitXor: ((value bitShift: lowBits * 8) bitAnd: mask bitInvert32)).
+	self at: wordIndex + 1 put: (((self at: wordIndex + 1) bitAnd: mask bitInvert32) bitXor: ((value bitShift: 4 - lowBits * -8) bitAnd: mask)).
 	^aValue
 
 	"(1 to: 8) collect:

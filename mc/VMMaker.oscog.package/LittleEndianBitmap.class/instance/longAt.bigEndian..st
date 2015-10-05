@@ -10,12 +10,12 @@ longAt: byteIndex bigEndian: bigEndian
 		ifFalse:
 			[word0 := self at: wordIndex.
 			 word1 := self at: wordIndex + 1.
-			 value := 16rFFFFFFFF bitAnd: word0 >> (lowBits * 8) + (word1 << (4 - lowBits * 8))].
+			 value := 16rFFFFFFFF bitAnd: (word0 bitShift: lowBits * -8) + (word1 bitShift: 4 - lowBits * 8)].
 	bigEndian ifTrue:
-		[value := (value >> 24 bitAnd: 16rFF)
-				 + (value >> 8 bitAnd: 16rFF00)
- 				 + ((value bitAnd: 16rFF00) << 8)
-				 + ((value bitAnd: 16rFF) << 24)].
+		[value := ((value bitShift: -24) bitAnd: 16rFF)
+				 + ((value bitShift: -8) bitAnd: 16rFF00)
+ 				 + ((value bitAnd: 16rFF00) bitShift: 8)
+				 + ((value bitAnd: 16rFF) bitShift: 24)].
 	(16r80000000 bitAnd: value) ~= 0 ifTrue:
 		[value := (16r7FFFFFFF bitAnd: value) - 16r80000000].
 	^value

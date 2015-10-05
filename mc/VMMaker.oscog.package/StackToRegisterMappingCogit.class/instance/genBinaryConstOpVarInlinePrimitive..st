@@ -23,6 +23,9 @@ genBinaryConstOpVarInlinePrimitive: prim
 				 objectRepresentation genAddSmallIntegerTagsTo: ra].
 
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
+		[16] -> [ self AndCq: val R: ra ].
+		[17] -> [ self OrCq: val R: ra ].
+		[18] -> [ self XorCw: untaggedVal R: ra. ].
 
 		"2032	through 2037, >, <, >=, <=. =, ~=, SmallInteger op SmallInteger => Boolean (flags?? then in jump bytecodes if ssTop is a flags value, just generate the instruction!!)"
 		"CmpCqR is SubRCq so everything is reversed, but because no CmpRCq things are reversed again and we invert the sense of the jumps."

@@ -4,22 +4,26 @@ longAt: byteIndex put: aValue bigEndian: bigEndian
 	| lowBits wordIndex value mask |
 	lowBits := byteIndex - 1 bitAnd: 3.
 	wordIndex := byteIndex - 1 // 4 + 1.
-	value := aValue < 0
-				ifTrue: [16rFFFFFFFF bitAnd: value]
-				ifFalse: [16rFFFFFFFF < aValue ifTrue:
-							[self errorImproperStore].
-						aValue].
+	aValue < 0
+		ifTrue:
+			[value := 16rFFFFFFFF bitAnd: aValue.
+			 value = 0 ifTrue:
+				[self errorImproperStore]]
+		ifFalse:
+			[16rFFFFFFFF < aValue ifTrue:
+				[self errorImproperStore].
+			value := aValue].
 	bigEndian ifFalse:
-		[value := (value >> 24 bitAnd: 16rFF)
-				 + (value >> 8 bitAnd: 16rFF00)
- 				 + ((value bitAnd: 16rFF00) << 8)
-				 + ((value bitAnd: 16rFF) << 24)].
+		[value := ((value bitShift: -24) bitAnd: 16rFF)
+				 + ((value bitShift: -8) bitAnd: 16rFF00)
+ 				 + ((value bitAnd: 16rFF00) bitShift: 8)
+				 + ((value bitAnd: 16rFF) bitShift: 24)].
 	lowBits = 0 ifTrue:
 		[self at: wordIndex put: value.
 		 ^aValue].
-	mask := 16rFFFFFFFF bitAnd: 16rFFFFFFFF >> (lowBits * 8).
-	self at: wordIndex put: (((self at: wordIndex) bitAnd: mask bitInvert) bitXor: (value >> (lowBits * 8) bitAnd: mask)).
-	self at: wordIndex + 1 put: (((self at: wordIndex + 1) bitAnd: mask) bitXor: (16rFFFFFFFF bitAnd: (value << (4 - lowBits * 8) bitAnd: mask bitInvert))).
+	mask := 16rFFFFFFFF bitShift: lowBits * -8.
+	self at: wordIndex put: (((self at: wordIndex) bitAnd: mask bitInvert) bitXor: ((value bitShift: lowBits * -8) bitAnd: mask)).
+	self at: wordIndex + 1 put: (((self at: wordIndex + 1) bitAnd: mask) bitXor: (16rFFFFFFFF bitAnd: ((value bitShift: 4 - lowBits * 8) bitAnd: mask bitInvert))).
 	^aValue
 
 	"(1 to: 8) collect:
