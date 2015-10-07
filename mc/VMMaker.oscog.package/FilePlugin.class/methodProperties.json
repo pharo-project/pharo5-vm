@@ -35,6 +35,7 @@
 		"primitiveFileSetPosition" : "eem 9/4/2014 16:26",
 		"primitiveFileSize" : "tpr (auto pragmas 12/08) 12/29/2005 16:15",
 		"primitiveFileStdioHandles" : "eem (const to msg rewrite) 11/5/2014 18:17",
+		"primitiveFileSync" : "monty 9/26/2015 22:26",
 		"primitiveFileTruncate" : "eem 3/22/2015 19:51",
 		"primitiveFileWrite" : "eem 11/1/2013 23:34",
 		"primitiveHasFileAccess" : "tpr (auto pragmas 12/08) 12/30/2005 15:41",
