@@ -1,8 +1,6 @@
 generate machine code
 concretizeMoveCwR
-	"Will get inlined into concretizeAt: switch.
-	 Note that for quick constants, xor reg,reg, movq r8 may be shorter.
-	 We don't consider it worthwhile for other  than 0."
+	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| value |
 	value := operands at: 0.

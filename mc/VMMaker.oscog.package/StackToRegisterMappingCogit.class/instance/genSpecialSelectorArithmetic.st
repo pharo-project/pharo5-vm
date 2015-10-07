@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorArithmetic
 	| primDescriptor rcvrIsConst argIsConst rcvrIsInt argIsInt rcvrInt argInt result
-	 jumpNotSmallInts jumpContinue annotateInst instToAnnotate |
+	 jumpNotSmallInts jumpContinue annotateInst instToAnnotate index |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
 	<var: #jumpContinue type: #'AbstractInstruction *'>
@@ -95,8 +95,7 @@ genSpecialSelectorArithmetic
 	argIsInt ifTrue:
 		[annotateInst ifTrue: [self annotateBytecode: instToAnnotate].
 		 self MoveCq: argInt R: Arg0Reg].
-	self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
-		numArgs: 1
-		sendTable: ordinarySendTrampolines.
+	index := byte0 - self firstSpecialSelectorBytecodeOffset.
+	self genMarshalledSend: index negated - 1 numArgs: 1 sendTable: ordinarySendTrampolines.
 	jumpContinue jmpTarget: self Label.
 	^0

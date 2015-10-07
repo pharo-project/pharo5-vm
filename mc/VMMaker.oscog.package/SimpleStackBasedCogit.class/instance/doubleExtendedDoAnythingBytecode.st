@@ -7,9 +7,9 @@ doubleExtendedDoAnythingBytecode
 	| opType |
 	opType := byte1 >> 5.
 	opType = 0 ifTrue:
-		[^self genSend: (self getLiteral: byte2) numArgs: (byte1 bitAnd: 31)].
+		[^self genSend: byte2 numArgs: (byte1 bitAnd: 31)].
 	opType = 1 ifTrue:
-		[^self genSendSuper: (self getLiteral: byte2) numArgs: (byte1 bitAnd: 31)].
+		[^self genSendSuper: byte2 numArgs: (byte1 bitAnd: 31)].
 	"We need a map entry for this bytecode for correct parsing.
 	 The sends will get an IsSend entry anyway.  The other cases need a
 	 fake one.  We could of course special case the scanning but that's silly."

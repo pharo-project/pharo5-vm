@@ -1,7 +1,7 @@
 tests
 testMoveRMbr
 	"self new testMoveRMbr"
-	CogIA32CompilerForTests registersWithNamesDo:
+	CogIA32CompilerForTests byteRegistersWithNamesDo:
 		[:sreg :srname|
 		CogIA32CompilerForTests registersWithNamesDo:
 			[:dreg :drname|

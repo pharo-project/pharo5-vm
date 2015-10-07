@@ -9,5 +9,5 @@ genExtSendSuperBytecode
 	nArgs := (byte1 bitAnd: 7) + (extB << 3).
 	extB := 0.
 	^isDirected
-		ifTrue: [self genSendDirectedSuper: (self getLiteral: litIndex) numArgs: nArgs]
-		ifFalse: [self genSendSuper: (self getLiteral: litIndex) numArgs: nArgs]
+		ifTrue: [self genSendDirectedSuper: litIndex numArgs: nArgs]
+		ifFalse: [self genSendSuper: litIndex numArgs: nArgs]

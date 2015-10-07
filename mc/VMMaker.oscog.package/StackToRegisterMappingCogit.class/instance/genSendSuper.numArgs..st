@@ -1,4 +1,4 @@
 bytecode generator support
-genSendSuper: selector numArgs: numArgs
+genSendSuper: selectorIndex numArgs: numArgs
 	self marshallSendArguments: numArgs.
-	^self genMarshalledSend: selector numArgs: numArgs sendTable: superSendTrampolines
+	^self genMarshalledSend: selectorIndex numArgs: numArgs sendTable: superSendTrampolines

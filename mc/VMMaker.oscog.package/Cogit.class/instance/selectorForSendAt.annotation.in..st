@@ -1,5 +1,5 @@
 simulation only
-selectorForSendAt: mcpc annotation: annotation
+selectorForSendAt: mcpc annotation: annotation in: aCompiledMethod
 	<doNotGenerate>
 	| entryPoint offset targetMethod selector |
 	entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
@@ -12,7 +12,10 @@ selectorForSendAt: mcpc annotation: annotation
 						targetMethod := self cCoerceSimple: entryPoint - offset to: #'CogMethod *'.
 						targetMethod selector]
 					ifFalse:
-						[backEnd inlineCacheTagAt: mcpc].
+						[objectMemory wordSize = 8
+							ifTrue: [self selectorFromSelectorIndex: (backEnd inlineCacheTagAt: mcpc) signedIntToLong
+										in: aCompiledMethod]
+							ifFalse: [backEnd inlineCacheTagAt: mcpc]].
 	^(annotation ~= IsNSSendCall and: [coInterpreter isCurrentImageFacade])
 		ifTrue: [coInterpreter objectForOop: selector]
 		ifFalse: [selector]

@@ -7,4 +7,4 @@ genExtSendAbsentOuterBytecode
 	nArgs := (byte1 bitAnd: 7) + (extB << 3).
 	extB := 0.
 	depth := byte2.
-	^self genSendAbsentOuter: (self getLiteral: litIndex) numArgs: nArgs depth: depth
+	^self genSendAbsentOuter: litIndex numArgs: nArgs depth: depth

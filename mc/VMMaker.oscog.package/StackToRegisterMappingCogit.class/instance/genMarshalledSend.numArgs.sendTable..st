@@ -1,10 +1,8 @@
 bytecode generator support
-genMarshalledSend: selector numArgs: numArgs sendTable: sendTable
+genMarshalledSend: selectorIndex numArgs: numArgs sendTable: sendTable
 	<inline: false>
 	<var: #sendTable type: #'sqInt *'>
 	| annotation |
-	(objectMemory isYoung: selector) ifTrue:
-		[hasYoungReferent := true].
 	self assert: needsFrame.
 	annotation := self annotationForSendTable: sendTable.
 	"Deal with stale super sends; see SpurMemoryManager's class comment."
@@ -17,7 +15,7 @@ genMarshalledSend: selector numArgs: numArgs sendTable: sendTable
 	(BytecodeSetHasDirectedSuperSend
 	 and: [annotation = IsDirectedSuperSend]) ifTrue:
 		[self genMoveConstant: tempOop R: TempReg].
-	self MoveUniqueCw: selector R: ClassReg.
+	self genLoadInlineCache: selectorIndex.
 	(self Call: (sendTable at: (numArgs min: NumSendTrampolines - 1))) annotation: annotation.
 	optStatus isReceiverResultRegLive: false.
 	^self ssPushRegister: ReceiverResultReg

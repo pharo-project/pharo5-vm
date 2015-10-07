@@ -6,4 +6,4 @@ genExtSendBytecode
 	extA := 0.
 	nArgs := (byte1 bitAnd: 7) + (extB << 3).
 	extB := 0.
-	^self genSend: (self getLiteral: litIndex) numArgs: nArgs
+	^self genSend: litIndex numArgs: nArgs

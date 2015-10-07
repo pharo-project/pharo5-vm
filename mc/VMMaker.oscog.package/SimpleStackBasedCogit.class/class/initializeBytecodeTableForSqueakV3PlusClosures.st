@@ -3,6 +3,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 	"SimpleStackBasedCogit initializeBytecodeTableForSqueakV3PlusClosures"
 
 	FirstSpecialSelector := 176.
+	NumSpecialSelectors := 32.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which
  inlines class.  If class is sent to e.g. a general instance of ProtoObject then unless
