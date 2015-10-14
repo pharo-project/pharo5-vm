@@ -79,7 +79,14 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 		bx_cpu.sregs[BX_SEG_REG_SS].cache.u.segment.limit = 0xffff;
 		bx_cpu.sregs[BX_SEG_REG_SS].cache.u.segment.limit_scaled = 0xffffffff;
 
+		bx_cpu.gen_reg[BX_32BIT_REG_EAX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EBX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ECX].dword.erx = 0;
 		bx_cpu.gen_reg[BX_32BIT_REG_EDX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EDI].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ESI].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EBP].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ESP].dword.erx = 0;
 		bx_cpu.gen_reg[BX_32BIT_REG_EIP].dword.erx = 0;
 		return 0;
 	}

@@ -24,6 +24,8 @@
 #include "sq.h"
 #include "FilePlugin.h"
 
+#include "sqWin32File.h"
+
 extern struct VirtualMachine *interpreterProxy;
 
 #ifdef WIN32_FILE_SUPPORT
@@ -333,6 +335,14 @@ sqInt sqFileFlush(SQFile *f) {
   /* note: ignores the return value in case of read-only access */
   FlushFileBuffers(FILE_HANDLE(f));
   return 1;
+}
+
+sqInt sqFileSync(SQFile *f) {
+  /*
+   * sqFileFlush uses FlushFileBuffers which is equivalent to fsync on windows
+   * as long as WriteFile is used directly and no other buffering is done.
+   */
+  return sqFileFlush(SQFile *f);
 }
 
 sqInt sqFileTruncate(SQFile *f, squeakFileOffsetType offset) {

@@ -939,7 +939,7 @@ block()
 
 	printf("blocking e.g. to allow attaching debugger\n");
 	printf("pid: %d pwd: %s vm:%s\n",
-			(int)getpid(), argVec[0], getcwd(pwd,MAXPATHLEN+1));
+			(int)getpid(), getcwd(pwd,MAXPATHLEN+1), argVec[0]);
 	while (1) {
 		while_away_the_hours.tv_sec = 3600;
 		nanosleep(&while_away_the_hours, 0);
@@ -1259,7 +1259,8 @@ static void loadModules(void)
 /* built-in main vm module */
 
 
-static int strtobkm(const char *str)
+static long
+strtobkm(const char *str)
 {
   char *suffix;
   long value= strtol(str, &suffix, 10);
@@ -1386,6 +1387,7 @@ static int vm_parseArgument(int argc, char **argv)
   else if (!strcmp(argv[0], "--nohandlers"))	{ installHandlers= 0;	return 1; }
   else if (!strcmp(argv[0], "--blockonerror")) { blockOnError = 1; return 1; }
   else if (!strcmp(argv[0], "--blockonwarn")) { erroronwarn = blockOnError = 1; return 1; }
+  else if (!strcmp(argv[0], "--exitonwarn")) { erroronwarn = 1; return 1; }
   else if (!strcmp(argv[0], "--timephases")) {
 	printPhaseTime(1);
 	return 1; }
@@ -1492,6 +1494,12 @@ static int vm_parseArgument(int argc, char **argv)
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
+#if SPURVM
+      else if (!strcmp(argv[0], "--maxoldspace")) { 
+		extern unsigned long maxOldSpaceSize;
+		maxOldSpaceSize = (unsigned long)strtobkm(argv[1]);	 
+		return 2; }
+#endif
       else if (!strcmp(argv[0], "--textenc")) {
 		int i, len = strlen(argv[1]);
 		char *buf = (char *)alloca(len + 1);
@@ -1551,8 +1559,12 @@ static void vm_printUsage(void)
   printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
   printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
+#if SPURVM
+  printf("  --maxoldspace <size>[mk]    set max size of old space memory to bytes\n");
+#endif
   printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
   printf("  --blockonwarn          on warning block, don't warn.  useful for attaching gdb\n");
+  printf("  --exitonwarn           treat warnings as errors, exiting on warn\n");
 #if 1
   printf("Deprecated:\n");
 # if !STACKVM
@@ -2123,7 +2135,16 @@ isCFramePointerInUse()
 /* Currently pretty sure fp is used but prepared to be shown wrong */
  int
 isCFramePointerInUse()
-{ return true; }
+{
+	extern unsigned long CStackPointer, CFramePointer;
+	extern void (*ceCaptureCStackPointers)(void);
+	unsigned long currentCSP = CStackPointer;
+
+	currentCSP = CStackPointer;
+	ceCaptureCStackPointers();
+	assert(CStackPointer < currentCSP);
+	return CFramePointer >= CStackPointer && CFramePointer <= currentCSP;
+}
 #endif /* defined(__arm__) || defined(__arm32__) || defined(ARM32) */
 /* Answer an approximation of the size of the redzone (if any).  Do so by
  * sending a signal to the process and computing the difference between the

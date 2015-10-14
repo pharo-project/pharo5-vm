@@ -136,6 +136,7 @@ signalSemaphoreWithIndex(sqInt index)
 	/* An index of zero should be and is silently ignored. */
 	assert(index >= 0 && index <= numSignalRequests);
 
+	LogEventChain((dbgEvtChF,"sSWI(%d)%c.",index,(unsigned)i >= numSignalRequests?'-':'+'));
 	if ((unsigned)i >= numSignalRequests)
 		return 0;
 
@@ -185,12 +186,15 @@ doSignalExternalSemaphores(int externalSemaphoreTableSize)
 {
 	int i, switched;
 
+	sqLowLevelMFence();
 	if (!checkSignalRequests)
 		return 0;
 
 	switched = 0;
 	checkSignalRequests = 0;
+	sqLowLevelMFence();
 
+	LogEventChain((dbgEvtChF,"dSES(%d).",externalSemaphoreTableSize));
 	if (useTideA) {
 		useTideA = 0;
 		sqLowLevelMFence();
@@ -201,6 +205,7 @@ doSignalExternalSemaphores(int externalSemaphoreTableSize)
 			while (signalRequests[i].responses != signalRequests[i].requests) {
 				if (doSignalSemaphoreWithIndex(i+1))
 					switched = 1;
+				LogEventChain((dbgEvtChF,"dSSI(%d):%c.",i+1,switched?'!':'_'));
 				++signalRequests[i].responses;
 			}
 		lowTideA = (unsigned long)-1 >> 1, highTideA = -1;
@@ -215,6 +220,7 @@ doSignalExternalSemaphores(int externalSemaphoreTableSize)
 			while (signalRequests[i].responses != signalRequests[i].requests) {
 				if (doSignalSemaphoreWithIndex(i+1))
 					switched = 1;
+				LogEventChain((dbgEvtChF,"dSSI(%d):%c.",i+1,switched?'!':'_'));
 				++signalRequests[i].responses;
 			}
 		lowTideB = (unsigned long)-1 >> 1, highTideB = -1;

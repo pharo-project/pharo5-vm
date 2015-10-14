@@ -55,7 +55,7 @@ static void parseArguments(int argc, char **argv);
 static int parseArgument(int argc, char **argv);
 static void usage(void);
 static void parseEnvironment(void);
-static int strtobkm(const char *str);
+static long strtobkm(const char *str);
 static usqLong strtolbkm(const char *str);
 static void printUsage(void);
 static void printUsageNotes(void);
@@ -328,6 +328,9 @@ static void printUsage(void)
   printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
   printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
+#if SPURVM
+  printf("  --maxoldspace <size>[mk]      set max size of old space memory to bytes\n");
+#endif
   printf("  --pathenc <enc>        set encoding for pathnames (default: %s)\n",
 		getEncodingType(gCurrentVMEncoding));
 
@@ -337,6 +340,7 @@ static void printUsage(void)
 
   printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
   printf("  --blockonwarn          on warning block, don't warn.  useful for attaching gdb\n");
+  printf("  --exitonwarn           treat warnings as errors, exiting on warn\n");
 }
 
 static void printUsageNotes(void)
@@ -353,7 +357,7 @@ static void outOfMemory(void)
   exit(1);
 }
 
-static int
+static long
 strtobkm(const char *str)
 {
   char *suffix;
