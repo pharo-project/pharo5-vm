@@ -342,7 +342,7 @@ sqInt sqFileSync(SQFile *f) {
    * sqFileFlush uses FlushFileBuffers which is equivalent to fsync on windows
    * as long as WriteFile is used directly and no other buffering is done.
    */
-  return sqFileFlush(SQFile *f);
+  return sqFileFlush(f);
 }
 
 sqInt sqFileTruncate(SQFile *f, squeakFileOffsetType offset) {
