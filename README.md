@@ -19,7 +19,7 @@ To build the VM you need: git, cmake, wget, gnu-tar, the latest version of Xcode
 One way of downloading and installing these is to use the [homebrew](http://brew.sh/) package manager:
 ```bash
 # install homebrew with the following oneliner:
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # if you haven't installed git yet
 brew install git
 # if you haven't installed cmake yet
