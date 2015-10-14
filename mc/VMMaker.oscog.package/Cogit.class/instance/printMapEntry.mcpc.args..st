@@ -22,7 +22,7 @@ printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 				print: (self bytecodePCFor: mcpc startBcpc: codeRange startpc in: subMethod)].
 		(self isSendAnnotation: annotation) ifTrue:
 			[| sel |
-			sel := self selectorForSendAt: mcpc annotation: annotation.
+			sel := self selectorForSendAt: mcpc annotation: annotation in: cogMethod methodObject.
 			sel isInteger ifTrue:
 				[sel := self lookupAddress: sel].
 			sel isString ifTrue:

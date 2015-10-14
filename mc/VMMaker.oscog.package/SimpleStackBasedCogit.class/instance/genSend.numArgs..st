@@ -1,4 +1,4 @@
 bytecode generator support
-genSend: selector numArgs: numArgs
+genSend: selectorIndex numArgs: numArgs
 	<inline: true>
-	^self genSend: selector numArgs: numArgs sendTable: ordinarySendTrampolines
+	^self genSend: selectorIndex numArgs: numArgs sendTable: ordinarySendTrampolines

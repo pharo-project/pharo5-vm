@@ -105,8 +105,14 @@ computeMaximumSize
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4].
 		"Data Movement"
-		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [3] ifFalse: [(self is32BitSignedImmediate: (operands at: 0)) ifTrue: [7] ifFalse: [self moveCwRByteSize]]].
+		[MoveCqR]		-> [^(operands at: 0) = 0
+								ifTrue: [3]
+								ifFalse:
+									[(self is32BitSignedImmediate: (operands at: 0))
+										ifTrue: [7]
+										ifFalse: [self moveCwRByteSize]]].
 		[MoveCwR]		-> [^self moveCwRByteSize].
+		[MoveC32R]	-> [^7]. "N.B. Always inlined."
 		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
@@ -172,17 +178,19 @@ computeMaximumSize
 								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		"[MoveXbrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= ESP.
-							^(self concreteRegister: (operands at: 1)) = EBP
-											ifTrue: [5]
-											ifFalse: [4]].
-		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
-							^((self concreteRegister: (operands at: 2)) = EBP
-											ifTrue: [4]
-											ifFalse: [3])
-										+ ((self concreteRegister: (operands at: 0)) >= 4
-											ifTrue: [2]
-											ifFalse: [0])]."
+		[MoveXbrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
+							^((self concreteRegister: (operands at: 1)) bitAnd: 7) = RBP
+											ifTrue: [6]
+											ifFalse: [5]].
+		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= RSP.
+							^(((self concreteRegister: (operands at: 0)) < 8
+							   and: [(self concreteRegister: (operands at: 1)) < 8
+							   and: [(self concreteRegister: (operands at: 2)) < 8]])
+								ifTrue: [3]
+								ifFalse: [4])
+							+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RBP
+											ifTrue: [1]
+											ifFalse: [0])].
 		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
 							^((self concreteRegister: (operands at: 1)) = RBP
 							   or: [(self concreteRegister: (operands at: 1)) = R13])

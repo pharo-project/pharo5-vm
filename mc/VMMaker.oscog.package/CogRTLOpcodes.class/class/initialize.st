@@ -162,7 +162,7 @@ initialize
 
 						CmpRR AddRR SubRR AndRR OrRR XorRR
 						CmpCqR AddCqR SubCqR AndCqR OrCqR TstCqR XorCqR
-						CmpCwR AddCwR SubCwR AndCwR OrCwR XorCwR
+						CmpCwR CmpC32R AddCwR SubCwR AndCwR OrCwR XorCwR
 
 						AndCqRR
 

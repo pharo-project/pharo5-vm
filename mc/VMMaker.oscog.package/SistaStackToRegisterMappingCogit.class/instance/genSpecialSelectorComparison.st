@@ -7,7 +7,7 @@ genSpecialSelectorComparison
 	 will then continue to the conditional branch which will trip and enter the abort."
 	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor
 	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB annotateInst
-	  counterAddress countTripped counterReg |
+	  counterAddress countTripped counterReg index |
 	<var: #countTripped type: #'AbstractInstruction *'>
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
@@ -79,6 +79,5 @@ genSpecialSelectorComparison
 	
 	argIsInt ifTrue:
 		[self MoveCq: argInt R: Arg0Reg].
-	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
-		numArgs: 1
-		sendTable: ordinarySendTrampolines
+	index := byte0 - self firstSpecialSelectorBytecodeOffset.
+	^self genMarshalledSend: index negated - 1 numArgs: 1 sendTable: ordinarySendTrampolines

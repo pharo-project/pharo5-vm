@@ -1,8 +1,8 @@
 bytecode generators
-genSendAbsentSelf: selector numArgs: numArgs
+genSendAbsentSelf: selectorIndex numArgs: numArgs
 	<inline: false>
 	^self
-		genNSSend: selector
+		genNSSend: selectorIndex
 		numArgs: numArgs
 		depth: LookupRuleSelf
 		sendTable: selfSendTrampolines

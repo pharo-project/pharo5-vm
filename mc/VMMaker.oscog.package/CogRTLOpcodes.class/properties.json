@@ -19,6 +19,7 @@
 		"Call",
 		"CallFull",
 		"ClassReg",
+		"CmpC32R",
 		"CmpCqR",
 		"CmpCwR",
 		"CmpRR",

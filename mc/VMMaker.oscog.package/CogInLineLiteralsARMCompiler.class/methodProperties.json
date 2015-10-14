@@ -3,6 +3,7 @@
 		 },
 	"instance" : {
 		"callFullTargetFromReturnAddress:" : "eem 09/28/2015 18:48",
+		"cogit:" : "eem 10/6/2015 16:25",
 		"extract32BitOperandFrom4InstructionsPreceding:" : "eem 9/28/2015 19:00",
 		"getDefaultCogCodeSize" : "eem 6/10/2015 14:03",
 		"implicitReceiveCacheAt:" : "eem 9/28/2015 19:01",

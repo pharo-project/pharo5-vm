@@ -40,7 +40,7 @@ testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cogMethod
 				self assert: (mcpc = mappedpc or: [prevMcpc = mappedpc]).
 				(self isSendAnnotation: annotation) ifTrue:
 					[| mcSelector bcSelector |
-					mcSelector := self selectorForSendAt: mcpc annotation: annotation.
+					mcSelector := self selectorForSendAt: mcpc annotation: annotation in: aCompiledMethod.
 					"sends map to the following pc.  need to find the selector for the previous pc"
 					bcSelector := self selectorForSendBefore: bcpc in: bcMethod.
 					self assert: mcSelector = bcSelector]].

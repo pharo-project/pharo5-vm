@@ -10,6 +10,7 @@ initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid
 	AltBlockCreationBytecodeSize := BlockCreationBytecodeSize.
 	AltNSSendIsPCAnnotated := NSSendIsPCAnnotated.
 	AltFirstSpecialSelector := FirstSpecialSelector.
+	AltNumSpecialSelectors := NumSpecialSelectors.
 	self initializeBytecodeTableForSqueakV3PlusClosures.
 	v3Table := generatorTable.
 	generatorTable := CArrayAccessor on: v3Table object, v4Table object

@@ -1,7 +1,10 @@
 bytecode generators
-genNSSend: selector numArgs: numArgs depth: depth sendTable: sendTable
+genNSSend: selectorIndex numArgs: numArgs depth: depth sendTable: sendTable
 	<var: #sendTable type: #'sqInt *'>
-	| nsSendCache |
+	| selector nsSendCache |
+	self assert: (selectorIndex between: 0 and: (objectMemory literalCountOf: methodObj) - 1).
+	selector := self getLiteral: selectorIndex.
+	self assert: (objectMemory addressCouldBeOop: selector).	
 	(objectMemory isYoung: selector) ifTrue:
 		[hasYoungReferent := true].
 

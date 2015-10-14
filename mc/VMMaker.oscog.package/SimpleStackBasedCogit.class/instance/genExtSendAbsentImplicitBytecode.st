@@ -6,4 +6,4 @@ genExtSendAbsentImplicitBytecode
 	extA := 0.
 	nArgs := (byte1 bitAnd: 7) + (extB << 3).
 	extB := 0.
-	^self genSendAbsentImplicit: (self getLiteral: litIndex) numArgs: nArgs
+	^self genSendAbsentImplicit: litIndex numArgs: nArgs

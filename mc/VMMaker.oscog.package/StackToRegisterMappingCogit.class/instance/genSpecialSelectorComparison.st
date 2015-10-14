@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorComparison
 	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor
-	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB annotateInst |
+	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB annotateInst index |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
@@ -56,6 +56,5 @@ genSpecialSelectorComparison
 	jumpNotSmallInts jmpTarget: self Label.
 	argIsInt ifTrue:
 		[self MoveCq: argInt R: Arg0Reg].
-	^self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
-		numArgs: 1
-		sendTable: ordinarySendTrampolines.
+	index := byte0 - self firstSpecialSelectorBytecodeOffset.
+	^self genMarshalledSend: index negated - 1 numArgs: 1 sendTable: ordinarySendTrampolines
