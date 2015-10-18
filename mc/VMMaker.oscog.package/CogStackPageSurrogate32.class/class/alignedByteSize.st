@@ -1,3 +1,3 @@
-instance creation
+accessing
 alignedByteSize
 	^40

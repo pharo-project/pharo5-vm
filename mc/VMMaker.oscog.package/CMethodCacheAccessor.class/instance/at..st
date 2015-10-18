@@ -4,4 +4,4 @@ at: index
 	 pointers are Smalltalk symbols (under simulation primitive dispatch is done via perform:)."
 	index - 1 \\ entrySize = functionPointerIndex ifTrue:
 		[^methodCacheArray at: index].
-	^object at: index + offset
+	^objectMemory longAt: index * elementByteSize + address

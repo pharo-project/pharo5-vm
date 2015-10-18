@@ -2,8 +2,9 @@
 signedIntFromLong
 	"Self is a signed or unsigned 32-bit integer"
 
-	| sign |
-	self < 0 ifTrue: [^self].
-	sign := self bitAnd: 16r80000000.
-	sign = 0 ifTrue: [^ self].
-	^ self - sign - sign
+	| bits |
+	(self >= -1073741824 and: [self <= 1073741823]) ifTrue: "These are known to be SmallIntegers..."
+		[^self].
+	bits := self bitAnd: 16rFFFFFFFF.
+	(bits digitAt: 4) <= 16r7F ifTrue: [^bits].
+	^bits - 16r100000000

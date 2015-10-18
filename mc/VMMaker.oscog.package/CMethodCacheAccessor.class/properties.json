@@ -7,10 +7,10 @@
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		"methodCacheArray",
-		"functionPointerIndex",
-		"entrySize" ],
+		"entrySize",
+		"functionPointerIndex" ],
 	"name" : "CMethodCacheAccessor",
 	"pools" : [
 		 ],
-	"super" : "CObjectAccessor",
+	"super" : "CArrayOfLongsAccessor",
 	"type" : "normal" }
