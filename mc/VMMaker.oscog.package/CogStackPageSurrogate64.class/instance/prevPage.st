@@ -1,3 +1,3 @@
 accessing
 prevPage
-	^stackPages surrogateAtAddress: (memory long64At: address + 73)
+	^stackPages surrogateAtAddress: (memory unsignedLong64At: address + 73)

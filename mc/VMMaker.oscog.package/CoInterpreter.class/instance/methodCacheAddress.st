@@ -2,4 +2,4 @@ cog jit support
 methodCacheAddress
 	<api>
 	<returnTypeC: #'void *'>
-	^self cCode: [methodCache] inSmalltalk: [methodCache offset - 1 * objectMemory wordSize]
+	^self cCode: [methodCache] inSmalltalk: [methodCache address]

@@ -6,7 +6,7 @@
 		"initializeStack:numSlots:pageSize:" : "eem 8/14/2015 12:07",
 		"initializeWithByteSize:for:" : "eem 8/14/2015 15:48",
 		"longAt:" : "eem 11/10/2014 15:45",
-		"longAt:put:" : "eem 11/10/2014 15:45",
+		"longAt:put:" : "eem 10/8/2015 16:26",
 		"memIndexFor:" : "eem 8/14/2015 16:45",
 		"pageIndexFor:" : "eem 12/14/2009 17:38",
 		"pageIndexFor:stackBasePlus1:bytesPerPage:" : "eem 2/28/2009 23:23",

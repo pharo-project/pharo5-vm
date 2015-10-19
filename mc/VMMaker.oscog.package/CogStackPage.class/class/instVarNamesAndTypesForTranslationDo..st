@@ -4,10 +4,10 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 
 	self allInstVarNames do:
 		[:ivn|
-		ivn ~= 'stackPagesMemory' ifTrue:
+		(ivn = 'padToWord' and: [BytesPerWord = 4]) ifFalse:
 			[aBinaryBlock
 				value: ivn
-				value: (ivn = 'trace'
+				value: ((ivn = 'trace' or: [ivn = 'padToWord'])
 						ifTrue: [#int]
 						ifFalse:
 							[(ivn endsWith: 'Page')
