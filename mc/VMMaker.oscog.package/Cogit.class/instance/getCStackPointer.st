@@ -3,4 +3,6 @@ getCStackPointer
 	<api>
 	<cmacro: '() CStackPointer'>
 	"and in the simulator we use..."
-	^objectMemory longAt: coInterpreter inMemoryCStackPointerAddress
+	^(backEnd wantsNearAddressFor: #CStackPointer)
+		ifTrue: [CStackPointer]
+		ifFalse: [objectMemory longAt: coInterpreter inMemoryCStackPointerAddress]

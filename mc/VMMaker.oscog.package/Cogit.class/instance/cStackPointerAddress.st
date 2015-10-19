@@ -1,4 +1,6 @@
 trampoline support
 cStackPointerAddress
 	<cmacro: '() ((unsigned long)&CStackPointer)'>
-	^coInterpreter inMemoryCStackPointerAddress
+	^(backEnd wantsNearAddressFor: #CStackPointer)
+		ifTrue: [self simulatedReadWriteVariableAddress: #getCStackPointer in: self]
+		ifFalse: [coInterpreter inMemoryCStackPointerAddress]

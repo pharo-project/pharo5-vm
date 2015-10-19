@@ -25,7 +25,7 @@ utilitiesMenu: aMenuMorph
 		add: 'write back mc ptrs' action: [stackPointer := cogit processor sp. framePointer := cogit processor fp. instructionPointer := cogit processor eip.
 											self writeBackHeadFramePointers];
 		addLine;
-		add: 'print rump C stack' action: [objectMemory printMemoryFrom: cogit processor sp to: self CStackPointer];
+		add: 'print rump C stack' action: [objectMemory printMemoryFrom: cogit processor sp to: cogit getCStackPointer];
 		add: 'print registers' action: [cogit processor printRegistersOn: transcript];
 		add: 'print register map' action: [cogit printRegisterMapOn: transcript];
 		add: 'disassemble method/trampoline...' action: [(self promptHex: 'pc') ifNotNil: [:pc| cogit disassembleCodeAt: pc]];

@@ -147,6 +147,7 @@
 		"mod:RM:RO:" : "eem 9/18/2015 11:49",
 		"nopsFrom:to:" : "eem 10/13/2009 12:44",
 		"numCheckFeaturesOpcodes" : "eem 4/16/2009 11:56",
+		"numIntRegArgs" : "eem 10/18/2015 19:23:06",
 		"numLowLevelLockOpcodes" : "eem 7/18/2009 13:16",
 		"numberOfSaveableRegisters" : "eem 8/8/2012 13:20",
 		"padIfPossibleWithNopsFrom:to:" : "eem 8/8/2012 13:22",
