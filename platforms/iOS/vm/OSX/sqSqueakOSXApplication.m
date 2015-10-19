@@ -183,7 +183,12 @@ void mtfsfi(unsigned long long fpscr) {}
 	for (i=0; i<[revisedArgs count]; i++) {
 		NSString *argData = [revisedArgs objectAtIndex:i];
 		NSString *peek = (i == ([revisedArgs count] - 1)) ? @"" : [revisedArgs objectAtIndex:i+1];
-		if ([argData compare: @"--"] == NSOrderedSame) {
+		
+        if ([argData compare: @"-NSDocumentRevisionsDebugMode"] == NSOrderedSame) {
+            //This is an Xcode debug option, skip it for us
+            continue;
+        }
+        if ([argData compare: @"--"] == NSOrderedSame) {
 			optionsCompleted = YES;
 			continue;
 		}
