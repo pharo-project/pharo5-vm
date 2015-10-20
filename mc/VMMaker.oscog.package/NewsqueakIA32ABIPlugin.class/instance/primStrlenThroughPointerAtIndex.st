@@ -12,7 +12,7 @@ primStrlenThroughPointerAtIndex
 	rcvr := interpreterProxy stackObjectValue: 1.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
-	(self index: byteOffset length: 4 inRange: rcvr) ifFalse:
+	(self index: byteOffset length: interpreterProxy bytesPerOop inRange: rcvr) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadIndex].
 	addr := (self startOfData: rcvr) + byteOffset.
 	ptr := self cCoerce: (self longAt: addr) to: #'char *'.
