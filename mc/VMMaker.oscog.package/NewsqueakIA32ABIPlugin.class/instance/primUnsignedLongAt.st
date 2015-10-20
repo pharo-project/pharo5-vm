@@ -15,6 +15,6 @@ primUnsignedLongAt
 	(startAddr := self startOfData: rcvr) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	addr := startAddr + byteOffset.
-	value := self longAt: addr.
+	value := self long32At: addr.
 	valueOop := interpreterProxy positive32BitIntegerFor: value.
 	^interpreterProxy methodReturnValue: valueOop

@@ -9,6 +9,8 @@ simulatedReadWriteVariableAddress: getter in: receiver
 		at: address
 		ifAbsentPut:
 			[| setter |
-			setter := (getter, ':') asSymbol.
+			setter := (((getter beginsWith: 'get')
+						ifTrue: ['s', getter allButFirst]
+						ifFalse: [getter]), ':') asSymbol.
 			[:value| receiver perform: setter with: value]].
 	^address

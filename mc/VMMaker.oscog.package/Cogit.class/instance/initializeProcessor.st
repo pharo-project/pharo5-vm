@@ -6,8 +6,7 @@ initializeProcessor
 	lastNInstructions := OrderedCollection new.
 	processor initializeStackFor: self.
 	self initializeProcessorStack: coInterpreter rumpCStackAddress.
-	objectMemory
-		longAt: self cFramePointerAddress put: processor fp;
-		longAt: self cStackPointerAddress put: processor sp.
+	self setCFramePointer: processor fp.
+	self setCStackPointer: processor sp.
 	threadManager ifNotNil:
 		[processor := MultiProcessor for: processor coInterpreter: coInterpreter]

@@ -55,7 +55,7 @@
 		"dependent" : "eem 2/11/2009 22:15",
 		"dependent:" : "eem 2/11/2009 22:16",
 		"fullCallsAreRelative" : "eem 4/20/2015 18:21",
-		"genAlignCStackSavingRegisters:numArgs:wordAlignment:" : "eem 7/17/2012 14:56",
+		"genAlignCStackSavingRegisters:numArgs:wordAlignment:" : "eem 10/18/2015 19:25:34",
 		"genJumpFPEqual:" : "eem 4/17/2009 15:47",
 		"genJumpFPGreater:" : "eem 4/17/2009 15:47",
 		"genJumpFPGreaterOrEqual:" : "eem 4/17/2009 15:47",
@@ -118,6 +118,7 @@
 		"nameForRegister:" : "lw 8/7/2012 19:56",
 		"numCheckFeaturesOpcodes" : "eem 4/16/2009 11:50",
 		"numICacheFlushOpcodes" : "eem 4/16/2009 11:52",
+		"numIntRegArgs" : "eem 10/18/2015 19:22:52",
 		"numLowLevelLockOpcodes" : "eem 7/9/2009 22:03",
 		"numberOfSaveableRegisters" : "eem 7/17/2012 14:52",
 		"opcode" : "eem 2/11/2009 22:19",
@@ -146,4 +147,4 @@
 		"unalignedLongAt:" : "eem 6/27/2011 18:42",
 		"unalignedLongAt:put:" : "eem 6/27/2011 18:42",
 		"updateLabel:" : "eem 5/6/2009 11:13",
-		"wantsNearAddressFor:" : "eem 3/18/2015 14:32" } }
+		"wantsNearAddressFor:" : "eem 10/19/2015 09:31:33" } }

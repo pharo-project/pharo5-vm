@@ -7,8 +7,6 @@
 		"onObjectMemory:cogit:" : "eem 9/3/2013 11:01",
 		"onObjectMemory:cogit:options:" : "eem 10/11/2013 16:37" },
 	"instance" : {
-		"CFramePointer" : "eem 3/30/2009 11:10",
-		"CStackPointer" : "eem 10/2/2013 15:38",
 		"allObjectsSelect:" : "eem 2/4/2014 11:12",
 		"assertCStackPointersBelongToCurrentThread" : "eem 9/30/2010 13:21",
 		"assertCStackPointersBelongToCurrentVMOwner" : "eem 9/30/2010 13:21",
@@ -331,7 +329,7 @@
 		"tryToExecuteSmalltalk:" : "eem 11/20/2010 21:51",
 		"unableToReadImageError" : "tpr 2/26/2003 14:00",
 		"updateStateOfSpouseContextForFrame:WithSP:" : "eem 4/16/2014 09:58",
-		"utilitiesMenu:" : "eem 9/30/2015 12:29",
+		"utilitiesMenu:" : "eem 10/19/2015 09:24:33",
 		"validOop:" : "eem (objmem refactor) 6/8/2010 17:12",
 		"veryDeepCopyWith:" : "eem 5/15/2015 10:59",
 		"vmOwnerLockAddress" : "eem 9/30/2010 13:21",

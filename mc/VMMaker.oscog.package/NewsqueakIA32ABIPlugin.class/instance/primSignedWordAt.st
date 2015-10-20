@@ -1,8 +1,8 @@
 primitives-accessing
-primSignedLongAt
-	"Answer the signed 32-bit integer starting at the given byte offset (little endian)."
-	"<Alien> signedLongAt: index <Integer> ^<Integer>
-		<primitive: 'primSignedLongAt' error: errorCode module: 'IA32ABI'>"
+primSignedWordAt
+	"Answer the signed word starting at the given byte offset (little endian)."
+	"<Alien> signedWordAt: index <Integer> ^<Integer>
+		<primitive: 'primSignedWordAt' error: errorCode module: 'IA32ABI'>"
 	| byteOffset rcvr startAddr addr value valueOop |
 	<export: true>
 
@@ -10,11 +10,11 @@ primSignedLongAt
 	rcvr := interpreterProxy stackObjectValue: 1.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
-	(self index: byteOffset length: 4 inRange: rcvr) ifFalse:
+	(self index: byteOffset length: interpreterProxy bytesPerOop inRange: rcvr) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadIndex].
 	(startAddr := self startOfData: rcvr) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	addr := startAddr + byteOffset.
-	value := self long32At: addr.
-	valueOop := interpreterProxy signed32BitIntegerFor: value.
+	value := self longAt: addr.
+	valueOop := interpreterProxy signedMachineIntegerValueOf: value.
 	^interpreterProxy methodReturnValue: valueOop
