@@ -3,6 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"ABI",
 		"CDQ",
 		"CMPXCHGAwR",
 		"CMPXCHGMwrR",

@@ -1,4 +1,4 @@
 accessing
 varBaseAddress
-	"Answer a value that should be sufficiently high that var bare relative addressing is never generated."
+	"Answer a value that should be sufficiently high that var base relative addressing is never generated."
 	^1 << 60

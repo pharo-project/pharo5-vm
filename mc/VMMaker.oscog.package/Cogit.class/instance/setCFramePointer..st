@@ -4,7 +4,7 @@ setCFramePointer: aFramePointer
 	<cmacro: '(theFP) (CFramePointer = (void *)(theFP))'>
 	"and in the simulator we use..."
 	^(backEnd wantsNearAddressFor: #CFramePointer)
-		ifTrue: [CFramePointer]
+		ifTrue: [CFramePointer := aFramePointer]
 		ifFalse: [objectMemory
 					longAt: coInterpreter inMemoryCFramePointerAddress
 					put: aFramePointer]
