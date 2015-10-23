@@ -140,8 +140,7 @@ computeMaximumSize
 		[MoveCwR]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes]
 										ifFalse:
-											[((self isAnInstruction: (cogit cCoerceSimple: (operands at: 0) to: #'AbstractInstruction *')) "i.e. a label, which by definition will be in the current compilation."
-											   or: [cogit addressIsInCurrentCompilation: (operands at: 0)])
+											[(self inCurrentCompilation: (operands at: 0))
 												ifTrue: [4]
 												ifFalse: [self literalLoadInstructionBytes]]].
 		[MoveRR]				-> [^4].
@@ -178,8 +177,7 @@ computeMaximumSize
 		[PushCw]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes + 4]
 										ifFalse:
-											[((self isAnInstruction: (cogit cCoerceSimple: (operands at: 0) to: #'AbstractInstruction *')) "i.e. a label, which by definition will be in the current compilation."
-											   or: [cogit addressIsInCurrentCompilation: (operands at: 0)])
+											[(self inCurrentCompilation: (operands at: 0))
 												ifTrue: [8]
 												ifFalse:
 													[self rotateable8bitBitwiseImmediate: (operands at: 0)

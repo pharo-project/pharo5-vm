@@ -2,9 +2,22 @@ generate machine code
 concretizeMoveCwR
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
-	| value reg |
+	| value reg offset |
 	value := operands at: 0.
 	reg := self concreteRegister: (operands at: 1).
+	(self isAnInstruction: (cogit cCoerceSimple: value to: #'AbstractInstruction *')) ifTrue:
+		[value := (cogit cCoerceSimple: value to: #'AbstractInstruction *') address].
+	(cogit addressIsInCurrentCompilation: value) ifTrue:
+		[offset := value - (address + 7).
+		 machineCode
+			at: 0 put: (self rexR: reg x: 0 b: 0);
+			at: 1 put: 16r8B;
+			at: 2 put: (self mod: ModReg RM: 5 RO: reg);
+			at: 3 put: (offset bitAnd: 16rFF);
+			at: 4 put: (offset >> 8 bitAnd: 16rFF);
+			at: 5 put: (offset >> 16 bitAnd: 16rFF);
+			at: 6 put: (offset >> 24 bitAnd: 16rFF).
+		^machineCodeSize := 7].
 	machineCode
 		at:  0 put: (self rexR: reg x: 0 b: reg);
 		at:  1 put: 16rB8 + (reg bitAnd: 7);

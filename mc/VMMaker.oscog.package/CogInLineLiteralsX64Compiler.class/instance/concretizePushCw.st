@@ -2,8 +2,20 @@ generate machine code
 concretizePushCw
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
-	| value |
+	| value offset |
 	value := operands at: 0.
+	(self isAnInstruction: (cogit cCoerceSimple: value to: #'AbstractInstruction *')) ifTrue:
+		[value := (cogit cCoerceSimple: value to: #'AbstractInstruction *') address].
+	(cogit addressIsInCurrentCompilation: value) ifTrue:
+		[offset := value - (address + 6).
+		 machineCode
+			at: 0 put: 16rFF;
+			at: 1 put: 16r35;
+			at: 2 put: (offset bitAnd: 16rFF);
+			at: 3 put: (offset >> 8 bitAnd: 16rFF);
+			at: 4 put: (offset >> 16 bitAnd: 16rFF);
+			at: 5 put: (offset >> 24 bitAnd: 16rFF).
+		^machineCodeSize := 6].
 	machineCode
 		at:  0 put: (self rexR: ConcreteRISCTempReg x: 0 b: ConcreteRISCTempReg);
 		at:  1 put: 16rB8 + (ConcreteRISCTempReg bitAnd: 7);

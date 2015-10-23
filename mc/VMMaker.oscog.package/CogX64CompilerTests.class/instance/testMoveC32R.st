@@ -1,4 +1,4 @@
-as yet unclassified
+tests
 testMoveC32R
 	"self new testMoveMwrR"
 	self concreteCompilerClass registersWithNamesDo:
