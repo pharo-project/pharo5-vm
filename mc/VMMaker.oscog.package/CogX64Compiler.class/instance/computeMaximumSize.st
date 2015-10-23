@@ -85,13 +85,13 @@ computeMaximumSize
 		[XorRR]			-> [^3].
 		[SubRR]			-> [^3].
 		[NegateR]		-> [^3].
-		"[LoadEffectiveAddressMwrR]
+		[LoadEffectiveAddressMwrR]
 						-> [^((self isQuick: (operands at: 0))
-											ifTrue: [3]
-											ifFalse: [6])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
-											ifTrue: [1]
-											ifFalse: [0])]."
+									ifTrue: [4]
+									ifFalse: [7])
+								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+									ifTrue: [1]
+									ifFalse: [0])].
 		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[LogicalShiftRightCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].

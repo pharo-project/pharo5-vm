@@ -1,3 +1,3 @@
 object representation
 numSmallIntegerTagBits
-	^1
+	^3
