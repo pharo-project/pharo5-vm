@@ -8,6 +8,9 @@ initialize
 	| specificOpcodes refs |
 	self ~~ CogX64Compiler ifTrue: [^self].
 
+	ABI ifNil:
+		[ABI := #SysV]. "Default ABI; other choice is #MSVC"
+
 	RAX := 0.
 	RCX := 1.  "Were they completely mad or simply sadistic?"
 	RDX := 2.
