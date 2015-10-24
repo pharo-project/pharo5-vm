@@ -100,6 +100,7 @@
 		"numberOfSaveableRegisters" : "eem 9/26/2015 18:10",
 		"padIfPossibleWithNopsFrom:to:" : "eem 8/8/2012 13:22",
 		"pushCwByteSize" : "eem 9/28/2015 15:54",
+		"rewriteInlineCacheAt:tag:target:" : "eem 10/23/2015 18:58:26",
 		"rexR:x:b:" : "eem 9/17/2015 15:25",
 		"rexw:r:x:b:" : "eem 9/17/2015 17:19",
 		"s:i:b:" : "eem 9/22/2015 16:46",

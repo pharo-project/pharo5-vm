@@ -9,6 +9,7 @@ generateTrampolines
 	initialPC := 0.
 	endPC := numAbstractOpcodes - 1.
 	hasYoungReferent := false.
+	objectRepresentation maybeGenerateSelectorIndexDereferenceRoutine.
 	self generateSendTrampolines.
 	self generateMissAbortTrampolines.
 	objectRepresentation generateObjectRepresentationTrampolines.

@@ -13,7 +13,7 @@ selectorForSendAt: mcpc annotation: annotation in: aCompiledMethod
 						targetMethod selector]
 					ifFalse:
 						[objectMemory wordSize = 8
-							ifTrue: [self selectorFromSelectorIndex: (backEnd inlineCacheTagAt: mcpc) signedIntToLong
+							ifTrue: [self selectorFromSelectorIndex: (backEnd inlineCacheTagAt: mcpc) signedIntFromLong
 										in: aCompiledMethod]
 							ifFalse: [backEnd inlineCacheTagAt: mcpc]].
 	^(annotation ~= IsNSSendCall and: [coInterpreter isCurrentImageFacade])

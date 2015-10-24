@@ -204,6 +204,8 @@
 		"displayBitsOf:Left:Top:Right:Bottom:" : "eem 9/11/2013 07:28",
 		"divorceAllFrames" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"divorceFramesIn:" : "eem (const to msg rewrite) 11/5/2014 18:04",
+		"doItContext" : "eem 10/23/2015 19:09:20",
+		"doItReceiver" : "eem 10/23/2015 19:08:56",
 		"doPrimitiveDiv:by:" : "eem 11/19/2014 13:59",
 		"doPrimitiveMod:by:" : "eem 11/19/2014 13:59",
 		"doSignalSemaphoreWithIndex:" : "eem 7/13/2015 15:41",

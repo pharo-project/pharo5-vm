@@ -12,7 +12,7 @@ handleReadSimulationTrap: aProcessorSimulationTrap
 						ifAbsent:
 							[(simulatedTrampolines includesKey: address)
 								ifTrue: [address]
-								ifFalse: [simulatedVariableGetters errorKeyNotFound]]) value asInteger.
+								ifFalse: [simulatedVariableGetters errorKeyNotFound: address]]) value asInteger.
 	accessor := aProcessorSimulationTrap registerAccessor.
 	processor
 		perform: accessor

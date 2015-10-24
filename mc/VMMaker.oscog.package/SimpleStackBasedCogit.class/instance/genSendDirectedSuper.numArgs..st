@@ -1,5 +1,5 @@
 bytecode generator support
-genSendDirectedSuper: selector numArgs: numArgs
+genSendDirectedSuper: selectorIndex numArgs: numArgs
 	<inline: false>
 	"N.B. genPushLiteralVariableGivenDirectedSuper: has already loaded tempOop with the association."
-	^self genSend: selector numArgs: numArgs sendTable: directedSuperSendTrampolines
+	^self genSend: selectorIndex numArgs: numArgs sendTable: directedSuperSendTrampolines
