@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 10/21/2015 11:50:22",
 		"initialize" : "eem 3/18/2014 09:56",
 		"new" : "eem 3/18/2014 11:03",
 		"shutDown:" : "eem 3/18/2014 10:00",

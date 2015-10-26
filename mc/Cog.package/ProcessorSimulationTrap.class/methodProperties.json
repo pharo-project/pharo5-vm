@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 10/21/2015 11:49:54",
 		"pc:nextpc:address:type:" : "eem 5/7/2010 11:08",
 		"pc:nextpc:address:type:accessor:" : "eem 5/7/2010 11:08" },
 	"instance" : {
