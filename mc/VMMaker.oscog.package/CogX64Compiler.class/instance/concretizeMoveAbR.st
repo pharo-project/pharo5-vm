@@ -1,5 +1,7 @@
 generate machine code
 concretizeMoveAbR
+	"N.B. The Cogit makes no assumption about the upper bits being set to zero because we
+	 deny byteReadsZeroExtend.  The cogit will clear the register before hand if necessary."
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| addressOperand reg offset save0 save1 |

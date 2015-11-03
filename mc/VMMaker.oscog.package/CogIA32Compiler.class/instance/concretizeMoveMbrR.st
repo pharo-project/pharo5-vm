@@ -1,7 +1,6 @@
 generate machine code
 concretizeMoveMbrR
-	"N.B. The Cogit compiler makes no assumption about the upper bits being set to zero.
-	 It will clear the register before hand if necessary."
+	"N.B. we zero-extend because we state byteReadsZeroExtend."
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| srcReg offset destReg |

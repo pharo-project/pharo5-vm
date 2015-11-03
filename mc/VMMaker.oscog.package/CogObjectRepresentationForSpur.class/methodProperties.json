@@ -41,7 +41,7 @@
 		"genGetFormatOf:into:" : "eem 5/30/2015 09:42",
 		"genGetFormatOf:into:leastSignificantHalfOfBaseHeaderIntoScratch:" : "eem 4/14/2015 11:01",
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
-		"genGetRawSlotSizeOfNonImm:into:" : "eem 4/10/2015 18:09",
+		"genGetRawSlotSizeOfNonImm:into:" : "eem 11/3/2015 12:33:01",
 		"genInnerPrimitiveAsCharacter:inReg:" : "eem 5/30/2015 11:36",
 		"genInnerPrimitiveCharacterValue:" : "eem 4/20/2015 19:57",
 		"genInnerPrimitiveIdentical:orNotIf:" : "eem 5/30/2015 11:32",

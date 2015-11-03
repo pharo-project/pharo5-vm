@@ -1,5 +1,6 @@
 generate machine code
 concretizeMoveXbrRR
+	"N.B. we zero-extend because we state byteReadsZeroExtend."
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| index base dest |

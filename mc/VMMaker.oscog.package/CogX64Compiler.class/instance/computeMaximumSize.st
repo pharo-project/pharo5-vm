@@ -149,9 +149,9 @@ computeMaximumSize
 							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
 											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
-												ifTrue: [4]
-												ifFalse: [5]]
-									ifFalse: [8])
+												ifTrue: [3]
+												ifFalse: [4]]
+									ifFalse: [7])
 								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
@@ -192,8 +192,8 @@ computeMaximumSize
 									ifFalse: [0])].
 		[MoveXbrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
 							^((self concreteRegister: (operands at: 1)) bitAnd: 7) = RBP
-											ifTrue: [6]
-											ifFalse: [5]].
+											ifTrue: [5]
+											ifFalse: [4]].
 		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= RSP.
 							^(((self concreteRegister: (operands at: 0)) < 8
 							   and: [(self concreteRegister: (operands at: 1)) < 8
