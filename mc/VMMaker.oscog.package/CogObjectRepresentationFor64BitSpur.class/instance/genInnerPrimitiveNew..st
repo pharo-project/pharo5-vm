@@ -18,7 +18,6 @@ genInnerPrimitiveNew: retNoffset
 	<var: 'jumpVariableOrEphemeron' type: #'AbstractInstruction *'>
 
 	"header will contain classIndex/class's hash & format & numSlots/fixed size and finally fill value (nilObject)."
-	self break.
 	headerReg := fillReg := SendNumArgsReg.
 	"inst spec will hold class's instance specification, then byte size and finally end of new object."
 	instSpecReg := byteSizeReg := ClassReg.

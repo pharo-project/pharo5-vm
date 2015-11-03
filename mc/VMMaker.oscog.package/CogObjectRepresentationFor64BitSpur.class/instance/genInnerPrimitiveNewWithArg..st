@@ -28,7 +28,6 @@ genInnerPrimitiveNewWithArg: retNoffset
 	<var: 'jumpNElementsNonInt' type: #'AbstractInstruction *'>
 
 	"header will contain classIndex/class's hash & format & numSlots/fixed size"
-	self break.
 	headerReg := SendNumArgsReg.
 	"Assume there's an available scratch register on 64-bit machines"
 	fillReg := Scratch0Reg.

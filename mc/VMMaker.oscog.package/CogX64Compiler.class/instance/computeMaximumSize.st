@@ -123,7 +123,14 @@ computeMaximumSize
 		[MoveRAw]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
 								ifTrue: [7]
 								ifFalse: [(self concreteRegister: (operands at: 0)) = RAX ifTrue: [10] ifFalse: [14]]].
-		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
+		[MoveAbR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
+								ifTrue: [7]
+								ifFalse: [(self concreteRegister: (operands at: 1)) = RAX ifTrue: [10] ifFalse: [14]]].
+		[MoveRAb]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
+								ifTrue: [7]
+								ifFalse: [(self concreteRegister: (operands at: 0)) = RAX ifTrue: [10] ifFalse: [14]]].
+		[MoveRMwr]	-> [self assert: (self is32BitSignedImmediate: (operands at: 1)).
+							^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
 											and: [((self concreteRegister: (operands at: 2)) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
@@ -138,7 +145,8 @@ computeMaximumSize
 										+ ((self concreteRegister: (operands at: 2)) = ESP
 											ifTrue: [1]
 											ifFalse: [0])]."
-		[MoveMbrR]		-> [^((self isQuick: (operands at: 0))
+		[MoveMbrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
+							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
 											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
 												ifTrue: [4]
@@ -147,7 +155,8 @@ computeMaximumSize
 								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		[MoveRMbr]		-> [^((self isQuick: (operands at: 1))
+		[MoveRMbr]		-> [self assert: (self is32BitSignedImmediate: (operands at: 1)).
+							^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
 											and: [((self concreteRegister: (operands at: 0)) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
@@ -171,7 +180,8 @@ computeMaximumSize
 										+ ((self concreteRegister: (operands at: 1)) = ESP
 											ifTrue: [1]
 											ifFalse: [0])]."
-		[MoveMwrR]		-> [^((self isQuick: (operands at: 0))
+		[MoveMwrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
+								^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
 											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
@@ -207,7 +217,7 @@ computeMaximumSize
 		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
 		[PushCw]		-> [^(self inCurrentCompilation: (operands at: 0))
-								ifTrue: [6]
+								ifTrue: [9]
 								ifFalse: [self pushCwByteSize]].
 		[PrefetchAw]	-> [^(self isAddressRelativeToVarBase: (operands at: 0)) ifTrue: [7] ifFalse: [0]].
 		"Conversion"

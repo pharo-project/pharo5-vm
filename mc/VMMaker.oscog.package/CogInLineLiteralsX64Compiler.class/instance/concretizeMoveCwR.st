@@ -11,8 +11,8 @@ concretizeMoveCwR
 		[offset := value - (address + 7).
 		 machineCode
 			at: 0 put: (self rexR: reg x: 0 b: 0);
-			at: 1 put: 16r8B;
-			at: 2 put: (self mod: ModReg RM: 5 RO: reg);
+			at: 1 put: 16r8D; "LoadEffectiveAddress"
+			at: 2 put: (self mod: ModRegInd RM: 5 RO: reg);
 			at: 3 put: (offset bitAnd: 16rFF);
 			at: 4 put: (offset >> 8 bitAnd: 16rFF);
 			at: 5 put: (offset >> 16 bitAnd: 16rFF);
