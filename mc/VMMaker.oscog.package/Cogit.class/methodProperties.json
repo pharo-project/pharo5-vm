@@ -277,7 +277,7 @@
 		"compileAbort" : "eem 12/6/2014 11:06",
 		"compileAbstractInstructionsFrom:through:" : "eem 6/7/2015 16:52",
 		"compileBlockDispatchFrom:to:" : "eem 10/13/2009 13:54",
-		"compileBlockEntry:" : "eem (const to msg rewrite) 11/6/2014 11:21",
+		"compileBlockEntry:" : "eem 11/3/2015 17:22:36",
 		"compileBlockFramelessEntry:" : "eem 4/25/2009 11:05",
 		"compileCPIC:Case0:Case1Method:tag:isMNUCase:numArgs:" : "eem 6/10/2015 19:33",
 		"compileCPICEntry" : "eem 4/4/2015 13:59",

@@ -2,7 +2,7 @@ generate machine code
 concretizeCallFull
 	"Since CallFull (and JumpFull) is used to invoke code in dynamically-loaded plugins it shouldn't
 	 assume that code will be loaded within 2Gb of the code zone.  Hence generate a full 64-bit call,
-	 movabsq 0x123456789abcdef0, %rax; callq %rax."
+	 movabsq 0x123456789abcdef0, %rax; callq *%rax."
 	<inline: true>
 	| operand |
 	operand := operands at: 0.
@@ -18,5 +18,5 @@ concretizeCallFull
 		at: 8 put: (operand >> 48 bitAnd: 16rFF);
 		at: 9 put: (operand >> 56 bitAnd: 16rFF);
 		at: 10 put: 16rFF;
-		at: 11 put: (self mod: 3 RM: RAX RO: 2).
+		at: 11 put: (self mod: ModReg RM: RAX RO: 2).
 	^machineCodeSize := 12

@@ -5,7 +5,7 @@ concretizeNegateR
 	| reg |
 	reg := self concreteRegister: (operands at: 0).
 	machineCode
-		at: 0 put: (self rexR: reg x: 0 b: reg);
+		at: 0 put: (self rexR: 0 x: 0 b: reg);
 		at: 1 put: 16rF7;
 		at: 2 put: (self mod: ModReg RM: reg RO: 3).
 	^machineCodeSize := 3
