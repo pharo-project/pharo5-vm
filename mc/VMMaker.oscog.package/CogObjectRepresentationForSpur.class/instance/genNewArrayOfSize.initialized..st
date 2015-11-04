@@ -11,20 +11,16 @@ genNewArrayOfSize: size initialized: initialized
 					headerForSlots: size
 					format: objectMemory arrayFormat
 					classIndex: ClassArrayCompactIndex.
-	self flag: #endianness.
-	cogit
-		MoveAw: objectMemory freeStartAddress R: ReceiverResultReg;
-		MoveCq: (self low32BitsOf: header) R: TempReg;
-		MoveR: TempReg Mw: 0 r: ReceiverResultReg;
-		MoveCq: header >> 32 R: TempReg;
-		MoveR: TempReg Mw: 4 r: ReceiverResultReg.
+	cogit MoveAw: objectMemory freeStartAddress R: ReceiverResultReg.
+	self genLoadHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
 	(initialized and: [size > 0]) ifTrue:
 		[cogit genMoveConstant: objectMemory nilObject R: TempReg.
-		 1 to: size do:
-			[:i| cogit MoveR: TempReg Mw: i * 4 + 4 r: ReceiverResultReg]].
+		 0 to: size - 1 do:
+			[:i| cogit MoveR: TempReg
+					Mw: i * objectMemory wordSize + objectMemory baseHeaderSize
+					r: ReceiverResultReg]].
 	cogit
-		MoveR: ReceiverResultReg R: TempReg;
-		AddCq: (objectMemory smallObjectBytesForSlots: size) R: TempReg;
+		LoadEffectiveAddressMw: (objectMemory smallObjectBytesForSlots: size) r: ReceiverResultReg R: TempReg;
 		MoveR: TempReg Aw: objectMemory freeStartAddress;
 		CmpCq: objectMemory getScavengeThreshold R: TempReg.
 	skip := cogit JumpBelow: 0.
