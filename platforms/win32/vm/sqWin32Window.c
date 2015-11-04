@@ -1287,7 +1287,28 @@ int recordKeyboardEvent(MSG *msg) {
     
     /* so the image can distinguish between control sequence
      like SOH and characters with modifier like ctrl+a */
+/*
+{
+        FILE* f = fopen("key.txt", "a+");
+        fprintf(f,"utf32 %d keyCode %d charcode %d ctrl %d virt%d\n", evt->utf32Code, keyCode, evt->charCode, ctrl, virtCode);
+        fclose(f);
+
+}
+*/
+
+if(evt->pressCode == EventKeyChar && ctrl && evt->charCode == 10)
+{
+evt->utf32Code = VK_RETURN;
+evt->charCode = VK_RETURN;
+
+}
     if(evt->pressCode == EventKeyChar && ctrl)
+    {
+        FILE* f = fopen("key.txt", "a+");
+        fprintf(f,"utf32 %d keyCode %d charcode %d ctrl %d virt%d\n", evt->utf32Code, keyCode, evt->charCode, ctrl, virtCode);
+        fclose(f);
+    }
+    if(evt->charCode <= 30 && evt->pressCode == EventKeyChar && ctrl)
     {
         evt->utf32Code = keyCode + 96;
     }
@@ -1296,12 +1317,24 @@ int recordKeyboardEvent(MSG *msg) {
   /* note: several keys are not reported as character events;
      most noticably the mapped virtual keys. For those we
      generate extra character events here */
-  if(pressCode == EventKeyDown && virtCode != 0) {
+  if(pressCode == EventKeyDown && virtCode != 0 && evt->charCode != VK_RETURN) {
     /* generate extra character event */
     sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
     *extra = *evt;
     extra->pressCode = EventKeyChar;
   }
+  if(pressCode == EventKeyDown && virtCode == 0 && ctrl && evt->charCode == 77) {
+    /* generate extra character event */
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+/*  if(virtCode != 0 && pressCode == EventKeyDown && ctrl && (evt->charCode >= 48 && evt->charCode <= 57 || evt->charCode == 77) ) {
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+*/
   return 1;
 }
 
