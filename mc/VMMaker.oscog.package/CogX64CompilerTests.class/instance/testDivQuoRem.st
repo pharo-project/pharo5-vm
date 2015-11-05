@@ -60,5 +60,5 @@ testDivQuoRem
 								at: rrget put: (self processor convertIntegerToInternal: (dd rem: dv)).
 							map keysAndValuesDo:
 								[:accessor :value|
-								self assert: value = (self processor perform: accessor)]]]]]].
+								self assert: value equals: (self processor perform: accessor)]]]]]].
 	^ops

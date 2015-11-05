@@ -17,7 +17,6 @@
 		"genGetHashFieldNonImmOf:into:" : "eem 10/3/2013 14:48",
 		"genGetInlineCacheClassTagFrom:into:forEntry:" : "eem 5/23/2015 16:56",
 		"genGetNumBytesOf:into:" : "eem 4/14/2015 12:23",
-		"genGetNumSlotsOf:into:" : "eem 4/10/2015 15:56",
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
 		"genGetSizeOf:into:formatReg:scratchReg:abortJumpsInto:" : "eem 4/10/2015 18:08",
 		"genInnerPrimitiveAt:" : "eem 5/30/2015 11:34",

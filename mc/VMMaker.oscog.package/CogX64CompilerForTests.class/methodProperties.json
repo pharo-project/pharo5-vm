@@ -3,6 +3,7 @@
 		"byteRegistersWithNamesDo:" : "eem 9/28/2015 10:19",
 		"dataRegistersWithAccessorsDo:" : "eem 9/17/2015 11:27",
 		"dataRegistersWithAccessorsExcept:do:" : "eem 9/17/2015 11:28",
+		"doubleWordRegistersWithNamesDo:" : "eem 11/4/2015 13:59:22",
 		"fp64RegistersWithAccessorsDo:" : "eem 9/18/2010 17:04",
 		"fp64registers" : "eem 9/18/2010 17:02",
 		"registers" : "eem 9/17/2015 11:30",

@@ -213,6 +213,16 @@ computeMaximumSize
 							   or: [(self concreteRegister: (operands at: 2)) = R13])
 											ifTrue: [5]
 											ifFalse: [4]].
+		[MoveX32rRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
+							^(((self concreteRegister: (operands at: 1)) = RBP
+							   or: [(self concreteRegister: (operands at: 1)) = R13])
+										ifTrue: [7]
+										ifFalse: [6])
+							 + (((self concreteRegister: (operands at: 0)) > 7
+							     or: [(self concreteRegister: (operands at: 1)) > 7
+							     or: [(self concreteRegister: (operands at: 2)) > 7]])
+										ifTrue: [1]
+										ifFalse: [0])].
 		[PopR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
