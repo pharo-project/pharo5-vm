@@ -1,7 +1,9 @@
 inline cacheing
 rewriteFullTransferAt: callSiteReturnAddress target: callTargetAddress expectedInstruction: expectedInstruction
 	"Rewrite a CallFull or JumpFull instruction to transfer to a different target.
-	 This variant is used to rewrite cached primitive calls.   Answer the extent
+	 This variant is used to rewrite cached primitive calls where we load the target address into ip
+	and use the 'bx ip' or 'blx ip' instruction for the actual jump or call.
+	Answer the extent
 	 of the code change which is used to compute the range of the icache to flush."
 	<var: #callSiteReturnAddress type: #usqInt>
 	<var: #callTargetAddress type: #usqInt>

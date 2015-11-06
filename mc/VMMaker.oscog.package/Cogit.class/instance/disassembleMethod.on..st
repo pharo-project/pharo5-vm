@@ -17,7 +17,7 @@ disassembleMethod: surrogateOrAddress on: aStream
 
 	cogMethod cmType = CMClosedPIC ifTrue:
 		[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
-		 1 to: numPICCases - 1 do:
+		 1 to: maxCPICCases - 1 do:
 			[:i|
 			mapEntries
 				at: cogMethod asInteger + firstCPICCaseOffset + (i * cPICCaseSize)

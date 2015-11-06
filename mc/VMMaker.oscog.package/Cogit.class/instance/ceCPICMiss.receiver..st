@@ -18,7 +18,7 @@ ceCPICMiss: cPIC receiver: receiver
 		[^coInterpreter ceSendFromInLineCacheMiss: cPIC].
 	outerReturn := coInterpreter stackTop.
 	self deny: (backEnd inlineCacheTagAt: outerReturn) = self picAbortDiscriminatorValue. 
-	cPIC cPICNumCases < numPICCases
+	cPIC cPICNumCases < maxCPICCases
 		ifTrue:
 			[self lookup: cPIC selector
 				for: receiver
@@ -30,7 +30,7 @@ ceCPICMiss: cPIC receiver: receiver
 	"We assume lookupAndCog:for: will *not* reclaim the method zone"
 	self assert: outerReturn = coInterpreter stackTop.
 	cacheTag := objectRepresentation inlineCacheTagForInstance: receiver.
-	(cPIC cPICNumCases >= numPICCases
+	(cPIC cPICNumCases >= maxCPICCases
 	 or: [(errorSelectorOrNil notNil and: [errorSelectorOrNil ~= SelectorDoesNotUnderstand])
 	 or: [(objectRepresentation inlineCacheTagIsYoung: cacheTag)
 	 or: [newTargetMethodOrNil isNil

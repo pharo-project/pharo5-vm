@@ -65,7 +65,7 @@ declareCVarsIn: aCCodeGenerator
 					blockEntryLabel blockEntryNoContextSwitch
 					stackOverflowCall sendMiss
 					entry noCheckEntry selfSendEntry dynSuperEntry
-					picMNUAbort picInterpretAbort endCPICCase0 endCPICCase1)
+					picMNUAbort picInterpretAbort  endCPICCase0 endCPICCase1 cPICEndOfCodeLabel)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
 	aCCodeGenerator

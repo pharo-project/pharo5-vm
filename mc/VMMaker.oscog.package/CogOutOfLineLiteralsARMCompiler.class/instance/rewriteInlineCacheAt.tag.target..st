@@ -12,7 +12,7 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 	self assert: (self isInImmediateJumpRange: callDistance). "we don't support long call updates here"
 	call := self bl: callDistance.
 	objectMemory
-		longAt: callSiteReturnAddress - 4 put: call;
+		longAt: (self instructionAddressBefore: callSiteReturnAddress ) put: call;
 		longAt: (self pcRelativeAddressAt: callSiteReturnAddress - 8) put: cacheTag.
 	self assert: (self inlineCacheTagAt: callSiteReturnAddress) = cacheTag.
 	"self cCode: ''

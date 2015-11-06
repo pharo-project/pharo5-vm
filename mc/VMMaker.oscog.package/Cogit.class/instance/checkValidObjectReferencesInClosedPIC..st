@@ -4,11 +4,17 @@ checkValidObjectReferencesInClosedPIC: cPIC
 	| ok pc |
 	ok := true.
 	pc := cPIC asInteger + firstCPICCaseOffset.
+	
+	"first we check the obj ref at the beginning of the CPIC"
 	(self checkMaybeObjRefInClosedPIC: (literalsManager objRefInClosedPICAt: pc - backEnd jumpLongByteSize)) ifFalse:
 		[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 			print: ' @ '; printHex: pc - backEnd jumpLongByteSize; cr.
 		 ok := false].
-	pc := pc + cPICCaseSize.
+	
+	"Next we step over each case that is in use. We find the end address of the cPICNumCases'th case and can then just step forward by the case size thereafter"
+	pc := self addressOfEndOfCase: cPIC cPICNumCases inCPIC: cPIC.
+	
+	"For each case we check any object reference at the end address - sizeof(conditional instruction) and then increment the end address by case size"
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:

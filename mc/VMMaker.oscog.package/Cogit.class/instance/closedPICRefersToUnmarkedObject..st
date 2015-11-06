@@ -8,12 +8,12 @@ closedPICRefersToUnmarkedObject: cPIC
 	(objectMemory isImmediate: cPIC selector) ifFalse:
 		[(objectMemory isMarked: cPIC selector) ifFalse:
 			[^true]].
-	pc := cPIC asInteger + firstCPICCaseOffset.
 	"First jump is unconditional; subsequent ones are conditional"
 	offsetToLiteral := backEnd jumpLongByteSize.
 	1 to: cPIC cPICNumCases do:
-		[:i|
-		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+		[:i| 
+		pc := self addressOfEndOfCase: i inCPIC: cPIC.
+		(objectRepresentation inlineCacheTagsMayBeObjects and: [i>1] ) "inline cache tags for the 0th case are at the send site" ifTrue:
 			[object := literalsManager classRefInClosedPICAt: pc - offsetToLiteral.
 			 ((objectRepresentation couldBeObject: object)
 			  and: [(objectMemory isMarked: object) not]) ifTrue:
@@ -23,7 +23,7 @@ closedPICRefersToUnmarkedObject: cPIC
 		 and: [(objectMemory isMarked: object) not]) ifTrue:
 			[^true].
 		offsetToLiteral := backEnd jumpLongConditionalByteSize.
-		entryPoint := literalsManager cPICCase: i jumpTargetBefore: pc.
+		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
 		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
 		self assert: (entryPoint > methodZoneBase and: [entryPoint < methodZone freeStart]).
 		(cPIC containsAddress: entryPoint) ifFalse:
@@ -33,5 +33,5 @@ closedPICRefersToUnmarkedObject: cPIC
 			 (self markAndTraceOrFreeCogMethod: targetMethod
 				  firstVisit: targetMethod asUnsignedInteger > pc asUnsignedInteger) ifTrue:
 				[^true]].
-		pc := pc + cPICCaseSize].
+		].
 	^false

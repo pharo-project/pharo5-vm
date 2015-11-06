@@ -5,7 +5,7 @@ codeRangesFor: cogMethod
 	<doNotGenerate>
 	| pc end blockEntry starts |
 	cogMethod cmType = CMClosedPIC ifTrue:
-		[end := (self addressOfEndOfCase: cogMethod cPICNumCases - 1 inCPIC: cogMethod) + cPICEndSize.
+		[end := cogMethod asInteger + cPICEndOfCodeOffset - backEnd jumpLongByteSize.
 		 ^{ CogCodeRange
 				from: cogMethod asInteger + (self sizeof: CogMethod)
 				to: end

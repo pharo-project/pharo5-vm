@@ -14,8 +14,8 @@ initializeCodeZoneFrom: startAddress upTo: endAddress
 	ceGetSP := self cCoerceSimple: self genGetLeafCallStackPointer to: #'unsigned long (*)(void)'.
 	self generateStackPointerCapture.
 	self generateTrampolines.
-	methodZone manageFrom: methodZoneBase to: endAddress.
 	self computeEntryOffsets.
 	self generateClosedPICPrototype.
+	methodZone manageFrom: methodZoneBase to: endAddress.
 	"N.B. this is assumed to be the last thing done in initialization; see Cogit>>initialized"
 	self generateOpenPICPrototype

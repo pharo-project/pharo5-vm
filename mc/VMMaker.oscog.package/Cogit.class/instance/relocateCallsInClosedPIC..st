@@ -11,18 +11,17 @@ relocateCallsInClosedPIC: cPIC
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	1 to: cPIC cPICNumCases do:
 		[:i|
-		entryPoint := literalsManager cPICCase: i jumpTargetBefore: pc.
+		pc := self addressOfEndOfCase: i inCPIC: cPIC.
+		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
 		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
 		(cPIC containsAddress: entryPoint) ifFalse:
 			[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 			 self assert: targetMethod cmType = CMMethod.
-			 literalsManager
-				cPICCase: i
-				relocateJumpLongBefore: pc
-				by: (delta - targetMethod objectHeader) negated].
-		pc := pc + cPICCaseSize].
+			 backEnd
+				relocateJumpLongBeforeFollowingAddress: pc
+				by: (delta - targetMethod objectHeader) negated]].
 	self assert: cPIC cPICNumCases > 0.
-	pc := pc - cPICCaseSize.
+
 	"Finally relocate the load of the PIC and the jump to the overflow routine ceCPICMiss:receiver:"
-	backEnd relocateMethodReferenceBeforeAddress: pc + backEnd loadPICLiteralByteSize by: delta.
-	backEnd relocateJumpLongBeforeFollowingAddress: pc + cPICEndSize by: delta negated
+	backEnd relocateMethodReferenceBeforeAddress: (self addressOfEndOfCase: 2 inCPIC: cPIC)+ backEnd loadPICLiteralByteSize by: delta.
+	backEnd relocateJumpLongBeforeFollowingAddress: cPIC asInteger + cPICEndOfCodeOffset by: delta negated

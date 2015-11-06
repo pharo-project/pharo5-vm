@@ -8,7 +8,7 @@ expectedClosedPICPrototype: cPIC
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	"First jump is unconditional; subsequent ones are conditional"
 	offsetToLiteral := backEnd jumpLongByteSize.
-	1 to: numPICCases do:
+	1 to: maxCPICCases do:
 		[:i|
 		i > 1 ifTrue:
 			[object := literalsManager classRefInClosedPICAt: pc - offsetToLiteral.
@@ -20,12 +20,12 @@ expectedClosedPICPrototype: cPIC
 					ifFalse: [16rBADA550 + i - 1]) ifFalse:
 			[^2].
 		offsetToLiteral := backEnd jumpLongConditionalByteSize.
-		entryPoint := literalsManager cPICCase: i jumpTargetBefore: pc.
+		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
 		entryPoint = (self cPICPrototypeCaseOffset + 16rCA5E10 + (i - 1 * 16)) ifFalse:
 				[^3].
 		pc := pc + cPICCaseSize].
 	pc := pc - cPICCaseSize.
-	entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc + cPICEndSize.
+	entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc + cPICEndSize - literalsManager endSizeOffset.
 	entryPoint = (self cPICMissTrampolineFor: 0) ifFalse:
 		[^4].
 	^0
