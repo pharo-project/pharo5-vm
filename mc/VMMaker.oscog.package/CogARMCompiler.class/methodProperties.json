@@ -27,6 +27,7 @@
 		"bl:" : "tpr 3/12/2015 18:17",
 		"blx:" : "eem 4/20/2015 17:14",
 		"bx:" : "eem 4/20/2015 17:13",
+		"byteReadsZeroExtend" : "rmacnak 11/3/2015 23:03:34",
 		"cResultRegister" : "lw 8/23/2012 23:04",
 		"callFullTargetFromReturnAddress:" : "eem 09/28/2015 18:48",
 		"callInstructionByteSize" : "eem 4/19/2015 08:33",
