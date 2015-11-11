@@ -12,6 +12,7 @@
 		"isPCDependent" : "eem 6/9/2015 21:04",
 		"literalBeforeFollowingAddress:" : "eem 9/28/2015 19:01",
 		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
+		"loadLiteralByteSize" : "tpr 11/11/2015 11:05",
 		"moveCw:intoR:" : "eem 6/8/2015 14:53",
 		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:07",
 		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 9/28/2015 19:02",

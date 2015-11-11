@@ -11,6 +11,7 @@
 		"literalBeforeFollowingAddress:" : "tpr 10/23/2015 16:22",
 		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
 		"literalOpcodeIndex" : "eem 6/16/2015 17:31",
+		"loadLiteralByteSize" : "tpr 11/11/2015 11:05",
 		"mapEntryAddress" : "eem 6/11/2015 16:53",
 		"moveCw:intoR:" : "eem 6/18/2015 16:06",
 		"outOfLineLiteralOpcodeLimit" : "eem 6/19/2015 10:52",

@@ -4,6 +4,6 @@ addressOfEndOfCase: n inCPIC: cPIC
 
 	<var: #cPIC type: #'CogMethod *'>
 	self assert: (n >= 1and: [n <= maxCPICCases]).
-	n = 1
-		ifTrue: [^ cPIC asInteger + firstCPICCaseOffset]
-		ifFalse: [^ cPIC asInteger + firstCPICCaseOffset + (maxCPICCases + 1 - n * cPICCaseSize)]
+	^n = 1
+		ifTrue: [cPIC asInteger + firstCPICCaseOffset]
+		ifFalse: [cPIC asInteger + firstCPICCaseOffset + (maxCPICCases + 1 - n * cPICCaseSize)]

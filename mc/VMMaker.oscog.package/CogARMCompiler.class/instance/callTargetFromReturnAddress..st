@@ -6,4 +6,5 @@ callTargetFromReturnAddress: callSiteReturnAddress
 	call := self instructionBeforeAddress: callSiteReturnAddress.
 	self assert: ((self instructionIsB: call) or: [self instructionIsBL: call]).
 	callDistance := self extractOffsetFromBL: call.
-	^callSiteReturnAddress + 4 "this is the pc's +8 offset, - the 4 byte correction for the previous instruction address" + callDistance signedIntFromLong
+	"this is the pc's +8 offset, - the 4 byte correction for the previous instruction address"
+	^callSiteReturnAddress + 4  + callDistance signedIntFromLong

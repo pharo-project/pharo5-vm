@@ -8,7 +8,7 @@ cPIC: cPIC HasTarget: targetMethod
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	"Since this is a fast test doing simple compares we don't need to care that some
 	cases have nonsense addresses in there. Just zip on through"
-	1 to: cPIC cPICNumCases do:
+	1 to: maxCPICCases do:
 		[:i|
 		target = (backEnd jumpLongTargetBeforeFollowingAddress: pc) ifTrue:
 			[^true].
