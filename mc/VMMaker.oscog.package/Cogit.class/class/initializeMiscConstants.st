@@ -12,7 +12,8 @@ initializeMiscConstants
 	ProcessorClass := (initializationOptions at: #ISA ifAbsentPut: [#IA32]) caseOf: {
 							[#X64] 		->	[BochsX64Alien].
 							[#IA32] 	->	[BochsIA32Alien].
-							[#ARMv5]	->	[GdbARMAlien]. }.
+							[#ARMv5]	->	[GdbARMAlien].
+							[#MIPSEL]	->	[MIPSELSimulator] }.
 	CogCompilerClass := self activeCompilerClass.
 	(CogCompilerClass withAllSuperclasses copyUpTo: CogAbstractInstruction) do:
 		[:compilerClass| compilerClass initialize].

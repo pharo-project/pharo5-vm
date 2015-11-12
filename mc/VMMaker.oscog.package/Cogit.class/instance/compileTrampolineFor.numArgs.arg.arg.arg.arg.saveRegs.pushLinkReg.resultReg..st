@@ -18,5 +18,9 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 		saveRegs: saveRegs.
 	backEnd genLoadStackPointers.
 	(pushLinkReg and: [backEnd hasLinkRegister])
-		ifTrue: [self PopR: PCReg] "since we know there is no SP messing to do, might as well pop the stacked return address straight into PC"
-		ifFalse:[ self RetN: 0]
+		ifTrue: [
+			backEnd hasPCRegister
+				ifTrue: [self PopR: PCReg]
+				ifFalse: [self PopR: LinkReg. 
+						self RetN: 0]]
+		ifFalse: [self RetN: 0]

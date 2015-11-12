@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Cmp",
+		"CmpSGT",
+		"CmpSLT",
+		"CmpUGT",
+		"CmpULT",
+		"ConcreteVarBaseReg",
+		"TargetReg" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogMIPSELCompiler",
+	"pools" : [
+		"MIPSConstants" ],
+	"super" : "CogAbstractInstruction",
+	"type" : "normal" }
