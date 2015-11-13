@@ -12,10 +12,9 @@ configureCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag
 	addDelta is the address change from the prototype to the new CPCI location, needed
 	because the loading of the CPIC lable at the end may use a literal instead of a pc relative"
 	<var: #cPIC type: #'CogMethod *'>
-	| operand targetEntry caseEndAddress|
 	<var: #case0CogMethod type: #'CogMethod *'>
+	| operand targetEntry caseEndAddress|
 	<var: #targetEntry type: #'void *'>
-	<var: #jumpNext type: #'AbstractInstruction *'>
 	self assert: case1Method notNil.
 
 	"adjust the jump at missOffset, the ceAbortXArgs"

@@ -6,7 +6,6 @@ configureMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs delta: addr
 	because the loading of the CPIC label at the end may use a literal instead of a pc relative"
 	<var: #cPIC type: #'CogMethod *'>
 	| operand |
-	<var: #jumpNext type: #'AbstractInstruction *'>
 
 	"adjust the jump at missOffset, the ceAbortXArgs"
 	backEnd rewriteJumpLongAt: cPIC asInteger + missOffset target: (self picAbortTrampolineFor: numArgs).

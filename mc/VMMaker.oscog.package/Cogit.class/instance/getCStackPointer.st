@@ -5,4 +5,4 @@ getCStackPointer
 	"and in the simulator we use..."
 	^(backEnd wantsNearAddressFor: #CStackPointer)
 		ifTrue: [CStackPointer]
-		ifFalse: [objectMemory longAt: coInterpreter inMemoryCStackPointerAddress]
+		ifFalse: [(objectMemory longAt: coInterpreter inMemoryCStackPointerAddress) asVoidPointer]

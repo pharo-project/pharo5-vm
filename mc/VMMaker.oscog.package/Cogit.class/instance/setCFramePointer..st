@@ -5,6 +5,6 @@ setCFramePointer: aFramePointer
 	"and in the simulator we use..."
 	^(backEnd wantsNearAddressFor: #CFramePointer)
 		ifTrue: [CFramePointer := aFramePointer]
-		ifFalse: [objectMemory
+		ifFalse: [(objectMemory
 					longAt: coInterpreter inMemoryCFramePointerAddress
-					put: aFramePointer]
+					put: aFramePointer) asVoidPointer]

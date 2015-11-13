@@ -5,6 +5,6 @@ setCStackPointer: aStackPointer
 	"and in the simulator we use..."
 	^(backEnd wantsNearAddressFor: #CStackPointer)
 		ifTrue: [CStackPointer := aStackPointer]
-		ifFalse: [objectMemory
+		ifFalse: [(objectMemory
 					longAt: coInterpreter inMemoryCStackPointerAddress
-					put: aStackPointer]
+					put: aStackPointer) asVoidPointer]
