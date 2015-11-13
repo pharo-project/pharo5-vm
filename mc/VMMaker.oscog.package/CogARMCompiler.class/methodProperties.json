@@ -18,7 +18,7 @@
 		"add:rn:imm:ror:" : "tpr 3/12/2015 18:08",
 		"add:rn:rm:" : "tpr 3/12/2015 18:08",
 		"adds:rn:imm:ror:" : "tpr 3/12/2015 18:09",
-		"aeabiDiv:Mod:" : "tpr 11/6/2015 12:54",
+		"aeabiDiv:Mod:" : "eem 11/11/2015 12:37:16",
 		"aeabiDivModFunctionAddr" : "tpr 7/13/2015 15:49",
 		"and:rn:imm:ror:" : "tpr 3/12/2015 18:10",
 		"ands:rn:imm:ror:" : "tpr 3/12/2015 18:11",
