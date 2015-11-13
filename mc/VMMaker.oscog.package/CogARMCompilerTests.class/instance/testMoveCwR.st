@@ -2,18 +2,16 @@ tests
 testMoveCwR
 	"self new testMoveCwR"
 	
-	| memory |
-	memory := ByteArray new: 16.
 	#(16rFF00FF00 16r00000012 16r12345678) do:
-		[:n| | inst len |
+		[:n|
 		self concreteCompilerClass dataRegistersWithAccessorsDo: 
-			[ :r :rgetter :rset |
+			[ :r :rgetter :rset | | inst len memory |
 			inst := self gen: MoveCwR operand: n operand: r.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self processor
 				reset.
-			[[processor pc < len] whileTrue:
+			[[processor pc < inst machineCodeSize] whileTrue:
 				[self processor singleStepIn: memory]]
 				on: Error
 				do: [:ex| ].

@@ -1,15 +1,13 @@
 running
 testNegateR
 	"self defaultTester testNegateR"
-	| memory |
-	memory := ByteArray new: self concreteCompilerClass new machineCodeBytes.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:reg :rgetter :rsetter|
 		-2 to: 2 do:
-			[:a| | inst len |
+			[:a| | inst len memory |
 			inst := self gen: NegateR operand: reg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self processor
 				reset;
 				perform: rsetter with: (processor convertIntegerToInternal: a).

@@ -10,5 +10,5 @@
 	"name" : "CogARMCompilerForTests",
 	"pools" : [
 		 ],
-	"super" : "CogARMCompiler",
+	"super" : "CogInLineLiteralsARMCompiler",
 	"type" : "normal" }

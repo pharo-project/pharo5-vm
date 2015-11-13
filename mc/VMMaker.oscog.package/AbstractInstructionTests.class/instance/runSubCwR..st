@@ -1,15 +1,13 @@
 running
 runSubCwR: assertPrintBar
 	"self defaultTester runSubCwR: false"
-	| memory |
-	memory := ByteArray new: self concreteCompilerClass new machineCodeBytes.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:reg :rgetter :rsetter|
 		self pairs: (-2 to: 2)  do:
-			[:a :b| | inst len bogus |
+			[:a :b| | inst len bogus memory |
 			inst := self gen: SubCwR operand: a operand: reg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self processor
 				reset;
 				perform: rsetter with: (self processor convertIntegerToInternal: b).

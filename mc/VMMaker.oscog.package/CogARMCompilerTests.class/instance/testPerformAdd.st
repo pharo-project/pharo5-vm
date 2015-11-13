@@ -11,7 +11,7 @@ testPerformAdd
  			self gen: MoveCwR operand: n operand: r.
 			self gen: AddCqR operand: 42 operand: r.
 			memory := self generateInstructions.
-			self disassembleOpcodesIn: memory to: Transcript	.
+			"self disassembleOpcodesIn: memory to: Transcript."
 			self processor
 				reset.
 			[[processor pc < memory size] whileTrue:

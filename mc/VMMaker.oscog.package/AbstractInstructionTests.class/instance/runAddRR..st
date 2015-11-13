@@ -2,15 +2,13 @@ running
 runAddRR: assertPrintBar
 	"self defaultTester runAddRR: false"
 	"self defaultTester runAddRR: true"
-	| memory |
-	memory := ByteArray new: 16.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:sreg :srgetter :srsetter|
 		self concreteCompilerClass dataRegistersWithAccessorsDo:
-			[:dreg :drgetter :drsetter| | inst len |
+			[:dreg :drgetter :drsetter| | inst len memory |
 			inst := self gen: AddRR operand: sreg operand: dreg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self pairs: (-2 to: 2)  do:
 				[:a :b| | bogus |
 				self processor

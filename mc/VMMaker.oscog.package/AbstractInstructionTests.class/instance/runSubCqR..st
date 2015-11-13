@@ -1,15 +1,13 @@
 running
 runSubCqR: assertPrintBar
 	"self defaultTester runSubCqR: false"
-	| memory |
-	memory := ByteArray new: 16.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:reg :rgetter :rsetter|
 		self pairs: (-2 to: 2)  do:
-			[:a :b| | inst len bogus |
+			[:a :b| | inst len bogus memory |
 			inst := self gen: SubCqR operand: a operand: reg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self processor
 				reset;
 				perform: rsetter with: (processor convertIntegerToInternal: b).

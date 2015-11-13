@@ -1,15 +1,13 @@
 running
 runSubRR: assertPrintBar
 	"self defaultTester runSubRR: false"
-	| memory |
-	memory := ByteArray new: self concreteCompilerClass new machineCodeBytes.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:sreg :srgetter :srsetter|
 		self concreteCompilerClass dataRegistersWithAccessorsDo:
-			[:dreg :drgetter :drsetter| | inst len |
+			[:dreg :drgetter :drsetter| | inst len memory |
 			inst := self gen: SubRR operand: sreg operand: dreg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self pairs: (-2 to: 2)  do:
 				[:a :b| | bogus |
 				self processor

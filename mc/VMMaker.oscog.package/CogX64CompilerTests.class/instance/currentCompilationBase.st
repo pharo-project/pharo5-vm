@@ -1,3 +1,0 @@
-accessing
-currentCompilationBase
-	^16r8000

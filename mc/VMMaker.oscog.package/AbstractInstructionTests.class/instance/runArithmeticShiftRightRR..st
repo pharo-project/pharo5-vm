@@ -2,15 +2,13 @@ running
 runArithmeticShiftRightRR: assertPrintBar
 	"self defaultTester runArithmeticShiftRightRR: false"
 	"self defaultTester runArithmeticShiftRightRR: true"
-	| memory |
-	memory := ByteArray new: 16.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:sreg :srgetter :srsetter|
 		self concreteCompilerClass dataRegistersWithAccessorsDo:
-			[:dreg :drgetter :drsetter| | inst len |
+			[:dreg :drgetter :drsetter| | inst len memory |
 			inst := self gen: ArithmeticShiftRightRR operand: sreg operand: dreg.
 			len := inst concretizeAt: 0.
-			memory replaceFrom: 1 to: len with: inst machineCode object startingAt: 1.
+			memory := self memoryAsBytes: inst machineCode.
 			self pairs: (-5 to: 19 by: 6)  do:
 				[:a :b| | bogus |
 				(a >= 0 and: [sreg ~= dreg or: [b >= 0]]) ifTrue:
