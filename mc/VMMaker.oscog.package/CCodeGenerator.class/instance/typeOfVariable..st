@@ -9,4 +9,9 @@ typeOfVariable: varName "<String>"
 				fromDeclaration: (dict at: varName)]].
 	^self
 		extractTypeFor: varName
-		fromDeclaration: (variableDeclarations at: varName ifAbsent: [^nil])
+		fromDeclaration: (variableDeclarations
+							at: varName
+							ifAbsent:
+								[apiVariables
+									ifNotNil: [apiVariables at: varName ifAbsent: [^nil]]
+									ifNil: [^nil]])

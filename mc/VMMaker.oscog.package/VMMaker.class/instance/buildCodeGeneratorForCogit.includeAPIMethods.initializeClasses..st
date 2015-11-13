@@ -2,7 +2,7 @@ generate sources
 buildCodeGeneratorForCogit: cogitClass includeAPIMethods: getAPIMethods initializeClasses: initializeClasses
 	"Answer the code generator for translating the cogit."
 
-	| cg cogitClasses apicg |
+	| cg cogitClasses |
 	cg := self createCogitCodeGenerator.
 
 	cg vmClass: cogitClass.
@@ -19,11 +19,10 @@ buildCodeGeneratorForCogit: cogitClass includeAPIMethods: getAPIMethods initiali
 	cg addStructClasses: (cg structClassesForTranslationClasses: cogitClasses).
 
 	getAPIMethods ifTrue:
-		[apicg := self
-					buildCodeGeneratorForInterpreter: self interpreterClass
-					includeAPIMethods: false
-					initializeClasses: false.
-		 cg apiMethods: apicg selectAPIMethods].
+		[cg includeAPIFrom: (self
+								buildCodeGeneratorForInterpreter: self interpreterClass
+								includeAPIMethods: false
+								initializeClasses: false)].
 
 	cg removeConstant: #VMBIGENDIAN. "this should be defined in platforms/??/vm/sqConfig.h"
 

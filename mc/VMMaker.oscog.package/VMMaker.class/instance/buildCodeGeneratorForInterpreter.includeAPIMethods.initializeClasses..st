@@ -2,7 +2,7 @@ generate sources
 buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMethods initializeClasses: initializeClasses
 	"Answer the code generator for translating the interpreter."
 
-	| cg interpreterClasses apicg |
+	| cg interpreterClasses |
 	initializeClasses ifTrue:
 		[interpreterClass initializeWithOptions: optionsDictionary.
 		 interpreterClass hasCogit ifTrue:
@@ -39,11 +39,10 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 	getAPIMethods ifTrue:
 		[interpreterClass cogitClass ifNotNil:
 			[:cogitClass|
-			 apicg := self
-						buildCodeGeneratorForCogit: cogitClass
-						includeAPIMethods: false
-						initializeClasses: false.
-			 cg apiMethods: apicg selectAPIMethods]].
+			 cg includeAPIFrom: (self
+									buildCodeGeneratorForCogit: cogitClass
+									includeAPIMethods: false
+									initializeClasses: false)]].
 
 	cg removeConstant: #VMBIGENDIAN. "this should be defined in platforms/??/vm/sqConfig.h"
 

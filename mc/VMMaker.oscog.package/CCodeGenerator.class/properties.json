@@ -18,6 +18,7 @@
 		"methods",
 		"macros",
 		"apiMethods",
+		"apiVariables",
 		"kernelReturnTypes",
 		"currentMethod",
 		"headerFiles",
