@@ -5,10 +5,9 @@ literalBeforeFollowingAddress: followingAddress
 	
 	"lui/ori, lui/ori/sw/addi, lui/ori/subu/slt/slt/sltu/sltu"
 	
-	| lastInstruction lastOpcode lastFunction oriAddress |
-	lastInstruction := objectMemory longAt: followingAddress - 4.
-	lastOpcode := lastInstruction >> 26.
-	lastFunction := lastInstruction bitAnd: 63.
+	| lastOpcode lastFunction oriAddress |
+	lastOpcode := self opcodeAtAddress: followingAddress - 4.
+	lastFunction := self functionAtAddress: followingAddress - 4.
 	oriAddress := 0.
 	lastOpcode = ORI ifTrue: [oriAddress := followingAddress - 4].
 	lastOpcode = ADDIU ifTrue: [oriAddress := followingAddress - 16].

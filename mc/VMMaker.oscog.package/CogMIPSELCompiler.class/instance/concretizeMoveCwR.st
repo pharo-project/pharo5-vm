@@ -5,5 +5,5 @@ concretizeMoveCwR
 	word := operands at: 0.
 	reg := self concreteRegister: (operands at: 1).	
 	self machineCodeAt: 0 put: (self luiR: reg C: (self high16BitsOf: word)).
-	self machineCodeAt: 4 put: (self oriR: reg R: ZR C: (self low16BitsOf: word)).
+	self machineCodeAt: 4 put: (self oriR: reg R: reg C: (self low16BitsOf: word)).
 	^machineCodeSize := 8

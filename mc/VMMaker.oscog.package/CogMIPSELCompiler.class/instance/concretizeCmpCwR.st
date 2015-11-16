@@ -6,7 +6,7 @@ concretizeCmpCwR
 	self flag: #todo. "value - reg or reg - value?"
 	self flag: #inefficient. "Cog RTL assumes we can do any kind of conditional branch after a Cmp."
 	self machineCodeAt: 0 put: (self luiR: AT C: (self high16BitsOf: value)).
-	self machineCodeAt: 4 put: (self oriR: AT R: ZR C: (self low16BitsOf: value)).
+	self machineCodeAt: 4 put: (self oriR: AT R: AT C: (self low16BitsOf: value)).
 	self machineCodeAt: 8 put: (self subuR: Cmp R: reg R: AT).
 	self machineCodeAt: 12 put: (self sltR: CmpSLT R: reg R: AT).
 	self machineCodeAt: 16 put: (self sltR: CmpSGT R: AT R: reg).
