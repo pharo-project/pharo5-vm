@@ -1,3 +1,3 @@
 accessing
 trace
-	^memory long64At: address + 57
+	^memory longAt: address + 57

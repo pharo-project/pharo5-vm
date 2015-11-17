@@ -1,3 +1,3 @@
 accessing
 padToWord
-	^memory long64At: address + 65
+	^memory longAt: address + 61
