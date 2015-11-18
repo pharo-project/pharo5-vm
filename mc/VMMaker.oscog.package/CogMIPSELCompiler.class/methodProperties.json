@@ -1,7 +1,7 @@
 {
 	"class" : {
 		"ISA" : "rmacnak 11/8/2015 17:11:17",
-		"initialize" : "rmacnak 11/16/2015 21:10:25" },
+		"initialize" : "eem 11/18/2015 12:26" },
 	"instance" : {
 		"addiuR:R:C:" : "rmacnak 11/8/2015 15:34:28",
 		"adduR:R:R:" : "rmacnak 11/5/2015 20:22:50",
@@ -150,6 +150,7 @@
 		"nameForRegister:" : "rmacnak 11/9/2015 19:40:56",
 		"nop" : "rmacnak 10/27/2015 22:22:12",
 		"nopsFrom:to:" : "rmacnak 11/9/2015 19:46:30",
+		"noteFollowingConditionalBranch:" : "eem 11/18/2015 12:34",
 		"numIntRegArgs" : "rmacnak 11/9/2015 20:07:19",
 		"numberOfSaveableRegisters" : "rmacnak 11/9/2015 23:40:21",
 		"opcodeAtAddress:" : "rmacnak 11/11/2015 19:28:13",
@@ -169,6 +170,7 @@
 		"rtype:rs:rt:rd:sa:funct:" : "rmacnak 11/16/2015 20:04:44",
 		"saveAndRestoreLinkRegAround:" : "rmacnak 11/9/2015 21:51:42",
 		"sbR:base:offset:" : "rmacnak 11/8/2015 15:35:32",
+		"setOpcode:andOperandsFrom:" : "eem 11/18/2015 12:31",
 		"shR:base:offset:" : "rmacnak 11/8/2015 15:35:38",
 		"sizePCDependentInstructionAt:" : "rmacnak 11/9/2015 21:15:01",
 		"sllR:R:C:" : "rmacnak 11/6/2015 17:32:54",

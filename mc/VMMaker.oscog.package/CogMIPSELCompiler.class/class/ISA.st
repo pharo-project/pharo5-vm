@@ -1,3 +1,3 @@
-as yet unclassified
+class initialization
 ISA
 	^#MIPSEL

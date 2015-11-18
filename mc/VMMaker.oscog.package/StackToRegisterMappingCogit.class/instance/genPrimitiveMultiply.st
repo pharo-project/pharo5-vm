@@ -8,7 +8,7 @@ genPrimitiveMultiply
 	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg..
 	objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ClassReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: Arg1Reg.
-	self MulCheckOverflowR: Arg1Reg R: ClassReg.
+	self MulR: Arg1Reg R: ClassReg.
 	jumpOvfl := self JumpOverflow: 0.
 	objectRepresentation genSetSmallIntegerTagsIn: ClassReg.
 	self MoveR: ClassReg R: ReceiverResultReg.

@@ -6,7 +6,7 @@ genPrimitiveAdd
 	self MoveR: Arg0Reg R: ClassReg.
 	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ClassReg.
-	self AddCheckOverflowR: ReceiverResultReg R: ClassReg.
+	self AddR: ReceiverResultReg R: ClassReg.
 	jumpOvfl := self JumpOverflow: 0.
 	self MoveR: ClassReg R: ReceiverResultReg.
 	self RetN: 0.

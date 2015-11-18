@@ -1,4 +1,4 @@
-as yet unclassified
+class initialization
 initialize
 	"CogMIPSELCompiler initialize"
 
@@ -18,4 +18,14 @@ initialize
 
 	"OABI position independent code expects T9 to have its entry point on entry?"
 	self flag: #OABI.
-	TargetReg := T9. 
+	TargetReg := T9.
+
+	"Specific instructions"
+	self
+		initializeSpecificOpcodes: #(MulRR
+									AddCheckOverflowCqR AddCheckOverflowRR MulCheckOverflowRR SubCheckOverflowCqR SubCheckOverflowRR
+									"Ryan, here are proposed opcodes for conditional branches."
+									BrEqRR BrNeRR BrLezRR BrGtzRR)
+		in: thisContext method
+		
+	

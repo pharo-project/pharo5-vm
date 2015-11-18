@@ -171,8 +171,6 @@ initialize
 						CmpCqR AddCqR SubCqR AndCqR OrCqR TstCqR XorCqR
 						CmpCwR CmpC32R AddCwR SubCwR AndCwR OrCwR XorCwR
 
-						AddCheckOverflowCqR AddCheckOverflowRR SubCheckOverflowCqR SubCheckOverflowRR MulCheckOverflowRR
-
 						AndCqRR
 
 						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd

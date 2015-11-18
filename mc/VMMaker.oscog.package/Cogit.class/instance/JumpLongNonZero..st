@@ -2,4 +2,5 @@ abstract instructions
 JumpLongNonZero: jumpTarget
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
-	^self gen: JumpLongNonZero operand: jumpTarget asInteger
+	^self previousInstruction noteFollowingConditionalBranch:
+		(self gen: JumpLongNonZero operand: jumpTarget asInteger)

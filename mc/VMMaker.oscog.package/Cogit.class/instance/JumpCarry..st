@@ -3,4 +3,5 @@ JumpCarry: jumpTarget
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
 	<var: #jumpTarget type: #'void *'>
-	^self gen: JumpCarry operand: jumpTarget asInteger
+	^self previousInstruction noteFollowingConditionalBranch:
+		(self gen: JumpCarry operand: jumpTarget asInteger)

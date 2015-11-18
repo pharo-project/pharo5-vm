@@ -5,7 +5,7 @@ genPrimitiveSubtract
 	<var: #jumpOvfl type: #'AbstractInstruction *'>
 	jumpNotSI := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	self MoveR: ReceiverResultReg R: TempReg.
-	self SubCheckOverflowR: Arg0Reg R: TempReg.
+	self SubR: Arg0Reg R: TempReg.
 	jumpOvfl := self JumpOverflow: 0.
 	objectRepresentation genAddSmallIntegerTagsTo: TempReg.
 	self MoveR: TempReg R: ReceiverResultReg.

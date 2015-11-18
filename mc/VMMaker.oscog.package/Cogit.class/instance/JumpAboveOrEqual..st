@@ -3,4 +3,5 @@ JumpAboveOrEqual: jumpTarget
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
 	<var: #jumpTarget type: #'void *'>
-	^self gen: JumpAboveOrEqual operand: jumpTarget asInteger
+	^self previousInstruction noteFollowingConditionalBranch:
+		(self gen: JumpAboveOrEqual operand: jumpTarget asInteger)
