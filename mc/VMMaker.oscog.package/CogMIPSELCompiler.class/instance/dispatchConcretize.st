@@ -27,7 +27,7 @@ dispatchConcretize
 		[JumpNegative]				-> [^self concretizeUnimplemented].
 		[JumpNonNegative]			-> [^self concretizeUnimplemented].
 		[JumpOverflow]				-> [^self concretizeUnimplemented].
-		[JumpNoOverflow]			-> [^self concretizeUnimplemented].
+		[JumpNoOverflow]			-> [^self concretizeJumpNoOverflow].
 		[JumpCarry]				-> [^self concretizeUnimplemented].
 		[JumpNoCarry]				-> [^self concretizeUnimplemented].
 		[JumpLess]					-> [^self concretizeJumpSignedLessThan].
@@ -76,7 +76,7 @@ dispatchConcretize
 		[SubRdRd]					-> [^self concretizeUnimplemented].
 		[SqrtRd]					-> [^self concretizeUnimplemented].
 		[NegateR]						-> [^self concretizeNegateR].
-		[LoadEffectiveAddressMwrR]	-> [^self concretizeUnimplemented].
+		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].
 		[LogicalShiftRightCqR]			-> [^self concretizeLogicalShiftRightCqR].
 		[LogicalShiftLeftCqR]			-> [^self concretizeLogicalShiftLeftCqR].
@@ -89,6 +89,8 @@ dispatchConcretize
 		[MoveRR]			-> [^self concretizeMoveRR].
 		[MoveAwR]			-> [^self concretizeMoveAwR].
 		[MoveRAw]			-> [^self concretizeMoveRAw].
+		[MoveAbR]			-> [^self concretizeMoveAbR].
+		[MoveRAb]			-> [^self concretizeMoveRAb].
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
 		[MoveRMbr]			-> [^self concretizeUnimplemented].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
@@ -102,8 +104,9 @@ dispatchConcretize
 		[MoveRdM64r]		-> [^self concretizeUnimplemented].
 		[PopR]				-> [^self concretizePopR].
 		[PushR]				-> [^self concretizePushR].
-		[PushCq]			-> [^self concretizeUnimplemented].
-		[PushCw]			-> [^self concretizeUnimplemented].
-		[PrefetchAw]		-> [^self concretizeUnimplemented].
+		[PushCq]			-> [^self concretizePushCq].
+		[PushCw]			-> [^self concretizePushCw].
+		[PrefetchAw]		-> [^self concretizePrefetchAw].
+		[SubCheckOverflowCqR] -> [^self concretizeSubCheckOverflowCqR].
 		"Conversion"
 		[ConvertRRd]		-> [^self concretizeUnimplemented]}

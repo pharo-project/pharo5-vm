@@ -3,6 +3,8 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"AddCheckOverflowCqR",
+		"AddCheckOverflowRR",
 		"AddCqR",
 		"AddCwR",
 		"AddRR",
@@ -140,6 +142,8 @@
 		"SendNumArgsReg",
 		"SqrtRd",
 		"Stop",
+		"SubCheckOverflowCqR",
+		"SubCheckOverflowRR",
 		"SubCqR",
 		"SubCwR",
 		"SubRR",

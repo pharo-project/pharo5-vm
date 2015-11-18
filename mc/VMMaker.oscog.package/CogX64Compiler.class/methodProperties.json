@@ -82,6 +82,7 @@
 		"genSaveRegisters" : "eem 9/26/2015 18:11",
 		"genSaveStackPointers" : "eem 9/23/2015 17:33",
 		"genSubstituteReturnAddress:" : "eem 5/6/2009 10:40",
+		"hasConditionRegister" : "rmacnak 11/17/2015 18:18:35",
 		"hasDoublePrecisionFloatingPointSupport" : "eem 9/21/2015 13:00",
 		"hasLinkRegister" : "eem 9/23/2015 17:32",
 		"hasThreeAddressArithmetic" : "eem 3/28/2015 12:46",

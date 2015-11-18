@@ -17,8 +17,8 @@ configureCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag
 	<var: #targetEntry type: #'void *'>
 	self assert: case1Method notNil.
 
-	"adjust the jump at missOffset, the ceAbortXArgs"
-	backEnd rewriteJumpLongAt: cPIC asInteger + missOffset target: (self picAbortTrampolineFor: numArgs).
+	"adjust the call at missOffset, the ceAbortXArgs"
+	backEnd rewriteCallAt: cPIC asInteger + missOffset target: (self picAbortTrampolineFor: numArgs).
 	
 	self assert: (objectRepresentation inlineCacheTagIsYoung: case1Tag) not.
 	(isMNUCase not

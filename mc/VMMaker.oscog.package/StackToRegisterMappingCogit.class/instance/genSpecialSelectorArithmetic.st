@@ -56,13 +56,13 @@ genSpecialSelectorArithmetic
 	primDescriptor opcode caseOf: {
 		[AddRR] -> [argIsInt
 						ifTrue:
-							[instToAnnotate := self AddCq: argInt - ConstZero R: ReceiverResultReg.
+							[instToAnnotate := self AddCheckOverflowCq: argInt - ConstZero R: ReceiverResultReg.
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before continuing"
 							 self SubCq: argInt - ConstZero R: ReceiverResultReg]
 						ifFalse:
 							[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ReceiverResultReg.
-							 self AddR: Arg0Reg R: ReceiverResultReg.
+							 self AddCheckOverflowR: Arg0Reg R: ReceiverResultReg.
 							jumpContinue := self JumpNoOverflow: 0.
 							"overflow; must undo the damage before continuing"
 							 rcvrIsInt
@@ -72,13 +72,13 @@ genSpecialSelectorArithmetic
 									 objectRepresentation genSetSmallIntegerTagsIn: ReceiverResultReg]]].
 		[SubRR] -> [argIsInt
 						ifTrue:
-							[instToAnnotate := self SubCq: argInt - ConstZero R: ReceiverResultReg.
+							[instToAnnotate := self SubCheckOverflowCq: argInt - ConstZero R: ReceiverResultReg.
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before continuing"
 							 self AddCq: argInt - ConstZero R: ReceiverResultReg]
 						ifFalse:
 							[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: Arg0Reg.
-							 self SubR: Arg0Reg R: ReceiverResultReg.
+							 self SubCheckOverflowR: Arg0Reg R: ReceiverResultReg.
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before continuing"
 							 self AddR: Arg0Reg R: ReceiverResultReg.

@@ -75,11 +75,7 @@ computeMaximumSize
 		[XorRR]					-> [^4].
 		[SubRR]					-> [^4].
 		[NegateR]				-> [^4].
-		[LoadEffectiveAddressMwrR]
-									-> [^self rotateable8bitImmediate: (operands at: 0)
-											ifTrue: [:r :i| 4]
-											ifFalse: [self literalLoadInstructionBytes + 4]].
-
+		[LoadEffectiveAddressMwrR] -> [^12].
 		[LogicalShiftLeftCqR]		-> [^4].
 		[LogicalShiftRightCqR]		-> [^4].
 		[ArithmeticShiftRightCqR]	-> [^4].
@@ -92,6 +88,7 @@ computeMaximumSize
 		[MulRdRd]					-> [^4].
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4].
+		[SubCheckOverflowCqR]	-> [^28].
 		"Data Movement"						
 		[MoveCqR]				-> [^8 "or 4"].
 		[MoveCwR]				-> [^8].
@@ -101,6 +98,12 @@ computeMaximumSize
 													ifTrue: [4]
 													ifFalse: [self literalLoadInstructionBytes + 4]].
 		[MoveRAw]				-> [^(self isAddressRelativeToVarBase: (operands at: 1))
+													ifTrue: [4]
+													ifFalse: [self literalLoadInstructionBytes + 4]].
+		[MoveAbR]				-> [^(self isAddressRelativeToVarBase: (operands at: 0))
+													ifTrue: [4]
+													ifFalse: [self literalLoadInstructionBytes + 4]].
+		[MoveRAb]				-> [^(self isAddressRelativeToVarBase: (operands at: 1))
 													ifTrue: [4]
 													ifFalse: [self literalLoadInstructionBytes + 4]].
 		[MoveRMwr]			-> [^16].
@@ -118,9 +121,7 @@ computeMaximumSize
 		[PushR]					-> [^8].
 		[PushCw]				-> [^16].
 		[PushCq]				-> [^16].
-		[PrefetchAw] 			-> [^(self isAddressRelativeToVarBase: (operands at: 0))
-										ifTrue: [4]
-										ifFalse: [self literalLoadInstructionBytes + 4]].
+		[PrefetchAw] 			-> [^12].
 		"Conversion"
 		[ConvertRRd]			-> [^8].
 		}.

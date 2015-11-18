@@ -12,6 +12,9 @@ initialize
 	CmpSGT := T2.
 	CmpULT := T3.
 	CmpUGT := T4.
+	Overflow := T0.
+	OverflowTemp1 := T1.
+	OverflowTemp2 := T2.
 
 	"OABI position independent code expects T9 to have its entry point on entry?"
 	self flag: #OABI.

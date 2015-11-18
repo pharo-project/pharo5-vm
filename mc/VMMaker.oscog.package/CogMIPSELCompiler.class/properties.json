@@ -9,6 +9,9 @@
 		"CmpUGT",
 		"CmpULT",
 		"ConcreteVarBaseReg",
+		"Overflow",
+		"OverflowTemp1",
+		"OverflowTemp2",
 		"TargetReg" ],
 	"commentStamp" : "",
 	"instvars" : [

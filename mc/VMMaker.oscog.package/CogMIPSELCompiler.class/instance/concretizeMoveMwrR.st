@@ -11,6 +11,6 @@ concretizeMoveMwrR
 	
 	self machineCodeAt: 0 put: (self luiR: AT C: (self high16BitsOf: offset)).
 	self machineCodeAt: 4 put: (self oriR: AT R: AT C: (self low16BitsOf: offset)).
-	self machineCodeAt: 8 put: (self adduR: AT R: baseReg R: ZR).
-	self machineCodeAt: 0 put: (self lwR: destReg base: AT offset: 0).
-	^machineCodeSize := 4.
+	self machineCodeAt: 8 put: (self adduR: AT R: baseReg R: AT).
+	self machineCodeAt: 12 put: (self lwR: destReg base: AT offset: 0).
+	^machineCodeSize := 16.
