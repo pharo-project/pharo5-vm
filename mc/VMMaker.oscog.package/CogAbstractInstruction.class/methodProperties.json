@@ -101,6 +101,7 @@
 		"jmpTarget:" : "eem 11/4/2015 09:28:27",
 		"jumpLongByteSize" : "eem 3/11/2009 22:23",
 		"jumpLongConditionalByteSize" : "eem 3/11/2009 22:24",
+		"jumpLongConditionalTargetBeforeFollowingAddress:" : "eem 11/17/2015 14:12",
 		"jumpLongTargetBeforeFollowingAddress:" : "eem 3/9/2009 09:37",
 		"jumpShortByteSize" : "eem 6/24/2011 18:46",
 		"jumpTargetAddress" : "eem 10/30/2013 15:38",

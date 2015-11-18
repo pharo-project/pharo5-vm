@@ -136,7 +136,6 @@
 		"jmpTarget:" : "eem 6/8/2015 16:56",
 		"jumpLongByteSize" : "tpr 4/17/2015 19:56",
 		"jumpLongConditionalByteSize" : "eem 3/11/2009 22:24",
-		"jumpLongConditionalTargetBeforeFollowingAddress:" : "rmacnak 11/14/2015 15:14:50",
 		"jumpLongTargetBeforeFollowingAddress:" : "eem 09/28/2015 18:48",
 		"jumpShortByteSize" : "eem 6/24/2011 18:46",
 		"jumpTargetPCAt:" : "cb 4/28/2015 16:17",

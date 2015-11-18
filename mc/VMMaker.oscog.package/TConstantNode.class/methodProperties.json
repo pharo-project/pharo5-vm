@@ -4,6 +4,7 @@
 	"instance" : {
 		"constantNumbericValueOrNil" : "eem 12/11/2014 11:38",
 		"emitCCodeOn:level:generator:" : "eem 10/29/2012 13:06",
+		"hasSideEffect" : "eem 11/17/2015 14:29",
 		"isConstant" : "",
 		"isLeaf" : "",
 		"isSameAs:" : "eem 1/1/2014 11:52",

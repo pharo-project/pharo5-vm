@@ -6,6 +6,7 @@
 		"bindVariableUsesIn:andConstantFoldIf:in:" : "eem 10/29/2012 12:57",
 		"bindVariablesIn:" : "eem 2/9/2009 19:22",
 		"emitCCodeOn:level:generator:" : "eem 7/2/2008 15:38",
+		"hasSideEffect" : "eem 11/17/2015 14:28",
 		"isLeaf" : "",
 		"isSameAs:" : "eem 1/1/2014 11:37",
 		"isVariable" : "",

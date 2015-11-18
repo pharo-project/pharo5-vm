@@ -16,6 +16,7 @@
 		"emitCCodeAsFunctionCallOn:level:generator:" : "eem 10/18/2014 11:44",
 		"emitCCodeOn:level:generator:" : "eem 12/11/2010 12:39",
 		"endsWithReturn" : "eem 2/11/2009 15:25",
+		"hasSideEffect" : "eem 11/17/2015 14:31",
 		"isAssertion" : "ikp 9/26/97 14:50",
 		"isBuiltinOperator" : "",
 		"isBuiltinOperator:" : "",

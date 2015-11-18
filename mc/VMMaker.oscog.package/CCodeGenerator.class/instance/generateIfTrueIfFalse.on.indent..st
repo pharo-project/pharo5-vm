@@ -4,13 +4,14 @@ generateIfTrueIfFalse: msgNode on: aStream indent: level
 
 	(self nilOrBooleanConstantReceiverOf: msgNode receiver)
 		ifNil:
-			[aStream nextPutAll: 'if ('.
-			msgNode receiver emitCCodeAsExpressionOn: aStream level: level generator: self.
-			aStream nextPutAll: ') {'; cr.
-			msgNode args first emitCCodeOn: aStream level: level + 1 generator: self.
-			aStream tab: level; nextPut: $}; crtab: level; nextPutAll: 'else {'; cr.
-			msgNode args last emitCCodeOn: aStream level: level + 1 generator: self.
-			aStream tab: level; nextPut: $}]
+			[(self tryToCollapseBothArmsOfConditional: msgNode on: aStream indent: level) ifFalse:
+				[aStream nextPutAll: 'if ('.
+				 msgNode receiver emitCCodeAsExpressionOn: aStream level: level generator: self.
+				 aStream nextPutAll: ') {'; cr.
+				 msgNode args first emitCCodeOn: aStream level: level + 1 generator: self.
+				 aStream tab: level; nextPut: $}; crtab: level; nextPutAll: 'else {'; cr.
+				 msgNode args last emitCCodeOn: aStream level: level + 1 generator: self.
+				 aStream tab: level; nextPut: $}]]
 		ifNotNil:
 			[:const |
 			(const ifTrue: [msgNode args first] ifFalse: [msgNode args last])

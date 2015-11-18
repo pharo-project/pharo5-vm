@@ -8,7 +8,9 @@ cPICHasFreedTargets: cPIC
 	1 to: cPIC cPICNumCases do:
 		[:i|
 		pc := self addressOfEndOfCase: i inCPIC: cPIC.
-		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
+		entryPoint := i = 1
+						ifTrue: [backEnd jumpLongTargetBeforeFollowingAddress: pc]
+						ifFalse: [backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc].
 		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
 		(cPIC containsAddress: entryPoint) ifFalse:
 			[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
