@@ -74,6 +74,7 @@ dispatchConcretize
 		[TstCqR]					-> [^self concretizeTstCqR].
 		[CmpCqR]					-> [^self concretizeArithCqRWithRO: 7 raxOpcode: 16r3D].
 		[CmpCwR]					-> [^self concretizeArithCwR: 16r39].
+		[CmpC32R]					-> [^self concretizeCmpC32R].
 		[CmpRR]					-> [^self concretizeCmpRR].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
