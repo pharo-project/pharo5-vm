@@ -78,7 +78,6 @@
 		"inlineCacheTagsMayBeObjects" : "eem 5/27/2015 11:24",
 		"isSmallIntegerTagNonZero" : "eem 10/1/2013 06:53",
 		"jumpNotCharacterUnsignedValueInRegister:" : "eem 10/3/2013 00:32",
-		"markAndTraceCacheTagLiteral:in:atpc:" : "eem 09/28/2015 18:48",
 		"markAndTraceLiteral:" : "eem 11/18/2013 15:39",
 		"markAndTraceLiteral:in:at:" : "eem 8/4/2014 10:52",
 		"markAndTraceLiteral:in:atpc:" : "eem 09/28/2015 18:48",

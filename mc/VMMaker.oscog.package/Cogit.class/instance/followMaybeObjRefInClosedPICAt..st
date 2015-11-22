@@ -6,12 +6,12 @@ followMaybeObjRefInClosedPICAt: mcpc
 	'mcpc' refers to the jump/branch instruction at the end of
 	each cpic case"
 	| object subject |
-	object := literalsManager objRefInClosedPICAt: mcpc.
+	object := backEnd literalBeforeFollowingAddress: mcpc.
 	(objectRepresentation couldBeObject: object) ifFalse:
 		[^false].
 	(objectMemory isForwarded: object) ifFalse:
 		[^objectMemory isYoungObject: object].
 	subject := objectMemory followForwarded: object.
-	literalsManager storeObjRef: subject inClosedPICAt: mcpc.
+	backEnd storeLiteral: subject beforeFollowingAddress: mcpc.
 	codeModified := true.
 	^objectMemory isYoungObject: subject

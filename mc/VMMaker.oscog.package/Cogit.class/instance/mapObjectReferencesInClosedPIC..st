@@ -6,19 +6,19 @@ mapObjectReferencesInClosedPIC: cPIC
 	| pc refersToYoung |
 	pc := self addressOfEndOfCase:1 inCPIC:cPIC.
 
-	"first we check the obj ref at the beginning of the CPIC"
-	refersToYoung := self updateMaybeObjRefInClosedPICAt: pc - backEnd jumpLongByteSize.
+	"first we check the potential method oop load at the beginning of the CPIC"
+	refersToYoung := self remapMaybeObjRefInClosedPICAt: pc - backEnd jumpLongByteSize.
 
 	"We find the end address of the cPICNumCases'th case and can then just step forward by the case size thereafter"
 	pc := self addressOfEndOfCase: cPIC cPICNumCases inCPIC: cPIC.
 	
-	"For each case we check any object reference at the end address - sizeof(conditional instruction) and then increment the end address by case size"
+	"Next we check the potential class ref in the compare instruction, and the potential method oop load for each case."
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
-			[(self updateMaybeClassRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
+			[(self remapMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 				[refersToYoung := true]].
-		(self updateMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
+		(self remapMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize - backEnd cmpC32RTempByteSize) ifTrue:
 			[refersToYoung := true].
 		pc := pc + cPICCaseSize].
 	^refersToYoung

@@ -1,4 +1,6 @@
 initialization
 cogit: aCogit
 	<doNotGenerate>
-	cogit := aCogit
+	cogit := aCogit.
+	objectMemory := aCogit objectMemory.
+	objectRepresentation := aCogit objectRepresentation.

@@ -1,16 +1,16 @@
 garbage collection
-updateMaybeObjRefInClosedPICAt: mcpc
-	"Update a potential object reference from a closed PIC.
+remapMaybeObjRefInClosedPICAt: mcpc
+	"Remap a potential object reference from a closed PIC.
 	 This may be an object reference, an inline cache tag or null.
 	 Answer if the updated literal is young.
-	'mcpc' refers to the jump/branch instruction at the end of
-	each cpic case"
+	 mcpc is the address of the next instruction following either
+	 the load of the method literal or the compare of the class tag."
 	| object subject |
-	object := literalsManager objRefInClosedPICAt: mcpc.
+	object := backEnd literalBeforeFollowingAddress: mcpc.
 	(objectRepresentation couldBeObject: object) ifFalse:
 		[^false].
 	subject := objectRepresentation remapOop: object.
 	object ~= subject ifTrue:
-		[literalsManager storeObjRef: subject inClosedPICAt: mcpc.
+		[backEnd storeLiteral: subject beforeFollowingAddress: mcpc.
 		 codeModified := true].
 	^objectMemory isYoungObject: subject

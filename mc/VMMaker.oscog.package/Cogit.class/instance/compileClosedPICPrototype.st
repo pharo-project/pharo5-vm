@@ -57,10 +57,10 @@ compileClosedPICPrototype
 		[:h|
 		h = (maxCPICCases - 1) ifTrue:
 			[jumpNext jmpTarget: self Label]. "this is where we jump to for the first case"
-		"16rBABE1F15+h is the class tag for the Nth case"
-		self CmpC32: 16rBABE1F15+h R: TempReg.
 		"16rBADA550+h is the method oop, or 0, for the Nth case."
 		self MoveUniqueCw: 16rBADA550 + h R: SendNumArgsReg.
+		"16rBABE1F15+h is the class tag for the Nth case"
+		self CmpC32: 16rBABE1F15+h R: TempReg.
 		self JumpLongZero: self cPICPrototypeCaseOffset + 16rCA5E10 + (h * 16).
 		h = 1 ifTrue:
 			[endCPICCase1 := self Label]].

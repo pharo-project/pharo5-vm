@@ -6,7 +6,7 @@ checkValidObjectReferencesInClosedPIC: cPIC
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	
 	"first we check the obj ref at the beginning of the CPIC"
-	(self checkMaybeObjRefInClosedPIC: (literalsManager objRefInClosedPICAt: pc - backEnd jumpLongByteSize)) ifFalse:
+	(self checkMaybeObjRefInClosedPIC: (backEnd literalBeforeFollowingAddress: pc - backEnd jumpLongByteSize)) ifFalse:
 		[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 			print: ' @ '; printHex: pc - backEnd jumpLongByteSize; cr.
 		 ok := false].
@@ -18,11 +18,11 @@ checkValidObjectReferencesInClosedPIC: cPIC
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
-			[(self checkMaybeObjRefInClosedPIC: (literalsManager classRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
+			[(self checkMaybeObjRefInClosedPIC: (literalsManager backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
 				[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 					print: ' @ '; printHex: pc - backEnd jumpLongConditionalByteSize - backEnd loadLiteralByteSize; cr.
 				 ok := false]].
-		(self checkMaybeObjRefInClosedPIC: (literalsManager objRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
+		(self checkMaybeObjRefInClosedPIC: (backEnd literalBeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize - backEnd cmpC32RTempByteSize)) ifFalse:
 			[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 				print: ' @ '; printHex: pc - backEnd jumpLongConditionalByteSize; cr.
 			 ok := false].

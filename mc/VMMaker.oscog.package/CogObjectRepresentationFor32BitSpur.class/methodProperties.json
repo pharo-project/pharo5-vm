@@ -41,6 +41,7 @@
 		"jumpNotSmallIntegerUnsignedValueInRegister:" : "eem 10/2/2013 14:41",
 		"log2BytesPerWord" : "eem 5/31/2014 17:43",
 		"low32BitsOf:" : "eem 4/7/2015 16:51",
+		"markAndTraceCacheTagLiteral:in:atpc:" : "eem 09/28/2015 18:48",
 		"numCharacterBits" : "eem 12/24/2013 18:51",
 		"numCountersFor:" : "eem 7/5/2014 17:54",
 		"numSmallIntegerBits" : "eem 10/2/2013 15:08",
