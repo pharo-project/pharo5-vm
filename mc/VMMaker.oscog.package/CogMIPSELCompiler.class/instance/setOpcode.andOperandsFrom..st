@@ -4,5 +4,5 @@ setOpcode: anOpcode andOperandsFrom: cmpInstruction
 	<inline: true>
 	opcode := anOpcode.
 	operands
-		at: 0 put: (cmpInstruction opcodes at: 0);
-		at: 1 put: (cmpInstruction opcodes at: 1)
+		at: 0 put: (cmpInstruction operands at: 0);
+		at: 1 put: (cmpInstruction operands at: 1)

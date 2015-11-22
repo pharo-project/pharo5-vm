@@ -24,24 +24,31 @@ noteFollowingConditionalBranch: branch
 		 This is obviously not nearly complete."
 		[JumpZero]			-> [opcode caseOf: {
 									[CmpRR]	-> [branch setOpcode: BrEqRR andOperandsFrom: self.
-													branch operands at: 3 put: (operands at: 1).
+													branch operands at: 2 put: (operands at: 1).
 													opcode := Label].
 								}].
 		[JumpNonZero]		-> [opcode caseOf: {
 									[CmpRR]	-> [branch setOpcode: BrNeRR andOperandsFrom: self.
-													branch operands at: 3 put: (operands at: 1).
+													branch operands at: 2 put: (operands at: 1).
+													opcode := Label].
+									[CmpCqR]	-> [branch setOpcode: BrNeCqR andOperandsFrom: self.
+													branch operands at: 2 put: (operands at: 1).
 													opcode := Label].
 								}].
 		[JumpLongZero]		-> [opcode caseOf: {
 									[CmpRR]	-> [branch setOpcode: BrNeRR andOperandsFrom: self.
 													"skip the following long branch"
-													branch operands at: 3 put: self jumpLongByteSize.
+													branch operands at: 2 put: self jumpLongByteSize.
+													opcode := JumpLong].
+									[CmpCqR]	-> [branch setOpcode: BrNeCqR andOperandsFrom: self.
+													"skip the following long branch"
+													branch operands at: 2 put: self jumpLongByteSize.
 													opcode := JumpLong].
 								}].
 		[JumpLongNonZero]	-> [opcode caseOf: {
 									[CmpRR]	-> [branch setOpcode: BrEqRR andOperandsFrom: self.
 													"skip the following long branch"
-													branch operands at: 3 put: self jumpLongByteSize.
+													branch operands at: 2 put: self jumpLongByteSize.
 													opcode := JumpLong].
 								}].
 		}

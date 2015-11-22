@@ -154,6 +154,7 @@
 		"setsConditionCodesFor:" : "eem 1/21/2009 08:49",
 		"sizePCDependentInstructionAt:" : "eem 09/28/2015 18:48",
 		"stackPageInterruptHeadroomBytes" : "eem 2/14/2009 16:06",
+		"storeLiteral32:beforeFollowingAddress:" : "eem 11/22/2015 10:08",
 		"symbolic" : "eem 2/11/2009 23:08",
 		"symbolicOn:" : "tpr 4/21/2015 13:47",
 		"unalignedLongAt:" : "eem 6/27/2011 18:42",

@@ -28,10 +28,10 @@ expectedClosedPICPrototype: cPIC
 		classTagPC := pc - backEnd jumpLongConditionalByteSize.
 		object := backEnd literal32BeforeFollowingAddress: classTagPC.
 		self assert: object = (16rBABE1F15 + i).
-		backEnd storeLiteral: (object bitXor: 16r5A5A5A5A) beforeFollowingAddress: classTagPC.
+		backEnd storeLiteral32: (object bitXor: 16r5A5A5A5A) beforeFollowingAddress: classTagPC.
 		object := backEnd literal32BeforeFollowingAddress: classTagPC.
 		self assert: object = (16rBABE1F15 + i bitXor: 16r5A5A5A5A).
-		backEnd storeLiteral: (object bitXor: 16r5A5A5A5A) beforeFollowingAddress: classTagPC.
+		backEnd storeLiteral32: (object bitXor: 16r5A5A5A5A) beforeFollowingAddress: classTagPC.
 
 		entryPoint := backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc.
 		self assert: entryPoint = (self cPICPrototypeCaseOffset + 16rCA5E10 + (i * 16))].

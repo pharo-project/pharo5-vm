@@ -5,9 +5,11 @@
 	"classvars" : [
 		"AddCheckOverflowCqR",
 		"AddCheckOverflowRR",
+		"BrEqCqR",
 		"BrEqRR",
 		"BrGtzRR",
 		"BrLezRR",
+		"BrNeCqR",
 		"BrNeRR",
 		"Cmp",
 		"CmpSGT",

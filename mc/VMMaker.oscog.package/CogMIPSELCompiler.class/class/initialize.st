@@ -25,7 +25,5 @@ initialize
 		initializeSpecificOpcodes: #(MulRR
 									AddCheckOverflowCqR AddCheckOverflowRR MulCheckOverflowRR SubCheckOverflowCqR SubCheckOverflowRR
 									"Ryan, here are proposed opcodes for conditional branches."
-									BrEqRR BrNeRR BrLezRR BrGtzRR)
+									BrEqRR BrNeRR BrLezRR BrGtzRR BrEqCqR BrNeCqR)
 		in: thisContext method
-		
-	

@@ -6,13 +6,14 @@
 		"initialize" : "eem 11/18/2015 12:11",
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52" },
 	"instance" : {
+		"abstractRegisterForConcreteRegister:" : "eem 9/23/2015 10:02",
 		"cResultRegister" : "eem 9/26/2015 17:44",
 		"callInstructionByteSize" : "eem 2/13/2009 12:29",
 		"callTargetFromReturnAddress:" : "eem 09/28/2015 18:48",
 		"callerSavedRegisterMask" : "eem 9/23/2015 09:40",
 		"cmpC32RTempByteSize" : "eem 11/20/2015 16:50",
 		"codeGranularity" : "eem 9/22/2015 12:15",
-		"computeMaximumSize" : "eem 11/18/2015 13:35",
+		"computeMaximumSize" : "eem 11/22/2015 10:14",
 		"computeShiftCqRegSize" : "eem 11/4/2015 09:07:59",
 		"computeShiftRRSize" : "eem 9/21/2015 12:56",
 		"computeSizeOfArithCqR" : "eem 9/22/2015 08:20",
@@ -118,6 +119,7 @@
 		"s:i:b:" : "eem 9/22/2015 16:46",
 		"saveAndRestoreLinkRegAround:" : "eem 3/19/2015 15:04",
 		"sizeHasModrm:at:" : "eem 10/13/2009 12:44",
+		"storeLiteral32:beforeFollowingAddress:" : "eem 11/22/2015 10:11",
 		"thirtyTwoBitLiteralBefore:" : "eem 9/28/2015 16:06",
 		"twoByteInstructionSizeAt:" : "eem 10/13/2009 12:44",
 		"wantsNearAddressFor:" : "eem 10/19/2015 09:32:36" } }
