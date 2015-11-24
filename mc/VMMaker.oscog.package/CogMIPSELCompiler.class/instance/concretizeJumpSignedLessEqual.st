@@ -1,7 +1,4 @@
 generate machine code - concretize
 concretizeJumpSignedLessEqual
-	| offset |
-	offset := self computeJumpTargetOffsetPlus: 4.
-	self machineCodeAt: 0 put: (self beqR: CmpSGT R: ZR offset: offset).
-	self machineCodeAt: 4 put: (self nop). "Delay slot"
-	^machineCodeSize := 8
+	self unreachable. "Should have been rewritten by noteFollowingConditionalBranch:"
+	^0

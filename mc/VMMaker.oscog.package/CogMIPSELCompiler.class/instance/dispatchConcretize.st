@@ -6,6 +6,24 @@ dispatchConcretize
 	 bytecode set."
 	<returnTypeC: #void>		 
 	opcode caseOf: {
+		[BrEqualRR]						-> [^self concretizeBrEqualRR].
+		[BrNotEqualRR]					-> [^self concretizeBrNotEqualRR].
+		[BrUnsignedLessRR]			-> [^self concretizeBrUnsignedLessRR].
+		[BrUnsignedLessEqualRR]		-> [^self concretizeBrUnsignedLessEqualRR].
+		[BrUnsignedGreaterRR]			-> [^self concretizeBrUnsignedGreaterRR].
+		[BrUnsignedGreaterEqualRR]	-> [^self concretizeBrUnsignedGreaterEqualRR].
+		[BrSignedLessRR]				-> [^self concretizeBrSignedLessRR].
+		[BrSignedLessEqualRR]			-> [^self concretizeBrSignedLessEqualRR].
+		[BrSignedGreaterRR]			-> [^self concretizeBrSignedGreaterRR].
+		[BrSignedGreaterEqualRR]		-> [^self concretizeBrSignedGreaterEqualRR].	
+		[BrLongEqualRR]				-> [^self concretizeBrLongEqualRR].
+		[BrLongNotEqualRR]				-> [^self concretizeBrLongNotEqualRR].
+		[MulRR]				-> [^self concretizeMulRR].
+		[DivRR]				-> [^self concretizeDivRR].
+		[MoveLowR]		-> [^self concretizeMoveLowR].
+		[MoveHighR]		-> [^self concretizeMoveHighR].
+
+										
 		"Noops & Pseudo Ops"
 		[Label]					-> [^self concretizeLabel].
 		[AlignmentNops]		-> [^self concretizeAlignmentNops].
@@ -26,7 +44,7 @@ dispatchConcretize
 		[JumpNonZero]				-> [^self concretizeJumpNonZero].
 		[JumpNegative]				-> [^self concretizeUnimplemented].
 		[JumpNonNegative]			-> [^self concretizeUnimplemented].
-		[JumpOverflow]				-> [^self concretizeUnimplemented].
+		[JumpOverflow]				-> [^self concretizeJumpOverflow].
 		[JumpNoOverflow]			-> [^self concretizeJumpNoOverflow].
 		[JumpCarry]				-> [^self concretizeUnimplemented].
 		[JumpNoCarry]				-> [^self concretizeUnimplemented].
@@ -68,7 +86,7 @@ dispatchConcretize
 		[CmpRR]					-> [^self concretizeCmpRR].
 		[OrRR]						-> [^self concretizeOrRR].
 		[SubRR]						-> [^self concretizeSubRR].
-		[XorRR]						-> [^self concretizeUnimplemented].
+		[XorRR]						-> [^self concretizeXorRR].
 		[AddRdRd]					-> [^self concretizeUnimplemented].
 		[CmpRdRd]					-> [^self concretizeUnimplemented].
 		[DivRdRd]					-> [^self concretizeUnimplemented].
@@ -92,21 +110,24 @@ dispatchConcretize
 		[MoveAbR]			-> [^self concretizeMoveAbR].
 		[MoveRAb]			-> [^self concretizeMoveRAb].
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
-		[MoveRMbr]			-> [^self concretizeUnimplemented].
+		[MoveRMbr]			-> [^self concretizeRMbr].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
-		[MoveM64rRd]		-> [^self concretizeUnimplemented].
+		[MoveM64rRd]		-> [^self concretizeM64rRd].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
-		[MoveXbrRR]		-> [^self concretizeUnimplemented].
-		[MoveRXbrR]		-> [^self concretizeUnimplemented].
+		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].
+		[MoveRXbrR]		-> [^self concretizeMoveRXbrR].
 		[MoveXwrRR]		-> [^self concretizeMoveXwrRR].
 		[MoveRXwrR]		-> [^self concretizeMoveRXwrR].
 		[MoveRMwr]		-> [^self concretizeMoveRMwr].
-		[MoveRdM64r]		-> [^self concretizeUnimplemented].
+		[MoveRdM64r]		-> [^self concretizeRdM64r].
 		[PopR]				-> [^self concretizePopR].
 		[PushR]				-> [^self concretizePushR].
 		[PushCq]			-> [^self concretizePushCq].
 		[PushCw]			-> [^self concretizePushCw].
 		[PrefetchAw]		-> [^self concretizePrefetchAw].
+		[AddCheckOverflowCqR] -> [^self concretizeAddCheckOverflowCqR].
+		[AddCheckOverflowRR] -> [^self concretizeAddCheckOverflowRR].
 		[SubCheckOverflowCqR] -> [^self concretizeSubCheckOverflowCqR].
+		[SubCheckOverflowRR] -> [^self concretizeSubCheckOverflowRR].
 		"Conversion"
 		[ConvertRRd]		-> [^self concretizeUnimplemented]}

@@ -9,6 +9,23 @@ computeMaximumSize
 
 	opcode
 		caseOf: {
+		[BrEqualRR]						-> [^8].
+		[BrNotEqualRR]					-> [^8].
+		[BrUnsignedLessRR]			-> [^12].
+		[BrUnsignedLessEqualRR]		-> [^12].
+		[BrUnsignedGreaterRR]			-> [^12].
+		[BrUnsignedGreaterEqualRR]	-> [^12].
+		[BrSignedLessRR]				-> [^12].
+		[BrSignedLessEqualRR]			-> [^12].
+		[BrSignedGreaterRR]			-> [^12].
+		[BrSignedGreaterEqualRR]		-> [^12].
+		[BrLongEqualRR]				-> [^16].
+		[BrLongNotEqualRR]				-> [^16].
+		[MulRR]					-> [^4].
+		[DivRR]					-> [^4].
+		[MoveLowR]			-> [^4].
+		[MoveHighR]			-> [^4].
+
 		"Noops & Pseudo Ops"
 		[Label]					-> [^0].
 		[Literal]					-> [^4].
@@ -88,7 +105,10 @@ computeMaximumSize
 		[MulRdRd]					-> [^4].
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4].
+		[AddCheckOverflowCqR]	-> [^28].
+		[AddCheckOverflowRR]		-> [^20].
 		[SubCheckOverflowCqR]	-> [^28].
+		[SubCheckOverflowRR]		-> [^20].
 		"Data Movement"						
 		[MoveCqR]				-> [^8 "or 4"].
 		[MoveCwR]				-> [^8].
@@ -113,8 +133,8 @@ computeMaximumSize
 		[MoveM16rR]			-> [^4].
 		[MoveM64rRd]			-> [^self literalLoadInstructionBytes + 4].
 		[MoveMwrR]			-> [^16].
-		[MoveXbrRR]			-> [^0].
-		[MoveRXbrR]			-> [^0].
+		[MoveXbrRR]			-> [^8].
+		[MoveRXbrR]			-> [^8].
 		[MoveXwrRR]			-> [^12].
 		[MoveRXwrR]			-> [^12].
 		[PopR]					-> [^8].

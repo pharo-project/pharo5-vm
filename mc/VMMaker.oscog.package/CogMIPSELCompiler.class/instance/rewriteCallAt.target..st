@@ -11,7 +11,6 @@ rewriteCallAt: callSiteReturnAddress target: callTargetAddress
 	 jalr t9
 	 nop (delay slot)
 	 ...  <-- callSiteReturnAddress"
-
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 16) = LUI.
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 12) = ORI.
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 8) = SPECIAL.

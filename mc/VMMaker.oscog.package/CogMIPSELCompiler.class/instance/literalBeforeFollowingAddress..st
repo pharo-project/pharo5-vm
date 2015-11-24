@@ -11,6 +11,6 @@ literalBeforeFollowingAddress: followingAddress
 	oriAddress := 0.
 	lastOpcode = ORI ifTrue: [oriAddress := followingAddress - 4].
 	lastOpcode = ADDIU ifTrue: [oriAddress := followingAddress - 16].
-	(lastOpcode = SPECIAL and: [lastFunction = SLTU]) ifTrue: [oriAddress := followingAddress - 24].
+	(lastOpcode = SPECIAL and: [lastFunction = SUBU]) ifTrue: [oriAddress := followingAddress - 8].
 	self assert: oriAddress ~= 0.
 	^self literalAtAddress: oriAddress
