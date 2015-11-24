@@ -18,7 +18,6 @@
 		"outOfLineLiteralOpcodeLimit" : "eem 6/19/2015 10:52",
 		"pcRelativeAddressAt:" : "eem 6/15/2015 17:48",
 		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:07",
-		"rewriteCPICCaseAt:tag:objRef:target:" : "tpr 11/5/2015 16:12",
 		"rewriteFullTransferAt:target:expectedInstruction:" : "tpr 10/20/2015 12:07",
 		"rewriteInlineCacheAt:tag:target:" : "tpr 10/30/2015 16:45",
 		"rewriteInlineCacheTag:at:" : "eem 6/16/2015 12:39",
@@ -26,4 +25,4 @@
 		"sizePCDependentInstructionAt:" : "eem 09/28/2015 18:48",
 		"storeLiteral:beforeFollowingAddress:" : "eem 11/21/2015 18:43",
 		"updateLabel:" : "eem 6/9/2015 09:46",
-		"usesOutOfLineLiteral" : "rmacnak 11/2/2015 21:58:28" } }
+		"usesOutOfLineLiteral" : "eem 11/23/2015 15:14" } }

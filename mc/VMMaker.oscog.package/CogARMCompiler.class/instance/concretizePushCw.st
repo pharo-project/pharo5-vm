@@ -4,8 +4,7 @@ concretizePushCw
 	<inline: true>
 	| word instrOffset |
 	word := operands at: 0.	
-	((self isAnInstruction: (cogit cCoerceSimple: word to: #'AbstractInstruction *'))
-	 or: [cogit addressIsInCurrentCompilation: word])
+	(self inCurrentCompilation: word)
 		ifTrue:
 			[instrOffset := self loadCwInto: ConcreteIPReg]
 		ifFalse:

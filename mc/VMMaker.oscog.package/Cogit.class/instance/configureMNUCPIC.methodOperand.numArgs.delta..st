@@ -1,9 +1,9 @@
 in-line cacheing
 configureMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs delta: addrDelta
-	"Configure a copy of the prototype CPIC for a one-case MNU PIC that calls ceMNUFromPIC for case0Tag
-	 The tag for case0 is at the send site and so doesn't need to be generated.
-	addDelta is the address change from the prototype to the new CPCI location, needed
-	because the loading of the CPIC label at the end may use a literal instead of a pc relative"
+	"Configure a copy of the prototype CPIC for a one-case MNU CPIC that calls ceMNUFromPIC for
+	 case0Tag The tag for case0 is at the send site and so doesn't need to be generated.
+	 addDelta is the address change from the prototype to the new CPIC location, needed
+	 because the loading of the CPIC label at the end may be a literal instead of a pc-relative load."
 	<var: #cPIC type: #'CogMethod *'>
 	| operand |
 
@@ -22,11 +22,10 @@ configureMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs delta: addr
 	"rewrite the final desperate jump to cePICMissXArgs"
 	backEnd rewriteJumpLongAt: cPIC asInteger + cPICEndOfCodeOffset target: (self cPICMissTrampolineFor: numArgs).	
 
-	"update the loading of the PCIC label address"
+	"update the loading of the CPIC label address"
 	backEnd relocateMethodReferenceBeforeAddress: cPIC asInteger + cPICEndOfCodeOffset - backEnd jumpLongByteSize by: addrDelta.
 
-	"finally, rewrite the jump 3 instr  before firstCPICCaseOffset to jump to the end of case 2, missing the actual case"
+	"finally, rewrite the jump 3 instr before firstCPICCaseOffset to jump to the end of case 2, missing the actual case"
 	self rewriteCPIC: cPIC caseJumpTo: (self addressOfEndOfCase: 2 inCPIC: cPIC). 
-
 
 	^0

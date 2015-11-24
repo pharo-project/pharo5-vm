@@ -1,13 +1,14 @@
 inline cacheing
-rewriteCPICJumpAt: callSiteReturnAddress target: callTargetAddress
+rewriteCPICJumpAt: addressFollowingJump target: jumpTargetAddress
 	"Rewrite the short jump instruction to jump to a new cpic case target. "
-	<var: #callSiteReturnAddress type: #usqInt>
-	<var: #callTargetAddress type: #usqInt>
+	<var: #addressFollowingJump type: #usqInt>
+	<var: #jumpTargetAddress type: #usqInt>
 	| callDistance |
-	callDistance := (callTargetAddress - callSiteReturnAddress) signedIntToLong.
-	self assert: (callDistance < 256).
+	callDistance := jumpTargetAddress - addressFollowingJump.
+	self assert: callDistance abs < 128.
 	objectMemory
-		byteAt: callSiteReturnAddress - 1 put:  (callDistance  bitAnd: 16rFF).
+		byteAt: addressFollowingJump - 1
+		put:  (callDistance bitAnd: 16rFF).
 	"self cCode: ''
-		inSmalltalk: [cogit disassembleFrom: callSiteReturnAddress - 10 to: callSiteReturnAddress - 1]."
+		inSmalltalk: [cogit disassembleFrom: addressFollowingJump - 10 to: addressFollowingJump - 1]."
 	^2

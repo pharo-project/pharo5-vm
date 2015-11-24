@@ -9,8 +9,9 @@ configureCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag
 		- a Cog method; jump to its unchecked entry-point
 		- a CompiledMethod; jump to the ceInterpretFromPIC trampoline
 		- nil; call ceMNUFromPIC
-	addDelta is the address change from the prototype to the new CPCI location, needed
-	because the loading of the CPIC lable at the end may use a literal instead of a pc relative"
+	addDelta is the address change from the prototype to the new CPIC location, needed
+	because the loading of the CPIC label at the end may use a literal instead of a pc relative load."
+	"self disassembleFrom: cPIC asInteger + (self sizeof: CogMethod) to: cPIC asInteger + closedPICSize"
 	<var: #cPIC type: #'CogMethod *'>
 	<var: #case0CogMethod type: #'CogMethod *'>
 	| operand targetEntry caseEndAddress|
@@ -37,10 +38,14 @@ configureCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag
 
 	caseEndAddress := self addressOfEndOfCase: 2 inCPIC: cPIC.
 
-	"update the cpic case - deferred to backend because messy"
-	backEnd rewriteCPICCaseAt: caseEndAddress tag: case1Tag objRef: operand target: (isMNUCase ifTrue: [cPIC asInteger + (self sizeof: CogMethod)] ifFalse: [targetEntry]) asInteger.
+	"update the cpic case"
+	self
+		rewriteCPICCaseAt: caseEndAddress
+		tag: case1Tag
+		objRef: operand
+		target: (isMNUCase ifTrue: [cPIC asInteger + (self sizeof: CogMethod)] ifFalse: [targetEntry]) asInteger.
 
-	"update the loading of the PCIC label address"
+	"update the loading of the CPIC address"
 	backEnd relocateMethodReferenceBeforeAddress: cPIC asInteger + cPICEndOfCodeOffset - backEnd jumpLongByteSize by: addrDelta.
 
 	"write the final desperate jump to cePICMissXArgs"
