@@ -10,7 +10,9 @@ initialize
 		at: 1 + it jmpOpcode			put: #handleJmpFailureAt:in:;
 		at: 1 + it retOpcode			put: #handleRetFailureAt:in:;
 		at: 1 + it movALObOpcode	put: #handleMovALObFailureAt:in:;
+		at: 1 + it movAXOvOpcode	put: #handleMovAXOvFailureAt:in:;
 		at: 1 + it movObALOpcode	put: #handleMovObALFailureAt:in:;
+		at: 1 + it movOvAXOpcode	put: #handleMovOvAXFailureAt:in:;
 		at: 1 + it movGvEvOpcode	put: #handleMovGvEvFailureAt:in:;
 		at: 1 + it movEvGvOpcode	put: #handleMovEvGvFailureAt:in:;
 		at: 1 + it movGbEbOpcode	put: #handleMovGbEbFailureAt:in:;

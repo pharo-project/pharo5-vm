@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"pc" ],
+	"name" : "MIPSDisassembler",
+	"pools" : [
+		"MIPSConstants" ],
+	"super" : "Object",
+	"type" : "normal" }

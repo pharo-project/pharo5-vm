@@ -1,0 +1,27 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"EndSimulationPC" ],
+	"commentStamp" : "rmacnak 11/11/2015 20:33:00",
+	"instvars" : [
+		"memory",
+		"registers",
+		"pc",
+		"instructionCount",
+		"inDelaySlot",
+		"readableBase",
+		"writableBase",
+		"exectuableBase",
+		"readableLimit",
+		"writableLimit",
+		"exectuableLimit",
+		"jumpingPC",
+		"hi",
+		"lo" ],
+	"name" : "MIPSSimulator",
+	"pools" : [
+		"MIPSConstants" ],
+	"super" : "Object",
+	"type" : "normal" }

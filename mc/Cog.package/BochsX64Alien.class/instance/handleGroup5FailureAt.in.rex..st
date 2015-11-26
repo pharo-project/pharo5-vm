@@ -1,4 +1,4 @@
-as yet unclassified
+error handling
 handleGroup5FailureAt: pc "<Integer>" in: memoryArray "<Bitmap|ByteArray>" rex: rexByteOrNil "<Integer|nil>"
 	"Convert an execution primitive failure for a group 5 instruction into the relevant ProcessorSimulationTrap signal."
 	| modrmByte getter |

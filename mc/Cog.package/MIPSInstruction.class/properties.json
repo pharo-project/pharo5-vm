@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "rmacnak 11/11/2015 20:31:24",
+	"instvars" : [
+		"value" ],
+	"name" : "MIPSInstruction",
+	"pools" : [
+		"MIPSConstants" ],
+	"super" : "Object",
+	"type" : "normal" }
