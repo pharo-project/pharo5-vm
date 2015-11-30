@@ -17,8 +17,9 @@ commonCompilerFlags
 	'-mfpmath=sse' 
 	'-march=pentium-m' 
 	'-mtune=prescott' 
-	'-falign-functions=16' 
-	'-fno-gcse' 
+	"CLANG does not recognise this two"
+	"'-falign-functions=16' 
+	'-fno-gcse' "
 	'-std=gnu99'
 	'-fmessage-length=0' 
 	'-fpascal-strings' 

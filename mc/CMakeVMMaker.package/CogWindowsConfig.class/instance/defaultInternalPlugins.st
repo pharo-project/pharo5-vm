@@ -36,6 +36,5 @@ defaultInternalPlugins
 		SoundGenerationPlugin 
 		SoundPlugin
 		StarSqueakPlugin 
-		SurfacePlugin 
 		UUIDPlugin
 	)

@@ -9,4 +9,5 @@ defaultExternalPlugins
 		JPEGReadWriter2Plugin 			
 		RePlugin
 		InternetConfigPlugin
+		SurfacePlugin			
 	)

@@ -31,6 +31,5 @@ defaultInternalPlugins
 		SoundGenerationPlugin 
 		SoundPlugin 
 		StarSqueakPlugin 
-		SurfacePlugin	
 		LocalePlugin
 		)
