@@ -225,7 +225,6 @@
 		"rewriteCPICJumpAt:target:" : "eem 11/23/2015 10:20",
 		"rewriteCallAt:target:" : "tpr 10/20/2015 12:37",
 		"rewriteCallFullAt:target:" : "tpr 10/20/2015 12:06",
-		"rewriteConditionalJumpLongAt:target:" : "rmacnak 11/27/2015 13:21:50",
 		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 06/09/2015 09:14",
 		"rewriteInlineCacheAt:tag:target:" : "eem 06/09/2015 09:10",
 		"rewriteJumpFullAt:target:" : "tpr 10/20/2015 12:05",

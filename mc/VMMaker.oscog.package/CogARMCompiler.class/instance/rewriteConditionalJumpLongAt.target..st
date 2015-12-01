@@ -1,3 +1,0 @@
-inline cacheing
-rewriteConditionalJumpLongAt: callSiteReturnAddress target: callTargetAddress
-	^self rewriteJumpLongAt: callSiteReturnAddress target: callTargetAddress
