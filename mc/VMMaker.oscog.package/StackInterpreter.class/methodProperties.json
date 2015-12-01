@@ -512,7 +512,7 @@
 		"maybeFailForLastObjectOverwrite" : "eem 6/16/2014 12:47",
 		"maybeFixClonedCompiledMethod:" : "eem 7/14/2014 18:28",
 		"maybeFlagMethodAsInterpreted:" : "eem 1/30/2011 17:13",
-		"maybeInlinePositive32BitIntegerFor:" : "eem 2/25/2015 12:44",
+		"maybeInlinePositive32BitIntegerFor:" : "eem 11/30/2015 14:46",
 		"maybeRetryFailureDueToForwarding" : "eem 10/31/2014 09:25",
 		"maybeReturnToMachineCodeFrame" : "eem 12/28/2014 15:03",
 		"maybeSelectorOfMethod:" : "eem 12/3/2014 12:22",

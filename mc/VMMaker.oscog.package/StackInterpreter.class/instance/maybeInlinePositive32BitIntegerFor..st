@@ -5,7 +5,7 @@ maybeInlinePositive32BitIntegerFor: integerValue
 	<notOption: #Spur64BitMemoryManager>
 	| newLargeInteger |
 	self deny: objectMemory hasSixtyFourBitImmediates.
-	(integerValue >= 0
+	(integerValue asInteger >= 0
 	 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
 		[^objectMemory integerObjectOf: integerValue].
 	newLargeInteger := objectMemory
