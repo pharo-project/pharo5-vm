@@ -13,4 +13,4 @@ rewriteCPICCaseAt: followingAddress tag: newTag objRef: newObjRef target: newTar
 	backEnd storeLiteral32: newTag beforeFollowingAddress: classTagPC.
 
 	"write the jump address for the new target address"
-	backEnd rewriteJumpLongAt: followingAddress target: newTarget
+	backEnd rewriteConditionalJumpLongAt: followingAddress target: newTarget

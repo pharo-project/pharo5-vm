@@ -3,5 +3,4 @@ JumpLess: jumpTarget
 	<inline: true>
 	<returnTypeC: #'AbstractInstruction *'>
 	<var: #jumpTarget type: #'void *'>
-	^self previousInstruction noteFollowingConditionalBranch:
-		(self gen: JumpLess operand: jumpTarget asInteger)
+	^self genConditionalBranch: JumpLess operand: jumpTarget asInteger

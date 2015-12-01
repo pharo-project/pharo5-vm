@@ -1,13 +1,18 @@
 running
 runBinaryConditionalJumps: assertPrintBar
 	"self defaultTester runBinaryConditionalJumps: false"
-	| mask reg1 reg2 reg3 |
+	| mask count reg1 reg2 reg3 reg1Getter reg2Setter reg3Setter |
 	mask := (1 << self processor bitsInWord) - 1.
+	count := 0.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:n :get :set|
-		n = 0 ifTrue: [reg1 := get].
-		n = 1 ifTrue: [reg2 := set].
-		n = 2 ifTrue: [reg3 := set]].
+		count = 0 ifTrue: [reg1 := n. reg1Getter := get].
+		count = 1 ifTrue: [reg2 := n. reg2Setter := set].
+		count = 2 ifTrue: [reg3 := n. reg3Setter := set].
+		count := count + 1].
+	self assert: reg1 ~= nil.
+	self assert: reg2 ~= nil.
+	self assert: reg3 ~= nil.
 	#(	(JumpAbove > unsigned)			(JumpBelowOrEqual <= unsigned)
 		(JumpBelow < unsigned)			(JumpAboveOrEqual >= unsigned)
 		(JumpGreater > signed)			(JumpLessOrEqual <= signed)
@@ -17,24 +22,24 @@ runBinaryConditionalJumps: assertPrintBar
 		[:opName :relation :signednessOrResult| | opcode jumpNotTaken jumpTaken nop memory bogus |
 		self resetGen.
 		opcode := CogRTLOpcodes classPool at: opName.
-		self gen: CmpRR operand: 2 operand: 1.
-		jumpTaken := self gen: opcode.
-		self gen: MoveCqR operand: 0 operand: 0.
+		self gen: CmpRR operand: reg3 operand: reg2.
+		jumpTaken := self genConditionalBranch: opcode operand: 0.
+		self gen: MoveCqR operand: 0 operand: reg1.
 		jumpNotTaken := self gen: Jump.
-		jumpTaken jmpTarget: (self gen: MoveCqR operand: 1 operand: 0).
+		jumpTaken jmpTarget: (self gen: MoveCqR operand: 1 operand: reg1).
 		jumpNotTaken jmpTarget: (nop := self gen: Nop).
 		memory := self generateInstructions.
-		"self processor disassembleFrom: 0 to: memory size in: memory on: Transcript"
+		"self processor disassembleFrom: 0 to: memory size in: memory on: Transcript."
 		bogus := false.
 		self pairs: (-2 to: 2)  do:
 			[:a :b| | taken |
 			self processor
 				reset;
-				perform: reg2 with: (processor convertIntegerToInternal: a);
-				perform: reg3 with: (processor convertIntegerToInternal: b).
+				perform: reg2Setter with: (processor convertIntegerToInternal: a);
+				perform: reg3Setter with: (processor convertIntegerToInternal: b).
 			[self processor singleStepIn: memory.
 			 self processor pc ~= nop address] whileTrue.
-			taken := (self processor perform: reg1) = 1.
+			taken := (self processor perform: reg1Getter) = 1.
 			assertPrintBar
 				ifTrue:
 					[self assert: taken equals: (signednessOrResult == #unsigned

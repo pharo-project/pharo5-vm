@@ -8,7 +8,7 @@ configureMNUCPIC: cPIC methodOperand: methodOperand numArgs: numArgs delta: addr
 	| operand |
 
 	"adjust the jump at missOffset, the ceAbortXArgs"
-	backEnd rewriteJumpLongAt: cPIC asInteger + missOffset target: (self picAbortTrampolineFor: numArgs).
+	backEnd rewriteCallAt: cPIC asInteger + missOffset target: (self picAbortTrampolineFor: numArgs).
 	
 	"We do not scavenge PICs, hence we cannot cache the MNU method if it is in new space."
 	operand := (methodOperand isNil or: [objectMemory isYoungObject: methodOperand])

@@ -5,7 +5,7 @@ genSmallIntegerComparison: jumpOpcode
 	<var: #jumpTrue type: #'AbstractInstruction *'>
 	jumpFail := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg.
 	self CmpR: Arg0Reg R: ReceiverResultReg. "N.B. FLAGS := RRReg - Arg0Reg"
-	jumpTrue := self gen: jumpOpcode.
+	jumpTrue := self genConditionalBranch: jumpOpcode operand: 0.
 	self genMoveFalseR: ReceiverResultReg.
 	self RetN: 0.
 	jumpTrue jmpTarget: (self genMoveTrueR: ReceiverResultReg).

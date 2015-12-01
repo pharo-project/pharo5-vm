@@ -30,21 +30,27 @@ noteFollowingConditionalBranch: branch
 		[JumpGreaterOrEqual]	-> [BrSignedGreaterEqualRR].
 		[JumpLongZero] 		-> [BrLongEqualRR].
 		[JumpLongNonZero]	-> [BrLongNotEqualRR].
+		
+		[JumpNegative]			-> [BrSignedLessRR].
 	} otherwise: [self unreachable].
 	
 	opcode caseOf: {
 		[BrEqualRR]	->	["I.e., two jumps after a compare."
 						newBranchLeft := operands at: 1.
-						newBranchRight := operands at: 2].	
-		[CmpRR] 	-> 	[newBranchLeft := operands at: 0.
-						 newBranchRight := operands at: 1.
+						newBranchRight := operands at: 2].
+		[BrUnsignedLessRR]	->	["I.e., two jumps after a compare."
+						newBranchLeft := operands at: 1.
+						newBranchRight := operands at: 2].
+
+		[CmpRR] 	-> 	[newBranchLeft := operands at: 1.
+						 newBranchRight := operands at: 0.
 						 opcode := Label].
-		[CmpCqR]	-> 	[newBranchLeft := AT.
-						 newBranchRight := operands at: 1.
+		[CmpCqR]	-> 	[newBranchLeft := operands at: 1.
+						 newBranchRight := AT.
 						 opcode := MoveCqR.
 						 operands at: 1 put: AT].
-		[CmpCwR]	-> 	[newBranchLeft := AT.
-						 newBranchRight := operands at: 1.
+		[CmpCwR]	-> 	[newBranchLeft := operands at: 1.
+						 newBranchRight := AT.
 						 opcode := MoveCwR.
 						 operands at: 1 put: AT].
 		[TstCqR]	->	[newBranchLeft := Cmp.
@@ -60,6 +66,8 @@ noteFollowingConditionalBranch: branch
 		[SubCwR]	->	[newBranchLeft := operands at: 1.
 						 newBranchRight := ZR].
 		[SubCqR]	->	[newBranchLeft := operands at: 1.
+						 newBranchRight := ZR].
+		[ArithmeticShiftRightCqR]	->	[newBranchLeft := operands at: 1.
 						 newBranchRight := ZR].
 	} otherwise: [self unreachable].
 

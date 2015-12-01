@@ -129,5 +129,6 @@ dispatchConcretize
 		[AddCheckOverflowRR] -> [^self concretizeAddCheckOverflowRR].
 		[SubCheckOverflowCqR] -> [^self concretizeSubCheckOverflowCqR].
 		[SubCheckOverflowRR] -> [^self concretizeSubCheckOverflowRR].
+		[MulCheckOverflowRR] -> [^self concretizeMulCheckOverflowRR].
 		"Conversion"
 		[ConvertRRd]		-> [^self concretizeUnimplemented]}

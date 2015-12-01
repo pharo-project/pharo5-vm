@@ -1,6 +1,8 @@
 testing
 setsConditionCodesFor: aConditionalJumpOpcode
 	<inline: false>
-	opcode = XorRR ifTrue: [^true]. "Not really, but we can merge this in noteFollowingConditionalBranch:."
+	"Not really, but we can merge this in noteFollowingConditionalBranch:."
+	opcode = XorRR ifTrue: [^true]. 
+	opcode = ArithmeticShiftRightCqR ifTrue: [^true].
 	self unreachable.
 	^false

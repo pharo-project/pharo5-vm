@@ -6,5 +6,19 @@ rewriteCPICJumpAt: addressFollowingJump target: jumpTargetAddress
 	<var: #addressFollowingJump type: #usqInt>
 	<var: #jumpTargetAddress type: #usqInt>
 	
-	cogit disassembleFrom: addressFollowingJump - 16 to: addressFollowingJump + 16.
-	self halt.
+	"self CmpR: ClassReg R: TempReg.
+	^self JumpNonZero: 0"
+	
+	"bne s5, s3, +156 ; =BE7C
+	 nop (delay slot)
+	 .... <-- addressFollowingJump"
+	
+	self assert: (self opcodeAtAddress: addressFollowingJump - 8) = BNE.
+	self assert: (objectMemory longAt: addressFollowingJump - 4) = self nop.
+	cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump.
+	
+	self rewriteITypeBranchAtAddress: addressFollowingJump - 8 target: jumpTargetAddress.
+	
+	self assert: (self opcodeAtAddress: addressFollowingJump - 8) = BNE.
+	self assert: (objectMemory longAt: addressFollowingJump - 4) = self nop.
+	cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump.

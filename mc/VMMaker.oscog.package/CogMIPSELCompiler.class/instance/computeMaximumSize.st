@@ -109,6 +109,7 @@ computeMaximumSize
 		[AddCheckOverflowRR]		-> [^20].
 		[SubCheckOverflowCqR]	-> [^28].
 		[SubCheckOverflowRR]		-> [^20].
+		[MulCheckOverflowRR]		-> [^20].
 		"Data Movement"						
 		[MoveCqR]				-> [^8 "or 4"].
 		[MoveCwR]				-> [^8].
