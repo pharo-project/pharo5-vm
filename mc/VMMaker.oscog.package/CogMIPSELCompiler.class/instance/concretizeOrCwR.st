@@ -1,9 +1,9 @@
 generate machine code - concretize
 concretizeOrCwR
-	| value reg |
-	value := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
-	self machineCodeAt: 0 put: (self luiR: AT C: (self high16BitsOf: value)).
-	self machineCodeAt: 4 put: (self oriR: AT R: AT C: (self low16BitsOf: value)).
-	self machineCodeAt: 8 put: (self orR: reg R: reg R: AT).
+	| destReg leftReg rightImm |
+	rightImm := operands at: 0.
+	destReg := leftReg := self concreteRegister: (operands at: 1).
+	self machineCodeAt: 0 put: (self luiR: AT C: (self high16BitsOf: rightImm)).
+	self machineCodeAt: 4 put: (self oriR: AT R: AT C: (self low16BitsOf: rightImm)).
+	self machineCodeAt: 8 put: (self orR: destReg R: leftReg R: AT).
 	^machineCodeSize := 12

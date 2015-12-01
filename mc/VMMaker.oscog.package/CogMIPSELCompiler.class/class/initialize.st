@@ -16,7 +16,7 @@ initialize
 	 CmpCwR
 	 JumpZero
 	 JumpBelow"
-	BranchTemp := T1.
+	BranchTemp := T3.
 
 	"OABI position independent code expects T9 to have its entry point on entry?"
 	self flag: #OABI.

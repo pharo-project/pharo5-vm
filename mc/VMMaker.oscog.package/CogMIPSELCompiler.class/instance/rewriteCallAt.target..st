@@ -16,8 +16,7 @@ rewriteCallAt: callSiteReturnAddress target: callTargetAddress
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 8) = SPECIAL.
 	self assert: (self functionAtAddress: callSiteReturnAddress - 8) = JALR.
 	self assert: (objectMemory longAt: callSiteReturnAddress - 4) = self nop.
-	
-	cogit disassembleFrom: callSiteReturnAddress - 16 to: callSiteReturnAddress.
+	"cogit disassembleFrom: callSiteReturnAddress - 16 to: callSiteReturnAddress."
 
 	self literalAtAddress: callSiteReturnAddress - 12 put: callTargetAddress.
 
@@ -26,7 +25,6 @@ rewriteCallAt: callSiteReturnAddress target: callTargetAddress
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 8) = SPECIAL.
 	self assert: (self functionAtAddress: callSiteReturnAddress - 8) = JALR.
 	self assert: (objectMemory longAt: callSiteReturnAddress - 4) = self nop.
-
-	cogit disassembleFrom: callSiteReturnAddress - 16 to: callSiteReturnAddress.
+	"cogit disassembleFrom: callSiteReturnAddress - 16 to: callSiteReturnAddress."
 
 	^20

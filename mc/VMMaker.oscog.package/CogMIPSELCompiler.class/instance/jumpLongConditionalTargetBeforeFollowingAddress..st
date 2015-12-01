@@ -1,6 +1,5 @@
 inline cacheing
 jumpLongConditionalTargetBeforeFollowingAddress: mcpc
-	Transcript nextPutAll: mcpc hex; cr.
 	"mcpc - 16:	beq/ne Cmp, ZR, +12
 	 mcpc - 12:	nop (delay slot)
 	 mcpc - 8:	j psuedo-address

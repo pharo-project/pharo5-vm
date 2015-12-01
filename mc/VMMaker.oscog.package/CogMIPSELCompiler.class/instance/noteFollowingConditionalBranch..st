@@ -6,16 +6,9 @@ noteFollowingConditionalBranch: branch
 	 condition codes being set by the receiver."
 	<var: #branch type: #'AbstractInstruction *'>
 	| newBranchLeft newBranchOpcode newBranchRight |
-
-	((branch opcode = JumpOverflow) or: [branch opcode = JumpNoOverflow]) ifTrue:
-		[opcode := opcode caseOf: {
-			[AddCqR]	-> [AddCheckOverflowCqR].
-			[AddRR]		-> [AddCheckOverflowRR].
-			[MulRR]		-> [MulCheckOverflowRR].
-			[SubCqR]	-> [SubCheckOverflowCqR].
-			[SubRR]		-> [SubCheckOverflowRR].
-		} otherwise: [self unreachable].
-		^branch].
+	
+	((branch opcode = JumpOverflow) or: [branch opcode = JumpNoOverflow]) 
+		ifTrue: [^self noteFollowingOverflowBranch: branch].
 
 	newBranchOpcode := branch opcode caseOf: {
 		[JumpZero] 			-> [BrEqualRR].

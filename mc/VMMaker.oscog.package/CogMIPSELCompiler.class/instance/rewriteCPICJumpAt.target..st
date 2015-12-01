@@ -15,10 +15,10 @@ rewriteCPICJumpAt: addressFollowingJump target: jumpTargetAddress
 	
 	self assert: (self opcodeAtAddress: addressFollowingJump - 8) = BNE.
 	self assert: (objectMemory longAt: addressFollowingJump - 4) = self nop.
-	cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump.
+	"cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump."
 	
 	self rewriteITypeBranchAtAddress: addressFollowingJump - 8 target: jumpTargetAddress.
 	
 	self assert: (self opcodeAtAddress: addressFollowingJump - 8) = BNE.
 	self assert: (objectMemory longAt: addressFollowingJump - 4) = self nop.
-	cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump.
+	"cogit disassembleFrom: addressFollowingJump - 8 to: addressFollowingJump."

@@ -1,7 +1,7 @@
 generate machine code - concretize
 concretizeXorRR
-	| leftReg rightReg |
-	leftReg := self concreteRegister: (operands at: 0).
-	rightReg := self concreteRegister: (operands at: 1).
-	self machineCodeAt: 0 put: (self xorR: rightReg R: leftReg R: rightReg).
+	| destReg leftReg rightReg |
+	rightReg := self concreteRegister: (operands at: 0).
+	destReg := leftReg := self concreteRegister: (operands at: 1).
+	self machineCodeAt: 0 put: (self xorR: destReg R: leftReg R: rightReg).
 	^machineCodeSize := 4

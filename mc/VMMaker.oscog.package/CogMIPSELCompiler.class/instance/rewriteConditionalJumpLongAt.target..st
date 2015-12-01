@@ -8,10 +8,10 @@ rewriteConditionalJumpLongAt: callSiteReturnAddress target: callTargetAddress
 	
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 8) = J.
 	self assert: (objectMemory longAt: callSiteReturnAddress - 4) = self nop.
-	cogit disassembleFrom: callSiteReturnAddress - 8 to: callSiteReturnAddress.
+	"cogit disassembleFrom: callSiteReturnAddress - 8 to: callSiteReturnAddress."
 
 	self rewriteJTypeAtAddress: callSiteReturnAddress - 8 target: callTargetAddress.
 
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 8) = J.
 	self assert: (objectMemory longAt: callSiteReturnAddress - 4) = self nop.
-	cogit disassembleFrom: callSiteReturnAddress - 8 to: callSiteReturnAddress.
+	"cogit disassembleFrom: callSiteReturnAddress - 8 to: callSiteReturnAddress."
