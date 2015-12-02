@@ -1,9 +1,9 @@
 method map
-blockCreationBytecodeSizeForHeader: methodHeader
+blockCreationBytecodeSizeForHeader: aMethodHeader
 	<inline: true>
 	^self cppIf: MULTIPLEBYTECODESETS
 		ifTrue:
-			[(coInterpreter headerIndicatesAlternateBytecodeSet: methodHeader)
+			[(coInterpreter headerIndicatesAlternateBytecodeSet: aMethodHeader)
 				ifTrue: [AltBlockCreationBytecodeSize]
 				ifFalse: [BlockCreationBytecodeSize]]
 		ifFalse: [BlockCreationBytecodeSize]
