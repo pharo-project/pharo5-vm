@@ -5,7 +5,7 @@ testMoveM64rRd
 		[:sreg :srname|
 		self concreteCompilerClass xmmRegistersWithNamesDo:
 			[:dreg :drname|
-			((1 to: 19 by: 3) collect: [:po2| 2 raisedToInteger: po2]) do:
+			#(0 8 32760) do:
 				[:offset| | inst len |
 				inst := self gen: MoveM64rRd operand: offset operand: sreg operand: dreg.
 				len := inst concretizeAt: 0.
@@ -14,6 +14,10 @@ testMoveM64rRd
 					In: inst machineCode object
 					into: [:str :sz| | plainJane herIntended |
 						plainJane := self strip: str.
-						herIntended := 'movsd 0x', (offset hex allButFirst: 3), '(', srname, '), ', drname.
-						self assert: (plainJane match: herIntended).
+						herIntended := 'movq ',
+										(offset = 0
+											ifTrue: ['']
+											ifFalse: ['0x', ((offset printStringBase: 16 length: 16 padded: true) asLowercase)]),
+										'(', srname, '), ', drname.
+						self assert: herIntended equals: plainJane.
 						self assert: len = sz]]]]

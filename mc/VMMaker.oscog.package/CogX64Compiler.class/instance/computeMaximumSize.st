@@ -118,6 +118,8 @@ computeMaximumSize
 		[MoveC32R]	-> [^7]. "N.B. Always inlined."
 		[MoveRR]		-> [^3].
 		[MoveRdRd]		-> [^4].
+		[MoveRRd]		-> [^5].
+		[MoveRdR]		-> [^5].
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 								ifTrue: [7]
 								ifFalse: [(self concreteRegister: (operands at: 1)) = RAX ifTrue: [10] ifFalse: [14]]].
@@ -140,12 +142,12 @@ computeMaximumSize
 								+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		"[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
+		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
 											ifTrue: [5]
 											ifFalse: [8])
-										+ ((self concreteRegister: (operands at: 2)) = ESP
+										+ ((((self concreteRegister: (operands at: 2)) bitAnd: 7) between: RSP and: RBP)
 											ifTrue: [1]
-											ifFalse: [0])]."
+											ifFalse: [0])].
 		[MoveMbrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
 							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
@@ -175,12 +177,14 @@ computeMaximumSize
 								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		"[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
-											ifTrue: [5]
+		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
+											ifTrue: [((operands at: 0) = 0 and: [((operands at: 1) bitAnd: 6) ~= RSP])
+														ifTrue: [4]
+														ifFalse: [5]]
 											ifFalse: [8])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
+										+ ((((self concreteRegister: (operands at: 1)) bitAnd: 7) between: RSP and: RBP)
 											ifTrue: [1]
-											ifFalse: [0])]."
+											ifFalse: [0])].
 		[MoveMwrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
 								^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
@@ -232,5 +236,5 @@ computeMaximumSize
 								ifFalse: [self pushCwByteSize]].
 		[PrefetchAw]	-> [^(self isAddressRelativeToVarBase: (operands at: 0)) ifTrue: [7] ifFalse: [0]].
 		"Conversion"
-		"[ConvertRRd]	-> [^4]" }.
+		[ConvertRRd]	-> [^5] }.
 	^0 "to keep C compiler quiet"

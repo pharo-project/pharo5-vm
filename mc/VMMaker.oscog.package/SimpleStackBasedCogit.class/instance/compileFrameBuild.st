@@ -32,15 +32,8 @@ compileFrameBuild
 	methodOrBlockNumArgs + 1 to: (coInterpreter temporaryCountOfMethodHeader: methodHeader) do:
 		[:i|
 		self PushR: SendNumArgsReg].
-	(primitiveIndex > 0
-	 and: [(coInterpreter longStoreBytecodeForHeader: methodHeader)
-			= (objectMemory
-				fetchByte: initialPC + (coInterpreter sizeOfCallPrimitiveBytecode: methodHeader)
-				ofObject: methodObj)]) ifTrue:
-		[self compileGetErrorCode.
-		 initialPC := initialPC
-				   + (coInterpreter sizeOfCallPrimitiveBytecode: methodHeader)
-				   + (coInterpreter sizeOfLongStoreTempBytecode: methodHeader)].
+	(self methodUsesPrimitiveErrorCode: methodHeader) ifTrue:
+		[self compileGetErrorCode].
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"
 	"If we can't context switch for this method, use a slightly

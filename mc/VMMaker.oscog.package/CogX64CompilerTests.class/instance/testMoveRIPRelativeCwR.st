@@ -1,4 +1,4 @@
-as yet unclassified
+tests
 testMoveRIPRelativeCwR
 	"test rip-relative constant generation"
 	"self new testMoveRIPRelativeCwR"

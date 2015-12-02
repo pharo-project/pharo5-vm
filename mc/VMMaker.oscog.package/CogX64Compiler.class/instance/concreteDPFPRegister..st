@@ -17,6 +17,6 @@ concreteDPFPRegister: registerIndex
 			[DPFPReg6]	-> [XMM6L / 2].
 			[DPFPReg7]	-> [XMM7L / 2] }
 		otherwise:
-			[self assert: (registerIndex between: XMM0L and: XMM7L).
+			[self assert: (registerIndex between: XMM0L and: XMM15L).
 			 self assert: (registerIndex bitAnd: 1) = 0.
 			 registerIndex / 2]

@@ -180,7 +180,7 @@
 		"pushNilSize:numInitialNils:" : "eem 4/2/2015 16:44",
 		"reinitializeFixupsFrom:through:" : "eem 11/14/2012 15:28",
 		"scanBlock:" : "eem 6/4/2015 09:29",
-		"scanMethod" : "eem 10/24/2014 11:26",
+		"scanMethod" : "eem 12/1/2015 22:57",
 		"setInterpreter:" : "eem 5/14/2015 17:00",
 		"simStackAt:" : "eem 12/11/2010 18:01",
 		"sistaV1:Num:Push:Nils:" : "eem 7/29/2014 07:23",

@@ -35,6 +35,14 @@ initialize
 	XMM5L := 10.
 	XMM6L := 12.
 	XMM7L := 14.
+	XMM8L := 16.
+	XMM9L := 18.
+	XMM10L := 20.
+	XMM11L := 22.
+	XMM12L := 24.
+	XMM13L := 26.
+	XMM14L := 28.
+	XMM15L := 30.
 
 	XMM0H := 1.
 	XMM1H := 3.
@@ -44,6 +52,14 @@ initialize
 	XMM5H := 11.
 	XMM6H := 13.
 	XMM7H := 15.
+	XMM8H := 17.
+	XMM9H := 19.
+	XMM10H := 21.
+	XMM11H := 23.
+	XMM12H := 25.
+	XMM13H := 27.
+	XMM14H := 29.
+	XMM15H := 31.
 
 	"Mod R/M Mod fields.  See [1] Sec 2.4, 2.5 & 2.6 & Table 2-2"
 	ModRegInd := 0.
