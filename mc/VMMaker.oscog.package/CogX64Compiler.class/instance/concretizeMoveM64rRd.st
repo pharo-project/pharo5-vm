@@ -34,7 +34,7 @@ concretizeMoveM64rRd
 			at: skip + 5 put: (offset bitAnd: 16rFF).
 		 ^machineCodeSize := skip + 6].
 	machineCode at: skip + 3 put: (self mod: ModRegRegDisp32 RM: srcReg RO: destReg).
-	(srcReg bitAnd: 6) = RSP ifTrue:
+	(srcReg bitAnd: 7) = RSP ifTrue:
 		[machineCode at: skip + 4 put: (self s: SIB1 i: 4 b: srcReg).
 		 skip := skip + 1].
 	machineCode
