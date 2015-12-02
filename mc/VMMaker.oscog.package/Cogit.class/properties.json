@@ -74,6 +74,7 @@
 		"traceStores",
 		"breakMethod",
 		"methodObj",
+		"methodHeader",
 		"initialPC",
 		"endPC",
 		"methodOrBlockNumArgs",

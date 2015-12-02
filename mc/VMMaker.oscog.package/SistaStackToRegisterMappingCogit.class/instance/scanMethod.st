@@ -15,7 +15,8 @@ scanMethod
 	numCounters := 0.
 	self cppIf: #NewspeakVM ifTrue:
 		[numIRCs := 0].
-	self checkForQuickPrimitiveAdjustingIntialPCIfErrorCodeUsed ifTrue:
+	(primitiveIndex > 0
+	 and: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]) ifTrue:
 		[^0].
 	pc := latestContinuation := initialPC.
 	numBlocks := framelessStackDelta := nExts := extA := extB := 0.
