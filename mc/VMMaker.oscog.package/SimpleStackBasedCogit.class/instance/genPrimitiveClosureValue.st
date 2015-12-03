@@ -36,7 +36,7 @@ genPrimitiveClosureValue
 	self CmpCq: objectMemory firstCompiledMethodFormat R: TempReg.
 	jumpFail4 := self JumpLess: 0.
 	objectRepresentation genLoadSlot: HeaderIndex sourceReg: SendNumArgsReg destReg: ClassReg.
-	jumpBCMethod := objectRepresentation genJumpSmallInteger: ClassReg.
+	jumpBCMethod := objectRepresentation genJumpImmediate: ClassReg.
 	self MoveM16: (self offset: CogMethod of: #blockEntryOffset) r: ClassReg R: TempReg.
 	self AddR: ClassReg R: TempReg.
 	primitiveRoutine := coInterpreter

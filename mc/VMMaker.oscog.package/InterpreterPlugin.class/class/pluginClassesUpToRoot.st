@@ -1,6 +1,6 @@
 translation
-pluginClassesUpTo: aPluginClass
-	"Answer the classes to include for translation of aPluginClass, superclasses first, aPluginClass last."
+pluginClassesUpToRoot
+	"Answer the classes to include for translation of aPluginClass, superclasses first, and the root (VMClass in general, possibly Object)  last."
 	| theClass classes |
 
 	classes := OrderedCollection new.
