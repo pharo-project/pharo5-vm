@@ -16,11 +16,10 @@ compileFrameBuild
 	If there is a primitive and an error code the Nth temp is the error code.
 	Ensure SendNumArgsReg is set early on (incidentally to nilObj) because
 	it is the flag determining whether context switch is allowed on stack-overflow."
-	| methodHeader jumpSkip |
+	| jumpSkip |
 	<inline: false>
 	<var: #jumpSkip type: #'AbstractInstruction *'>
 	needsFrame ifFalse: [^0].
-	methodHeader := objectMemory methodHeaderOf: methodObj.
 	backEnd hasLinkRegister ifTrue: [self PushR: LinkReg].
 	self PushR: FPReg.
 	self MoveR: SPReg R: FPReg.
@@ -32,15 +31,8 @@ compileFrameBuild
 	methodOrBlockNumArgs + 1 to: (coInterpreter temporaryCountOfMethodHeader: methodHeader) do:
 		[:i|
 		self PushR: SendNumArgsReg].
-	(primitiveIndex > 0
-	 and: [(coInterpreter longStoreBytecodeForHeader: methodHeader)
-			= (objectMemory
-				fetchByte: initialPC + (coInterpreter sizeOfCallPrimitiveBytecode: methodHeader)
-				ofObject: methodObj)]) ifTrue:
-		[self compileGetErrorCode.
-		 initialPC := initialPC
-				   + (coInterpreter sizeOfCallPrimitiveBytecode: methodHeader)
-				   + (coInterpreter sizeOfLongStoreTempBytecode: methodHeader)].
+	self methodUsesPrimitiveErrorCode ifTrue:
+		[self compileGetErrorCode].
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"
 	"If we can't context switch for this method, use a slightly

@@ -18,6 +18,6 @@ addToMap: annotation instruction: instruction byte: byte at: address for: mcpc
 				 instruction printStateOn: s.
 				 s space.
 				 bytecode := objectMemory fetchByte: instruction bcpc ofObject: methodObj.
-				 bytecode := bytecode + (self bytecodeSetOffsetForHeader: (objectMemory methodHeaderOf: methodObj)).
+				 bytecode := bytecode + (self bytecodeSetOffsetForHeader: (methodHeader)).
 				 (self generatorAt: bytecode) printStateOn: s.
 				 s cr; flush]]]

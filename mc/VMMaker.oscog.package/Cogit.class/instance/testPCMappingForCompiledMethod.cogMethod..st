@@ -1,7 +1,7 @@
 tests-method map
 testPCMappingForCompiledMethod: aCompiledMethod cogMethod: cm
 	<doNotGenerate>
-	methodObj := nil.
+	methodObj := methodHeader := nil.
 	self
 		testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cm;
 		testBcToMcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cm

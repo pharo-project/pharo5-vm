@@ -8,8 +8,9 @@ printStateOn: aStream
 	orneryOperands := operands isCObjectAccessor
 							ifTrue: [operands object]
 							ifFalse: [operands].
-	(cogit isKindOf: Cogit) ifTrue:
-		[format := CogRTLOpcodes printFormatForOpcodeName: opcodeName].
+	format := [CogRTLOpcodes printFormatForOpcodeName: opcodeName]
+				on: Error
+				do: [:ex| ].
 	orneryOperands withIndexDo:
 		[:operand :index|
 		operand notNil ifTrue:

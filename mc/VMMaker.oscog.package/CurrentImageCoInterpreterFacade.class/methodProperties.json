@@ -121,6 +121,7 @@
 		"primitiveFailAddress" : "eem 11/11/2011 11:17",
 		"primitiveFunctionPointerAddress" : "eem 1/8/2011 13:10",
 		"primitiveIndexOf:" : "eem 1/8/2011 14:43",
+		"primitiveIndexOfMethod:header:" : "eem 12/2/2015 11:45",
 		"primitivePropertyFlags:" : "eem 1/8/2011 12:53",
 		"print:" : "eem 4/6/2015 14:54",
 		"printHex:" : "eem 4/6/2015 14:55",
