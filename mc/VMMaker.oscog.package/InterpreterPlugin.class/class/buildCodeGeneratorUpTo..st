@@ -1,5 +1,12 @@
 translation
 buildCodeGeneratorUpTo: aPluginClass
-	"Build a CCodeGenerator for the plugin - Deprecated and here only in case old plugin code tries to use it"
-	self deprecated.
-	^self buildCodeGenerator
+	"Build a CCodeGenerator for the plugin"
+	| cg pluginClasses |
+	cg := self codeGeneratorClass new initialize.
+	cg pluginClass: self.
+	(pluginClasses := self pluginClassesUpTo: aPluginClass) do:
+		[:aClass| cg addClass: aClass].
+	(cg structClassesForTranslationClasses: pluginClasses) do:
+		[:structClasss| cg addStructClass: structClasss].
+	cg addMethodsForTranslatedPrimitives: self translatedPrimitives.
+	^cg

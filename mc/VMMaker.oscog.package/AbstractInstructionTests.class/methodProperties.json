@@ -12,6 +12,7 @@
 		"addressIsInCurrentCompilation:" : "eem 11/13/2015 11:09",
 		"addressIsInFixups:" : "eem 1/21/2009 17:24",
 		"addressIsInInstructions:" : "eem 1/21/2009 17:17",
+		"assert:equals:" : "eem 12/3/2015 08:54",
 		"assertCheckQuickArithOpCodeSize:" : "eem 1/20/2009 15:10",
 		"assertSaneJumpTarget:" : "eem 9/18/2015 12:31",
 		"cCoerceSimple:to:" : "eem 4/7/2009 08:43",

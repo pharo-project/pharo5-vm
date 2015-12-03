@@ -13,5 +13,5 @@ testMoveRAb
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
 					herIntended := 'movb ', regname, ', 0x', (addr hex allButFirst: 3).
-					self assert: (plainJane match: herIntended).
+					self assert: herIntended equals: plainJane.
 					self assert: len = sz]]]

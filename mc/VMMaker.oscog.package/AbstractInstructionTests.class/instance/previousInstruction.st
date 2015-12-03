@@ -1,4 +1,4 @@
-as yet unclassified
+accessing
 previousInstruction
 	<returnTypeC: #'AbstractInstruction *'>
 	^opcodes last

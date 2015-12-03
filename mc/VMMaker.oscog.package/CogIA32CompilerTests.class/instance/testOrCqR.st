@@ -1,19 +1,18 @@
 tests
-testMoveAbR
-	"self new testMoveAbR"
-	CogIA32CompilerForTests registersWithNamesDo:
+testOrCqR
+	"self new testOrCqR"
+	self concreteCompilerClass registersWithNamesDo:
 		[:reg :regname|
-		#(16r555555 16rAAAAAA) do:
-			[:addr| | inst len |
-			inst := self gen: MoveAbR operand: addr operand: reg.
+		#(16r1 16r3 16r7 16r555555 16rAAAAAA) do:
+			[:const| | inst len|
+			inst := self gen: OrCqR operand: const operand: reg.
 			len := inst concretizeAt: 0.
-			self assert: inst byteReadsZeroExtend.
 			self processor
 				disassembleInstructionAt: 0
 				In: inst machineCode object
 				into: [:str :sz| | plainJane herIntended |
 					"Convert e.g. '00000000: movl %eax, 0x2(%eax) : 89 40 02' to  'movl %eax, 0x2(%eax)'"
 					plainJane := self strip: str.
-					herIntended := 'movzbl 0x', (addr hex allButFirst: 3), ', ', regname.
+					herIntended := 'orl $0x', (const printStringBase: 16 length: 8 padded: true), ', ', regname.
 					self assert: herIntended equals: plainJane.
 					self assert: len = sz]]]

@@ -4,7 +4,7 @@ translateInDirectory: directory doInlining: inlineFlag
 	| cg |
 	self initialize.
 
-	cg := self buildCodeGenerator.
+	cg := self buildCodeGeneratorUpTo: self.
 
 	"We rely on the fake entry points implemented on the instance side to allow the export list to be accurate. Please update them if you change the code"
 	^cg exportedPrimitiveNames asArray

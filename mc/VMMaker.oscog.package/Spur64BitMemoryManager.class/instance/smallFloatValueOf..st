@@ -15,4 +15,4 @@ smallFloatValueOf: oop
 			[(Float new: 2)
 				at: 1 put: bits >> 32;
 				at: 2 put: (bits bitAnd: 16rFFFFFFFF);
-				yourself]
+				* 1.0 "reduce to SmallFloat64 if possible"]

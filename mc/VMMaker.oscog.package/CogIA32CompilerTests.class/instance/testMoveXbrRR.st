@@ -19,5 +19,5 @@ testMoveXbrRR
 								"Convert e.g. '00000000: movzbl %ds:(%eax,%eax,1), %eax : 0F B6 04 00 ' to  'movzbl (%eax,%eax,1)'"
 								plainJane := self strip: str.
 								herIntended := 'movzbl (', brname, ',', irname, ',1), ',drname.
-								self assert: (plainJane match: herIntended).
+								self assert: herIntended equals: plainJane.
 								self assert: len = sz]]]]]]

@@ -23,5 +23,5 @@ testCMPXCHGMwrR
 							plainJane := self strip: str.
 							herIntended := (prefixLock ifTrue: ['lock '] ifFalse: ['']),
 											'cmpxchgl ', drname, ', 0x', (offset hex allButFirst: 3), '(', srname, ')'.
-							self assert: (plainJane match: herIntended).
+							self assert: herIntended equals: plainJane.
 							self assert: memory size = sz]]]]]

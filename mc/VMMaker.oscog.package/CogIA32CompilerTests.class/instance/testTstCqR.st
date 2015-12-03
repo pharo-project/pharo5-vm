@@ -1,7 +1,7 @@
 tests
 testTstCqR
 	"self new testTstCqR"
-	CogIA32CompilerForTests registersWithNamesDo:
+	self concreteCompilerClass registersWithNamesDo:
 		[:reg :theRegname|
 		#(16r1 16r3 16r7 16r555555 16rAAAAAA) do:
 			[:const| | op regname inst len constString|
@@ -23,5 +23,5 @@ testTstCqR
 					"Convert e.g. '00000000: movl %eax, 0x2(%eax) : 89 40 02' to  'movl %eax, 0x2(%eax)'"
 					plainJane := self strip: str.
 					herIntended := op, ' $0x', constString, ', ', regname.
-					self assert: (plainJane match: herIntended).
+					self assert: herIntended equals: plainJane.
 					self assert: len = sz]]]

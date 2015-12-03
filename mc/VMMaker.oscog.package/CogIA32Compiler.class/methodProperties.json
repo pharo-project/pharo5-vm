@@ -157,7 +157,7 @@
 		"numberOfSaveableRegisters" : "eem 8/8/2012 13:20",
 		"padIfPossibleWithNopsFrom:to:" : "eem 8/8/2012 13:22",
 		"relocateCallBeforeReturnPC:by:" : "eem 6/13/2014 13:27",
-		"relocateMethodReferenceBeforeAddress:by:" : "eem 3/12/2009 11:03",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 12/2/2015 13:31",
 		"rewriteCPICJumpAt:target:" : "eem 11/23/2015 10:19",
 		"rewriteCallAt:target:" : "eem 10/3/2011 13:45",
 		"rewriteInlineCacheAt:tag:target:" : "eem 10/3/2011 13:44",
