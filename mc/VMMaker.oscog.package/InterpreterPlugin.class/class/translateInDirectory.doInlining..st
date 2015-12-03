@@ -13,7 +13,7 @@ translateInDirectory: directory doInlining: inlineFlag
 			[^nil]].
 
 	self initialize.
-	cg := self buildCodeGeneratorUpTo: self.
+	cg := self buildCodeGenerator.
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.
 	self pruneUnusedInterpreterPluginMethodsIn: cg.
 	cg storeCodeOnFile:  (directory fullNameFor: fname) doInlining: inlineFlag.

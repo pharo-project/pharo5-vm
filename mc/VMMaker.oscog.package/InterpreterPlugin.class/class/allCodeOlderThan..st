@@ -1,6 +1,6 @@
 translation
 allCodeOlderThan: modificationTime
-	^((self pluginClassesUpTo: self) allSatisfy:
+	^((self pluginClassesUpToRoot) allSatisfy:
 			[:aPluginClass| aPluginClass timeStamp < modificationTime])
 	  and: [self translatedPrimitives allSatisfy:
 			[:pair| | c m stamp |
