@@ -19,5 +19,5 @@ testMoveX32rRR
 									"Convert e.g. '00000000: movl %eax, 0x2(%eax) : 89 40 02' to  'movl %eax, 0x2(%eax)'"
 									plainJane := self strip: str.
 									herIntended := 'movl (', brname, ',', irname, ',4), ',drname.
-									self assert: (plainJane match: herIntended).
+									self assert: herIntended equals: plainJane.
 									self assert: len - 3 = sz]]]]]]

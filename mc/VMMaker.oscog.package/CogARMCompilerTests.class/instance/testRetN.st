@@ -25,7 +25,7 @@ testRetN
 			into: [:str :sz| | plainJane herIntended |
 				plainJane := self strip: str.
 				herIntended := 'add	sp, sp, #', (n * 4 )asString.
-				self assert: (plainJane match: herIntended)].
+				self assert: herIntended equals: plainJane].
 		self
 			disassembleInstructionAt: 4
 			In: inst

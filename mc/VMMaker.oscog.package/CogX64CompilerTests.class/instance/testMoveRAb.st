@@ -16,7 +16,7 @@ testMoveRAb
 					into: [:str :sz| | plainJane herIntended |
 						plainJane := self strip: str.
 						herIntended := 'xchgq %rax, %', reg64name.
-						self assert: (plainJane match: herIntended).
+						self assert: herIntended equals: plainJane.
 						totalsz := sz]].
 			self processor
 				disassembleInstructionAt: totalsz
@@ -24,7 +24,7 @@ testMoveRAb
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
 					herIntended := 'movb %al, 0x', (addr printStringBase: 16 length: 16 padded: true).
-					self assert: (plainJane match: herIntended).
+					self assert: herIntended equals: plainJane.
 					totalsz := totalsz + sz].
 			regname ~= '%al' ifTrue:
 				[self processor
@@ -33,6 +33,6 @@ testMoveRAb
 					into: [:str :sz| | plainJane herIntended |
 						plainJane := self strip: str.
 						herIntended := 'xchgq %rax, %', reg64name.
-						self assert: (plainJane match: herIntended).
+						self assert: herIntended equals: plainJane.
 						totalsz := totalsz + sz]].
 			self assert: len = totalsz]]

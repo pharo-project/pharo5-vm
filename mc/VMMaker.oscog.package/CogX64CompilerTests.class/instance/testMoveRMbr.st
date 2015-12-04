@@ -16,5 +16,5 @@ testMoveRMbr
 						plainJane := self strip: str.
 						po := offset bitAnd: 1 << self processor bitsInWord - 1.
 						herIntended := 'movb ', srname, (offset = 0 ifTrue: [', '] ifFalse: [', 0x', (po printStringBase: 16 length: 16 padded: true)]), '(', drname, ')'.
-						self assert: (plainJane match: herIntended).
+						self assert: herIntended equals: plainJane.
 						self assert: len = sz]]]]

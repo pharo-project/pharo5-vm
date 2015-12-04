@@ -14,5 +14,5 @@ testMoveC32R
 					plainJane := self strip: str.
 					po := offset bitAnd: 1 << self processor bitsInWord - 1.
 					herIntended := 'movq $0x', (po printStringBase: 16 length: 16 padded: true), ', ', rname.
-					self assert: (plainJane match: herIntended).
+					self assert: herIntended equals: plainJane.
 					self assert: len = sz]]]

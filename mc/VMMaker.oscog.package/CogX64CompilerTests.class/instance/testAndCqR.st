@@ -14,5 +14,5 @@ testAndCqR
 					"Convert e.g. '00000000: movl %eax, 0x2(%eax) : 89 40 02' to  'movl %eax, 0x2(%eax)'"
 					plainJane := self strip: str.
 					herIntended := 'andq $0x', (const printStringBase: 16 length: 16 padded: true), ', ', regname.
-					self assert: (plainJane match: herIntended).
+					self assert: herIntended equals: plainJane.
 					self assert: len = sz]]]
