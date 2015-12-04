@@ -97,6 +97,20 @@ Before doing that, you would be well advised to make a tar or zipfile of the who
 
 5. Finally, run the freshly compiled VM from `results`.
 
+Building the VM from an IDE
+===========================
+If you want to build the virtual machine from an IDE, you could ask cmake to generate the IDE project for you.
+At step 4, instead of calling ```build.sh```, you can run:
+```bash
+cd ../build
+if [ ! -e vmVersionInfo.h ]; then
+        ../scripts/extract-commit-info.sh
+fi
+cmake . -G Xcode
+```
+It will generate a project for Xcode. Other options are available like Visual Studio.
+Then open the project from your IDE and compile from there.
+
 Acknowledge
 ===========
 The Pharo VM is a flavour of the Cog VM, a new and fast VM for Pharo, Squeak and Newspeak. It implements context-to-stack mapping, JIT (just in time compiler), PIC (polymorphic inline caching), Multi-threading, etc.  
