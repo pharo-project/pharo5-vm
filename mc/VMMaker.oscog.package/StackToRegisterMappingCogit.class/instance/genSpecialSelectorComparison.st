@@ -35,12 +35,10 @@ genSpecialSelectorComparison
 			 self MoveR: ReceiverResultReg R: TempReg]
 		ifFalse:
 			[self marshallSendArguments: 1.
-			 self MoveR: Arg0Reg R: TempReg.
-			 rcvrIsInt ifFalse:
-				[objectRepresentation isSmallIntegerTagNonZero
-					ifTrue: [self AndR: ReceiverResultReg R: TempReg]
-					ifFalse: [self OrR: ReceiverResultReg R: TempReg]]].
-	jumpNotSmallInts := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+			 self MoveR: Arg0Reg R: TempReg].
+	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
+							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
+							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratchReg: TempReg].
 	argIsInt
 		ifTrue: [annotateInst
 					ifTrue: [self annotateBytecode: (self CmpCq: argInt R: ReceiverResultReg)]
