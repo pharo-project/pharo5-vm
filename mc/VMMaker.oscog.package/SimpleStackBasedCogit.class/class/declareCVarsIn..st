@@ -8,4 +8,4 @@ declareCVarsIn: aCCodeGenerator
 		var: #externalSetPrimOffsets
 			declareC: 'sqInt externalSetPrimOffsets[MaxNumArgs + 1]';
 		var: #primSetFunctionLabel type: #'AbstractInstruction *';
-		var: #primInvokeLabel type: #'AbstractInstruction *'
+		var: #primInvokeInstruction type: #'AbstractInstruction *'

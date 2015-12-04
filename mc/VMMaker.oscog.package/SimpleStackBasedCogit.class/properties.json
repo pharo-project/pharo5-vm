@@ -7,7 +7,7 @@
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		"primSetFunctionLabel",
-		"primInvokeLabel",
+		"primInvokeInstruction",
 		"externalPrimCallOffsets",
 		"externalPrimJumpOffsets",
 		"externalSetPrimOffsets" ],

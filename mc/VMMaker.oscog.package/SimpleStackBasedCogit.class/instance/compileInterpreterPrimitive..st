@@ -72,13 +72,11 @@ compileInterpreterPrimitive: primitiveRoutine
 				((flags anyMask: PrimCallCollectsProfileSamples)
 					ifTrue: [cePrimReturnEnterCogCodeProfiling]
 					ifFalse: [cePrimReturnEnterCogCode]).
-			 self JumpFullRT: primitiveRoutine asInteger.
-			 primInvokeLabel := self Label.
+			 primInvokeInstruction := self JumpFullRT: primitiveRoutine asInteger.
 			 jmp := jmpSamplePrim := continuePostSamplePrim := nil]
 		ifFalse:
 			["Call the C primitive routine."
-			self CallFullRT: primitiveRoutine asInteger.
-			primInvokeLabel := self Label.
+			primInvokeInstruction := self CallFullRT: primitiveRoutine asInteger.
 			(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 				[self assert: (flags anyMask: PrimCallNeedsNewMethod).
 				"Test nextProfileTick for being non-zero and call checkProfileTick if so"

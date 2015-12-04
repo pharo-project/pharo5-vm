@@ -75,7 +75,9 @@ computeMaximumSize
 		[AddCwR]		-> [^self computeSizeOfArithCwR].
 		[AndCwR]		-> [^self computeSizeOfArithCwR].
 		[CmpCwR]		-> [^self computeSizeOfArithCwR].
-		[CmpC32R]		-> [^self computeSizeOfArithCwR].
+		[CmpC32R]		-> [^(self concreteRegister: (operands at: 1)) = RAX
+								ifTrue: [6]
+								ifFalse: [7]].
 		[OrCwR]		-> [^self computeSizeOfArithCwR].
 		[SubCwR]		-> [^self computeSizeOfArithCwR].
 		[XorCwR]		-> [^self computeSizeOfArithCwR].

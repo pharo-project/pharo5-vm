@@ -145,7 +145,7 @@
 		"inlineCacheTagAt:" : "rmacnak 11/16/2015 22:46:24",
 		"isAddressRelativeToVarBase:" : "rmacnak 11/9/2015 20:12:41",
 		"isBigEndian" : "rmacnak 10/27/2015 20:24:30",
-		"isCallPrecedingReturnPC:" : "rmacnak 11/29/2015 20:08:42",
+		"isCallPrecedingReturnPC:" : "eem 12/3/2015 22:26",
 		"isJump" : "rmacnak 11/20/2015 17:38:38",
 		"isPCDependent" : "rmacnak 11/9/2015 19:26:45",
 		"isShortOffset:" : "rmacnak 11/14/2015 14:50:01",
