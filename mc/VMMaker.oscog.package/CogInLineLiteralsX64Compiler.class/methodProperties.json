@@ -3,6 +3,7 @@
 		"initialize" : "eem 9/28/2015 16:38",
 		"isConcreteRISCTempRegister:" : "eem 9/28/2015 18:27" },
 	"instance" : {
+		"computeSizeOfArithCqR" : "eem 12/4/2015 18:13",
 		"computeSizeOfArithCwR" : "eem 9/22/2015 08:22",
 		"concreteRegister:" : "eem 9/25/2015 17:17",
 		"concretizeArithCwR:" : "eem 9/28/2015 18:06",
