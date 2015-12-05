@@ -26,10 +26,7 @@ genInnerPrimitiveAt: retNoffset
 
 	jumpImmediate := self genJumpImmediate: ReceiverResultReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
-	jumpBadIndex asInteger = UnimplementedOperation ifTrue:
-		[cogit MoveR: Arg0Reg R: TempReg.
-		 jumpBadIndex := self genJumpNotSmallIntegerInScratchReg: TempReg].
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg scratch: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
 	cogit SubCq: 1 R: Arg1Reg. "1-rel => 0-rel"
 

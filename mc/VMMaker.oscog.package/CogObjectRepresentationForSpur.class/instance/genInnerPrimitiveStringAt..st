@@ -18,7 +18,7 @@ genInnerPrimitiveStringAt: retNoffset
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
 
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg scratch: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
 	cogit SubCq: 1 R: Arg1Reg. "1-rel => 0-rel"
 
@@ -59,6 +59,8 @@ genInnerPrimitiveStringAt: retNoffset
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
 	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
+	cogit backEnd byteReadsZeroExtend ifFalse:
+			[cogit AndCq: 255 R: ReceiverResultReg].
 	done := cogit Label.
 	self genConvertIntegerToCharacterInReg: ReceiverResultReg.
 	cogit RetN: retNoffset.

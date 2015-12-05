@@ -43,10 +43,7 @@ genInnerPrimitiveNewWithArg: retNoffset
 	self genGetHashFieldNonImmOf: ReceiverResultReg into: headerReg.
 	jumpUnhashed := cogit JumpZero: 0.
 	"get index and fail if not a +ve integer"
-	jumpNElementsNonInt := self genJumpNotSmallInteger: Arg0Reg.
-	jumpNElementsNonInt asInteger = UnimplementedOperation ifTrue:
-		[cogit MoveR: Arg0Reg R: TempReg.
-		 jumpNElementsNonInt := self genJumpNotSmallIntegerInScratchReg: TempReg].
+	jumpNElementsNonInt := self genJumpNotSmallInteger: Arg0Reg scratch: TempReg.
 	"get class's format inst var for inst spec (format field)"
 	self genLoadSlot: InstanceSpecificationIndex sourceReg: ReceiverResultReg destReg: instSpecReg.
 	cogit LogicalShiftRightCq: objectMemory fixedFieldsFieldWidth + self numSmallIntegerTagBits R: instSpecReg.
