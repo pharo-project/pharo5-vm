@@ -37,6 +37,7 @@
 		"genInnerPrimitiveNewWithArg:" : "eem 11/22/2013 11:52",
 		"genInnerPrimitiveStringAtPut:" : "eem 12/9/2013 18:21",
 		"genJumpImmediate:" : "eem 5/30/2015 11:16",
+		"genJumpIsSmallIntegerValue:scratch:" : "eem 12/5/2015 11:04",
 		"genJumpNotImmediate:" : "eem 5/30/2015 11:21",
 		"genJumpNotSmallInteger:" : "eem 5/30/2015 11:22",
 		"genJumpNotSmallInteger:scratch:" : "eem 12/4/2015 17:29",
