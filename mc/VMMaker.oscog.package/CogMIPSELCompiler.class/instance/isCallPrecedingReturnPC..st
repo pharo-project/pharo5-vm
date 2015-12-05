@@ -6,6 +6,6 @@ isCallPrecedingReturnPC: mcpc
 	(self opcodeAtAddress: mcpc - 8) = JAL ifTrue: [^true].
 	
 	((self opcodeAtAddress: mcpc - 8) = SPECIAL
-		and: [(self opcodeAtAddress: mcpc - 8) = JALR]) ifTrue: [^true].
+		and: [(self functionAtAddress: mcpc - 8) = JALR]) ifTrue: [^true].
 	
 	^false

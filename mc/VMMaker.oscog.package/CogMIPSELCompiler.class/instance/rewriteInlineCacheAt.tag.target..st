@@ -39,4 +39,4 @@ rewriteInlineCacheAt: callSiteReturnAddress tag: cacheTag target: callTargetAddr
 	self assert: (objectMemory longAt: callSiteReturnAddress - 4) = self nop.
 	"cogit disassembleFrom: callSiteReturnAddress - 24 to: callSiteReturnAddress."
 
-	^28
+	^24

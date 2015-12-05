@@ -568,7 +568,7 @@
 		"registerMaskFor:and:and:and:and:and:and:and:and:" : "eem 9/23/2015 09:38",
 		"relativeLabelForPC:" : "eem 12/5/2010 11:58",
 		"relocateCallsAndSelfReferencesInMethod:" : "eem 1/20/2014 19:27",
-		"relocateCallsInClosedPIC:" : "eem 11/17/2015 15:37",
+		"relocateCallsInClosedPIC:" : "rmacnak 12/1/2015 20:04:18",
 		"relocateIfCallOrMethodReference:mcpc:delta:" : "eem 6/3/2015 19:08",
 		"remapIfObjectRef:pc:hasYoung:" : "eem 6/16/2015 12:42",
 		"remapMaybeObjRefInClosedPICAt:" : "eem 11/21/2015 14:51",
