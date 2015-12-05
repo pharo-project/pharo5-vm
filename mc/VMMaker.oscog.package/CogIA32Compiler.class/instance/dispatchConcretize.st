@@ -66,28 +66,28 @@ dispatchConcretize
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeAddCqR].
 		[AddCwR]					-> [^self concretizeAddCwR].
-		[AddRR]						-> [^self concretizeAddRR].
+		[AddRR]						-> [^self concretizeOpRR: 16r03].
 		[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58].
 		[AndCqR]					-> [^self concretizeAndCqR].
 		[AndCwR]					-> [^self concretizeAndCwR].
-		[AndRR]						-> [^self concretizeAndRR].
+		[AndRR]						-> [^self concretizeOpRR: 16r23].
 		[TstCqR]					-> [^self concretizeTstCqR].
 		[CmpCqR]					-> [^self concretizeCmpCqR].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
-		[CmpRR]					-> [^self concretizeCmpRR].
+		[CmpRR]					-> [^self concretizeReverseOpRR: 16r39].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59].
 		[OrCqR]						-> [^self concretizeOrCqR].
 		[OrCwR]					-> [^self concretizeOrCwR].
-		[OrRR]						-> [^self concretizeOrRR].
+		[OrRR]						-> [^self concretizeOpRR: 16r0B].
 		[SubCqR]					-> [^self concretizeSubCqR].
 		[SubCwR]					-> [^self concretizeSubCwR].
-		[SubRR]						-> [^self concretizeSubRR].
+		[SubRR]						-> [^self concretizeOpRR: 16r2B].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].
 		[SqrtRd]						-> [^self concretizeSqrtRd].
 		[XorCwR]						-> [^self concretizeXorCwR].
-		[XorRR]							-> [^self concretizeXorRR].
+		[XorRR]							-> [^self concretizeOpRR: 16r33].
 		[NegateR]						-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].
@@ -98,7 +98,7 @@ dispatchConcretize
 		"Data Movement"
 		[MoveCqR]			-> [^self concretizeMoveCqR].
 		[MoveCwR]			-> [^self concretizeMoveCwR].
-		[MoveRR]			-> [^self concretizeMoveRR].
+		[MoveRR]			-> [^self concretizeReverseOpRR: 16r89].
 		[MoveAwR]			-> [^self concretizeMoveAwR].
 		[MoveRAw]			-> [^self concretizeMoveRAw].
 		[MoveAbR]			-> [^self concretizeMoveAbR].

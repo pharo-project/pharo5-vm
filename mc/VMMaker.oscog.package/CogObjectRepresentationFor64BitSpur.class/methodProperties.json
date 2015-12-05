@@ -7,6 +7,7 @@
 		"branch2CasesIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
 		"branchIf:hasNotImmediateTag:target:" : "cb 4/16/2015 12:19",
 		"fetchImmediateTagOtherThanTag1:tag2:" : "cb 4/16/2015 12:00",
+		"genAddSmallIntegerTagsTo:" : "eem 12/4/2015 10:36",
 		"genConvertCharacterToSmallIntegerInReg:" : "eem 11/4/2015 08:50:12",
 		"genConvertIntegerToSmallIntegerInReg:" : "eem 9/27/2015 10:40",
 		"genConvertSmallIntegerToIntegerInReg:" : "eem 9/27/2015 10:39",
