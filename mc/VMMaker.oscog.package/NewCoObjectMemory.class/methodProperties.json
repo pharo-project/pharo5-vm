@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"defaultISA" : "eem 12/4/2015 22:20",
 		"objectRepresentationClass" : "eem 10/9/2013 17:57",
 		"simulatorClass" : "eem 9/30/2010 13:29" },
 	"instance" : {

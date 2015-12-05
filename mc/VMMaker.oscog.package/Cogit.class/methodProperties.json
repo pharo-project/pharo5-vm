@@ -33,7 +33,7 @@
 		"initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid" : "eem 10/6/2015 15:52",
 		"initializeCogMethodConstants" : "eem 1/21/2014 14:55",
 		"initializeErrorCodes" : "eem 5/30/2015 11:14",
-		"initializeMiscConstants" : "rmacnak 11/8/2015 18:28:01",
+		"initializeMiscConstants" : "eem 12/4/2015 22:19",
 		"initializeNumTrampolines" : "eem 6/4/2015 12:03",
 		"initializePrimitiveTable" : "eem 5/15/2014 13:24",
 		"initializeWithOptions:" : "eem 09/28/2015 18:49",

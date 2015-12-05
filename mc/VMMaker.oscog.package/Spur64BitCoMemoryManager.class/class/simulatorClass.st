@@ -1,3 +1,3 @@
-simulation only
+simulation
 simulatorClass
 	^Spur64BitMMLECoSimulator

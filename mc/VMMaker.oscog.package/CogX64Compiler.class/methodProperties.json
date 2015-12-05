@@ -3,6 +3,7 @@
 		"ABI" : "eem 10/21/2015 15:23:12",
 		"ISA" : "rmacnak 11/8/2015 17:10:59",
 		"VarBaseReg" : "eem 9/28/2015 10:51",
+		"defaultCompilerClass" : "eem 12/4/2015 22:25",
 		"initialize" : "eem 12/1/2015 12:57",
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52" },
 	"instance" : {
@@ -87,6 +88,7 @@
 		"genSaveRegisters" : "eem 9/26/2015 18:11",
 		"genSaveStackPointers" : "eem 9/23/2015 17:33",
 		"genSubstituteReturnAddress:" : "eem 5/6/2009 10:40",
+		"generalPurposeRegisterMap" : "eem 12/4/2015 22:02",
 		"hasConditionRegister" : "rmacnak 11/17/2015 18:18:35",
 		"hasDoublePrecisionFloatingPointSupport" : "eem 9/21/2015 13:00",
 		"hasLinkRegister" : "eem 9/23/2015 17:32",

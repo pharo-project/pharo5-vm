@@ -84,10 +84,6 @@ genInnerPrimitiveNewWithArg: retNoffset
 	"round up num elements to numSlots in instSpecReg"
 	cogit AddCq: objectMemory wordSize - 1 R: instSpecReg.
 	cogit LogicalShiftRightCq: objectMemory shiftForWord R: instSpecReg.
-	"store numSlots to headerReg"
-	cogit MoveR: instSpecReg R: TempReg.
-	cogit LogicalShiftLeftCq: objectMemory numSlotsFullShift R: TempReg.
-	cogit AddR: TempReg R: headerReg.
 	cogit MoveCq: 0 R: fillReg.
 	jumpBytePrepDone := cogit Jump: 0. "go allocate"
 
