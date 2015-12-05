@@ -35,6 +35,7 @@
 		"genInnerPrimitiveNew:" : "eem 11/22/2013 11:50",
 		"genInnerPrimitiveNewMethod:" : "eem 11/22/2013 11:51",
 		"genInnerPrimitiveNewWithArg:" : "eem 11/22/2013 11:52",
+		"genInnerPrimitiveObjectAt:" : "eem 12/5/2015 13:51",
 		"genInnerPrimitiveStringAtPut:" : "eem 12/9/2013 18:21",
 		"genJumpImmediate:" : "eem 5/30/2015 11:16",
 		"genJumpIsSmallIntegerValue:scratch:" : "eem 12/5/2015 11:04",

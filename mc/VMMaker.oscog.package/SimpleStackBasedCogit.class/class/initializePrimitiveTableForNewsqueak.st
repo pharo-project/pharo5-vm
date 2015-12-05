@@ -83,7 +83,7 @@ initializePrimitiveTableForNewsqueak
 		(67 genFastPrimFail) "was primitiveAtEnd"
 
 		"StorageManagement Primitives (68-79)"
-		"(68 primitiveObjectAt)"
+		(68 genPrimitiveObjectAt			1)	"Good for debugger/InstructionStream performance"
 		"(69 primitiveObjectAtPut)"
 		(70 genPrimitiveNew)				"For VMMirror support 1 argument instantiateFixedClass: as well as baiscNew"
 		(71 genPrimitiveNewWithArg)		"For VMMirror support 2 argument instantiateVariableClass:withSize: as well as baiscNew:"

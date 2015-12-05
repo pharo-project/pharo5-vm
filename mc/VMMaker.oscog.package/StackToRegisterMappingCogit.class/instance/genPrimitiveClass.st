@@ -5,7 +5,7 @@ genPrimitiveClass
 	methodOrBlockNumArgs > 0
 		ifTrue:
 			[methodOrBlockNumArgs > 1 ifTrue:
-				[^self compileFallbackToInterpreterPrimitive].
+				[^self compileFallbackToInterpreterPrimitive: 0].
 			 reg := Arg0Reg]
 		ifFalse:
 			[reg := ReceiverResultReg].

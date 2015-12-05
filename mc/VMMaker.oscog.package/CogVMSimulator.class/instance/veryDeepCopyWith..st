@@ -6,9 +6,9 @@ veryDeepCopyWith: deepCopier
 		at: mappedPluginEntries ifAbsentPut: [mappedPluginEntries];
 		at: uniqueIndices ifAbsentPut: [uniqueIndices].
 	mappedPluginEntries do:
-		[:tuple|
-		[:sim :sel :block :argCount|
-		deepCopier references at: block ifAbsentPut: [block]] valueWithArguments: tuple].
+		[:tuple| | block |
+		block := tuple third.
+		deepCopier references at: block ifAbsentPut: [block]].
 	uniqueIndices keysDo:
 		[:block|
 		deepCopier references at: block ifAbsentPut: [block]].

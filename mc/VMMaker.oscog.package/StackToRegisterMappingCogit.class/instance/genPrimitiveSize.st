@@ -1,6 +1,4 @@
 primitive generators
 genPrimitiveSize
-	| r |
-	(r := objectRepresentation genInnerPrimitiveSize: 0) < 0 ifTrue:
-		[^r].
-	^self compileFallbackToInterpreterPrimitive
+	^self compileFallbackToInterpreterPrimitive:
+		(objectRepresentation genInnerPrimitiveSize: 0)

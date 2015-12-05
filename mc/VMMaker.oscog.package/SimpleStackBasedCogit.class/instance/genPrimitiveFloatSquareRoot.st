@@ -15,4 +15,4 @@ genPrimitiveFloatSquareRoot
 	self MoveR: SendNumArgsReg R: ReceiverResultReg.
 	self RetN: (self primRetNOffsetFor: 0).
 	jumpFailAlloc jmpTarget: self Label.
-	^self compileFallbackToInterpreterPrimitive
+	^self compileFallbackToInterpreterPrimitive: 0

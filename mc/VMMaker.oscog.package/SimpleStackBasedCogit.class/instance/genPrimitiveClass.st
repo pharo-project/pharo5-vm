@@ -1,13 +1,9 @@
 primitive generators
 genPrimitiveClass
-	NewspeakVM
-		ifTrue:
-			[methodOrBlockNumArgs > 0 ifTrue:
-				[methodOrBlockNumArgs > 1 ifTrue:
-					[^self compileFallbackToInterpreterPrimitive].
-			 self genLoadArgAtDepth: 0 into: ReceiverResultReg]]
-		ifFalse:
-			[self assert: methodOrBlockNumArgs = 0].
+	methodOrBlockNumArgs > 0 ifTrue:
+		[methodOrBlockNumArgs > 1 ifTrue:
+			[^self compileFallbackToInterpreterPrimitive: 0].
+		 self genLoadArgAtDepth: 0 into: ReceiverResultReg].
 	(objectRepresentation
 			genGetClassObjectOf: ReceiverResultReg
 			into: ReceiverResultReg

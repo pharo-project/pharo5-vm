@@ -38,7 +38,7 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	self ConvertR: ClassReg Rd: DPFPReg1.
 	self Jump: doOp.
 	jumpFailAlloc jmpTarget: self Label.
-	self compileFallbackToInterpreterPrimitive.
+	self compileFallbackToInterpreterPrimitive: 0.
 	fail := self Label.
 	jumpFailClass jmpTarget: fail.
 	preOpCheckOrNil ifNotNil:

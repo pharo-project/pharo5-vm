@@ -44,7 +44,7 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	self ConvertR: ClassReg Rd: DPFPReg1.
 	self Jump: doOp.
 	jumpFailAlloc jmpTarget: self Label.
-	self compileFallbackToInterpreterPrimitive.
+	self compileFallbackToInterpreterPrimitive: 0.
 	jumpFailClass jmpTarget: self Label.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
 		[jumpNonInt jmpTarget: jumpFailClass getJmpTarget].

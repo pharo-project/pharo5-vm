@@ -74,6 +74,7 @@
 		"allAccessibleObjectsOkay" : "eem 2/4/2014 11:13",
 		"allocateMemory:minimum:imageFile:headerSize:" : "eem 11/14/2012 16:28",
 		"alternateHeaderHasPrimitiveFlag:" : "eem 11/18/2014 18:26",
+		"alternateHeaderNumLiteralsMask" : "eem 12/5/2015 14:00",
 		"argumentCountOf:" : "eem 08/08/2014 10:42",
 		"argumentCountOfClosure:" : "eem 9/10/2013 13:08",
 		"argumentCountOfMethodHeader:" : "eem 11/18/2014 17:54",

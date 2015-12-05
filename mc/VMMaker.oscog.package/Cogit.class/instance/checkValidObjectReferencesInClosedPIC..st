@@ -18,7 +18,7 @@ checkValidObjectReferencesInClosedPIC: cPIC
 	2 to: cPIC cPICNumCases do:
 		[:i|
 		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
-			[(self checkMaybeObjRefInClosedPIC: (literalsManager backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
+			[(self checkMaybeObjRefInClosedPIC: (backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
 				[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 					print: ' @ '; printHex: pc - backEnd jumpLongConditionalByteSize - backEnd loadLiteralByteSize; cr.
 				 ok := false]].

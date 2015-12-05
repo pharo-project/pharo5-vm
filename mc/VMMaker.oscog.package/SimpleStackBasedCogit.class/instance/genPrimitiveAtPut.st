@@ -4,10 +4,8 @@ genPrimitiveAtPut
 	savedIndex := opcodeIndex.
 	self genLoadArgAtDepth: 1 into: Arg0Reg.
 	self genLoadArgAtDepth: 0 into: Arg1Reg.
-	((r := objectRepresentation genInnerPrimitiveAtPut: (self primRetNOffsetFor: 2)) < 0
-	 and: [r ~= UnimplementedPrimitive]) ifTrue:
-		[^r].
+	r := objectRepresentation genInnerPrimitiveAtPut: (self primRetNOffsetFor: 2).
 	"If primitive is unimplemented, discard arg load."
 	r = UnimplementedPrimitive ifTrue:
 		[opcodeIndex := savedIndex].
-	^self compileFallbackToInterpreterPrimitive
+	^self compileFallbackToInterpreterPrimitive: r

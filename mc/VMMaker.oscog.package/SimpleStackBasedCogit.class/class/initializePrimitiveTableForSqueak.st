@@ -83,7 +83,7 @@ initializePrimitiveTableForSqueak
 		(67 genFastPrimFail) "was primitiveAtEnd"
 
 		"StorageManagement Primitives (68-79)"
-		"(68 primitiveObjectAt)"
+		(68 genPrimitiveObjectAt			1)	"Good for debugger/InstructionStream performance"
 		"(69 primitiveObjectAtPut)"
 		(70 genPrimitiveNew			0)
 		(71 genPrimitiveNewWithArg	1)

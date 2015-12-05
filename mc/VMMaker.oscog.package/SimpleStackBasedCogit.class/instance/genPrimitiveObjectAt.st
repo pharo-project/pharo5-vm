@@ -1,9 +1,9 @@
 primitive generators
-genPrimitiveNewMethod
-	| r savedIndex |
+genPrimitiveObjectAt
+	| savedIndex r |
 	savedIndex := opcodeIndex.
 	self genLoadArgAtDepth: 0 into: Arg0Reg.
-	r := objectRepresentation genInnerPrimitiveNewMethod: (self primRetNOffsetFor: 2).
+	r := objectRepresentation genInnerPrimitiveObjectAt: (self primRetNOffsetFor: 1).
 	"If primitive is unimplemented, discard arg load."
 	r = UnimplementedPrimitive ifTrue:
 		[opcodeIndex := savedIndex].
