@@ -22,7 +22,7 @@ genInnerPrimitiveObjectAt: retNOffset
 	cogit
 		SubCq: (objectMemory integerObjectOf: 1) - objectMemory smallIntegerTag R: Arg0Reg;
 		CmpR: headerReg R: Arg0Reg.
-	jumpBounds := cogit JumpAboveOrEqual: 0.
+	jumpBounds := cogit JumpAbove: 0.
 
 	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
 	cogit
