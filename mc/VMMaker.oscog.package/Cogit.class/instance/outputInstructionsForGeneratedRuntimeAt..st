@@ -9,6 +9,6 @@ outputInstructionsForGeneratedRuntimeAt: startAddress
 	endAddress := self outputInstructionsAt: startAddress.
 	self assert: startAddress + size = endAddress.
 	methodZoneBase := self alignUptoRoutineBoundary: endAddress.
-	backEnd nopsFrom: endAddress to: methodZoneBase - 1.
+	backEnd stopsFrom: endAddress to: methodZoneBase - 1.
 	self cCode: '' inSmalltalk: [methodZone freeStart: methodZoneBase].
 	^startAddress

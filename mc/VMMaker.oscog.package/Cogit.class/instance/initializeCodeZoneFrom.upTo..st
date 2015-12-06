@@ -1,12 +1,13 @@
 initialization
 initializeCodeZoneFrom: startAddress upTo: endAddress
 	<api>
+	self initializeBackend.
+	backEnd stopsFrom: startAddress to: endAddress - 1.
 	self cCode: [self sqMakeMemoryExecutableFrom: startAddress To: endAddress]
 		inSmalltalk: [self initializeProcessor].
 	codeBase := methodZoneBase := startAddress.
 	minValidCallAddress := (codeBase min: coInterpreter interpretAddress)
 								min: coInterpreter primitiveFailAddress.
-	self initializeBackend.
 	methodZone manageFrom: methodZoneBase to: endAddress.
 	self maybeGenerateCheckFeatures.
 	self maybeGenerateICacheFlush.

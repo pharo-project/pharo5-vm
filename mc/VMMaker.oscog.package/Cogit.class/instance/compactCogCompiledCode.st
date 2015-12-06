@@ -11,6 +11,7 @@ compactCogCompiledCode
 	methodZone compactCompiledCode.
 	self assert: self allMethodsHaveCorrectHeader.
 	self assert: methodZone kosherYoungReferrers.
+	backEnd stopsFrom: methodZone freeStart to: methodZone youngReferrers - 1.
 	processor
 		flushICacheFrom: methodZoneBase asUnsignedInteger
-		to: methodZone freeStart asUnsignedInteger
+		to: methodZone youngReferrers asUnsignedInteger

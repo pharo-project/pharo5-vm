@@ -30,6 +30,6 @@ genEnilopmartFor: regArg1 and: regArg2 and: regArg3 forCall: forCall called: tra
 	self assert: methodZoneBase + size = endAddress.
 	enilopmart := methodZoneBase.
 	methodZoneBase := self alignUptoRoutineBoundary: endAddress.
-	backEnd nopsFrom: endAddress to: methodZoneBase - 1.
+	backEnd stopsFrom: endAddress to: methodZoneBase - 1.
 	self recordGeneratedRunTime: trampolineName address: enilopmart.
 	^self cCoerceSimple: enilopmart to: #'void (*)(void)'

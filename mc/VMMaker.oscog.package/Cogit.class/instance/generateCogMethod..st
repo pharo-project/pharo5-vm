@@ -24,7 +24,7 @@ generateCogMethod: selector
 	self assert: startAddress + cmNoCheckEntryOffset = noCheckEntry address.
 	result := self outputInstructionsAt: startAddress + headerSize.
 	self assert: startAddress + headerSize + codeSize = result.
-	backEnd padIfPossibleWithNopsFrom: result to: startAddress + totalSize - mapSize.
+	backEnd padIfPossibleWithStopsFrom: result to: startAddress + totalSize - mapSize.
 	self generateMapAt: startAddress + totalSize - 1 start: startAddress + cmNoCheckEntryOffset.
 	self fillInBlockHeadersAt: startAddress.
 	method := self fillInMethodHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
