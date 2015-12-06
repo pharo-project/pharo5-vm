@@ -143,6 +143,7 @@
 		"printStateOn:" : "eem 12/1/2015 16:48",
 		"relocateCallBeforeReturnPC:by:" : "eem 3/9/2009 09:43",
 		"relocateJumpLongBeforeFollowingAddress:by:" : "eem 4/19/2015 18:10",
+		"relocateJumpLongConditionalBeforeFollowingAddress:by:" : "eem 12/5/2015 16:24",
 		"relocateMethodReferenceBeforeAddress:by:" : "eem 4/20/2015 12:40",
 		"resolveJumpTarget" : "lw 8/1/2012 19:56",
 		"rewriteCallFullAt:target:" : "eem 4/19/2015 08:35",
