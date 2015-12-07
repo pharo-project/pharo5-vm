@@ -1,18 +1,21 @@
 error handling
 handleMovEbGbFailureAt: pc "<Integer>" in: memoryArray "<Bitmap|ByteArray>" rex: rexByteOrNil "<Integer|nil>"
 	"Convert an execution primitive failure for a byte register write into a ProcessorSimulationTrap signal."
-	| modrmByte |
-	self shouldBeImplemented.
-	^(((modrmByte := memoryArray byteAt: pc + 2) bitAnd: 16rC0) = 16r80) "ModRegRegDisp32"
-		ifTrue:
-			[(ProcessorSimulationTrap
-					pc: pc
-					nextpc: pc + 6
-					address: ((self perform: (#(eax ecx edx ebx esp ebp esi edi) at: (modrmByte bitAnd: 7) + 1))
-							+ (memoryArray unsignedLongAt: pc + 3 bigEndian: false)
-								bitAnd: 16rFFFFFFFF)
-					type: #write
-					accessor: (#(al cl dl bl ah ch dh bh) at: ((modrmByte >> 3 bitAnd: 7) + 1)))
-				signal]
-		ifFalse:
-			[self reportPrimitiveFailure]
+	| modrmByte offset size |
+	modrmByte := memoryArray byteAt: pc + 3.
+	(modrmByte bitAnd: 16rC0) caseOf: {
+		[16r80 "ModRegRegDisp32"] -> [offset := memoryArray unsignedLongAt: pc + 4 bigEndian: false.
+										 size := 7].
+		[16r40 "ModRegRegDisp8"] -> [offset := memoryArray byteAt: pc + 4.
+										offset > 127 ifTrue: [offset := offset - 256].
+										 size := 4] }
+		otherwise: [self reportPrimitiveFailure].
+	^(ProcessorSimulationTrap
+			pc: pc
+			nextpc: pc + size
+			address: (((self perform: (self registerStateGetters at: (modrmByte bitAnd: 7) + ((rexByteOrNil bitAnd: 1) bitShift: 3) + 1))
+					+ offset)
+						bitAnd: 16rFFFFFFFFFFFFFFFF)
+			type: #write
+			accessor: (#(al cl dl bl spl bpl sil dil r8l r9l r10l r11l r12l r13l r14l r15l) at: ((modrmByte >> 3 bitAnd: 7) + ((rexByteOrNil bitAnd: 4) bitShift: 1) + 1)))
+		signal

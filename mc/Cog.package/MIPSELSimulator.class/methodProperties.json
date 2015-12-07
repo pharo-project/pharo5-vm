@@ -2,6 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
+		"endianness" : "rmacnak 11/24/2015 21:26:08",
 		"executeFault:" : "rmacnak 11/16/2015 19:44:31",
 		"fetchInstruction:" : "rmacnak 11/15/2015 13:00:55",
 		"readFault:" : "rmacnak 11/15/2015 16:09:39",

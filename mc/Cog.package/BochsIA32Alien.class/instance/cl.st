@@ -1,3 +1,3 @@
 accessing
 cl
-	^self ecx bitAnd: 16rFF
+	^self unsignedByteAt: 473

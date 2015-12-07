@@ -1,3 +1,3 @@
 accessing
 bl
-	^self ebx bitAnd: 16rFF
+	^self unsignedByteAt: 481

@@ -1,3 +1,3 @@
 fields
 sa
-	^(value >> 6) bitAnd: 15
+	^(value >> 6) bitAnd: 31

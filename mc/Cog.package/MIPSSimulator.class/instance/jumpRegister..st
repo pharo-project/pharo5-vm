@@ -7,4 +7,4 @@ jumpRegister: instruction
 	pc := pc + OneInstruction.
 	self executeDelaySlot.
 	pc := nextPC.
-	pc := pc - 4. "Account for general increment"
+	pc := pc - OneInstruction. "Account for general increment"

@@ -1,4 +1,4 @@
 processor api
 setFramePointer: fp stackPointer: sp
-	self signedRegister: SP put: sp.
-	self signedRegister: FP put: fp.
+	self unsignedRegister: SP put: sp.
+	self unsignedRegister: FP put: fp.

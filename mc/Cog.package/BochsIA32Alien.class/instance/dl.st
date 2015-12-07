@@ -1,3 +1,3 @@
 accessing
 dl
-	^self edx bitAnd: 16rFF
+	^self unsignedByteAt: 477

@@ -5,7 +5,7 @@ handleRetFailureAt: pc "<Integer>" in: memoryArray "<Bitmap|ByteArray>" rex: rex
 	^(ProcessorSimulationTrap
 			pc: pc
 			nextpc: pc + 1
-			address: (memoryArray unsignedLongAt: self esp + 1)
+			address: (memoryArray unsignedLong64At: self rsp + 1)
 			type: #return
-			accessor: #eip:)
+			accessor: #rip:)
 		signal

@@ -1,6 +1,6 @@
 as yet unclassified
 initialize
-	registers := Array new: 32 withAll: 16rABABAB.
+	registers := Array new: 32 withAll: 0.
 	pc := 0.
 	hi := 0.
 	lo := 0.

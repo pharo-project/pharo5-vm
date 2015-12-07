@@ -12,4 +12,11 @@ handleGroup5FailureAt: pc "<Integer>" in: memoryArray "<Bitmap|ByteArray>" rex: 
 									nextpc: pc + 2
 									address: (self perform: getter)
 									type: #call)
+								signal].
+			[4 "Jump Ev"]	->	[getter := self registerStateGetters at: (modrmByte bitAnd: 7) + 1.
+							^(ProcessorSimulationTrap
+									pc: pc
+									nextpc: pc + 2
+									address: (self perform: getter)
+									type: #jump)
 								signal] }

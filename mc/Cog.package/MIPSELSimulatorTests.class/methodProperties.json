@@ -2,4 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
-		"testAddiu" : "rmacnak 11/10/2015 21:28:56" } }
+		"testAddiu" : "rmacnak 11/10/2015 21:28:56",
+		"testSllLarge" : "rmacnak 11/30/2015 18:38:30",
+		"testSraLarge" : "rmacnak 11/30/2015 18:33:32",
+		"testSrlLarge" : "rmacnak 11/30/2015 18:34:42" } }

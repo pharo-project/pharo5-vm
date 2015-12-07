@@ -1,4 +1,3 @@
 accessing
-cl: aByte
-	self ecx: ((self ecx bitAnd: -16rFF) + aByte).
-	^aByte
+cl: anUnsignedInteger
+	^self unsignedByteAt: 473 put: anUnsignedInteger

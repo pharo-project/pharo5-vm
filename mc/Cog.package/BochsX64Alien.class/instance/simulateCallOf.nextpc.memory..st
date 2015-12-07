@@ -12,4 +12,6 @@ simulateCallOf: address nextpc: nextpc memory: aMemory
 	self pushWord: nextpc in: aMemory.
 	self pushWord: self rbp in: aMemory.
 	self rbp: self rsp.
+	PostBuildStackDelta ~= 0 ifTrue:
+		[self rsp: self rsp - PostBuildStackDelta].
 	self rip: address
