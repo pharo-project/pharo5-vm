@@ -19,4 +19,4 @@ maybeSelectorOfMethod: methodObj
 		(objectMemory isWordsOrBytes: maybeSelector)
 	 and: [(objectMemory fetchClassTagOfNonImm: maybeSelector)
 			= (objectMemory fetchClassTagOfNonImm: (objectMemory splObj: SelectorDoesNotUnderstand))]]]]) ifTrue:
-		[penultimateLiteral]
+		[maybeSelector]

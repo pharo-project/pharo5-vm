@@ -1,8 +1,8 @@
 primitive generators
 genInnerPrimitiveAt: retNoffset
 	"Implement the guts of primitiveAt"
-	| formatReg jumpNotIndexable jumpImmediate jumpBadIndex
-	  jumpBytesDone jumpShortsDone jumpWordsDone jumpFixedFieldsDone
+	| formatReg convertToIntAndReturn
+	  jumpNotIndexable jumpImmediate jumpBadIndex
 	  jumpIsBytes jumpIsShorts jumpIsWords jumpWordTooBig jumpIsArray jumpHasFixedFields jumpIsContext
 	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds |
 	<inline: true>
@@ -12,13 +12,10 @@ genInnerPrimitiveAt: retNoffset
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
-	<var: #jumpBytesDone type: #'AbstractInstruction *'>
-	<var: #jumpShortsDone type: #'AbstractInstruction *'>
-	<var: #jumpWordsDone type: #'AbstractInstruction *'>
 	<var: #jumpWordTooBig type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
 	<var: #jumpHasFixedFields type: #'AbstractInstruction *'>
-	<var: #jumpFixedFieldsDone type: #'AbstractInstruction *'>
+	<var: #convertToIntAndReturn type: #'AbstractInstruction *'>
 	<var: #jumpArrayOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpShortsOutOfBounds type: #'AbstractInstruction *'>
@@ -27,7 +24,7 @@ genInnerPrimitiveAt: retNoffset
 
 	jumpImmediate := self genJumpImmediate: ReceiverResultReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
-	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg scratch: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
 	cogit SubCq: 1 R: Arg1Reg. "1-rel => 0-rel"
 
@@ -75,9 +72,16 @@ genInnerPrimitiveAt: retNoffset
 		CmpR: Arg1Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
-	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
+	cogit backEnd byteReadsZeroExtend
+		ifTrue:
+			[cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg]
+		ifFalse:
+			[cogit "formatReg already contains a value <= 16r1f, so no need to zero it"
+				MoveXbr: Arg1Reg R: ReceiverResultReg R: formatReg;
+				MoveR: formatReg R: ReceiverResultReg].
+	convertToIntAndReturn := cogit Label.
 	self genConvertIntegerToSmallIntegerInReg: ReceiverResultReg.
-	jumpBytesDone := cogit Jump: 0.
+	cogit RetN: retNoffset.
 
 	jumpIsShorts jmpTarget:
 		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg).
@@ -87,8 +91,7 @@ genInnerPrimitiveAt: retNoffset
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddR: Arg1Reg R: ReceiverResultReg.
 	cogit MoveM16: objectMemory baseHeaderSize r: ReceiverResultReg R: ReceiverResultReg.
-	self genConvertIntegerToSmallIntegerInReg: ReceiverResultReg.
-	jumpShortsDone := cogit Jump: 0.
+	cogit Jump: convertToIntAndReturn.
 
 	jumpIsWords jmpTarget:
 		(cogit CmpR: Arg1Reg R: ClassReg).
@@ -98,8 +101,7 @@ genInnerPrimitiveAt: retNoffset
 	cogit SubCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	jumpWordTooBig := self jumpNotSmallIntegerUnsignedValueInRegister: TempReg.
 	cogit MoveR: TempReg R: ReceiverResultReg.
-	self genConvertIntegerToSmallIntegerInReg: ReceiverResultReg.
-	jumpWordsDone := cogit Jump: 0.
+	cogit Jump: convertToIntAndReturn.
 
 	jumpHasFixedFields jmpTarget:
 		(cogit AndCq: objectMemory classIndexMask R: TempReg).
@@ -120,19 +122,14 @@ genInnerPrimitiveAt: retNoffset
 	cogit AddR: formatReg R: Arg1Reg.
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
-	jumpFixedFieldsDone := cogit Jump: 0.
+	cogit RetN: retNoffset.
 
 	jumpIsArray jmpTarget:
 		(cogit CmpR: Arg1Reg R: ClassReg).
 	jumpArrayOutOfBounds := cogit JumpBelowOrEqual: 0.	
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
-
-	jumpFixedFieldsDone jmpTarget:
-	(jumpWordsDone jmpTarget:
-	(jumpShortsDone jmpTarget:
-	(jumpBytesDone jmpTarget:
-		(cogit RetN: retNoffset)))).
+	cogit RetN: retNoffset.
 
 	jumpFixedFieldsOutOfBounds jmpTarget:
 	(jumpArrayOutOfBounds jmpTarget:
