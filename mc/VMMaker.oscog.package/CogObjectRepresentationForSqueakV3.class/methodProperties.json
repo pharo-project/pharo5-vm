@@ -16,6 +16,7 @@
 		"genActiveContextTrampoline" : "eem 6/7/2014 14:29",
 		"genAddSmallIntegerTagsTo:" : "eem 2/11/2009 13:13",
 		"genAllocFloatValue:into:scratchReg:scratchReg:" : "eem (const to msg rewrite) 11/6/2014 10:37",
+		"genClearAndSetSmallIntegerTagsIn:" : "eem 12/6/2015 20:41",
 		"genConvertIntegerToSmallIntegerInReg:" : "eem 12/6/2013 14:50",
 		"genConvertSmallIntegerToIntegerInReg:" : "eem 12/6/2013 14:51",
 		"genCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem (const to msg rewrite) 11/6/2014 10:37",
