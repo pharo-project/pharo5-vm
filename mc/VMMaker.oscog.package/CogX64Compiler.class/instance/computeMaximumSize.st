@@ -145,11 +145,17 @@ computeMaximumSize
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
-											ifTrue: [5]
-											ifFalse: [8])
-										+ ((((self concreteRegister: (operands at: 2)) bitAnd: 7) between: RSP and: RBP)
-											ifTrue: [1]
-											ifFalse: [0])].
+								ifTrue: [((operands at: 1) = 0
+										and: [((self concreteRegister: (operands at: 2)) bitAnd: 6) ~= RSP])
+											ifTrue: [4]
+											ifFalse: [5]]
+								ifFalse: [8])
+							+ ((((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP and: [(operands at: 1) ~= 0])
+								ifTrue: [1]
+								ifFalse: [0])
+							+ ((((self concreteRegister: (operands at: 2)) > 7) or: [(self concreteDPFPRegister: (operands at: 0)) > 7])
+								ifTrue: [1]
+								ifFalse: [0])].
 		[MoveMbrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
 							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
