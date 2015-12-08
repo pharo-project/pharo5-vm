@@ -113,7 +113,7 @@ computeMaximumSize
 								ifFalse:
 									[(self is32BitSignedImmediate: (operands at: 0))
 										ifTrue: [7]
-										ifFalse: [self moveCwRByteSize]]].
+										ifFalse: [self moveCwRByteSize - 1]]].
 		[MoveCwR]		-> [^(self inCurrentCompilation: (operands at: 0))
 								ifTrue: [7]
 								ifFalse: [self moveCwRByteSize]].

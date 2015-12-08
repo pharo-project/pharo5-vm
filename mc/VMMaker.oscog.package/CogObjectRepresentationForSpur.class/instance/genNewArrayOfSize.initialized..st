@@ -12,7 +12,7 @@ genNewArrayOfSize: size initialized: initialized
 					format: objectMemory arrayFormat
 					classIndex: ClassArrayCompactIndex.
 	cogit MoveAw: objectMemory freeStartAddress R: ReceiverResultReg.
-	self genLoadHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
+	self genStoreHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
 	(initialized and: [size > 0]) ifTrue:
 		[cogit genMoveConstant: objectMemory nilObject R: TempReg.
 		 0 to: size - 1 do:

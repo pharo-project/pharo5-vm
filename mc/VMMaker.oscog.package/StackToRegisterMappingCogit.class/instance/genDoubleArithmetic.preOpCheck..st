@@ -4,8 +4,9 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	 Stack looks like
 		return address"
 	<var: #preOpCheckOrNil declareC: 'AbstractInstruction *(*preOpCheckOrNil)(int rcvrReg, int argReg)'>
-	| jumpFailClass jumpFailAlloc jumpFailCheck jumpImmediate jumpNonInt doOp |
+	| jumpFailClass jumpFailClass2 jumpFailAlloc jumpFailCheck jumpImmediate jumpNonInt doOp |
 	<var: #jumpFailClass type: #'AbstractInstruction *'>
+	<var: #jumpFailClass2 type: #'AbstractInstruction *'>
 	<var: #jumpFailAlloc type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
 	<var: #jumpNonInt type: #'AbstractInstruction *'>
@@ -36,16 +37,16 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	preOpCheckOrNil ifNotNil:
 		[jumpFailCheck jmpTarget: jumpFailClass getJmpTarget].
 	backEnd genPushRegisterArgsForNumArgs: methodOrBlockNumArgs scratchReg: SendNumArgsReg.
-	jumpFailClass := self Jump: 0.
+	jumpFailClass2 := self Jump: 0.
 	jumpImmediate jmpTarget: self Label.
+	objectRepresentation maybeGenConvertIfSmallFloatIn: Arg0Reg into: DPFPReg1 andJumpTo: doOp.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
-		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratch: TempReg].
+		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratch: TempReg.
+		 jumpNonInt jmpTarget: jumpFailClass getJmpTarget].
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.
 	self ConvertR: ClassReg Rd: DPFPReg1.
 	self Jump: doOp.
 	jumpFailAlloc jmpTarget: self Label.
 	self compileFallbackToInterpreterPrimitive: 0.
-	jumpFailClass jmpTarget: self Label.
-	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
-		[jumpNonInt jmpTarget: jumpFailClass getJmpTarget].
+	jumpFailClass2 jmpTarget: self Label.
 	^0
