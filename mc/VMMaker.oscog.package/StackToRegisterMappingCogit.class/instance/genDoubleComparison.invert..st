@@ -25,6 +25,7 @@ genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	jumpCond jmpTarget: (self genMoveTrueR: ReceiverResultReg).
 	self RetN: 0.
 	jumpImmediate jmpTarget: self Label.
+	objectRepresentation maybeGenConvertIfSmallFloatIn: Arg0Reg scratchReg: TempReg into: DPFPReg1 andJumpTo: compare.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
 		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg].
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: Arg0Reg.

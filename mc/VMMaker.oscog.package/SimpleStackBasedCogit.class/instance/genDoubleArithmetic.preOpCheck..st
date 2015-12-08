@@ -32,6 +32,7 @@ genDoubleArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
 	self MoveR: SendNumArgsReg R: ReceiverResultReg.
 	self RetN: (self primRetNOffsetFor: 1).
 	jumpImmediate jmpTarget: self Label.
+	objectRepresentation maybeGenConvertIfSmallFloatIn: Arg0Reg scratchReg: TempReg into: DPFPReg1 andJumpTo: doOp.
 	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
 		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: ClassReg scratchReg: TempReg].
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ClassReg.

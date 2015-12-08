@@ -69,7 +69,7 @@
 		"markAndTraceLiteralIfYoung:" : "eem 11/18/2013 15:44",
 		"maybeCompileRetry:onPrimitiveFail:" : "eem 7/2/2014 13:33",
 		"maybeCompileRetry:onPrimitiveFail:primPropertyFlags:" : "eem 10/31/2014 09:32",
-		"maybeGenConvertIfSmallFloatIn:into:andJumpTo:" : "eem 12/7/2015 17:13",
+		"maybeGenConvertIfSmallFloatIn:scratchReg:into:andJumpTo:" : "eem 12/7/2015 22:20",
 		"maybeGenerateSelectorIndexDereferenceRoutine" : "eem 10/23/2015 18:43:38",
 		"maybeMarkCounters:" : "eem 10/21/2014 18:52",
 		"maybeNoteDescriptor:blockStart:" : "eem 6/4/2015 09:31",
