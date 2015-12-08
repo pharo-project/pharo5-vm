@@ -329,14 +329,15 @@ ioLoadModule(char *pluginName)
 			return handle;
 	}
 
-  if ((   handle= tryLoading(    "./",			pluginName))
-      || (handle= tryLoadingPath("SQUEAK_PLUGIN_PATH",	pluginName))
-      || (handle= tryLoadingPath("LD_LIBRARY_PATH",	pluginName))
-      || (handle= tryLoading(    "",			pluginName))
-#    if defined(VM_X11DIR)
-      || (handle= tryLoading(VM_X11DIR"/",		pluginName))
-#    endif
-      )
+    if (   (handle= dlopen(pluginName, RTLD_NOW | RTLD_GLOBAL)) 			// Try linked/referenced libs
+        || (handle= tryLoading(    "./",			pluginName))			// Try local dir
+        || (handle= tryLoadingPath("SQUEAK_PLUGIN_PATH",	pluginName))	// Try squeak path
+        || (handle= tryLoadingPath("LD_LIBRARY_PATH",	pluginName)) 		// Try library path
+        || (handle= tryLoading(    "",			pluginName))				// Try no path
+  #    if defined(VM_X11DIR)
+        || (handle= tryLoading(VM_X11DIR"/",		pluginName))			// Try X11 path
+  #    endif
+        )
     return handle;
 
 #if defined(DARWIN)
