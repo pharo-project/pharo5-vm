@@ -98,6 +98,7 @@ computeMaximumSize
 		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[LogicalShiftRightCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[ArithmeticShiftRightCqR]	-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
+		[RotateRightCqR]			-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
 		[LogicalShiftLeftRR]			-> [^self computeShiftRRSize].
 		[LogicalShiftRightRR]		-> [^self computeShiftRRSize].
 		[ArithmeticShiftRightRR]		-> [^self computeShiftRRSize].
@@ -113,7 +114,7 @@ computeMaximumSize
 								ifFalse:
 									[(self is32BitSignedImmediate: (operands at: 0))
 										ifTrue: [7]
-										ifFalse: [self moveCwRByteSize]]].
+										ifFalse: [self moveCwRByteSize - 1]]].
 		[MoveCwR]		-> [^(self inCurrentCompilation: (operands at: 0))
 								ifTrue: [7]
 								ifFalse: [self moveCwRByteSize]].

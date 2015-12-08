@@ -13,6 +13,6 @@ genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scrat
 	cogit CmpCq: objectMemory getScavengeThreshold R: scratch1.
 	jumpFail := cogit JumpAboveOrEqual: 0.
 	cogit MoveR: scratch1 Aw: objectMemory freeStartAddress.
-	self genLoadHeader: newFloatHeader intoNewInstance: resultReg using: scratch1.
+	self genStoreHeader: newFloatHeader intoNewInstance: resultReg using: scratch1.
 	cogit MoveRd: dpreg M64: objectMemory baseHeaderSize r: resultReg.
 	^jumpFail

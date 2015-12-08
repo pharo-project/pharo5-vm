@@ -17,7 +17,7 @@ genNoPopCreateClosureAt: bcpc numArgs: numArgs numCopied: numCopied contextNumAr
 					format: objectMemory indexablePointersFormat
 					classIndex: ClassBlockClosureCompactIndex.
 	cogit MoveAw: objectMemory freeStartAddress R: ReceiverResultReg.
-	self genLoadHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
+	self genStoreHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
 	cogit
 		LoadEffectiveAddressMw: byteSize r: ReceiverResultReg R: TempReg;
 		MoveR: TempReg Aw: objectMemory freeStartAddress;

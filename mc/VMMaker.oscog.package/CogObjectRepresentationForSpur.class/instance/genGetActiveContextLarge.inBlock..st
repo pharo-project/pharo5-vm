@@ -41,7 +41,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 					classIndex: ClassMethodContextCompactIndex.
 	self flag: #endianness.
 	cogit MoveAw: objectMemory freeStartAddress R: ReceiverResultReg.
-	self genLoadHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
+	self genStoreHeader: header intoNewInstance: ReceiverResultReg using: TempReg.
 	cogit
 		MoveR: ReceiverResultReg R: TempReg;
 		AddCq: (objectMemory smallObjectBytesForSlots: slotSize) R: TempReg;
