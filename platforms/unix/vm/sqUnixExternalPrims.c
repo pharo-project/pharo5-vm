@@ -260,7 +260,7 @@ tryLoading(char *dirName, char *moduleName)
 	return 0;
 }
 
-
+	
 static void *tryLoadingPath(char *varName, char *pluginName)
 {
   char *path= getenv(varName);
@@ -283,6 +283,17 @@ static void *tryLoadingPath(char *varName, char *pluginName)
 	    break;
 	}
     }
+  return handle;
+}
+
+static void *tryLoadingLinked(char *pluginName)
+{
+  void *handle= dlopen(pluginName, RTLD_NOW | RTLD_GLOBAL);
+  DPRINTF((stderr, __FILE__ " %d tryLoadingLinked dlopen(%s) = %p\n", __LINE__, pluginName, handle));
+# if DEBUG
+  if(handle != 0) 
+	printf("%s: loaded plugin `%s'\n", exeName, libName);
+# endif
   return handle;
 }
 
@@ -329,11 +340,11 @@ ioLoadModule(char *pluginName)
 			return handle;
 	}
 
-    if (   (handle= dlopen(pluginName, RTLD_NOW | RTLD_GLOBAL)) 			// Try linked/referenced libs
-        || (handle= tryLoading(    "./",			pluginName))			// Try local dir
-        || (handle= tryLoadingPath("SQUEAK_PLUGIN_PATH",	pluginName))	// Try squeak path
-        || (handle= tryLoadingPath("LD_LIBRARY_PATH",	pluginName)) 		// Try library path
-        || (handle= tryLoading(    "",			pluginName))				// Try no path
+    if (   (handle= tryLoadingLinked(						pluginName)) 	// Try linked/referenced libs
+        || (handle= tryLoading(    "./",				 	pluginName))	// Try local dir
+        || (handle= tryLoadingPath("SQUEAK_PLUGIN_PATH", 	pluginName))	// Try squeak path
+        || (handle= tryLoadingPath("LD_LIBRARY_PATH",		pluginName)) 	// Try library path
+        || (handle= tryLoading(    "",						pluginName))	// Try no path
   #    if defined(VM_X11DIR)
         || (handle= tryLoading(VM_X11DIR"/",		pluginName))			// Try X11 path
   #    endif
