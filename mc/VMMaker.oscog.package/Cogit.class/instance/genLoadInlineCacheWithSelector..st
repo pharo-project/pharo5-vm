@@ -1,5 +1,5 @@
 in-line cacheing
-genLoadInlineCache: selectorIndex
+genLoadInlineCacheWithSelector: selectorIndex
 	"The in-line cache for a send is implemented as a constant load into ClassReg.
 	 We always use a 32-bit load, even in 64-bits.
 

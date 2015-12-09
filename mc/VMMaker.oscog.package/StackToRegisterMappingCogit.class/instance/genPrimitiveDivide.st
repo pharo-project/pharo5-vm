@@ -18,8 +18,7 @@ genPrimitiveDivide
 	self CmpCq: 0 R: ClassReg.
 	jumpInexact := self JumpNonZero: 0.
 	"test for overflow; the only case is SmallInteger minVal / -1"
-	self CmpCq: (1 << (objectRepresentation numSmallIntegerBits - 1)) R: TempReg.
-	jumpOverflow := self JumpGreaterOrEqual: 0.
+	jumpOverflow := objectRepresentation genJumpNotSmallIntegerValue: TempReg scratch: Arg1Reg.
 	objectRepresentation genConvertIntegerToSmallIntegerInReg: TempReg.
 	self MoveR: TempReg R: ReceiverResultReg.
 	self RetN: 0.
