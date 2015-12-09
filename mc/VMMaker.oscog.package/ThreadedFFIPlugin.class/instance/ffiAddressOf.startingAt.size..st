@@ -11,7 +11,7 @@ ffiAddressOf: rcvr startingAt: byteOffset size: byteSize
 		(rcvrSize = 4) ifFalse:[^interpreterProxy primitiveFail].
 		addr := interpreterProxy fetchPointer: 0 ofObject: rcvr.
 		"don't you dare to read from object memory (unless is pinned)!"
-		(addr = 0 or: [(interpreterProxy isInMemory: addr) or: [(interpreterProxy isPinned: rcvr) not]])
+		(addr = 0" or: [(interpreterProxy isInMemory: addr) or: [(interpreterProxy isPinned: rcvr) not]]")
 			ifTrue:[^interpreterProxy primitiveFail].
 	] ifFalse:[
 		(byteOffset+byteSize-1 <= rcvrSize)

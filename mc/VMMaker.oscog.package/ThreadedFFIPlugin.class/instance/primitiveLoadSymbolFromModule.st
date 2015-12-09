@@ -18,6 +18,8 @@ primitiveLoadSymbolFromModule
 	symbol := interpreterProxy stackValue: 1.
 
 	moduleHandle := self ffiLoadCalloutModule: module.
+	interpreterProxy failed ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
 	address := interpreterProxy
 		ioLoadSymbol: (self cCoerce: (interpreterProxy firstIndexableField: symbol) to: #sqInt)
 		OfLength: (interpreterProxy byteSizeOf: symbol)
