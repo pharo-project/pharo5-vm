@@ -8,5 +8,4 @@ primitiveIsPinned
 	 or: [objectMemory isForwarded: obj]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadReceiver].
 	self pop: argumentCount + 1
-		thenPushBool: (objectMemory hasSpurMemoryManagerAPI
-						and: [objectMemory booleanObjectOf: (objectMemory isPinned: obj)])
+		thenPushBool: (objectMemory booleanObjectOf: (objectMemory isPinned: obj))

@@ -23,7 +23,7 @@ primitivePin
 				[objectMemory setIsPinnedOf: obj to: false]]
 		ifFalse:
 			[wasPinned := objectMemory falseObject.
-			 (boolean = objectMemory trueObject
+			 (boolean ~= wasPinned
 			  and: [(objectMemory pinObject: obj) = 0]) ifTrue:
 				[^self primitiveFailFor: PrimErrNoMemory]].
 	
