@@ -1,9 +1,13 @@
 {
 	"class" : {
-		"supports:" : "EstebanLorenzano 9/30/2014 16:32" },
+		"supports:" : "EstebanLorenzano 12/10/2015 11:13" },
 	"instance" : {
-		"archiveMD5Sum" : "EstebanLorenzano 9/30/2014 17:52",
+		"archiveMD5Sum" : "EstebanLorenzano 12/10/2015 11:17",
+		"build" : "EstebanLorenzano 12/10/2015 11:17",
+		"copyArtefacts" : "EstebanLorenzano 12/10/2015 11:17",
 		"defaultConfigurationFlags" : "EstebanLorenzano 9/30/2014 17:31",
+		"defineGlobalTargets" : "EstebanLorenzano 12/10/2015 11:17",
 		"downloadURL" : "EstebanLorenzano 9/30/2014 17:55",
-		"libraryFileName" : "EstebanLorenzano 9/30/2014 17:31",
-		"unpackedDirName" : "EstebanLorenzano 9/30/2014 17:51" } }
+		"libraryFileName" : "EstebanLorenzano 12/10/2015 11:18",
+		"setVariables" : "EstebanLorenzano 12/10/2015 11:18",
+		"unpackedDirName" : "EstebanLorenzano 12/10/2015 11:18" } }

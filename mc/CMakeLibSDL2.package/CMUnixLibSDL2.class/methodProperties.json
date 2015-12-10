@@ -1,6 +1,10 @@
 {
 	"class" : {
-		"supports:" : "EstebanLorenzano 9/30/2014 16:15" },
+		"supports:" : "EstebanLorenzano 12/10/2015 11:13" },
 	"instance" : {
+		"copyArtefacts" : "EstebanLorenzano 12/10/2015 11:15",
 		"defaultConfigurationFlags" : "EstebanLorenzano 9/30/2014 16:15",
-		"libraryFileName" : "EstebanLorenzano 9/30/2014 16:28" } }
+		"defineAsTarget" : "EstebanLorenzano 12/10/2015 11:16",
+		"libraryFileName" : "EstebanLorenzano 9/30/2014 16:28",
+		"libraryLinkFileName" : "EstebanLorenzano 12/10/2015 11:16",
+		"setVariables" : "EstebanLorenzano 12/10/2015 11:16" } }

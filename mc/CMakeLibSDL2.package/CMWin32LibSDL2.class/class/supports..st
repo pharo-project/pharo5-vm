@@ -1,3 +1,3 @@
 testing
 supports: aConfig
-	^  aConfig platformName  = 'iOS' 
+	^  aConfig platformName  = 'win32' 
