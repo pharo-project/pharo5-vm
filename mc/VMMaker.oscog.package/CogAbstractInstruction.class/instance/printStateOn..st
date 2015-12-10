@@ -13,7 +13,7 @@ printStateOn: aStream
 				do: [:ex| ].
 	orneryOperands withIndexDo:
 		[:operand :index|
-		operand notNil ifTrue:
+		operand ifNotNil:
 			[aStream space.
 			 index >= (orneryOperands identityIndexOf: nil ifAbsent: [orneryOperands size + 1]) ifTrue:
 				[aStream print: index - 1; nextPut: $:].

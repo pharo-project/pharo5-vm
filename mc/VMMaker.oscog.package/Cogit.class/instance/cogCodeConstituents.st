@@ -13,7 +13,7 @@ cogCodeConstituents
 			[count := count + 1].
 		cogMethod := methodZone methodAfter: cogMethod].
 	constituents := coInterpreter instantiateClass: coInterpreter classArray indexableSize: count * 2.
-	constituents isNil ifTrue:
+	constituents ifNil:
 		[^constituents].
 	coInterpreter pushRemappableOop: constituents.
 	((label := objectMemory stringForCString: 'CogCode') isNil
@@ -41,7 +41,7 @@ cogCodeConstituents
 				withValue: (cogMethod cmType = CMMethod
 								ifTrue: [cogMethod methodObject]
 								ifFalse: [cogMethod selector]).
-			 (value := self positiveMachineIntegerFor: cogMethod asUnsignedInteger) isNil ifTrue:
+			 (value := self positiveMachineIntegerFor: cogMethod asUnsignedInteger) ifNil:
 				[coInterpreter popRemappableOop.
 				 ^nil].
 			 coInterpreter

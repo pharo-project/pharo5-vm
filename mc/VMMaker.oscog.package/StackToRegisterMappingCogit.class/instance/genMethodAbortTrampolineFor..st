@@ -1,6 +1,5 @@
 initialization
 genMethodAbortTrampolineFor: numArgs
-	
 	"Generate the abort for a method.  This abort performs either a call of ceSICMiss:
 	 to handle a single-in-line cache miss or a call of ceStackOverflow: to handle a
 	 stack overflow.  It distinguishes the two by testing ResultReceiverReg.  If the
@@ -30,7 +29,7 @@ genMethodAbortTrampolineFor: numArgs
 		arg: nil
 		saveRegs: false
 		pushLinkReg: false "The LinkReg has already been set above."
-		resultReg: nil.
+		resultReg: NoReg.
 	jumpSICMiss jmpTarget: self Label.
 	backEnd genPushRegisterArgsForAbortMissNumArgs: numArgs.
 	^self genTrampolineFor: #ceSICMiss:
@@ -42,5 +41,5 @@ genMethodAbortTrampolineFor: numArgs
 		arg: nil
 		saveRegs: false
 		pushLinkReg: false "The LinkReg will have been pushed in genPushRegisterArgsForAbortMissNumArgs: above."
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true

@@ -8,7 +8,7 @@ unlinkSendsOf: selector isMNUSelector: isMNUSelector
 	 30% of entire execution time in Compiler recompileAll."
 	| cogMethod mustScanAndUnlink |
 	<var: #cogMethod type: #'CogMethod *'>
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	mustScanAndUnlink := false.
 	isMNUSelector

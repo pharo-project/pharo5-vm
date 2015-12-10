@@ -20,6 +20,6 @@ genSendTrampolineFor: aRoutine numArgs: numArgs called: aString arg: regOrConst0
 		arg: regOrConst3
 		saveRegs: false
 		pushLinkReg: true
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true.
 	^startAddress

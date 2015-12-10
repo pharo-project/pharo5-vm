@@ -11,7 +11,7 @@ unlinkSendsTo: targetMethodObject andFreeIf: freeIfTrue
 	and: [coInterpreter methodHasCogMethod: targetMethodObject]) ifFalse:
 		[^self].
 	targetMethod := coInterpreter cogMethodOf: targetMethodObject.
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	codeModified := freedPIC := false.
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	[cogMethod < methodZone limitZony] whileTrue:

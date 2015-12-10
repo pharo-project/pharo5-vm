@@ -11,7 +11,7 @@ genGetNumBytesOf: srcReg into: destReg
 	jmp := cogit JumpLess: 0.
 	self genGetOverflowSlotsOf: srcReg into: destReg.
 	jmp jmpTarget: (cogit LogicalShiftLeftCq: objectMemory shiftForWord R: destReg). 
-	self genGetBits: 3 ofFormatByteOf: srcReg into: TempReg baseHeaderIntoScratch: nil.
+	self genGetBits: 3 ofFormatByteOf: srcReg into: TempReg.
 	"Now: fmt bitAnd: 3 in TempReg"
 	cogit SubR: TempReg R: destReg.
 	^0

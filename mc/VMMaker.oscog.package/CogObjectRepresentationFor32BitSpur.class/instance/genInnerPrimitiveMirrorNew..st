@@ -38,7 +38,7 @@ genInnerPrimitiveMirrorNew: retNoffset
 	"Is the class arg pointers with at least 3 fields?"
 	self genGetFormatOf: Arg0Reg
 		into: TempReg
-		leastSignificantHalfOfBaseHeaderIntoScratch: nil.
+		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
 	cogit CmpCq: objectMemory nonIndexablePointerFormat R: TempReg.
 	jumpNotFixedPointers := cogit JumpNonZero: 0.
 	

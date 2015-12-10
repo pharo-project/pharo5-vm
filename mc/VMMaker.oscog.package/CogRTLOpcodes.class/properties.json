@@ -117,6 +117,7 @@
 		"MoveXwrRR",
 		"MulRdRd",
 		"NegateR",
+		"NoReg",
 		"Nop",
 		"OrCqR",
 		"OrCwR",

@@ -1,9 +1,9 @@
 bytecode generators
 genSpecialSelectorClass
 	| topReg |
-	topReg := self ssTop registerOrNil.
+	topReg := self ssTop registerOrNone.
 	self ssPop: 1.
-	(topReg isNil or: [topReg = ClassReg])
+	(topReg = NoReg or: [topReg = ClassReg])
 		ifTrue: [self ssAllocateRequiredReg: (topReg := SendNumArgsReg) and: ClassReg]
 		ifFalse: [self ssAllocateRequiredReg: ClassReg].
 	self ssPush: 1.

@@ -31,7 +31,7 @@ configureCPIC: cPIC Case0: case0CogMethod Case1Method: case1Method tag: case1Tag
 			[operand := (case1Method isNil or: [objectMemory isYoungObject: case1Method])
 							ifTrue: [0]
 							ifFalse: [case1Method].
-			 targetEntry := case1Method isNil ifTrue: [cPIC asInteger + (self sizeof: CogMethod)] ifFalse: [cPIC asInteger + self picInterpretAbortOffset]].
+			 targetEntry := case1Method ifNil: [cPIC asInteger + (self sizeof: CogMethod)] ifNotNil: [cPIC asInteger + self picInterpretAbortOffset]].
 
 	"set the jump to the case0 method"
 	backEnd rewriteJumpLongAt: cPIC asInteger + firstCPICCaseOffset target: case0CogMethod asInteger + cmNoCheckEntryOffset.

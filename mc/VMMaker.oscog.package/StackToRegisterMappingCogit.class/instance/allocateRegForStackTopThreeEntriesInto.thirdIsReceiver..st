@@ -7,6 +7,7 @@ allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsRec
 	| topRegistersMask rTop rNext rThird |
 	
 	topRegistersMask := 0.
+	rTop := rNext := rThird := NoReg.
 	
 	(self ssTop type = SSRegister and: [ thirdIsReceiver not or: [ self ssTop register ~= ReceiverResultReg ] ]) ifTrue: 
 		[ topRegistersMask := self registerMaskFor: (rTop := self ssTop register)].
@@ -15,7 +16,7 @@ allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsRec
 	((self ssValue: 2) type = SSRegister and: [thirdIsReceiver not or: [ (self ssValue: 2) register = ReceiverResultReg ] ]) ifTrue: 
 		[ topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: (rThird := (self ssValue: 2) register))].
 	
-	rThird ifNil: 
+	rThird = NoReg ifTrue:
 		[ thirdIsReceiver 
 			ifTrue:
 				[ rThird := ReceiverResultReg.  "Free ReceiverResultReg if it was not free"
@@ -24,12 +25,13 @@ allocateRegForStackTopThreeEntriesInto: trinaryBlock thirdIsReceiver: thirdIsRec
 			ifFalse: [ rThird := self allocateRegNotConflictingWith: topRegistersMask ].
 		topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rThird) ].
 	
-	rTop ifNil: [ 
-		rTop := self allocateRegNotConflictingWith: topRegistersMask.
-		topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rTop) ].
+	rTop = NoReg ifTrue:
+		[ rTop := self allocateRegNotConflictingWith: topRegistersMask.
+		  topRegistersMask := topRegistersMask bitOr: (self registerMaskFor: rTop) ].
 	
-	rNext ifNil: [ rNext := self allocateRegNotConflictingWith: topRegistersMask ].
-	
+	rNext = NoReg ifTrue:
+		[ rNext := self allocateRegNotConflictingWith: topRegistersMask ].
+
+	self deny: (rTop = NoReg or: [rNext = NoReg or: [rThird = NoReg]]).
+
 	^ trinaryBlock value: rTop value: rNext value: rThird
-	
-	

@@ -48,7 +48,7 @@ genInnerPrimitiveMirrorNewWithArg: retNoffset
 
 	self genGetFormatOf: Arg0Reg
 		into: TempReg
-		leastSignificantHalfOfBaseHeaderIntoScratch: nil.
+		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
 	cogit CmpCq: objectMemory nonIndexablePointerFormat R: TempReg.
 	jumpNotFixedPointers := cogit JumpNonZero: 0.
 	

@@ -23,7 +23,7 @@ genInnerPrimitiveStringAtPut: retNoffset
 	"formatReg := self formatOf: ReceiverResultReg"
 	self genGetFormatOf: ReceiverResultReg
 		into: (formatReg := SendNumArgsReg)
-		leastSignificantHalfOfBaseHeaderIntoScratch: nil.
+		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
 
 	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
 

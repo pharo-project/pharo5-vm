@@ -1,8 +1,8 @@
 initialization
-genTrampolineFor: aRoutine called: trampolineName numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 saveRegs: saveRegs pushLinkReg: pushLinkReg resultReg: resultRegOrNil appendOpcodes: appendBoolean
+genTrampolineFor: aRoutine called: trampolineName numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 saveRegs: saveRegs pushLinkReg: pushLinkReg resultReg: resultRegOrNone appendOpcodes: appendBoolean
 	"Generate a trampoline with up to four arguments.  Generate either a call or a jump to aRoutineOrNil
-	 as requested by callJumpBar.  If generating a call and resultRegOrNil is non-zero pass the C result
-	 back in resultRegOrNil.
+	 as requested by callJumpBar.  If generating a call and resultRegOrNone is not NoReg pass the C result
+	 back in resultRegOrNone.
 	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
 	<var: #aRoutine type: #'void *'>
 	<var: #trampolineName type: #'char *'>
@@ -19,7 +19,7 @@ genTrampolineFor: aRoutine called: trampolineName numArgs: numArgs arg: regOrCon
 		arg: regOrConst3
 		saveRegs: saveRegs
 		pushLinkReg: pushLinkReg
-		resultReg: resultRegOrNil.
+		resultReg: resultRegOrNone.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	self recordGeneratedRunTime: trampolineName address: startAddress.
 	self recordRunTimeObjectReferences.

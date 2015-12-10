@@ -5,14 +5,15 @@ freeAnyRegNotConflictingWith: regMask
 	<var: #desc type: #'CogSimStackEntry *'>
 	| reg index |
 	self assert: needsFrame.
+	reg := NoReg.
 	index := simSpillBase max: 0.
-	[reg isNil and: [index < simStackPtr] ] whileTrue: 
+	[reg = NoReg and: [index < simStackPtr]] whileTrue: 
 		[ | desc |
 		 desc := self simStackAt: index.
 		 desc type = SSRegister ifTrue:
-			[ (regMask anyMask: (self registerMaskFor: desc register)) ifFalse: 
-				[ reg := desc register ] ].
+			[(regMask anyMask: (self registerMaskFor: desc register)) ifFalse: 
+				[reg := desc register]].
 		 index := index + 1].
-	self assert: reg notNil.
+	self deny: reg = NoReg.
 	self ssAllocateRequiredReg: reg.
 	^reg
