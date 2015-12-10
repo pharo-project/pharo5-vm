@@ -13,7 +13,7 @@ patchToOpenPICFor: selector numArgs: numArgs receiver: receiver
 	outerReturn := coInterpreter stackTop.
 	"See if an Open PIC is already available."
 	oPIC := methodZone openPICWithSelector: selector.
-	oPIC isNil ifTrue:
+	oPIC ifNil:
 		["otherwise attempt to create an Open PIC."
 		oPIC := self cogOpenPICSelector: selector numArgs: numArgs.
 		(oPIC asInteger between: MaxNegativeErrorCode and: -1) ifTrue:

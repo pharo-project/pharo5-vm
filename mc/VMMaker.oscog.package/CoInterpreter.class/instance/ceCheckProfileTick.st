@@ -4,7 +4,7 @@ ceCheckProfileTick
 	 If the primitive has failed sample the profileMethod as nil.
 	 As a courtesy to compileInterpreterPrimitive: map NULL to nilObj."
 	<api>
-	newMethod isNil ifTrue: [newMethod := objectMemory nilObject].
+	newMethod ifNil: [newMethod := objectMemory nilObject].
 	self cCode: [] inSmalltalk:
 		[newMethod = 0 ifTrue: [newMethod := objectMemory nilObject]].
 	self checkProfileTick: newMethod

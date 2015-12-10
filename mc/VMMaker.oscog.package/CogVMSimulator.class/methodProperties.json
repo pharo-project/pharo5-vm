@@ -198,7 +198,7 @@
 		"lookupOrdinaryNoMNUEtcInClass:" : "rmacnak 6/24/2015 21:17",
 		"makeBaseFrameFor:" : "eem 12/3/2010 08:34",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:" : "eem 1/2/2013 17:36",
-		"mapFunctionToAddress:" : "eem 7/19/2009 17:15",
+		"mapFunctionToAddress:" : "eem 12/10/2015 08:32",
 		"mapInterpreterOops" : "eem 9/30/2010 13:21",
 		"markAndTraceInterpreterOops:" : "eem 9/30/2010 13:21",
 		"maybeCheckStackDepth:sp:pc:" : "eem (const to msg rewrite) 11/5/2014 18:08",

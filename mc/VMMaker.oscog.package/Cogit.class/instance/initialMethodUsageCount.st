@@ -6,6 +6,6 @@ initialMethodUsageCount
 	(primitiveIndex = 1
 	 or: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]) ifTrue:
 		[^1].
-	self primitiveGeneratorOrNil isNil ifTrue:
+	self primitiveGeneratorOrNil ifNil:
 		[^2].
 	^3

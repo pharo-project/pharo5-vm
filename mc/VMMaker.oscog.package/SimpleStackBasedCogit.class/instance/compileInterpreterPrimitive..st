@@ -122,7 +122,7 @@ compileInterpreterPrimitive: primitiveRoutine
 
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["The sample is collected by cePrimReturnEnterCogCode for external calls"
-		jmpSamplePrim notNil ifTrue:
+		jmpSamplePrim ifNotNil:
 			["Call ceCheckProfileTick: to record sample and then continue."
 			jmpSamplePrim jmpTarget: self Label.
 			self assert: (flags anyMask: PrimCallNeedsNewMethod).
@@ -140,7 +140,7 @@ compileInterpreterPrimitive: primitiveRoutine
 		"reenter the post-primitive call flow"
 		self Jump: continuePostSampleNonPrim].
 
-	jmp notNil ifTrue:
+	jmp ifNotNil:
 		["Jump to restore of receiver reg and proceed to frame build for failure."
 		 jmp jmpTarget: self Label.
 		 "Restore receiver reg from stack.  If on RISCs ret pc is in LinkReg, if on CISCs ret pc is on stack."

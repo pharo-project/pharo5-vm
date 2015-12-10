@@ -4,7 +4,7 @@ unlinkSendsToFree
 	"Unlink all sends in cog methods to free methods and/or pics."
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	codeModified := false.
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	[cogMethod < methodZone limitZony] whileTrue:
