@@ -6,9 +6,9 @@ genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scrat
 	<var: #jumpFail type: #'AbstractInstruction *'>
 	<var: #jumpNotSF type: #'AbstractInstruction *'>
 	<var: #jumpMerge type: #'AbstractInstruction *'>
-	cogit MoveRd: dpreg R: scratch2.
-	jumpNotSF := self genJumpNotSmallFloatValueBits: scratch2 scratch: scratch1.
-	self genConvertBitsToSmallFloatIn: scratch2 scratch: scratch1.
+	cogit MoveRd: dpreg R: resultReg.
+	jumpNotSF := self genJumpNotSmallFloatValueBits: resultReg scratch: scratch1.
+	self genConvertBitsToSmallFloatIn: resultReg scratch: scratch1.
 	jumpMerge := cogit Jump: 0.
 	jumpNotSF jmpTarget: cogit Label.
 	jumpFail := super genAllocFloatValue: dpreg into: resultReg scratchReg: scratch1 scratchReg: scratch2.
