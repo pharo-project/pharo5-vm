@@ -31,6 +31,7 @@ baselineGit: spec
 					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
 					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
 			package: 'Freetype-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'CryptographyPlugins' with: [ spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
@@ -47,7 +48,8 @@ baselineGit: spec
 				'Qwaq-VMProfiling-Plugins' 
 				'Freetype-Plugin'
 				'ObjectiveC-Plugin'
-				'Applescript-Core') ].
+				'Applescript-Core'
+				'CryptographyPlugins') ].
 		
 		spec for: #pharo do: [		
 			spec 
