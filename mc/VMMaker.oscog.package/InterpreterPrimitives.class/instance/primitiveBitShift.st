@@ -19,6 +19,9 @@ primitiveBitShift
 				[integerArgument <= objectMemory numSmallIntegerBits ifFalse:
 					[^self primitiveFail].
 				shifted := integerReceiver << integerArgument.
+				self cCode: '' inSmalltalk: [shifted := objectMemory wordSize = 4
+									ifTrue: [shifted signedIntFromLong]
+									ifFalse: [shifted signedIntFromLong64]].
 				integerReceiver = (objectMemory wordSize = 4
 									ifTrue: [shifted >> integerArgument]
 									ifFalse: [shifted >>> integerArgument]) ifFalse:
