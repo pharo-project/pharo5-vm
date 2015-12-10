@@ -1,10 +1,12 @@
 compaction
-relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
+relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: refDelta
 	<var: #mcpc type: #'char *'>
-	| entryPoint targetMethod unlinkedRoutine |
+	| callDelta entryPoint targetMethod unlinkedRoutine |
 	<var: #targetMethod type: #'CogMethod *'>
 	<var: #nsSendCache type: #'NSSendCache *'>
 
+	callDelta := backEnd zoneCallsAreRelative ifTrue: [refDelta] ifFalse: [0].
+	
 	self cppIf: NewspeakVM ifTrue:
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
@@ -16,7 +18,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 
 			"Fix call to trampoline. This method is moving [delta] bytes, and calls are
 			 relative, so adjust the call by -[delta] bytes"
-			backEnd relocateCallBeforeReturnPC: mcpc asInteger by: delta negated.
+			backEnd relocateCallBeforeReturnPC: mcpc asInteger by: callDelta negated.
 
 			nsSendCache target ~= 0 ifTrue: "Send is linked"
 				[entryPoint := nsSendCache target.
@@ -32,7 +34,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		entryPoint <= methodZoneBase ifTrue: "send is not linked; just relocate"
-			[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: delta negated.
+			[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: callDelta negated.
 			 ^0].
 		"It's a linked send; find which kind."
 		self
@@ -43,13 +45,13 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 				 targetMethod cmType ~= CMFree ifTrue: "send target not freed; just relocate."
 					[backEnd
 						relocateCallBeforeReturnPC: mcpc asInteger
-						by: (delta - targetMethod objectHeader) negated.
+						by: (callDelta - targetMethod objectHeader) negated.
 					 SistaVM ifTrue: "See comment in planCompaction"
 						[methodZone restorePICUsageCount: targetMethod].
 					 ^0].
 				 "Target was freed; map back to an unlinked send; but include this method's reocation"
 				 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-				 unlinkedRoutine := unlinkedRoutine - delta.
+				 unlinkedRoutine := unlinkedRoutine - callDelta.
 				 backEnd
 					rewriteInlineCacheAt: mcpc asInteger
 					tag: targetMethod selector
@@ -57,10 +59,10 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: delta
 				 ^0]].
 
 	annotation = IsRelativeCall ifTrue:
-		[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: delta negated.
+		[backEnd relocateCallBeforeReturnPC: mcpc asInteger by: callDelta negated.
 		 ^0].
 
 	annotation = IsAbsPCReference ifTrue:
-		[backEnd relocateMethodReferenceBeforeAddress: mcpc asInteger by: delta].
+		[backEnd relocateMethodReferenceBeforeAddress: mcpc asInteger by: refDelta].
 
 	^0 "keep scanning"

@@ -1,12 +1,14 @@
 compaction
 relocateCallsInClosedPIC: cPIC
 	<var: #cPIC type: #'CogMethod *'>
-	| delta pc entryPoint targetMethod |
+	| refDelta callDelta pc entryPoint targetMethod |
 	<var: #targetMethod type: #'CogMethod *'>
-	delta := cPIC objectHeader.
+	refDelta := cPIC objectHeader.
+	callDelta := backEnd zoneCallsAreRelative ifTrue: [refDelta] ifFalse: [0].
+	
 	self assert: (backEnd callTargetFromReturnAddress: cPIC asInteger + missOffset)
 					= (self picAbortTrampolineFor: cPIC cmNumArgs).
-	backEnd relocateCallBeforeReturnPC: cPIC asInteger + missOffset by: delta negated.
+	backEnd relocateCallBeforeReturnPC: cPIC asInteger + missOffset by: callDelta negated.
 
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	1 to: cPIC cPICNumCases do:
@@ -22,13 +24,13 @@ relocateCallsInClosedPIC: cPIC
 			 i = 1 ifTrue:
 				[backEnd
 					relocateJumpLongBeforeFollowingAddress: pc
-					by: (delta - targetMethod objectHeader) negated]
+					by: (callDelta - targetMethod objectHeader) negated]
 				ifFalse:
 				[backEnd
 					relocateJumpLongConditionalBeforeFollowingAddress: pc
-					by: (delta - targetMethod objectHeader) negated]]].
+					by: (callDelta - targetMethod objectHeader) negated]]].
 	self assert: cPIC cPICNumCases > 0.
 
 	"Finally relocate the load of the PIC and the jump to the overflow routine ceCPICMiss:receiver:"
-	backEnd relocateMethodReferenceBeforeAddress: (self addressOfEndOfCase: 2 inCPIC: cPIC)+ backEnd loadPICLiteralByteSize by: delta.
-	backEnd relocateJumpLongBeforeFollowingAddress: cPIC asInteger + cPICEndOfCodeOffset by: delta negated
+	backEnd relocateMethodReferenceBeforeAddress: (self addressOfEndOfCase: 2 inCPIC: cPIC)+ backEnd loadPICLiteralByteSize by: refDelta.
+	backEnd relocateJumpLongBeforeFollowingAddress: cPIC asInteger + cPICEndOfCodeOffset by: callDelta negated

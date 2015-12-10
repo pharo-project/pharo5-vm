@@ -249,4 +249,5 @@
 		"tst:rn:imm:ror:" : "eem 6/10/2015 14:34",
 		"type:op:set:rn:rd:" : "tpr 4/29/2014 16:02",
 		"type:op:set:rn:rd:shifterOperand:" : "tpr 5/1/2014 18:27",
-		"wantsNearAddressFor:" : "tpr 4/30/2015 13:34" } }
+		"wantsNearAddressFor:" : "tpr 4/30/2015 13:34",
+		"zoneCallsAreRelative" : "rmacnak 12/9/2015 23:06:42" } }

@@ -203,7 +203,7 @@
 		"prefR:offset:hint:" : "rmacnak 11/17/2015 19:11:12",
 		"pushLinkRegisterByteSize" : "rmacnak 11/10/2015 22:32:50",
 		"relocateCallBeforeReturnPC:by:" : "rmacnak 12/5/2015 13:48:12",
-		"relocateJumpLongBeforeFollowingAddress:by:" : "rmacnak 12/5/2015 14:00:02",
+		"relocateJumpLongBeforeFollowingAddress:by:" : "rmacnak 12/9/2015 22:58:38",
 		"relocateJumpLongConditionalBeforeFollowingAddress:by:" : "rmacnak 12/1/2015 20:14:10",
 		"relocateMethodReferenceBeforeAddress:by:" : "rmacnak 12/2/2015 19:53:41",
 		"rewriteCPICJumpAt:target:" : "rmacnak 11/29/2015 20:02:44",
@@ -211,7 +211,7 @@
 		"rewriteConditionalJumpLongAt:target:" : "rmacnak 11/29/2015 20:03:06",
 		"rewriteITypeBranchAtAddress:target:" : "rmacnak 11/21/2015 10:16:40",
 		"rewriteInlineCacheAt:tag:target:" : "rmacnak 12/2/2015 19:36:31",
-		"rewriteJTypeAtAddress:delta:" : "rmacnak 12/1/2015 20:12:54",
+		"rewriteJTypeAtAddress:delta:" : "rmacnak 12/9/2015 22:59:14",
 		"rewriteJTypeAtAddress:target:" : "rmacnak 12/1/2015 20:11:20",
 		"rewriteJumpLongAt:target:" : "rmacnak 11/29/2015 20:03:53",
 		"rewriteOpcode:with:with:" : "rmacnak 11/23/2015 19:42:02",
@@ -239,4 +239,5 @@
 		"targetFromITypeAtAddress:" : "rmacnak 12/2/2015 18:58:07",
 		"targetFromJTypeAtAddress:" : "rmacnak 11/13/2015 20:17:01",
 		"xorR:R:R:" : "rmacnak 11/5/2015 23:06:12",
-		"xoriR:R:C:" : "rmacnak 11/8/2015 15:40:16" } }
+		"xoriR:R:C:" : "rmacnak 11/8/2015 15:40:16",
+		"zoneCallsAreRelative" : "rmacnak 12/9/2015 23:07:05" } }

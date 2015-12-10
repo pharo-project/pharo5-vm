@@ -6,7 +6,7 @@ relocateJumpLongBeforeFollowingAddress: pc by: delta
 	 nop (delay slot)
 	 ...  <-- pc"
 
-	| target |
+	| oldTarget newTarget |
 	self assert: delta \\ 4 = 0.
 	delta = 0 ifTrue: [^self].
 	
@@ -17,9 +17,9 @@ relocateJumpLongBeforeFollowingAddress: pc by: delta
 	self assert: (objectMemory longAt: pc - 4) = self nop.
 	"cogit disassembleFrom: pc - 16 to: pc."
 
-	target := self literalAtAddress: pc - 12.
-	target := target + delta.
-	self literalAtAddress: pc - 12 put: pc.
+	oldTarget := self literalAtAddress: pc - 12.
+	newTarget := oldTarget + delta.
+	self literalAtAddress: pc - 12 put: newTarget.
 
 	self assert: (self opcodeAtAddress: pc - 16) = LUI.
 	self assert: (self opcodeAtAddress: pc - 12) = ORI.
