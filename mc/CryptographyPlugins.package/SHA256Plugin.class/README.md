@@ -1,0 +1,1 @@
+I'm an SHA-256 plugin, my implementation is based on the algorithm which can be found on wikipedia (http://en.wikipedia.org/wiki/SHA_hash_functions#SHA-2_algorithm), which is basically the same as the fips version (http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf).

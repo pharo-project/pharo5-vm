@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "ul 3/8/2008 21:31",
+		"kArray" : "ul 3/6/2008 01:31",
+		"swapArray" : "ul 3/6/2008 02:48" },
+	"instance" : {
+		"copy:into:count:" : "ul 3/8/2008 21:24",
+		"expand:" : "ul 3/8/2008 21:24",
+		"primitiveFinalHash:fromState:" : "ul 3/6/2008 22:20",
+		"primitiveInitializeState:" : "rww 9/5/2010 12:58",
+		"primitivePluginAvailable" : "ul 3/5/2008 02:02",
+		"primitiveProcessBuffer:withState:" : "rww 9/5/2010 12:57",
+		"sha256InitializeState:" : "rww 9/5/2010 12:58",
+		"sha256ProcessBuffer:withState:" : "rww 9/5/2010 12:56" } }

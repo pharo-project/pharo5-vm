@@ -1,0 +1,14 @@
+{
+	"category" : "CryptographyPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "ul 3/7/2008 19:01",
+	"instvars" : [
+		"swap" ],
+	"name" : "MD5Plugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

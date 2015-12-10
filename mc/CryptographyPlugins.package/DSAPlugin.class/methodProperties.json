@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "sma 3/3/2000 12:44",
+		"moduleName" : "ar 5/15/2000 22:51" },
+	"instance" : {
+		"addBackDivisorDigitShift:" : "jm 12/21/1999 08:10",
+		"bigDivideLoop" : "jm 12/21/1999 18:48",
+		"leftRotate:by:" : "rww 7/23/2010 05:38",
+		"primitiveBigDivide" : "rww 7/23/2010 04:37",
+		"primitiveBigMultiply" : "rww 7/23/2010 04:41",
+		"primitiveExpandBlock" : "rww 7/23/2010 04:40",
+		"primitiveHasSecureHashPrimitive" : "rww 7/23/2010 04:38",
+		"primitiveHashBlock" : "rww 7/23/2010 04:40",
+		"primitiveHighestNonZeroDigitIndex" : "rww 7/23/2010 04:40",
+		"subtractDivisorMultipliedByDigit:digitShift:" : "jm 12/21/1999 08:13" } }
