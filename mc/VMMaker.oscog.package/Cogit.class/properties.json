@@ -189,7 +189,8 @@
 		"cPICPrototype",
 		"cPICEndOfCodeOffset",
 		"cPICEndOfCodeLabel",
-		"maxCPICCases" ],
+		"maxCPICCases",
+		"debugOpcodeIndices" ],
 	"name" : "Cogit",
 	"pools" : [
 		"CogCompilationConstants",

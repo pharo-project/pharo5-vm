@@ -1,5 +1,6 @@
 generate machine code
-concretizeMoveRRd	<inline: true>
+concretizeMoveRRd
+	<inline: true>
 	| srcReg destReg |
 	srcReg := self concreteRegister: (operands at: 0).
 	destReg := self concreteDPFPRegister: (operands at: 1).

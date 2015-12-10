@@ -7,4 +7,4 @@ genJumpNotSmallIntegerValue: aRegister scratch: scratchReg
 		MoveR: aRegister R: scratchReg;
 		ArithmeticShiftRightCq: 1 R: scratchReg;
 		XorR: aRegister R: scratchReg;
-		JumpGreaterOrEqual: 0
+		JumpLess: 0

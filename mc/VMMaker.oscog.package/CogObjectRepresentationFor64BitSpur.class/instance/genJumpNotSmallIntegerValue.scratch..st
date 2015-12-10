@@ -9,4 +9,4 @@ genJumpNotSmallIntegerValue: aRegister scratch: scratchReg
 		AddCq: 1 R: scratchReg;
 		AndCq: 1 << (self numTagBits + 1) - 1 R: scratchReg; "sign and top numTags bits must be the same"
 		CmpCq: 1 R: scratchReg;
-		JumpLess: 0
+		JumpGreater: 0

@@ -130,6 +130,7 @@
 		"RISCTempReg",
 		"ReceiverResultReg",
 		"RetN",
+		"RotateLeftCqR",
 		"RotateRightCqR",
 		"SPReg",
 		"Scratch0Reg",

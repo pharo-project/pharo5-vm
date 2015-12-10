@@ -91,6 +91,7 @@ dispatchConcretize
 		[XorRR]						-> [^self concretizeOpRR: 16r33].
 		[NegateR]					-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
+		[RotateLeftCqR]				-> [^self concretizeShiftCqRegOpcode: 0].
 		[RotateRightCqR]				-> [^self concretizeShiftCqRegOpcode: 1].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeShiftCqRegOpcode: 7].
 		[LogicalShiftRightCqR]			-> [^self concretizeShiftCqRegOpcode: 5].
