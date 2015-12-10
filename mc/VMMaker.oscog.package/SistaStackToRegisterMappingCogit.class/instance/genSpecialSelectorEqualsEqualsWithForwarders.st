@@ -29,13 +29,14 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	register so the forwarder check can jump back to the comparison after unforwarding the constant.
 	However, if one of the operand is an unnanotable constant, does not allocate a register for it 
 	(machine code will use operations on constants)."
+	rcvrReg:= argReg := NoReg.
 	self 
 		allocateEqualsEqualsRegistersArgNeedsReg: unforwardArg 
 		rcvrNeedsReg: unforwardRcvr 
 		into: [ :rcvr :arg | rcvrReg:= rcvr. argReg := arg ].
 		
-	argReg ifNotNil: [ regMask := self registerMaskFor: argReg ].
-	rcvrReg ifNotNil: [ regMask := regMask bitOr: (self registerMaskFor: rcvrReg) ].
+	argReg ~= NoReg ifTrue: [ regMask := self registerMaskFor: argReg ].
+	rcvrReg ~= NoReg ifTrue: [ regMask := regMask bitOr: (self registerMaskFor: rcvrReg) ].
 	
 	"Only interested in inlining if followed by a conditional branch."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:

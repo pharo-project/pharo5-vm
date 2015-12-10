@@ -6,16 +6,19 @@ allocateRegForStackTopTwoEntriesInto: binaryBlock
 	| topRegistersMask rTop rNext |
 	
 	topRegistersMask := 0.
+	rTop := rNext := NoReg.
 	
 	self ssTop type = SSRegister ifTrue: 
 		[ rTop := self ssTop register].
 	(self ssValue: 1) type = SSRegister ifTrue: 
 		[ topRegistersMask := self registerMaskFor: (rNext := (self ssValue: 1) register)].
 	
-	rTop ifNil: [ rTop := self allocateRegNotConflictingWith: topRegistersMask ].
+	rTop = NoReg ifTrue:
+		[ rTop := self allocateRegNotConflictingWith: topRegistersMask ].
 	
-	rNext ifNil: [ rNext := self allocateRegNotConflictingWith: (self registerMaskFor: rTop) ].
-	
+	rNext = NoReg ifTrue:
+		[ rNext := self allocateRegNotConflictingWith: (self registerMaskFor: rTop) ].
+
+	self deny: (rTop = NoReg or: [rNext = NoReg]).
+
 	^ binaryBlock value: rTop value: rNext
-	
-	

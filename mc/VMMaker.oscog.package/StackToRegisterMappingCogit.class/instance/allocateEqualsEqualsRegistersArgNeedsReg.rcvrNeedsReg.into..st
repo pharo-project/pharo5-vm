@@ -3,6 +3,7 @@ allocateEqualsEqualsRegistersArgNeedsReg: argNeedsReg rcvrNeedsReg: rcvrNeedsReg
 	<inline: true>
 	| argReg rcvrReg |
 	self assert: (argNeedsReg or: [rcvrNeedsReg]).
+	argReg := rcvrReg := NoReg.
 	argNeedsReg
 		ifTrue: 
 			[rcvrNeedsReg
@@ -22,7 +23,7 @@ allocateEqualsEqualsRegistersArgNeedsReg: argNeedsReg rcvrNeedsReg: rcvrNeedsReg
 			 rcvrReg := self allocateRegForStackEntryAt: 1.
 			 (self ssValue: 1) popToReg: rcvrReg].
 		
-	self assert: (argNeedsReg not or: [argReg notNil]).
-	self assert: (rcvrNeedsReg not or: [rcvrReg notNil]).
+	self deny: (argNeedsReg and: [argReg = NoReg]).
+	self deny: (rcvrNeedsReg and: [rcvrReg = NoReg]).
 
 	binaryBlock value: rcvrReg value: argReg

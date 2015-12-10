@@ -7,6 +7,7 @@ concretizeMoveRXbrR
 	index := self concreteRegister: (operands at: 1).
 	base := self concreteRegister: (operands at: 2).
 	mcIdx := 0.
+	swapreg := NoReg.
 	src >= 4 ifTrue: "x86 allows movb %rl, mem only with %al, %bl, %cl, %dl, so swap with the first one that isn't used."
 		[swapreg := src.
 		 index = EAX ifTrue: [index := swapreg].
@@ -19,7 +20,7 @@ concretizeMoveRXbrR
 			at: mcIdx + 0 put: 16r88;
 			at: mcIdx + 1 put: (self mod: ModRegInd RM: 4 RO: src);
 			at: mcIdx + 2 put: (self s: SIB1 i: index b: base).
-		 swapreg ifNotNil:
+		 swapreg ~= NoReg ifTrue:
 			[machineCode at: mcIdx + 3 put: 16r90 + swapreg].
 		 ^machineCodeSize := 3 + (2 * mcIdx)].
 	machineCode
@@ -27,6 +28,6 @@ concretizeMoveRXbrR
 		at: mcIdx + 1 put: (self mod: ModRegRegDisp8 RM: 4 RO: src);
 		at: mcIdx + 2 put: (self s: SIB1 i: index b: base);
 		at: mcIdx + 3 put: 0.
-	swapreg ifNotNil:
+	swapreg ~= NoReg ifTrue:
 		[machineCode at: mcIdx + 4 put: 16r90 + swapreg].
 	 ^machineCodeSize := 4 + (2 * mcIdx)
