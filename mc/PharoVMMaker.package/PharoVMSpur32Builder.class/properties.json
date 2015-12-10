@@ -6,7 +6,7 @@
 		 ],
 	"commentStamp" : "EstebanLorenzano 11/14/2014 13:11",
 	"instvars" : [
-		 ],
+		"debug" ],
 	"name" : "PharoVMSpur32Builder",
 	"pools" : [
 		 ],

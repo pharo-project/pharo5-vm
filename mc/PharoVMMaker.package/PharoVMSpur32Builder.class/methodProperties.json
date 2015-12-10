@@ -1,12 +1,18 @@
 {
 	"class" : {
 		"build" : "EstebanLorenzano 11/14/2014 12:59",
+		"buildDebug" : "EstebanLorenzano 12/10/2015 10:29",
+		"buildDebugMacOSX32" : "EstebanLorenzano 12/10/2015 10:30",
+		"buildDebugOnJenkins:" : "EstebanLorenzano 12/10/2015 10:31",
+		"buildDebugUnix32" : "EstebanLorenzano 12/10/2015 10:30",
+		"buildDebugWin32" : "EstebanLorenzano 12/10/2015 10:30",
 		"buildMacOSX32" : "EstebanLorenzano 11/14/2014 12:59",
 		"buildOnJenkins:" : "EstebanLorenzano 11/14/2014 12:59",
 		"buildUnix32" : "EstebanLorenzano 11/14/2014 12:59",
 		"buildWin32" : "EstebanLorenzano 11/14/2014 12:59" },
 	"instance" : {
-		"buildMacOSX32" : "EstebanLorenzano 9/3/2015 15:19",
-		"buildUnix32" : "EstebanLorenzano 12/4/2014 17:54",
-		"buildWin32" : "EstebanLorenzano 12/4/2014 17:54",
-		"initialize" : "EstebanLorenzano 11/14/2014 12:59" } }
+		"buildMacOSX32" : "EstebanLorenzano 12/10/2015 10:33",
+		"buildUnix32" : "EstebanLorenzano 12/10/2015 10:33",
+		"buildWin32" : "EstebanLorenzano 12/10/2015 10:33",
+		"generateForDebug" : "EstebanLorenzano 12/10/2015 10:33",
+		"initialize" : "EstebanLorenzano 12/10/2015 10:34" } }
