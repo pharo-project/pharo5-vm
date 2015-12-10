@@ -21,5 +21,6 @@
 		"long32At:put:" : "eem 7/1/2008 17:28",
 		"mergeFn:with:" : "di 12/30/97 11:07",
 		"primitive:parameters:receiver:" : "eem 3/14/2014 17:29",
+		"primitiveCopyBits" : "eem 12/10/2015 11:20",
 		"primitivePixelValueAt" : "eem 3/14/2014 17:26",
 		"srcLongAt:" : "ikp 8/2/2004 20:25" } }
