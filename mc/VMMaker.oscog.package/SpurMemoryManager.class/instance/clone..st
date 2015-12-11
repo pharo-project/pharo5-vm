@@ -14,6 +14,7 @@ clone: objOop
 							classIndex: (self classIndexOf: objOop)].
 	newObj ifNil:
 		[^0].
+	self cppIf: IMMUTABILITY ifTrue: [ self setIsImmutableOf: newObj to: false ].
 	(self isPointersFormat: fmt)
 		ifTrue:
 			[| hasYoung |

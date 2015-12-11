@@ -201,7 +201,7 @@
 		"mapFunctionToAddress:" : "eem 12/10/2015 08:32",
 		"mapInterpreterOops" : "eem 9/30/2010 13:21",
 		"markAndTraceInterpreterOops:" : "eem 9/30/2010 13:21",
-		"maybeCheckStackDepth:sp:pc:" : "eem (const to msg rewrite) 11/5/2014 18:08",
+		"maybeCheckStackDepth:sp:pc:" : "cb 11/30/2015 13:00",
 		"memory" : "eem (objmem refactor) 6/8/2010 17:12",
 		"methodCache" : "eem 10/2/2013 15:19",
 		"methodCacheSize" : "eem (const to msg rewrite) 11/5/2014 18:08",

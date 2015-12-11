@@ -1,3 +1,5 @@
 accessing
 numTrampolines
-	^super numTrampolines + 6
+	(initializationOptions at: #IMMUTABILITY ifAbsent: [false])
+		ifTrue: [ ^ super numTrampolines + 7 ]
+		ifFalse: [ ^ super numTrampolines + 6 ]

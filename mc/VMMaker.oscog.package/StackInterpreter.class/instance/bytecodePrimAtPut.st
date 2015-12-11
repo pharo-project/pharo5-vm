@@ -6,11 +6,14 @@ bytecodePrimAtPut
 	 Override to insert in the atCache here.  This is necessary since once there
 	 is a compiled at:[put:] primitive method (which doesn't use the at: cache) the
 	 only way something can get installed in the atCache is here."
-	| index rcvr atIx value |
+	| index rcvr atIx value correctRcvr |
 	value := self internalStackTop.
 	index := self internalStackValue: 1.
 	rcvr := self internalStackValue: 2.
-	((objectMemory isNonImmediate: rcvr)
+	self cppIf: IMMUTABILITY 
+		ifTrue: [ correctRcvr := objectMemory isOopMutable: rcvr ]
+		ifFalse: [ correctRcvr := objectMemory isNonImmediate: rcvr ].
+	(correctRcvr
 	 and: [objectMemory isIntegerObject: index]) ifTrue:
 		[atIx := (rcvr bitAnd: AtCacheMask) + AtPutBase.  "Index into atPutCache"
 		 (atCache at: atIx+AtCacheOop) ~= rcvr ifTrue:

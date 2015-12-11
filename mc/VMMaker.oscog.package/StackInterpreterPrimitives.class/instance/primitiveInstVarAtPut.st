@@ -8,6 +8,9 @@ primitiveInstVarAtPut
 	 or: [argumentCount > 2 "e.g. object:instVarAt:put:"
 		and: [objectMemory isOopForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
+	self cppIf: IMMUTABILITY
+		ifTrue: [ (objectMemory isOopImmutable: rcvr) ifTrue: [^self primitiveFailFor: PrimErrInappropriate] ]
+		ifFalse: [ (objectMemory isImmediate: rcvr) ifTrue: [^self primitiveFailFor: PrimErrInappropriate] ].
 	index := objectMemory integerValueOf: index.
 	hdr := objectMemory baseHeader: rcvr.
 	fmt := objectMemory formatOfHeader: hdr.

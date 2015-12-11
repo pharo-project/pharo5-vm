@@ -420,6 +420,7 @@
 		"storeLong32:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeLong64:ofObject:withValue:" : "cb 4/17/2015 09:58",
 		"storePointer:ofObject:withValue:" : "eem (const to msg rewrite) 11/13/2014 14:06",
+		"storePointerImmutabilityCheck:ofObject:withValue:" : "cb 12/11/2015 14:51",
 		"storePointerUnchecked:ofObject:withValue:" : "eem (const to msg rewrite) 11/13/2014 14:06",
 		"storeShort16:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeWord:ofObject:withValue:" : "ikp 3/26/2005 14:29",

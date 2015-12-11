@@ -8,7 +8,7 @@ trinaryInlinePrimitive: primIndex
 		"3000	unchecked Pointer Object>>at:put:.			The receiver is guaranteed to be a pointer object.  The 0-relative (1-relative?) index is an in-range SmallInteger"
 		[0]	->	[result := self internalStackTop.
 				 objectMemory
-					storePointer: (objectMemory integerValueOf: (self internalStackValue: 1)) - 1
+					storePointerImmutabilityCheck: (objectMemory integerValueOf: (self internalStackValue: 1)) - 1
 					ofObject: (self internalStackValue: 2)
 					withValue: result.
 				 self internalPop: 2; internalStackTopPut: result].

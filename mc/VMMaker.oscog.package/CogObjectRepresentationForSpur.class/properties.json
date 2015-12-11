@@ -11,7 +11,8 @@
 		"ceSmallActiveContextInBlockTrampoline",
 		"ceLargeActiveContextInMethodTrampoline",
 		"ceLargeActiveContextInBlockTrampoline",
-		"ceStoreCheckContextReceiverTrampoline" ],
+		"ceStoreCheckContextReceiverTrampoline",
+		"ceCannotAssignToWithIndexTrampoline" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
 		"VMBytecodeConstants",

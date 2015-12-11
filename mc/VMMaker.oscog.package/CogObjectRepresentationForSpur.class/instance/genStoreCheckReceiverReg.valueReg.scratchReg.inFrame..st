@@ -31,20 +31,14 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 	jmpAlreadyRemembered := cogit JumpNonZero: 0.
 	"Remembered bit is not set.  Call store check to insert dest into remembered table."
 	self assert: destReg == ReceiverResultReg.
-	inFrame
-		ifTrue:
+	cogit 
+		evaluateTrampolineCallBlock:
 			[cogit
 				CallRT: ceStoreCheckTrampoline
 				registersToBeSavedMask: (((cogit registerMaskFor: valueReg)
 												bitOr: cogit callerSavedRegMask)
 												bitClear: (cogit registerMaskFor: ReceiverResultReg))]
-		ifFalse:
-			[cogit backEnd saveAndRestoreLinkRegAround:
-				[cogit
-					CallRT: ceStoreCheckTrampoline
-					registersToBeSavedMask: (((cogit registerMaskFor: valueReg)
-													bitOr: cogit callerSavedRegMask)
-													bitClear: (cogit registerMaskFor: ReceiverResultReg))]].
+		protectLinkRegIfNot: inFrame.
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

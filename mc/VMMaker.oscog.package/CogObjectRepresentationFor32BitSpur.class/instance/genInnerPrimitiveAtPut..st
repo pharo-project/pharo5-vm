@@ -1,7 +1,7 @@
 primitive generators
 genInnerPrimitiveAtPut: retNoffset
 	"Implement the guts of primitiveAtPut"
-	| formatReg jumpImmediate jumpBadIndex
+	| formatReg jumpImmediate jumpBadIndex jumpImmutable
 	  jumpNotIndexablePointers jumpNotIndexableBits
 	  jumpIsContext jumpIsCompiledMethod jumpIsBytes jumpHasFixedFields
 	  jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
@@ -29,9 +29,16 @@ genInnerPrimitiveAtPut: retNoffset
 	cogit SubCq: 1 R: Arg0Reg. "1-rel => 0-rel"
 
 	"formatReg := self formatOf: ReceiverResultReg"
-	self genGetFormatOf: ReceiverResultReg
-		into: (formatReg := SendNumArgsReg)
-		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
+	self cppIf: IMMUTABILITY
+		ifTrue:
+		[ self genGetFormatOf: ReceiverResultReg
+			into: (formatReg := SendNumArgsReg)
+			leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
+		jumpImmutable := self genJumpBaseHeaderImmutable: TempReg ]
+		ifFalse: 
+		[ self genGetFormatOf: ReceiverResultReg
+			into: (formatReg := SendNumArgsReg)
+			leastSignificantHalfOfBaseHeaderIntoScratch: NoReg ].
 
 	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
 
@@ -155,6 +162,8 @@ genInnerPrimitiveAtPut: retNoffset
 	(jumpNotIndexablePointers jmpTarget:
 	(jumpNonSmallIntegerValue jmpTarget:
 	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label))))))))))).
+	
+	self cppIf: IMMUTABILITY ifTrue: [ jumpImmutable jmpTarget: cogit Label ].
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
