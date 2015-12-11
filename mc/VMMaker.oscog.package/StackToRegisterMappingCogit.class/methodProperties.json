@@ -81,7 +81,7 @@
 		"genNullaryInlinePrimitive:" : "eem 9/23/2014 12:09",
 		"genOutlineClosure:numArgs:numCopied:" : "cb 6/29/2015 14:52",
 		"genPICAbortTrampolineFor:" : "eem 6/9/2015 21:53",
-		"genPICMissTrampolineFor:" : "eem 6/9/2015 21:53",
+		"genPICMissTrampolineFor:" : "eem 12/10/2015 13:56",
 		"genPopStackBytecode" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimitiveAdd" : "eem 6/3/2015 09:58",
 		"genPrimitiveAsCharacter" : "eem 12/5/2015 12:40",

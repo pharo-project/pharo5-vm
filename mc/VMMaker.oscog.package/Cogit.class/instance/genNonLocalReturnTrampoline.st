@@ -19,5 +19,5 @@ genNonLocalReturnTrampoline
 		arg: nil
 		saveRegs: false
 		pushLinkReg: false
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true

@@ -122,7 +122,6 @@
 		"divR:R:" : "rmacnak 11/21/2015 16:24:57",
 		"fullCallsAreRelative" : "rmacnak 11/9/2015 20:10:48",
 		"functionAtAddress:" : "rmacnak 11/11/2015 19:34:40",
-		"genAlignCStackSavingRegisters:numArgs:wordAlignment:" : "rmacnak 11/23/2015 20:51:06",
 		"genDivR:R:Quo:Rem:" : "rmacnak 11/21/2015 16:00:23",
 		"genGetLeafCallStackPointerFunction" : "rmacnak 11/9/2015 19:25:52",
 		"genLoadCStackPointers" : "rmacnak 11/9/2015 20:06:38",
