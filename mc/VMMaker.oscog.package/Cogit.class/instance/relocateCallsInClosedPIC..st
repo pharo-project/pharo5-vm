@@ -17,8 +17,19 @@ relocateCallsInClosedPIC: cPIC
 		entryPoint := i = 1
 						ifTrue: [backEnd jumpLongTargetBeforeFollowingAddress: pc]
 						ifFalse: [backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc].
-		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
-		(cPIC containsAddress: entryPoint) ifFalse:
+		(cPIC containsAddress: entryPoint) 
+			ifTrue: 
+			["Interpret/MNU"
+			backEnd zoneCallsAreRelative ifFalse: [
+				i = 1 ifTrue:
+					[backEnd
+						relocateJumpLongBeforeFollowingAddress: pc
+						by: refDelta]
+					ifFalse:
+					[backEnd
+						relocateJumpLongConditionalBeforeFollowingAddress: pc
+						by: refDelta]]]
+			ifFalse:
 			[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 			 self assert: targetMethod cmType = CMMethod.
 			 i = 1 ifTrue:

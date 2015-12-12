@@ -1,7 +1,7 @@
 inline cacheing
-implicitReceiveCacheAt: callSiteReturnAddress
-	"Answer the implicit receiver cache for the return address
-	 of a call to the ceImplicitReceiverTrampoline."
+nsSendCacheAt: callSiteReturnAddress
+	"Answer the NSSendCache for the return address of a Newspeak
+	 self, super, outer, or implicit receiver send."
 	<option: #NewspeakVM>
 	<var: #callSiteReturnAddress type: #'char *'>
 	<inline: false>

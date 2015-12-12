@@ -9,6 +9,6 @@ nsSendCacheFromReturnAddress: mcpc
 	| entryPoint cacheAddress |
 	entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 	self assert: entryPoint < methodZoneBase.
-	cacheAddress := (backEnd implicitReceiveCacheAt: mcpc) asUnsignedInteger.
+	cacheAddress := (backEnd nsSendCacheAt: mcpc) asUnsignedInteger.
 	self assert: (objectMemory isInOldSpace: cacheAddress).
 	^self cCoerceSimple: cacheAddress to: #'NSSendCache *'
