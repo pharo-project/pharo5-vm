@@ -6,5 +6,5 @@ genJumpNotSmallIntegersIn: aRegister andScratchReg: scratchReg
 	<returnTypeC: #'AbstractInstruction *'>
 	^cogit
 		XorR: aRegister R: scratchReg;
-		AndCq: self tagMask R: scratchReg;
+		AndCq: objectMemory tagMask R: scratchReg;
 		JumpNonZero: 0

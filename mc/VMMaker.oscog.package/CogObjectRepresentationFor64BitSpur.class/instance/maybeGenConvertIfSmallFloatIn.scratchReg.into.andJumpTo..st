@@ -9,7 +9,7 @@ maybeGenConvertIfSmallFloatIn: oopReg scratchReg: scratch into: dpReg andJumpTo:
 	jumpNotSF := self genJumpNotSmallFloat: oopReg scratchReg: scratch.
 	cogit
 		MoveR: oopReg R: scratch;
-		LogicalShiftRightCq: self numTagBits R: scratch;
+		LogicalShiftRightCq: objectMemory numTagBits R: scratch;
 		CmpCq: 1 R: scratch.
 	jumpSFZero := cogit JumpAbove: 0.
 	cogit AddCq: objectMemory smallFloatExponentOffset << (objectMemory smallFloatMantissaBits + 1) R: scratch.

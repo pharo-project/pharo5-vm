@@ -61,7 +61,7 @@
 		"numSlotsForShortening:toIndexableSize:" : "eem 10/18/2014 18:42",
 		"numSmallIntegerBits" : "eem 11/19/2014 13:13",
 		"numSmallIntegerTagBits" : "eem 11/18/2014 17:42",
-		"numTagBits" : "eem 11/18/2013 15:54",
+		"numTagBits" : "eem 12/12/2015 11:37",
 		"objectAfter:limit:" : "eem 11/12/2013 16:36",
 		"objectBytesForSlots:" : "eem 6/27/2014 15:33",
 		"oldRawNumSlotsOf:" : "eem 4/5/2014 12:04",
@@ -89,7 +89,7 @@
 		"smallFloatTag" : "eem 12/5/2015 14:26",
 		"smallFloatValueOf:" : "eem 12/2/2015 14:45",
 		"smallObjectBytesForSlots:" : "eem 11/13/2014 12:15",
-		"tagMask" : "eem 11/18/2013 15:49",
+		"tagMask" : "eem 12/12/2015 11:35",
 		"wordIndexableFormat" : "eem 10/8/2013 12:21",
 		"wordSize" : "eem 11/13/2014 15:23",
 		"wordSizeClassIndexPun" : "eem 10/8/2013 12:17" } }

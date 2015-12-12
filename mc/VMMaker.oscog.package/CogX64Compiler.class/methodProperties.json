@@ -6,6 +6,7 @@
 		"defaultCompilerClass" : "eem 12/4/2015 22:25",
 		"identifyingPredefinedMacros" : "eem 12/11/2015 23:43",
 		"initialize" : "eem 12/1/2015 12:57",
+		"isAbstract" : "eem 12/12/2015 11:45",
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52",
 		"wordSize" : "eem 12/11/2015 23:30" },
 	"instance" : {
@@ -78,6 +79,7 @@
 		"concretizeTstCqR" : "eem 12/9/2015 15:42",
 		"concretizeXCHGRR" : "eem 9/22/2015 15:15",
 		"dispatchConcretize" : "eem 12/9/2015 14:03",
+		"flushICacheFrom:to:" : "eem 6/17/2009 19:53",
 		"fullCallsAreRelative" : "eem 9/23/2015 18:23",
 		"genDivR:R:Quo:Rem:" : "eem 9/22/2015 12:57",
 		"genGetLeafCallStackPointerFunction" : "eem 9/23/2015 12:45",

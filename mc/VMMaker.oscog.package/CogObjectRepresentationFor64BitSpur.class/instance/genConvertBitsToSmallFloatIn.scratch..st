@@ -12,6 +12,6 @@ genConvertBitsToSmallFloatIn: reg scratch: scratch
 	cogit
 		SubCq: objectMemory smallFloatExponentOffset << (objectMemory smallFloatMantissaBits + 1) R: reg.
 	jumpZero jmpTarget:
-	(cogit LogicalShiftLeftCq: self numTagBits R: reg).
+	(cogit LogicalShiftLeftCq: objectMemory numTagBits R: reg).
 	cogit AddCq: objectMemory smallFloatTag R: reg.
 	^0

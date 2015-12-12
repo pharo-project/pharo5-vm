@@ -5,8 +5,8 @@ genJumpIsSmallIntegerValue: aRegister scratch: scratchReg
 	<returnTypeC: #'AbstractInstruction *'>
 	^cogit
 		MoveR: aRegister R: scratchReg;
-		ArithmeticShiftRightCq: 64 - self numTagBits R: scratchReg;
+		ArithmeticShiftRightCq: 64 - objectMemory numTagBits R: scratchReg;
 		AddCq: 1 R: scratchReg;
-		AndCq: 1 << (self numTagBits + 1) - 1 R: scratchReg; "sign and top numTags bits must be the same"
+		AndCq: 1 << (objectMemory numTagBits + 1) - 1 R: scratchReg; "sign and top numTags bits must be the same"
 		CmpCq: 1 R: scratchReg;
 		JumpLessOrEqual: 0
