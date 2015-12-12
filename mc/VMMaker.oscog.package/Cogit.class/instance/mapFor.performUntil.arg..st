@@ -7,6 +7,8 @@ mapFor: cogMethod performUntil: functionSymbol arg: arg
 	| mcpc map mapByte annotation result |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.
+	objectMemory wordSize = 8 ifTrue:
+		[enumeratingCogMethod := cogMethod].
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
 			ifTrue:

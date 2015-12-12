@@ -50,6 +50,8 @@ mapFor: cogMethod bcpc: startbcpc withAnnotationPerformUntil: functionSymbol arg
 	bcpc := startbcpc.
 	mcpc := cogMethod asUnsignedInteger + cogMethod stackCheckOffset.
 	nExts := 0.
+	objectMemory wordSize = 8 ifTrue:
+		[enumeratingCogMethod := homeMethod].
 	"The stack check maps to the start of the first bytecode,
 	 the first bytecode being effectively after frame build."
 	result := self perform: functionSymbol

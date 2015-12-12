@@ -2,7 +2,7 @@ class initialization
 table: primArray from: specArray 
 	"Fill in the specified entries in the primitive table."
 	specArray do:
-		[:spec |
+		[:spec | | descriptor |
 		(primArray at: spec first put: CogPrimitiveDescriptor new)
 			primitiveGenerator: spec second;
 			primNumArgs: (spec at: 3 ifAbsent: -1);

@@ -7,7 +7,6 @@ primitiveInstVarAt
 	 or: [argumentCount > 1 "e.g. object:instVarAt:"
 		and: [objectMemory isOopForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
-	(objectMemory isImmediate: rcvr) ifTrue: [^self primitiveFailFor: PrimErrInappropriate].
 	index := objectMemory integerValueOf: index.
 	hdr := objectMemory baseHeader: rcvr.
 	fmt := objectMemory formatOfHeader: hdr.

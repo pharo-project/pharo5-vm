@@ -54,7 +54,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: refDelta
 				 unlinkedRoutine := unlinkedRoutine - callDelta.
 				 backEnd
 					rewriteInlineCacheAt: mcpc asInteger
-					tag: targetMethod selector
+					tag: (self inlineCacheValueForSelector: targetMethod selector in: enumeratingCogMethod at: mcpc)
 					target: unlinkedRoutine.
 				 ^0]].
 

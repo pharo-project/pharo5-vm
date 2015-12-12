@@ -74,6 +74,7 @@
 		"traceStores",
 		"breakMethod",
 		"methodObj",
+		"enumeratingCogMethod",
 		"methodHeader",
 		"initialPC",
 		"endPC",
@@ -190,7 +191,8 @@
 		"cPICEndOfCodeOffset",
 		"cPICEndOfCodeLabel",
 		"maxCPICCases",
-		"debugOpcodeIndices" ],
+		"debugOpcodeIndices",
+		"disassemblingMethod" ],
 	"name" : "Cogit",
 	"pools" : [
 		"CogCompilationConstants",

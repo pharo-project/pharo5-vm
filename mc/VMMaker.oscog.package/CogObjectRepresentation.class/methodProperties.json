@@ -52,7 +52,6 @@
 		"genLoadSlot:sourceReg:destReg:" : "eem 9/30/2013 22:32",
 		"genNewArrayOfSize:initialized:" : "eem 5/31/2014 08:52",
 		"genSetSmallIntegerTagsIn:" : "eem 12/6/2015 20:34",
-		"genStoreSourceReg:slotIndex:destReg:scratchReg:inFrame:" : "cb 11/26/2015 17:29",
 		"generateObjectRepresentationTrampolines" : "eem 7/14/2014 17:02",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
 		"hasSpurMemoryManagerAPI" : "eem 2/10/2015 18:56",

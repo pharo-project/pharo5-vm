@@ -4,7 +4,7 @@ ensureReceiverResultRegContainsSelf
 		ifTrue:
 			[optStatus isReceiverResultRegLive ifFalse:
 				[self ssAllocateRequiredReg: ReceiverResultReg.
-				self putSelfInReceiverResultReg ].
+				 (self addressOf: simSelf) storeToReg: ReceiverResultReg].
 			optStatus isReceiverResultRegLive: true]
 		ifFalse:
 			[self assert: (simSelf type = SSRegister

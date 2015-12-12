@@ -4,5 +4,5 @@ genReturnReceiver
 	 In a frameful method, ReceiverResultReg /may/ contain self."
 	needsFrame ifTrue:
 		[ optStatus isReceiverResultRegLive ifFalse:
-			[self putSelfInReceiverResultReg]].
+			[ (self addressOf: simSelf) storeToReg: ReceiverResultReg]].
 	^self genUpArrowReturn

@@ -17,14 +17,9 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1    0   15 genPushReceiverVariableBytecode isInstVarRef needsFrameNever: 1)
 		(1  16   31 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
-		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)) ,
-		
-		"N.B. not frameless if immutability"
-		((initializationOptions at: #IMMUTABILITY ifAbsent: [false])
-			ifTrue: [#((1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef isMapped -1))]
-			ifFalse: [#((1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1)) ]),
-			
-		#((1 104 111 genStoreAndPopTemporaryVariableBytecode)
+		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)
+		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1 104 111 genStoreAndPopTemporaryVariableBytecode)
 		(1 112 112 genPushReceiverBytecode needsFrameNever: 1)
 		(1 113 113 genPushConstantTrueBytecode needsFrameNever: 1)
 		(1 114 114 genPushConstantFalseBytecode needsFrameNever: 1)

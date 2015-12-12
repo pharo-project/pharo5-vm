@@ -189,9 +189,7 @@ initializePrimitiveTable
 		(150 159 primitiveFail)
 		(160 primitiveAdoptInstance)
 		(161 primitiveSetOrHasIdentityHash)
-		(162 primitiveFail)			"reserved for immutablity primitives"
-		(163 primitiveGetImmutability)
-		(164 primitiveSetImmutability)	
+		(162 164 primitiveFail)			"reserved for immutablity primitives"
 		(165 primitiveIntegerAt)		"hacked in here for now"
 		(166 primitiveIntegerAtPut)
 		(167 primitiveYield)

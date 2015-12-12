@@ -2,7 +2,7 @@ primitive generators
 genInnerPrimitiveStringAtPut: retNoffset
 	"Implement the guts of primitiveStringAtPut"
 	| formatReg jumpBadIndex jumpBadArg jumpWordsDone jumpBytesOutOfRange
-	  jumpIsBytes jumpNotString jumpIsCompiledMethod jumpImmutable
+	  jumpIsBytes jumpNotString jumpIsCompiledMethod
 	  jumpBytesOutOfBounds jumpWordsOutOfBounds jumpShortsUnsupported |
 	<inline: true>
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
@@ -21,16 +21,9 @@ genInnerPrimitiveStringAtPut: retNoffset
 	cogit SubCq: 1 R: Arg0Reg. "1-rel => 0-rel"
 
 	"formatReg := self formatOf: ReceiverResultReg"
-	self cppIf: IMMUTABILITY
-		ifTrue:
-		[ self genGetFormatOf: ReceiverResultReg
-			into: (formatReg := SendNumArgsReg)
-			leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
-		jumpImmutable := self genJumpBaseHeaderImmutable: TempReg ]
-		ifFalse: 
-		[ self genGetFormatOf: ReceiverResultReg
-			into: (formatReg := SendNumArgsReg)
-			leastSignificantHalfOfBaseHeaderIntoScratch: NoReg ].
+	self genGetFormatOf: ReceiverResultReg
+		into: (formatReg := SendNumArgsReg)
+		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
 
 	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
 
@@ -99,8 +92,6 @@ genInnerPrimitiveStringAtPut: retNoffset
 	(jumpBytesOutOfBounds jmpTarget:
 	(jumpShortsUnsupported jmpTarget:
 	(jumpWordsOutOfBounds jmpTarget: cogit Label)))))).
-
-	self cppIf: IMMUTABILITY ifTrue: [ jumpImmutable jmpTarget: cogit Label ].
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.

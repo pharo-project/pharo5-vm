@@ -1,5 +1,5 @@
 compile abstract instructions
-genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg inFrame: inFrame needsStoreCheck: needsStoreCheck
+genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg inFrame: inFrame
 	| jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRoot mask rootBitByteOffset |
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
@@ -7,8 +7,6 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	<var: #jmpAlreadyRoot type: #'AbstractInstruction *'>
 	"do the store"
 	cogit MoveR: sourceReg Mw: index * objectMemory wordSize + objectMemory baseHeaderSize r: destReg.
-	"if no need for the store check then returns"
-	needsStoreCheck ifFalse: [ ^ 0 ].
 	"now the check.  Is value stored an integer?  If so we're done"
 	cogit MoveR: sourceReg R: scratchReg.
 	cogit AndCq: 1 R: scratchReg.
@@ -36,14 +34,20 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	jmpAlreadyRoot := cogit JumpNonZero: 0.
 	"Root bit is not set.  Call store check to insert dest into root table."
 	self assert: destReg == ReceiverResultReg.
-	cogit 
-		evaluateTrampolineCallBlock: 
+	inFrame
+		ifTrue:
 			[cogit
 				CallRT: ceStoreCheckTrampoline
 				registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
 												bitOr: cogit callerSavedRegMask)
 												bitClear: (cogit registerMaskFor: ReceiverResultReg))]
-		protectLinkRegIfNot: inFrame.
+		ifFalse:
+			[cogit backEnd saveAndRestoreLinkRegAround:
+				[cogit
+					CallRT: ceStoreCheckTrampoline
+					registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
+													bitOr: cogit callerSavedRegMask)
+													bitClear: (cogit registerMaskFor: ReceiverResultReg))]].
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:

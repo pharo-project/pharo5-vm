@@ -7,6 +7,11 @@ disassembleMethod: surrogateOrAddress on: aStream
 								ifFalse: [surrogateOrAddress].
 	cogMethod cmType = CMBlock ifTrue:
 		[^self disassembleMethod: cogMethod cmHomeMethod on: aStream].
+	(disassemblingMethod isNil
+	 and: [self class initializationOptions at: #relativeAddressDisassembly ifAbsent: [false]]) ifTrue:
+		[^[disassemblingMethod := cogMethod.
+		    self disassembleMethod: surrogateOrAddress on: aStream] ensure:
+			[disassemblingMethod := nil]].
 	self printMethodHeader: cogMethod on: aStream.
 
 	(mapEntries := Dictionary new)
@@ -15,17 +20,18 @@ disassembleMethod: surrogateOrAddress on: aStream
 	cogMethod cmType = CMMethod ifTrue:
 		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'].
 
-	cogMethod cmType = CMClosedPIC ifTrue:
-		[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
-		 1 to: maxCPICCases - 1 do:
-			[:i|
-			mapEntries
-				at: cogMethod asInteger + firstCPICCaseOffset + (i * cPICCaseSize)
-				put: 'ClosedPICCase', i printString]].
-
-	self mapFor: cogMethod
-		performUntil: #collectMapEntry:address:into:
-		arg: mapEntries.
+	cogMethod cmType = CMClosedPIC
+		ifTrue:
+			[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
+			 1 to: maxCPICCases - 1 do:
+				[:i|
+				mapEntries
+					at: cogMethod asInteger + firstCPICCaseOffset + (i * cPICCaseSize)
+					put: 'ClosedPICCase', i printString]]
+		ifFalse:
+			[self mapFor: cogMethod
+				performUntil: #collectMapEntry:address:into:
+				arg: mapEntries].
 
 	NewspeakVM ifTrue:
 		[objectRepresentation canPinObjects ifFalse:

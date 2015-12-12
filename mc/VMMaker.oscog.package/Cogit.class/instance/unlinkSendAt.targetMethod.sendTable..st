@@ -5,6 +5,6 @@ unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable
 	unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
 	backEnd
 		rewriteInlineCacheAt: mcpc asInteger
-		tag: targetMethod selector
+		tag: (self inlineCacheValueForSelector: targetMethod selector in: enumeratingCogMethod at: mcpc)
 		target: unlinkedRoutine.
 	codeModified := true

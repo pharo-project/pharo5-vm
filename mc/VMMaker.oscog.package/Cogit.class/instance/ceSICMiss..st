@@ -64,12 +64,14 @@ ceSICMiss: receiver
 			^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
 		 processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + closedPICSize].
 	"Relink the send site to the pic.  If to an open PIC then reset the cache tag to the selector,
-	 for the benefit of the cacheTag assert check in checkIfValidObjectRef:pc:cogMethod:."
+	 for the benefit of the cacheTag assert check in checkIfValidOopRef:pc:cogMethod: et al."
 	extent := pic cmType = CMOpenPIC
 				ifTrue:
 					[backEnd
 						rewriteInlineCacheAt: outerReturn
-						tag: targetMethod selector
+						tag: (self inlineCacheValueForSelector: targetMethod selector
+								  in: coInterpreter mframeHomeMethodExport
+								  at: outerReturn)
 						target: pic asInteger + cmEntryOffset]
 				ifFalse:
 					[backEnd

@@ -11,8 +11,6 @@ primitiveIntegerAtPut
 	rcvr := self stackValue: 2.
 	(objectMemory isWords: rcvr) ifFalse:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	self cppIf: IMMUTABILITY "isWords: ensure non immediate"
-		ifTrue: [ (objectMemory isImmutable: rcvr) ifTrue: [ ^self primitiveFailFor: PrimErrInappropriate ] ].
 	sz := objectMemory lengthOf: rcvr.  "number of fields"
 	(index >= 1 and: [index <= sz]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].

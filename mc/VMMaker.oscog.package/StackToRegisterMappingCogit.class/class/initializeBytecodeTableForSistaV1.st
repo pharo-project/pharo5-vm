@@ -68,14 +68,11 @@ initializeBytecodeTableForSistaV1
 		(1 184 191 genShortJumpIfTrue			branch isBranchTrue isMapped "because of mustBeBoolean"
 													v3:ShortForward:Branch:Distance:)
 		(1 192 199 genShortJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean"
-													v3:ShortForward:Branch:Distance:)),
+													v3:ShortForward:Branch:Distance:)
 
 		"stores"
-		((initializationOptions at: #IMMUTABILITY ifAbsent: [false])
-			ifTrue: [#((1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef isMapped -1))]
-			ifFalse: [#((1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1)) ]),
-			
-		#((1 208 215 genStoreAndPopTemporaryVariableBytecode)
+		(1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1 208 215 genStoreAndPopTemporaryVariableBytecode)
 
 		(1 216 216 genPopStackBytecode needsFrameNever: -1)
 

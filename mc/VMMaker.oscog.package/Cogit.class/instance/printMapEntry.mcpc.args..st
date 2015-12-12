@@ -2,6 +2,10 @@ disassembly
 printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 	"Print the Map entry's mcpc, its annotation and the corresponding bytecode pc, if any."
 	<doNotGenerate>
+	| printHex |
+	printHex := disassemblingMethod
+					ifNil: [[:pc| pc hex]]
+					ifNotNil: [[:pc| '.+', (pc - disassemblingMethod asInteger printStringBase: 16 length: 4 padded: true)]].
 	[:aStream :codeRanges :cogMethod|
 	self startMcpcAndCogMethodForMcpc: mcpc in: cogMethod do:
 		[:startmcpc :subMethod| | name codeRange |
@@ -11,11 +15,11 @@ printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 			[aStream nextPutAll: 'startpc: '; print: codeRange startpc; cr].
 		aStream
 			next: 2 put: Character space;
-			nextPutAll: mcpc hex;  space;
+			nextPutAll: (printHex value: mcpc);  space;
 			nextPutAll: (name := self class annotationConstantNames at: annotation + 1);
 			next: 20 - name size put: Character space;
 			nextPut: $(;
-			nextPutAll: (self findMapLocationForMcpc: mcpc inMethod: cogMethod) hex.
+			nextPutAll: (printHex value: (self findMapLocationForMcpc: mcpc inMethod: cogMethod)).
 		(self isPCMappedAnnotation: annotation) ifTrue:
 			[aStream
 				nextPutAll: ', bc: ';

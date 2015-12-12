@@ -21,9 +21,13 @@ patchToOpenPICFor: selector numArgs: numArgs receiver: receiver
 			oPIC asInteger = InsufficientCodeSpace ifTrue:
 				[coInterpreter callForCogCompiledCodeCompaction].
 			^false]].
+	"Relink the send site to the pic.  Reset the cache tag to the selector, for the
+	 benefit of the cacheTag assert check in checkIfValidOopRef:pc:cogMethod: et al."
 	extent := backEnd
 				rewriteInlineCacheAt: outerReturn
-				tag: selector
+				tag: (self inlineCacheValueForSelector: selector
+						  in: coInterpreter mframeHomeMethodExport
+						  at: outerReturn)
 				target: oPIC asInteger + cmEntryOffset.
 	processor
 		flushICacheFrom: outerReturn asUnsignedInteger - extent to: outerReturn asUnsignedInteger;

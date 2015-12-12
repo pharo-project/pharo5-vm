@@ -1,7 +1,7 @@
 bytecode generator support
 genStorePop: popBoolean LiteralVariable: litVarIndex
 	<inline: false>
-	| topReg association needStoreCheck immutabilityFailure |
+	| topReg assocReg association |
 	"The only reason we assert needsFrame here is that in a frameless method
 	 ReceiverResultReg must and does contain only self, but the ceStoreCheck
 	 trampoline expects the target of the store to be in ReceiverResultReg.  So
@@ -10,40 +10,41 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	 was unused after the literal variable store, unlikely given that methods
 	 return self by default."
 	self assert: needsFrame.
-	self cppIf: IMMUTABILITY ifTrue: [ self ssFlushTo: simStackPtr - 1 ].
 	"N.B.  No need to check the stack for references because we generate code for
 	 literal variable loads that stores the result in a register, deferring only the register push."
-	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	association := self getLiteral: litVarIndex.
+	
+	"Avoid store check for immediate values"
+	(objectRepresentation isUnannotatableConstant: self ssTop) ifTrue:
+			[ assocReg := self allocateRegNotConflictingWith: 0.
+			self genMoveConstant: association R: assocReg.
+			 objectRepresentation
+				genEnsureObjInRegNotForwarded: assocReg
+				scratchReg: TempReg.
+			self ssStorePop: popBoolean toReg: TempReg.
+			 traceStores > 0 ifTrue:
+				[ assocReg = ReceiverResultReg ifFalse: 
+					[ self ssAllocateRequiredReg: ReceiverResultReg.
+					optStatus isReceiverResultRegLive: false.
+					self MoveR: assocReg R: ReceiverResultReg ].
+				self CallRT: ceTraceStoreTrampoline].
+			 ^objectRepresentation
+				genStoreImmediateInSourceReg: TempReg
+				slotIndex: ValueIndex
+				destReg: assocReg ].
+		
+	topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
+	self ssStorePop: popBoolean toReg: topReg.
 	optStatus isReceiverResultRegLive: false.
 	self ssAllocateRequiredReg: ReceiverResultReg. "for ceStoreCheck call in genStoreSourceReg: has to be ReceiverResultReg"
 	self genMoveConstant: association R: ReceiverResultReg.
 	objectRepresentation genEnsureObjInRegNotForwarded: ReceiverResultReg scratchReg: TempReg.
-	self 
-		cppIf: IMMUTABILITY
-		ifTrue: 
-			[ self ssAllocateRequiredReg: ClassReg.
-			  topReg := ClassReg.
-			  self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
-			  immutabilityFailure := objectRepresentation 
-				genImmutableCheck: ReceiverResultReg 
-				slotIndex: ValueIndex 
-				sourceReg: ClassReg 
-				scratchReg: TempReg 
-				popBoolean: popBoolean
-				needRestoreRcvr: false ]
-		ifFalse: 
-			[ topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
-			  self ssStorePop: popBoolean toReg: topReg ].
 	traceStores > 0 ifTrue:
 		[self MoveR: topReg R: TempReg.
 		 self CallRT: ceTraceStoreTrampoline].
-	objectRepresentation
+	^objectRepresentation
 		genStoreSourceReg: topReg
 		slotIndex: ValueIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
 		inFrame: needsFrame
-		needsStoreCheck: needStoreCheck.
-	self cppIf: IMMUTABILITY ifTrue: [ immutabilityFailure jmpTarget: self Label ].
-	^ 0
