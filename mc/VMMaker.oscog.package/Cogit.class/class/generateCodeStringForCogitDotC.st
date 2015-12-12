@@ -1,7 +1,7 @@
 translation
 generateCodeStringForCogitDotC
-	"Generate a skeletal cogit.c that includes the relevant
-	 cogitFOO.c for each subclass of CogAbstractInstruction."
+	"Generate a skeletal cogit.c that includes the relevant cogitFOO.c
+	 for the appropriate subclasses of CogAbstractInstruction."
 	 
 	^String streamContents:
 		[:s|
@@ -9,16 +9,14 @@ generateCodeStringForCogitDotC
 		 s nextPutAll: (CCodeGenerator monticelloDescriptionFor: self).
 		 s cr; nextPutAll: ' */'.
 		 s cr; cr; nextPut: $#.
-		 (CogAbstractInstruction subclasses sort: [:a :b| a name < b name]) do:
+		 (CogAbstractInstruction translateableSubclasses sort: [:a :b| a name < b name]) do:
 			[:class |
-			class identifyingPredefinedMacros ifNotNil:
-				[:predefinedMacros|
-				 s nextPutAll: 'if '.
-				 predefinedMacros
-					do: [:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPut: $)]
-					separatedBy: [s nextPutAll: ' || '].
-				 s cr; cr; nextPutAll: '#	include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
-				 s cr; cr; nextPutAll: '#el']].
+			 s nextPutAll: 'if '.
+			 class identifyingPredefinedMacros
+				do: [:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPut: $)]
+				separatedBy: [s nextPutAll: ' || '].
+			 s cr; cr; nextPutAll: '#	include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
+			 s cr; cr; nextPutAll: '#el'].
 		 s nextPutAll: 'se'.
 		 #(	'As yet no Cogit implementation appears to exist for your platform.'
 			'Consider implementing it, starting by adding a subclass of CogAbstractInstruction.') do:

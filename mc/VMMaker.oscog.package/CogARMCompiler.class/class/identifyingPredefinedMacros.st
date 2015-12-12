@@ -1,3 +1,3 @@
 translation
 identifyingPredefinedMacros
-	^#('__ARM_ARCH__' '__arm__' '__arm32__' 'ARM32')
+	^#('__ARM_ARCH__' '__arm__' '__arm32__' 'ARM32' '_M_ARM')

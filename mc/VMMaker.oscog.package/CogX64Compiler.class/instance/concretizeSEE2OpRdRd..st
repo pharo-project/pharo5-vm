@@ -1,5 +1,5 @@
 generate machine code
-concretizeSEE2OpRdRd: opCode
+concretizeSEE2OpRdRd: x64opcode
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| regLHS regRHS |
@@ -8,6 +8,6 @@ concretizeSEE2OpRdRd: opCode
 	machineCode
 		at: 0 put: 16rF2;
 		at: 1 put: 16r0F;
-		at: 2 put: opCode;
+		at: 2 put: x64opcode;
 		at: 3 put: (self mod: ModReg RM: regRHS RO: regLHS).
 	^machineCodeSize := 4

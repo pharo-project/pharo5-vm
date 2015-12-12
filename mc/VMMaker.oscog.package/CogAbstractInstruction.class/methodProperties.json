@@ -19,10 +19,11 @@
 		"requiredMethodNames:" : "eem 3/22/2015 17:26",
 		"specificOpcodes" : "eem 1/24/2012 13:14",
 		"structTypeName" : "eem 8/8/2012 12:58",
-		"translateableSubclasses" : "eem 4/21/2015 23:03",
+		"translateableSubclasses" : "eem 12/11/2015 23:27",
 		"typeForSelf" : "eem 2/11/2009 10:34",
 		"unimplementedOpcodes" : "eem 1/24/2012 13:13",
-		"usedUnimplementedOpcodes" : "eem 1/24/2012 14:46" },
+		"usedUnimplementedOpcodes" : "eem 1/24/2012 14:46",
+		"wordSize" : "eem 12/11/2015 23:29" },
 	"instance" : {
 		"<=" : "eem 11/29/2010 17:58",
 		">" : "eem 11/25/2010 13:54",

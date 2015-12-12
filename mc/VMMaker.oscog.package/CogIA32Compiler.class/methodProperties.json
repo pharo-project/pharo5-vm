@@ -5,7 +5,8 @@
 		"initialize" : "eem 11/18/2015 12:10",
 		"isConcreteRISCTempRegister:" : "eem 9/28/2015 18:26",
 		"machineCodeDeclaration" : "eem 6/10/2015 16:38",
-		"specificOpcodes" : "eem 1/24/2012 13:16" },
+		"specificOpcodes" : "eem 1/24/2012 13:16",
+		"wordSize" : "eem 12/11/2015 23:28" },
 	"instance" : {
 		"byteReadsZeroExtend" : "eem 11/3/2015 12:19:54",
 		"cResultRegister" : "eem 12/13/2010 18:55",

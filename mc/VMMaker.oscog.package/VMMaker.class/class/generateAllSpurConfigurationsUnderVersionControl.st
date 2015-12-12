@@ -5,4 +5,5 @@ generateAllSpurConfigurationsUnderVersionControl
 		generateSqueakSpurStack64VM;
 		generateNewspeakSpurCogVM;
 		generateSqueakSpurCogVM;
+		generateSqueakSpurCog64VM;
 		generateSqueakSpurCogSistaVM

@@ -1,5 +1,5 @@
 generate machine code
-concretizeArithCwR: opcode
+concretizeArithCwR: x64opcode
 	| value reg |
 	value := operands at: 0.
 	reg := self concreteRegister: (operands at: 1).
@@ -14,11 +14,11 @@ concretizeArithCwR: opcode
 		at:  7 put: (value >> 40 bitAnd: 16rFF);
 		at:  8 put: (value >> 48 bitAnd: 16rFF);
 		at:  9 put: (value >> 56 bitAnd: 16rFF);
-		at: 10 put: (opcode = 16r85 "Tst; backwards"
+		at: 10 put: (x64opcode = 16r85 "Tst; backwards"
 					ifTrue: [self rexR: ConcreteRISCTempReg x: 0 b: reg]
 					ifFalse: [self rexR: reg x: 0 b: ConcreteRISCTempReg]);
-		at: 11 put: opcode;
-		at: 12 put: (opcode = 16r85 "Tst; backwards"
+		at: 11 put: x64opcode;
+		at: 12 put: (x64opcode = 16r85 "Tst; backwards"
 					ifTrue: [self mod: ModReg RM: reg RO: ConcreteRISCTempReg]
 					ifFalse: [self mod: ModReg RM: ConcreteRISCTempReg RO: reg]).
 	^machineCodeSize := 13
