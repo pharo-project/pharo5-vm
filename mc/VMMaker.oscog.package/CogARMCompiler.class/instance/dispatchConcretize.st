@@ -14,9 +14,7 @@ dispatchConcretize
 		[Label]					-> [^self concretizeLabel].
 		[Literal]					-> [^self concretizeLiteral].
 		[AlignmentNops]		-> [^self concretizeAlignmentNops].
-		[Fill16]					-> [^self concretizeFill16].
 		[Fill32]					-> [^self concretizeFill32].
-		[FillFromWord]			-> [^self concretizeFillFromWord].
 		[Nop]					-> [^self concretizeNop].
 		"Control"
 		[Call]						-> [^self concretizeCall]. "call code within code space"

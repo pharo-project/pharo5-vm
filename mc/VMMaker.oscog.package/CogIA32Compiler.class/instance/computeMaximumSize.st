@@ -8,9 +8,7 @@ computeMaximumSize
 		"Noops & Pseudo Ops"
 		[Label]					-> [^0].
 		[AlignmentNops]		-> [^(operands at: 0) - 1].
-		[Fill16]					-> [^2].
 		[Fill32]					-> [^4].
-		[FillFromWord]			-> [^4].
 		[Nop]					-> [^1].
 		"Specific Control/Data Movement"
 		[CDQ]					-> [^1].

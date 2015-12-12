@@ -8,22 +8,20 @@ computeMaximumSize
 		"Noops & Pseudo Ops"
 		[Label]					-> [^0].
 		[AlignmentNops]		-> [^(operands at: 0) - 1].
-		[Fill16]					-> [^2].
 		[Fill32]					-> [^4].
-		[FillFromWord]			-> [^4].
 		[Nop]					-> [^1].
 		"Specific Control/Data Movement"
 		[CDQ]					-> [^2].
 		[IDIVR]					-> [^3].
 		[IMULRR]				-> [^4].
-		[CPUID]					-> [^2].
+		"[CPUID]					-> [^2].
 		[CMPXCHGAwR]			-> [^8].
 		[CMPXCHGMwrR]		-> [^9].
 		[LFENCE]				-> [^3].
 		[MFENCE]				-> [^3].
 		[SFENCE]				-> [^3].
 		[LOCK]					-> [^1].
-		"[XCHGAwR]				-> [^6].
+		[XCHGAwR]				-> [^6].
 		[XCHGMwrR]			-> [^7]."
 		[XCHGRR]				-> [^((self concreteRegister: (operands at: 0)) = RAX
 									   or: [(self concreteRegister: (operands at: 1)) = RAX])

@@ -189,7 +189,7 @@
 		"includeAPIFrom:" : "eem 11/13/2015 14:24",
 		"inferTypesForImplicitlyTypedVariablesAndMethods" : "eem 09/28/2015 18:49",
 		"initialize" : "eem 2/23/2015 16:45",
-		"initializeCTranslationDictionary" : "cb 4/27/2015 15:22",
+		"initializeCTranslationDictionary" : "eem 12/12/2015 12:38",
 		"initializerForInstVar:in:" : "eem 10/14/2013 10:02",
 		"initializerForInstVar:inStartClass:" : "eem 10/14/2013 10:52",
 		"inlineDispatchesInMethodNamed:localizingVars:" : "eem 7/26/2011 13:51",

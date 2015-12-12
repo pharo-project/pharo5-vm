@@ -9,23 +9,21 @@ dispatchConcretize
 		"Noops & Pseudo Ops"
 		[Label]				-> [^self concretizeLabel].
 		[AlignmentNops]	-> [^self concretizeAlignmentNops].
-		[Fill16]				-> [^self concretizeFill16].
 		[Fill32]				-> [^self concretizeFill32].
-		[FillFromWord]		-> [^self concretizeFillFromWord].
 		[Nop]				-> [^self concretizeNop].
 		"Specific Control/Data Movement"
 		[CDQ]					-> [^self concretizeCDQ].
 		[IDIVR]					-> [^self concretizeIDIVR].
 		[IMULRR]				-> [^self concretizeMulRR].
-		[CPUID]					-> [^self concretizeCPUID].
-		[CMPXCHGAwR]			-> [^self concretizeCMPXCHGAwR].
-		[CMPXCHGMwrR]		-> [^self concretizeCMPXCHGMwrR].
-		[LFENCE]				-> [^self concretizeFENCE: 5].
-		[MFENCE]				-> [^self concretizeFENCE: 6].
-		[SFENCE]				-> [^self concretizeFENCE: 7].
-		[LOCK]					-> [^self concretizeLOCK].
-		[XCHGAwR]				-> [^self concretizeXCHGAwR].
-		[XCHGMwrR]			-> [^self concretizeXCHGMwrR].
+		"[CPUID]					-> [^self concretizeCPUID]."
+		"[CMPXCHGAwR]			-> [^self concretizeCMPXCHGAwR]."
+		"[CMPXCHGMwrR]		-> [^self concretizeCMPXCHGMwrR]."
+		"[LFENCE]				-> [^self concretizeFENCE: 5]."
+		"[MFENCE]				-> [^self concretizeFENCE: 6].
+		[SFENCE]				-> [^self concretizeFENCE: 7]."
+		"[LOCK]					-> [^self concretizeLOCK]."
+		"[XCHGAwR]				-> [^self concretizeXCHGAwR]."
+		"[XCHGMwrR]			-> [^self concretizeXCHGMwrR]."
 		[XCHGRR]				-> [^self concretizeXCHGRR].
 		"Control"
 		[Call]					-> [^self concretizeCall].

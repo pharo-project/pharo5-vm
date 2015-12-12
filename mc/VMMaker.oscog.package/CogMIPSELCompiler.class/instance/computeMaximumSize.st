@@ -30,9 +30,7 @@ computeMaximumSize
 		[Label]					-> [^0].
 		[Literal]					-> [^4].
 		[AlignmentNops]		-> [^(operands at: 0) - 4].
-		[Fill16]					-> [^4].
 		[Fill32]					-> [^4].
-		[FillFromWord]			-> [^4].
 		[Nop]					-> [^4].
 		"Control"
 		[Call]					-> [^self literalLoadInstructionBytes + 8].
