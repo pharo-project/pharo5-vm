@@ -1,7 +1,7 @@
 cog jit support
 quickPrimitiveGeneratorFor: aQuickPrimitiveIndex
 	<api>
-	<returnTypeC: 'int (*quickPrimitiveGeneratorFor(sqInt aQuickPrimitiveIndex))(void)'>
+	<returnTypeC: 'sqInt (*quickPrimitiveGeneratorFor(sqInt aQuickPrimitiveIndex))(void)'>
 	^aQuickPrimitiveIndex
 		caseOf: {
 			[256] -> [#genQuickReturnSelf].
