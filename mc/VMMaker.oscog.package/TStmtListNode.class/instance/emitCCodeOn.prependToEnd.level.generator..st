@@ -5,7 +5,7 @@ emitCCodeOn: aStream prependToEnd: aNodeOrNil level: level generator: aCodeGen
 		[:s :idx|
 		s isStmtList ifFalse:
 			[s emitCCommentOn: aStream level: level].
-		(s isLeaf and: [aNodeOrNil isNil or: [idx < statements size]]) ifFalse:
+		(s isLeaf and: [s isLabel not and: [aNodeOrNil isNil or: [idx < statements size]]]) ifFalse:
 			[aStream peekLast ~~ Character tab ifTrue:
 				[aStream tab: level].
 			(aNodeOrNil notNil
