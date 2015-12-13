@@ -298,7 +298,7 @@
 		"compileTrampolineFor:numArgs:arg:arg:arg:arg:saveRegs:pushLinkReg:resultReg:" : "eem 12/10/2015 08:59",
 		"computeEntryOffsets" : "eem 4/4/2015 14:00",
 		"computeMaximumSizes" : "eem 6/11/2015 14:12",
-		"configureCPIC:Case0:Case1Method:tag:isMNUCase:numArgs:delta:" : "eem 12/10/2015 08:32",
+		"configureCPIC:Case0:Case1Method:tag:isMNUCase:numArgs:delta:" : "eem 12/13/2015 13:41",
 		"configureMNUCPIC:methodOperand:numArgs:delta:" : "rmacnak 11/23/2015 23:32:56",
 		"cr" : "eem 10/12/2009 01:07",
 		"defaultCogCodeSize" : "eem 6/3/2015 22:39",
