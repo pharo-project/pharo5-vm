@@ -12,14 +12,4 @@ storeLiteral: literal beforeFollowingAddress: followingAddress
 											ifTrue: [9]		"MoveCwR"
 											ifFalse: [10]]	"PushCwR"
 									ifFalse: [11]).			"ArithCwR"
-	self cCode: [objectMemory unalignedLongAt: base put: literal]
-		inSmalltalk:
-			[objectMemory
-				byteAt: base put: (literal bitAnd: 16rFF);
-				byteAt: base + 1 put: ((literal >> 8) bitAnd: 16rFF);
-				byteAt: base + 2 put: ((literal >> 16) bitAnd: 16rFF);
-				byteAt: base + 3 put: ((literal >> 24) bitAnd: 16rFF);
-				byteAt: base + 4 put: ((literal >> 32) bitAnd: 16rFF);
-				byteAt: base + 5 put: ((literal >> 40) bitAnd: 16rFF);
-				byteAt: base + 6 put: ((literal >> 48) bitAnd: 16rFF);
-				byteAt: base + 7 put: ((literal >> 52) bitAnd: 16rFF)]
+	objectMemory unalignedLongAt: base put: literal

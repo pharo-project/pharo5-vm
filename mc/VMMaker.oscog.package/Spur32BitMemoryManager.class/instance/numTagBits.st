@@ -1,5 +1,5 @@
 object access
 numTagBits
 	<api>
-	<cmacro: '() 2'>
+	<cmacro>
 	^2

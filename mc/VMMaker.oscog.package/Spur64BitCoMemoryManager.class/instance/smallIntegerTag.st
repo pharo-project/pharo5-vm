@@ -1,5 +1,5 @@
 cog jit support
 smallIntegerTag
 	<api>
-	<cmacro: '() 1'>
+	<cmacro>
 	^1

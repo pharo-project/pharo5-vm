@@ -1,5 +1,6 @@
 interpreter access
 smallFloatMantissaBits
+	"SmallFLoat64's have the same mantissa as IEEE double-precision floating point"
 	<api>
-	<cmacro: '() 52'>
+	<cmacro>
 	^52

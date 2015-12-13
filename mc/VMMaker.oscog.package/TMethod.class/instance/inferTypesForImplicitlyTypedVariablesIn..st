@@ -29,7 +29,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 		 and: [(type := node expression isSend
 						ifTrue: [aCodeGen returnTypeForSend: node expression in: self]
 						ifFalse: [self typeFor: node expression in: aCodeGen]) notNil
-		 and: [type ~= #void]]]]) ifTrue:
+		 and: [aCodeGen isIntegralCType: type]]]]) ifTrue:
 			[aCodeGen mergeTypeOf: var in: declarations with: type.
 			 effectiveNodes at: var put: { declarations at: var. node }, (effectiveNodes at: var ifAbsent: [#()])]].
 	^effectiveNodes

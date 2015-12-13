@@ -12,10 +12,10 @@
 		"getDefaultCogCodeSize" : "eem 12/11/2015 17:48",
 		"inlineCacheTagAt:" : "eem 9/28/2015 16:06",
 		"isPCDependent" : "eem 9/18/2015 09:12",
-		"literal32BeforeFollowingAddress:" : "eem 11/18/2015 17:56",
-		"literalBeforeFollowingAddress:" : "eem 9/28/2015 18:37",
+		"literal32BeforeFollowingAddress:" : "eem 12/12/2015 15:22",
+		"literalBeforeFollowingAddress:" : "eem 12/12/2015 15:05",
 		"loadLiteralByteSize" : "eem 9/28/2015 15:45",
 		"moveCwRByteSize" : "eem 9/28/2015 15:55",
 		"pushCwByteSize" : "eem 9/28/2015 18:31",
 		"sizePCDependentInstructionAt:" : "eem 12/12/2015 12:02",
-		"storeLiteral:beforeFollowingAddress:" : "eem 9/28/2015 18:43" } }
+		"storeLiteral:beforeFollowingAddress:" : "eem 12/12/2015 15:07" } }

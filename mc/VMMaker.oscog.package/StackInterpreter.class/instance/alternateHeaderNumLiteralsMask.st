@@ -1,5 +1,5 @@
 compiled methods
 alternateHeaderNumLiteralsMask
 	<api>
-	<cmacro: '() AlternateHeaderNumLiteralsMask'>
+	<cmacro>
 	^AlternateHeaderNumLiteralsMask

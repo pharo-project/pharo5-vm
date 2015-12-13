@@ -12,13 +12,4 @@ literalBeforeFollowingAddress: followingAddress
 											ifTrue: [9]		"MoveCwR"
 											ifFalse: [10]]	"PushCwR"
 									ifFalse: [11]).			"ArithCwR"
-	^self cCode: [objectMemory unalignedLongAt: base]
-		inSmalltalk:
-			[   (objectMemory byteAt: base)
-			+ ((objectMemory byteAt: base + 1) << 8)
-			+ ((objectMemory byteAt: base + 2) << 16)
-			+ ((objectMemory byteAt: base + 3) << 24)
-			+ ((objectMemory byteAt: base + 4) << 32)
-			+ ((objectMemory byteAt: base + 5) << 40)
-			+ ((objectMemory byteAt: base + 6) << 48)
-			+ ((objectMemory byteAt: base + 7) << 52)]
+	^objectMemory unalignedLongAt: base

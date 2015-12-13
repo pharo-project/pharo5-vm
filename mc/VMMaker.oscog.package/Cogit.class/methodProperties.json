@@ -403,7 +403,7 @@
 		"generatorTable" : "eem 10/8/2014 09:25",
 		"getCFramePointer" : "eem 11/13/2015 12:21",
 		"getCStackPointer" : "eem 11/13/2015 12:21",
-		"getIsObjectReference" : "eem 6/10/2015 17:40",
+		"getIsObjectReference" : "eem 12/12/2015 14:11",
 		"getLiteral:" : "eem 3/1/2013 16:32",
 		"getOpcodeIndex" : "eem 6/8/2015 18:59",
 		"halt" : "eem 10/22/2010 10:49",

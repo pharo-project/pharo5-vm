@@ -1,5 +1,5 @@
 word size
 tagMask
 	<api>
-	<cmacro: '() 7'>
+	<cmacro>
 	^7

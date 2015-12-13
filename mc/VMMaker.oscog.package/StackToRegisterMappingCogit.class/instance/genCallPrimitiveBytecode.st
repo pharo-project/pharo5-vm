@@ -9,20 +9,22 @@ genCallPrimitiveBytecode
 			ifFalse: [EncounteredUnknownBytecode]].
 	prim := byte2 - 128 << 8 + byte1.
 
-	prim < 1000 ifTrue:
-		[^self genNullaryInlinePrimitive: prim].
+	self cppIf: SistaVM
+		ifTrue:
+			[prim < 1000 ifTrue:
+				[^self genNullaryInlinePrimitive: prim].
 
-	prim < 2000 ifTrue:
-		[^self genUnaryInlinePrimitive: prim - 1000].
-		
-	prim < 3000 ifTrue:
-		[self ssTop type = SSConstant ifTrue:
-			[^self genBinaryVarOpConstInlinePrimitive: prim - 2000].
-		 (self ssValue: 1) type = SSConstant ifTrue:
-			[^self genBinaryConstOpVarInlinePrimitive: prim - 2000].
-		 ^self genBinaryVarOpVarInlinePrimitive: prim - 2000].
+			prim < 2000 ifTrue:
+				[^self genUnaryInlinePrimitive: prim - 1000].
+				
+			prim < 3000 ifTrue:
+				[self ssTop type = SSConstant ifTrue:
+					[^self genBinaryVarOpConstInlinePrimitive: prim - 2000].
+				 (self ssValue: 1) type = SSConstant ifTrue:
+					[^self genBinaryConstOpVarInlinePrimitive: prim - 2000].
+				 ^self genBinaryVarOpVarInlinePrimitive: prim - 2000].
 
-	prim < 4000 ifTrue:
-		[^self genTrinaryInlinePrimitive: prim - 3000].
+			prim < 4000 ifTrue:
+				[^self genTrinaryInlinePrimitive: prim - 3000]].
 
 	^EncounteredUnknownBytecode

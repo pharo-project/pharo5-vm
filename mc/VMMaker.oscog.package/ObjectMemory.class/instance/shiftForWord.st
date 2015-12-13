@@ -4,5 +4,5 @@ shiftForWord
 	 a 64-bit image, this method could be removed and the relevant one substituted.  We can't
 	 mark this method as <doNotGenerate> as we need an actual method to guide code gen."
 	<api>
-	<cmacro: '() 2'>
+	<cmacro>
 	^2

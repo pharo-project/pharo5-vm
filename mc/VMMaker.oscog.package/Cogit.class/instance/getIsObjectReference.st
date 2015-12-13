@@ -1,4 +1,4 @@
 method map
 getIsObjectReference
-	<cmacro: '() IsObjectReference'>
+	<cmacro>
 	^IsObjectReference

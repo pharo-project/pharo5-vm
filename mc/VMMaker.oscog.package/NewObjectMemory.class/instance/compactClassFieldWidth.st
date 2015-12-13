@@ -1,5 +1,5 @@
 cog jit support
 compactClassFieldWidth
 	<api>
-	<cmacro: '() 5'>
+	<cmacro>
 	^5

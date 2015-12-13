@@ -1,6 +1,7 @@
 public
 computeKernelReturnTypes
-	^Dictionary newFromPairs:
+	| dictionary |
+	dictionary := Dictionary newFromPairs:
 		#(oopAt: #sqInt oopAt:put: #sqInt
 			oopAtPointer: #sqInt oopAtPointer:put: #sqInt
 		 byteAt: #sqInt byteAt:put: #sqInt
@@ -12,6 +13,8 @@ computeKernelReturnTypes
 		 longAt: #sqInt longAt:put: #sqInt
 			longAtPointer: #sqInt longAtPointer:put: #sqInt
 				long32At: #sqInt long32At:put: #sqInt
+					unalignedLongAt: #sqInt unalignedLongAt:put: #sqInt
+						unalignedLong32At: #sqInt unalignedLong32At:put: #sqInt
 
 		 long64At: #sqLong long64At:put: #sqLong
 		
@@ -20,4 +23,9 @@ computeKernelReturnTypes
 		 fetchSingleFloatAt:into: #void storeSingleFloatAt:from: #void
 			fetchSingleFloatAtPointer:into: #void storeSingleFloatAtPointer:from: #void
 
-		 pointerForOop: #'char *' oopForPointer: #sqInt)
+		 pointerForOop: #'char *' oopForPointer: #sqInt).
+	BytesPerWord = 8 ifTrue:
+		[#(long32At: long32At:put: unalignedLong32At: unalignedLong32At:put:) do:
+			[:accessor|
+			dictionary at: accessor put: #int]].
+	^dictionary

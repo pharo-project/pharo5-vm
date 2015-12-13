@@ -1,5 +1,5 @@
 word size
 shiftForWord
 	<api>
-	<cmacro: '() 3'>
+	<cmacro>
 	^3

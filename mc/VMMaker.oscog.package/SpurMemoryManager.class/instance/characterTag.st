@@ -1,5 +1,5 @@
 object access
 characterTag
 	<api>
-	<cmacro: '() 2'>
+	<cmacro>
 	^2

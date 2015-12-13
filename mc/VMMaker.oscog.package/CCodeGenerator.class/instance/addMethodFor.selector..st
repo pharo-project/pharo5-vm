@@ -31,9 +31,11 @@ addMethodFor: aClass selector: selector
 		self addMacro: (pragma argumentAt: 1) for: selector.
 		(inlineList includes: selector) ifTrue:
 			[inlineList := inlineList copyWithout: selector]].
-	(method propertyValueAt: #cmacro:) ifNotNil:
-		[:macro|
-		self addMacro: macro for: selector.
+	(method pragmaAt: #cmacro) ifNotNil:
+		[:pragma| | literal |
+		literal := method literalAt: 1. "Method should be just foo ^const"
+		self assert: (method numArgs = 0 and: [method numLiterals = 3]).
+		self addMacro: '() ', (self cLiteralFor: literal value name: method selector) for: selector.
 		(inlineList includes: selector) ifTrue:
 			[inlineList := inlineList copyWithout: selector]].
 	^tmethod
