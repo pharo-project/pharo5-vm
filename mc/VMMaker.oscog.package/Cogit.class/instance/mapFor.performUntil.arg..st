@@ -2,7 +2,7 @@ method map
 mapFor: cogMethod performUntil: functionSymbol arg: arg
 	"Unlinking/GC/Disassembly support"
 	<var: #cogMethod type: #'CogMethod *'>
-	<var: #functionSymbol declareC: 'int (*functionSymbol)(sqInt annotation, char *mcpc, sqInt arg)'>
+	<var: #functionSymbol declareC: 'sqInt (*functionSymbol)(sqInt annotation, char *mcpc, sqInt arg)'>
 	<inline: true>
 	| mcpc map mapByte annotation result |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.

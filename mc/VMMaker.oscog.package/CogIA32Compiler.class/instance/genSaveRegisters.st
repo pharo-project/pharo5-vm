@@ -1,11 +1,7 @@
 abi
 genSaveRegisters
 	"Save the general purpose registers for a trampoline call."
-	cogit
-		PushR: EDI;
-		PushR: ESI;
-		PushR: EDX;
-		PushR: ECX;
-		PushR: EBX;
-		PushR: EAX.
+
+	self assert: (EDI > EAX and: [EDI - EAX + 1 = 6]).
+	EDI to: EAX by: -1 do: [:reg| cogit PushR: reg].
 	^0

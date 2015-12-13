@@ -1,19 +1,7 @@
 abi
 genSaveRegisters
 	"Save the general purpose registers for a trampoline call."
-	cogit
-		PushR: R15;
-		PushR: R14;
-		PushR: R13;
-		PushR: R12;
-		PushR: R11;
-		PushR: R10;
-		PushR: R9;
-		PushR: R8;
-		PushR: RDI;
-		PushR: RSI;
-		PushR: RDX;
-		PushR: RCX;
-		PushR: RBX;
-		PushR: RAX.
+
+	self assert: (R15 > RAX and: [R15 - RAX + 1 = 16]).
+	R15 to: RAX by: -1 do: [:reg| cogit PushR: reg].
 	^0
