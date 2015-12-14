@@ -20,7 +20,7 @@
 		"genGetNumBytesOf:into:" : "eem 12/10/2015 08:47",
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
 		"genGetSizeOf:into:formatReg:scratchReg:abortJumpsInto:" : "eem 4/10/2015 18:08",
-		"genInnerPrimitiveAt:" : "eem 12/6/2015 16:11",
+		"genInnerPrimitiveAt:" : "eem 12/13/2015 16:58",
 		"genInnerPrimitiveAtPut:" : "eem 12/10/2015 09:04",
 		"genInnerPrimitiveIdentityHash:" : "eem 5/30/2015 11:31",
 		"genInnerPrimitiveMirrorNew:" : "eem 12/10/2015 09:04",

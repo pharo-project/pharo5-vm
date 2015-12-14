@@ -64,7 +64,7 @@
 		"genCallPICEnilopmartNumArgs:" : "rmacnak 12/3/2015 18:59:19",
 		"genCallPrimitiveBytecode" : "eem 12/12/2015 13:35",
 		"genCompConstant:R:" : "cb 4/17/2015 15:17",
-		"genDoubleArithmetic:preOpCheck:" : "eem 12/9/2015 15:59",
+		"genDoubleArithmetic:preOpCheck:" : "eem 12/13/2015 16:58",
 		"genDoubleComparison:invert:" : "eem 12/7/2015 23:22",
 		"genEqualsEqualsComparisonArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 4/24/2015 11:22",
 		"genEqualsEqualsNoBranchArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "eem 12/10/2015 09:24",

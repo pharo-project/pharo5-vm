@@ -1,6 +1,6 @@
 abstract instructions
 AndCq: quickConstant R: srcReg R: destReg
-	<inline: true>
+	<inline: false>
 	<returnTypeC: #'AbstractInstruction *'>
 	| first |
 	<var: 'first' type: #'AbstractInstruction *'>
