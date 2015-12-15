@@ -167,7 +167,7 @@
 		"generateSignedIntFromLong:on:indent:" : "eem 12/14/2015 12:22",
 		"generateSignedIntFromShort:on:indent:" : "eem 12/14/2015 12:22",
 		"generateSignedIntToLong64:on:indent:" : "eem 12/14/2015 19:04",
-		"generateSignedIntToLong:on:indent:" : "eem 12/14/2015 19:04",
+		"generateSignedIntToLong:on:indent:" : "eem 12/15/2015 11:11",
 		"generateSignedIntToShort:on:indent:" : "eem 12/14/2015 19:04",
 		"generateSignedShiftRight:on:indent:" : "eem 11/21/2014 18:08",
 		"generateSmallIntegerConstant:on:indent:" : "eem 11/19/2014 16:22",
