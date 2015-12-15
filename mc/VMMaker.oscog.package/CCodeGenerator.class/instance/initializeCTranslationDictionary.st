@@ -85,10 +85,10 @@ initializeCTranslationDictionary
 	#addressOf:				#generateAddressOf:on:indent:
 	#addressOf:put:			#generateAddressOf:on:indent:
 	#asAddress:put:			#generateAsAddress:on:indent:
-	#signedIntFromLong64		#generateSignedIntFromLong:on:indent:
+	#signedIntFromLong64		#generateSignedIntFromLong64:on:indent:
 	#signedIntFromLong		#generateSignedIntFromLong:on:indent:
 	#signedIntFromShort		#generateSignedIntFromShort:on:indent:
-	#signedIntToLong64		#generateSignedIntToLong:on:indent:
+	#signedIntToLong64		#generateSignedIntToLong64:on:indent:
 	#signedIntToLong			#generateSignedIntToLong:on:indent:
 	#signedIntToShort			#generateSignedIntToShort:on:indent:
 	#preIncrement				#generatePreIncrement:on:indent:

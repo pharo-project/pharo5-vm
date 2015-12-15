@@ -15,8 +15,9 @@ tearDownAndRebuildFrameForCannotReturnBaseFrameReturnFrom: contextToReturnFrom t
 	self assert: (stackPage ~= 0 and: [stackPage isFree]).
 	self isWidowedContext: contextToReturnFrom.
 	self assert: (self isMarriedOrWidowedContext: contextToReturnFrom) not.
-	objectMemory storePointer: SenderIndex ofObject: contextToReturnFrom withValue: contextToReturnTo.
-	objectMemory storePointer: InstructionPointerIndex ofObject: contextToReturnFrom withValue: HasBeenReturnedFromMCPC.
+	objectMemory
+		storePointer: SenderIndex ofObject: contextToReturnFrom withValue: contextToReturnTo;
+		storePointer: InstructionPointerIndex ofObject: contextToReturnFrom withValue: HasBeenReturnedFromMCPCOop.
 	"void the instructionPointer to stop it being incorrectly updated in a code
 	 compaction in makeBaseFrameFor:."
 	instructionPointer := 0.

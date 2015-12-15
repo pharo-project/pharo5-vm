@@ -18,6 +18,7 @@
 		"CSWait",
 		"CSYield",
 		"HasBeenReturnedFromMCPC",
+		"HasBeenReturnedFromMCPCOop",
 		"MFMethodFlagFrameIsMarkedFlag",
 		"MinBackwardJumpCountForCompile",
 		"PrimTraceLogSize",

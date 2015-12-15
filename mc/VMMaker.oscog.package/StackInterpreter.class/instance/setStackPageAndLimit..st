@@ -6,6 +6,6 @@ setStackPageAndLimit: thePage
 	<var: #thePage type: #'StackPage *'>
 	self assert: thePage ~= 0.
 	stackPage := thePage.
-	stackLimit ~= (self cCoerceSimple: -1 signedIntToLong to: #'char *') ifTrue:
+	stackLimit ~= self allOnesAsCharStar ifTrue:
 		[stackLimit := stackPage stackLimit].
 	stackPages markStackPageMostRecentlyUsed: thePage

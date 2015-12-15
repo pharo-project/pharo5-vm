@@ -19,7 +19,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	theIP := objectMemory integerValueOf: theIP.
 	rcvr := objectMemory followField: ReceiverIndex ofObject: aContext.
 	"If the frame is a closure activation then the closure should be on the stack in
-	 the pushed receiver position (closures receiver the value[:value:] messages).
+	 the pushed receiver position (closures receive the value[:value:] messages).
 	 Otherwise it should be the receiver proper."
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aContext.
 	maybeClosure ~= objectMemory nilObject
@@ -33,9 +33,8 @@ makeBaseFrameFor: aContext "<Integer>"
 			 header := objectMemory methodHeaderOf: theMethod.
 			 numArgs := self argumentCountOfMethodHeader: header.
 			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
-			 (theIP signedIntFromLong > 0
-			  and: [(self methodHeaderHasPrimitive: header)
-			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]]) ifTrue:
+			 ((self methodHeaderHasPrimitive: header)
+			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]) ifTrue:
 				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages longAt: pointer put: rcvr].
 	"Put the arguments on the stack"

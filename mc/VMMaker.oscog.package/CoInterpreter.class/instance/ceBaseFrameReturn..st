@@ -24,9 +24,8 @@ ceBaseFrameReturn: returnValue
 	"self assert: (self frameCallerContext: stackPage baseFP) = (stackPages longAt: stackPage baseAddress)."
 	self assert: ((objectMemory addressCouldBeObj: (stackPages longAt: stackPage baseAddress - objectMemory wordSize))
 				and: [objectMemory isContext: (stackPages longAt: stackPage baseAddress - objectMemory wordSize)]).
-	self assert: ((objectMemory addressCouldBeObj: (stackPages longAt: stackPage baseAddress))
-				and: [objectMemory isContext: (stackPages longAt: stackPage baseAddress)]).
 	contextToReturnTo := stackPages longAt: stackPage baseAddress.
+	self assert: (objectMemory addressCouldBeObj: contextToReturnTo).
 
 	"The stack page is effectively free now, so free it.  We must free it to be
 	 correct in determining if contextToReturnTo is still married, and in case

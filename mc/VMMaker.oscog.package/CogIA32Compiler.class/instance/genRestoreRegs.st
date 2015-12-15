@@ -1,10 +1,7 @@
 abi
 genRestoreRegs
-	cogit
-		PopR: EAX;
-		PopR: EBX;
-		PopR: ECX;
-		PopR: EDX;
-		PopR: ESI;
-		PopR: EDI.
+	EAX to: EDI do:
+		[:reg|
+		 (reg between: ESP and: EBP) ifFalse:
+			[cogit PopR: reg]].
 	^0

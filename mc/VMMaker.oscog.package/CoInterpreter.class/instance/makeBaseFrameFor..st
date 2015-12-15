@@ -17,7 +17,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	self assert: (self isSingleContext: aContext).
 	self assert: (objectMemory goodContextSize: aContext).
 	theIP := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.
-	self assert: HasBeenReturnedFromMCPC signedIntFromLong < 0.
+	self assert: HasBeenReturnedFromMCPC < 0.
 	theIP := (objectMemory isIntegerObject: theIP)
 				ifTrue: [objectMemory integerValueOf: theIP]
 				ifFalse: [HasBeenReturnedFromMCPC].
@@ -33,7 +33,7 @@ makeBaseFrameFor: aContext "<Integer>"
 		put: aContext.
 	rcvr := objectMemory followField: ReceiverIndex ofObject: aContext.
 	"If the frame is a closure activation then the closure should be on the stack in
-	 the pushed receiver position (closures receiver the value[:value:] messages).
+	 the pushed receiver position (closures receive the value[:value:] messages).
 	 Otherwise it should be the receiver proper."
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aContext.
 	maybeClosure ~= objectMemory nilObject
@@ -49,9 +49,8 @@ makeBaseFrameFor: aContext "<Integer>"
 			 header := objectMemory methodHeaderOf: theMethod.
 			 numArgs := self argumentCountOfMethodHeader: header.
 			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
-			 (theIP signedIntFromLong > 0
-			  and: [(self methodHeaderHasPrimitive: header)
-			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]]) ifTrue:
+			 ((self methodHeaderHasPrimitive: header)
+			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]) ifTrue:
 				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages
 				longAt: (pointer := pointer - objectMemory wordSize)
@@ -79,7 +78,7 @@ makeBaseFrameFor: aContext "<Integer>"
 	 it is a machine code pc and so we produce a machine code frame.  If +ve an interpreter frame.
 	 N.B. Do *not* change this to try and map from a bytecode pc to a machine code frame under
 	 any circumstances.  See ensureContextIsExecutionSafeAfterAssignToStackPointer:"
-	theIP signedIntFromLong < 0
+	theIP < 0
 		ifTrue:
 			[| cogMethod |
 			 "Since we would have to generate a machine-code method to be able to map
@@ -90,7 +89,7 @@ makeBaseFrameFor: aContext "<Integer>"
 				ifTrue:
 					["If the pc is the special HasBeenReturnedFromMCPC pc set the pc
 					  appropriately so that the frame stays in the cannotReturn: state."
-					 theIP = HasBeenReturnedFromMCPC signedIntFromLong
+					 theIP = HasBeenReturnedFromMCPC
 						ifTrue:
 							[theMethod := (cogit findMethodForStartBcpc: (self startPCOfClosure: maybeClosure)
 												inHomeMethod: (self cCoerceSimple: theMethod
@@ -109,7 +108,7 @@ makeBaseFrameFor: aContext "<Integer>"
 					[self assert: (theIP signedBitShift: -16) >= -1.
 					 "If the pc is the special HasBeenReturnedFromMCPC pc set the pc
 					  appropriately so that the frame stays in the cannotReturn: state."
-					 theIP := theIP = HasBeenReturnedFromMCPC signedIntFromLong
+					 theIP := theIP = HasBeenReturnedFromMCPC
 								ifTrue: [cogit ceCannotResumePC]
 								ifFalse: [theMethod asInteger - theIP].
 					 stackPages

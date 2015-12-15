@@ -5,7 +5,7 @@ mustMapMachineCodePC: theIP context: aOnceMarriedContext
 	| maybeClosure methodObj cogMethod startBcpc bcpc |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
-	theIP = HasBeenReturnedFromMCPC signedIntFromLong ifTrue:
+	theIP = HasBeenReturnedFromMCPC ifTrue:
 		[^objectMemory nilObject].
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aOnceMarriedContext.
 	methodObj := objectMemory fetchPointer: MethodIndex ofObject: aOnceMarriedContext.

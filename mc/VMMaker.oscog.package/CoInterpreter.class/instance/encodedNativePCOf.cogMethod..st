@@ -18,7 +18,7 @@ encodedNativePCOf: mcpc cogMethod: cogMethod
 	| homeMethod blockOffset |
 	<var: #homeMethod type: #'CogMethod *'>
 	mcpc = cogit ceCannotResumePC ifTrue:
-		[^HasBeenReturnedFromMCPC].
+		[^HasBeenReturnedFromMCPCOop].
 	cogMethod cmType = CMMethod ifTrue:
 		[^objectMemory integerObjectOf: cogMethod asInteger - mcpc].
 	homeMethod := cogMethod cmHomeMethod.

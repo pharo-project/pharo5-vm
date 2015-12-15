@@ -18,7 +18,7 @@ rewriteCallAt: callSiteReturnAddress target: callTargetAddress
 		byteAt: callSiteReturnAddress - 2 put: (callDistance >> 16 bitAnd: 16rFF);
 		byteAt: callSiteReturnAddress - 3 put: (callDistance >>   8 bitAnd: 16rFF);
 		byteAt: callSiteReturnAddress - 4 put: (callDistance            bitAnd: 16rFF).
-	self assert: (self callTargetFromReturnAddress: callSiteReturnAddress) signedIntToLong = callTargetAddress.
+	self assert: (self callTargetFromReturnAddress: callSiteReturnAddress) = callTargetAddress.
 	"self cCode: ''
 		inSmalltalk: [cogit disassembleFrom: callSiteReturnAddress - 10 to: callSiteReturnAddress - 1]."
 	^5
