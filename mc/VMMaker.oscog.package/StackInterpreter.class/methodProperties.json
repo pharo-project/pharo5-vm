@@ -309,7 +309,7 @@
 		"followForwardedMethodsInMethodCache" : "eem 12/6/2013 16:58",
 		"followForwardedMethodsInMethodZone" : "eem 1/14/2014 15:32",
 		"followForwardingPointersInProfileState" : "eem 6/29/2014 06:58",
-		"followForwardingPointersInScheduler" : "eem 7/6/2015 10:48",
+		"followForwardingPointersInScheduler" : "rmacnak 12/12/2015 17:04",
 		"followForwardingPointersInSpecialObjectsArray" : "eem 6/29/2014 07:17",
 		"followForwardingPointersInStackZone:" : "eem 5/6/2015 17:36",
 		"followLiteral:ofMethod:" : "eem 1/20/2015 15:14",

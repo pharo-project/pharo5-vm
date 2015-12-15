@@ -1,8 +1,8 @@
 inline cacheing
 rewriteITypeBranchAtAddress: mcpc target: newTarget
-	| newDisplacement oldInstruction newInstruction |	
-	newDisplacement := newTarget - (mcpc - 4). "Displacement relative to delay slot"
-	newDisplacement := newDisplacement >> 2.
+	| newDisplacement oldInstruction newInstruction |
+	newDisplacement := newTarget - (mcpc + 4). "Displacement is relative to delay slot."
+	newDisplacement := newDisplacement >> 2. "Displacement is in words."
 	
 	self assert: (newDisplacement between: -16r8000 and: 16r7FFF).
 	newDisplacement < 0
