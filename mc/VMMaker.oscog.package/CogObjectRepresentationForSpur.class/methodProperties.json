@@ -34,7 +34,7 @@
 		"genGetBits:ofFormatByteOf:into:" : "eem 12/10/2015 08:47",
 		"genGetClassIndexOfNonImm:into:" : "eem 10/3/2013 10:15",
 		"genGetClassObjectOf:into:scratchReg:instRegIsReceiver:" : "eem 5/10/2015 07:43",
-		"genGetClassObjectOfClassIndex:into:scratchReg:" : "eem 10/4/2013 14:56",
+		"genGetClassObjectOfClassIndex:into:scratchReg:" : "eem 12/15/2015 21:03",
 		"genGetClassTagOf:into:scratchReg:" : "eem 7/7/2014 11:57",
 		"genGetCompactClassIndexNonImmOf:into:" : "eem 10/3/2013 10:15",
 		"genGetDoubleValueOf:into:" : "eem 10/3/2013 10:11",

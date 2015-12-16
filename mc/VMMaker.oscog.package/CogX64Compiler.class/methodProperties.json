@@ -113,6 +113,7 @@
 		"isJumpAt:" : "eem 11/3/2015 18:07:25",
 		"isQuick:" : "eem 12/7/2015 23:09",
 		"isSignExtendedFourByteValue:" : "eem 12/4/2015 18:21",
+		"isWithinMwOffsetRange:" : "eem 12/15/2015 19:00",
 		"jmpTarget:" : "eem 6/8/2015 16:56",
 		"jumpLongByteSize" : "tpr 4/17/2015 19:56",
 		"jumpLongConditionalByteSize" : "eem 3/11/2009 22:24",
