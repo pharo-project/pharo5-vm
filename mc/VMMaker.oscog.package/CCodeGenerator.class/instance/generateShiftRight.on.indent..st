@@ -9,12 +9,12 @@ generateShiftRight: msgNode on: aStream indent: level
 			["If not unsigned cast it to unsigned."
 			 type first ~= $u ifTrue:
 				[aStream nextPutAll: '((unsigned '; nextPutAll: type; nextPut: $)].
-			 self emitCExpression: msgNode receiver on: aStream.
+			 self emitCExpression: msgNode receiver on: aStream indent: level.
 			 type first ~= $u ifTrue:
 				[aStream nextPut: $)]]
 		ifFalse:
 			[aStream nextPutAll: '((usqInt) '.
-			 self emitCExpression: msgNode receiver on: aStream.
+			 self emitCExpression: msgNode receiver on: aStream indent: level.
 			 aStream nextPut: $)].
 	aStream nextPutAll: ' >> '.
-	self emitCExpression: msgNode args first on: aStream
+	self emitCExpression: msgNode args first on: aStream indent: level
