@@ -1,4 +1,3 @@
-simulation only
+accessing
 methodZone
-	<doNotGenerate>
 	^methodZone

@@ -1,13 +1,11 @@
 initialization
 generateVMOwnerLockFunctions
 	| startAddress |
-	<inline: false>
+	<inline: true>
 	self cppIf: COGMTVM
 		ifTrue:
 			[self allocateOpcodes: backEnd numLowLevelLockOpcodes bytecodes: 0.
 			self zeroOpcodeIndex.
-			initialPC := 0.
-			endPC := numAbstractOpcodes - 1.
 			startAddress := methodZoneBase.
 			backEnd generateLowLevelTryLock: coInterpreter vmOwnerLockAddress.
 			self outputInstructionsForGeneratedRuntimeAt: startAddress.

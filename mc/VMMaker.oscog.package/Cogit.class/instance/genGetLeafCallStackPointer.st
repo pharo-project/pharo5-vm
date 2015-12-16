@@ -5,10 +5,8 @@ genGetLeafCallStackPointer
 	| startAddress |
 	<inline: false>
 	self allocateOpcodes: 32 bytecodes: 0.
-	initialPC := 0.
-	endPC := numAbstractOpcodes - 1.
 	startAddress := methodZoneBase.
 	backEnd genGetLeafCallStackPointerFunction.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	self recordGeneratedRunTime: 'ceGetSP' address: startAddress.
-	^startAddress
+	ceGetSP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'

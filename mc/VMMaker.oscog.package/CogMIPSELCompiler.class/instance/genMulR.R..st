@@ -1,4 +1,3 @@
 abstract instructions
 genMulR: regSource R: regDest
-	cogit gen: MulRR operand: regSource operand: regDest.
-	^0
+	^cogit gen: MulRR operand: regSource operand: regDest

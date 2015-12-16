@@ -26,6 +26,8 @@
 		"useSymbolicConstants",
 		"generateDeadCode",
 		"requiredSelectors",
+		"previousCommentMarksInlining",
+		"previousCommenter",
 		"logger",
 		"suppressAsmLabels",
 		"asmLabelCounts",

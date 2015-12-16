@@ -27,7 +27,7 @@
 		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",
 		"initSegmentBridgeWithBytes:at:" : "eem 11/29/2013 12:29",
-		"instantiateClass:indexableSize:" : "eem 11/25/2014 13:22",
+		"instantiateClass:indexableSize:" : "eem 12/16/2015 08:57",
 		"instantiateCompiledMethodClass:indexableSize:" : "eem 8/12/2014 19:53",
 		"integerObjectOf:" : "eem 10/30/2013 16:52",
 		"integerObjectOfCharacterObject:" : "eem 9/12/2013 03:21",

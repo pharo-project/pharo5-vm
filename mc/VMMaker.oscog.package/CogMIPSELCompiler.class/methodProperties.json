@@ -128,7 +128,7 @@
 		"genLoadCStackPointers" : "rmacnak 11/9/2015 20:06:38",
 		"genLoadStackPointers" : "rmacnak 11/9/2015 20:11:33",
 		"genMarshallNArgs:arg:arg:arg:arg:" : "rmacnak 11/9/2015 20:09:38",
-		"genMulR:R:" : "rmacnak 11/23/2015 21:18:46",
+		"genMulR:R:" : "eem 12/16/2015 09:44",
 		"genPushRegisterArgsForAbortMissNumArgs:" : "rmacnak 11/10/2015 19:25:36",
 		"genPushRegisterArgsForNumArgs:scratchReg:" : "rmacnak 11/10/2015 19:24:20",
 		"genRemoveNArgsFromStack:" : "rmacnak 11/10/2015 19:07:20",

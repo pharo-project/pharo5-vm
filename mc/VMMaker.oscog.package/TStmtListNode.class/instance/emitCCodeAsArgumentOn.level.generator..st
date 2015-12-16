@@ -7,7 +7,7 @@ emitCCodeAsArgumentOn: aStream level: level generator: aCodeGen
 	statements withIndexDo:
 		[:s :idx| | p1 p2 |
 		p1 := aStream position.
-		s emitCCommentOn: aStream level: level.
+		s emitCCommentOn: aStream level: level generator: aCodeGen.
 		(s isLeaf and: [s isLabel not and: [idx < statements size]]) ifFalse:
 			[s emitCCodeAsArgumentOn: aStream level: level + 1 generator: aCodeGen].
 		p2 := aStream position.

@@ -1,4 +1,4 @@
-public
+initialize-release
 initialize
 	translationDict := Dictionary new.
 	inlineList := Array new.
@@ -18,5 +18,7 @@ initialize
 	pools := IdentitySet new.
 	selectorTranslations := IdentityDictionary new.
 	suppressAsmLabels := false.
+	previousCommentMarksInlining := false.
+	previousCommenter := nil.
 	breakSrcInlineSelectors := IdentitySet new.
 	breakDestInlineSelectors := IdentitySet new

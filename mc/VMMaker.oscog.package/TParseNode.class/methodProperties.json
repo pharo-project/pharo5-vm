@@ -20,7 +20,7 @@
 		"emitCCodeAsExpressionOn:level:generator:" : "2/7/08 14:57",
 		"emitCCodeOn:level:generator:" : "nk 4/5/2005 21:02",
 		"emitCCodeOn:prependToEnd:level:generator:" : "eem 10/30/2012 16:02",
-		"emitCCommentOn:level:" : "eem 10/30/2012 14:34",
+		"emitCCommentOn:level:generator:" : "eem 12/16/2015 10:50",
 		"endsWithReturn" : "eem 2/11/2009 15:24",
 		"hasExplicitReturn" : "",
 		"hasSideEffect" : "eem 11/17/2015 14:27",

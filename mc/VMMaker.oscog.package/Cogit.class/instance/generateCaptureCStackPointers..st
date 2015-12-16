@@ -10,8 +10,6 @@ generateCaptureCStackPointers: captureFramePointer
 	| startAddress |
 	<inline: false>
 	self allocateOpcodes: 32 bytecodes: 0.
-	initialPC := 0.
-	endPC := numAbstractOpcodes - 1.
 	startAddress := methodZoneBase.
 	captureFramePointer ifTrue:
 		[self MoveR: FPReg Aw: self cFramePointerAddress].

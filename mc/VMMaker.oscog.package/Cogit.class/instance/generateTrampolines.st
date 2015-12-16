@@ -6,8 +6,6 @@ generateTrampolines
 	methodZoneStart := methodZoneBase.
 	methodLabel address: methodZoneStart.
 	self allocateOpcodes: 80 bytecodes: 0.
-	initialPC := 0.
-	endPC := numAbstractOpcodes - 1.
 	hasYoungReferent := false.
 	objectRepresentation maybeGenerateSelectorIndexDereferenceRoutine.
 	self generateSendTrampolines.

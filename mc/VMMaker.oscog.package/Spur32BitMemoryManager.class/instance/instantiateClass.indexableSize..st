@@ -1,5 +1,6 @@
 instantiation
 instantiateClass: classObj indexableSize: nElements
+	<api>
 	<var: #nElements type: #usqInt>
 	"Allocate an instance of a variable class, excepting CompiledMethod."
 	| instSpec classFormat numSlots classIndex newObj fillValue |
