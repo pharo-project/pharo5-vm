@@ -5,5 +5,8 @@ genRestoreRegsExcept: abstractReg
 	self assert: (EDI > EAX and: [EDI - EAX + 1 = 6]).
 	EAX to: EDI do:
 		[:reg|
-		realReg = reg ifTrue: [cogit AddCq: 4 R: ESP] ifFalse: [cogit PopR: reg]].
+		(reg between: ESP and: EBP) ifFalse:
+			[realReg = reg
+				ifTrue: [cogit AddCq: 4 R: ESP]
+				ifFalse: [cogit PopR: reg]]].
 	^0
