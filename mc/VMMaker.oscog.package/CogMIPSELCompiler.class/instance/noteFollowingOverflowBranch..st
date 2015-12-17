@@ -12,7 +12,7 @@ noteFollowingOverflowBranch: branch
 		 newBranchOpcode := branch opcode caseOf: {
 			[JumpOverflow]		-> [BrNotEqualRR].
 			[JumpNoOverflow]	-> [BrEqualRR].
-		 } otherwise: [self unreachable].
+		 } otherwise: [self unreachable. 0].
 		 branch rewriteOpcode: newBranchOpcode with: OverflowTemp1 with: OverflowTemp2.
 		 ^branch].
 
@@ -22,11 +22,11 @@ noteFollowingOverflowBranch: branch
 		[AddRR]		-> [AddCheckOverflowRR].
 		[SubCqR]	-> [SubCheckOverflowCqR].
 		[SubRR]		-> [SubCheckOverflowRR].
-	} otherwise: [self unreachable].
+	} otherwise: [self unreachable. 0].
 
 	newBranchOpcode := branch opcode caseOf: {
 		[JumpOverflow]		-> [BrSignedLessRR].
 		[JumpNoOverflow]	-> [BrSignedGreaterEqualRR].
-	} otherwise: [self unreachable].
+	} otherwise: [self unreachable. 0].
 	branch rewriteOpcode: newBranchOpcode with: Overflow with: ZR.
 	^branch

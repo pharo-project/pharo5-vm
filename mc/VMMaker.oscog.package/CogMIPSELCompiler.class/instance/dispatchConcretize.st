@@ -18,7 +18,7 @@ dispatchConcretize
 		[BrSignedGreaterEqualRR]		-> [^self concretizeBrSignedGreaterEqualRR].	
 		[BrLongEqualRR]				-> [^self concretizeBrLongEqualRR].
 		[BrLongNotEqualRR]				-> [^self concretizeBrLongNotEqualRR].
-		[MulRR]				-> [^self concretizeMulRR].
+		[MulRR]				-> [^self concretizeUnimplemented].
 		[DivRR]				-> [^self concretizeDivRR].
 		[MoveLowR]		-> [^self concretizeMoveLowR].
 		[MoveHighR]		-> [^self concretizeMoveHighR].
@@ -72,7 +72,7 @@ dispatchConcretize
 		[OrCqR]						-> [^self concretizeOrCqR].
 		[SubCqR]					-> [^self concretizeSubCqR].
 		[TstCqR]					-> [^self concretizeTstCqR].
-		[XorCqR]					-> [^self concretizeXorCqR].
+		[XorCqR]					-> [^self concretizeUnimplemented].
 		[AddCwR]					-> [^self concretizeAddCwR].
 		[AndCwR]					-> [^self concretizeAndCwR].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
@@ -108,16 +108,16 @@ dispatchConcretize
 		[MoveAbR]			-> [^self concretizeMoveAbR].
 		[MoveRAb]			-> [^self concretizeMoveRAb].
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
-		[MoveRMbr]			-> [^self concretizeRMbr].
+		[MoveRMbr]			-> [^self concretizeUnimplemented].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
-		[MoveM64rRd]		-> [^self concretizeM64rRd].
+		[MoveM64rRd]		-> [^self concretizeUnimplemented].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
 		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].
 		[MoveRXbrR]		-> [^self concretizeMoveRXbrR].
 		[MoveXwrRR]		-> [^self concretizeMoveXwrRR].
 		[MoveRXwrR]		-> [^self concretizeMoveRXwrR].
 		[MoveRMwr]		-> [^self concretizeMoveRMwr].
-		[MoveRdM64r]		-> [^self concretizeRdM64r].
+		[MoveRdM64r]		-> [^self concretizeUnimplemented].
 		[PopR]				-> [^self concretizePopR].
 		[PushR]				-> [^self concretizePushR].
 		[PushCq]			-> [^self concretizePushCq].

@@ -16,7 +16,6 @@ rewriteInlineCacheTag: cacheTag at: callSiteReturnAddress
 	 ...  <-- callSiteReturnAddress"
 	
 	<var: #callSiteReturnAddress type: #usqInt>
-	<var: #callTargetAddress type: #usqInt>
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 24) = LUI.
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 20) = ORI.
 	self assert: (self opcodeAtAddress: callSiteReturnAddress - 16) = LUI.

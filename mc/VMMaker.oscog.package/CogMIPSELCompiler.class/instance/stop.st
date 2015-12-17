@@ -1,3 +1,3 @@
 encoding - control
 stop
-	^self break: 0
+	^self mipsbreak: 0

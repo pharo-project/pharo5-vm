@@ -26,7 +26,7 @@ noteFollowingConditionalBranch: branch
 		[JumpLongNonZero]	-> [BrLongNotEqualRR].
 		
 		[JumpNegative]			-> [BrSignedLessRR].
-	} otherwise: [self unreachable].
+	} otherwise: [self unreachable. 0].
 	
 	opcode caseOf: {
 		[BrEqualRR]	->	["I.e., two jumps after a compare."
