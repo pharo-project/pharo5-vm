@@ -30,4 +30,4 @@ concretizeArithCqRWithRO: regOpcode raxOpcode: raxOpcode
 			at: 5 put: (value >> 16 bitAnd: 16rFF);
 			at: 6 put: (value >> 24 bitAnd: 16rFF).
 		 ^machineCodeSize := 7].
-	^self concretizeArithCwR: (raxOpcode = 16r3D ifTrue: [16r39] ifFalse: [raxOpcode - 2])
+	^self concretizeArithCwR: (raxOpcode = 16r3D "Cmp" ifTrue: [16r39] ifFalse: [raxOpcode - 2])
