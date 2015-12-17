@@ -1,4 +1,4 @@
 plugin support
 classArray
-	"a.k.a. self fetchPointer: ClassArrayCompactIndex ofObject: classTableFirstPage"
+	<api>
 	^self splObj: ClassArray

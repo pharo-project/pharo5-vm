@@ -10,7 +10,7 @@
 		"doInlining:" : "eem 2/16/2015 18:48",
 		"emitAccessorDepthsOn:" : "eem 1/9/2014 11:19",
 		"emitCCodeOn:doInlining:doAssertions:" : "tpr 4/9/2013 12:17",
-		"emitCHeaderOn:" : "eem 7/16/2013 13:43",
+		"emitCHeaderOn:" : "eem 12/16/2015 15:15",
 		"emitCTypesOn:" : "eem 9/12/2013 14:20",
 		"emitExportsOn:" : "eem 1/9/2014 09:47",
 		"emitIfdefForPluginFunctionOption:on:" : "eem 10/30/2013 14:53",
