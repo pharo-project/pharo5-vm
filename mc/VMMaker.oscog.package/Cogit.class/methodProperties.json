@@ -384,7 +384,7 @@
 		"genTrampolineFor:called:arg:arg:result:" : "eem 6/7/2014 14:30",
 		"genTrampolineFor:called:arg:result:" : "eem 6/7/2014 14:30",
 		"genTrampolineFor:called:numArgs:arg:arg:arg:arg:saveRegs:pushLinkReg:resultReg:appendOpcodes:" : "eem 12/10/2015 08:58",
-		"generateCaptureCStackPointers:" : "eem 12/16/2015 09:33",
+		"generateCaptureCStackPointers:" : "eem 12/17/2015 00:14",
 		"generateClosedPICPrototype" : "tpr 11/5/2015 14:17",
 		"generateCogMethod:" : "rmacnak 12/3/2015 18:59:06",
 		"generateEnilopmarts" : "eem 3/18/2015 18:46",

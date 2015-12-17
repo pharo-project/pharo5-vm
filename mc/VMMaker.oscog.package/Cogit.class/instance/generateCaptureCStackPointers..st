@@ -11,6 +11,7 @@ generateCaptureCStackPointers: captureFramePointer
 	<inline: false>
 	self allocateOpcodes: 32 bytecodes: 0.
 	startAddress := methodZoneBase.
+	backEnd maybeEstablishVarBase. "Must happen first; value may be used in accessing any of the following addresses"
 	captureFramePointer ifTrue:
 		[self MoveR: FPReg Aw: self cFramePointerAddress].
 	"Capture the stack pointer prior to the call."
