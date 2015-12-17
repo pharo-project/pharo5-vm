@@ -1,13 +1,13 @@
 in-line cacheing
-compileOpenPICMethodCacheProbeFor: selector withShift: shift baseRegOrNone: baseRegOrNone
-	"Compile one method cache probe in an OpenPIC's lookup of selector.
+compilePerformMethodCacheProbeFor: selectorReg withShift: shift baseRegOrNone: baseRegOrNone
+	"Compile one method cache probe in a perform: primitive's lookup of selector.
 	 Answer the jump taken if the selector probe fails."
 	<returnTypeC: #'AbstractInstruction *'>
 	<inline: false>
 	| jumpSelectorMiss |
 	<var: 'jumpSelectorMiss' type: #'AbstractInstruction *'>
 	self MoveR: SendNumArgsReg R: ClassReg.
-	self annotate: (self XorCw: selector R: ClassReg) objRef: selector.
+	self XorR: selectorReg R: ClassReg.
 	objectMemory shiftForWord > shift ifTrue:
 		[self LogicalShiftLeftCq: objectMemory shiftForWord - shift R: ClassReg].
 	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
@@ -19,7 +19,7 @@ compileOpenPICMethodCacheProbeFor: selector withShift: shift baseRegOrNone: base
 		ifFalse:
 			[self AddR: baseRegOrNone R: ClassReg;
 				MoveMw: MethodCacheSelector << objectMemory shiftForWord r: ClassReg R: TempReg].
-	self annotate: (self CmpCw: selector R: TempReg) objRef: selector.
+	self CmpR: selectorReg R: TempReg.
 	jumpSelectorMiss := self JumpNonZero: 0.
 	baseRegOrNone = NoReg
 		ifTrue:
