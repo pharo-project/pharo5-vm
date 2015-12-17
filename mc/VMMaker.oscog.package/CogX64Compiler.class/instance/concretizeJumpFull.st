@@ -8,7 +8,7 @@ concretizeJumpFull
 	operand := operands at: 0.
 	machineCode
 		at: 0 put: 16r48;
-		at: 1 put: 16rA1;
+		at: 1 put: 16rB8;
 		at: 2 put: (operand bitAnd: 16rFF);
 		at: 3 put: (operand >> 8 bitAnd: 16rFF);
 		at: 4 put: (operand >> 16 bitAnd: 16rFF);
