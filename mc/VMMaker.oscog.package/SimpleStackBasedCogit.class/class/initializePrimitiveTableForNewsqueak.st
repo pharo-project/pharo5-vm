@@ -3,7 +3,9 @@ initializePrimitiveTableForNewsqueak
 	"Initialize the table of primitive generators.  This does not include normal primitives implemented in the coInterpreter.
 	 N.B. primitives that don't have an explicit arg count (the integer following the generator) may be variadic."
 	"SimpleStackBasedCogit initializePrimitiveTableForSqueakV3"
-	MaxCompiledPrimitiveIndex := 222.
+	MaxCompiledPrimitiveIndex := self objectRepresentationClass wordSize = 8
+										ifTrue: [555]
+										ifFalse: [222].
 	primitiveTable := CArrayAccessor on: (Array new: MaxCompiledPrimitiveIndex + 1).
 	self table: primitiveTable from: 
 	#(	"Integer Primitives (0-19)"
@@ -165,23 +167,24 @@ initializePrimitiveTableForNewsqueak
 		(221 genPrimitiveClosureValue	0) "valueNoContextSwitch"
 		(222 genPrimitiveClosureValue	1) "valueNoContextSwitch:"
 
-		"(541 primitiveSmallFloatAdd				1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(542 primitiveSmallFloatSubtract			1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(543 primitiveSmallFloatLessThan			1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(544 primitiveSmallFloatGreaterThan		1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(545 primitiveSmallFloatLessOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(546 primitiveSmallFloatGreaterOrEqual	1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(547 primitiveSmallFloatEqual				1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(548 primitiveSmallFloatNotEqual			1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(549 primitiveSmallFloatMultiply			1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(550 primitiveSmallFloatDivide				1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(551 primitiveSmallFloatTruncated			0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(552 primitiveSmallFloatFractionalPart		0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(553 primitiveSmallFloatExponent			0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(554 primitiveSmallFloatTimesTwoPower	1	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(555 primitiveSmallFloatSquareRoot		0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(556 primitiveSmallFloatSine				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(557 primitiveSmallFloatArctan				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(558 primitiveSmallFloatLogN				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(559 primitiveSmallFloatExp				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"SmallFloat primitives (540-559)"
+		(541 genPrimitiveSmallFloatAdd				1	processorHasDoublePrecisionFloatingPointSupport:)
+		(542 genPrimitiveSmallFloatSubtract			1	processorHasDoublePrecisionFloatingPointSupport:)
+		(543 genPrimitiveSmallFloatLessThan			1	processorHasDoublePrecisionFloatingPointSupport:)
+		(544 genPrimitiveSmallFloatGreaterThan		1	processorHasDoublePrecisionFloatingPointSupport:)
+		(545 genPrimitiveSmallFloatLessOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)
+		(546 genPrimitiveSmallFloatGreaterOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)
+		(547 genPrimitiveSmallFloatEqual				1	processorHasDoublePrecisionFloatingPointSupport:)
+		(548 genPrimitiveSmallFloatNotEqual			1	processorHasDoublePrecisionFloatingPointSupport:)
+		(549 genPrimitiveSmallFloatMultiply				1	processorHasDoublePrecisionFloatingPointSupport:)
+		(550 genPrimitiveSmallFloatDivide				1	processorHasDoublePrecisionFloatingPointSupport:)
+		"(551 genPrimitiveSmallFloatTruncated			0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(552 genPrimitiveSmallFloatFractionalPart		0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(553 genPrimitiveSmallFloatExponent			0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(554 genPrimitiveSmallFloatTimesTwoPower	1	processorHasDoublePrecisionFloatingPointSupport:)"
+		(555 genPrimitiveSmallFloatSquareRoot			0	processorHasDoublePrecisionFloatingPointSupport:)
+		"(556 genPrimitiveSmallFloatSine				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(557 genPrimitiveSmallFloatArctan				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(558 genPrimitiveSmallFloatLogN				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		"(559 genPrimitiveSmallFloatExp				0	processorHasDoublePrecisionFloatingPointSupport:)"
 	)

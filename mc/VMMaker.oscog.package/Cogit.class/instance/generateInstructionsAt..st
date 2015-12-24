@@ -14,8 +14,7 @@ generateInstructionsAt: eventualAbsoluteAddress
 	pcDependentIndex := 0.
 	0 to: opcodeIndex - 1 do:
 		[:i|
-		breakPC = absoluteAddress ifTrue:
-			[self halt: 'breakPC reached in generateInstructionsAt:'].
+		self maybeBreakAt: absoluteAddress.
 		abstractInstruction := self abstractInstructionAt: i.
 		abstractInstruction isPCDependent
 			ifTrue:
@@ -30,12 +29,6 @@ generateInstructionsAt: eventualAbsoluteAddress
 		[:j|
 		fixup := self fixupAt: j.
 		abstractInstruction := self abstractInstructionAt: fixup instructionIndex.
-		breakPC = absoluteAddress ifTrue:
-			[self halt: 'breakPC reached in generateInstructionsAt:'].
+		self maybeBreakAt: abstractInstruction address.
 		abstractInstruction concretizeAt: abstractInstruction address].
-	self cCode: ''
-		inSmalltalk:
-			[breakPC ifNotNil:
-				[breakPC <= absoluteAddress ifTrue:
-					[self singleStep: true]]].
 	^absoluteAddress - eventualAbsoluteAddress

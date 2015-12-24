@@ -1,3 +1,0 @@
-encoding
-concreteRegister: value
-	^value

@@ -1,0 +1,37 @@
+primitive generators
+genSmallFloatComparison: jumpOpcodeGenerator invert: invertComparison
+	"Receiver and arg in registers.
+	 Stack looks like
+		return address"
+	<var: #jumpOpcodeGenerator declareC: 'AbstractInstruction *(*jumpOpcodeGenerator)(void *)'>
+	| jumpFail jumpImmediate jumpNonInt jumpCond compare |
+	<var: #jumpImmediate type: #'AbstractInstruction *'>
+	<var: #jumpNonInt type: #'AbstractInstruction *'>
+	<var: #jumpCond type: #'AbstractInstruction *'>
+	<var: #compare type: #'AbstractInstruction *'>
+	<var: #jumpFail type: #'AbstractInstruction *'>
+	objectRepresentation genGetSmallFloatValueOf: ReceiverResultReg scratch: SendNumArgsReg into: DPFPReg0.
+	jumpImmediate := objectRepresentation genJumpImmediate: Arg0Reg.
+	objectRepresentation genGetCompactClassIndexNonImmOf: Arg0Reg into: SendNumArgsReg.
+	objectRepresentation genCmpClassFloatCompactIndexR: SendNumArgsReg.
+	jumpFail := self JumpNonZero: 0.
+	objectRepresentation genGetDoubleValueOf: Arg0Reg into: DPFPReg1.
+	invertComparison "May need to invert for NaNs"
+		ifTrue: [compare := self CmpRd: DPFPReg0 Rd: DPFPReg1]
+		ifFalse: [compare := self CmpRd: DPFPReg1 Rd: DPFPReg0].
+	jumpCond := self perform: jumpOpcodeGenerator with: 0. "FP jumps are a little weird"
+	self genMoveFalseR: ReceiverResultReg.
+	self RetN: 0.
+	jumpCond jmpTarget: (self genMoveTrueR: ReceiverResultReg).
+	self RetN: 0.
+	jumpImmediate jmpTarget: self Label.
+	objectRepresentation maybeGenConvertIfSmallFloatIn: Arg0Reg scratchReg: TempReg into: DPFPReg1 andJumpTo: compare.
+	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
+		[jumpNonInt := objectRepresentation genJumpNotSmallInteger: Arg0Reg scratchReg: TempReg].
+	objectRepresentation genConvertSmallIntegerToIntegerInReg: Arg0Reg.
+	self ConvertR: Arg0Reg Rd: DPFPReg1.
+	self Jump: compare.
+	jumpFail jmpTarget: self Label.
+	objectRepresentation smallIntegerIsOnlyImmediateType ifFalse:
+		[jumpNonInt jmpTarget: jumpFail getJmpTarget].
+	^0

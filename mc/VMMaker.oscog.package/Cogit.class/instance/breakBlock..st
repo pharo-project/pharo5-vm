@@ -1,4 +1,5 @@
 simulation only
 breakBlock: aBlock
 	<doNotGenerate>
-	breakBlock := aBlock
+	breakBlock := aBlock.
+	singleStep := singleStep or: [breakPC singleStepRequiredToTriggerIn: self]

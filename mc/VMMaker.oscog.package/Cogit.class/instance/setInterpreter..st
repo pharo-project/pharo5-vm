@@ -26,7 +26,6 @@ setInterpreter: aCoInterpreter
 					ifFalse: [0].
 	debugPrimCallStackOffset := 0.
 	singleStep := printRegisters := printInstructions := clickConfirm := false.
-	breakBlock ifNil: [self breakPC: breakPC].
 	backEnd := CogCompilerClass for: self.
 	methodLabel := CogCompilerClass for: self.
 	(literalsManager := backEnd class literalsManagerClass new) cogit: self.

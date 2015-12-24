@@ -128,7 +128,7 @@
 		"generateIfTrueIfFalse:on:indent:" : "eem 11/17/2015 14:47",
 		"generateIfTrueIfFalseAsArgument:on:indent:" : "eem 11/17/2015 14:51",
 		"generateInlineCCode:on:indent:" : "eem 2/21/2011 14:23",
-		"generateInlineCCodeAsArgument:on:indent:" : "eem 2/21/2011 14:24",
+		"generateInlineCCodeAsArgument:on:indent:" : "eem 12/18/2015 10:23",
 		"generateInlineCPreprocessorDirective:on:indent:" : "eem 2/24/2009 14:54",
 		"generateInlineCppIfElse:asArgument:on:indent:" : "eem 3/31/2015 10:48",
 		"generateInlineCppIfElse:on:indent:" : "eem 6/23/2011 10:10",

@@ -3,6 +3,7 @@
 		 },
 	"instance" : {
 		">>>" : "eem 11/21/2014 13:17",
+		"addBreakpoint:" : "eem 12/24/2015 12:59",
 		"asLong" : "eem 2/20/2013 12:27",
 		"asPositiveIntegerObj" : "eem 3/17/2014 12:29",
 		"asUnsignedInteger" : "eem 11/20/2014 12:11",
@@ -11,6 +12,10 @@
 		"bitInvert64" : "eem 11/19/2014 20:18",
 		"coerceTo:sim:" : "eem 1/26/2015 14:29",
 		"hex8" : "eem 5/21/2010 11:09",
+		"isActiveBreakpoint" : "eem 12/24/2015 11:57",
+		"isBreakpointFor:" : "eem 12/24/2015 11:58",
+		"menuPrompt" : "eem 12/24/2015 13:07",
+		"removeBreakpoint:" : "eem 12/24/2015 13:01",
 		"signedBitShift:" : "eem 3/19/2009 16:15",
 		"signedIntFromChar" : "eem 10/16/2015 16:21",
 		"signedIntFromLong" : "eem 10/16/2015 16:28",
@@ -19,4 +24,5 @@
 		"signedIntToChar" : "eem 10/9/2015 17:13",
 		"signedIntToLong" : "eem 10/9/2015 17:10",
 		"signedIntToLong64" : "eem 10/9/2015 17:13",
-		"signedIntToShort" : "eem 10/9/2015 17:11" } }
+		"signedIntToShort" : "eem 10/9/2015 17:11",
+		"singleStepRequiredToTriggerIn:" : "eem 12/24/2015 12:39" } }

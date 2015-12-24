@@ -1,8 +1,8 @@
 sista support
 branchIf: reg hasNotImmediateTag: classIndex target: targetFixUp
+	<var: #targetFixUp type: #'AbstractInstruction *'>
 	| jmpImmediate|
 	<inline: true>
-	<var: #targetFixUp type: #'AbstractInstruction *'>
 	cogit MoveR: reg R: TempReg.
 	classIndex = objectMemory smallIntegerTag ifTrue:
 		[jmpImmediate := self genJumpNotSmallIntegerInScratchReg: TempReg].
