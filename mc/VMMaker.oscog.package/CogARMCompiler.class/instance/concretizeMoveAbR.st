@@ -4,7 +4,7 @@ concretizeMoveAbR
 	<inline: true>
 	| srcAddr destReg instrOffset|
 	srcAddr := operands at: 0.
-	destReg := self concreteRegister: (operands at: 1).
+	destReg := operands at: 1.
 	(self isAddressRelativeToVarBase: srcAddr) ifTrue:
 		[self machineCodeAt: 0 put: (self ldrb: destReg rn: ConcreteVarBaseReg plus: 1 imm: srcAddr - cogit varBaseAddress).
 		 ^machineCodeSize := 4].

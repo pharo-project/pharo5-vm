@@ -3,8 +3,8 @@ concretizeLoadEffectiveAddressMwrR
 	<var: #offset type: #sqInt>
 	| baseReg offset destReg |
 	offset := operands at: 0.
-	baseReg := self concreteRegister: (operands at: 1).
-	destReg := self concreteRegister: (operands at: 2).
+	baseReg := operands at: 1.
+	destReg := operands at: 2.
 	(self isShortOffset: offset) ifTrue:
 		[self machineCodeAt: 0 put: (self addiuR: destReg R: baseReg C: offset).
 		^machineCodeSize := 4].

@@ -4,7 +4,7 @@ computeShiftRRSize
 	 register require the shift count to be  in %ecx.  So we may
 	 have to use swap instructions to get the count into ecx."
 	| shiftCountReg |
-	shiftCountReg := self concreteRegister: (operands at: 0).
+	shiftCountReg := operands at: 0.
 	shiftCountReg = ECX ifTrue:
 		[^maxSize := 2].
 	^maxSize := shiftCountReg = EAX

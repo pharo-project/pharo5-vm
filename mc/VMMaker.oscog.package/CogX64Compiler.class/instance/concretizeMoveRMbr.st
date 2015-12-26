@@ -3,9 +3,9 @@ concretizeMoveRMbr
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| srcReg offset destReg |
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	offset := operands at: 1.
-	destReg := self concreteRegister: (operands at: 2).
+	destReg := operands at: 2.
 	machineCode
 		at: 0 put: (self rexR: srcReg x: 0 b: destReg);
 		at: 1 put: 16r88.

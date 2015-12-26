@@ -7,7 +7,7 @@ concretizeMoveCqR
 	| reg |
 	(operands at: 0) ~= 0 ifTrue:
 		[^self concretizeMoveCwR].
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	machineCode
 		at: 0 put: 16r31;
 		at: 1 put: (self mod: ModReg RM: reg RO: reg).

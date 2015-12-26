@@ -2,7 +2,7 @@ generate machine code - concretize
 concretizeAndCqR
 	| destReg leftReg rightImm |
 	rightImm := operands at: 0.
-	destReg := leftReg := self concreteRegister: (operands at: 1).
+	destReg := leftReg := operands at: 1.
 	
 	(rightImm between: -16r8000 and: 16r7FFF) ifFalse: [^self concretizeAndCwR].
 	

@@ -2,8 +2,8 @@ generate machine code
 concretizeMoveRRd
 	<inline: true>
 	| srcReg destReg |
-	srcReg := self concreteRegister: (operands at: 0).
-	destReg := self concreteDPFPRegister: (operands at: 1).
+	srcReg := operands at: 0.
+	destReg := operands at: 1.
 	machineCode
 		at: 0 put: 16r66;
 		at: 1 put: (self rexR: destReg x: 0 b: srcReg);

@@ -23,7 +23,7 @@ runSubCwR: assertPrintBar
 				ifFalse: [bogus := processor pc ~= inst machineCodeSize].
 			self concreteCompilerClass dataRegistersWithAccessorsDo:
 				[:ireg :getter :setter| | expected |
-				(self concreteCompilerClass isConcreteRISCTempRegister: ireg) ifFalse:
+				(self concreteCompilerClass isRISCTempRegister: ireg) ifFalse:
 					[expected := getter == rgetter ifTrue: [b - a] ifFalse: [0].
 					assertPrintBar
 						ifTrue: [self assert: (self processor convertInternalToInteger: (self processor perform: getter)) equals: expected]

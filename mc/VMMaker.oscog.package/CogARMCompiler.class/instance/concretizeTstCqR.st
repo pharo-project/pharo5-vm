@@ -4,7 +4,7 @@ concretizeTstCqR
 	<inline: true>
 	self rotateable8bitImmediate: (operands at: 0)
 		ifTrue: [ :rot :immediate | | reg |
-			reg := self concreteRegister: (operands at: 1).
+			reg := operands at: 1.
 			self machineCodeAt: 0 put: (self tst: reg rn: reg imm: immediate ror: rot).
 			^machineCodeSize := 4]
 		ifFalse: [^self concretizeDataOperationCwR: TstOpcode].

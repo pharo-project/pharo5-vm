@@ -7,7 +7,7 @@ concretizeMoveAbR
 	addressOperand := operands at: 0.
 	(self isAnInstruction: (cogit cCoerceSimple: addressOperand to: #'AbstractInstruction *')) ifTrue:
 		[addressOperand := (cogit cCoerceSimple: addressOperand to: #'AbstractInstruction *') address].
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	machineCode
 		at: 0 put: 16r0F;
 		at: 1 put: 16rB6;

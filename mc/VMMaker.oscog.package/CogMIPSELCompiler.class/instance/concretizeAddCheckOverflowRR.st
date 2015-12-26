@@ -1,8 +1,8 @@
 generate machine code - concretize
 concretizeAddCheckOverflowRR
 	| destReg leftReg rightReg |
-	rightReg := self concreteRegister: (operands at: 0).
-	destReg := leftReg := self concreteRegister: (operands at: 1).
+	rightReg := operands at: 0.
+	destReg := leftReg := operands at: 1.
 
 	"Save original LHS"
 	self machineCodeAt: 0 put: (self adduR: OverflowTemp1 R: leftReg R: ZR). 

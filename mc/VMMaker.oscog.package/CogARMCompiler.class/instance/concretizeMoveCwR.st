@@ -2,4 +2,4 @@ generate machine code - concretize
 concretizeMoveCwR
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
-	^machineCodeSize := self loadCwInto: (self concreteRegister: (operands at: 1))
+	^machineCodeSize := self loadCwInto: (operands at: 1)

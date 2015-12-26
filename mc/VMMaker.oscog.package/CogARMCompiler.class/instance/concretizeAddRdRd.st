@@ -4,8 +4,8 @@ concretizeAddRdRd
 	<inline: true>
 	"Add FP regRHS to FP regLHS and stick result in FP regLHS"
 	| regLHS regRHS |
-	regRHS := self concreteDPFPRegister: (operands at: 0).
-	regLHS := self concreteDPFPRegister: (operands at: 1).
+	regRHS := operands at: 0.
+	regLHS := operands at: 1.
 	machineCode at: 0 put:(self faddd: regLHS with: regRHS).
 	^machineCodeSize := 4
 	

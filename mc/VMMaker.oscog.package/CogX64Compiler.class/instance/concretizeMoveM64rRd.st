@@ -4,8 +4,8 @@ concretizeMoveM64rRd
 	<inline: true>
 	| offset srcReg destReg skip |
 	offset := operands at: 0.
-	srcReg := self concreteRegister: (operands at: 1).
-	destReg := self concreteDPFPRegister: (operands at: 2).
+	srcReg := operands at: 1.
+	destReg := operands at: 2.
 	machineCode at: 0 put: 16rF3.
 	(srcReg <= 7 and: [destReg <= 7])
 		ifTrue: [skip := 0]

@@ -3,7 +3,7 @@ concretizeXCHGAwR
 	<inline: true>
 	| addressOperand reg |
 	addressOperand := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	machineCode
 		at: 0 put: 16r87;
 		at: 1 put: (self mod: ModRegInd RM: 5 RO: reg);

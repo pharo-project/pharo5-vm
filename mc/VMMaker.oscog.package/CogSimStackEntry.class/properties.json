@@ -17,6 +17,7 @@
 		"bcptr" ],
 	"name" : "CogSimStackEntry",
 	"pools" : [
+		"CogAbstractRegisters",
 		"CogCompilationConstants",
 		"CogRTLOpcodes" ],
 	"super" : "VMStructType",

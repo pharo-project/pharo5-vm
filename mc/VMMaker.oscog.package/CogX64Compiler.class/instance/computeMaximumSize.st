@@ -23,8 +23,8 @@ computeMaximumSize
 		[LOCK]					-> [^1].
 		[XCHGAwR]				-> [^6].
 		[XCHGMwrR]			-> [^7]."
-		[XCHGRR]				-> [^((self concreteRegister: (operands at: 0)) = RAX
-									   or: [(self concreteRegister: (operands at: 1)) = RAX])
+		[XCHGRR]				-> [^((operands at: 0) = RAX
+									   or: [(operands at: 1) = RAX])
 											ifTrue: [2]
 											ifFalse: [3]].
 		"Control"
@@ -73,7 +73,7 @@ computeMaximumSize
 		[AddCwR]		-> [^self computeSizeOfArithCwR].
 		[AndCwR]		-> [^self computeSizeOfArithCwR].
 		[CmpCwR]		-> [^self computeSizeOfArithCwR].
-		[CmpC32R]		-> [^(self concreteRegister: (operands at: 1)) = RAX
+		[CmpC32R]		-> [^(operands at: 1) = RAX
 								ifTrue: [6]
 								ifFalse: [7]].
 		[OrCwR]		-> [^self computeSizeOfArithCwR].
@@ -90,7 +90,7 @@ computeMaximumSize
 						-> [^((self isQuick: (operands at: 0))
 									ifTrue: [4]
 									ifFalse: [7])
-								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+								+ (((operands at: 1) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [3] ifFalse: [4]].
@@ -124,124 +124,124 @@ computeMaximumSize
 		[MoveRdR]		-> [^5].
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 								ifTrue: [7]
-								ifFalse: [(self concreteRegister: (operands at: 1)) = RAX ifTrue: [10] ifFalse: [14]]].
+								ifFalse: [(operands at: 1) = RAX ifTrue: [10] ifFalse: [14]]].
 		[MoveRAw]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
 								ifTrue: [7]
-								ifFalse: [(self concreteRegister: (operands at: 0)) = RAX ifTrue: [10] ifFalse: [14]]].
+								ifFalse: [(operands at: 0) = RAX ifTrue: [10] ifFalse: [14]]].
 		[MoveAbR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 								ifTrue: [7]
-								ifFalse: [(self concreteRegister: (operands at: 1)) = RAX ifTrue: [10] ifFalse: [14]]].
+								ifFalse: [(operands at: 1) = RAX ifTrue: [10] ifFalse: [14]]].
 		[MoveRAb]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
 								ifTrue: [7]
-								ifFalse: [(self concreteRegister: (operands at: 0)) = RAX ifTrue: [10] ifFalse: [14]]].
+								ifFalse: [(operands at: 0) = RAX ifTrue: [10] ifFalse: [14]]].
 		[MoveRMwr]	-> [self assert: (self is32BitSignedImmediate: (operands at: 1)).
 							^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
-											and: [((self concreteRegister: (operands at: 2)) bitAnd: 7) ~= RBP])
+											and: [((operands at: 2) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
 												ifFalse: [4]]
 									ifFalse: [7])
-								+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP
+								+ (((operands at: 2) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
 								ifTrue: [((operands at: 1) = 0
-										and: [((self concreteRegister: (operands at: 2)) bitAnd: 6) ~= RSP])
+										and: [((operands at: 2) bitAnd: 6) ~= RSP])
 											ifTrue: [4]
 											ifFalse: [5]]
 								ifFalse: [8])
-							+ ((((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP and: [(operands at: 1) ~= 0])
+							+ ((((operands at: 2) bitAnd: 7) = RSP and: [(operands at: 1) ~= 0])
 								ifTrue: [1]
 								ifFalse: [0])
-							+ ((((self concreteRegister: (operands at: 2)) > 7) or: [(self concreteDPFPRegister: (operands at: 0)) > 7])
+							+ ((((operands at: 2) > 7) or: [(operands at: 0) > 7])
 								ifTrue: [1]
 								ifFalse: [0])].
 		[MoveMbrR]		-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
 							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
-											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
+											and: [((operands at: 1) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
 												ifFalse: [4]]
 									ifFalse: [7])
-								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+								+ (((operands at: 1) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveRMbr]		-> [self assert: (self is32BitSignedImmediate: (operands at: 1)).
 							^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
-											and: [((self concreteRegister: (operands at: 0)) bitAnd: 7) ~= RBP])
+											and: [((operands at: 0) bitAnd: 7) ~= RBP])
 												ifTrue: [3]
 												ifFalse: [4]]
 									ifFalse: [7])
-								+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RSP
+								+ (((operands at: 2) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
-											and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
+											and: [((operands at: 1) bitAnd: 7) ~= RBP])
 												ifTrue: [4]
 												ifFalse: [5]]
 									ifFalse: [8])
-								+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+								+ (((operands at: 1) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
 								ifTrue: [((operands at: 0) = 0
-										and: [((self concreteRegister: (operands at: 1)) bitAnd: 6) ~= RSP])
+										and: [((operands at: 1) bitAnd: 6) ~= RSP])
 											ifTrue: [4]
 											ifFalse: [5]]
 								ifFalse: [8])
-							+ ((((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP and: [(operands at: 0) ~= 0])
+							+ ((((operands at: 1) bitAnd: 7) = RSP and: [(operands at: 0) ~= 0])
 								ifTrue: [1]
 								ifFalse: [0])
-							+ ((((self concreteRegister: (operands at: 1)) > 7) or: [(self concreteDPFPRegister: (operands at: 2)) > 7])
+							+ ((((operands at: 1) > 7) or: [(operands at: 2) > 7])
 								ifTrue: [1]
 								ifFalse: [0])].
 		[MoveMwrR]	-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
 							^((self isQuick: (operands at: 0))
 								ifTrue: [((operands at: 0) = 0
-										and: [((self concreteRegister: (operands at: 1)) bitAnd: 7) ~= RBP])
+										and: [((operands at: 1) bitAnd: 7) ~= RBP])
 											ifTrue: [3]
 											ifFalse: [4]]
 								ifFalse: [7])
-							+ (((self concreteRegister: (operands at: 1)) bitAnd: 7) = RSP
+							+ (((operands at: 1) bitAnd: 7) = RSP
 								ifTrue: [1]
 								ifFalse: [0])].
-		[MoveXbrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
-							^((self concreteRegister: (operands at: 1)) bitAnd: 7) = RBP
+		[MoveXbrRR]	-> [self assert: (operands at: 0) ~= RSP.
+							^((operands at: 1) bitAnd: 7) = RBP
 											ifTrue: [5]
 											ifFalse: [4]].
-		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= RSP.
-							^(((self concreteRegister: (operands at: 0)) < 8
-							   and: [(self concreteRegister: (operands at: 1)) < 8
-							   and: [(self concreteRegister: (operands at: 2)) < 8]])
+		[MoveRXbrR]	->	[self assert: (operands at: 1) ~= RSP.
+							^(((operands at: 0) < 8
+							   and: [(operands at: 1) < 8
+							   and: [(operands at: 2) < 8]])
 								ifTrue: [3]
 								ifFalse: [4])
-							+ (((self concreteRegister: (operands at: 2)) bitAnd: 7) = RBP
+							+ (((operands at: 2) bitAnd: 7) = RBP
 											ifTrue: [1]
 											ifFalse: [0])].
-		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
-							^((self concreteRegister: (operands at: 1)) = RBP
-							   or: [(self concreteRegister: (operands at: 1)) = R13])
+		[MoveXwrRR]	-> [self assert: (operands at: 0) ~= RSP.
+							^((operands at: 1) = RBP
+							   or: [(operands at: 1) = R13])
 											ifTrue: [5]
 											ifFalse: [4]].
-		[MoveRXwrR]	-> [self assert: (self concreteRegister: (operands at: 1)) ~= RSP.
-							^((self concreteRegister: (operands at: 2)) = RBP
-							   or: [(self concreteRegister: (operands at: 2)) = R13])
+		[MoveRXwrR]	-> [self assert: (operands at: 1) ~= RSP.
+							^((operands at: 2) = RBP
+							   or: [(operands at: 2) = R13])
 											ifTrue: [5]
 											ifFalse: [4]].
-		[MoveX32rRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= RSP.
-							^(((self concreteRegister: (operands at: 1)) = RBP
-							   or: [(self concreteRegister: (operands at: 1)) = R13])
+		[MoveX32rRR]	-> [self assert: (operands at: 0) ~= RSP.
+							^(((operands at: 1) = RBP
+							   or: [(operands at: 1) = R13])
 										ifTrue: [7]
 										ifFalse: [6])
-							 + (((self concreteRegister: (operands at: 0)) > 7
-							     or: [(self concreteRegister: (operands at: 1)) > 7
-							     or: [(self concreteRegister: (operands at: 2)) > 7]])
+							 + (((operands at: 0) > 7
+							     or: [(operands at: 1) > 7
+							     or: [(operands at: 2) > 7]])
 										ifTrue: [1]
 										ifFalse: [0])].
-		[PopR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
-		[PushR]			-> [^(self concreteRegister: (operands at: 0)) < 8 ifTrue: [1] ifFalse: [2]].
+		[PopR]			-> [^(operands at: 0) < 8 ifTrue: [1] ifFalse: [2]].
+		[PushR]			-> [^(operands at: 0) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
 		[PushCw]		-> [^(self inCurrentCompilation: (operands at: 0))
 								ifTrue: [9]

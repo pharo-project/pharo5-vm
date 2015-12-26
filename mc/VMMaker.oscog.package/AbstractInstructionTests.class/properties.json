@@ -10,6 +10,7 @@
 		"opcodes" ],
 	"name" : "AbstractInstructionTests",
 	"pools" : [
+		"CogAbstractRegisters",
 		"CogRTLOpcodes" ],
 	"super" : "TestCase",
 	"type" : "normal" }

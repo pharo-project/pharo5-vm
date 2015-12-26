@@ -4,8 +4,8 @@ concretizeSubRdRd
 	<inline: true>
 	| regLHS regRHS |
 	"Subtract FP regRHS from FP regLHS and leave the result in FP regLHS"
-	regRHS := self concreteDPFPRegister: (operands at: 0).
-	regLHS := self concreteDPFPRegister: (operands at: 1).
+	regRHS := operands at: 0.
+	regLHS := operands at: 1.
 	machineCode at: 0 put:(self fsubd: regLHS with: regRHS).
 	^machineCodeSize := 4
 	

@@ -5,8 +5,8 @@ concretizeBrLongNotEqualRR
 	jumpTargetInstruction := self longJumpTargetAddress.
 	self flag: #todo. "Check not crossing 256MB block."
 	jumpTargetAddr := jumpTargetInstruction asUnsignedInteger bitAnd: 16rFFFFFFF.
-	leftReg := self concreteRegister: (operands at: 1).
-	rightReg := self concreteRegister: (operands at: 2).
+	leftReg := operands at: 1.
+	rightReg := operands at: 2.
 
 	self machineCodeAt: 0 put: (self beqR: leftReg R: rightReg offset: 12).
 	self machineCodeAt: 4 put: (self nop). "Delay slot"

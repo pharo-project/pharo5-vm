@@ -5,7 +5,7 @@ concretizeDataOperationCqR: armOpcode
 	<inline: true>
 	|val rd rn |
 	val := operands at: 0.
-	rn := self concreteRegister: (operands at: 1).
+	rn := operands at: 1.
 	rd := opcode = CmpOpcode ifTrue: [0] ifFalse:[rn]. "Extra note - if ever a version of this code wants to NOT set the Set flag - Cmp must always have it set or it will pretend to be a SMALALBT and Very Bad Things might happen"
 
 	self  rotateable8bitImmediate: val 

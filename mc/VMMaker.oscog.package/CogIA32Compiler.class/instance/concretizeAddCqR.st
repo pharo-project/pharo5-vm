@@ -4,7 +4,7 @@ concretizeAddCqR
 	<inline: true>
 	| value reg |
 	value := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	(self isQuick: value) ifTrue:
 		[machineCode
 			at: 0 put: 16r83;

@@ -2,8 +2,8 @@ generate machine code
 concretizeXCHGRR
 	<inline: true>
 	| reg1 reg2 |
-	reg1 := self concreteRegister: (operands at: 0).
-	reg2 := self concreteRegister: (operands at: 1).
+	reg1 := operands at: 0.
+	reg2 := operands at: 1.
 	reg2 = EAX ifTrue:
 		[reg2 := reg1.
 		 reg1 := EAX].

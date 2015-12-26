@@ -4,7 +4,7 @@ concretizeTstCqR
 	<inline: true>
 	| value reg |
 	value := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	machineCode
 		at: 0 put: (self rexR: 0 x: 0 b: reg).
 	(self isQuick: value) ifTrue:

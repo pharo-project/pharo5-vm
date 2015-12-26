@@ -4,8 +4,8 @@ concretizeMoveM16rR
 	<inline: true>
 	| srcReg offset destReg |
 	offset := operands at: 0.
-	srcReg := self concreteRegister: (operands at: 1).
-	destReg := self concreteRegister: (operands at: 2).
+	srcReg := operands at: 1.
+	destReg := operands at: 2.
 	srcReg ~= ESP ifTrue:
 		[(self isQuick: offset) ifTrue:
 			[machineCode

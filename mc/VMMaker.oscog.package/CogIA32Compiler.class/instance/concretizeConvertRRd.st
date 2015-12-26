@@ -3,8 +3,8 @@ concretizeConvertRRd
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| srcReg destReg |
-	srcReg := self concreteRegister: (operands at:0).
-	destReg := self concreteDPFPRegister: (operands at: 1).
+	srcReg := operands at:0.
+	destReg := operands at: 1.
 	machineCode
 		at: 0 put: 16rF2;
 		at: 1 put: 16r0F;

@@ -4,8 +4,8 @@ concretizeDivRdRd
 	<inline: true>
 	"FP divide regLHS by regRHS and stick result in regLHS"
 	| regLHS regRHS |
-	regRHS := self concreteDPFPRegister: (operands at: 0).
-	regLHS := self concreteDPFPRegister: (operands at: 1).
+	regRHS := operands at: 0.
+	regLHS := operands at: 1.
 	machineCode at: 0 put:(self fdivd: regLHS by: regRHS).
 	^machineCodeSize := 4
 	

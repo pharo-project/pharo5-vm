@@ -3,7 +3,7 @@ concretizePopR
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| destReg |
-	destReg := self concreteRegister: (operands at: 0).
+	destReg := operands at: 0.
 	"LDR destReg, [SP], #4"
 	self machineCodeAt: 0 put: (self popR: destReg).
 	^machineCodeSize := 4

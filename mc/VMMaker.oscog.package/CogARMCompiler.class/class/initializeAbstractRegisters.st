@@ -11,6 +11,8 @@ initializeAbstractRegisters
 	 saving and restoring their values, so they are omitted so far. R12 is the only
 	 scratch register at the moment.."
 
+	super initializeAbstractRegisters.
+
 	TempReg			:= R0.
 	ClassReg			:= R8.
 	ReceiverResultReg	:= R7.

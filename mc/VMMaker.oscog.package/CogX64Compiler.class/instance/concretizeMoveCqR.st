@@ -7,7 +7,7 @@ concretizeMoveCqR
 	value := operands at: 0.
 	(self is32BitSignedImmediate: value) ifFalse:
 		[^self concretizeMoveCwR].
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	value = 0 ifTrue:
 		[machineCode
 			at: 0 put: (self rexR: reg x: 0 b: reg);

@@ -16,7 +16,7 @@ computeMaximumSize
 		[IMULRR]				-> [^3].
 		[CPUID]					-> [^2].
 		[CMPXCHGAwR]			-> [^7].
-		[CMPXCHGMwrR]		-> [^(self concreteRegister: (operands at: 1)) = ESP
+		[CMPXCHGMwrR]		-> [^(operands at: 1) = ESP
 										ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
 										ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
 		[LFENCE]				-> [^3].
@@ -24,11 +24,11 @@ computeMaximumSize
 		[SFENCE]				-> [^3].
 		[LOCK]					-> [^1].
 		[XCHGAwR]				-> [^6].
-		[XCHGMwrR]			-> [^(self concreteRegister: (operands at: 1)) = ESP
+		[XCHGMwrR]			-> [^(operands at: 1) = ESP
 										ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]
 										ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [3] ifFalse: [6]]].
-		[XCHGRR]				-> [^((self concreteRegister: (operands at: 0)) = EAX
-									   or: [(self concreteRegister: (operands at: 1)) = EAX])
+		[XCHGRR]				-> [^((operands at: 0) = EAX
+									   or: [(operands at: 1) = EAX])
 										ifTrue: [1]
 										ifFalse: [2]].
 		"Control"
@@ -70,40 +70,40 @@ computeMaximumSize
 		"Arithmetic"
 		[AddCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
 		[AndCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
 		[CmpCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
 		[OrCqR]			-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
 		[SubCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
-		[TstCqR]		-> [^((self isQuick: (operands at: 0)) and: [(self concreteRegister: (operands at: 1)) < 4])
+		[TstCqR]		-> [^((self isQuick: (operands at: 0)) and: [(operands at: 1) < 4])
 											ifTrue: [3]
-											ifFalse: [(self concreteRegister: (operands at: 1)) = EAX
+											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
 														ifFalse: [6]]].
-		[AddCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[AndCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[CmpCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[OrCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[SubCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[XorCwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
+		[AddCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[AndCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[CmpCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[OrCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[SubCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[XorCwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
 		[AddRR]			-> [^2].
 		[AndRR]			-> [^2].
 		[CmpRR]		-> [^2].
@@ -115,7 +115,7 @@ computeMaximumSize
 						-> [^((self isQuick: (operands at: 0))
 											ifTrue: [3]
 											ifFalse: [6])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
+										+ ((operands at: 1) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
 		[LogicalShiftLeftCqR]		-> [^(operands at: 0) = 1 ifTrue: [2] ifFalse: [3]].
@@ -135,66 +135,66 @@ computeMaximumSize
 		[MoveCwR]		-> [^5].
 		[MoveRR]		-> [^2].
 		[MoveRdRd]		-> [^4].
-		[MoveAwR]		-> [^(self concreteRegister: (operands at: 1)) = EAX ifTrue: [5] ifFalse: [6]].
-		[MoveRAw]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]].
+		[MoveAwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
+		[MoveRAw]		-> [^(operands at: 0) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveAbR]		-> [^7].
-		[MoveRAb]		-> [^(self concreteRegister: (operands at: 0)) = EAX ifTrue: [5] ifFalse: [6]].
+		[MoveRAb]		-> [^(operands at: 0) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
-											and: [(self concreteRegister: (operands at: 2)) ~= EBP])
+											and: [(operands at: 2) ~= EBP])
 												ifTrue: [2]
 												ifFalse: [3]]
 									ifFalse: [6])
-								+ ((self concreteRegister: (operands at: 2)) = ESP
+								+ ((operands at: 2) = ESP
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
 											ifTrue: [5]
 											ifFalse: [8])
-										+ ((self concreteRegister: (operands at: 2)) = ESP
+										+ ((operands at: 2) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
-		[MoveMbrR]		-> [^(self concreteRegister: (operands at: 1)) = ESP
+		[MoveMbrR]		-> [^(operands at: 1) = ESP
 								ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
 								ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
-		[MoveRMbr]		-> [^(self concreteRegister: (operands at: 2)) = ESP
+		[MoveRMbr]		-> [^(operands at: 2) = ESP
 								ifTrue: [7]
 								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [3] ifFalse: [6]]].
-		[MoveM16rR]	-> [^(self concreteRegister: (operands at: 1)) = ESP
+		[MoveM16rR]	-> [^(operands at: 1) = ESP
 								ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
 								ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
 		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
 											ifTrue: [5]
 											ifFalse: [8])
-										+ ((self concreteRegister: (operands at: 1)) = ESP
+										+ ((operands at: 1) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
 		[MoveMwrR]		-> [^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
-											and: [(self concreteRegister: (operands at: 1)) ~= EBP])
+											and: [(operands at: 1) ~= EBP])
 												ifTrue: [2]
 												ifFalse: [3]]
 									ifFalse: [6])
-								+ ((self concreteRegister: (operands at: 1)) = ESP
+								+ ((operands at: 1) = ESP
 									ifTrue: [1]
 									ifFalse: [0])].
-		[MoveXbrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= ESP.
-							^(self concreteRegister: (operands at: 1)) = EBP
+		[MoveXbrRR]	-> [self assert: (operands at: 0) ~= ESP.
+							^(operands at: 1) = EBP
 											ifTrue: [5]
 											ifFalse: [4]].
-		[MoveRXbrR]	->	[self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
-							^((self concreteRegister: (operands at: 2)) = EBP
+		[MoveRXbrR]	->	[self assert: (operands at: 1) ~= ESP.
+							^((operands at: 2) = EBP
 											ifTrue: [4]
 											ifFalse: [3])
-										+ ((self concreteRegister: (operands at: 0)) >= 4
+										+ ((operands at: 0) >= 4
 											ifTrue: [2]
 											ifFalse: [0])].
-		[MoveXwrRR]	-> [self assert: (self concreteRegister: (operands at: 0)) ~= ESP.
-							^(self concreteRegister: (operands at: 1)) = EBP
+		[MoveXwrRR]	-> [self assert: (operands at: 0) ~= ESP.
+							^(operands at: 1) = EBP
 											ifTrue: [4]
 											ifFalse: [3]].
-		[MoveRXwrR]	-> [self assert: (self concreteRegister: (operands at: 1)) ~= ESP.
-							^(self concreteRegister: (operands at: 2)) = EBP
+		[MoveRXwrR]	-> [self assert: (operands at: 1) ~= ESP.
+							^(operands at: 2) = EBP
 											ifTrue: [4]
 											ifFalse: [3]].
 		[PopR]			-> [^1].

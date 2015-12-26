@@ -5,7 +5,7 @@ concretizeShiftCqRegOpcode: regOpcode
 	| distance reg |
 	distance := operands at: 0.
 	self assert: (distance between: 1 and: 63).
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	machineCode at: 0 put: (self rexR: 0 x: 0 b: reg).
 	distance = 1 ifTrue:
 		[machineCode

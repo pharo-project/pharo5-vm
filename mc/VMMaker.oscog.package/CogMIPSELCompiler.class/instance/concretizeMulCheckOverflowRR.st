@@ -1,8 +1,8 @@
 generate machine code - concretize
 concretizeMulCheckOverflowRR
 	| destReg leftReg rightReg |
-	rightReg := self concreteRegister: (operands at: 0).
-	destReg := leftReg := self concreteRegister: (operands at: 1).
+	rightReg := operands at: 0.
+	destReg := leftReg := operands at: 1.
 
 	"Overflow occured if the sign bit of the low part is different from the high part."
 	self machineCodeAt: 0 put: (self multR: leftReg R: rightReg).

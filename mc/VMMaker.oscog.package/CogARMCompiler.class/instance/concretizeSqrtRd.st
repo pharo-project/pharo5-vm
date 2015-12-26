@@ -4,7 +4,7 @@ concretizeSqrtRd
 	<inline: true>
 	"Square root of FP regLHS into regLHS"
 	| regLHS  |
-	regLHS := self concreteDPFPRegister: (operands at: 1).
+	regLHS := operands at: 1.
 	machineCode at: 0 put:(self fsqrtd: regLHS).
 	^machineCodeSize := 4
 	

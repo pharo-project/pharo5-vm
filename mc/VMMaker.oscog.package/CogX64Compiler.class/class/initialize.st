@@ -28,38 +28,21 @@ initialize
 	R15 := 15.
 
 	XMM0L := 0.
-	XMM1L := 2.
-	XMM2L := 4.
-	XMM3L := 6.
-	XMM4L := 8.
-	XMM5L := 10.
-	XMM6L := 12.
-	XMM7L := 14.
-	XMM8L := 16.
-	XMM9L := 18.
-	XMM10L := 20.
-	XMM11L := 22.
-	XMM12L := 24.
-	XMM13L := 26.
-	XMM14L := 28.
-	XMM15L := 30.
-
-	XMM0H := 1.
-	XMM1H := 3.
-	XMM2H := 5.
-	XMM3H := 7.
-	XMM4H := 9.
-	XMM5H := 11.
-	XMM6H := 13.
-	XMM7H := 15.
-	XMM8H := 17.
-	XMM9H := 19.
-	XMM10H := 21.
-	XMM11H := 23.
-	XMM12H := 25.
-	XMM13H := 27.
-	XMM14H := 29.
-	XMM15H := 31.
+	XMM1L := 1.
+	XMM2L := 2.
+	XMM3L := 3.
+	XMM4L := 4.
+	XMM5L := 5.
+	XMM6L := 6.
+	XMM7L := 7.
+	XMM8L := 8.
+	XMM9L := 9.
+	XMM10L := 10.
+	XMM11L := 11.
+	XMM12L := 12.
+	XMM13L := 13.
+	XMM14L := 14.
+	XMM15L := 15.
 
 	"Mod R/M Mod fields.  See [1] Sec 2.4, 2.5 & 2.6 & Table 2-2"
 	ModRegInd := 0.

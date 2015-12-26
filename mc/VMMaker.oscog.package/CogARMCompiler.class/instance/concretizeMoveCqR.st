@@ -6,7 +6,7 @@ concretizeMoveCqR
 	<inline: true>
 	|word reg|
 	word := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	self 
 		rotateable8bitImmediate: word 
 		ifTrue: [:rot :immediate |

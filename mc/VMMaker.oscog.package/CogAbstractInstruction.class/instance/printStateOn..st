@@ -8,17 +8,19 @@ printStateOn: aStream
 	orneryOperands := operands isCObjectAccessor
 							ifTrue: [operands object]
 							ifFalse: [operands].
-	format := [CogRTLOpcodes printFormatForOpcodeName: opcodeName]
-				on: Error
-				do: [:ex| ].
+	format := ((CogRTLOpcodes classPool includesKey: opcodeName)
+				ifTrue: [CogRTLOpcodes]
+				ifFalse: [self class]) printFormatForOpcodeName: opcodeName.
 	orneryOperands withIndexDo:
 		[:operand :index|
 		operand ifNotNil:
 			[aStream space.
 			 index >= (orneryOperands identityIndexOf: nil ifAbsent: [orneryOperands size + 1]) ifTrue:
 				[aStream print: index - 1; nextPut: $:].
-			 (format notNil and: [(format at: index ifAbsent: nil) = $r])
-				ifTrue: [aStream nextPutAll: (self nameForRegister: operand)]
+			 (format notNil and: ['rf' includes: (format at: index ifAbsent: $-)])
+				ifTrue: [aStream nextPutAll: ((format at: index) = $r
+												ifTrue: [self nameForRegister: operand]
+												ifFalse: [self nameForFPRegister: operand])]
 				ifFalse:
 					[aStream print: operand.
 					 (operand isInteger and: [operand > 16 and: [opcode ~= Label]]) ifTrue:

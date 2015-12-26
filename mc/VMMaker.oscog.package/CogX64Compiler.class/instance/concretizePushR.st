@@ -2,7 +2,7 @@ generate machine code
 concretizePushR
 	<inline: true>
 	| reg |
-	reg := self concreteRegister: (operands at: 0).
+	reg := operands at: 0.
 	reg < 8 ifTrue:
 		[machineCode at: 0 put: 16r50 + reg.
 		^machineCodeSize := 1].

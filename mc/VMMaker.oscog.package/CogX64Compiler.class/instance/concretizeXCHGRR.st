@@ -1,8 +1,8 @@
 generate machine code
 concretizeXCHGRR
 	| r1 r2 |
-	r1 := self concreteRegister: (operands at: 0).
-	r2 := self concreteRegister: (operands at: 1).
+	r1 := operands at: 0.
+	r2 := operands at: 1.
 	r2 = RAX ifTrue:
 		[r2 := r1. r1 := RAX].
 	r1 = RAX ifTrue:

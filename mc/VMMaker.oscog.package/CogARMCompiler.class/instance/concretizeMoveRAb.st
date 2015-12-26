@@ -5,7 +5,7 @@ concretizeMoveRAb
 	strb srcReg, [ConcreteIPReg]"
 	<inline: true>
 	| srcReg destAddr instrOffset|
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	destAddr := operands at: 1.
 	(self isAddressRelativeToVarBase: destAddr) ifTrue:
 		[self machineCodeAt: 0 put: (self strb: srcReg rn: ConcreteVarBaseReg plus: 1 imm: destAddr - cogit varBaseAddress).

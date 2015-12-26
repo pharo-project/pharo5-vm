@@ -5,7 +5,7 @@ concretizeDataOperationCwR: armOpcode
 	<inline: true>
 	| constant rn rd instrOffset|
 	constant := operands at: 0.
-	rn := (self concreteRegister: (operands at: 1)).
+	rn := operands at: 1.
 	rd := armOpcode = CmpOpcode ifTrue: [0] ifFalse:[rn].
 	instrOffset := self moveCw: constant intoR: ConcreteIPReg.
 	self machineCodeAt: instrOffset 

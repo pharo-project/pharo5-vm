@@ -5,8 +5,8 @@ concretizeShiftRegRegOpcode: regOpcode
 	 have to use swap instructions to get the count into %ecx."
 	<inline: true>
 	| shiftCountReg destReg regToShift |
-	shiftCountReg := self concreteRegister: (operands at: 0).
-	destReg := self concreteRegister: (operands at: 1).
+	shiftCountReg := operands at: 0.
+	destReg := operands at: 1.
 	shiftCountReg = RCX ifTrue:
 		[machineCode
 			at: 0 put: (self rexR: 0 x: 0 b: destReg);

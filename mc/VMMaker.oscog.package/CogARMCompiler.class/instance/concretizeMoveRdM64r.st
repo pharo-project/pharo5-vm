@@ -6,7 +6,7 @@ concretizeMoveRdM64r
 	| dstReg offset fpReg u|
 	offset := operands at: 1.
 	u := offset >0 ifTrue:[1] ifFalse:[0].
-	dstReg := self concreteRegister: (operands at: 2).
-	fpReg := self concreteDPFPRegister: (operands at: 0).
+	dstReg := operands at: 2.
+	fpReg := operands at: 0.
 	machineCode at: 0 put: (self fstd: fpReg rn: dstReg plus: u imm: offset>>2).
 	^machineCodeSize := 4

@@ -3,5 +3,5 @@ ceShortCutTraceStore: aProcessorSimulationTrap
 	<doNotGenerate>
 	self shortcutTrampoline: aProcessorSimulationTrap
 		to: [coInterpreter
-				ceTraceStoreOf: (processor registerAt: (backEnd concreteRegister: TempReg))
-				into: (processor registerAt: (backEnd concreteRegister: ReceiverResultReg))]
+				ceTraceStoreOf: (processor registerAt: TempReg)
+				into: (processor registerAt: ReceiverResultReg)]

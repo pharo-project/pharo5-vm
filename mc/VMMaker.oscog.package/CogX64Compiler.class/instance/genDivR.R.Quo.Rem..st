@@ -3,10 +3,10 @@ genDivR: abstractRegDivisor R: abstractRegDividend Quo: abstractRegQuotient Rem:
 	| rDividend rDivisor rQuotient rRemainder saveRestoreEAX saveRestoreEDX saveRestoreExchanged |
 	self assert: abstractRegDividend ~= abstractRegDivisor.
 	self assert: abstractRegQuotient ~= abstractRegRemainder.
-	rDividend := self concreteRegister: abstractRegDividend.
-	rDivisor := self concreteRegister: abstractRegDivisor.
-	rQuotient := self concreteRegister: abstractRegQuotient.
-	rRemainder := self concreteRegister: abstractRegRemainder.
+	rDividend := abstractRegDividend.
+	rDivisor := abstractRegDivisor.
+	rQuotient := abstractRegQuotient.
+	rRemainder := abstractRegRemainder.
 	"IDIV r does a signed divide of RDX:RAX by r, RAX := Quotient, RDX := Remainder.
 	 Since we must sign extend the dividend into RDX we must substitute another register if RDX is an input."
 	(rDividend = RDX or: [rDivisor = RDX]) ifTrue:

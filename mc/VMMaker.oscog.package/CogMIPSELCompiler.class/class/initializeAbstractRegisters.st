@@ -7,6 +7,8 @@ initializeAbstractRegisters
 	"Note we can fit all of the abstract registers in C preserved registers, and
 	 not need to save or restore them at runtime calls."
 	
+	super initializeAbstractRegisters.
+
 	ReceiverResultReg		:= S0.
 	Arg0Reg				:= S1.
 	Arg1Reg				:= S2.

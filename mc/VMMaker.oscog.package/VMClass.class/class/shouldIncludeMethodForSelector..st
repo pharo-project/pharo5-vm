@@ -7,7 +7,7 @@ shouldIncludeMethodForSelector: selector
 			 (c >> selector pragmaAt: #option:)
 				ifNotNil:
 					[:pragma|
-					 initializationOptions at: (pragma arguments first) ifAbsent: [true]]
+					 initializationOptions at: pragma arguments first ifAbsent: [false]]
 				ifNil: [true]]
 		ifNil:
 			[Transcript nextPutAll: 'Cannot find implementation of '; nextPutAll: selector; nextPutAll: ' in hierarchy of '; print: self; cr; flush.

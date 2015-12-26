@@ -5,8 +5,8 @@ concretizeLogicalShiftLeftRR
 	 register require the shift count to be  in %ecx.  So we may
 	 have to use swap instructions to get the count into %ecx."
 	| shiftCountReg destReg regToShift |
-	shiftCountReg := self concreteRegister: (operands at: 0).
-	destReg := self concreteRegister: (operands at: 1).
+	shiftCountReg := operands at: 0.
+	destReg := operands at: 1.
 	shiftCountReg = ECX ifTrue:
 		[machineCode
 			at: 0 put: 16rD3;

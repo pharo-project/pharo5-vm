@@ -6,9 +6,9 @@ callerSavedRegisterMask
 	 The caller-saved registers are those that are not callee-saved and not reserved for hardware/abi uses,
 	 i..e r0-r3, r9 & r12.  We can't name all the C argument registers.  So..."
 	^cogit
-		registerMaskFor: (self abstractRegisterForConcreteRegister: 0)
-		"and: (self abstractRegisterForConcreteRegister: 1)"
-		"and: (self abstractRegisterForConcreteRegister: 2)"
-		"and: (self abstractRegisterForConcreteRegister: 3)"
-		"and: (self abstractRegisterForConcreteRegister: 9)"
-		and: (self abstractRegisterForConcreteRegister: 12)
+		registerMaskFor: 0
+		"and: 1"
+		"and: 2"
+		"and: 3"
+		"and: 9"
+		and: 12

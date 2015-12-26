@@ -3,7 +3,7 @@ concretizeSqrtRd
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| reg |
-	reg := self concreteDPFPRegister: (operands at: 0).
+	reg := operands at: 0.
 	machineCode
 		at: 0 put: 16rF2;
 		at: 1 put: 16r0F;

@@ -2,8 +2,8 @@ generate machine code - concretize
 concretizeBrUnsignedLessRR
 	| offset leftReg rightReg |
 	offset := self computeJumpTargetOffsetPlus: 8. "Relative to delay slot"
-	leftReg := self concreteRegister: (operands at: 1).
-	rightReg := self concreteRegister: (operands at: 2).
+	leftReg := operands at: 1.
+	rightReg := operands at: 2.
 	self assert: leftReg ~= BranchTemp.
 	self assert: rightReg ~= BranchTemp.
 	self machineCodeAt: 0 put: (self sltuR: BranchTemp R: leftReg R: rightReg).

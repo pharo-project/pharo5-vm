@@ -3,9 +3,9 @@ concretizeMoveRdM64r
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| srcReg offset destReg |
-	srcReg := self concreteDPFPRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	offset := operands at: 1.
-	destReg := self concreteRegister: (operands at: 2).
+	destReg := operands at: 2.
 	destReg ~= ESP ifTrue:
 		[(self isQuick: offset) ifTrue:
 			[machineCode

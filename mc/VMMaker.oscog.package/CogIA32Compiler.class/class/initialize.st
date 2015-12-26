@@ -19,22 +19,13 @@ initialize
 	EDI := 7.
 
 	XMM0L := 0.
-	XMM1L := 2.
-	XMM2L := 4.
-	XMM3L := 6.
-	XMM4L := 8.
-	XMM5L := 10.
-	XMM6L := 12.
-	XMM7L := 14.
-
-	XMM0H := 1.
-	XMM1H := 3.
-	XMM2H := 5.
-	XMM3H := 7.
-	XMM4H := 9.
-	XMM5H := 11.
-	XMM6H := 13.
-	XMM7H := 15.
+	XMM1L := 1.
+	XMM2L := 2.
+	XMM3L := 3.
+	XMM4L := 4.
+	XMM5L := 5.
+	XMM6L := 6.
+	XMM7L := 7.
 
 	"Mod R/M Mod fields.  See [1] Sec 2.4, 2.5 & 2.6 & Table 2-2"
 	ModRegInd := 0.

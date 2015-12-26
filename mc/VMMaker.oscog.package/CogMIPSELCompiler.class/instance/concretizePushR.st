@@ -1,7 +1,7 @@
 generate machine code - concretize
 concretizePushR
 	| srcReg |
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	self machineCodeAt: 0 put: (self addiuR: SP R: SP C: -4).
 	self machineCodeAt: 4 put: (self swR: srcReg base: SP offset: 0).
 	^machineCodeSize := 8

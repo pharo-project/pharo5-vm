@@ -19,6 +19,7 @@
 		"savedLastDumpedLiteralIndex" ],
 	"name" : "OutOfLineLiteralsManager",
 	"pools" : [
+		"CogAbstractRegisters",
 		"CogCompilationConstants",
 		"CogRTLOpcodes" ],
 	"super" : "VMClass",

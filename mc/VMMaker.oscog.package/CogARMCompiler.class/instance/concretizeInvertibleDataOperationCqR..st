@@ -5,7 +5,7 @@ concretizeInvertibleDataOperationCqR: armOpcode
 	<inline: true>
 	| val rn |
 	val := operands at: 0.
-	rn := self concreteRegister: (operands at: 1).
+	rn := operands at: 1.
 	self deny: opcode = CmpOpcode.
 
 	self rotateable8bitBitwiseImmediate: val 

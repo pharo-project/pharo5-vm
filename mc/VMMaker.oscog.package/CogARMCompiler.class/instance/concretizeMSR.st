@@ -8,6 +8,6 @@ C -> 2
 V -> 1.
 You don't want to mess with this too much."
 	|  flags |
-	flags := self concreteRegister: (operands at: 0).
+	flags := operands at: 0.
 	self machineCodeAt: 0 put: (self msr: flags).
 	^machineCodeSize := 4

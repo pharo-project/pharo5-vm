@@ -1,6 +1,3 @@
 accessing
 callerSavedRegisterMask
-	^cogit
-		registerMaskFor: (self abstractRegisterForConcreteRegister: EAX)
-		and: (self abstractRegisterForConcreteRegister: ECX)
-		and: (self abstractRegisterForConcreteRegister: EDX)
+	^cogit registerMaskFor: EAX and: ECX and: EDX

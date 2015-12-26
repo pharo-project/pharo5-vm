@@ -4,7 +4,7 @@ concretizeMoveCwR
 	<inline: true>
 	| value reg offset |
 	value := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	(self isAnInstruction: (cogit cCoerceSimple: value to: #'AbstractInstruction *')) ifTrue:
 		[value := (cogit cCoerceSimple: value to: #'AbstractInstruction *') address].
 	(cogit addressIsInCurrentCompilation: value) ifTrue:

@@ -1,7 +1,7 @@
 generate machine code - concretize
 concretizeMoveRAw
 	| srcReg destAddr |
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	destAddr := operands at: 1.
 
 	(self isAddressRelativeToVarBase: destAddr) ifTrue:

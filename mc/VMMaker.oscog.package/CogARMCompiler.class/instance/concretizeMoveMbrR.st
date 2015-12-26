@@ -6,8 +6,8 @@ concretizeMoveMbrR
 	<inline: true>
 	| srcReg offset destReg instrOffset|
 	offset := operands at: 0.
-	srcReg := self concreteRegister: (operands at: 1).
-	destReg := self concreteRegister: (operands at: 2).
+	srcReg := operands at: 1.
+	destReg := operands at: 2.
 	self is12BitValue: offset
 		ifTrue:
 			[ :u :immediate | 

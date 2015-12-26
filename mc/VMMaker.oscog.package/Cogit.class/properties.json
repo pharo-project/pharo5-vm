@@ -195,6 +195,7 @@
 		"disassemblingMethod" ],
 	"name" : "Cogit",
 	"pools" : [
+		"CogAbstractRegisters",
 		"CogCompilationConstants",
 		"CogMethodConstants",
 		"CogRTLOpcodes",

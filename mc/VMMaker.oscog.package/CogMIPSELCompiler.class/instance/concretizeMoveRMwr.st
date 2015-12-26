@@ -2,8 +2,8 @@ generate machine code - concretize
 concretizeMoveRMwr
 	<var: #offset type: #sqInt>
 	| srcReg offset baseReg |
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	offset := operands at: 1.
-	baseReg := self concreteRegister: (operands at: 2).
+	baseReg := operands at: 2.
 	self machineCodeAt: 0 put: (self swR: srcReg base: baseReg offset: offset).
 	^machineCodeSize := 4

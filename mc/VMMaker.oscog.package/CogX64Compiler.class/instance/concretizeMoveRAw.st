@@ -3,7 +3,7 @@ concretizeMoveRAw
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| addressOperand reg offset save1 |
-	reg := self concreteRegister: (operands at: 0).
+	reg := operands at: 0.
 	addressOperand := operands at: 1.
 	(self isAnInstruction: (cogit cCoerceSimple: addressOperand to: #'AbstractInstruction *')) ifTrue:
 		[addressOperand := (cogit cCoerceSimple: addressOperand to: #'AbstractInstruction *') address].

@@ -23,11 +23,11 @@ initialize
 		M16r	- memory 16-bit halfword whose address is at a constant offset from an address in a register
 		M32r	- memory 32-bit halfword whose address is at a constant offset from an address in a register
 		M64r	- memory 64-bit doubleword whose address is at a constant offset from an address in a register
-		XbrR	- memory word whose address is r * byte size away from an address in a register
-		X16rR	- memory word whose address is r * (2 bytes size) away from an address in a register
-		X32rR	- memory word whose address is r * (4 bytes size) away from an address in a register
-		XwrR	- memory word whose address is r * word size away from an address in a register
-		XowrR	- memory word whose address is (r * word size) + o away from an address in a register (scaled indexed)
+		Xbr		- memory word whose address is r * byte size away from an address in a register
+		X16r	- memory word whose address is r * (2 bytes size) away from an address in a register
+		X32r	- memory word whose address is r * (4 bytes size) away from an address in a register
+		Xwr		- memory word whose address is r * word size away from an address in a register
+		Xowr	- memory word whose address is o + (r * word size) away from an address in a register (scaled indexed)
 
 	An alternative would be to decouple opcodes from operands, e.g.
 		Move := 1. Add := 2. Sub := 3...
@@ -62,50 +62,6 @@ initialize
 	16-bit (and on 64-bits, 32-bit) reads.  These /are/ expected to always zero-extend."
 
 	| opcodeNames refs |
-	"A small fixed set of abstract register names are defined and used in code
-	 generation for Smalltalk code, which executes on stack pages in the stack zone."
-
-	"NoReg encodes no register."
-	NoReg := -1.
-
-	"The core set of abstract registers that define the Cogits model of Smalltalk code.
-	 These are given concrete values by the currently in-use back end; see implementors
-	 of initializeAbstractRegisters."
-	FPReg				:= #undefined.	"A frame pointer is used for Smalltalk frames."
-	SPReg				:= #undefined.
-	ReceiverResultReg	:= #undefined.	"The receiver at point of send, and return value of a send"
-	TempReg			:= #undefined.
-	ClassReg			:= #undefined.	"The inline send cache class tag is in this register, loaded at the send site"
-	SendNumArgsReg	:= #undefined.	"Sends > 2 args set the arg count in this reg"
-	Arg0Reg			:= #undefined.	"In the StackToRegisterMappingCogit 1 & 2 arg sends marshall into these registers."
-	Arg1Reg			:= #undefined.
-
-	"A small fixed set of abstract scratch registers for register-rich machines (ARM can use 1, x64 can use 6 or 7)."
-	Scratch0Reg := #undefined.
-	Scratch1Reg := #undefined.
-	Scratch2Reg := #undefined.
-	Scratch3Reg := #undefined.
-	Scratch4Reg := #undefined.
-	Scratch5Reg := #undefined.
-	Scratch6Reg := #undefined.
-	Scratch7Reg := #undefined.
-
-	"RISC-specific registers"
-	LinkReg			:= #undefined.
-	RISCTempReg	:= #undefined.		"Used to synthesize CISC instructions from multiple RISC instructions."
-	PCReg			:= #undefined.		"If the processor has an assignable pc, e.g. ARM"
-	VarBaseReg	:= #undefined.		"If useful, points to base of interpreter variables."
-
-	"Floating-point registers"
-	DPFPReg0 := #undefined.
-	DPFPReg1 := #undefined.
-	DPFPReg2 := #undefined.
-	DPFPReg3 := #undefined.
-	DPFPReg4 := #undefined.
-	DPFPReg5 := #undefined.
-	DPFPReg6 := #undefined.
-	DPFPReg7 := #undefined.
-
 	opcodeNames := #("Noops & Pseudo Ops"
 						Label
 						Literal			"a word-sized literal"

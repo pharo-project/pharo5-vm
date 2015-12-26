@@ -21,7 +21,7 @@ concretizeMoveAbR
 			at: 1 put: save1;
 			at: 2 put: 0.
 		^machineCodeSize].
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	reg = RAX
 		ifTrue: [offset := 0]
 		ifFalse:

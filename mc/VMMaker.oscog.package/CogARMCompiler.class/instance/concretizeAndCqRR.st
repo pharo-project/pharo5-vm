@@ -5,8 +5,8 @@ concretizeAndCqRR
 	<inline: true>
 	| val srcReg dstReg |
 	val := operands at: 0.
-	srcReg := self concreteRegister: (operands at: 1).
-	dstReg := self concreteRegister: (operands at: 2).
+	srcReg := operands at: 1.
+	dstReg := operands at: 2.
 	self rotateable8bitBitwiseImmediate: val
 		ifTrue:
 			[:rot :immediate :invert|

@@ -6,12 +6,12 @@ callerSavedRegisterMask
 	 N.B.  We are playing fast and loose here being processor-specific.
 	 Soon enough this needs to be OS-specific."
 	^cogit
-		registerMaskFor: (self abstractRegisterForConcreteRegister: RAX)
-		and: (self abstractRegisterForConcreteRegister: RCX)
-		and: (self abstractRegisterForConcreteRegister: RDX)
-		and: (self abstractRegisterForConcreteRegister: RSI)
-		and: (self abstractRegisterForConcreteRegister: RDI)
-		and: (self abstractRegisterForConcreteRegister: R8)
-		and: (self abstractRegisterForConcreteRegister: R9)
-		and: (self abstractRegisterForConcreteRegister: R10)
-		and: (self abstractRegisterForConcreteRegister: R11)
+		registerMaskFor: RAX
+		and: RCX
+		and: RDX
+		and: RSI
+		and: RDI
+		and: R8
+		and: R9
+		and: R10
+		and: R11

@@ -2,9 +2,9 @@ generate machine code
 concretizeMoveX32rRR
 	"MoveX32rRR is expected to zero-extend, so explicitly zero the destination."
 	| index base dest offset |
-	index := self concreteRegister: (operands at: 0).
-	base := self concreteRegister: (operands at: 1).
-	dest := self concreteRegister: (operands at: 2).
+	index := operands at: 0.
+	base := operands at: 1.
+	dest := operands at: 2.
 	machineCode
 		at: 0 put: (self rexR: dest x: 0 b: dest);
 		at: 1 put: 16r31;

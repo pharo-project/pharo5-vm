@@ -4,8 +4,8 @@ concretizeMoveRMbr
 	<inline: true>
 	| srcReg offset destReg |
 	offset := operands at: 1.
-	srcReg := self concreteRegister: (operands at: 0).
-	destReg := self concreteRegister: (operands at: 2).
+	srcReg := operands at: 0.
+	destReg := operands at: 2.
 	srcReg >= 4 ifTrue: [self error: 'invalid register'].
 	destReg ~= ESP ifTrue:
 		[(self isQuick: offset) ifTrue:

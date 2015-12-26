@@ -1,4 +1,5 @@
 generate machine code
 cResultRegister
-	"Answer the abstract register for the C result register."
+	"Answer the register through which C funcitons return integral results."
+	<inline: true>
 	^V0
