@@ -1,3 +1,4 @@
 compile abstract instructions
 genJumpNotSmallFloatInScratchReg: aRegister
-	^self genJumpNotSmallFloat: aRegister scratchReg: TempReg
+	<inline: true>
+	^self genJumpNotSmallFloat: aRegister scratchReg: aRegister

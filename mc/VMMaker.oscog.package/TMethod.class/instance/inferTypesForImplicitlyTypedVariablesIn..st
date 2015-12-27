@@ -27,7 +27,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 		 and: [(locals includes: (var := node variable name))
 		 and: [(alreadyExplicitlyTyped includes: var) not "don't be fooled by previously inferred types"
 		 and: [(type := node expression isSend
-						ifTrue: [aCodeGen returnTypeForSend: node expression in: self]
+						ifTrue: [aCodeGen returnTypeOrNilForSend: node expression in: self]
 						ifFalse: [self typeFor: node expression in: aCodeGen]) notNil
 		 and: [aCodeGen isSimpleType: type]]]]) ifTrue:
 			[aCodeGen mergeTypeOf: var in: declarations with: type method: self.

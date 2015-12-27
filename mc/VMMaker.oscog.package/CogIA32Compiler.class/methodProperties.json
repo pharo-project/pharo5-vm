@@ -20,7 +20,7 @@
 		"cmpC32RTempByteSize" : "eem 11/20/2015 16:49",
 		"codeGranularity" : "eem 4/21/2015 09:17",
 		"computeMaximumSize" : "eem 12/25/2015 18:34",
-		"computeShiftRRSize" : "eem 1/21/2009 06:54",
+		"computeShiftRRSize" : "eem 12/27/2015 11:08",
 		"concretizeAddCqR" : "eem 1/2/2009 15:39",
 		"concretizeAddCwR" : "eem 1/6/2009 15:37",
 		"concretizeAlignmentNops" : "eem 12/27/2008 18:54",
