@@ -7,6 +7,6 @@ storeAndPopReceiverVariableBytecode
 	| rcvr top |
 	rcvr := self receiver.
 	top := self internalStackTop.
-	objectMemory storePointer: (currentBytecode bitAnd: 7) ofObject: rcvr withValue: top.
+	self internalPop: 1.
 	self fetchNextBytecode.
-	self internalPop: 1
+	objectMemory storePointerImmutabilityCheck: (currentBytecode bitAnd: 7) ofObject: rcvr withValue: top.

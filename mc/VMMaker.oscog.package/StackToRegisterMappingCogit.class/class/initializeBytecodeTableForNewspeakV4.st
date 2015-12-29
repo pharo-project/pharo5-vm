@@ -44,10 +44,14 @@ initializeBytecodeTableForNewspeakV4
 		(1 112 127 genSendLiteralSelector0ArgsBytecode isMapped)
 		(1 128 143 genSendLiteralSelector1ArgBytecode isMapped)
 		(1 144 159 genSendLiteralSelector2ArgsBytecode isMapped)
-		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)
-
-		(1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
-		(1 184 191 genStoreAndPopTemporaryVariableBytecode)
+		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)),
+		
+		"N.B. not frameless if immutability"
+		((initializationOptions at: #IMMUTABILITY ifAbsent: [false])
+			ifTrue: [#((1 176 183 genStoreAndPopReceiverVariableBytecode isMapped isInstVarRef -1))]
+			ifFalse: [#((1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1)) ]),
+			
+		#((1 184 191 genStoreAndPopTemporaryVariableBytecode)
 
 		(1 192 199 genShortUnconditionalJump	branch v3:ShortForward:Branch:Distance:)
 		(1 200 207 genShortJumpIfTrue			branch isBranchTrue isMapped "because of mustBeBoolean"

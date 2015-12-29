@@ -13,6 +13,8 @@ primitiveFloatAtPut
 	index := self stackValue: 1.
 	(objectMemory isImmediateFloat: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrBadReceiver].
+	self cppIf: IMMUTABILITY
+		ifTrue: [ (objectMemory isImmutable: rcvr) ifTrue: [^self primitiveFailFor: PrimErrBadReceiver] ].
 	index = ConstOne ifTrue:
 		[objectMemory storeLong32: (VMBIGENDIAN ifTrue: [0] ifFalse: [1])
 			ofObject: rcvr

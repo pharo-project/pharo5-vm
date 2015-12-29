@@ -9,4 +9,4 @@ storeLiteralVariable: literalIndex withValue: anObject
 
 	(objectMemory isForwarded: litVar) ifTrue:
 		[litVar := objectMemory followForwarded: litVar].
-	^objectMemory storePointer: ValueIndex ofObject: litVar withValue: anObject
+	^objectMemory storePointerImmutabilityCheck: ValueIndex ofObject: litVar withValue: anObject

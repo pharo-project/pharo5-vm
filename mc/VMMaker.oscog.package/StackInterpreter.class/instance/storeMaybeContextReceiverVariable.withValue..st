@@ -11,4 +11,4 @@ storeMaybeContextReceiverVariable: fieldIndex withValue: anObject
 		ifTrue:
 			[self instVar: fieldIndex ofContext: rcvr put: anObject]
 		ifFalse:
-			[objectMemory storePointer: fieldIndex ofObject: rcvr withValue: anObject]
+			[objectMemory storePointerImmutabilityCheck: fieldIndex ofObject: rcvr withValue: anObject]
