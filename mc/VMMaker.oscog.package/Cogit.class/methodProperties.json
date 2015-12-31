@@ -573,6 +573,7 @@
 		"registerMaskFor:and:and:and:and:and:and:" : "eem 12/18/2015 14:08",
 		"registerMaskFor:and:and:and:and:and:and:and:" : "eem 12/18/2015 14:08",
 		"registerMaskFor:and:and:and:and:and:and:and:and:" : "eem 12/18/2015 14:08",
+		"registerMaskFor:and:and:and:and:and:and:and:and:and:" : "rmacnak 12/30/2015 12:30",
 		"relativeBaseForDisassemblyInto:" : "eem 12/11/2015 10:15",
 		"relativeLabelForPC:" : "eem 12/5/2010 11:58",
 		"relocateCallsAndSelfReferencesInMethod:" : "rmacnak 12/9/2015 18:32:56",

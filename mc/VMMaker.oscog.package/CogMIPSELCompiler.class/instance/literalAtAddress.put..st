@@ -1,5 +1,9 @@
 inline cacheing
 literalAtAddress: mcpc put: newLiteral
+	<var: #oldUpper type: #usqInt>
+	<var: #newUpper type: #usqInt>
+	<var: #oldLower type: #usqInt>
+	<var: #newLower type: #usqInt>
 	| oldUpper newUpper oldLower newLower |
 	self assert: (self opcodeAtAddress: mcpc - 4) = LUI.
 	self assert: (self opcodeAtAddress: mcpc) = ORI.
