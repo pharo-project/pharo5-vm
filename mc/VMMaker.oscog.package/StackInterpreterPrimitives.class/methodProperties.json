@@ -29,7 +29,7 @@
 		"primitiveFullGC" : "eem 11/25/2013 11:28",
 		"primitiveIncrementalGC" : "eem 9/22/2013 08:23",
 		"primitiveInstVarAt" : "cb 11/26/2015 17:37",
-		"primitiveInstVarAtPut" : "cb 11/26/2015 17:36",
+		"primitiveInstVarAtPut" : "cb 1/6/2016 14:21",
 		"primitiveLongRunningPrimitive" : "eem 7/7/2010 12:00",
 		"primitiveLongRunningPrimitiveSemaphore" : "eem 6/29/2014 11:28",
 		"primitiveObjectPointsTo" : "eem (const to msg rewrite) 11/5/2014 18:04",
