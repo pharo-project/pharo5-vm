@@ -2,7 +2,6 @@
 	"class" : {
 		"defaultISA" : "eem 12/4/2015 22:20",
 		"exportAPISelectors:" : "eem 7/14/2014 17:22",
-		"initializeWithOptions:" : "eem 12/26/2015 03:04",
 		"objectRepresentationClass" : "eem 10/9/2013 19:46",
 		"simulatorClass" : "eem 10/11/2013 16:22" },
 	"instance" : {

@@ -1,9 +1,5 @@
 stack bytecodes
 storeAndPopReceiverVariableBytecode
-	"Note: This code uses 
-	storePointerUnchecked:ofObject:withValue: and does the 
-	store check explicitely in order to help the translator 
-	produce better code."
 	| rcvr top |
 	rcvr := self receiver.
 	top := self internalStackTop.
@@ -16,8 +12,8 @@ storeAndPopReceiverVariableBytecode
 				ofObject: rcvr
 				withValue: top]
 		inSmalltalk: "But in Smalltalk we must use the currentBytecode's value, not the next. 
-			We cant use the following code when generating C code as slang 
-			won't inline currentBytecode correctly due to the extra temp."
+					We cant use the following code when generating C code as slang 
+					won't inline currentBytecode correctly due to the extra temp."
 			[ | instVarIndex |
 			 instVarIndex := currentBytecode bitAnd: 7.
 			 self fetchNextBytecode.
