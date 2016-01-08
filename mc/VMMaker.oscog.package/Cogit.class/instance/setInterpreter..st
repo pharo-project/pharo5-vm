@@ -14,7 +14,6 @@ setInterpreter: aCoInterpreter
 				objectRepresentation: objectRepresentation
 				cogit: self.
 	generatorTable := self class generatorTable.
-	primitiveGeneratorTable := self class primitiveTable.
 	processor := ProcessorClass new.
 	simulatedAddresses := Dictionary new.
 	simulatedTrampolines := Dictionary new.

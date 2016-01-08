@@ -9,23 +9,23 @@ initializePrimitiveTableForSqueak
 	primitiveTable := CArrayAccessor on: (Array new: MaxCompiledPrimitiveIndex + 1).
 	self table: primitiveTable from: 
 	#(	"Integer Primitives (0-19)"
-		(1 genPrimitiveAdd				1	mclassIsSmallInteger:)
-		(2 genPrimitiveSubtract			1	mclassIsSmallInteger:)
-		(3 genPrimitiveLessThan		1	mclassIsSmallInteger:)
-		(4 genPrimitiveGreaterThan		1	mclassIsSmallInteger:)
-		(5 genPrimitiveLessOrEqual		1	mclassIsSmallInteger:)
-		(6 genPrimitiveGreaterOrEqual	1	mclassIsSmallInteger:)
-		(7 genPrimitiveEqual			1	mclassIsSmallInteger:)
-		(8 genPrimitiveNotEqual		1	mclassIsSmallInteger:)
-		(9 genPrimitiveMultiply			1	processorHasMultiplyAndMClassIsSmallInteger:)
-		(10 genPrimitiveDivide			1	processorHasDivQuoRemAndMClassIsSmallInteger:)
-		(11 genPrimitiveMod			1	processorHasDivQuoRemAndMClassIsSmallInteger:)
-		(12 genPrimitiveDiv				1	processorHasDivQuoRemAndMClassIsSmallInteger:)
-		(13 genPrimitiveQuo			1	processorHasDivQuoRemAndMClassIsSmallInteger:)
-		(14 genPrimitiveBitAnd			1	mclassIsSmallInteger:)
-		(15 genPrimitiveBitOr			1	mclassIsSmallInteger:)
-		(16 genPrimitiveBitXor			1	mclassIsSmallInteger:)
-		(17 genPrimitiveBitShift			1	mclassIsSmallInteger:)
+		(1 genPrimitiveAdd				1)
+		(2 genPrimitiveSubtract			1)
+		(3 genPrimitiveLessThan		1)
+		(4 genPrimitiveGreaterThan		1)
+		(5 genPrimitiveLessOrEqual		1)
+		(6 genPrimitiveGreaterOrEqual	1)
+		(7 genPrimitiveEqual			1)
+		(8 genPrimitiveNotEqual		1)
+		(9 genPrimitiveMultiply			1)
+		(10 genPrimitiveDivide			1)
+		(11 genPrimitiveMod			1)
+		(12 genPrimitiveDiv				1)
+		(13 genPrimitiveQuo			1)
+		(14 genPrimitiveBitAnd			1)
+		(15 genPrimitiveBitOr			1)
+		(16 genPrimitiveBitXor			1)
+		(17 genPrimitiveBitShift			1)
 		"(18 primitiveMakePoint)"
 		"(19 primitiveFail)"					"Guard primitive for simulation -- *must* fail"
 
@@ -52,22 +52,22 @@ initializePrimitiveTableForSqueak
 		"Float Primitives (38-59)"
 		"(38 genPrimitiveFloatAt)"
 		"(39 genPrimitiveFloatAtPut)"
-		(40 genPrimitiveAsFloat					0	processorHasDoublePrecisionFloatingPointSupport:)
-		(41 genPrimitiveFloatAdd				1	processorHasDoublePrecisionFloatingPointSupport:)
-		(42 genPrimitiveFloatSubtract			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(43 genPrimitiveFloatLessThan			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(44 genPrimitiveFloatGreaterThan		1	processorHasDoublePrecisionFloatingPointSupport:)
-		(45 genPrimitiveFloatLessOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)
-		(46 genPrimitiveFloatGreaterOrEqual	1	processorHasDoublePrecisionFloatingPointSupport:)
-		(47 genPrimitiveFloatEqual				1	processorHasDoublePrecisionFloatingPointSupport:)
-		(48 genPrimitiveFloatNotEqual			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(49 genPrimitiveFloatMultiply			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(50 genPrimitiveFloatDivide				1	processorHasDoublePrecisionFloatingPointSupport:)
+		(40 genPrimitiveAsFloat					0)
+		(41 genPrimitiveFloatAdd				1)
+		(42 genPrimitiveFloatSubtract			1)
+		(43 genPrimitiveFloatLessThan			1)
+		(44 genPrimitiveFloatGreaterThan		1)
+		(45 genPrimitiveFloatLessOrEqual		1)
+		(46 genPrimitiveFloatGreaterOrEqual	1)
+		(47 genPrimitiveFloatEqual				1)
+		(48 genPrimitiveFloatNotEqual			1)
+		(49 genPrimitiveFloatMultiply			1)
+		(50 genPrimitiveFloatDivide				1)
 		"(51 genPrimitiveTruncated)"
 		"(52 genPrimitiveFractionalPart)"
 		"(53 genPrimitiveExponent)"
 		"(54 genPrimitiveTimesTwoPower)"
-		(55 genPrimitiveFloatSquareRoot		0	processorHasDoublePrecisionFloatingPointSupport:)
+		(55 genPrimitiveFloatSquareRoot		0)
 		"(56 genPrimitiveSine)"
 		"(57 genPrimitiveArctan)"
 		"(58 genPrimitiveLogN)"
@@ -168,23 +168,23 @@ initializePrimitiveTableForSqueak
 		(222 genPrimitiveClosureValue	1) "valueNoContextSwitch:"
 
 		"SmallFloat primitives (540-559)"
-		(541 genPrimitiveSmallFloatAdd				1	processorHasDoublePrecisionFloatingPointSupport:)
-		(542 genPrimitiveSmallFloatSubtract			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(543 genPrimitiveSmallFloatLessThan			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(544 genPrimitiveSmallFloatGreaterThan		1	processorHasDoublePrecisionFloatingPointSupport:)
-		(545 genPrimitiveSmallFloatLessOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)
-		(546 genPrimitiveSmallFloatGreaterOrEqual		1	processorHasDoublePrecisionFloatingPointSupport:)
-		(547 genPrimitiveSmallFloatEqual				1	processorHasDoublePrecisionFloatingPointSupport:)
-		(548 genPrimitiveSmallFloatNotEqual			1	processorHasDoublePrecisionFloatingPointSupport:)
-		(549 genPrimitiveSmallFloatMultiply				1	processorHasDoublePrecisionFloatingPointSupport:)
-		(550 genPrimitiveSmallFloatDivide				1	processorHasDoublePrecisionFloatingPointSupport:)
-		"(551 genPrimitiveSmallFloatTruncated			0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(552 genPrimitiveSmallFloatFractionalPart		0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(553 genPrimitiveSmallFloatExponent			0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(554 genPrimitiveSmallFloatTimesTwoPower	1	processorHasDoublePrecisionFloatingPointSupport:)"
-		(555 genPrimitiveSmallFloatSquareRoot			0	processorHasDoublePrecisionFloatingPointSupport:)
-		"(556 genPrimitiveSmallFloatSine				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(557 genPrimitiveSmallFloatArctan				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(558 genPrimitiveSmallFloatLogN				0	processorHasDoublePrecisionFloatingPointSupport:)"
-		"(559 genPrimitiveSmallFloatExp				0	processorHasDoublePrecisionFloatingPointSupport:)"
+		(541 genPrimitiveSmallFloatAdd				1)
+		(542 genPrimitiveSmallFloatSubtract			1)
+		(543 genPrimitiveSmallFloatLessThan			1)
+		(544 genPrimitiveSmallFloatGreaterThan		1)
+		(545 genPrimitiveSmallFloatLessOrEqual		1)
+		(546 genPrimitiveSmallFloatGreaterOrEqual		1)
+		(547 genPrimitiveSmallFloatEqual				1)
+		(548 genPrimitiveSmallFloatNotEqual			1)
+		(549 genPrimitiveSmallFloatMultiply				1)
+		(550 genPrimitiveSmallFloatDivide				1)
+		"(551 genPrimitiveSmallFloatTruncated			0)"
+		"(552 genPrimitiveSmallFloatFractionalPart		0)"
+		"(553 genPrimitiveSmallFloatExponent			0)"
+		"(554 genPrimitiveSmallFloatTimesTwoPower	1)"
+		(555 genPrimitiveSmallFloatSquareRoot			0)
+		"(556 genPrimitiveSmallFloatSine				0)"
+		"(557 genPrimitiveSmallFloatArctan				0)"
+		"(558 genPrimitiveSmallFloatLogN				0)"
+		"(559 genPrimitiveSmallFloatExp				0)"
 	)

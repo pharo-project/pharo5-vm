@@ -1,4 +1,0 @@
-primitive generators
-genPrimitiveCharacterValue
-	^self compileFallbackToInterpreterPrimitive:
-		(objectRepresentation genInnerPrimitiveCharacterValue: 0)

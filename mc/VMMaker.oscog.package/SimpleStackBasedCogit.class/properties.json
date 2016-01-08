@@ -6,6 +6,7 @@
 		 ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
+		"primitiveGeneratorTable",
 		"primSetFunctionLabel",
 		"primInvokeInstruction",
 		"externalPrimCallOffsets",

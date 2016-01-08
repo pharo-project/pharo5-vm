@@ -8,4 +8,5 @@ genQuickReturnConst
 				ifTrue: [self MoveCq: constant R: ReceiverResultReg]
 				ifFalse: [self MoveCw: constant R: ReceiverResultReg])
 		objRef: constant.
-	^self genUpArrowReturn
+	self genUpArrowReturn.
+	^UnfailingPrimitive

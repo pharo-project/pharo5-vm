@@ -1,0 +1,5 @@
+primitive generators
+genPrimitiveCharacterValue
+	self genConvertCharacterToSmallIntegerInReg: ReceiverResultReg.
+	cogit genPrimReturn.
+	^UnfailingPrimitive

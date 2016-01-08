@@ -51,4 +51,4 @@ genPrimitiveClosureValue
 	(result := self compileInterpreterPrimitive: primitiveRoutine) < 0 ifTrue:
 		[^result].
 	jumpFailNArgs jmpTarget: self Label.
-	^0
+	^CompletePrimitive

@@ -21,7 +21,9 @@ initializeMiscConstants
 		at: #SpurObjectMemory		"the new contender"
 			ifAbsentPut: (omc
 					ifNil: [false]
-					ifNotNil: [(Smalltalk at: omc) includesBehavior: SpurMemoryManager]).
+					ifNotNil: [(Smalltalk at: omc) includesBehavior: SpurMemoryManager]);
+		at: #Spur32BitMemoryManager put: false;
+		at: #Spur64BitMemoryManager put: false.
 
 	"Use ifAbsentPut: so that they will get copied back to the
 	 VMMaker's options and dead code will likely be eliminated."

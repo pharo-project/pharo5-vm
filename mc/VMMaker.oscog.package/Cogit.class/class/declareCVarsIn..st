@@ -107,10 +107,6 @@ declareCVarsIn: aCCodeGenerator
 			var: #generatorTable
 				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size, ']',
 							(self tableInitializerFor: bytecodeGenTable
-								in: aCCodeGenerator);
-			var: #primitiveGeneratorTable
-				declareC: 'static PrimitiveDescriptor primitiveGeneratorTable[MaxCompiledPrimitiveIndex+1]',
-							(self tableInitializerFor: aCCodeGenerator vmClass primitiveTable
 								in: aCCodeGenerator)].
 	"In C the abstract opcode names clash with the Smalltak generator syntactic sugar.
 	 Most of the syntactic sugar is inlined, but alas some remains.  Rename the syntactic

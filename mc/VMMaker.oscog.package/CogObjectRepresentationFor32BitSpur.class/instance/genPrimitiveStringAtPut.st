@@ -1,0 +1,113 @@
+primitive generators
+genPrimitiveStringAtPut
+	"Implement the guts of primitiveStringAtPut"
+	| formatReg jumpBadIndex jumpBadArg jumpWordsDone jumpBytesOutOfRange
+	  jumpIsBytes jumpNotString jumpIsCompiledMethod jumpImmutable
+	  jumpBytesOutOfBounds jumpWordsOutOfBounds jumpShortsUnsupported |
+	<inline: true>
+	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
+	<var: #jumpBadArg type: #'AbstractInstruction *'>
+	<var: #jumpIsBytes type: #'AbstractInstruction *'>
+	<var: #jumpBadIndex type: #'AbstractInstruction *'>
+	<var: #jumpWordsDone type: #'AbstractInstruction *'>
+	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
+	<var: #jumpShortsUnsupported type: #'AbstractInstruction *'>
+	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
+
+	cogit genLoadArgAtDepth: 1 into: Arg0Reg.
+	cogit genLoadArgAtDepth: 0 into: Arg1Reg.
+
+	jumpBadIndex := self genJumpNotSmallInteger: Arg0Reg.
+	cogit MoveR: Arg1Reg R: TempReg.
+	jumpBadArg := self genJumpNotCharacterInScratchReg: TempReg.
+	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
+	cogit SubCq: 1 R: Arg0Reg. "1-rel => 0-rel"
+
+	"formatReg := self formatOf: ReceiverResultReg"
+	self cppIf: IMMUTABILITY
+		ifTrue:
+		[ self genGetFormatOf: ReceiverResultReg
+			into: (formatReg := SendNumArgsReg)
+			leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
+		jumpImmutable := self genJumpBaseHeaderImmutable: TempReg ]
+		ifFalse: 
+		[ self genGetFormatOf: ReceiverResultReg
+			into: (formatReg := SendNumArgsReg)
+			leastSignificantHalfOfBaseHeaderIntoScratch: NoReg ].
+
+	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
+
+	"dispatch on format; words and/or bytes.
+		  0 to 8 = pointer objects, forwarders, reserved.
+		  9 (?) 64-bit indexable
+		10 - 11 32-bit indexable
+		12 - 15 16-bit indexable (but unused)
+		16 - 23 byte indexable
+		24 - 31 compiled method"
+	cogit CmpCq: objectMemory firstLongFormat R: formatReg.
+	jumpNotString := cogit JumpBelowOrEqual: 0.
+					cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg.
+	jumpIsCompiledMethod := cogit JumpAboveOrEqual: 0.
+					cogit CmpCq: objectMemory firstByteFormat R: formatReg.
+	jumpIsBytes := cogit JumpGreaterOrEqual: 0.
+					cogit CmpCq: objectMemory firstShortFormat R: formatReg.
+	jumpShortsUnsupported := cogit JumpGreaterOrEqual: 0.
+
+	cogit CmpR: Arg0Reg R: ClassReg.
+	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit MoveR: Arg1Reg R: TempReg.
+	self genConvertSmallIntegerToIntegerInReg: TempReg.
+	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg0Reg.
+	cogit MoveR: TempReg Xwr: Arg0Reg R: ReceiverResultReg.
+	cogit MoveR: Arg1Reg R: ReceiverResultReg.
+	jumpWordsDone := cogit Jump: 0.
+
+	"there are no shorts as yet.  so this is dead code:
+	jumpIsShorts jmpTarget:
+		(cogit CmpCq: (objectMemory integerObjectOf: 65535) R: Arg1Reg).
+	jumpShortsOutOfRange := cogit JumpAbove: 0.
+	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
+	cogit AndCq: 1 R: formatReg.
+	cogit SubR: formatReg R: ClassReg;
+	CmpR: Arg0Reg R: ClassReg.
+	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit MoveR: Arg1Reg R: TempReg.
+	cogit genConvertSmallIntegerToIntegerInReg: TempReg.
+	cogit AddR: Arg0Reg R: ReceiverResultReg.
+	cogit MoveR: TempReg M16: objectMemory baseHeaderSize r: ReceiverResultReg.
+	cogit MoveR: Arg1Reg R: ReceiverResultReg.
+	jumpShortsDone := cogit Jump: 0."
+
+	jumpIsBytes jmpTarget:
+		(cogit CmpCq: (objectMemory characterObjectOf: 255) R: Arg1Reg).
+	jumpBytesOutOfRange := cogit JumpAbove: 0.
+	cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
+	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
+	cogit SubR: formatReg R: ClassReg;
+	CmpR: Arg0Reg R: ClassReg.
+	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit MoveR: Arg1Reg R: TempReg.
+	self genConvertCharacterToCodeInReg: TempReg.
+	cogit AddCq: objectMemory baseHeaderSize R: Arg0Reg.
+	cogit MoveR: TempReg Xbr: Arg0Reg R: ReceiverResultReg.
+	cogit MoveR: Arg1Reg R: ReceiverResultReg.
+
+	jumpWordsDone jmpTarget: cogit genPrimReturn.
+
+	jumpBadArg jmpTarget:
+	(jumpNotString jmpTarget:
+	(jumpBytesOutOfRange jmpTarget:
+	(jumpIsCompiledMethod jmpTarget:
+	(jumpBytesOutOfBounds jmpTarget:
+	(jumpShortsUnsupported jmpTarget:
+	(jumpWordsOutOfBounds jmpTarget: cogit Label)))))).
+
+	self cppIf: IMMUTABILITY
+		ifTrue: [jumpImmutable jmpTarget: cogit Label].
+
+	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
+	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
+
+	jumpBadIndex jmpTarget: cogit Label.
+
+	^0

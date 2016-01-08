@@ -114,7 +114,6 @@
 		"fixups",
 		"abstractOpcodes",
 		"generatorTable",
-		"primitiveGeneratorTable",
 		"byte0",
 		"byte1",
 		"byte2",

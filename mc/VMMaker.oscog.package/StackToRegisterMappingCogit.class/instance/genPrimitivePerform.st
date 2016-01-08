@@ -4,8 +4,9 @@ genPrimitivePerform
 	 adjustArgumentsForPerform: adjusts the arguments once genLookupForPerformNumArgs:
 	 has generated the code for the lookup."
 	methodOrBlockNumArgs > self numRegArgs ifTrue:
-		[self MoveMw: (backEnd hasLinkRegister ifTrue: [methodOrBlockNumArgs - 1] ifFalse: [methodOrBlockNumArgs]) * objectMemory wordSize r: SPReg R: Arg0Reg].
-	self genLookupForPerformNumArgs: methodOrBlockNumArgs.
-	^self compileInterpreterPrimitive: (coInterpreter
-										functionPointerForCompiledMethod: methodObj
-										primitiveIndex: primitiveIndex)
+		[self MoveMw: (backEnd hasLinkRegister
+					ifTrue: [methodOrBlockNumArgs - 1]
+					ifFalse: [methodOrBlockNumArgs]) * objectMemory wordSize
+			r: SPReg
+			R: Arg0Reg].
+	^self genLookupForPerformNumArgs: methodOrBlockNumArgs

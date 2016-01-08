@@ -1,4 +1,0 @@
-primitive generators
-genPrimitiveIdentityHash
-	^self compileFallbackToInterpreterPrimitive:
-		(objectRepresentation genInnerPrimitiveIdentityHash: 0)

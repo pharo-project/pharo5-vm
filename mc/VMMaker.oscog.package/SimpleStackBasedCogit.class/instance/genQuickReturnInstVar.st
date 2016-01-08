@@ -4,4 +4,5 @@ genQuickReturnInstVar
 	| index |
 	index := coInterpreter quickPrimitiveInstVarIndexFor: primitiveIndex.
 	objectRepresentation genLoadSlot: index sourceReg: ReceiverResultReg destReg: ReceiverResultReg.
-	^self genUpArrowReturn
+	self genUpArrowReturn.
+	^UnfailingPrimitive
