@@ -8,6 +8,9 @@ initializeWithOptions: optionsDictionary
 			[:class| class initializationOptions: optionsDictionary]].
 
 	super initializeWithOptions: optionsDictionary.
+	initializationOptions
+		at: #Spur32BitMemoryManager ifAbsentPut: false;
+		at: #Spur64BitMemoryManager ifAbsentPut: false.
 	self initialize.
 	self initBytesPerWord: (self == SpurMemoryManager
 								ifTrue: [optionsDictionary at: #BytesPerWord ifAbsent: [4]]
