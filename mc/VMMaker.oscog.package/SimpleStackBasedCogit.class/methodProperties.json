@@ -8,7 +8,7 @@
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 10/6/2015 15:54",
 		"initializePrimitiveTableForNewsqueak" : "eem 1/7/2016 13:06",
 		"initializePrimitiveTableForSqueak" : "eem 1/7/2016 13:02",
-		"table:from:" : "eem 1/7/2016 13:51" },
+		"table:from:" : "eem 1/9/2016 10:42" },
 	"instance" : {
 		"adjustArgumentsForPerform:" : "eem 7/15/2015 17:39",
 		"annotationForSendTable:" : "rmacnak 4/12/2015 17:20",
