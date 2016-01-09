@@ -139,7 +139,6 @@
 		"loadLiteralByteSize" : "eem 3/11/2009 22:40",
 		"loadPICLiteralByteSize" : "eem 4/21/2015 17:29",
 		"machineCodeBytes" : "eem 7/17/2012 14:27",
-		"maybeEstablishVarBase" : "eem 3/27/2015 15:12",
 		"minAbstractGeneralPurposeReg" : "eem 9/23/2015 10:13",
 		"mod:RM:RO:" : "eem 9/18/2015 11:49",
 		"nsSendCacheAt:" : "rmacnak 12/12/2015 11:44:33",
