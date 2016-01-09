@@ -1,7 +1,7 @@
 translation
 declareCVarsIn: aCCodeGenerator
 
-	aCCodeGenerator vmClass primitiveGeneratorTable ifNotNil:
+	aCCodeGenerator vmClass primitiveTable ifNotNil:
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #primitiveGeneratorTable

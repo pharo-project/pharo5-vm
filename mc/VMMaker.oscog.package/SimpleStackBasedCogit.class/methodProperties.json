@@ -2,7 +2,7 @@
 	"class" : {
 		"ancilliaryClasses:" : "eem 5/1/2014 09:41",
 		"callingConvention" : "eem 3/21/2013 15:35",
-		"declareCVarsIn:" : "eem 1/5/2016 20:34",
+		"declareCVarsIn:" : "eem 1/8/2016 15:56",
 		"initializeBytecodeTableForNewspeakV4" : "eem 10/6/2015 15:53",
 		"initializeBytecodeTableForSistaV1" : "eem 10/6/2015 15:54",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 10/6/2015 15:54",

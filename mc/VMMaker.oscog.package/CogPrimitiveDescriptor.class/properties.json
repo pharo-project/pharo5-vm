@@ -7,8 +7,7 @@
 	"commentStamp" : "",
 	"instvars" : [
 		"primitiveGenerator",
-		"primNumArgs",
-		"enabled" ],
+		"primNumArgs" ],
 	"name" : "CogPrimitiveDescriptor",
 	"pools" : [
 		 ],
