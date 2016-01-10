@@ -13,6 +13,7 @@ genGetLeafCallStackPointer
 	self recordGeneratedRunTime: 'ceGetFP' address: startAddress.
 	ceGetFP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
 	startAddress := methodZoneBase.
+	self zeroOpcodeIndex.
 	self MoveR: SPReg R: backEnd cResultRegister.
 	backEnd leafCallStackPointerDelta ~= 0 ifTrue:
 		[self AddCq: backEnd leafCallStackPointerDelta R: backEnd cResultRegister].
