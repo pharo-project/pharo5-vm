@@ -29,6 +29,8 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'#endif';
 		addHeaderFile:'"cogit.h"'.
 	aCCodeGenerator
+		var: #ceGetFP
+			declareC: 'unsigned long (*ceGetFP)(void)';
 		var: #ceGetSP
 			declareC: 'unsigned long (*ceGetSP)(void)';
 		var: #ceCaptureCStackPointers

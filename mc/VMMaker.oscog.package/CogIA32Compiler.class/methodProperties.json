@@ -94,7 +94,6 @@
 		"flushICacheFrom:to:" : "eem 6/17/2009 19:53",
 		"fullCallsAreRelative" : "eem 4/20/2015 18:22",
 		"genDivR:R:Quo:Rem:" : "eem 12/25/2015 18:17",
-		"genGetLeafCallStackPointerFunction" : "eem 3/29/2009 19:44",
 		"genJumpFPEqual:" : "eem 4/17/2009 15:47",
 		"genJumpFPNotEqual:" : "eem 4/19/2009 21:02",
 		"genLoadCStackPointer" : "eem 5/15/2014 09:54",

@@ -4,9 +4,19 @@ genGetLeafCallStackPointer
 	 after a leaf call, used for checking stack pointer alignment."
 	| startAddress |
 	<inline: false>
-	self allocateOpcodes: 32 bytecodes: 0.
+	self allocateOpcodes: 4 bytecodes: 0.
 	startAddress := methodZoneBase.
-	backEnd genGetLeafCallStackPointerFunction.
+	self
+		MoveR: FPReg R: backEnd cResultRegister;
+		RetN: 0.
+	self outputInstructionsForGeneratedRuntimeAt: startAddress.
+	self recordGeneratedRunTime: 'ceGetFP' address: startAddress.
+	ceGetFP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
+	startAddress := methodZoneBase.
+	self MoveR: SPReg R: backEnd cResultRegister.
+	backEnd leafCallStackPointerDelta ~= 0 ifTrue:
+		[self AddCq: backEnd leafCallStackPointerDelta R: backEnd cResultRegister].
+	self RetN: 0.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	self recordGeneratedRunTime: 'ceGetSP' address: startAddress.
 	ceGetSP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'
