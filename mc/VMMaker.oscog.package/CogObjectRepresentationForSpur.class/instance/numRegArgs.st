@@ -10,5 +10,4 @@ numRegArgs
 	 at:receiver: do not have to be implemented in SimpleStackBasedCogit."
 	<api>
 	<option: #StackToRegisterMappingCogit>
-	<inline: true>
 	^2

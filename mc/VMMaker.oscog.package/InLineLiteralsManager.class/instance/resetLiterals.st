@@ -1,3 +1,2 @@
 initialization
 resetLiterals
-	<inline: true>

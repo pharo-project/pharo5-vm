@@ -18,7 +18,8 @@ genEnilopmartFor: regArg1 and: regArg2OrNone and: regArg3OrNone forCall: forCall
 
 	| size endAddress enilopmart |
 	self zeroOpcodeIndex.
-	backEnd maybeEstablishVarBase. "Must happen first; value may be used in genLoadStackPointers"
+	backEnd hasVarBaseRegister ifTrue:
+		[self MoveCq: self varBaseAddress R: VarBaseReg]. "Must happen first; value may be used in genLoadStackPointers"
 	backEnd genLoadStackPointers.
 	regArg3OrNone ~= NoReg ifTrue: [self PopR: regArg3OrNone].
 	regArg2OrNone ~= NoReg ifTrue: [self PopR: regArg2OrNone].

@@ -11,19 +11,25 @@ generateCaptureCStackPointers: captureFramePointer
 	<inline: false>
 	self allocateOpcodes: 32 bytecodes: 0.
 	startAddress := methodZoneBase.
-	backEnd
-		maybeSaveVarBase;
-		maybeEstablishVarBase. "Must happen first; value may be used in accessing any of the following addresses"
+	 "Must happen first; value may be used in accessing any of the following addresses"
+	backEnd hasVarBaseRegister ifTrue:
+		[self
+			PushR: VarBaseReg;
+			MoveCq: self varBaseAddress R: VarBaseReg].
 	captureFramePointer ifTrue:
 		[self MoveR: FPReg Aw: self cFramePointerAddress].
-	"Capture the stack pointer prior to the call."
-	backEnd leafCallStackPointerDelta = 0
-		ifTrue: [self MoveR: SPReg Aw: self cStackPointerAddress]
-		ifFalse: [self MoveR: SPReg R: TempReg.
-				self AddCq: backEnd leafCallStackPointerDelta R: TempReg.
-				self MoveR: TempReg Aw: self cStackPointerAddress].
-	backEnd
-		maybeRestoreVarBase.
+	"Capture the stack pointer prior to the call.  If we've pushed VarBaseReg take that into account."
+	(backEnd leafCallStackPointerDelta ~= 0
+	 or: [backEnd hasVarBaseRegister])
+		ifTrue:
+			[self MoveR: SPReg R: TempReg.
+			 self AddCq: (backEnd hasVarBaseRegister
+							ifTrue: [backEnd leafCallStackPointerDelta + objectMemory wordSize]
+							ifFalse: [backEnd leafCallStackPointerDelta]) R: TempReg.
+			 self MoveR: TempReg Aw: self cStackPointerAddress]
+		ifFalse: [self MoveR: SPReg Aw: self cStackPointerAddress].
+	backEnd hasVarBaseRegister ifTrue:
+		[self PopR: VarBaseReg].
 	self RetN: 0.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	processor flushICacheFrom: startAddress asUnsignedInteger to: methodZoneBase asUnsignedInteger.
