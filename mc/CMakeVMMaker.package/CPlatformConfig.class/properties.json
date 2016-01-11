@@ -16,7 +16,7 @@
 		"pluginsDir",
 		"externalLibs",
 		"thirdpartyLibs",
-		"generateForRelease" ],
+		"generationType" ],
 	"name" : "CPlatformConfig",
 	"pools" : [
 		 ],

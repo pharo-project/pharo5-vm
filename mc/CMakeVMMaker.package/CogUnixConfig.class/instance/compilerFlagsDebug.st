@@ -8,4 +8,5 @@ compilerFlagsDebug
 		'-D_GNU_SOURCE'. 
 		'-DITIMER_HEARTBEAT=1'. 
 		'-DNO_VM_PROFILE=1'. 
-		'-DDEBUGVM=1' }
+		'-DDEBUGVM=1'.
+		'-DNDEBUG' }

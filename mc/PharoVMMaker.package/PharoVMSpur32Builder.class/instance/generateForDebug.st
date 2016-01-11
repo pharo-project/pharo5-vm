@@ -1,3 +1,3 @@
 accessing
 generateForDebug
-	debug := true
+	generationType := #debug

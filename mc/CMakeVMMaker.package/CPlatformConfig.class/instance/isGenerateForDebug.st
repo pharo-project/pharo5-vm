@@ -1,0 +1,3 @@
+testing
+isGenerateForDebug
+	^ generationType == #debug

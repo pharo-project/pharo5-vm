@@ -10,4 +10,5 @@ compilerFlagsDebug
 		'-DITIMER_HEARTBEAT=1'. 
 		'-DNO_VM_PROFILE=1'. 
 		'-DCOGMTVM=0'. 
-		'-DDEBUGVM=1' }
+		'-DDEBUGVM=1'.
+		'-DNDEBUG' }

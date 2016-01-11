@@ -1,4 +1,4 @@
-building
+building debug
 buildDebug
 " self build "
 	"build for platform we're currently running on"

@@ -1,4 +1,4 @@
-building
+building debug
 buildDebugOnJenkins: aPlatformName
 	"entry point for jenkins build jobs.
 	currently we use following names:

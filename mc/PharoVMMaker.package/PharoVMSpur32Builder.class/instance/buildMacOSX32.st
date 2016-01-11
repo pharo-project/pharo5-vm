@@ -3,7 +3,7 @@ buildMacOSX32
 	"Build with freetype, cairo, osprocess"
 	CogNativeBoostPlugin setTargetPlatform: #Mac32PlatformId.
 	PharoSpur32OSXConfig new  
-		in: [ :this | debug ifTrue: [ this generateForDebug ] ];
+		generationType: generationType;
 		addExternalPlugins: #( FT2Plugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		addThirdpartyLibraries: #(

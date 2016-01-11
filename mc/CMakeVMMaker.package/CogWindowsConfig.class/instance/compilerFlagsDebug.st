@@ -8,4 +8,5 @@ compilerFlagsDebug
 		'-momit-leaf-frame-pointer'. 
 		'-maccumulate-outgoing-args'. 
 		'-funroll-loops'. 
-		'-DDEBUGVM=1' }
+		'-DDEBUGVM=1'.
+		'-DNDEBUG' }

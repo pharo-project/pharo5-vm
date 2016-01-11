@@ -1,0 +1,3 @@
+testing
+isGenerateForTrace
+	^ generationType == #trace

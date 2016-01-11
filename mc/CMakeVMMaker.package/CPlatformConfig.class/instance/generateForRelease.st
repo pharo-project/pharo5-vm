@@ -1,3 +1,3 @@
 accessing
 generateForRelease
-	generateForRelease := true
+	self generationType: #release

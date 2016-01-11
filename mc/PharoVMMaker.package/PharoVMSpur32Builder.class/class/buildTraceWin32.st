@@ -1,3 +1,3 @@
-building debug
-buildDebugWin32
+building trace
+buildTraceWin32
 	^ self new generateForDebug; buildWin32

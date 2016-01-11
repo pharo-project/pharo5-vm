@@ -2,7 +2,7 @@ building
 buildUnix32
 	CogNativeBoostPlugin setTargetPlatform: #Linux32PlatformId.
 	PharoSpur32UnixConfig new
-		in: [ :this | debug ifTrue: [ this generateForDebug ] ];
+		generationType: generationType;
 		addExternalPlugins: #( FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin  );
 		addThirdpartyLibraries: #( 

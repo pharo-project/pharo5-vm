@@ -1,3 +1,3 @@
 accessing
 generateForDebug
-	generateForRelease := false
+	self generationType: #debug

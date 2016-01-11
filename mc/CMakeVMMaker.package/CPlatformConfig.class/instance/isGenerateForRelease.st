@@ -1,3 +1,3 @@
 testing
 isGenerateForRelease 
-	^generateForRelease
+	^ generationType == #release

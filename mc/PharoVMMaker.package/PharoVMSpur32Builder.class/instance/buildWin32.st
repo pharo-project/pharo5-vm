@@ -2,7 +2,7 @@ building
 buildWin32
 	CogNativeBoostPlugin setTargetPlatform: #Win32PlatformId.
 	PharoSpur32WindowsConfig new  
-		in: [ :this | debug ifTrue: [ this generateForDebug ] ];
+		generationType: generationType;
 		addExternalPlugins: #(  FT2Plugin SqueakSSLPlugin );
 		addInternalPlugins: #( Win32OSProcessPlugin );
 		addThirdpartyLibraries: #(
