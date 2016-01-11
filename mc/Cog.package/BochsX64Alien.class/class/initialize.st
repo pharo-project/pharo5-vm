@@ -5,11 +5,13 @@ initialize
 	it := self basicNew.
 	OpcodeExceptionMap := Array new: 256 withAll: #handleExecutionPrimitiveFailureAt:in:rex:.
 	OpcodeExceptionMap
-		at: 1 + it callOpcode			put: #handleCallFailureAt:in:rex:;
-		at: 1 + it jmpOpcode			put: #handleJmpFailureAt:in:rex:;
-		at: 1 + it retOpcode			put: #handleRetFailureAt:in:rex:;
+		at: 1 + it callOpcode		put: #handleCallFailureAt:in:rex:;
+		at: 1 + it jmpOpcode		put: #handleJmpFailureAt:in:rex:;
+		at: 1 + it retOpcode		put: #handleRetFailureAt:in:rex:;
 		at: 1 + it movALObOpcode	put: #handleMovALObFailureAt:in:rex:;
+		at: 1 + it movAXOvOpcode	put: #handleMovAXOvFailureAt:in:rex:;
 		at: 1 + it movObALOpcode	put: #handleMovObALFailureAt:in:rex:;
+		at: 1 + it movOvAXOpcode	put: #handleMovOvAXFailureAt:in:rex:;
 		at: 1 + it movGvEvOpcode	put: #handleMovGvEvFailureAt:in:rex:;
 		at: 1 + it movEvGvOpcode	put: #handleMovEvGvFailureAt:in:rex:;
 		at: 1 + it movGbEbOpcode	put: #handleMovGbEbFailureAt:in:rex:;
