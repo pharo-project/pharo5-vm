@@ -33,4 +33,5 @@
 		"singleStepIn:minimumAddress:readOnlyBelow:" : "eem 1/27/2009 15:17",
 		"singleStepIn:readExecuteOnlyBelow:" : "eem 10/21/2010 11:05",
 		"smashRegisterAccessors" : "lw 8/8/2012 11:50",
-		"smashRegistersWithValuesFrom:by:" : "lw 8/8/2012 11:50" } }
+		"smashRegistersWithValuesFrom:by:" : "lw 8/8/2012 11:50",
+		"zeroFloatingPointRegisters" : "eem 12/9/2015 10:51" } }

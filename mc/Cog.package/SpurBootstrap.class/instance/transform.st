@@ -1,5 +1,6 @@
 bootstrap image
 transform
+      self silenceImage.
 	self findRequiredGlobals.
 	self installModifiedMethods.
 	self recreateSpecialObjectsArray.
