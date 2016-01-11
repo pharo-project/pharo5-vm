@@ -15,11 +15,11 @@ baselineGit: spec
 			package: 'SharedPool-Speech';
 			package: 'Balloon-Engine-Pools';
 			package: 'Sound';
-			package: 'Alien-Core';
+			"package: 'Alien-Core';"
 			package: 'VMMaker' with: [ 
 				spec 
 					file: 'VMMaker';
-					requires: #('FileSystem-Legacy' 'SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
+					requires: #('FileSystem-Legacy' 'SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' "'Alien-Core'") ];
 			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
 			package: 'ImageFormat' with: [ spec requires: #('VMMaker' ) ];
 			package: 'MethodMassage' with: [ spec requires: #('VMMaker' ) ];
@@ -31,9 +31,9 @@ baselineGit: spec
 					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
 					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
 			package: 'Freetype-Plugin' with: [ spec requires: #('VMMaker') ];
-			package: 'CryptographyPlugins' with: [ spec requires: #('VMMaker') ];
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
+			package: 'CryptographyPlugins' with: [ spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
 			package: 'SpurVMMaker' with: [ spec requires: #('Cog') ].				
 
@@ -64,7 +64,7 @@ baselineGit: spec
 							'FFI-Pools' 
 							'Balloon-Engine-Pools' 
 							'Sound' 
-							'Alien-Core'
+							"'Alien-Core'"
 							'CogVMMakerPharoCompatibility') ];
 				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
