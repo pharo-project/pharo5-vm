@@ -336,6 +336,7 @@ int windowState= WIN_CHANGED;
 int sleepWhenUnmapped=	0;
 int noTitle=		0;
 int fullScreen=		0;
+int fullScreenDirect=	0;
 int iconified=		0;
 int withSpy=		0;
 
@@ -5084,6 +5085,57 @@ static void overrideRedirect(Display *dpy, Window win, int flag)
 }
 
 
+static void enterFullScreenMode(Window root)
+{
+  XSynchronize(stDisplay, True);
+  overrideRedirect(stDisplay, stWindow, True);
+  XReparentWindow(stDisplay, stWindow, root, 0, 0);
+#if 1
+  XResizeWindow(stDisplay, stWindow, scrW, scrH);
+#else
+  XResizeWindow(stDisplay, stParent, scrW, scrH);
+#endif
+  XLowerWindow(stDisplay, stParent);
+  XRaiseWindow(stDisplay, stWindow);
+  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
+  XSynchronize(stDisplay, False);
+}
+
+
+static void returnFromFullScreenMode()
+{
+  XSynchronize(stDisplay, True);
+  XRaiseWindow(stDisplay, stParent);
+  XReparentWindow(stDisplay, stWindow, stParent, 0, 0);
+  overrideRedirect(stDisplay, stWindow, False);
+#if 1
+  XResizeWindow(stDisplay, stWindow, scrW, scrH);
+#else
+  XResizeWindow(stDisplay, stParent, winW, winH);
+#endif
+  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
+  XSynchronize(stDisplay, False);
+}
+
+
+static void sendFullScreenHint(int enable)
+{
+  XEvent xev;
+  Atom wm_state = XInternAtom(stDisplay, "_NET_WM_STATE", False);
+  Atom fullscreen = XInternAtom(stDisplay, "_NET_WM_STATE_FULLSCREEN", False);
+
+  memset(&xev, 0, sizeof(xev));
+  xev.type = ClientMessage;
+  xev.xclient.window = stParent;
+  xev.xclient.message_type = wm_state;
+  xev.xclient.format = 32;
+  xev.xclient.data.l[0] = enable; /* 1 enable, 0 disable fullscreen */
+  xev.xclient.data.l[1] = fullscreen;
+  xev.xclient.data.l[2] = 0;
+  XSendEvent(stDisplay, DefaultRootWindow(stDisplay), False, SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+}
+
+
 static sqInt display_ioSetFullScreen(sqInt fullScreen)
 {
   int winX, winY;
@@ -5110,18 +5162,10 @@ static sqInt display_ioSetFullScreen(sqInt fullScreen)
 	    winW= (winW / sizeof(void *)) * sizeof(void *);
 	  setSavedWindowSize((winW << 16) + (winH & 0xFFFF));
 	  savedWindowOrigin= (winX << 16) + (winY & 0xFFFF);
-	  XSynchronize(stDisplay, True);
-	  overrideRedirect(stDisplay, stWindow, True);
-	  XReparentWindow(stDisplay, stWindow, root, 0, 0);
-#	 if 1
-	  XResizeWindow(stDisplay, stWindow, scrW, scrH);
-#	 else
-	  XResizeWindow(stDisplay, stParent, scrW, scrH);
-#	 endif
-	  XLowerWindow(stDisplay, stParent);
-	  XRaiseWindow(stDisplay, stWindow);
-	  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
-	  XSynchronize(stDisplay, False);
+	  if (fullScreenDirect)
+	    enterFullScreenMode(root); /* simple window manager, e.g. twm */
+	  else
+	    sendFullScreenHint(1);  /* Required for Compiz window manager */
 	  windowState= WIN_ZOOMED;
 	  fullDisplayUpdate();
 	}
@@ -5142,17 +5186,10 @@ static sqInt display_ioSetFullScreen(sqInt fullScreen)
 	  winX= savedWindowOrigin >> 16;
 	  winY= savedWindowOrigin & 0xFFFF;
 	  savedWindowOrigin= -1; /* prevents consecutive full-screen disables */
-	  XSynchronize(stDisplay, True);
-	  XRaiseWindow(stDisplay, stParent);
-	  XReparentWindow(stDisplay, stWindow, stParent, 0, 0);
-	  overrideRedirect(stDisplay, stWindow, False);
-#	 if 1
-	  XResizeWindow(stDisplay, stWindow, scrW, scrH);
-#	 else
-	  XResizeWindow(stDisplay, stParent, winW, winH);
-#	 endif
-	  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
-	  XSynchronize(stDisplay, False);
+	  if (fullScreenDirect)
+	    returnFromFullScreenMode(); /* simple window manager, e.g. twm */
+	  else
+	    sendFullScreenHint(0);  /* Required for Compiz window manager */
 	  windowState= WIN_CHANGED;
 	}
     }

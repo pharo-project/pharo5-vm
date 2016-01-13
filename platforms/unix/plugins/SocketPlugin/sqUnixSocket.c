@@ -85,6 +85,7 @@
 # include <netinet/tcp.h>
 # include <arpa/inet.h>
 # include <netdb.h>
+#include <ifaddrs.h>
 # include <errno.h>
 # include <unistd.h>
   
@@ -776,9 +777,12 @@ void sqSocketConnectToPort(SocketPtr s, sqInt addr, sqInt port)
       /* --- UDP/RAW --- */
       if (SOCKET(s) >= 0)
 	{
+	  int result;
 	  memcpy((void *)&SOCKETPEER(s), (void *)&saddr, sizeof(saddr));
 	  SOCKETPEERSIZE(s)= sizeof(struct sockaddr_in);
-	  SOCKETSTATE(s)= Connected;
+	  result= connect(SOCKET(s), (struct sockaddr *)&saddr, sizeof(saddr));
+	  if (result == 0)
+	    SOCKETSTATE(s)= Connected;
 	}
     }
   else
@@ -1506,11 +1510,55 @@ sqInt sqResolverStatus(void)
 sqInt sqResolverAddrLookupResultSize(void)	{ return strlen(lastName); }
 sqInt sqResolverError(void)			{ return lastError; }
 sqInt sqResolverLocalAddress(void)
+#if 0 
+/* old code */
 {	sqInt localaddr = nameToAddr(localHostName);
 	if (!localaddr)
 		localaddr = nameToAddr("localhost");
 	return localaddr;
 }
+#else
+/* experimental new code */
+{
+    struct ifaddrs *ifaddr, *ifa;
+    int family, s;
+    char host[NI_MAXHOST];
+    sqInt localAddr = 0;
+
+    if (getifaddrs(&ifaddr) == -1) {
+        interpreterProxy->success(false);
+        return 0;
+    }
+
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) 
+    {
+        if (ifa->ifa_addr == NULL)
+            continue;  
+
+        s=getnameinfo(ifa->ifa_addr,sizeof(struct sockaddr_in),host, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+
+        if(((strcmp(ifa->ifa_name,"eth0")==0)||(strcmp(ifa->ifa_name,"wlan0")==0))&&(ifa->ifa_addr->sa_family==AF_INET))
+        {
+            if (s != 0)
+            {
+                interpreterProxy->success(false);
+                return 0;
+            }
+            FPRINTF((stderr, "\tInterface : <%s>\n",ifa->ifa_name ));
+            FPRINTF((stderr, "\t IP       : <%s>\n", inet_ntoa(((struct sockaddr_in *)(ifa->ifa_addr))->sin_addr)));
+            if(localAddr == 0) { /* take the first plausible answer */
+                localAddr = ((struct sockaddr_in *)(ifa->ifa_addr))->sin_addr.s_addr;
+            }
+           
+        }
+    }
+
+    freeifaddrs(ifaddr);
+    return ntohl(localAddr);
+
+}
+#endif
 sqInt sqResolverNameLookupResult(void)		{ return lastAddr; }
 
 void sqResolverAddrLookupResult(char *nameForAddress, sqInt nameSize)
@@ -2062,9 +2110,12 @@ void sqSocketConnectToAddressSize(SocketPtr s, char *addr, sqInt addrSize)
     {
       if (SOCKET(s) >= 0)
 	{
+	  int result;
 	  memcpy((void *)&SOCKETPEER(s), socketAddress(addr), addressSize(addr));
 	  SOCKETPEERSIZE(s)= addressSize(addr);
-	  SOCKETSTATE(s)= Connected;
+	  result= connect(SOCKET(s), socketAddress(addr), addressSize(addr));
+	  if (result == 0)
+	    SOCKETSTATE(s)= Connected;
 	}
     }
   else					/* --- TCP --- */

@@ -1370,11 +1370,13 @@ static int vm_parseArgument(int argc, char **argv)
     if (!strcmp(argv[0], arg))							\
       return parseModuleArgument(argc, argv, &type##Module, #type, name);
 
-  moduleArg("--nodisplay",	display, "null");
-  moduleArg("--display",	display, "X11");
-  moduleArg("--headless",	display, "X11");
-  moduleArg("--quartz",		display, "Quartz");
-  moduleArg("--nosound",	sound,   "null");
+  moduleArg("--nodisplay",		display, "null");
+  moduleArg("--display",		display, "X11");
+  moduleArg("--headless",		display, "X11");
+  moduleArg("--fullscreen",		display, "X11");
+  moduleArg("--fullscreenDirect",	display, "X11");
+  moduleArg("--quartz",			display, "Quartz");
+  moduleArg("--nosound",		sound,   "null");
 
 # undef moduleArg
 
@@ -1583,7 +1585,11 @@ static void vm_printUsage(void)
 
 static void vm_printUsageNotes(void)
 {
-  printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
+#if SPURVM
+	printf("  If `--memory' or '--maxoldspace' are not specified then the heap will grow dynamically.\n");
+#else
+	printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
+#endif
   printf("  <argument>s are ignored, but are processed by the " IMAGE_DIALECT_NAME " image.\n");
   printf("  The first <argument> normally names a " IMAGE_DIALECT_NAME " `script' to execute.\n");
   printf("  Precede <arguments> by `--' to use default image.\n");
@@ -2158,7 +2164,7 @@ isCFramePointerInUse()
 static char * volatile p = 0;
 
 static void
-sighandler(int sig) { p = (char *)&sig; }
+sighandler(int sig, siginfo_t *info, void *uap) { p = (char *)&sig; }
 
 static int
 getRedzoneSize()

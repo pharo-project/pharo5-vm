@@ -260,7 +260,7 @@ tryLoading(char *dirName, char *moduleName)
 	return 0;
 }
 
-	
+
 static void *tryLoadingPath(char *varName, char *pluginName)
 {
   char *path= getenv(varName);

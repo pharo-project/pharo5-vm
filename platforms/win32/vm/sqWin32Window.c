@@ -49,10 +49,6 @@ WINUSERAPI HMONITOR WINAPI MonitorFromWindow(HWND,DWORD);
 #include "sqWin32Prefs.h"
 #include "sqSCCSVersion.h"
 
-#ifndef NO_RCSID
-static TCHAR RCSID[]= TEXT("$Id: sqWin32Window.c 1693 2007-06-03 02:09:21Z andreas $");
-#endif
-
 /****************************************************************************/
 /* General Squeak declarations and definitions                              */
 /****************************************************************************/
