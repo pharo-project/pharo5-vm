@@ -7303,6 +7303,7 @@ static void display_printUsage(void)
   printf("  -compositioninput     enable overlay window for composed characters\n");
   printf("  -display <dpy>        display on <dpy> (default: $DISPLAY)\n");
   printf("  -fullscreen           occupy the entire screen\n");
+  printf("  -fullscreenDirect     simple window manager support for fullscreen\n");
 #if (USE_X11_GLX)
   printf("  -glxdebug <n>         set GLX debug verbosity level to <n>\n");
 #endif

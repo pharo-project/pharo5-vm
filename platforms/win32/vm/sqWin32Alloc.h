@@ -10,13 +10,6 @@
    defining it appropriately - here we try to cater for the common
    case by using a "reasonable" size that will leave enough space for
    other libraries. 
-   
-   Note, the amount of virtual memory can be changed in .ini file
-   by adding
-   AddressSpaceLimit = <your value> 
-   in MBytes.
-   The MAX_VIRTUAL_MEMORY is a default value, if AddressSpaceLimit is not specified in .ini file
-   
 */
 #ifndef MAX_VIRTUAL_MEMORY
 #define MAX_VIRTUAL_MEMORY 512*1024*1024

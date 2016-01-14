@@ -2116,7 +2116,7 @@ sqInt ioGatherEntropy(char *buffer, sqInt bufSize)
  * b) answer the amount of stack room to ensure in a Cog stack page, including
  *    the size of the redzone, if any.
  */
-# if defined(i386) || defined(__i386) || defined(__i386__)
+
 /*
  * Cog has already captured CStackPointer  before calling this routine.  Record
  * the original value, capture the pointers again and determine if CFramePointer
@@ -2136,22 +2136,7 @@ isCFramePointerInUse()
 	assert(CStackPointer < currentCSP);
 	return CFramePointer >= CStackPointer && CFramePointer <= currentCSP;
 }
-# endif /* defined(i386) || defined(__i386) || defined(__i386__) */
-# if defined(__arm__) || defined(__arm32__) || defined(ARM32)
-/* Currently pretty sure fp is used but prepared to be shown wrong */
- int
-isCFramePointerInUse()
-{
-	extern unsigned long CStackPointer, CFramePointer;
-	extern void (*ceCaptureCStackPointers)(void);
-	unsigned long currentCSP = CStackPointer;
 
-	currentCSP = CStackPointer;
-	ceCaptureCStackPointers();
-	assert(CStackPointer < currentCSP);
-	return CFramePointer >= CStackPointer && CFramePointer <= currentCSP;
-}
-#endif /* defined(__arm__) || defined(__arm32__) || defined(ARM32) */
 /* Answer an approximation of the size of the redzone (if any).  Do so by
  * sending a signal to the process and computing the difference between the
  * stack pointer in the signal handler and that in the caller. Assumes stacks
