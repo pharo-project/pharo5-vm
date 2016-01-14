@@ -23,7 +23,6 @@
  *
  */
 
-#if ENABLE_FAST_BLT
 #include <stddef.h>
 #include<stdio.h>
 #include <stdlib.h>
@@ -512,4 +511,3 @@ sqInt compareColorsDispatch(const compare_operation_t *op)
     else
         return compareColorsFns[(((op2->matchRule * 2) + op2->tally) * 3 + (log2bppA - 3)) * 3 + (log2bppB - 3)](op2, log2bppA, log2bppB);
 }
-#endif /* ENABLE_FAST_BLT */

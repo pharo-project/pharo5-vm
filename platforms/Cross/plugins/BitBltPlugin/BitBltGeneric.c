@@ -23,7 +23,6 @@
  *
  */
 
-#if ENABLE_FAST_BLT
 #include <stddef.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -558,4 +557,3 @@ void addGenericFastPaths(void)
 	for (i = 0; i < sizeof compareColorsFns / sizeof *compareColorsFns; i++)
 	    compareColorsFns[i] = genericCompareColors;
 }
-#endif /* ENABLE_FAST_BLT */

@@ -23,7 +23,6 @@
  *
  */
 
-#if ENABLE_FAST_BLT
 #include <stddef.h>
 #include <stdint.h>
 
@@ -436,4 +435,3 @@ void addArmSimdFastPaths(void)
     ADD_TEST_FN(notAnotB,   8, 8);
     ADD_TEST_FN(notAmatchB, 8, 8);
 }
-#endif /* ENABLE_FAST_BLT */
