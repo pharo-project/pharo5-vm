@@ -5,7 +5,7 @@ ceSendFromInLineCacheMiss: cogMethodOrPIC
 	 or when a send has failed due to a forwarded receiver."
 	<api>
 	<var: #cogMethodOrPIC type: #'CogMethod *'>
-	| numArgs rcvr classTag errSelIdx |
+	| numArgs rcvr classTag classObj errSelIdx |
 	"self printFrame: stackPage headFP WithSP: stackPage headSP"
 	"self printStringOf: selector"
 	numArgs := cogMethodOrPIC cmNumArgs.
@@ -26,10 +26,12 @@ ceSendFromInLineCacheMiss: cogMethodOrPIC
 				[self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc".
 				 ^self ceSendFromInLineCacheMiss: cogMethodOrPIC].
 			 messageSelector := cogMethodOrPIC selector.
-			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
+			 classObj := objectMemory classForClassTag: classTag.
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
+				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: classObj.
 				"NOTREACHED"
-				self assert: false]].
+				self assert: false].
+			 self addNewMethodToCache: classObj].
 	instructionPointer := self popStack.
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[self executeNewMethod.

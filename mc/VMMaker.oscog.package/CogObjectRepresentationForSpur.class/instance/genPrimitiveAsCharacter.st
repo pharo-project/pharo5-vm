@@ -13,8 +13,7 @@ genPrimitiveAsCharacter
 			 jumpNotInt := self genJumpNotSmallInteger: reg scratchReg: TempReg].
 	cogit MoveR: reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
-	cogit CmpCq: 1 << 30 - 1 R: TempReg.
-	jumpOutOfRange := cogit JumpAbove: 0.
+	jumpOutOfRange := self jumpNotCharacterUnsignedValueInRegister: TempReg.
 	self genConvertSmallIntegerToCharacterInReg: reg.
 	reg ~= ReceiverResultReg ifTrue:
 		[cogit MoveR: reg R: ReceiverResultReg].

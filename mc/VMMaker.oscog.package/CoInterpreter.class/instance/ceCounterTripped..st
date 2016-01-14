@@ -13,7 +13,7 @@ ceCounterTripped: condition
 	<api>
 	<option: #SistaStackToRegisterMappingCogit>
 	"Send e.g. thisContext conditionalBranchCounterTrippedOn: boolean."
-	| context counterTrippedSelector classTag |
+	| context counterTrippedSelector classTag classObj |
 	(condition = objectMemory falseObject
 	or: [condition = objectMemory trueObject]) ifFalse:
 		[^self ceSendMustBeBoolean: condition].
@@ -29,9 +29,11 @@ ceCounterTripped: condition
 					compactClassIndex: ClassMethodContextCompactIndex.
 	(self lookupInMethodCacheSel: counterTrippedSelector classTag: classTag) ifFalse:
 	 	[messageSelector := counterTrippedSelector.
-		 (self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+		 classObj := objectMemory classForClassTag: classTag.
+		 (self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
 			[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
-			 ^condition]].
+			 ^condition].
+		 self addNewMethodToCache: classObj].
 
 	(primitiveFunctionPointer ~= 0
 	or: [(self argumentCountOf: newMethod) ~= 1]) ifTrue:

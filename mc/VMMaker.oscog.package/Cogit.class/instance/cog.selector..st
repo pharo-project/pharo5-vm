@@ -8,7 +8,7 @@ cog: aMethodObj selector: aSelectorOop
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	self cCode: [] inSmalltalk: "for debugging, allow excluding mehtods based on selector or methodClass"
+	self cCode: [] inSmalltalk: "for debugging, allow excluding methods based on selector or methodClass"
 		[self class initializationOptions
 			at: #DoNotJIT
 			ifPresent:

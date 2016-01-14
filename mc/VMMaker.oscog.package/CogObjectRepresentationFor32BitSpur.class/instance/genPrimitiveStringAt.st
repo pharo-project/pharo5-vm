@@ -1,10 +1,8 @@
 primitive generators
 genPrimitiveStringAt
-	"Implement the guts of primitiveStringAt; dispatch on size"
 	| formatReg jumpNotIndexable jumpBadIndex done
 	  jumpIsBytes jumpIsShorts jumpIsWords jumpWordTooBig
 	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds |
-	<inline: true>
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #done type: #'AbstractInstruction *'>
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>

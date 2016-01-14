@@ -49,22 +49,22 @@ genPrimitiveMirrorNewWithArg
 
 	"Is the class arg pointers with at least 3 fields?"
 	jumpImmediate := self genJumpImmediate: Arg0Reg.
+	self genGetRawSlotSizeOfNonImm: Arg0Reg into: TempReg.
+	cogit CmpCq: InstanceSpecificationIndex + 1 R: TempReg.
+	jumpTooSmall := cogit JumpLess: 0.
 
+	"fail if not indexable class"
 	self genGetFormatOf: Arg0Reg
 		into: TempReg
 		leastSignificantHalfOfBaseHeaderIntoScratch: NoReg.
 	cogit CmpCq: objectMemory nonIndexablePointerFormat R: TempReg.
 	jumpNotFixedPointers := cogit JumpNonZero: 0.
 	
-	self genGetRawSlotSizeOfNonImm: Arg0Reg into: TempReg.
-	cogit CmpCq: InstanceSpecificationIndex + 1 R: TempReg.
-	jumpTooSmall := cogit JumpLess: 0.
-
 	"get class's hash & fail if 0"
 	self genGetHashFieldNonImmOf: Arg0Reg into: halfHeaderReg.
 	jumpUnhashed := cogit JumpZero: 0.
 
-	"The basicNew: code below (copied from genInnerPrimitiveNewWithArg:) expects class
+	"The basicNew: code below (copied from genPrimitiveNewWithArg) expects class
 	 in ReceiverResultReg and size in Arg0Reg.  Shuffle args to match, undoing on failure."
 	cogit
 		PushR: ReceiverResultReg;

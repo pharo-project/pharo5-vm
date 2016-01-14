@@ -13,7 +13,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 	Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	depending on whether the target method is cogged or not."
 	<api>
-	| classTag errSelIdx cogMethod |
+	| classTag classObj errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -46,7 +46,8 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 					to: (self handleForwardedSendFaultForReceiver: rcvr stackDelta: 1 "skip return pc")
 					numArgs: numArgs].
 			 messageSelector := selector.
-			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 classObj := objectMemory classForClassTag: classTag.
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
 				[(errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
 											receiver: rcvr
@@ -61,10 +62,9 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 									ifTrue: [cogit entryOffset]
 									ifFalse: [cogit noCheckEntryOffset])
 							receiver: rcvr].
-				self handleMNU: errSelIdx
-					InMachineCodeTo: rcvr
-					classForMessage: (objectMemory classForClassTag: classTag).
-				self assert: false "NOTREACHED"]].
+				self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: classObj.
+				self assert: false "NOTREACHED"].
+			 self addNewMethodToCache: classObj].
 	"Method found and has a cog method.  Attempt to link to it.  The receiver's class may be young.
 	 If the Cogit can't store young classes in inline caches we can link to an open PIC instead."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:

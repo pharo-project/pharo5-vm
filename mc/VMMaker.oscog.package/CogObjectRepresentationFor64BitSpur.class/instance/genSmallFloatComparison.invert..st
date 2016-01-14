@@ -1,8 +1,5 @@
 primitive generators
 genSmallFloatComparison: jumpOpcodeGenerator invert: invertComparison
-	"Receiver and arg in registers.
-	 Stack looks like
-		return address"
 	<var: #jumpOpcodeGenerator declareC: 'AbstractInstruction *(*jumpOpcodeGenerator)(void *)'>
 	| jumpFail jumpImmediate jumpNonInt jumpCond compare |
 	<var: #jumpImmediate type: #'AbstractInstruction *'>

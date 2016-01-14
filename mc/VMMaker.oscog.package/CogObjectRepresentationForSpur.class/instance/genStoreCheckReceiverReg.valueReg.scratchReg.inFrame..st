@@ -37,7 +37,7 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 				CallRT: ceStoreCheckTrampoline
 				registersToBeSavedMask: (((cogit registerMaskFor: valueReg)
 												bitOr: cogit callerSavedRegMask)
-												bitClear: (cogit registerMaskFor: ReceiverResultReg))]
+												bitClear: (cogit registerMaskFor: ReceiverResultReg and: scratchReg))]
 		protectLinkRegIfNot: inFrame.
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:

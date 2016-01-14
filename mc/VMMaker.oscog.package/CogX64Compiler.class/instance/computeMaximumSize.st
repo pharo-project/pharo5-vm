@@ -176,13 +176,24 @@ computeMaximumSize
 								+ (((operands at: 2) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
-		[MoveM16rR]	-> [^((self isQuick: (operands at: 0))
+		[MoveM16rR]	-> [self assert: (self is32BitSignedImmediate: (operands at: 0)).
+							^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
 											and: [((operands at: 1) bitAnd: 7) ~= RBP])
 												ifTrue: [4]
 												ifFalse: [5]]
 									ifFalse: [8])
 								+ (((operands at: 1) bitAnd: 7) = RSP
+									ifTrue: [1]
+									ifFalse: [0])].
+		[MoveRM16r]	-> [self assert: (self is32BitSignedImmediate: (operands at: 1)).
+							^((self isQuick: (operands at: 1))
+									ifTrue: [4]
+									ifFalse: [7])
+								+ (((operands at: 2) bitAnd: 7) = RSP
+									ifTrue: [1]
+									ifFalse: [0])
+								+ (((operands at: 0) > 7 or: [(operands at: 2) > 7])
 									ifTrue: [1]
 									ifFalse: [0])].
 		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
@@ -212,14 +223,14 @@ computeMaximumSize
 											ifTrue: [5]
 											ifFalse: [4]].
 		[MoveRXbrR]	->	[self assert: (operands at: 1) ~= RSP.
-							^(((operands at: 0) < 8
-							   and: [(operands at: 1) < 8
-							   and: [(operands at: 2) < 8]])
-								ifTrue: [3]
-								ifFalse: [4])
+							^(((operands at: 0) > 3
+							   or: [(operands at: 1) > 7
+							   or: [(operands at: 2) > 7]])
+								ifTrue: [4]
+								ifFalse: [3])
 							+ (((operands at: 2) bitAnd: 7) = RBP
-											ifTrue: [1]
-											ifFalse: [0])].
+								ifTrue: [1]
+								ifFalse: [0])].
 		[MoveXwrRR]	-> [self assert: (operands at: 0) ~= RSP.
 							^((operands at: 1) = RBP
 							   or: [(operands at: 1) = R13])
@@ -235,6 +246,16 @@ computeMaximumSize
 							   or: [(operands at: 1) = R13])
 										ifTrue: [7]
 										ifFalse: [6])
+							 + (((operands at: 0) > 7
+							     or: [(operands at: 1) > 7
+							     or: [(operands at: 2) > 7]])
+										ifTrue: [1]
+										ifFalse: [0])].
+		[MoveRX32rR]	-> [self assert: (operands at: 1) ~= RSP.
+							^(((operands at: 2) = RBP
+							   or: [(operands at: 2) = R13])
+										ifTrue: [4]
+										ifFalse: [3])
 							 + (((operands at: 0) > 7
 							     or: [(operands at: 1) > 7
 							     or: [(operands at: 2) > 7]])

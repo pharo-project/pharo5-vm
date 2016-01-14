@@ -163,6 +163,9 @@ computeMaximumSize
 		[MoveM16rR]	-> [^(operands at: 1) = ESP
 								ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
 								ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
+		[MoveRM16r]	-> [^(operands at: 2) = ESP
+								ifTrue: [8]
+								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [4] ifFalse: [7]]].
 		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
 											ifTrue: [5]
 											ifFalse: [8])

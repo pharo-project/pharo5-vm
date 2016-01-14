@@ -1,6 +1,5 @@
 primitive generators
 genPrimitiveAtPut
-	"Implement the guts of primitiveAtPut"
 	| formatReg jumpImmediate jumpBadIndex jumpImmutable
 	  jumpNotIndexablePointers jumpNotIndexableBits
 	  jumpIsContext jumpIsCompiledMethod jumpIsBytes jumpHasFixedFields
@@ -8,7 +7,6 @@ genPrimitiveAtPut
 	  jumpWordsOutOfBounds jumpBytesOutOfBounds jumpBytesOutOfRange
 	  jumpNonSmallIntegerValue jumpNegative jumpShortsUnsupported jumpNotPointers
 	  |
-	<inline: true>
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpNegative type: #'AbstractInstruction *'>

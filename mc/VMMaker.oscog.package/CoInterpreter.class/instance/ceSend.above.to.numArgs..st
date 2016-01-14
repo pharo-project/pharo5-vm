@@ -15,7 +15,7 @@ ceSend: selector above: startAssociationArg to: rcvr numArgs: numArgs
 	depending on whether the target method is cogged or not."
 	<api>
 	<option: #BytecodeSetHasDirectedSuperSend>
-	| startAssociation classTag errSelIdx cogMethod |
+	| startAssociation classTag classObj errSelIdx cogMethod |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #newCogMethod type: #'CogMethod *'>
@@ -41,7 +41,8 @@ ceSend: selector above: startAssociationArg to: rcvr numArgs: numArgs
 					to: rcvr
 					numArgs: numArgs].
 			 messageSelector := selector.
-			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+			 classObj := objectMemory classForClassTag: classTag.
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
 				[(errSelIdx = SelectorDoesNotUnderstand
 				  and: [(cogMethod := cogit cogMNUPICSelector: messageSelector
 											receiver: rcvr
@@ -56,8 +57,9 @@ ceSend: selector above: startAssociationArg to: rcvr numArgs: numArgs
 							receiver: rcvr].
 				self handleMNU: errSelIdx
 					InMachineCodeTo: rcvr
-					classForMessage: (objectMemory classForClassTag: classTag).
-				self assert: false "NOTREACHED"]].
+					classForMessage: classObj.
+				self assert: false "NOTREACHED"].
+			 self addNewMethodToCache: classObj].
 	"Method found and has a cog method.  Attempt to link to it.  The receiver's class may be young.
 	 If the Cogit can't store young classes in inline caches we can link to an open PIC instead."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
