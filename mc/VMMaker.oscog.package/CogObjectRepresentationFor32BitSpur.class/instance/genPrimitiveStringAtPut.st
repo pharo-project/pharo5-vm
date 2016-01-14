@@ -11,6 +11,9 @@ genPrimitiveStringAtPut
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpShortsDone type: #'AbstractInstruction *'>
 	<var: #jumpWordsDone type: #'AbstractInstruction *'>
+	<var: #jumpBytesOutOfRange type: #'AbstractInstruction *'>
+	<var: #jumpShortsOutOfRange type: #'AbstractInstruction *'>
+	<var: #jumpWordsOutOfRange type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpShortsOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
@@ -70,8 +73,8 @@ genPrimitiveStringAtPut
 	jumpShortsOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
 	cogit AndCq: 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
@@ -85,8 +88,8 @@ genPrimitiveStringAtPut
 	jumpBytesOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
 	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertCharacterToCodeInReg: TempReg.
@@ -107,7 +110,7 @@ genPrimitiveStringAtPut
 	(jumpWordsOutOfBounds jmpTarget: cogit Label))))))).
 
 	self cppIf: IMMUTABILITY
-		ifTrue: [jumpImmutable jmpTarget: cogit Label].
+		ifTrue: [jumpImmutable jmpTarget: jumpNotString jumpTarget].
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.

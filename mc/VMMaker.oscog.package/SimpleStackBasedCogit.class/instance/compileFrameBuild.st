@@ -19,7 +19,7 @@ compileFrameBuild
 	| jumpSkip |
 	<inline: false>
 	<var: #jumpSkip type: #'AbstractInstruction *'>
-	needsFrame ifFalse: [^0].
+	needsFrame ifFalse: [^self].
 	backEnd hasLinkRegister ifTrue: [self PushR: LinkReg].
 	self PushR: FPReg.
 	self MoveR: SPReg R: FPReg.

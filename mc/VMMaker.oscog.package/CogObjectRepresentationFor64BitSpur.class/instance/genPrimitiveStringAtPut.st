@@ -7,6 +7,7 @@ genPrimitiveStringAtPut
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpBadArg type: #'AbstractInstruction *'>
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
+	<var: #jumpIsShorts type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpShortsDone type: #'AbstractInstruction *'>
 	<var: #jumpWordsDone type: #'AbstractInstruction *'>
@@ -43,7 +44,7 @@ genPrimitiveStringAtPut
 		  0 to 8 = pointer objects, forwarders, reserved.
 		  9 (?) 64-bit indexable
 		10 - 11 32-bit indexable
-		12 - 15 16-bit indexable (but unused)
+		12 - 15 16-bit indexable
 		16 - 23 byte indexable
 		24 - 31 compiled method"
 	cogit CmpCq: objectMemory firstLongFormat R: formatReg.
@@ -59,8 +60,8 @@ genPrimitiveStringAtPut
 	jumpWordsOutOfRange := cogit JumpAbove: Arg1Reg.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 2 R: ClassReg.
 	cogit AndCq: objectMemory wordSize / 4 - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
@@ -74,8 +75,8 @@ genPrimitiveStringAtPut
 	jumpShortsOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
 	cogit AndCq: objectMemory wordSize / 2 - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
@@ -89,8 +90,8 @@ genPrimitiveStringAtPut
 	jumpBytesOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
 	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertCharacterToCodeInReg: TempReg.

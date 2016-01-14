@@ -6,12 +6,11 @@ genPrimitiveAtPut
 	  jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
 	  jumpWordsOutOfBounds jumpShortsOutOfBounds jumpBytesOutOfBounds
 	  jumpShortsOutOfRange jumpWordsOutOfRange jumpBytesOutOfRange
-	  jumpNonSmallIntegerValue jumpNegative jumpNotPointers
+	  jumpNonSmallIntegerValue jumpNotPointers
 	  |
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
-	<var: #jumpNegative type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
@@ -115,14 +114,11 @@ genPrimitiveAtPut
 	jumpWordsOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 2 R: ClassReg.
 	cogit AndCq: objectMemory wordSize / 4 - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
-	(cogit lastOpcode setsConditionCodesFor: JumpNegative) ifFalse:
-		[self CmpCq: 0 R: ClassReg]. "N.B. FLAGS := ClassReg - 0"
-	jumpNegative := cogit JumpNegative: 0.
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg0Reg.
 	cogit MoveR: TempReg X32r: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
@@ -133,8 +129,8 @@ genPrimitiveAtPut
 	jumpBytesOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
 	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
@@ -148,8 +144,8 @@ genPrimitiveAtPut
 	jumpShortsOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg.
 	cogit AndCq: objectMemory wordSize / 2 - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg;
-	CmpR: Arg0Reg R: ClassReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
@@ -158,8 +154,7 @@ genPrimitiveAtPut
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
 	cogit genPrimReturn.
 
-	jumpIsContext jmpTarget: 
-	(jumpNegative jmpTarget:
+	jumpIsContext jmpTarget:
 	(jumpNotIndexableBits jmpTarget:
 	(jumpBytesOutOfRange jmpTarget:
 	(jumpShortsOutOfRange jmpTarget:
@@ -171,7 +166,7 @@ genPrimitiveAtPut
 	(jumpWordsOutOfBounds jmpTarget:
 	(jumpNotIndexablePointers jmpTarget:
 	(jumpNonSmallIntegerValue jmpTarget:
-	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label))))))))))))).
+	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label)))))))))))).
 	
 	self cppIf: IMMUTABILITY
 		ifTrue: [jumpImmutable jmpTarget: jumpIsContext jumpTarget].

@@ -6,9 +6,9 @@ genImmutableCheck: regHoldingObjectMutated slotIndex: index sourceReg: regHoldin
 	<inline: true>
 	<option: #IMMUTABILITY>
 	"Trampoline convention: 
-	- objectMutated passed in RcvrResultReg
+	- objectMutated passed in ReceiverResultReg
 	- index (unboxed) passed in TempReg
-	- valueToStore passed in Arg1Reg.
+	- valueToStore passed in ClassReg.
 	Simulated stack is flushed until simulatedStackPointer - 1, which implies full flush 
 	if popBoolean is true, else top value may not be flushed.
 	We spill the top value (the value to store) for the trampoline if needed."
