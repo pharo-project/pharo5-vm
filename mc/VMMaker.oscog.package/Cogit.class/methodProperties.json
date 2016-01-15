@@ -606,7 +606,7 @@
 		"shortcutTrampoline:to:" : "eem 3/19/2015 13:38",
 		"shouldBeImplemented" : "eem 11/15/2012 14:09",
 		"simulateCallOf:nextpc:memory:" : "eem 10/18/2010 13:58",
-		"simulateCogCodeAt:" : "eem 1/15/2016 16:40",
+		"simulateCogCodeAt:" : "eem 1/15/2016 17:28",
 		"simulateEnilopmart:numArgs:" : "eem 3/18/2015 18:50",
 		"simulateLeafCallOf:" : "eem 11/25/2013 14:10",
 		"simulateLeafReturnIn:" : "eem 10/18/2010 13:57",

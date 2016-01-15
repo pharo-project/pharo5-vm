@@ -82,16 +82,17 @@ genPrimitiveStringAt
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg.
 	cogit MoveX32r: Arg1Reg R: ReceiverResultReg R: TempReg.
-	cogit SubCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg.
 	jumpWordTooBig := self jumpNotCharacterUnsignedValueInRegister: TempReg.
 	cogit MoveR: TempReg R: ReceiverResultReg.
 	cogit Jump: done.
 
+	jumpWordTooBig jmpTarget:
+	(cogit SubCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg).
+
 	jumpBytesOutOfBounds jmpTarget:
 	(jumpShortsOutOfBounds jmpTarget:
 	(jumpWordsOutOfBounds jmpTarget:
-	(jumpWordTooBig jmpTarget:
 	(jumpNotIndexable jmpTarget: 
-	(jumpBadIndex jmpTarget: cogit Label))))).
+	(jumpBadIndex jmpTarget: cogit Label)))).
 
 	^CompletePrimitive

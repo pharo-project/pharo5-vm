@@ -18,9 +18,9 @@ simulateCogCodeAt: address "<Integer>"
 					runInMemory: coInterpreter memory
 					minimumAddress: guardPageSize
 					readOnlyBelow: methodZone zoneEnd].
-	   ((printRegisters or: [printInstructions]) and: [clickConfirm]) ifTrue:
+	   "((printRegisters or: [printInstructions]) and: [clickConfirm]) ifTrue:
 	 	[(self confirm: 'continue?') ifFalse:
-			[clickConfirm := false. self halt]].
+			[clickConfirm := false. self halt]]."
 	   true] whileTrue]
 		on: ProcessorSimulationTrap
 		do: [:ex| self handleSimulationTrap: ex].
