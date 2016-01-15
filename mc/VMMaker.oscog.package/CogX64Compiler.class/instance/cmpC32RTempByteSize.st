@@ -1,3 +1,3 @@
 accessing
 cmpC32RTempByteSize
-	^6
+	^5
