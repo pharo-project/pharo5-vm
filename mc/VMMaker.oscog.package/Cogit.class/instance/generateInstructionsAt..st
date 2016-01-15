@@ -14,7 +14,7 @@ generateInstructionsAt: eventualAbsoluteAddress
 	pcDependentIndex := 0.
 	0 to: opcodeIndex - 1 do:
 		[:i|
-		self cCode: [] inSmalltalk: [self maybeBreakAt: absoluteAddress].
+		self cCode: [] inSmalltalk: [self maybeBreakGeneratingAt: absoluteAddress].
 		abstractInstruction := self abstractInstructionAt: i.
 		abstractInstruction isPCDependent
 			ifTrue:
@@ -29,6 +29,6 @@ generateInstructionsAt: eventualAbsoluteAddress
 		[:j|
 		fixup := self fixupAt: j.
 		abstractInstruction := self abstractInstructionAt: fixup instructionIndex.
-		self cCode: [] inSmalltalk: [self maybeBreakAt: abstractInstruction address].
+		self cCode: [] inSmalltalk: [self maybeBreakGeneratingAt: abstractInstruction address].
 		abstractInstruction concretizeAt: abstractInstruction address].
 	^absoluteAddress - eventualAbsoluteAddress

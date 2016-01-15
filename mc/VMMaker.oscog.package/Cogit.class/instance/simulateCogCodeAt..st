@@ -20,7 +20,7 @@ simulateCogCodeAt: address "<Integer>"
 					readOnlyBelow: methodZone zoneEnd].
 	   ((printRegisters or: [printInstructions]) and: [clickConfirm]) ifTrue:
 	 	[(self confirm: 'continue?') ifFalse:
-			[self halt]].
+			[clickConfirm := false. self halt]].
 	   true] whileTrue]
 		on: ProcessorSimulationTrap
 		do: [:ex| self handleSimulationTrap: ex].

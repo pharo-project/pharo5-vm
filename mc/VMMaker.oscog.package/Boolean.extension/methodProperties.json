@@ -6,4 +6,5 @@
 	"instance" : {
 		"isBreakpointFor:" : "eem 12/24/2015 13:33",
 		"menuPrompt" : "eem 12/24/2015 13:08",
-		"shouldStopIfAtPC:" : "eem 12/24/2015 12:45" } }
+		"shouldStopIfAtPC:" : "eem 12/24/2015 12:45",
+		"singleStepRequiredToTriggerIn:" : "eem 1/14/2016 15:43" } }

@@ -80,9 +80,9 @@ genPrimitiveStringAt
 		cogit SubR: formatReg R: ClassReg;
 		CmpR: Arg1Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
-	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
+	cogit AddCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg.
 	cogit MoveX32r: Arg1Reg R: ReceiverResultReg R: TempReg.
-	cogit SubCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
+	cogit SubCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg.
 	jumpWordTooBig := self jumpNotCharacterUnsignedValueInRegister: TempReg.
 	cogit MoveR: TempReg R: ReceiverResultReg.
 	cogit Jump: done.
