@@ -5,22 +5,22 @@ commonAtPut: stringy
 	 Using the at cache here would require that callers set messageSelector
 	 and lkupClass and that is onerous and error-prone, and in any case,
 	 inlining produces much better performance than using the at cache here."
-	| value index rcvr badRcvr |
+	| value index rcvr |
 	<inline: true> "to get it inlined in primitiveAtPut and primitiveStringAtPut"
 	self initPrimCall.
 	rcvr := self stackValue: 2.
 	index := self stackValue: 1.
 	value := self stackTop.
-	self cppIf: IMMUTABILITY 
-		ifTrue: [ badRcvr := objectMemory isOopImmutable: rcvr ]
-		ifFalse: [ badRcvr := objectMemory isImmediate: rcvr ].
-	badRcvr ifTrue:
+	(objectMemory isImmediate: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrInappropriate].
 	"No need to test for large positive integers here.  No object has 1g elements"
 	((objectMemory isNonIntegerObject: index)
 	 or: [argumentCount > 2 "e.g. object:basicAt:put:"
 		 and: [objectMemory isForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
+	self cppIf: IMMUTABILITY ifTrue:
+		[(objectMemory isImmutable: rcvr) ifTrue:
+			[^self primitiveFailFor: PrimErrNoModification]].
 	index := objectMemory integerValueOf: index.
 	stringy
 		ifTrue: [self stObject: rcvr at: index put: (self asciiOfCharacter: value)]
