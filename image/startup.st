@@ -12,21 +12,21 @@ GTPlayground
 		stream 
 			<< '"Configuration for the Pharo VM'; cr;
 			<< ' ------------------------------"'; cr;
-			<< 'PharoVMBuilder buildUnix32.'; cr;
-			<< 'PharoVMBuilder buildMacOSX32.'; cr;
-			<< 'PharoVMBuilder buildWin32.'; cr; 
+			<< 'PharoVMSpur32Builder buildUnix32.'; cr;
+			<< 'PharoVMSpur32Builder buildMacOSX32.'; cr;
+			<< 'PharoVMSpur32Builder buildWin32.'; cr;
 			cr.
 		
 		stream 
 			<< '"Configuration for the PharoS VM'; cr;
 			<< ' -------------------------------"'; cr;
-			<< 'PharoSVMBuilder buildUnix32.'; cr; 
-			<< 'PharoSVMBuilder buildMacOSX32.'; cr;
-			<< 'PharoSVMBuilder buildWin32.'; cr; 
+			<< 'PharoSVMSpur32Builder buildUnix32.'; cr;
+			<< 'PharoSVMSpur32Builder buildMacOSX32.'; cr;
+			<< 'PharoSVMSpur32Builder buildWin32.'; cr;
 			cr.
 
 		stream 
-			<< '"For more details see the internals of PharoVMBuilder and PharoSVMBuilder"'; cr.
+			<< '"For more details see the internals of PharoVMSpur32Builder and PharoSVMSpur32Builder"'; cr.
     ])
 	label: 'Building VM'.
 ]

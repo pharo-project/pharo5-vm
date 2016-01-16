@@ -66,21 +66,21 @@ example VM configurations. In case there is no workspace, open one and paste the
 Pick or edit the configuration you want, then evaluate it (Do It).
  ```Smalltalk
  "Unix"
- PharoVMBuilder buildUnix32.
+ PharoVMSpur32Builder buildUnix32.
  "OSX"
- PharoVMBuilder buildMacOSX32.
+ PharoVMSpur32Builder buildMacOSX32.
  "Windows"
- PharoVMBuilder buildWin32.
+ PharoVMSpur32Builder buildWin32.
  ```
 See `startup.st` for more examples for the common platforms.
 
 As an alternative, try (Windows flavor shown):
 
 ```
-./pharo generator.image eval 'PharoVMBuilder buildWin32'
+./pharo generator.image eval 'PharoVMSpur32Builder buildWin32'
 ```
 
-Should you want to build a StackVM version, use the PharoSVMBuilder.
+Should you want to build a StackVM version, use the PharoSVMSpur32Builder.
 
 4. Once the sources are exported, you can launch cmake and build the VM:
 ```bash
