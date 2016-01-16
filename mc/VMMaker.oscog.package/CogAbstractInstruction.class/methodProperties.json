@@ -80,7 +80,7 @@
 		"generateICacheFlush" : "eem 2/12/2009 22:47",
 		"generateLowLevelTryLock:" : "eem 7/15/2009 13:33",
 		"generateLowLevelUnlock:" : "eem 7/10/2009 12:19",
-		"getDefaultCogCodeSize" : "eem 6/3/2015 22:39",
+		"getDefaultCogCodeSize" : "eem 1/15/2016 15:32",
 		"getJmpTarget" : "eem 10/30/2013 15:37",
 		"hasConditionRegister" : "rmacnak 11/17/2015 18:18:03",
 		"hasDoublePrecisionFloatingPointSupport" : "eem 3/28/2015 23:53",
