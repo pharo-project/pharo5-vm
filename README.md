@@ -1,7 +1,6 @@
 Build Status
 ============
-- Master Branch: [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=master)](https://travis-ci.org/pharo-project/pharo-vm)
-- Develop Branch: [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=develop)](https://travis-ci.org/pharo-project/pharo-vm)
+- Spur64 Branch: [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png?branch=spur64)](https://travis-ci.org/estebanlm/pharo-vm)
 
 REQUIREMENTS
 ============
