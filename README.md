@@ -1,3 +1,12 @@
+NOTE
+====
+
+This is the VM as up to Pharo-4.0. Pharo-5.0 and beyond is currently located in
+the [spur64](https://github.com/estebanlm/pharo-vm/tree/spur64) branch of
+esteban.
+
+
+
 Build Status
 ============
 - Master Branch: [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=master)](https://travis-ci.org/pharo-project/pharo-vm)
