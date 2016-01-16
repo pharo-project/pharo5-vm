@@ -61,7 +61,7 @@ genPrimitiveStringAtPut
 	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
-	self genConvertSmallIntegerToIntegerInReg: TempReg.
+	self genConvertCharacterToCodeInReg: TempReg.
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg0Reg.
 	cogit MoveR: TempReg Xwr: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
@@ -76,7 +76,7 @@ genPrimitiveStringAtPut
 	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
-	self genConvertSmallIntegerToIntegerInReg: TempReg.
+	self genConvertCharacterToCodeInReg: TempReg.
 	cogit AddR: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: TempReg M16: objectMemory baseHeaderSize r: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.

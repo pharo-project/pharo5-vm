@@ -97,7 +97,6 @@ genPrimitiveAt
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: TempReg.
-	cogit SubCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	jumpWordTooBig := self jumpNotSmallIntegerUnsignedValueInRegister: TempReg.
 	cogit MoveR: TempReg R: ReceiverResultReg.
 	cogit Jump: convertToIntAndReturn.
@@ -130,15 +129,17 @@ genPrimitiveAt
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
 	cogit genPrimReturn.
 
+	jumpWordTooBig jmpTarget:
+	(cogit SubCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg).
+
 	jumpFixedFieldsOutOfBounds jmpTarget:
 	(jumpArrayOutOfBounds jmpTarget:
 	(jumpBytesOutOfBounds jmpTarget:
 	(jumpShortsOutOfBounds jmpTarget:
 	(jumpWordsOutOfBounds jmpTarget:
-	(jumpWordTooBig jmpTarget:
 	(jumpNotIndexable jmpTarget:
 	(jumpIsContext jmpTarget:
 	(jumpBadIndex jmpTarget:
-	(jumpImmediate jmpTarget: cogit Label))))))))).
+	(jumpImmediate jmpTarget: cogit Label)))))))).
 
 	^0

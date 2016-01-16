@@ -111,6 +111,7 @@ genPrimitiveAtPut
 	"For now ignore 64-bit indexability."
 	jumpNotIndexableBits := cogit JumpBelow: 0.
 
+	"fall through to double words"
 	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit MoveR: Arg1Reg R: TempReg.
