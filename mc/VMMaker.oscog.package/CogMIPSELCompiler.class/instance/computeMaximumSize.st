@@ -127,9 +127,10 @@ computeMaximumSize
 													ifFalse: [self literalLoadInstructionBytes + 4]].
 		[MoveRMwr]			-> [^16].
 		[MoveRdM64r]			-> [^self literalLoadInstructionBytes + 4]. 
-		[MoveMbrR]				-> [^16].
-		[MoveRMbr]				-> [^16].
+		[MoveMbrR]				-> [^4].
+		[MoveRMbr]				-> [^4].
 		[MoveM16rR]			-> [^4].
+		[MoveRM16r]			-> [^4].
 		[MoveM64rRd]			-> [^self literalLoadInstructionBytes + 4].
 		[MoveMwrR]			-> [^16].
 		[MoveXbrRR]			-> [^8].

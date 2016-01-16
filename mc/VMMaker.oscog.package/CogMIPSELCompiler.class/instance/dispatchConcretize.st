@@ -110,6 +110,7 @@ dispatchConcretize
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
 		[MoveRMbr]			-> [^self concretizeUnimplemented].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
+		[MoveRM16r]		-> [^self concretizeMoveRM16r].
 		[MoveM64rRd]		-> [^self concretizeUnimplemented].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
 		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].
