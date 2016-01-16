@@ -1,47 +1,4 @@
 primitive generators
 genSmallFloatArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil
-	<var: #preOpCheckOrNil declareC: 'AbstractInstruction *(*preOpCheckOrNil)(int rcvrReg, int argReg)'>
-	| jumpFailAlloc jumpFailCheck jumpImmediate jumpNotSmallFloat jumpNotSmallInteger jumpNotBoxedFloat doOp |
-	<var: #jumpNotSmallInteger type: #'AbstractInstruction *'>
-	<var: #jumpNotBoxedFloat type: #'AbstractInstruction *'>
-	<var: #jumpNotSmallFloat type: #'AbstractInstruction *'>
-	<var: #jumpImmediate type: #'AbstractInstruction *'>
-	<var: #jumpFailCheck type: #'AbstractInstruction *'>
-	<var: #jumpFailAlloc type: #'AbstractInstruction *'>
-	<var: #doOp type: #'AbstractInstruction *'>
-	cogit genLoadArgAtDepth: 0 into: Arg0Reg.
-	self genGetSmallFloatValueOf: ReceiverResultReg scratch: TempReg into: DPFPReg0.
-	cogit
-		MoveR: Arg0Reg R: ClassReg;
-		AndCq: objectMemory tagMask R: ClassReg;
-		CmpCq: objectMemory smallFloatTag R: ClassReg.
-	jumpNotSmallFloat := cogit JumpNonZero: 0.
-	self genGetSmallFloatValueOf: Arg0Reg scratch: TempReg into: DPFPReg1.
-	doOp := cogit Label.
-	preOpCheckOrNil ifNotNil:
-		[jumpFailCheck := cogit perform: preOpCheckOrNil with: DPFPReg0 with: DPFPReg1].
-	cogit gen: arithmeticOperator operand: DPFPReg1 operand: DPFPReg0.
-	jumpFailAlloc := self genAllocFloatValue: DPFPReg0 into: SendNumArgsReg scratchReg: ClassReg scratchReg: TempReg.
-	cogit MoveR: SendNumArgsReg R: ReceiverResultReg.
-	cogit genPrimReturn.
-	jumpNotSmallFloat jmpTarget:
-	(cogit CmpCq: objectMemory smallIntegerTag R: ClassReg).
-	jumpNotSmallInteger := cogit JumpNonZero: 0.
-	cogit MoveR: Arg0Reg R: Arg1Reg.
-	self genConvertSmallIntegerToIntegerInReg: Arg1Reg.
-	cogit ConvertR: Arg1Reg Rd: DPFPReg1.
-	cogit Jump: doOp.
-	jumpNotSmallInteger jmpTarget: (cogit CmpCq: 0 R: ClassReg).
-	jumpImmediate := cogit JumpNonZero: 0.
-	self genGetCompactClassIndexNonImmOf: Arg0Reg into: SendNumArgsReg.
-	self genCmpClassFloatCompactIndexR: SendNumArgsReg.
-	jumpNotBoxedFloat := cogit JumpNonZero: 0.
-	self genGetDoubleValueOf: Arg0Reg into: DPFPReg1.
-	cogit Jump: doOp.
-	jumpImmediate jmpTarget:
-	(jumpNotBoxedFloat jmpTarget:
-	(jumpNotSmallInteger jmpTarget:
-	(jumpFailAlloc jmpTarget: cogit Label))).
-	preOpCheckOrNil ifNotNil:
-		[jumpFailCheck jmpTarget: jumpFailAlloc getJmpTarget].
-	^0
+	<inline: true>
+	^self genFloatArithmetic: arithmeticOperator preOpCheck: preOpCheckOrNil boxed: false
