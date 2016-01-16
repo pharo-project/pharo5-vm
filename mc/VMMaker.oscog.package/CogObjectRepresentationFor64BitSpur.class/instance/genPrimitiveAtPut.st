@@ -169,7 +169,7 @@ genPrimitiveAtPut
 	(jumpFixedFieldsOutOfBounds jmpTarget: cogit Label)))))))))))).
 	
 	self cppIf: IMMUTABILITY
-		ifTrue: [jumpImmutable jmpTarget: jumpIsContext jumpTarget].
+		ifTrue: [jumpImmutable jmpTarget: jumpIsContext getJmpTarget].
 
 	cogit AddCq: 1 R: Arg0Reg. "0-rel => 1-rel"
 	self genConvertIntegerToSmallIntegerInReg: Arg0Reg.
