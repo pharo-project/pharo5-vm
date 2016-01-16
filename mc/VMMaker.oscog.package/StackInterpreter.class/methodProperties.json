@@ -308,7 +308,7 @@
 		"flushMethodCache" : "eem 7/18/2015 08:06",
 		"flushMethodCacheFrom:to:" : "eem 7/18/2015 08:10",
 		"followForwardedFieldsInCurrentMethod" : "eem 7/15/2014 11:12",
-		"followForwardedFrameContents:stackPointer:" : "eem 1/16/2016 21:10",
+		"followForwardedFrameContents:stackPointer:" : "eem 1/16/2016 06:03",
 		"followForwardedMethodsInMethodCache" : "eem 12/6/2013 16:58",
 		"followForwardedMethodsInMethodZone" : "eem 1/14/2014 15:32",
 		"followForwardingPointersInProfileState" : "eem 6/29/2014 06:58",

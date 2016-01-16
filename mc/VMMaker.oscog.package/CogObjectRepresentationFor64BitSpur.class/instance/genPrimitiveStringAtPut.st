@@ -1,16 +1,14 @@
 primitive generators
 genPrimitiveStringAtPut
-	| formatReg jumpBadIndex jumpBadArg jumpShortsDone jumpWordsDone
+	| formatReg jumpBadIndex jumpBadArg jumpImmutable
+	  jumpIsBytes jumpIsShorts jumpNotString jumpIsCompiledMethod
 	  jumpBytesOutOfRange jumpShortsOutOfRange jumpWordsOutOfRange
-	  jumpIsBytes jumpIsShorts jumpNotString jumpIsCompiledMethod jumpImmutable
 	  jumpBytesOutOfBounds jumpWordsOutOfBounds jumpShortsOutOfBounds |
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpBadArg type: #'AbstractInstruction *'>
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
-	<var: #jumpShortsDone type: #'AbstractInstruction *'>
-	<var: #jumpWordsDone type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfRange type: #'AbstractInstruction *'>
 	<var: #jumpShortsOutOfRange type: #'AbstractInstruction *'>
 	<var: #jumpWordsOutOfRange type: #'AbstractInstruction *'>
@@ -48,16 +46,17 @@ genPrimitiveStringAtPut
 		16 - 23 byte indexable
 		24 - 31 compiled method"
 	cogit CmpCq: objectMemory firstLongFormat R: formatReg.
-	jumpNotString := cogit JumpBelowOrEqual: 0.
+	jumpNotString := cogit JumpBelow: 0.
 					cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg.
 	jumpIsCompiledMethod := cogit JumpAboveOrEqual: 0.
 					cogit CmpCq: objectMemory firstByteFormat R: formatReg.
-	jumpIsBytes := cogit JumpGreaterOrEqual: 0.
+	jumpIsBytes := cogit JumpAboveOrEqual: 0.
 					cogit CmpCq: objectMemory firstShortFormat R: formatReg.
-	jumpIsShorts := cogit JumpGreaterOrEqual: 0.
+	jumpIsShorts := cogit JumpAboveOrEqual: 0.
 
+	"fall through to double words"
 	cogit CmpCq: (objectMemory characterObjectOf: 1 << self numCharacterBits - 1) R: Arg1Reg.
-	jumpWordsOutOfRange := cogit JumpAbove: Arg1Reg.
+	jumpWordsOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 2 R: ClassReg.
 	cogit AndCq: objectMemory wordSize / 4 - 1 R: formatReg.
 	cogit SubR: formatReg R: ClassReg.
@@ -68,7 +67,7 @@ genPrimitiveStringAtPut
 	cogit AddCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg0Reg.
 	cogit MoveR: TempReg X32r: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
-	jumpWordsDone := cogit Jump: 0.
+	cogit genPrimReturn.
 
 	jumpIsShorts jmpTarget:
 		(cogit CmpCq: (objectMemory characterObjectOf: 65535) R: Arg1Reg).
@@ -83,7 +82,7 @@ genPrimitiveStringAtPut
 	cogit AddR: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: TempReg M16: objectMemory baseHeaderSize r: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
-	jumpShortsDone := cogit Jump: 0.
+	cogit genPrimReturn.
 
 	jumpIsBytes jmpTarget:
 		(cogit CmpCq: (objectMemory characterObjectOf: 255) R: Arg1Reg).
@@ -98,9 +97,7 @@ genPrimitiveStringAtPut
 	cogit AddCq: objectMemory baseHeaderSize R: Arg0Reg.
 	cogit MoveR: TempReg Xbr: Arg0Reg R: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
-
-	jumpWordsDone jmpTarget:
-	(jumpShortsDone jmpTarget: cogit genPrimReturn).
+	cogit genPrimReturn.
 
 	jumpNotString jmpTarget:
 	(jumpBytesOutOfRange jmpTarget:

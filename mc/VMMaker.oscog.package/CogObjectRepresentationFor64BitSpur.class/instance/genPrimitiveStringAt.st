@@ -1,14 +1,14 @@
 primitive generators
 genPrimitiveStringAt
 	| formatReg jumpNotIndexable jumpBadIndex done
-	  jumpIsBytes jumpIsShorts jumpIsWords jumpWordTooBig
+	  jumpIsBytes jumpIsShorts jumpWordTooBig jumpWordsDone
 	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds |
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #done type: #'AbstractInstruction *'>
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
-	<var: #jumpIsWords type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
+	<var: #jumpWordsDone type: #'AbstractInstruction *'>
 	<var: #jumpWordTooBig type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
@@ -47,52 +47,49 @@ genPrimitiveStringAt
 					cogit CmpCq: objectMemory firstShortFormat R: formatReg.
 	jumpIsShorts := cogit JumpGreaterOrEqual: 0.
 					cogit CmpCq: objectMemory firstLongFormat R: formatReg.
-	jumpIsWords := cogit JumpGreaterOrEqual: 0.
-	jumpNotIndexable := cogit Jump: 0.
+	jumpNotIndexable := cogit JumpLess: 0.
 
-	jumpIsBytes jmpTarget:
-		(cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg).
-		cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-		cogit SubR: formatReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
-	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
-	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
-	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
-	cogit backEnd byteReadsZeroExtend ifFalse:
-			[cogit AndCq: 255 R: ReceiverResultReg].
-	done := cogit Label.
-	self genConvertIntegerToCharacterInReg: ReceiverResultReg.
-	cogit genPrimReturn.
-
-	jumpIsShorts jmpTarget:
-		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg).
-		cogit AndCq: objectMemory wordSize / 2 - 1 R: formatReg.
-		cogit SubR: formatReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
-	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
-	cogit AddR: Arg1Reg R: ReceiverResultReg.
-	cogit MoveM16: objectMemory baseHeaderSize r: ReceiverResultReg R: ReceiverResultReg.
-	cogit Jump: done.
-
-	jumpIsWords jmpTarget:
-		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 2 R: ClassReg).
-		cogit AndCq: objectMemory wordSize / 4 - 1 R: formatReg.
-		cogit SubR: formatReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
+	"fall through to double words"
+	cogit LogicalShiftLeftCq: objectMemory shiftForWord - 2 R: ClassReg.
+	cogit AndCq: objectMemory wordSize / 4 - 1 R: formatReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg1Reg R: ClassReg.
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg.
 	cogit MoveX32r: Arg1Reg R: ReceiverResultReg R: TempReg.
 	jumpWordTooBig := self jumpNotCharacterUnsignedValueInRegister: TempReg.
 	cogit MoveR: TempReg R: ReceiverResultReg.
+	jumpWordsDone := cogit Jump: 0.
+
+	jumpIsBytes jmpTarget:
+		(cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg).
+	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg1Reg R: ClassReg.
+	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
+	cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
+	cogit backEnd byteReadsZeroExtend ifFalse:
+			[cogit AndCq: 255 R: ReceiverResultReg].
+	jumpWordsDone jmpTarget: (done := cogit Label).
+	self genConvertIntegerToCharacterInReg: ReceiverResultReg.
+	cogit genPrimReturn.
+
+	jumpIsShorts jmpTarget:
+		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg).
+	cogit AndCq: objectMemory wordSize / 2 - 1 R: formatReg.
+	cogit SubR: formatReg R: ClassReg.
+	cogit CmpR: Arg1Reg R: ClassReg.
+	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit AddR: Arg1Reg R: ReceiverResultReg.
+	cogit MoveM16: objectMemory baseHeaderSize r: ReceiverResultReg R: ReceiverResultReg.
 	cogit Jump: done.
 
 	jumpWordTooBig jmpTarget:
-	(cogit SubCq: objectMemory baseHeaderSize >> (objectMemory shiftForWord - 1) R: Arg1Reg).
-
-	jumpBytesOutOfBounds jmpTarget:
+	(jumpBytesOutOfBounds jmpTarget:
 	(jumpShortsOutOfBounds jmpTarget:
 	(jumpWordsOutOfBounds jmpTarget:
 	(jumpNotIndexable jmpTarget: 
-	(jumpBadIndex jmpTarget: cogit Label)))).
+	(jumpBadIndex jmpTarget: cogit Label))))).
 
 	^CompletePrimitive
