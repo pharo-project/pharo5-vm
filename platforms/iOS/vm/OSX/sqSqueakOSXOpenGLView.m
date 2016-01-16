@@ -47,6 +47,7 @@
 #import "sq.h"
 #import "sqVirtualMachine.h"
 
+#import <OpenGL/gl.h>
 //#import <OpenGL/CGLMacro.h>
 
 extern SqueakOSXAppDelegate *gDelegateApp;
