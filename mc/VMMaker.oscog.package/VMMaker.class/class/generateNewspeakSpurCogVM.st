@@ -1,6 +1,8 @@
 configurations
 generateNewspeakSpurCogVM
-	"No primitives since we can use those for the Cog Newspeak VM"
+	"This tree also includes the Newspeak plugins.  But once the Alien plugins are harmonised
+	 (which can be done now immutability support is being added to Spur) all VMs can share a
+	 single set of plugin sources."
 	^VMMaker
 		generate: CoInterpreter
 		and: StackToRegisterMappingCogit

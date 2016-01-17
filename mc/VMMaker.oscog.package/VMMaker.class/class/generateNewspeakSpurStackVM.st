@@ -1,6 +1,6 @@
 configurations
 generateNewspeakSpurStackVM
-	"No primitives since we can use those from the Cog Newspeak VM"
+	"No primitives since we can use those from the Spur Cog Newspeak VM"
 	^VMMaker
 		generate: StackInterpreter
 		with: #(	ObjectMemory Spur32BitMemoryManager

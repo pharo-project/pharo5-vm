@@ -1,6 +1,7 @@
 configurations
 generateAllSpurConfigurationsUnderVersionControl
 	self generateNewspeakSpurStackVM;
+		generateNewspeakSpurCog64VM;
 		generateSqueakSpurStackVM;
 		generateSqueakSpurStack64VM;
 		generateNewspeakSpurCogVM;
