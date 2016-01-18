@@ -13,4 +13,4 @@ primitiveSetImmutability
 		ifTrue: [ TrueObject ]
 		ifFalse: [ FalseObject ].
 	objectMemory setIsImmutableOf: rcvr to: boolean.
-	self pop: argumentCount + 1 thenPush: (self splObj: wasImmutable)
+	self pop: argumentCount + 1 thenPush: (objectMemory splObj: wasImmutable)

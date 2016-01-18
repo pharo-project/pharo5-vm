@@ -6,4 +6,4 @@ primitiveGetImmutability
 	bool := (objectMemory isOopImmutable: rcvr)
 		ifTrue: [ TrueObject ]
 		ifFalse: [ FalseObject ].
-	self pop: argumentCount + 1 thenPush: (self splObj: bool)
+	self pop: argumentCount + 1 thenPush: (objectMemory splObj: bool)

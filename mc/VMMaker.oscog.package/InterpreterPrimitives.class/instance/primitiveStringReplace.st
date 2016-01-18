@@ -17,7 +17,7 @@ primitiveStringReplace
 	(objectMemory isImmediate: repl) ifTrue: "can happen in LgInt copy"
 		[^self primitiveFail].
 	self cppIf: IMMUTABILITY ifTrue:
-			[(self isImmutable: array) ifTrue:
+			[(objectMemory isImmutable: array) ifTrue:
 				[^self primitiveFailFor: PrimErrNoModification]].
 
 	hdr := objectMemory baseHeader: array.
