@@ -1,3 +1,0 @@
-translation
-sourceFileName
-	^'interp.c'

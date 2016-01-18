@@ -1,3 +1,0 @@
-translation
-isInterpreterClass
-	^true

@@ -1,3 +1,0 @@
-plugin primitive support
-getFullScreenFlag
-	^fullScreenFlag

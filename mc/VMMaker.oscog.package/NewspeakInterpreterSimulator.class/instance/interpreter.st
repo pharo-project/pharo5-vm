@@ -1,3 +1,0 @@
-interpreter shell
-interpreter
-	^self
