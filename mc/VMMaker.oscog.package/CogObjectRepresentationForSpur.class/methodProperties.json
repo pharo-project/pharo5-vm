@@ -43,7 +43,7 @@
 		"genGetNumSlotsOf:into:" : "eem 4/10/2015 15:56",
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
 		"genGetRawSlotSizeOfNonImm:into:" : "eem 11/4/2015 12:24:12",
-		"genImmutableCheck:slotIndex:sourceReg:scratchReg:popBoolean:needRestoreRcvr:" : "eem 1/14/2016 12:20",
+		"genImmutableCheck:slotIndex:sourceReg:scratchReg:popBoolean:needRestoreRcvr:" : "cb 1/18/2016 18:13",
 		"genJumpBaseHeaderImmutable:" : "cb 12/29/2015 10:20",
 		"genJumpBaseHeaderMutable:" : "cb 12/29/2015 10:20",
 		"genJumpCharacterInScratchReg:" : "eem 8/7/2014 04:54",

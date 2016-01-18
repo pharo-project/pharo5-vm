@@ -5,8 +5,8 @@ storeAndPopReceiverVariableBytecode
 	top := self internalStackTop.
 	instVarIndex := currentBytecode bitAnd: 7.
 	self internalPop: 1.
-	self fetchNextBytecode.
 	objectMemory
 		storePointerImmutabilityCheck: instVarIndex
 		ofObject: rcvr
-		withValue: top
+		withValue: top.
+	self fetchNextBytecode.
