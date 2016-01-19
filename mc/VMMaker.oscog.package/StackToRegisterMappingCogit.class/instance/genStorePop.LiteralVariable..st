@@ -25,6 +25,11 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 			[ self ssAllocateRequiredReg: ClassReg.
 			  topReg := ClassReg.
 			  self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
+			  "stack is flushed except maybe ssTop if popBoolean is false.
+			  ssTop is a SSregister in this case due to #ssStoreAndReplacePop:
+			  to avoid a second indirect read / annotation in case of SSConstant
+			  or SSBaseRegister"
+			  self ssFlushTo: simStackPtr.
 			  immutabilityFailure := objectRepresentation 
 				genImmutableCheck: ReceiverResultReg 
 				slotIndex: ValueIndex 

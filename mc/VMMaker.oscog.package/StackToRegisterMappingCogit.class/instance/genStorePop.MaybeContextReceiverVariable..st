@@ -23,7 +23,13 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 		destReg: TempReg.
 	self 
 		cppIf: IMMUTABILITY
-		ifTrue: [ self ssStoreAndReplacePop: popBoolean toReg: ClassReg. ]
+		ifTrue: 
+			[ self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
+			  "stack is flushed except maybe ssTop if popBoolean is false.
+			  ssTop is a SSregister in this case due to #ssStoreAndReplacePop:
+			  to avoid a second indirect read / annotation in case of SSConstant
+			  or SSBaseRegister"
+			  self ssFlushTo: simStackPtr. ]
 		ifFalse: [ self ssStorePop: popBoolean toReg: ClassReg ].
 	jmpSingle := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
 	self MoveCq: slotIndex R: SendNumArgsReg.
