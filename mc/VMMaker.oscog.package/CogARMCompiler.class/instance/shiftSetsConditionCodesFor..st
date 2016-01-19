@@ -4,5 +4,6 @@ shiftSetsConditionCodesFor: aConditionalJumpOpcode
 		^aConditionalJumpOpcode caseOf:
 		{	[JumpNegative]	->	[true].
 			[JumpZero]	->	[true].
+			[JumpLess]	->	[true].
 		}
 		otherwise: [self halt: 'unhandled opcode in setsConditionCodesFor:'. false]

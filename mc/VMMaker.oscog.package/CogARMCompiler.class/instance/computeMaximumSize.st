@@ -165,6 +165,9 @@ computeMaximumSize
 		[MoveRMbr]				-> [^self is12BitValue: (operands at: 1)
 										ifTrue: [:u :i| 4]
 										ifFalse: [self literalLoadInstructionBytes + 4]].
+		[MoveRM16r]				-> [^self is12BitValue: (operands at: 1)
+										ifTrue: [:u :i| 4]
+										ifFalse: [self literalLoadInstructionBytes + 4]].
 		[MoveM16rR]			-> [^self rotateable8bitImmediate: (operands at: 0)
 											ifTrue: [:r :i| 4]
 											ifFalse: [self literalLoadInstructionBytes + 4]].
