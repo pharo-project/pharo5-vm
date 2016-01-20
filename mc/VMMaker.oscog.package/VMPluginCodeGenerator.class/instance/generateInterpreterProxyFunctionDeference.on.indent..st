@@ -10,5 +10,8 @@ generateInterpreterProxyFunctionDeference: aNode on: aStream indent: anInteger
 		self withOptionalVerbiageFor: s
 			on: aStream
 			do: [aStream crtab: anInteger; nextPutAll: cs; nextPutAll: ' = interpreterProxy->'; nextPutAll: cs; nextPut: $;]
-			ifOptionalDo: [aStream crtab: anInteger; nextPutAll: cs; nextPutAll: ' = 0;']].
+			ifOptionalDo: [aStream
+							cr; nextPutAll: '# if !defined('; nextPutAll: cs; nextPut: $);
+							crtab: anInteger; nextPutAll: cs; nextPutAll: ' = 0;';
+							cr; nextPutAll: '# endif']].
 	aStream cr; nextPutAll: '#endif /* !defined(SQUEAK_BUILTIN_PLUGIN) */'.
