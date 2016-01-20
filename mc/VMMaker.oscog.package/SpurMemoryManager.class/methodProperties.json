@@ -346,7 +346,7 @@
 		"ifAProxy:updateCopy:" : "eem 2/11/2015 10:17",
 		"imageSegmentVersion" : "eem 9/12/2014 16:21",
 		"imageSizeToWrite" : "eem 3/7/2014 11:53",
-		"immutableBitMask" : "cb 12/29/2015 10:25",
+		"immutableBitMask" : "cb 1/20/2016 10:49",
 		"immutableBitShift" : "eem 10/15/2013 00:28",
 		"inFreeTreeReplace:with:" : "eem 6/28/2014 17:35",
 		"inLineRunLeakCheckerFor:excludeUnmarkedNewSpaceObjs:classIndicesShouldBeValid:" : "eem 2/7/2015 11:02",
