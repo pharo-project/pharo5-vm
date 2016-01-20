@@ -4,8 +4,8 @@ newCascadeTempFor: aTParseNode
 	varName := self extraVariableName: 'cascade'.
 	varNode := TVariableNode new setName: varName.
 	aTParseNode isLeaf ifFalse:
-		[declarations
-			at: varName
+		[self
+			declarationAt: varName
 			put: [:tm :cg| | type |
 				type := tm determineTypeFor: aTParseNode in: cg.
 				(VMStructType structTargetKindForType: type) == #struct ifTrue:

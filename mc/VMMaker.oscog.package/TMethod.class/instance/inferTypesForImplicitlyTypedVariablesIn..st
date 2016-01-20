@@ -19,7 +19,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 		 and: [node args first value = 0
 		 and: [(type := self typeFor: var in: aCodeGen) notNil
 		 and: [type first == $u]]]]]]]) ifTrue:
-			[declarations at: var put: (aCodeGen signedTypeForIntegralType: type), ' ', var.
+			[self declarationAt: var put: (aCodeGen signedTypeForIntegralType: type), ' ', var.
 			 effectiveNodes at: var put: { declarations at: var. node }].
 		"if an assignment to an untyped local of a known type, set the local's type to that type.
 		 Only observe known sends (methods in the current set) and typed local variables."

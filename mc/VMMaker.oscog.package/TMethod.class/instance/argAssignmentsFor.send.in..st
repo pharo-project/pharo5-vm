@@ -11,7 +11,7 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 	stmtList := OrderedCollection new: argList size.
 	substitutionDict := Dictionary new: argList size.
 	meth args with: argList do:
-		[ :argName :exprNode |
+		[:argName :exprNode |
 		(self isNode: exprNode substitutableFor: argName inMethod: meth in: aCodeGen)
 			ifTrue:
 				[substitutionDict
@@ -21,7 +21,8 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 							typeCompatibleWith: argName
 							inliningInto: meth
 							in: self).
-				 locals remove: argName]
+				 locals remove: argName.
+				declarations removeKey: argName ifAbsent: nil]
 			ifFalse:
 				[stmtList addLast:
 					(TAssignmentNode new

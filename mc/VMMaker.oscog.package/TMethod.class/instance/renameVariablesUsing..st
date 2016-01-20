@@ -3,6 +3,8 @@ renameVariablesUsing: aDictionary
 	"Rename all variables according to old->new mappings of the given dictionary."
 
 	| newDecls newProperties |
+	aDictionary isEmpty ifTrue: [^self].
+
 	"map args and locals"
 	args := args collect: [ :arg | aDictionary at: arg ifAbsent: [ arg ]].
 	locals := locals collect: [ :v | aDictionary at: v ifAbsent: [ v ]].

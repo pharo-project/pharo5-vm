@@ -37,7 +37,7 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 				[(self typeFor: actual in: aCodeGen) ifNotNil:
 					[:type|
 					type ~= #sqInt ifTrue:
-						[meth declarationAt: formal put: type, ' ', formal]]]].
+						[meth declarationAt: formal put: (type last = $* ifTrue: [type, formal] ifFalse: [type, ' ', formal])]]]].
 
 	meth renameVarsForInliningInto: self except: #() in: aCodeGen.
 	meth renameLabelsForInliningInto: self.
