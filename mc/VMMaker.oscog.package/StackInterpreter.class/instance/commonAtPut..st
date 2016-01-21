@@ -18,9 +18,8 @@ commonAtPut: stringy
 	 or: [argumentCount > 2 "e.g. object:basicAt:put:"
 		 and: [objectMemory isForwarded: rcvr]]) ifTrue:
 		[^self primitiveFailFor: PrimErrBadArgument].
-	self cppIf: IMMUTABILITY ifTrue:
-		[(objectMemory isImmutable: rcvr) ifTrue:
-			[^self primitiveFailFor: PrimErrNoModification]].
+	(objectMemory isObjImmutable: rcvr) ifTrue:
+		[^self primitiveFailFor: PrimErrNoModification].
 	index := objectMemory integerValueOf: index.
 	stringy
 		ifTrue: [self stObject: rcvr at: index put: (self asciiOfCharacter: value)]

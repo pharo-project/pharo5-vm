@@ -27,7 +27,6 @@
 		"ceCall2ArgsPIC",
 		"debugStackPointers",
 		"debugFixupBreaks",
-		"debugBytecodePointers",
 		"realCECallCogCodePopReceiverArg0Regs",
 		"realCECallCogCodePopReceiverArg1Arg0Regs",
 		"deadCode" ],

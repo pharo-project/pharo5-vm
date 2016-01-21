@@ -4,7 +4,7 @@ emitCConstants: constList on: aStream
 	constList isEmpty ifTrue: [^self].
 	aStream cr; nextPutAll: '/*** Constants ***/'; cr.
 	(self sortStrings: constList) do:
-		[:varName| | node default value |
+		[:varName| | node default value conditional |
 		node := constants at: varName.
 		node name isEmpty ifFalse:
 			["If the definition includes a C comment, take it as is, otherwise convert the value from Smalltalk to C.
@@ -15,7 +15,10 @@ emitCConstants: constList on: aStream
 			default = #undefined
 				ifTrue: [aStream nextPutAll: '#undef '; nextPutAll: node name; cr]
 				ifFalse:
-					[value := vmClass
+					[conditional := VMBasicConstants namesDefinedAtCompileTime includes: node name.
+					 conditional ifTrue:
+						[aStream nextPutAll: '#if !defined('; nextPutAll: node name; nextPutAll: ') /* Allow this to be overridden on the compiler command line */'; cr].
+					 value := vmClass
 								ifNotNil:
 									[(vmClass specialValueForConstant: node name default: default)
 										ifNotNil: [:specialDef| specialDef]
@@ -23,5 +26,7 @@ emitCConstants: constList on: aStream
 								ifNil: [default].
 					value first ~= $# ifTrue:
 						[aStream nextPutAll: '#define '; nextPutAll: node name; space].
-					aStream nextPutAll: value; cr]]].
+					aStream nextPutAll: value; cr.
+					conditional ifTrue:
+						[aStream nextPutAll: '#endif'; cr]]]].
 	aStream cr

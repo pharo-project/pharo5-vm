@@ -61,6 +61,7 @@
 		"PrimErrUnsupported",
 		"PrimErrWritePastObject",
 		"PrimNoErr",
+		"SPURVM",
 		"STACKVM",
 		"SistaVM",
 		"VMBIGENDIAN" ],

@@ -3,7 +3,10 @@ isConstantNode: aNode valueInto: aBlock
 	"Answer if aNode evaluates to a constant, and if so, evaluate aBlock with the value of that constant."
 
 	aNode isConstant ifTrue:
-		[aBlock value: aNode value.
+		[(aNode isDefine
+		 and: [VMBasicConstants namesDefinedAtCompileTime includes: aNode name]) ifTrue:
+			[^false].
+		 aBlock value: aNode value.
 		 ^true].
 	(aNode isVariable
 	 and: [aNode name = #nil]) ifTrue:

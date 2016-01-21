@@ -48,3 +48,4 @@ setInterpreter: aCoInterpreter
 
 	compilationTrace ifNil: [compilationTrace := self class initializationOptions at: #compilationTrace ifAbsent: [0]].
 	debugOpcodeIndices := self class initializationOptions at: #debugOpcodeIndices ifAbsent: [Set new].
+	debugBytecodePointers := self class initializationOptions at: #debugBytecodePointers ifAbsent: [Set new]

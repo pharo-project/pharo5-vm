@@ -35,9 +35,12 @@ primitiveFileStdioHandles
 					[(interpreterProxy firstIndexableField: result)
 						unitSize: interpreterProxy wordSize;
 						at: 0 put: (fileRecords at: index + 1)]]].
-	 "In the threaded VM ensure the handles are old, so that sqFileReadIntoAt is unaffected
-	  by incremental GCs.  See platforms/Cross/plugins/FilePlugin/sqFilePluginBasicPrims.c."
+	 "In the non-Spur threaded VM ensure the handles are old, so that sqFileReadIntoAt is unaffected
+	  by incremental GCs.  See platforms/Cross/plugins/FilePlugin/sqFilePluginBasicPrims.c.  The Spur
+	  VM uses pinning, so it doesn't need the GC."
 	self cppIf: COGMTVM
-		ifTrue: [interpreterProxy fullGC].
+		ifTrue: [self cppIf: SPURVM
+					ifTrue: []
+					ifFalse: [interpreterProxy fullGC]].
 	result := interpreterProxy popRemappableOop.
 	interpreterProxy pop: 1 thenPush: result

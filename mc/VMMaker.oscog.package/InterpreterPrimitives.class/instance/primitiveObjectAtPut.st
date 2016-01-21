@@ -9,8 +9,8 @@ primitiveObjectAtPut
 		[^self primitiveFailFor: PrimErrBadArgument].
 	index := objectMemory integerValueOf: index.
 	thisReceiver := self stackValue: 2.
-	self cppIf: IMMUTABILITY
-		ifTrue: [ (objectMemory isImmutable: thisReceiver) ifTrue: [ ^self primitiveFailFor: PrimErrNoModification ] ].
+	(objectMemory isObjImmutable: thisReceiver) ifTrue:
+		[^self primitiveFailFor: PrimErrNoModification].
 	(index > 0 and: [index <= ((objectMemory literalCountOf: thisReceiver) + LiteralStart)]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
 	objectMemory storePointer: index - 1 ofObject: thisReceiver withValue: newValue.

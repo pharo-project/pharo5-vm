@@ -15,8 +15,8 @@ primitiveShortAtPut
 	rcvr := self stackValue: 2.
 	(objectMemory isWordsOrBytes: rcvr) ifFalse:
 		[^self primitiveFailFor: PrimErrInappropriate].
-	self cppIf: IMMUTABILITY "isWordsOrBytes ensure non immediate"
-		ifTrue: [ (objectMemory isImmutable: rcvr) ifTrue: [ ^self primitiveFailFor: PrimErrNoModification ] ].
+	(objectMemory isObjImmutable: rcvr) ifTrue:
+		[^self primitiveFailFor: PrimErrNoModification].
 	index := objectMemory integerValueOf: index.
 	(index >= 1 and: [index <= (objectMemory num16BitUnitsOf: rcvr)]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].

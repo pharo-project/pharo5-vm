@@ -6,8 +6,7 @@ generateNewspeakSpurCog64VM
 		and: StackToRegisterMappingCogit
 		with: #(	ObjectMemory Spur64BitCoMemoryManager
 				MULTIPLEBYTECODESETS true
-				NewspeakVM true
-				EnforceAccessControl true)
+				NewspeakVM true)
 		to: (FileDirectory default directoryNamed: self sourceTree, '/nsspur64src') fullName
 		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
 		including:#()

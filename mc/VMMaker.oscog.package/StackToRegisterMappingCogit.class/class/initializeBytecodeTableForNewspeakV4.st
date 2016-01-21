@@ -75,10 +75,10 @@ initializeBytecodeTableForNewspeakV4
 		(2 230 230 genLongPushTemporaryVariableBytecode)
 		(2 231 231 genPushNewArrayBytecode)
 		(2 232 232 genExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 233 233 genExtStoreLiteralVariableBytecode)
+		(2 233 233 genExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 234 234 genLongStoreTemporaryVariableBytecode)
 		(2 235 235 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 236 236 genExtStoreAndPopLiteralVariableBytecode)
+		(2 236 236 genExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 237 237 genLongStoreAndPopTemporaryVariableBytecode)
 
 		(2 238 238 genExtSendBytecode isMapped)

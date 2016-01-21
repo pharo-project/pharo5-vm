@@ -16,7 +16,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1  16   31 genPushTemporaryVariableBytecode)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)
-		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef needsFrameNever: -1) "N.B. not frameless if immutability"
+		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability needsFrameIfImmutability: -1)
 		(1 104 111 genStoreAndPopTemporaryVariableBytecode)
 		(1 112 112 genPushReceiverBytecode)
 		(1 113 113 genPushConstantTrueBytecode needsFrameNever: 1)
@@ -34,8 +34,8 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1 126 127 unknownBytecode)
 
 		(2 128 128 extendedPushBytecode isInstVarRef) "well, maybe inst var ref"
-		(2 129 129 extendedStoreBytecode isInstVarRef) "well, maybe inst var ref"
-		(2 130 130 extendedStoreAndPopBytecode isInstVarRef) "well, maybe inst var ref"
+		(2 129 129 extendedStoreBytecode isInstVarRef isMappedIfImmutability) "well, maybe inst var ref"
+		(2 130 130 extendedStoreAndPopBytecode isInstVarRef isMappedIfImmutability) "well, maybe inst var ref"
 		(2 131 131 genExtendedSendBytecode isMapped)
 		(3 132 132 doubleExtendedDoAnythingBytecode isInstVarRef isMapped) "well, maybe inst var ref"
 		(2 133 133 genExtendedSuperBytecode isMapped)

@@ -15,7 +15,6 @@ setInterpreter: aCoInterpreter
 	optStatus := CogSSOptStatus new.
 
 	debugFixupBreaks := self class initializationOptions at: #debugFixupBreaks ifAbsent: [Set new].
-	debugBytecodePointers := self class initializationOptions at: #debugBytecodePointers ifAbsent: [Set new].
 
 	numPushNilsFunction := self class numPushNilsFunction.
 	pushNilSizeFunction := self class pushNilSizeFunction

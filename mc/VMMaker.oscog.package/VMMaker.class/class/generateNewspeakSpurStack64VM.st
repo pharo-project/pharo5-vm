@@ -6,8 +6,7 @@ generateNewspeakSpurStack64VM
 		with: #( ObjectMemory Spur64BitMemoryManager
 				MULTIPLEBYTECODESETS true
 				NewspeakVM true
-				FailImbalancedPrimitives false
-				EnforceAccessControl true)
+				FailImbalancedPrimitives false)
 		to: (FileDirectory default directoryNamed: self sourceTree, '/nsspurstack64src') fullName
 		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
 		including: #()

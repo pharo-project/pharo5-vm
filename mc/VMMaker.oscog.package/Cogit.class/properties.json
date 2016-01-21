@@ -191,6 +191,7 @@
 		"cPICEndOfCodeOffset",
 		"cPICEndOfCodeLabel",
 		"maxCPICCases",
+		"debugBytecodePointers",
 		"debugOpcodeIndices",
 		"disassemblingMethod" ],
 	"name" : "Cogit",

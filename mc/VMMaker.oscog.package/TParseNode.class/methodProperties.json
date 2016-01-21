@@ -29,6 +29,7 @@
 		"isCaseStmt" : "",
 		"isComment" : "",
 		"isConstant" : "",
+		"isDefine" : "eem 1/21/2016 16:11",
 		"isGoTo" : "",
 		"isInline" : "eem 7/8/2008 19:57",
 		"isLabel" : "",

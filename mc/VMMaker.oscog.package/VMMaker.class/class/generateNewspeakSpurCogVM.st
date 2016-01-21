@@ -8,8 +8,7 @@ generateNewspeakSpurCogVM
 		and: StackToRegisterMappingCogit
 		with: #(	ObjectMemory Spur32BitCoMemoryManager
 				MULTIPLEBYTECODESETS true
-				NewspeakVM true
-				EnforceAccessControl true)
+				NewspeakVM true)
 		to: (FileDirectory default pathFromURI: self sourceTree, '/nsspursrc')
 		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including:#(	AsynchFilePlugin BMPReadWriterPlugin BalloonEnginePlugin BitBltSimulation

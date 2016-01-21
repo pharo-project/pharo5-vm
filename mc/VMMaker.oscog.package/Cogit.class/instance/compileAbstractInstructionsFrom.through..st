@@ -5,8 +5,10 @@ compileAbstractInstructionsFrom: start through: end
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	<var: #fixup type: #'BytecodeFixup *'>
 	bytecodePC := start.
-	nExts := 0.
-	[byte0 := (objectMemory fetchByte: bytecodePC ofObject: methodObj)  + bytecodeSetOffset.
+	nExts := result := 0.
+	[self cCode: '' inSmalltalk:
+		[(debugBytecodePointers includes: bytecodePC) ifTrue: [self halt]].
+	 byte0 := (objectMemory fetchByte: bytecodePC ofObject: methodObj)  + bytecodeSetOffset.
 	 descriptor := self generatorAt: byte0.
 	 self loadSubsequentBytesForDescriptor: descriptor at: bytecodePC.
 	 nextOpcodeIndex := opcodeIndex.

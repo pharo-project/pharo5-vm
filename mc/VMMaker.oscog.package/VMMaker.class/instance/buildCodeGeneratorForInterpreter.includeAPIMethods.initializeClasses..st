@@ -44,8 +44,4 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 									includeAPIMethods: false
 									initializeClasses: false)]].
 
-	cg removeConstant: #VMBIGENDIAN; "this should be defined in platforms/??/vm/sqConfig.h"
-		const: #IMMUTABILITY "this can be defined on the C compiler command line."
-			declareC: ('#if !defined(IMMUTABILITY)\/* Allow IMMUTABILITY to be overridden on the compiler command line */\# define IMMUTABILITY ', (cg cLiteralFor: false),'\#endif') withCRs.
-
 	^cg

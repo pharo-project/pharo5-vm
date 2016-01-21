@@ -4,7 +4,5 @@ isOopValidBecome: oop
 	Answers an error code in the other case"
 	(self isImmediate: oop) ifTrue: [^PrimErrInappropriate].
 	(self isPinned: oop) ifTrue: [^PrimErrObjectIsPinned].
-	self 
-		cppIf: IMMUTABILITY
-		ifTrue: [ (self isImmutable: oop) ifTrue: [^PrimErrNoModification] ].
-	^ 0
+	(self isObjImmutable: oop) ifTrue: [^PrimErrNoModification].
+	^0

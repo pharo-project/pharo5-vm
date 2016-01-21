@@ -108,10 +108,10 @@ initializeBytecodeTableForSistaV1
 
 		"stores"
 		(2 240 240 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 241 241 genExtStoreAndPopLiteralVariableBytecode)
+		(2 241 241 genExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 242 242 genLongStoreAndPopTemporaryVariableBytecode)
 		(2 243 243 genExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 244 244 genExtStoreLiteralVariableBytecode)
+		(2 244 244 genExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 245 245 genLongStoreTemporaryVariableBytecode)
 
 		(2 246 247	unknownBytecode)

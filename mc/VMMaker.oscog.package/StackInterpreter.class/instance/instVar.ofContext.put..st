@@ -7,6 +7,7 @@ instVar: index ofContext: aMarriedContext put: anOop
 	 efficiently assign the stack pointer because it involves moving frames around."
 	<inline: true>
 	self assert: (self isMarriedOrWidowedContext: aMarriedContext).
+	self deny: (objectMemory isObjImmutable: aMarriedContext).
 	self writeBackHeadFramePointers.
 	(self isStillMarriedContext: aMarriedContext) ifFalse:
 		[objectMemory storePointer: index ofObject: aMarriedContext withValue: anOop.
