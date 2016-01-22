@@ -31,7 +31,7 @@ compileFrameBuild
 	methodOrBlockNumArgs + 1 to: (coInterpreter temporaryCountOfMethodHeader: methodHeader) do:
 		[:i|
 		self PushR: SendNumArgsReg].
-	self methodUsesPrimitiveErrorCode ifTrue:
+	(self methodUsesPrimitiveErrorCode: methodObj header: methodHeader) ifTrue:
 		[self compileGetErrorCode].
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"

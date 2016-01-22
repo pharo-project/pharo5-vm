@@ -7,7 +7,7 @@ extendedStoreBytecode
 		[^self genStorePop: false ReceiverVariable: variableIndex].
 	variableType = 1 ifTrue:
 		[self genStorePop: false TemporaryVariable: variableIndex.
-		"needs a fake map entry is Immutability is ON..."
+		"needs a fake map entry if Immutability is ON..."
 		self cppIf: IMMUTABILITY ifTrue: [ self annotateBytecode: self Label. ].
 		^ 0].
 	variableType = 3 ifTrue:

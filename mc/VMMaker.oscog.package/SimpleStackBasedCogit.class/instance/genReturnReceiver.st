@@ -6,5 +6,5 @@ genReturnReceiver
 		sp->	ret pc.
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
 	needsFrame ifTrue:
-		[self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg].
+		[self putSelfInReceiverResultReg].
 	^self genUpArrowReturn

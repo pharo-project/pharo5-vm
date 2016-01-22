@@ -42,13 +42,12 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	self 
 		cppIf: IMMUTABILITY
 		ifTrue: 
-			[ immutabilityFailure := objectRepresentation 
-				genImmutableCheck: ReceiverResultReg 
-				slotIndex: ValueIndex 
-				sourceReg: ClassReg 
-				scratchReg: TempReg 
-				popBoolean: popBoolean
-				needRestoreRcvr: true ].
+			[ immutabilityFailure := objectRepresentation
+										genImmutableCheck: ReceiverResultReg
+										slotIndex: ValueIndex
+										sourceReg: ClassReg
+										scratchReg: TempReg
+										needRestoreRcvr: true ].
 	objectRepresentation
 		genStoreSourceReg: ClassReg
 		slotIndex: slotIndex

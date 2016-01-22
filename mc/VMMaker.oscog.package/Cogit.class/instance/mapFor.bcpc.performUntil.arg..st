@@ -11,7 +11,20 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 	  latestContinuation byte descriptor bsOffset nExts |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	<var: #homeMethod type: #'CogMethod *'>
+
 	self assert: cogMethod stackCheckOffset > 0.
+	mcpc := cogMethod asUnsignedInteger + cogMethod stackCheckOffset.
+	"The stack check maps to the start of the first bytecode,
+	 the first bytecode being effectively after frame build."
+	result := self perform: functionSymbol
+					with: nil
+					with: false
+					with: (self cCoerceSimple: mcpc to: #'char *')
+					with: startbcpc
+					with: arg.
+	result ~= 0 ifTrue:
+		[^result].
+	bcpc := startbcpc.
 	"In both CMMethod and CMBlock cases find the start of the map and
 	 skip forward to the bytecode pc map entry for the stack check."
 	cogMethod cmType = CMMethod
@@ -27,9 +40,14 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 			 latestContinuation := startbcpc.
 			 aMethodObj := homeMethod methodObject.
 			 endbcpc := (objectMemory numBytesOf: aMethodObj) - 1.
-			 bsOffset := self bytecodeSetOffsetForHeader: homeMethod methodHeader]
+			 bsOffset := self bytecodeSetOffsetForHeader: homeMethod methodHeader.
+			"If the method has a primitive, skip it and the error code store, if any;
+			 Logically. these come before the stack check and so must be ignored."
+			 bcpc := bcpc + (self deltaToSkipPrimAndErrorStoreIn: aMethodObj
+									header: homeMethod methodHeader)]
 		ifFalse:
 			[isInBlock := true.
+			 self assert: bcpc = cogMethod startpc.
 			 homeMethod := cogMethod cmHomeMethod.
 			 map := self findMapLocationForMcpc: cogMethod asUnsignedInteger + (self sizeof: CogBlockMethod)
 						inMethod: homeMethod.
@@ -44,20 +62,9 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 			 bsOffset := self bytecodeSetOffsetForHeader: homeMethod methodHeader.
 			 byte := (objectMemory fetchByte: bcpc ofObject: aMethodObj) + bsOffset.
 			 descriptor := self generatorAt: byte.
-			 endbcpc := self nextBytecodePCFor: descriptor at: bcpc exts: -1 in: aMethodObj].
-	bcpc := startbcpc.
-	mcpc := cogMethod asUnsignedInteger + cogMethod stackCheckOffset.
+			 endbcpc := self nextBytecodePCFor: descriptor at: bcpc exts: -1 in: aMethodObj.
+			 bcpc := startbcpc].
 	nExts := 0.
-	"The stack check maps to the start of the first bytecode,
-	 the first bytecode being effectively after frame build."
-	result := self perform: functionSymbol
-					with: nil
-					with: false
-					with: (self cCoerceSimple: mcpc to: #'char *')
-					with: startbcpc
-					with: arg.
-	result ~= 0 ifTrue:
-		[^result].
 	"Now skip up through the bytecode pc map entry for the stack check." 
 	[(objectMemory byteAt: map) >> AnnotationShift ~= HasBytecodePC] whileTrue:
 		[map := map - 1].

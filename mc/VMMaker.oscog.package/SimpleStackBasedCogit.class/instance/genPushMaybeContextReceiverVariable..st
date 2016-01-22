@@ -8,7 +8,7 @@ genPushMaybeContextReceiverVariable: slotIndex
 	"See CoInterpreter>>contextInstructionPointer:frame: for an explanation
 	 of the instruction pointer slot handling."
 	slotIndex = InstructionPointerIndex ifTrue:
-		[self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
+		[self putSelfInReceiverResultReg.
 		 self MoveCq: slotIndex R: SendNumArgsReg.
 		 self CallRT: ceFetchContextInstVarTrampoline.
 		 self PushR: SendNumArgsReg.

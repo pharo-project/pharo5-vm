@@ -1,5 +1,5 @@
 compile abstract instructions
-genImmutableCheck: regHoldingObjectMutated slotIndex: index sourceReg: regHoldingValueToStore scratchReg: scratchReg popBoolean: popBoolean needRestoreRcvr: needRestoreRcvr
+genImmutableCheck: regHoldingObjectMutated slotIndex: index sourceReg: regHoldingValueToStore scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr
 	| mutableJump fail |
 	<var: #mutableJump type: #'AbstractInstruction *'>
 	<var: #fail type: #'AbstractInstruction *'>

@@ -1,15 +1,11 @@
 compile abstract instructions
 compileMethodBody
 	"Compile the top-level method body."
-	| deltaForPrimErrorCode |
 	<inline: true>
 	endPC < initialPC ifTrue: [^0]. "quick primitives"
-	deltaForPrimErrorCode := self methodUsesPrimitiveErrorCode
-									ifTrue: 
-										[ self cppIf: IMMUTABILITY ifTrue: 
-											[ self Nop. "to avoid conflict with interrrupt check mapping".
-											self annotateBytecode: self Label ].
-										(coInterpreter sizeOfCallPrimitiveBytecode: methodHeader)
-										  + (coInterpreter sizeOfLongStoreTempBytecode: methodHeader)]
-									ifFalse: [0].
-	^self compileAbstractInstructionsFrom: initialPC + deltaForPrimErrorCode through: endPC
+	"When compiling, skip any initial CallPrimitive and optional StorePrimErrCode bytecodes.
+	 These are dealt with in compileFrameBuild."
+	^self compileAbstractInstructionsFrom: initialPC
+										+ (self deltaToSkipPrimAndErrorStoreIn: methodObj
+												header: methodHeader)
+		through: endPC

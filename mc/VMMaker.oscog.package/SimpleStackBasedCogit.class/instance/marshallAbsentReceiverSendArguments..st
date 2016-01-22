@@ -1,7 +1,7 @@
 bytecode generators
 marshallAbsentReceiverSendArguments: numArgs
 	self assert: needsFrame.
-	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
+	self putSelfInReceiverResultReg.
 
 	"Shuffle arguments if necessary and push receiver."
 	numArgs = 0

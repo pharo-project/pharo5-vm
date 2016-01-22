@@ -4,4 +4,4 @@ testPCMappingForCompiledMethod: aCompiledMethod cogMethod: cm
 	methodObj := methodHeader := nil.
 	self
 		testMcToBcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cm;
-		testBcToMcPcMappingForCompiledMethod: aCompiledMethod cogMethod: cm
+		testBcToMcPcMappingForCogMethod: cm

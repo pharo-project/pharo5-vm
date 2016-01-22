@@ -30,13 +30,12 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 			  to avoid a second indirect read / annotation in case of SSConstant
 			  or SSBaseRegister"
 			  self ssFlushTo: simStackPtr.
-			  immutabilityFailure := objectRepresentation 
-				genImmutableCheck: ReceiverResultReg 
-				slotIndex: ValueIndex 
-				sourceReg: ClassReg 
-				scratchReg: TempReg 
-				popBoolean: popBoolean
-				needRestoreRcvr: false ]
+			  immutabilityFailure := objectRepresentation
+										genImmutableCheck: ReceiverResultReg
+										slotIndex: ValueIndex
+										sourceReg: ClassReg
+										scratchReg: TempReg
+										needRestoreRcvr: false ]
 		ifFalse: 
 			[ topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
 			  self ssStorePop: popBoolean toReg: topReg ].

@@ -10,6 +10,9 @@ bcpcsAndDescriptorsFor: aMethod bsOffset: bsOffset do: quaternaryBlock
 		[^self].
 	latestContinuation := pc := coInterpreter startPCOfMethod: aMethod.
 	quaternaryBlock value: pc value: nil value: nil value: 0. "stackCheck/entry pc"
+	primIdx > 0 ifTrue:
+		[pc := pc + (self deltaToSkipPrimAndErrorStoreIn: aMethod
+							header: (coInterpreter methodHeaderOf: aMethod))].
 	nExts := 0.
 	endpc := objectMemory numBytesOf: aMethod.
 	[pc <= endpc] whileTrue:
