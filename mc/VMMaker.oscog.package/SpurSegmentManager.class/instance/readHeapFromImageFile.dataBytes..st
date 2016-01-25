@@ -26,7 +26,8 @@ readHeapFromImageFile: f dataBytes: numBytes
 			[totalBytesRead := totalBytesRead + bytesRead].
 	 bytesRead ~= nextSegmentSize ifTrue:
 		[^totalBytesRead].
-	 numSegments := numSegments + 1.
+	 (numSegments := numSegments + 1) >= numSegInfos ifTrue:
+		[self allocateOrExtendSegmentInfos].
 	 bridge := bridgehead + manager baseHeaderSize.
 	 bridgeSpan := (manager rawNumSlotsOf: bridgehead) = 0
 						ifTrue: [0]
