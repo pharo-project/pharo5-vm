@@ -35,7 +35,7 @@ initialize
 	desiredNumStackPages := desiredEdenBytes := 0.
 	"This is initialized on loading the image, but convenient for testing stack page values..."
 	numStackPages := self defaultNumStackPages. 
-	startMicroseconds := Time totalSeconds * 1000000.
+	startMicroseconds := self ioUTCStartMicroseconds.
 
 	"initialize InterpreterSimulator variables used for debugging"
 	byteCount := sendCount := lookupCount := 0.
