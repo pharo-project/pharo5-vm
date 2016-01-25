@@ -18,7 +18,7 @@
 		"findSymbol:" : "eem 11/19/2014 11:15",
 		"incrementPCField:ofObject:for:" : "eem 11/17/2014 20:15",
 		"initMaps" : "eem 11/19/2014 11:16",
-		"installSmallFloatInClassTable" : "eem 12/1/2014 18:06",
+		"installSmallFloatInClassTable" : "eem 1/12/2016 14:08",
 		"isUnmappedObject:" : "eem 12/16/2014 11:28",
 		"map32BitOop:" : "eem 12/16/2014 11:30",
 		"nilWordSize" : "eem 11/19/2014 11:21",
