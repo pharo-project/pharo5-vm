@@ -10,5 +10,7 @@ primAddressFieldPut
 	value := interpreterProxy positiveMachineIntegerValueOf: valueOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
+	(interpreterProxy isOopImmutable: rcvr) ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrNoModification].
 	self longAt: rcvr + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop put: value.
 	^interpreterProxy methodReturnValue: valueOop

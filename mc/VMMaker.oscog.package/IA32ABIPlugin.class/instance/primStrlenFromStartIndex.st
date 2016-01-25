@@ -17,7 +17,7 @@ primStrlenFromStartIndex
 	(self index: byteOffset length: 1 inRange: rcvr) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadIndex].
 	limit := self sizeField: rcvr.
-	ptr := self cCoerce: ((self startOfData: rcvr withSize: limit) + byteOffset) to: 'char *'.
+	ptr := self cCoerce: ((self startOfData: rcvr withSize: limit) + byteOffset) to: #'char *'.
 	limit = 0
 		ifTrue: [index := self strlen: ptr]
 		ifFalse:

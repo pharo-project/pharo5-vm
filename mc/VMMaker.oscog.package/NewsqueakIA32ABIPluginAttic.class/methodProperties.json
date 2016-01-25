@@ -1,9 +1,0 @@
-{
-	"class" : {
-		"declareCVarsIn:" : "John M McIntosh 11/21/2008 13:23" },
-	"instance" : {
-		"primBoxedCalloc" : "eem (const to msg rewrite) 11/5/2014 18:19",
-		"primBoxedMalloc" : "eem (const to msg rewrite) 11/5/2014 18:19",
-		"primCallOutDoubleReturnAnywhere" : "eem 7/12/2011 14:16",
-		"primCallOutFloatReturnAnywhere" : "eem 7/12/2011 14:16",
-		"primCallOutIntegralReturnAnywhere" : "eem 7/12/2011 14:16" } }

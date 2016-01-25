@@ -70,6 +70,9 @@ primAlienReplace
 					(replStart >= 1 and: [stop - start + replStart <= totalLength]) ifFalse:
 						[^interpreterProxy primitiveFailFor: PrimErrBadIndex]]].
 
+	(interpreterProxy isOopImmutable: array) ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrNoModification].
+
 	count := stop - start + 1.
 	self cCode: 'memmove((void *)dest,(void *)src,count)'
 		inSmalltalk:

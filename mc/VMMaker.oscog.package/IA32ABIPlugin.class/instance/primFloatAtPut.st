@@ -17,6 +17,8 @@ primFloatAtPut
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 	(self index: byteOffset length: 4 inRange: rcvr) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadIndex].
+	(interpreterProxy isOopImmutable: rcvr) ifTrue:
+		[^interpreterProxy primitiveFailFor: PrimErrNoModification].
 	(startAddr := self startOfData: rcvr) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	addr := startAddr + byteOffset.

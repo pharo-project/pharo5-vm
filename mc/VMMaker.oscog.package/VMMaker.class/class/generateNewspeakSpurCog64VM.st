@@ -1,6 +1,6 @@
 configurations
 generateNewspeakSpurCog64VM
-	"No primitives since we can use those for the Spur Cog Newspeak VM"
+	"No primitives since we can use those for the Cog VM"
 	^VMMaker
 		generate: CoInterpreter
 		and: StackToRegisterMappingCogit
