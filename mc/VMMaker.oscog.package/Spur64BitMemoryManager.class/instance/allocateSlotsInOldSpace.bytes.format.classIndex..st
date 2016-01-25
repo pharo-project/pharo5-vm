@@ -6,7 +6,7 @@ allocateSlotsInOldSpace: numSlots bytes: totalBytes format: formatField classInd
 	<inline: false>
 	| chunk |
 	chunk := self allocateOldSpaceChunkOfBytes: totalBytes.
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeNewSpace.
 	chunk ifNil:
 		[^nil].
 	numSlots >= self numSlotsMask ifTrue: "for header parsing we put a saturated slot count in the prepended overflow size word"

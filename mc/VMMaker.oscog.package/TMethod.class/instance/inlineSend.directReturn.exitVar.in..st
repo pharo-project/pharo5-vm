@@ -60,4 +60,7 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 		[inlineStmts add:
 			(TLabeledCommentNode new setLabel:
 				exitLabel comment: 'end ', meth selector)].
+	inlineStmts size = 1 ifTrue: "Nuke empty methods; e.g. override of flushAtCache"
+		[self assert: inlineStmts first class == TLabeledCommentNode.
+		 inlineStmts removeFirst].
 	^inlineStmts

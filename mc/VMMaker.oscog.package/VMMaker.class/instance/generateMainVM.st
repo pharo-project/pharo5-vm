@@ -5,8 +5,10 @@ generateMainVM
 	 the objectMemory and interpreter classes are initialized before the Cogit
 	 code is generated."
 
-	self generateInterpreterFile;
+	self logDateAndTime;
+		generateInterpreterFile;
 		generateCogitFiles;
 		processFilesForCoreVM;
 		generateInternalPlugins;
-		generateExportsFile
+		generateExportsFile;
+		logDateAndTime

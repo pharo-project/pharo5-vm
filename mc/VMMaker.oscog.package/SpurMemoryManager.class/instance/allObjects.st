@@ -40,7 +40,7 @@ allObjects
 	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
-		 self checkFreeSpace.
+		 self checkFreeSpace: GCModeFull.
 		 ^self integerObjectOf: count].
 	bytes := self largeObjectBytesForSlots: count.
 	start := self startOfObject: freeChunk.
@@ -49,7 +49,7 @@ allObjects
 	self rawOverflowSlotsOf: freeChunk put: count.
 	self set: freeChunk classIndexTo: ClassArrayCompactIndex formatTo: self arrayFormat.
 	self possibleRootStoreInto: freeChunk.
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeFull.
 	self runLeakCheckerFor: GCModeFull.
 	^freeChunk
 	

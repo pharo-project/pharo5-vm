@@ -11,6 +11,7 @@ initializeMiscConstants
 	GCModeIncremental := 4.		"incremental global gc (Dijkstra tri-colour marking); as yet unimplemented"
 	GCModeBecome := 8.			"v3 post-become sweeping"
 	GCModeImageSegment := 16.	"just a flag for leak checking image segments"
+	GCModeFreeSpace := 32.		"just a flag for leak checking free space; Spur only"
 
 	StackPageTraceInvalid := -1.
 	StackPageUnreached := 0.

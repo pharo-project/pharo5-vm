@@ -31,6 +31,6 @@ growOldSpaceByAtLeast: minAmmount
 		 self addFreeChunkWithBytes: segInfo segSize - self bridgeSize at: segInfo segStart.
 		 self assert: (self addressAfter: (self objectStartingAt: segInfo segStart))
 					= (segInfo segLimit - self bridgeSize).
-		 self checkFreeSpace.
+		 self checkFreeSpace: GCModeFreeSpace.
 		 segmentManager checkSegments.
 		 segInfo segSize]

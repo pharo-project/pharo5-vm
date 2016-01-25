@@ -78,13 +78,13 @@ objectsReachableFromRoots: arrayOfRoots
 	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
-		 self checkFreeSpace.
+		 self checkFreeSpace: GCModeImageSegment.
 		 ^self integerObjectOf: count].
 	"There's room; set the format, & classIndex and shorten."
 	self setFormatOf: freeChunk to: self arrayFormat.
 	self setClassIndexOf: freeChunk to: ClassArrayCompactIndex.
 	self shorten: freeChunk toIndexableSize: count.
 	self possibleRootStoreInto: freeChunk.
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeImageSegment.
 	self runLeakCheckerFor: GCModeImageSegment.
 	^freeChunk

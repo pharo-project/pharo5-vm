@@ -11,7 +11,6 @@
 		"AlternateHeaderHasPrimFlag",
 		"AlternateHeaderIsOptimizedFlag",
 		"AlternateHeaderNumLiteralsMask",
-		"AtCacheEntries",
 		"AtCacheFixedFields",
 		"AtCacheFmt",
 		"AtCacheMask",

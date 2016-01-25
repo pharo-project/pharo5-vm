@@ -1,7 +1,7 @@
 primitive generators
 genPrimitiveAtPut
-	| formatReg jumpImmediate jumpBadIndex jumpImmutable
-	  jumpNotIndexablePointers jumpNotIndexableBits
+	| formatReg methodInBounds
+	  jumpImmediate jumpBadIndex jumpImmutable jumpNotIndexablePointers jumpNotIndexableBits
 	  jumpIsContext jumpIsCompiledMethod jumpIsBytes jumpIsShorts jumpHasFixedFields
 	  jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
 	  jumpWordsOutOfBounds jumpShortsOutOfBounds jumpBytesOutOfBounds
@@ -14,6 +14,7 @@ genPrimitiveAtPut
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
+	<var: #methodInBounds type: #'AbstractInstruction *'>
 	<var: #jumpHasFixedFields type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexableBits type: #'AbstractInstruction *'>
 	<var: #jumpBytesOutOfRange type: #'AbstractInstruction *'>
@@ -99,9 +100,7 @@ genPrimitiveAtPut
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
 	cogit genPrimReturn.
 
-	jumpNotPointers jmpTarget:
-		(cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg).
-	jumpIsCompiledMethod := cogit JumpAboveOrEqual: 0.
+	jumpNotPointers jmpTarget: cogit Label.
 	jumpNonSmallIntegerValue := self genJumpNotSmallInteger: Arg1Reg scratchReg: TempReg.
 					cogit CmpCq: objectMemory firstByteFormat R: formatReg.
 	jumpIsBytes := cogit JumpAboveOrEqual: 0.
@@ -128,10 +127,13 @@ genPrimitiveAtPut
 		(cogit CmpCq: (objectMemory integerObjectOf: 255) R: Arg1Reg).
 	jumpBytesOutOfRange := cogit JumpAbove: 0.
 	cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg.
-	cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-	cogit SubR: formatReg R: ClassReg.
+	cogit AndCq: objectMemory wordSize - 1 R: formatReg R: TempReg.
+	cogit SubR: TempReg R: ClassReg.
 	cogit CmpR: Arg0Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg.
+	jumpIsCompiledMethod := cogit JumpAboveOrEqual: 0.
+	methodInBounds :=
 	cogit MoveR: Arg1Reg R: TempReg.
 	self genConvertSmallIntegerToIntegerInReg: TempReg.
 	cogit AddCq: objectMemory baseHeaderSize R: Arg0Reg.
@@ -153,6 +155,12 @@ genPrimitiveAtPut
 	cogit MoveR: TempReg M16: objectMemory baseHeaderSize r: ReceiverResultReg.
 	cogit MoveR: Arg1Reg R: ReceiverResultReg.
 	cogit genPrimReturn.
+
+	"Now check that the index is beyond the method's literals..."
+	jumpIsCompiledMethod jmpTarget: cogit Label.
+	self getLiteralCountOf: ReceiverResultReg plusOne: true inBytes: true into: ClassReg scratch: TempReg.
+	cogit CmpR: Arg0Reg R: ClassReg.
+	cogit JumpBelow: methodInBounds.
 
 	jumpIsContext jmpTarget: 
 	(jumpNotIndexableBits jmpTarget:
@@ -176,4 +184,4 @@ genPrimitiveAtPut
 
 	jumpBadIndex jmpTarget: (jumpImmediate jmpTarget: cogit Label).
 
-	^0
+	^0 "Can't be complete because of contexts."

@@ -6,4 +6,4 @@ garbageCollectForSnapshot
 	self fullGC.
 	numCompactionPasses := CompactionPassesForGC.
 	segmentManager prepareForSnapshot.
-	self checkFreeSpace
+	self checkFreeSpace: GCModeFull

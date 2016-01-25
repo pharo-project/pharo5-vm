@@ -1,15 +1,19 @@
 primitive generators
 genPrimitiveAt
-	| formatReg convertToIntAndReturn
+	| formatReg convertToIntAndReturn methodInBounds
 	  jumpNotIndexable jumpImmediate jumpBadIndex
-	  jumpIsBytes jumpIsShorts jumpIsWords jumpWordTooBig jumpIsArray jumpHasFixedFields jumpIsContext
-	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds |
+	  jumpIsBytes jumpIsShorts jumpIsWords jumpIsMethod
+	  jumpWordTooBig jumpIsArray jumpHasFixedFields jumpIsContext
+	  jumpBytesOutOfBounds jumpShortsOutOfBounds jumpWordsOutOfBounds
+	  jumpMethodOutOfBounds jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds |
 	"c.f. StackInterpreter>>stSizeOf: SpurMemoryManager>>lengthOf:format: fixedFieldsOf:format:length:"
 	<var: #jumpIsBytes type: #'AbstractInstruction *'>
 	<var: #jumpIsShorts type: #'AbstractInstruction *'>
+	<var: #jumpIsMethod type: #'AbstractInstruction *'>
 	<var: #jumpBadIndex type: #'AbstractInstruction *'>
 	<var: #jumpIsContext type: #'AbstractInstruction *'>
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
+	<var: #methodInBounds type: #'AbstractInstruction *'>
 	<var: #jumpWordTooBig type: #'AbstractInstruction *'>
 	<var: #jumpNotIndexable type: #'AbstractInstruction *'>
 	<var: #jumpHasFixedFields type: #'AbstractInstruction *'>
@@ -18,6 +22,7 @@ genPrimitiveAt
 	<var: #jumpBytesOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpShortsOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
+	<var: #jumpMethodOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpFixedFieldsOutOfBounds type: #'AbstractInstruction *'>
 
 	cogit genLoadArgAtDepth: 0 into: Arg0Reg.
@@ -64,13 +69,23 @@ genPrimitiveAt
 	jumpNotIndexable jmpTarget: cogit Label.
 	jumpNotIndexable := cogit Jump: 0.
 
+	jumpIsArray jmpTarget:
+		(cogit CmpR: Arg1Reg R: ClassReg).
+	jumpArrayOutOfBounds := cogit JumpBelowOrEqual: 0.	
+	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
+	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
+	cogit genPrimReturn.
+
 	jumpIsBytes jmpTarget:
 		(cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg).
-		cogit AndCq: objectMemory wordSize - 1 R: formatReg.
-		cogit SubR: formatReg R: ClassReg;
+		cogit AndCq: objectMemory wordSize - 1 R: formatReg R: TempReg.
+		cogit SubR: TempReg R: ClassReg;
 		CmpR: Arg1Reg R: ClassReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
-	cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg.
+	cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg.
+	jumpIsMethod := cogit JumpAboveOrEqual: 0.
+	methodInBounds :=
+	(cogit AddCq: objectMemory baseHeaderSize R: Arg1Reg).
 	cogit backEnd byteReadsZeroExtend
 		ifTrue:
 			[cogit MoveXbr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg]
@@ -122,24 +137,23 @@ genPrimitiveAt
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
 	cogit genPrimReturn.
 
-	jumpIsArray jmpTarget:
-		(cogit CmpR: Arg1Reg R: ClassReg).
-	jumpArrayOutOfBounds := cogit JumpBelowOrEqual: 0.	
-	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
-	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
-	cogit genPrimReturn.
+	jumpIsMethod jmpTarget: cogit Label.
+	"Now check that the index is beyond the method's literals..."
+	self getLiteralCountOf: ReceiverResultReg plusOne: true inBytes: true into: ClassReg scratch: TempReg.
+	cogit CmpR: Arg1Reg R: ClassReg.
+	cogit JumpBelow: methodInBounds.
+	jumpMethodOutOfBounds := cogit Jump: 0.
 
 	jumpWordTooBig jmpTarget:
-	(cogit SubCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg).
-
-	jumpFixedFieldsOutOfBounds jmpTarget:
+	(jumpFixedFieldsOutOfBounds jmpTarget:
 	(jumpArrayOutOfBounds jmpTarget:
 	(jumpBytesOutOfBounds jmpTarget:
+	(jumpMethodOutOfBounds jmpTarget:
 	(jumpShortsOutOfBounds jmpTarget:
 	(jumpWordsOutOfBounds jmpTarget:
 	(jumpNotIndexable jmpTarget:
 	(jumpIsContext jmpTarget:
 	(jumpBadIndex jmpTarget:
-	(jumpImmediate jmpTarget: cogit Label)))))))).
+	(jumpImmediate jmpTarget: cogit Label)))))))))).
 
-	^0
+	^0 "Can't be complete because of contexts."

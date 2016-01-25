@@ -48,11 +48,11 @@ initializeFrameIndices
 	FoxThisContext := fxThisContext * BytesPerWord.
 	FoxReceiver := fxReceiver * BytesPerWord.
 
-	"Mark the CoInterpreter-specific offsets as #undeclared to
+	"Mark the CoInterpreter-specific offsets as #undefined to
 	 avoid including them accidentally in StackInterpreter code."
-	IFrameSlots := #undeclared.
-	MFrameSlots := #undeclared.
-	FoxIFrameFlags := #undeclared.
-	FoxIFSavedIP := #undeclared.
-	FoxIFReceiver := #undeclared.
-	FoxMFReceiver := #undeclared
+	IFrameSlots := #undefined.
+	MFrameSlots := #undefined.
+	FoxIFrameFlags := #undefined.
+	FoxIFSavedIP := #undefined.
+	FoxIFReceiver := #undefined.
+	FoxMFReceiver := #undefined

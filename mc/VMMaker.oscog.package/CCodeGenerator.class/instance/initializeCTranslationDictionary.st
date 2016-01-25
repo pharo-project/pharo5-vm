@@ -103,6 +103,7 @@ initializeCTranslationDictionary
 	#asSymbol					#generateAsSymbol:on:indent:
 	#flag:						#generateFlag:on:indent:
 	#anyMask:					#generateBitAnd:on:indent:
+	#allMask:					#generateAllMask:on:indent:
 	#noMask:					#generateNoMask:on:indent:
 	#raisedTo:					#generateRaisedTo:on:indent:
 	#touch:						#generateTouch:on:indent:

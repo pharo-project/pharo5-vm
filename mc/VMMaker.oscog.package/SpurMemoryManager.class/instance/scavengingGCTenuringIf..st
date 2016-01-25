@@ -9,7 +9,7 @@ scavengingGCTenuringIf: tenuringCriterion
 			printNum: coInterpreter interpreterAllocationReserveBytes; space;
 			printNum: coInterpreter interpreterAllocationReserveBytes - (scavenger eden limit - freeStart); cr].
 	self checkMemoryMap.
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeNewSpace.
 	self runLeakCheckerFor: GCModeNewSpace.
 
 	coInterpreter
@@ -32,4 +32,4 @@ scavengingGCTenuringIf: tenuringCriterion
 	coInterpreter postGCAction: GCModeNewSpace.
 
 	self runLeakCheckerFor: GCModeNewSpace.
-	self checkFreeSpace
+	self checkFreeSpace: GCModeNewSpace

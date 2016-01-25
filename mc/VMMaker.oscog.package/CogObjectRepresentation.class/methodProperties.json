@@ -30,6 +30,7 @@
 		"genGetActiveContextNumArgs:large:inBlock:" : "eem 5/31/2014 21:46",
 		"genGetFormatOf:into:" : "eem 5/30/2015 09:38",
 		"genGetInlineCacheClassTagFrom:into:forEntry:" : "eem 7/7/2014 11:53",
+		"genGetMethodHeaderOf:into:scratch:" : "eem 1/23/2016 11:44",
 		"genGetNumSlotsOf:into:" : "eem 8/26/2014 12:10",
 		"genJumpImmediate:" : "eem 5/30/2015 11:16",
 		"genJumpIsSmallIntegerValue:scratch:" : "eem 12/5/2015 11:04",

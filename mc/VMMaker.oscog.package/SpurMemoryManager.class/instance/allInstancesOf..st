@@ -39,7 +39,7 @@ allInstancesOf: aClass
 			self storePointerUnchecked: i ofObject: smallObj withValue: (self fetchPointer: i ofFreeChunk: freeChunk)].
 		 self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
 		 self beRootIfOld: smallObj.
-		 self checkFreeSpace.
+		 self checkFreeSpace: GCModeFull.
 		 ^smallObj].
 	bytes := self largeObjectBytesForSlots: count.
 	start := self startOfObject: freeChunk.
@@ -48,7 +48,7 @@ allInstancesOf: aClass
 	self rawOverflowSlotsOf: freeChunk put: count.
 	self set: freeChunk classIndexTo: ClassArrayCompactIndex formatTo: self arrayFormat.
 	self possibleRootStoreInto: freeChunk.
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeFull.
 	self runLeakCheckerFor: GCModeFull.
 	^freeChunk
 	

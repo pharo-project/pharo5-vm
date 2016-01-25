@@ -50,9 +50,10 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #nsMethodCache
 		declareC: 'long nsMethodCache[NSMethodCacheSize + 1 /* ', (NSMethodCacheSize + 1) printString, ' */]'.
-	aCCodeGenerator
-		var: #atCache
-		declareC: 'sqInt atCache[AtCacheTotalSize + 1 /* ', (AtCacheTotalSize + 1) printString, ' */]'.
+	AtCacheTotalSize isInteger ifTrue:
+		[aCCodeGenerator
+			var: #atCache
+			declareC: 'sqInt atCache[AtCacheTotalSize + 1 /* ', (AtCacheTotalSize + 1) printString, ' */]'].
 	aCCodeGenerator
 		var: #primitiveTable
 		declareC: 'void (*primitiveTable[MaxPrimitiveIndex + 2 /* ', (MaxPrimitiveIndex + 2) printString, ' */])(void) = ', vmClass primitiveTableString.

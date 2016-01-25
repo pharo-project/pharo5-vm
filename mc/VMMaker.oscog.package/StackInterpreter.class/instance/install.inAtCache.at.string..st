@@ -8,6 +8,10 @@ install: rcvr inAtCache: cache at: atIx string: stringy
 	self assert: (objectMemory isContext: rcvr) not.
 	hdr := objectMemory baseHeader: rcvr.
 	fmt := objectMemory formatOfHeader: hdr.
+	"For now the AtCache code doesn't support 16-bit indexability."
+	(objectMemory hasSpurMemoryManagerAPI
+	and: [fmt between: objectMemory firstShortFormat and: objectMemory firstByteFormat - 1]) ifTrue:
+		[^self primitiveFailed].
 	stringy
 		ifTrue:
 			[totalLength := objectMemory lengthOf: rcvr baseHeader: hdr format: fmt.

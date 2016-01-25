@@ -9,4 +9,4 @@ rebuildFreeListsForPigCompact
 		 bytes := (self bytesInObject: freeObj).
 		 start := self startOfObject: freeObj.
 		 self addFreeChunkWithBytes: bytes at: start].
-	self checkFreeSpace
+	self checkFreeSpace: GCModeFull

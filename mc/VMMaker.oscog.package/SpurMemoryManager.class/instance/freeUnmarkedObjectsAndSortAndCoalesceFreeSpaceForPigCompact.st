@@ -12,7 +12,7 @@ freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact
 
 	| prevPrevFree prevFree |
 	<inline: #never> "for profiling"
-	self checkFreeSpace.
+	self checkFreeSpace: GCModeFull.
 	scavenger forgetUnmarkedRememberedObjects.
 	self doScavenge: MarkOnTenure.
 	segmentManager prepareForGlobalSweep."for notePinned:"

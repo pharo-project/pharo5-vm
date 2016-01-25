@@ -18,4 +18,4 @@ initializeOldSpaceFirstFree: startOfFreeOldSpace
 			 self assert: (self addressAfter: freeChunk) = limit]].
 	endOfMemory := endOfMemory - self bridgeSize.
 	freeOldSpaceStart := endOfMemory.
-	self checkFreeSpace
+	self checkFreeSpace: GCModeFreeSpace

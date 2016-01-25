@@ -1,7 +1,7 @@
 initialization
 initializeCaches
 
-	| atCacheEntrySize |
+	| atCacheEntries atCacheEntrySize |
 	NewspeakVM
 		ifTrue: [MethodCacheEntries := 512]
 		ifFalse: [MethodCacheEntries := 1024].
@@ -26,15 +26,15 @@ initializeCaches
 	NSMethodCacheMask := NSMethodCacheEntries - 1 * NSMethodCacheEntrySize.
 	NSMethodCacheSize := NSMethodCacheEntries * NSMethodCacheEntrySize.
 
-	AtCacheEntries := 8.  "Must be a power of two"
 	AtCacheOop := 1.
 	AtCacheSize := 2.
 	AtCacheFmt := 3.
 	AtCacheFixedFields := 4.
+	atCacheEntries := 8.
 	atCacheEntrySize := 4.  "Must be power of two for masking scheme."
-	AtCacheMask := (AtCacheEntries-1) * atCacheEntrySize.
-	AtPutBase := AtCacheEntries * atCacheEntrySize.
-	AtCacheTotalSize := AtCacheEntries * atCacheEntrySize * 2.
+	AtCacheMask := (atCacheEntries-1) * atCacheEntrySize.
+	AtPutBase := atCacheEntries * atCacheEntrySize.
+	AtCacheTotalSize := atCacheEntries * atCacheEntrySize * 2.
 
 	"LookupRuleOuter is [0, 255], with the value being the lexical depth. Note that an
 	 outer send to lexical depth 0 is equivalent to a self send. Implicit receiver and

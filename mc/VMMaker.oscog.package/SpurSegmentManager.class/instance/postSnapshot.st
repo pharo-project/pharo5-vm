@@ -23,4 +23,4 @@ postSnapshot
 				addFreeChunkWithBytes: seg segLimit - address - manager bridgeSize
 				at: address]].
 	self checkSegments.
-	manager checkFreeSpace
+	manager checkFreeSpace: GCModeFull

@@ -2,6 +2,7 @@ image save/restore
 writeImageFileIO
 	"Write the image header and heap contents to imageFile for snapshot. c.f. writeImageFileIOSimulation.
 	 The game below is to maintain 64-bit alignment for all putLong:toFile: occurrences."
+	<inline: #never>
 	| imageName headerStart headerSize f imageBytes bytesWritten sCWIfn okToWrite |
 	<var: #f type: #sqImageFile>
 	<var: #headerStart type: #squeakFileOffsetType>
