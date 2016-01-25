@@ -165,6 +165,10 @@ static int parseArgument(int argc, char **argv)
 	extern int blockOnError;
 	blockOnError = true;
 	return 1; }
+  else if (!strcmp(argv[0], "--exitonwarn")) {
+	extern sqInt erroronwarn;
+	erroronwarn = true;
+	return 1; }
   else if (!strcmp(argv[0], "--blockonwarn")) {
 	extern int blockOnError;
 	extern sqInt erroronwarn;
