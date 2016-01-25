@@ -5,4 +5,4 @@ initialize
 	eden := SpurNewSpaceSpace new.
 	rememberedSetSize := 0.
 	tenureThreshold := 0.
-	statTenures := 0
+	statSurvivorCount := statTenures := 0

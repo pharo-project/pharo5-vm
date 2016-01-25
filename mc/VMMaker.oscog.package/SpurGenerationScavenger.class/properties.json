@@ -25,6 +25,7 @@
 		"tenuringClassIndex",
 		"tenuringProportion",
 		"numRememberedEphemerons",
+		"statSurvivorCount",
 		"statTenures" ],
 	"name" : "SpurGenerationScavenger",
 	"pools" : [

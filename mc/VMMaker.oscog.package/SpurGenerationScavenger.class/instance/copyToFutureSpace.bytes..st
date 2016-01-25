@@ -4,6 +4,7 @@ copyToFutureSpace: survivor bytes: bytesInObject
 	 Answer the new oop of the object (it may have an overflow size field)."
 	<inline: true>
 	| startOfSurvivor newStart |
+	statSurvivorCount := statSurvivorCount + 1. "we hope writes are cheap..."
 	self assert: futureSurvivorStart + bytesInObject <= futureSpace limit.
 	startOfSurvivor := manager startOfObject: survivor.
 	newStart := futureSurvivorStart.

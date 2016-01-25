@@ -94,9 +94,7 @@
 		"statSGCDeltaUsecs",
 		"statScavengeGCUsecs",
 		"statScavenges",
-		"statShrinkMemory",
-		"statSpecialMarkCount",
-		"statSurvivorCount" ],
+		"statShrinkMemory" ],
 	"name" : "SpurMemoryManager",
 	"pools" : [
 		"SpurMemoryManagementConstants",

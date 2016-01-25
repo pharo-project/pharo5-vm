@@ -13,6 +13,7 @@ scavenge: tenuringCriterion
 	 tenuring can be based on e.g. a particular class.  The argument selects the tenuring criterion.
 
 	 Answer the limit of pastSpace, to allow the memory manager to bounds check survivors."
+	statSurvivorCount := 0.
 	tenureCriterion := tenuringCriterion.
 	self strategizeToLimitRememberedTable.
 	self scavengeLoop.
