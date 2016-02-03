@@ -1,4 +1,4 @@
 plugins
-versionExternalPlugins 
+versionInternalPlugins 
 	^Array 
 		with: #ThreadedIA32FFIPlugin

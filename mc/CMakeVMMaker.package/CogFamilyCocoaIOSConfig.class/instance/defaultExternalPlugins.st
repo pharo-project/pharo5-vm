@@ -1,7 +1,6 @@
 plugins
 defaultExternalPlugins 
-	^(self versionExternalPlugins),
-		#(
+	^ #(
 		UUIDPlugin
 		FloatMathPlugin
 		AsynchFilePlugin

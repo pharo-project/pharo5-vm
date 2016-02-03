@@ -6,8 +6,8 @@ processInternalPlugins: pluginGenerators
 
 	pluginGenerators do: [:gen |
 		gen doNotGenerate ifFalse: [
-			libs add:  gen plugin moduleNameForGenerate.
-			self addSubdirectory:  gen plugin moduleNameForGenerate.
+			libs add:  gen plugin moduleName.
+			self addSubdirectory:  gen plugin moduleName.
 			 ].
 		].
 

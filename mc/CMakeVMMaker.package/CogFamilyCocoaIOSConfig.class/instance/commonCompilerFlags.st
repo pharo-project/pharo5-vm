@@ -10,6 +10,7 @@ commonCompilerFlags
 	'-Wno-unused-variable'
 	'-Wno-unused-parameter'
 	'-Wno-unused-value'
+	'-Wno-unused-function'
 	"Remove some undesired warnings <<"	
 	'-funroll-loops' 
 	'-fasm-blocks' 

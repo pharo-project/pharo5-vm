@@ -1,4 +1,0 @@
-*CMakeVMMaker
-moduleNameForGenerate
-	^ self moduleName
-	

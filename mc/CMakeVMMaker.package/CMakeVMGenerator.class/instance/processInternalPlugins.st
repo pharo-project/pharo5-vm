@@ -8,8 +8,8 @@ processInternalPlugins
 		plugin := Smalltalk at: each.
 		gen := plugin generateFor: self internal: true.
 		gen doNotGenerate ifFalse: [
-			libs add: plugin moduleNameForGenerate.
-			self addSubdirectory: plugin moduleNameForGenerate.
+			libs add: plugin moduleName.
+			self addSubdirectory: plugin moduleName.
 			 ].
 		].
 	

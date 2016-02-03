@@ -5,7 +5,7 @@ processExternalPlugins
 		plugin := Smalltalk at: each.
 		gen := plugin generateFor: self internal: false.
 		gen doNotGenerate ifFalse: [
-			self addSubdirectory: plugin moduleNameForGenerate.
+			self addSubdirectory: plugin moduleName.
 			]
 	].
 	
