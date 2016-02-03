@@ -28,6 +28,7 @@ void *getbaz() { return baz; }
 #include <string.h> /* for memcpy et al */
 #include <setjmp.h>
 #include <stdio.h> /* for fprintf(stderr,...) */
+#include <unistd.h>
 
 #include "vmCallback.h"
 #include "sqAssert.h"
