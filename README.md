@@ -63,6 +63,9 @@ Building the VM
 3. `generator.image` now contains VMMaker with the Slang sources, plus a workspace with some
 example VM configurations. In case there is no workspace, open one and paste the line you need.
 Pick or edit the configuration you want, then evaluate it (Do It).
+```
+./pharo-ui generator.image 
+```
  ```Smalltalk
  "Unix"
  PharoVMSpur32Builder buildUnix32.
