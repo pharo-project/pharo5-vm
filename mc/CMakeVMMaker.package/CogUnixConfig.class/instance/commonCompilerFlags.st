@@ -14,5 +14,5 @@ commonCompilerFlags
 		'-DUSE_GLOBAL_STRUCT=0'. 
 		'-DCOGMTVM=0'. 
 		'-m32'.
-		'-DENABLE_FAST_BLT ' } 	
+		"'-DENABLE_FAST_BLT'" } 	
 	
