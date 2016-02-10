@@ -17,7 +17,7 @@ commonCompilerFlags
 		'-mwin32'.
 		'-mno-rtd'. 
 		'-mms-bitfields'. 
-		"'-mno-accumulate-outgoing-args ', self winVer."
+		'-mno-accumulate-outgoing-args ', self winVer.
 		'-DWIN32'. 
 		'-DWIN32_FILE_SUPPORT'. 
 		'-DNO_ISNAN'.
@@ -29,6 +29,6 @@ commonCompilerFlags
 		'-DSTACK_ALIGN_BYTES=16'. 
 		'-DALLOCA_LIES_SO_USE_GETSP=0'. 
 		'-DENABLE_FAST_BLT'.
-		'-D_USE_32BIT_TIME_T'. 
+		'-D_USE_32BIT_TIME_T'.
 		'-D_FILE_OFFSET_BITS=64'.
 		'-D_GNU_SOURCE' }

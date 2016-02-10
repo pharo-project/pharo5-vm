@@ -21,8 +21,8 @@ addDriver: name sources: aSources generator: cmakeGen externalLibs: extLibs
 			includeDirectories: '${crossDir}/plugins/FilePlugin';
 			includeDirectories: '${targetPlatform}/plugins/B3DAcceleratorPlugin';
 			includeDirectories: '${crossDir}/plugins/B3DAcceleratorPlugin';
-			set: 'LIBRARY_OUTPUT_PATH' toString: self outputDir fullName;
-			linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/';
+			set: 'LIBRARY_OUTPUT_PATH' toString: '${outputDir}';
+			"linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/';"
 		
 			addExternalLibraries: extLibs;
 			

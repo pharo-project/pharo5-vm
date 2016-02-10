@@ -16,12 +16,12 @@ addDriver: name sources: aSources generator: cmakeGen
 			addDefinitions: '-fPIC -DPIC';
 			set: #sources to: srcs;
 			cmd: 'add_library' params: name, ' SHARED ${sources}';
-			linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/';
+			"linkDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/lib/arm-linux-gnueabihf/';"
 	 		includeDirectories: '${CMAKE_FIND_ROOT_PATH}/usr/include/';
 			includeDirectories: '${crossDir}/plugins/FilePlugin';
 			includeDirectories: '${targetPlatform}/plugins/B3DAcceleratorPlugin';
 			includeDirectories: '${crossDir}/plugins/B3DAcceleratorPlugin';
-			set: 'LIBRARY_OUTPUT_PATH' toString: self outputDir;
+			set: 'LIBRARY_OUTPUT_PATH' toString: '${outputDir}';
 			cmd: 'set_target_properties' params: name , ' PROPERTIES PREFIX "" SUFFIX "" 
 			LINK_FLAGS "', self linkFlags , '"'
 	].

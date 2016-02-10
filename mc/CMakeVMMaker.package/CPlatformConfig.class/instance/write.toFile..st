@@ -10,4 +10,5 @@ write: aContents toFile: aFileName
 	bldDir ensureCreateDirectory.
 	(bldDir / aFileName)
 		ensureDelete;
-		writeStreamDo: [ :stream | stream nextPutAll: (self fixLineEndsOf: aContents) ]
+		writeStreamDo: [ :stream |
+			stream nextPutAll: (self fixLineEndsOf: aContents) ]

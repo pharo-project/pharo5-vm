@@ -1,0 +1,17 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"jniFolder",
+		"ressourceDir",
+		"drawableDir",
+		"assetDir" ],
+	"name" : "StackAndroidConfig",
+	"pools" : [
+		 ],
+	"super" : "StackUnixConfig",
+	"type" : "normal" }

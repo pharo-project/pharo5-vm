@@ -1,13 +1,13 @@
 {
 	"class" : {
-		"supports:" : "EstebanLorenzano 12/10/2015 11:13" },
+		"supports:" : "RonieSalgado 5/31/2014 04:05" },
 	"instance" : {
-		"archiveMD5Sum" : "EstebanLorenzano 12/10/2015 11:17",
-		"build" : "EstebanLorenzano 12/10/2015 11:17",
-		"copyArtefacts" : "EstebanLorenzano 12/10/2015 11:17",
-		"defaultConfigurationFlags" : "EstebanLorenzano 9/30/2014 17:31",
-		"defineGlobalTargets" : "EstebanLorenzano 12/10/2015 11:17",
-		"downloadURL" : "EstebanLorenzano 9/30/2014 17:55",
-		"libraryFileName" : "EstebanLorenzano 12/10/2015 11:18",
-		"setVariables" : "EstebanLorenzano 12/10/2015 11:18",
-		"unpackedDirName" : "EstebanLorenzano 12/10/2015 11:18" } }
+		"archiveMD5Sum" : "EstebanLorenzano 10/2/2014 17:13",
+		"build" : "EstebanLorenzano 10/9/2014 14:53",
+		"copyArtefacts" : "EstebanLorenzano 10/17/2014 15:30",
+		"defaultConfigurationFlags" : "RonieSalgado 5/31/2014 04:06",
+		"defineGlobalTargets" : "RonieSalgado 6/1/2014 22:01",
+		"downloadURL" : "EstebanLorenzano 10/9/2014 14:36",
+		"libraryFileName" : "EstebanLorenzano 10/17/2014 15:21",
+		"setVariables" : "EstebanLorenzano 10/17/2014 15:42",
+		"unpackedDirName" : "EstebanLorenzano 10/2/2014 17:12" } }

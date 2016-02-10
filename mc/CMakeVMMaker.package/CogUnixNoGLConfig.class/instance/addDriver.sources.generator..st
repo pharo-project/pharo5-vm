@@ -17,7 +17,7 @@ addDriver: name sources: aSources generator: cmakeGen
 			set: #sources to: srcs;
 			cmd: 'add_library' params: name, ' SHARED ${sources}'; 
 			includeDirectories: '${crossDir}/plugins/FilePlugin';
-			set: 'LIBRARY_OUTPUT_PATH' toString: self outputDir;
+			set: 'LIBRARY_OUTPUT_PATH' toString: '${outputDir}';
 			cmd: 'set_target_properties' params: name , ' PROPERTIES PREFIX "" SUFFIX "" 
 			LINK_FLAGS "-lSM -lICE -ldl -lpthread -lm -lnsl -lX11"'
 	].

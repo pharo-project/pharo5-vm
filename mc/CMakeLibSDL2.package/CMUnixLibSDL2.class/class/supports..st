@@ -1,3 +1,3 @@
 testing
 supports: aConfig
-	^  aConfig platformName  = 'unix' 
+	^  aConfig platformName  = 'unix'

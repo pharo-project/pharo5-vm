@@ -1,4 +1,4 @@
-generating actions
+accessing
 includeDir
 	"see setVariables"
 

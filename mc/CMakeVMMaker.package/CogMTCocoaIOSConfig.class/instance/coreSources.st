@@ -3,7 +3,6 @@ coreSources
 	"files to include from src/vm dir"
 	
 	^ #(
-		"'cogit.c'"
-		'cogitIA32.c'
+		'cogit.c'
 		'gcc3x-cointerpmt.c'
 		)

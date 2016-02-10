@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackAndroidARMConfig",
+	"pools" : [
+		 ],
+	"super" : "StackAndroidConfig",
+	"type" : "normal" }

@@ -1,10 +1,10 @@
 {
 	"class" : {
-		"supports:" : "EstebanLorenzano 12/10/2015 11:13" },
+		"supports:" : "RonieSalgado 5/31/2014 03:30" },
 	"instance" : {
-		"copyArtefacts" : "EstebanLorenzano 12/10/2015 11:15",
-		"defaultConfigurationFlags" : "EstebanLorenzano 9/30/2014 16:15",
-		"defineAsTarget" : "EstebanLorenzano 12/10/2015 11:16",
-		"libraryFileName" : "EstebanLorenzano 9/30/2014 16:28",
-		"libraryLinkFileName" : "EstebanLorenzano 12/10/2015 11:16",
-		"setVariables" : "EstebanLorenzano 12/10/2015 11:16" } }
+		"copyArtefacts" : "EstebanLorenzano 12/18/2014 13:57",
+		"defaultConfigurationFlags" : "RonieSalgado 5/31/2014 03:33",
+		"defineAsTarget" : "EstebanLorenzano 12/18/2014 13:39",
+		"libraryFileName" : "EstebanLorenzano 10/9/2014 12:24",
+		"libraryLinkFileName" : "EstebanLorenzano 12/18/2014 12:59",
+		"setVariables" : "EstebanLorenzano 12/18/2014 12:59" } }
