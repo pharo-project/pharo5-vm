@@ -133,7 +133,6 @@ configH
 /* other configured variables */
 
 #define SQ_VERSION "3.9a-7024"
-#define VM_VERSION "3.9-7"
 #define VM_MODULE_PREFIX ""
 /* #undef VM_DLSYM_PREFIX */
 #define VM_X11DIR "/usr/X11R6/lib"
