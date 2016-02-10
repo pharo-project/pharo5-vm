@@ -11,6 +11,6 @@
 	"name" : "PharoUnixConfig",
 	"pools" : [
 		 ],
-	"super" : "NBCogUnixConfig",
+	"super" : "CogUnixConfig",
 	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }

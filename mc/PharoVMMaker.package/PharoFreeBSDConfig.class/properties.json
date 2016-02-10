@@ -11,6 +11,6 @@
 	"name" : "PharoFreeBSDConfig",
 	"pools" : [
 		 ],
-	"super" : "NBCogFreeBSDConfig",
+	"super" : "CogFreeBSDConfig",
 	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }

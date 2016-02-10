@@ -11,6 +11,6 @@
 	"name" : "PharoOSXConfig",
 	"pools" : [
 		 ],
-	"super" : "NBCogCocoaIOSConfig",
+	"super" : "CogCocoaIOSConfig",
 	"traitcomposition" : "TPharoOSXConfig - {#externalPlugins. #internalPlugins}",
 	"type" : "normal" }
