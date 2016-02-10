@@ -8,7 +8,7 @@
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
 *   RCSID:   $Id: sqWin32Intel.c 1435 2006-04-11 00:17:05Z andreas $
 *
-*   NOTES: (I think this comment of Andreas' is obsolete; eem 6/2013)
+*   NOTES:
 *    1) When using this module the virtual machine MUST NOT be compiled
 *       with Unicode support.
 *****************************************************************************/
@@ -55,16 +55,15 @@ LONG CALLBACK sqExceptionFilter(LPEXCEPTION_POINTERS exp);
 static void printCrashDebugInformation(LPEXCEPTION_POINTERS exp);
 
 /*** Variables -- command line */
-EXPORT(char *)	initialCmdLine;
-EXPORT(int) 	numOptionsVM = 0;
-EXPORT(char **)	vmOptions;
-EXPORT(int) 	numOptionsImage = 0;
-EXPORT(char **)	imageOptions;
-EXPORT(int) 	clargc; /* the Unix-style command line, saved for GetImageOption */
-EXPORT(char **)	clargv;
+char *initialCmdLine;
+int  numOptionsVM = 0;
+char **vmOptions;
+int  numOptionsImage = 0;
+char **imageOptions;
+int clargc; /* the Unix-style command line, saved for GetImageOption */
+char **clargv;
 
 /* console buffer */
-BOOL fIsConsole = 0;
 TCHAR consoleBuffer[4096];
 
 /* stderr and stdout names */
@@ -233,33 +232,27 @@ int __cdecl DPRINTF(const char *fmt, ...)
 { va_list al;
 
   va_start(al, fmt);
-  if (!fIsConsole) {
-	wvsprintf(consoleBuffer, fmt, al);
-	OutputDebugString(consoleBuffer);
-  }
+  wvsprintf(consoleBuffer, fmt, al);
+  OutputDebugString(consoleBuffer);
   vfprintf(stdout, fmt, al);
   va_end(al);
   return 1;
 }
 
-/*
-//Esteban: Looks like not needed anymore. I will need to try.
 #if !defined(_MSC_VER) && !defined(NODBGPRINT)
 
 // redefining printf doesn't seem like a good idea to me...
-
+/*
 int __cdecl
 printf(const char *fmt, ...)
 { va_list al;
   int result;
 
   va_start(al, fmt);
-  if (!fIsConsole) {
-	wvsprintf(consoleBuffer, fmt, al);
-	OutputLogMessage(consoleBuffer);
-	if(IsWindow(stWindow)) /-* not running as service? *-/
-	  OutputConsoleString(consoleBuffer);
-  }
+  wvsprintf(consoleBuffer, fmt, al);
+  OutputLogMessage(consoleBuffer);
+  if(IsWindow(stWindow)) /-* not running as service? *-/
+    OutputConsoleString(consoleBuffer);
   result = vfprintf(stdout, fmt, al);
   va_end(al);
   return result;
@@ -271,7 +264,7 @@ fprintf(FILE *fp, const char *fmt, ...)
   int result;
 
   va_start(al, fmt);
-  if(!fIsConsole && (fp == stdout || fp == stderr))
+  if(fp == stdout || fp == stderr)
     {
       wvsprintf(consoleBuffer, fmt, al);
       OutputLogMessage(consoleBuffer);
@@ -285,10 +278,12 @@ fprintf(FILE *fp, const char *fmt, ...)
 
 
 int __cdecl
-putchar(int c) { return printf("%c",c); }
-
-#endif /-* !defined(_MSC_VER) && !defined(NODBGPRINT) *-/
+putchar(int c)
+{
+  return printf("%c",c);
+}
 */
+#endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
 
 /****************************************************************************/
 /*                   Message Processing                                     */
@@ -1199,6 +1194,9 @@ void __cdecl Cleanup(void)
       fclose(stdout);
       remove(stdoutName);
     }
+#ifndef NO_VIRTUAL_MEMORY
+  sqReleaseMemory();
+#endif
   OleUninitialize();
 }
 
@@ -1351,7 +1349,8 @@ sqMain(int argc, char *argv[])
       /* Search the current directory if there's a single image file */
       if(!findImageFile()) {
 	/* Nope. Give the user a chance to open an image interactively */
-	if(!openImageFile()) return -1; /* User cancelled file open */
+	
+          if(fHeadlessImage || !openImageFile()) return -1; /* User cancelled file open */
       }
     }
   }
@@ -1516,18 +1515,11 @@ sqMain(int argc, char *argv[])
 int WINAPI
 WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-  DWORD mode;
-
   /* a few things which need to be done first */
   gatherSystemInfo();
 
   /* check if we're running NT or 95 */
   fWindows95 = (GetVersion() & 0x80000000) != 0;
-  /* Determine if we're running as a console application  We can't report
-   * allocation failures unless running as a console app because doing so
-   * via a MessageBox will make the system unusable.
-   */
-  fIsConsole = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
 
   /* fetch us a copy of the command line */
   initialCmdLine = _strdup(lpCmdLine);
@@ -1683,14 +1675,6 @@ parseVMArgument(int argc, char *argv[])
 		return 1; }
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
-      else if (!strcmp(argv[0], "--breakmnu")) { 
-		extern void setBreakMNUSelector(char *);
-		setBreakMNUSelector(argv[1]);
-		return 2; }
-	else if (!strncmp(argv[0], "--breakmnu:", 10)) { 
-		extern void setBreakMNUSelector(char *);
-		setBreakMNUSelector(argv[0] + 10);
-		return 1; }
 	else if (argc > 1 && !strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
@@ -1715,17 +1699,9 @@ parseVMArgument(int argc, char *argv[])
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[0]+12);	 
 		return 2; }
-	else if (!strcmp(argv[0], "--checkpluginwrites")) { 
-		extern sqInt checkAllocFiller;
-		checkAllocFiller = 1;
-		return 1; }
 	else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
-		return 1; }
-	else if (!strcmp(argv[0], "--warnpid")) { 
-		extern sqInt warnpid;
-		warnpid = getpid();
 		return 1; }
 #endif /* STACKVM */
 #if COGVM

@@ -1910,7 +1910,7 @@ fakeMouseWheelKeyboardEvents(EventMouseWheelAxis wheelMouseDirection,long wheelM
 	/* press code must differentiate */
 	evt->charCode = macKeyCode;
 	evt->pressCode = EventKeyDown;
-	evt->modifiers = modifierMap[(controlKey >> 8)];
+	evt->modifiers = modifierMap[((controlKey | optionKey | cmdKey | shiftKey) >> 8)];
 	evt->windowIndex = windowActive;
 	/* generate extra character event */
         extra = (sqKeyboardEvent*)nextEventPut();

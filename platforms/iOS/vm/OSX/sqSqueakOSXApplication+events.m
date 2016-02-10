@@ -157,6 +157,8 @@ static int buttonState=0;
 
 - (void) pushEventToQueue: (sqInputEvent *) evt {	
 	NSMutableArray* data = [NSMutableArray new];
+
+//	NSLog(@"sqSqueakOSXApplication+events.m>>pushEventToQueue:");
 	[data addObject: [NSNumber numberWithInteger: 1]];
 	[data addObject: [NSData  dataWithBytes:(const void *) evt length: sizeof(sqInputEvent)]];
 	[eventQueue addItem: data];
@@ -171,6 +173,7 @@ static int buttonState=0;
 	NSRange picker;
 	NSUInteger totaLength;
 	
+//	NSLog(@"sqSqueakOSXApplication+events>>recordCharEvent:fromView:");
 	evt.type = EventTypeKeyboard;
 	evt.timeStamp = (int) ioMSecs();
 	picker.location = 0;
@@ -308,7 +311,7 @@ static int buttonState=0;
 	evt.charCode = keyCode;
 	evt.utf32Code = 0;
 	evt.reserved1 = 0;
-	evt.modifiers = modifierMap[(controlKey >> 8)];
+	evt.modifiers = modifierMap[((controlKey | optionKey | cmdKey | shiftKey) >> 8)];
 	evt.windowIndex = windowIndex;
 	[self pushEventToQueue:(sqInputEvent *) &evt];
 

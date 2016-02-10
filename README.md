@@ -41,12 +41,17 @@ rm MacOSX10.6.sdk.zip
 ```
 
 Windows:
----------
+--------
 Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
+
+iOS:
+----
+Building the VM under iOS requires a more complex setup which is described in the separate [iOS readme](README-iOS.md) file.
 
 
 Building the VM
 ================
+(For Windows build, see below)
 
 1. Download the sources from [github](https://github.com/pharo-project/pharo-vm)
  ```bash
@@ -91,46 +96,19 @@ Before doing that, you would be well advised to make a tar or zipfile of the who
 
 5. Finally, run the freshly compiled VM from `results`.
 
-##Building for iOS
-
-The process for compiling the VM for iOS is almost the same, but there are some extra steps you need to do:
-
-1. You need to produce a valid Pharo image (which is a plain Pharo image with some packages). The easiest way to do it is going to `iosbuild/resources`, then execute:
-	```
-	./generate.sh
-	```
-
-2. The lines you need to evaluate in `generator.image` for producing iOS sources are:
-	```
-	PharoIPhoneBuilder buildIPhone.
-	PharoIPhoneBuilder buildIPhoneSimulator.
-	```
-	(the differences between them are self explanatory)
-
-3. You can then execute `sh build.sh` in build subdirectory, and you will have a Pharo.app waiting for you in `results` :) 
-	
-That will not solve certain common problems you will find when working for iOS, thought. I will try to cover some of them now.
-
-####Problem 1: Debugging/deploying through Xcode 
-You will need to produce a valid xcodeproj file. Is very easy, just follow next steps. 
-
-1. Go to `build` directory
-2. execute: `../scripts/extract-commit-info.sh`
-3. remove CMakeCache.txt (if it exists)
-4. execute: `cmake -G Xcode .`
-
-Done! you will have an xcode project and you can proceed from there as any other regular iOS app.
-
-####Problem 2: Signing for publishing
-The problem of publishing apps is very complicated and in my opinion, moronic... but well, that's the game and we have to play with those rules (I will not explain them, in part because I do not understand it completely, you can go to [Apple developers site](http://developer.apple.com) and try to dig it there).  
-There is one tool that you can use to automate the signing process, assuming you have all the required previous steps:  
+Building the VM from an IDE
+===========================
+If you want to build the virtual machine from an IDE, you could ask cmake to generate the IDE project for you.
+At step 4, instead of calling ```build.sh```, you can run:
+```bash
+cd ../build
+if [ ! -e vmVersionInfo.h ]; then
+        ../scripts/extract-commit-info.sh
+fi
+cmake . -G Xcode
 ```
-xcrun -sdk iphoneos PackageApplication \
-    /path/to/your/results/Pharo.app \
-    -o "/path/to/your/results/iPharo.ipa" \
-    --sign "iPhone Distribution: YOUR DISTRUBUTION NAME" \
-    --embed "/pat/to/your/app.mobileprovision"
-```
+It will generate a project for Xcode. Other options are available like Visual Studio.
+Then open the project from your IDE and compile from there.
 
 Acknowledge
 ===========

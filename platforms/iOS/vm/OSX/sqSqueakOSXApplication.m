@@ -235,7 +235,6 @@ void mtfsfi(unsigned long long fpscr) {}
 }
 
 - (void) parseEnv: (NSDictionary *) env {
-#warning untested!
 	NSString *imageNameString = [env objectForKey: @"retain"];
 	if (imageNameString) {
 		[(sqSqueakOSXInfoPlistInterface*) self.infoPlistInterfaceLogic setOverrideSqueakImageName: imageNameString];

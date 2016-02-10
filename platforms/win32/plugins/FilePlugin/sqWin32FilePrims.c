@@ -6,6 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
+*   RCSID:   $Id$
 *
 *   NOTES:
 *     1) This is a bare windows implementation *not* using any stdio stuff.
@@ -16,7 +17,7 @@
 *
 *   UPDATES:
 *     1) Support for long path names added by using UNC prefix in that case
-*        (Marcel Taeumel, Hasso Plattner Institute, Postdam, Germany)
+*        (Marcel Taeumel, Hasso Plattner Institute, Potsdam, Germany)
 *     2) Try to remove the read-only attribute from a file before calling
 *        DeleteFile. DeleteFile cannot delete read-only files (see comment
 *        in sqFileDeleteNameSize).
@@ -39,6 +40,7 @@ extern struct VirtualMachine *interpreterProxy;
 
 #define FILE_HANDLE(f) ((HANDLE) (f)->file)
 #define FAIL() { return interpreterProxy->primitiveFail(); }
+
 
 /***
     The state of a file is kept in the following structure,
@@ -73,46 +75,6 @@ int thisSession = 0;
 
 /* answers if the file name in question has a case-sensitive duplicate */
 int hasCaseSensitiveDuplicate(WCHAR *path);
-
-/**
-    Converts multi-byte characters to wide characters. Handles paths longer
-    than 260 characters (including NULL) by prepending "\\?\" to encode UNC
-    paths as suggested in http://msdn.microsoft.com/en-us/library/windows/
-    desktop/aa365247%28v=vs.85%29.aspx#maxpath
-      "The maximum path of 32,767 characters is approximate,
-         because the "\\?\" prefix may be expanded to a longer
-         string by the system at run time, and this expansion
-         applies to the total length."
-    
-    Note that we do not check for the correct path component size,
-    which should be MAX_PATH in general but can vary between file systems.   
-    Actually, we should perform an additional check with
-    GetVolumneInformation to acquire lpMaximumComponentLength. 
-
-    Note that another possibility would be to use 8.3 aliases
-    for path components like the Windows Explorer does. However,
-    this feature also depends on the volume specifications.
-
-    Calling alloca() should be fine because we limit path length to 32k.
-    Stack size limit is much higher.
-**/
-#define ALLOC_WIN32_PATH(out_path, in_name, in_size) { \
-  int sz = MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, NULL, 0); \
-  if(sz >= 32767) FAIL(); \
-  if(sz >= MAX_PATH) { \
-    out_path = (WCHAR*)alloca((sz + 4 + 1) * sizeof(WCHAR)); \
-    out_path[0] = L'\\'; out_path[1] = L'\\'; \
-    out_path[2] = L'?'; out_path[3] = L'\\'; \
-    MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, out_path + 4, sz); \
-    out_path[sz + 4] = 0; \
-    sz += 4; \
-  } else { \
-    out_path = (WCHAR*)alloca((sz + 1) * sizeof(WCHAR)); \
-    MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, out_path, sz); \
-    out_path[sz] = 0; \
-  } \
-}
-
 
 typedef union {
   struct {
@@ -162,20 +124,21 @@ sqInt sqFileDeleteNameSize(char* fileNameIndex, sqInt fileNameSize) {
 
   if(hasCaseSensitiveDuplicate(win32Path))
     FAIL();
+  /*
+    DeleteFile will not delete a file with the read-only attribute set
+    (e.g. -r--r--r--, see https://msdn.microsoft.com/en-us/library/windows/desktop/aa363915(v=vs.85).aspx).
+    To ensure that this works the same way as on *nix platforms we need to
+    remove the read-only attribute (which might fail if the current user
+    doesn't own the file).
 
-  /* DeleteFile will not delete a file with the read-only attribute set
-  (e.g. -r--r--r--, see https://msdn.microsoft.com/en-us/library/windows/desktop/aa363915(v=vs.85).aspx).
-  To ensure that this works the same way as on *nix platforms we need to
-  remove the read-only attribute (which might fail if the current user
-  doesn't own the file).
     Also note that DeleteFile cannot *effectively* delete a file as long as
-  there are other processes that hold open handles to that file. The function
-  will still report success since the file is *marked* for deletion (no new
-  handles can be opened. See the URL mentioned above for reference).
-  This will lead to problems during a recursive delete operation since now
-  the parent directory wont be empty. */
+    there are other processes that hold open handles to that file. The function
+    will still report success since the file is *marked* for deletion (no new
+    handles can be opened. See the URL mentioned above for reference).
+    This will lead to problems during a recursive delete operation since now
+    the parent directory wont be empty.
+  */
   SetFileAttributesW(win32Path, FILE_ATTRIBUTE_NORMAL);
-
   if(!DeleteFileW(win32Path))
     FAIL();
   
@@ -355,14 +318,6 @@ sqInt sqFileFlush(SQFile *f) {
   return 1;
 }
 
-sqInt sqFileSync(SQFile *f) {
-  /*
-   * sqFileFlush uses FlushFileBuffers which is equivalent to fsync on windows
-   * as long as WriteFile is used directly and no other buffering is done.
-   */
-  return sqFileFlush(f);
-}
-
 sqInt sqFileTruncate(SQFile *f, squeakFileOffsetType offset) {
   win32FileOffset ofs;
   ofs.offset = offset;
@@ -432,7 +387,7 @@ sqImageFile sqImageFileOpen(char *fileName, char *mode)
 
   if(hasCaseSensitiveDuplicate(win32Path))
     return 0;
-  
+
   h = CreateFileW(win32Path,
 		  writeFlag ? (GENERIC_READ | GENERIC_WRITE) : GENERIC_READ,
 		  writeFlag ? FILE_SHARE_READ : (FILE_SHARE_READ | FILE_SHARE_WRITE),

@@ -35,6 +35,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include "mpeg3private.h"
 #include "changesForSqueak.h"
 

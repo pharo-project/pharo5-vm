@@ -36,6 +36,7 @@
  * truth is very definitely not beauty today.  Sigh...
  */
 
+
 #include "sq.h"
 #include "sqVirtualMachine.h"
 #include "FilePlugin.h"
@@ -48,48 +49,34 @@ extern struct VirtualMachine  *interpreterProxy;
 extern int		       uxDropFileCount;
 extern char		     **uxDropFileNames;
 
-#if defined(SQUEAK_INTERNAL_PLUGIN)
-extern SQFile * fileValueOf(sqInt objectPointer);
-#else
-/*	Return a pointer to the first byte of of the SQFile data structure file
-	record within
-	anSQFileRecord, which is expected to be a ByteArray of size
-	self>>fileRecordSize. 
- */
 
-	/* OSProcessPlugin>>#fileValueOf: */
-static SQFile *
-fileValueOf(sqInt anSQFileRecord)
+int dropInit(void)	{ return 1; }
+int dropShutdown(void)	{ return 1; }
+
+char *dropRequestFileName(int dropIndex)	// in st coordinates
 {
-	return interpreterProxy->arrayValueOf(anSQFileRecord);
-}
-#endif /* defined(SQUEAK_INTERNAL_PLUGIN) */
-
-sqInt dropInit(void)     { return 1; }
-sqInt dropShutdown(void) { return 1; }
-
-char *dropRequestFileName(sqInt dropIndex)	// in st coordinates
-{
-	if ((dropIndex > 0) && (dropIndex <= uxDropFileCount)) {
-		assert(uxDropFileNames);
-		dndReceived(uxDropFileNames[dropIndex - 1]);
-		return uxDropFileNames[dropIndex - 1];
-	}
-	return 0;
+  if ((dropIndex > 0) && (dropIndex <= uxDropFileCount))
+    {
+      assert(uxDropFileNames);
+      dndReceived(uxDropFileNames[dropIndex - 1]);
+      return uxDropFileNames[dropIndex - 1];
+    }
+  return 0;
 }
 
-sqInt dropRequestFileHandle(sqInt dropIndex)
+int dropRequestFileHandle(int dropIndex)
 {
-	char *path= dropRequestFileName(dropIndex);
-	if (path) {
-		// you cannot be serious?
-		sqInt handle = instantiateClassindexableSize(classByteArray(), fileRecordSize());
-		sqFileOpen(fileValueOf(handle), path, strlen(path), 0);
-		return handle;
-	}  
-	return interpreterProxy->nilObject();
+  char *path= dropRequestFileName(dropIndex);
+  if (path)
+    {
+      // you cannot be serious?
+      int handle= instantiateClassindexableSize(classByteArray(), fileRecordSize());
+      sqFileOpen((SQFile *)fileValueOf(handle), path, strlen(path), 0);
+      return handle;
+    }  
+  return interpreterProxy->nilObject();
 }
 
-sqInt	sqSecFileAccessCallback(void *callback)               { return 0; }
-void	sqSetNumberOfDropFiles(sqInt numberOfFiles)           { }
-void	sqSetFileInformation(sqInt dropIndex, void *dropFile) { }
+int  sqSecFileAccessCallback(void *callback)		 { return 0; }
+void sqSetNumberOfDropFiles(int numberOfFiles)		 { }
+void sqSetFileInformation(int dropIndex, void *dropFile) { }

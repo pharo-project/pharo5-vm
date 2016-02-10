@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # FIND THIS SCRIPT's LOCATION =================================================
 SCRIPT_DIR=`readlink "$0"` || SCRIPT_DIR="$0";

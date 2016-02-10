@@ -1232,6 +1232,7 @@ int recordKeyboardEvent(MSG *msg) {
   /* now the key code */
   virtCode = mapVirtualKey(msg->wParam);
   keyCode = msg->wParam;
+
   /* press code must differentiate */
   switch(msg->message) {
     case WM_KEYDOWN:
@@ -1280,13 +1281,51 @@ int recordKeyboardEvent(MSG *msg) {
   evt->modifiers |= ctrl ? CtrlKeyBit : 0;
   evt->windowIndex = msg->hwnd == stWindow ? 0 : (int) msg->hwnd;
   evt->utf32Code = keyCode;
+    
   /* clean up reserved */
   evt->reserved1 = 0;
+
+  /* so the image can distinguish between control sequence
+     like SOH and characters with modifier like ctrl+a */
+  if(pressCode == EventKeyChar && ctrl)
+  {
+    evt->utf32Code = MapVirtualKey(LOBYTE(HIWORD(msg->lParam)), 1);
+    return 1;
+  }
+
   /* note: several keys are not reported as character events;
      most noticably the mapped virtual keys. For those we
-     generate extra character events here */
-  if(pressCode == EventKeyDown && virtCode != 0) {
+     generate extra character events here (not for CTRL+VK_RETURN*/
+  if(pressCode == EventKeyDown && virtCode != 0 && (evt->charCode != VK_RETURN || !ctrl)) {
     /* generate extra character event */
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  
+  /* some more keypress events for which windows only reports keydown and keyup
+  */
+  /* ctlr+m, but report as keyValue = VK_RETURN and charCode m/M */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode == 77)
+  {
+    evt->utf32Code = (shift) ? 77 : 109;
+    evt->charCode = VK_RETURN;
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  /* ctlr+<number> */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode >= 48 && evt->charCode <= 57)
+  {
+    evt->utf32Code = evt->charCode;
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  /* ctlr+Tab */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode == 9)
+  {
+    evt->utf32Code = evt->charCode;
     sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
     *extra = *evt;
     extra->pressCode = EventKeyChar;
