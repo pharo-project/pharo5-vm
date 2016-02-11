@@ -6,8 +6,6 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32Alloc.c 1394 2006-03-29 02:19:47Z andreas $
-*
 *
 *****************************************************************************/
 #include <windows.h>

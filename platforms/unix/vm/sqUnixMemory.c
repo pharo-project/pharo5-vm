@@ -320,7 +320,7 @@ sqInt sqMemoryExtraBytesLeft(sqInt includingSwap)			{ return uxMemoryExtraBytesL
 
 #define roundDownToPage(v) ((v)&pageMask)
 #define roundUpToPage(v) (((v)+pageSize-1)&pageMask)
-#if COGVM || defined(HAVE_NATIVEBOOST)
+#if COGVM
 void
 sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
