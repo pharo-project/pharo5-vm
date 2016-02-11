@@ -133,8 +133,6 @@ BOOL  fHeadlessImage = 0;      /* Do we run headless? */
 BOOL  fRunService = 0;         /* Do we run as NT service? */
 DWORD dwMemorySize = 0;        /* How much memory do we use? */
 BOOL  fBrowserMode = 0;        /* Are we running in a web browser? */
-UINT  fAddressSpaceLimit = MAX_VIRTUAL_MEMORY; /* how much address space reserve for object memory */
-
 
 /* Misc preferences */
 BOOL  fEnableAltF4Quit = 1; /* can we quit using Alt-F4? */
@@ -1232,7 +1230,6 @@ int recordKeyboardEvent(MSG *msg) {
   /* now the key code */
   virtCode = mapVirtualKey(msg->wParam);
   keyCode = msg->wParam;
-
   /* press code must differentiate */
   switch(msg->message) {
     case WM_KEYDOWN:
@@ -1281,7 +1278,6 @@ int recordKeyboardEvent(MSG *msg) {
   evt->modifiers |= ctrl ? CtrlKeyBit : 0;
   evt->windowIndex = msg->hwnd == stWindow ? 0 : (int) msg->hwnd;
   evt->utf32Code = keyCode;
-    
   /* clean up reserved */
   evt->reserved1 = 0;
 

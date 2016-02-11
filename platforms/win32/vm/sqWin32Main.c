@@ -18,8 +18,8 @@
 #include <fcntl.h> /* _O_BINARY */
 #include <float.h>
 #include <ole2.h>
-#include <setjmp.h>
 #include "sq.h"
+#include "sqWin32Prefs.h"
 #include "sqAssert.h"
 #include "sqWin32Backtrace.h"
 #include "sqSCCSVersion.h"
@@ -64,6 +64,7 @@ int clargc; /* the Unix-style command line, saved for GetImageOption */
 char **clargv;
 
 /* console buffer */
+BOOL fIsConsole = 0;
 TCHAR consoleBuffer[4096];
 
 /* stderr and stdout names */
@@ -232,8 +233,10 @@ int __cdecl DPRINTF(const char *fmt, ...)
 { va_list al;
 
   va_start(al, fmt);
-  wvsprintf(consoleBuffer, fmt, al);
-  OutputDebugString(consoleBuffer);
+  if (!fIsConsole) {
+	wvsprintf(consoleBuffer, fmt, al);
+	OutputDebugString(consoleBuffer);
+  }
   vfprintf(stdout, fmt, al);
   va_end(al);
   return 1;
@@ -242,17 +245,18 @@ int __cdecl DPRINTF(const char *fmt, ...)
 #if !defined(_MSC_VER) && !defined(NODBGPRINT)
 
 // redefining printf doesn't seem like a good idea to me...
-/*
 int __cdecl
 printf(const char *fmt, ...)
 { va_list al;
   int result;
 
   va_start(al, fmt);
-  wvsprintf(consoleBuffer, fmt, al);
-  OutputLogMessage(consoleBuffer);
-  if(IsWindow(stWindow)) /-* not running as service? *-/
-    OutputConsoleString(consoleBuffer);
+  if (!fIsConsole) {
+	wvsprintf(consoleBuffer, fmt, al);
+	OutputLogMessage(consoleBuffer);
+	if(IsWindow(stWindow)) /-* not running as service? *-/
+	  OutputConsoleString(consoleBuffer);
+  }
   result = vfprintf(stdout, fmt, al);
   va_end(al);
   return result;
@@ -264,7 +268,7 @@ fprintf(FILE *fp, const char *fmt, ...)
   int result;
 
   va_start(al, fmt);
-  if(fp == stdout || fp == stderr)
+  if(!fIsConsole && (fp == stdout || fp == stderr))
     {
       wvsprintf(consoleBuffer, fmt, al);
       OutputLogMessage(consoleBuffer);
@@ -278,11 +282,9 @@ fprintf(FILE *fp, const char *fmt, ...)
 
 
 int __cdecl
-putchar(int c)
-{
-  return printf("%c",c);
-}
-*/
+putchar(int c) { return printf("%c",c); }
+
+
 #endif /* !defined(_MSC_VER) && !defined(NODBGPRINT) */
 
 /****************************************************************************/
@@ -775,7 +777,11 @@ getVersionInfo(int verbose)
   info[0]= '\0';
 
 #if SPURVM
-# define ObjectMemory " Spur"
+# if BytesPerOop == 8
+#	define ObjectMemory " Spur 64-bit"
+# else
+#	define ObjectMemory " Spur"
+# endif
 #else
 # define ObjectMemory
 #endif
@@ -1194,9 +1200,6 @@ void __cdecl Cleanup(void)
       fclose(stdout);
       remove(stdoutName);
     }
-#ifndef NO_VIRTUAL_MEMORY
-  sqReleaseMemory();
-#endif
   OleUninitialize();
 }
 
@@ -1267,7 +1270,6 @@ extern sqInt sendTrace;
 #endif
 #if STACKVM || NewspeakVM
 extern sqInt checkForLeaks;
-extern void setBreakSelector(char *);
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
 extern sqInt desiredNumStackPages;
@@ -1424,8 +1426,11 @@ sqMain(int argc, char *argv[])
 
   /* check the interpreter's size assumptions for basic data types */
   if (sizeof(int) != 4) error("This C compiler's integers are not 32 bits.");
+  if (sizeof(sqLong) != 8) error("This C compiler's long longs are not 64 bits.");
   if (sizeof(double) != 8) error("This C compiler's floats are not 64 bits.");
+#if 0
   if (sizeof(time_t) != 4) error("This C compiler's time_t's are not 32 bits.");
+#endif
 
 
   if(!imageFile) {
@@ -1515,11 +1520,18 @@ sqMain(int argc, char *argv[])
 int WINAPI
 WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+  DWORD mode;
+
   /* a few things which need to be done first */
   gatherSystemInfo();
 
   /* check if we're running NT or 95 */
   fWindows95 = (GetVersion() & 0x80000000) != 0;
+  /* Determine if we're running as a console application  We can't report
+   * allocation failures unless running as a console app because doing so
+   * via a MessageBox will make the system unusable.
+   */
+  fIsConsole = GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), &mode);
 
   /* fetch us a copy of the command line */
   initialCmdLine = _strdup(lpCmdLine);
@@ -1597,7 +1609,7 @@ WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
   return 0;
 }
 
-static int
+static long
 strtobkm(const char *str)
 {
 	char *suffix;
@@ -1675,6 +1687,14 @@ parseVMArgument(int argc, char *argv[])
 		return 1; }
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
+      else if (!strcmp(argv[0], "--breakmnu")) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[1]);
+		return 2; }
+	else if (!strncmp(argv[0], "--breakmnu:", 10)) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[0] + 10);
+		return 1; }
 	else if (argc > 1 && !strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
@@ -1699,9 +1719,17 @@ parseVMArgument(int argc, char *argv[])
 		extern sqInt desiredNumStackPages;
 		desiredNumStackPages = atoi(argv[0]+12);	 
 		return 2; }
+	else if (!strcmp(argv[0], "--checkpluginwrites")) { 
+		extern sqInt checkAllocFiller;
+		checkAllocFiller = 1;
+		return 1; }
 	else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
+		return 1; }
+	else if (!strcmp(argv[0], "--warnpid")) { 
+		extern sqInt warnpid;
+		warnpid = getpid();
 		return 1; }
 #endif /* STACKVM */
 #if COGVM
@@ -1754,6 +1782,16 @@ parseVMArgument(int argc, char *argv[])
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
+#if SPURVM
+    else if (!strcmp(argv[0], "--maxoldspace")) { 
+		extern unsigned long maxOldSpaceSize;
+		maxOldSpaceSize = (unsigned long)strtobkm(argv[1]);	 
+		return 2; }
+    else if (!strncmp(argv[0], "--maxoldspace:", 13)) { 
+		extern unsigned long maxOldSpaceSize;
+		maxOldSpaceSize = (unsigned long)strtobkm(argv[0]+13);	 
+		return 2; }
+#endif
 
   /* NOTE: the following flags are "undocumented" */
 	else if (argc > 1 && !strcmp(argv[0], "--browserWindow")) {
@@ -1964,7 +2002,7 @@ isCFramePointerInUse()
 #if !defined(min)
 # define min(x,y) (((x)>(y))?(y):(x))
 #endif
-static char *p = 0;
+static char * volatile p = 0;
 
 static void
 sighandler(int sig) { p = (char *)&sig; }

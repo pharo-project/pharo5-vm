@@ -13,7 +13,7 @@
 #include <windows.h>
 #include "sq.h"
 
-#ifndef NO_VIRTUAL_MEMORY
+#if !defined(NO_VIRTUAL_MEMORY) && !SPURVM /* Spur uses sqWin32SpurAlloc.c */
 
 /* For Qwaq Forums: Disallow memory shrinking to avoid crashes
    due to GC/OpenGL relocation problems within glDrawElements.
@@ -23,10 +23,6 @@
 */
 #define DO_NOT_SHRINK
 
-
-#ifndef NO_RCSID
-  static char RCSID[]="$Id: sqWin32Alloc.c 1394 2006-03-29 02:19:47Z andreas $";
-#endif
 
 static LPSTR  pageBase;     /* base address of allocated memory */
 static DWORD  pageMask;     /* bit mask for the start of a memory page */
@@ -70,7 +66,7 @@ void *sqAllocateMemory(usqInt minHeapSize, usqInt desiredHeapSize)
 
   /* Here, we only reserve the maximum memory to be used
      It will later be committed during actual access */
-  maxReserved = fAddressSpaceLimit * 1024 * 1024;
+  maxReserved = MAX_VIRTUAL_MEMORY;
   do {
     pageBase = VirtualAlloc(NULL,maxReserved,MEM_RESERVE, PAGE_NOACCESS);
     if(!pageBase) {
@@ -176,26 +172,17 @@ int sqMemoryExtraBytesLeft(int includingSwap) {
   }
   return bytesLeft;
 }
-#endif /* NO_VIRTUAL_MEMORY */
 
 #define roundDownToPage(v) ((v)&pageMask)
 #define roundUpToPage(v) (((v)+pageSize-1)&pageMask)
 
-/************************************************************************/
-/* sqMemReleaseMemory: Release virtual memory                            */
-/************************************************************************/
-void sqReleaseMemory(void)
-{
-  /* Win32 will do that for us */
-}
-
-#if COGVM || defined(HAVE_NATIVEBOOST)
+# if COGVM
 void
 sqMakeMemoryExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
 	DWORD previous;
 
-	if (!VirtualProtect(startAddr,
+	if (!VirtualProtect((void *)startAddr,
 						endAddr - startAddr + 1,
 						PAGE_EXECUTE_READWRITE,
 						&previous))
@@ -207,63 +194,11 @@ sqMakeMemoryNotExecutableFromTo(unsigned long startAddr, unsigned long endAddr)
 {
 	DWORD previous;
 
-	if (!VirtualProtect(startAddr,
+	if (!VirtualProtect((void *)startAddr,
 						endAddr - startAddr + 1,
 						PAGE_READWRITE,
 						&previous))
 		perror("VirtualProtect(x,y,PAGE_EXECUTE_READWRITE)");
 }
-#endif /* COGVM */
-
-#if SPURVM
-/* Allocate a region of memory of al least size bytes, at or above minAddress.
- *  If the attempt fails, answer null.  If the attempt succeeds, answer the
- * start of the region and assign its size through allocatedSizePointer.
- */
-void *
-sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto(sqInt size, void *minAddress, sqInt *allocatedSizePointer)
-{
-	void *alloc;
-	long bytes = roundUpToPage(size);
-
-	*allocatedSizePointer = bytes;
-#if 0 /* It appears VirtualAlloc answers low memory by default. */
-	alloc = VirtualAlloc(0, bytes, MEM_COMMIT, PAGE_READWRITE);
-	if (!alloc) {
-		sqMessageBox(MB_OK | MB_ICONSTOP, TEXT("VM Error:"),
-					"Unable to VirtualAlloc committed memory (%d bytes requested)",
-					bytes);
-		return NULL;
-	}
-	if ((unsigned long)alloc >= (unsigned long)minAddress)
-		return alloc;
-	if (!VirtualFree(alloc, bytes, MEM_RELEASE))
-		sqMessageBox(MB_OK | MB_ICONSTOP, TEXT("VM Warning:"),
-					"Unable to VirtualFree committed memory (%d bytes requested)",
-					bytes);
-#endif /* 0 */
-	alloc = VirtualAlloc(0, bytes, MEM_COMMIT+MEM_TOP_DOWN, PAGE_READWRITE);
-	if ((unsigned long)alloc >= (unsigned long)minAddress)
-		return alloc;
-	if (!VirtualFree(alloc, bytes, MEM_RELEASE))
-		sqMessageBox(MB_OK | MB_ICONSTOP, TEXT("VM Warning:"),
-					"Unable to VirtualFree committed memory (%d bytes requested)",
-					bytes);
-	sqMessageBox(MB_OK | MB_ICONSTOP, TEXT("VM Error:"),
-				"Unable to VirtualAlloc committed memory at desired address (%d bytes requested at or above %p)",
-				bytes, minAddress);
-	return NULL;
-}
-
-/* Deallocate a region of memory previously allocated by
- * sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto.  Cannot fail.
- */
-void
-sqDeallocateMemorySegmentAtOfSize(void *addr, sqInt sz)
-{
-	if (!VirtualFree(addr, sz, MEM_RELEASE))
-		sqMessageBox(MB_OK | MB_ICONSTOP, TEXT("VM Warning:"),
-					"Unable to VirtualFree committed memory (%d bytes requested)",
-					sz);
-}
-#endif /* SPURVM */
+# endif /* COGVM */
+#endif /* !defined(NO_VIRTUAL_MEMORY) && !SPURVM */
