@@ -31,4 +31,5 @@ commonCompilerFlags
 		'-DENABLE_FAST_BLT'.
 		'-D_USE_32BIT_TIME_T'.
 		'-D_FILE_OFFSET_BITS=64'.
-		'-D_GNU_SOURCE' }
+		'-D_GNU_SOURCE'.
+		'-DNODBGPRINT' "Otherwise it redefines printf and compiler complains"}
