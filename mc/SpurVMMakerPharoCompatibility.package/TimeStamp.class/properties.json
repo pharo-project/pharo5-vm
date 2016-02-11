@@ -3,17 +3,12 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		"QuietMode" ],
+		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"environ",
-		"classMap",
-		"instVarMap",
-		"progress",
-		"maxClassIndex",
-		"currentClassIndex" ],
-	"name" : "ClassBuilder",
+		 ],
+	"name" : "TimeStamp",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "DateAndTime",
 	"type" : "normal" }
