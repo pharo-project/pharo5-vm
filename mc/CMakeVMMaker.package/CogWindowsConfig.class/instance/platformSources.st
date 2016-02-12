@@ -2,15 +2,13 @@ source files
 platformSources
 	"files added from platform/win32/vm dir "
 	^ #(
-		"'sqWin32Alloc.c'"
-		'sqWin32SMain.c'
+		'sqWin32Main.c'
+		'sqWin32Alloc.c'
 		'sqWin32SpurAlloc.c'
-		"'sqWin32Intel.c'"
 		'sqWin32Directory.c'
 		'sqWin32Heartbeat.c'
 		'sqWin32Service.c'
 		'sqWin32VMProfile.c'
-		'sqWin32Args.c'
 		'sqWin32Exports.c'
 		'sqWin32DnsInfo.c'		
 		'sqWin32Stubs.c'
