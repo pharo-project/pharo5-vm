@@ -6,7 +6,7 @@ checkClassForNameConflicts: aClass
 	"check for constant name collisions in class pools"
 	aClass classPool associationsDo:
 		[:assoc |
-		(constants includesKey: assoc key asString) ifTrue:
+		(constants includesKey: assoc key) ifTrue:
 			[self error: 'Constant ', assoc key, ' was defined in a previously added class']].
 
 	"and in shared pools"
@@ -14,7 +14,7 @@ checkClassForNameConflicts: aClass
 		[:pool |
 		pool bindingsDo:
 			[:assoc |
-			(constants includesKey: assoc key asString) ifTrue:
+			(constants includesKey: assoc key) ifTrue:
 				[self error: 'Constant ', assoc key, ' was defined in a previously added class']]].
 
 	"check for instance variable name collisions"

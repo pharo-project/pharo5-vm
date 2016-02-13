@@ -1,3 +1,3 @@
 other
 majorVersion
-	^ 1
+	self notYetImplemented

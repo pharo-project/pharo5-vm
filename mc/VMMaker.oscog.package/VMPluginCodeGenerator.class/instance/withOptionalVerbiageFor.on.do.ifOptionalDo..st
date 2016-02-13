@@ -5,10 +5,9 @@ withOptionalVerbiageFor: selector on: aStream do: mainBlock ifOptionalDo: option
 			[mainBlock value]
 		ifNotNil:
 			[:pragma|
-			 aStream cr.
 			 self emitIfdefForPluginFunctionOption: pragma arguments first on: aStream.
+			 aStream cr.
 			 mainBlock value.
-			 optionalBlock ifNotNil: 
-				[aStream cr; nextPutAll: '#else'.
-			 	 optionalBlock value].
-			 aStream cr; nextPutAll: '#endif']
+			 aStream nextPutAll: '#else'; cr.
+			 optionalBlock value.
+			 aStream nextPutAll: '#endif'; cr]

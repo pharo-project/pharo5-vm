@@ -5,7 +5,7 @@ addConstantForBinding: variableBinding
 	val := variableBinding value.
 	node := (useSymbolicConstants and: [self isCLiteral: val])
 				ifTrue:[TDefineNode new
-							setName: variableBinding key asString
+							setName: variableBinding key
 							value: variableBinding value]
 				ifFalse:[TConstantNode new setValue: variableBinding value].
-	constants at: variableBinding key asString put: node
+	constants at: variableBinding key put: node

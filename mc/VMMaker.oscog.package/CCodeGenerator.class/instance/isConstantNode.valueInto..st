@@ -4,7 +4,7 @@ isConstantNode: aNode valueInto: aBlock
 
 	aNode isConstant ifTrue:
 		[(aNode isDefine
-		 and: [VMBasicConstants namesDefinedAtCompileTime includes: aNode name]) ifTrue:
+		  and: [VMBasicConstants defineAtCompileTime: aNode name]) ifTrue:
 			[^false].
 		 aBlock value: aNode value.
 		 ^true].

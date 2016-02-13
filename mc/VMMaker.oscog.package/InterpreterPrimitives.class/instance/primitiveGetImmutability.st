@@ -1,9 +1,9 @@
 object access primitives
 primitiveGetImmutability
-	<option: #IMMUTABILITY>
-	| rcvr bool |
-	rcvr := self stackValue: 0.
-	bool := (objectMemory isOopImmutable: rcvr)
-		ifTrue: [ TrueObject ]
-		ifFalse: [ FalseObject ].
-	self pop: argumentCount + 1 thenPush: (objectMemory splObj: bool)
+	self cppIf: #IMMUTABILITY
+		ifTrue:
+			[| rcvr |
+			 rcvr := self stackValue: 0.
+			 self pop: argumentCount + 1 thenPushBool: (objectMemory isOopImmutable: rcvr)]
+		ifFalse:
+			[self primitiveFailFor: PrimErrUnsupported]

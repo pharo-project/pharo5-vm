@@ -11,7 +11,7 @@ lookupMNUInClass: class
 			[lkupClass := self superclassOf: currentClass.
 			 ^SelectorCannotInterpret].
 		found := self lookupMethodInDictionary: dictionary.
-		self cppIf: #NewspeakVM
+		NewspeakVM
 			ifTrue: [found ifTrue: [lkupClass := class. self addNewMethodToNSCache: LookupRuleMNU. ^0]]
 			ifFalse: [found ifTrue: [self addNewMethodToCache: class. ^0]].
 		currentClass := self superclassOf: currentClass].

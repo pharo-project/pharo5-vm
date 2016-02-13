@@ -16,7 +16,7 @@ compileBlockBodies
 		 self scanBlock: blockStart.
 		 initialOpcodeIndex := opcodeIndex.
 		 literalsManager saveForBlockCompile.
-		 self cppIf: #NewspeakVM ifTrue:
+		 NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
@@ -41,7 +41,7 @@ compileBlockBodies
 									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
 				 literalsManager resetForBlockCompile.
-				 self cppIf: #NewspeakVM ifTrue:
+				 NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].
 	needsFrame := savedNeedsFrame.

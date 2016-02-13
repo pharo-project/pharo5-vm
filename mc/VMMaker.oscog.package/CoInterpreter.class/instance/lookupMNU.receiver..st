@@ -7,13 +7,13 @@ lookupMNU: selector receiver: rcvr
 	"self printFrame: stackPage headFP WithSP: stackPage headSP"
 	"self printStringOf: selector"
 	classTag := objectMemory fetchClassTagOf: rcvr.
-	self cppIf: #NewspeakVM
+	NewspeakVM
 	  	ifTrue:
-			[inCache := (self
-				inlineLookupInNSMethodCacheSel: selector
-				classTag: classTag
-				method: 0
-				lookupRule: LookupRuleMNU)]
+			[inCache := self
+							inlineLookupInNSMethodCacheSel: selector
+							classTag: classTag
+							method: 0
+							lookupRule: LookupRuleMNU]
 		ifFalse:
 			[inCache := self lookupInMethodCacheSel: selector classTag: classTag].
 	inCache ifFalse:

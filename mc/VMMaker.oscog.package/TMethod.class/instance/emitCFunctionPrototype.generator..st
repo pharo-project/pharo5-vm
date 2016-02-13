@@ -5,6 +5,9 @@ emitCFunctionPrototype: aStream generator: aCodeGen
 	properties ifNotNil:
 		[(properties at: #api: ifAbsent: []) ifNotNil:
 			[:pragma|
-			aStream nextPutAll: (pragma argumentAt: 1).
+			aStream
+				nextPutAll: (pragma argumentAt: 1);
+				nextPut: $;;
+				cr.
 			^self]].
 	self emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: true
