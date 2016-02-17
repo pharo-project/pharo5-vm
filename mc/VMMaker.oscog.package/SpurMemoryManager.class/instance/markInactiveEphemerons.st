@@ -10,8 +10,8 @@ markInactiveEphemerons
 	ptr := unscannedEphemerons start.
 	[ptr < unscannedEphemerons top] whileTrue:
 		[| ephemeron key |
-		key := self keyOfEphemeron: (ephemeron := self longAt: ptr).
-		((self isImmediate: key) or: [self isMarked: key])
+		 key := self followedKeyOfEphemeron: (ephemeron := self longAt: ptr).
+		 ((self isImmediate: key) or: [self isMarked: key])
 			ifTrue:
 				[foundInactive := true.
 				 "Now remove the inactive ephemeron from the set, and scan-mark it.

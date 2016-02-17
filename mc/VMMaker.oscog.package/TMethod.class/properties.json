@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		"CaseStatements" ],
-	"commentStamp" : "dtl 9/15/2008 09:06",
+	"commentStamp" : "",
 	"instvars" : [
 		"args",
 		"comment",
