@@ -12,6 +12,7 @@
 		"shouldBeTranslated" : "tpr 5/14/2001 12:19",
 		"warpBitShiftTable" : "tfel 3/11/2015 18:26" },
 	"instance" : {
+		"cppIf:ifTrue:ifFalse:" : "tfel 2/17/2016 17:46",
 		"dstLongAt:" : "ikp 8/2/2004 20:25",
 		"dstLongAt:put:" : "ikp 8/2/2004 20:29",
 		"halftoneAt:" : "tfel 2/11/2016 09:08",
