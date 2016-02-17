@@ -14,6 +14,7 @@
 	"instance" : {
 		"dstLongAt:" : "ikp 8/2/2004 20:25",
 		"dstLongAt:put:" : "ikp 8/2/2004 20:29",
+		"halftoneAt:" : "tfel 2/11/2016 09:08",
 		"initBBOpTable" : "tpr 4/3/2004 23:16",
 		"initialiseModule" : "eem 3/31/2015 18:07",
 		"initializeDitherTables" : "tfel 3/10/2015 23:14",
