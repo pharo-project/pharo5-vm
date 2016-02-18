@@ -13,7 +13,7 @@ instanceAfter: objOop
 						ifTrue: [self objectStartingAt: scavenger pastSpace start]
 						ifFalse: [nilObj]].
 
-	(self isInSurvivorSpace: actualObj) ifTrue:
+	(self isInPastSpace: actualObj) ifTrue:
 		[[actualObj := self objectAfter: actualObj limit: pastSpaceStart.
 		  self oop: actualObj isLessThan: pastSpaceStart] whileTrue:
 			[classIndex = (self classIndexOf: actualObj) ifTrue:

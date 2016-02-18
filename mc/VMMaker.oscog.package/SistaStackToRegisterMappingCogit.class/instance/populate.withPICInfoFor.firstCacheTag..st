@@ -5,9 +5,10 @@ populate: tuple withPICInfoFor: cPIC firstCacheTag: firstCacheTag
 	<var: #cPIC type: #'CogMethod *'>
 	| pc cacheTag classOop entryPoint targetMethod value |
 	<var: #targetMethod type: #'CogMethod *'>
-	pc := cPIC asInteger + firstCPICCaseOffset.
+
 	1 to: cPIC cPICNumCases do:
 		[:i|
+		pc := self addressOfEndOfCase: i inCPIC: cPIC.
 		cacheTag := i = 1
 						ifTrue: [firstCacheTag]
 						ifFalse: [backEnd literalBeforeFollowingAddress: pc
@@ -15,15 +16,15 @@ populate: tuple withPICInfoFor: cPIC firstCacheTag: firstCacheTag
 																		- backEnd loadLiteralByteSize].
 		classOop := objectRepresentation classForInlineCacheTag: cacheTag.
 		objectMemory storePointer: i * 2 - 1 ofObject: tuple withValue: classOop.
-		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
+		entryPoint := i = 1
+						ifTrue: [backEnd jumpLongTargetBeforeFollowingAddress: pc]
+						ifFalse: [backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc].
 		"Find target from jump.  A jump to the MNU entry-point should collect #doesNotUnderstand:"
-		(entryPoint asUnsignedInteger < cPIC asUnsignedInteger
-		 or: [entryPoint asUnsignedInteger > (cPIC asUnsignedInteger + cPIC blockSize) asUnsignedInteger])
+		(cPIC containsAddress: entryPoint)
 			ifTrue:
+				[value := objectMemory splObj: SelectorDoesNotUnderstand]
+			ifFalse:
 				[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 				 self assert: targetMethod cmType = CMMethod.
-				 value := targetMethod methodObject]
-			ifFalse:
-				[value := objectMemory splObj: SelectorDoesNotUnderstand].
-		objectMemory storePointer: i * 2 ofObject: tuple withValue: value.
-		pc := pc + cPICCaseSize]
+				 value := targetMethod methodObject].
+		objectMemory storePointer: i * 2 ofObject: tuple withValue: value]

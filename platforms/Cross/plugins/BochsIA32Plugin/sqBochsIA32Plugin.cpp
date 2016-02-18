@@ -38,7 +38,7 @@ static int            theErrorAcorn;
 static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 
 	   void			(*prevInterruptCheckChain)() = 0;
-       int            resetCPU(void *cpu);
+       long           resetCPU(void *cpu);
 
 	void *
 	newCPU()
@@ -50,7 +50,7 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 		return &bx_cpu;
 	}
 
-	int
+	long
 	resetCPU(void *cpu)
 	{
 		BX_CPU_C *anx86 = (BX_CPU_C *)cpu;
@@ -79,12 +79,19 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 		bx_cpu.sregs[BX_SEG_REG_SS].cache.u.segment.limit = 0xffff;
 		bx_cpu.sregs[BX_SEG_REG_SS].cache.u.segment.limit_scaled = 0xffffffff;
 
+		bx_cpu.gen_reg[BX_32BIT_REG_EAX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EBX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ECX].dword.erx = 0;
 		bx_cpu.gen_reg[BX_32BIT_REG_EDX].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EDI].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ESI].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_EBP].dword.erx = 0;
+		bx_cpu.gen_reg[BX_32BIT_REG_ESP].dword.erx = 0;
 		bx_cpu.gen_reg[BX_32BIT_REG_EIP].dword.erx = 0;
 		return 0;
 	}
 
-	int
+	long
 	singleStepCPUInSizeMinAddressReadWrite(void *cpu,
 									void *memory, ulong byteSize,
 									ulong minAddr, ulong minWriteMaxExecAddr)
@@ -117,7 +124,7 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 		return blidx == 0 ? 0 : SomethingLoggedError;
 	}
 
-	int
+	long
 	runCPUInSizeMinAddressReadWrite(void *cpu, void *memory, ulong byteSize,
 									ulong minAddr, ulong minWriteMaxExecAddr)
 	{
@@ -166,7 +173,7 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 #endif
 	}
 
-	int
+	long
 	disassembleForAtInSize(void *cpu, ulong laddr,
 							void *memory, ulong byteSize)
 	{
@@ -217,7 +224,7 @@ static bx_address     last_read_address = (bx_address)-1; /* for RMW cycles */
 		bx_cpu.async_event = 1;
 	}
 
-	int
+	long
 	errorAcorn(void) { return theErrorAcorn; }
 
 	char *

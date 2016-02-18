@@ -1,0 +1,8 @@
+class initialization
+initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid
+	"SimpleStackBasedCogit initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid"
+	"StackToRegisterMappingCogit initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid"
+
+	super initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid.
+	numPushNilsFunction := #v3or4:Num:Push:Nils:.
+	pushNilSizeFunction := #v3or4PushNilSize:numInitialNils:

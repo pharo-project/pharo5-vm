@@ -13,7 +13,8 @@
 		"counters",
 		"counterIndex",
 		"initialCounterValue",
-		"prevMapAbsPCMcpc" ],
+		"ceTrapTrampoline",
+		"branchReachedOnlyForCounterTrip" ],
 	"name" : "SistaStackToRegisterMappingCogit",
 	"pools" : [
 		"VMSqueakClassIndices" ],

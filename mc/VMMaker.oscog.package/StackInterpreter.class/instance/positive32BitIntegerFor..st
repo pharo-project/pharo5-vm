@@ -1,19 +1,11 @@
 primitive support
 positive32BitIntegerFor: integerValue
-	| newLargeInteger |
-	"N.B. will *not* cause a GC.
-		integerValue is interpreted as POSITIVE, e.g. as the result of Bitmap>at:."
-	(integerValue >= 0
-	 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
-		[^objectMemory integerObjectOf: integerValue].
-
-	newLargeInteger := objectMemory
-							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
-							format: (objectMemory byteFormatForNumBytes: 4)
-							numSlots: 1.
-	objectMemory
-		storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
-		storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
-		storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
-		storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF).
-	^newLargeInteger
+	"integerValue is interpreted as POSITIVE, e.g. as the result of Bitmap>at:.
+	 N.B.  Returning in each arm separately enables Slang inlining.
+	 /Don't/ return the ifTrue:ifFalse: unless Slang inlining of conditionals is fixed."
+	<inline: true>
+	objectMemory hasSixtyFourBitImmediates
+		ifTrue:
+			[^objectMemory integerObjectOf: (integerValue bitAnd: 16rFFFFFFFF)]
+		ifFalse:
+			[^self maybeInlinePositive32BitIntegerFor: integerValue]

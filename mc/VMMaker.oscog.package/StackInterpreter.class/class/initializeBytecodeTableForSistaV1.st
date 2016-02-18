@@ -5,6 +5,9 @@ initializeBytecodeTableForSistaV1
 	"Note: This table will be used to generate a C switch statement."
 
 	BytecodeTable := Array new: 256.
+	BytecodeEncoderClassName := #EncoderForSistaV1.
+	BytecodeSetHasDirectedSuperSend := true.
+
 	self table: BytecodeTable from:
 	#(	"1 byte bytecodes"
 		(   0  15 pushReceiverVariableBytecode)
@@ -28,7 +31,7 @@ initializeBytecodeTableForSistaV1
 		( 92	returnTopFromMethod)
 		( 93	returnNilFromBlock)
 		( 94	returnTopFromBlock)
-		( 95	extNop)
+		( 95	extNopBytecode)
 
 		( 96	 bytecodePrimAdd)
 		( 97	 bytecodePrimSubtract)
@@ -75,8 +78,9 @@ initializeBytecodeTableForSistaV1
 		(200 207	storeAndPopReceiverVariableBytecode)
 		(208 215	storeAndPopTemporaryVariableBytecode)
 		(216		popStackBytecode)
+		(217		unconditionnalTrapBytecode)
 
-		(217 223	unknownBytecode)
+		(218 223	unknownBytecode)
 
 		"2 byte bytecodes"
 		(224		extABytecode)
@@ -94,7 +98,7 @@ initializeBytecodeTableForSistaV1
 		(234		extSendBytecode)
 		(235		extSendSuperBytecode)
 
-		(236		extTrapOnBehaviorsBytecode)
+		(236		unknownBytecode)
 
 		(237		extUnconditionalJump)
 		(238		extJumpIfTrue)
@@ -118,6 +122,8 @@ initializeBytecodeTableForSistaV1
 		(251		pushRemoteTempLongBytecode)
 		(252		storeRemoteTempLongBytecode)
 		(253		storeAndPopRemoteTempLongBytecode)
+				
+		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
-		(254 255	unknownBytecode)
+		(255		unknownBytecode)
 	)

@@ -15,7 +15,7 @@ accessorChainsForMethod: method interpreterClass: interpreterClass
 
 	| accessors assignments roots chains extendedChains extended lastPass |
 	self accessorsAndAssignmentsForMethod: method
-		actuals: {}
+		actuals: (self actualsForMethod: method)
 		depth: 0
 		interpreterClass: interpreterClass
 		into: [:theRoots :theAccessors :theAssignments|

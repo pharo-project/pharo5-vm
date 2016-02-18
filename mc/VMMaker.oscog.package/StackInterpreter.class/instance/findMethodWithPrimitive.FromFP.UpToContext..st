@@ -3,6 +3,7 @@ findMethodWithPrimitive: primitive FromFP: startFP UpToContext: homeContext
 	"See findUnwindThroughContext:.  Alas this is mutually recursive with
 	 findMethodWithPrimitive:FromContext:ThroughContext: instead of iterative.
 	 We're doing the simplest thing that could possibly work.  Niceties can wait."
+	<inline: true>
 	| theFP theFPAbove theSP theMethod senderContext |
 	<var: #startFP type: #'char *'>
 	<var: #theFP type: #'char *'>
@@ -13,9 +14,10 @@ findMethodWithPrimitive: primitive FromFP: startFP UpToContext: homeContext
 	[((self frameHasContext: theFP)
 	  and: [homeContext = (self frameContext: theFP)]) ifTrue:
 		[^0].
-	 (self frameIsBlockActivation: theFP) ifFalse:
+	 (primitive = 0
+	  or: [self frameIsBlockActivation: theFP]) ifFalse:
 	 	[theMethod := self frameMethodObject: theFP.
-		 (self primitiveIndexOf: theMethod) == primitive ifTrue:
+		 (self primitiveIndexOf: theMethod) = primitive ifTrue:
 			[theFP = theFPAbove
 						ifTrue: [theSP := self findSPOf: theFP on: (stackPages stackPageFor: theFP)]
 						ifFalse: [theSP := self frameCallerStackPointer: theFPAbove].

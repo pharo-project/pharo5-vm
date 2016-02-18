@@ -6,4 +6,4 @@ platformDirectories
 				dirName first = $. ".svn .git et al"
 				or: [dirName ='CVS']])
 		collect: [:dirName|
-				root / dirName]
+				root directoryNamed: dirName]

@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
-		"prevInterruptCheckChain" ],
+		 ],
 	"name" : "BochsIA32Plugin",
 	"pools" : [
-		"VMBasicConstants" ],
-	"super" : "SmartSyntaxInterpreterPlugin",
+		 ],
+	"super" : "BochsPlugin",
 	"type" : "normal" }

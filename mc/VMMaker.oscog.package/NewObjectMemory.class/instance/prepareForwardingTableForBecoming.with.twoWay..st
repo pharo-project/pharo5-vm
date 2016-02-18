@@ -20,38 +20,41 @@ prepareForwardingTableForBecoming: array1 with: array2 twoWay: twoWayFlag
 	To avoid the simple and rather common case of oop1 become*: oop1, we skip such pairs
 	and simply avoid making fwdBlocks - it is redundant anyway"
 	| entriesNeeded entriesAvailable fieldOffset oop1 oop2 fwdBlock fwdBlkSize |
-	entriesNeeded := (self lastPointerOf: array1) // BytesPerWord. "need enough entries for all oops"
+	entriesNeeded := (self lastPointerOf: array1) // self wordSize. "need enough entries for all oops"
 	"Note: Forward blocks must be quadword aligned - see fwdTableInit:."
 	twoWayFlag
 		ifTrue: ["Double the number of blocks for two-way become"
 			entriesNeeded := entriesNeeded * 2.
-			fwdBlkSize := BytesPerWord * 2]
+			fwdBlkSize := self wordSize * 2]
 		ifFalse: ["One-way become needs backPointers in fwd blocks."
-			fwdBlkSize := BytesPerWord * 4].
+			fwdBlkSize := self wordSize * 4].
 	entriesAvailable := self fwdTableInit: fwdBlkSize.
 	entriesAvailable < entriesNeeded ifTrue:
 		[self initializeMemoryFirstFree: freeStart.
 		 "re-initialize the free block"
 		 ^false].
 	fieldOffset := self lastPointerOf: array1.
-	[fieldOffset >= BaseHeaderSize] whileTrue:
+	[fieldOffset >= self baseHeaderSize] whileTrue:
 		[oop1 := self longAt: array1 + fieldOffset.
 		 oop2 := self longAt: array2 + fieldOffset.
 		 "if oop1 == oop2, no need to do any work for this pair.
 		  May still be other entries in the arrays though so keep looking"
-		 oop1 = oop2 ifFalse:
-			[fwdBlock := self fwdBlockGet: fwdBlkSize.
-			 self
-				initForwardBlock: fwdBlock
-				mapping: oop1
-				to: oop2
-				withBackPtr: twoWayFlag not.
-			twoWayFlag ifTrue: "Second block maps oop2 back to oop1 for two-way become"
+		 oop1 ~= oop2 ifTrue:
+			[(self hasForwardingBlock: oop1) ifFalse: "Don't allocate multiple forwarding entries for duplicates."
 				[fwdBlock := self fwdBlockGet: fwdBlkSize.
 				 self
 					initForwardBlock: fwdBlock
-					mapping: oop2
-					to: oop1
-					withBackPtr: twoWayFlag not]].
-		fieldOffset := fieldOffset - BytesPerWord].
+					mapping: oop1
+					to: oop2
+					withBackPtr: twoWayFlag not].
+			 (twoWayFlag
+			  and: [(self hasForwardingBlock: oop2) not]) ifTrue: "Again don't get confused by duplicates"
+				["Second block maps oop2 back to oop1 for two-way become"
+						fwdBlock := self fwdBlockGet: fwdBlkSize.
+						self
+							initForwardBlock: fwdBlock
+							mapping: oop2
+							to: oop1
+							withBackPtr: twoWayFlag not]].
+		fieldOffset := fieldOffset - self wordSize].
 	^true

@@ -1,3 +1,3 @@
 contexts
 unPop: nItems
-	stackPointer := stackPointer + (nItems*BytesPerWord)
+	stackPointer := stackPointer + (nItems*self wordSize)

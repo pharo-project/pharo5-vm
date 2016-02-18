@@ -6,7 +6,6 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 		[:ivn|
 		aBinaryBlock
 			value: ivn
-			value: (ivn caseOf: {
-							['primitiveGenerator']	->	[#('sqInt (*' ')(void)')].
-							['enabled']				->	[#('sqInt (*' ')(sqInt)')] }
-						otherwise: [#sqInt])]
+			value: (ivn = 'primitiveGenerator'
+					ifTrue: [#('sqInt (*' ')(void)')]
+					ifFalse: [#sqInt])]

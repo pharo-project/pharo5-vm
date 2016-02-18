@@ -7,7 +7,7 @@ concretizeJumpR
 		Otherwise instructions must have a machineCodeSize which must be kept to."
 	<inline: true>
 	| reg |
-	reg := self concreteRegister: (operands at: 0).
+	reg := operands at: 0.
 	"bx reg"
 	self machineCodeAt: 0 put: (self bx: reg).
 	^machineCodeSize := 4

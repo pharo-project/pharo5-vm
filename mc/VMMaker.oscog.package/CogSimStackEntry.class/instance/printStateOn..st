@@ -6,7 +6,7 @@ printStateOn: aStream
 	type caseOf: {
 		[SSBaseOffset]	-> [aStream
 								nextPutAll: 'bo ';
-								nextPutAll: (CogRTLOpcodes nameForRegister: register).
+								nextPutAll: (cogit backEnd nameForRegister: register).
 							offset negative ifFalse: [aStream nextPut: $+].
 							aStream print: offset].
 		[SSConstant]	-> [aStream
@@ -14,10 +14,10 @@ printStateOn: aStream
 								print: constant].
 		[SSRegister]	-> [aStream
 								nextPutAll: 'reg ';
-								nextPutAll: (CogRTLOpcodes nameForRegister: register)].
+								nextPutAll: (cogit backEnd nameForRegister: register)].
 		[SSSpill]		-> [aStream
 								nextPutAll: 'spill @ ';
-								nextPutAll: (CogRTLOpcodes nameForRegister: register).
+								nextPutAll: (cogit backEnd nameForRegister: register).
 							offset negative ifFalse: [aStream nextPut: $+].
 							aStream print: offset] }.
 	(spilled and: [type ~= SSSpill]) ifTrue:

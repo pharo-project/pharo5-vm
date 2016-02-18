@@ -1,7 +1,6 @@
 bytecode generators
 genSpecialSelectorSend
-	| index selector numArgs |
+	| index numArgs |
 	index := byte0 - self firstSpecialSelectorBytecodeOffset.
-	selector := coInterpreter specialSelector: index.
 	numArgs := coInterpreter specialSelectorNumArgs: index.
-	^self genSend: selector numArgs: numArgs
+	^self genSend: index negated - 1 numArgs: numArgs

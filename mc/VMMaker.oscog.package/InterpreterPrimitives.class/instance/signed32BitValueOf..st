@@ -6,12 +6,27 @@ signed32BitValueOf: oop
 	<inline: false>
 	<returnTypeC: #int>
 	<var: #value type: #int>
+	<var: #value64 type: #long>
 	(objectMemory isIntegerObject: oop) ifTrue:
-		[^objectMemory integerValueOf: oop].
+		[objectMemory wordSize = 4
+			ifTrue:
+				[^objectMemory integerValueOf: oop]
+			ifFalse: "Must fail for SmallIntegers with digitLength > 4"
+				[| value64 |
+				 value64 := objectMemory integerValueOf: oop.
+				 (self cCode: [(self cCoerceSimple: value64 to: #int) ~= value64]
+						inSmalltalk: [value64 >> 31 ~= 0 and: [value64 >> 31 ~= -1]]) ifTrue:
+					[self primitiveFail. value64 := 0].
+				 ^value64]].
 
-	ok := objectMemory isClassOfNonImm: oop
-					equalTo: (objectMemory splObj: ClassLargePositiveInteger)
-					compactClassIndex: ClassLargePositiveIntegerCompactIndex.
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[self primitiveFail.
+		 ^0].
+
+	ok := objectMemory
+			isClassOfNonImm: oop
+			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
+			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
 	ok
 		ifTrue: [negative := false]
 		ifFalse:
@@ -19,14 +34,20 @@ signed32BitValueOf: oop
 			 ok := objectMemory isClassOfNonImm: oop
 							equalTo: (objectMemory splObj: ClassLargeNegativeInteger)
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
-			ok ifFalse: [^self primitiveFail]].
-	(objectMemory lengthOf: oop) > 4 ifTrue:
+			 ok ifFalse:
+				[self primitiveFail.
+				 ^0]].
+	(objectMemory numBytesOfBytes: oop) > 4 ifTrue:
 		[^self primitiveFail].
 
-	value :=  (objectMemory fetchByte: 0 ofObject: oop) +
-			  ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
-			  ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
-			  ((objectMemory fetchByte: 3 ofObject: oop) << 24).
+	value := self cppIf: VMBIGENDIAN
+				ifTrue:
+					[ (objectMemory fetchByte: 0 ofObject: oop) +
+					 ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
+					 ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
+					 ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
+				ifFalse:
+					[objectMemory fetchLong32: 0 ofObject: oop].
 	self cCode: []
 		inSmalltalk:
 			[(value anyMask: 16r80000000) ifTrue:
@@ -44,7 +65,8 @@ signed32BitValueOf: oop
 		 (negative and: [0 = (self cCode: [value << 1]
 									inSmalltalk: [value << 1 bitAnd: (1 << 32) - 1])]) ifTrue: 
 			[^value].
-		 ^self primitiveFail].
+		 self primitiveFail.
+		 ^0].
 	^negative
 		ifTrue: [0 - value]
 		ifFalse: [value]

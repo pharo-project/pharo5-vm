@@ -1,3 +1,3 @@
 testing
 isFloatObject: oop
-	^oop class == Float
+	^oop isFloat

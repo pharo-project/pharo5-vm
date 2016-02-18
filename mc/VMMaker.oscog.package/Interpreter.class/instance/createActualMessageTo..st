@@ -18,12 +18,12 @@ createActualMessageTo: aClass
 
 	compilerInitialized
 		ifTrue: [self compilerCreateActualMessage: message storingArgs: argumentArray]
-		ifFalse: [self transfer: argumentCount from: stackPointer - (argumentCount - 1 * BytesPerWord) to: argumentArray + BaseHeaderSize.
+		ifFalse: [self transfer: argumentCount from: stackPointer - (argumentCount - 1 * self wordSize) to: argumentArray + self baseHeaderSize.
 			self pop: argumentCount thenPush: message].
 
 	argumentCount := 1.
 	self storePointer: MessageSelectorIndex ofObject: message withValue: messageSelector.
 	self storePointer: MessageArgumentsIndex ofObject: message withValue: argumentArray.
-	(self lastPointerOf: message) >= (MessageLookupClassIndex * BytesPerWord + BaseHeaderSize)
+	(self lastPointerOf: message) >= (MessageLookupClassIndex * self wordSize + self baseHeaderSize)
 		ifTrue: ["Only store lookupClass if message has 3 fields (old images don't)"
 			self storePointer: MessageLookupClassIndex ofObject: message withValue: lookupClass]

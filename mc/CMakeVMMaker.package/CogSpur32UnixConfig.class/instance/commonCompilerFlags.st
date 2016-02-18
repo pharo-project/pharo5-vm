@@ -1,3 +1,3 @@
-as yet unclassified
+compiler flags
 commonCompilerFlags
 	^ super commonCompilerFlags, #('-DSPURVM')

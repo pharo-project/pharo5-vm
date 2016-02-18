@@ -9,7 +9,7 @@ picDataForSendTo: cogMethod methodClassIfSuper: methodClassOrNil at: sendMcpc bc
 		{ bytecode pc, first class, target method, second class, second target method, ... }"
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #sendMcpc type: #'char *'>
-	| tuple |
+	| tuple class |
 	tuple := objectMemory
 					eeInstantiateClassIndex: ClassArrayCompactIndex
 					format: objectMemory arrayFormat
@@ -20,11 +20,10 @@ picDataForSendTo: cogMethod methodClassIfSuper: methodClassOrNil at: sendMcpc bc
 		[^0].
 	objectMemory storePointerUnchecked: 0 ofObject: tuple withValue: (objectMemory integerObjectOf: sendBcpc).
 	cogMethod cmType = CMMethod ifTrue:
-		[objectMemory
-			storePointer: 1
-				ofObject: tuple
-					withValue: (methodClassOrNil ifNil:
-								[objectRepresentation classForInlineCacheTag: (backEnd inlineCacheTagAt: sendMcpc asUnsignedInteger)]);
+		[class := methodClassOrNil ifNil:
+					[objectRepresentation classForInlineCacheTag: (backEnd inlineCacheTagAt: sendMcpc asUnsignedInteger)].
+		 objectMemory
+			storePointer: 1 ofObject: tuple withValue: class;
 			storePointer: 2 ofObject: tuple withValue: cogMethod methodObject.
 		^tuple].
 	cogMethod cmType = CMClosedPIC ifTrue:

@@ -1,3 +1,3 @@
 accessing
 classIndexMask
-	^self memMgr classIndexMask
+	^objectMemory classIndexMask

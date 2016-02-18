@@ -1,4 +1,4 @@
 debug support
 leakCheckBecome
 	<api>
-	^(checkForLeaks bitAnd: 4) ~= 0
+	^(checkForLeaks bitAnd: GCModeBecome) ~= 0

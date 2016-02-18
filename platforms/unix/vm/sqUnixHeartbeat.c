@@ -26,10 +26,13 @@
 #include "sq.h"
 #include "sqAssert.h"
 #include "sqMemoryFence.h"
+#include "sqSCCSVersion.h"
 #include <errno.h>
 #include <pthread.h>
+#include <stdio.h> /* for fprintf */
 #include <sys/types.h>
 #include <sys/time.h>
+#include "sqaio.h"
 
 #define SecondsFrom1901To1970      2177452800ULL
 #define MicrosecondsFrom1901To1970 2177452800000000ULL
@@ -146,11 +149,21 @@ updateMicrosecondClock()
 void
 ioUpdateVMTimezone()
 {
-	time_t utctt;
 	updateMicrosecondClock();
+#ifdef HAVE_TM_GMTOFF
+	time_t utctt;
 	utctt = (get64(utcMicrosecondClock) - MicrosecondsFrom1901To1970)
 				/ MicrosecondsPerSecond;
 	vmGMTOffset = localtime(&utctt)->tm_gmtoff * MicrosecondsPerSecond;
+#else
+# ifdef HAVE_TIMEZONE
+  extern time_t timezone, altzone;
+  extern int daylight;
+  vmGMTOffset = -1 * (daylight ? altzone : timezone) * MicrosecondsPerSecond;
+# else
+#  error: cannot determine timezone correction
+# endif
+#endif
 }
 
 sqLong
@@ -158,11 +171,10 @@ ioHighResClock(void)
 {
   /* return the value of the high performance counter */
   sqLong value = 0;
-#if defined(__GNUC__) && ( defined(i386) || defined(__i386) || defined(__i386__)  \
-			|| defined(i486) || defined(__i486) || defined (__i486__) \
-			|| defined(intel) || defined(x86) || defined(i86pc) )
+#if defined(__GNUC__) && (defined(i386) || defined(__i386) || defined(__i386__)  \
+			|| defined(x86_64) || defined(__x86_64) || defined (__x86_64__))
     __asm__ __volatile__ ("rdtsc" : "=A"(value));
-#elif defined(__arm__) && defined(__ARM_ARCH_6__)
+#elif defined(__arm__) && (defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_7A__))
 	/* tpr - do nothing for now; needs input from eliot to decide further */
 #else
 #  ifndef TARGET_OS_IS_IPHONE
@@ -237,10 +249,10 @@ ioOldMSecs(void)
 }
 #endif /* !macintoshSqueak */
 
-usqLong
+unsigned volatile long long
 ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 
-usqLong
+unsigned volatile long long
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 
 usqInt
@@ -249,29 +261,33 @@ ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 /* This is an expensive interface for use by Smalltalk or vm profiling code that
  * wants the time now rather than as of the last heartbeat.
  */
-usqLong
+unsigned volatile long long
 ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
 
-usqLong
+unsigned long long
+ioUTCStartMicroseconds() { return utcStartMicroseconds; }
+
+unsigned volatile long long
 ioLocalMicrosecondsNow() { return currentUTCMicroseconds() + vmGMTOffset; };
 
-int
+sqInt
 ioMSecs() { return millisecondClock; }
 
 /* Note: ioMicroMSecs returns *milli*seconds */
-int ioMicroMSecs(void) { return microToMilliseconds(currentUTCMicroseconds()); }
+sqInt
+ioMicroMSecs(void) { return microToMilliseconds(currentUTCMicroseconds()); }
 
 /* returns the local wall clock time */
-int
+sqInt
 ioSeconds(void) { return get64(localMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond; }
 
 /*
@@ -279,8 +295,8 @@ ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond;
  * On Unix use dpy->ioRelinquishProcessorForMicroseconds
  */
 #if macintoshSqueak
-int
-ioRelinquishProcessorForMicroseconds(int microSeconds)
+sqInt
+ioRelinquishProcessorForMicroseconds(sqInt microSeconds)
 {
     long	realTimeToWait;
 	extern usqLong getNextWakeupUsecs();
@@ -359,12 +375,20 @@ beatStateMachine(void *careLess)
 	if ((er = pthread_setschedparam(pthread_self(),
 									stateMachinePolicy,
 									&stateMachinePriority))) {
-		/* linux pthreads as of 2009 does not support setting the priority of
+		/* Linux pthreads as of 2009 does not support setting the priority of
 		 * threads other than with real-time scheduling policies.  But such
 		 * policies are only available to processes with superuser privileges.
+		 * Linux kernels >= 2.6.13 support different thread priorities, but
+		 * require a suitable /etc/security/limits.d/VMNAME.conf.
 		 */
+		//extern char *revisionAsString();
 		errno = er;
-		perror("pthread_setschedparam failed; consider using ITIMER_HEARTBEAT");
+		perror("pthread_setschedparam failed");
+        /*
+		fprintf(stderr,
+				"Read e.g. http://www.mirandabanda.org/files/Cog/VM/VM.r%s/README.%s\n",
+				revisionAsString(), revisionAsString());
+        */
 		exit(errno);
 	}
 	beatState = active;
@@ -447,9 +471,9 @@ ioHeartbeatMilliseconds() { return beatMilliseconds; }
 unsigned long
 ioHeartbeatFrequency(int resetStats)
 {
-	unsigned duration = (ioUTCMicroseconds() - get64(frequencyMeasureStart))
+	unsigned long duration = (ioUTCMicroseconds() - get64(frequencyMeasureStart))
 						/ MicrosecondsPerSecond;
-	unsigned frequency = duration ? heartbeats / duration : 0;
+	unsigned long frequency = duration ? heartbeats / duration : 0;
 
 	if (resetStats) {
 		unsigned long long zero = 0;

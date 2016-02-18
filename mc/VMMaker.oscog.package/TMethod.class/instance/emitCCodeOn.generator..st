@@ -4,12 +4,11 @@ emitCCodeOn: aStream generator: aCodeGen
 	 All calls to inlined methods should already have been expanded."
 
 	aCodeGen currentMethod: self.
-	self emitCCommentOn: aStream.	"place method comment before function"
+	self emitCCommentOn: aStream.	"place method comment and method name before function."
+	aStream crtab; nextPutAll: '/* '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self smalltalkSelector; nextPutAll: ' */'.	
 	aStream cr. 
-	self emitCFunctionPrototype: aStream generator: aCodeGen newlineBeforeName: true.
+	self emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: false.
 	aStream cr; nextPut: ${.
-	aStream cr; tab;
-		nextPutAll: '// '; nextPutAll: self definingClass name; nextPutAll: '>>#'; nextPutAll: self selector.
 	self emitCLocalsOn: aStream generator: aCodeGen.
 	aCodeGen
 		pushScope: declarations

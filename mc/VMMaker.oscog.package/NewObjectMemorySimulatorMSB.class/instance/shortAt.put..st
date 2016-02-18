@@ -2,7 +2,7 @@ memory access
 shortAt: byteAddress put: a16BitValue
     "Return the half-word at byteAddress which must be even."
 	| longWord shift lowBits bpwMinus2 longAddress |
-	bpwMinus2 := BytesPerWord-2.
+	bpwMinus2 := self wordSize-2.
 	lowBits := byteAddress bitAnd: bpwMinus2.
 	longAddress := byteAddress - lowBits.
 	longWord := self longAt: longAddress.

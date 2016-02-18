@@ -1,0 +1,3 @@
+accessing
+numIntRegArgs
+	^6

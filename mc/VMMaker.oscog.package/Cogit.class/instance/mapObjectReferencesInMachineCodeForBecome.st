@@ -54,7 +54,7 @@ mapObjectReferencesInMachineCodeForBecome
 										rawHeaderOf: remappedMethod
 										put: cogMethod asInteger]
 								ifFalse:
-									[ self assert: (self noAssertMethodClassAssociationOf: cogMethod methodObject)
+									[self assert: (self noAssertMethodClassAssociationOf: cogMethod methodObject)
 													= objectMemory nilObject.
 									 cogMethod
 										methodHeader: (coInterpreter rawHeaderOf: remappedMethod);
@@ -66,15 +66,16 @@ mapObjectReferencesInMachineCodeForBecome
 						 arg: hasYoungObjPtr.
 					 hasYoungObj
 						ifTrue:
-							[cogMethod cmRefersToYoung ifFalse:
-								[cogMethod cmRefersToYoung: true.
-								 methodZone addToYoungReferrers: cogMethod].
+							[methodZone ensureInYoungReferrers: cogMethod.
 							hasYoungObj := false]
-						ifFalse: [cogMethod cmRefersToYoung: false]]].
+						ifFalse:
+							[cogMethod cmRefersToYoung: false]]].
 		cogMethod := methodZone methodAfter: cogMethod].
+	"we /must/ prune youngReferrers here because a) the [cogMethod cmRefersToYoung: false]
+	 block could have removed a method and subsequently it could be added back, and b) we
+	 can not tolerate duplicates in the youngReferrers list."  
 	methodZone pruneYoungReferrers.
 	freedPIC ifTrue:
-		[self unlinkSendsToFree.
-		 codeModified := true].
+		[self unlinkSendsToFree].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
-		[processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[processor flushICacheFrom: codeBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]

@@ -129,7 +129,7 @@ static int    installHandlers=	1;	/* 0 to disable sigusr1 & sigsegv handlers */
        int    uxDropFileCount=	0;	/* number of dropped items	*/
        char **uxDropFileNames=	0;	/* dropped filenames		*/
 
-       int    textEncodingUTF8= 0;	/* 1 if copy from external selection uses UTF8 */
+       int    textEncodingUTF8= 1;	/* 1 if copy from external selection uses UTF8 */
 
 #if defined(IMAGE_DUMP)
 static int    dumpImageFile=	0;	/* 1 after SIGHUP received */
@@ -152,6 +152,20 @@ extern void dumpPrimTraceLog(void);
 extern void printPhaseTime(int);
 char *getVersionInfo(int verbose);
 
+void ioProcessEventsDefault(void);
+
+void (*ioProcessEventsHandler) (void) = ioProcessEventsDefault;
+
+extern void setIoProcessEventsHandler(void * handler) {
+    ioProcessEventsHandler = (void(*)()) handler;
+}
+
+sqInt ioProcessEvents(void) {
+    aioPoll(0);
+    if(ioProcessEventsHandler)
+        ioProcessEventsHandler();
+    return 0;
+}
 
 /*
  * In the Cog VMs time management is in platforms/unix/vm/sqUnixHeartbeat.c.
@@ -619,7 +633,7 @@ static void emergencyDump(int quit)
 
 #endif
 
-sqInt ioProcessEvents(void)
+void ioProcessEventsDefault(void)
 {
 	sqInt result;
 	extern sqInt inIOProcessEvents;
@@ -642,7 +656,7 @@ sqInt ioProcessEvents(void)
 	if (inIOProcessEvents > 0)
 		inIOProcessEvents -= 1;
 
-	return result;
+	//return result;
 }
 
 void	ioDrainEventQueue() {}
@@ -833,15 +847,18 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 # elif __linux__ && __i386__
 			void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_EBP]: 0);
 			void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_ESP]: 0);
+#	elif __linux__ && __x86_64__
+			void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_RBP]: 0);
+			void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_RSP]: 0);
 # elif __FreeBSD__ && __i386__
 			void *fp = (void *)(uap ? uap->uc_mcontext.mc_ebp: 0);
 			void *sp = (void *)(uap ? uap->uc_mcontext.mc_esp: 0);
 # elif __sun__ && __i386__
       void *fp = (void *)(uap ? uap->uc_mcontext.gregs[REG_FP]: 0);
       void *sp = (void *)(uap ? uap->uc_mcontext.gregs[REG_SP]: 0);
-# elif __x86_64__
-#	error Currently this VM must be build as a 32-bit binary.
-#	error See section 3e in unixbuild/HowToBuild.
+# elif defined(__arm__) || defined(__arm32__) || defined(ARM32)
+			void *fp = (void *)(uap ? uap->uc_mcontext.arm_fp: 0);
+			void *sp = (void *)(uap ? uap->uc_mcontext.arm_sp: 0);
 # else
 #	error need to implement extracting pc from a ucontext_t on this system
 # endif
@@ -894,7 +911,7 @@ printRegisterState(ucontext_t *uap)
 			regs[REG_EIP]);
 	return regs[REG_EIP];
 #elif __FreeBSD__ && __i386__
-	mcontext_t *regs = &uap->uc_mcontext;
+	struct mcontext *regs = &uap->uc_mcontext;
 	printf(	"\teax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n"
 			"\tedi 0x%08x esi 0x%08x ebp 0x%08x esp 0x%08x\n"
 			"\teip 0x%08x\n",
@@ -902,6 +919,29 @@ printRegisterState(ucontext_t *uap)
 			regs->mc_edi, regs->mc_edi, regs->mc_ebp, regs->mc_esp,
 			regs->mc_eip);
 	return regs->mc_eip;
+#elif __linux__ && __x86_64__
+	gregset_t *regs = &uap->uc_mcontext.gregs;
+	printf(	"\trax 0x%08x rbx 0x%08x rcx 0x%08x rdx 0x%08x\n"
+			"\trdi 0x%08x rsi 0x%08x rbp 0x%08x rsp 0x%08x\n"
+			"\tr8  0x%08x r9  0x%08x r10 0x%08x r11 0x%08x\n"
+			"\tr12 0x%08x r13 0x%08x r14 0x%08x r15 0x%08x\n"
+			"\trip 0x%08x\n",
+			regs[REG_RAX], regs[REG_RBX], regs[REG_RCX], regs[REG_RDX],
+			regs[REG_RDI], regs[REG_RDI], regs[REG_RBP], regs[REG_RSP],
+			regs[REG_R8 ], regs[REG_R9 ], regs[REG_R10], regs[REG_R11],
+			regs[REG_R12], regs[REG_R13], regs[REG_R14], regs[REG_R15],
+			regs[REG_RIP]);
+	return regs[REG_RIP];
+# elif __linux__ && (defined(__arm__) || defined(__arm32__) || defined(ARM32))
+	struct sigcontext *regs = &uap->uc_mcontext;
+	printf(	"\t r0 0x%08x r1 0x%08x r2 0x%08x r3 0x%08x\n"
+	        "\t r4 0x%08x r5 0x%08x r6 0x%08x r7 0x%08x\n"
+	        "\t r8 0x%08x r9 0x%08x r10 0x%08x fp 0x%08x\n"
+	        "\t ip 0x%08x sp 0x%08x lr 0x%08x pc 0x%08x\n",
+	        regs->arm_r0,regs->arm_r1,regs->arm_r2,regs->arm_r3,
+	        regs->arm_r4,regs->arm_r5,regs->arm_r6,regs->arm_r7,
+	        regs->arm_r8,regs->arm_r9,regs->arm_r10,regs->arm_fp,
+	        regs->arm_ip, regs->arm_sp, regs->arm_lr, regs->arm_pc);
 #else
 	printf("don't know how to derive register state from a ucontext_t on this platform\n");
 	return 0;
@@ -909,12 +949,16 @@ printRegisterState(ucontext_t *uap)
 }
 
 int blockOnError = 0; /* to allow attaching gdb on fatal error */
+extern sqInt erroronwarn;
 
 static void
 block()
 { struct timespec while_away_the_hours;
+  char pwd[MAXPATHLEN+1];
 
 	printf("blocking e.g. to allow attaching debugger\n");
+	printf("pid: %d pwd: %s vm:%s\n",
+			(int)getpid(), getcwd(pwd,MAXPATHLEN+1), argVec[0]);
 	while (1) {
 		while_away_the_hours.tv_sec = 3600;
 		nanosleep(&while_away_the_hours, 0);
@@ -1235,7 +1279,8 @@ static void loadModules(void)
 /* built-in main vm module */
 
 
-static int strtobkm(const char *str)
+static long
+strtobkm(const char *str)
 {
   char *suffix;
   long value= strtol(str, &suffix, 10);
@@ -1345,10 +1390,12 @@ static int vm_parseArgument(int argc, char **argv)
     if (!strcmp(argv[0], arg))							\
       return parseModuleArgument(argc, argv, &type##Module, #type, name);
 
-  moduleArg("--nodisplay",	display, "null");
+  moduleArg("--nodisplay",		display, "null");
   moduleArg("--display",		display, "X11");
-  moduleArg("--headless",	display, "X11");
-  moduleArg("--quartz",		display, "Quartz");
+  moduleArg("--headless",		display, "X11");
+  moduleArg("--fullscreen",		display, "X11");
+  moduleArg("--fullscreenDirect",	display, "X11");
+  moduleArg("--quartz",			display, "Quartz");
   moduleArg("--nosound",		sound,   "null");
 
 # undef moduleArg
@@ -1361,6 +1408,8 @@ static int vm_parseArgument(int argc, char **argv)
   else if (!strcmp(argv[0], "--notimer"))	{ useItimer	= 0;	return 1; }
   else if (!strcmp(argv[0], "--nohandlers"))	{ installHandlers= 0;	return 1; }
   else if (!strcmp(argv[0], "--blockonerror")) { blockOnError = 1; return 1; }
+  else if (!strcmp(argv[0], "--blockonwarn")) { erroronwarn = blockOnError = 1; return 1; }
+  else if (!strcmp(argv[0], "--exitonwarn")) { erroronwarn = 1; return 1; }
   else if (!strcmp(argv[0], "--timephases")) {
 	printPhaseTime(1);
 	return 1; }
@@ -1393,6 +1442,10 @@ static int vm_parseArgument(int argc, char **argv)
 		return 2; }
 #endif
 #if STACKVM
+      else if (!strcmp(argv[0], "--breakmnu")) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[1]);
+		return 2; }
       else if (!strcmp(argv[0], "--eden")) {
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);
@@ -1408,9 +1461,17 @@ static int vm_parseArgument(int argc, char **argv)
       else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
+      else if (!strcmp(argv[0], "--checkpluginwrites")) { 
+		extern sqInt checkAllocFiller;
+		checkAllocFiller = 1;
+		return 1; }
       else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
+		return 1; }
+      else if (!strcmp(argv[0], "--warnpid")) { 
+		extern sqInt warnpid;
+		warnpid = getpid();
 		return 1; }
       else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
@@ -1455,21 +1516,25 @@ static int vm_parseArgument(int argc, char **argv)
 		reportStackHeadroom = 1;
 		return 1; }
 #endif /* COGVM */
-      else if (!strcmp(argv[0], "--textenc"))
-	{
-	  char *buf= (char *)malloc(strlen(argv[1]) + 1);
-	  int len, i;
-	  strcpy(buf, argv[1]);
-	  len= strlen(buf);
-	  for (i= 0;  i < len;  ++i)
-	    buf[i]= toupper(buf[i]);
-	  if ((!strcmp(buf, "UTF8")) || (!strcmp(buf, "UTF-8")))
-	    textEncodingUTF8= 1;
-	  else
-	    setEncoding(&uxTextEncoding, buf);
-	  free(buf);
-	  return 2;
-	}
+#if SPURVM
+      else if (!strcmp(argv[0], "--maxoldspace")) { 
+		extern unsigned long maxOldSpaceSize;
+		maxOldSpaceSize = (unsigned long)strtobkm(argv[1]);	 
+		return 2; }
+#endif
+      else if (!strcmp(argv[0], "--textenc")) {
+		int i, len = strlen(argv[1]);
+		char *buf = (char *)alloca(len + 1);
+		for (i = 0;  i < len;  ++i)
+			buf[i] = toupper(argv[1][i]);
+		if ((!strcmp(buf, "UTF8")) || (!strcmp(buf, "UTF-8")))
+			textEncodingUTF8 = 1;
+		else {
+			textEncodingUTF8 = 0;
+			setEncoding(&uxTextEncoding, buf);
+		}
+		return 2;
+	  }
     }
   return 0;	/* option not recognised */
 }
@@ -1487,6 +1552,7 @@ static void vm_printUsage(void)
   printf("  --breaksel selector    set breakpoint on send of selector\n");
 #endif
 #if STACKVM
+  printf("  --breakmnu selector    set breakpoint on MNU of selector\n");
   printf("  --eden <size>[mk]      use given eden size\n");
   printf("  --leakcheck num        check for leaks in the heap\n");
   printf("  --stackpages <num>     use given number of stack pages\n");
@@ -1494,6 +1560,7 @@ static void vm_printUsage(void)
   printf("  --noevents             disable event-driven input support\n");
   printf("  --nohandlers           disable sigsegv & sigusr1 handlers\n");
   printf("  --pollpip              output . on each poll for input\n");
+  printf("  --checkpluginwrites    check for writes past end of object in plugins\n");
   printf("  --pathenc <enc>        set encoding for pathnames (default: UTF-8)\n");
   printf("  --plugins <path>       specify alternative plugin location (see manpage)\n");
   printf("  --textenc <enc>        set encoding for external text (default: UTF-8)\n");
@@ -1505,6 +1572,7 @@ static void vm_printUsage(void)
 # else
   printf("  --sendtrace            enable send tracing\n");
 # endif
+  printf("  --warnpid              print pid in warnings\n");
 #endif
 #if COGVM
   printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
@@ -1513,7 +1581,12 @@ static void vm_printUsage(void)
   printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
   printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
+#if SPURVM
+  printf("  --maxoldspace <size>[mk]    set max size of old space memory to bytes\n");
+#endif
   printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
+  printf("  --blockonwarn          on warning block, don't warn.  useful for attaching gdb\n");
+  printf("  --exitonwarn           treat warnings as errors, exiting on warn\n");
 #if 1
   printf("Deprecated:\n");
 # if !STACKVM
@@ -1532,7 +1605,11 @@ static void vm_printUsage(void)
 
 static void vm_printUsageNotes(void)
 {
-  printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
+#if SPURVM
+	printf("  If `--memory' or '--maxoldspace' are not specified then the heap will grow dynamically.\n");
+#else
+	printf("  If `--memory' is not specified then the heap will grow dynamically.\n");
+#endif
   printf("  <argument>s are ignored, but are processed by the " IMAGE_DIALECT_NAME " image.\n");
   printf("  The first <argument> normally names a " IMAGE_DIALECT_NAME " `script' to execute.\n");
   printf("  Precede <arguments> by `--' to use default image.\n");
@@ -1601,12 +1678,21 @@ char *getVersionInfo(int verbose)
   char *info= (char *)malloc(4096);
   info[0]= '\0';
 
-#if defined(NDEBUG)
-# define BuildVariant "Production"
-#elif DEBUGVM
-# define BuildVariant "Debug"
+#if SPURVM
+# if BytesPerOop == 8
+#	define ObjectMemory " Spur 64-bit"
 # else
-# define BuildVariant "Assert"
+#	define ObjectMemory " Spur"
+# endif
+#else
+# define ObjectMemory
+#endif
+#if defined(NDEBUG)
+# define BuildVariant "Production" ObjectMemory
+#elif DEBUGVM
+# define BuildVariant "Debug" ObjectMemory
+# else
+# define BuildVariant "Assert" ObjectMemory
 #endif
 
 #if ITIMER_HEARTBEAT
@@ -1747,21 +1833,13 @@ void imgInit(void)
       if (extraMemory)
 	useMmap= 0;
       else
-#if SPURVM
-	{ off_t size = (long)sb.st_size;
-
-	  size = 1 << highBit(size-1);
-	  size = size + size / 4;
-#    ifdef DEBUG_IMAGE
-      printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, size, useMmap);
-#    endif
-	  readImageFromFileHeapSizeStartingAt(f, size + size / 4, 0);
-	}
-#else
 	extraMemory= DefaultHeapSize * 1024 * 1024;
 #    ifdef DEBUG_IMAGE
       printf("image size %ld + heap size %ld (useMmap = %d)\n", (long)sb.st_size, extraMemory, useMmap);
 #    endif
+#if SPURVM
+	  readImageFromFileHeapSizeStartingAt(f, 0, 0);
+#else
       extraMemory += (long)sb.st_size;
       readImageFromFileHeapSizeStartingAt(f, extraMemory, 0);
 #endif
@@ -1797,6 +1875,14 @@ extern void initGlobalStructure(void); // this is effectively null if a global r
 int
 main(int argc, char **argv, char **envp)
 {
+  /* check the interpreter's size assumptions for basic data types */
+  if (sizeof(int) != 4) error("This C compiler's integers are not 32 bits.");
+  if (sizeof(double) != 8) error("This C compiler's floats are not 64 bits.");
+  if (sizeof(sqLong) != 8) error("This C compiler's long longs are not 64 bits.");
+#if 0
+  if (sizeof(time_t) != 4) error("This C compiler's time_t's are not 32 bits.");
+#endif
+
   fldcw(0x12bf);	/* signed infinity, round to nearest, REAL8, disable intrs, disable signals */
   mtfsfi(0);		/* disable signals, IEEE mode, round to nearest */
 
@@ -1948,7 +2034,7 @@ main(int argc, char **argv, char **envp)
   return returnValue;
 }
 
-int ioExit(void) { return ioExitWithErrorCode(0); }
+sqInt ioExit(void) { return ioExitWithErrorCode(0); }
 
 sqInt
 ioExitWithErrorCode(int ec)
@@ -2056,7 +2142,7 @@ sqInt ioGatherEntropy(char *buffer, sqInt bufSize)
  * b) answer the amount of stack room to ensure in a Cog stack page, including
  *    the size of the redzone, if any.
  */
-# if defined(i386) || defined(__i386) || defined(__i386__)
+
 /*
  * Cog has already captured CStackPointer  before calling this routine.  Record
  * the original value, capture the pointers again and determine if CFramePointer
@@ -2076,7 +2162,6 @@ isCFramePointerInUse()
 	assert(CStackPointer < currentCSP);
 	return CFramePointer >= CStackPointer && CFramePointer <= currentCSP;
 }
-# endif /* defined(i386) || defined(__i386) || defined(__i386__) */
 
 /* Answer an approximation of the size of the redzone (if any).  Do so by
  * sending a signal to the process and computing the difference between the
@@ -2087,10 +2172,10 @@ isCFramePointerInUse()
 #if !defined(min)
 # define min(x,y) (((x)>(y))?(y):(x))
 #endif
-static char *p = 0;
+static char * volatile p = 0;
 
 static void
-sighandler(int sig) { p = (char *)&sig; }
+sighandler(int sig, siginfo_t *info, void *uap) { p = (char *)&sig; }
 
 static int
 getRedzoneSize()

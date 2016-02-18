@@ -1,11 +1,12 @@
 generate machine code - concretize
-concretizeDataOperationRR: opcode
+concretizeDataOperationRR: armOpcode
 	"Will get inlined into concretizeAt: switch."
-	"Load the word into the RISCTempReg, then cmp R, RISCTempReg"
+	"Load the word into the RISCTempReg, then op R, RISCTempReg"
 	<inline: true>
-	| destReg srcReg |
-	srcReg := self concreteRegister: (operands at: 0).
-	destReg := (self concreteRegister: (operands at: 1)).
+	| rn rd srcReg |
+	srcReg := operands at: 0.
+	rn := operands at: 1.
+	rd := armOpcode = CmpOpcode ifTrue: [0] ifFalse: [rn].
 	self machineCodeAt: 0 
-		put: (self type: 0 op: opcode set: 1 rn: destReg rd: destReg shifterOperand: srcReg).
+		put: (self type: 0 op: armOpcode set: 1 rn: rn rd: rd shifterOperand: srcReg).
 	^machineCodeSize := 4.

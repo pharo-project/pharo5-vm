@@ -8,10 +8,14 @@ genMethodAbortTrampoline
 	 receiver must always contain an object (and hence be non-zero) on SIC miss."
 	| jumpSICMiss |
 	<var: #jumpSICMiss type: #'AbstractInstruction *'>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	self CmpCq: 0 R: ReceiverResultReg.
 	jumpSICMiss := self JumpNonZero: 0.
 
+	"The abort sequencer has pushed the LinkReg a second time.
+	 Overwrite it with the right one."
+	backEnd hasLinkRegister ifTrue:
+		[self MoveR: LinkReg Mw: 0 r: SPReg].
 	self compileTrampolineFor: #ceStackOverflow:
 		numArgs: 1
 		arg: SendNumArgsReg
@@ -19,8 +23,8 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
-		resultReg: nil.
+		pushLinkReg: false "The LinkReg has already been set above."
+		resultReg: NoReg.
 	jumpSICMiss jmpTarget: self Label.
 	^self genTrampolineFor: #ceSICMiss:
 		called: 'ceMethodAbort'
@@ -30,6 +34,6 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		saveRegs: false
-		pushLinkReg: true
-		resultReg: nil
+		pushLinkReg: true "Push the LinkReg for the ceMethodAbort call."
+		resultReg: NoReg
 		appendOpcodes: true

@@ -34,7 +34,7 @@
 #include "sq.h"
 #include "sqMacUnixCommandLineInterface.h"
 #include "sqMacEncoding.h"
-#include "sqMacFileLogic.h"
+#include "sqMacUnixFileInterface.h"
 #include "sqMacUIConstants.h"
 #include "sqMacUnixFileInterface.h"
 
@@ -48,14 +48,15 @@ static char **squeakArgVec=	0;
 extern       int    argCnt;	/* global copies for access from plugins */
 extern       char **argVec;
 extern       char **envVec;
-extern UInt32 gMaxHeapSize;
+extern usqLong gMaxHeapSize;
 
 static void outOfMemory(void);
 static void parseArguments(int argc, char **argv);
 static int parseArgument(int argc, char **argv);
 static void usage(void);
 static void parseEnvironment(void);
-static int strtobkm(const char *str);
+static long strtobkm(const char *str);
+static usqLong strtolbkm(const char *str);
 static void printUsage(void);
 static void printUsageNotes(void);
 void resolveWhatTheImageNameIs(char *guess);
@@ -164,6 +165,15 @@ static int parseArgument(int argc, char **argv)
 	extern int blockOnError;
 	blockOnError = true;
 	return 1; }
+  else if (!strcmp(argv[0], "--exitonwarn")) {
+	extern sqInt erroronwarn;
+	erroronwarn = true;
+	return 1; }
+  else if (!strcmp(argv[0], "--blockonwarn")) {
+	extern int blockOnError;
+	extern sqInt erroronwarn;
+	erroronwarn = blockOnError = true;
+	return 1; }
   else if (!strcmp(argv[0], "--timephases")) {
 	extern void printPhaseTime(int);
 	printPhaseTime(1);
@@ -173,7 +183,7 @@ static int parseArgument(int argc, char **argv)
 #endif
   else if (argc > 1) {
 	  if (!strcmp(argv[0], "--memory"))	{ 
-		gMaxHeapSize = strtobkm(argv[1]);	 
+		gMaxHeapSize = strtolbkm(argv[1]);	 
 		return 2; }
 #if STACKVM || NewspeakVM
       else if (!strcmp(argv[0], "--breaksel")) { 
@@ -182,6 +192,10 @@ static int parseArgument(int argc, char **argv)
 		return 2; }
 #endif
 #if STACKVM
+      else if (!strcmp(argv[0], "--breakmnu")) { 
+		extern void setBreakMNUSelector(char *);
+		setBreakMNUSelector(argv[1]);
+		return 2; }
       else if (!strcmp(argv[0], "--eden")) { 
 		extern sqInt desiredEdenBytes;
 		desiredEdenBytes = strtobkm(argv[1]);	 
@@ -197,9 +211,17 @@ static int parseArgument(int argc, char **argv)
       else if (!strcmp(argv[0], "--numextsems")) { 
 		ioSetMaxExtSemTableSize(atoi(argv[1]));
 		return 2; }
+      else if (!strcmp(argv[0], "--checkpluginwrites")) { 
+		extern sqInt checkAllocFiller;
+		checkAllocFiller = 1;
+		return 1; }
       else if (!strcmp(argv[0], "--noheartbeat")) { 
 		extern sqInt suppressHeartbeatFlag;
 		suppressHeartbeatFlag = 1;
+		return 1; }
+      else if (!strcmp(argv[0], "--warnpid")) { 
+		extern sqInt warnpid;
+		warnpid = getpid();
 		return 1; }
       else if (!strcmp(argv[0], "--pollpip")) { 
 		extern sqInt pollpip;
@@ -286,12 +308,14 @@ static void printUsage(void)
   printf("  --breaksel selector    set breakpoint on send of selector\n");
 #endif
 #if STACKVM
+  printf("  --breakmnu selector    set breakpoint on MNU of selector\n");
   printf("  --eden <size>[mk]      set eden memory to bytes\n");
   printf("  --leakcheck num        check for leaks in the heap\n");
   printf("  --stackpages num       use n stack pages\n");
   printf("  --numextsems num       make the external semaphore table num in size\n");
   printf("  --noheartbeat          disable the heartbeat for VM debugging. disables input\n");
   printf("  --pollpip              output . on each poll for input\n");
+  printf("  --checkpluginwrites    check for writes past end of object in plugins\n");
 #endif
 #if STACKVM || NewspeakVM
 # if COGVM
@@ -299,6 +323,7 @@ static void printUsage(void)
 # else
   printf("  --sendtrace            enable send tracing\n");
 # endif
+  printf("  --warnpid              print pid in warnings\n");
 #endif
 #if COGVM
   printf("  --codesize <size>[mk]  set machine code memory to bytes\n");
@@ -307,8 +332,8 @@ static void printUsage(void)
   printf("  --cogminjumps <n>      set min number of backward jumps for interpreted methods to be considered for compilation to machine code\n");
   printf("  --reportheadroom       report unused stack headroom on exit\n");
 #endif
-#if STACKVM || NewspeakVM
-  printf("  --breaksel selector    call warning when sending or jitting selector\n");
+#if SPURVM
+  printf("  --maxoldspace <size>[mk]      set max size of old space memory to bytes\n");
 #endif
   printf("  --pathenc <enc>        set encoding for pathnames (default: %s)\n",
 		getEncodingType(gCurrentVMEncoding));
@@ -318,6 +343,8 @@ static void printUsage(void)
   printf("  --version              print version information, then exit\n");
 
   printf("  --blockonerror         on error or segv block, not exit.  useful for attaching gdb\n");
+  printf("  --blockonwarn          on warning block, don't warn.  useful for attaching gdb\n");
+  printf("  --exitonwarn           treat warnings as errors, exiting on warn\n");
 }
 
 static void printUsageNotes(void)
@@ -334,7 +361,8 @@ static void outOfMemory(void)
   exit(1);
 }
 
-static int strtobkm(const char *str)
+static long
+strtobkm(const char *str)
 {
   char *suffix;
   int value= strtol(str, &suffix, 10);
@@ -350,6 +378,23 @@ static int strtobkm(const char *str)
   return value;
 }
 
+static usqLong
+strtolbkm(const char *str)
+{
+  char *suffix;
+  usqLong value= strtol(str, &suffix, 10);
+  switch (*suffix)
+    {
+    case 'k': case 'K':
+      value*= 1024ULL;
+      break;
+    case 'm': case 'M':
+      value*= 1024ULL*1024ULL;
+      break;
+    }
+  return value;
+}
+
 static void parseEnvironment(void)
 {
 	char *ev;
@@ -357,7 +402,7 @@ static void parseEnvironment(void)
 	if ((ev= getenv(IMAGE_ENV_NAME)))		
 		resolveWhatTheImageNameIs(ev);
 	if ((ev= getenv("SQUEAK_MEMORY")))
-		gMaxHeapSize= strtobkm(ev);
+		gMaxHeapSize= strtolbkm(ev);
 	if ((ev= getenv("SQUEAK_PATHENC")))
 		setEncodingType(ev);
 }

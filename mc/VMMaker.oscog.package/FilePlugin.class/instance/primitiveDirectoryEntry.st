@@ -8,6 +8,7 @@ primitiveDirectoryEntry
 	 (This is a lookup-by-name variant of primitiveDirectoryLookup.)"
 
 	| requestedName pathName pathNameIndex pathNameSize status entryName entryNameSize createDate modifiedDate dirFlag posixPermissions symlinkFlag fileSize okToList reqNameIndex reqNameSize |
+	
 	<var: 'entryName' declareC: 'char entryName[256]'>
 	<var: 'pathNameIndex' type: 'char *'>
 	<var: 'reqNameIndex' type: 'char *'>
@@ -32,19 +33,18 @@ primitiveDirectoryEntry
 		ifTrue: [okToList := self cCode: '((sqInt (*)(char *, sqInt))sCLPfn)(pathNameIndex, pathNameSize)']
 		ifFalse: [okToList := true].
 	okToList
-		ifTrue: [status := self cCode: 'dir_EntryLookup(
-			pathNameIndex, 
-			pathNameSize, 
-			reqNameIndex, 
-			reqNameSize,										  
-			entryName, 
-			&entryNameSize, 
-			&createDate,
-			&modifiedDate, 
-			&dirFlag, 
-			&fileSize, 
-			&posixPermissions,
-			&symlinkFlag)']
+		ifTrue: [
+			self 
+				cppIf: PharoVM 
+				ifTrue: [ 
+					status := self cCode: 'dir_EntryLookup(pathNameIndex, pathNameSize, reqNameIndex, reqNameSize,										  
+														entryName, &entryNameSize, &createDate,
+														&modifiedDate, &dirFlag, &fileSize, 
+														&posixPermissions, &symlinkFlag)' ]
+				ifFalse: [ 
+					status := self cCode: 'dir_EntryLookup(pathNameIndex, pathNameSize, reqNameIndex, reqNameSize,
+													  entryName, &entryNameSize, &createDate,
+													  &modifiedDate, &dirFlag, &fileSize)'] ]
 		ifFalse: [status := DirNoMoreEntries].
 
 	interpreterProxy failed
@@ -57,13 +57,27 @@ primitiveDirectoryEntry
 	status = DirBadPath
 		ifTrue: [^interpreterProxy primitiveFail]."bad path"
 
-	interpreterProxy pop: 3	"pop pathName, fName, rcvr" 
-		thenPush: (self
-				makeDirEntryName: entryName
-				size: entryNameSize
-				createDate: createDate
-				modDate: modifiedDate
-				isDir: dirFlag
-				fileSize: fileSize 
-				posixPermissions: posixPermissions
-				isSymlink: symlinkFlag)
+	self 
+		cppIf: PharoVM
+		ifTrue: [ 
+			interpreterProxy 
+				pop: 3	"pop pathName, index, rcvr" 
+				thenPush: (self
+					makeDirEntryName: entryName
+					size: entryNameSize
+					createDate: createDate
+					modDate: modifiedDate
+					isDir: dirFlag
+					fileSize: fileSize
+					posixPermissions: posixPermissions
+					isSymlink: symlinkFlag) ]
+		ifFalse: [ 
+			interpreterProxy 
+				pop: 3	"pop pathName, fName, rcvr" 
+				thenPush: (self
+					makeDirEntryName: entryName
+					size: entryNameSize
+					createDate: createDate
+					modDate: modifiedDate
+					isDir: dirFlag
+					fileSize: fileSize) ]

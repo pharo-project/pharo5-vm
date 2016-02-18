@@ -1,7 +1,7 @@
 generate machine code
 longJumpTargetAddress
 	<inline: true> "Since it's an extraction from other methods."
-	"This needs to be digfferent from jumpTargetAddress because long jumps can
+	"This needs to be different from jumpTargetAddress because long jumps can
 	be to absolute addresses and hence we can't assert that the jump target is sane."
 	| jumpTarget |
 	<var: #jumpTarget type: #'AbstractInstruction *'>

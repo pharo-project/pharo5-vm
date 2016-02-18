@@ -4,6 +4,8 @@ runForNBytes: nBytecodes
 	Keep byteCount up to date.
 	This can be run repeatedly."
 	| endCount |
+	self initStackPages.
+	self loadInitialContext.
 	endCount := byteCount + nBytecodes.
 	self internalizeIPandSP.
 	self fetchNextBytecode.

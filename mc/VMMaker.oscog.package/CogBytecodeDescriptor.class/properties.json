@@ -19,6 +19,7 @@
 		"isMapped",
 		"isMappedInBlock",
 		"isExtension",
+		"isInstVarRef",
 		"hasIRC" ],
 	"name" : "CogBytecodeDescriptor",
 	"pools" : [

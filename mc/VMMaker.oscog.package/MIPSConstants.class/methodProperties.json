@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"initialize" : "rmacnak 11/16/2015 20:29:35",
+		"initializeOpcodes" : "rmacnak 11/16/2015 20:30:32",
+		"initializeRegImmRts" : "rmacnak 11/6/2015 20:53:52",
+		"initializeRegisters" : "rmacnak 11/10/2015 20:19:12",
+		"initializeSpecialFunctions" : "rmacnak 11/21/2015 18:14:45",
+		"nameForRegister:" : "rmacnak 11/10/2015 21:03:56" },
+	"instance" : {
+		 } }

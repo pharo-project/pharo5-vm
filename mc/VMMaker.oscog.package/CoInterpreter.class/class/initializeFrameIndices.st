@@ -52,21 +52,21 @@ initializeFrameIndices
 	fxIFReceiver := -5.
 	fxMFReceiver := -3.
 
-	"For debugging nil out values that differ in the StackInterpreter."
-	FrameSlots := #undeclared.
+	"For debugging undefine values that differ in the StackInterpreter."
+	FrameSlots := #undefined.
 	IFrameSlots := fxCallerSavedIP - fxIFReceiver + 1.
 	MFrameSlots := fxCallerSavedIP - fxMFReceiver + 1.
 
 	FoxCallerSavedIP := fxCallerSavedIP * BytesPerWord.
 	"In Cog a base frame's caller context is stored on the first word of the stack page."
-	FoxCallerContext := #undeclared.
+	FoxCallerContext := #undefined.
 	FoxSavedFP := fxSavedFP * BytesPerWord.
 	FoxMethod := fxMethod * BytesPerWord.
 	FoxThisContext := fxThisContext * BytesPerWord.
-	FoxFrameFlags := #undeclared.
+	FoxFrameFlags := #undefined.
 	FoxIFrameFlags := fxIFrameFlags * BytesPerWord.
 	FoxIFSavedIP := fxIFSavedIP * BytesPerWord.
-	FoxReceiver := #undeclared.
+	FoxReceiver := #undefined.
 	FoxIFReceiver := fxIFReceiver * BytesPerWord.
 	FoxMFReceiver := fxMFReceiver * BytesPerWord.
 

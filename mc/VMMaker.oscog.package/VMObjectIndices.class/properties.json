@@ -78,6 +78,7 @@
 		"SelectorInvokeCallback",
 		"SelectorMustBeBoolean",
 		"SelectorRunWithIn",
+		"SelectorSistaTrap",
 		"SelectorStart",
 		"SelectorUnknownBytecode",
 		"SenderIndex",

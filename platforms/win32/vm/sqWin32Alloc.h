@@ -10,16 +10,9 @@
    defining it appropriately - here we try to cater for the common
    case by using a "reasonable" size that will leave enough space for
    other libraries. 
-   
-   Note, the amount of virtual memory can be changed in .ini file
-   by adding
-   AddressSpaceLimit = <your value> 
-   in MBytes.
-   The MAX_VIRTUAL_MEMORY is a default value, if AddressSpaceLimit is not specified in .ini file
-   
 */
 #ifndef MAX_VIRTUAL_MEMORY
-#define MAX_VIRTUAL_MEMORY 512 /* in MBytes */
+#define MAX_VIRTUAL_MEMORY 512*1024*1024
 #endif
 
 /* Memory initialize-release */
@@ -34,8 +27,6 @@ sqAllocateMemory(minimumMemory, heapSize)
 int sqGrowMemoryBy(int oldLimit, int delta);
 int sqShrinkMemoryBy(int oldLimit, int delta);
 int sqMemoryExtraBytesLeft(int includingSwap);
-
-void sqReleaseMemory(void);
 
 #endif /* NO_VIRTUAL_MEMORY */
 #endif /* __SQ_WIN32_ALLOC_H */

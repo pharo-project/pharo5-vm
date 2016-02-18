@@ -4,5 +4,5 @@ startOfData: oop "<Alien oop> ^<Integer>"
 	 the second field.  For indirect and pointer aliens it is what the second field points to."
 	<inline: true>
 	^(self sizeField: oop) > 0
-	 	ifTrue: [oop + BaseHeaderSize + BytesPerOop]
-		ifFalse: [self longAt: oop + BaseHeaderSize + BytesPerOop]
+	 	ifTrue: [oop + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop]
+		ifFalse: [self longAt: oop + interpreterProxy baseHeaderSize + interpreterProxy bytesPerOop]

@@ -1,22 +1,27 @@
 in-line cacheing
 unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 	<var: #mcpc type: #'char *'>
+	<var: #nsSendCache type: #'NSSendCache *'>
 	| entryPoint |
-	(self isSendAnnotation: annotation) ifTrue:
+
+	self cppIf: NewspeakVM ifTrue:
+		[| nsSendCache |
+		 annotation = IsNSSendCall ifTrue:
+			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			(entryPoint := nsSendCache target) ~= 0 ifTrue:
+				[ | targetMethod |
+				targetMethod := entryPoint - cmNoCheckEntryOffset.
+				targetMethod = theCogMethod ifTrue:
+					[self voidNSSendCache: nsSendCache]].
+			^0 "keep scanning"]].
+
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
-				[self targetMethodAndSendTableFor: entryPoint into:
-					[:targetMethod :sendTable| | unlinkedRoutine |
+				[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
+					[:targetMethod :sendTable| 
 					 targetMethod asInteger = theCogMethod ifTrue:
-						[unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-						 backEnd
-							rewriteInlineCacheAt: mcpc asInteger
-							tag: targetMethod selector
-							target: unlinkedRoutine.
-						 codeModified := true]]]
-			ifFalse: "Can't tell the target with PushReciver/SendImplicit so flush anyway."
-				[self cppIf: NewspeakVM ifTrue:
-					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-						[self voidImplicitReceiverCacheAt: mcpc]]]].
+						[self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]]].
+
 	^0 "keep scanning"

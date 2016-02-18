@@ -16,7 +16,7 @@ allInstancesOf: aBehavior
 				[count := count + 1.
 				 fillPointer < reserveStart ifTrue:
 					[self longAt: fillPointer put: obj.
-					 fillPointer := fillPointer + BytesPerOop]]].
+					 fillPointer := fillPointer + self bytesPerOop]]].
 		 obj := self accessibleObjectAfter: obj].
 	fillPointer >= reserveStart ifTrue: "didn't fit.  refill with allocation check pattern and answer count."
 		[self maybeFillWithAllocationCheckFillerFrom: freeStart to: fillPointer.

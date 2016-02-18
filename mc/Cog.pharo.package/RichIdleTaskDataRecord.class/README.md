@@ -1,1 +1,0 @@
-An idle task doesn't do any work itself but cycles control between the two device tasks.

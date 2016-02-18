@@ -1,10 +1,10 @@
-bytecode generators
+bytecode generator support
 genPushLiteralVariable: literalIndex
 	<inline: false>
 	| association |
 	association := self getLiteral: literalIndex.
 	"N.B. Do _not_ use ReceiverResultReg to avoid overwriting receiver in assignment in frameless methods."
-	self annotate: (self MoveCw: association R: ClassReg) objRef: association.
+	self genMoveConstant: association R: ClassReg.
 	objectRepresentation
 		genEnsureObjInRegNotForwarded: ClassReg
 		scratchReg: TempReg.

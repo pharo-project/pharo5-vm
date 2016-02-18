@@ -33,5 +33,5 @@ initialize
 	myBitBlt := BitBltSimulator new setInterpreter: self.
 	headerTypeBytes := CArrayAccessor on: HeaderTypeExtraBytes.
 	transcript := Transcript.
-	displayForm := 'Display has not yet been installed' asMorph imageForm.
+	displayForm := 'Display has not yet been installed' asDisplayText form.
 	

@@ -3,7 +3,7 @@ findNewMethodInClassTag: classTagArg
 	"Find the compiled method to be run when the current 
 	messageSelector is sent to the given class, setting the values 
 	of 'newMethod' and 'primitiveIndex'."
-	| ok class classTag |
+	| ok classTag |
 	<inline: false>
 	ok := self lookupInMethodCacheSel: messageSelector classTag: classTagArg.
 	ok ifFalse: "entry was not found in the cache; look it up the hard way "
@@ -17,6 +17,8 @@ findNewMethodInClassTag: classTagArg
 			ok := self lookupInMethodCacheSel: messageSelector classTag: classTag.
 			ok ifTrue:
 				[^nil]].
-		 class := objectMemory classForClassTag: classTag.
-		 self lookupMethodInClass: class.
-		 self addNewMethodToCache: class]
+ 		 lkupClass := objectMemory classForClassTag: classTag.
+		 self cppIf: #NewspeakVM
+				ifTrue: [self lookupOrdinarySend]
+				ifFalse: [self lookupMethodInClass: lkupClass].
+		 self addNewMethodToCache: lkupClass]

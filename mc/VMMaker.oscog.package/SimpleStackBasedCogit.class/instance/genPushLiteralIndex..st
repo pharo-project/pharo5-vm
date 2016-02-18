@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushLiteralIndex: literalIndex "<SmallInteger>"
 	<inline: false>
 	| literal |

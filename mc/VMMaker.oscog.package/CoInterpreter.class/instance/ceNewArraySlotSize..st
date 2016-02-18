@@ -1,6 +1,7 @@
 trampolines
 ceNewArraySlotSize: slotSize
 	<api>
+	<option: #SqueakV3ObjectMemory>
 	objectMemory hasSpurMemoryManagerAPI ifTrue:
 		[| obj |
 		 obj := objectMemory

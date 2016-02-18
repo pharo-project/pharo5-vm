@@ -1038,7 +1038,7 @@ static int display_parseArgument(int argc, char **argv)
   if     (!strncmp(*argv, "-psn_", 5))		return fromFinder= 1;
   else if (!strcmp(*argv, "--quartz"))		return 1;
   else if (!strcmp(*argv, "--fullscreen"))	return fullscreen= 1;
-  else if (!strcmp(*argv, "--headless"))		return headless= 1;
+  else if (!strcmp(*argv, "--headless"))	return headless= 1;
   else if (!strcmp(*argv, "--notitle"))		return noTitle= 1;
   else if (!strcmp(*argv, "--nodock"))		return noDock= 1;
   else if (!strcmp(*argv, "--swapbtn"))		return swapBtn= 1;

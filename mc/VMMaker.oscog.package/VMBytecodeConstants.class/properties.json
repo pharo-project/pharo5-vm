@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"BytecodeSetHasDirectedSuperSend",
+		"CtxtTempFrameStart",
+		"LargeContextBit",
+		"LargeContextSize",
+		"LargeContextSlots",
+		"SmallContextSize",
+		"SmallContextSlots" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMBytecodeConstants",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "SharedPool",
+	"type" : "normal" }

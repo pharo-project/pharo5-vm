@@ -1,6 +1,7 @@
 I/O primitives
 showDisplayBits: destBits w: w h: h d: d left: left right: right top: top bottom: bottom
 	| raster pixPerWord simDisp realDisp rect |
+	displayForm ifNil: [^self].
 	pixPerWord := 32 // d.
 	raster := displayForm width + (pixPerWord - 1) // pixPerWord.
 	simDisp := Form new hackBits: objectMemory memory.

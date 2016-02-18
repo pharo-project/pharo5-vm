@@ -11,7 +11,7 @@ initializeObjectMemory: bytesToShift
 	"di 11/18/2000 fix slow full GC"
 	<inline: false>
 	"Catch mis-initializations leading to bad translations to C"
-	self assert: BaseHeaderSize = BytesPerWord.
+	self assert: self baseHeaderSize = self wordSize.
 
 	"set the start of the young object space"
 	youngStart := endOfMemory.

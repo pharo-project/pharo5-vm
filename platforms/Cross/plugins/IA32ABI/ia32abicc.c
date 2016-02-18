@@ -28,6 +28,7 @@ void *getbaz() { return baz; }
 #include <string.h> /* for memcpy et al */
 #include <setjmp.h>
 #include <stdio.h> /* for fprintf(stderr,...) */
+#include <unistd.h>
 
 #include "vmCallback.h"
 #include "sqAssert.h"
@@ -44,22 +45,12 @@ extern
 #endif 
 struct VirtualMachine* interpreterProxy;
 
-#if defined(SQ_IMAGE32)
-# define BytesPerOop    4
-#elif defined(SQ_IMAGE64)
-# define BytesPerOop    8
-#else   
-# error cannot determine image word size/object header size
-#endif
-
-#define BaseHeaderSize BytesPerOop
- 
 #ifdef _MSC_VER
 # define alloca _alloca
 #endif
 #if __GNUC__
 # define setsp(sp) asm volatile ("movl %0,%%esp" : : "m"(sp))
-# define getsp() ({ void *esp; asm volatile ("movl %%esp,%0" : "=r"(esp) : ); esp;})
+# define getsp() ({ void *sp; asm volatile ("movl %%esp,%0" : "=r"(sp) : ); sp;})
 #endif
 #if __APPLE__ && __MACH__ && __i386__
 # define STACK_ALIGN_BYTES 16

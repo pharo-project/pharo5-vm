@@ -1,3 +1,3 @@
 accessing
 statSpecialMarkCount
-	^statSpecialMarkCount
+	^0

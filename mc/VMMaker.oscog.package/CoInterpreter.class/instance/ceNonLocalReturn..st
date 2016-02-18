@@ -21,8 +21,8 @@ ceNonLocalReturn: returnValue
 	home := nil.
 	"Walk the closure's lexical chain to find the context or frame to return from (home)."
 	[closure ~= objectMemory nilObject] whileTrue:
-		[home := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: closure.
-		 closure := objectMemory fetchPointer: ClosureIndex ofObject: home].
+		[home := objectMemory followField: ClosureOuterContextIndex ofObject: closure.
+		 closure := objectMemory followField: ClosureIndex ofObject: home].
 	"home is to be returned from provided there is no unwind-protect activation between
 	 this frame and home's sender.  Search for an unwind.  findUnwindThroughContext:
 	 will answer either the context for an unwind-protect activation or nilObj if the sender
@@ -98,7 +98,6 @@ ceNonLocalReturn: returnValue
 	 top frame has its instruction pointer on top of stack.  An interior
 	 frame has its instruction pointer in the caller frame. We need to
 	 peel back any frames on the page until we get to the correct frame."
-	self flag: 'currently caller pushes result'. "(in machine code)"
 	framePointer = frameToReturnTo
 		ifTrue:
 			[instructionPointer := self popStack]

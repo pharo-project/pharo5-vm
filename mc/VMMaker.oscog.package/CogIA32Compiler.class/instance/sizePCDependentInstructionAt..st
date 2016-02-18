@@ -6,7 +6,7 @@ sizePCDependentInstructionAt: eventualAbsoluteAddress
 	 where this instruction will be output.  The span of a jump to a following
 	 instruction is therefore between that instruction's address and this
 	 instruction's address ((which are both still their virtual addresses), but the
-	 span of a jump to a preceeding instruction or to an absolute address is
+	 span of a jump to a preceding instruction or to an absolute address is
 	 between that instruction's address (which by now is its eventual absolute
 	 address) or absolute address and eventualAbsoluteAddress."
 
@@ -38,6 +38,6 @@ sizePCDependentInstructionAt: eventualAbsoluteAddress
 												ifTrue: [5]
 												ifFalse: [6]]]
 							ifFalse:
-								[opcode = JumpLong
+								[(opcode = JumpLong or: [opcode = JumpFull])
 									ifTrue: [5]
 									ifFalse: [6]]

@@ -8,7 +8,7 @@ restoreHeadersAfterBecoming: list1 with: list2
 	of oop1 = oop2"
 	| fieldOffset oop1 oop2 hdr1 hdr2 |
 	fieldOffset := self lastPointerOf: list1.
-	[fieldOffset >= BaseHeaderSize]
+	[fieldOffset >= self baseHeaderSize]
 		whileTrue: [oop1 := self longAt: list1 + fieldOffset.
 			oop2 := self longAt: list2 + fieldOffset.
 			oop1 = oop2
@@ -23,4 +23,4 @@ restoreHeadersAfterBecoming: list1 with: list2
 					self
 						longAt: oop2
 						put: ((hdr2 bitAnd: AllButHashBits) bitOr: (hdr1 bitAnd: HashBits))].
-			fieldOffset := fieldOffset - BytesPerWord]
+			fieldOffset := fieldOffset - self wordSize]

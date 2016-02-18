@@ -8,14 +8,13 @@ lastPointerOfWhileSwizzling: objOop
 	 and the image contains no forwarders (see class comment)."
 	<api>
 	<inline: true>
-	<asmLabel: false>
-	| fmt numLiterals |
+	| fmt header |
 	fmt := self formatOf: objOop.
 	self assert: fmt ~= self forwardedFormat.
 	fmt <= self lastPointerFormat ifTrue:
-		[^(self numSlotsOf: objOop) - 1 * BytesPerOop + self baseHeaderSize  "all pointers"].
+		[^(self numSlotsOf: objOop) - 1 * self bytesPerOop + self baseHeaderSize  "all pointers"].
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	numLiterals := coInterpreter literalCountOf: objOop.
-	^numLiterals + LiteralStart - 1 * BytesPerOop + self baseHeaderSize
+	header := self methodHeaderOf: objOop.
+	^self lastPointerOfMethodHeader: header

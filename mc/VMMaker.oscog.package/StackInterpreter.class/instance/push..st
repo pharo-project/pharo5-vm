@@ -4,5 +4,5 @@ push: object
 	| sp |
 	<inline: true>
 	<var: #sp type: #'char *'>
-	stackPages longAt: (sp := stackPointer - BytesPerWord) put: object.
+	stackPages longAt: (sp := stackPointer - objectMemory wordSize) put: object.
 	stackPointer := sp

@@ -7,9 +7,10 @@ makeBaseFrameFor: aContext "<Integer>"
 	<inline: false>
 	<var: #page type: #'StackPage *'>
 	<var: #pointer type: #'char *'>
+	self assert: (objectMemory isContext: aContext).
 	self assert: (self isSingleContext: aContext).
 	self assert: (objectMemory goodContextSize: aContext).
-	page := self newStackPage.
+	page := stackPages newStackPage.
 	pointer := page baseAddress.
 	theIP := objectMemory fetchPointer: InstructionPointerIndex ofObject: aContext.
 	theMethod := objectMemory followObjField: MethodIndex ofObject: aContext.
@@ -18,63 +19,63 @@ makeBaseFrameFor: aContext "<Integer>"
 	theIP := objectMemory integerValueOf: theIP.
 	rcvr := objectMemory followField: ReceiverIndex ofObject: aContext.
 	"If the frame is a closure activation then the closure should be on the stack in
-	 the pushed receiver position (closures receiver the value[:value:] messages).
+	 the pushed receiver position (closures receive the value[:value:] messages).
 	 Otherwise it should be the receiver proper."
-	maybeClosure := objectMemory followField: ClosureIndex ofObject: aContext.
+	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aContext.
 	maybeClosure ~= objectMemory nilObject
 		ifTrue:
-			[numArgs := self argumentCountOfClosure: maybeClosure.
+			[(objectMemory isForwarded: maybeClosure) ifTrue:
+				[maybeClosure := objectMemory fixFollowedField: ClosureIndex ofObject: aContext withInitialValue: maybeClosure].
+			 numArgs := self argumentCountOfClosure: maybeClosure.
 			 stackPages longAt: pointer put: maybeClosure]
 		ifFalse:
 			[| header |
-			 header := self headerOf: theMethod.
+			 header := objectMemory methodHeaderOf: theMethod.
 			 numArgs := self argumentCountOfMethodHeader: header.
-			 self cppIf: MULTIPLEBYTECODESETS
-				ifTrue: "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
-					[(theIP signedIntFromLong > 0
-					  and: [(self methodHeaderHasPrimitive: header)
-					  and: [theIP = (1 + (objectMemory lastPointerOf: theMethod))]]) ifTrue:
-						[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)]].
+			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
+			 ((self methodHeaderHasPrimitive: header)
+			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]) ifTrue:
+				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages longAt: pointer put: rcvr].
 	"Put the arguments on the stack"
 	1 to: numArgs do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"saved caller ip is sender context in base frame"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
-		put: (objectMemory fetchPointer: SenderIndex ofObject: aContext).
+		longAt: (pointer := pointer - objectMemory wordSize)
+		put: (objectMemory followObjField: SenderIndex ofObject: aContext).
 	"base frame's saved fp is null"
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: 0.
 	page baseFP: pointer; headFP: pointer.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: theMethod.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: (self encodeFrameFieldHasContext: true isBlock: maybeClosure ~= objectMemory nilObject numArgs: numArgs).
 	self assert: (self frameHasContext: page baseFP).
 	self assert: (self frameNumArgs: page baseFP) == numArgs.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: aContext.
 	stackPages
-		longAt: (pointer := pointer - BytesPerWord)
+		longAt: (pointer := pointer - objectMemory wordSize)
 		put: rcvr.
 	stackPtrIndex := self quickFetchInteger: StackPointerIndex ofObject: aContext.
 	self assert: ReceiverIndex + stackPtrIndex < (objectMemory lengthOf: aContext).
 	numArgs + 1 to: stackPtrIndex do:
 		[:i|
 		stackPages
-			longAt: (pointer := pointer - BytesPerWord)
+			longAt: (pointer := pointer - objectMemory wordSize)
 			put: (objectMemory fetchPointer: ReceiverIndex + i ofObject: aContext)].
 	"top of stack is the instruction pointer"
 	theIP := self iframeInstructionPointerForIndex: theIP method: theMethod.
-	stackPages longAt: (pointer := pointer - BytesPerWord) put: theIP.
+	stackPages longAt: (pointer := pointer - objectMemory wordSize) put: theIP.
 	page headSP: pointer.
 	self assert: (self context: aContext hasValidInversePCMappingOf: theIP in: page baseFP).
 

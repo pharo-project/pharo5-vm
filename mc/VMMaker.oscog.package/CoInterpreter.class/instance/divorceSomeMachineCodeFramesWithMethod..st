@@ -11,7 +11,7 @@ divorceSomeMachineCodeFramesWithMethod: cogMethod
 		aPage := stackPages stackPageAt: i.
 		(stackPages isFree: aPage) ifFalse:
 			["this to avoid assert in externalDivorceFrame:andContext:"
-			 self markStackPageMostRecentlyUsed: stackPage.
+			 stackPages markStackPageMostRecentlyUsed: stackPage.
 			 (self divorceAMachineCodeFrameWithCogMethod: cogMethod in: aPage) ifTrue:
 				[divorcedSome := true]]].
 	^divorcedSome

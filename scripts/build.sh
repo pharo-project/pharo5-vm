@@ -38,7 +38,7 @@ cd "$SCRIPT_DIR/../image"
 
 echo "
 NonInteractiveTranscript stdout install.
-PharoVMBuilder buildOnJenkins: '$OS'.
+PharoVMSpur32Builder buildOnJenkins: '$OS'.
 " > ./script.st
 
 ./pharo generator.image --quit script.st

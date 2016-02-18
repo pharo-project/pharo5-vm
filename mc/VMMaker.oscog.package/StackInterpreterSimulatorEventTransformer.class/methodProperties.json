@@ -1,9 +1,0 @@
-{
-	"class" : {
-		"default" : "tty 2/8/2014 14:22" },
-	"instance" : {
-		"degenerateEvent:" : "tty 2/12/2014 19:56",
-		"degenerateKeyboardEvent:" : "tty 2/12/2014 16:45",
-		"degenerateMouseButtonEvent:" : "tty 2/12/2014 17:00",
-		"degenerateMouseEvent:" : "tty 2/12/2014 17:01",
-		"degenerateMouseMoveEvent:" : "tty 2/12/2014 16:40" } }

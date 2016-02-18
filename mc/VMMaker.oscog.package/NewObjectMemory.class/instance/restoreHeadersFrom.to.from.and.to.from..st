@@ -8,13 +8,13 @@ restoreHeadersFrom: firstIn to: lastIn from: hdrBaseIn and: firstOut to: lastOut
 		[oop := self longAt: tablePtr.
 		header := self longAt: hdrBaseIn + (tablePtr-firstIn).
 		self longAt: oop put: header.
-		tablePtr := tablePtr + BytesPerWord].
+		tablePtr := tablePtr + self wordSize].
 	tablePtr := firstOut.
 	[self oop: tablePtr isLessThanOrEqualTo: lastOut] whileTrue:
 		[oop := self longAt: tablePtr.
 		header := self longAt: hdrBaseOut + (tablePtr-firstOut).
 		self longAt: oop put: header.
-		tablePtr := tablePtr + BytesPerWord].
+		tablePtr := tablePtr + self wordSize].
 	
 	"Clear all mark bits"
 	oop := self firstObject.

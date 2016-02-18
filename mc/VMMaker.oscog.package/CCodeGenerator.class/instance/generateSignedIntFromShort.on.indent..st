@@ -5,4 +5,3 @@ generateSignedIntFromShort: msgNode on: aStream indent: level
 	aStream nextPutAll: '((short)'.
 	self emitCExpression: msgNode receiver on: aStream.
 	aStream nextPut: $)
-

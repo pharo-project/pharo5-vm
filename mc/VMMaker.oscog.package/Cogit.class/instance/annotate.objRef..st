@@ -5,5 +5,5 @@ annotate: abstractInstruction objRef: anOop
 	(objectRepresentation shouldAnnotateObjectReference: anOop) ifTrue:
 		[(objectMemory isYoungObject: anOop) ifTrue:
 			[hasYoungReferent := true].
-		^self annotate: abstractInstruction with: IsObjectReference].
+		 abstractInstruction annotation: IsObjectReference].
 	^abstractInstruction

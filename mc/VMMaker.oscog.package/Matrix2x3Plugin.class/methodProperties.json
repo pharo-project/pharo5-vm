@@ -7,7 +7,7 @@
 		"matrix2x3ComposeMatrix:with:into:" : "tpr (auto pragmas dtl 2010-09-28) 12/29/2005 17:02",
 		"matrix2x3InvertPoint:" : "tpr (auto pragmas dtl 2010-09-28) 12/29/2005 17:02",
 		"matrix2x3TransformPoint:" : "tpr (auto pragmas dtl 2010-09-28) 12/29/2005 17:03",
-		"okayIntValue:" : "ar 11/14/1998 02:37",
+		"okayIntValue:" : "eem 9/14/2015 14:15",
 		"primitiveComposeMatrix" : "dtl 10/14/2010 23:23",
 		"primitiveInvertPoint" : "tpr (auto pragmas dtl 2010-09-28) 12/29/2005 17:03",
 		"primitiveInvertRectInto" : "dtl 10/14/2010 23:25",

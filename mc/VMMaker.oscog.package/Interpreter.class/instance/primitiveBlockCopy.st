@@ -15,7 +15,7 @@ primitiveBlockCopy
 	newContext := self instantiateContext: (self splObj: ClassBlockContext) sizeInBytes: contextSize.
 	methodContext := self popRemappableOop.
 
-	initialIP := self integerObjectOf: (instructionPointer+1+3) - (method+BaseHeaderSize).
+	initialIP := self integerObjectOf: (instructionPointer+1+3) - (method+self baseHeaderSize).
 	"Was instructionPointer + 3, but now it's greater by 1 due to preIncrement"
 
 	"Assume: have just allocated a new context; it must be young.

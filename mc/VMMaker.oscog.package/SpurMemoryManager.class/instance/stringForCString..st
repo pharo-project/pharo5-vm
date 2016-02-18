@@ -12,7 +12,7 @@ stringForCString: aCString
 					format: (self byteFormatForNumBytes: len)
 					classIndex: ClassByteStringCompactIndex.
 	newString ifNotNil:
-		[self st: newString + self baseHeaderSize
+		[self st: (self cCoerceSimple: newString + self baseHeaderSize to: #'char *')
 			rn: aCString
 			cpy: len]. "(char *)strncpy()"
 	^newString

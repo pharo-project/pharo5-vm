@@ -1,11 +1,12 @@
 primitives-FT2GlyphSlot
 primitiveLoadGlyphSlotFrom: aFace 
 	"Assumes that primitiveLoadGlyph:flags: has been called earlier to set face->glyph."
-
 	| rcvr face gfOop gfPtr gs btw |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #gs declareC: 'FT_GlyphSlot gs'.	"ptr to struct"
-	self var: #gfPtr declareC: 'FT_Glyph_Format *gfPtr'.
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #gs declareC: 'FT_GlyphSlot gs'>	"ptr to struct"
+	<var: #gfPtr declareC: 'FT_Glyph_Format *gfPtr'>
+
 	rcvr := self 
 				primitive: 'primitiveLoadGlyphSlotFromFace'
 				parameters: #(#FT2Face)
@@ -55,7 +56,7 @@ primitiveLoadGlyphSlotFrom: aFace
 				instantiateClass: interpreterProxy classByteArray
 				indexableSize: (self cCode: 'sizeof(FT_Glyph_Format)').
 	self touch: gfOop.
-	btw := self bytesPerWord.
+	btw := 8. "self bytesPerWord"
 	gfPtr := self cCode: '(FT_Glyph_Format *) pointerForOop(gfOop + btw)'.
 	self touch: gfPtr.
 	interpreterProxy failed ifTrue: [^nil].

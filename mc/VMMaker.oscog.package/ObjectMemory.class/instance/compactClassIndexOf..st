@@ -1,4 +1,4 @@
-header access
+object access
 compactClassIndexOf: oop
 	<api>
 	<inline: true>

@@ -5,7 +5,7 @@ storePointer: fieldIndex ofObjStack: objStackPage withValue: thang
 		inSmalltalk:
 			[fieldIndex caseOf: {
 				[ObjStackTopx]		->	[self assert: (thang between: 0 and: ObjStackLimit)].
-				[ObjStackMyx]		->	[self assert: (thang between: MarkStackRootIndex and: EphemeronQueueRootIndex)].
+				[ObjStackMyx]		->	[self assert: (thang between: MarkStackRootIndex and: MournQueueRootIndex)].
 				[ObjStackFreex]	->	[self assert: (thang = 0
 														or: [(self addressCouldBeObj: thang)
 															and: [(self numSlotsOfAny: thang) = ObjStackPageSlots

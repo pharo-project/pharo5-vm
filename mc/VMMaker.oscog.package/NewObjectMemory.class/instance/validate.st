@@ -8,6 +8,6 @@ validate
 	[oop < freeStart] whileTrue:
 		[self validate: oop.
 		prev := oop.  "look here if debugging prev obj overlapping this one"
-		oop := self objectAfter: oop].
+		oop := self safeObjectAfter: oop].
 	self touch: prev.  "Don't offer to delete this please"
 	self interpreter transcript show: 'done.'; cr]

@@ -1,0 +1,14 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"ContextPROTOTYPEdoPrimitive:method:receiver:args:" : "EstebanLorenzano 1/22/2015 14:20",
+		"ContextPROTOTYPEfailPrimitiveWith:" : "EstebanLorenzano 8/27/2014 16:42",
+		"ContextPROTOTYPEisPrimFailToken:" : "EstebanLorenzano 8/27/2014 16:43",
+		"ContextPROTOTYPEobjectClass:" : "EstebanLorenzano 10/31/2014 14:26",
+		"xray" : "EstebanLorenzano 8/26/2014 14:42",
+		"xrayIsDivorced" : "EstebanLorenzano 8/26/2014 14:42",
+		"xrayIsExecutingMachineCode" : "EstebanLorenzano 8/26/2014 14:42",
+		"xrayIsMarried" : "EstebanLorenzano 8/26/2014 14:42",
+		"xrayLastExecutedMachineCode" : "EstebanLorenzano 8/26/2014 14:42",
+		"xrayMethodIsCompiledToMachineCode" : "EstebanLorenzano 8/26/2014 14:42" } }

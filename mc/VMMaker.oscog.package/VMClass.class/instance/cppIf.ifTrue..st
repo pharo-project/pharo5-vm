@@ -6,4 +6,5 @@ cppIf: conditionBlockOrValue ifTrue: trueExpressionOrBlock
 		self cppIf: IMMUTABILITY
 			ifTrue: [(self internalIsImmutable: obj) ifTrue:
 						[^self primitiveFailFor: PrimErrNoModification]]"
+	<doNotGenerate>
 	^self cppIf: conditionBlockOrValue ifTrue: trueExpressionOrBlock ifFalse: nil

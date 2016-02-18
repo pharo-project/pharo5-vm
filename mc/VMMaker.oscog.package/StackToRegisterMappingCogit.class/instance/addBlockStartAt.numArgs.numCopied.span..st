@@ -34,5 +34,6 @@ addBlockStartAt: bytecodepc numArgs: numArgs numCopied: numCopied span: span
 		numCopied: numCopied;
 		numInitialNils: 0;
 		stackCheckLabel: nil;
+		hasInstVarRef: false;
 		span: span.
 	^blockStart

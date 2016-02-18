@@ -1,7 +1,7 @@
 memory access
 byteAt: byteAddress put: byte
 	| longWord shift lowBits bpwMinus1 longAddress |
-	bpwMinus1 := BytesPerWord-1.
+	bpwMinus1 := self wordSize-1.
 	lowBits := byteAddress bitAnd: bpwMinus1.
 	longAddress := byteAddress - lowBits.
 	longWord := self longAt: longAddress.

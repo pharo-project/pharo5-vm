@@ -7,5 +7,5 @@ interpreterAllocationReserveBytes
 	 number of frames per page times the number of pages."
 	| maxUsedBytesPerPage maxFramesPerPage |
 	maxUsedBytesPerPage := self stackPageFrameBytes + self stackLimitOffset.
-	maxFramesPerPage := maxUsedBytesPerPage / BytesPerWord // FrameSlots.
-	^maxFramesPerPage * LargeContextSlots * BytesPerOop * numStackPages
+	maxFramesPerPage := maxUsedBytesPerPage / objectMemory wordSize // FrameSlots.
+	^maxFramesPerPage * LargeContextSlots * objectMemory bytesPerOop * numStackPages

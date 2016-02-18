@@ -10,5 +10,13 @@ cloneArrayLiteral: anArray
 			[SmallInteger] -> [oldHeap
 									storePointerUnchecked: i - 1
 									ofObject: array
-									withValue: (oldHeap integerObjectOf: lit)] }].
+									withValue: (oldHeap integerObjectOf: lit)].
+			[ByteSymbol] -> [oldHeap
+									storePointer: i - 1
+									ofObject: array
+									withValue: (self findSymbol: lit)].
+			[UndefinedObject] -> [oldHeap
+									storePointerUnchecked: i - 1
+									ofObject: array
+									withValue: oldHeap nilObject] }].
 	^array

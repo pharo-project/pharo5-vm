@@ -1,5 +1,6 @@
 primitives
 primitiveSerialPortReadByName: portName into: array startingAt: startIndex count: count 
+	<option: #PharoVM>
 	<var: #port type: 'char *'>
 
 	| port portNameSize bytesRead arrayPtr |

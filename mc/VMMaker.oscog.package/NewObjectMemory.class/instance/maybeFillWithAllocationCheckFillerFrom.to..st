@@ -6,5 +6,5 @@ maybeFillWithAllocationCheckFillerFrom: start to: end
 	<var: 'end' type: #usqInt>
 	<var: 'p' type: #usqInt>
 	self checkAllocFiller ifTrue:
-		[start to: end by: BytesPerWord do:
+		[start to: end by: self wordSize do:
 			[:p| self longAt: p put: p]]

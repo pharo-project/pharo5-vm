@@ -3,9 +3,9 @@ concretizeMoveXwrRR
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| index base dest |
-	index := self concreteRegister: (operands at: 0).
-	base := self concreteRegister: (operands at: 1).
-	dest := self concreteRegister: (operands at: 2).
+	index := operands at: 0.
+	base := operands at: 1.
+	dest := operands at: 2.
 	base ~= EBP ifTrue:
 		[machineCode
 			at: 0 put: 16r8B;

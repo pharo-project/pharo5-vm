@@ -1,16 +1,13 @@
 arithmetic float primitives
 primitiveTruncated 
-	| rcvr frac trunc |
+	| rcvr trunc |
 	<var: #rcvr type: #double>
-	<var: #frac type: #double>
 	<var: #trunc type: #double>
 	rcvr := self popFloat.
 	self successful ifTrue:
-		[self cCode: 'frac = modf(rcvr, &trunc)'
+		[self cCode: [self mod: rcvr f: (self addressOf: trunc)]
 			inSmalltalk: [trunc := rcvr truncated].
-		self flag: #Dan.		"The ranges are INCORRECT if SmallIntegers are wider than 31 bits."
-		self cCode: 'success((-1073741824.0 <= trunc) && (trunc <= 1073741823.0))'
-			inSmalltalk: [self success: (trunc between: SmallInteger minVal and: SmallInteger maxVal)]].
+		self success: (trunc between: objectMemory minSmallInteger asFloat and: objectMemory maxSmallInteger asFloat)].
 	self successful
-		ifTrue: [self cCode: 'pushInteger((sqInt) trunc)' inSmalltalk: [self pushInteger: trunc]]
+		ifTrue: [self pushInteger: trunc asInteger]
 		ifFalse: [self unPop: 1]

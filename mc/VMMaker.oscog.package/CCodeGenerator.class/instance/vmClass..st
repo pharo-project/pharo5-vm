@@ -4,5 +4,4 @@ vmClass: aClass
 	 It may be an interpreter or a cogit"
 	vmClass := aClass.
 	vmClass ifNotNil:
-		[generateDeadCode := vmClass shouldGenerateDeadCode.
-		 vmClass copyOptionsBackTo: optionsDictionary]
+		[generateDeadCode := vmClass shouldGenerateDeadCode]

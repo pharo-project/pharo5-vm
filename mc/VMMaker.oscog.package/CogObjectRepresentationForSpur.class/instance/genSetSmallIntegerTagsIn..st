@@ -1,3 +1,4 @@
 compile abstract instructions
 genSetSmallIntegerTagsIn: scratchReg
-	self subclassResponsibility
+	cogit OrCq: 1 R: scratchReg.
+	^0

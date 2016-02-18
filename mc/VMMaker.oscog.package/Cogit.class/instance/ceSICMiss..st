@@ -16,25 +16,15 @@ ceSICMiss: receiver
 	<var: #pic type: #'CogMethod *'>
 	<var: #targetMethod type: #'CogMethod *'>
 	"Whether we can relink to a PIC or not we need to pop off the inner return and identify the target method."
-	innerReturn := coInterpreter popStack.
+	innerReturn := coInterpreter popStack asUnsignedInteger.
 	targetMethod := self cCoerceSimple: innerReturn - missOffset to: #'CogMethod *'.
 	(objectMemory isOopForwarded: receiver) ifTrue:
 		[^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
-	outerReturn := coInterpreter stackTop.
+	outerReturn := coInterpreter stackTop asUnsignedInteger.
 	self assert: (outerReturn between: methodZoneBase and: methodZone freeStart).
 	entryPoint := backEnd callTargetFromReturnAddress: outerReturn.
 
 	self assert: targetMethod selector ~= objectMemory nilObject.
-	self cppIf: NewspeakVM ifTrue:
-		[self assert: (targetMethod asInteger + cmEntryOffset = entryPoint
-					or: [targetMethod asInteger + cmDynSuperEntryOffset = entryPoint]).
-		 "Avoid the effort of implementing PICs for the relatively low dynamic frequency
-		  dynamic super send and simply rebind the send site."
-		 targetMethod asInteger + cmDynSuperEntryOffset = entryPoint ifTrue:
-			[^coInterpreter
-				ceDynamicSuperSend: targetMethod selector
-				to: receiver
-				numArgs: targetMethod cmNumArgs]].
 	self assert: targetMethod asInteger + cmEntryOffset = entryPoint.
 
 	self lookup: targetMethod selector
@@ -48,8 +38,9 @@ ceSICMiss: receiver
 	cacheTag := objectRepresentation inlineCacheTagForInstance: receiver.
 	((errorSelectorOrNil notNil and: [errorSelectorOrNil ~= SelectorDoesNotUnderstand])
 	 or: [(objectRepresentation inlineCacheTagIsYoung: cacheTag)
+	 or: [(backEnd inlineCacheTagAt: outerReturn) = self picAbortDiscriminatorValue
 	 or: [newTargetMethodOrNil isNil
-	 or: [objectMemory isYoung: newTargetMethodOrNil]]]) ifTrue:
+	 or: [objectMemory isYoung: newTargetMethodOrNil]]]]) ifTrue:
 		[result := self patchToOpenPICFor: targetMethod selector
 					numArgs: targetMethod cmNumArgs
 					receiver: receiver.
@@ -57,7 +48,7 @@ ceSICMiss: receiver
 		 ^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
 	"See if an Open PIC is already available."
 	pic := methodZone openPICWithSelector: targetMethod selector.
-	pic isNil ifTrue:
+	pic ifNil:
 		["otherwise attempt to create a closed PIC for the two cases."
 		 pic := self cogPICSelector: targetMethod selector
 					numArgs: targetMethod cmNumArgs
@@ -71,23 +62,25 @@ ceSICMiss: receiver
 			 pic asInteger = InsufficientCodeSpace ifTrue:
 				[coInterpreter callForCogCompiledCodeCompaction].
 			^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
-		 processor flushICacheFrom: pic asInteger to: pic asInteger + closedPICSize].
+		 processor flushICacheFrom: pic asUnsignedInteger to: pic asUnsignedInteger + closedPICSize].
 	"Relink the send site to the pic.  If to an open PIC then reset the cache tag to the selector,
-	 for the benefit of the cacheTag assert check in checkIfValidObjectRef:pc:cogMethod:."
+	 for the benefit of the cacheTag assert check in checkIfValidOopRef:pc:cogMethod: et al."
 	extent := pic cmType = CMOpenPIC
 				ifTrue:
 					[backEnd
 						rewriteInlineCacheAt: outerReturn
-						tag: targetMethod selector
+						tag: (self inlineCacheValueForSelector: targetMethod selector
+								  in: coInterpreter mframeHomeMethodExport
+								  at: outerReturn)
 						target: pic asInteger + cmEntryOffset]
 				ifFalse:
 					[backEnd
 						rewriteCallAt: outerReturn
 						target: pic asInteger + cmEntryOffset].
-	processor flushICacheFrom: outerReturn - 1 - extent to: outerReturn - 1.
+	processor flushICacheFrom: outerReturn asUnsignedInteger - extent to: outerReturn asUnsignedInteger.
 	"Jump back into the pic at its entry in case this is an MNU (newTargetMethodOrNil is nil)"
 	coInterpreter
-		executeCogMethod: pic
+		executeCogPIC: pic
 		fromLinkedSendWithReceiver: receiver
 		andCacheTag: (backEnd inlineCacheTagAt: outerReturn).
 	"NOTREACHED"

@@ -4,4 +4,5 @@ getImageHeaderFlags
 	^fullScreenFlag "0 or 1"
 	+ (VMBIGENDIAN ifTrue: [0] ifFalse: [2]) "this is the imageFloatsLittleEndian flag"
 	+ (preemptionYields ifTrue: [0] ifFalse: [16r10])
-	+ (imageHeaderFlags bitClear: 16r13) "these are any flags we do not recognize"
+	+ (newFinalization ifTrue: [16r40] ifFalse: [0])
+	+ (imageHeaderFlags bitClear: 16r53) "these are any flags we do not recognize"

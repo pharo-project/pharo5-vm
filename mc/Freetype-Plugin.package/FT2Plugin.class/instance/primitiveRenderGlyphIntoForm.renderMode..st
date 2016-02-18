@@ -1,10 +1,11 @@
 primitives-FT2Face
 primitiveRenderGlyphIntoForm: formOop renderMode: mode
 	"Render this face into the given form"
-
 	| faceOop face bitmap |
-	self var: #face type: 'FT_Face'. "pointer"
-	self var: #bitmap type: 'FT_Bitmap'. "temp struct"
+	
+	<var: #face type: 'FT_Face'> "pointer"
+	<var: #bitmap type: 'FT_Bitmap'> "temp struct"
+	
 	faceOop := self 
 				primitive: 'primitiveRenderGlyphIntoFormWithRenderMode'
 				parameters: #(Form SmallInteger)

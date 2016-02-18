@@ -94,9 +94,9 @@
 	"name" : "ObjectMemory",
 	"pools" : [
 		"VMBasicConstants",
+		"VMBytecodeConstants",
 		"VMObjectIndices",
 		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants",
 		"VMSqueakV3ObjectRepresentationConstants" ],
 	"super" : "VMClass",
 	"type" : "normal" }

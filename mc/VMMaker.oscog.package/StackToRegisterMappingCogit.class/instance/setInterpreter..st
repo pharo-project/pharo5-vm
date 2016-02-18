@@ -14,8 +14,7 @@ setInterpreter: aCoInterpreter
 	simSelf := CogSimStackEntry new cogit: self.
 	optStatus := CogSSOptStatus new.
 
-	debugFixupBreaks := Set new.
-	debugBytecodePointers := Set new.
+	debugFixupBreaks := self class initializationOptions at: #debugFixupBreaks ifAbsent: [Set new].
 
-	isPushNilFunction := self class isPushNilFunction.
-	pushNilSizeFunction := self class pushNilSizeFunction.
+	numPushNilsFunction := self class numPushNilsFunction.
+	pushNilSizeFunction := self class pushNilSizeFunction

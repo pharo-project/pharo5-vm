@@ -3,7 +3,7 @@ printMethodDictionary: dictionary
 	<api>
 	| methodArray |
 	methodArray := objectMemory fetchPointer: MethodArrayIndex ofObject: dictionary.
-	SelectorStart to: (objectMemory fetchWordLengthOf: dictionary) - 1 do:
+	SelectorStart to: (objectMemory numSlotsOf: dictionary) - 1 do:
 		[:index | | selector meth |
 		 selector := objectMemory fetchPointer: index ofObject: dictionary.
 		 selector ~= objectMemory nilObject ifTrue:

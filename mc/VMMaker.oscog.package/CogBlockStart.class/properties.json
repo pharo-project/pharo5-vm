@@ -14,7 +14,8 @@
 		"startpc",
 		"entryLabel",
 		"stackCheckLabel",
-		"span" ],
+		"span",
+		"hasInstVarRef" ],
 	"name" : "CogBlockStart",
 	"pools" : [
 		 ],

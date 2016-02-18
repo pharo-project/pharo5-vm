@@ -2,7 +2,7 @@ primitive support
 unmarkAllObjects
 	| oop hdr |
 	oop := self firstObject.
-	[oop < freeStart] whileTrue:
+	[oop asUnsignedInteger < freeStart] whileTrue:
 		[(self isFreeObject: oop) ifFalse:
 			[hdr := self baseHeader: oop.
 			 (hdr bitAnd: MarkBit) ~= 0 ifTrue:

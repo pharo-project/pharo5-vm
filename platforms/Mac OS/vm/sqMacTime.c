@@ -142,7 +142,7 @@ int ioRelinquishProcessorForMicroseconds(int microSeconds) {
 #undef ioMSecs
 //Issue with unix aio.c sept 2003
 
-int ioMSecs() {
+sqInt ioMSecs() {
     return ioMicroMSecs();
 }
 
@@ -165,13 +165,13 @@ currentUTCMicroseconds()
 			+ MicrosecondsFrom1901To1970;
 }
 
-usqLong
+unsigned volatile long long
 ioUTCMicroseconds() { return currentUTCMicroseconds(); }
 
 /* This is an expensive interface for use by profiling code that wants the time
  * now rather than as of the last heartbeat.
  */
-usqLong
+unsigned volatile long long
 ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
 #endif /* STACKVM */
 

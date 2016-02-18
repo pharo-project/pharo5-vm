@@ -9,6 +9,6 @@ write: aContents toFile: aFileName
 		ifTrue: [ bldDir := bldDir asFileReference ].
 	bldDir ensureCreateDirectory.
 	(bldDir / aFileName)
-		ensureCreateFile
-		writeStream
-		nextPutAll: (self fixLineEndsOf: aContents)
+		ensureDelete;
+		writeStreamDo: [ :stream |
+			stream nextPutAll: (self fixLineEndsOf: aContents) ]

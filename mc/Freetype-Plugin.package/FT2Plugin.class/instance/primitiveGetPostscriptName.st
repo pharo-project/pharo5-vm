@@ -1,10 +1,11 @@
 primitives-FT2GlyphSlot
 primitiveGetPostscriptName
 	"return a String"
-
 	| face rcvr string buffer |
-	self var: #face type: 'FT_Face'.	"ptr to struct"
-	self var: #buffer type: 'char*'.
+
+	<var: #face type: 'FT_Face'>	"ptr to struct"
+	<var: #buffer type: 'char*'>
+
 	rcvr := self 
 				primitive: 'primitiveGetPostscriptName'
 				parameters: #()

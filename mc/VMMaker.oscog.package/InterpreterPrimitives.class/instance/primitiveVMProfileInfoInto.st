@@ -16,7 +16,7 @@ primitiveVMProfileInfoInto
 		[info := self stackObjectValue: 0.
 		 info ~= objectMemory nilObject ifTrue:
 			[self assertClassOf: info is: (objectMemory splObj: ClassArray).
-			 self success: (objectMemory fetchWordLengthOf: info) >= 4]].
+			 self success: (objectMemory numSlotsOf: info) >= 4]].
 	self successful ifFalse:
 		[^nil].
 	

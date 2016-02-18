@@ -12,7 +12,7 @@ divorceAMachineCodeFrameWithCogMethod: cogMethod in: aStackPage
 
 	theFP := aStackPage headFP.
 	theSP := aStackPage headSP.
-	theSP := theSP + BytesPerWord. "theSP points at hottest item on frame's stack"
+	theSP := theSP + objectMemory wordSize. "theSP points at hottest item on frame's stack"
 
 	[((self isMachineCodeFrame: theFP)
 	  and: [cogMethod = (self mframeHomeMethod: theFP)]) ifTrue:

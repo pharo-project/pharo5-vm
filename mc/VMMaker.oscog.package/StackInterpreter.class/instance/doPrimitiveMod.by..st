@@ -1,7 +1,7 @@
 arithmetic primitive support
 doPrimitiveMod: rcvr by: arg
 	| integerResult integerRcvr integerArg |
-	(self areIntegers: rcvr and: arg)
+	(objectMemory areIntegers: rcvr and: arg)
 		ifTrue: [integerRcvr := objectMemory integerValueOf: rcvr.
 				integerArg := objectMemory integerValueOf: arg.
 				self success: integerArg ~= 0]

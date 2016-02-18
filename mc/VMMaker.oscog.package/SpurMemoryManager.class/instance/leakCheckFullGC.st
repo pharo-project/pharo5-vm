@@ -1,4 +1,4 @@
 debug support
 leakCheckFullGC
 	<api>
-	^(checkForLeaks bitAnd: 1) ~= 0
+	^(checkForLeaks bitAnd: GCModeFull) ~= 0

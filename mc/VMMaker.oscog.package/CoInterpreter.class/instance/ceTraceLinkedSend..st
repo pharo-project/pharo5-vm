@@ -10,7 +10,7 @@ ceTraceLinkedSend: theReceiver
 			[self maybeCheckStackDepth: (cogMethod cmNumArgs > cogit numRegArgs
 											ifTrue: [cogMethod cmNumArgs + 1]
 											ifFalse: [0])
-				sp: stackPointer + BytesPerWord
+				sp: stackPointer + objectMemory wordSize
 				pc: (self stackValue: 1)]].
 	"cogit recordSendTrace ifTrue: is implicit; wouldn't compile the call otherwise."
 	self recordTrace: (objectMemory fetchClassOf: theReceiver)
@@ -20,6 +20,6 @@ ceTraceLinkedSend: theReceiver
 		[self printActivationNameFor: cogMethod methodObject
 			receiver: theReceiver
 			isBlock: false
-			firstTemporary: nil;
+			firstTemporary: (self cCode: [nil] inSmalltalk: [0]);
 			cr].
 	self sendBreakpoint: cogMethod selector receiver: theReceiver

@@ -9,16 +9,16 @@ sendInvokeCallback: thunkPtr Stack: stackPtr Registers: regsPtr Jmpbuf: jmpBufPt
 	messageSelector := self splObj: SelectorInvokeCallback.
 	argumentCount := 4.
 	(self lookupInMethodCacheSel: messageSelector classTag: classTag) ifFalse:
-	 	[(self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+	 	[(self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 			[^false]].
 	((self argumentCountOf: newMethod) = 4
 	and: [primitiveFunctionPointer = 0]) ifFalse:
 		[^false].
 	self push: (self splObj: ClassAlien). "receiver"
-	self push: (self positive32BitIntegerFor: thunkPtr).
-	self push: (self positive32BitIntegerFor: stackPtr).
-	self push: (self positive32BitIntegerFor: regsPtr).
-	self push: (self positive32BitIntegerFor: jmpBufPtr).
+	self push: (self positiveMachineIntegerFor: thunkPtr).
+	self push: (self positiveMachineIntegerFor: stackPtr).
+	self push: (self positiveMachineIntegerFor: regsPtr).
+	self push: (self positiveMachineIntegerFor: jmpBufPtr).
 	self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector.
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:

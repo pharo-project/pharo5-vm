@@ -4,7 +4,7 @@ unlinkSendsToFree
 	"Unlink all sends in cog methods to free methods and/or pics."
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	codeModified := false.
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	[cogMethod < methodZone limitZony] whileTrue:
@@ -18,4 +18,4 @@ unlinkSendsToFree
 					[self assert: (self noTargetsFreeInClosedPIC: cogMethod)]].
 		cogMethod := methodZone methodAfter: cogMethod].
 	codeModified ifTrue: "After possibly updating inline caches we need to flush the icache."
-		[processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger]
+		[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]

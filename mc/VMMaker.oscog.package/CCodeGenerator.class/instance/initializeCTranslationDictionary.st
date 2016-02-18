@@ -1,4 +1,4 @@
-C translation
+C translation support
 initializeCTranslationDictionary 
 	"Initialize the dictionary mapping message names to actions for C code generation."
 
@@ -21,6 +21,7 @@ initializeCTranslationDictionary
 	#\\				#generateModulo:on:indent:
 	#<<			#generateShiftLeft:on:indent:
 	#>>			#generateShiftRight:on:indent:
+	#>>>			#generateSignedShiftRight:on:indent:
 	#min:			#generateMin:on:indent:
 	#max:			#generateMax:on:indent:
 	#between:and:	#generateBetweenAnd:on:indent:
@@ -30,7 +31,8 @@ initializeCTranslationDictionary
 	#bitXor:			#generateBitXor:on:indent:
 	#bitShift:			#generateBitShift:on:indent:
 	#signedBitShift:	#generateSignedBitShift:on:indent:
-	#bitInvert32		#generateBitInvert32:on:indent:
+	#bitInvert32		#generateBitInvert:on:indent:
+	#bitInvert64		#generateBitInvert:on:indent:
 	#bitClear:			#generateBitClear:on:indent:
 	#truncateTo:		#generateTruncateTo:on:indent:
 	#rounded			#generateRounded:on:indent:
@@ -53,6 +55,7 @@ initializeCTranslationDictionary
 	#to:do:			#generateToDo:on:indent:
 	#to:by:do:		#generateToByDo:on:indent:
 	#repeat 		#generateRepeat:on:indent:
+	#timesRepeat:	#generateTimesRepeat:on:indent:
 
 	#ifTrue:			#generateIfTrue:on:indent:
 	#ifFalse:		#generateIfFalse:on:indent:
@@ -81,9 +84,12 @@ initializeCTranslationDictionary
 	#cCoerceSimple:to:			#generateCCoercion:on:indent:
 	#addressOf:				#generateAddressOf:on:indent:
 	#addressOf:put:			#generateAddressOf:on:indent:
+	#asAddress:put:			#generateAsAddress:on:indent:
+	#signedIntFromLong64		#generateSignedIntFromLong64:on:indent:
 	#signedIntFromLong		#generateSignedIntFromLong:on:indent:
-	#signedIntToLong			#generateSignedIntToLong:on:indent:
 	#signedIntFromShort		#generateSignedIntFromShort:on:indent:
+	#signedIntToLong64		#generateSignedIntToLong64:on:indent:
+	#signedIntToLong			#generateSignedIntToLong:on:indent:
 	#signedIntToShort			#generateSignedIntToShort:on:indent:
 	#preIncrement				#generatePreIncrement:on:indent:
 	#preDecrement			#generatePreDecrement:on:indent:
@@ -97,12 +103,17 @@ initializeCTranslationDictionary
 	#asSymbol					#generateAsSymbol:on:indent:
 	#flag:						#generateFlag:on:indent:
 	#anyMask:					#generateBitAnd:on:indent:
+	#allMask:					#generateAllMask:on:indent:
 	#noMask:					#generateNoMask:on:indent:
 	#raisedTo:					#generateRaisedTo:on:indent:
 	#touch:						#generateTouch:on:indent:
 
+	#bytesPerOop 				#generateBytesPerOop:on:indent:
 	#bytesPerWord 			#generateBytesPerWord:on:indent:
+	#wordSize		 			#generateBytesPerWord:on:indent:
 	#baseHeaderSize			#generateBaseHeaderSize:on:indent:
+	#minSmallInteger			#generateSmallIntegerConstant:on:indent:
+	#maxSmallInteger			#generateSmallIntegerConstant:on:indent:
 	
 	#sharedCodeNamed:inCase:		#generateSharedCodeDirective:on:indent:
 
@@ -117,6 +128,9 @@ initializeCTranslationDictionary
 	#value:								#generateValue:on:indent:
 	#value:value:						#generateValue:on:indent:
 	#value:value:value:					#generateValue:on:indent:
+	#value:value:value:value:			#generateValue:on:indent:
+
+	#deny:								#generateDeny:on:indent:
 
 	#shouldNotImplement				#generateSmalltalkMetaError:on:indent:
 	#shouldBeImplemented			#generateSmalltalkMetaError:on:indent:

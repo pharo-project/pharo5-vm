@@ -1,0 +1,15 @@
+{
+	"category" : "Freetype-Plugin",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"errCode",
+		"errMsg" ],
+	"name" : "FT2ErrorStruct",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

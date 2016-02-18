@@ -9,8 +9,13 @@ primitiveAdoptInstance
 	 differs from the size that an instance of the argument's class should have."
 	| rcvr arg err |
 
-	arg := self stackObjectValue: 0.
-	rcvr := self stackObjectValue: 1.
+	arg := self stackTop.
+	rcvr := self stackValue: 1.
+	((objectMemory isImmediate: arg)
+	 or: [argumentCount > 1
+		and: [(objectMemory isImmediate: rcvr)
+			or: [(self objCouldBeClassObj: rcvr) not]]]) ifTrue:
+		[^self primitiveFailFor: PrimErrBadArgument].
 
 	err := objectMemory changeClassOf: arg to: rcvr.
 	err = 0

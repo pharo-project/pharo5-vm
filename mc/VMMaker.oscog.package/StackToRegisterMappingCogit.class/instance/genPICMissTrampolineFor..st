@@ -3,11 +3,11 @@ genPICMissTrampolineFor: numArgs
 	<inline: false>
 	| startAddress |
 	startAddress := methodZoneBase.
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	"N.B. a closed PIC jumps to the miss routine, not calls it, so there is only one retpc on the stack."
-	backEnd genPushRegisterArgsForNumArgs: numArgs.
+	backEnd genPushRegisterArgsForNumArgs: numArgs scratchReg: SendNumArgsReg.
 	self genTrampolineFor: #ceCPICMiss:receiver:
-		called: (self trampolineName: 'cePICMiss' numArgs: (numArgs <= self numRegArgs ifTrue: [numArgs] ifFalse: [-1]))
+		called: (self trampolineName: 'cePICMiss' numRegArgs: numArgs)
 		numArgs: 2
 		arg: ClassReg
 		arg: ReceiverResultReg
@@ -15,6 +15,6 @@ genPICMissTrampolineFor: numArgs
 		arg: nil
 		saveRegs: false
 		pushLinkReg: true
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true.
 	^startAddress

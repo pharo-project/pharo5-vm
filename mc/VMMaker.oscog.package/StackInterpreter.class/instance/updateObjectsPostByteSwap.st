@@ -11,19 +11,20 @@ updateObjectsPostByteSwap
 		[:oop| | fmt wordAddr methodHeader temp |
 		fmt := objectMemory formatOf: oop.
 		 fmt >= self firstByteFormat ifTrue: "oop contains bytes"
-			[wordAddr := oop + BaseHeaderSize.
+			[wordAddr := oop + objectMemory baseHeaderSize.
 			fmt >= self firstCompiledMethodFormat ifTrue: "compiled method; start after methodHeader and literals"
-				[methodHeader := self longAt: oop + BaseHeaderSize.
-				 wordAddr := wordAddr + (((self literalCountOfHeader: methodHeader) + LiteralStart) * BytesPerWord)].
+				[methodHeader := self longAt: oop + objectMemory baseHeaderSize.
+				 wordAddr := wordAddr + (((objectMemory literalCountOfMethodHeader: methodHeader) + LiteralStart) * objectMemory bytesPerOop)].
 			objectMemory reverseBytesFrom: wordAddr to: oop + (objectMemory sizeBitsOf: oop)].
 		 fmt = self firstLongFormat ifTrue: "Bitmap, Float etc"
 			[(swapFloatWords
 			  and: [(objectMemory compactClassIndexOf: oop) = ClassFloatCompactIndex])
 				ifTrue:
-					[temp := self longAt: oop + BaseHeaderSize.
-					 self longAt: oop + BaseHeaderSize put: (self longAt: oop + BaseHeaderSize + 4).
-					 self longAt: oop + BaseHeaderSize + 4 put: temp]
+					[temp := self longAt: oop + objectMemory baseHeaderSize.
+					 self longAt: oop + objectMemory baseHeaderSize put: (self longAt: oop + objectMemory baseHeaderSize + 4).
+					 self longAt: oop + objectMemory baseHeaderSize + 4 put: temp]
 				ifFalse:
-					[BytesPerWord = 8 ifTrue: "Object contains 32-bit half-words packed into 64-bit machine words."
-						[wordAddr := oop + BaseHeaderSize.
+					[(objectMemory hasSpurMemoryManagerAPI not
+					  and: [objectMemory wordSize = 8]) ifTrue: "Object contains 32-bit half-words packed into 64-bit machine words."
+						[wordAddr := oop + objectMemory baseHeaderSize.
 						 objectMemory reverseWordsFrom: wordAddr to: oop + (objectMemory sizeBitsOf: oop)]]]]

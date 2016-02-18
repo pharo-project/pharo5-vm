@@ -7,16 +7,13 @@ basicGenerateSources
 	
 	"suppress questions and deprecation warnings during generation "
 	[[
-		
 		maker := self prepareVMMaker.
-	
 		maker interpreterClass: self interpreterClass.
-		self cogitClass ifNotNil: [:cg | 
-			maker cogitClass: cg.
-			cg initializeWithOptions: (maker instVarNamed: 'optionsDictionary')
-		].
-		
+		"If #cogitClass is nil it will add Cogit->'nil' pair. 
+		 This is *CORRECT*, check VMClass class>>#cogitClass for insigts on the use"
+		maker options: { #Cogit. self cogitClass name }.
+		self cogitClass ifNotNil: [ :cg | 
+			cg initializeWithOptions: maker options ].
 		maker generateEntire
-
 	] on: ProvideAnswerNotification do: [:ex | ex resume: true ]]
 	on: Deprecation do: [:ex | ex resume ].

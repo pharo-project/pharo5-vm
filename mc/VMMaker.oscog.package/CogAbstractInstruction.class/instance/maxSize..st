@@ -1,5 +1,4 @@
 accessing
-maxSize: anObject
-	"Set the value of maxSize"
-
-	maxSize := anObject
+maxSize: size "<signed byte>"
+	"N.B. This is a byte size."
+	maxSize := size

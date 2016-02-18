@@ -5,6 +5,7 @@ generateStackPointerCapture
 	 run-time routines in the interpreter from machine-code."
 
 	| oldMethodZoneBase oldTrampolineTableIndex |
+	cFramePointerInUse := false. "For the benefit of the following assert, assume the minimum at first."
 	self assertCStackWellAligned.
 	oldMethodZoneBase := methodZoneBase.
 	oldTrampolineTableIndex := trampolineTableIndex.
@@ -13,4 +14,5 @@ generateStackPointerCapture
 	(cFramePointerInUse := self isCFramePointerInUse) ifFalse:
 		[methodZoneBase := oldMethodZoneBase.
 		 trampolineTableIndex := oldTrampolineTableIndex.
-		 self generateCaptureCStackPointers: false]
+		 self generateCaptureCStackPointers: false].
+	self assertCStackWellAligned.

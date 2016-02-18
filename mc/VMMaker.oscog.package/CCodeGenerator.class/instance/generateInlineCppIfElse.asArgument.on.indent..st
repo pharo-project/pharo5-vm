@@ -25,10 +25,9 @@ generateInlineCppIfElse: msgNode asArgument: asArgument on: aStream indent: leve
 			 expansion := expansion allButFirst: (expansion findFirst: [:c| c ~~ Character tab]) - 1.
 			 aStream nextPutAll: expansion]].
 
-	(optionsDictionary notNil
-	 and: [msgNode args first isConstant
-	 and: [#(true false) includes: (optionsDictionary at: msgNode args first name ifAbsent: [nil])]]) ifTrue:
-		[(optionsDictionary at: msgNode args first name)
+	(self nilOrBooleanConditionFor: msgNode) ifNotNil:
+		[:condition|
+		 condition
 			ifTrue:
 				[putStatement value: msgNode args second]
 			ifFalse:

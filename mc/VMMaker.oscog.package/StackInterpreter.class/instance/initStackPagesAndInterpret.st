@@ -17,8 +17,8 @@ initStackPagesAndInterpret
 	self cCode: [self me: theStackMemory ms: 0 et: stackPagesBytes].
 	stackPages
 		initializeStack: theStackMemory
-		numSlots: stackPagesBytes / BytesPerWord
-		pageSize: stackPageBytes / BytesPerWord.
+		numSlots: stackPagesBytes / objectMemory wordSize
+		pageSize: stackPageBytes / objectMemory wordSize.
 
 	"Once the stack pages are initialized we can continue to bootstrap the system."
 	self loadInitialContext.

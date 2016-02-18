@@ -1,32 +1,36 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	#(	'coInterpreter' 'objectMemory' 'methodZone' 'objectRepresentation'
-		'cogBlockMethodSurrogateClass' 'cogMethodSurrogateClass'
+		'cogBlockMethodSurrogateClass' 'cogMethodSurrogateClass' 'nsSendCacheSurrogateClass'
 		'threadManager' 'processor' 'lastNInstructions' 'simulatedAddresses'
 		'simulatedTrampolines' 'simulatedVariableGetters' 'simulatedVariableSetters'
 		'printRegisters' 'printInstructions' 'clickConfirm' 'singleStep') do:
 			[:simulationVariableNotNeededForRealVM|
 			aCCodeGenerator removeVariable: simulationVariableNotNeededForRealVM].
 	NewspeakVM ifFalse:
-		[#(	'dynSuperEntry' 'dynSuperEntryAlignment' 'dynamicSuperSendTrampolines'
-			'ceImplicitReceiverTrampoline' 'ceExplicitReceiverTrampoline' 'cmDynSuperEntryOffset'
-			'numIRCs' 'indexOfIRC' 'theIRCs') do:
+		[#(	'selfSendTrampolines' 'dynamicSuperSendTrampolines'
+			'implicitReceiverSendTrampolines' 'outerSendTrampolines'
+			'ceEnclosingObjectTrampoline' 'numIRCs' 'indexOfIRC' 'theIRCs') do:
 				[:variableNotNeededInNormalVM|
 				aCCodeGenerator removeVariable: variableNotNeededInNormalVM]].
 	aCCodeGenerator removeConstant: #COGMTVM. "this should be defined at compile time"
 	aCCodeGenerator
 		addHeaderFile:'<stddef.h>'; "for e.g. offsetof"
-		addHeaderFile:'<setjmp.h>';
 		addHeaderFile:'"sqCogStackAlignment.h"';
-		addHeaderFile:'"cogmethod.h"';
+		addHeaderFile:'"dispdbg.h"'; "must precede cointerp.h & cogit.h otherwise NoDbgRegParms gets screwed up"
+		addHeaderFile:'"cogmethod.h"'.
+	NewspeakVM ifTrue:
+		[aCCodeGenerator addHeaderFile:'"nssendcache.h"'].
+	aCCodeGenerator
 		addHeaderFile:'#if COGMTVM';
 		addHeaderFile:'"cointerpmt.h"';
 		addHeaderFile:'#else';
 		addHeaderFile:'"cointerp.h"';
 		addHeaderFile:'#endif';
-		addHeaderFile:'"cogit.h"';
-		addHeaderFile:'"dispdbg.h"'.
+		addHeaderFile:'"cogit.h"'.
 	aCCodeGenerator
+		var: #ceGetFP
+			declareC: 'unsigned long (*ceGetFP)(void)';
 		var: #ceGetSP
 			declareC: 'unsigned long (*ceGetSP)(void)';
 		var: #ceCaptureCStackPointers
@@ -52,35 +56,42 @@ declareCVarsIn: aCCodeGenerator
 		var: #ceUnlockVMOwner
 			declareC: 'void (*ceUnlockVMOwner)(void)';
 		var: #postCompileHook
-			declareC: 'void (*postCompileHook)(CogMethod *, void *)';
+			declareC: 'void (*postCompileHook)(CogMethod *)';
 		var: #openPICList declareC: 'CogMethod *openPICList = 0';
 		var: #maxMethodBefore type: #'CogBlockMethod *'.
 	aCCodeGenerator
 		declareVar: 'aMethodLabel' type: #'AbstractInstruction'; "Has to come lexicographically before backEnd & methodLabel"
 		var: #backEnd declareC: 'AbstractInstruction * const backEnd = &aMethodLabel';
-		var: #methodLabel declareC: 'AbstractInstruction * const methodLabel = &aMethodLabel';
-		var: #primInvokeLabel type: #'AbstractInstruction *'.
+		var: #methodLabel declareC: 'AbstractInstruction * const methodLabel = &aMethodLabel'.
 	self declareC: #(abstractOpcodes stackCheckLabel
 					blockEntryLabel blockEntryNoContextSwitch
-					stackOverflowCall sendMiss sendMissCall entry noCheckEntry dynSuperEntry
-					mnuCall interpretCall interpretLabel endCPICCase0 endCPICCase1)
+					stackOverflowCall sendMiss
+					entry noCheckEntry selfSendEntry dynSuperEntry
+					picMNUAbort picInterpretAbort  endCPICCase0 endCPICCase1 cPICEndOfCodeLabel)
 			as: #'AbstractInstruction *'
 				in: aCCodeGenerator.
 	aCCodeGenerator
-		declareVar: #annotations type: #'InstructionAnnotation *';
 		declareVar: #blockStarts type: #'BlockStart *';
 		declareVar: #fixups type: #'BytecodeFixup *'.
 	aCCodeGenerator
-		var: #sendTrampolines
-			declareC: 'sqInt sendTrampolines[NumSendTrampolines]';
+		var: #ordinarySendTrampolines
+			declareC: 'sqInt ordinarySendTrampolines[NumSendTrampolines]';
 		var: #superSendTrampolines
 			declareC: 'sqInt superSendTrampolines[NumSendTrampolines]';
+		var: #directedSuperSendTrampolines
+			declareC: 'sqInt directedSuperSendTrampolines[NumSendTrampolines]';
+		var: #selfSendTrampolines
+			declareC: 'sqInt selfSendTrampolines[NumSendTrampolines]';
 		var: #dynamicSuperSendTrampolines
 			declareC: 'sqInt dynamicSuperSendTrampolines[NumSendTrampolines]';
+		var: #implicitReceiverSendTrampolines
+			declareC: 'sqInt implicitReceiverSendTrampolines[NumSendTrampolines]';
+		var: #outerSendTrampolines
+			declareC: 'sqInt outerSendTrampolines[NumSendTrampolines]';
 		var: #trampolineAddresses
 			declareC: 'static char *trampolineAddresses[NumTrampolines*2]';
 		var: #objectReferencesInRuntime
-			declareC: 'static sqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
+			declareC: 'static usqInt objectReferencesInRuntime[NumObjRefsInRuntime]';
 		var: #labelCounter
 			type: #int;
 		var: #traceFlags
@@ -96,12 +107,8 @@ declareCVarsIn: aCCodeGenerator
 		[:bytecodeGenTable|
 		aCCodeGenerator
 			var: #generatorTable
-				declareC: 'BytecodeDescriptor generatorTable[', bytecodeGenTable size printString, ']',
+				declareC: 'static BytecodeDescriptor generatorTable[', bytecodeGenTable size, ']',
 							(self tableInitializerFor: bytecodeGenTable
-								in: aCCodeGenerator);
-			var: #primitiveGeneratorTable
-				declareC: 'PrimitiveDescriptor primitiveGeneratorTable[MaxCompiledPrimitiveIndex+1]',
-							(self tableInitializerFor: aCCodeGenerator vmClass primitiveTable
 								in: aCCodeGenerator)].
 	"In C the abstract opcode names clash with the Smalltak generator syntactic sugar.
 	 Most of the syntactic sugar is inlined, but alas some remains.  Rename the syntactic

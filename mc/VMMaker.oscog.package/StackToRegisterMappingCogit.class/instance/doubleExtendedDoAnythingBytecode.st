@@ -7,12 +7,11 @@ doubleExtendedDoAnythingBytecode
 	| opType |
 	opType := byte1 >> 5.
 	opType = 0 ifTrue:
-		[^self genSend: (self getLiteral: byte2) numArgs: (byte1 bitAnd: 31)].
+		[^self genSend: byte2 numArgs: (byte1 bitAnd: 31)].
 	opType = 1 ifTrue:
-		[^self genSendSuper: (self getLiteral: byte2) numArgs: (byte1 bitAnd: 31)].
+		[^self genSendSuper: byte2 numArgs: (byte1 bitAnd: 31)].
 	"We need a map entry for this bytecode for correct parsing.
-	 The sends will get an IsSend entry anyway.  The other cases need a
-	 fake one.  We could of course special case the scanning but that's silly."
+	 The sends will get an IsSend entry anyway.  The other cases need a fake one."
 	opType caseOf: {
 			[2]	->	[(coInterpreter isReadMediatedContextInstVarIndex: byte2)
 						ifTrue: [self genPushMaybeContextReceiverVariable: byte2]
@@ -23,13 +22,14 @@ doubleExtendedDoAnythingBytecode
 					 self ssTop annotateUse: true.
 					 ^0].
 			[4]	->	[self genPushLiteralVariable: byte2.].
-			[7]	->	[self genStorePop: false LiteralVariable: byte2] }
+			[7]	->	[self genStorePop: false LiteralVariable: byte2.
+					self cppIf: IMMUTABILITY ifTrue: [ "genStorePop:LiteralVariable: annotates; don't annotate twice" ^0 ] ] }
 		otherwise: "5 & 6"
 			[(coInterpreter isWriteMediatedContextInstVarIndex: byte2)
 				ifTrue: [self genStorePop: opType = 6 MaybeContextReceiverVariable: byte2]
-				ifFalse: [self genStorePop: opType = 6 ReceiverVariable: byte2]].
-	"We need a map entry for this bytecode for correct parsing (if the method builds a frame).
-	 We could of course special case the scanning but that's silly (or is it?)."
+				ifFalse: [self genStorePop: opType = 6 ReceiverVariable: byte2].
+			self cppIf: IMMUTABILITY ifTrue: [ "genStorePop:LiteralVariable: annotates; don't annotate twice" ^0 ]].
+	"We need a map entry for this bytecode for correct parsing (if the method builds a frame)."
 	self assert: needsFrame.
 	"genPushMaybeContextInstVar, pushListVar, store & storePop all generate code"
 	self assert: self prevInstIsPCAnnotated not.

@@ -21,7 +21,7 @@ sweepToFollowForwardersForPigCompact
 		(self isForwarded: o)
 			ifTrue:
 				[lowestForwarder = 0 ifTrue:
-					[lowestForwarder := 0]]
+					[lowestForwarder := o]]
 			ifFalse:
 				[0 to: (self numPointerSlotsOf: o) - 1 do:
 					[:i| | f |

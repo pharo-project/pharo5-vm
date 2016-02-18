@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+callPrimitiveCode
+		^ 139

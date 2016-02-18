@@ -11,8 +11,8 @@ primitivePerformAt: lookupClass
 
 	successFlag ifTrue:
 		["Check for enough space in thisContext to push all args"
-		arraySize := self fetchWordLengthOf: argumentArray.
-		cntxSize := self fetchWordLengthOf: activeContext.
+		arraySize := self numSlotsOf: argumentArray.
+		cntxSize := self numSlotsOf: activeContext.
 		self success: (self stackPointerIndex + arraySize) < cntxSize].
 	successFlag ifFalse: [^nil].
 

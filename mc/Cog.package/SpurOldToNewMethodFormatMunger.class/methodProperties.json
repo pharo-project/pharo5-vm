@@ -1,0 +1,21 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"cloneArrayLiteral:" : "eem 8/9/2014 20:25",
+		"convertOldMethodHeader:" : "eem 8/9/2014 13:03",
+		"incrementPCField:ofObject:by:" : "eem 8/9/2014 12:00",
+		"indexOfSelector:in:" : "eem 8/9/2014 18:09",
+		"installableMethodFor:selector:siblingMethod:" : "eem 8/9/2014 21:26",
+		"literalFor:inClass:" : "eem 11/21/2014 16:20",
+		"mapPCs" : "eem 8/9/2014 12:00",
+		"methodHeaderForMethod:" : "eem 8/9/2014 19:00",
+		"munge:" : "eem 8/9/2014 17:54",
+		"mungeClosure:" : "eem 8/9/2014 12:03",
+		"mungeContext:" : "eem 8/9/2014 12:04",
+		"mungePrimitiveMethod:" : "eem 8/9/2014 13:25",
+		"preparePrototypes" : "eem 8/9/2014 20:03",
+		"prototypeClassNameMetaSelectorMethodDo:" : "eem 8/9/2014 17:40",
+		"replaceMethods" : "eem 8/9/2014 21:20",
+		"snapshot" : "eem 8/10/2014 14:42",
+		"updateAndForwardMethods" : "eem 8/9/2014 21:20" } }

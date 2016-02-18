@@ -21,7 +21,7 @@ longPrintOop: oop
 	fmt := objectMemory formatOf: oop.
 	self print: ' format '; printHexnp: fmt.
 	fmt > objectMemory lastPointerFormat
-		ifTrue: [self print: ' nbytes '; printNum: (objectMemory byteLengthOf: oop)]
+		ifTrue: [self print: ' nbytes '; printNum: (objectMemory numBytesOf: oop)]
 		ifFalse: [(objectMemory isIndexableFormat: fmt) ifTrue:
 					[| len |
 					len := objectMemory lengthOf: oop.
@@ -32,9 +32,13 @@ longPrintOop: oop
 	(fmt between: objectMemory firstByteFormat and: objectMemory firstCompiledMethodFormat - 1) ifTrue:
 		[^self printStringOf: oop; cr].
 	(fmt between: objectMemory firstLongFormat and: objectMemory firstByteFormat - 1) ifTrue:
-		[^self].
+		[0 to: ((objectMemory num32BitUnitsOf: oop) min: 256) - 1 do:
+			[:i| | fieldOop |
+			fieldOop := objectMemory fetchLong32: i ofObject: oop.
+			self space; printNum: i; space; printHex: fieldOop; space; cr].
+		 ^self].
 	"this is nonsense.  apologies."
-	startIP := (objectMemory lastPointerOf: oop) + BytesPerOop - objectMemory baseHeaderSize / BytesPerOop.
+	startIP := (objectMemory lastPointerOf: oop) + objectMemory bytesPerOop - objectMemory baseHeaderSize / objectMemory bytesPerOop.
 	lastIndex := 256 min: startIP.
 	lastIndex > 0 ifTrue:
 		[1 to: lastIndex do:
@@ -48,9 +52,9 @@ longPrintOop: oop
 			self cr]].
 	(objectMemory isCompiledMethod: oop)
 		ifFalse:
-			[startIP > 64 ifTrue: [self print: '...'; cr]]
+			[startIP > lastIndex ifTrue: [self print: '...'; cr]]
 		ifTrue:
-			[startIP := startIP * BytesPerWord + 1.
+			[startIP := startIP * objectMemory wordSize + 1.
 			 lastIndex := objectMemory lengthOf: oop.
 			 lastIndex - startIP > 100 ifTrue:
 				[lastIndex := startIP + 100].
@@ -60,7 +64,7 @@ longPrintOop: oop
 				[:index| | byte |
 				column = 1 ifTrue:
 					[self cCode: 'printf("0x%08x: ", oop+BaseHeaderSize+index-1)'
-						inSmalltalk: [self print: (oop+BaseHeaderSize+index-1) hex; print: ': ']].
+						inSmalltalk: [self print: (oop+objectMemory baseHeaderSize+index-1) hex; print: ': ']].
 				byte := objectMemory fetchByte: index - 1 ofObject: oop.
 				self cCode: 'printf(" %02x/%-3d", byte,byte)'
 					inSmalltalk: [self space; print: (byte radix: 16); printChar: $/; printNum: byte].

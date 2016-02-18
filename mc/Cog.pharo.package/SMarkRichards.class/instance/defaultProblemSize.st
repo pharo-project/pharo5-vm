@@ -1,3 +1,0 @@
-benchs
-defaultProblemSize
-	^ 50

@@ -13,20 +13,20 @@ byteSwapByteObjectsFrom: startOop to: stopAddr flipFloatsIf: flipFloatWords
 			[fmt := self formatOf: oop.
 			fmt >= self firstByteFormat ifTrue:
 				["oop contains bytes; unswap"
-				wordAddr := oop + BaseHeaderSize.
+				wordAddr := oop + self baseHeaderSize.
 				fmt >= self firstCompiledMethodFormat ifTrue: "compiled method; start after methodHeader and literals"
-					[wordAddr := wordAddr + ((self literalCountOf: oop) + LiteralStart * BytesPerOop)].
+					[wordAddr := wordAddr + ((self literalCountOf: oop) + LiteralStart * self bytesPerOop)].
 				self reverseBytesFrom: wordAddr to: oop + (self sizeBitsOf: oop)].
 			fmt = self firstLongFormat  ifTrue: "Bitmap, Float etc"
 				[(self compactClassIndexOf: oop) = ClassFloatCompactIndex
 					ifTrue:
 						[flipFloatWords ifTrue:
-							[temp := self longAt: oop + BaseHeaderSize.
-							 self longAt: oop + BaseHeaderSize put: (self longAt: oop + BaseHeaderSize + 4).
-							 self longAt: oop + BaseHeaderSize + 4 put: temp]]
+							[temp := self longAt: oop + self baseHeaderSize.
+							 self longAt: oop + self baseHeaderSize put: (self longAt: oop + self baseHeaderSize + 4).
+							 self longAt: oop + self baseHeaderSize + 4 put: temp]]
 					ifFalse:
-						[BytesPerWord = 8 ifTrue:
+						[self wordSize = 8 ifTrue:
 							["Object contains 32-bit half-words packed into 64-bit machine words."
-							wordAddr := oop + BaseHeaderSize.
+							wordAddr := oop + self baseHeaderSize.
 							self reverseWordsFrom: wordAddr to: oop + (self sizeBitsOf: oop)]]]].
 			oop := self objectAfter: oop]

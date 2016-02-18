@@ -13,12 +13,12 @@ superExpansionNodeFor: aSelector args: argumentNodes
 							superTMethod definingClass name, '>>', aSelector,
 							(String with: $. with: Character cr),
 							'For super expansions to be translated correctly each argument must be a variable with the same name as the corresponding argument in the super method.'].
-			self mergePropertiesOfSuperMethod: superTMethod.
 			(commonVars := superTMethod locals intersection: self locals) notEmpty ifTrue:
 				[varMap := Dictionary new.
 				 commonVars do:
 					[:k| varMap at: k put: (superTMethod unusedNamePrefixedBy: k avoiding: self allLocals)].
 				 superTMethod renameVariablesUsing: varMap].
+			self mergePropertiesOfSuperMethod: superTMethod.
 			self assert: (superTMethod locals allSatisfy: [:var| (self locals includes: var) not]).
 			locals addAll: superTMethod locals.
 			superTMethod declarations keysAndValuesDo:

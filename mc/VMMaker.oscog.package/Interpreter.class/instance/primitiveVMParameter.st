@@ -88,7 +88,7 @@ primitiveVMParameter
 		self storePointerUnchecked: 36	ofObject: result withValue: (self integerObjectOf: statSpecialMarkCount).
 		self storePointerUnchecked: 37	ofObject: result withValue: (self integerObjectOf: statIGCDeltaUsecs + 500 // 1000).
 		self storePointerUnchecked: 38	ofObject: result withValue: (self integerObjectOf: statPendingFinalizationSignals).
-		self storePointerUnchecked: 39	ofObject: result withValue: (self integerObjectOf: BytesPerWord).
+		self storePointerUnchecked: 39	ofObject: result withValue: (self integerObjectOf: self wordSize).
 		self storePointerUnchecked: 40	ofObject: result withValue: (self integerObjectOf: self imageFormatVersion).
 		41 to: 54 do:
 			[:i | self storePointerUnchecked: i ofObject: result withValue: nilObj].
@@ -136,7 +136,7 @@ primitiveVMParameter
 		arg = 37  	ifTrue: [result := statSpecialMarkCount]. 
 		arg = 38  	ifTrue: [result := statIGCDeltaUsecs + 500 // 1000]. 
 		arg = 39  	ifTrue: [result := statPendingFinalizationSignals]. 
-		arg = 40  	ifTrue: [result := BytesPerWord].
+		arg = 40  	ifTrue: [result := self wordSize].
 		arg = 41  	ifTrue: [result := self imageFormatVersion].
 		(arg >= 42
 		 and: [arg <= 55]) ifTrue: [result := nilObj].

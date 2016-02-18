@@ -6,7 +6,7 @@ compact
 	<inline: #never> "for profiling"
 	statCompactPassCount := statCompactPassCount + 1.
 	self assert: (firstFreeChunk = 0 or: [self isFreeObject: firstFreeChunk]).
-	1 to: 3 do:
+	1 to: numCompactionPasses do:
 		[:i|
 		 self pigCompact.
 		 self eliminateAndFreeForwardersForPigCompact].

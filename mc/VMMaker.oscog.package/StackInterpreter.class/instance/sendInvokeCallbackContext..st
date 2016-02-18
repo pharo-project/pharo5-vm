@@ -12,25 +12,17 @@ sendInvokeCallbackContext: vmCallbackContext
 	classTag := self fetchClassTagOfNonImm: (self splObj: ClassAlien).
 	messageSelector := self splObj: SelectorInvokeCallback.
 	(self lookupInMethodCacheSel: messageSelector classTag: classTag) ifFalse:
-	 	[(self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
+	 	[(self lookupOrdinaryNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
 			[^false]].
 	primitiveFunctionPointer ~= 0 ifTrue:
 		[^false].
 	self saveCStackStateForCallbackContext: vmCallbackContext.
 	self push: (self splObj: ClassAlien). "receiver"
-	self cppIf: BytesPerWord = 8
-		ifTrue:
-			[(self argumentCountOf: newMethod) = 4 ifTrue:
-				[self push: (self positive64BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
-				 self push: (self positive64BitIntegerFor: vmCallbackContext stackp asUnsignedInteger).
-				 self push: (self positive64BitIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
-			 self push: (self positive64BitIntegerFor: vmCallbackContext asUnsignedInteger)]
-		ifFalse:
-			[(self argumentCountOf: newMethod) = 4 ifTrue:
-				[self push: (self positive32BitIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
-				 self push: (self positive32BitIntegerFor: vmCallbackContext stackp asUnsignedInteger).
-				 self push: (self positive32BitIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
-			 self push: (self positive32BitIntegerFor: vmCallbackContext asUnsignedInteger)].
+	(self argumentCountOf: newMethod) = 4 ifTrue:
+		[self push: (self positiveMachineIntegerFor: vmCallbackContext thunkp asUnsignedInteger).
+		 self push: (self positiveMachineIntegerFor: vmCallbackContext stackp asUnsignedInteger).
+		 self push: (self positiveMachineIntegerFor: vmCallbackContext intregargsp asUnsignedInteger)].
+	self push: (self positiveMachineIntegerFor: vmCallbackContext asUnsignedInteger).
 	self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector.
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:

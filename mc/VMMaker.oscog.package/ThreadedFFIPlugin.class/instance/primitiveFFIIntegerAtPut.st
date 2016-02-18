@@ -32,4 +32,4 @@ primitiveFFIIntegerAtPut
 			ifFalse:[	self cCode: '*((short int *) addr) = value' 
 						inSmalltalk: [interpreterProxy shortAt: addr put: value]].
 	] ifFalse:[interpreterProxy longAt: addr put: value].
-	interpreterProxy pop: 5 thenPush: valueOop
+	^interpreterProxy pop: 5 thenPush: valueOop

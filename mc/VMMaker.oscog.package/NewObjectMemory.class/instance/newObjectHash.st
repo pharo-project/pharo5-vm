@@ -5,4 +5,4 @@ newObjectHash
 	 Since the size of eden is a power of two and larger than the hash range this provides
 	 a well-distributed and fairly random set of values."
 	<inline: true>
-	^freeStart >> ShiftForWord
+	^freeStart >> self shiftForWord

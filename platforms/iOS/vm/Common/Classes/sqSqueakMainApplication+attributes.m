@@ -57,8 +57,11 @@ extern struct VirtualMachine* interpreterProxy;
 }
 
 - (char *) interpreterVersionString {
-	static char data[255];
-	bzero(data,sizeof(data));
+    //This is like giving to much information, I do not need this :)
+    /*
+    static char data[255];
+	
+    bzero(data,sizeof(data));
 	strlcat(data,interpreterVersion,sizeof(data));
 	strlcat(data," ",sizeof(data));
 	NSString *versionString =[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
@@ -73,6 +76,8 @@ extern struct VirtualMachine* interpreterProxy;
 	strlcat(data,versonStringAsCString,sizeof(data));
 	
 	return data;
+    */
+    return interpreterVersion;
 }
 
 - (const char *) getAttribute:(sqInt)indexNumber {

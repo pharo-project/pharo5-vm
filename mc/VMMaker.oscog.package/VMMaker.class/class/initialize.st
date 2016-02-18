@@ -16,6 +16,6 @@ initialize
 	#('../platforms' 'oscogvm/platforms' 'Cog/platforms')
 		with: #('../' 'oscogvm' 'Cog')
 		do: [:dir :path|
-			dir asFileReference exists ifTrue:
+			(FileDirectory default directoryExists: dir) ifTrue:
 				[DirNames at: #sourceTree put: path.
 				 ^self]]

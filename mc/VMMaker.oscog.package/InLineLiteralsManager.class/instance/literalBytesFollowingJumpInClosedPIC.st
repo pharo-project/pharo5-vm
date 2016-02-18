@@ -1,0 +1,3 @@
+garbage collection
+literalBytesFollowingJumpInClosedPIC
+	^0

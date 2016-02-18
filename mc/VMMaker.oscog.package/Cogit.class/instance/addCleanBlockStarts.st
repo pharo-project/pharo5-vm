@@ -1,6 +1,6 @@
 compile abstract instructions
 addCleanBlockStarts
-	1 to: (coInterpreter literalCountOf: methodObj) do:
+	1 to: (objectMemory literalCountOf: methodObj) do:
 		[:i| | lit |
 		lit := coInterpreter fetchPointer: i ofObject: methodObj.
 		(coInterpreter startPCOrNilOfLiteral: lit in: methodObj) ifNotNil:

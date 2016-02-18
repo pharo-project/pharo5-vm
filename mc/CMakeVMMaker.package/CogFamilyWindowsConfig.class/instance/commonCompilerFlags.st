@@ -29,4 +29,7 @@ commonCompilerFlags
 		'-DSTACK_ALIGN_BYTES=16'. 
 		'-DALLOCA_LIES_SO_USE_GETSP=0'. 
 		'-DENABLE_FAST_BLT'.
-		'-D_USE_32BIT_TIME_T' }
+		'-D_USE_32BIT_TIME_T'.
+		'-D_FILE_OFFSET_BITS=64'.
+		'-D_GNU_SOURCE'.
+		'-DNODBGPRINT' "Otherwise it redefines printf and compiler complains"}

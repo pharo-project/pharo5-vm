@@ -11,25 +11,15 @@ updateStateOfSpouseContextForFrame: theFP WithSP: theSP
 	self assert: (self frameHasContext: theFP).
 	theContext := self frameContext: theFP.
 	self assert: (objectMemory isContext: theContext).
-	objectMemory hasSpurMemoryManagerAPI
-		ifTrue:
-			["We do not need to follow forwarding pointer to the receiver; makeBaseFrameFor: does that.
-			  In any case the assignments below updating the non-argument stack contents will do so."
-			self assert: ((self frameReceiver: theFP)
-						= (objectMemory fetchPointer: ReceiverIndex ofObject: theContext)
-						or: [(objectMemory isOopForwarded: (objectMemory fetchPointer: ReceiverIndex ofObject: theContext))
-							and: [(objectMemory followForwarded: (objectMemory fetchPointer: ReceiverIndex ofObject: theContext))
-								= (self frameReceiver: theFP)]])]
-		ifFalse:
-			[self assert: (self frameReceiver: theFP)
-						= (objectMemory fetchPointer: ReceiverIndex ofObject: theContext)].
+	self assert: (self frameReceiver: theFP)
+				= (objectMemory noFixupFollowField: ReceiverIndex ofObject: theContext).
 	(self isMachineCodeFrame: theFP)
 		ifTrue:
 			[tempIndex := self mframeNumArgs: theFP.
-			 pointer := theFP + FoxMFReceiver - BytesPerWord]
+			 pointer := theFP + FoxMFReceiver - objectMemory wordSize]
 		ifFalse:
 			[tempIndex := self iframeNumArgs: theFP.
-			 pointer := theFP + FoxIFReceiver - BytesPerWord].
+			 pointer := theFP + FoxIFReceiver - objectMemory wordSize].
 	"update the arguments. this would appear not to be strictly necessary, but is for two reasons.
 	 First, the fact that arguments are read-only is only as convention in the Smalltalk compiler;
 	 other languages may choose to modify arguments.
@@ -39,7 +29,7 @@ updateStateOfSpouseContextForFrame: theFP WithSP: theSP
 	argsPointer := theFP + (self frameStackedReceiverOffsetNumArgs: tempIndex).
 	1 to: tempIndex do:
 		[:i|
-		argsPointer := argsPointer - BytesPerWord.
+		argsPointer := argsPointer - objectMemory wordSize.
 		self assert: (objectMemory addressCouldBeOop: (stackPages longAt: argsPointer)).
 		 objectMemory storePointer: ReceiverIndex + i
 			ofObject: theContext
@@ -51,7 +41,7 @@ updateStateOfSpouseContextForFrame: theFP WithSP: theSP
 		 objectMemory storePointer: ReceiverIndex + tempIndex
 			ofObject: theContext
 			withValue: (stackPages longAt: pointer).
-		 pointer := pointer - BytesPerWord].
+		 pointer := pointer - objectMemory wordSize].
 	self assert: ReceiverIndex + tempIndex < (objectMemory lengthOf: theContext).
 	objectMemory storePointerUnchecked: StackPointerIndex
 		ofObject: theContext

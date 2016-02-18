@@ -1,3 +1,0 @@
-accessing
-mustAsmLabel
-	^mustAsmLabel == true

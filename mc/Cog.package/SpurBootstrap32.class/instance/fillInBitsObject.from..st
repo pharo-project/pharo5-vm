@@ -1,6 +1,6 @@
 bootstrap
 fillInBitsObject: newObj from: oldObj
-	0 to: (oldHeap fetchLong32LengthOf: oldObj) - 1 do:
+	0 to: (oldHeap numSlotsOf: oldObj) - 1 do:
 		[:i|
 		newHeap
 			storeLong32: i

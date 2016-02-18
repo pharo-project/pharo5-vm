@@ -1,4 +1,4 @@
 contexts
 internalStackValue: offset
 
-	^ self longAtPointer: localSP - (offset * BytesPerWord)
+	^ self longAtPointer: localSP - (offset * self wordSize)

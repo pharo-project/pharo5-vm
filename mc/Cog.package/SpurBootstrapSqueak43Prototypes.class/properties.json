@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurBootstrapSqueak43Prototypes",
+	"pools" : [
+		 ],
+	"super" : "SpurBootstrapSqueakFamilyPrototypes",
+	"type" : "normal" }

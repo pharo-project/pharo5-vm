@@ -1,4 +1,4 @@
-C translation
+C translation support
 is64BitIntegralVariable: node typeInto: aBlock
 	| decl |
 	^node isVariable

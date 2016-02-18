@@ -12,4 +12,6 @@ initializeWithOptions: optionsDictionaryOrArray
 	 the code generator, a stale ancilliary class may be computed."
 	(self withAllSuperclasses copyUpThrough: VMClass) do:
 		[:class|
-		class initializationOptions: optionsDictionary]
+		class initializationOptions: optionsDictionary].
+
+	ExpensiveAsserts := optionsDictionary at: #ExpensiveAsserts ifAbsent: [false]

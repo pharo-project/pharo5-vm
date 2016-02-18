@@ -5,5 +5,5 @@ imageFormatVersion
 	 must avoid version numbers that are invariant under byte reversal."
 	| isSpurFlag |
 	isSpurFlag := objectMemory hasSpurMemoryManagerAPI ifTrue: [2r10000] ifFalse: [0].
-	^(BytesPerWord = 4 ifTrue: [6505] ifFalse: [68003])
+	^(objectMemory wordSize = 4 ifTrue: [6505] ifFalse: [68003])
 	  + isSpurFlag

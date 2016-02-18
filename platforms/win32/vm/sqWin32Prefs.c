@@ -6,7 +6,6 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: Walt Disney Imagineering, Glendale, CA
 *   EMAIL:   Andreas.Raab@disney.com
-*   RCSID:   $Id: sqWin32Prefs.c 1509 2006-05-11 20:02:03Z andreas $
 *
 *   NOTES:
 *****************************************************************************/
@@ -403,7 +402,7 @@ void TrackPrefsMenu(void) {
 void HandlePrefsMenu(int cmd) {
   switch(cmd) {
   case ID_ABOUT: 
-    MessageBox(stWindow,VM_VERSION,
+    MessageBox(stWindow,VM_VERSION_TEXT,
 	       TEXT("About " VM_NAME " on Win32"), MB_OK);
     break;
   case ID_DEFERUPDATES:

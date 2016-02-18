@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CurrentImageCoInterpreterFacadeFor64BitSpurObjectRepresentation",
+	"pools" : [
+		 ],
+	"super" : "CurrentImageCoInterpreterFacadeForSpurObjectRepresentation",
+	"type" : "normal" }

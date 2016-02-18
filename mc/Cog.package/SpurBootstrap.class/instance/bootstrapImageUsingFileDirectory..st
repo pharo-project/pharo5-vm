@@ -5,7 +5,7 @@ bootstrapImageUsingFileDirectory: imageName
 	baseName := (imageName endsWith: '.image')
 					ifTrue: [FileDirectory baseNameFor: imageName]
 					ifFalse: [FileDirectory localNameFor: imageName].
-	dir := FileDirectory on: dirName.
+	dir := dirName isEmpty ifTrue: [FileDirectory default] ifFalse: [FileDirectory default on: dirName].
 	self on: (dir fullNameFor: baseName, '.image').
 	[self transform]
 		on: Halt
@@ -18,5 +18,5 @@ bootstrapImageUsingFileDirectory: imageName
 		ofTransformedImage: newHeap
 		headerFlags: oldInterpreter getImageHeaderFlags
 		screenSize: oldInterpreter savedWindowSize.
-	dir copyFileNamed: (dir fullNameFor: baseName, '.changes')
-		toFileNamed: (dir fullNameFor: baseName, '-spur.changes')
+	dir deleteFileNamed: baseName, '-spur.changes';
+		copyFileNamed: baseName, '.changes' toFileNamed: baseName, '-spur.changes'

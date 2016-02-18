@@ -1,8 +1,7 @@
 simulation stack
 ssPushRegister: reg
 	self ssPush: 1.
-	simSpillBase > simStackPtr ifTrue:
-		[simSpillBase := simStackPtr max: 0].
+	self updateSimSpillBase.
 	self ssTop
 		type: SSRegister;
 		spilled: false;

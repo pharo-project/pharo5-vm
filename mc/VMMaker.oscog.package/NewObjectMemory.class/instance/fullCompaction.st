@@ -6,7 +6,6 @@ fullCompaction
 		sweepPhaseForFullGC has already set compStart.
 	 Need not and can not move objects below the first free chunk."
 	| sz |
-	<asmLabel: false>
 	self assert: compStart = (self lowestFreeAfter: self startOfMemory).
 	compStart = freeStart ifTrue:
 		["memory is already compact; only free chunk is at the end "

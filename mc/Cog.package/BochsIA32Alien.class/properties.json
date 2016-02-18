@@ -3,6 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"ExtendedOpcodeExceptionMap",
 		"OpcodeExceptionMap",
 		"PostBuildStackDelta" ],
 	"commentStamp" : "<historical>",

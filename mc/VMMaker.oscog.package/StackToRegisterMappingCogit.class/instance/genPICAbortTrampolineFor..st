@@ -5,6 +5,6 @@ genPICAbortTrampolineFor: numArgs
 	 target or a call of ceMNUFromPICMNUMethod:receiver: to handle an
 	 MNU dispatch in a closed PIC.  It distinguishes the two by testing
 	 ClassReg.  If the register is zero then this is an MNU."
-	opcodeIndex := 0. 
+	self zeroOpcodeIndex. 
 	backEnd genPushRegisterArgsForAbortMissNumArgs: numArgs.
-	^self genInnerPICAbortTrampoline: (self trampolineName: 'cePICAbort' numArgs: (numArgs <= self numRegArgs ifTrue: [numArgs] ifFalse: [-1]))
+	^self genInnerPICAbortTrampoline: (self trampolineName: 'cePICAbort' numRegArgs: numArgs)

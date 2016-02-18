@@ -5,4 +5,4 @@ frameStackedReceiverOffsetNumArgs: numArgs
 	 a block activation is always on the stack above any arguments and the frame
 	 itself.  See the diagram in StackInterpreter class>>initializeFrameIndices."
 	<inline: true>
-	^FoxCallerSavedIP + BytesPerWord + (numArgs << ShiftForWord)
+	^FoxCallerSavedIP + objectMemory wordSize + (numArgs << objectMemory shiftForWord)

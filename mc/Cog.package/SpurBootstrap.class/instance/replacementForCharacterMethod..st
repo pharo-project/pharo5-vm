@@ -5,11 +5,18 @@ replacementForCharacterMethod: characterMethodOop
 	| proxy asIntegerProxy clone assembly newInsts newMethod |
 	"(oldHeap stringOf: (oldHeap longAt: characterMethodOop + (oldHeap lastPointerOf: characterMethodOop) - 4)) = 'isOctetCharacter' ifTrue:
 		[self halt]."
+	"Don't replace something already installed."
+	(installedMethodOops includes: characterMethodOop) ifTrue:
+		[^nil].
 	proxy := VMCompiledMethodProxy new
 				for: characterMethodOop
 				coInterpreter: oldInterpreter
 				objectMemory: oldHeap.
+	self assert: (oldHeap literalCountOf: characterMethodOop) = proxy numLiterals.
 	clone := self cloneMethodProxy: proxy.
+	self assert: proxy numLiterals = clone numLiterals.
+	clone isReturnSpecial ifTrue:
+		[^nil].
 	"Quick methods accessing value should have been replaced.  The halt will fire if there
 	 is a missing prototype for such a method on the class side of SpurBootstrap.  The
 	 relevant Character prototypes there so far are Character>>asInteger, Character>>
@@ -39,6 +46,7 @@ replacementForCharacterMethod: characterMethodOop
 				 b].
 	assembly instructions: newInsts.
 	newMethod := assembly assemble.
+	self assert: clone numLiterals + 1 = newMethod numLiterals.
 	^self
 		installableMethodFor: newMethod
 		selector: clone selector

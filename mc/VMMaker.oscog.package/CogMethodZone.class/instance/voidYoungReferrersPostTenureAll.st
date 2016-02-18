@@ -10,5 +10,5 @@ voidYoungReferrersPostTenureAll
 		[cogMethod := coInterpreter cCoerceSimple: (objectMemory longAt: pointer) to: #'CogMethod *'.
 		 cogMethod cmType ~= CMFree ifTrue:
 			[cogMethod cmRefersToYoung: false].
-		 pointer := pointer + BytesPerWord].
+		 pointer := pointer + objectMemory wordSize].
 	youngReferrers := limitAddress

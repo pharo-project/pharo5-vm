@@ -3,5 +3,5 @@ printForwarders
 	<api>
 	self allHeapEntitiesDo:
 		[:objOop|
-		 ((self isForwarded: objOop) and: [(self isFreeObject: objOop) not]) ifTrue:
+		 (self isUnambiguouslyForwarder: objOop) ifTrue:
 			[coInterpreter printHex: objOop; cr]]

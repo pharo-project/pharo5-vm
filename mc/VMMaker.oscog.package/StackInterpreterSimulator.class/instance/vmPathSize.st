@@ -1,3 +1,3 @@
 file primitives
 vmPathSize
-	^ Smalltalk vm path size
+	^ Smalltalk vmPath size

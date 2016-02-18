@@ -14,7 +14,10 @@ primitiveClone
 				ifTrue:
 					[newCopy := self cloneContext: rcvr]
 				ifFalse:
-					[newCopy := objectMemory clone: rcvr].
+					[(argumentCount = 0
+					  or: [(objectMemory isForwarded: rcvr) not])
+						ifTrue: [newCopy := objectMemory clone: rcvr]
+						ifFalse: [newCopy := 0]].
 			newCopy = 0 ifTrue:
 				[^self primitiveFailFor: PrimErrNoMemory]].
 	self pop: argumentCount + 1 thenPush: newCopy

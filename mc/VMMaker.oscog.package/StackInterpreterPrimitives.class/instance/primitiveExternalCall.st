@@ -18,19 +18,18 @@ primitiveExternalCall
 	| lit addr moduleName functionName moduleLength functionLength accessorDepth index |
 	<var: #addr declareC: 'void (*addr)()'>
 	
-	"Fetch the first literal of the method"
-	(self literalCountOf: newMethod) > 0 ifFalse:
+	"Check for it being a method for primitiveDoPrimitiveWithArgs.
+	 Fetch the first literal of the method; check its an Array of length 4.
+	 Look at the function index in case it has been loaded before"
+	((objectMemory isOopCompiledMethod: newMethod)
+	 and: [(objectMemory literalCountOf: newMethod) > 0
+	 and: [lit := self literal: 0 ofMethod: newMethod.
+		(objectMemory isArray: lit)
+	 and: [(objectMemory numSlotsOf: lit) = 4
+	 and: [index := objectMemory fetchPointer: 3 ofObject: lit.
+		objectMemory isIntegerObject: index]]]]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadMethod].
 
-	lit := self literal: 0 ofMethod: newMethod. 
-	"Check if it's an array of length 4"
-	((objectMemory isArray: lit) and: [(objectMemory lengthOf: lit) = 4]) ifFalse:
-		[^self primitiveFailFor: PrimErrBadMethod].
-
-	"Look at the function index in case it has been loaded before"
-	index := objectMemory fetchPointer: 3 ofObject: lit.
-	(objectMemory isIntegerObject: index) ifFalse:
-		[^self primitiveFailFor: PrimErrBadMethod].
 	index := objectMemory integerValueOf: index.
 	"Check if we have already looked up the function and failed."
 	index < 0 ifTrue:
@@ -44,7 +43,8 @@ primitiveExternalCall
 		[addr := externalPrimitiveTable at: index - 1.
 		 addr ~= 0 ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: 'addr' inSmalltalk: [1000 + index]).
-			 self callExternalPrimitive: addr.
+			 self callExternalPrimitive: addr. "On Spur, sets primitiveFunctionPointer"
+			 self maybeRetryFailureDueToForwarding.
 			 ^nil].
 		"if we get here, then an index to the external prim was 
 		kept on the ST side although the underlying prim 
@@ -67,11 +67,12 @@ primitiveExternalCall
 		[self primitiveFailFor: PrimErrBadMethod].
 	functionLength := objectMemory lengthOf: functionName.
 
+	"Spur needs to know the primitive's accessorDepth which is stored in the last slot of the first literal."
 	objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
-			[addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
+			[addr := self ioLoadExternalFunction: functionName + objectMemory baseHeaderSize
 						OfLength: functionLength
-						FromModule: moduleName + BaseHeaderSize
+						FromModule: moduleName + objectMemory baseHeaderSize
 						OfLength: moduleLength
 						AccessorDepthInto: (self addressOf: accessorDepth
 												 put: [:val| accessorDepth := val]).
@@ -84,9 +85,9 @@ primitiveExternalCall
 						ofObject: lit
 						withValue: (objectMemory integerObjectOf: accessorDepth)]]
 		ifFalse:
-			[addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
+			[addr := self ioLoadExternalFunction: functionName + objectMemory baseHeaderSize
 						OfLength: functionLength
-						FromModule: moduleName + BaseHeaderSize
+						FromModule: moduleName + objectMemory baseHeaderSize
 						OfLength: moduleLength.
 			 addr = 0
 				ifTrue: [index := -1]
@@ -100,7 +101,8 @@ primitiveExternalCall
 	index >= 0
 		ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: [addr] inSmalltalk: [1000 + index]).
-			 self callExternalPrimitive: addr]
+			 self callExternalPrimitive: addr.
+			 self maybeRetryFailureDueToForwarding]
 		ifFalse: "Otherwise void the primitive function and fail"
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: 0.
 			 self assert: (objectMemory fetchPointer: 2 ofObject: lit) = ConstZero.

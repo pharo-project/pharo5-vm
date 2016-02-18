@@ -1,3 +1,0 @@
-accessing
-bytesPerSlot
-	^8

@@ -9,19 +9,19 @@ allocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOop h3: extendedS
 	<var: #end type: 'usqInt'>
 	"remap classOop in case GC happens during allocation"
 	hdrSize > 1 ifTrue: [self pushRemappableOop: classOop].
-	newObj := self allocateChunk: byteSize + (hdrSize - 1 * BytesPerWord).
+	newObj := self allocateChunk: byteSize + (hdrSize - 1 * self wordSize).
 	hdrSize > 1 ifTrue: [remappedClassOop := self popRemappableOop].
 
 	hdrSize = 3
 		ifTrue: [self longAt: newObj put: (extendedSize bitOr: HeaderTypeSizeAndClass).
-			self longAt: newObj + BytesPerWord put: (remappedClassOop bitOr: HeaderTypeSizeAndClass).
-			self longAt: newObj + (BytesPerWord*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
-			newObj := newObj + (BytesPerWord*2)].
+			self longAt: newObj + self wordSize put: (remappedClassOop bitOr: HeaderTypeSizeAndClass).
+			self longAt: newObj + (self wordSize*2) put: (baseHeader bitOr: HeaderTypeSizeAndClass).
+			newObj := newObj + (self wordSize*2)].
 
 	hdrSize = 2
 		ifTrue: [self longAt: newObj put: (remappedClassOop bitOr: HeaderTypeClass).
-			self longAt: newObj + BytesPerWord put: (baseHeader bitOr: HeaderTypeClass).
-			newObj := newObj + BytesPerWord].
+			self longAt: newObj + self wordSize put: (baseHeader bitOr: HeaderTypeClass).
+			newObj := newObj + self wordSize].
 
 	hdrSize = 1
 		ifTrue: [self longAt: newObj put: (baseHeader bitOr: HeaderTypeShort)].
@@ -32,10 +32,10 @@ allocate: byteSize headerSize: hdrSize h1: baseHeader h2: classOop h3: extendedS
 					ifTrue: [nilObj] "if pointers, fill with nil oop"
 					ifFalse: [0].
 		 end := newObj + byteSize.
-		 i := newObj + BytesPerWord.
+		 i := newObj + self wordSize.
 		 [i < end] whileTrue:
 			[self longAt: i put: fillWord.
-			 i := i + BytesPerWord]].
+			 i := i + self wordSize]].
 	DoAssertionChecks
 		ifTrue: [self okayOop: newObj.
 			self oopHasOkayClass: newObj.

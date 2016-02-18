@@ -1,6 +1,6 @@
 object enumeration
 objectBefore: address 
-	"Return the object or start of free space immediately preceeding the given
+	"Return the object or start of free space immediately preceding the given
 	 address, object or free chunk in memory. If none, return 0.  This is for debugging only."
 	| obj nextObj sz |
 	<api>

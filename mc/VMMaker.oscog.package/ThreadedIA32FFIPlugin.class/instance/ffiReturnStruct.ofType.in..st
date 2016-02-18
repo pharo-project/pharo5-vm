@@ -8,15 +8,14 @@ ffiReturnStruct: longLongRet ofType: ffiRetType in: calloutState
 	<inline: true>
 	retClass := interpreterProxy fetchPointer: 1 ofObject: ffiRetType.
 	retOop := interpreterProxy instantiateClass: retClass indexableSize: 0.
-	interpreterProxy pushRemappableOop: retOop.
-	oop := interpreterProxy 
-			instantiateClass: interpreterProxy classByteArray 
-			indexableSize: calloutState structReturnSize.
+	self remapOop: retOop
+		in: [oop := interpreterProxy 
+					instantiateClass: interpreterProxy classByteArray 
+					indexableSize: calloutState structReturnSize].
 	(self returnStructInRegisters: calloutState structReturnSize)
 		ifTrue:
 			[self mem: (interpreterProxy firstIndexableField: oop) cp: (self addressOf: longLongRet) y: calloutState structReturnSize]
 		ifFalse:
 			[self mem: (interpreterProxy firstIndexableField: oop) cp: calloutState limit y: calloutState structReturnSize].
-	retOop := interpreterProxy popRemappableOop.
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.
 	^interpreterProxy methodReturnValue: retOop

@@ -1,12 +1,13 @@
 initialization
-initializePrimitiveTable 
-	"This table generates a C function address table use in primitiveResponse along with dispatchFunctionPointerOn:in:"
+initializePrimitiveTable
+	"This table generates a C function address table used in slowPrimitiveResponse along with dispatchFunctionPointerOn:in:"
+	"self initializePrimitiveTable"
 
-	"NOTE: The real limit here is 2047 because of the method header layout but there is no point in going over the needed size"
+	"NOTE: The real limit here is 2047 because of the old method header layout but there is no point in going over the needed size"
 	MaxPrimitiveIndex := 575.	
 	MaxQuickPrimitiveIndex := 519.
 	PrimitiveTable := Array new: MaxPrimitiveIndex + 1.
-	self table: PrimitiveTable from: 
+	self primitivesClass table: PrimitiveTable from: 
 	#(	"Integer Primitives (0-19)"
 		(0 0 "a.k.a. primitiveFail but faster because primitiveFail won't even be called")
 		(1 primitiveAdd)
@@ -187,8 +188,10 @@ initializePrimitiveTable
 		"File Primitives (150-169) - NO LONGER INDEXED"
 		(150 159 primitiveFail)
 		(160 primitiveAdoptInstance)
-		(161 primitiveSetIdentityHash)
-		(162 164 primitiveFail)			"reserved for immutablity primitives"
+		(161 primitiveSetOrHasIdentityHash)
+		(162 primitiveFail)			"reserved for immutablity primitives"
+		(163 primitiveGetImmutability)
+		(164 primitiveSetImmutability)	
 		(165 primitiveIntegerAt)		"hacked in here for now"
 		(166 primitiveIntegerAtPut)
 		(167 primitiveYield)
@@ -197,8 +200,10 @@ initializePrimitiveTable
 
 		"SpurMemoryManager primitives"
 		(170 primitiveAsCharacter)
-		(171 primitiveCharacterValue)
-		(172 174 primitiveFail)
+		(171 primitiveImmediateAsInteger)
+		(172 primitiveFetchNextMourner)
+		(173 primitiveSlotAt)		"c.f. (73 primitiveInstVarAt)"
+		(174 primitiveSlotAtPut)	"c.f. (74 primitiveInstVarAtPut)"
 		(175 primitiveBehaviorHash)
 		(176 primitiveMaxIdentityHash)
 		(177 primitiveAllInstances)
@@ -226,8 +231,8 @@ initializePrimitiveTable
 		(195 primitiveFindNextUnwindContext)
 		(196 primitiveTerminateTo)
 		(197 primitiveFindHandlerContext)
-		(198 primitiveMarkUnwindMethod)
-		(199 primitiveMarkHandlerMethod)
+		(198 0 "a.k.a. primitiveMarkUnwindMethod")
+		(199 0 "a.k.a. primitiveMarkHandlerMethod")
 
 		"new closure primitives (were Networking primitives)"
 		(200 primitiveClosureCopyWithCopiedValues)
@@ -255,7 +260,7 @@ initializePrimitiveTable
 		(221 primitiveClosureValueNoContextSwitch) "valueNoContextSwitch"
 		(222 primitiveClosureValueNoContextSwitch) "valueNoContextSwitch:"
 
-		(223 229 primitiveFail)	"reserved for Cog primitives (see 228 & 229 in CoInterpreterMTS"
+		(223 229 primitiveFail)	"reserved for Cog primitives (see 228 & 229 in CoInterpreterMT"
 
 		(230 primitiveRelinquishProcessor)
 		(231 primitiveForceDisplayUpdate)
@@ -299,16 +304,31 @@ initializePrimitiveTable
 		(264 519 nil) "primitiveLoadInstVar"
 
 		(520 primitiveFail)
-		"MIDI Primitives (521-539) - NO LONGER INDEXED"
-		(521 529 primitiveFail)
-		(530 539 primitiveFail)  "reserved for extended MIDI primitives"
+		(521 529 primitiveFail) "Reserved for Spur primitives"
+		(530 539 primitiveFail)
 
-		"Experimental Asynchrous File Primitives - NO LONGER INDEXED"
-		"Pen Tablet Primitives - NO LONGER INDEXED"
-		(540 549 primitiveFail)
+		(540 primitiveFail)
+		(541 primitiveSmallFloatAdd)
+		(542 primitiveSmallFloatSubtract)
+		(543 primitiveSmallFloatLessThan)
+		(544 primitiveSmallFloatGreaterThan)
+		(545 primitiveSmallFloatLessOrEqual)
+		(546 primitiveSmallFloatGreaterOrEqual)
+		(547 primitiveSmallFloatEqual)
+		(548 primitiveSmallFloatNotEqual)
+		(549 primitiveSmallFloatMultiply)
+		(550 primitiveSmallFloatDivide)
+		(551 primitiveSmallFloatTruncated)
+		(552 primitiveSmallFloatFractionalPart)
+		(553 primitiveSmallFloatExponent)
+		(554 primitiveSmallFloatTimesTwoPower)
+		(555 primitiveSmallFloatSquareRoot)
+		(556 primitiveSmallFloatSine)
+		(557 primitiveSmallFloatArctan)
+		(558 primitiveSmallFloatLogN)
+		(559 primitiveSmallFloatExp)
 
-		"Sound Codec Primitives - NO LONGER INDEXED"
-		(550 569 primitiveFail)
+		(560 569 primitiveFail)
 
 		"External primitive support primitives"
 		(570 primitiveFlushExternalPrimitives)

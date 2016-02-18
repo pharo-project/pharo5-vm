@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "DSM 1/26/2000 00:06" },
+	"instance" : {
+		"checkedBytePtrOf:" : "DSM 1/24/2000 23:32",
+		"checkedWordPtrOf:" : "DSM 1/24/2000 23:32",
+		"cookKey:to:" : "ul 7/14/2010 03:33",
+		"encrypt:with:" : "ul 7/14/2010 03:34",
+		"primitiveDESCookKey" : "ul 7/14/2010 03:34",
+		"primitiveDESPluginAvailable" : "DSM 1/25/2000 18:30",
+		"primitiveDESTransform" : "ul 7/14/2010 03:34",
+		"processKey:mode:to:" : "ul 7/14/2010 03:35",
+		"scrunch:to:" : "ul 7/14/2010 03:35",
+		"unscrunch:to:" : "ul 7/14/2010 03:35" } }

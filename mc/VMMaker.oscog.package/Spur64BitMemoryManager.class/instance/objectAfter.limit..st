@@ -5,6 +5,7 @@ objectAfter: objOop limit: limit
 	2. objects with an overflow size have a preceeing word with a saturated numSlots.  If the word
 	   following an object doesn't have a saturated numSlots field it must be a single-header object.
 	   If the word following does have a saturated numSlots it must be the overflow size word."
+	<inline: true>
 	| followingWordAddress followingWord |
 	followingWordAddress := self addressAfter: objOop.
 	(self oop: followingWordAddress isGreaterThanOrEqualTo: limit) ifTrue:

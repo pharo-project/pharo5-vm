@@ -1,3 +1,3 @@
 accessing
 realStackLimit
-	^memory unsignedLongLongAt: address + 41
+	^memory unsignedLong64At: address + 41

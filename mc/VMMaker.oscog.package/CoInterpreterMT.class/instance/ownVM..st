@@ -54,7 +54,8 @@ ownVM: threadIndexAndFlags
 		self preemptDisowningThread].
 	"We've been preempted; we must restore state and update the threadId
 	 in our process, and may have to put the active process to sleep."
-	activeProc := self activeProcess.
+	sched := self schedulerPointer.
+	activeProc := objectMemory fetchPointer: ActiveProcessIndex ofObject: sched.
 	(threadIndexAndFlags anyMask: OwnVMForeignThreadFlag)
 		ifTrue:
 			[self assert: foreignCallbackProcessSlot == ForeignCallbackProcess.
@@ -67,7 +68,6 @@ ownVM: threadIndexAndFlags
 	 and: [(objectMemory fetchPointer: MyListIndex ofObject: activeProc) = objectMemory nilObject]) ifTrue:
 		[self putToSleep: activeProc yieldingIf: preemptionYields].
 	self assert: (objectMemory fetchPointer: MyListIndex ofObject: myProc) = (objectMemory splObj: ProcessInExternalCodeTag).
-	sched := self schedulerPointer.
 	objectMemory
 		storePointer: ActiveProcessIndex ofObject: sched withValue: myProc;
 		storePointerUnchecked: MyListIndex ofObject: myProc withValue: objectMemory nilObject.

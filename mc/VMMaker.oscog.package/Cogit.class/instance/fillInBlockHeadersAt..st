@@ -20,6 +20,7 @@ fillInBlockHeadersAt: startAddress
 			startpc: blockStart startpc;
 			cmType: CMBlock;
 			cmNumArgs: blockStart numArgs;
+			cbUsesInstVars: blockStart hasInstVarRef;
 			stackCheckOffset: (blockStart stackCheckLabel = nil
 								ifTrue: [0]
 								ifFalse: [blockStart stackCheckLabel address - blockStart fakeHeader address])]

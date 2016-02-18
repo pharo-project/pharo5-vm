@@ -13,10 +13,13 @@
 		"ceStoreCheckTrampoline" ],
 	"name" : "CogObjectRepresentation",
 	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
 		"CogMethodConstants",
 		"CogRTLOpcodes",
 		"VMBasicConstants",
 		"VMObjectIndices",
+		"VMSqueakClassIndices",
 		"VMStackFrameOffsets" ],
 	"super" : "CogClass",
 	"type" : "normal" }

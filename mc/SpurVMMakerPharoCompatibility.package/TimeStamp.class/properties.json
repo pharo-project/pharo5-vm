@@ -1,0 +1,14 @@
+{
+	"category" : "SpurVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "TimeStamp",
+	"pools" : [
+		 ],
+	"super" : "DateAndTime",
+	"type" : "normal" }

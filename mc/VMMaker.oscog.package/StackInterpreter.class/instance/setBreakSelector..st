@@ -2,6 +2,6 @@ debug support
 setBreakSelector: aString
 	<api>
 	<var: #aString type: #'char *'>
-	aString isNil
-		ifTrue: [breakSelectorLength := -1. "nil's effective length is zero" breakSelector := nil]
-		ifFalse: [breakSelectorLength := self strlen: aString. breakSelector := aString]
+	(breakSelector := aString)
+		ifNil: [breakSelectorLength := objectMemory minSmallInteger "nil's effective length is zero"]
+		ifNotNil: [breakSelectorLength := self strlen: aString]

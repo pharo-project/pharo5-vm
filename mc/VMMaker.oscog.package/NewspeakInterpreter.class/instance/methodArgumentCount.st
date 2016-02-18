@@ -1,3 +1,0 @@
-plugin primitive support
-methodArgumentCount
-	^argumentCount

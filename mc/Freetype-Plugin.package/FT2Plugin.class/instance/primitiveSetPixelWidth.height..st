@@ -1,7 +1,9 @@
 primitives-FT2Face
 primitiveSetPixelWidth: x height: y 
 	| face rcvr |
-	self var: #face declareC: 'FT_Face face'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	
 	rcvr := self 
 				primitive: 'primitiveSetPixelSizes'
 				parameters: #(#SmallInteger #SmallInteger)

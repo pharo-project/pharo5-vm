@@ -8,7 +8,7 @@ startField
 	[child := self longAt: field.
 	 self isIntegerObject: child] whileTrue:
 		["field contains a SmallInteger; skip it"
-		field := field - BytesPerWord.
+		field := field - self wordSize.
 		"Effectively ^ StartField"].
 	typeBits := child bitAnd: TypeMask.
 	typeBits = 0 ifTrue: "normal oop, go down"
@@ -25,9 +25,9 @@ startField
 		self longAt: field put: (child bitOr: childType).
 		^ Upward].
 	"object has a full class word; process that class"
-	child := self longAt: field - BytesPerWord. "class word"
+	child := self longAt: field - self wordSize. "class word"
 	child := child bitAnd: AllButTypeMask. "clear type bits"
-	self longAt: field - BytesPerWord put: parentField.
-	parentField := field - BytesPerWord bitOr: 1.
+	self longAt: field - self wordSize put: parentField.
+	parentField := field - self wordSize bitOr: 1.
 	"point at class word; mark as working on the class. "
 	^ StartObj

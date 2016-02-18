@@ -18,18 +18,18 @@ baselineGit: spec
 				spec 
 					file: 'VMMaker';
 					requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core') ];
-			package: 'Cog' 									with: [ spec requires: #('VMMaker' ) ];
-			package: 'Qwaq-VMProfiling-Plugins' 		with: [ spec requires: #('VMMaker' ) ];
+			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
+			package: 'Qwaq-VMProfiling-Plugins' with: [ spec requires: #('VMMaker' ) ];
 			package: 'VMConstruction-Plugins-AioPlugin' with: [ spec requires: #('VMMaker') ];
 			package: 'VMConstruction-Plugins-OSProcessPlugin' with: [ 
 				spec 
 					file: 'VMConstruction-Plugins-OSProcessPlugin.oscog';
 					requires: #('VMMaker' 'VMConstruction-Plugins-AioPlugin') ];
-			package: 'Freetype-Plugin' 					with: [ spec requires: #('VMMaker') ];
-			package: 'SqueakSSL-Plugin' 				with: [ spec requires: #('VMMaker') ];
-			package: 'ObjectiveC-Plugin' 				with: [ spec requires: #('VMMaker') ];
-			package: 'Applescript-Core' 				with: [ spec requires: #('VMMaker') ];
-			package: 'CMakeVMMaker' 						with: [ spec requires: #('Cog') ].	
+			package: 'Freetype-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'SqueakSSL-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
+			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
+			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ].	
 			
 			"spec postLoadDoIt: #fixForPharo10."
 			
@@ -53,15 +53,18 @@ baselineGit: spec
 					spec 
 						file: 'VMMaker.oscog';
 						requires: #('SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Alien-Core' 'CogVMMakerPharoCompatibility') ];
-				package: 'NativeBoost-CogPlugin'	with: [ spec requires: 'VMMaker' ];
-			 	package: 'SqueakSSL-Plugin' 		with: [ spec requires: 'VMMaker' ];
-			 	package: 'SDL2DisplayPlugin' 		with: [ spec requires: 'VMMaker' ];
-				package: 'CMakeLibSSH2' 				with: [ spec requires: 'CMakeVMMaker' ];
-				package: 'CMakeLibGit2' 				with: [ spec requires: 'CMakeVMMaker' ];
-				package: 'CMakeLibSDL2' 				with: [ spec requires: 'CMakeVMMaker' ];
-				package: 'PharoVMMaker' 				with: [ spec requires: 'CMakeVMMaker' ].
+				package: 'NativeBoost-CogPlugin' with: [ 
+					spec requires: 'VMMaker' ];
+			 	package: 'SqueakSSL-Plugin' with: [ 
+					spec requires: 'VMMaker' ];
+				package:  'CMakeLibSSH2' with: [ 
+					spec requires: 'CMakeVMMaker' ];
+				package:  'CMakeLibGit2' with: [ 
+					spec requires: 'CMakeVMMaker' ];
+				package:  'PharoVMMaker' with: [ 
+					spec requires: 'CMakeVMMaker' ].
 			
 			spec 
 				group: 'ALL' with: #('CogVMMaker' 'Plugins' 'PharoPlugins' 'CMakeVMMaker' 'PharoVMMaker' 'ThirdPartyLibs');
-				group: 'PharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin' 'SDL2DisplayPlugin');
-				group: 'ThirdPartyLibs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
+				group: 'PharoPlugins' with: #('NativeBoost-CogPlugin' 'SqueakSSL-Plugin');
+				group: 'ThirdPartyLibs' with: #('CMakeLibSSH2' 'CMakeLibGit2') ]

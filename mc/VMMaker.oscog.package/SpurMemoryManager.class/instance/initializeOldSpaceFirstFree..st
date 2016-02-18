@@ -1,9 +1,9 @@
 free space
 initializeOldSpaceFirstFree: startOfFreeOldSpace
-	<var: 'startOfFreeOldSpace' type: #usqLong>
+	<var: 'startOfFreeOldSpace' type: #usqInt>
 	| limit freeOldStart freeChunk |
-	<var: 'limit' type: #usqLong>
-	<var: 'freeOldStart' type: #usqLong>
+	<var: 'limit' type: #usqInt>
+	<var: 'freeOldStart' type: #usqInt>
 	limit := endOfMemory - self bridgeSize.
 	limit > startOfFreeOldSpace ifTrue:
 		[totalFreeOldSpace := totalFreeOldSpace + (limit - startOfFreeOldSpace).
@@ -18,4 +18,4 @@ initializeOldSpaceFirstFree: startOfFreeOldSpace
 			 self assert: (self addressAfter: freeChunk) = limit]].
 	endOfMemory := endOfMemory - self bridgeSize.
 	freeOldSpaceStart := endOfMemory.
-	self checkFreeSpace
+	self checkFreeSpace: GCModeFreeSpace

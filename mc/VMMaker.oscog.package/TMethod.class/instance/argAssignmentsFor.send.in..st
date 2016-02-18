@@ -4,22 +4,33 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 	"Optimization: If the actual parameters are either constants or local variables in the target method (the receiver), substitute them directly into the body of meth. Note that global variables cannot be subsituted because the inlined method might depend on the exact ordering of side effects to the globals."
 
 	| stmtList substitutionDict argList |
-	stmtList := OrderedCollection new: 100.
-	substitutionDict := Dictionary new: 100.
-	argList := aSendNode args.
-	
-	meth args size > aSendNode args size ifTrue:
+	meth args size > (argList := aSendNode args) size ifTrue:
 		[self assert: (meth args first beginsWith: 'self_in_').
 		 argList := {aSendNode receiver}, aSendNode args].
+	
+	stmtList := OrderedCollection new: argList size.
+	substitutionDict := Dictionary new: argList size.
 	meth args with: argList do:
-		[ :argName :exprNode |
+		[:argName :exprNode |
 		(self isNode: exprNode substitutableFor: argName inMethod: meth in: aCodeGen)
 			ifTrue:
-				[substitutionDict at: argName put: exprNode.
-				 locals remove: argName]
+				[substitutionDict
+					at: argName
+					put: (aCodeGen
+							node: exprNode
+							typeCompatibleWith: argName
+							inliningInto: meth
+							in: self).
+				 locals remove: argName.
+				declarations removeKey: argName ifAbsent: nil]
 			ifFalse:
-				[stmtList add: (TAssignmentNode new
-								setVariable: (TVariableNode new setName: argName)
-								expression: exprNode copy)]].
+				[stmtList addLast:
+					(TAssignmentNode new
+						setVariable: (TVariableNode new setName: argName)
+						expression: (aCodeGen
+										node: exprNode copy
+										typeCompatibleWith: argName
+										inliningInto: meth
+										in: self))]].
 	meth parseTree: (meth parseTree bindVariablesIn: substitutionDict).
 	^stmtList

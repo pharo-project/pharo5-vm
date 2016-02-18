@@ -4,7 +4,7 @@ closureNumArgs: numArgs instructionPointer: initialIP numCopiedValues: numCopied
 	<inline: true>
 	newClosure := self
 					instantiateSmallClass: (self splObj: ClassBlockClosure)
-					sizeInBytes: (BytesPerWord * (ClosureFirstCopiedValueIndex + numCopied)) + BaseHeaderSize.
+					sizeInBytes: (self wordSize * (ClosureFirstCopiedValueIndex + numCopied)) + self baseHeaderSize.
 	"Assume: have just allocated a new closure; it must be young. Thus, can use unchecked stores."
 	self storePointerUnchecked: ClosureStartPCIndex ofObject: newClosure withValue: (self integerObjectOf: initialIP).
 	self storePointerUnchecked: ClosureNumArgsIndex ofObject: newClosure withValue: (self integerObjectOf: numArgs).

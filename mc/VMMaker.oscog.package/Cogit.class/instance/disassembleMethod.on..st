@@ -7,39 +7,42 @@ disassembleMethod: surrogateOrAddress on: aStream
 								ifFalse: [surrogateOrAddress].
 	cogMethod cmType = CMBlock ifTrue:
 		[^self disassembleMethod: cogMethod cmHomeMethod on: aStream].
+	(disassemblingMethod isNil
+	 and: [self class initializationOptions at: #relativeAddressDisassembly ifAbsent: [false]]) ifTrue:
+		[^[disassemblingMethod := cogMethod.
+		    self disassembleMethod: surrogateOrAddress on: aStream] ensure:
+			[disassemblingMethod := nil]].
 	self printMethodHeader: cogMethod on: aStream.
 
 	(mapEntries := Dictionary new)
 		at: cogMethod asInteger + cmEntryOffset put: 'entry'.
 	
 	cogMethod cmType = CMMethod ifTrue:
-		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'.
-		self cppIf: NewspeakVM
-			ifTrue: [mapEntries at: cogMethod asInteger + dynSuperEntryAlignment put: 'dynSuperEntry']].
+		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'].
 
-	cogMethod cmType = CMClosedPIC ifTrue:
-		[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
-		 1 to: numPICCases - 1 do:
-			[:i|
-			mapEntries
-				at: cogMethod asInteger + firstCPICCaseOffset + (i * cPICCaseSize)
-				put: 'ClosedPICCase', i printString]].
-
-	self mapFor: cogMethod
-		performUntil: #collectMapEntry:address:into:
-		arg: mapEntries.
-
-	self cppIf: NewspeakVM
+	cogMethod cmType = CMClosedPIC
 		ifTrue:
-			[objectRepresentation canPinObjects ifFalse:
-				[mapEntries keys do:
-					[:a|
-					(mapEntries at: a) = #IsNSSendCall ifTrue:
-						[mapEntries
-							at: a + backEnd jumpShortByteSize
-								put: {'Class'. #disassembleCachedOop:. BytesPerWord};
-							at: a + backEnd jumpShortByteSize + BytesPerOop
-								put: {'ImplicitReceiver'. #disassembleCachedOop:. BytesPerWord}]]]].
+			[mapEntries at: cogMethod asInteger + firstCPICCaseOffset put: 'ClosedPICCase0'.
+			 1 to: maxCPICCases - 1 do:
+				[:i|
+				mapEntries
+					at: cogMethod asInteger + firstCPICCaseOffset + (i * cPICCaseSize)
+					put: 'ClosedPICCase', i printString]]
+		ifFalse:
+			[self mapFor: cogMethod
+				performUntil: #collectMapEntry:address:into:
+				arg: mapEntries].
+
+	NewspeakVM ifTrue:
+		[objectRepresentation canPinObjects ifFalse:
+			[mapEntries keys do:
+				[:a|
+				(mapEntries at: a) = #IsNSSendCall ifTrue:
+					[mapEntries
+						at: a + backEnd jumpShortByteSize
+							put: {'Class'. #disassembleCachedOop:. (objectMemory wordSize)};
+						at: a + backEnd jumpShortByteSize + objectMemory bytesPerOop
+							put: {'ImplicitReceiver'. #disassembleCachedOop:. (objectMemory wordSize)}]]]].
 
 	"This would all be far more elegant and simple if we used blocks.
 	 But there are no blocks in C and the basic enumerators here need
@@ -48,13 +51,22 @@ disassembleMethod: surrogateOrAddress on: aStream
 		[:range|
 		(cogMethod cmType = CMMethod) ifTrue:
 			[mapEntries keysAndValuesDo:
-				[:mcpc :label| | bcpc |
+				[:mcpc :label| | bcpc selectorOrNone |
 				((range includes: mcpc)
-				 and: [(#(IsSendCall HasBytecodePC) includes: label)
+				 and: [(AnnotationsWithBytecodePCs includes: label)
 				 and: [range cogMethod stackCheckOffset > 0]]) ifTrue:
 					[bcpc := self bytecodePCFor: mcpc startBcpc: range startpc in: range cogMethod.
 					 bcpc ~= 0 ifTrue:
-						[mapEntries at: mcpc put: label, ' bc ', bcpc printString, '/', (bcpc + 1) printString]]]].
+						[label = #IsSendCall
+							ifTrue:
+								[selectorOrNone := (self selectorForSendAt: mcpc annotation: IsSendCall in: cogMethod methodObject).
+								 (selectorOrNone isInteger and: [objectMemory addressCouldBeOop: selectorOrNone]) ifTrue:
+									[selectorOrNone := objectMemory stringOf: selectorOrNone].
+								selectorOrNone := ' ', selectorOrNone]
+							ifFalse: [selectorOrNone := ''].
+						 mapEntries
+							at: mcpc
+							put: label, selectorOrNone, ' bc ', bcpc printString, '/', (bcpc + 1) printString]]]].
 		(cogMethod blockEntryOffset ~= 0
 		 and: [range first = (cogMethod blockEntryOffset + cogMethod asInteger)])
 			ifTrue:

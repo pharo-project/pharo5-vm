@@ -1,9 +1,8 @@
 {
 	"class" : {
-		"licenseTemplate" : "",
-		"pluginsTemplate" : "" },
+		 },
 	"instance" : {
-		"commonCompilerFlags" : "EstebanLorenzano 3/12/2014 15:59",
+		"commonCompilerFlags" : "EstebanLorenzano 3/12/2015 17:11",
 		"executableName" : "",
 		"externalPlugins" : "",
 		"generate" : "",

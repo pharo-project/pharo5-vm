@@ -6,12 +6,12 @@ transfer: count fromIndex: firstFrom ofObject: fromOop toIndex: firstTo ofObject
 	| fromIndex toIndex lastFrom |
 	<inline: true>
 	self flag: #Dan.  "Need to check all senders before converting this for 64 bits"
-	fromIndex := fromOop + (firstFrom * BytesPerWord).
-	toIndex := toOop + (firstTo * BytesPerWord).
-	lastFrom := fromIndex + (count * BytesPerWord).
+	fromIndex := fromOop + (firstFrom * self wordSize).
+	toIndex := toOop + (firstTo * self wordSize).
+	lastFrom := fromIndex + (count * self wordSize).
 	[self oop: fromIndex isLessThan: lastFrom]
-		whileTrue: [fromIndex := fromIndex + BytesPerWord.
-			toIndex := toIndex + BytesPerWord.
+		whileTrue: [fromIndex := fromIndex + self wordSize.
+			toIndex := toIndex + self wordSize.
 			self
 				longAt: toIndex
 				put: (self longAt: fromIndex)]

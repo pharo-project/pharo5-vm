@@ -9,11 +9,11 @@ generateCogMethod: selector
 	| codeSize headerSize mapSize totalSize startAddress result method |
 	<var: #method type: #'CogMethod *'>
 	headerSize := self sizeof: CogMethod.
-	methodLabel address: headerSize negated.
+	methodLabel address: methodZone freeStart.
 	self computeMaximumSizes.
 	methodLabel concretizeAt: methodZone freeStart.
 	codeSize := self generateInstructionsAt: methodLabel address + headerSize.
-	mapSize := self generateMapAt: 0 start: methodLabel address + cmNoCheckEntryOffset.
+	mapSize := self generateMapAt: nil start: methodLabel address + cmNoCheckEntryOffset.
 	totalSize := methodZone roundUpLength: headerSize + codeSize + mapSize.
 	totalSize > MaxMethodSize ifTrue:
 		[^self cCoerceSimple: MethodTooBig to: #'CogMethod *'].
@@ -24,14 +24,13 @@ generateCogMethod: selector
 	self assert: startAddress + cmNoCheckEntryOffset = noCheckEntry address.
 	result := self outputInstructionsAt: startAddress + headerSize.
 	self assert: startAddress + headerSize + codeSize = result.
-	backEnd padIfPossibleWithNopsFrom: result to: startAddress + totalSize - mapSize.
+	backEnd padIfPossibleWithStopsFrom: result to: startAddress + totalSize - mapSize.
 	self generateMapAt: startAddress + totalSize - 1 start: startAddress + cmNoCheckEntryOffset.
 	self fillInBlockHeadersAt: startAddress.
 	method := self fillInMethodHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
 					size: totalSize
 					selector: selector.
-	postCompileHook notNil ifTrue:
-		[self perform: postCompileHook with: method with: primInvokeLabel.
+	postCompileHook ifNotNil:
+		[self perform: postCompileHook with: method.
 		 postCompileHook := nil].
-	processor flushICacheFrom: startAddress to: startAddress + headerSize + codeSize.
 	^method

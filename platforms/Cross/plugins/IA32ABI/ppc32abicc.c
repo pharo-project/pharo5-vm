@@ -85,16 +85,6 @@ extern
 #endif 
 struct VirtualMachine* interpreterProxy;
 
-#if defined(SQ_IMAGE32)
-# define BytesPerOop    4
-#elif defined(SQ_IMAGE64)
-# define BytesPerOop    8
-#else   
-# error cannot determine image word size/object header size
-#endif
-
-#define BaseHeaderSize BytesPerOop
- 
 #ifdef _MSC_VER
 # define alloca _alloca
 #endif
@@ -142,7 +132,7 @@ long *GPRegsLocation;
 long gpRegCount = 0;
 long fpRegCount = 0;
 volatile long long longReturnValue;
-volatile char *longReturnValueLocation = (char*) &longReturnValue;
+char *volatile longReturnValueLocation = (char*) &longReturnValue;
 volatile double floatReturnValue;
 volatile double *floatReturnValueLocation = &floatReturnValue;
 
@@ -218,7 +208,7 @@ long
 thunkEntry(void *thunkp, long *stackp)
 {
 	jmp_buf trampoline;
-	volatile CallBackReturnSpec *rs;
+	CallBackReturnSpec * volatile rs;
 
 	if (sizeof(int) != sizeof(rs)) {
 		perror("setjmp cannot return a pointer; reimplement!\n");

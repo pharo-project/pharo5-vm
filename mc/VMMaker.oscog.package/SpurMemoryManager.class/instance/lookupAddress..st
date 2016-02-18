@@ -5,7 +5,7 @@ lookupAddress: address
 	<doNotGenerate>
 	| fmt size string class classSize maybeThisClass classNameIndex thisClassIndex |
 	((self addressCouldBeObj: address)
-	 and: [(self classIndexOf: address) > 0]) ifFalse:
+	 and: [(thisClassIndex := self classIndexOf: address) > 0]) ifFalse:
 		[^address = scavengeThreshold ifTrue:
 			['scavengeThreshold']].
 	address - self baseHeaderSize = hiddenRootsObj ifTrue:
@@ -16,9 +16,10 @@ lookupAddress: address
 		[^address caseOf: { [nilObj] -> ['nil']. [trueObj] -> ['true']. [falseObj] -> ['false'] } otherwise: []].
 	((fmt between: self firstByteFormat and: self firstCompiledMethodFormat - 1) "indexable byte fields"
 	and: [(size between: 1 and: 64)
-	and: [Scanner isLiteralSymbol: (string := (0 to: size - 1) collect: [:i| Character value: (self fetchByte: i ofObject: address)])]]) ifTrue:
+	and: [(Scanner isLiteralSymbol: (string := (0 to: size - 1) collect: [:i| Character value: (self fetchByte: i ofObject: address)]))
+		or: [NewspeakVM and: [string noneSatisfy: [:c| c isSeparator or: [c asInteger > 126]]]]]]) ifTrue:
 		[^'#', (ByteString withAll: string)].
-	class := self fetchClassOfNonImm: address.
+	class := self noCheckClassAtIndex: thisClassIndex.
 	(class isNil or: [class = nilObj]) ifTrue:
 		[^nil].
 	"address is either a class or a metaclass, or an instance of a class or invalid.  determine which."
@@ -28,7 +29,7 @@ lookupAddress: address
 	 or: [classSize > 255]) ifTrue:
 		[^nil].
 	"Address could be a class or a metaclass"
-	(fmt = 1 and: [size >= classNameIndex]) ifTrue:
+	(fmt = 1 and: [size > classNameIndex]) ifTrue:
 		["Is address a class? If so class's thisClass is address."
 		 (self lookupAddress: (self fetchPointer: classNameIndex ofObject: address)) ifNotNil:
 			[:maybeClassName|

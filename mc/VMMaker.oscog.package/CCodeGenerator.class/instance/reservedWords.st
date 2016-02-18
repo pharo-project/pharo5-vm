@@ -1,4 +1,4 @@
-C translation
+C translation support
 reservedWords
 	^#(	'auto'
 		'break'

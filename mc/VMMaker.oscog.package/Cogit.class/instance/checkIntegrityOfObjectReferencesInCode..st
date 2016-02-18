@@ -1,5 +1,5 @@
 debugging
-checkIntegrityOfObjectReferencesInCode: fullGCFlag
+checkIntegrityOfObjectReferencesInCode: gcModes
 	<api>
 	"Answer if all references to objects in machine-code are valid."	
 	| cogMethod ok count |
@@ -31,7 +31,8 @@ checkIntegrityOfObjectReferencesInCode: fullGCFlag
 						 performUntil: #checkIfValidOopRef:pc:cogMethod:
 						 arg: cogMethod asInteger) ~= 0
 							ifTrue: [ok := false].
-					 fullGCFlag ifFalse:
+					 (objectRepresentation hasSpurMemoryManagerAPI
+					  or: [gcModes anyMask: GCModeNewSpace]) ifTrue:
 						[(((objectMemory isYoungObject: cogMethod methodObject)
 						    or: [objectMemory isYoung: cogMethod selector])
 						   and: [cogMethod cmRefersToYoung not]) ifTrue:

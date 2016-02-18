@@ -85,6 +85,7 @@
 # include <netinet/tcp.h>
 # include <arpa/inet.h>
 # include <netdb.h>
+#include <ifaddrs.h>
 # include <errno.h>
 # include <unistd.h>
   
@@ -95,6 +96,12 @@
 # define MAXHOSTNAMELEN	256
 #endif
 
+#ifdef HAVE_SD_DAEMON
+# include <systemd/sd-daemon.h>
+#else
+# define SD_LISTEN_FDS_START 3
+# define sd_listen_fds(u) 0
+#endif
 
 /* debugging stuff. can probably be deleted */
 
@@ -119,9 +126,20 @@
 
 /*** Socket types ***/
 
-#define TCPSocketType	 	0
-#define UDPSocketType	 	1
-#define RAWSocketType		2
+#define TCPSocketType			0 /* SOCK_STREAM on AF_INET or AF_INET6 */
+#define UDPSocketType			1 /* SOCK_DGRAM on AF_INET or AF_INET6 */
+#define RAWSocketType			2 /* SOCK_RAW on AF_INET or AF_INET6 */
+#define SeqPacketSocketType		3 /* SOCK_SEQPACKET on AF_INET or AF_INET6 */
+#define ReliableDGramSocketType	4 /* SOCK_RDM on AF_INET or AF_INET6 */
+
+#define ReuseExistingSocket		65536
+
+#define ProvidedTCPSocketType		(TCPSocketType + ReuseExistingSocket)
+#define ProvidedUDPSocketType		(UDPSocketType + ReuseExistingSocket)
+#define ProvidedRAWSocketType		(RAWSocketType + ReuseExistingSocket)
+#define ProvidedSeqPacketSocketType	(SeqPacketSocketType + ReuseExistingSocket)
+#define ProvidedReliableDGramSocketType	(ReliableDGramSocketType + ReuseExistingSocket)
+
 
 
 /*** Resolver states ***/
@@ -552,6 +570,20 @@ void sqSocketCreateNetTypeSocketTypeRecvBytesSendBytesSemaIDReadSemaIDWriteSemaI
       /* --- UDP --- */
       newSocket= socket(domain, SOCK_DGRAM, 0);
     }
+  else if (ProvidedTCPSocketType == socketType)
+    {
+      /* --- Existing socket --- */
+      if (sd_listen_fds(0) == 0)
+        {
+          socketType = TCPSocketType;
+          newSocket= SD_LISTEN_FDS_START + 0;
+        }
+      else
+        {
+          interpreterProxy->success(false);
+          return;
+        }
+    }
   if (-1 == newSocket)
     {
       /* socket() failed, or incorrect socketType */
@@ -745,9 +777,12 @@ void sqSocketConnectToPort(SocketPtr s, sqInt addr, sqInt port)
       /* --- UDP/RAW --- */
       if (SOCKET(s) >= 0)
 	{
+	  int result;
 	  memcpy((void *)&SOCKETPEER(s), (void *)&saddr, sizeof(saddr));
 	  SOCKETPEERSIZE(s)= sizeof(struct sockaddr_in);
-	  SOCKETSTATE(s)= Connected;
+	  result= connect(SOCKET(s), (struct sockaddr *)&saddr, sizeof(saddr));
+	  if (result == 0)
+	    SOCKETSTATE(s)= Connected;
 	}
     }
   else
@@ -1475,11 +1510,55 @@ sqInt sqResolverStatus(void)
 sqInt sqResolverAddrLookupResultSize(void)	{ return strlen(lastName); }
 sqInt sqResolverError(void)			{ return lastError; }
 sqInt sqResolverLocalAddress(void)
+#if 0 
+/* old code */
 {	sqInt localaddr = nameToAddr(localHostName);
 	if (!localaddr)
 		localaddr = nameToAddr("localhost");
 	return localaddr;
 }
+#else
+/* experimental new code */
+{
+    struct ifaddrs *ifaddr, *ifa;
+    int family, s;
+    char host[NI_MAXHOST];
+    sqInt localAddr = 0;
+
+    if (getifaddrs(&ifaddr) == -1) {
+        interpreterProxy->success(false);
+        return 0;
+    }
+
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) 
+    {
+        if (ifa->ifa_addr == NULL)
+            continue;  
+
+        s=getnameinfo(ifa->ifa_addr,sizeof(struct sockaddr_in),host, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+
+        if(((strcmp(ifa->ifa_name,"eth0")==0)||(strcmp(ifa->ifa_name,"wlan0")==0))&&(ifa->ifa_addr->sa_family==AF_INET))
+        {
+            if (s != 0)
+            {
+                interpreterProxy->success(false);
+                return 0;
+            }
+            FPRINTF((stderr, "\tInterface : <%s>\n",ifa->ifa_name ));
+            FPRINTF((stderr, "\t IP       : <%s>\n", inet_ntoa(((struct sockaddr_in *)(ifa->ifa_addr))->sin_addr)));
+            if(localAddr == 0) { /* take the first plausible answer */
+                localAddr = ((struct sockaddr_in *)(ifa->ifa_addr))->sin_addr.s_addr;
+            }
+           
+        }
+    }
+
+    freeifaddrs(ifaddr);
+    return ntohl(localAddr);
+
+}
+#endif
 sqInt sqResolverNameLookupResult(void)		{ return lastAddr; }
 
 void sqResolverAddrLookupResult(char *nameForAddress, sqInt nameSize)
@@ -2031,9 +2110,12 @@ void sqSocketConnectToAddressSize(SocketPtr s, char *addr, sqInt addrSize)
     {
       if (SOCKET(s) >= 0)
 	{
+	  int result;
 	  memcpy((void *)&SOCKETPEER(s), socketAddress(addr), addressSize(addr));
 	  SOCKETPEERSIZE(s)= addressSize(addr);
-	  SOCKETSTATE(s)= Connected;
+	  result= connect(SOCKET(s), socketAddress(addr), addressSize(addr));
+	  if (result == 0)
+	    SOCKETSTATE(s)= Connected;
 	}
     }
   else					/* --- TCP --- */

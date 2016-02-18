@@ -3,7 +3,7 @@ allObjectsDoSafely: aBlock
 	<inline: true>
 	| oop |
 	oop := self firstObject.
-	[oop < freeBlock] whileTrue:
+	[oop asUnsignedInteger < freeBlock] whileTrue:
 		[(self isFreeObject: oop) ifFalse:
 			[aBlock value: oop].
 		 oop := self objectAfterWhileForwarding: oop]

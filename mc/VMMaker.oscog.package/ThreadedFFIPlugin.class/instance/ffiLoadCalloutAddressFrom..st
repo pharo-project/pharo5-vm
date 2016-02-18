@@ -1,7 +1,7 @@
 symbol loading
 ffiLoadCalloutAddressFrom: oop
 	"Load the function address for a call out to an external function"
-	| module moduleHandle functionName functionLength address |
+	| module moduleHandle functionName address |
 	<inline: false>
 	"First find and load the module"
 	module := interpreterProxy fetchPointer: externalFunctionInstSize + 1 ofObject: oop.
@@ -12,11 +12,10 @@ ffiLoadCalloutAddressFrom: oop
 	functionName := interpreterProxy fetchPointer: externalFunctionInstSize ofObject: oop.
 	(interpreterProxy isBytes: functionName) ifFalse:
 		[^self ffiFail: FFIErrorBadExternalFunction].
-	functionLength := interpreterProxy byteSizeOf: functionName.
-	address := interpreterProxy
-					ioLoadSymbol: (self cCoerce: (interpreterProxy firstIndexableField: functionName) to: #int)
-					OfLength: functionLength 
-					FromModule: moduleHandle.
+	address := (interpreterProxy
+					ioLoadSymbol: (interpreterProxy firstIndexableField: functionName) asInteger
+					OfLength: (interpreterProxy byteSizeOf: functionName) 
+					FromModule: moduleHandle) asInteger.
 	(interpreterProxy failed or: [address = 0]) ifTrue:
 		[^self ffiFail: FFIErrorAddressNotFound].
 	^address

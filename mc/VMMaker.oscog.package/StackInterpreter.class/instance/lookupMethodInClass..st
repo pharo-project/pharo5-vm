@@ -4,8 +4,7 @@ lookupMethodInClass: class
 	<inline: false>
 	self assert: (self addressCouldBeClassObj: class).
 	currentClass := class.
-	[currentClass ~= objectMemory nilObject]
-		whileTrue:
+	[currentClass ~= objectMemory nilObject] whileTrue:
 		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: currentClass.
 		dictionary = objectMemory nilObject ifTrue:
 			["MethodDict pointer is nil (hopefully due a swapped out stub)
@@ -25,7 +24,7 @@ lookupMethodInClass: class
 	"Cound not find a normal message -- raise exception #doesNotUnderstand:"
 	self createActualMessageTo: class.
 	messageSelector := objectMemory splObj: SelectorDoesNotUnderstand.
-	self sendBreak: messageSelector + BaseHeaderSize
+	self sendBreak: messageSelector + objectMemory baseHeaderSize
 		point: (objectMemory lengthOf: messageSelector)
 		receiver: nil.
 	^self lookupMethodInClass: class

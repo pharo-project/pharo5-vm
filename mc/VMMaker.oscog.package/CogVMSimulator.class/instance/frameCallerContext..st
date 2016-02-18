@@ -10,6 +10,6 @@ frameCallerContext: theFP
 	| thePage |
 	self assert: (self isBaseFrame: theFP).
 	thePage := stackPages stackPageFor: theFP.
-	self assert: theFP + (self frameStackedReceiverOffset: theFP) + (2 * BytesPerWord) = thePage baseAddress.
-	self assert: (stackPages longAt: thePage baseAddress - BytesPerWord) = (self frameContext: theFP).
+	self assert: theFP + (self frameStackedReceiverOffset: theFP) + (2 * objectMemory wordSize) = thePage baseAddress.
+	self assert: (stackPages longAt: thePage baseAddress - objectMemory wordSize) = (self frameContext: theFP).
 	^super frameCallerContext: theFP

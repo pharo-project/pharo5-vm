@@ -4,7 +4,10 @@ generateSqueakSpurCogSistaVM
 	^VMMaker
 		generate: CoInterpreter
 		and: SistaStackToRegisterMappingCogit
-		with: #(ObjectMemory Spur32BitCoMemoryManager)
+		with: #(	SistaVM true
+				ObjectMemory Spur32BitCoMemoryManager
+				MULTIPLEBYTECODESETS true
+				bytecodeTableInitializer initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid)
 		to: (FileDirectory default pathFromURI: self sourceTree, '/spursistasrc')
 		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including:#()

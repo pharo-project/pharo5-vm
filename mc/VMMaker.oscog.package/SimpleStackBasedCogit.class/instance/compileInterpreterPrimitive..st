@@ -20,13 +20,13 @@ compileInterpreterPrimitive: primitiveRoutine
 	flags := coInterpreter primitivePropertyFlags: primitiveIndex.
 	(flags anyMask: PrimCallDoNotJIT) ifTrue:
 		[^ShouldNotJIT].
- 
+
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick if so"
-		BytesPerWord = 4
+		objectMemory wordSize = 4
 			ifTrue:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-				 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+				 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 				 self OrR: TempReg R: ClassReg]
 			ifFalse:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -49,6 +49,7 @@ compileInterpreterPrimitive: primitiveRoutine
 	"If required, set primitiveFunctionPointer and newMethod"
 	(flags anyMask: PrimCallNeedsPrimitiveFunction) ifTrue:
 		[self MoveCw: primitiveRoutine asInteger R: TempReg.
+		 primSetFunctionLabel :=
 		 self MoveR: TempReg Aw: coInterpreter primitiveFunctionPointerAddress].
 	(flags anyMask: PrimCallNeedsNewMethod+PrimCallMayCallBack) ifTrue:
 		["The ceActivateFailingPrimitiveMethod: machinery can't handle framelessness."
@@ -71,20 +72,18 @@ compileInterpreterPrimitive: primitiveRoutine
 				((flags anyMask: PrimCallCollectsProfileSamples)
 					ifTrue: [cePrimReturnEnterCogCodeProfiling]
 					ifFalse: [cePrimReturnEnterCogCode]).
-			 self JumpRT: primitiveRoutine asInteger.
-			 primInvokeLabel := self Label.
+			 primInvokeInstruction := self JumpFullRT: primitiveRoutine asInteger.
 			 jmp := jmpSamplePrim := continuePostSamplePrim := nil]
 		ifFalse:
 			["Call the C primitive routine."
-			self CallRT: primitiveRoutine asInteger.
-			primInvokeLabel := self Label.
+			primInvokeInstruction := self CallFullRT: primitiveRoutine asInteger.
 			(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 				[self assert: (flags anyMask: PrimCallNeedsNewMethod).
 				"Test nextProfileTick for being non-zero and call checkProfileTick if so"
-				BytesPerWord = 4
+				objectMemory wordSize = 4
 					ifTrue:
 						[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-						 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+						 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 						 self OrR: TempReg R: ClassReg]
 					ifFalse:
 						[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -116,17 +115,18 @@ compileInterpreterPrimitive: primitiveRoutine
 			self CmpCq: 0 R: TempReg.
 			jmp := self JumpNonZero: 0.
 			"Fetch result from stack"
-			self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.
-			self flag: 'currently caller pushes result'.
-			self RetN: BytesPerWord].	"return to caller, popping receiver"
+			self MoveMw: (backEnd hasLinkRegister ifTrue: [0] ifFalse: [objectMemory wordSize])
+				r: SPReg
+				R: ReceiverResultReg.
+			self RetN: objectMemory wordSize].	"return to caller, popping receiver"
 
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["The sample is collected by cePrimReturnEnterCogCode for external calls"
-		jmpSamplePrim notNil ifTrue:
+		jmpSamplePrim ifNotNil:
 			["Call ceCheckProfileTick: to record sample and then continue."
 			jmpSamplePrim jmpTarget: self Label.
 			self assert: (flags anyMask: PrimCallNeedsNewMethod).
-			self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
+			self CallFullRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 							   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 			"reenter the post-primitive call flow"
 			self Jump: continuePostSamplePrim].
@@ -135,16 +135,16 @@ compileInterpreterPrimitive: primitiveRoutine
 		jmpSampleNonPrim jmpTarget: self Label.
 		self MoveCq: 0 R: TempReg.
 		self MoveR: TempReg Aw: coInterpreter newMethodAddress.
-		self CallRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
+		self CallFullRT: (self cCode: [#ceCheckProfileTick asUnsignedLong]
 						   inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
 		"reenter the post-primitive call flow"
 		self Jump: continuePostSampleNonPrim].
 
-	jmp notNil ifTrue:
+	jmp ifNotNil:
 		["Jump to restore of receiver reg and proceed to frame build for failure."
 		 jmp jmpTarget: self Label.
 		 "Restore receiver reg from stack.  If on RISCs ret pc is in LinkReg, if on CISCs ret pc is on stack."
-		 self MoveMw: BytesPerWord * (methodOrBlockNumArgs + (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]))
+		 self MoveMw: objectMemory wordSize * (methodOrBlockNumArgs + (backEnd hasLinkRegister ifTrue: [0] ifFalse: [1]))
 			r: SPReg
 			R: ReceiverResultReg].
 	^0

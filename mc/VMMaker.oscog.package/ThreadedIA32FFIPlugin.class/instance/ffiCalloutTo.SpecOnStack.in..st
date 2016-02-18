@@ -4,7 +4,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	<var: #calloutState type: #'CalloutState *'>
 	"Go out, call this guy and create the return value.  This *must* be inlined because of
 	 the alloca of the outgoing stack frame in ffiCall:WithFlags:NumArgs:Args:AndTypes:"
-	| myThreadIndex atomicType floatRet intRet |
+	| myThreadIndex atomicType floatRet intRet oop |
 	<var: #floatRet type: #double>
 	<var: #intRet type: #usqLong>
 	<inline: true>
@@ -16,8 +16,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 		[self setsp: calloutState argVector].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
-	(atomicType = FFITypeSingleFloat
-	 or: [atomicType = FFITypeDoubleFloat])
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
 			[floatRet := self dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'double (*)()')]
 		ifFalse:
@@ -30,18 +29,21 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	[(calloutState callFlags anyMask: FFICallFlagThreaded) ifTrue:
 		[interpreterProxy ownVM: myThreadIndex]].
 
-	"Note: Order is important here since FFIFlagPointer + FFIFlagStructure is used to represent
-	 'typedef void* VoidPointer' and VoidPointer must be returned as pointer *not* as struct."
-	(calloutState ffiRetHeader anyMask: FFIFlagPointer) ifTrue:
-		[^self ffiReturnPointer: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
-
-	(calloutState ffiRetHeader anyMask: FFIFlagStructure) ifTrue:
-		[^self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
+	(calloutState ffiRetHeader anyMask: FFIFlagPointer+FFIFlagStructure) ifTrue:
+		["Note: Order is important here since FFIFlagPointer + FFIFlagStructure is used to represent
+		 'typedef void* VoidPointer' and VoidPointer must be returned as pointer *not* as struct."
+		 (calloutState ffiRetHeader anyMask: FFIFlagPointer)
+			ifTrue:
+				[oop := self ffiReturnPointer: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState]
+			ifFalse:
+				[oop := self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
+		 ^oop].
 	
-	(atomicType = FFITypeSingleFloat
-	 or: [atomicType = FFITypeDoubleFloat]) ifTrue:
-		[^interpreterProxy methodReturnValue: (interpreterProxy floatObjectOf: floatRet)].
-
-	^interpreterProxy methodReturnValue: (self ffiCreateIntegralResultOop: intRet
-												ofAtomicType: atomicType
-												in: calloutState)
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
+		ifTrue:
+			[oop := interpreterProxy floatObjectOf: floatRet]
+		ifFalse:
+			[oop := self ffiCreateIntegralResultOop: intRet
+						ofAtomicType: atomicType
+						in: calloutState].
+	^interpreterProxy methodReturnValue: oop

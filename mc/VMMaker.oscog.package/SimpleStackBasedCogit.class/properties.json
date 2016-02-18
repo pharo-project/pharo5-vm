@@ -6,8 +6,12 @@
 		 ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
+		"primitiveGeneratorTable",
+		"primSetFunctionLabel",
+		"primInvokeInstruction",
 		"externalPrimCallOffsets",
-		"externalPrimJumpOffsets" ],
+		"externalPrimJumpOffsets",
+		"externalSetPrimOffsets" ],
 	"name" : "SimpleStackBasedCogit",
 	"pools" : [
 		"VMMethodCacheConstants",

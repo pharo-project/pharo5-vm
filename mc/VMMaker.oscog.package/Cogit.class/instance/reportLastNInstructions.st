@@ -9,7 +9,8 @@ reportLastNInstructions
 						ifTrue: [inst]
 						ifFalse: [processor
 									decorateDisassembly: inst
-									for: self]); cr].
+									for: self
+									fromAddress: (Integer readFrom: inst readStream base: 16)]); cr].
 	lastNInstructions withIndexDo:
 		[:thing :idx| | next pc label |
 		skipNext

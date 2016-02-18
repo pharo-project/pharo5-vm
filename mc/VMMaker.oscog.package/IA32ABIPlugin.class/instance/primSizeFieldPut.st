@@ -8,8 +8,10 @@ primSizeFieldPut
 
 	valueOop := interpreterProxy stackValue: 0.
 	rcvr := interpreterProxy stackValue: 1.
-	value := interpreterProxy signed32BitValueOf: valueOop.
+	value := interpreterProxy signedMachineIntegerValueOf: valueOop.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
-	self longAt: rcvr + BaseHeaderSize put: value signedIntToLong.
+	(self cppIf: interpreterProxy bytesPerOop = 8
+		ifTrue: [self longAt: rcvr + interpreterProxy baseHeaderSize put: value signedIntToLong64]
+		ifFalse: [self longAt: rcvr + interpreterProxy baseHeaderSize put: value signedIntToLong]).
 	^interpreterProxy methodReturnValue: valueOop

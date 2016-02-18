@@ -1,3 +1,0 @@
-accessing-abstract
-smashRegisterAccessors
-	self subclassResponsibility

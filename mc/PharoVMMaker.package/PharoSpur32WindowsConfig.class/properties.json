@@ -1,0 +1,16 @@
+{
+	"category" : "PharoVMMaker-Win",
+	"classinstvars" : [
+		 ],
+	"classtraitcomposition" : "TPharoWindowsConfig classTrait",
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PharoSpur32WindowsConfig",
+	"pools" : [
+		 ],
+	"super" : "CogWindowsConfig",
+	"traitcomposition" : "TPharoWindowsConfig - {#externalPlugins. #internalPlugins}",
+	"type" : "normal" }

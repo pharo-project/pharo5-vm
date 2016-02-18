@@ -9,7 +9,7 @@ primBoxedFree
 	<var: #sizeField type: 'long'>
 
 	rcvr := interpreterProxy stackObjectValue: 0.
-	(interpreterProxy byteSizeOf: rcvr) >= 2 * BytesPerOop ifFalse:
+	(interpreterProxy byteSizeOf: rcvr) >= (2 * interpreterProxy bytesPerOop) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	ptr := interpreterProxy firstIndexableField: rcvr.
 	sizeField := ptr at: 0.

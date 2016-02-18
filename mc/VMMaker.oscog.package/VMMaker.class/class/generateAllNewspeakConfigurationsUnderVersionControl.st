@@ -1,4 +1,6 @@
 configurations
 generateAllNewspeakConfigurationsUnderVersionControl
-	self generateNewspeakCogVM;
-		generateNewspeakSpurCogVM
+	self generateNewspeakSpurStackVM;
+		generateNewspeakSpurStack64VM;
+		generateNewspeakSpurCogVM;
+		generateNewspeakSpurCog64VM

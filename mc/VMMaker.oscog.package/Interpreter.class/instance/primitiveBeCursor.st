@@ -31,7 +31,7 @@ primitiveBeCursor
 				self success: ((extentX > 0) and: [extentY > 0]).
 				self success: ((offsetX >= (extentX * -1)) and: [offsetX <= 0]).
 				self success: ((offsetY >= (extentY * -1)) and: [offsetY <= 0]).
-				cursorBitsIndex := bitsObj + BaseHeaderSize.
+				cursorBitsIndex := bitsObj + self baseHeaderSize.
 				self success: ((self isWords: bitsObj) and: [(self lengthOf: bitsObj) = (extentX * extentY)]).
 				self cCode: '' inSmalltalk:
 					[ourCursor := Cursor
@@ -45,7 +45,7 @@ primitiveBeCursor
 				self success: ((offsetX >= -16) and: [offsetX <= 0]).
 				self success: ((offsetY >= -16) and: [offsetY <= 0]).
 				self success: ((self isWords: bitsObj) and: [(self lengthOf: bitsObj) = 16]).
-				cursorBitsIndex := bitsObj + BaseHeaderSize.
+				cursorBitsIndex := bitsObj + self baseHeaderSize.
 				self cCode: '' inSmalltalk:
 					[ourCursor := Cursor
 						extent: extentX @ extentY
@@ -64,7 +64,7 @@ primitiveBeCursor
 		successFlag ifTrue: [
 			self success: ((extentX = 16) and: [extentY = 16 and: [depth = 1]]).
 			self success: ((self isWords: bitsObj) and: [(self lengthOf: bitsObj) = 16]).
-			maskBitsIndex := bitsObj + BaseHeaderSize]].
+			maskBitsIndex := bitsObj + self baseHeaderSize]].
 
 
 	successFlag ifTrue: [

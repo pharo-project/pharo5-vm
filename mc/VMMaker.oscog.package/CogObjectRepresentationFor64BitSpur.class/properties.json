@@ -6,7 +6,7 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
+		"ceDereferenceSelectorIndex" ],
 	"name" : "CogObjectRepresentationFor64BitSpur",
 	"pools" : [
 		 ],

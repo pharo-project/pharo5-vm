@@ -18,4 +18,4 @@ nonStructClassesForTranslationClasses: classes
 				 or: [(nonStructClasses includes: class)
 				 or: [classes includes: class]]) ifFalse:
 					[nonStructClasses addLast: class]]]].
-	^Class superclassOrder: nonStructClasses
+	^ChangeSet superclassOrder: nonStructClasses

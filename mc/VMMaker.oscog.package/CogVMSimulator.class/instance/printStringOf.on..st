@@ -5,7 +5,7 @@ printStringOf: oop on: aStream
 		[^nil].
 	(oop between: objectMemory startOfMemory and: objectMemory freeStart) ifFalse:
 		[^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (objectMemory wordSize - 1)) ~= 0 ifTrue:
 		[^nil].
 	fmt := objectMemory formatOf: oop.
 	fmt < 8 ifTrue: [ ^nil ].

@@ -1,8 +1,8 @@
 primitives-FT2Outline
 primitiveLoadOutlineArraysFrom: aFace
 	"Assumes that primitiveLoadGlyph:flags: has been called earlier to set face->glyph."
-
 	| rcvr gs face points tags pointsSize contours contoursSize |
+
 	<var: #face type: 'FT_Face'>	"ptr to struct"
 	<var: #gs declareC: 'FT_GlyphSlot gs'>	"ptr to struct"
 	<var: #points type:  'long *' >

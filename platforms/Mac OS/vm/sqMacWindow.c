@@ -33,7 +33,7 @@
 #include "sq.h"
 #include "sqMacUIConstants.h"
 #include "sqMacWindow.h"
-#include "sqMacFileLogic.h"
+#include "sqMacUnixFileInterface.h"
 #include "sqmacUIEvents.h"
 #include "sqMacUIMenuBar.h"
 #include "sqMacEncoding.h"
@@ -812,7 +812,6 @@ void FreePixmap(void) {
 }
 
 extern Boolean gSqueakWindowHasTitle;
-extern int SetUpCarbonEventForWindowIndex(int index);
 int makeMainWindow(void) {
 	WindowPtr window;
 	char	shortImageName[256];

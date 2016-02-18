@@ -1,6 +1,16 @@
 #ifndef SqueakSSL_H
 #define SqueakSSL_H
 
+/**********************************************************/
+/* SqueakSSL Version Information                          */
+/* Version 1: Inital version                              */
+/* Version 2: SNI support by Levente Uzonyi and help by   */
+/*            Marcel Taeumel and Tobias Pape              */
+/**********************************************************/
+
+
+#define SQSSL_VERSION 2
+
 /*************************/
 /* SSL connection states */
 /*************************/
@@ -48,6 +58,7 @@
 /**********************************************/
 #define SQSSL_PROP_PEERNAME 0
 #define SQSSL_PROP_CERTNAME 1
+#define SQSSL_PROP_SERVERNAME 2
 
 /* sqCreateSSL: Creates a new SSL instance.
 	Arguments: None.

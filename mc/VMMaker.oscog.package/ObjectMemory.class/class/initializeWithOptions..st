@@ -11,7 +11,6 @@ initializeWithOptions: optionsDictionary
 	DoExpensiveAssertionChecks := optionsDictionary at: #DoExpensiveAssertionChecks ifAbsent: [false].
 
 	self initializeObjectHeaderConstants. "Initializes BaseHeaderSize so do early"
-	self initializeImmediates.
 	self initializeSpecialObjectIndices.
 	self initializeCompactClassIndices.
 	self initializePrimitiveErrorCodes.

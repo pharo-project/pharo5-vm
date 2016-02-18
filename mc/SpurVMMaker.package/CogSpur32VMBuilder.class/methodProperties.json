@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"build" : "EstebanLorenzano 7/17/2014 16:30",
+		"buildMacOSX32" : "EstebanLorenzano 7/17/2014 16:30",
+		"buildOnJenkins:" : "EstebanLorenzano 7/17/2014 16:30",
+		"buildUnix32" : "EstebanLorenzano 7/17/2014 16:30",
+		"buildWin32" : "EstebanLorenzano 7/17/2014 16:30" },
+	"instance" : {
+		"buildMacOSX32" : "EstebanLorenzano 11/14/2014 13:02",
+		"buildUnix32" : "EstebanLorenzano 11/14/2014 12:18",
+		"buildWin32" : "EstebanLorenzano 11/14/2014 12:17",
+		"initialize" : "EstebanLorenzano 5/22/2015 12:33" } }

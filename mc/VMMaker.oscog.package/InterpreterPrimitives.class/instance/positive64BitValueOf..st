@@ -11,12 +11,21 @@ positive64BitValueOf: oop
 			[^self primitiveFail].
 		 ^objectMemory integerValueOf: oop].
 
+	(objectMemory isNonIntegerImmediate: oop) ifTrue:
+		[self primitiveFail.
+		 ^0].
+
 	ok := objectMemory
 			isClassOfNonImm: oop
 			equalTo: (objectMemory splObj: ClassLargePositiveInteger)
 			compactClassIndex: ClassLargePositiveIntegerCompactIndex.
-	(ok and: [(sz := objectMemory lengthOf: oop) <= (self sizeof: #sqLong)]) ifFalse:
-		[^self primitiveFail].
+	ok ifFalse:
+		[self primitiveFail.
+		 ^0].
+	sz := objectMemory numBytesOfBytes: oop.
+	sz > (self sizeof: #sqLong) ifTrue:
+		[self primitiveFail.
+		 ^0].
 
 	value := 0.
 	0 to: sz - 1 do: [:i |

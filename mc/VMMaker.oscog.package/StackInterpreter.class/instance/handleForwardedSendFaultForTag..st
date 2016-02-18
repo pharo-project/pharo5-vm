@@ -13,7 +13,7 @@ handleForwardedSendFaultForTag: classTag
 	rcvr := objectMemory followForwarded: rcvr.
 	self stackValue: argumentCount put: rcvr.
 	self followForwardedFrameContents: framePointer
-		stackPointer: stackPointer + (argumentCount + 1 * BytesPerWord). "don't repeat effort"
+		stackPointer: stackPointer + (argumentCount + 1 * objectMemory wordSize). "don't repeat effort"
 	(objectMemory isPointers: (self frameReceiver: framePointer)) ifTrue:
 		[objectMemory
 			followForwardedObjectFields: (self frameReceiver: framePointer)

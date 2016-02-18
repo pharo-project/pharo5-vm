@@ -6,7 +6,6 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id$
 *
 *   NOTES:
 *     1) This is a bare windows implementation *not* using any stdio stuff.
@@ -15,10 +14,21 @@
 *     2) For using this you'll need to define WIN32_FILE_SUPPORT globally
 *        (e.g., in your compiler's project settings)
 *
+*   UPDATES:
+*     1) Support for long path names added by using UNC prefix in that case
+*        (Marcel Taeumel, Hasso Plattner Institute, Postdam, Germany)
+*     2) Try to remove the read-only attribute from a file before calling
+*        DeleteFile. DeleteFile cannot delete read-only files (see comment
+*        in sqFileDeleteNameSize).
+*        (Max Leske)
+*
 *****************************************************************************/
 #include <windows.h>
+#include <malloc.h>
 #include "sq.h"
 #include "FilePlugin.h"
+
+#include "sqWin32File.h"
 
 extern struct VirtualMachine *interpreterProxy;
 
@@ -28,7 +38,7 @@ extern struct VirtualMachine *interpreterProxy;
 #define false 0
 
 #define FILE_HANDLE(f) ((HANDLE) (f)->file)
-#define FAIL() return interpreterProxy->primitiveFail()
+#define FAIL() { return interpreterProxy->primitiveFail(); }
 
 /***
     The state of a file is kept in the following structure,
@@ -63,6 +73,46 @@ int thisSession = 0;
 
 /* answers if the file name in question has a case-sensitive duplicate */
 int hasCaseSensitiveDuplicate(WCHAR *path);
+
+/**
+    Converts multi-byte characters to wide characters. Handles paths longer
+    than 260 characters (including NULL) by prepending "\\?\" to encode UNC
+    paths as suggested in http://msdn.microsoft.com/en-us/library/windows/
+    desktop/aa365247%28v=vs.85%29.aspx#maxpath
+      "The maximum path of 32,767 characters is approximate,
+         because the "\\?\" prefix may be expanded to a longer
+         string by the system at run time, and this expansion
+         applies to the total length."
+    
+    Note that we do not check for the correct path component size,
+    which should be MAX_PATH in general but can vary between file systems.   
+    Actually, we should perform an additional check with
+    GetVolumneInformation to acquire lpMaximumComponentLength. 
+
+    Note that another possibility would be to use 8.3 aliases
+    for path components like the Windows Explorer does. However,
+    this feature also depends on the volume specifications.
+
+    Calling alloca() should be fine because we limit path length to 32k.
+    Stack size limit is much higher.
+**/
+#define ALLOC_WIN32_PATH(out_path, in_name, in_size) { \
+  int sz = MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, NULL, 0); \
+  if(sz >= 32767) FAIL(); \
+  if(sz >= MAX_PATH) { \
+    out_path = (WCHAR*)alloca((sz + 4 + 1) * sizeof(WCHAR)); \
+    out_path[0] = L'\\'; out_path[1] = L'\\'; \
+    out_path[2] = L'?'; out_path[3] = L'\\'; \
+    MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, out_path + 4, sz); \
+    out_path[sz + 4] = 0; \
+    sz += 4; \
+  } else { \
+    out_path = (WCHAR*)alloca((sz + 1) * sizeof(WCHAR)); \
+    MultiByteToWideChar(CP_UTF8, 0, in_name, in_size, out_path, sz); \
+    out_path[sz] = 0; \
+  } \
+}
+
 
 typedef union {
   struct {
@@ -105,18 +155,30 @@ sqInt sqFileClose(SQFile *f) {
 }
 
 sqInt sqFileDeleteNameSize(char* fileNameIndex, sqInt fileNameSize) {
-  WCHAR win32Path[MAX_PATH+1];
-  int sz;
+  WCHAR *win32Path = NULL;
+
   /* convert the file name into a null-terminated C string */
-  sz = MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, NULL, 0);
-  if(sz > MAX_PATH)
-    FAIL();
-  MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, win32Path, sz);
-  win32Path[sz] = 0;
+  ALLOC_WIN32_PATH(win32Path, fileNameIndex, fileNameSize);
+
   if(hasCaseSensitiveDuplicate(win32Path))
     FAIL();
+
+  /* DeleteFile will not delete a file with the read-only attribute set
+  (e.g. -r--r--r--, see https://msdn.microsoft.com/en-us/library/windows/desktop/aa363915(v=vs.85).aspx).
+  To ensure that this works the same way as on *nix platforms we need to
+  remove the read-only attribute (which might fail if the current user
+  doesn't own the file).
+    Also note that DeleteFile cannot *effectively* delete a file as long as
+  there are other processes that hold open handles to that file. The function
+  will still report success since the file is *marked* for deletion (no new
+  handles can be opened. See the URL mentioned above for reference).
+  This will lead to problems during a recursive delete operation since now
+  the parent directory wont be empty. */
+  SetFileAttributesW(win32Path, FILE_ATTRIBUTE_NORMAL);
+
   if(!DeleteFileW(win32Path))
     FAIL();
+  
   return 1;
 }
 
@@ -157,15 +219,10 @@ sqInt sqFileOpen(SQFile *f, char* fileNameIndex, sqInt fileNameSize, sqInt write
      Squeak must take care of any line-end character mapping.
   */
   HANDLE h;
-  WCHAR win32Path[MAX_PATH+1];
-  int sz;
+  WCHAR *win32Path = NULL;
 
   /* convert the file name into a null-terminated C string */
-  sz = MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, NULL, 0);
-  if(sz > MAX_PATH)
-    FAIL();
-  MultiByteToWideChar(CP_UTF8, 0, fileNameIndex, fileNameSize, win32Path, sz);
-  win32Path[sz] = 0;
+  ALLOC_WIN32_PATH(win32Path, fileNameIndex, fileNameSize);
 
   if(hasCaseSensitiveDuplicate(win32Path)) {
     f->sessionID = 0;
@@ -254,28 +311,18 @@ size_t sqFileReadIntoAt(SQFile *f, size_t count, char* byteArrayIndex, size_t st
 
 sqInt sqFileRenameOldSizeNewSize(char* oldNameIndex, sqInt oldNameSize, char* newNameIndex, sqInt newNameSize)
 {
-  WCHAR oldPath[MAX_PATH];
-  WCHAR newPath[MAX_PATH];
-  int sz;
+  WCHAR *oldPath = NULL;
+  WCHAR *newPath = NULL;
 
-  /* convert the file name into a null-terminated C string */
-  sz = MultiByteToWideChar(CP_UTF8, 0, oldNameIndex, oldNameSize, NULL,0);
-  if(sz > MAX_PATH)
-    FAIL();
-  MultiByteToWideChar(CP_UTF8, 0, oldNameIndex, oldNameSize, oldPath, sz);
-  oldPath[sz] = 0;
-
-  /* convert the file name into a null-terminated C string */
-  sz = MultiByteToWideChar(CP_UTF8, 0, newNameIndex, newNameSize, NULL,0);
-  if(sz > MAX_PATH)
-    FAIL();
-  MultiByteToWideChar(CP_UTF8, 0, newNameIndex, newNameSize, newPath, sz);
-  newPath[sz] = 0;
+  /* convert the file names into a null-terminated C string */
+  ALLOC_WIN32_PATH(oldPath, oldNameIndex, oldNameSize);
+  ALLOC_WIN32_PATH(newPath, newNameIndex, newNameSize);
 
   if(hasCaseSensitiveDuplicate(oldPath))
     FAIL();
   if(!MoveFileW(oldPath, newPath))
     FAIL();
+  
   return 1;
 }
 
@@ -306,6 +353,14 @@ sqInt sqFileFlush(SQFile *f) {
   /* note: ignores the return value in case of read-only access */
   FlushFileBuffers(FILE_HANDLE(f));
   return 1;
+}
+
+sqInt sqFileSync(SQFile *f) {
+  /*
+   * sqFileFlush uses FlushFileBuffers which is equivalent to fsync on windows
+   * as long as WriteFile is used directly and no other buffering is done.
+   */
+  return sqFileFlush(f);
 }
 
 sqInt sqFileTruncate(SQFile *f, squeakFileOffsetType offset) {
@@ -359,8 +414,8 @@ sqInt sqImageFileClose(sqImageFile h)
 
 sqImageFile sqImageFileOpen(char *fileName, char *mode)
 { char *modePtr;
-  int sz, writeFlag = 0;
-  WCHAR win32Path[MAX_PATH];
+  int writeFlag = 0;
+  WCHAR *win32Path = NULL;
   HANDLE h;
 
   if(!mode) return 0;
@@ -373,13 +428,11 @@ sqImageFile sqImageFileOpen(char *fileName, char *mode)
       modePtr++;
     }
   /* convert the file name into a null-terminated C string */
-  sz = MultiByteToWideChar(CP_UTF8, 0, fileName, -1, NULL,0);
-  if(sz > MAX_PATH)
-    FAIL();
-  MultiByteToWideChar(CP_UTF8, 0, fileName, -1, win32Path, sz);
-  win32Path[sz] = 0;
+  ALLOC_WIN32_PATH(win32Path, fileName, -1);
 
-  if(hasCaseSensitiveDuplicate(win32Path)) return 0;
+  if(hasCaseSensitiveDuplicate(win32Path))
+    return 0;
+  
   h = CreateFileW(win32Path,
 		  writeFlag ? (GENERIC_READ | GENERIC_WRITE) : GENERIC_READ,
 		  writeFlag ? FILE_SHARE_READ : (FILE_SHARE_READ | FILE_SHARE_WRITE),
@@ -387,7 +440,10 @@ sqImageFile sqImageFileOpen(char *fileName, char *mode)
 		  writeFlag ? CREATE_ALWAYS : OPEN_EXISTING,
 		  FILE_ATTRIBUTE_NORMAL,
 		  NULL /* No template */);
-  if(h == INVALID_HANDLE_VALUE) return 0;
+
+  if(h == INVALID_HANDLE_VALUE)
+    return 0;
+ 
   return (DWORD)h+1;
 }
 

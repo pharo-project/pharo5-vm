@@ -25,17 +25,6 @@ int readableFormat(int imageVersion);
 #define FINALLY
 #endif
 
-#ifndef SQ_IMAGE_VERSION_MAJOR
-#define SQ_IMAGE_VERSION_MAJOR 3
-#endif
-#ifndef SQ_IMAGE_VERSION_MINOR
-#define SQ_IMAGE_VERSION_MINOR 0
-#endif
-
-#if (SQ_IMAGE_VERSION_MAJOR < 2)
-#error "These files are only for Squeak >= 2.0"
-#endif
-
 #define NO_TABLET
 
 
@@ -149,7 +138,6 @@ int readableFormat(int imageVersion);
   /* Do not rely on stdio functions but rather pure Win32 stuff */
   #define WIN32_FILE_SUPPORT
   /* Take out the static strings */
-  #define NO_RCSID
   #define NO_WARNINGS
 #if 0
   /* Finally, override the warning functions containing static strings */
@@ -236,9 +224,6 @@ int sqMain(int argc, char *argv[]);
 #define VERSION ""
 #endif
 
-#define VM_VERSION TEXT("Cog VM 4.0.0 (release) from ") TEXT(__DATE__) \
-	TEXT("\n") TEXT("Compiler: ") TEXT(COMPILER) TEXT(VERSION)
-
 /********************************************************/
 /* image reversal functions                             */
 /********************************************************/
@@ -283,6 +268,7 @@ extern BITMAPINFO *bmi8;	     /*	8 bit depth bitmap info */
 extern BITMAPINFO *bmi16;	     /*	16 bit depth bitmap info */
 extern BITMAPINFO *bmi32;	     /*	32 bit depth bitmap info */
 extern BOOL fWindows95;          /* Are we running on Win95 or NT? */
+extern BOOL fIsConsole;          /* Are we running as a console app? */
 
 /* Startup options */
 extern BOOL  fHeadlessImage; /* Do we run headless? */

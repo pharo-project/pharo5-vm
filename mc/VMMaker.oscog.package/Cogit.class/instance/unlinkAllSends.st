@@ -4,7 +4,7 @@ unlinkAllSends
 	"Unlink all sends in cog methods."
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	[cogMethod < methodZone limitZony] whileTrue:
 		[cogMethod cmType = CMMethod
@@ -17,4 +17,4 @@ unlinkAllSends
 					[methodZone freeMethod: cogMethod]].
 		cogMethod := methodZone methodAfter: cogMethod].
 	"After updating inline caches we need to flush the icache."
-	processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger
+	processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger

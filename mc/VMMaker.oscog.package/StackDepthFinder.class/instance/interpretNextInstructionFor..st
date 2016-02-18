@@ -1,4 +1,6 @@
 decoding
 interpretNextInstructionFor: client
 	joins at: pc put: stackp.
-	^super interpretNextInstructionFor: client
+	^encoderClass
+		ifNil: [super interpretNextInstructionFor: client]
+		ifNotNil: [encoderClass interpretNextInstructionFor: client in: self]

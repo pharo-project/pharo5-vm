@@ -2,11 +2,12 @@ frame access
 instVar: index ofContext: aMarriedContext put: anOop
 	| theFP |
 	"Assign the field of a married context.  The important case to optimize is
-	 assigning the sender.  We could also consider optimizing assiging the IP but
+	 assigning the sender.  We could also consider optimizing assigning the IP but
 	 typically that is followed by an assignment to the stack pointer and we can't
 	 efficiently assign the stack pointer because it involves moving frames around."
 	<inline: true>
 	self assert: (self isMarriedOrWidowedContext: aMarriedContext).
+	self deny: (objectMemory isObjImmutable: aMarriedContext).
 	self writeBackHeadFramePointers.
 	(self isStillMarriedContext: aMarriedContext) ifFalse:
 		[objectMemory storePointer: index ofObject: aMarriedContext withValue: anOop.

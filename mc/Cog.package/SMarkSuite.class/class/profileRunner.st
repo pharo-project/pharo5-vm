@@ -1,3 +1,0 @@
-profiling
-profileRunner
-	^ SMarkProfileRunner

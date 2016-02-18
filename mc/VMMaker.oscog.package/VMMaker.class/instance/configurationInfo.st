@@ -10,10 +10,10 @@ configurationInfo
 		two flags indicating whether each directory is relative to the current directory or not.
 		the interpreter class name"
 	| isRelative makeRelative |
-	isRelative := [:pn| pn beginsWith: FileSystem workingDirectory pathName].
+	isRelative := [:pn| pn beginsWith: FileDirectory default pathName].
 	makeRelative := [:pn|
 					(isRelative value: pn)
-						ifTrue: [pn allButFirst: FileSystem workingDirectory pathName size + 1]
+						ifTrue: [pn allButFirst: FileDirectory default pathName size + 1]
 						ifFalse: [pn]].
 	^{ internalPlugins asArray.
 		externalPlugins asArray.

@@ -1,4 +1,4 @@
 free space
 computeFreeSpacePostSwizzle
 	totalFreeOldSpace := self totalFreeListBytes.
-	self checkFreeSpace
+	self checkFreeSpace: 0

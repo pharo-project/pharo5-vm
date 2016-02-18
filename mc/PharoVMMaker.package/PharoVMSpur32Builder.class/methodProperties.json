@@ -1,0 +1,25 @@
+{
+	"class" : {
+		"build" : "EstebanLorenzano 11/14/2014 12:59",
+		"buildDebug" : "EstebanLorenzano 12/10/2015 10:29",
+		"buildDebugMacOSX32" : "EstebanLorenzano 12/10/2015 10:30",
+		"buildDebugOnJenkins:" : "EstebanLorenzano 12/10/2015 10:31",
+		"buildDebugUnix32" : "EstebanLorenzano 12/10/2015 10:30",
+		"buildDebugWin32" : "EstebanLorenzano 12/10/2015 10:30",
+		"buildMacOSX32" : "EstebanLorenzano 11/14/2014 12:59",
+		"buildOnJenkins:" : "EstebanLorenzano 11/14/2014 12:59",
+		"buildTrace" : "EstebanLorenzano 1/11/2016 15:52",
+		"buildTraceMacOSX32" : "EstebanLorenzano 1/11/2016 15:52",
+		"buildTraceOnJenkins:" : "EstebanLorenzano 1/11/2016 15:52",
+		"buildTraceUnix32" : "EstebanLorenzano 1/11/2016 15:53",
+		"buildTraceWin32" : "EstebanLorenzano 1/11/2016 15:53",
+		"buildUnix32" : "EstebanLorenzano 11/14/2014 12:59",
+		"buildWin32" : "EstebanLorenzano 11/14/2014 12:59" },
+	"instance" : {
+		"buildMacOSX32" : "EstebanLorenzano 1/11/2016 15:55",
+		"buildUnix32" : "EstebanLorenzano 1/11/2016 15:55",
+		"buildWin32" : "EstebanLorenzano 1/11/2016 15:55",
+		"generateForDebug" : "EstebanLorenzano 1/11/2016 15:54",
+		"generateForRelease" : "EstebanLorenzano 1/11/2016 15:55",
+		"generateForTrace" : "EstebanLorenzano 1/11/2016 15:54",
+		"initialize" : "EstebanLorenzano 1/11/2016 15:54" } }

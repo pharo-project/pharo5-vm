@@ -1,0 +1,3 @@
+accessing
+generateForTrace
+	generationType := #trace

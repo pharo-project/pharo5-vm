@@ -6,6 +6,7 @@ markCogMethodsAndReferentsOnPage: thePage
 	<var: #callerFP type: #'char *'>
 	<inline: false>
 	self assert: (stackPages isFree: thePage) not.
+	self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
 	theFP := thePage headFP.
 	"Skip the instruction pointer on top of stack of inactive pages."
 	[(self isMachineCodeFrame: theFP) ifTrue:

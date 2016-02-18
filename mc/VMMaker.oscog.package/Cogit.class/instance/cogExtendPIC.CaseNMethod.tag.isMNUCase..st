@@ -5,39 +5,38 @@ cogExtendPIC: cPIC CaseNMethod: caseNMethod tag: caseNTag isMNUCase: isMNUCase
 	 dispatch, and if isMNUCase then dispatch to fast MNU invocation and mark the cPIC as
 	 having the MNU case for cache flushing."
  	<var: #cPIC type: #'CogMethod *'>
-	| operand target address size end |
-	"stack allocate the various collections so that they
-	 are effectively garbage collected on return."
+	| operand target address |
+
 	coInterpreter
 		compilationBreak: cPIC selector
-		point: (objectMemory lengthOf: cPIC selector).
-	self allocateOpcodes: 5 bytecodes: 0.
+		point: (objectMemory numBytesOf: cPIC selector)
+		isMNUCase: isMNUCase.
+
 	self assert: (objectRepresentation inlineCacheTagIsYoung: caseNTag) not.
 	"Caller patches to open pic if caseNMethod is young."
 	self assert: (caseNMethod notNil and: [(objectMemory isYoung: caseNMethod) not]).
-	(isMNUCase not
-	 and: [coInterpreter methodHasCogMethod: caseNMethod])
-		ifTrue:
+	(isMNUCase not and: [coInterpreter methodHasCogMethod: caseNMethod])
+		ifTrue: "this isn't an MNU and we have an already cogged method to jump to"
 			[operand := 0.
-			 target :=  (coInterpreter cogMethodOf: caseNMethod) asInteger + cmNoCheckEntryOffset]
-		ifFalse:
-			[isMNUCase ifTrue:
-				[cPIC cpicHasMNUCase: true].
-			 operand := caseNMethod.
-			 target := cPIC asInteger
-					+ (isMNUCase
-						ifTrue: [self sizeof: CogMethod]
-						ifFalse: [self interpretOffset - backEnd callInstructionByteSize])].
-	self CmpCw: caseNTag R: TempReg.
-	self MoveCw: operand R: SendNumArgsReg.
-	self JumpLongZero: target.
-	self MoveCw: cPIC asInteger R: ClassReg.
-	self JumpLong: (self cPICMissTrampolineFor: cPIC cmNumArgs).
+			 target := (coInterpreter cogMethodOf: caseNMethod) asInteger + cmNoCheckEntryOffset]
+		ifFalse: 
+			[operand := caseNMethod.
+			 isMNUCase
+				ifTrue: "this is an MNU so tag the CPIC header and setup a jump to the MNUAbort"
+					[cPIC cpicHasMNUCase: true.
+					 target := cPIC asInteger + (self sizeof: CogMethod)]
+				ifFalse: "setup a jump to the interpretAborth so we can cog the target method"
+					[target := cPIC asInteger + self picInterpretAbortOffset]].
 
-	self computeMaximumSizes.
-	address := self addressOfEndOfCase: cPIC cPICNumCases - 1 inCPIC: cPIC.
-	size := self generateInstructionsAt: address.
-	end := self outputInstructionsAt: address.
-	processor flushICacheFrom: address to: cPIC asInteger + closedPICSize.
+	"find the end address of the new case"
+	address := self addressOfEndOfCase: cPIC cPICNumCases +1 inCPIC: cPIC.
+	
+	self rewriteCPICCaseAt: address tag: caseNTag objRef: operand target: target.
+
+	"finally, rewrite the jump 3 instr  before firstCPICCaseOffset to jump to the beginning of this new case"
+	self rewriteCPIC: cPIC caseJumpTo: address - cPICCaseSize. 
+
+	processor flushICacheFrom: cPIC asUnsignedInteger to: cPIC asUnsignedInteger + closedPICSize.
+	"update the header flag for the number of cases"
 	cPIC cPICNumCases: cPIC cPICNumCases + 1.
 	^0

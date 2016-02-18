@@ -19,7 +19,9 @@ simulatedTrampolineFor: selectorOrAddress
 										ifTrue: [coInterpreter]
 										ifFalse: [(objectMemory respondsTo: selectorOrAddress)
 											ifTrue: [objectMemory]
-											ifFalse: [self notify: 'cannot find receiver for ', selectorOrAddress]]])
+											ifFalse: [(backEnd respondsTo: selectorOrAddress)
+												ifTrue:[backEnd]
+												ifFalse:[self notify: 'cannot find receiver for ', selectorOrAddress]]]])
 				selector: selectorOrAddress
 				arguments: (1 to: selectorOrAddress numArgs) asArray].
 	^address

@@ -1,6 +1,6 @@
 initialization
 genCheckForInterruptsTrampoline
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	"if we have a link register we will assume that it does not get automatically pushed onto the stack
 	and thus there is no need to pop it before saving to instructionPointerAddress"
 	backEnd hasLinkRegister
@@ -18,5 +18,5 @@ genCheckForInterruptsTrampoline
 		arg: nil
 		saveRegs: false
 		pushLinkReg: false
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true

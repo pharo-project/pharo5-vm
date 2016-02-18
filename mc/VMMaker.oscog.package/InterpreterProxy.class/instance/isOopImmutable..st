@@ -1,4 +1,4 @@
-testing
-isOopImmutable: anOop
-	<api>
-	^self notYetImplementedError
+object access
+isOopImmutable: oop
+	<option: #IMMUTABILITY>
+	^StackInterpreter objectMemoryClass isOopImmutable: oop

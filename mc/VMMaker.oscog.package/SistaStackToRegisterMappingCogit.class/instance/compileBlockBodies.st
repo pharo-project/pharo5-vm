@@ -3,7 +3,7 @@ compileBlockBodies
 	"override to maintain counterIndex when recompiling blocks; sigh."
 	<inline: false>
 	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs savedNumTemps
-	  initialStackPtr initialOpcodeIndex initialAnnotationIndex initialCounterIndex initialIndexOfIRC |
+	  initialStackPtr initialOpcodeIndex initialCounterIndex initialIndexOfIRC |
 	<var: #blockStart type: #'BlockStart *'>
 	self assert: blockCount > 0.
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
@@ -16,19 +16,19 @@ compileBlockBodies
 		[blockStart := self blockStartAt: compiledBlocksCount.
 		 self scanBlock: blockStart.
 		 initialOpcodeIndex := opcodeIndex.
-		 initialAnnotationIndex := annotationIndex.
 		 initialCounterIndex := counterIndex.
 		 self cppIf: #NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
-		  (result := self compileAbstractInstructionsFrom: blockStart startpc + ((self pushNilSize: methodObj) * blockStart numInitialNils)
+		  (result := self compileAbstractInstructionsFrom: blockStart startpc + (self pushNilSize: methodObj numInitialNils: blockStart numInitialNils)
 						through: blockStart startpc + blockStart span - 1) < 0 ifTrue:
 			[^result].
 		  "If the final simStackPtr is less than the initial simStackPtr then scanBlock: over-
 		   estimated the number of initial nils (because it assumed one or more pushNils to
 		   produce an operand were pushNils to initialize temps.  This is very rare, so
-		   compensate by checking, adjusting numInitialNils and recompiling the block body."
+		   compensate by checking, adjusting numInitialNils and recompiling the block body.
+		   N.B.  No need to reinitialize the literalsManager because it answers existing literals."
 		  initialStackPtr = simStackPtr]
 			whileFalse:
 				[self assert: initialStackPtr > simStackPtr.
@@ -39,12 +39,8 @@ compileBlockBodies
 				 self cCode: 'bzero(abstractOpcodes + initialOpcodeIndex,
 									(opcodeIndex - initialOpcodeIndex) * sizeof(AbstractInstruction))'
 					inSmalltalk: [initialOpcodeIndex to: opcodeIndex - 1 do:
-									[:i|
-									abstractOpcodes
-										at: i
-										put: (processor abstractInstructionCompilerClass for: self)]].
+									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
-				 annotationIndex := initialAnnotationIndex.
 				 counterIndex := initialCounterIndex.
 				 self cppIf: #NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].

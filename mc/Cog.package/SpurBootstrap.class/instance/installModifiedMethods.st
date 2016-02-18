@@ -7,5 +7,6 @@ installModifiedMethods
 	self withExecutableInterpreter: oldInterpreter
 		do: [self internAllSymbols.
 			 self addNewMethods.
+			 self removeMethods.
 			 self replaceMethods.
 			 self modifyCharacterMethods]

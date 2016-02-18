@@ -14,7 +14,7 @@
 #include <InternetConfig.h>
 #include "sq.h"
 #include "InternetConfigPlugin.h"
-#include "sqMacFileLogic.h"
+#include "sqMacUnixFileInterface.h"
 #include "sqMacUIConstants.h"
 
 static OSType GetApplicationSignature(void);
@@ -31,8 +31,10 @@ int sqInternetConfigurationInit(void) {
     if (gInitializedOk) 
         return 1;
         
+#if !__LP64__
     if ((Ptr)ICStart==(Ptr)kUnresolvedCFragSymbolAddress) 
         return 0;
+#endif
     
     signature = GetApplicationSignature();
     
@@ -160,7 +162,11 @@ static OSType GetApplicationSignature() {
         /* set up info block */
     pinfo.processInfoLength = sizeof(pinfo);
     pinfo.processName = NULL;
+#if __LP64__
+    pinfo.processAppRef = &pspec;
+#else
     pinfo.processAppSpec = &pspec;
+#endif
         /* grab the vrefnum and directory */
     err = GetProcessInformation(&PSN, &pinfo);
     if (err == noErr) {

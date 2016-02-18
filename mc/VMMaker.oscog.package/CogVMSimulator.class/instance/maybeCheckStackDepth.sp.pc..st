@@ -18,7 +18,7 @@ maybeCheckStackDepth: delta sp: sp pc: mcpc
 		 lastbcpc := cogit lastBytecodePCForBlockAt: startbcpc in: cogHomeMethod methodObject.
 		 bcpc > lastbcpc ifTrue:
 			[bcpc := lastbcpc]].
-	asp := self stackPointerIndexForFrame: framePointer WithSP: sp + BytesPerWord.
+	asp := self stackPointerIndexForFrame: framePointer WithSP: sp + objectMemory wordSize.
 	csp := debugStackPointers at: bcpc.
 	"Compensate lazily for absent receiver sends."
 	(NewspeakVM

@@ -8,9 +8,9 @@ okayOop: signedOop
 
 	"address and size checks"
 	(self isIntegerObject: oop) ifTrue: [ ^true ].
-	(oop >= self startOfMemory and: [oop < endOfMemory])
+	(self oop: oop isGreaterThanOrEqualTo: self startOfMemory andLessThan: endOfMemory)
 		ifFalse: [ self error: 'oop is not a valid address'. ^false ].
-	((oop \\ BytesPerWord) = 0)
+	((oop \\ self wordSize) = 0)
 		ifFalse: [ self error: 'oop is not a word-aligned address'. ^false ].
 	sz := self sizeBitsOf: oop.
 	(oop + sz) < endOfMemory
@@ -25,13 +25,13 @@ okayOop: signedOop
 			ifTrue:  [ self error: 'cannot have zero compact class field in a short header'. ^false ].
 	].
 	type = HeaderTypeClass ifTrue: [
-		((oop >= BytesPerWord) and: [(self headerType: oop - BytesPerWord) = type])
+		((oop >= self wordSize) and: [(self headerType: oop - self wordSize) = type])
 			ifFalse: [ self error: 'class header word has wrong type'. ^false ].
 	].
 	type = HeaderTypeSizeAndClass ifTrue: [
-		((oop >= (BytesPerWord*2)) and:
-		 [(self headerType: oop - (BytesPerWord*2)) = type and:
-		 [(self headerType: oop - BytesPerWord) = type]])
+		((oop >= (self wordSize*2)) and:
+		 [(self headerType: oop - (self wordSize*2)) = type and:
+		 [(self headerType: oop - self wordSize) = type]])
 			ifFalse: [ self error: 'class header word has wrong type'. ^false ].
 	].
 
@@ -42,7 +42,7 @@ okayOop: signedOop
 
 	"mark and root bit checks"
 	unusedBit := 16r20000000.
-	BytesPerWord = 8
+	self wordSize = 8
 		ifTrue:
 			[unusedBit := unusedBit << 16.
 			 unusedBit := unusedBit << 16].

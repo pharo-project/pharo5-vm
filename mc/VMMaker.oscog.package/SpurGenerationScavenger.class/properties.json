@@ -3,8 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		"RememberedSetLimit",
-		"RememberedSetRedZone" ],
+		 ],
 	"commentStamp" : "eem 9/30/2013 11:05",
 	"instvars" : [
 		"coInterpreter",
@@ -16,6 +15,9 @@
 		"rememberedSet",
 		"rememberedSetSize",
 		"previousRememberedSetSize",
+		"rememberedSetRedZone",
+		"rememberedSetLimit",
+		"refCountToShrinkRT",
 		"weakList",
 		"ephemeronList",
 		"tenureCriterion",
@@ -23,6 +25,7 @@
 		"tenuringClassIndex",
 		"tenuringProportion",
 		"numRememberedEphemerons",
+		"statSurvivorCount",
 		"statTenures" ],
 	"name" : "SpurGenerationScavenger",
 	"pools" : [

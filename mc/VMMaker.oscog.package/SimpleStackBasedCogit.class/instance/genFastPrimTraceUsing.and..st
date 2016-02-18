@@ -2,12 +2,12 @@ primitive generators
 genFastPrimTraceUsing: r1 and: r2
 	"Suport for compileInterpreterPrimitive.  Generate inline code so as to record the primitive
 	 trace as fast as possible."
-	self MoveCq: 0 R: TempReg.
-	self MoveCq: 0 R: r2. "N.B. MoveMb:r:R: does not zero other bits"
-	self MoveMb: coInterpreter primTraceLogIndexAddress r: TempReg R: r2.
+	backEnd byteReadsZeroExtend ifFalse:
+		[self MoveCq: 0 R: r2].
+	self MoveAb: coInterpreter primTraceLogIndexAddress R: r2.
 	self MoveR: r2 R: r1.
 	self AddCq: 1 R: r1.
-	self MoveR: r1 Mb: coInterpreter primTraceLogIndexAddress r: TempReg.
+	self MoveR: r1 Ab: coInterpreter primTraceLogIndexAddress.
 	methodLabel addDependent:
 		(self annotateAbsolutePCRef:
 			(self MoveCw: methodLabel asInteger R: r1)).

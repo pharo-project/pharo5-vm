@@ -6,9 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: Walt Disney Imagineering, Glendale, CA
 *   EMAIL:   Andreas.Raab@disney.com
-*   RCSID:   $Id$
 *
-*   NOTES:
 *****************************************************************************/
 #include <windows.h>
 #include <ole2.h>
@@ -757,7 +755,7 @@ int dropRequestFileHandle(int dropIndex) {
   fileHandle = instantiateClassindexableSize(classByteArray(), fileRecordSize());
   wasBrowserMode = fBrowserMode;
   fBrowserMode = false;
-  sqFileOpen(fileValueOf(fileHandle),(int)dropName, strlen(dropName), 0);
+  sqFileOpen(fileValueOf(fileHandle),(sqInt)dropName, strlen(dropName), 0);
   fBrowserMode = wasBrowserMode;
   return fileHandle;
 }

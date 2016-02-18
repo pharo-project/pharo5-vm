@@ -4,6 +4,6 @@ fetchFloat: fieldIndex ofObject: objectPointer
 	"Note: May be called by translated primitive code."
 
 	| floatOop |
-	<returnTypeC: 'double'>
+	<returnTypeC: #double>
 	floatOop := objectMemory fetchPointer: fieldIndex ofObject: objectPointer.
-	^ self floatValueOf: floatOop
+	^objectMemory floatValueOf: floatOop

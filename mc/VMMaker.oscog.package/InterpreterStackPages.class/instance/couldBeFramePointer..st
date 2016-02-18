@@ -4,11 +4,11 @@ couldBeFramePointer: pointer
 	<var: #pointer type: #'void *'>
 	^self
 		cCode:
-			[(pointer asUnsignedInteger bitAnd: BytesPerWord - 1) = 0
+			[(pointer asUnsignedInteger bitAnd: objectMemory wordSize - 1) = 0
 			   and: [pointer asUnsignedInteger
 						between: stackMemory asUnsignedInteger
 						and: pages asUnsignedInteger]]
 		inSmalltalk:
-			[(pointer  bitAnd: BytesPerWord - 1) = 0
+			[(pointer  bitAnd: objectMemory wordSize - 1) = 0
 			 and: [(self memIndexFor: pointer)
 					between: 1 and: stackMemory size]]

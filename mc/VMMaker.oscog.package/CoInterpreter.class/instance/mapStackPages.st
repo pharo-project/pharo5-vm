@@ -1,17 +1,21 @@
 object memory support
 mapStackPages
-	<inline: false>
+	<inline: #never>
 	<var: #thePage type: #'StackPage *'>
 	<var: #theSP type: #'char *'>
 	<var: #theFP type: #'char *'>
 	<var: #frameRcvrOffset type: #'char *'>
 	<var: #callerFP type: #'char *'>
 	<var: #theIPPtr type: #'char *'>
+	| numLivePages |
+	numLivePages := 0.
 	0 to: numStackPages - 1 do:
 		[:i| | thePage theSP theFP frameRcvrOffset callerFP theIPPtr theIP oop |
 		thePage := stackPages stackPageAt: i.
 		thePage isFree ifFalse:
-			[theSP := thePage headSP.
+			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
+			 numLivePages := numLivePages + 1.
+			 theSP := thePage headSP.
 			 theFP := thePage  headFP.
 			 "Skip the instruction pointer on top of stack of inactive pages."
 			 thePage = stackPage
@@ -21,16 +25,16 @@ mapStackPages
 										ifFalse: [theFP + FoxIFSavedIP]]
 				ifFalse:
 					[theIPPtr := theSP.
-					 theSP := theSP + BytesPerWord].
+					 theSP := theSP + objectMemory wordSize].
 			[self assert: (thePage addressIsInPage: theFP).
 			 self assert: (thePage addressIsInPage: theSP).
 			 self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr]).
-			 frameRcvrOffset := self frameReceiverOffset: theFP.
+			 frameRcvrOffset := self frameReceiverLocation: theFP.
 	 		  [theSP <= frameRcvrOffset] whileTrue:
 				[oop := stackPages longAt: theSP.
 				 (objectMemory shouldRemapOop: oop) ifTrue:
 					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
-				 theSP := theSP + BytesPerWord].
+				 theSP := theSP + objectMemory wordSize].
 			 (self frameHasContext: theFP) ifTrue:
 				[(objectMemory shouldRemapObj: (self frameContext: theFP)) ifTrue:
 					[stackPages
@@ -58,11 +62,12 @@ mapStackPages
 					 theIPPtr ~= 0 ifTrue:
 						[stackPages longAt: theIPPtr put: theIP + (self iframeMethod: theFP)]]].
 			 (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-				[theSP := (theIPPtr := theFP + FoxCallerSavedIP) + BytesPerWord.
+				[theSP := (theIPPtr := theFP + FoxCallerSavedIP) + objectMemory wordSize.
 				 theFP := callerFP].
-			 theSP := theFP + FoxCallerSavedIP + BytesPerWord.
+			 theSP := theFP + FoxCallerSavedIP + objectMemory wordSize.
 			 [theSP <= thePage baseAddress] whileTrue:
 				[oop := stackPages longAt: theSP.
 				 (objectMemory shouldRemapOop: oop) ifTrue:
 					[stackPages longAt: theSP put: (objectMemory remapObj: oop)].
-				 theSP := theSP + BytesPerWord]]]
+				 theSP := theSP + objectMemory wordSize]]].
+	stackPages recordLivePagesOnMapping: numLivePages

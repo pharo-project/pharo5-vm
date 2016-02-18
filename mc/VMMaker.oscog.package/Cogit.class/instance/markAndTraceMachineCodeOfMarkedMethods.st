@@ -2,7 +2,7 @@ jit - api
 markAndTraceMachineCodeOfMarkedMethods
 	"Mark objects in machine-code of marked methods (or open PICs with marked selectors)."
 	<api>
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	objectMemory leakCheckFullGC ifTrue:
@@ -22,4 +22,4 @@ markAndTraceMachineCodeOfMarkedMethods
 	objectMemory leakCheckFullGC ifTrue:
 		[self assert: self allMachineCodeObjectReferencesValid].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
-		[processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger]
+		[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]

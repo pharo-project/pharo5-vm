@@ -10,16 +10,16 @@ pruneYoungReferrers
 	youngReferrers = limitAddress ifTrue:
 		[^nil].
 	dest := limitAddress.
-	[next := dest - BytesPerWord.
+	[next := dest - objectMemory wordSize.
 	 next >= youngReferrers
 	 and: [(coInterpreter cCoerceSimple: (objectMemory longAt: next) to: #'CogMethod *') cmRefersToYoung]] whileTrue:
 		[dest := next].
 	self assert: dest >= youngReferrers.
-	source := dest - BytesPerWord.
+	source := dest - objectMemory wordSize.
 	[source >= youngReferrers] whileTrue:
 		[(coInterpreter cCoerceSimple: (objectMemory longAt: source) to: #'CogMethod *') cmRefersToYoung ifTrue:
-			[self assert: source < (dest - BytesPerWord).
-			 objectMemory longAt: (dest := dest - BytesPerWord) put: (objectMemory longAt: source)].
-		 source := source - BytesPerWord].
+			[self assert: source < (dest - objectMemory wordSize).
+			 objectMemory longAt: (dest := dest - objectMemory wordSize) put: (objectMemory longAt: source)].
+		 source := source - objectMemory wordSize].
 	youngReferrers := dest.
 	self assert: self kosherYoungReferrers

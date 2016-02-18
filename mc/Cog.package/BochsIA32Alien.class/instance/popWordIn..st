@@ -1,4 +1,4 @@
-accessing-abstract
+execution
 popWordIn: aMemory 
 	| sp word |
 	word := aMemory unsignedLongAt: (sp := self esp) + 1 bigEndian: false.

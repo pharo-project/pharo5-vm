@@ -4,12 +4,15 @@ prototypeClassNameMetaSelectorMethodDo: quaternaryBlock
 	 For now find methods in class-side category #'method prototypes'.
 	 Scheme could be extended to have different protocols for different
 	 Squeak/Pharo versions."
-	self allPrototypeMethods do:
-		[:protoSelector| | method className isMeta |
-		method := SpurBootstrap class >> protoSelector.
-		className := self classNameForPrototypeMethod: method.
+	self allMethodPrototypes do:
+		[:methodArg| | method className isMeta |
+		className := self classNameForPrototypeMethod: (method := methodArg).
 		(isMeta := className endsWith: 'class') ifTrue:
 			[className := (className allButLast: 5) asSymbol].
+		(method pragmaAt: #indirect) ifNotNil:
+			[method := (isMeta
+							ifTrue: [(Smalltalk classNamed: className) class]
+							ifFalse: [Smalltalk classNamed: className]) >> method selector].
 		quaternaryBlock
 			value: className
 			value: isMeta

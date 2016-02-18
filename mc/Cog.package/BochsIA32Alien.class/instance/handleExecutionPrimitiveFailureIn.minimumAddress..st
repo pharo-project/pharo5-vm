@@ -7,8 +7,14 @@ handleExecutionPrimitiveFailureIn: memoryArray "<Bitmap|ByteArray>" minimumAddre
 	| pc opcode |
 	((pc := self eip) between: minimumAddress and: memoryArray byteSize - 1) ifTrue:
 		[opcode := memoryArray byteAt: pc + 1.
-		^self
-			perform: (OpcodeExceptionMap at: opcode + 1)
-			with: pc
-			with: memoryArray].
+		 opcode ~= 16r0f ifTrue:
+			[^self
+				perform: (OpcodeExceptionMap at: opcode + 1)
+				with: pc
+				with: memoryArray].
+		 opcode := memoryArray byteAt: pc + 2.
+		 ^self
+				perform: (ExtendedOpcodeExceptionMap at: opcode + 1)
+				with: pc
+				with: memoryArray].
 	^self reportPrimitiveFailure

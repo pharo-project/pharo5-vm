@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genJumpIf: boolean to: targetBytecodePC
 	"The heart of performance counting in Sista.  Conditional branches are 6 times less
 	 frequent than sends and can provide basic block frequencies (send counters can't).
@@ -8,26 +8,31 @@ genJumpIf: boolean to: targetBytecodePC
 	 decrements the lower half.  N.B. We *do not* eliminate dead branches (true ifTrue:/true ifFalse:)
 	 so that scanning for send and branch data is simplified and that branch data is correct."
 	<inline: false>
-	| desc ok counterAddress countTripped retry |
+	| ok counterAddress countTripped retry |
 	<var: #ok type: #'AbstractInstruction *'>
-	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
-	self ssFlushTo: simStackPtr - 1.
-	desc := self ssTop.
-	self ssPop: 1.
-	desc popToReg: TempReg.
 
-	self ssAllocateRequiredReg: SendNumArgsReg. "Use this as the count reg."
-	counterAddress := counters + ((self sizeof: #sqInt) * counterIndex).
+	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
+	
+	branchReachedOnlyForCounterTrip ifTrue: 
+		[ branchReachedOnlyForCounterTrip := false.
+		^ self genCounterTripOnlyJumpIf: boolean to: targetBytecodePC ].
+
+	self ssFlushTo: simStackPtr - 1.
+	self ssTop popToReg: TempReg.
+	self ssPop: 1.
+
+	"We need SendNumArgsReg because of the mustBeBooleanTrampoline"
+	self ssAllocateRequiredReg: SendNumArgsReg.
+
+	retry := self Label.
+	self 
+		genExecutionCountLogicInto: [ :cAddress :countTripBranch | 
+			counterAddress := cAddress. 
+			countTripped := countTripBranch ] 
+		counterReg: SendNumArgsReg.
 	counterIndex := counterIndex + 1.
-	self flag: 'will need to use MoveAw32:R: if 64 bits'.
-	self assert: BytesPerWord = CounterBytes.
-	retry := self MoveAw: counterAddress R: SendNumArgsReg.
-	self SubCq: 16r10000 R: SendNumArgsReg. "Count executed"
-	"Don't write back if we trip; avoids wrapping count back to initial value, and if we trip we don't execute."
-	countTripped := self JumpCarry: 0.
-	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
 
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
@@ -36,23 +41,26 @@ genJumpIf: boolean to: targetBytecodePC
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
-	self SubCq: 1 R: SendNumArgsReg. "Count untaken"
-	self MoveR: SendNumArgsReg Aw: counterAddress. "write back"
+	self genFallsThroughCountLogicCounterReg: SendNumArgsReg counterAddress: counterAddress.
 
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.
 	ok := self JumpZero: 0.
-	self MoveCq: 0 R: SendNumArgsReg. "if SendNumArgsReg is 0 this is a mustBeBoolean, not a counter trip."
+	self MoveCq: 0 R: SendNumArgsReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
+	
 	countTripped jmpTarget:
 		(self CallRT: (boolean == objectMemory falseObject
 						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
 						ifFalse: [ceSendMustBeBooleanAddTrueTrampoline])).
+						
 	"If we're in an image which hasn't got the Sista code loaded then the ceCounterTripped:
 	 trampoline will return directly to machine code, returning the boolean.  So the code should
 	 jump back to the retry point. The trampoline makes sure that TempReg has been reloaded."
 	self annotateBytecode: self Label.
+
 	self Jump: retry.
+	
 	ok jmpTarget: self Label.
 	^0

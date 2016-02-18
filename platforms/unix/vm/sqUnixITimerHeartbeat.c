@@ -138,9 +138,9 @@ updateMicrosecondClock()
 void
 ioUpdateVMTimezone()
 {
+	updateMicrosecondClock();
 #ifdef HAVE_TM_GMTOFF
 	time_t utctt;
-	updateMicrosecondClock();
 	utctt = (get64(utcMicrosecondClock) - MicrosecondsFrom1901To1970)
 				/ MicrosecondsPerSecond;
 	vmGMTOffset = localtime(&utctt)->tm_gmtoff * MicrosecondsPerSecond;
@@ -162,9 +162,10 @@ ioHighResClock(void)
   sqLong value = 0;
 #if defined(__GNUC__) && ( defined(i386) || defined(__i386) || defined(__i386__)  \
 			|| defined(i486) || defined(__i486) || defined (__i486__) \
-			|| defined(intel) || defined(x86) || defined(i86pc) )
+			|| defined(intel) || defined(x86) || defined(i86pc) \
+			|| defined(x86_64) || defined(__x86_64) || defined (__x86_64__))
     __asm__ __volatile__ ("rdtsc" : "=A"(value));
-#elif defined(__arm__) && defined(__ARM_ARCH_6__)
+#elif defined(__arm__) && (defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_7A__))
 	/* tpr - do nothing for now; needs input from eliot to decide further */
 #else
 # error "no high res clock defined"
@@ -237,10 +238,10 @@ ioOldMSecs(void)
 }
 #endif /* !macintoshSqueak */
 
-usqLong
+unsigned volatile long long
 ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 
-usqLong
+unsigned volatile long long
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 
 usqInt
@@ -249,29 +250,32 @@ ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 /* This is an expensive interface for use by Smalltalk or vm profiling code that
  * wants the time now rather than as of the last heartbeat.
  */
-usqLong
+unsigned volatile long long
 ioUTCMicrosecondsNow() { return currentUTCMicroseconds(); }
 
-usqLong
+unsigned long long
+ioUTCStartMicroseconds() { return utcStartMicroseconds; }
+
+unsigned volatile long long
 ioLocalMicrosecondsNow() { return currentUTCMicroseconds() + vmGMTOffset; };
 
-int
+sqInt
 ioMSecs() { return millisecondClock; }
 
 /* Note: ioMicroMSecs returns *milli*seconds */
-int ioMicroMSecs(void) { return microToMilliseconds(currentUTCMicroseconds()); }
+sqInt ioMicroMSecs(void) { return microToMilliseconds(currentUTCMicroseconds()); }
 
 /* returns the local wall clock time */
-int
+sqInt
 ioSeconds(void) { return get64(localMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond; }
 
 /*
@@ -279,7 +283,7 @@ ioUTCSecondsNow(void) { return currentUTCMicroseconds() / MicrosecondsPerSecond;
  * On Unix use dpy->ioRelinquishProcessorForMicroseconds
  */
 #if macintoshSqueak
-int
+sqInt
 ioRelinquishProcessorForMicroseconds(int microSeconds)
 {
     long	realTimeToWait;
@@ -364,12 +368,9 @@ static void
 heartbeat_handler(int sig, struct siginfo *sig_info, void *context)
 {
 #if !defined(SA_NODEFER)
-  {	int zero = 0;
-	int previouslyHandlingHeartbeat;
-    sqCompareAndSwapRes(handling_heartbeat,zero,1,previouslyHandlingHeartbeat);
-	if (previouslyHandlingHeartbeat)
+	/* if the CAS fails, the heartbeat is already being handled. */
+    if (!sqCompareAndSwap(handling_heartbeat,0,1))
 		return;
-  }
 
 	handling_heartbeat = 1;
 #endif

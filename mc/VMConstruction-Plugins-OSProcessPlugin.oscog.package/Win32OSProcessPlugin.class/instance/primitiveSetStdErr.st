@@ -4,8 +4,7 @@ primitiveSetStdErr
 
 	| sqFileOop handle |
 	<export: true>
-	<var: 'sqFile' type: 'SQFile *'>
-	<var: 'handle' type: 'FILEHANDLETYPE'>
+	<var: 'handle' type: #FILEHANDLETYPE>
 	sqFileOop := interpreterProxy stackValue: 0.
 	(self isSQFileObject: sqFileOop) ifFalse: [^ interpreterProxy primitiveFail].
 	handle := self fileHandleFrom: sqFileOop.

@@ -6,7 +6,7 @@ primitiveClosureValueWithArgs
 		[^self primitiveFail].
 
 	"Check for enough space in thisContext to push all args"
-	arraySize := objectMemory fetchWordLengthOf: argumentArray.
+	arraySize := objectMemory numSlotsOf: argumentArray.
 	(self roomToPushNArgs: arraySize) ifFalse:
 		[^self primitiveFail].
 

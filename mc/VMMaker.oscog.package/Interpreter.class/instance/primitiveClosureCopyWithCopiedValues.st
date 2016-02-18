@@ -6,11 +6,11 @@ primitiveClosureCopyWithCopiedValues
 	self success: (self fetchClassOf: copiedValues) = (self splObj: ClassArray).
 	successFlag ifFalse:
 		[^self primitiveFail].
-	numCopiedValues := self fetchWordLengthOf: copiedValues.
+	numCopiedValues := self numSlotsOf: copiedValues.
 	newClosure := self
 					closureNumArgs: numArgs
 									"greater by 1 due to preIncrement of localIP"
-					instructionPointer: instructionPointer + 2 - (method+BaseHeaderSize)
+					instructionPointer: instructionPointer + 2 - (method+self baseHeaderSize)
 					numCopiedValues: numCopiedValues.
 	"Assume: have just allocated a new closure; it must be young. Thus, can use unchecked stores."
 	self storePointerUnchecked: ClosureOuterContextIndex ofObject: newClosure withValue: (self stackValue: 2).

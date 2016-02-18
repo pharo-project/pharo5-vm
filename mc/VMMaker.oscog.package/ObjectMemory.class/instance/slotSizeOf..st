@@ -1,4 +1,4 @@
-object format
+object access
 slotSizeOf: oop
 	"Returns the number of slots in the receiver.
 	If the receiver is a byte object, return the number of bytes.

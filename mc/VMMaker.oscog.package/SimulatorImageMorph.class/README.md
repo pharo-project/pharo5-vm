@@ -1,0 +1,1 @@
+A SimulatorImageMorph is an ImageMorph that suppresses halos.

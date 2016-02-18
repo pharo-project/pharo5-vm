@@ -1,6 +1,6 @@
 bytecode generators
 genExtPushPseudoVariableOrOuterBytecode
-	"77			01001101		Push false [* 1:true, 2:nil, 3:thisContext, ..., -N: pushExplicitOuter: N, N = Extend B]"
+	"77			01001101		Push false [* 1:true, 2:nil, 3:thisContext, ..., -N: pushEnclosingObjectAt: N, N = Extend B]"
 	| ext |
 	ext := extB.
 	extB := 0.
@@ -12,7 +12,7 @@ genExtPushPseudoVariableOrOuterBytecode
 		}
 		otherwise:
 			[ext < 0 ifTrue:
-				[^self genPushExplicitOuterReceiver: 0 - ext].
+				[^self genPushEnclosingObjectAt: 0 - ext].
 			 self warning: 'undefined extension for extPushPseudoVariableOrOuter'.
 			 ^self unknownBytecode].
 	^0

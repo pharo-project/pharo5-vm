@@ -8,6 +8,8 @@ changeClassOf: rcvr to: argClass
 	 that an instance of the argument should have."
 	<inline: false>
 	| classFormat fixedFields instFormat normalizedInstFormat newFormat classIndex |
+	(self isObjImmutable: rcvr) ifTrue:
+		[^PrimErrNoModification].
 	classFormat := self formatOfClass: argClass.
 	fixedFields := self fixedFieldsOfClassFormat: classFormat.
 	classFormat := self instSpecOfClassFormat: classFormat.
@@ -27,7 +29,7 @@ changeClassOf: rcvr to: argClass
 					 newFormat := classFormat]
 				ifFalse:
 					[| instBytes |
-					instBytes := self byteLengthOf: rcvr.
+					instBytes := self numBytesOf: rcvr.
 					normalizedInstFormat caseOf: {
 						[self sixtyFourBitIndexableFormat] ->
 							[(classFormat < self sixtyFourBitIndexableFormat

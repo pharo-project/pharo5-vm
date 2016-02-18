@@ -11,5 +11,6 @@ versionString
 
 	| version |
 	<returnTypeC: 'char *'>
-	<var: 'version' declareC: 'static char version[]= "2.2.5"'>
-	^ self cCode: 'version' inSmalltalk: [self class versionString]
+	<var: 'version' declareC: 'static char version[]= "2.2.6"'>
+	^ self cCode: 'version' inSmalltalk: ['2.2.6']
+

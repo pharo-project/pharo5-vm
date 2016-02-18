@@ -7,7 +7,7 @@ maybeAllocAndInitIRCs
 			[indexOfIRC := theIRCs := 0.
 			 (objectRepresentation canPinObjects and: [numIRCs > 0]) ifTrue:
 				[self assert: (self noAssertMethodClassAssociationOf: methodObj) ~= objectMemory nilObject.
-				 theIRCs := objectRepresentation allocateNPinnedSlots: numIRCs * NumOopsPerIRC.
+				 theIRCs := objectRepresentation allocateNPinnedSlots: numIRCs * NumOopsPerNSC.
 				 ^theIRCs ~= 0].
 			 ^true]
 		ifFalse:

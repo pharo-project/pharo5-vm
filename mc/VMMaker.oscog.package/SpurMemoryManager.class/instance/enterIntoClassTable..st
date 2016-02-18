@@ -26,12 +26,13 @@ enterIntoClassTable: aBehavior
 		[:i|
 		(self fetchPointer: i ofObject: page) = nilObj ifTrue:
 			[classTableIndex := majorIndex << self classTableMajorIndexShift + i.
+			 "classTableIndex must never index the first page, which is reserved for classes known to the VM."
+			 self assert: classTableIndex >= (1 << self classTableMajorIndexShift).
 			 self storePointer: i
 				ofObject: page
 				withValue: aBehavior.
 			 self setHashBitsOf: aBehavior to: classTableIndex.
 			 self assert: (self classAtIndex: (self rawHashBitsOf: aBehavior)) = aBehavior.
-			 self ensureAdequateClassTableBitmap.
 			 ^0]].
 	 majorIndex := (majorIndex + 1 bitAnd: self classIndexMask) max: 1.
 	 majorIndex = initialMajorIndex ifTrue: "wrapped; table full"

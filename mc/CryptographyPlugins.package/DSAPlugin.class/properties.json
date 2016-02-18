@@ -1,0 +1,18 @@
+{
+	"category" : "CryptographyPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"dsaRemainder",
+		"dsaDivisor",
+		"dsaQuotient",
+		"remainderDigitCount",
+		"divisorDigitCount" ],
+	"name" : "DSAPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

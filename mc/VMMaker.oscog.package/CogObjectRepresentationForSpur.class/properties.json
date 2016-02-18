@@ -6,15 +6,16 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"ceSheduleScavengeTrampoline",
+		"ceScheduleScavengeTrampoline",
 		"ceSmallActiveContextInMethodTrampoline",
 		"ceSmallActiveContextInBlockTrampoline",
 		"ceLargeActiveContextInMethodTrampoline",
-		"ceLargeActiveContextInBlockTrampoline" ],
+		"ceLargeActiveContextInBlockTrampoline",
+		"ceStoreCheckContextReceiverTrampoline",
+		"ceCannotAssignToWithIndexTrampoline" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
-		"CogCompilationConstants",
-		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants" ],
+		"VMBytecodeConstants",
+		"VMSqueakClassIndices" ],
 	"super" : "CogObjectRepresentation",
 	"type" : "normal" }

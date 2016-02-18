@@ -6,9 +6,7 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32Stubs.c 2 2001-10-24 23:11:49Z rowledge $
 *
-*   NOTES:
 *****************************************************************************/
 #include "sq.h"
 
@@ -94,7 +92,7 @@ int sqMIDIPortWriteFromAt(int portNum, int count, int bufferPtr, int time) { ret
 
 #ifdef NO_ASYNC_FILES
 int asyncFileClose(AsyncFile *f) { return success(false); }
-int asyncFileOpen(AsyncFile *f, int fileNamePtr, int fileNameSize, int writeFlag, int semaIndex) { return success(false); }
+int asyncFileOpen(AsyncFile *f, long fileNamePtr, int fileNameSize, int writeFlag, int semaIndex) { return success(false); }
 int asyncFileRecordSize() { return success(false); }
 int asyncFileReadResult(AsyncFile *f, int bufferPtr, int bufferSize) { return success(false); }
 int asyncFileReadStart(AsyncFile *f, int fPosition, int count) { return success(false); }

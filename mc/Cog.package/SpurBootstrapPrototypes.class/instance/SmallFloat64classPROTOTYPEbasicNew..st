@@ -1,0 +1,3 @@
+method prototypes
+SmallFloat64classPROTOTYPEbasicNew: anInteger
+	^self basicNew

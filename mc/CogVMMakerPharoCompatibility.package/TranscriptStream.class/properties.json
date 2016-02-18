@@ -1,0 +1,14 @@
+{
+	"category" : "CogVMMakerPharoCompatibility-Fake",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "EstebanLorenzano 4/21/2015 13:55",
+	"instvars" : [
+		 ],
+	"name" : "TranscriptStream",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

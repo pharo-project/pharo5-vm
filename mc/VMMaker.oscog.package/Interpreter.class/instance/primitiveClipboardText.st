@@ -9,10 +9,10 @@ primitiveClipboardText
 			(self isBytes: s) ifFalse: [^ self primitiveFail].
 			successFlag
 				ifTrue: [sz := self stSizeOf: s.
-					self clipboardWrite: sz From: s + BaseHeaderSize At: 0.
+					self clipboardWrite: sz From: s + self baseHeaderSize At: 0.
 					self pop: 1]]
 		ifFalse: [sz := self clipboardSize.
 			(self sufficientSpaceToAllocate: sz) ifFalse:[^self primitiveFail].
 			s := self instantiateClass: (self splObj: ClassByteString) indexableSize: sz.
-			self clipboardRead: sz Into: s + BaseHeaderSize At: 0.
+			self clipboardRead: sz Into: s + self baseHeaderSize At: 0.
 			self pop: 1 thenPush: s]

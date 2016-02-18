@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 annotateBytecodeIfAnnotated: aSimStackEntry
 	<var: #aSimStackEntry type: #'CogSimStackEntry *'>
 	<inline: false>

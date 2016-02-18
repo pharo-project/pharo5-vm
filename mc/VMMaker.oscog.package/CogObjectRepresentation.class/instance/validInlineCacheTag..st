@@ -1,0 +1,3 @@
+debug support
+validInlineCacheTag: classIndexOrTagPattern
+	self subclassResponsibility

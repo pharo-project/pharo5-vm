@@ -7,4 +7,4 @@ platformPluginsDirectory
 					exist. We need to raise a suitable exception, but cant 
 					think of one right now."
 					^self couldNotFindPlatformDirectoryFor: 'any plugins needing ', self platformName].
-	^self platformDirectory / self class pluginsDirName
+	^self platformDirectory directoryNamed: self class pluginsDirName

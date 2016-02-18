@@ -7,15 +7,17 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 	<var: #jmpSample type: #'AbstractInstruction *'>
 	<var: #continuePostSample type: #'AbstractInstruction *'>
 	<var: #jmpFail type: #'AbstractInstruction *'>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
+	backEnd hasVarBaseRegister ifTrue:
+		[self MoveCq: self varBaseAddress R: VarBaseReg]. "Must happen sometime"
 
 	profiling ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick: if so.
 		  N.B. nextProfileTick is 64-bits so 32-bit systems need to test both halves."
-		BytesPerWord = 4
+		objectMemory wordSize = 4
 			ifTrue:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
-				 self MoveAw: coInterpreter nextProfileTickAddress + BytesPerWord R: ClassReg.
+				 self MoveAw: coInterpreter nextProfileTickAddress + objectMemory wordSize R: ClassReg.
 				 self OrR: TempReg R: ClassReg]
 			ifFalse:
 				[self MoveAw: coInterpreter nextProfileTickAddress R: TempReg.
@@ -48,10 +50,15 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 
 	backEnd hasLinkRegister
 		ifTrue:
-			[backEnd genLoadStackPointers.									"Switch back to Smalltalk stack."
-			 self MoveMw: 0 r: SPReg R: ReceiverResultReg.						"Fetch result from stack"
-			 self MoveAw: coInterpreter instructionPointerAddress R: LinkReg.	"Get and restore ret pc"
-			 self RetN: BytesPerWord]											"Return, popping result from stack"
+			[backEnd genLoadStackPointers.											"Switch back to Smalltalk stack."
+			 backEnd hasPCRegister
+				ifTrue:
+					[self PopR: ReceiverResultReg.										"Pop result from stack"
+					 self MoveAw: coInterpreter instructionPointerAddress R: PCReg]	"Return"
+				ifFalse:
+					[self MoveMw: 0 r: SPReg R: ReceiverResultReg.						"Fetch result from stack"
+					 self MoveAw: coInterpreter instructionPointerAddress R: LinkReg.	"Get ret pc"
+					 self RetN: objectMemory wordSize]]								"Return, popping result from stack"
 		ifFalse:
 			[self MoveAw: coInterpreter instructionPointerAddress R: ClassReg.	"Get return pc"
 			 backEnd genLoadStackPointers.									"Switch back to Smalltalk stack."
@@ -70,7 +77,7 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		arg: nil
 		arg: nil
 		arg: nil
-		resultReg: nil
+		resultReg: NoReg
 		saveRegs: false.
 
 	"On Spur ceActivateFailingPrimitiveMethod: may retry the primitive and return if successful.
@@ -89,17 +96,15 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		ifTrue:
 			[self MoveMw: 0 r: SPReg R: ReceiverResultReg]	"Fetch result from stack"
 		ifFalse:
-			[self MoveMw: BytesPerWord r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
+			[self MoveMw: objectMemory wordSize r: SPReg R: ReceiverResultReg.	"Fetch result from stack"
 			 self PushR: ClassReg].											"Restore return pc on CISCs"
-	self flag: 'currently caller pushes result'.
-	self RetN: BytesPerWord.	"return to caller, popping receiver"
+	self RetN: objectMemory wordSize.	"return to caller, popping receiver"
 
 	profiling ifTrue:
 		["Call ceCheckProfileTick: to record sample and then continue.  newMethod
 		 should be up-to-date.  Need to save and restore the link reg around this call."
 		 jmpSample jmpTarget: self Label.
-		 backEnd hasLinkRegister ifTrue: [self PushR: LinkReg].
-		 self CallRT: (self cCode: '(unsigned long)ceCheckProfileTick'
-						inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick]).
-		 backEnd hasLinkRegister ifTrue: [self PopR: LinkReg].
+		 backEnd saveAndRestoreLinkRegAround:
+			[self CallFullRT: (self cCode: '(unsigned long)ceCheckProfileTick'
+						inSmalltalk: [self simulatedTrampolineFor: #ceCheckProfileTick])].
 		 self Jump: continuePostSample]

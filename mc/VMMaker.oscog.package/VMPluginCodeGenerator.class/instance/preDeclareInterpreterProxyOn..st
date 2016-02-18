@@ -34,35 +34,15 @@ preDeclareInterpreterProxyOn: aStream
 								cr].
 						actual].
 	pluginFuncs do:
-		[:tMethod| | functionName |
-		functionName := self cFunctionNameFor: tMethod selector.
-		aStream nextPutAll:
-			((String streamContents:
-					[:s|
-					tMethod
-						static: true;
-						emitCFunctionPrototype: s generator: self])
-				copyReplaceAll: functionName
-				with: '(*', functionName, ')'
-				tokenish: [:ch| ch = $_ or: [ch isAlphaNumeric]]).
-		aStream nextPut: $;; cr].
-	aStream nextPutAll: '#else /* !defined(SQUEAK_BUILTIN_PLUGIN) */'.
-	pluginFuncs do:
 		[:tMethod|
-		self withOptionalVerbiageFor: tMethod selector
-			on: aStream
-			do: [aStream cr; nextPutAll: 'extern '.
-				tMethod static: false; export: false; emitCFunctionPrototype: aStream generator: self.
-				aStream nextPut: $;]
-			ifOptionalDo:
-				[aStream cr; nextPutAll: '# define '.
-				 (TSendNode new
-					setSelector: tMethod selector
-						receiver: (TVariableNode new setName: 'interpreterProxy')
-							arguments: (tMethod args collect: [:a| TVariableNode new setName: a]))
-					emitCCodeAsArgumentOn: aStream
-						level: 0
-							generator: self.
-				 aStream nextPutAll: ' 0']].
+		 tMethod recordDeclarationsIn: self.
+		 tMethod returnType ifNil:
+			[tMethod inferReturnTypeIn: self]].
+	
+	pluginFuncs do:
+		[:tMethod| self preDeclareStaticFunction: tMethod on: aStream].	
+	aStream cr; nextPutAll: '#else /* !defined(SQUEAK_BUILTIN_PLUGIN) */'.
+	pluginFuncs do:
+		[:tMethod| self preDeclareExternFunction: tMethod on: aStream ].
 	aStream cr; nextPutAll: 'extern'.
 	aStream cr; nextPutAll: '#endif'; cr

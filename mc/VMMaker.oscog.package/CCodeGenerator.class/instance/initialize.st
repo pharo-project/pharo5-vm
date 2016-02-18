@@ -1,4 +1,4 @@
-public
+initialize-release
 initialize
 	translationDict := Dictionary new.
 	inlineList := Array new.
@@ -17,4 +17,8 @@ initialize
 	logger := (ProvideAnswerNotification new tag: #logger; signal) ifNil: [Transcript].
 	pools := IdentitySet new.
 	selectorTranslations := IdentityDictionary new.
-	suppressAsmLabels := false
+	suppressAsmLabels := false.
+	previousCommentMarksInlining := false.
+	previousCommenter := nil.
+	breakSrcInlineSelectors := IdentitySet new.
+	breakDestInlineSelectors := IdentitySet new

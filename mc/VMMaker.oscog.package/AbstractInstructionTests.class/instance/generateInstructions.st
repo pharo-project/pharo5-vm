@@ -7,8 +7,9 @@ generateInstructions
 	pcDependentInstructions := OrderedCollection new.
 	opcodes do:
 		[:abstractInstruction|
-		abstractInstruction address: address.
-		abstractInstruction computeMaximumSize.
+		abstractInstruction
+			address: address;
+			maxSize: abstractInstruction computeMaximumSize.
 		address := address + abstractInstruction maxSize].
 	address := 0.
 	opcodes do:
@@ -26,10 +27,11 @@ generateInstructions
 	instructions := ByteArray new: address.
 	address := 0.
 	opcodes do:
-		[:abstractInstruction|
+		[:abstractInstruction| | machineCodeBytes |
 		self assert: abstractInstruction address = address.
-		0 to: abstractInstruction machineCodeSize - 1 do:
+		machineCodeBytes := self memoryAsBytes: abstractInstruction machineCode object.
+		1 to: abstractInstruction machineCodeSize do:
 			[:j|
-			instructions at: address + 1 put: (abstractInstruction machineCode at: j).
+			instructions at: address + 1 put: (machineCodeBytes at: j).
 			address := address + 1]].
 	^instructions

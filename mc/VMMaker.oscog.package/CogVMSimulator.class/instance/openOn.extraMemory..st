@@ -5,23 +5,27 @@ openOn: fileName extraMemory: extraBytes
 	| f version headerSize dataSize count oldBaseAddr bytesToShift swapBytes
 	  headerFlags firstSegSize heapSize
 	  hdrNumStackPages hdrEdenBytes hdrMaxExtSemTabSize
-	  hdrCogCodeSize stackZoneSize methodCacheSize primTraceLogSize |
+	  hdrCogCodeSize stackZoneSize methodCacheSize primTraceLogSize allocationReserve |
 	"open image file and read the header"
 
 	f := FileStream readOnlyFileNamed: fileName.
 	f ifNil: [^self error: 'no image found'].
 
+	"Set the image name and the first argument; there are
+	 no arguments during simulation unless set explicitly."
+	systemAttributes at: 1 put: fileName; at: 2 put: nil.
+
 	["begin ensure block..."
 	imageName := f fullName.
 	f binary.
 
-	version := self nextLongFrom: f.  "current version: 16r1968 (=6504) vive la revolucion!"
+	version := self getWord32FromFile: f swap: false.  "current version: 16r1968 (=6504) vive la revolucion!"
 	(self readableFormat: version)
 		ifTrue: [swapBytes := false]
 		ifFalse: [(version := objectMemory byteSwapped: version) = self imageFormatVersion
 					ifTrue: [swapBytes := true]
 					ifFalse: [self error: 'incomaptible image format']].
-	headerSize := self getLongFromFile: f swap: swapBytes.
+	headerSize := self getWord32FromFile: f swap: swapBytes.
 	dataSize := self getLongFromFile: f swap: swapBytes.  "length of heap in file"
 	oldBaseAddr := self getLongFromFile: f swap: swapBytes.  "object memory base address of image"
 	objectMemory specialObjectsOop: (self getLongFromFile: f swap: swapBytes).
@@ -30,7 +34,7 @@ openOn: fileName extraMemory: extraBytes
 	savedWindowSize	:= self getLongFromFile: f swap: swapBytes.
 	headerFlags		:= self getLongFromFile: f swap: swapBytes.
 	self setImageHeaderFlagsFrom: headerFlags.
-	extraVMMemory	:= self getLongFromFile: f swap: swapBytes.
+	extraVMMemory	:= self getWord32FromFile: f swap: swapBytes.
 	hdrNumStackPages	:= self getShortFromFile: f swap: swapBytes.
 	"4 stack pages is small.  Should be able to run with as few as
 	 three. 4 should be comfortable but slow.  8 is a reasonable
@@ -48,11 +52,11 @@ openOn: fileName extraMemory: extraBytes
 						ifTrue: [desiredCogCodeSize]
 						ifFalse:
 							[hdrCogCodeSize = 0
-									ifTrue: [self defaultCogCodeSize]
+									ifTrue: [cogit defaultCogCodeSize]
 									ifFalse: [hdrCogCodeSize]].
 	desiredCogCodeSize := hdrCogCodeSize.
-	self assert: f position = 40.
-	hdrEdenBytes	:= self getLongFromFile: f swap: swapBytes.
+	self assert: f position = (objectMemory wordSize = 4 ifTrue: [40] ifFalse: [64]).
+	hdrEdenBytes	:= self getWord32FromFile: f swap: swapBytes.
 	objectMemory edenBytes: (desiredEdenBytes ~= 0
 						ifTrue: [desiredEdenBytes]
 						ifFalse:
@@ -66,13 +70,13 @@ openOn: fileName extraMemory: extraBytes
 	"pad to word boundary.  This slot can be used for anything else that will fit in 16 bits.
 	 Preserve it to be polite to other VMs."
 	the2ndUnknownShort	:= self getShortFromFile: f swap: swapBytes.
-	self assert: f position = 48.
+	self assert: f position = (objectMemory wordSize = 4 ifTrue: [48] ifFalse: [72]).
 	firstSegSize := self getLongFromFile: f swap: swapBytes.
 	objectMemory firstSegmentSize: firstSegSize.
 	"For Open PICs to be able to probe the method cache during
 	 simulation the methodCache must be relocated to memory."
-	methodCacheSize := methodCache size * BytesPerWord.
-	primTraceLogSize := primTraceLog size * BytesPerWord.
+	methodCacheSize := methodCache size * objectMemory wordSize.
+	primTraceLogSize := primTraceLog size * objectMemory wordSize.
 	"allocate interpreter memory. This list is in address order, low to high.
 	 In the actual VM the stack zone exists on the C stack."
 	heapBase := (Cogit guardPageSize
@@ -81,13 +85,29 @@ openOn: fileName extraMemory: extraBytes
 				+ methodCacheSize
 				+ primTraceLogSize
 				+ self rumpCStackSize) roundUpTo: objectMemory allocationUnit.
-	heapSize := dataSize
-				+ extraBytes
-				+ objectMemory newSpaceBytes
-				+ self interpreterAllocationReserveBytes
-				+ (objectMemory hasSpurMemoryManagerAPI
-					ifTrue: [headerSize]
-					ifFalse: [0]).
+	"compare memory requirements with availability"
+	allocationReserve := self interpreterAllocationReserveBytes.
+	objectMemory hasSpurMemoryManagerAPI
+		ifTrue:
+			[| freeOldSpaceInImage headroom |
+			 freeOldSpaceInImage := self getLongFromFile: f swap: swapBytes.
+			 headroom := objectMemory
+							initialHeadroom: extraVMMemory
+							givenFreeOldSpaceInImage: freeOldSpaceInImage.
+			 heapSize := objectMemory roundUpHeapSize:
+						   dataSize
+						+ headroom
+						+ objectMemory newSpaceBytes
+						+ (headroom > allocationReserve
+							ifTrue: [0]
+							ifFalse: [allocationReserve])]
+		ifFalse:
+			[heapSize :=  dataSize
+						+ extraBytes
+						+ objectMemory newSpaceBytes
+						+ (extraBytes > allocationReserve
+							ifTrue: [0]
+							ifFalse: [allocationReserve])].
 	heapBase := objectMemory
 					setHeapBase: heapBase
 					memoryLimit:  heapBase + heapSize

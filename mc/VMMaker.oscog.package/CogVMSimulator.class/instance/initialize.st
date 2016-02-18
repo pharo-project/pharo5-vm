@@ -19,17 +19,15 @@ initialize
 	cogThreadManager ifNotNil:
 		[super initialize].
 
-	"Note: we must initialize ConstMinusOne & HasBeenReturnedFromMCPC differently
-	 for simulation, due to the fact that the simulator works only with +ve 32-bit values"
-	ConstMinusOne := objectMemory integerObjectOf: -1.
-	HasBeenReturnedFromMCPC := objectMemory integerObjectOf: -1.
+	self assert: ConstMinusOne = (objectMemory integerObjectOf: -1).
+
 	cogMethodZone := cogit methodZone. "Because Slang can't remove intermediate implicit receivers (cogit methodZone foo doesn't reduce to foo())"
 	enableCog := true.
 
 	methodCache := Array new: MethodCacheSize.
-	atCache := Array new: AtCacheTotalSize.
+	nsMethodCache := Array new: NSMethodCacheSize.
+	atCache := nil.
 	self flushMethodCache.
-	self flushAtCache.
 	cogCompiledCodeCompactionCalledFor := false.
 	gcSemaphoreIndex := 0.
 	externalSemaphoreSignalRequests := externalSemaphoreSignalResponses := #().
@@ -47,18 +45,19 @@ initialize
 	desiredNumStackPages := desiredEdenBytes := desiredCogCodeSize := 0.
 	"This is initialized on loading the image, but convenient for testing stack page values..."
 	numStackPages := self defaultNumStackPages. 
-	startMicroseconds := Time totalSeconds * 1000000.
+	startMicroseconds := self ioUTCStartMicroseconds.
 	maxLiteralCountForCompile := MaxLiteralCountForCompile.
 	minBackwardJumpCountForCompile := MinBackwardJumpCountForCompile.
 	flagInterpretedMethods := false.
 
 	"initialize InterpreterSimulator variables used for debugging"
-	byteCount := lastPollCount := sendCount := 0.
+	byteCount := lastPollCount := sendCount := lookupCount := 0.
 	quitBlock := [^ self].
 	traceOn := true.
 	printSends := printFrameAtEachStep := printBytecodeAtEachStep := false.
 	myBitBlt := BitBltSimulator new setInterpreter: self.
-	displayForm := 'Display has not yet been installed' asDisplayText form.
+	displayForm := fakeForm := 'Display has not yet been installed' asDisplayText form.
+	eventQueue := SharedQueue new.
 	suppressHeartbeatFlag := deferSmash := deferredSmash := false.
 	systemAttributes := Dictionary new.
 	primTraceLog := CArrayAccessor on: (Array new: 256 withAll: 0).

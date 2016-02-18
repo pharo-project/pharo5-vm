@@ -5,7 +5,9 @@ genCallPICEnilopmartNumArgs: numArgs
 	 register args in the abort/miss trampolines."
 	<returnTypeC: 'void (*genCallPICEnilopmartNumArgs(sqInt numArgs))(void)'>
 	| size endAddress enilopmart |
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
+	backEnd hasVarBaseRegister ifTrue:
+		[self MoveCq: self varBaseAddress R: VarBaseReg]. "Must happen first; value may be used in genLoadStackPointers"
 	backEnd genLoadStackPointers.
 	self PopR: ClassReg. "cacheTag"
 	self PopR: TempReg. "entry-point"
@@ -24,6 +26,6 @@ genCallPICEnilopmartNumArgs: numArgs
 	self assert: methodZoneBase + size = endAddress.
 	enilopmart := methodZoneBase.
 	methodZoneBase := self alignUptoRoutineBoundary: endAddress.
-	backEnd nopsFrom: endAddress to: methodZoneBase - 1.
-	self recordGeneratedRunTime: (self trampolineName: 'ceCallPIC' numArgs: numArgs) address: enilopmart.
+	backEnd stopsFrom: endAddress to: methodZoneBase - 1.
+	self recordGeneratedRunTime: (self trampolineName: 'ceCallPIC' numRegArgs: numArgs) address: enilopmart.
 	^self cCoerceSimple: enilopmart to: #'void (*)(void)'

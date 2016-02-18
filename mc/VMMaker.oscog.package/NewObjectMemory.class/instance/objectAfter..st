@@ -6,7 +6,6 @@ objectAfter: oop
 	| sz |
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	(self asserta: (self oop: oop isLessThan: freeStart)) ifFalse:
 		[self error: 'no objects after the end of memory'].
 	(self isFreeObject: oop)

@@ -2,7 +2,7 @@ message sending
 activateNewMethod
 	| methodHeader numArgs numTemps rcvr errorCode inInterpreter switched |
 
-	methodHeader := self headerOf: newMethod.
+	methodHeader := objectMemory methodHeaderOf: newMethod.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
 	numArgs := self argumentCountOfMethodHeader: methodHeader.
 

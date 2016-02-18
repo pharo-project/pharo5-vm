@@ -4,7 +4,7 @@ compileFrameBuild
 	 Override to push the register receiver and register arguments, if any."
 	needsFrame ifFalse:
 		[self initSimStackForFramelessMethod: initialPC.
-		 ^0].
+		 ^self].
 	self genPushRegisterArgs.
 	super compileFrameBuild.
 	self initSimStackForFramefulMethod: initialPC

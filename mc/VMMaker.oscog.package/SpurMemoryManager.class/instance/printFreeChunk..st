@@ -1,4 +1,4 @@
 debug printing
 printFreeChunk: freeChunk
 	<api>
-	self printFreeChunk: freeChunk isNextChunk: false
+	self printFreeChunk: freeChunk printAsTreeNode: true

@@ -1,20 +1,23 @@
 in-line cacheing
 unlinkIfLinkedSend: annotation pc: mcpc ignored: superfluity
 	<var: #mcpc type: #'char *'>
+	<var: #nsSendCache type: #'NSSendCache *'>
 	| entryPoint |
-	(self isSendAnnotation: annotation) ifTrue:
+
+	self cppIf: NewspeakVM ifTrue:
+		[| nsSendCache |
+		 annotation = IsNSSendCall ifTrue:
+			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.
+			nsSendCache classTag ~= objectRepresentation illegalClassTag ifTrue: "Send is linked"
+				[self voidNSSendCache: nsSendCache].
+			^0 "keep scanning"]].
+
+	(self isPureSendAnnotation: annotation) ifTrue:
 		[entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		 entryPoint > methodZoneBase
 			ifTrue: "It's a linked send."
-				[self targetMethodAndSendTableFor: entryPoint into:
-					[:targetMethod :sendTable| | unlinkedRoutine |
-					 unlinkedRoutine := sendTable at: (targetMethod cmNumArgs min: NumSendTrampolines - 1).
-					 backEnd
-						rewriteInlineCacheAt: mcpc asInteger
-						tag: targetMethod selector
-						target: unlinkedRoutine]]
-			ifFalse:
-				[self cppIf: NewspeakVM ifTrue:
-					[entryPoint = ceImplicitReceiverTrampoline ifTrue:
-						[self voidImplicitReceiverCacheAt: mcpc]]]].
+				[self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
+					[:targetMethod :sendTable| 
+					 self unlinkSendAt: mcpc targetMethod: targetMethod sendTable: sendTable]]].
+
 	^0 "keep scanning"

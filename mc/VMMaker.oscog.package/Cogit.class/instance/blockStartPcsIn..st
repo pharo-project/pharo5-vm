@@ -6,7 +6,7 @@ blockStartPcsIn: aMethod
 	<doNotGenerate>
 	startpcs := OrderedCollection new.
 	startpcs add: (pc := latestContinuation := coInterpreter startPCOfMethod: aMethod).
-	end := objectMemory byteLengthOf: aMethod.
+	end := objectMemory numBytesOf: aMethod.
 	bsOffset := self bytecodeSetOffsetFor: aMethod.
 	nExts := 0.
 	[pc <= end] whileTrue:

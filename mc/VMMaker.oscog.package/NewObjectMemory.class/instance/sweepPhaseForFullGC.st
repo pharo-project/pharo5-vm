@@ -10,7 +10,7 @@ sweepPhaseForFullGC
 	<inline: false>
 	<var: #oop type: #usqInt>
 	<var: #endOfMemoryLocal type: #usqInt>
-	self fwdTableInit: BytesPerWord*2.
+	self fwdTableInit: self wordSize*2.
 	survivors := 0.
 	freeChunk := nil.
 	firstFree := nil.
@@ -57,6 +57,7 @@ sweepPhaseForFullGC
 		ifTrue: ["record size of final free chunk"
 			self longAt: freeChunk put: ((freeChunkSize bitAnd: LongSizeMask) bitOr: HeaderTypeFree)].
 	oop = endOfMemory
+		ifTrue: [freeStart := endOfMemory]
 		ifFalse: [self error: 'sweep failed to find exact end of memory'].
 	firstFree = nil
 		ifTrue: [self error: 'expected to find at least one free object']

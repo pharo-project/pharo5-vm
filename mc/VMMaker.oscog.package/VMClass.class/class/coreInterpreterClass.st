@@ -1,4 +1,4 @@
-translation
+accessing class hierarchy
 coreInterpreterClass
 	"While the interpreterClass/vmClass for translation may be
 	 a subclass that holds a few primitives we want the actual

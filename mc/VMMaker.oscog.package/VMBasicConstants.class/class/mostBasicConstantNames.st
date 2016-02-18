@@ -1,3 +1,4 @@
-accessing
+C translation
 mostBasicConstantNames
-	^#(BaseHeaderSize BytesPerWord BytesPerOop)
+	"c.f. mostBasicConstantSelectors"
+	^#(BaseHeaderSize BytesPerWord BytesPerOop ShiftForWord BytesPerWord)

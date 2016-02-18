@@ -9,7 +9,7 @@ setter: getter bitPosition: bitPosition bitWidth: bitWidth type: typeOrNil
 		accessor := 'unsigned'
 					, (#('Byte' 'Short' 'Long' 'Long')
 							at: endByte - startByte + 1
-							ifAbsent: ['LongLong'])
+							ifAbsent: ['Long64'])
 					, 'At: address + '.
 		(self offsetForInstVar: getter) ifNotNil:
 			[:offsetExpr| accessor := accessor, offsetExpr, ' + '].

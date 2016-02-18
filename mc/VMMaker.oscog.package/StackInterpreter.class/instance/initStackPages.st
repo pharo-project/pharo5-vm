@@ -11,5 +11,5 @@ initStackPages
 	self cCode: [self me: theStackMemory ms: 0 et: stackPagesBytes].
 	stackPages
 		initializeStack: theStackMemory
-		numSlots: stackPagesBytes / BytesPerWord
-		pageSize: stackPageBytes / BytesPerWord
+		numSlots: stackPagesBytes / objectMemory wordSize
+		pageSize: stackPageBytes / objectMemory wordSize

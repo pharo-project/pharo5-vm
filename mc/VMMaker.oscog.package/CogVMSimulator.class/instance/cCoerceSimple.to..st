@@ -9,4 +9,5 @@ cCoerceSimple: value to: cTypeString
 		[#'void (*)()']			->	[value].
 		[#'void (*)(void)']		->	[value].
 		[#'CogMethod *']		->	[cogit cogMethodSurrogateAt: value asUnsignedInteger].
-		[#'CogBlockMethod *']	->	[cogit cogBlockMethodSurrogateAt: value asUnsignedInteger] }
+		[#'CogBlockMethod *']	->	[cogit cogBlockMethodSurrogateAt: value asUnsignedInteger].
+		[#'NSSendCache *']		->	[cogit nsSendCacheSurrogateAt: value asUnsignedInteger]. }

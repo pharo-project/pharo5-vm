@@ -19,11 +19,11 @@ primitiveAioHandle
 	readWatch := interpreterProxy stackObjectValue: 1.
 	writeWatch := interpreterProxy stackObjectValue: 0.
 	flags := 0.
-	(exceptionWatch == interpreterProxy trueObject)
+	(exceptionWatch = interpreterProxy trueObject)
 		ifTrue: [flags := flags bitOr: (self cCode: 'AIO_X' inSmalltalk: [1])].
-	(readWatch == interpreterProxy trueObject)
+	(readWatch = interpreterProxy trueObject)
 		ifTrue: [flags := flags bitOr: (self cCode: 'AIO_R' inSmalltalk: [2])].
-	(writeWatch == interpreterProxy trueObject)
+	(writeWatch = interpreterProxy trueObject)
 		ifTrue: [flags := flags bitOr: (self cCode: 'AIO_W' inSmalltalk: [4])].
-	self cCode: 'aioHandle(fd, aioForwardwithDataandFlags, flags)'.
+	self aio: fd Han: #aioForward:withData:andFlags: dle: flags.
 	interpreterProxy pop: 5; pushInteger: flags

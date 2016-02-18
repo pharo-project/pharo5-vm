@@ -1,22 +1,23 @@
 primitives-error code
 primitiveErrorString
 	| str ftError |
+	
+	<var: #str type: 'const char *'>
+	<var: #ftError declareC: 'FT2Error *ftError'>
+	
 	self primitive: 'primitiveErrorString' parameters: #().
-	self var: #str type: 'const char *'.
+	
 	"This magic is so that we get a static lookup table defined.
 	See fterrors.h."
 
 	self cCode: '
-struct ftError { int errCode; const char* errMsg; };
 #undef __FTERRORS_H__
 #define FT_ERRORDEF( e, v, s )  { e, s },
 #define FT_ERROR_START_LIST     {
 #define FT_ERROR_END_LIST       { 0xFF, "Bad Squeak Method Parameter" }, { 0, NULL } };
-static const struct ftError ftErrors[] =
+static const FT2Error ftErrors[] =
 #include FT_ERRORS_H
 '.
-	self var: #ftError type: 'const struct ftError *'.
-
 	ftError := self cCode: 'ftErrors'.
 	self touch: ftError.
 

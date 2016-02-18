@@ -1,3 +1,0 @@
-primitive generators
-genInnerPrimitiveIdentityHash: retNoffset
-	self subclassResponsibility

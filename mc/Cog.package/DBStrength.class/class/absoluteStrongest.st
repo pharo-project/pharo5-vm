@@ -1,4 +1,0 @@
-constants
-absoluteStrongest
-
-	^AbsoluteStrongest

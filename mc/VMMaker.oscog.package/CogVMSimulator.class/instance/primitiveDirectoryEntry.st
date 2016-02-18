@@ -1,28 +1,29 @@
 file primitives
 primitiveDirectoryEntry
-	| name pathName array result |
+	| name pathName arrayNilOrSymbol result |
 	name := self stringOf: self stackTop.
 	pathName := self stringOf: (self stackValue: 1).
 	
 	self successful ifFalse:
 		[^self primitiveFail].
 
-	array := FileSystem workingDirectory primLookupEntryIn: pathName name: name.
-	array == nil ifTrue:
+	arrayNilOrSymbol := FileDirectory default primLookupEntryIn: pathName name: name.
+	arrayNilOrSymbol ifNil:
 		[self pop: 3 thenPush: objectMemory nilObject.
-		^array].
-	array == #badDirectoryPath ifTrue:
-		[self halt.
-		^self primitiveFail].
+		 ^self].
+	arrayNilOrSymbol isArray ifFalse:
+		[arrayNilOrSymbol ~~ #primFailed ifTrue:
+			[self halt].
+		 ^self primitiveFail].
 
-	result := self makeDirEntryName: (array at: 1) 
-		size: (array at: 1) size
-		createDate: (array at: 2) 
-		modDate: (array at: 3)
-		isDir: (array at: 4)  
-		fileSize: (array at: 5)
-		posixPermissions: (array at: 6)
-		isSymlink: (array at: 7).
-	
-	self pop: 3.
-	self push: result
+	result := PharoVM 
+		ifTrue:
+			[self makeDirEntryName: (arrayNilOrSymbol at: 1) size: (arrayNilOrSymbol at: 1) size
+				createDate: (arrayNilOrSymbol at: 2) modDate: (arrayNilOrSymbol at: 3)
+				isDir: (arrayNilOrSymbol at: 4) fileSize: (arrayNilOrSymbol at: 5)
+				posixPermissions: (arrayNilOrSymbol at: 6) isSymlink: (arrayNilOrSymbol at: 7) ]
+		ifFalse:
+			[self makeDirEntryName: (arrayNilOrSymbol at: 1) size: (arrayNilOrSymbol at: 1) size
+				createDate: (arrayNilOrSymbol at: 2) modDate: (arrayNilOrSymbol at: 3)
+				isDir: (arrayNilOrSymbol at: 4) fileSize: (arrayNilOrSymbol at: 5) ].
+	self pop: 3 thenPush: result

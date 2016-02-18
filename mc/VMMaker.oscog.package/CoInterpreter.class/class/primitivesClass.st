@@ -1,3 +1,3 @@
-translation
+accessing class hierarchy
 primitivesClass
 	^CoInterpreterPrimitives

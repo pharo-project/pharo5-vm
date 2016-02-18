@@ -4,12 +4,13 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "BenjaminVanRyseghem 9/27/2011 14:04",
+	"commentStamp" : "",
 	"instvars" : [
 		"processor",
 		"opcodes" ],
 	"name" : "AbstractInstructionTests",
 	"pools" : [
+		"CogAbstractRegisters",
 		"CogRTLOpcodes" ],
 	"super" : "TestCase",
 	"type" : "normal" }

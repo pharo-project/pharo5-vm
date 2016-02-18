@@ -24,23 +24,23 @@ eeInstantiateClass: classPointer indexableSize: size
 		"size in bytes -- low 2 bits are 0"
 	"Note this byteSize comes from the format word of the class which is pre-shifted
 		to 4 bytes per field.  Need another shift for 8 bytes per word..."
-	byteSize := byteSize << (ShiftForWord-2).
+	byteSize := byteSize << (self shiftForWord-2).
 	format := self formatOfHeader: classFormat.
 	self flag: #sizeLowBits.
 	format < self firstByteFormat
 		ifTrue:
 			[format = self firstLongFormat
 				ifTrue: "long32 bitmaps"
-					[bm1 := BytesPerWord-1.
+					[bm1 := self wordSize-1.
 					byteSize := byteSize + (size * 4) + bm1 bitAnd: LongSizeMask. "round up"
 					binc := bm1 - ((size * 4) + bm1 bitAnd: bm1). "odd bytes"
 					"extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"
 					header1 := header1 bitOr: (binc bitAnd: 4)]
 				ifFalse: "Arrays and 64-bit bitmaps"
-					[byteSize := byteSize + (size * BytesPerWord)]]
+					[byteSize := byteSize + (size * self wordSize)]]
 		ifFalse:
 			["Strings and Methods"
-			bm1 := BytesPerWord-1.
+			bm1 := self wordSize-1.
 			byteSize := byteSize + size + bm1 bitAnd: LongSizeMask. "round up"
 			binc := bm1 - (size + bm1 bitAnd: bm1). "odd bytes"
 			"low bits of byte size go in format field"

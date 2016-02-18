@@ -22,10 +22,5 @@ table: anArray from: specArray
 	anArray doWithIndex:
 		[:entry :index|
 		entry isSymbol ifTrue:
-			[(self whichClassIncludesSelector: entry) ifNotNil:
-				[:c| | m |
-				m := c >> entry.
-				(m pragmaAt: #option:) ifNotNil:
-					[:pragma|
-					(initializationOptions at: (pragma arguments first) ifAbsent: [true]) ifFalse:
-						[anArray at: index put: 0]]]]]
+			[(self shouldIncludeMethodForSelector: entry) ifFalse:
+				[anArray at: index put: 0]]]

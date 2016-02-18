@@ -7,6 +7,6 @@ postCallArgumentsNumArgs: numArgs "<Integer>" in: memory "<ByteArray|Bitmap>"
 	 For compatibility with Cog/Slang we answer unsigned values."
 	^(1 to: numArgs) collect: [:i |
 		i < 5 
-			ifTrue: [self perform: (self registerStateNames at: i)]
+			ifTrue: [self perform: (self registerStateGetters at: i)]
 			"ARM uses a full descending stack. Directly after calling a procedure, nothing but the arguments are pushed."
 			ifFalse: [memory unsignedLongAt: self sp + (i-5)*4 bigEndian: false]].

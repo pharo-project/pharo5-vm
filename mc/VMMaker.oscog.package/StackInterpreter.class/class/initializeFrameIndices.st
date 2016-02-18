@@ -32,8 +32,8 @@ initializeFrameIndices
 	fxSavedFP := 0.
 	fxMethod := -1.
 	fxFrameFlags := -2.	"Can find numArgs, needed for fast temp access. args are above fxCallerSavedIP.
-							 Can find ``is block'' bit
-							 Can find ``has context'' bit"
+						 Can find ``is block'' bit
+						 Can find ``has context'' bit"
 	fxThisContext := -3.
 	fxReceiver := -4.
 
@@ -46,4 +46,13 @@ initializeFrameIndices
 	FoxMethod := fxMethod * BytesPerWord.
 	FoxFrameFlags := fxFrameFlags * BytesPerWord.
 	FoxThisContext := fxThisContext * BytesPerWord.
-	FoxReceiver := fxReceiver * BytesPerWord
+	FoxReceiver := fxReceiver * BytesPerWord.
+
+	"Mark the CoInterpreter-specific offsets as #undefined to
+	 avoid including them accidentally in StackInterpreter code."
+	IFrameSlots := #undefined.
+	MFrameSlots := #undefined.
+	FoxIFrameFlags := #undefined.
+	FoxIFSavedIP := #undefined.
+	FoxIFReceiver := #undefined.
+	FoxMFReceiver := #undefined

@@ -7,8 +7,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	"Implementation: Uses lazy forwarding to defer updating references until message send."
 	| ec |
 	self assert: becomeEffectsFlags = 0.
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self runLeakCheckerFor: GCModeBecome.
 	(self isArray: array1) ifFalse:
 		[^PrimErrBadReceiver].
 	((self isArray: array2)
@@ -20,7 +19,9 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 		ifFalse:
 			[self followForwardedObjectFields: array2 toDepth: 0.
 			ec := self containsOnlyValidBecomeObjects: array1].
-	ec ~= 0 ifTrue: [^ec].
+	ec ~= 0 ifTrue:
+		[becomeEffectsFlags := 0.
+		 ^ec].
 
 	coInterpreter preBecomeAction.
 	twoWayFlag
@@ -29,11 +30,14 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 		ifFalse:
 			[self innerBecomeObjectsIn: array1 to: array2 copyHash: copyHashFlag].
 	self followSpecialObjectsOop.
-	self postBecomeOrCompactScanClassTable: becomeEffectsFlags.
+	"N.B. perform coInterpreter's postBecomeAction: *before* postBecomeScanClassTable:
+	 to allow the coInterpreter to void method cache entries by spotting classIndices that
+	 refer to forwarded objects. postBecomeScanClassTable: follows forwarders in the table."
 	coInterpreter postBecomeAction: becomeEffectsFlags.
+	self postBecomeScanClassTable: becomeEffectsFlags.
 	becomeEffectsFlags := 0.
 
-	self leakCheckBecome ifTrue:
-		[self runLeakCheckerForFullGC: true].
+	self assert: self validClassTableHashes.
+	self runLeakCheckerFor: GCModeBecome.
 
 	^PrimNoErr "success"

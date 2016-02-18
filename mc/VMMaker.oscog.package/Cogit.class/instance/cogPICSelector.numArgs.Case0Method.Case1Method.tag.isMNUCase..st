@@ -8,39 +8,32 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		- a CompiledMethod; link to ceMNUFromPICMNUMethod:receiver:"
 	<var: #case0CogMethod type: #'CogMethod *'>
 	<returnTypeC: #'CogMethod *'>
-	| startAddress headerSize size end |
+	| startAddress |
 	(objectMemory isYoung: selector) ifTrue:
 		[^self cCoerceSimple: YoungSelectorInPIC to: #'CogMethod *'].
 	coInterpreter
 		compilationBreak: selector
-		point: (objectMemory lengthOf: selector).
+		point: (objectMemory numBytesOf: selector)
+		isMNUCase: isMNUCase.
+	
+	"get memory in the code zone for the CPIC; if that fails we return an error code for the sender to use to work out how to blow up"
 	startAddress := methodZone allocate: closedPICSize.
 	startAddress = 0 ifTrue:
 		[^self cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
-	methodLabel
-		address: startAddress;
-		dependent: nil.
-	"stack allocate the various collections so that they
-	 are effectively garbage collected on return."
-	self allocateOpcodes: numPICCases * 7 bytecodes: 0.
-	self compileCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
+
+	"memcpy the prototype across to our allocated space; because anything else would be silly"
+	objectMemory mem: startAddress cp: cPICPrototype y: closedPICSize.
+	
+	self configureCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		Case0: case0CogMethod
 		Case1Method: case1MethodOrNil
 		tag: case1Tag
 		isMNUCase: isMNUCase
-		numArgs: numArgs.
-	self computeMaximumSizes.
-	headerSize := self sizeof: CogMethod.
-	size := self generateInstructionsAt: startAddress + headerSize.
-	end := self outputInstructionsAt: startAddress + headerSize.
-	"The missOffset is th same as the interpretOffset."
-	self assert: missOffset = (interpretCall address + interpretCall machineCodeSize - startAddress).
-	self assert: startAddress + cmEntryOffset = entry address.
-	self assert: endCPICCase0 address = (startAddress + firstCPICCaseOffset).
-	self assert: endCPICCase1 address = (startAddress + firstCPICCaseOffset + cPICCaseSize).
+		numArgs: numArgs
+		delta: startAddress - cPICPrototype .
+
 	^self
 		fillInCPICHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
-		size: closedPICSize
 		numArgs: numArgs
 		numCases: 2
 		hasMNUCase: isMNUCase

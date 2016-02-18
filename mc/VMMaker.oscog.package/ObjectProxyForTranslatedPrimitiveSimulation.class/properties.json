@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 3/11/2015 19:58",
+	"instvars" : [
+		"interpreter",
+		"oop",
+		"unitSize" ],
+	"name" : "ObjectProxyForTranslatedPrimitiveSimulation",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

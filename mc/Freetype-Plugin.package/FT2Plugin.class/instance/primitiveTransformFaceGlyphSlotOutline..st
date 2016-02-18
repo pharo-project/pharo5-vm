@@ -1,10 +1,11 @@
 primitives-FT2Face
 primitiveTransformFaceGlyphSlotOutline: matrixWordArray
-
 	| face matrix rcvr matrixsqIntPtr |
-	self var: #face declareC: 'FT_Face face'.
-	self var: #matrix declareC: 'FT_Matrix matrix'.
-	self var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	<var: #matrix declareC: 'FT_Matrix matrix = {0}'>
+	<var: #matrixsqIntPtr declareC: 'sqInt *matrixsqIntPtr'>
+	
 	rcvr := self 
 				primitive: 'primitiveTransformFaceGlyphSlotOutline'
 				parameters: #(Oop)

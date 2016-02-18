@@ -30,11 +30,11 @@ changeClassOf: rcvr to: argClass
 	Note: argClassInstByteSize-4 because base header is included in class size."
 	argFormat < self arrayFormat
 		ifTrue:
-			[(argClassInstByteSize - BaseHeaderSize) ~= (self byteLengthOf: rcvr) ifTrue:
+			[(argClassInstByteSize - self baseHeaderSize) ~= (self numBytesOf: rcvr) ifTrue:
 				[^PrimErrBadReceiver]]
 		ifFalse:
 			[argFormat = self indexablePointersFormat ifTrue: "For indexable plus fixed fields the receiver must be at least big enough."
-				[(argClassInstByteSize - BaseHeaderSize) > (self byteLengthOf: rcvr) ifTrue:
+				[(argClassInstByteSize - self baseHeaderSize) > (self numBytesOf: rcvr) ifTrue:
 					[^PrimErrBadReceiver]]].
 
 	(self headerTypeOfHeader: rcvrHdr) = HeaderTypeShort
@@ -55,7 +55,7 @@ changeClassOf: rcvr to: argClass
 			 state.  So it is alas an invariant that non-compact headers have a 0 compact class field."
 			(self compactClassIndexOfHeader: rcvrHdr) ~= 0 ifTrue:
 				[self baseHeader: rcvr put: (rcvrHdr bitClear: CompactClassMask)].			
-			self longAt: rcvr - BaseHeaderSize put: (argClass bitOr: (self headerTypeOfHeader: rcvrHdr)).
+			self longAt: rcvr - self baseHeaderSize put: (argClass bitOr: (self headerTypeOfHeader: rcvrHdr)).
 			(self oop: rcvr isLessThan: youngStart) ifTrue:
 				[self possibleRootStoreInto: rcvr value: argClass]].
 	"ok"

@@ -6,5 +6,5 @@ genPushRegisterArgs
 	 single machine-code frame format which saves us a lot of work."
 	(regArgsHaveBeenPushed
 	 or: [methodOrBlockNumArgs > self numRegArgs]) ifFalse:
-		[backEnd genPushRegisterArgsForNumArgs: methodOrBlockNumArgs.
+		[backEnd genPushRegisterArgsForNumArgs: methodOrBlockNumArgs scratchReg: SendNumArgsReg.
 		regArgsHaveBeenPushed := true]

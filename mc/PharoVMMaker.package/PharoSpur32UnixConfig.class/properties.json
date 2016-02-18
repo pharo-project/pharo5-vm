@@ -1,0 +1,16 @@
+{
+	"category" : "PharoVMMaker-Unix",
+	"classinstvars" : [
+		 ],
+	"classtraitcomposition" : "TPharoUnixConfig classTrait",
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PharoSpur32UnixConfig",
+	"pools" : [
+		 ],
+	"super" : "CogUnixConfig",
+	"traitcomposition" : "TPharoUnixConfig - {#externalPlugins. #internalPlugins}",
+	"type" : "normal" }

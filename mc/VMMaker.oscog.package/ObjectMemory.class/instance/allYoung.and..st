@@ -9,11 +9,11 @@ allYoung: array1 and: array2
 		ifTrue: [^ false].
 	fieldOffset := self lastPointerOf: array1.
 	"same size as array2"
-	[fieldOffset >= BaseHeaderSize] whileTrue:
+	[fieldOffset >= self baseHeaderSize] whileTrue:
 		[(self oop: (self longAt: array1 + fieldOffset) isLessThan: youngStart)
 			ifTrue: [^ false].
 		((self oop: (self longAt: array2 + fieldOffset) isLessThan: youngStart)
 		 and: [self isNonIntegerObject: (self longAt: array2 + fieldOffset)])
 			ifTrue: [^ false].
-		fieldOffset := fieldOffset - BytesPerWord].
+		fieldOffset := fieldOffset - self wordSize].
 	^ true

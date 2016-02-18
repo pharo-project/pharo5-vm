@@ -4,7 +4,8 @@
 		"timeStamp",
 		"initializationOptions" ],
 	"classvars" : [
-		"DefaultBase" ],
+		"DefaultBase",
+		"ExpensiveAsserts" ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		 ],

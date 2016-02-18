@@ -8,8 +8,6 @@ outputInstructionsAt: startAddress
 		[:i| | abstractInstruction |
 		abstractInstruction := self abstractInstructionAt: i.
 		self assert: abstractInstruction address = absoluteAddress.
-		0 to: abstractInstruction machineCodeSize - 1 do:
-			[:j|
-			objectMemory byteAt: absoluteAddress put: (abstractInstruction machineCode at: j).
-			absoluteAddress := absoluteAddress + 1]].
+		abstractInstruction outputMachineCodeAt: absoluteAddress.
+		absoluteAddress := absoluteAddress + abstractInstruction machineCodeSize].
 	^absoluteAddress

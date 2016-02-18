@@ -63,7 +63,7 @@
 #undef HAVE_OPENGL_GL_H		/* don't include Quartz OpenGL if configured */
 #include "SqDisplay.h"
 
-#if defined(USE_FAST_BLT)
+#if defined(ENABLE_FAST_BLT)
   /* XXX referring to plugin variables *requires* BitBitPlugin to be included by VMM as an internal plugin */
 # if defined(__arm__)
 #   include "../../../Cross/plugins/BitBltPlugin/BitBltArm.h"
@@ -122,7 +122,7 @@
 #include <X11/Xatom.h>
 #define XK_MISCELLANY
 #define XK_XKB_KEYS
-#include <X11/keysymdef.h>
+#include <X11/keysym.h> /* /not/ keysymdef.h */
 #if defined(SUGAR)
 # include <X11/XF86keysym.h>
 #endif
@@ -146,16 +146,6 @@
 
 #define isAligned(T, V)	(((V) % sizeof(T)) == 0)
 #define align(T, V)	(((V) / sizeof(T)) * sizeof(T))
-
-#if defined(SQ_IMAGE32)
-# define BytesPerOop	4
-#elif defined(SQ_IMAGE64)
-# define BytesPerOop	8
-#else
-# error cannot determine image word size
-#endif
-
-#define BaseHeaderSize	BytesPerOop
 
 /*** Variables -- Imported from Virtual Machine ***/
 
@@ -346,6 +336,7 @@ int windowState= WIN_CHANGED;
 int sleepWhenUnmapped=	0;
 int noTitle=		0;
 int fullScreen=		0;
+int fullScreenDirect=	0;
 int iconified=		0;
 int withSpy=		0;
 
@@ -2304,7 +2295,7 @@ static int xkeysym2ucs4(KeySym keysym)
              11, /* PRIOR (page up?) */
              12, /* NEXT (page down/new page?) */
              4,  /* END */
- 			1   /* HOME */
+             1   /* HOME */
      };
 
 
@@ -3503,19 +3494,19 @@ static void handleEvent(XEvent *evt)
   switch (evt->type)
     {
     case ButtonPress:
-      fprintf(stderr, "\nX ButtonPress   state 0x%x button %d\n",
+      fprintf(stderr, "\n(handleEvent)X ButtonPress   state 0x%x button %d\n",
 	      evt->xbutton.state, evt->xbutton.button);
       break;
     case ButtonRelease:
-      fprintf(stderr, "\nX ButtonRelease state 0x%x button %d\n",
+      fprintf(stderr, "\n(handleEvent)X ButtonRelease state 0x%x button %d\n",
 	      evt->xbutton.state, evt->xbutton.button);
       break;
     case KeyPress:
-      fprintf(stderr, "\nX KeyPress      state 0x%x raw keycode %d\n",
+      fprintf(stderr, "\n(handleEvent)X KeyPress      state 0x%x raw keycode %d\n",
 	      evt->xkey.state, evt->xkey.keycode);
       break;
     case KeyRelease:
-      fprintf(stderr, "\nX KeyRelease    state 0x%x raw keycode %d\n",
+      fprintf(stderr, "\n(handleEvent)X KeyRelease    state 0x%x raw keycode %d\n",
 	      evt->xkey.state, evt->xkey.keycode);
       break;
     }
@@ -4184,10 +4175,14 @@ static int xError(Display *dpy, XErrorEvent *evt)
 }
 
 
-static void initWindow(char *displayName)
+void initWindow(char *displayName)
 {
   XRectangle windowBounds= { 0, 0, 640, 480 };  /* default window bounds */
   int right, bottom;
+
+  // Some libraries require Xlib multi-threading support. When using
+  // multi-threading XInitThreads() has to be first Xlib function called.
+  XInitThreads();
 
   XSetErrorHandler(xError);
 
@@ -4844,6 +4839,7 @@ static sqInt display_ioRelinquishProcessorForMicroseconds(sqInt microSeconds)
 
 static sqInt display_ioProcessEvents(void)
 {
+  LogEventChain((dbgEvtChF,"ioPE."));
   handleEvents();
   aioPoll(0);
   return 0;
@@ -5093,6 +5089,57 @@ static void overrideRedirect(Display *dpy, Window win, int flag)
 }
 
 
+static void enterFullScreenMode(Window root)
+{
+  XSynchronize(stDisplay, True);
+  overrideRedirect(stDisplay, stWindow, True);
+  XReparentWindow(stDisplay, stWindow, root, 0, 0);
+#if 1
+  XResizeWindow(stDisplay, stWindow, scrW, scrH);
+#else
+  XResizeWindow(stDisplay, stParent, scrW, scrH);
+#endif
+  XLowerWindow(stDisplay, stParent);
+  XRaiseWindow(stDisplay, stWindow);
+  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
+  XSynchronize(stDisplay, False);
+}
+
+
+static void returnFromFullScreenMode()
+{
+  XSynchronize(stDisplay, True);
+  XRaiseWindow(stDisplay, stParent);
+  XReparentWindow(stDisplay, stWindow, stParent, 0, 0);
+  overrideRedirect(stDisplay, stWindow, False);
+#if 1
+  XResizeWindow(stDisplay, stWindow, scrW, scrH);
+#else
+  XResizeWindow(stDisplay, stParent, winW, winH);
+#endif
+  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
+  XSynchronize(stDisplay, False);
+}
+
+
+static void sendFullScreenHint(int enable)
+{
+  XEvent xev;
+  Atom wm_state = XInternAtom(stDisplay, "_NET_WM_STATE", False);
+  Atom fullscreen = XInternAtom(stDisplay, "_NET_WM_STATE_FULLSCREEN", False);
+
+  memset(&xev, 0, sizeof(xev));
+  xev.type = ClientMessage;
+  xev.xclient.window = stParent;
+  xev.xclient.message_type = wm_state;
+  xev.xclient.format = 32;
+  xev.xclient.data.l[0] = enable; /* 1 enable, 0 disable fullscreen */
+  xev.xclient.data.l[1] = fullscreen;
+  xev.xclient.data.l[2] = 0;
+  XSendEvent(stDisplay, DefaultRootWindow(stDisplay), False, SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+}
+
+
 static sqInt display_ioSetFullScreen(sqInt fullScreen)
 {
   int winX, winY;
@@ -5119,18 +5166,10 @@ static sqInt display_ioSetFullScreen(sqInt fullScreen)
 	    winW= (winW / sizeof(void *)) * sizeof(void *);
 	  setSavedWindowSize((winW << 16) + (winH & 0xFFFF));
 	  savedWindowOrigin= (winX << 16) + (winY & 0xFFFF);
-	  XSynchronize(stDisplay, True);
-	  overrideRedirect(stDisplay, stWindow, True);
-	  XReparentWindow(stDisplay, stWindow, root, 0, 0);
-#	 if 1
-	  XResizeWindow(stDisplay, stWindow, scrW, scrH);
-#	 else
-	  XResizeWindow(stDisplay, stParent, scrW, scrH);
-#	 endif
-	  XLowerWindow(stDisplay, stParent);
-	  XRaiseWindow(stDisplay, stWindow);
-	  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
-	  XSynchronize(stDisplay, False);
+	  if (fullScreenDirect)
+	    enterFullScreenMode(root); /* simple window manager, e.g. twm */
+	  else
+	    sendFullScreenHint(1);  /* Required for Compiz window manager */
 	  windowState= WIN_ZOOMED;
 	  fullDisplayUpdate();
 	}
@@ -5151,17 +5190,10 @@ static sqInt display_ioSetFullScreen(sqInt fullScreen)
 	  winX= savedWindowOrigin >> 16;
 	  winY= savedWindowOrigin & 0xFFFF;
 	  savedWindowOrigin= -1; /* prevents consecutive full-screen disables */
-	  XSynchronize(stDisplay, True);
-	  XRaiseWindow(stDisplay, stParent);
-	  XReparentWindow(stDisplay, stWindow, stParent, 0, 0);
-	  overrideRedirect(stDisplay, stWindow, False);
-#	 if 1
-	  XResizeWindow(stDisplay, stWindow, scrW, scrH);
-#	 else
-	  XResizeWindow(stDisplay, stParent, winW, winH);
-#	 endif
-	  XSetInputFocus(stDisplay, stWindow, RevertToPointerRoot, CurrentTime);
-	  XSynchronize(stDisplay, False);
+	  if (fullScreenDirect)
+	    returnFromFullScreenMode(); /* simple window manager, e.g. twm */
+	  else
+	    sendFullScreenHint(0);  /* Required for Compiz window manager */
 	  windowState= WIN_CHANGED;
 	}
     }
@@ -6151,9 +6183,60 @@ void copyImage8To24(int *fromImageData, int *toImageData, int width, int height,
     }
 }
 
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+
+    extern void armSimdConvert_x888_8_LEPacking32_8_wide(unsigned int width, unsigned int height,
+							 unsigned int *dst, unsigned int dstStride,
+							 unsigned int *src, unsigned int srcStride,
+							 unsigned int halftone, unsigned int halftoneInfo,
+							 unsigned int *colourMap);
+
+    extern void armSimdConvert_x888_8_LEPacking32_8_narrow(unsigned int width, unsigned int height,
+							   unsigned int *dst, unsigned int dstStride,
+							   unsigned int *src, unsigned int srcStride,
+							   unsigned int halftone, unsigned int halftoneInfo,
+							   unsigned int *colourMap);
+
+    static void armSimdCopyImage32To8(int *fromImageData, int *toImageData, int width, int height,
+				      int affectedL, int affectedT, int affectedR, int affectedB,
+				      unsigned int *downGradingColors)
+    {
+      /* Find image strides in 32-bit words */
+      unsigned int srcStride= width;
+      unsigned int dstStride= (width + 3) >> 2;
+      /* Round affected region out to encompass complete words in both images */
+      affectedL &= ~3;
+      affectedR= (affectedR + 3) &~ 3;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += srcStride * affectedT + affectedL;
+      toImageData += dstStride * affectedT + (affectedL >> 2);
+      /* Adjust strides to remove number of words read/written */
+      srcStride -= affectedR - affectedL;
+      dstStride -= (affectedR - affectedL) >> 2;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 8 && ((-1 ^ (width -(128 - 32) / 8)) & ~(31 / 8)))
+	armSimdConvert_x888_8_LEPacking32_8_wide(width, height, toImageData, dstStride, fromImageData, srcStride, 0, 0, downGradingColors);
+      else
+	armSimdConvert_x888_8_LEPacking32_8_narrow(width, height, toImageData, dstStride, fromImageData, srcStride, 0, 0, downGradingColors);
+    }
+# else
+#   error configuration error
+# endif
+#endif
+
 void copyImage32To8(int *fromImageData, int *toImageData, int width, int height,
 		    int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    armSimdCopyImage32To8(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB, stDownGradingColors);
+# else
+#   error configuration error
+# endif
+#else
   int scanLine32, firstWord32, lastWord32;
   int scanLine8, firstWord8;
   int line;
@@ -6186,6 +6269,7 @@ void copyImage32To8(int *fromImageData, int *toImageData, int width, int height,
     firstWord8+= scanLine8;
   }
 #undef map32To8
+#endif /* !ENABLE_FAST_BLT */
 }
 
 void copyImage16To32(int *fromImageData, int *toImageData, int width, int height,
@@ -6310,10 +6394,58 @@ void copyImage16To24(int *fromImageData, int *toImageData, int width, int height
 #undef map16To24
 }
 
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+
+    extern void armSimdConvert_x888_0565_LEPacking32_16_wide(unsigned int width, unsigned int height,
+							     unsigned int *dst, unsigned int dstStride,
+							     unsigned int *src, unsigned int srcStride);
+
+    extern void armSimdConvert_x888_0565_LEPacking32_16_narrow(unsigned int width, unsigned int height,
+							       unsigned int *dst, unsigned int dstStride,
+							       unsigned int *src, unsigned int srcStride);
+    static void armSimdCopyImage32To16(int *fromImageData, int *toImageData, int width, int height,
+				       int affectedL, int affectedT, int affectedR, int affectedB)
+    {
+      /* Find image strides in 32-bit words */
+      unsigned int srcStride= width;
+      unsigned int dstStride= (width + 1) >> 1;
+      /* Round affected region out to encompass complete words in both images */
+      affectedL &= ~1;
+      affectedR += affectedR & 1;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += srcStride * affectedT + affectedL;
+      toImageData += dstStride * affectedT + (affectedL >> 1);
+      /* Adjust strides to remove number of words read/written */
+      srcStride -= affectedR - affectedL;
+      dstStride -= (affectedR - affectedL) >> 1;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 16 && ((-1 ^ (width - (128 - 32) / 16)) & ~(31 / 16)))
+	  armSimdConvert_x888_0565_LEPacking32_16_wide(width, height, toImageData, dstStride, fromImageData, srcStride);
+      else
+	  armSimdConvert_x888_0565_LEPacking32_16_narrow(width, height, toImageData, dstStride, fromImageData, srcStride);
+    }
+
+# else
+#   error configuration error
+# endif
+#endif
 
 void copyImage32To16(int *fromImageData, int *toImageData, int width, int height,
 		     int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+  if (stRNMask == 5 && stRShift == 11 && stGNMask == 6 && stGShift == 5 && stBNMask == 5 && stBShift == 0)
+    armSimdCopyImage32To16(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB);
+  else
+# else
+#  error configuration error
+# endif
+#endif
+  {
   int scanLine32, firstWord32, lastWord32;
   int scanLine16, firstWord16;
   int line;
@@ -6351,6 +6483,7 @@ void copyImage32To16(int *fromImageData, int *toImageData, int width, int height
       firstWord16+= scanLine16;
     }
 #undef map32To16
+	}
 }
 
 void copyImage16To16(int *fromImageData, int *toImageData, int width, int height,
@@ -6397,9 +6530,53 @@ void copyImage16To16(int *fromImageData, int *toImageData, int width, int height
 #undef map16To16
 }
 
+
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    extern void armSimdConvert_x888_x888BGR_LEPacking32_32_wide(unsigned int width, unsigned int height,
+								unsigned int *dst, unsigned int dstStride,
+								unsigned int *src, unsigned int srcStride);
+
+    extern void armSimdConvert_x888_x888BGR_LEPacking32_32_narrow(unsigned int width, unsigned int height,
+								  unsigned int *dst, unsigned int dstStride,
+								  unsigned int *src, unsigned int srcStride);
+
+    static void armSimdCopyImage32To32(int *fromImageData, int *toImageData, int width, int height,
+				       int affectedL, int affectedT, int affectedR, int affectedB)
+    {
+      unsigned int stride= width;
+      width=  affectedR - affectedL;
+      height= affectedB - affectedT;
+      /* Find first words */
+      fromImageData += stride * affectedT + affectedL;
+      toImageData   += stride * affectedT + affectedL;
+      /* Adjust stride to remove number of words read/written */
+      stride -= width;
+      /* Work out which width class this operation is. */
+      if (width > (128 - 32) / 32 && (-1 ^ (width - (128 - 32) / 32)))
+	armSimdConvert_x888_x888BGR_LEPacking32_32_wide(width, height, toImageData, stride, fromImageData, stride);
+      else
+	armSimdConvert_x888_x888BGR_LEPacking32_32_narrow(width, height, toImageData, stride, fromImageData, stride);
+    }
+# else
+#   error configuration error
+# endif
+#endif
+
+
 void copyImage32To32(int *fromImageData, int *toImageData, int width, int height,
 		     int affectedL, int affectedT, int affectedR, int affectedB)
 {
+#if defined(ENABLE_FAST_BLT)
+# if defined(__arm__)
+    if ((armCpuFeatures & ARM_V6) && stRNMask == 8 && stRShift == 0 && stGNMask == 8 && stGShift == 8 && stBNMask == 8 && stBShift == 16)
+      armSimdCopyImage32To32(fromImageData, toImageData, width, height, affectedL, affectedT, affectedR, affectedB);
+    else
+# else
+#  error unsupported use of ENABLE_FAST_BLT
+# endif
+#endif
+  {
   int scanLine32, firstWord32, lastWord32;
   int line;
   int rshift, gshift, bshift;
@@ -6433,6 +6610,7 @@ void copyImage32To32(int *fromImageData, int *toImageData, int width, int height
       lastWord32+= scanLine32;
     }
 #undef map32To32
+	}
 }
 
 void copyImage32To32Same(int *fromImageData, int *toImageData,
@@ -6526,7 +6704,7 @@ static void display_winSetName(char *imageName)
 /*** display connection ***/
 
 
-static int openXDisplay(void)
+int openXDisplay(void)
 {
   /* open the Squeak window. */
   if (!isConnectedToXServer)
@@ -6565,7 +6743,7 @@ mapXDisplay(void)
   }
 }
 
-static int forgetXDisplay(void)
+int forgetXDisplay(void)
 {
   /* Initialise variables related to the X connection, and
      make the existing connection to the X Display invalid
@@ -6866,18 +7044,18 @@ sqInt display_primitivePluginRequestState(void);
 
 #if (SqDisplayVersionMajor >= 1 && SqDisplayVersionMinor >= 2)
 
-static int display_hostWindowCreate(int w, int h, int x, int y, char *list, int attributeListLength)
+static long display_hostWindowCreate(long w, long h, long x, long y, char *list, long attributeListLength)
 											    { return 0; }
-static int display_hostWindowClose(int index)                                               { return 0; }
-static int display_hostWindowCloseAll(void)                                                 { return 0; }
-static int display_hostWindowShowDisplay(unsigned *dispBitsIndex, int width, int height, int depth,
+static long display_hostWindowClose(long index)                                               { return 0; }
+static long display_hostWindowCloseAll(void)                                                 { return 0; }
+static long display_hostWindowShowDisplay(unsigned *dispBitsIndex, long width, long height, long depth,
 					 int affectedL, int affectedR, int affectedT, int affectedB, int windowIndex)
 											    { return 0; }
 
 #define isWindowHandle(winIdx) ((winIdx) >= 65536)
 
-static int display_ioSizeOfNativeWindow(void *windowHandle);
-static int display_hostWindowGetSize(int windowIndex)
+static long display_ioSizeOfNativeWindow(void *windowHandle);
+static long display_hostWindowGetSize(long windowIndex)
 {
 	return isWindowHandle(windowIndex)
 			? display_ioSizeOfNativeWindow((void *)windowIndex)
@@ -6887,7 +7065,7 @@ static int display_hostWindowGetSize(int windowIndex)
 /* ioSizeOfWindowSetxy: args are int windowIndex, int w & h for the
  * width / height to make the window. Return the actual size the OS
  * produced in (width<<16 | height) format or -1 for failure as above. */
-static int display_hostWindowSetSize(int windowIndex, int w, int h)
+static long display_hostWindowSetSize(long windowIndex, long w, long h)
 {
 	XWindowAttributes attrs;
 	int real_border_width;
@@ -6908,8 +7086,8 @@ static int display_hostWindowSetSize(int windowIndex, int w, int h)
 		: -1;
 }
 
-static int display_ioPositionOfNativeWindow(void *windowHandle);
-static int display_hostWindowGetPosition(int windowIndex)
+static long display_ioPositionOfNativeWindow(void *windowHandle);
+static long display_hostWindowGetPosition(long windowIndex)
 {
 	return isWindowHandle(windowIndex)
 			? display_ioPositionOfNativeWindow((void *)windowIndex)
@@ -6919,7 +7097,7 @@ static int display_hostWindowGetPosition(int windowIndex)
 /* ioPositionOfWindowSetxy: args are int windowIndex, int x & y for the
  * origin x/y for the window. Return the actual origin the OS
  * produced in (left<<16 | top) format or -1 for failure, as above */
-static int display_hostWindowSetPosition(int windowIndex, int x, int y)
+static long display_hostWindowSetPosition(long windowIndex, long x, long y)
 {
 	if (!isWindowHandle(windowIndex))
 		return -1;
@@ -6929,9 +7107,9 @@ static int display_hostWindowSetPosition(int windowIndex, int x, int y)
 }
 
 
-static int display_hostWindowSetTitle(int windowIndex, char *newTitle, int sizeOfTitle)
+static long display_hostWindowSetTitle(long windowIndex, char *newTitle, long sizeOfTitle)
 { 
-  if (windowIndex != 1 && windowIndex != stWindow)
+  if (windowIndex != 1 && windowIndex != stParent && windowIndex != stWindow)
     return -1;
 
   XChangeProperty(stDisplay, stParent,
@@ -6945,10 +7123,7 @@ static int display_hostWindowSetTitle(int windowIndex, char *newTitle, int sizeO
 #endif /* (SqDisplayVersionMajor >= 1 && SqDisplayVersionMinor >= 2) */
 
 
-static char *display_winSystemName(void)
-{
-  return "X11";
-}
+static char *display_winSystemName(void) { return "X11"; }
 
 
 static void display_winInit(void)
@@ -7003,7 +7178,7 @@ static void display_winExit(void)
 }
 
 
-static int  display_winImageFind(char *buf, int len)	{ return 0; }
+static long  display_winImageFind(char *buf, long len)	{ return 0; }
 static void display_winImageNotFound(void)		{}
 
 #if SqDisplayVersionMajor >= 1 && SqDisplayVersionMinor >= 3
@@ -7013,8 +7188,8 @@ static void display_winImageNotFound(void)		{}
  * In the following functions "Display" refers to the user area of a window and
  * "Window" refers to the entire window including border & title bar.
  */
-static sqInt
-display_ioSetCursorPositionXY(sqInt x, sqInt y)
+static long
+display_ioSetCursorPositionXY(long x, long y)
 {
 	if (!XWarpPointer(stDisplay, None, DefaultRootWindow(stDisplay),
 					  0, 0, 0, 0, x, y))
@@ -7025,8 +7200,8 @@ display_ioSetCursorPositionXY(sqInt x, sqInt y)
 
 /* Return the pixel origin (topleft) of the platform-defined working area
    for the screen containing the given window. */
-static int
-display_ioPositionOfScreenWorkArea(int windowIndex)
+static long
+display_ioPositionOfScreenWorkArea(long windowIndex)
 {
 /* We simply hard-code this.  There's no obvious window-manager independent way
  * to discover this that doesn't involve creating a window.
@@ -7040,8 +7215,8 @@ display_ioPositionOfScreenWorkArea(int windowIndex)
 
 /* Return the pixel extent of the platform-defined working area
    for the screen containing the given window. */
-static int
-display_ioSizeOfScreenWorkArea(int windowIndex)
+static long
+display_ioSizeOfScreenWorkArea(long windowIndex)
 {
 	XWindowAttributes attrs;
 
@@ -7053,7 +7228,7 @@ display_ioSizeOfScreenWorkArea(int windowIndex)
 
 void *display_ioGetWindowHandle() { return (void *)stParent; }
 
-static int
+static long
 display_ioPositionOfNativeDisplay(void *windowHandle)
 {
 	XWindowAttributes attrs;
@@ -7069,7 +7244,7 @@ display_ioPositionOfNativeDisplay(void *windowHandle)
 	return (rootx << 16) | rooty;
 }
 
-static int
+static long
 display_ioSizeOfNativeDisplay(void *windowHandle)
 {
 	XWindowAttributes attrs;
@@ -7081,7 +7256,7 @@ display_ioSizeOfNativeDisplay(void *windowHandle)
 	return (attrs.width << 16) | attrs.height;
 }
 
-static int
+static long
 display_ioPositionOfNativeWindow(void *windowHandle)
 {
 	XWindowAttributes attrs;
@@ -7097,7 +7272,7 @@ display_ioPositionOfNativeWindow(void *windowHandle)
 	return (rootx - attrs.x << 16) | (rooty - attrs.y);
 }
 
-static int
+static long
 display_ioSizeOfNativeWindow(void *windowHandle)
 {
 	XWindowAttributes attrs;
@@ -7132,6 +7307,7 @@ static void display_printUsage(void)
   printf("  -compositioninput     enable overlay window for composed characters\n");
   printf("  -display <dpy>        display on <dpy> (default: $DISPLAY)\n");
   printf("  -fullscreen           occupy the entire screen\n");
+  printf("  -fullscreenDirect     simple window manager support for fullscreen\n");
 #if (USE_X11_GLX)
   printf("  -glxdebug <n>         set GLX debug verbosity level to <n>\n");
 #endif

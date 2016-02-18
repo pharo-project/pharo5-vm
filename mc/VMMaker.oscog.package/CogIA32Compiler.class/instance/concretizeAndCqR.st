@@ -4,7 +4,7 @@ concretizeAndCqR
 	<inline: true>
 	| mask reg |
 	mask := operands at: 0.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	(self isQuick: mask) ifTrue:
 		[machineCode
 			at: 0 put: 16r83;

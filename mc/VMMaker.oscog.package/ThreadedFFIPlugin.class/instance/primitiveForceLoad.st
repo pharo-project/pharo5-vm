@@ -4,7 +4,7 @@ primitiveForceLoad
 	| rcvr moduleHandlePtr moduleHandle ffiModuleName ptr |
 	<export: true>
 	<inline: false>
-	<var: #ptr type: #'int *'>
+	<var: #ptr type: #'sqInt *'>
 	interpreterProxy methodArgumentCount = 0 ifFalse:
 		[^interpreterProxy primitiveFail].
 	rcvr := interpreterProxy stackValue: 0.
@@ -17,10 +17,11 @@ primitiveForceLoad
 	ffiModuleName := interpreterProxy fetchPointer: 1 ofObject: rcvr.
 	(interpreterProxy isBytes: ffiModuleName) ifFalse:
 		[^self ffiFail: FFIErrorBadExternalLibrary].
-	moduleHandle := interpreterProxy
-						ioLoadModule: (self cCoerce: (interpreterProxy firstIndexableField: ffiModuleName) to: #int)
-						OfLength: (interpreterProxy byteSizeOf: ffiModuleName).
-	interpreterProxy failed ifTrue:[^self ffiFail: FFIErrorModuleNotFound]. "failed"
+	moduleHandle := (interpreterProxy
+						ioLoadModule: (interpreterProxy firstIndexableField: ffiModuleName) asInteger
+						OfLength: (interpreterProxy byteSizeOf: ffiModuleName)) asInteger.
+	interpreterProxy failed ifTrue:
+		[^self ffiFail: FFIErrorModuleNotFound]. "failed"
 	"and store back"
 	ptr := interpreterProxy firstIndexableField: moduleHandlePtr.
 	ptr at: 0 put: moduleHandle.

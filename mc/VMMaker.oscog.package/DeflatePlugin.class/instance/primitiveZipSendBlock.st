@@ -34,8 +34,8 @@ primitiveZipSendBlock
 	result := self sendBlock: litStream with: distStream with: litTree with: distTree.
 	interpreterProxy failed ifFalse:[
 		interpreterProxy storeInteger: 1 ofObject: rcvr withValue: zipPosition.
-		interpreterProxy storeInteger: 4 ofObject: rcvr withValue: zipBitBuf.
-		interpreterProxy storeInteger: 5 ofObject: rcvr withValue: zipBitPos.
+		interpreterProxy storeInteger: readStreamInstSize + 1 ofObject: rcvr withValue: zipBitBuf.
+		interpreterProxy storeInteger: readStreamInstSize + 2 ofObject: rcvr withValue: zipBitPos.
 	].
 	interpreterProxy failed ifFalse:[
 		interpreterProxy pop: 5. "rcvr + args"

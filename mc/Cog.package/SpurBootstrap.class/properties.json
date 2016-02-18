@@ -23,12 +23,14 @@
 		"literalMap",
 		"methodClasses",
 		"installedPrototypes",
-		"sizeSym",
-		"rehashSym",
+		"installedMethodOops",
 		"classMetaclass",
-		"imageType" ],
+		"imageTypes",
+		"classMethodContextIndex",
+		"classBlockClosureIndex",
+		"toBeInitialized" ],
 	"name" : "SpurBootstrap",
 	"pools" : [
 		"VMObjectIndices" ],
-	"super" : "Object",
+	"super" : "SimulatorHarness",
 	"type" : "normal" }

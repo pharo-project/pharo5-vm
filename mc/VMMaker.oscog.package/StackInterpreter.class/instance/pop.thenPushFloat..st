@@ -6,6 +6,6 @@ pop: nItems thenPushFloat: f
 	<var: #f type: #double>
 	<var: #sp type: #'char *'>
 	stackPages
-		longAt: (sp := stackPointer + ((nItems - 1) * BytesPerWord))
-		put: (self floatObjectOf: f).
+		longAt: (sp := stackPointer + ((nItems - 1) * objectMemory wordSize))
+		put: (objectMemory floatObjectOf: f).
 	stackPointer := sp

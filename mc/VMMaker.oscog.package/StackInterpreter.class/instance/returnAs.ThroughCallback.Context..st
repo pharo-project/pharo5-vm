@@ -29,7 +29,7 @@ returnAs: returnTypeOop ThroughCallback: vmCallbackContext Context: callbackMeth
 						ifTrue: [stackPages freeStackPage: stackPage]
 						ifFalse: "calloutMethodContext is immediately below on the same page.  Make it current."
 							[instructionPointer := (self frameCallerSavedIP: framePointer) asUnsignedInteger.
-							 stackPointer := framePointer + (self frameStackedReceiverOffset: framePointer) + BytesPerWord.
+							 stackPointer := framePointer + (self frameStackedReceiverOffset: framePointer) + objectMemory wordSize.
 							 framePointer := self frameCallerFP: framePointer.
 							 self restoreCStackStateForCallbackContext: vmCallbackContext.
 							 "N.B. siglongjmp is defines as _longjmp on non-win32 platforms.
@@ -48,13 +48,14 @@ returnAs: returnTypeOop ThroughCallback: vmCallbackContext Context: callbackMeth
 			 "findSPOf:on: points to the word beneath the instructionPointer, but
 			  there is no instructionPointer on the top frame of the current page."
 			 self assert: thePage ~= stackPage.
-			 stackPointer := (self findSPOf: theFP on: thePage) - BytesPerWord.
+			 stackPointer := (self findSPOf: theFP on: thePage) - objectMemory wordSize.
 			 framePointer := theFP]
 		ifFalse:
 			[thePage := self makeBaseFrameFor: calloutMethodContext.
 			 framePointer := thePage headFP.
 			 stackPointer := thePage headSP].
 	instructionPointer := self popStack.
+	self setMethod: (objectMemory fetchPointer: MethodIndex ofObject: calloutMethodContext).
 	self setStackPageAndLimit: thePage.
 	self restoreCStackStateForCallbackContext: vmCallbackContext.
 	 "N.B. siglongjmp is defines as _longjmp on non-win32 platforms.

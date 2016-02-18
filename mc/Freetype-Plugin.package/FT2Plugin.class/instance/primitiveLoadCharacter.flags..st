@@ -2,9 +2,10 @@ primitives-FT2Face
 primitiveLoadCharacter: index flags: flags 
 	"Load the glyph at the given index in the current charmap.
 	The default map upon opening a font is the 'unic' or Unicode charmap, if any."
-
 	| face rcvr |
-	self var: #face declareC: 'FT_Face face'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	
 	rcvr := self 
 				primitive: 'primitiveLoadCharacter'
 				parameters: #(#SmallInteger #SmallInteger)

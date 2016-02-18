@@ -3,7 +3,6 @@ bootstrapImage
 	oldHeap fullGC.
 	self measureOldHeapPostGC.
 	self initMaps.
-	self findRequiredGlobals.
 	Transcript cr; nextPutAll: 'transforming image...'; flush.
 	self cloneNilTrueAndFalse.
 	self allocateFreeLists.

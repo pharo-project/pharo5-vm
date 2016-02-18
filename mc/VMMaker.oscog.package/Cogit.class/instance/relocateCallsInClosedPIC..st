@@ -1,28 +1,47 @@
 compaction
 relocateCallsInClosedPIC: cPIC
 	<var: #cPIC type: #'CogMethod *'>
-	| delta pc entryPoint targetMethod |
+	| refDelta callDelta pc entryPoint targetMethod |
 	<var: #targetMethod type: #'CogMethod *'>
-	delta := cPIC objectHeader.
+	refDelta := cPIC objectHeader.
+	callDelta := backEnd zoneCallsAreRelative ifTrue: [refDelta] ifFalse: [0].
+	
 	self assert: (backEnd callTargetFromReturnAddress: cPIC asInteger + missOffset)
 					= (self picAbortTrampolineFor: cPIC cmNumArgs).
-	backEnd relocateCallBeforeReturnPC: cPIC asInteger + missOffset by: delta negated.
+	backEnd relocateCallBeforeReturnPC: cPIC asInteger + missOffset by: callDelta negated.
 
 	pc := cPIC asInteger + firstCPICCaseOffset.
 	1 to: cPIC cPICNumCases do:
 		[:i|
-		entryPoint := backEnd jumpLongTargetBeforeFollowingAddress: pc.
-		"Find target from jump.  Ignore jumps to the interpret and MNU calls within this PIC"
-		(entryPoint < cPIC asInteger
-		 or: [entryPoint > (cPIC asInteger + cPIC blockSize)]) ifTrue:
+		pc := self addressOfEndOfCase: i inCPIC: cPIC.
+		entryPoint := i = 1
+						ifTrue: [backEnd jumpLongTargetBeforeFollowingAddress: pc]
+						ifFalse: [backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc].
+		(cPIC containsAddress: entryPoint) 
+			ifTrue: 
+			["Interpret/MNU"
+			backEnd zoneCallsAreRelative ifFalse: [
+				i = 1 ifTrue:
+					[backEnd
+						relocateJumpLongBeforeFollowingAddress: pc
+						by: refDelta]
+					ifFalse:
+					[backEnd
+						relocateJumpLongConditionalBeforeFollowingAddress: pc
+						by: refDelta]]]
+			ifFalse:
 			[targetMethod := self cCoerceSimple: entryPoint - cmNoCheckEntryOffset to: #'CogMethod *'.
 			 self assert: targetMethod cmType = CMMethod.
-			 backEnd
-				relocateJumpBeforeFollowingAddress: pc
-				by: (delta - targetMethod objectHeader) negated].
-		pc := pc + cPICCaseSize].
+			 i = 1 ifTrue:
+				[backEnd
+					relocateJumpLongBeforeFollowingAddress: pc
+					by: (callDelta - targetMethod objectHeader) negated]
+				ifFalse:
+				[backEnd
+					relocateJumpLongConditionalBeforeFollowingAddress: pc
+					by: (callDelta - targetMethod objectHeader) negated]]].
 	self assert: cPIC cPICNumCases > 0.
-	pc := pc - cPICCaseSize.
+
 	"Finally relocate the load of the PIC and the jump to the overflow routine ceCPICMiss:receiver:"
-	backEnd relocateMethodReferenceBeforeAddress: pc + backEnd loadLiteralByteSize by: delta.
-	backEnd relocateJumpBeforeFollowingAddress: pc + cPICEndSize by: delta negated
+	backEnd relocateMethodReferenceBeforeAddress: (self addressOfEndOfCase: 2 inCPIC: cPIC)+ backEnd loadPICLiteralByteSize by: refDelta.
+	backEnd relocateJumpLongBeforeFollowingAddress: cPIC asInteger + cPICEndOfCodeOffset by: callDelta negated

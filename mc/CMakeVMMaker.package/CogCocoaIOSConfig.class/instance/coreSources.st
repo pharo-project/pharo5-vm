@@ -1,6 +1,7 @@
 source files
 coreSources 
 	^ #(
-		'cogit.c'
+		"'cogit.c'"
+		'cogitIA32.c'
 		'gcc3x-cointerp.c'
 		)

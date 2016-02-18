@@ -7,7 +7,7 @@ ceSendAbort: selector to: rcvr numArgs: numArgs
 	 Continue execution via either executeMethod or interpretMethodFromMachineCode:
 	 depending on whether the target method is cogged or not."
 	<api>
-	| classTag errSelIdx |
+	| classTag classObj errSelIdx |
 	<inline: false>
 	"self printExternalHeadFrame"
 	"self printStringOf: selector"
@@ -23,10 +23,12 @@ ceSendAbort: selector to: rcvr numArgs: numArgs
 				selector: selector]
 		ifFalse:
 			[messageSelector := selector.
-			 (errSelIdx := self lookupMethodNoMNUEtcInClass: (objectMemory classForClassTag: classTag)) ~= 0 ifTrue:
-				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: (objectMemory classForClassTag: classTag).
+			 classObj := objectMemory classForClassTag: classTag.
+			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
+				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: classObj.
 				"NOTREACHED"
-				self assert: false]].
+				self assert: false].
+			 self addNewMethodToCache: classObj].
 	instructionPointer := self popStack.
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[self executeNewMethod.

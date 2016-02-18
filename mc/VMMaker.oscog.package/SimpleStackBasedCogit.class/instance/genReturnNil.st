@@ -1,5 +1,4 @@
 bytecode generators
 genReturnNil
-	self annotate: (self MoveCw: objectMemory nilObject R: ReceiverResultReg)
-		objRef: objectMemory nilObject.
+	self genMoveConstant: objectMemory nilObject R: ReceiverResultReg.
 	^self genUpArrowReturn

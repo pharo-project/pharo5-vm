@@ -7,7 +7,9 @@
 	"commentStamp" : "eem 1/15/2014 17:59",
 	"instvars" : [
 		"sourceDir",
-		"destDir" ],
+		"destDir",
+		"packagesAndPatches",
+		"imageTypes" ],
 	"name" : "SpurBootstrapMonticelloPackagePatcher",
 	"pools" : [
 		 ],

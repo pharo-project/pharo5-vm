@@ -62,9 +62,9 @@ stackToRegisterMapping
 		7	L2:
 
 	In the first case we can know the merge base at L2 by propagating the merge base from 4 jump L2, which
-	preceeds the target of 2 jumpCond L1.  i.e. the merge base at 7 L2 is the stack pointer at 4 jump L2, which
-	preceeds the target of 2 jumpCond L1.  So at 2 jumpCond L1 we copy the stack pointer to the merge base
-	at 5 L1, /and/ to the preceeding 4 jump L2, and when we reach 4 jump L2, propagate the merge base to 7 L2.
+	precedes the target of 2 jumpCond L1.  i.e. the merge base at 7 L2 is the stack pointer at 4 jump L2, which
+	precedes the target of 2 jumpCond L1.  So at 2 jumpCond L1 we copy the stack pointer to the merge base
+	at 5 L1, /and/ to the preceding 4 jump L2, and when we reach 4 jump L2, propagate the merge base to 7 L2.
 
 	 Since we're conscious of JIT performance we restrict the live register search range by maintaining
 	 simSpillBase, which is the index of the unspilled entry furthest from the end of simulation stack.

@@ -24,8 +24,8 @@ initStackPagesAndInterpret
 		To: theStackMemory asUnsignedInteger + stackPagesBytes.
 	stackPages
 		initializeStack: theStackMemory
-		numSlots: stackPagesBytes / BytesPerWord
-		pageSize: stackPageBytes / BytesPerWord.
+		numSlots: stackPagesBytes / objectMemory wordSize
+		pageSize: stackPageBytes / objectMemory wordSize.
 	self assert: self minimumUnusedHeadroom = stackPageBytes.
 
 	"Once the stack pages are initialized we can continue to bootstrap the system."

@@ -15,11 +15,11 @@ with all the exported names in the list. We also need a '/o' directory for the o
 
 	"open a file called plugindir/pluginname.dsc and write into it"
 	| f fd dfd |
-	fd := (self externalPluginsDirectoryFor: aPlugin) asFileReference.
+	fd := self externalPluginsDirectoryFor: aPlugin.
 
 	"If we get an error to do with opening the .dsc file, we need to raise an application error to suit"
-	[(fd / 'dsc') isDirectory ifFalse: [(fd / 'dsc') ensureCreateDirectory].
-	dfd := fd / 'dsc'.
+	[(fd directoryExists: 'dsc') ifFalse:[fd createDirectory: 'dsc'].
+	dfd := fd directoryNamed: 'dsc'.
 	f := VMMaker forceNewFileNamed: (dfd fullNameFor: aPlugin moduleName)] on: FileStreamException do:[^self couldNotOpenFile: (dfd fullNameFor: aPlugin moduleName)].
 
 	f nextPutAll: 'id:SqueakSO
@@ -35,4 +35,4 @@ named_entries:
 		f cr].
 	f nextPutAll: '//'; cr.
 	f close.
-	(fd / 'o') assureExistence
+	(fd directoryNamed: 'o') assureExistence

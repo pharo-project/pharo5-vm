@@ -25,7 +25,7 @@ stats
 							(d between: -16000 and: 16000)
 								ifTrue: [stats add: #oops32k]
 								ifFalse: [stats add: #oopsOther]]].
-				fieldAddr := fieldAddr - BytesPerWord]].
+				fieldAddr := fieldAddr - self wordSize]].
 		bar value: oop.
 		last := oop.
 		last := last.

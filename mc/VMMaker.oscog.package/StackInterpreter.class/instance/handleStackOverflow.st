@@ -36,7 +36,7 @@ handleStackOverflow
 			 extraFramesToMoveOnOverflow := 0].
 
 	self ensureCallerContext: theFP.
-	newPage := self newStackPage.
+	newPage := stackPages newStackPage.
 	self moveFramesIn: stackPage through: theFP toPage: newPage.
 	self setStackPageAndLimit: newPage.
 	framePointer := stackPage headFP.

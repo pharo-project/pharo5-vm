@@ -2,6 +2,6 @@ asOop:/asValue:
 generateCoerceToObjectFromPtr: aNode on: aStream
 	"This code assumes no named instance variables"
 
-	aStream nextPutAll: '((int) '.
+	aStream nextPutAll: '((sqInt)(('.
 	self emitCExpression: aNode on: aStream.
-	aStream nextPutAll: ') - 4'
+	aStream nextPutAll: ') - BaseHeaderSize))'

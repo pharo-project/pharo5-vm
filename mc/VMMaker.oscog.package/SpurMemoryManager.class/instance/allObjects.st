@@ -7,7 +7,7 @@ allObjects
 	 1/4 of the address space, the count can never overflow."
 	| freeChunk ptr start limit count bytes |
 	MarkObjectsForEnumerationPrimitives ifTrue:
-		[self markObjects]. "may not want to revive objects unnecessarily; but marking is sloooow."
+		[self markObjects: true]. "may not want to revive objects unnecessarily; but marking is sloooow."
 	freeChunk := self allocateLargestFreeChunk.
 	ptr := start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.
@@ -24,31 +24,33 @@ allObjects
 					 count := count + 1.
 					 ptr < limit ifTrue:
 						[self longAt: ptr put: obj.
-						 ptr := ptr + self bytesPerSlot]]
+						 ptr := ptr + self bytesPerOop]]
 				ifFalse:
 					[MarkObjectsForEnumerationPrimitives ifTrue:
 						[(self isSegmentBridge: obj) ifFalse:
 							[self setIsMarkedOf: obj to: false]]]]].
-	self assert: self allObjectsUnmarked.
 	self assert: (self isEmptyObjStack: markStack).
 	MarkObjectsForEnumerationPrimitives
-		ifTrue: [self emptyObjStack: weaklingStack]
-		ifFalse: [self assert: (self isEmptyObjStack: weaklingStack)].
+		ifTrue:
+			[self assert: self allObjectsUnmarked.
+			 self emptyObjStack: weaklingStack]
+		ifFalse:
+			[self assert: (self isEmptyObjStack: weaklingStack)].
 	self assert: count >= self numSlotsMask.
-	(count > (ptr - start / self bytesPerSlot) "not enough room"
+	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
 		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
-		 self checkFreeSpace.
+		 self checkFreeSpace: GCModeFull.
 		 ^self integerObjectOf: count].
 	bytes := self largeObjectBytesForSlots: count.
 	start := self startOfObject: freeChunk.
 	self freeChunkWithBytes: limit - start - bytes at: start + bytes.
 	totalFreeOldSpace := totalFreeOldSpace - bytes.
-	self setOverflowNumSlotsOf: freeChunk to: count.
+	self rawOverflowSlotsOf: freeChunk put: count.
 	self set: freeChunk classIndexTo: ClassArrayCompactIndex formatTo: self arrayFormat.
 	self possibleRootStoreInto: freeChunk.
-	self checkFreeSpace.
-	self runLeakCheckerForFullGC: false.
+	self checkFreeSpace: GCModeFull.
+	self runLeakCheckerFor: GCModeFull.
 	^freeChunk
 	
 	

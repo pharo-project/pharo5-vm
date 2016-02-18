@@ -4,6 +4,6 @@ sqFileDeleteName: nameIndex Size: nameSize
 	path := interpreterProxy interpreter asString: nameIndex size: nameSize.
 	(StandardFileStream isAFileNamed: path) ifFalse:
 		[^interpreterProxy primitiveFail].
-	[path asFileReference ensureDeleted]
+	[FileDirectory deleteFilePath: path]
 		on: Error
 		do: [:ex| interpreterProxy primitiveFail]

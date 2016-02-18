@@ -79,9 +79,10 @@ void		sqFilenameFromStringOpen(char *buffer,sqInt fileIndex, long fileLength);
 void		sqFilenameFromString(char *buffer,sqInt fileIndex, long fileLength);
 #undef allocateMemoryMinimumImageFileHeaderSize
 #undef sqImageFileReadEntireImage
-usqInt sqAllocateMemoryMac(usqInt desiredHeapSize,sqInt minHeapSize, FILE * f,usqInt headersize);
-#define allocateMemoryMinimumImageFileHeaderSize(heapSize, minimumMemory, fileStream, headerSize) \
-sqAllocateMemoryMac(heapSize, minimumMemory, fileStream, headerSize)
+
+extern usqInt sqAllocateMemoryMac(usqInt desiredHeapSize, sqInt minHeapSize, FILE * f,usqInt headersize);
+# define allocateMemoryMinimumImageFileHeaderSize(heapSize, minimumMemory, fileStream, headerSize) \
+sqAllocateMemoryMac(minimumMemory, heapSize, fileStream, headerSize)
 
 #ifdef BUILD_FOR_OSX
 size_t sqImageFileReadEntireImage(void *ptr, size_t elementSize, size_t count, FILE * f);
@@ -167,6 +168,11 @@ extern const pthread_key_t tltiIndex;
 # undef VM_LABEL
 # define VM_LABEL(foo) 0
 #endif
+
+/* warnPrintf is provided (and needed) on the win32 platform.
+ * But it may be mentioned elsewhere, so provide a suitable def.
+ */
+#define warnPrintf printf
 
 #endif /* macintoshSqueak */
 

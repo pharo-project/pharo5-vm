@@ -1,6 +1,6 @@
 converting
 floatValueOf: oop
 	<returnTypeC:'double'>
-	oop class == Float
+	oop isFloat
 		ifTrue:[^oop]
 		ifFalse:[self primitiveFail. ^0.0].

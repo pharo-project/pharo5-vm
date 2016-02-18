@@ -15,4 +15,4 @@ primitiveFFIFloatAtPut
 	addr := self ffiAddressOf: rcvr startingAt: byteOffset size: 4.
 	interpreterProxy failed ifTrue:[^0].
 	self cCode:'((int*)addr)[0] = ((int*)(&floatValue))[0]'.
-	interpreterProxy pop: 3 thenPush: floatOop
+	^interpreterProxy pop: 3 thenPush: floatOop

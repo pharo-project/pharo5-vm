@@ -2,7 +2,7 @@ message sending
 justActivateNewMethod
 	| methodHeader numArgs numTemps rcvr errorCode |
 	<inline: true>
-	methodHeader := self headerOf: newMethod.
+	methodHeader := objectMemory methodHeaderOf: newMethod.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
 	numArgs := self argumentCountOfMethodHeader: methodHeader.
 

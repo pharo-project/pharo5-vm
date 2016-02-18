@@ -1,4 +1,4 @@
 initialization
 setEndOfMemory: newEndOfMemory
-	self assert: (newEndOfMemory bitAnd: BytesPerWord - 1) = 0.
+	self assert: (newEndOfMemory bitAnd: self wordSize - 1) = 0.
 	endOfMemory := newEndOfMemory

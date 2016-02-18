@@ -1,46 +1,53 @@
-bytecode generators
+bytecode generator support
 genStorePop: popBoolean LiteralVariable: litVarIndex
 	<inline: false>
-	| topReg valueReg association constVal |
-	self flag: 'with better register allocation this wouldn''t need a frame.  e.g. use SendNumArgs instead of ReceiverResultReg'.
+	| topReg association needStoreCheck immutabilityFailure |
+	"The only reason we assert needsFrame here is that in a frameless method
+	 ReceiverResultReg must and does contain only self, but the ceStoreCheck
+	 trampoline expects the target of the store to be in ReceiverResultReg.  So
+	 in a frameless method we would have a conflict between the receiver and
+	 the literal store, unless we we smart enough to realise that ReceiverResultReg
+	 was unused after the literal variable store, unlikely given that methods
+	 return self by default."
 	self assert: needsFrame.
-	optStatus isReceiverResultRegLive: false.
+	self cppIf: IMMUTABILITY ifTrue: [ self ssFlushTo: simStackPtr - 1 ].
 	"N.B.  No need to check the stack for references because we generate code for
 	 literal variable loads that stores the result in a register, deferring only the register push."
+	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	association := self getLiteral: litVarIndex.
-	constVal := self ssTop maybeConstant.
-	"Avoid store check for immediate values"
-	(self ssTop type = SSConstant
-	 and: [(objectRepresentation shouldAnnotateObjectReference: constVal) not]) ifTrue:
-		[self ssAllocateRequiredReg: ReceiverResultReg.
-		 self annotate: (self MoveCw: association R: ReceiverResultReg) objRef: association.
-		 objectRepresentation
-			genEnsureObjInRegNotForwarded: ReceiverResultReg
-			scratchReg: TempReg.
-		 self ssStorePop: popBoolean toPreferredReg: TempReg.
-		 traceStores > 0 ifTrue:
-			[self CallRT: ceTraceStoreTrampoline].
-		 ^objectRepresentation
-			genStoreImmediateInSourceReg: TempReg
-			slotIndex: ValueIndex
-			destReg: ReceiverResultReg].
-	((topReg := self ssTop registerOrNil) isNil
-	 or: [topReg = ReceiverResultReg]) ifTrue:
-		[topReg := ClassReg].
-	self ssPop: 1.
-	self ssAllocateCallReg: topReg. "for the ceStoreCheck call in genStoreSourceReg:... below"
-	self ssPush: 1.
-	valueReg := self ssStorePop: popBoolean toPreferredReg: topReg.
-	valueReg = ReceiverResultReg ifTrue:
-		[self MoveR: valueReg R: topReg].
-	self ssAllocateCallReg: ReceiverResultReg.
-	self annotate: (self MoveCw: association R: ReceiverResultReg) objRef: association.
+	optStatus isReceiverResultRegLive: false.
+	self ssAllocateRequiredReg: ReceiverResultReg. "for ceStoreCheck call in genStoreSourceReg: has to be ReceiverResultReg"
+	self genMoveConstant: association R: ReceiverResultReg.
 	objectRepresentation genEnsureObjInRegNotForwarded: ReceiverResultReg scratchReg: TempReg.
+	self 
+		cppIf: IMMUTABILITY
+		ifTrue: 
+			[ self ssAllocateRequiredReg: ClassReg.
+			  topReg := ClassReg.
+			  self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
+			  "stack is flushed except maybe ssTop if popBoolean is false.
+			  ssTop is a SSregister in this case due to #ssStoreAndReplacePop:
+			  to avoid a second indirect read / annotation in case of SSConstant
+			  or SSBaseRegister"
+			  self ssFlushTo: simStackPtr.
+			  immutabilityFailure := objectRepresentation
+										genImmutableCheck: ReceiverResultReg
+										slotIndex: ValueIndex
+										sourceReg: ClassReg
+										scratchReg: TempReg
+										needRestoreRcvr: false ]
+		ifFalse: 
+			[ topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg).
+			  self ssStorePop: popBoolean toReg: topReg ].
 	traceStores > 0 ifTrue:
 		[self MoveR: topReg R: TempReg.
 		 self CallRT: ceTraceStoreTrampoline].
-	^objectRepresentation
+	objectRepresentation
 		genStoreSourceReg: topReg
 		slotIndex: ValueIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
+		inFrame: needsFrame
+		needsStoreCheck: needStoreCheck.
+	self cppIf: IMMUTABILITY ifTrue: [ immutabilityFailure jmpTarget: self Label ].
+	^ 0

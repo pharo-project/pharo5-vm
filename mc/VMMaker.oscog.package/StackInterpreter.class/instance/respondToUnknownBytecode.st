@@ -1,7 +1,7 @@
 miscellaneous bytecodes
 respondToUnknownBytecode
 	"If an error selector is available then send it to the activeContext, otherwise abort."
-	<sharedCodeNamed: #respondToUnknownBytecode inCase: #unknownBytecode>
+	<sharedCodeInCase: #unknownBytecode>
 	| ourContext |
 	messageSelector := objectMemory maybeSplObj: SelectorUnknownBytecode.
 	(messageSelector isNil

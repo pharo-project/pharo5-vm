@@ -10,9 +10,9 @@ encodeFrameFieldHasContext: hasContext "<Boolean>" isBlock: isBlock "<Boolean>" 
 	<inline: true>
 	^VMBIGENDIAN
 		ifTrue: [1
-				+ (numArgs << ((BytesPerWord * 8) - 8))
-				+ (hasContext ifTrue: [1 << ((BytesPerWord * 8) - 16)] ifFalse: [0])
-				+  (isBlock ifTrue: [1 << ((BytesPerWord * 8) - 24)] ifFalse: [0])]
+				+ (numArgs << ((objectMemory wordSize * 8) - 8))
+				+ (hasContext ifTrue: [1 << ((objectMemory wordSize * 8) - 16)] ifFalse: [0])
+				+  (isBlock ifTrue: [1 << ((objectMemory wordSize * 8) - 24)] ifFalse: [0])]
 		ifFalse: [1
 				+ (numArgs << 8)
 				+  (hasContext ifTrue: [1 << 16] ifFalse: [0])

@@ -1,3 +1,3 @@
-primitive generators
+object representation
 numSmallIntegerTagBits
 	^1

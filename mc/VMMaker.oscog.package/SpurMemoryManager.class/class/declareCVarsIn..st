@@ -8,13 +8,13 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #freeListsMask type: #usqInt;
 		var: #freeLists type: #'sqInt *';
-		var: #classTableBitmap type: #'unsigned char *';
 		var: #objStackInvalidBecause type: #'char *';
 		var: #highestObjects type: #SpurCircularBuffer;
 		var: #unscannedEphemerons type: #SpurContiguousObjStack;
 		var: #heapGrowthToSizeGCRatio type: #float;
 		var: #heapSizeAtPreviousGC type: #usqInt;
-		var: #totalFreeOldSpace type: #usqInt.
+		var: #totalFreeOldSpace type: #usqInt;
+		var: #maxOldSpaceSize type: #'unsigned long'.
 	aCCodeGenerator
 		var: #remapBuffer
 		declareC: 'sqInt remapBuffer[RemapBufferSize + 1 /* ', (RemapBufferSize + 1) printString, ' */]'.

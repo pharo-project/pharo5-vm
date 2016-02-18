@@ -1,0 +1,3 @@
+accessing
+errCode
+	^ errCode

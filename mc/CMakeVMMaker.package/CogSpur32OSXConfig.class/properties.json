@@ -1,0 +1,14 @@
+{
+	"category" : "CMakeVMMaker-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "EstebanLorenzano 11/14/2014 12:59",
+	"instvars" : [
+		 ],
+	"name" : "CogSpur32OSXConfig",
+	"pools" : [
+		 ],
+	"super" : "CogCocoaIOSConfig",
+	"type" : "normal" }

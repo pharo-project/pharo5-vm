@@ -5,14 +5,13 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 	<var: #lisp type: #'char *'>
 	| methodField cogMethod theIP  |
 	<var: #cogMethod type: #'CogMethod *'>
-	self assert: stackPage = (stackPages stackPageFor: lifp) l: ln.
 	self assert: stackPage = stackPages mostRecentlyUsedPage l: ln.
+	self assert: (stackPage addressIsInPage: lifp) l: ln.
 	self assert: (self deferStackLimitSmashAround: #assertValidStackLimits: asSymbol with: ln).
-	self assert: lifp < stackPage baseAddress l: ln.
 	self assert: lisp < lifp l: ln.
 	self assert: lifp > lisp l: ln.
 	self assert: lisp >= (stackPage realStackLimit - self stackLimitOffset) l: ln.
-	self assert:  (lifp - lisp) < LargeContextSize l: ln.
+	self assert: (lifp - lisp) / objectMemory bytesPerOop < LargeContextSlots l: ln.
 	methodField := self frameMethodField: lifp.
 	inInterpreter
 		ifTrue:
@@ -25,7 +24,7 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 							ifTrue: [self iframeSavedIP: lifp]
 							ifFalse: [lip].
 				 self assert: (theIP >= (methodField + (objectMemory lastPointerOf: methodField))
-							  and: [theIP < (methodField + (objectMemory byteLengthOf: methodField) + objectMemory baseHeaderSize - 1)])
+							  and: [theIP < (methodField + (objectMemory numBytesOfBytes: methodField) + objectMemory baseHeaderSize - 1)])
 					l: ln].
 			 self assert: ((self iframeIsBlockActivation: lifp)
 					or: [(self pushedReceiverOrClosureOfFrame: lifp) = (self iframeReceiver: lifp)])
@@ -45,4 +44,4 @@ assertValidExecutionPointe: lip r: lifp s: lisp imbar: inInterpreter line: ln
 				l: ln].
 	(self isBaseFrame: lifp) ifTrue:
 		[self assert: (self frameHasContext: lifp) l: ln.
-		 self assert: (self frameContext: lifp) = (stackPages longAt: stackPage baseAddress - BytesPerWord) l: ln]
+		 self assert: (self frameContext: lifp) = (stackPages longAt: stackPage baseAddress - objectMemory wordSize) l: ln]

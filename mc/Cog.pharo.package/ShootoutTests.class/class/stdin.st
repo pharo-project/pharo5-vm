@@ -1,3 +1,0 @@
-platform
-stdin
-   ^StandardFileStream stdIn

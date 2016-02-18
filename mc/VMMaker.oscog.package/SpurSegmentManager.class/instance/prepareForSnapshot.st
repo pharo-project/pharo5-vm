@@ -1,7 +1,7 @@
 snapshot
 prepareForSnapshot
 	"shorten all segments by any trailing free space."
-	<inline: false>
+	<inline: #never>
 	<var: #seg type: #'SpurSegmentInfo *'>
 	self checkSegments.
 	0 to: numSegments - 1 do:

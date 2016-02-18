@@ -12,6 +12,7 @@ cppIf: conditionBlockOrSymbolValue ifTrue: trueExpressionOrBlock ifFalse: falseE
 		self cppIf: #A_GLOBAL
 			ifTrue: [self doSomethingFor64Bit]
 			ifFalse: [self doSomethingFor32Bit]"
+	<doNotGenerate>
 	^(conditionBlockOrSymbolValue value
 		ifNil: [false]
 		ifNotNil: [:value|

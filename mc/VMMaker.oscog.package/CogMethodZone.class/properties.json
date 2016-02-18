@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "<historical>",
+	"commentStamp" : "eem 9/24/2014 15:59",
 	"instvars" : [
 		"youngReferrers",
 		"methodCount",
@@ -16,7 +16,8 @@
 		"coInterpreter",
 		"objectRepresentation",
 		"cogit",
-		"objectMemory" ],
+		"objectMemory",
+		"unpairedMethodList" ],
 	"name" : "CogMethodZone",
 	"pools" : [
 		"CogMethodConstants",

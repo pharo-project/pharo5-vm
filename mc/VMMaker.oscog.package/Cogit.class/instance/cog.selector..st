@@ -8,21 +8,43 @@ cog: aMethodObj selector: aSelectorOop
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	self assert: ((coInterpreter methodHasCogMethod: aMethodObj) not
-				or: [(self noAssertMethodClassAssociationOf: aMethodObj) = objectMemory nilObject]).
+	self cCode: [] inSmalltalk: "for debugging, allow excluding methods based on selector or methodClass"
+		[self class initializationOptions
+			at: #DoNotJIT
+			ifPresent:
+				[:excluded| | methodClass selector |
+				methodClass := coInterpreter nameOfClass: (coInterpreter methodClassOf: aMethodObj).
+				selector := coInterpreter stringOf: aSelectorOop.
+				(excluded anySatisfy: [:exclude| selector = exclude or: [methodClass = exclude]]) ifTrue:
+					[coInterpreter transcript nextPutAll: 'EXCLUDING '; nextPutAll: methodClass; nextPutAll: '>>#'; nextPutAll: selector; cr; flush.
+					 ^nil]]].
+	"In Newspeak we support anonymous accessors and hence tolerate the same
+	 method being cogged multiple times.  But only if the method class association is nil."
+	NewspeakVM
+		ifTrue:
+			[(coInterpreter methodHasCogMethod: aMethodObj) ifTrue:
+				[cogMethod := coInterpreter cogMethodOf: aMethodObj.
+				 self deny: cogMethod selector = aSelectorOop.
+				 cogMethod selector = aSelectorOop ifTrue:
+					[^cogMethod].
+				 (coInterpreter methodClassAssociationOf: aMethodObj) ~= objectMemory nilObject ifTrue:
+					[self warnMultiple: cogMethod selectors: aSelectorOop.
+					^nil]]]
+		ifFalse: [self deny: (coInterpreter methodHasCogMethod: aMethodObj)].
 	"coInterpreter stringOf: aSelectorOop"
 	coInterpreter
 		compilationBreak: aSelectorOop
-		point: (objectMemory lengthOf: aSelectorOop).
+		point: (objectMemory lengthOf: aSelectorOop)
+		isMNUCase: false.
 	aMethodObj = breakMethod ifTrue: [self halt: 'Compilation of breakMethod'].
-	self cppIf: NewspeakVM
-		ifTrue: [cogMethod := methodZone findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop.
-				cogMethod ifNotNil:
-					[(coInterpreter methodHasCogMethod: aMethodObj) not ifTrue:
-						[self assert: (coInterpreter rawHeaderOf: aMethodObj) = cogMethod methodHeader.
-						 cogMethod methodObject: aMethodObj.
-						 coInterpreter rawHeaderOf: aMethodObj put: cogMethod asInteger].
-					^cogMethod]].
+	NewspeakVM ifTrue:
+		[cogMethod := methodZone findPreviouslyCompiledVersionOf: aMethodObj with: aSelectorOop.
+		 cogMethod ifNotNil:
+			[(coInterpreter methodHasCogMethod: aMethodObj) not ifTrue:
+				[self assert: (coInterpreter rawHeaderOf: aMethodObj) = cogMethod methodHeader.
+				 cogMethod methodObject: aMethodObj.
+				 coInterpreter rawHeaderOf: aMethodObj put: cogMethod asInteger].
+			^cogMethod]].
 	"If the generators for the alternate bytecode set are missing then interpret."
 	(coInterpreter methodUsesAlternateBytecodeSet: aMethodObj)
 		ifTrue:
@@ -31,9 +53,9 @@ cog: aMethodObj selector: aSelectorOop
 			 bytecodeSetOffset := 256]
 		ifFalse:
 			[bytecodeSetOffset := 0].
-	extA := extB := 0.
 	objectRepresentation ensureNoForwardedLiteralsIn: aMethodObj.
 	methodObj := aMethodObj.
+	methodHeader := objectMemory methodHeaderOf: aMethodObj.
 	cogMethod := self compileCogMethod: aSelectorOop.
 	(cogMethod asInteger between: MaxNegativeErrorCode and: -1) ifTrue:
 		[cogMethod asInteger = InsufficientCodeSpace ifTrue:

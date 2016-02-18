@@ -1,3 +1,0 @@
-settings
-interpreterClass
-	^ NBStackInterpreter

@@ -1,4 +1,4 @@
 initialize-release
 initialize 
 	super initialize.
-	generateForRelease := true.
+	self generateForRelease

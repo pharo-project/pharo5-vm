@@ -15,5 +15,5 @@ ftHandleValueFromReceiver: rcvrOop
 		((interpreterProxy isBytes: oop) and:
 		 [(interpreterProxy slotSizeOf: oop) = (self cCode: 'sizeof(void *)')]).
 	interpreterProxy failed ifTrue: [^ nil].
-	btw := self bytesPerWord.
+	btw := 8. "self bytesPerWord"
 	^self cCode:  '*(void**)(pointerForOop(oop + btw))'.

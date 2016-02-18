@@ -8,17 +8,19 @@ primitiveObjectAtPut
 		[^self primitiveFailFor: PrimErrBadArgument].
 	index := objectMemory integerValueOf: index.
 	thisReceiver := self stackValue: 2.
+	(objectMemory isObjImmutable: thisReceiver) ifTrue:
+		[^self primitiveFailFor: PrimErrNoModification].
 	rawHeader := self rawHeaderOf: thisReceiver.
 	realHeader := (self isCogMethodReference: rawHeader)
 					ifTrue: [(self cCoerceSimple: rawHeader to: #'CogMethod *') methodHeader]
 					ifFalse: [rawHeader].
 	(index > 0
-	 and: [index <= ((self literalCountOfHeader: realHeader) + LiteralStart)]) ifFalse:
+	 and: [index <= ((objectMemory literalCountOfMethodHeader: realHeader) + LiteralStart)]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadIndex].
 	index = 1
 		ifTrue:
 			[((objectMemory isNonIntegerObject: newValue)
-			 or: [(self literalCountOfHeader: newValue) ~= (self literalCountOfHeader: realHeader)]) ifTrue:
+			 or: [(objectMemory literalCountOfMethodHeader: newValue) ~= (objectMemory literalCountOfMethodHeader: realHeader)]) ifTrue:
 				[^self primitiveFailFor: PrimErrBadArgument].
 			 (self isCogMethodReference: rawHeader)
 				ifTrue: [(self cCoerceSimple: rawHeader to: #'CogMethod *') methodHeader: newValue]

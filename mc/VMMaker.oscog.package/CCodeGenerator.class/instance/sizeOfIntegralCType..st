@@ -2,6 +2,8 @@ inlining
 sizeOfIntegralCType: anIntegralCType "<String>"
 	"N.B. Only works for values for which isIntegralCType: answers true."
 	| prunedCType index |
+	(anIntegralCType beginsWith: 'register ') ifTrue:
+		[^self sizeOfIntegralCType: (anIntegralCType allButFirst: 9)].
 	prunedCType := (anIntegralCType beginsWith: 'unsigned ')
 						ifTrue: [(anIntegralCType allButFirst: 9) withBlanksTrimmed]
 						ifFalse: [(anIntegralCType beginsWith: 'signed ')
@@ -14,6 +16,7 @@ sizeOfIntegralCType: anIntegralCType "<String>"
 		['usqInt']	->	[BytesPerWord].
 		['int']		->	[4].
 		['short']		->	[2].
+		['short int']	->	[2].
 		['char']		->	[1].
 		['long']		->	[BytesPerWord].
 		['size_t']		->	[BytesPerWord].

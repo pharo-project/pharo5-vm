@@ -41,8 +41,10 @@
 
 /* Note: All pluggable primitives are defined as
 	EXPORT(int) somePrimitive(void)
-   If the platform requires special declaration modifiers, the EXPORT
-   macro can be redefined.
+   All non-static variables in the VM and plugins are declared as
+	VM_EXPORT type var
+   If the platform requires special declaration modifiers, the EXPORT and
+   VM_EXPORT macros can be redefined.
 */
 #define EXPORT(returnType) returnType
 #define VM_EXPORT
@@ -146,6 +148,7 @@ extern void sqDeallocateMemorySegmentAtOfSize(void *addr, sqInt sz);
 sqInt ioMSecs(void);
 /* deprecated out of existence sqInt ioLowResMSecs(void); */
 sqInt ioMicroMSecs(void);
+sqInt ioOldMSecs(void);
 
 /* duplicate the generated definition in the interpreter.  If they differ the
  * compiler will complain and catch it for us.  We use 0x1FFFFFFF instead of
@@ -156,10 +159,11 @@ sqInt ioMicroMSecs(void);
 #define MillisecondClockMask 0x1FFFFFFF
 
 #if STACKVM
-usqLong ioUTCMicrosecondsNow();
-usqLong ioUTCMicroseconds();
-usqLong ioLocalMicrosecondsNow();
-usqLong ioLocalMicroseconds();
+unsigned volatile long long  ioUTCMicrosecondsNow();
+unsigned volatile long long  ioUTCMicroseconds();
+unsigned volatile long long  ioLocalMicrosecondsNow();
+unsigned volatile long long  ioLocalMicroseconds();
+unsigned          long long  ioUTCStartMicroseconds();
 usqInt	ioLocalSecondsOffset();
 void	ioUpdateVMTimezone();
 void	ioSynchronousCheckForEvents();
@@ -215,6 +219,7 @@ sqInt fullDisplayUpdate(void);
 sqInt interpret(void);
 sqInt primitiveFail(void);
 sqInt signalSemaphoreWithIndex(sqInt semaIndex);
+sqInt doSignalExternalSemaphores(sqInt);
 sqInt success(sqInt);
 
 /* Display, mouse, keyboard, time. */
@@ -222,6 +227,7 @@ sqInt success(sqInt);
 sqInt ioBeep(void);
 sqInt ioExit(void);
 sqInt ioExitWithErrorCode(int);
+sqInt crashInThisOrAnotherThread(sqInt flags);
 sqInt ioForceDisplayUpdate(void);
 sqInt ioFormPrint(sqInt bitsAddr, sqInt width, sqInt height, sqInt depth,
 		  double hScale, double vScale, sqInt landscapeFlag);
@@ -237,6 +243,14 @@ sqInt ioShowDisplay(sqInt dispBitsIndex, sqInt width, sqInt height, sqInt depth,
 		    sqInt affectedL, sqInt affectedR, sqInt affectedT, sqInt affectedB);
 sqInt ioHasDisplayDepth(sqInt depth);
 sqInt ioSetDisplayMode(sqInt width, sqInt height, sqInt depth, sqInt fullscreenFlag);
+char* ioGetLogDirectory(void);
+sqInt ioSetLogDirectoryOfSize(void* lblIndex, sqInt sz);
+char* ioGetWindowLabel(void);
+sqInt ioSetWindowLabelOfSize(void *lblIndex, sqInt sz);
+sqInt ioGetWindowWidth(void);
+sqInt ioGetWindowHeight(void);
+sqInt ioSetWindowWidthHeight(sqInt w, sqInt h);
+sqInt ioIsWindowObscured(void);
 
 #if STACKVM || NewspeakVM
 /* thread subsystem support for e.g. sqExternalSemaphores.c */
@@ -282,10 +296,10 @@ extern char *thrlog[];
  * threads after myindex is obtained but before asprintf completes we can get
  * two threads using the same entry.  But this is good enough for now.
  */
-#define THRLOG(...) do { int myidx, oldidx; \
+#define THRLOG(...) do { int myidx, nextidx; \
 	do { myidx = thrlogidx; \
-		sqCompareAndSwapRes(thrlogidx,myidx,(myidx+1)&(THRLOGSZ-1),oldidx); \
-	} while (myidx != oldidx); \
+		 nextidx = (myidx+1)&(THRLOGSZ-1); \
+	} while (!sqCompareAndSwap(thrlogidx,myidx,nextidx)); \
 	if (thrlog[myidx]) free(thrlog[myidx]); \
 	asprintf(thrlog + myidx, __VA_ARGS__); \
 } while (0)
@@ -394,54 +408,54 @@ sqInt ioProcessEvents(void);
 /* generic input event */
 typedef struct sqInputEvent
 {
-  int type;			/* type of event; either one of EventTypeXXX */
-  unsigned int timeStamp;	/* time stamp */
+  long type;				/* type of event; either one of EventTypeXXX */
+  unsigned long timeStamp;	/* time stamp */
   /* the interpretation of the following fields depend on the type of the event */
-  int unused1;
-  int unused2;
-  int unused3;
-  int unused4;
-  int unused5;
-  int windowIndex;		/* SmallInteger used in image to identify a host window structure */
+  long unused1;
+  long unused2;
+  long unused3;
+  long unused4;
+  long unused5;
+  long windowIndex;		/* SmallInteger used in image to identify a host window structure */
 } sqInputEvent;
 
 /* mouse input event */
 typedef struct sqMouseEvent
 {
-  int type;			/* EventTypeMouse */
-  unsigned int timeStamp;	/* time stamp */
-  int x;			/* mouse position x */
-  int y;			/* mouse position y */
-  int buttons;			/* combination of xxxButtonBit */
-  int modifiers;		/* combination of xxxKeyBit */
-  int nrClicks;			/* number of clicks in button downs - was reserved1 */
-  int windowIndex;		/* host window structure */
+  long type;				/* EventTypeMouse */
+  unsigned long timeStamp;	/* time stamp */
+  long x;					/* mouse position x */
+  long y;					/* mouse position y */
+  long buttons;				/* combination of xxxButtonBit */
+  long modifiers;			/* combination of xxxKeyBit */
+  long nrClicks;			/* number of clicks in button downs - was reserved1 */
+  long windowIndex;			/* host window structure */
 } sqMouseEvent;
 
 /* keyboard input event */
 typedef struct sqKeyboardEvent
 {
-  int type;			/* EventTypeKeyboard */
-  unsigned int timeStamp;	/* time stamp */
-  int charCode;			/* character code in Mac Roman encoding */
-  int pressCode;		/* press code; any of EventKeyXXX */
-  int modifiers;		/* combination of xxxKeyBit */
-  int utf32Code;		/* UTF-32 unicode value */
-  int reserved1;		/* reserved for future use */
-  int windowIndex;		/* host window structure */
+  long type;				/* EventTypeKeyboard */
+  unsigned long timeStamp;	/* time stamp */
+  long charCode;			/* character code in Mac Roman encoding */
+  long pressCode;			/* press code; any of EventKeyXXX */
+  long modifiers;			/* combination of xxxKeyBit */
+  long utf32Code;			/* UTF-32 unicode value */
+  long reserved1;			/* reserved for future use */
+  long windowIndex;			/* host window structure */
 } sqKeyboardEvent;
 
 /* drop files event */
 typedef struct sqDragDropFilesEvent
 {
-  int type;			/* EventTypeDropFiles */
-  unsigned int timeStamp;	/* time stamp */
-  int dragType;			/* one of DragXXX (see below) */
-  int x;			/* mouse position x */
-  int y;			/* mouse position y */
-  int modifiers;		/* combination of xxxKeyBit */
-  int numFiles;			/* number of files in transaction */
-  int windowIndex;		/* host window structure */
+  long type;				/* EventTypeDropFiles */
+  unsigned long timeStamp;	/* time stamp */
+  long dragType;			/* one of DragXXX (see below) */
+  long x;					/* mouse position x */
+  long y;					/* mouse position y */
+  long modifiers;			/* combination of xxxKeyBit */
+  long numFiles;			/* number of files in transaction */
+  long windowIndex;			/* host window structure */
 } sqDragDropFilesEvent;
 
 #define DragEnter	1 /* drag operation from OS entered Squeak window	 */
@@ -453,29 +467,29 @@ typedef struct sqDragDropFilesEvent
 /* menu event */
 typedef struct sqMenuEvent
 {
-  int type;			/* type of event; EventTypeMenu */
-  unsigned int timeStamp;	/* time stamp */
+  long type;				/* type of event; EventTypeMenu */
+  unsigned long timeStamp;	/* time stamp */
   /* the interpretation of the following fields depend on the type  of the event */
-  int menu;			/* platform-dependent to indicate which menu was picked */
-  int menuItem;			/* given a menu having 1 to N items this maps to the menu item number */
-  int reserved1;		/* reserved for future use */
-  int reserved2;		/* reserved for future use */
-  int reserved3;		/* reserved for future use */
-  int windowIndex;		/* host window structure */
+  long menu;				/* platform-dependent to indicate which menu was picked */
+  long menuItem;			/* given a menu having 1 to N items this maps to the menu item number */
+  long reserved1;			/* reserved for future use */
+  long reserved2;			/* reserved for future use */
+  long reserved3;			/* reserved for future use */
+  long windowIndex;			/* host window structure */
 } sqMenuEvent;
 
 /* window action event */
 typedef struct sqWindowEvent
 {
-  int type;			/* type of event;  EventTypeWindow */
-  unsigned int timeStamp;	/* time stamp */
+  long type;				/* type of event;  EventTypeWindow */
+  unsigned long timeStamp;	/* time stamp */
   /* the interpretation of the following fields depend on the type  of the event */
-  int action;		        /* one of WindowEventXXX (see below) */
-  int value1;			/* used for rectangle edges */
-  int value2;			/* used for rectangle edges */
-  int value3;			/* used for rectangle edges */
-  int value4;			/* used for rectangle edges */
-  int windowIndex;		/* host window structure */
+  long action;				/* one of WindowEventXXX (see below) */
+  long value1;				/* used for rectangle edges */
+  long value2;				/* used for rectangle edges */
+  long value3;				/* used for rectangle edges */
+  long value4;				/* used for rectangle edges */
+  long windowIndex;			/* host window structure */
 } sqWindowEvent;
 
 #define WindowEventMetricChange	1 /* size or position of window changed - value1-4 are left/top/right/bottom values */
@@ -486,32 +500,40 @@ typedef struct sqWindowEvent
 #define WindowEventStinks	6 /* this window stinks (just to see if people read this stuff) */
 
 typedef struct sqComplexEvent
-	{
-		int type;			/* type of event;  EventTypeComplex */
-		unsigned int timeStamp;	/* time stamp */
-		/* the interpretation of the following fields depend on the type  of the event */
-		int action;		        /* one of ComplexEventXXX (see below) */
-		usqInt objectPointer;	/* used to point to object */
-		int unused1;			/*  */
-		int unused2;			/*  */
-		int unused3;			/*  */
-		int windowIndex;	/* host window structure */
-	} sqComplexEvent;
+{
+  long type;				/* type of event;  EventTypeComplex */
+  unsigned long timeStamp;	/* time stamp */
+  /* the interpretation of the following fields depend on the type  of the event */
+  long action;		        /* one of ComplexEventXXX (see below) */
+  long objectPointer;		/* used to point to object */
+  long unused1;
+  long unused2;
+  long unused3;
+  long windowIndex;			/* host window structure */
+} sqComplexEvent;
 
-#define ComplexEventTypeTouchsDown	1 /*  */
-#define ComplexEventTypeTouchsUp	2 /*  */
-#define ComplexEventTypeTouchsMoved	3 /*  */
-#define ComplexEventTypeTouchsStationary 4 /*  */
-#define ComplexEventTypeTouchsCancelled	5 /*  */
-#define ComplexEventTypeAccelerationData	6 /*  */
-#define ComplexEventTypeLocationData	7 /*  */
-#define ComplexEventTypeApplicationData	8 /*  */
+#define ComplexEventTypeTouchsDown	1
+#define ComplexEventTypeTouchsUp	2
+#define ComplexEventTypeTouchsMoved	3
+#define ComplexEventTypeTouchsStationary 4
+#define ComplexEventTypeTouchsCancelled	5
+#define ComplexEventTypeAccelerationData	6
+#define ComplexEventTypeLocationData	7
+#define ComplexEventTypeApplicationData	8
 
 
 /* Set an asynchronous input semaphore index for events. */
 sqInt ioSetInputSemaphore(sqInt semaIndex);
 /* Retrieve the next input event from the OS. */
 sqInt ioGetNextEvent(sqInputEvent *evt);
+
+/* Log the event procesing chain. */
+#if defined(DEBUG_EVENT_CHAIN)
+# define LogEventChain(parms) fprintf parms
+# define dbgEvtChF stderr
+#else
+# define LogEventChain(parms) 0
+#endif
 
 /* Image file and VM path names. */
 extern char imageName[];
@@ -521,8 +543,6 @@ sqInt imageNamePutLength(sqInt sqImageNameIndex, sqInt length);
 sqInt imageNameSize(void);
 sqInt vmPathSize(void);
 sqInt vmPathGetLength(sqInt sqVMPathIndex, sqInt length);
-char* ioGetLogDirectory(void);
-char* ioGetWindowLabel(void);
 
 /* Image security traps. */
 sqInt ioCanRenameImage(void);

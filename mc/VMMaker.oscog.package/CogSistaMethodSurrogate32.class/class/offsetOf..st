@@ -1,7 +1,6 @@
 accessing
 offsetOf: aByteSymbol
 	"These should be generated!!"
-	self assert: self objectMemoryClass baseHeaderSize = BaseHeaderSize.
 	^aByteSymbol == #counters
-		ifTrue: [20 + BaseHeaderSize]
+		ifTrue: [20 + self objectMemoryClass baseHeaderSize]
 		ifFalse: [super offsetOf: aByteSymbol]

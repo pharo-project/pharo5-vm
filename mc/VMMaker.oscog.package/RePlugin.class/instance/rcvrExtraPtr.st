@@ -8,4 +8,4 @@ rcvrExtraPtr
 		cCoerce: (extraObj = interpreterProxy nilObject
 					ifTrue: [nil]
 					ifFalse: [interpreterProxy arrayValueOf: extraObj])
-		to: 'int'
+		to: #sqInt

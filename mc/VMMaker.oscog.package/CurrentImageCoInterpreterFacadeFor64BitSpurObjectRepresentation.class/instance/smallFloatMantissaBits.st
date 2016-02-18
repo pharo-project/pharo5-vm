@@ -1,0 +1,3 @@
+accessing
+smallFloatMantissaBits
+	^objectMemory smallFloatMantissaBits

@@ -1,6 +1,6 @@
 compaction
 freeOlderMethodsForCompaction
-	"Free methods, preferring older methods for compaction, up to some fraction."
+	"Free methods, preferring older methods for compaction, up to some fraction, currently a quarter."
 	| zoneSize amountToFree initialFreeSpace freedSoFar freeableUsage cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	zoneSize := limitAddress - baseAddress.
@@ -10,11 +10,10 @@ freeOlderMethodsForCompaction
 	freeableUsage := 0.
 	[self cCode: ''
 		inSmalltalk: [coInterpreter transcript nextPutAll: 'freeing methods with usage '; print: freeableUsage; cr; flush].
-	 cogMethod := coInterpreter cCoerceSimple: baseAddress to: #'CogMethod *'.
+	 cogMethod := cogit cCoerceSimple: baseAddress to: #'CogMethod *'.
 	 [cogMethod asUnsignedInteger < mzFreeStart
 	  and: [freedSoFar < amountToFree]] whileTrue:
-		[(cogMethod cmType ~= CMFree
-		  and: [cogMethod cmUsageCount <= freeableUsage]) ifTrue:
+		[(self shouldFreeMethod: cogMethod given: freeableUsage) ifTrue:
 			[self freeMethod: cogMethod.
 			 freedSoFar := freedSoFar + cogMethod blockSize].
 		 cogMethod := self methodAfter: cogMethod].

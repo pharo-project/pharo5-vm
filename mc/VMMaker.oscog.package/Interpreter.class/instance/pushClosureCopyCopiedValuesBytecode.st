@@ -13,7 +13,7 @@ pushClosureCopyCopiedValuesBytecode
 	self externalizeIPandSP. "This is a pain."
 	newClosure := self
 					closureNumArgs: numArgs
-					instructionPointer: ((self cCoerce: localIP to: 'sqInt') + 2 - (method+BaseHeaderSize))
+					instructionPointer: ((self cCoerce: localIP to: 'sqInt') + 2 - (method+self baseHeaderSize))
 					numCopiedValues: numCopied.
 	self internalizeIPandSP.
 	"Assume: have just allocated a new closure; it must be young. Thus, can use unchecked stores."

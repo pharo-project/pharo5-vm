@@ -1,0 +1,16 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ExtendedOpcodeExceptionMap",
+		"OpcodeExceptionMap",
+		"PostBuildStackDelta" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BochsX64Alien",
+	"pools" : [
+		 ],
+	"super" : "CogProcessorAlien",
+	"type" : "bytes" }

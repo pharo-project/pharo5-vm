@@ -7,7 +7,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 	 the receiver's classIndex.
 	 If forEntry is true answer the entry label at which control is to enter (cmEntryOffset).
 	 If forEntry is false, control enters at the start.
-	If forEntry is false, generate something like this:
+	 If forEntry is true, generate something like this:
 		Limm:
 			andl $0x1, rDest
 			j Lcmp
@@ -18,7 +18,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 			movl 0(%edx), rDest
 			andl $0x3fffff, rDest
 		Lcmp:
-	 If forEntry is true, generate something like the following.
+	 If forEntry is false, generate something like the following.
 	 At least on a 2.2GHz Intel Core i7 the following is slightly faster than the above,
 	 136m sends/sec vs 130m sends/sec for nfib in tinyBenchmarks
 		Lentry:
@@ -41,8 +41,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 	forEntry
 		ifFalse:
 			[entryLabel := cogit Label.
-			 cogit MoveR: sourceReg R: destReg.
-			 cogit AndCq: objectMemory tagMask R: destReg.
+			 cogit AndCq: objectMemory tagMask R: sourceReg R: destReg.
 			 jumpNotImm := cogit JumpZero: 0.
 			 cogit AndCq: 1 R: destReg.
 			 jumpCompare := cogit Jump: 0.
@@ -53,14 +52,13 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 			 jumpCompare jmpTarget:
 				(cogit AndCq: objectMemory classIndexMask R: destReg)]
 		ifTrue:
-			[cogit AlignmentNops: BytesPerWord.
+			[cogit AlignmentNops: objectMemory wordSize.
 			 immLabel := cogit Label.
 			 cogit AndCq: 1 R: destReg.
 			 jumpCompare := cogit Jump: 0.
-			 cogit AlignmentNops: BytesPerWord.
+			 cogit AlignmentNops: objectMemory wordSize.
 			 entryLabel := cogit Label.
-			 cogit MoveR: sourceReg R: destReg.
-			 cogit AndCq: objectMemory tagMask R: destReg.
+			 cogit AndCq: objectMemory tagMask R: sourceReg R: destReg.
 			 cogit JumpNonZero: immLabel.
 			 self flag: #endianness.
 			 "Get least significant half of header word in destReg"

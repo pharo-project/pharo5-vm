@@ -25,18 +25,18 @@ moveFramesIn: oldPage through: theFP toPage: newPage
 					SP: theFP + ((self isMachineCodeFrame: theFP) ifTrue: [FoxMFReceiver] ifFalse: [FoxIFReceiver]).
 	stackPages
 		longAt: (newSP := newPage baseAddress) put: (self frameContext: callerFP);
-		longAt: (newSP := newSP - BytesPerWord) put:  theContext.
+		longAt: (newSP := newSP - objectMemory wordSize) put:  theContext.
 	stackedReceiverOffset := self frameStackedReceiverOffset: theFP.
 	"First move the data, leaving room for the caller and base frame contexts.  We will fix up frame pointers later."
 	theFP + stackedReceiverOffset
 		to: oldPage headSP
-		by: BytesPerWord negated
+		by: objectMemory wordSize negated
 		do: [:source|
-			newSP := newSP - BytesPerWord.
+			newSP := newSP - objectMemory wordSize.
 			stackPages longAt: newSP put: (stackPages longAt: source)].
 	"newSP = oldSP + delta => delta = newSP - oldSP"
 	delta := newSP - oldPage headSP.
-	newFP := newPage baseAddress - stackedReceiverOffset - (2 * BytesPerWord).
+	newFP := newPage baseAddress - stackedReceiverOffset - (2 * objectMemory wordSize).
 	self setHeadFP: oldPage headFP + delta andSP: newSP inPage: newPage.
 	newPage baseFP: newFP.
 	callerIP := self oopForPointer: (self frameCallerSavedIP: theFP).
@@ -45,7 +45,7 @@ moveFramesIn: oldPage through: theFP toPage: newPage
 		 callerIP := cogit ceReturnToInterpreterPC].
 	stackPages longAt: theFP + stackedReceiverOffset put: callerIP.
 	self assert: (callerFP < oldPage baseAddress
-				and: [callerFP > (oldPage realStackLimit - (LargeContextSize / 2))]).
+				and: [callerFP > (oldPage realStackLimit - (LargeContextSlots * objectMemory bytesPerOop / 2))]).
 	oldPage
 		headFP: callerFP;
 		headSP: theFP + stackedReceiverOffset.

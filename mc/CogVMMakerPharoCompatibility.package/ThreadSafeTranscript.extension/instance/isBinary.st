@@ -1,0 +1,3 @@
+*CogVMMakerPharoCompatibility
+isBinary
+	^ stream isBinary

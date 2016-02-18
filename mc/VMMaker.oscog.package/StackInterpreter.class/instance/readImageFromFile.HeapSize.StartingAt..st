@@ -1,26 +1,41 @@
 image save/restore
 readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
-	"Read an image from the given file stream, allocating the given amount of memory to its object heap. Fail if the image has an unknown format or requires more than the given amount of memory."
-	"Details: This method detects when the image was stored on a machine with the opposite byte ordering from this machine and swaps the bytes automatically. Furthermore, it allows the header information to start 512 bytes into the file, since some file transfer programs for the Macintosh apparently prepend a Mac-specific header of this size. Note that this same 512 bytes of prefix area could also be used to store an exec command on Unix systems, allowing one to launch Smalltalk by invoking the image name as a command."
-	"This code is based on C code by Ian Piumarta and Smalltalk code by Tim Rowledge. Many thanks to both of you!!"
+	"Read an image from the given file stream, allocating an amount of memory to its object heap.
+	
+	 V3: desiredHeapSize is the total size of the heap.  Fail if the image has an unknown format or
+	 requires more than the specified amount of memory.
+
+	 Spur: desiredHeapSize is ignored; this routine will attempt to provide at least extraVMMemory's
+	 ammount of free space after the image is loaded, taking any free space in teh image into account.
+	 extraVMMemory is stored in the image header and is accessible as vmParameterAt: 23.  If
+	 extraVMMemory is 0, the value defaults to the default grow headroom.  Fail if the image has an
+	 unknown format or if sufficient memory cannot be allocated.
+
+	 Details: This method detects when the image was stored on a machine with the opposite byte
+	 ordering from this machine and swaps the bytes automatically. Furthermore, it allows the header
+	 information to start 512 bytes into the file, since some file transfer programs for the Macintosh
+	 apparently prepend a Mac-specific header of this size. Note that this same 512 bytes of prefix
+	 area could also be used to store an exec command on Unix systems, allowing one to launch
+	 Smalltalk by invoking the image name as a command."
 
 	| headerStart headerSize headerFlags dataSize oldBaseAddr swapBytes
 	  minimumMemory bytesRead bytesToShift heapSize firstSegSize
-	  hdrEdenBytes hdrMaxExtSemTabSize hdrNumStackPages |
+	  hdrEdenBytes hdrMaxExtSemTabSize hdrNumStackPages allocationReserve |
 	<var: #f type: #sqImageFile>
 	<var: #heapSize type: #usqInt>
 	<var: #dataSize type: #'size_t'>
 	<var: #minimumMemory type: #usqInt>
 	<var: #desiredHeapSize type: #usqInt>
+	<var: #allocationReserve type: #usqInt>
 	<var: #headerStart type: #squeakFileOffsetType>
 	<var: #imageOffset type: #squeakFileOffsetType>
 
 	metaclassNumSlots := 6.	"guess Metaclass instSize"
 	classNameIndex := 6.		"guess (Class instVarIndexFor: 'name' ifAbsent: []) - 1"
 	swapBytes := self checkImageVersionFrom: f startingAt: imageOffset.
-	headerStart := (self sqImageFilePosition: f) - BytesPerWord.  "record header start position"
+	headerStart := (self sqImageFilePosition: f) - 4.  "record header start position"
 
-	headerSize			:= self getLongFromFile: f swap: swapBytes.
+	headerSize			:= self getWord32FromFile: f swap: swapBytes.
 	dataSize			:= self getLongFromFile: f swap: swapBytes.
 	oldBaseAddr		:= self getLongFromFile: f swap: swapBytes.
 	objectMemory specialObjectsOop: (self getLongFromFile: f swap: swapBytes).
@@ -28,7 +43,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	savedWindowSize	:= self getLongFromFile: f swap: swapBytes.
 	headerFlags		:= self getLongFromFile: f swap: swapBytes.
 	self setImageHeaderFlagsFrom: headerFlags.
-	extraVMMemory	:= self getLongFromFile: f swap: swapBytes.
+	extraVMMemory	:= self getWord32FromFile: f swap: swapBytes.
 	hdrNumStackPages	:= self getShortFromFile: f swap: swapBytes.
 	"4 stack pages is small.  Should be able to run with as few as
 	 three. 4 should be comfortable but slow.  8 is a reasonable
@@ -45,7 +60,7 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	"pad to word boundary.  This slot can be used for anything else that will fit in 16 bits.
 	 It is used for the cog code size in Cog.  Preserve it to be polite to other VMs."
 	theUnknownShort	:= self getShortFromFile: f swap: swapBytes.
-	hdrEdenBytes		:= self getLongFromFile: f swap: swapBytes.
+	hdrEdenBytes		:= self getWord32FromFile: f swap: swapBytes.
 	objectMemory edenBytes: (desiredEdenBytes ~= 0
 						ifTrue: [desiredEdenBytes]
 						ifFalse:
@@ -61,16 +76,33 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 	the2ndUnknownShort	:= self getShortFromFile: f swap: swapBytes.
 	firstSegSize := self getLongFromFile: f swap: swapBytes.
 	objectMemory firstSegmentSize: firstSegSize.
-	"decrease Squeak object heap to leave extra memory for the VM"
-	heapSize := desiredHeapSize
-				+ objectMemory newSpaceBytes
-				+ self interpreterAllocationReserveBytes.
-	heapSize := self reserveExtraCHeap: heapSize Bytes: extraVMMemory.
-
-	"compare memory requirements with availability".
-	minimumMemory := dataSize + objectMemory newSpaceBytes + self interpreterAllocationReserveBytes.
-	heapSize < minimumMemory ifTrue:
-		[self insufficientMemorySpecifiedError].
+	"compare memory requirements with availability"
+	allocationReserve := self interpreterAllocationReserveBytes.
+	minimumMemory := dataSize
+						+ objectMemory newSpaceBytes
+						+ allocationReserve.
+	objectMemory hasSpurMemoryManagerAPI
+		ifTrue:
+			[| freeOldSpaceInImage headroom |
+			 freeOldSpaceInImage := self getLongFromFile: f swap: swapBytes.
+			 headroom := objectMemory
+							initialHeadroom: extraVMMemory
+							givenFreeOldSpaceInImage: freeOldSpaceInImage.
+			 heapSize := objectMemory roundUpHeapSize:
+						   dataSize
+						+ headroom
+						+ objectMemory newSpaceBytes
+						+ (headroom > allocationReserve
+							ifTrue: [0]
+							ifFalse: [allocationReserve])]
+		ifFalse:
+			[heapSize :=  desiredHeapSize
+						+ objectMemory newSpaceBytes
+						+ (desiredHeapSize - dataSize > allocationReserve
+							ifTrue: [0]
+							ifFalse: [allocationReserve]).
+			 heapSize < minimumMemory ifTrue:
+				[self insufficientMemorySpecifiedError]].
 
 	"allocate a contiguous block of memory for the Squeak heap"
 	objectMemory memory: (self

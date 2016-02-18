@@ -8,9 +8,9 @@ finalizeReference: oop
 	<var: #oop type: #usqInt>
 	<var: #weakOop type: #usqInt>
 	numFields := self nonWeakFieldsOf: oop. "so nonWeakFieldsOf: may be inlined"
-	firstField := BaseHeaderSize + (numFields << ShiftForWord).
+	firstField := self baseHeaderSize + (numFields << self shiftForWord).
 	lastField := self lastPointerOf: oop.
-	firstField to: lastField by: BytesPerWord do:
+	firstField to: lastField by: self wordSize do:
 		[:i|
 		weakOop := self longAt: oop + i.
 		"ar 1/18/2005: Added oop < youngStart test to make sure we're not testing
@@ -27,5 +27,7 @@ finalizeReference: oop
 				ifFalse: [oopGone := (self isMarked: weakOop) not].
 			oopGone ifTrue: "Store nil in the pointer and signal the  interpreter"
 				[self longAt: oop + i put: nilObj.
-				numFields >= 2 ifTrue: [ self weakFinalizerCheck: oop ].
+				self 
+					cppIf: PharoVM 
+					ifTrue: [ numFields >= 2 ifTrue: [ self weakFinalizerCheck: oop ] ].
 				self signalFinalization: oop]]]

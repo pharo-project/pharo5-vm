@@ -1,5 +1,4 @@
-initialization
+interpreter access
 wordSize
-	"Answer the size of an object pointer in bytes."
-
+	"Answer the manager's word size, which is assumed to be equivalent to the underlying machine's word size."
 	^4

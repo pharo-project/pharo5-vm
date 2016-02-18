@@ -9,7 +9,7 @@ roomToPushNArgs: n
 		ifTrue: "old code that checked size of context..."
 			[| cntxSize |
 			 self assert: method = (stackPages longAt: framePointer + FoxMethod).
-			 cntxSize := ((self headerOf: method) bitAnd: LargeContextBit) ~= 0
+			 cntxSize := (self methodHeaderIndicatesLargeFrame: (objectMemory methodHeaderOf: method))
 							ifTrue: [LargeContextSlots - CtxtTempFrameStart]
 							ifFalse: [SmallContextSlots - CtxtTempFrameStart].
 			 ^self stackPointerIndex + n <= cntxSize]

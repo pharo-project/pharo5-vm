@@ -2,13 +2,14 @@ primitives-FT2Face
 primitiveDoneFace
 	"Call the library to release the given face record.
 	Nil out the pointer fields"
-
 	| rcvr face |
+
+	<var: #face type: 'FT_Face'>
+
 	rcvr := self 
 				primitive: 'primitiveDoneFace'
 				parameters: #()
 				receiver: #FT2Face.
-	self var: #face type: 'FT_Face'.
 	face := self ftHandleValueFromReceiver: rcvr.
 	face isNil ifTrue: [^interpreterProxy primitiveFail].
 	self touch: face.

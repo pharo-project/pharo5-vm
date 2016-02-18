@@ -6,27 +6,27 @@
 Smalltalk isInteractive ifTrue: [
 
 "Open workspace with example Configurations"
-Workspace openContents: (String streamContents: [ :stream|
-        stream << '"Configuration for the Pharo VM ---------------------------------------------------"'; cr.
-		stream << 'PharoVMBuilder '; cr.
-		stream << '	buildUnix32.'; cr; cr.
-		
-		stream << 'PharoVMBuilder '; cr.
-		stream << '	buildMacOSX32.'; cr; cr.
 
-		stream << 'PharoVMBuilder '; cr.
-		stream << '	buildWin32.'; cr; cr.
+GTPlayground 
+	openContents: (String streamContents: [ :stream |
+		stream 
+			<< '"Configuration for the Pharo VM'; cr;
+			<< ' ------------------------------"'; cr;
+			<< 'PharoVMSpur32Builder buildUnix32.'; cr;
+			<< 'PharoVMSpur32Builder buildMacOSX32.'; cr;
+			<< 'PharoVMSpur32Builder buildWin32.'; cr;
+			cr.
 		
-        stream << '"Configuration for the PharoS VM ---------------------------------------------------"'; cr.
-		stream << 'PharoSVMBuilder '; cr.
-		stream << '	buildUnix32.'; cr; cr.
-		
-		stream << 'PharoSVMBuilder '; cr.
-		stream << '	buildMacOSX32.'; cr; cr.
+		stream 
+			<< '"Configuration for the PharoS VM'; cr;
+			<< ' -------------------------------"'; cr;
+			<< 'PharoSVMSpur32Builder buildUnix32.'; cr;
+			<< 'PharoSVMSpur32Builder buildMacOSX32.'; cr;
+			<< 'PharoSVMSpur32Builder buildWin32.'; cr;
+			cr.
 
-		stream << 'PharoSVMBuilder '; cr.
-		stream << '	buildWin32.'; cr; cr.
-
-        stream << '"For more details see the internals of PharoVMBuilder and PharoSVMBuilder"'; cr.
-    ]).
+		stream 
+			<< '"For more details see the internals of PharoVMSpur32Builder and PharoSVMSpur32Builder"'; cr.
+    ])
+	label: 'Building VM'.
 ]

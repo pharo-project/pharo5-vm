@@ -1,9 +1,9 @@
 configurations
 generateAllCogConfigurationsUnderVersionControl
-	self generateNewspeakCogVM;
-		generateNewspeakSpurCogVM;
+	self generateNewspeakSpurCogVM;
+		generateNewspeakSpurCog64VM;
 		generateSqueakCogVM;
 		generateSqueakCogMTVM;
 		generateSqueakSpurCogVM;
-		generateSqueakCogSistaVM;
+		generateSqueakSpurCog64VM;
 		generateSqueakSpurCogSistaVM

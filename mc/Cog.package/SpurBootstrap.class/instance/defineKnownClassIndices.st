@@ -26,8 +26,8 @@ defineKnownClassIndices
 		at: oldHeap classFloat put: 34;
 
 		at: "oldHeap" classMessage put: 35;
-		at: "oldHeap" classMethodContext put: 36;
-		at: "oldHeap" classBlockClosure put: 37;
+		at: "oldHeap" classMethodContext put: (classMethodContextIndex := 36);
+		at: "oldHeap" classBlockClosure put: (classBlockClosureIndex := 37);
 
 		at: oldHeap classSemaphore put: 48;
 		"at: oldHeap classMutex put: 49; see below"

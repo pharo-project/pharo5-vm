@@ -3,7 +3,7 @@ closureIn: context numArgs: numArgs instructionPointer: initialIP copiedValues: 
 	| newClosure numCopied |
 	<inline: true>
 	"numCopied should be zero for nil"
-	numCopied := objectMemory fetchWordLengthOf: copiedValues.
+	numCopied := objectMemory numSlotsOf: copiedValues.
 	ClassBlockClosureCompactIndex ~= 0
 		ifTrue:
 			[newClosure := objectMemory

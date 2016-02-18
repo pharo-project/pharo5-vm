@@ -8,10 +8,10 @@ positive32BitIntegerFor: integerValue
 		ifTrue: [(self isIntegerValue: integerValue)
 					ifTrue: [^ self integerObjectOf: integerValue]].
 
-	BytesPerWord = 4
+	self wordSize = 4
 	ifTrue: ["Faster instantiateSmallClass: currently only works with integral word size."
 			newLargeInteger := self instantiateSmallClass: (self splObj: ClassLargePositiveInteger)
-					sizeInBytes: BaseHeaderSize + 4]
+					sizeInBytes: self baseHeaderSize + 4]
 	ifFalse: ["Cant use instantiateSmallClass: due to integral word requirement."
 			newLargeInteger := self instantiateClass: (self splObj: ClassLargePositiveInteger)
 					indexableSize: 4].

@@ -1,0 +1,3 @@
+accessing
+nonIndexablePointerFormat
+	^objectMemory nonIndexablePointerFormat

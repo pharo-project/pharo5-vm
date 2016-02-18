@@ -11,19 +11,17 @@ addMethodFor: aClass selector: selector
 		 (methods at: selector ifAbsent: []) ifNotNil:
 			[:tm|
 			(aClass includesBehavior: tm definingClass) ifTrue:
-				[methods removeKey: selector]].
+				[self removeMethodForSelector: selector]].
 		 ^nil].
 	method isSubclassResponsibility ifTrue:
-		[methods removeKey: selector ifAbsent: [].
-		 ^nil].
+		[^nil].
 	(self shouldIncludeMethodFor: aClass selector: selector) ifFalse:
-		[methods removeKey: selector ifAbsent: [].
-		 ^nil].
+		[^nil].
 	tmethod := self compileToTMethodSelector: selector in: aClass.
 	"Even thoug we exclude initialize methods, we must consider their
 	 global variable usage, otherwise globals may be incorrectly localized."
 	selector == #initialize ifTrue:
-		[self checkForGlobalUsage: tmethod allReferencedVariables in: tmethod.
+		[self checkForGlobalUsage: (tmethod allReferencedVariablesIn: self) in: tmethod.
 		 ^nil].
 	self addMethod: tmethod.
 	"If the method has a macro then add the macro.  But keep the method
@@ -33,9 +31,13 @@ addMethodFor: aClass selector: selector
 		self addMacro: (pragma argumentAt: 1) for: selector.
 		(inlineList includes: selector) ifTrue:
 			[inlineList := inlineList copyWithout: selector]].
-	(method propertyValueAt: #cmacro:) ifNotNil:
-		[:macro|
-		self addMacro: macro for: selector.
+	(method pragmaAt: #cmacro) ifNotNil:
+		[:pragma| | literal | "Method should be just foo ^const"
+		self assert: (method numArgs = 0 and: [method numLiterals = 3 or: [method isQuick]]).
+		literal := method isQuick
+					ifTrue: [method decompile block statements last expr key]
+					ifFalse: [method literalAt: 1].
+		self addMacro: '() ', (self cLiteralFor: literal value name: method selector) for: selector.
 		(inlineList includes: selector) ifTrue:
 			[inlineList := inlineList copyWithout: selector]].
 	^tmethod

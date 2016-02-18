@@ -1,17 +1,19 @@
 primitives-FT2Face
-primitiveGetFaceCharMapsInto: array 
+primitiveGetFaceCharMapsInto: array
 	| face rcvr stringOop charmap numCharmaps arrayOop |
-	self var: #face type: 'FT_Face'.
-	self var: #charmap type: 'FT_CharMap *'.
-	self var: #numCharmaps type: 'int'.
+	
+	<var: #face type: 'FT_Face'>
+	<var: #charmap type: 'FT_CharMap *'>
+	<var: #numCharmaps type: 'int'>
+	
 	rcvr := self 
 				primitive: 'primitiveGetFaceCharMapsIntoArray'
-				parameters: #(#Array)
+				parameters: #(#Oop)
 				receiver: #FT2Face.
 	face := self ftHandleValueFromReceiver: rcvr.
 	face isNil ifTrue: [^interpreterProxy primitiveFail].
 	numCharmaps := self cCode: 'face->num_charmaps'.
-	arrayOop := array asOop: String.
+	arrayOop := array.
 	interpreterProxy 
 		success: (interpreterProxy slotSizeOf: arrayOop) == numCharmaps.
 	interpreterProxy failed ifTrue: [^nil].

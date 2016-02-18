@@ -4,11 +4,14 @@
 		 ],
 	"classvars" : [
 		"BadRegisterSet",
+		"CogCompilerClass",
+		"NumSendTrampolines",
 		"SSBaseOffset",
 		"SSConstant",
 		"SSIllegal",
 		"SSRegister",
-		"SSSpill" ],
+		"SSSpill",
+		"UnimplementedOperation" ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],

@@ -9,13 +9,13 @@ testAdd
 			[:n| | inst len |
 			inst := self gen: AddCqR operand: n operand: reg.
 			len := inst concretizeAt: 0.
-			self processor
+			self
 				disassembleInstructionAt: 0
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
 					herIntended := 'adds	', regName, ', ', regName, ', #', n asString.
-					self assert: (plainJane match: herIntended)]]].
+					self assert: herIntended equals: plainJane]]].
 		
 	"test AddCwR"
 	self concreteCompilerClass registersWithNamesDo: [ :reg :regName |
@@ -23,38 +23,38 @@ testAdd
 			[:n| | inst len |
 			inst := self gen: AddCwR operand: n operand: reg.
 			len := inst concretizeAt: 0.
-			self processor
+			self
 				disassembleInstructionAt: 0
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'mov	sl, #', (n bitAnd: 16rFF << 24) asString.
-					self assert: (plainJane match: herIntended)].
-			self processor
+					herIntended := 'mov	ip, #', (n bitAnd: 16rFF << 24) signedIntFromLong asString.
+					self assert: herIntended equals: plainJane].
+			self
 				disassembleInstructionAt: 4
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'orr	sl, sl, #', (n bitAnd: 16rFF << 16) asString.
-					self assert: (plainJane match: herIntended)].
-			self processor
+					herIntended := 'orr	ip, ip, #', (n bitAnd: 16rFF << 16) asString.
+					self assert: herIntended equals: plainJane].
+			self
 				disassembleInstructionAt: 8
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'orr	sl, sl, #', (n bitAnd: 16rFF << 8) signedIntFromLong asString.
-					self assert: (plainJane match: herIntended)].
-			self processor
+					herIntended := 'orr	ip, ip, #', (n bitAnd: 16rFF << 8) signedIntFromLong asString.
+					self assert: herIntended equals: plainJane].
+			self
 				disassembleInstructionAt: 12
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'orr	sl, sl, #', (n bitAnd: 16rFF) asString.
-					self assert: (plainJane match: herIntended)].
-			self processor
+					herIntended := 'orr	ip, ip, #', (n bitAnd: 16rFF) asString.
+					self assert: herIntended equals: plainJane].
+			self
 				disassembleInstructionAt: 16
-				In: inst machineCode object
+				In: inst
 				into: [:str :sz| | plainJane herIntended |
 					plainJane := self strip: str.
-					herIntended := 'adds	', regName, ', ', regName, ', sl'.
-					self assert: (plainJane match: herIntended)]]]
+					herIntended := 'adds	', regName, ', ', regName, ', ip'.
+					self assert: herIntended equals: plainJane]]]

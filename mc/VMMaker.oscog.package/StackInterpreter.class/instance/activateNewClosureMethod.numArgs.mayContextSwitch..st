@@ -3,17 +3,17 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	"Similar to activateNewMethod but for Closure and newMethod."
 	| numCopied outerContext theMethod closureIP |
 	<inline: true>
-	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
+	outerContext := objectMemory followField: ClosureOuterContextIndex ofObject: blockClosure.
 	numCopied := self copiedValueCountOfClosure: blockClosure.
 
-	theMethod := objectMemory fetchPointer: MethodIndex ofObject: outerContext.
+	theMethod := objectMemory followField: MethodIndex ofObject: outerContext.
 	self push: instructionPointer.
 	self push: framePointer.
 	framePointer := stackPointer.
 	self push: theMethod.
 	self push: (self encodeFrameFieldHasContext: false isBlock: true numArgs: numArgs).
 	self push: objectMemory nilObject. "FxThisContext field"
-	self push: (objectMemory fetchPointer: ReceiverIndex ofObject: outerContext).
+	self push: (objectMemory followField: ReceiverIndex ofObject: outerContext).
 
 	"Copy the copied values..."
 	0 to: numCopied - 1 do:
@@ -32,7 +32,7 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	-1 for 0-based addressing of fetchByte 
 	-1 because it gets incremented BEFORE fetching currentByte"
 	closureIP := self quickFetchInteger: ClosureStartPCIndex ofObject: blockClosure.
-	instructionPointer := theMethod + closureIP + BaseHeaderSize - 2.
+	instructionPointer := theMethod + closureIP + objectMemory baseHeaderSize - 2.
 	self setMethod: theMethod.
 
 	"Now check for stack overflow or an event (interrupt, must scavenge, etc)"

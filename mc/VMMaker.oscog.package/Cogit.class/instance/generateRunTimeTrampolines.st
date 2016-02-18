@@ -7,9 +7,6 @@ generateRunTimeTrampolines
 	ceSendMustBeBooleanAddTrueTrampoline := self genMustBeBooleanTrampolineFor: objectMemory trueObject
 														called: 'ceSendMustBeBooleanAddTrueTrampoline'.
 	ceNonLocalReturnTrampoline := self genNonLocalReturnTrampoline.
-	ceBaseFrameReturnTrampoline := self genTrampolineFor: #ceBaseFrameReturn:
-										called: 'ceBaseFrameReturnTrampoline'
-										arg: ReceiverResultReg.
 	ceCheckForInterruptTrampoline := self genCheckForInterruptsTrampoline.
 	ceFetchContextInstVarTrampoline := self genTrampolineFor: #ceContext:instVar:
 											called: 'ceFetchContextInstVarTrampoline'
@@ -21,9 +18,14 @@ generateRunTimeTrampolines
 											arg: ReceiverResultReg
 											arg: SendNumArgsReg
 											arg: ClassReg
-											result: ReceiverResultReg. "to keep ReceiverResultReg live."
-	ceReturnToInterpreterTrampoline := self genTrampolineFor: #ceReturnToInterpreter:
-											called: 'ceReturnToInterpreterTrampoline'
-											arg: ReceiverResultReg.
+											result: ReceiverResultReg. "to keep ReceiverResultReg live.".
 	ceCannotResumeTrampoline := self genTrampolineFor: #ceCannotResume
-											called: 'ceCannotResumeTrampoline'
+											called: 'ceCannotResumeTrampoline'.
+	"These two are unusual; they are reached by return instructions."
+	ceBaseFrameReturnTrampoline := self genReturnTrampolineFor: #ceBaseFrameReturn:
+											called: 'ceBaseFrameReturnTrampoline'
+											arg: ReceiverResultReg.
+	ceReturnToInterpreterTrampoline := self
+											genReturnTrampolineFor: #ceReturnToInterpreter:
+											called: 'ceReturnToInterpreterTrampoline'
+											arg: ReceiverResultReg

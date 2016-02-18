@@ -6,7 +6,6 @@ compileCogMethod: selector
 						  or: [objectMemory isYoung: selector].
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.
 	inBlock := false.
-	primInvokeLabel := nil.
 	postCompileHook := nil.
 	maxLitIndex := -1.
 	extra := ((primitiveIndex := coInterpreter primitiveIndexOf: methodObj) > 0
@@ -17,9 +16,9 @@ compileCogMethod: selector
 	"initial estimate.  Actual endPC is determined in scanMethod."
 	endPC := (coInterpreter isQuickPrimitiveIndex: primitiveIndex)
 					ifTrue: [initialPC - 1]
-					ifFalse: [objectMemory byteLengthOf: methodObj].
+					ifFalse: [objectMemory numBytesOf: methodObj].
 	numBytecodes := endPC - initialPC + 1.
-	self allocateOpcodes: (numBytecodes + extra) * 10
+	self allocateOpcodes: (numBytecodes + extra) * self estimateOfAbstractOpcodesPerBytecodes
 		bytecodes: numBytecodes
 		ifFail: [^coInterpreter cCoerceSimple: MethodTooBig to: #'CogMethod *'].
 	(numBlocks := self scanMethod) < 0 ifTrue:

@@ -1,3 +1,5 @@
 patching
-spurBranchNameForInfo: versionInfo package: package
-	^versionInfo name copyReplaceAll: package name with: package name, '.spur'
+spurBranchNameForInfo: versionInfoOrString package: package
+	^(versionInfoOrString isString
+		ifTrue: [versionInfoOrString]
+		ifFalse: [versionInfoOrString name]) copyReplaceAll: package name with: package name, '.spur'

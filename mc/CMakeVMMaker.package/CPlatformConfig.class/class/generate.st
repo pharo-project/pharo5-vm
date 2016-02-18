@@ -1,4 +1,4 @@
-as yet unclassified
+public
 generate
 
 	^ self new generate

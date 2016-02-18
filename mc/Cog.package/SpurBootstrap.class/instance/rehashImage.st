@@ -3,15 +3,22 @@ rehashImage
 	"Rehash all collections in newHeap.
 	 Find out which classes implement rehash, entering a 1 against their classIndex in rehashFlags.
 	 Enumerate all objects, rehashing those whose class has a bit set in rehashFlags."
-	| n sim rehashFlags |
-	sim := StackInterpreterSimulator onObjectMemory: newHeap.
+	| n sim rehashFlags dotDate rehashSym sizeSym |
+	rehashSym := map at: (self findSymbol: #rehash).
+	sizeSym := map at: (self findSymbol: #size).
+	sim := StackInterpreterSimulator 
+				onObjectMemory: newHeap 
+				options: #(ObjectMemory #Spur32BitMemoryManager).
 	sim 
 		setImageHeaderFlagsFrom: oldInterpreter getImageHeaderFlags;
-		imageName: 'spur image'.
+		imageName: 'spur image';
+		assertValidExecutionPointersAtEachStep: false..
 	newHeap coInterpreter: sim.
 	sim bootstrapping: true.
 	sim initializeInterpreter: 0.
 	sim instVarNamed: 'methodDictLinearSearchLimit' put: SmallInteger maxVal.
+	
+	sim redirectTranscriptToHost.
 
 	newHeap
 		setHashBitsOf: newHeap nilObject to: 1;
@@ -22,9 +29,9 @@ rehashImage
 	n := 0.
 	newHeap classTableObjectsDo:
 		[:class| | classIndex |
-		sim messageSelector: (map at: rehashSym).
+		sim messageSelector: rehashSym.
 		"Lookup rehash but don't be fooled by ProtoObject>>rehash, which is just ^self."
-		((sim lookupMethodNoMNUEtcInClass: class) = 0
+		((sim lookupOrdinaryNoMNUEtcInClass: class) = 0
 		 and: [(sim isQuickPrimitiveIndex: (sim primitiveIndexOf: (sim instVarNamed: 'newMethod'))) not]) ifTrue:
 			[n := n + 1.
 			 classIndex := newHeap rawHashBitsOf: class.
@@ -33,6 +40,7 @@ rehashImage
 				put: ((rehashFlags at: classIndex >> 3 + 1)
 						bitOr: (1 << (classIndex bitAnd: 7)))]].
 	Transcript cr; print: n; nextPutAll: ' classes understand rehash. rehashing instances...'; flush.
+	dotDate := Time now asSeconds.
 	n := 0.
 	self withExecutableInterpreter: sim
 		do: [sim setBreakSelector: 'error:'.
@@ -41,8 +49,9 @@ rehashImage
 				[:o| | classIndex |
 				classIndex := newHeap classIndexOf: o.
 				((rehashFlags at: classIndex >> 3 + 1) anyMask: 1 << (classIndex bitAnd: 7)) ifTrue:
-					[(n := n + 1) \\ 8 = 0 ifTrue:
-					 	[Transcript nextPut: $.; flush].
+					[Time now asSeconds > dotDate ifTrue:
+					 	[Transcript nextPut: $.; flush.
+						 dotDate := Time now asSeconds].
 					 "2845 = n ifTrue: [self halt]."
 					 "Rehash an object if its size is > 0.
 					  Symbol implements rehash, but let's not waste time rehashing it; in Squeak
@@ -51,9 +60,9 @@ rehashImage
 					 ((sim addressCouldBeClassObj: o)
 					   or: [(self interpreter: sim
 							object: o
-							perform: (map at: sizeSym)
+							perform: sizeSym
 							withArguments: #()) = (newHeap integerObjectOf: 0)]) ifFalse:
 						[self interpreter: sim
 							object: o
-							perform: (map at: rehashSym)
+							perform: rehashSym
 							withArguments: #()]]]]

@@ -1,4 +1,3 @@
 accessing
-bl: aByte
-	self ebx: ((self ebx bitAnd: -16rFF) + aByte).
-	^aByte
+bl: anUnsignedInteger
+	^self unsignedByteAt: 481 put: anUnsignedInteger

@@ -3,7 +3,7 @@ spanForCleanBlockStartingAt: startPC
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	| pc end descriptor |
 	pc := startPC.
-	end := objectMemory byteLengthOf: methodObj.
+	end := objectMemory numBytesOf: methodObj.
 	[pc <= end] whileTrue:
 		[descriptor := self generatorAt: (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 pc := pc + descriptor numBytes.

@@ -1,3 +1,3 @@
 accessing
-unalignedLongAt: index 
-	^memory unsignedLongAt: index + 1
+unalignedLongAt: anInteger
+	^objectMemory unalignedLongAt: anInteger

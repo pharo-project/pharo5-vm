@@ -15,5 +15,5 @@ testMoveM64rRd
 					into: [:str :sz| | plainJane herIntended |
 						plainJane := self strip: str.
 						herIntended := 'movsd 0x', (offset hex allButFirst: 3), '(', srname, '), ', drname.
-						self assert: (plainJane match: herIntended).
+						self assert: herIntended equals: plainJane.
 						self assert: len = sz]]]]

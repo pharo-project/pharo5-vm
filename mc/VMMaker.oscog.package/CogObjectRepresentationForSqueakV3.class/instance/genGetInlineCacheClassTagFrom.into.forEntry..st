@@ -14,7 +14,7 @@ genGetInlineCacheClassTagFrom: sourceReg into: destReg forEntry: forEntry
 	<var: #entryLabel type: #'AbstractInstruction *'>
 	<var: #jumpIsInt type: #'AbstractInstruction *'>
 	<var: #jumpCompact type: #'AbstractInstruction *'>
-	cogit AlignmentNops: (BytesPerWord max: 8).
+	cogit AlignmentNops: (objectMemory wordSize max: 8).
 	entryLabel := cogit Label.
 	cogit MoveR: sourceReg R: destReg.
 	cogit AndCq: 1 R: destReg.

@@ -14,8 +14,8 @@ primitivePerform
 	argumentCount to: 1 by: -1 do:
 		[:i|
 		stackPages
-			longAt: stackPointer + (i * BytesPerWord)
-			put: (stackPages longAt: stackPointer + ((i - 1) * BytesPerWord))].
+			longAt: stackPointer + (i * objectMemory wordSize)
+			put: (stackPages longAt: stackPointer + ((i - 1) * objectMemory wordSize))].
 	self pop: 1.
 	lookupClassTag := objectMemory fetchClassTagOf: newReceiver.
 	self sendBreakpoint: messageSelector receiver: newReceiver.
@@ -31,9 +31,9 @@ primitivePerform
 		self unPop: 1.
 		1 to: argumentCount by: 1 do:
 			[:i |
-			stackPages longAt: stackPointer + ((i - 1) * BytesPerWord)
-				put: (stackPages longAt: stackPointer + (i * BytesPerWord))].
-		stackPages longAt: stackPointer + (argumentCount * BytesPerWord) put: messageSelector.
+			stackPages longAt: stackPointer + ((i - 1) * objectMemory wordSize)
+				put: (stackPages longAt: stackPointer + (i * objectMemory wordSize))].
+		stackPages longAt: stackPointer + (argumentCount * objectMemory wordSize) put: messageSelector.
 		argumentCount := argumentCount + 1.
 		newMethod := performMethod.
 		^self primitiveFail].

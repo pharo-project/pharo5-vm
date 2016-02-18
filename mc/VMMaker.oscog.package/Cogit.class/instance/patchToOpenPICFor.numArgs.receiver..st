@@ -13,7 +13,7 @@ patchToOpenPICFor: selector numArgs: numArgs receiver: receiver
 	outerReturn := coInterpreter stackTop.
 	"See if an Open PIC is already available."
 	oPIC := methodZone openPICWithSelector: selector.
-	oPIC isNil ifTrue:
+	oPIC ifNil:
 		["otherwise attempt to create an Open PIC."
 		oPIC := self cogOpenPICSelector: selector numArgs: numArgs.
 		(oPIC asInteger between: MaxNegativeErrorCode and: -1) ifTrue:
@@ -21,13 +21,17 @@ patchToOpenPICFor: selector numArgs: numArgs receiver: receiver
 			oPIC asInteger = InsufficientCodeSpace ifTrue:
 				[coInterpreter callForCogCompiledCodeCompaction].
 			^false]].
+	"Relink the send site to the pic.  Reset the cache tag to the selector, for the
+	 benefit of the cacheTag assert check in checkIfValidOopRef:pc:cogMethod: et al."
 	extent := backEnd
 				rewriteInlineCacheAt: outerReturn
-				tag: selector
+				tag: (self inlineCacheValueForSelector: selector
+						  in: coInterpreter mframeHomeMethodExport
+						  at: outerReturn)
 				target: oPIC asInteger + cmEntryOffset.
 	processor
-		flushICacheFrom: outerReturn - 1 - extent to: outerReturn - 1;
-		flushICacheFrom: oPIC asInteger to: oPIC asInteger + openPICSize.
+		flushICacheFrom: outerReturn asUnsignedInteger - extent to: outerReturn asUnsignedInteger;
+		flushICacheFrom: oPIC asUnsignedInteger to: oPIC asUnsignedInteger + openPICSize.
 	"Jump into the oPIC at its entry"
 	coInterpreter executeCogMethod: oPIC fromLinkedSendWithReceiver: receiver.
 	"NOTREACHED"

@@ -1,6 +1,5 @@
 bytecode generators
 genPushReceiverBytecode
-	(optStatus isReceiverResultRegLive
-	  and: [optStatus ssEntry = (self addressOf: simSelf)]) ifTrue:
+	optStatus isReceiverResultRegLive ifTrue:
 		[^self ssPushRegister: ReceiverResultReg].
 	^self ssPushDesc: simSelf

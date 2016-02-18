@@ -1,3 +1,5 @@
 page access
 memIndexFor: byteAddress
-	^(self oopForPointer: byteAddress) - coInterpreter stackZoneBase - 1 // BytesPerWord + 1
+	"Map an address into the stack zone into a word index into the slots in the stack zone."
+	<doNotGenerate>
+	^(self oopForPointer: byteAddress) - coInterpreter stackZoneBase - 1 // objectMemory wordSize + 1

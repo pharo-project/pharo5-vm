@@ -1,10 +1,11 @@
 primitives-FT2Face
 primitiveTranslateFaceGlyphSlotOutline: deltaWordArray
-
 	| face delta rcvr deltasqIntPtr |
-	self var: #face declareC: 'FT_Face face'.
-	self var: #delta declareC: 'FT_Vector delta'.
-	self var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	<var: #delta declareC: 'FT_Vector delta = {0}'>
+	<var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'>
+	
 	rcvr := self 
 				primitive: 'primitiveTranslateFaceGlyphSlotOutline'
 				parameters: #(Oop)

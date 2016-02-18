@@ -1,7 +1,7 @@
 oop comparison
 oop: anOop isLessThan: otherOop
-	"Compare two oop values, treating them as object memory locations.
-	Use #cCoerce:to: to ensure comparison of unsigned magnitudes. This
-	method will be inlined during C translation."
-	<inline: true>
-	^(self cCoerce: anOop to: #usqInt) < (self cCoerce: otherOop to: #usqInt)
+	"Compare two oop values, treating them as object memory locations; i.e. use unsigned comparisons.
+	 Use a macro, instead of #cCoerce:to: to provide fast simulation and inline code in conditionals,
+	 since the inliner doesn't inline in condtionals."
+	<cmacro: '(anOop,otherOop) ((usqInt)(anOop) < (usqInt)(otherOop))'>
+	^anOop < otherOop

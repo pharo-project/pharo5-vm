@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-ProcessorPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BochsX64Plugin",
+	"pools" : [
+		 ],
+	"super" : "BochsPlugin",
+	"type" : "normal" }

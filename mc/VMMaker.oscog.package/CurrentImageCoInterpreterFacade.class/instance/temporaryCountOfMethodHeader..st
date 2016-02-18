@@ -1,8 +1,6 @@
 accessing
-temporaryCountOfMethodHeader: header
-	^(CompiledMethod
-			newMethod: 8
-			header: (header <= SmallInteger maxVal
-						ifTrue: [header]
-						ifFalse: [(header bitAnd: SmallInteger maxVal) + SmallInteger minVal]))
-		numTemps
+temporaryCountOfMethodHeader: headerIntegerOop
+	^(headerToMethodMap at: headerIntegerOop) numTemps
+	"a.k.a.
+	^coInterpreter temporaryCountOfMethodHeader: headerIntegerOop,
+	 but only if the CompiledMethod header formats match"

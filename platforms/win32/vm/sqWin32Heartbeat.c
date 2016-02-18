@@ -1,12 +1,9 @@
 /****************************************************************************
-*   PROJECT: Win32 time functions and heartbeat logic for Stack VM
+*   PROJECT: Squeak port for Win32 (NT / Win95)
 *   FILE:    sqWin32Heartbeat.c
-*   CONTENT: 
+*   CONTENT: Win32 time functions and heartbeat logic for Stack VM
 *
 *   AUTHOR:  Eliot Miranda
-*   ADDRESS: 
-*   EMAIL:   eliot@teleplace.com
-*   RCSID:   $Id$
 *
 *   NOTES: 
 *  August 3rd, 2008, EEM added heart-beat thread.
@@ -56,7 +53,8 @@
 static DWORD dwTimerPeriod = 0;
 static DWORD timerID = 0;
 
-int ioOldMSecs()
+int
+ioOldMSecs()
 {
   /* Make sure the value fits into Squeak SmallIntegers */
 #ifndef _WIN32_WCE
@@ -218,6 +216,7 @@ ioUpdateVMTimezone()
 {
 	__int64 utcNow, localNow;
 
+	updateMicrosecondClock();
 	GetSystemTimeAsFileTime((FILETIME *)&utcNow);
 	FileTimeToLocalFileTime((FILETIME *)&utcNow,(FILETIME *)&localNow);
 	vmGMTOffset = (localNow - utcNow) / (__int64)TocksPerMicrosecond;
@@ -231,10 +230,10 @@ ioInitTime(void)
 	utcStartMicroseconds = utcMicrosecondClock;
 }
 
-usqLong
+unsigned volatile long long
 ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 
-usqLong
+unsigned volatile long long
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 
 usqInt
@@ -243,7 +242,7 @@ ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
 /* This is an expensive interface for use by Smalltalk or vm profiling code that
  * wants the time now rather than as of the last heartbeat.
  */
-usqLong
+unsigned volatile long long
 ioUTCMicrosecondsNow()
 {
 	return currentUTCMicroseconds(&vmThreadUtcTickBaseMicroseconds,
@@ -251,27 +250,30 @@ ioUTCMicrosecondsNow()
 								  &vmThreadBaseTick);
 }
 
-usqLong
+unsigned long long
+ioUTCStartMicroseconds() { return utcStartMicroseconds; }
+
+unsigned volatile long long
 ioLocalMicrosecondsNow() { return ioUTCMicrosecondsNow() + vmGMTOffset; };
 
-int
+sqInt
 ioMSecs() { return millisecondClock; }
 
 /* Note: ioMicroMSecs returns *milli*seconds */
-int
+sqInt
 ioMicroMSecs(void) { return microToMilliseconds(ioUTCMicrosecondsNow()); }
 
 /* returns the local wall clock time */
-int
+sqInt
 ioSeconds(void) { return get64(localMicrosecondClock) / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioSecondsNow(void) { return ioLocalMicrosecondsNow() / MicrosecondsPerSecond; }
 
-int
+sqInt
 ioUTCSeconds(void) { return get64(utcMicrosecondClock) / MicrosecondsPerSecond; }
 
-int 
+sqInt
 ioUTCSecondsNow(void) { return ioUTCMicrosecondsNow() / MicrosecondsPerSecond; }
 
 

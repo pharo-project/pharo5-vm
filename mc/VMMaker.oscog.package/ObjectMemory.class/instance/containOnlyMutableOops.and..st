@@ -5,8 +5,8 @@ containOnlyMutableOops: array1 and: array2
 	| fieldOffset |
 	fieldOffset := self lastPointerOf: array1.
 	"same size as array2"
-	[fieldOffset >= BaseHeaderSize] whileTrue:
+	[fieldOffset >= self baseHeaderSize] whileTrue:
 		[(self isOopImmutable: (self longAt: array1 + fieldOffset)) ifTrue: [^false].
 		 (self isOopImmutable: (self longAt: array2 + fieldOffset)) ifTrue: [^false].
-		 fieldOffset := fieldOffset - BytesPerWord].
+		 fieldOffset := fieldOffset - self wordSize].
 	^true

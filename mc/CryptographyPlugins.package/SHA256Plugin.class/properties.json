@@ -1,0 +1,15 @@
+{
+	"category" : "CryptographyPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "ul 3/7/2008 18:59",
+	"instvars" : [
+		"k",
+		"swap" ],
+	"name" : "SHA256Plugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

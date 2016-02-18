@@ -6,7 +6,6 @@
 *   AUTHOR:  Andreas Raab (ar)
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
-*   RCSID:   $Id: sqWin32Window.c 1693 2007-06-03 02:09:21Z andreas $
 *
 *   NOTES:
 *    1) Currently supported Squeak color depths include 1,4,8,16,32 bits
@@ -33,15 +32,22 @@
 # undef SM_CMONITORS
 # define HMONITOR_DECLARED
 # include "multimon.h"
+#else
+/**
+    TODO: REMOVE, THIS IS ADDED BECAUSE MINGW BUILD IS FAILING IN THE CI
+	Esteban 2014/08/01
+ **/
+# ifndef MONITOR_DEFAULTTONEAREST
+#  define MONITOR_DEFAULTTONEAREST 2
+WINUSERAPI HMONITOR WINAPI MonitorFromPoint(POINT,DWORD);
+WINUSERAPI HMONITOR WINAPI MonitorFromRect(LPCRECT,DWORD);
+WINUSERAPI HMONITOR WINAPI MonitorFromWindow(HWND,DWORD);
+# endif
 #endif /* defined(__MINGW32_VERSION) && (__MINGW32_MAJOR_VERSION < 3) */
 
 #include "sq.h"
 #include "sqWin32Prefs.h"
 #include "sqSCCSVersion.h"
-
-#ifndef NO_RCSID
-static TCHAR RCSID[]= TEXT("$Id: sqWin32Window.c 1693 2007-06-03 02:09:21Z andreas $");
-#endif
 
 /****************************************************************************/
 /* General Squeak declarations and definitions                              */
@@ -175,6 +181,15 @@ void HideSplashScreen(void);
 
 sqInputEvent *sqNextEventPut(void);
 int sqLaunchDrop(void);
+
+/**
+ * HACK: Hook for SDL2.
+ */
+static void (*ioCheckForEventsHooks)(void);
+
+EXPORT(void) setIoProcessEventsHandler(void * handler) {
+    ioCheckForEventsHooks = (void (*)())handler;
+}
 
 /****************************************************************************/
 /*                      Synchronization functions                           */
@@ -1267,11 +1282,48 @@ int recordKeyboardEvent(MSG *msg) {
   evt->utf32Code = keyCode;
   /* clean up reserved */
   evt->reserved1 = 0;
+
+  /* so the image can distinguish between control sequence
+     like SOH and characters with modifier like ctrl+a */
+  if(pressCode == EventKeyChar && ctrl)
+  {
+    evt->utf32Code = MapVirtualKey(LOBYTE(HIWORD(msg->lParam)), 1);
+    return 1;
+  }
+
   /* note: several keys are not reported as character events;
      most noticably the mapped virtual keys. For those we
-     generate extra character events here */
-  if(pressCode == EventKeyDown && virtCode != 0) {
+     generate extra character events here (not for CTRL+VK_RETURN*/
+  if(pressCode == EventKeyDown && virtCode != 0 && (evt->charCode != VK_RETURN || !ctrl)) {
     /* generate extra character event */
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  
+  /* some more keypress events for which windows only reports keydown and keyup
+  */
+  /* ctlr+m, but report as keyValue = VK_RETURN and charCode m/M */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode == 77)
+  {
+    evt->utf32Code = (shift) ? 77 : 109;
+    evt->charCode = VK_RETURN;
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  /* ctlr+<number> */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode >= 48 && evt->charCode <= 57)
+  {
+    evt->utf32Code = evt->charCode;
+    sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
+    *extra = *evt;
+    extra->pressCode = EventKeyChar;
+  }
+  /* ctlr+Tab */
+  if(pressCode == EventKeyDown && ctrl && evt->charCode == 9)
+  {
+    evt->utf32Code = evt->charCode;
     sqKeyboardEvent *extra = (sqKeyboardEvent*)sqNextEventPut();
     *extra = *evt;
     extra->pressCode = EventKeyChar;
@@ -1565,16 +1617,26 @@ ioProcessEvents(void)
      so we won't get anything painted unless we use GetMessage() if there
      is a dirty rect. */
 	lastMessage = &msg;
-	while(PeekMessage(&msg,NULL,0,0,PM_NOREMOVE)) {
-		GetMessage(&msg,NULL,0,0);
-# ifndef NO_PLUGIN_SUPPORT
-		if (msg.hwnd == NULL)
-			pluginHandleEvent(&msg);
-# endif
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-    }
 
+    if(ioCheckForEventsHooks)
+	{
+		/* HACK for SDL 2 */
+        ioCheckForEventsHooks();
+	}
+	else
+	{
+	
+		while(PeekMessage(&msg,NULL,0,0,PM_NOREMOVE)) {
+			GetMessage(&msg,NULL,0,0);
+# ifndef NO_PLUGIN_SUPPORT
+			if (msg.hwnd == NULL)
+				pluginHandleEvent(&msg);
+# endif
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+
+		}
+	}
 # ifndef NO_DIRECTINPUT
 	/* any buffered mouse input which hasn't been processed is obsolete */
 	DumpBufferedMouseTrail();
@@ -1859,17 +1921,12 @@ int ioSetFullScreen(int fullScreen) {
 #else /* LSB_FIRST */
 # if defined(__GNUC__) && (defined(_X86_) || defined(i386) || defined(__i386) || defined(__i386__))
    /* GCC generates *optimal* code with a little help */
-#  if __GNUC__ >= 3
-#   define BYTE_SWAP(w) __asm__("bswap %0" : "=r" (w) : "r" (w))
-#   define WORD_SWAP(w) __asm__("roll $16, %0" : "=r" (w) : "r" (w))
-#  else
-#   define BYTE_SWAP(w) __asm__("bswap %%eax" : "=eax" (w) : "eax" (w))
-#   define WORD_SWAP(w) __asm__("roll $16, %%eax" : "=eax" (w) : "eax" (w))
-#  endif
+#  define BYTE_SWAP(w) __asm__("bswap %0" : "+r" (w))
+#  define WORD_SWAP(w) __asm__("roll $16, %0" : "+r" (w))
 #  define SRC_PIX_REG asm("%esi")
 #  define DST_PIX_REG asm("%edi")
-# else /* Not GCC?! Well, it's your own fault */
-#  define BYTE_SWAP(w) w = (w << 24) | ((w & 0xFF00) << 8) | ((w >> 8) & 0xFF00) | (w >> 24)
+# else /* Not GCC?! Well, it's your own fault ;-) */
+#  define BYTE_SWAP(w) w = (w<<24) | ((w&0xFF00)<<8) | ((w>>8)&0xFF00) | (w>>24)
 #  define WORD_SWAP(w) w = (( (unsigned)(w) << 16) | ((unsigned) (w) >> 16))
 # endif /* __GNUC__ */
 #endif /* MSB_FIRST */
@@ -3200,13 +3257,15 @@ int printUsage(int level)
                    TEXT("\n\t--log: LogFile \t\t(use LogFile for VM messages)")
                    TEXT("\n\t--memory: megaByte \t(set memory to megaByte MB)")
 #if STACKVM || NewspeakVM
-                   TEXT("\n\t--breaksel: string \t(set breakSelector to sel for debug)")
+                   TEXT("\n\t--breaksel: string \t(call warning on send of sel for debug)")
 #endif /* STACKVM || NewspeakVM */
 #if STACKVM
+                   TEXT("\n\t--breakmnu: string \t(call warning on MNU of sel for debug)")
                    TEXT("\n\t--leakcheck: n \t(leak check on GC (1=full,2=incr,3=both))")
                    TEXT("\n\t--eden: bytes \t(set eden memory size to bytes)")
 				   TEXT("\n\t--stackpages: n \t(use n stack pages)")
                    TEXT("\n\t--numextsems: n \t(allow up to n external semaphores)")
+                   TEXT("\n\t--checkpluginwrites \t(check for writes past end of object in plugins")
                    TEXT("\n\t--noheartbeat \t(no heartbeat for debug)")
 #endif /* STACKVM */
 #if STACKVM || NewspeakVM
@@ -3215,6 +3274,7 @@ int printUsage(int level)
 # else
                    TEXT("\n\t--sendtrace \t(trace sends to stdout for debug)")
 # endif
+                   TEXT("\n\t--warnpid   \t(print pid in warnings)")
 #endif
 #if COGVM
                    TEXT("\n\t--codesize: bytes \t(set machine-code memory size to bytes)")
@@ -3224,6 +3284,9 @@ int printUsage(int level)
                    TEXT("\n\t--reportheadroom\t(report unused stack headroom on exit)")
                    TEXT("\n\t--dpcso: bytes \t(stack offset for prim calls for debug)")
 #endif /* COGVM */
+#if SPURVM
+                   TEXT("\n\t--maxoldspace: bytes \t(set max size of old space memory to bytes)")
+#endif
                    );
       break;
     case 2: /* No image found */

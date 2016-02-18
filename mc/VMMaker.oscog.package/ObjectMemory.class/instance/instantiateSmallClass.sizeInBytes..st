@@ -10,7 +10,7 @@ instantiateSmallClass: classPointer sizeInBytes: sizeInBytes
 	Note that the created small object IS NOT FILLED and must be completed before returning it to Squeak. Since this call is used in routines that do jsut that we are safe. Break this rule and die."
 
 	| hash header1 header2 hdrSize |
-	(sizeInBytes bitAnd: (BytesPerWord-1)) = 0 ifFalse:
+	(sizeInBytes bitAnd: (self wordSize-1)) = 0 ifFalse:
 		[self error: 'size must be integral number of words'].
 	hash := self newObjectHash.
 	header1 := (hash bitAnd: HashMaskUnshifted) << HashBitsOffset bitOr: (self formatOfClass: classPointer).

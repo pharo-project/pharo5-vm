@@ -1,3 +1,0 @@
-security
-ioCanRenameImage
-	^true

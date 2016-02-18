@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "eem 8/6/2014 14:59",
 	"instvars" : [
 		"memory",
 		"cogit",
@@ -18,6 +18,7 @@
 	"name" : "CurrentImageCoInterpreterFacade",
 	"pools" : [
 		"VMBasicConstants",
-		"VMObjectIndices" ],
+		"VMObjectIndices",
+		"VMSqueakClassIndices" ],
 	"super" : "CogClass",
 	"type" : "normal" }

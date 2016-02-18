@@ -1,7 +1,6 @@
 as yet unclassified
 on: aFilePathStringOrDirectory
-	^ self new
-		setDirectory:
-			(aFilePathStringOrDirectory isString
-				ifTrue: [ aFilePathStringOrDirectory asFileReference ]
-				ifFalse: [ aFilePathStringOrDirectory ])
+
+	^self new setDirectory: (aFilePathStringOrDirectory isString
+								ifTrue: [FileDirectory on: aFilePathStringOrDirectory]
+								ifFalse: [aFilePathStringOrDirectory])

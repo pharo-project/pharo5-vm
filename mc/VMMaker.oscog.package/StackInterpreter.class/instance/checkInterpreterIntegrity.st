@@ -26,6 +26,9 @@ checkInterpreterIntegrity
 	tempOop = 0 ifFalse:
 		[(objectMemory checkOopIntegrity: tempOop named: 'tempOop')ifFalse:
 			[ok := false]].
+	tempOop2 = 0 ifFalse:
+		[(objectMemory checkOopIntegrity: tempOop2 named: 'tempOop2')ifFalse:
+			[ok := false]].
 
 	"Callback support - check suspended callback list"
 	1 to: jmpDepth do:

@@ -4,10 +4,14 @@ initializeMiscConstants
 	super initializeMiscConstants.
 	STACKVM := true.
 
-	GCModeFull := 1.
-	GCModeIncr := 2.
-	GCModeScavenge := 3.
-	GCModeBecome := 4.
+	"These flags function to identify a GC operation, or
+	 to specify what operations the leak checker should be run for."
+	GCModeFull := 1.				"stop-the-world global GC"
+	GCModeNewSpace := 2.		"Spur's scavenge, or V3's incremental"
+	GCModeIncremental := 4.		"incremental global gc (Dijkstra tri-colour marking); as yet unimplemented"
+	GCModeBecome := 8.			"v3 post-become sweeping"
+	GCModeImageSegment := 16.	"just a flag for leak checking image segments"
+	GCModeFreeSpace := 32.		"just a flag for leak checking free space; Spur only"
 
 	StackPageTraceInvalid := -1.
 	StackPageUnreached := 0.
@@ -21,4 +25,5 @@ initializeMiscConstants
 	MaxExternalPrimitiveTableSize := 4096. "entries"
 
 	MaxJumpBuf := 32. "max. callback depth"
-	FailImbalancedPrimitives := true
+	FailImbalancedPrimitives := initializationOptions at: #FailImbalancedPrimitives ifAbsentPut: [true].
+	EnforceAccessControl := initializationOptions at: #EnforceAccessControl ifAbsent: [true]

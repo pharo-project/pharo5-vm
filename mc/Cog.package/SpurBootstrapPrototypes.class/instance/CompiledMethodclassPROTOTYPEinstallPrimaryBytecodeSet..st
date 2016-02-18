@@ -1,0 +1,3 @@
+method prototypes
+CompiledMethodclassPROTOTYPEinstallPrimaryBytecodeSet: aBytecodeEncoderSubclass
+	<indirect>

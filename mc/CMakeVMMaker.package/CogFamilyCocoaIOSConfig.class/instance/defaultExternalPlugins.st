@@ -1,7 +1,6 @@
 plugins
 defaultExternalPlugins 
-	^(self versionExternalPlugins),
-		#(
+	^ #(
 		UUIDPlugin
 		FloatMathPlugin
 		AsynchFilePlugin
@@ -19,4 +18,5 @@ defaultExternalPlugins
 		SqueakSSLPlugin
 		SerialPlugin
 		MIDIPlugin
+		SurfacePlugin
 	)

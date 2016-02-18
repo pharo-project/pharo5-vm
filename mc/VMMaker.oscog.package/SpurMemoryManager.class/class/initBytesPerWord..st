@@ -1,8 +1,7 @@
 class initialization
-initBytesPerWord: nBytes
+initBytesPerWord: wordSize
 
-	BytesPerWord := nBytes.
-	ShiftForWord := (BytesPerWord log: 2) rounded.
+	BytesPerWord := BytesPerOop := wordSize.
 	"The following is necessary to avoid confusing the compiler with shifts that are larger than the width of the type on which they operate.  In gcc, such shifts cause incorrect code to be generated."
 	BytesPerWord = 8
 		ifTrue:					"64-bit VM"

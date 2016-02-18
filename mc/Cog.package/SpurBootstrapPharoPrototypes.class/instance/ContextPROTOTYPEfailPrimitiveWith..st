@@ -1,0 +1,3 @@
+method prototypes
+ContextPROTOTYPEfailPrimitiveWith: maybePrimFailToken
+	<indirect>

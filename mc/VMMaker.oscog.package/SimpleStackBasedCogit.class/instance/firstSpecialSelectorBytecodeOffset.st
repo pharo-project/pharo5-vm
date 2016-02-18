@@ -1,6 +1,6 @@
-bytecode generators
+bytecode generator support
 firstSpecialSelectorBytecodeOffset
 	<inline: true>
 	^self cppIf: MULTIPLEBYTECODESETS
-		ifTrue: [bytecodeSetOffset = 256 ifTrue: [80 + 256] ifFalse: [176]]
-		ifFalse: [176]
+		ifTrue: [bytecodeSetOffset = 256 ifTrue: [AltFirstSpecialSelector + 256] ifFalse: [FirstSpecialSelector]]
+		ifFalse: [FirstSpecialSelector]

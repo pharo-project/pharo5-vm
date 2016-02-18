@@ -14,6 +14,6 @@ macroBenchmark  "Interpreter macroBenchmark"
 	cg addClass: ObjectMemory.
 	Interpreter declareCVarsIn: cg.
 	ObjectMemory declareCVarsIn: cg.
-	FileSystem workingDirectory deleteFileNamed: fileName.
+	FileDirectory default deleteFileNamed: fileName.
 	cg storeCodeOnFile: fileName doInlining: true.
-	FileSystem workingDirectory deleteFileNamed: fileName.
+	FileDirectory default deleteFileNamed: fileName.

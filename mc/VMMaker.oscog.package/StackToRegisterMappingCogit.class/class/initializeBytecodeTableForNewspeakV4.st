@@ -2,9 +2,11 @@ class initialization
 initializeBytecodeTableForNewspeakV4
 	"StackToRegisterMappingCogit initializeBytecodeTableForNewspeakV4"
 
-	isPushNilFunction := #v4:Is:Push:Nil:.
-	pushNilSizeFunction := #v4PushNilSize:.
-	NSSendIsPCAnnotated := false. "IsNSSendCall used by SendAbsentImplicit"
+	numPushNilsFunction := #v4:Num:Push:Nils:.
+	pushNilSizeFunction := #v4PushNilSize:numInitialNils:.
+	NSSendIsPCAnnotated := true. "IsNSSendCall used by SendAbsentImplicit"
+	FirstSpecialSelector := 80.
+	NumSpecialSelectors := 32.
 	self flag:
 'Special selector send class must be inlined to agree with the interpreter, which
  inlines class.  If class is sent to e.g. a general instance of ProtoObject then unless
@@ -14,12 +16,12 @@ initializeBytecodeTableForNewspeakV4
  are inlined only to instances of classes for which there will always be a method.'.
 	self generatorTableFrom: #(
 		"1 byte bytecodes"
-		(1    0   15 genPushReceiverVariableBytecode needsFrameNever: 1)
+		(1    0   15 genPushReceiverVariableBytecode isInstVarRef needsFrameNever: 1)
 		(1  16   31 genPushLiteralVariable16CasesBytecode needsFrameNever: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   75 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  76   76 genPushReceiverBytecode needsFrameNever: 1)
-		(1  77   77 genExtPushPseudoVariableOrOuterBytecode)
+		(1  77   77 genExtPushPseudoVariableOrOuterBytecode needsFrameIfExtBGT2: 1)
 		(1  78   78 genPushConstantZeroBytecode needsFrameNever: 1)
 		(1  79   79 genPushConstantOneBytecode needsFrameNever: 1)
 
@@ -43,8 +45,9 @@ initializeBytecodeTableForNewspeakV4
 		(1 128 143 genSendLiteralSelector1ArgBytecode isMapped)
 		(1 144 159 genSendLiteralSelector2ArgsBytecode isMapped)
 		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)
-
-		(1 176 183 genStoreAndPopReceiverVariableBytecode needsFrameNever: -1) "N.B. not frameless if immutability"
+			
+		(1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability needsFrameIfImmutability: -1)
+			
 		(1 184 191 genStoreAndPopTemporaryVariableBytecode)
 
 		(1 192 199 genShortUnconditionalJump	branch v3:ShortForward:Branch:Distance:)
@@ -65,35 +68,38 @@ initializeBytecodeTableForNewspeakV4
 		"2 byte bytecodes"
 		(2 224 224 extABytecode extension					needsFrameNever: 0)
 		(2 225 225 extBBytecode extension					needsFrameNever: 0)
-		(2 226 226 genExtPushReceiverVariableBytecode)
+		(2 226 226 genExtPushReceiverVariableBytecode isInstVarRef)
 		(2 227 227 genExtPushLiteralVariableBytecode		needsFrameNever: 1)
 		(2 228 228 genExtPushLiteralBytecode					needsFrameNever: 1)
 		(2 229 229 genExtPushIntegerBytecode				needsFrameNever: 1)
 		(2 230 230 genLongPushTemporaryVariableBytecode)
 		(2 231 231 genPushNewArrayBytecode)
-		(2 232 232 genExtStoreReceiverVariableBytecode)
-		(2 233 233 genExtStoreLiteralVariableBytecode)
+		(2 232 232 genExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 233 233 genExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 234 234 genLongStoreTemporaryVariableBytecode)
-		(2 235 235 genExtStoreAndPopReceiverVariableBytecode)
-		(2 236 236 genExtStoreAndPopLiteralVariableBytecode)
+		(2 235 235 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 236 236 genExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 237 237 genLongStoreAndPopTemporaryVariableBytecode)
 
 		(2 238 238 genExtSendBytecode isMapped)
 		(2 239 239 genExtSendSuperBytecode isMapped)
 		(2 240 240 genExtSendAbsentImplicitBytecode isMapped hasIRC)
-		(2 241 241 genExtSendAbsentDynamicSuperBytecode isMapped)
+		(2 241 241 genExtSendAbsentDynamicSuperBytecode isMapped hasIRC)
 
 		(2 242 242 genExtUnconditionalJump	branch isMapped "because of interrupt check" v4:Long:Branch:Distance:)
 		(2 243 243 genExtJumpIfTrue			branch isBranchTrue isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 		(2 244 244 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
-		(2 245 248	unknownBytecode)
+		(2 245 245	genExtSendAbsentSelfBytecode isMapped hasIRC)
+
+		(2 246 248	unknownBytecode)
 
 		"3 byte bytecodes"
-		(3 249 249 callPrimitiveBytecode)
+		(3 249 249 genCallPrimitiveBytecode)
 		(3 250 250 genPushRemoteTempLongBytecode)
 		(3 251 251 genStoreRemoteTempLongBytecode)
 		(3 252 252 genStoreAndPopRemoteTempLongBytecode)
 		(3 253 253 genExtPushClosureBytecode block v4:Block:Code:Size:)
+		(3 254 254	genExtSendAbsentOuterBytecode isMapped hasIRC)
 
-		(3 254 255	unknownBytecode))
+		(3 255 255	unknownBytecode))

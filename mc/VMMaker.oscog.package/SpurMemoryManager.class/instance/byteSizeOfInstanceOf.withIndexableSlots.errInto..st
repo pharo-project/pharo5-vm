@@ -12,16 +12,16 @@ byteSizeOfInstanceOf: classObj withIndexableSlots: nElements errInto: errorBlock
 		[self weakArrayFormat]	->
 			[numSlots := (self fixedFieldsOfClassFormat: classFormat) + nElements].
 		[self sixtyFourBitIndexableFormat]	->
-			[numSlots := self bytesPerSlot = 4 ifTrue: [nElements * 2] ifFalse: [nElements]].
+			[numSlots := self bytesPerOop = 4 ifTrue: [nElements * 2] ifFalse: [nElements]].
 		[self firstLongFormat]	->
-			[numSlots := self bytesPerSlot = 4 ifTrue: [nElements] ifFalse: [nElements + 1 // 2]].
+			[numSlots := self bytesPerOop = 4 ifTrue: [nElements] ifFalse: [nElements + 1 // 2]].
 		[self firstShortFormat]	->
-			[numSlots := self bytesPerSlot = 4 ifTrue: [nElements + 1 // 2] ifFalse: [nElements + 3 // 4]].
+			[numSlots := self bytesPerOop = 4 ifTrue: [nElements + 1 // 2] ifFalse: [nElements + 3 // 4]].
 		[self firstByteFormat]	->
-			[numSlots := nElements + (self bytesPerSlot - 1) // self bytesPerSlot].
+			[numSlots := nElements + (self bytesPerOop - 1) // self bytesPerOop].
 		[self firstCompiledMethodFormat]	-> "Assume nElements is derived from CompiledMethod>>basicSize."
-			[numSlots := nElements + (self bytesPerSlot - 1) // self bytesPerSlot] }
+			[numSlots := nElements + (self bytesPerOop - 1) // self bytesPerOop] }
 		otherwise: [^errorBlock value: PrimErrBadReceiver negated]. "non-indexable"
-	numSlots >= (1 << (self bytesPerSlot * 8 - self logBytesPerSlot)) ifTrue:
-		[^errorBlock value: PrimErrLimitExceeded].
+	numSlots >= (1 asLong << (self bytesPerOop * 8 - self logBytesPerOop)) ifTrue:
+		[^errorBlock value: (nElements < 0 ifTrue: [PrimErrBadArgument] ifFalse: [PrimErrLimitExceeded])].
 	^self objectBytesForSlots: numSlots

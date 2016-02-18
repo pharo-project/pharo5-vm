@@ -21,7 +21,7 @@ storeSenderOfFrame: theFP withValue: anOop
 	onCurrentPage ifFalse:
 		["Make sure the frame's page isn't divorced when a new page is allocated."
 		 stackPages markStackPageNextMostRecentlyUsed: thePage].
-	newPage := self newStackPage.
+	newPage := stackPages newStackPage.
 	theMovedFP := self moveFramesIn: thePage through: theFP toPage: newPage.
 	onCurrentPage
 		ifTrue: [self setStackPageAndLimit: newPage]

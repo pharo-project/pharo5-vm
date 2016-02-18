@@ -15,7 +15,7 @@ justActivateNewMethod
 	self assert: (objectMemory isOopForwarded: rcvr) not.
 
 	(activateCogMethod
-	and: [instructionPointer >= objectMemory startOfMemory]) ifTrue:
+	and: [instructionPointer asUnsignedInteger >= objectMemory startOfMemory]) ifTrue:
 		[self iframeSavedIP: framePointer put: instructionPointer.
 		 instructionPointer := cogit ceReturnToInterpreterPC].
 	self push: instructionPointer.

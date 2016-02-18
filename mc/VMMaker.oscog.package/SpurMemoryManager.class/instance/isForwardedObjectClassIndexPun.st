@@ -5,4 +5,5 @@ isForwardedObjectClassIndexPun
 	 its instances tag pattern), and because it is a power of two, which
 	 allows us to generate a slightly slimmer test for isForwarded:."
 	<api>
+	<cmacro>
 	^8

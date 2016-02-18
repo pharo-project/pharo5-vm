@@ -17,7 +17,6 @@ shouldBeTenured: survivor
 				[survivor < tenureThreshold]. 
 			[TenureByClass] ->
 				[(manager classIndexOf: survivor) = tenuringClassIndex].
-			[DontTenureButDoUnmark]	->
-				[manager setIsMarkedOf: survivor to: false.
-				 false]  }
+			[TenureToShrinkRT]	->
+				[(manager rtRefCountOf: survivor) >= refCountToShrinkRT]  }
 		otherwise: [false]

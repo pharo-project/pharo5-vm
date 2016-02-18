@@ -25,17 +25,22 @@ utilitiesMenu: aMenuMorph
 		add: 'write back mc ptrs' action: [stackPointer := cogit processor sp. framePointer := cogit processor fp. instructionPointer := cogit processor eip.
 											self writeBackHeadFramePointers];
 		addLine;
-		add: 'print rump C stack' action: [objectMemory printMemoryFrom: cogit processor sp to: self CStackPointer];
+		add: 'print rump C stack' action: [objectMemory printMemoryFrom: cogit processor sp to: cogit getCStackPointer];
 		add: 'print registers' action: [cogit processor printRegistersOn: transcript];
 		add: 'print register map' action: [cogit printRegisterMapOn: transcript];
 		add: 'disassemble method/trampoline...' action: [(self promptHex: 'pc') ifNotNil: [:pc| cogit disassembleCodeAt: pc]];
-		add: 'disassemble method/trampoline at pc' action: [cogit disassembleCodeAt: cogit processor pc];
+		add: 'disassemble method/trampoline at pc' action:
+			[cogit disassembleCodeAt: (((cogit codeEntryFor: cogit processor pc) isNil
+										  and: [(cogit methodZone methodFor: cogit processor pc) = 0])
+											ifTrue: [instructionPointer]
+											ifFalse: [cogit processor pc])];
 		add: 'disassemble ext head frame method' action: [cogit disassembleMethod: (self frameMethod: framePointer)];
 		add: 'print oop...' action: [(self promptHex: 'print oop') ifNotNil: [:oop| self printOop: oop]];
 		add: 'long print oop...' action: [(self promptHex: 'print oop') ifNotNil: [:oop| self longPrintOop: oop]];
 		add: 'print context...' action: [(self promptHex: 'print context') ifNotNil: [:oop| self printContext: oop]];
 		addLine;
 		add: 'inspect object memory' target: objectMemory action: #inspect;
+		add: 'run leak checker' action: [Cursor execute showWhile: [self runLeakChecker]];
 		add: 'inspect cointerpreter' action: #inspect;
 		add: 'inspect cogit' target: cogit action: #inspect;
 		add: 'inspect method zone' target: cogit methodZone action: #inspect.
@@ -45,10 +50,24 @@ utilitiesMenu: aMenuMorph
 		addLine;
 		add: 'print cog methods' target: cogMethodZone action: #printCogMethods;
 		add: 'print cog methods with prim...' action: [(self promptNum: 'prim index') ifNotNil: [:pix| cogMethodZone printCogMethodsWithPrimitive: pix]];
+		add: 'print cog methods with selector...' action:
+			[|s| s := UIManager default request: 'selector'.
+			s notEmpty ifTrue:
+				[s = 'nil' ifTrue: [s := nil].
+				 cogMethodZone methodsDo:
+					[:m|
+					(s ifNil: [m selector = objectMemory nilObject]
+					 ifNotNil: [(objectMemory numBytesOf: m selector) = s size
+							and: [(self str: s
+									n: (m selector + objectMemory baseHeaderSize)
+									cmp: (objectMemory numBytesOf: m selector)) = 0]]) ifTrue:
+						[cogit printCogMethod: m]]]];
+		add: 'print cog method for...' action: [(self promptHex: 'pc') ifNotNil: [:pc| cogit printCogMethodFor: pc]];
+		add: 'print cog method header for...' action: [(self promptHex: 'pc') ifNotNil: [:pc| cogit printCogMethodHeaderFor: pc]];
 		add: 'print trampoline table' target: cogit action: #printTrampolineTable;
 		add: 'print prim trace log' action: #dumpPrimTraceLog;
 		add: 'report recent instructions' target: cogit action: #reportLastNInstructions;
-		add: 'set break pc (', (cogit breakPC isInteger ifTrue: [cogit breakPC hex] ifFalse: [cogit breakPC printString]), ')...' action: [(self promptHex: 'break pc') ifNotNil: [:bpc| cogit breakPC: bpc]];
+		add: 'set break pc', cogit breakPC menuPrompt, '...-ve to disable or remove' action: [cogit promptForBreakPC];
 		add: (cogit singleStep
 				ifTrue: ['no single step']
 				ifFalse: ['single step'])
@@ -62,6 +81,7 @@ utilitiesMenu: aMenuMorph
 				ifFalse: ['print instructions each instruction'])
 			action: [cogit printInstructions: cogit printInstructions not];
 		addLine;
+		add: 'click step' action: [cogit setClickStepBreakBlock];
 		add: 'set break count...' action: [|s| s := UIManager default request: 'break count (dec)'.
 											s notEmpty ifTrue: [breakCount := Integer readFrom: s readStream]];
 		add: 'set break selector...' action: [|s| s := UIManager default request: 'break selector'.

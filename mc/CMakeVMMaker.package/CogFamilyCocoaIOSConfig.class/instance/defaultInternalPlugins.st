@@ -1,6 +1,6 @@
 plugins
 defaultInternalPlugins
-	^ #(
+	^ self versionInternalPlugins, #(
 		ADPCMCodecPlugin
 		BMPReadWriterPlugin 
 		BalloonEnginePlugin 
@@ -26,8 +26,6 @@ defaultInternalPlugins
 		SoundGenerationPlugin 
 		SoundPlugin
 		StarSqueakPlugin 
-		SurfacePlugin 
 		UnixAioPlugin
 		UnixOSProcessPlugin
-		"SDL2DisplayPlugin"
 		)

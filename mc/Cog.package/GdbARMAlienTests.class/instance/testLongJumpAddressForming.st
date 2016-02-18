@@ -46,7 +46,7 @@ testLongJumpAddressForming
 		singleStepIn: memory.
 	self 
 		assert: self processor pc = 16;
-		assert: self processor r10 = 16r7FFFFE68;
+		assert: self processor sl = 16r7FFFFE68;
 		assert: self processor zflag = 0;
 		assert: self processor cflag = 0;
 		assert: self processor vflag = 0;

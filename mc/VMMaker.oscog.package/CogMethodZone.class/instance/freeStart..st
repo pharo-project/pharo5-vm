@@ -1,4 +1,4 @@
 accessing
 freeStart: zoneLimit
 	<doNotGenerate>
-	^mzFreeStart := zoneLimit
+	^baseAddress := mzFreeStart := zoneLimit

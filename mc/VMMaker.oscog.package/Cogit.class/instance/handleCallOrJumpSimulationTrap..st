@@ -3,9 +3,12 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 	<doNotGenerate>
 	| evaluable function result savedFramePointer savedStackPointer savedArgumentCount rpc |
 	evaluable := simulatedTrampolines at: aProcessorSimulationTrap address.
-	function := evaluable
-					isBlock ifTrue: ['aBlock; probably some plugin primitive']
-					ifFalse: [evaluable selector].
+	function := evaluable isBlock
+					ifTrue: ['aBlock; probably some plugin primitive']
+					ifFalse:
+						[evaluable receiver == backEnd ifTrue:
+							[^self handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable].
+						 evaluable selector].
 	function ~~ #ceBaseFrameReturn: ifTrue:
 		[coInterpreter assertValidExternalStackPointers].
 	(function beginsWith: 'ceShort') ifTrue:
@@ -26,6 +29,9 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 	savedStackPointer := coInterpreter stackPointer.
 	savedArgumentCount := coInterpreter argumentCount.
 	result := ["self halt: evaluable selector."
+		   	   ((printRegisters or: [printInstructions]) and: [clickConfirm]) ifTrue:
+			 	[(self confirm: 'skip run-time call?') ifFalse:
+					[clickConfirm := false. self halt]].
 			   evaluable valueWithArguments: (processor
 												postCallArgumentsNumArgs: evaluable numArgs
 												in: coInterpreter memory)]
@@ -46,7 +52,7 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 						primitiveTerminateTo primitiveStoreStackp primitiveDoPrimitiveWithArgs)
 							includes: function) ifFalse:
 						[self assert: savedFramePointer = coInterpreter framePointer.
-						 self assert: savedStackPointer + (savedArgumentCount * BytesPerWord)
+						 self assert: savedStackPointer + (savedArgumentCount * objectMemory wordSize)
 								= coInterpreter stackPointer]]
 			ifFalse:
 				[self assert: savedFramePointer = coInterpreter framePointer.
@@ -56,7 +62,7 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 		 rpc := processor retpcIn: coInterpreter memory.
 		 self assert: (rpc >= codeBase and: [rpc < methodZone freeStart]).
 		 processor
-			smashCallerSavedRegistersWithValuesFrom: 16r80000000 by: BytesPerWord;
+			smashCallerSavedRegistersWithValuesFrom: 16r80000000 by: objectMemory wordSize;
 			simulateReturnIn: coInterpreter memory].
 	self assert: (result isInteger "an oop result"
 			or: [result == coInterpreter

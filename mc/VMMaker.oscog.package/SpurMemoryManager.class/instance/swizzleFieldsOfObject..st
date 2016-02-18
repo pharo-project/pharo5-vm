@@ -7,4 +7,4 @@ swizzleFieldsOfObject: oop
 		[fieldOop := self longAt: fieldAddr.
 		 (self isNonImmediate: fieldOop) ifTrue:
 			[self longAt: fieldAddr put: (segmentManager swizzleObj: fieldOop)].
-		 fieldAddr := fieldAddr - BytesPerOop]
+		 fieldAddr := fieldAddr - self bytesPerOop]

@@ -7,29 +7,17 @@ adjustAllOopsBy: bytesToShift
 	 set bits in the classTableBitmap corresponding to used classes."
 
 	| obj classIndex |
-	self countNumClassPagesPreSwizzle: bytesToShift;
-		ensureAdequateClassTableBitmap.
+	self assert: self newSpaceIsEmpty.
+	self countNumClassPagesPreSwizzle: bytesToShift.
 	(bytesToShift ~= 0
-	 or: [segmentManager numSegments > 1])
-		ifTrue:
-			[self assert: self newSpaceIsEmpty.
-			 obj := self objectStartingAt: oldSpaceStart.
-			 [self oop: obj isLessThan: freeOldSpaceStart] whileTrue:
-				[classIndex := self classIndexOf: obj.
-				 classIndex >= self isForwardedObjectClassIndexPun
-					ifTrue:
-						[classIndex > self lastClassIndexPun ifTrue:
-							[self inClassTableBitmapSet: classIndex].
-						 self swizzleFieldsOfObject: obj]
-					ifFalse:
-						[classIndex = self isFreeObjectClassIndexPun ifTrue:
-							[self swizzleFieldsOfFreeChunk: obj]].
-				 obj := self objectAfter: obj]]
-		ifFalse:
-			[self assert: self newSpaceIsEmpty.
-			 obj := self objectStartingAt: oldSpaceStart.
-			 [self oop: obj isLessThan: endOfMemory] whileTrue:
-				[classIndex := self classIndexOf: obj.
-				 classIndex > self lastClassIndexPun ifTrue:
-					[self inClassTableBitmapSet: classIndex].
-				 obj := self objectAfter: obj]]
+	 or: [segmentManager numSegments > 1]) ifTrue:
+		[obj := self objectStartingAt: oldSpaceStart.
+		 [self oop: obj isLessThan: freeOldSpaceStart] whileTrue:
+			[classIndex := self classIndexOf: obj.
+			 classIndex >= self isForwardedObjectClassIndexPun
+				ifTrue:
+					[self swizzleFieldsOfObject: obj]
+				ifFalse:
+					[classIndex = self isFreeObjectClassIndexPun ifTrue:
+						[self swizzleFieldsOfFreeChunk: obj]].
+			 obj := self objectAfter: obj]]

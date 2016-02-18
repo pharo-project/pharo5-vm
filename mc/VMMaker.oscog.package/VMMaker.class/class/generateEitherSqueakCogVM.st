@@ -4,5 +4,5 @@ generateEitherSqueakCogVM
 	coInterpreterClass := self chooseCoInterpreterClassIfAbsent: [^self].
 	^self generateSqueakCogVMWithInterpreterClass: coInterpreterClass
 		  options: ((coInterpreterClass includesBehavior: CoInterpreterMT)
-					ifTrue: [#(COGMTVM true)]
-					ifFalse: [#()])
+						ifTrue: [#(COGMTVM true)]
+						ifFalse: [#()])

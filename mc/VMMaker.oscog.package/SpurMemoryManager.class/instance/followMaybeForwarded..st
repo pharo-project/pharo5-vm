@@ -1,5 +1,6 @@
-become implementation
+forwarding
 followMaybeForwarded: objOop
-	^(self isForwarded: objOop)
-		ifTrue: [self followForwarded: objOop]
+	<inline: true>
+	^(self isOopForwarded: objOop)
+		ifTrue: [self noInlineFollowForwarded: objOop]
 		ifFalse: [objOop]

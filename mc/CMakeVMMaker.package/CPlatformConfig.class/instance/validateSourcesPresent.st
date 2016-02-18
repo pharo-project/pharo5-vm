@@ -3,7 +3,7 @@ validateSourcesPresent
 	| sources |
 	sources := PharoFilesOpener default 
 		openSources: SmalltalkImage current sourcesName 
-		forImage: SmalltalkImage current imageName.
+		forImage: SmalltalkImage current imagePath.
 	
 	((sources == nil or: [sources atEnd])
 			and: [ SmalltalkImage current checkSourcesFileAvailability])

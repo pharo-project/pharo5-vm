@@ -17,15 +17,15 @@
 		"profileProcess",
 		"profileSemaphore",
 		"nextProfileTick",
-		"preemptionYields" ],
+		"preemptionYields",
+		"newFinalization" ],
 	"name" : "InterpreterPrimitives",
 	"pools" : [
 		"VMBasicConstants",
+		"VMBytecodeConstants",
 		"VMMethodCacheConstants",
 		"VMObjectIndices",
 		"VMSqueakClassIndices",
-		"VMSqueakV3BytecodeConstants",
-		"VMSqueakV3ObjectRepresentationConstants",
 		"VMStackFrameOffsets" ],
 	"super" : "VMClass",
 	"type" : "normal" }

@@ -11,7 +11,7 @@ checkOkayOop: oop
 	(self isIntegerObject: oop) ifTrue: [ ^true ].
 	((self oop: oop isGreaterThanOrEqualTo: self startOfMemory) and: [self oop: oop isLessThan: freeStart])
 		ifFalse: [ self print: 'oop '; printHex: oop; print: ' is not a valid address'; cr. ^false ].
-	((oop \\ BytesPerWord) = 0)
+	((oop \\ self wordSize) = 0)
 		ifFalse: [ self print: 'oop '; printHex: oop; print: ' is not a word-aligned address'; cr. ^false ].
 	sz := self sizeBitsOf: oop.
 	(self oop: oop + sz isLessThanOrEqualTo: freeStart)
@@ -26,13 +26,13 @@ checkOkayOop: oop
 			ifTrue:  [ self print: 'oop '; printHex: oop; print: ' cannot have zero compact class field in a short header'; cr. ^false ].
 	].
 	type = HeaderTypeClass ifTrue: [
-		((oop >= BytesPerWord) and: [(self headerType: oop - BytesPerWord) = type])
+		((oop >= self wordSize) and: [(self headerType: oop - self wordSize) = type])
 			ifFalse: [ self print: 'oop '; printHex: oop; print: ' class header word has wrong type'; cr. ^false ].
 	].
 	type = HeaderTypeSizeAndClass ifTrue: [
-		((oop >= (BytesPerWord*2)) and:
-		 [(self headerType: oop - (BytesPerWord*2)) = type and:
-		 [(self headerType: oop - BytesPerWord) = type]])
+		((oop >= (self wordSize*2)) and:
+		 [(self headerType: oop - (self wordSize*2)) = type and:
+		 [(self headerType: oop - self wordSize) = type]])
 			ifFalse: [ self print: 'oop '; printHex: oop; print: ' class header word has wrong type'; cr. ^false ].
 	].
 
@@ -43,7 +43,7 @@ checkOkayOop: oop
 
 	"mark and root bit checks"
 	unusedBit := 16r20000000.
-	BytesPerWord = 8
+	self wordSize = 8
 		ifTrue:
 			[unusedBit := unusedBit << 16.
 			 unusedBit := unusedBit << 16].

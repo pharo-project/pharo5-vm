@@ -1,11 +1,11 @@
 io
 ioAddClipboardData: clipboard data: data dataFormat: aFormat
-| clipboardAddress formatLength dataLength |
-self primitive: 'ioAddClipboardData' parameters: #(Oop ByteArray String).
+	| clipboardAddress formatLength dataLength |
+	<var: #clipboardAddress type: #'unsigned long'>
+	self primitive: 'ioAddClipboardData' parameters: #(Oop ByteArray String).
 
-clipboardAddress := interpreterProxy positive32BitValueOf: clipboard.
+	clipboardAddress := interpreterProxy positiveMachineIntegerValueOf: clipboard.
+	dataLength := interpreterProxy slotSizeOf: data cPtrAsOop.
+	formatLength := interpreterProxy slotSizeOf: aFormat cPtrAsOop.
 
-dataLength := interpreterProxy slotSizeOf: data cPtrAsOop.
-formatLength := interpreterProxy slotSizeOf: aFormat cPtrAsOop.
-
-self sqPasteboardPutItemFlavor: clipboardAddress data: data length: dataLength formatType: aFormat formatLength: formatLength.
+	self sqPasteboardPutItemFlavor: clipboardAddress data: data length: dataLength formatType: aFormat formatLength: formatLength.

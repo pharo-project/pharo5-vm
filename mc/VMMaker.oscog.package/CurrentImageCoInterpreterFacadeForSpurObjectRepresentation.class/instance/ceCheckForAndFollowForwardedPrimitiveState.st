@@ -1,0 +1,3 @@
+accessing
+ceCheckForAndFollowForwardedPrimitiveState
+	^coInterpreter ceCheckForAndFollowForwardedPrimitiveState

@@ -1,3 +1,3 @@
-accessing
+accessing class hierarchy
 objectRepresentationClass
 	^CogObjectRepresentationForSqueakV3

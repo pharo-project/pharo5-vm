@@ -16,15 +16,15 @@ doubleExtendedDoAnythingBytecode
 		[messageSelector := self literal: byte3.
 		 argumentCount := byte2 bitAnd: 31.
 		 ^self superclassSend].
-	self fetchNextBytecode.
-	opType = 2 ifTrue: [^self pushMaybeContextReceiverVariable: byte3].
-	opType = 3 ifTrue: [^self pushLiteralConstant: byte3].
-	opType = 4 ifTrue: [^self pushLiteralVariable: byte3].
+	opType = 2 ifTrue: [self fetchNextBytecode. ^self pushMaybeContextReceiverVariable: byte3].
+	opType = 3 ifTrue: [self fetchNextBytecode. ^self pushLiteralConstant: byte3].
+	opType = 4 ifTrue: [self fetchNextBytecode. ^self pushLiteralVariable: byte3].
 	top := self internalStackTop.
 	opType = 7 ifTrue:
 		[self storeLiteralVariable: byte3 withValue: top.
-		 ^self].
+		 ^self fetchNextBytecode].
 	"opType = 5 is store; opType = 6 is storePop"
 	opType = 6 ifTrue:
 		[self internalPop: 1].
-	self storeMaybeContextReceiverVariable: byte3 withValue: top
+	self storeMaybeContextReceiverVariable: byte3 withValue: top.
+	self fetchNextBytecode

@@ -18,4 +18,6 @@ prepareVMMaker
 	" Why we put all plugins as external?   Because the generated sources are not different whether the plugins were defined as internal or external. VMMaker used to need this to to generate plugins.int and plugins.ext files. But since this is achieved in another way with CMakeVMMaker, there is no different at all to put all plugins as internal or as external."
 	maker externalModules addAll:  allPlugins.
 	
+	maker options: self vmMakerOptions.
+	
 	^ maker

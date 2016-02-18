@@ -52,7 +52,6 @@ initializeCTranslationDictionary
 		"#new						#generateNew:on:indent:"				"unused, never implemented"
 		"#new:						#generateNewSize:on:indent:"			"unused, never implemented"
 		"#superclass					#generateSuperclass:on:indent:"	"unused, never implemented"
-		#remapOop:in:				#generateRemapOopIn:on:indent:
 		#debugCode:					#generateDebugCode:on:indent:
 	).
 

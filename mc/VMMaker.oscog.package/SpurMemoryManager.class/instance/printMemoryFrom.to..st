@@ -5,4 +5,4 @@ printMemoryFrom: start to: end
 	address := start bitAnd: (self wordSize - 1) bitInvert.
 	[address < end] whileTrue:
 		[coInterpreter printHex: address; printChar: $:; space; printHex: (self longAt: address); cr.
-		 address := address + BytesPerWord]
+		 address := address + self wordSize]

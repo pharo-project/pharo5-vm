@@ -1,9 +1,9 @@
 return bytecodes
 commonReturn
-	"Do an ^-return (return form method), perhaps checking for unwinds if this is a block activation.
+	"Do an ^-return (return from method), checking for unwinds if this is a block activation.
 	 Note: Assumed to be inlined into the dispatch loop."
 
-	<sharedCodeNamed: 'commonReturn' inCase: #returnReceiver>
+	<sharedCodeInCase: #returnReceiver>
 	| closure home unwindContextOrNilOrZero frameToReturnTo contextToReturnTo theFP callerFP newPage |
 	<var: #frameToReturnTo type: #'char *'>
 	<var: #theFP type: #'char *'>
@@ -12,7 +12,7 @@ commonReturn
 	<var: #thePage type: #'StackPage *'>
 
 	"If this is a method simply return to the  sender/caller."
-	(self frameIsBlockActivation: localFP) ifFalse:
+	(self iframeIsBlockActivation: localFP) ifFalse:
 		[^self commonCallerReturn].
 
 	"Since this is a block activation the closure is on the stack above any args and the frame."
@@ -21,8 +21,8 @@ commonReturn
 	home := nil.
 	"Walk the closure's lexical chain to find the context or frame to return from (home)."
 	[closure ~= objectMemory nilObject] whileTrue:
-		[home := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: closure.
-		 closure := objectMemory fetchPointer: ClosureIndex ofObject: home].
+		[home := objectMemory followField: ClosureOuterContextIndex ofObject: closure.
+		 closure := objectMemory followField: ClosureIndex ofObject: home].
 	"home is to be returned from provided there is no unwind-protect activation between
 	 this frame and home's sender.  Search for an unwind.  findUnwindThroughContext:
 	 will answer either the context for an unwind-protect activation or nilObj if the sender
@@ -30,7 +30,8 @@ commonReturn
 	 current page's headFrame pointers to enable the search to identify widowed contexts
 	 correctly."
 	self writeBackHeadFramePointers.
-	unwindContextOrNilOrZero := self internalFindUnwindThroughContext: home.
+	self externalizeIPandSP.
+	unwindContextOrNilOrZero := self findUnwindThroughContext: home.
 	unwindContextOrNilOrZero = objectMemory nilObject ifTrue:
 		["error: can't find home on chain; cannot return"
 		 ^self internalCannotReturn: localReturnValue].
@@ -67,14 +68,13 @@ commonReturn
 	"Now we have a frame to return to.  If it is on a different page we must free intervening pages and
 	 nil out intervening contexts.  We must free intervening stack pages because if we leave the pages
 	 to be divorced then their contexts will be divorced with intact senders and instruction pointers.  This
-	 code is similar to primitiveTerminateTo.  We must move any frames on itervening pages above the
+	 code is similar to primitiveTerminateTo.  We must move any frames on intervening pages above the
 	 frame linked to because these may be in use, e.g. via co-routining (see baseFrameReturn)."
 	self assert: stackPages pageListIsWellFormed.
 	newPage := stackPages stackPageFor: frameToReturnTo.
 	newPage ~~ stackPage ifTrue:
 		[| currentCtx thePage nextCntx |
 		 currentCtx := self frameCallerContext: stackPage baseFP.
-		 self assert: (objectMemory isContext: currentCtx).
 		 stackPages freeStackPage: stackPage.
 		 [self assert: (objectMemory isContext: currentCtx).
 		  (self isMarriedOrWidowedContext: currentCtx)
@@ -84,7 +84,7 @@ commonReturn
 					[thePage := stackPages stackPageFor: theFP.
 					 theFP ~= thePage headFP ifTrue:
 						["Since we've just deallocated a page we know that newStackPage won't deallocate an existing one."
-						 self moveFramesIn: thePage through: (self findFrameAbove: theFP inPage: thePage) toPage: self newStackPage].
+						 self moveFramesIn: thePage through: (self findFrameAbove: theFP inPage: thePage) toPage: stackPages newStackPage].
 					 currentCtx := self frameCallerContext: thePage baseFP.
 					 stackPages freeStackPage: thePage]
 				ifFalse:
@@ -107,7 +107,8 @@ commonReturn
 			  localFP := self frameCallerFP: localFP.
 			  localFP ~~ frameToReturnTo] whileTrue.
 			localIP := self frameCallerSavedIP: callerFP.
-			localSP := (self frameCallerSP: callerFP) - BytesPerWord].
+			localSP := (self frameCallerSP: callerFP) - objectMemory wordSize].
+	self maybeReturnToMachineCodeFrame.
 	self setMethod: (self frameMethod: localFP).
 	self fetchNextBytecode.
-	^self internalStackTopPut: localReturnValue
+	self internalStackTopPut: localReturnValue

@@ -1,3 +1,3 @@
 literals
 header
-	^objectMemory integerValueOf: (coInterpreter headerOf: oop)
+	^objectMemory integerValueOf: (objectMemory methodHeaderOf: oop)

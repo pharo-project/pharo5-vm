@@ -1,7 +1,7 @@
 code generation
 getter: getter bitPosition: bitPosition bitWidth: bitWidth type: typeOrNil
 	^String streamContents:
-		[:s| | startByte endByte alignedPowerOf2 shift bool |
+		[:s| | startByte endByte alignedPowerOf2 shift |
 		startByte := bitPosition // 8.
 		endByte := bitPosition + bitWidth - 1 // 8.
 		shift := bitPosition \\ 8.
@@ -21,7 +21,7 @@ getter: getter bitPosition: bitPosition bitWidth: bitWidth type: typeOrNil
 		s nextPutAll: 'memory unsigned';
 		   nextPutAll: (#('Byte' 'Short' 'Long' 'Long')
 							at: endByte - startByte + 1
-							ifAbsent: ['LongLong']);
+							ifAbsent: ['Long64']);
 		  nextPutAll: 'At: address + '; print: startByte + 1.
 		(self offsetForInstVar: getter) ifNotNil:
 			[:offsetExpr| s nextPutAll: ' + '; nextPutAll: offsetExpr].

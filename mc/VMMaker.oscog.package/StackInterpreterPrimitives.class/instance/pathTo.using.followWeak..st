@@ -34,7 +34,8 @@ pathTo: goal using: stack followWeak: followWeak
 					ifFalse:
 						[next := objectMemory fetchClassOfNonImm: current]].
 		 (stackPages couldBeFramePointer: next)
-			ifTrue: [self assert: (self isFrame: next onPage: (stackPages stackPageFor: next))]
+			ifTrue: [self assert: (self isFrame: (self cCoerceSimple: next to: #'char *')
+									onPage: (stackPages stackPageFor: (self cCoerceSimple: next to: #'char *')))]
 			ifFalse: [self assert: (self checkOkayOop: next)].
 		 next = goal ifTrue:
 			[self assert: freeStartAtStart = objectMemory freeStart.
@@ -66,7 +67,7 @@ pathTo: goal using: stack followWeak: followWeak
 					ifFalse:
 						[objectMemory mark: next.
 						 (objectMemory isCompiledMethod: next)
-							ifTrue: [index := (self literalCountOf: next) + LiteralStart]
+							ifTrue: [index := (objectMemory literalCountOf: next) + LiteralStart]
 							ifFalse: [index := objectMemory lengthOf: next]].
 				 current := next]].
 		 current = objectMemory specialObjectsOop ifTrue:

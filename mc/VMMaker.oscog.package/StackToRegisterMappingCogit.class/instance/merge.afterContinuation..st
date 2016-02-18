@@ -29,5 +29,5 @@ merge: fixup afterContinuation: mergeWithContinuation
 	methodOrBlockNumTemps to: simStackPtr do:
 		[:i|
 		(self simStackAt: i)
-			mergeAt: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * BytesPerOop)
+			mergeAt: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * objectMemory bytesPerOop)
 			from: FPReg]

@@ -1,4 +1,4 @@
-header access
+object access
 is: oop instanceOf: classOop compactClassIndex: compactClassIndex
 	"Answer if oop is an instance of the given class. If the class has a (non-zero)
 	 compactClassIndex use that to speed up the check.  N.B. Inlining should

@@ -7,7 +7,6 @@ fixedFieldsOf: oop format: fmt length: wordLength
 "
 	| class classFormat |
 	<inline: true>
-	<asmLabel: false>
 	((fmt > self lastPointerFormat) or: [fmt = self arrayFormat]) ifTrue: [^0].  "indexable fields only"
 	fmt < 2 ifTrue: [^wordLength].  "fixed fields only (zero or more)"
 	

@@ -11,7 +11,7 @@ unlinkSendsTo: targetMethodObject andFreeIf: freeIfTrue
 	and: [coInterpreter methodHasCogMethod: targetMethodObject]) ifFalse:
 		[^self].
 	targetMethod := coInterpreter cogMethodOf: targetMethodObject.
-	methodZoneBase isNil ifTrue: [^self].
+	methodZoneBase ifNil: [^self].
 	codeModified := freedPIC := false.
 	cogMethod := self cCoerceSimple: methodZoneBase to: #'CogMethod *'.
 	[cogMethod < methodZone limitZony] whileTrue:
@@ -31,4 +31,4 @@ unlinkSendsTo: targetMethodObject andFreeIf: freeIfTrue
 		ifTrue: [self unlinkSendsToFree]
 		ifFalse:
 			[codeModified ifTrue: "After possibly updating inline caches we need to flush the icache."
-				[processor flushICacheFrom: methodZoneBase to: methodZone limitZony asInteger]]
+				[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]]

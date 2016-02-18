@@ -24,8 +24,8 @@ eeInstantiateClassIndex: compactClassIndex format: objFormat numSlots: numSlots
 	"size in bytes -- low 2 bits are 0; may need another shift if 64-bits.
 	 strangely, size includes size of header, but only of single header.
 	 why include header size at all?  gives us an extra word."
-	byteSize := numSlots << (ShiftForWord + (ShiftForWord-2)) + BaseHeaderSize.
-	(BytesPerWord = 8 "David, please check this!!"
+	byteSize := numSlots << (self shiftForWord + (self shiftForWord-2)) + self baseHeaderSize.
+	(self wordSize = 8 "David, please check this!!"
 	 and: [objFormat >= self firstLongFormat "32-bit longs and byte objects"
 	 and: [(numSlots bitAnd: 1) ~= 0]]) ifTrue:
 		["extra low bit (4) for 64-bit VM goes in 4-bit (betw hdr bits and sizeBits)"

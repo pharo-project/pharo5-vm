@@ -60,8 +60,5 @@ extern SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	return gDelegateApp.mainView;
 }
 
-- (void)dealloc {
-	[super dealloc];
-}
 
 @end

@@ -1,15 +1,16 @@
 translation
 declareCVarsIn: aCCodeGenerator
+	| vmClass |
 	self class == thisContext methodClass ifFalse: [^self]. "Don't duplicate decls in subclasses"
+	vmClass := aCCodeGenerator vmClass. "Generate primitiveTable etc based on vmClass, not just StackInterpreter"
 	aCCodeGenerator
 		addHeaderFile:'<stddef.h> /* for e.g. alloca */';
 		addHeaderFile:'<setjmp.h>';
-		addHeaderFile:'<wchar.h>';
+		addHeaderFile:'<wchar.h> /* for wint_t */';
 		addHeaderFile:'"vmCallback.h"';
 		addHeaderFile:'"sqMemoryFence.h"';
 		addHeaderFile:'"dispdbg.h"'.
-	self declareInterpreterVersionIn: aCCodeGenerator
-		defaultName: 'Stack'.
+	vmClass declareInterpreterVersionIn: aCCodeGenerator defaultName: 'Stack'.
 	aCCodeGenerator
 		var: #interpreterProxy  type: #'struct VirtualMachine*'.
 	aCCodeGenerator
@@ -20,13 +21,21 @@ declareCVarsIn: aCCodeGenerator
 		as: #usqInt
 		in: aCCodeGenerator.
 	"These are all pointers; char * because Slang has no support for C pointer arithmetic."
-	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit stackMemory)
+	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit stackMemory breakSelector)
 		as: #'char *'
 		in: aCCodeGenerator.
+	aCCodeGenerator
+		var: #breakSelectorLength
+		declareC: 'sqInt breakSelectorLength = MinSmallInteger'.
 	self declareC: #(stackPage overflowedPage)
 		as: #'StackPage *'
 		in: aCCodeGenerator.
 	aCCodeGenerator removeVariable: 'stackPages'.  "this is an implicit receiver in the translated code."
+	NewspeakVM ifFalse:
+		[aCCodeGenerator
+			removeVariable: 'localAbsentReceiver';
+			removeVariable: 'localAbsentReceiverOrZero';
+			removeVariable: 'nsMethodCache'].
 	"This defines bytecodeSetSelector as 0 if MULTIPLEBYTECODESETS
 	 is not defined, for the benefit of the interpreter on slow machines."
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).
@@ -39,24 +48,28 @@ declareCVarsIn: aCCodeGenerator
 		var: #methodCache
 		declareC: 'long methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
 	aCCodeGenerator
-		var: #atCache
-		declareC: 'sqInt atCache[AtCacheTotalSize + 1 /* ', (AtCacheTotalSize + 1) printString, ' */]'.
+		var: #nsMethodCache
+		declareC: 'long nsMethodCache[NSMethodCacheSize + 1 /* ', (NSMethodCacheSize + 1) printString, ' */]'.
+	AtCacheTotalSize isInteger ifTrue:
+		[aCCodeGenerator
+			var: #atCache
+			declareC: 'sqInt atCache[AtCacheTotalSize + 1 /* ', (AtCacheTotalSize + 1) printString, ' */]'].
 	aCCodeGenerator
 		var: #primitiveTable
-		declareC: 'void (*primitiveTable[MaxPrimitiveIndex + 2 /* ', (MaxPrimitiveIndex + 2) printString, ' */])(void) = ', self primitiveTableString.
-	self primitiveTable do:
+		declareC: 'void (*primitiveTable[MaxPrimitiveIndex + 2 /* ', (MaxPrimitiveIndex + 2) printString, ' */])(void) = ', vmClass primitiveTableString.
+	vmClass primitiveTable do:
 		[:symbolOrNot|
 		(symbolOrNot isSymbol
 		 and: [symbolOrNot ~~ #primitiveFail]) ifTrue:
 			[(aCCodeGenerator methodNamed: symbolOrNot) ifNotNil:
 				[:tMethod| tMethod returnType: #void]]].
-	self objectMemoryClass hasSpurMemoryManagerAPI
+	vmClass objectMemoryClass hasSpurMemoryManagerAPI
 		ifTrue:
 			[aCCodeGenerator
 				var: #primitiveAccessorDepthTable
 				type: 'signed char'
 				sizeString: 'MaxPrimitiveIndex + 2 /* ', (MaxPrimitiveIndex + 2) printString, ' */'
-				array: self primitiveAccessorDepthTable]
+				array: vmClass primitiveAccessorDepthTable]
 		ifFalse:
 			[aCCodeGenerator removeVariable: #primitiveAccessorDepthTable].
 	aCCodeGenerator
@@ -78,10 +91,6 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		var: #interruptCheckChain
 		declareC: 'void (*interruptCheckChain)(void) = 0'.
-	aCCodeGenerator
-		var: #breakSelector type: #'char *';
-		var: #breakSelectorLength
-		declareC: 'sqInt breakSelectorLength = -1'.
 
 	self declareCAsUSqLong: #(nextPollUsecs nextWakeupUsecs longRunningPrimitiveGCUsecs
 								longRunningPrimitiveStartUsecs longRunningPrimitiveStopUsecs

@@ -1,5 +1,6 @@
 translation support
 cCoerceSimple: value to: cTypeString
+	<doNotGenerate>
 	"Type coercion for translation and simulation.
 	 For simulation answer a suitable surrogate for the struct types"
 	^cTypeString caseOf:

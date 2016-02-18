@@ -1,16 +1,20 @@
 translation
 declareCVarsIn: aCCodeGenerator
 	"Override to avoid repeating StackInterpreter's declarations and add our own extensions"
-	| threaded |
 	self class == thisContext methodClass ifFalse: [^self]. "Don't duplicate decls in subclasses"
-	threaded := aCCodeGenerator vmClass isThreadedVM.
 	aCCodeGenerator
 		addHeaderFile:'"sqCogStackAlignment.h"';
-		addHeaderFile:'"cogmethod.h"';
-		addHeaderFile: (threaded ifTrue: ['"cointerpmt.h"'] ifFalse: ['"cointerp.h"']);
+		addHeaderFile:'"cogmethod.h"'.
+	NewspeakVM ifTrue:
+		[aCCodeGenerator addHeaderFile:'"nssendcache.h"'].
+	aCCodeGenerator
+		addHeaderFile: (aCCodeGenerator vmClass isThreadedVM 
+			ifTrue: ['"cointerpmt.h"'] 
+			ifFalse: ['"cointerp.h"']);
 		addHeaderFile:'"cogit.h"'.
-	self declareInterpreterVersionIn: aCCodeGenerator
-		defaultName: (threaded ifTrue: ['Cog MT'] ifFalse: ['Cog']).
+	aCCodeGenerator vmClass
+		declareInterpreterVersionIn: aCCodeGenerator
+		defaultName: aCCodeGenerator interpreterVersion.
 	aCCodeGenerator
 		var: #heapBase type: #usqInt;
 		var: #statCodeCompactionUsecs type: #usqLong;
@@ -18,6 +22,7 @@ declareCVarsIn: aCCodeGenerator
 			declareC: 'sqInt maxLiteralCountForCompile = MaxLiteralCountForCompile /* ', MaxLiteralCountForCompile printString, ' */';
 		var: #minBackwardJumpCountForCompile
 			declareC: 'sqInt minBackwardJumpCountForCompile = MinBackwardJumpCountForCompile /* ', MinBackwardJumpCountForCompile printString, ' */'.
+	aCCodeGenerator removeVariable: 'atCache'.
 	aCCodeGenerator
 		var: #reenterInterpreter
 		declareC: 'jmp_buf reenterInterpreter; /* private export */'.

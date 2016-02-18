@@ -6,14 +6,14 @@ coalesce: obj1 and: obj2
 
 	"compute total number of slots in obj2, including header"
 	obj2slots := header2NumSlots = self numSlotsMask
-					ifTrue: [(self longAt: obj2 - self baseHeaderSize) + (2 * self baseHeaderSize / self wordSize)]
+					ifTrue: [(self rawOverflowSlotsOf: obj2) + (2 * self baseHeaderSize / self wordSize)]
 					ifFalse: [(header2NumSlots = 0 ifTrue: [1] ifFalse: [header2NumSlots]) + (self baseHeaderSize / self wordSize)].
 	obj2slots := obj2slots + (obj2slots bitAnd: 1).
 	self assert: obj2slots * self wordSize = (self bytesInObject: obj2).
 
 	"if obj1 already has a double header things are simple..."
 	header1NumSlots = self numSlotsMask ifTrue:
-		[self longAt: obj1  - self baseHeaderSize put: obj2slots + (self longAt: obj1 - self baseHeaderSize).
+		[self rawOverflowSlotsOf: obj1 put: obj2slots + (self rawOverflowSlotsOf: obj1).
 		 ^obj1].
 
 	"compute total number of slots in obj1, excluding header"
@@ -25,8 +25,7 @@ coalesce: obj1 and: obj2
 
 	"if obj1 still only requires a single header things are simple..."
 	newNumSlots < self numSlotsMask ifTrue:
-		[self byteAt: obj1 + (self numSlotsFullShift / BitsPerByte)
-			put: newNumSlots.
+		[self rawNumSlotsOf: obj1 put: newNumSlots.
 		 ^obj1].
 
 	"convert from single to double header..."

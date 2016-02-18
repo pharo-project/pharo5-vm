@@ -5,7 +5,7 @@ mustMapMachineCodePC: theIP context: aOnceMarriedContext
 	| maybeClosure methodObj cogMethod startBcpc bcpc |
 	<inline: false>
 	<var: #cogMethod type: #'CogMethod *'>
-	theIP = HasBeenReturnedFromMCPC signedIntFromLong ifTrue:
+	theIP = HasBeenReturnedFromMCPC ifTrue:
 		[^objectMemory nilObject].
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aOnceMarriedContext.
 	methodObj := objectMemory fetchPointer: MethodIndex ofObject: aOnceMarriedContext.
@@ -17,10 +17,9 @@ mustMapMachineCodePC: theIP context: aOnceMarriedContext
 	cogMethod := self ensureMethodIsCogged: methodObj.
 	bcpc := self bytecodePCFor: theIP cogMethod: cogMethod startBcpc: startBcpc.
 	self assert: bcpc >= (self startPCOfMethod: methodObj).
-	self cppIf: MULTIPLEBYTECODESETS
-		ifTrue: "If there's a CallPrimitive we need to skip it."
-			[(bcpc = startBcpc
-			 and: [maybeClosure = objectMemory nilObject
-			 and: [self methodHeaderHasPrimitive: cogMethod methodHeader]]) ifTrue:
-				[bcpc := bcpc + (self sizeOfCallPrimitiveBytecode: cogMethod methodHeader)]].
+	"If there's a CallPrimitive we need to skip it."
+	(bcpc = startBcpc
+	 and: [maybeClosure = objectMemory nilObject
+	 and: [self methodHeaderHasPrimitive: cogMethod methodHeader]]) ifTrue:
+		[bcpc := bcpc + (self sizeOfCallPrimitiveBytecode: cogMethod methodHeader)].
 	^objectMemory integerObjectOf: bcpc + 1

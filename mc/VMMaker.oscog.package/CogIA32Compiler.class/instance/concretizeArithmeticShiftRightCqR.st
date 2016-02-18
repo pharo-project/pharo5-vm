@@ -3,7 +3,7 @@ concretizeArithmeticShiftRightCqR
 	<inline: true>
 	| shiftCount reg |
 	shiftCount := (operands at: 0) min: 31.
-	reg := self concreteRegister: (operands at: 1).
+	reg := operands at: 1.
 	shiftCount = 1 ifTrue:
 		[machineCode
 			at: 0 put: 16rD1;

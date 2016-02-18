@@ -22,8 +22,8 @@ internalFetchContextRegisters: activeCntx
 		  -1 for 0-based addressing of fetchByte
 		  -1 because it gets incremented BEFORE fetching currentByte"
 	tmp := self quickFetchInteger: InstructionPointerIndex ofObject: activeCntx.
-	localIP := self pointerForOop: method + tmp + BaseHeaderSize - 2.
+	localIP := self pointerForOop: method + tmp + self baseHeaderSize - 2.
 
 	"the stack pointer is a pointer variable also..."
 	tmp := self quickFetchInteger: StackPointerIndex ofObject: activeCntx.
-	localSP := self pointerForOop: activeCntx + BaseHeaderSize + ((TempFrameStart + tmp - 1) * BytesPerWord)
+	localSP := self pointerForOop: activeCntx + self baseHeaderSize + ((TempFrameStart + tmp - 1) * self wordSize)

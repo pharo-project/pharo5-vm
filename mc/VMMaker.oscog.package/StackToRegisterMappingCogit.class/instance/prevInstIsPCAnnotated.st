@@ -1,18 +1,13 @@
 testing
 prevInstIsPCAnnotated
-	| annotation prevIndex prevInst |
-	<var: #annotation type: #'InstructionAnnotation *'>
+	| prevIndex prevInst |
 	<var: #prevInst type: #'AbstractInstruction *'>
-	annotationIndex > 0 ifFalse:
-		[^false].
-	annotation := self addressOf: (annotations at: annotationIndex - 1).
-	(self isPCMappedAnnotation: annotation annotation
-			alternateInstructionSet: bytecodeSetOffset > 0) ifFalse:
+	opcodeIndex > 0 ifFalse:
 		[^false].
 	prevIndex := opcodeIndex - 1.
 	[prevIndex <= 0 ifTrue: [^false].
 	 prevInst := self abstractInstructionAt: prevIndex.
-	 annotation instruction = prevInst ifTrue:
+	 (self isPCMappedAnnotation: (prevInst annotation ifNil: [0])) ifTrue:
 		[^true].
 	 prevInst opcode = Label]
 		whileTrue:

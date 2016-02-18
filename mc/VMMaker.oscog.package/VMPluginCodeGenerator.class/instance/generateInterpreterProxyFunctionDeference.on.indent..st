@@ -9,6 +9,5 @@ generateInterpreterProxyFunctionDeference: aNode on: aStream indent: anInteger
 		cs := self cFunctionNameFor: s.
 		self withOptionalVerbiageFor: s
 			on: aStream
-			do: [aStream crtab: anInteger; nextPutAll: cs; nextPutAll: ' = interpreterProxy->'; nextPutAll: cs; nextPut: $;]
-			ifOptionalDo: [aStream crtab: anInteger; nextPutAll: cs; nextPutAll: ' = 0;']].
+			do: [aStream crtab: anInteger; nextPutAll: cs; nextPutAll: ' = interpreterProxy->'; nextPutAll: cs; nextPut: $;]].
 	aStream cr; nextPutAll: '#endif /* !defined(SQUEAK_BUILTIN_PLUGIN) */'.

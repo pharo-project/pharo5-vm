@@ -1,3 +1,0 @@
-support
-recurse
-	self recurse

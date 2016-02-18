@@ -9,7 +9,6 @@ primitiveSetWaitForAnyProcessExitThenSignalSemaphoreWithIndex
 	<var: 'handleArrayOopPtr' type: 'unsigned int *'>
 	<var: 'handleArray' declareC: 'static HANDLE handleArray[MAXIMUM_WAIT_OBJECTS]'>
 	<var: 'handleArrayPtr' type: 'static HANDLE *'>
-	<var: 'exitStatus' type: 'DWORD'>
 	semaIndex := interpreterProxy stackIntegerValue: 0.
 	handleArrayOop := interpreterProxy stackObjectValue: 1.
 	handleArrayOopPtr := interpreterProxy firstIndexableField: handleArrayOop.

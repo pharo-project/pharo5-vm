@@ -1,11 +1,11 @@
 generate machine code
 initialMethodUsageCount
 	"Answer a usage count that reflects likely long-term usage.
-	 Answer 0 for non-primitives or quick primitives (inst var accessors),
-	 1 for methods with interpreter primitives, and 2 for compiled primitives."
-	(primitiveIndex = 0
+	 Answer 1 for non-primitives or quick primitives (inst var accessors),
+	 2 for methods with interpreter primitives, and 3 for compiled primitives."
+	(primitiveIndex = 1
 	 or: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]) ifTrue:
-		[^0].
-	self primitiveGeneratorOrNil isNil ifTrue:
 		[^1].
-	^2
+	self primitiveGeneratorOrNil ifNil:
+		[^2].
+	^3

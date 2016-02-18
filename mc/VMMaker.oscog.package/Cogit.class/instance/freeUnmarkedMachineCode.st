@@ -1,9 +1,10 @@
 jit - api
 freeUnmarkedMachineCode
 	"Free machine-code methods whose compiled methods are unmarked
-	 and open PICs whose selectors are not marked."
+	 and open PICs whose selectors are not marked, and closed PICs that
+	 refer to unmarked objects."
 	<api>
-	<option: #SpurMemoryManager>
+	<option: #SpurObjectMemory>
 	| cogMethod freedMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	freedMethod := false.
@@ -18,8 +19,10 @@ freeUnmarkedMachineCode
 		  and: [(objectMemory isMarked: cogMethod selector) not]]) ifTrue:
 			[freedMethod := true.
 			 methodZone freeMethod: cogMethod].
+		 (cogMethod cmType = CMClosedPIC
+		  and: [self closedPICRefersToUnmarkedObject: cogMethod]) ifTrue:
+			[freedMethod := true.
+			 methodZone freeMethod: cogMethod].
 		 cogMethod := methodZone methodAfter: cogMethod].
 	freedMethod ifTrue:
-		[self unlinkSendsToFree.
-		 methodZone pruneYoungReferrers.
-		 processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[self unlinkSendsToFree]

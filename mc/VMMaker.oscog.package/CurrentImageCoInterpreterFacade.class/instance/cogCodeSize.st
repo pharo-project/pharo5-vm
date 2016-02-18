@@ -1,3 +1,3 @@
 accessing
 cogCodeSize
-	^memory size / 2
+	^memory byteSize / 4

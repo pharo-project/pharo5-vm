@@ -1,10 +1,16 @@
 #ifndef _SqueakVM_H
 #define _SqueakVM_H
 
-/* We expect interp.h to define VM_PROXY_MAJOR & VM_PROXY_MINOR appropriately
- * for the VM generated with it.
+/* We expect interp.h to define VM_PROXY_MAJOR & VM_PROXY_MINOR, and other
+ * defines such as STACKVM, appropriately for the VM generated with it.
  */
 #include "interp.h"
+
+#if SPURVM
+# define VM_VERSION "5.0"
+#else
+# define VM_VERSION "4.5"
+#endif
 
 #ifndef VM_PROXY_MAJOR
 /* Increment the following number if you change the order of
@@ -121,7 +127,7 @@ typedef struct VirtualMachine {
 	sqInt  (*integerObjectOf)(sqInt value);
 	sqInt  (*integerValueOf)(sqInt oop);
 	sqInt  (*positive32BitIntegerFor)(sqInt integerValue);
-	sqInt  (*positive32BitValueOf)(sqInt oop);
+	usqInt (*positive32BitValueOf)(sqInt oop);
 
 	/* InterpreterProxy methodsFor: 'special objects' */
 
@@ -185,7 +191,7 @@ typedef struct VirtualMachine {
 
 	sqInt (*classLargeNegativeInteger)(void);
 	sqInt (*signed32BitIntegerFor)(sqInt integerValue);
-	sqInt (*signed32BitValueOf)(sqInt oop);
+	int   (*signed32BitValueOf)(sqInt oop);
 	sqInt (*includesBehaviorThatOf)(sqInt aClass, sqInt aSuperClass);
 	sqInt (*primitiveMethod)(void);
 
@@ -196,8 +202,8 @@ typedef struct VirtualMachine {
 	sqInt (*classExternalFunction)(void);
 	sqInt (*classExternalLibrary)(void);
 	sqInt (*classExternalStructure)(void);
-	sqInt (*ioLoadModuleOfLength)(sqInt modIndex, sqInt modLength);
-	sqInt (*ioLoadSymbolOfLengthFromModule)(sqInt fnIndex, sqInt fnLength, sqInt handle);
+	void *(*ioLoadModuleOfLength)(sqInt modIndex, sqInt modLength);
+	void *(*ioLoadSymbolOfLengthFromModule)(sqInt fnIndex, sqInt fnLength, sqInt handle);
 	sqInt (*isInMemory)(sqInt address);
 
 #endif
@@ -222,7 +228,7 @@ typedef struct VirtualMachine {
 #  endif
 
 	sqInt  (*positive64BitIntegerFor)(sqLong integerValue);
-	sqLong (*positive64BitValueOf)(sqInt oop);
+	usqLong(*positive64BitValueOf)(sqInt oop);
 	sqInt  (*signed64BitIntegerFor)(sqLong integerValue);
 	sqLong (*signed64BitValueOf)(sqInt oop);
 
@@ -294,7 +300,9 @@ typedef struct VirtualMachine {
 #endif
 
 #if VM_PROXY_MINOR > 10
-# define DisownVMLockOutFullGC 1
+# ifndef DisownVMLockOutFullGC
+#  define DisownVMLockOutFullGC 1
+# endif
   sqInt	(*disownVM)(sqInt flags);
   sqInt	(*ownVM)   (sqInt threadIdAndFlags);
   void  (*addHighPriorityTickee)(void (*ticker)(void), unsigned periodms);
@@ -331,6 +339,7 @@ typedef struct VirtualMachine {
   sqInt (*isCharacterValue)(int charCode);
   sqInt (*isPinned)(sqInt objOop);
   sqInt (*pinObject)(sqInt objOop);
+  sqInt (*unpinObject)(sqInt objOop);
 #endif
 } VirtualMachine;
 

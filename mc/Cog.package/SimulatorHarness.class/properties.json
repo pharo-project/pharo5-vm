@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SimulatorHarness",
+	"pools" : [
+		"VMObjectIndices" ],
+	"super" : "Object",
+	"type" : "normal" }

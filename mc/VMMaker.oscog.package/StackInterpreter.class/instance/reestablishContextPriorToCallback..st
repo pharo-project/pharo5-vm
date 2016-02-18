@@ -28,7 +28,7 @@ reestablishContextPriorToCallback: callbackContext
 						ifTrue: [stackPages freeStackPage: stackPage]
 						ifFalse: "calloutContext is immediately below on the same page.  Make it current."
 							[instructionPointer := (self frameCallerSavedIP: framePointer) asUnsignedInteger.
-							 stackPointer := framePointer + (self frameStackedReceiverOffset: framePointer) + BytesPerWord.
+							 stackPointer := framePointer + (self frameStackedReceiverOffset: framePointer) + objectMemory wordSize.
 							 framePointer := self frameCallerFP: framePointer.
 							 ^true]]
 				ifFalse:
@@ -43,7 +43,7 @@ reestablishContextPriorToCallback: callbackContext
 			 "findSPOf:on: points to the word beneath the instructionPointer, but
 			  there is no instructionPointer on the top frame of the current page."
 			 self assert: thePage ~= stackPage.
-			 stackPointer := (self findSPOf: theFP on: thePage) - BytesPerWord.
+			 stackPointer := (self findSPOf: theFP on: thePage) - objectMemory wordSize.
 			 framePointer := theFP]
 		ifFalse:
 			[thePage := self makeBaseFrameFor: calloutContext.

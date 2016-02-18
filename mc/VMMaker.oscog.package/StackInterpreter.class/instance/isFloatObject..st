@@ -1,4 +1,5 @@
 internal interpreter access
 isFloatObject: oop
-	^(objectMemory isNonImmediate: oop)
-	   and: [ClassFloatCompactIndex = (objectMemory compactClassIndexOf: oop)]
+	<api>
+	<inline: true>
+	^objectMemory isFloatInstance: oop

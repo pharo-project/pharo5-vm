@@ -3,7 +3,7 @@ primitiveDoPrimitiveWithArgs
 	| argumentArray arraySize index primIdx |
 	argumentArray := self stackTop.
 	(objectMemory isArray: argumentArray) ifFalse: [^self primitiveFail].
-	arraySize := objectMemory fetchWordLengthOf: argumentArray.
+	arraySize := objectMemory numSlotsOf: argumentArray.
 	self success: (self roomToPushNArgs: arraySize).
 
 	primIdx := self stackIntegerValue: 1.
@@ -11,7 +11,8 @@ primitiveDoPrimitiveWithArgs
 
 	primitiveFunctionPointer := self functionPointerFor: primIdx inClass: nil.
 	primitiveFunctionPointer = 0 ifTrue:
-		[^self primitiveFail].
+		[primitiveFunctionPointer := #primitiveDoPrimitiveWithArgs.
+		 ^self primitiveFail].
 
 	"Pop primIndex and argArray, then push args in place..."
 	self pop: 2.
@@ -32,10 +33,20 @@ primitiveDoPrimitiveWithArgs
 	 could occur (nil tryPrimitive: 118 withArgs: #(111 #())) it counts as shooting oneself in the foot."
 	tempOop := argumentArray. "prim might alloc/gc"
 	"Run the primitive (sets primFailCode)"
-	self slowPrimitiveResponse.
+
+	objectMemory hasSpurMemoryManagerAPI
+		ifTrue:
+			[tempOop2 := newMethod.
+			 newMethod := objectMemory integerObjectOf: primIdx.
+			 self slowPrimitiveResponse.
+			 newMethod := tempOop2.
+			 tempOop2 := 0]
+		ifFalse:
+			[self slowPrimitiveResponse].
 	self successful ifFalse: "If primitive failed, then restore state for failure code"
 		[self pop: arraySize.
 		 self pushInteger: primIdx.
 		 self push: tempOop.
+		 primitiveFunctionPointer := #primitiveDoPrimitiveWithArgs.
 		 argumentCount := 2].
 	tempOop := 0

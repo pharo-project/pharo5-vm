@@ -5,13 +5,12 @@ beRootWhileForwarding: oop
 	<inline: false> "for debugging..."
 	| header fwdBlock headerLoc |
 	"If labelled, gcc duplicates the label when inlining updatePointersInRangeFrom:to:"
-	<asmLabel: false>
 	header := self longAt: oop.
 	(header bitAnd: MarkBit) ~= 0
 		ifTrue: "This oop is forwarded"
 			[fwdBlock := (header bitAnd: AllButMarkBitAndTypeMask) << 1.
 			self assert: (self fwdBlockValid: fwdBlock).
-			headerLoc := fwdBlock + BytesPerWord]
+			headerLoc := fwdBlock + self wordSize]
 		ifFalse: "Normal -- no forwarding"
 			[headerLoc := oop].
 	"use headerLoc var to eliminate duplication on inlining noteAsRoot:headerLoc:

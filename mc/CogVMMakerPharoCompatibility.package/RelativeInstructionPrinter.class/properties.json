@@ -1,0 +1,16 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"printCode",
+		"labels",
+		"labelling" ],
+	"name" : "RelativeInstructionPrinter",
+	"pools" : [
+		 ],
+	"super" : "InstructionPrinter",
+	"type" : "normal" }

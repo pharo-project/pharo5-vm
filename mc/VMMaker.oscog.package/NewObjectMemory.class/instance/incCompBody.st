@@ -5,7 +5,7 @@ incCompBody
 	| bytesToBeFreed |
 	<inline: false>
 	"reserve memory for forwarding table"
-	self fwdTableInit: BytesPerWord*2.  "Two-word blocks"
+	self fwdTableInit: self wordSize*2.  "Two-word blocks"
 
 	"assign new oop locations, reverse their headers, and initialize forwarding blocks"
 	bytesToBeFreed := self incCompMakeFwd.

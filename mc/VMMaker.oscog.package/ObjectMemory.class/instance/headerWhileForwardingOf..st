@@ -9,5 +9,5 @@ headerWhileForwardingOf: oop
 		["oop is forwarded; get its real header from its forwarding table entry"
 		 fwdBlock := (header bitAnd: AllButMarkBitAndTypeMask) << 1.
 		 self assert: (self fwdBlockValid: fwdBlock).
-		 header := self longAt: fwdBlock + BytesPerWord].
+		 header := self longAt: fwdBlock + self wordSize].
 	^header

@@ -3,11 +3,19 @@ initializeBytecodeTable
 	"SimpleStackBasedCogit initializeBytecodeTableWith: Dictionary new"
 	"StackToRegisterMappingCogit initializeBytecodeTableWith: Dictionary new"
 
-	(initializationOptions at: #bytecodeTableInitializer ifAbsent: nil) ifNotNil:
-		[:initalizer| ^self perform: initalizer].
-
-	NewspeakVM ifTrue:
-		[^MULTIPLEBYTECODESETS
-			ifTrue: [self initializeBytecodeTableForNewspeakV3PlusClosuresNewspeakV4Hybrid]
-			ifFalse: [self initializeBytecodeTableForNewspeakV3PlusClosures]].
-	^self initializeBytecodeTableForSqueakV3PlusClosures
+	| initializer |
+	BytecodeSetHasDirectedSuperSend := false.
+	initializer := initializationOptions
+					at: #bytecodeTableInitializer
+					ifAbsent:
+						[NewspeakVM
+							ifTrue:
+								[MULTIPLEBYTECODESETS
+									ifTrue: [#initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid]
+									ifFalse: [#initializeBytecodeTableForNewspeakV4]]
+							ifFalse:
+								[#initializeBytecodeTableForSqueakV3PlusClosures]].
+	"Now make sure all classes in the hierarchy have initialized to the same bytecode table."
+	(self withAllSuperclasses copyUpTo: Cogit) reverseDo: "i.e. exclude Cogit"
+		[:cogitClass|
+		 cogitClass perform: initializer]

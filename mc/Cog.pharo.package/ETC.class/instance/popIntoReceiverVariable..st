@@ -1,3 +1,0 @@
-instruction decoding
-popIntoReceiverVariable: offset
-	currentContext pop

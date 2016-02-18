@@ -5,7 +5,7 @@ ffiPushPointer: pointer in: calloutState
 	<inline: true>
 	calloutState integerRegisterIndex < NumIntRegArgs
 		ifTrue:
-			[calloutState integerRegisters at: calloutState integerRegisterIndex put: pointer.
+			[calloutState integerRegisters at: calloutState integerRegisterIndex put: pointer asInteger.
 			 calloutState integerRegisterIndex: calloutState integerRegisterIndex + 1]
 		ifFalse:
 			[calloutState currentArg + 4 > calloutState limit ifTrue:

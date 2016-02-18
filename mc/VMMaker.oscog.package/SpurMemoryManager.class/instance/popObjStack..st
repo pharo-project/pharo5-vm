@@ -1,7 +1,7 @@
 obj stacks
 popObjStack: objStack
 	| topx top nextPage myx |
-	self assert: (self isValidObjStack: objStack).
+	self eassert: [self isValidObjStack: objStack].
 	topx := self fetchPointer: ObjStackTopx ofObject: objStack.
 	topx = 0 ifTrue:
 		[self assert: (self fetchPointer: ObjStackNextx ofObject: objStack) = 0.
@@ -28,7 +28,7 @@ popObjStack: objStack
 			 self storePointer: ObjStackNextx ofObjStack: objStack withValue: 0.
 			 myx := self fetchPointer: ObjStackMyx ofObject: objStack.
 			 self updateRootOfObjStackAt: myx with: nextPage.
-			 self assert: (self isValidObjStack: nextPage)]
+			 self eassert: [self isValidObjStack: nextPage]]
 		ifFalse:
-			[self assert: (self isValidObjStack: objStack)].
+			[self eassert: [self isValidObjStack: objStack]].
 	^top

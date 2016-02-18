@@ -21,20 +21,20 @@ updateStateOfSpouseContextForFrame: theFP WithSP: theSP
 	pointer := theFP + (self frameStackedReceiverOffsetNumArgs: tempIndex).
 	1 to: tempIndex do:
 		[:i|
-		pointer := pointer - BytesPerWord.
+		pointer := pointer - objectMemory wordSize.
 		self assert: (objectMemory addressCouldBeOop: (stackPages longAt: pointer)).
 		 objectMemory storePointer: ReceiverIndex + i
 			ofObject: theContext
 			withValue: (stackPages longAt: pointer)].
 	"now update the non-argument stack contents."
-	pointer := theFP + FoxReceiver - BytesPerWord.
+	pointer := theFP + FoxReceiver - objectMemory wordSize.
 	[pointer >= theSP] whileTrue:
 		[self assert: (objectMemory addressCouldBeOop: (stackPages longAt: pointer)).
 		 tempIndex := tempIndex + 1.
 		 objectMemory storePointer: ReceiverIndex + tempIndex
 			ofObject: theContext
 			withValue: (stackPages longAt: pointer).
-		 pointer := pointer - BytesPerWord].
+		 pointer := pointer - objectMemory wordSize].
 	self assert: ReceiverIndex + tempIndex < (objectMemory lengthOf: theContext).
 	objectMemory storePointerUnchecked: StackPointerIndex
 		ofObject: theContext

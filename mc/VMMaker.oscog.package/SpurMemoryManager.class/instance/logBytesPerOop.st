@@ -1,0 +1,3 @@
+header format
+logBytesPerOop
+	self subclassResponsibility

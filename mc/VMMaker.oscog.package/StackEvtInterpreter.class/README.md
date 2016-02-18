@@ -1,1 +1,0 @@
-This is a subclass of the StackInterpreter which implements the specifics of the Event-driven Cog Stack VM

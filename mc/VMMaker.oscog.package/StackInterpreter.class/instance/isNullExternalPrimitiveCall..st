@@ -4,7 +4,7 @@ isNullExternalPrimitiveCall: aMethodObj
 	 This is just for an assert in the CoInterpreter."
 	| lit |
 	((self primitiveIndexOf: aMethodObj) = 117
-	and: [(self literalCountOf: aMethodObj) > 0]) ifFalse:
+	and: [(objectMemory literalCountOf: aMethodObj) > 0]) ifFalse:
 		[^false].
 
 	lit := self literal: 0 ofMethod: aMethodObj.

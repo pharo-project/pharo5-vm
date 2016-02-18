@@ -1,6 +1,6 @@
 {
 	"class" : {
-		"initialize" : "MarianoMartinezPeck 4/23/2011 13:47",
+		"initialize" : "EstebanLorenzano 5/21/2015 21:39",
 		"openInWorld" : "",
 		"unload" : "tpr 2/14/2004 21:41" },
 	"instance" : {
@@ -14,7 +14,7 @@
 		"browseSelectedAvailablePlugin" : "rww 9/25/2001 02:00",
 		"browseSelectedExternalPlugin" : "rww 9/25/2001 02:00",
 		"browseSelectedInternalPlugin" : "rww 9/25/2001 02:01",
-		"buildCenterRows" : "nk 4/5/2005 23:34",
+		"buildCenterRows" : "eem 5/17/2015 14:51",
 		"buildWindow" : "nk 4/5/2005 23:05",
 		"checkOK" : "nk 4/5/2005 23:31",
 		"cleanoutSrcDir" : "tpr 3/27/2002 15:19",
@@ -33,7 +33,7 @@
 		"externalModules" : "",
 		"findPlatformsPath" : "tpr 9/15/2003 13:58",
 		"findPlatformsPathFrom:" : "tpr 3/12/2002 14:10",
-		"findPlatformsPathFrom:informing:" : "GuillermoPolito 6/17/2013 18:10",
+		"findPlatformsPathFrom:informing:" : "ar 3/10/2002 14:54",
 		"generateAll" : "tpr 10/21/2001 11:00",
 		"generateCore" : "tpr 10/21/2001 11:01",
 		"generateExternal" : "tpr 10/21/2001 11:02",
@@ -52,7 +52,7 @@
 		"isFor64BitVM" : "tpr 4/4/2005 19:11",
 		"listForMorph:" : "tpr 10/12/2001 15:29",
 		"listMorphs" : "",
-		"loadConfig" : "GuillermoPolito 6/17/2013 15:29",
+		"loadConfig" : "ar 3/10/2002 15:05",
 		"makeAllPluginsAvailable" : "tpr 10/16/2001 09:58",
 		"makeAllPluginsExternal" : "tpr 10/16/2001 09:58",
 		"makeAllPluginsInternal" : "tpr 10/16/2001 09:58",
@@ -65,7 +65,7 @@
 		"platformsPathText:" : "tpr 3/27/2002 15:47",
 		"refreshAvailablePluginsList" : "eem 9/16/2008 15:07",
 		"release" : "nk 4/5/2005 20:27",
-		"saveConfig" : "GuillermoPolito 6/17/2013 15:29",
+		"saveConfig" : "rww 9/23/2001 14:17",
 		"set64BitVM:" : "tpr 4/4/2005 19:30",
 		"sourcePathText" : "eem 8/18/2008 16:23",
 		"sourcePathText:" : "",

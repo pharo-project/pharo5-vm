@@ -15,14 +15,14 @@ moveFramesIn: oldPage through: theFP toPage: newPage
 	<var: #offsetCallerFP type: #'char *'>
 	<var: #source type: #'char *'>
 	<returnTypeC: 'char *'>
-	newSP := newPage baseAddress + BytesPerWord.
+	newSP := newPage baseAddress + objectMemory wordSize.
 	stackedReceiverOffset := self frameStackedReceiverOffset: theFP.
 	"First move the data.  We will fix up frame pointers later."
 	theFP + stackedReceiverOffset
 		to: oldPage headSP
-		by: BytesPerWord negated
+		by: objectMemory wordSize negated
 		do: [:source|
-			newSP := newSP - BytesPerWord.
+			newSP := newSP - objectMemory wordSize.
 			stackPages longAt: newSP put: (stackPages longAt: source)].
 	"newSP = oldSP + delta => delta = newSP - oldSP"
 	delta := newSP - oldPage headSP.
@@ -35,7 +35,7 @@ moveFramesIn: oldPage through: theFP toPage: newPage
 	callerIP := self oopForPointer: (self frameCallerSavedIP: theFP).
 	stackPages longAt: theFP + stackedReceiverOffset put: callerIP.
 	self assert: (callerFP < oldPage baseAddress
-				and: [callerFP > (oldPage realStackLimit - (LargeContextSize / 2))]).
+				and: [callerFP > (oldPage realStackLimit - (LargeContextSlots * objectMemory bytesPerOop / 2))]).
 	oldPage
 		headFP: callerFP;
 		headSP: theFP + stackedReceiverOffset.

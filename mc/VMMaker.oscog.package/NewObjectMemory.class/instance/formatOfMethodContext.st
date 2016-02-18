@@ -4,4 +4,4 @@ formatOfMethodContext
 	 contexts without needing to fetch it from the class MethodContext itself."
 	^(ClassMethodContextCompactIndex << 12)
 	+ (self indexablePointersFormat << self instFormatFieldLSB) "Pointers+Variable"
-	+ (CtxtTempFrameStart + (BaseHeaderSize / BytesPerWord) << 2)
+	+ (CtxtTempFrameStart + (self baseHeaderSize / self wordSize) << 2)

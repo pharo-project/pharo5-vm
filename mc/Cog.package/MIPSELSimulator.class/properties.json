@@ -1,0 +1,14 @@
+{
+	"category" : "Cog-Processors",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "rmacnak 11/11/2015 20:33:13",
+	"instvars" : [
+		 ],
+	"name" : "MIPSELSimulator",
+	"pools" : [
+		 ],
+	"super" : "MIPSSimulator",
+	"type" : "normal" }

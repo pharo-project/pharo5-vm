@@ -5,10 +5,10 @@ initializeMemoryFirstFree: firstFree
 	di 11/18/2000 Re totalObjectCount: Provide a margin of one byte per object to be used for forwarding pointers at GC time. Since fwd blocks are 8 bytes, this means an absolute worst case of 8 passes to compact memory. In most cases it will be adequate to do compaction in a single pass. "
 	| fwdBlockBytes |
 	"reserve space for forwarding blocks"
-	fwdBlockBytes := totalObjectCount bitAnd: WordMask - BytesPerWord + 1.
-	(self oop: memoryLimit - fwdBlockBytes isGreaterThanOrEqualTo: firstFree + BaseHeaderSize)
+	fwdBlockBytes := totalObjectCount bitAnd: WordMask - self wordSize + 1.
+	(self oop: memoryLimit - fwdBlockBytes isGreaterThanOrEqualTo: firstFree + self baseHeaderSize)
 		ifFalse: ["reserve enough space for a minimal free block of BaseHeaderSize bytes"
-			fwdBlockBytes := memoryLimit - (firstFree + BaseHeaderSize)].
+			fwdBlockBytes := memoryLimit - (firstFree + self baseHeaderSize)].
 
 	"set endOfMemory and initialize freeBlock"
 	self setEndOfMemory: memoryLimit - fwdBlockBytes.
@@ -16,7 +16,7 @@ initializeMemoryFirstFree: firstFree
 	self setSizeOfFree: freeBlock to: endOfMemory - firstFree. "bytes available for oops"
 
 	"make a fake free chunk at endOfMemory for use as a sentinel in memory scans"
-	self setSizeOfFree: endOfMemory to: BaseHeaderSize.
+	self setSizeOfFree: endOfMemory to: self baseHeaderSize.
 	DoAssertionChecks
 		ifTrue: [(freeBlock < endOfMemory and: [endOfMemory < memoryLimit])
 				ifFalse: [self error: 'error in free space computation'].

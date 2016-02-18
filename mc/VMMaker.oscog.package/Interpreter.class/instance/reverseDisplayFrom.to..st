@@ -11,7 +11,7 @@ reverseDisplayFrom: startIndex to: endIndex
 	w := self fetchInteger: 1 ofObject: displayObj.
 	dispBitsPtr := self fetchPointer: 0 ofObject: displayObj.
 	(self isIntegerObject: dispBitsPtr) ifTrue: [^ nil].
-	dispBitsPtr := dispBitsPtr + BaseHeaderSize.
+	dispBitsPtr := dispBitsPtr + self baseHeaderSize.
 	dispBitsPtr + (startIndex * 4) to: dispBitsPtr + (endIndex * 4) by: 4
 		do: [:ptr | 
 			reversed := (self long32At: ptr) bitXor: 4294967295.

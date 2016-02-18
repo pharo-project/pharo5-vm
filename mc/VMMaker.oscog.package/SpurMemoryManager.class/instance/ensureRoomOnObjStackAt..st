@@ -23,7 +23,7 @@ ensureRoomOnObjStackAt: objStackRootIndex
 										format: self wordIndexableFormat
 										classIndex: self wordSizeClassIndexPun.
 				 freeOrNewPage ifNil: [self error: 'no memory to allocate or extend obj stack'].
-				 self storePointer: ObjStackFreex ofObjStack: freeOrNewPage withValue: 0..
+				 self storePointer: ObjStackFreex ofObjStack: freeOrNewPage withValue: 0.
 				 marking ifTrue: [self setIsMarkedOf: freeOrNewPage to: true]].
 		 self storePointer: ObjStackMyx ofObjStack: freeOrNewPage withValue: objStackRootIndex;
 			  storePointer: ObjStackNextx ofObjStack: freeOrNewPage withValue: (stackOrNil = nilObj ifTrue: [0] ifFalse: [stackOrNil]);

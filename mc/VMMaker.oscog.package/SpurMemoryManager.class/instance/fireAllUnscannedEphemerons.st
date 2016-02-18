@@ -4,5 +4,4 @@ fireAllUnscannedEphemerons
 	self assert: self allUnscannedEphemeronsAreActive.
 	unscannedEphemerons start to: unscannedEphemerons top - self wordSize do:
 		[:p|
-		self queueEphemeron: (self longAt: p)].
-	coInterpreter forceInterruptCheck
+		coInterpreter fireEphemeron: (self longAt: p)]

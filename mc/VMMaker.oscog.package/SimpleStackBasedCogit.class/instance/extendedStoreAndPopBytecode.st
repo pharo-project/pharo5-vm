@@ -6,7 +6,10 @@ extendedStoreAndPopBytecode
 	variableType = 0 ifTrue:
 		[^self genStorePop: true ReceiverVariable: variableIndex].
 	variableType = 1 ifTrue:
-		[^self genStorePop: true TemporaryVariable: variableIndex].
+		[self genStorePop: true TemporaryVariable: variableIndex.
+		"needs a fake map entry if Immutability is ON..."
+		self cppIf: IMMUTABILITY ifTrue: [ self annotateBytecode: self Label. ].
+		^ 0].
 	variableType = 3 ifTrue:
 		[^self genStorePop: true LiteralVariable: variableIndex].
 	^EncounteredUnknownBytecode

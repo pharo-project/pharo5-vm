@@ -18,8 +18,12 @@ compileBlockFrameBuild: blockStart
 	<var: #blockStart type: #'BlockStart *'>
 	<inline: false>
 	self annotateBytecode: self Label.
+	backEnd hasLinkRegister ifTrue:
+		[self PushR: LinkReg].
 	self PushR: FPReg.
 	self MoveR: SPReg R: FPReg.
+	"Think of ClassReg as ClosureReg"
+	self MoveR: ReceiverResultReg R: ClassReg.
 	"The block method field must have its MFMethodFlagIsBlockFlag bit set.
 	 We arrange this using a labelOffset.  A hack, but it works."
 	blockStart fakeHeader
@@ -28,24 +32,37 @@ compileBlockFrameBuild: blockStart
 		setLabelOffset: MFMethodFlagIsBlockFlag.
 	self annotate: (self PushCw: objectMemory nilObject) "context"
 		objRef: objectMemory nilObject.
-	"fetch home receiver from outer context. closure is on stack and initially in ReceiverResultReg"
-	objectRepresentation
-		genLoadSlot: ClosureOuterContextIndex
-			sourceReg: ReceiverResultReg
-				destReg: TempReg;
-		genLoadSlot: ReceiverIndex
-			sourceReg: TempReg
-				destReg: ClassReg.
-	self PushR: ClassReg. "home receiver"
+	"Fetch home receiver from outer context. closure is on stack and initially in ReceiverResultReg.
+	 It is safe to use Arg0Reg because reg args are pushed by the value primitives if there are any.".
+	blockStart hasInstVarRef
+		ifTrue: "Use ReceiverResultReg for Context to agree with store check trampoline"
+			[objectRepresentation
+				genLoadSlot: ClosureOuterContextIndex
+					sourceReg: ClassReg
+						destReg: ReceiverResultReg;
+				genLoadSlot: ReceiverIndex
+					sourceReg: ReceiverResultReg
+						destReg: Arg0Reg.
+			objectRepresentation
+				genEnsureOopInRegNotForwarded: Arg0Reg scratchReg: TempReg updatingSlot: ReceiverIndex in: ReceiverResultReg.
+			self MoveR: Arg0Reg R: ReceiverResultReg]
+		ifFalse:
+			[objectRepresentation
+				genLoadSlot: ClosureOuterContextIndex
+					sourceReg: ClassReg
+						destReg: Arg0Reg;
+				genLoadSlot: ReceiverIndex
+					sourceReg: Arg0Reg
+						destReg: ReceiverResultReg].
+	self PushR: ReceiverResultReg. "home receiver"
 	"Push copied values; bytecode initializes temporaries"
 	0 to: blockStart numCopied - 1 do:
 		[:i|
 		objectRepresentation
 			genLoadSlot: i + ClosureFirstCopiedValueIndex
-			sourceReg: ReceiverResultReg
+			sourceReg: ClassReg
 			destReg: TempReg.
 		self PushR: TempReg].
-	self MoveR: ClassReg R: ReceiverResultReg.
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"
 	self JumpBelow: stackOverflowCall.

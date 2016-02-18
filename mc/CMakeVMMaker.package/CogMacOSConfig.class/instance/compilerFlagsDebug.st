@@ -14,5 +14,6 @@ compilerFlagsDebug
 		'-Wunused-value'. 
 		'-Wsign-compare'. 
 		'-DDEBUGVM=1'. 
+		 '-DNDEBUG'.
 		'-DEXTERNALPRIMSDEBUG=1'. 
 		'-gdwarf-2' }

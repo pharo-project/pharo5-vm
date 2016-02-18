@@ -7,7 +7,9 @@ ffiLoadCalloutModule: module
 		"plain module name"
 		ffiModuleName := module.
 		moduleLength := interpreterProxy byteSizeOf: ffiModuleName.
-		moduleHandle := interpreterProxy ioLoadModule: (self cCoerce: (interpreterProxy firstIndexableField: ffiModuleName) to:'int') OfLength: moduleLength.
+		moduleHandle := (interpreterProxy
+							ioLoadModule: (interpreterProxy firstIndexableField: ffiModuleName) asInteger
+							OfLength: moduleLength) asInteger.
 		(interpreterProxy failed
 		 or: [moduleHandle = 0]) ifTrue:
 			[^self ffiFail: FFIErrorModuleNotFound]. "failed"
@@ -24,7 +26,9 @@ ffiLoadCalloutModule: module
 		ffiModuleName := interpreterProxy fetchPointer: 1 ofObject: rcvr.
 		(interpreterProxy isBytes: ffiModuleName) ifFalse:[^self ffiFail: FFIErrorBadExternalLibrary].
 		moduleLength := interpreterProxy byteSizeOf: ffiModuleName.
-		moduleHandle := interpreterProxy ioLoadModule: (self cCoerce: (interpreterProxy firstIndexableField: ffiModuleName) to:'int') OfLength: moduleLength.
+		moduleHandle := (interpreterProxy
+								ioLoadModule: (interpreterProxy firstIndexableField: ffiModuleName) asInteger
+								OfLength: moduleLength) asInteger.
 		(interpreterProxy failed
 		 or: [moduleHandle = 0]) ifTrue:
 			[^self ffiFail: FFIErrorModuleNotFound]. "failed"

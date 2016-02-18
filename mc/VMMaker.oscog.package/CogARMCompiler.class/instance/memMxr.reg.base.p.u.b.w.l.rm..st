@@ -6,12 +6,13 @@ memMxr: cond reg: destReg base: baseReg p: postpreoffset u: updown b: byteword w
 	b -> byte(1) or word (0)
 	w -> write-back (1) if pre-indexing. 
 	l -> load (1) or store (0)"
-	^ cond << 28
+	^ (cond bitAnd: 16rF)  << 28
 		bitOr: (3 << 25
-		bitOr: (postpreoffset << 24
-		bitOr: (updown << 23
-		bitOr: (byteword << 22
-		bitOr: (weirdstuff << 21
-		bitOr: (loadstore << 20
-		bitOr: (baseReg << 16
-		bitOr: (destReg << 12 bitOr: offsetReg))))))))
+		bitOr: ((postpreoffset  bitAnd: 1) << 24
+		bitOr: ((updown bitAnd: 1) << 23
+		bitOr: ((byteword bitAnd: 1) << 22
+		bitOr: ((weirdstuff bitAnd: 1) << 21
+		bitOr: ((loadstore bitAnd: 1) << 20
+		bitOr: ((baseReg bitAnd: 16rF) << 16
+		bitOr: ((destReg bitAnd: 16rF) << 12 
+		bitOr: (offsetReg bitAnd: 16rF)))))))))

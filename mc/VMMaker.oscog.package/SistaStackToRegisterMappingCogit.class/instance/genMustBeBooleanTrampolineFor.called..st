@@ -12,14 +12,12 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	| jumpMBB |
 	<var: #jumpMBB type: #'AbstractInstruction *'>
 	<inline: false>
-	opcodeIndex := 0.
+	self zeroOpcodeIndex.
 	self CmpCq: 0 R: SendNumArgsReg.
 	jumpMBB := self JumpZero: 0.
 	"Open-code self compileTrampolineFor: #ceCounterTripped: numArgs: 1 arg: TempReg ...
 	 so we can restore ResultReceiverReg."
-	backEnd hasLinkRegister ifTrue:
-		[self PushR: LinkReg].
-	self genSmalltalkToCStackSwitch.
+	self genSmalltalkToCStackSwitch: true.
 	self
 		compileCallFor: #ceCounterTripped:
 		numArgs: 1
@@ -36,10 +34,10 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 	backEnd genLoadStackPointers.
 	backEnd hasLinkRegister ifTrue:
 		[self PopR: LinkReg].
-	"To keep ResultReceiverReg live if optStatus thiught it was, simply reload it
+	"To keep ResultReceiverReg live if optStatus thought it was, simply reload it
 	 from the frame pointer.  This avoids having to reload it in the common case
 	 (counter does not trip) if it was live."
-	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
+	self putSelfInReceiverResultReg.
 	self RetN: 0.
 	"If the objectRepresentation does want true & false to be mobile then we need to record these addresses."
 	self assert: (objectRepresentation shouldAnnotateObjectReference: boolean) not.
@@ -53,5 +51,5 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 		arg: nil
 		saveRegs: false
 		pushLinkReg: true
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: true

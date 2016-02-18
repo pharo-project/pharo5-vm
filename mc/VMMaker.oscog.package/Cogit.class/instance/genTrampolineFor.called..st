@@ -13,5 +13,5 @@ genTrampolineFor: aRoutine called: aString
 		arg: nil
 		saveRegs: false
 		pushLinkReg: true
-		resultReg: nil
+		resultReg: NoReg
 		appendOpcodes: false

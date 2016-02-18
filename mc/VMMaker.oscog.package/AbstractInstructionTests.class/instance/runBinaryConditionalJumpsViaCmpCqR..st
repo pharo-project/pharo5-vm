@@ -1,14 +1,16 @@
 running
 runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 	"self defaultTester runBinaryConditionalJumpsViaCmpCqR: false"
-	| mask reg1 reg2 resultRegNum operandRegNum |
+	| mask count reg1 reg2 resultRegNum operandRegNum |
 	mask := (1 << self processor bitsInWord) - 1.
-	resultRegNum := 0.
-	operandRegNum := 1.
+	count := 0.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:n :get :set|
-		n = resultRegNum ifTrue: [reg1 := get].
-		n = operandRegNum ifTrue: [reg2 := set]].
+		count = 0 ifTrue: [resultRegNum := n. reg1 := get].
+		count = 1 ifTrue: [operandRegNum := n. reg2 := set].
+		count := count + 1].
+	self assert: resultRegNum ~= nil.
+	self assert: operandRegNum ~= nil.
 	#(	(JumpAbove > unsigned)			(JumpBelowOrEqual <= unsigned)
 		(JumpBelow < unsigned)			(JumpAboveOrEqual >= unsigned)
 		(JumpGreater > signed)			(JumpLessOrEqual <= signed)
@@ -21,7 +23,7 @@ runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 			[:b| | jumpNotTaken jumpTaken nop memory bogus |
 			self resetGen.
 			self gen: CmpCqR operand: b operand: operandRegNum.
-			jumpTaken := self gen: opcode.
+			jumpTaken := self genConditionalBranch: opcode operand: 0.
 			self gen: MoveCqR operand: 0 operand: resultRegNum.
 			jumpNotTaken := self gen: Jump.
 			jumpTaken jmpTarget: (self gen: MoveCqR operand: 1 operand: resultRegNum).
@@ -35,7 +37,7 @@ runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 				[:a| | taken expected |
 				self processor
 					reset;
-					perform: reg2 with: a signedIntToLong.
+					perform: reg2 with: (processor convertIntegerToInternal: a).
 				[self processor singleStepIn: memory.
 				 self processor pc ~= nop address] whileTrue.
 				taken := (self processor perform: reg1) = 1.
@@ -44,7 +46,7 @@ runBinaryConditionalJumpsViaCmpCqR: assertPrintBar
 								ifFalse: [a perform: relation with: b].
 				assertPrintBar
 					ifTrue:
-						[self assert: taken = expected]
+						[self assert: taken equals: expected]
 					ifFalse:
 						[Transcript
 							nextPutAll: 'CmpCqR '; print: b; space; nextPutAll: reg2; tab; tab;

@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorArithmetic
 	| primDescriptor rcvrIsConst argIsConst rcvrIsInt argIsInt rcvrInt argInt result
-	 jumpNotSmallInts jumpContinue annotateInst instToAnnotate |
+	 jumpNotSmallInts jumpContinue annotateInst instToAnnotate index |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
 	<var: #jumpContinue type: #'AbstractInstruction *'>
@@ -47,12 +47,10 @@ genSpecialSelectorArithmetic
 			 self MoveR: ReceiverResultReg R: TempReg]
 		ifFalse:
 			[self marshallSendArguments: 1.
-			 self MoveR: Arg0Reg R: TempReg.
-			 rcvrIsInt ifFalse:
-				[objectRepresentation isSmallIntegerTagNonZero
-					ifTrue: [self AndR: ReceiverResultReg R: TempReg]
-					ifFalse: [self OrR: ReceiverResultReg R: TempReg]]].
-	jumpNotSmallInts := objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg.
+			 self MoveR: Arg0Reg R: TempReg].
+	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
+							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
+							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratchReg: TempReg].
 	primDescriptor opcode caseOf: {
 		[AddRR] -> [argIsInt
 						ifTrue:
@@ -95,7 +93,7 @@ genSpecialSelectorArithmetic
 	argIsInt ifTrue:
 		[annotateInst ifTrue: [self annotateBytecode: instToAnnotate].
 		 self MoveCq: argInt R: Arg0Reg].
-	self genMarshalledSend: (coInterpreter specialSelector: byte0 - self firstSpecialSelectorBytecodeOffset)
-		numArgs: 1.
+	index := byte0 - self firstSpecialSelectorBytecodeOffset.
+	self genMarshalledSend: index negated - 1 numArgs: 1 sendTable: ordinarySendTrampolines.
 	jumpContinue jmpTarget: self Label.
 	^0

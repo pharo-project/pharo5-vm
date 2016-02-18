@@ -3,5 +3,5 @@ popStack
 
 	| top |
 	top := self longAt: stackPointer.
-	stackPointer := stackPointer - BytesPerWord.
+	stackPointer := stackPointer - self wordSize.
 	^ top

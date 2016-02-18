@@ -16,7 +16,7 @@ allocateChunk: byteSize
 			lowSpaceThreshold := 0. "disable additional interrupts until lowSpaceThreshold is reset by image"
 			self saveProcessSignalingLowSpace.
 			self forceInterruptCheck].
-	(self oop: (self sizeOfFree: freeBlock) isLessThan: byteSize + BaseHeaderSize)
+	(self oop: (self sizeOfFree: freeBlock) isLessThan: byteSize + self baseHeaderSize)
 		ifTrue: [self error: 'out of memory'].
 
 	"if we get here, there is enough space for allocation to  succeed "

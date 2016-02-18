@@ -11,15 +11,12 @@ followForwardedMethods
 		[cogMethod cmType = CMMethod ifTrue:
 			[(objectMemory isForwarded: cogMethod methodObject) ifTrue:
 				[cogMethod methodObject: (objectMemory followForwarded: cogMethod methodObject).
-				 (cogMethod cmRefersToYoung not
-				  and: [objectMemory isYoungObject: cogMethod methodObject]) ifTrue:
-					[methodZone addToYoungReferrers: cogMethod]]].
+				 (objectMemory isYoungObject: cogMethod methodObject) ifTrue:
+					[methodZone ensureInYoungReferrers: cogMethod]]].
 		 cogMethod cmType = CMClosedPIC ifTrue:
 			[(self followMethodReferencesInClosedPIC: cogMethod) ifTrue:
 				[freedPIC := true.
 				 methodZone freeMethod: cogMethod]].
 		 cogMethod := methodZone methodAfter: cogMethod].
 	freedPIC ifTrue:
-		[self unlinkSendsToFree.
-		 methodZone pruneYoungReferrers.
-		 processor flushICacheFrom: codeBase to: methodZone limitZony asInteger]
+		[self unlinkSendsToFree]

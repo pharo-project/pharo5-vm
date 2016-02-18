@@ -24,6 +24,8 @@ tryLoadNewPlugin: pluginString pluginEntries: pluginEntries
 									thenCollect: [:psc| psc simulatorClass]) asSet.
 			simulatorClasses isEmpty ifTrue: [self transcript show: ' ... not found'. ^nil].
 			simulatorClasses size > 1 ifTrue: [^self error: 'This won''t work...'].
+			(plugins copyWithoutAll: simulatorClasses) notEmpty ifTrue:
+				[plugins := plugins copyWithoutAll: simulatorClasses].
 			plugins size > 1 ifTrue:
 				[self transcript show: '...multiple plugin classes; choosing ', plugins last name].
 			realPluginClass := plugins last. "hopefully lowest in the hierarchy..."
@@ -42,14 +44,14 @@ tryLoadNewPlugin: pluginString pluginEntries: pluginEntries
 									ifTrue: [realPluginClass]
 									ifFalse: [plugin class])
 								 withAllSuperclasses detect: [:class| class shouldBeTranslated].
-				 cg := realPlugin buildCodeGeneratorUpTo: realPlugin]
+				 cg := realPlugin buildCodeGenerator]
 			ifFalse:
 				[cg := self codeGeneratorToComputeAccessorDepth.
 				 primitiveTable withIndexDo:
 					[:prim :index| | depth |
 					 prim isSymbol ifTrue:
 						[depth := cg accessorDepthForSelector: prim.
-						 self assert: depth isInteger.
+						 self assert: (depth isInteger or: [depth isNil and: [(plugin class whichClassIncludesSelector: prim) isNil]]).
 						 primitiveAccessorDepthTable at: index - 1 put: depth]]].
 		 cg exportedPrimitiveNames do:
 			[:primName| | fnSymbol |

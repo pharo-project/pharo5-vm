@@ -1,0 +1,3 @@
+sista support
+valueOfAssociation: association
+	self subclassResponsibility

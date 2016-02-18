@@ -8,7 +8,7 @@ endPCOf: aMethod
 			[^pc - 1]].
 	bsOffset := self bytecodeSetOffsetFor: aMethod.
 	nExts := 0.
-	end := objectMemory byteLengthOf: aMethod.
+	end := objectMemory numBytesOf: aMethod.
 	[pc <= end] whileTrue:
 		[byte := objectMemory fetchByte: pc ofObject: aMethod.
 		descriptor := self generatorAt: byte + bsOffset.

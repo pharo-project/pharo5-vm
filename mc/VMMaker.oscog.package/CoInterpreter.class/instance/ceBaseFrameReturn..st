@@ -16,17 +16,16 @@ ceBaseFrameReturn: returnValue
 	self assert: stackPages mostRecentlyUsedPage = stackPage.
 	cogit assertCStackWellAligned.
 	self assert: framePointer = 0.
-	self assert: stackPointer <= (stackPage baseAddress - BytesPerWord).
-	self assert: stackPage baseFP + (2 * BytesPerWord) < stackPage baseAddress.
+	self assert: stackPointer <= (stackPage baseAddress - objectMemory wordSize).
+	self assert: stackPage baseFP + (2 * objectMemory wordSize) < stackPage baseAddress.
 	"We would like to use the following assert but we can't since the stack pointer will be above the
 	 base frame pointer in the base frame return and hence the 0 a base frame pointer points at could
 	 be overwritten which will cause the isBaseFrame assert in frameCallerContext: to fail."
 	"self assert: (self frameCallerContext: stackPage baseFP) = (stackPages longAt: stackPage baseAddress)."
-	self assert: ((objectMemory addressCouldBeObj: (stackPages longAt: stackPage baseAddress - BytesPerWord))
-				and: [objectMemory isContext: (stackPages longAt: stackPage baseAddress - BytesPerWord)]).
-	self assert: ((objectMemory addressCouldBeObj: (stackPages longAt: stackPage baseAddress))
-				and: [objectMemory isContext: (stackPages longAt: stackPage baseAddress)]).
+	self assert: ((objectMemory addressCouldBeObj: (stackPages longAt: stackPage baseAddress - objectMemory wordSize))
+				and: [objectMemory isContext: (stackPages longAt: stackPage baseAddress - objectMemory wordSize)]).
 	contextToReturnTo := stackPages longAt: stackPage baseAddress.
+	self assert: (objectMemory addressCouldBeObj: contextToReturnTo).
 
 	"The stack page is effectively free now, so free it.  We must free it to be
 	 correct in determining if contextToReturnTo is still married, and in case
@@ -50,7 +49,7 @@ ceBaseFrameReturn: returnValue
 					  Make the interior frame the top frame."
 					 frameAbove := self findFrameAbove: framePointer inPage: thePage.
 					 "Since we've just deallocated a page we know that newStackPage won't deallocate an existing one."
-					 newPage := self newStackPage.
+					 newPage := stackPages newStackPage.
 					 self assert: newPage = stackPage.
 					 self moveFramesIn: thePage through: frameAbove toPage: newPage.
 					 stackPages markStackPageMostRecentlyUsed: newPage.
@@ -59,7 +58,7 @@ ceBaseFrameReturn: returnValue
 		ifFalse:
 			[(isAContext
 			  and: [objectMemory isIntegerObject: (objectMemory fetchPointer: InstructionPointerIndex ofObject: contextToReturnTo)]) ifFalse:
-				[contextToReturnFrom := stackPages longAt: stackPage baseAddress - BytesPerWord.
+				[contextToReturnFrom := stackPages longAt: stackPage baseAddress - objectMemory wordSize.
 				 self tearDownAndRebuildFrameForCannotReturnBaseFrameReturnFrom: contextToReturnFrom
 					to: contextToReturnTo
 					returnValue: returnValue.

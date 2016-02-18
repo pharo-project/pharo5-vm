@@ -15,4 +15,4 @@ primLoadLibrary
 					OfLength: (interpreterProxy byteSizeOf: libraryName).
 	libraryHandle = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
-	interpreterProxy methodReturnValue: (interpreterProxy positive32BitIntegerFor: libraryHandle asUnsignedInteger)
+	interpreterProxy methodReturnValue: (self positiveMachineIntegerFor: libraryHandle asUnsignedInteger)

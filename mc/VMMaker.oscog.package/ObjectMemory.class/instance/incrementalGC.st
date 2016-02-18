@@ -18,7 +18,7 @@ incrementalGC
 		 self checkInterpreterIntegrity.
 		 self validate].
 
-	self preGCAction: GCModeIncr.
+	self preGCAction: GCModeNewSpace.
 	"incremental GC and compaction"
 
 	gcStartUsecs := self ioUTCMicrosecondsNow.
@@ -60,7 +60,8 @@ incrementalGC
 				ifTrue: [self biasToGrow.
 						weDidGrow := true].
 			youngStart := freeBlock].
-	self postGCAction: GCModeIncr.
+	self attemptToShrink.
+	self postGCAction: GCModeNewSpace.
 	DoAssertionChecks ifTrue:
 		[self validate.
 		 self checkHeapIntegrity.

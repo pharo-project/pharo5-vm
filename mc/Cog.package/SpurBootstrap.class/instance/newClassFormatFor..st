@@ -4,7 +4,8 @@ newClassFormatFor: oldClassObj
 	 NEW: 		<5 bits inst spec><16 bits inst size>"
 	| oldFormat instSize newInstSpec |
 	((oldInterpreter classNameOf: oldClassObj Is: 'SmallInteger')
-	 or: [oldInterpreter classNameOf: oldClassObj Is: 'Character']) ifTrue:
+	 or: [(oldInterpreter classNameOf: oldClassObj Is: 'Character')
+	 or: [oldInterpreter classNameOf: oldClassObj Is: 'SmallFloat64']]) ifTrue:
 		[^newHeap integerObjectOf: newHeap instSpecForImmediateClasses << 16].
 	oldFormat := oldHeap formatOfClass: oldClassObj. "N.B. SmallInteger with tag bit cleared"
 	oldFormat := oldFormat >> 1.

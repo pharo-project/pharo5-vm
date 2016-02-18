@@ -4,7 +4,7 @@ modifyCharacterMethods
 	cc := oldHeap classCharacter.
 	md := oldHeap fetchPointer: MethodDictionaryIndex ofObject: cc.
 	mda := oldHeap fetchPointer: MethodArrayIndex ofObject: md..
-	0 to: (oldHeap fetchWordLengthOf: mda) - 1 do:
+	0 to: (oldHeap numSlotsOf: mda) - 1 do:
 		[:i| | method |
 		method := oldHeap fetchPointer: i ofObject: mda.
 		method ~= oldHeap nilObject ifTrue:

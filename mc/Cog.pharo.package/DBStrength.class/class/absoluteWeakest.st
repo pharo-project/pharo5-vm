@@ -1,4 +1,0 @@
-constants
-absoluteWeakest
-
-	^AbsoluteWeakest

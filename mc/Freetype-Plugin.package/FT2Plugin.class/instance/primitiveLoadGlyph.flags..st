@@ -1,7 +1,9 @@
 primitives-FT2Face
 primitiveLoadGlyph: index flags: flags 
 	| face rcvr |
-	self var: #face declareC: 'FT_Face face'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	
 	rcvr := self 
 				primitive: 'primitiveLoadGlyph'
 				parameters: #(#SmallInteger #SmallInteger)

@@ -1,30 +1,23 @@
 bootstrap methods
 cloneMethodProxy: proxy "<VMCompiledMethodProxy>"
-	| bytes newMethod |
+	| bytes newMethod delta |
 	bytes := proxy size - proxy initialPC + 1.
+	delta := proxy primitive > 0
+				ifTrue: [3]
+				ifFalse: [0].
 	newMethod := CompiledMethod
-						newMethod: bytes
-						header: proxy header.
-	false
-		ifTrue:
-			[1 to: proxy numLiterals - 2 do:
-				[:i| | literal |
-				literal := (proxy literalAt: i) oop.
-				literal := (oldHeap isIntegerObject: literal)
-							ifTrue: [oldHeap integerValueOf: literal]
-							ifFalse: ['literal', i printString].
-				newMethod literalAt: i put: literal].
-			newMethod
-				literalAt: proxy numLiterals - 1
-					put: (oldHeap stringOf: (proxy literalAt: proxy numLiterals - 1) oop) asSymbol;
-				literalAt: proxy numLiterals
-					put: (Smalltalk bindingOf: #Character)]
-		ifFalse:
-			[1 to: proxy numLiterals - 1 do:
-				[:i| newMethod literalAt: i put: (proxy literalAt: i)].
-			newMethod
-				literalAt: proxy numLiterals
-				put: (Smalltalk bindingOf: #Character)].
+						newMethod: bytes + delta
+						header: (self headerForOldMethodHeader: (oldHeap integerObjectOf: proxy header)).
+	1 to: proxy numLiterals - 1 do:
+		[:i| newMethod literalAt: i put: (proxy literalAt: i)].
+	newMethod
+		literalAt: proxy numLiterals
+		put: (Smalltalk bindingOf: #Character).
+	delta > 0 ifTrue:
+		[newMethod
+			at: newMethod initialPC + 0 put: 139;
+			at: newMethod initialPC + 1 put: (proxy primitive bitAnd: 16rFF);
+			at: newMethod initialPC + 2 put: (proxy primitive bitShift: -8)].
 	proxy initialPC to: proxy size do:
-		[:i| newMethod at: i put: (proxy at: i)].
+		[:i| newMethod at: i + delta put: (proxy at: i)].
 	^newMethod

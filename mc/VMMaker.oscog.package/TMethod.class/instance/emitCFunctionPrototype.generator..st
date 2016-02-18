@@ -7,4 +7,4 @@ emitCFunctionPrototype: aStream generator: aCodeGen
 			[:pragma|
 			aStream nextPutAll: (pragma argumentAt: 1).
 			^self]].
-	self emitCFunctionPrototype: aStream generator: aCodeGen newlineBeforeName: false
+	self emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: true

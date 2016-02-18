@@ -6,5 +6,4 @@ lengthOf: objOop
 
 	<api>
 	<inline: true>
-	<asmLabel: false>
 	^self lengthOf: objOop format: (self formatOf: objOop)

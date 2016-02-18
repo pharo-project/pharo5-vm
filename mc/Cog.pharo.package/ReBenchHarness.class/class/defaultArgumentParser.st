@@ -1,3 +1,0 @@
-helper
-defaultArgumentParser
-	^ ReBenchHarnessArgumentParser

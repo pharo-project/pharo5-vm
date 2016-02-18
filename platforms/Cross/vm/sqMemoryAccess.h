@@ -16,27 +16,18 @@
 #define __sqMemoryAccess_h
 
 #include "config.h"
-
-#if defined(HAVE_INTERP_H)
-# include "interp.h"
-#else
-# define SQ_VI_BYTES_PER_WORD 4		/* build a 32-bit VM */
-# warning 
-# warning ***************************************************
-# warning *
-# warning * interp.h not found -- defaulting to a 32-bit VM
-# warning *
-# warning * update your image-side VM sources to the latest
-# warning * version to avoid this message
-# warning *
-# warning ***************************************************
-# warning 
-#endif
+#include "interp.h"
 
 #if (SQ_VI_BYTES_PER_WORD == 4)
 # define SQ_IMAGE32 1
 #else
 # define SQ_IMAGE64 1
+#endif
+
+#if (SQ_IMAGE64 || SPURVM)
+# define OBJECTS_32BIT_ALIGNED 0
+#else
+# define OBJECTS_32BIT_ALIGNED 1
 #endif
 
 #if (SIZEOF_VOID_P == 4)
@@ -114,7 +105,7 @@
   static inline sqLong long64Atput(sqInt oop, sqLong val)		{ return long64AtPointerput(pointerForOop(oop), val); }
   static inline sqInt oopAt(sqInt oop)				{ return oopAtPointer(pointerForOop(oop)); }
   static inline sqInt oopAtput(sqInt oop, sqInt val)		{ return oopAtPointerput(pointerForOop(oop), val); }
-#else
+#else /* USE_INLINE_MEMORY_ACCESSORS */
   /* Use macros when static inline functions aren't efficient. */
 # define byteAtPointer(ptr)			((sqInt)(*((unsigned char *)(ptr))))
 # define byteAtPointerput(ptr,val)	((sqInt)(*((unsigned char *)(ptr))= (unsigned char)(val)))
@@ -131,23 +122,25 @@
 # if defined(sqMemoryBase) && !sqMemoryBase
 #  define pointerForOop(oop)		((char *)(oop))
 #  define oopForPointer(ptr)		((sqInt)(ptr))
+#  define atPointerArg(oop)			oop
 # else
 #  define pointerForOop(oop)		((char *)(sqMemoryBase + ((usqInt)(oop))))
 #  define oopForPointer(ptr)		((sqInt)(((char *)(ptr)) - (sqMemoryBase)))
+#  define atPointerArg(oop)			sqMemoryBase + (usqInt)(oop)
 # endif
-# define byteAt(oop)				byteAtPointer(pointerForOop(oop))
-# define byteAtput(oop,val)			byteAtPointerput(pointerForOop(oop), (val))
-# define shortAt(oop)				shortAtPointer(pointerForOop(oop))
-# define shortAtput(oop,val)		shortAtPointerput(pointerForOop(oop), (val))
-# define longAt(oop)				longAtPointer(pointerForOop(oop))
-# define longAtput(oop,val)			longAtPointerput(pointerForOop(oop), (val))
-# define long64At(oop)			long64AtPointer(pointerForOop(oop))
-# define long64Atput(oop,val)		long64AtPointerput(pointerForOop(oop), (val))
-# define intAt(oop)					intAtPointer(pointerForOop(oop))
-# define intAtput(oop,val)			intAtPointerput(pointerForOop(oop), (val))
-# define oopAt(oop)					oopAtPointer(pointerForOop(oop))
-# define oopAtput(oop,val)			oopAtPointerput(pointerForOop(oop), (val))
-#endif
+# define byteAt(oop)				byteAtPointer(atPointerArg(oop))
+# define byteAtput(oop,val)			byteAtPointerput(atPointerArg(oop), val)
+# define shortAt(oop)				shortAtPointer(atPointerArg(oop))
+# define shortAtput(oop,val)		shortAtPointerput(atPointerArg(oop), val)
+# define longAt(oop)				longAtPointer(atPointerArg(oop))
+# define longAtput(oop,val)			longAtPointerput(atPointerArg(oop), val)
+# define long64At(oop)				long64AtPointer(atPointerArg(oop))
+# define long64Atput(oop,val)		long64AtPointerput(atPointerArg(oop), val)
+# define intAt(oop)					intAtPointer(atPointerArg(oop))
+# define intAtput(oop,val)			intAtPointerput(atPointerArg(oop), val)
+# define oopAt(oop)					oopAtPointer(atPointerArg(oop))
+# define oopAtput(oop,val)			oopAtPointerput(atPointerArg(oop), val)
+#endif /* USE_INLINE_MEMORY_ACCESSORS */
 
 #define long32At	intAt
 #define long32Atput	intAtput
@@ -157,7 +150,7 @@
  * Pre-Cog systems stored floats in Mac PowerPC big-endian format.
  * BigEndianFloats selects this behaviour for backwards-compatibility.
  * RISC systems typically insist on double-word alignment of double-words, but
- * the heap is only word-aligned.  DOUBLE_WORD_ALIGNMENT selects word access.
+ * the heap is only word-aligned.  OBJECTS_32BIT_ALIGNED selects word access.
  */
 #if BigEndianFloats && !VMBIGENDIAN
 /* this is to allow strict aliasing assumption in the optimizer */
@@ -171,7 +164,7 @@ typedef union { double d; int i[sizeof(double) / sizeof(int)]; } _swapper;
 		((_swapper *)(&doubleVar))->i[1] = *((int *)(intPointerToFloat) + 0); \
 		((_swapper *)(&doubleVar))->i[0] = *((int *)(intPointerToFloat) + 1); \
 	} while (0)
-# elif defined(DOUBLE_WORD_ALIGNMENT)
+# elif defined(OBJECTS_32BIT_ALIGNED)
 /* this is to allow strict aliasing assumption in the optimizer */
 typedef union { double d; int i[sizeof(double) / sizeof(int)]; } _aligner;
 /* word-based copy for machines with alignment restrictions */
@@ -183,11 +176,11 @@ typedef union { double d; int i[sizeof(double) / sizeof(int)]; } _aligner;
 	((_aligner *)(&doubleVar))->i[0] = *((int *)(intPointerToFloat) + 0); \
 	((_aligner *)(&doubleVar))->i[1] = *((int *)(intPointerToFloat) + 1); \
   } while (0)
-#else /* !(BigEndianFloats && !VMBIGENDIAN) && !DOUBLE_WORD_ALIGNMENT */
+#else /* !(BigEndianFloats && !VMBIGENDIAN) && !OBJECTS_32BIT_ALIGNED */
 /* for machines that allow doubles to be on any word boundary */
 # define storeFloatAtPointerfrom(i, doubleVar) (*((double *) (i)) = (doubleVar))
 # define fetchFloatAtPointerinto(i, doubleVar) ((doubleVar) = *((double *) (i)))
-#endif /* !(BigEndianFloats && !VMBIGENDIAN) && !DOUBLE_WORD_ALIGNMENT */
+#endif /* !(BigEndianFloats && !VMBIGENDIAN) && !OBJECTS_32BIT_ALIGNED */
 
 #define storeFloatAtfrom(i, doubleVar)	storeFloatAtPointerfrom(pointerForOop(i), doubleVar)
 #define fetchFloatAtinto(i, doubleVar)	fetchFloatAtPointerinto(pointerForOop(i), doubleVar)

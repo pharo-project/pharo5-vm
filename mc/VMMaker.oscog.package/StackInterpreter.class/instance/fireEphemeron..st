@@ -1,5 +1,5 @@
 finalization
 fireEphemeron: ephemeron
 	<option: #SpurObjectMemory>
-	objectMemory queueEphemeron: ephemeron.
-	self forceInterruptCheck
+	objectMemory queueMourner: ephemeron.
+	self signalFinalization: ephemeron

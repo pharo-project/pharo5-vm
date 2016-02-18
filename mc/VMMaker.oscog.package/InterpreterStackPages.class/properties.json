@@ -6,17 +6,11 @@
 		 ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
-		"interpreter",
 		"stackMemory",
 		"indexOffset",
-		"pages",
-		"mostRecentlyUsedPage",
-		"overflowLimit",
-		"numPages",
-		"pageSizeInSlots",
-		"bytesPerPage" ],
+		"pageSizeInSlots" ],
 	"name" : "InterpreterStackPages",
 	"pools" : [
 		"VMBasicConstants" ],
-	"super" : "VMClass",
+	"super" : "CogStackPages",
 	"type" : "normal" }

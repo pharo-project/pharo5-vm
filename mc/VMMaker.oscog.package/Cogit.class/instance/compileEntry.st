@@ -3,17 +3,12 @@ compileEntry
 	"The entry code to a method checks that the class of the current receiver matches
 	 that in the inline cache.  Other non-obvious elements are that its alignment must be
 	 different from the alignment of the noCheckEntry so that the method map machinery
-	 can distinguish normal and super sends (super sends bind to the noCheckEntry).
-	 In Newspeak we also need to distinguish dynSuperSends from normal and super
-	 and so on Nespeak, bind the dynSuperEntry to the preceeding nop (on x86 there
-	 happens to be one anyway)."
+	 can distinguish normal and super sends (super sends bind to the noCheckEntry)."
 
-	self cppIf: NewspeakVM ifTrue:
-		[self Nop. "1st nop differentiates dynSuperEntry from no-check entry if using nextMethod"
-		 dynSuperEntry := self Nop].
 	entry := objectRepresentation genGetInlineCacheClassTagFrom: ReceiverResultReg into: TempReg forEntry: true.
 	self CmpR: ClassReg R: TempReg.
 	self JumpNonZero: sendMiss.
 	noCheckEntry := self Label.
-	self recordSendTrace ifTrue:
-		[self CallRT: ceTraceLinkedSendTrampoline]
+	self compileSendTrace ifTrue:
+		[backEnd saveAndRestoreLinkRegAround:
+			[self CallRT: ceTraceLinkedSendTrampoline]]

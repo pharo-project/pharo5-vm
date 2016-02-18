@@ -7,7 +7,7 @@ divorceAllFrames
 		[self externalWriteBackHeadFramePointers].
 	activeContext := self
 						ensureFrameIsMarried: framePointer
-						SP: stackPointer + BytesPerWord.
+						SP: stackPointer + objectMemory wordSize.
 	0 to: numStackPages - 1 do:
 		[:i| | aPage |
 		aPage := stackPages stackPageAt: i.

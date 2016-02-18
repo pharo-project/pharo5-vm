@@ -5,14 +5,13 @@ remember: objOop
 	<api>
 	<inline: false>
 	self assert: (manager isNonImmediate: objOop).
-	self assert: (manager isYoungObject: objOop) not.
-	self assert: (manager isRemembered: objOop) not.
+	self deny: (manager isYoungObject: objOop).
+	self deny: (manager isRemembered: objOop).
+	self deny: (self isInRememberedSet: objOop).
 	manager setIsRememberedOf: objOop to: true.
-	rememberedSetSize < RememberedSetLimit
-		ifTrue:
-			[rememberedSet at: rememberedSetSize put: objOop.
-			 (rememberedSetSize := rememberedSetSize + 1) >= RememberedSetRedZone ifTrue:
-				[manager scheduleScavenge]]
-		ifFalse:
-			[self error: 'remembered set overflow' "for now"].
+	rememberedSetSize >= rememberedSetLimit ifTrue:
+		[self growRememberedSet].
+	rememberedSet at: rememberedSetSize put: objOop.
+	(rememberedSetSize := rememberedSetSize + 1) >= rememberedSetRedZone ifTrue:
+		[manager scheduleScavenge].
 	^objOop

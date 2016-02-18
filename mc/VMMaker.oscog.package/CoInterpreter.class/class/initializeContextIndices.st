@@ -2,4 +2,5 @@ initialization
 initializeContextIndices
 	super initializeContextIndices.
 
-	HasBeenReturnedFromMCPC := self objectMemoryClass basicNew integerObjectOf: -1
+	HasBeenReturnedFromMCPC := -1.
+	HasBeenReturnedFromMCPCOop := self objectMemoryClass basicNew integerObjectOf: HasBeenReturnedFromMCPC

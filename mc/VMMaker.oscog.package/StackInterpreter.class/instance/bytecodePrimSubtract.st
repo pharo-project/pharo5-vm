@@ -3,7 +3,7 @@ bytecodePrimSubtract
 	| rcvr arg result |
 	rcvr := self internalStackValue: 1.
 	arg := self internalStackValue: 0.
-	(self areIntegers: rcvr and: arg)
+	(objectMemory areIntegers: rcvr and: arg)
 		ifTrue: [result := (objectMemory integerValueOf: rcvr) - (objectMemory integerValueOf: arg).
 				(objectMemory isIntegerValue: result) ifTrue:
 					[self internalPop: 2 thenPush: (objectMemory integerObjectOf: result).

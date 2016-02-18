@@ -3,10 +3,19 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"BadCPUInstance",
+		"ExecutionError",
+		"InstructionPrefetchError",
 		"LongConstReg",
 		"LongConstStep",
 		"LongConstValue",
-		"PostBuildStackDelta" ],
+		"MemoryLoadBoundsError",
+		"MemoryWriteBoundsError",
+		"NoError",
+		"PanicError",
+		"PostBuildStackDelta",
+		"SomethingLoggedError",
+		"UnsupportedOperationError" ],
 	"commentStamp" : "lw 8/23/2012 19:17",
 	"instvars" : [
 		 ],

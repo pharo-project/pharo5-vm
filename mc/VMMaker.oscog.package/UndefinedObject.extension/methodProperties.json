@@ -2,4 +2,10 @@
 	"class" : {
 		 },
 	"instance" : {
-		"asUnsignedInteger" : "eem 6/22/2009 14:07" } }
+		"addBreakpoint:" : "eem 12/24/2015 12:58",
+		"asUnsignedInteger" : "eem 6/22/2009 14:07",
+		"isActiveBreakpoint" : "eem 12/24/2015 11:55",
+		"isBreakpointFor:" : "eem 12/24/2015 11:55",
+		"menuPrompt" : "eem 12/24/2015 13:07",
+		"shouldStopIfAtPC:" : "eem 12/24/2015 12:11",
+		"singleStepRequiredToTriggerIn:" : "eem 12/24/2015 12:03" } }

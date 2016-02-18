@@ -1,0 +1,18 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 11/17/2014 10:36",
+	"instvars" : [
+		"interpreter",
+		"heap",
+		"prototypes",
+		"replacements",
+		"symbolOops" ],
+	"name" : "SpurOldToNewMethodFormatMunger",
+	"pools" : [
+		"VMObjectIndices" ],
+	"super" : "SimulatorHarness",
+	"type" : "normal" }

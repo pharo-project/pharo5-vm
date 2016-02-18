@@ -36,7 +36,7 @@ checkHeapIntegrity
 					[(fi := fi - 1) >= 0] whileTrue:
 						[fieldOop := self fetchPointer: fi ofObject: obj.
 						 (self isNonIntegerObject: fieldOop) ifTrue:
-							[(fieldOop bitAnd: BytesPerWord - 1) ~= 0
+							[(fieldOop bitAnd: self wordSize - 1) ~= 0
 								ifTrue:
 									[self print: 'misaligned oop in '; printHex: obj; print: ' @ '; printNum: fi; print: ' = '; printHex: fieldOop; cr.
 									 ok := false]
@@ -53,7 +53,7 @@ checkHeapIntegrity
 	1 to: rootTableCount do:
 		[:ri|
 		obj := rootTable at: ri.
-		(obj bitAnd: BytesPerWord - 1) ~= 0
+		(obj bitAnd: self wordSize - 1) ~= 0
 			ifTrue:
 				[self print: 'misaligned oop in rootTable @ '; printNum: ri; print: ' = '; printHex: obj; cr.
 				 ok := false]
@@ -70,7 +70,7 @@ checkHeapIntegrity
 	1 to: remapBufferCount do:
 		[:ri|
 		obj := remapBuffer at: ri.
-		(obj bitAnd: BytesPerWord - 1) ~= 0
+		(obj bitAnd: self wordSize - 1) ~= 0
 			ifTrue:
 				[self print: 'misaligned remapRoot @ '; printNum: ri; print: ' = '; printHex: obj; cr.
 				 ok := false]
@@ -82,7 +82,7 @@ checkHeapIntegrity
 	1 to: extraRootCount do:
 		[:ri|
 		obj := (extraRoots at: ri) at: 0.
-		(obj bitAnd: BytesPerWord - 1) ~= 0
+		(obj bitAnd: self wordSize - 1) ~= 0
 			ifTrue:
 				[self print: 'misaligned extraRoot @ '; printNum: ri; print: ' => '; printHex: obj; cr.
 				 ok := false]

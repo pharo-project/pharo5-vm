@@ -31,7 +31,7 @@ checkOkayOop: oop
 
 	"specific header bit checks"
 	unusedBits := (1 << self classIndexFieldWidth)
-				   | (1 << (self identityHashFieldWidth + 32)).
+				   bitOr: (1 << (self identityHashFieldWidth + 32)).
 	((self long64At: oop) bitAnd: unusedBits) ~= 0 ifTrue:
 		[self print: 'oop '; printHex: oop; print: ' has some unused header bits set; should be zero'. ^false].
 

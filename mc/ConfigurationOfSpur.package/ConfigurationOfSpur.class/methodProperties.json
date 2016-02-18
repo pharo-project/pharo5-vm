@@ -11,12 +11,8 @@
 		"metacelloVersion:loads:" : "EstebanLorenzano 7/2/2014 17:29",
 		"project" : "EstebanLorenzano 7/2/2014 17:29" },
 	"instance" : {
-		"baselineGit:" : "EstebanLorenzano 7/2/2014 17:32",
+		"baselineGit:" : "EstebanLorenzano 1/4/2016 12:24",
 		"development:" : "EstebanLorenzano 7/2/2014 17:29",
-		"fixForPharo10" : "EstebanLorenzano 7/2/2014 17:29",
-		"fixFreeTypePluginForPharo" : "EstebanLorenzano 7/2/2014 17:29",
-		"fixVMMakerForPharo" : "EstebanLorenzano 7/2/2014 17:29",
-		"pharoUndescoreAssignment" : "EstebanLorenzano 7/2/2014 17:29",
 		"project" : "EstebanLorenzano 7/2/2014 17:29",
 		"repositoryDir" : "EstebanLorenzano 7/2/2014 17:29",
 		"repositoryDir:" : "EstebanLorenzano 7/2/2014 17:29" } }

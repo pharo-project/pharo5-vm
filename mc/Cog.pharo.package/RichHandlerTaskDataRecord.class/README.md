@@ -1,1 +1,0 @@
-A task that manipulates work packets and then suspends itself.

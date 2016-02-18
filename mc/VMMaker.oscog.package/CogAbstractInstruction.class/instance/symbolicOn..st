@@ -11,7 +11,7 @@ symbolicOn: aStream
 							ifFalse: [operands].
 	orneryOperands withIndexDo:
 		[:operand :index|
-		operand notNil ifTrue:
+		operand ifNotNil:
 			[aStream space.
 			 index >= (orneryOperands identityIndexOf: nil ifAbsent: [orneryOperands size + 1]) ifTrue:
 				[aStream print: index - 1; nextPut: $:].
@@ -29,8 +29,8 @@ symbolicOn: aStream
 		[machineCodeSize > machineCode size
 			ifTrue: [aStream nextPutAll: ' no mcode']
 			ifFalse:
-				[0 to: machineCodeSize - 1 do:
+				[0 to: machineCodeSize - 1 by: self codeGranularity do:
 					[:i|
 					 aStream space.
-					 (machineCode at: i) printOn: aStream base: 16]]].
+					 (self machineCodeAt: i) printOn: aStream base: 16]]].
 	aStream nextPut: $)

@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushReceiverVariable: index
 	<inline: false>
 	self ensureReceiverResultRegContainsSelf.

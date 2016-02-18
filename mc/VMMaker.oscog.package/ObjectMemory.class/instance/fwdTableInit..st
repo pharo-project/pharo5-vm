@@ -5,15 +5,15 @@ fwdTableInit: blkSize
 	| |
 	<inline: false>
 	"set endOfMemory to just after a minimum-sized free block"
-	self setSizeOfFree: freeBlock to: BaseHeaderSize.
-	self setEndOfMemory: freeBlock + BaseHeaderSize.
+	self setSizeOfFree: freeBlock to: self baseHeaderSize.
+	self setEndOfMemory: freeBlock + self baseHeaderSize.
 
 	"make a fake free chunk at endOfMemory for use as a sentinal in memory scans"
-	self setSizeOfFree: endOfMemory to: BaseHeaderSize.
+	self setSizeOfFree: endOfMemory to: self baseHeaderSize.
 
 	"use all memory free between freeBlock and memoryLimit for forwarding table"
 	"Note: Forward blocks must be quadword aligned."
-	fwdTableNext := (endOfMemory + BaseHeaderSize + 7) bitAnd: WordMask-7.
+	fwdTableNext := (endOfMemory + self baseHeaderSize + 7) bitAnd: WordMask-7.
 	self flag: #Dan.  "Above line does not do what it says (quadword is 16 or 32 bytes)"
 
 	fwdTableLast := memoryLimit - blkSize.  "last forwarding table entry"

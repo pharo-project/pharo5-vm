@@ -1,3 +1,3 @@
 allocation
 allocationUnit
-	^BytesPerWord
+	^self wordSize

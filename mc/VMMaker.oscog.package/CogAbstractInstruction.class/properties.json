@@ -4,11 +4,12 @@
 		 ],
 	"classvars" : [
 		"NumOperands" ],
-	"commentStamp" : "eem 7/17/2012 15:04",
+	"commentStamp" : "eem 4/21/2015 09:12",
 	"instvars" : [
 		"opcode",
 		"machineCodeSize",
 		"maxSize",
+		"annotation",
 		"machineCode",
 		"operands",
 		"address",
@@ -18,6 +19,8 @@
 		"bcpc" ],
 	"name" : "CogAbstractInstruction",
 	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
 		"CogRTLOpcodes" ],
 	"super" : "VMStructType",
 	"type" : "normal" }

@@ -1,10 +1,10 @@
 tests
 testPCMappingSelect: aBlock options: optionsDictionaryOrArray
-	"Test pc mapping both ways using the methods in the current image"
+	"Test pc mapping both ways using a selection of the methods in the current image."
 	| cogit coInterpreter |
 	self initializeWithOptions: (self asOptionsDictionary: optionsDictionaryOrArray).
 	cogit := self new.
-	coInterpreter := CurrentImageCoInterpreterFacade new cogit: cogit; yourself.
+	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
 			setInterpreter: coInterpreter;
 			singleStep: true;
@@ -17,13 +17,15 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 		[:m| | cm |
 		(m isQuick not
 		 and: [aBlock value: m]) ifTrue:
-			[Transcript nextPut: $.; flush.
-			 [cm := cogit
+			[coInterpreter voidHeaderToMethodMap.
+			 Transcript nextPut: $.; flush.
+			 [coInterpreter.
+			  cm := cogit
 						cog: (coInterpreter oopForObject: m)
 						selector: (coInterpreter oopForObject: m selector).
 			   cm isNil and: [coInterpreter isCogCompiledCodeCompactionCalledFor]] whileTrue:
 				[cogit methodZone clearCogCompiledCode.
 				 coInterpreter clearCogCompiledCodeCompactionCalledFor.
 				 coInterpreter initializeObjectMap].
-			 cogit testPCMappingForMethod: cm].
+			 cogit testPCMappingForCompiledMethod: m cogMethod: cm].
 		 false]

@@ -2,6 +2,6 @@ target directories
 externalPluginsDirectoryFor: plugin
 	"return the directory for the external plugin sources"
 	|fd|
-	fd := self externalPluginsDirectory / plugin moduleName.
-	fd ensureCreateDirectory.
+	fd := self externalPluginsDirectory directoryNamed: plugin moduleName.
+	fd assureExistence.
 	^fd

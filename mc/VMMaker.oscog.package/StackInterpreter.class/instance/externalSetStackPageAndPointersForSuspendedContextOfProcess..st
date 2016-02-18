@@ -23,7 +23,7 @@ externalSetStackPageAndPointersForSuspendedContextOfProcess: aProcess
 			 thePage := stackPages stackPageFor: theFrame.
 			 theFrame ~= thePage headFP ifTrue:
 				["explicit assignment of suspendedContext can cause switch to interior frame."
-				 newPage := self newStackPage.
+				 newPage := stackPages newStackPage.
 				 self moveFramesIn: thePage
 					through: (self findFrameAbove: theFrame inPage: thePage)
 					toPage: newPage.

@@ -4,21 +4,23 @@ primitiveExecuteMethodArgsArray
 	 receiver and args.  Allow for up to two extra arguments (e.g. for mirror primitives).
 	 Set primitiveFunctionPointer because no cache lookup has been done for the
 	 method, and hence primitiveFunctionPointer is stale."
-	| methodArgument argCnt argumentArray primitiveIndex |
+	| methodArgument argCnt rcvr argumentArray primitiveIndex |
 	methodArgument := self stackTop.
 	argumentArray := self stackValue: 1.
 	((objectMemory isOopCompiledMethod: methodArgument)
 	 and: [objectMemory isArray: argumentArray]) ifFalse:
 		[^self primitiveFailFor: PrimErrBadArgument].
 	argCnt := self argumentCountOf: methodArgument.
-	argCnt = (objectMemory fetchWordLengthOf: argumentArray) ifFalse:
+	argCnt = (objectMemory numSlotsOf: argumentArray) ifFalse:
 		[^self primitiveFailFor: PrimErrBadNumArgs].
 	argumentCount > 2 ifTrue: "CompiledMethod class>>receiver:withArguments:executeMethod:
-								SqueakObjectPrimitives class >> receiver:withArguments:apply:
+								SqueakObjectPrimitives class>>receiver:withArguments:apply:
 								VMMirror>>ifFail:object:with:executeMethod: et al"
-		[argumentCount > 4 ifTrue:
+		[rcvr := self stackValue: 2.
+		 (argumentCount > 4
+		  or: [objectMemory isOopForwarded: rcvr]) ifTrue:
 			[^self primitiveFailFor: PrimErrUnsupported].
-		self stackValue: argumentCount put: (self stackValue: 2)]. "replace actual receiver with desired receiver"
+		self stackValue: argumentCount put: rcvr]. "replace actual receiver with desired receiver"
 	"and push the actual arguments"
 	self pop: argumentCount.
 	0 to: argCnt - 1 do:

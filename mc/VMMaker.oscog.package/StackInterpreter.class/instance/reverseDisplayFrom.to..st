@@ -15,11 +15,11 @@ reverseDisplayFrom: startIndex to: endIndex
 	or: [objectMemory isPointersNonImm: displayBits]]) ifTrue: [^ nil].
 	wordStartIndex := startIndex * 4.
 	wordEndIndex := endIndex * 4 min: (objectMemory sizeBitsOf: displayBits).
-	displayBits := displayBits + BaseHeaderSize.
+	displayBits := displayBits + objectMemory baseHeaderSize.
 	displayBits + wordStartIndex to: displayBits + wordEndIndex by: 4 do:
 		[:ptr | | reversed  |
 		reversed := (objectMemory long32At: ptr) bitXor: 4294967295.
-		objectMemory longAt: ptr put: reversed].
+		objectMemory long32At: ptr put: reversed].
 	primFailCodeValue := primFailCode.
 	self initPrimCall.
 	self displayBitsOf: displayObj Left: 0 Top: 0 Right: (objectMemory integerValueOf: w) Bottom: 1.

@@ -1,6 +1,7 @@
 {
 	"class" : {
 		"alignedByteSizeOf:forClient:" : "eem 9/2/2011 14:08",
+		"defaultIntegerBaseInDebugger" : "eem 10/17/2015 10:38",
 		"on:" : "ar 9/16/1998 21:36" },
 	"instance" : {
 		"+" : "dtl 2/14/2014 19:29",

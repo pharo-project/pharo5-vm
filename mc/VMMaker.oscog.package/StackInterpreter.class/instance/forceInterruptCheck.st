@@ -13,8 +13,8 @@ forceInterruptCheck
 		[^nil].
 	thePage := stackPage.
 	(thePage notNil and: [thePage ~= 0]) ifTrue:
-		[thePage stackLimit: (self cCoerceSimple: -1 signedIntToLong to: #'char *')].
-	stackLimit := self cCoerceSimple: -1 signedIntToLong to: #'char *'.
+		[thePage stackLimit: self allOnesAsCharStar].
+	stackLimit := self allOnesAsCharStar.
 	self sqLowLevelMFence.
 	"There is a race condition if we test the function and then dereference
 	 it a second time to call it.  This is called from interrupt code but at the

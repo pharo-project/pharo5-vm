@@ -4,7 +4,7 @@ testDisassembling
 
 	| memory result |
 	memory := WordArray new: 2.
-	memory at: 1 put: 3800756324.
+	memory at: 1 put:  (CogARMCompiler new add: 15 rn: 10 imm: 100 ror:0).
 	result := self processor
 		disassembleInstructionAt: 0 
 		In: memory 

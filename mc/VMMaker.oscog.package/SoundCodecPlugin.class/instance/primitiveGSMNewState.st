@@ -6,5 +6,5 @@ primitiveGSMNewState
 	state := interpreterProxy
 				instantiateClass: interpreterProxy classByteArray
 				indexableSize: self gsmStateBytes.
-	self gsmInitState: state + BaseHeaderSize.
+	self gsmInitState: state + interpreterProxy baseHeaderSize.
 	interpreterProxy pop: 1 thenPush: state

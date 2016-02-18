@@ -23,9 +23,9 @@
 #include <Carbon/Carbon.h>
 #include <unistd.h>
 #include <AGL/agl.h>
-#ifdef MAC_OS_X_VERSION_10_7
-#include <OpenGL/gl.h>
-#define useTempMem (1L << 2) //This declaration is taken from old sdk definition.
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+# include <OpenGL/gl.h>
+# define useTempMem (1L << 2) //This declaration is taken from old sdk definition.
 #else 
 #include <AGL/gl.h>
 #endif
@@ -86,8 +86,6 @@ eventMessageHook setMessageHook = 0;
 extern int verboseLevel;
 /* define forceFlush if we should fflush() before closing file */
 #define forceFlush 1
-
-//#include "sqMacFileLogic.h"	
 
 /* Note: Print this stuff into a file in case we lock up*/
 #undef DPRINTF3D

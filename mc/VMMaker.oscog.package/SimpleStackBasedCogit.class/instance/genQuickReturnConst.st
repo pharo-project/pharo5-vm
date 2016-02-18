@@ -4,10 +4,9 @@ genQuickReturnConst
 	| constant |
 	constant := coInterpreter quickPrimitiveConstantFor: primitiveIndex.
 	self annotate:
-			(self gen: ((objectRepresentation isImmediate: constant)
-						ifTrue: [MoveCqR]
-						ifFalse: [MoveCwR])
-				operand: constant
-				operand: ReceiverResultReg)
+			((objectRepresentation isImmediate: constant)
+				ifTrue: [self MoveCq: constant R: ReceiverResultReg]
+				ifFalse: [self MoveCw: constant R: ReceiverResultReg])
 		objRef: constant.
-	^self genUpArrowReturn
+	self genUpArrowReturn.
+	^UnfailingPrimitive

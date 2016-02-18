@@ -13,6 +13,7 @@ platformSources
 	'sqUnixHeartbeat.c'
 	'sqUnixMain.c'
 	'sqUnixMemory.c'
+	'sqUnixSpurMemory.c'
 	'sqUnixThreads.c'
 	'sqUnixVMProfile.c'
 	)

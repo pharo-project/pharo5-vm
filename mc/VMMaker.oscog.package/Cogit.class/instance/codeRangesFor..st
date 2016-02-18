@@ -5,7 +5,7 @@ codeRangesFor: cogMethod
 	<doNotGenerate>
 	| pc end blockEntry starts |
 	cogMethod cmType = CMClosedPIC ifTrue:
-		[end := (self addressOfEndOfCase: cogMethod cPICNumCases - 1 inCPIC: cogMethod) + cPICEndSize.
+		[end := cogMethod asInteger + cPICEndOfCodeOffset - backEnd jumpLongByteSize.
 		 ^{ CogCodeRange
 				from: cogMethod asInteger + (self sizeof: CogMethod)
 				to: end
@@ -17,7 +17,8 @@ codeRangesFor: cogMethod
 				from: cogMethod asInteger + (self sizeof: CogMethod)
 				to: end
 				cogMethod: cogMethod
-				startpc: (coInterpreter startPCOfMethodHeader: cogMethod methodHeader) }].
+				startpc: (cogMethod cmType ~= CMOpenPIC ifTrue:
+							[coInterpreter startPCOfMethodHeader: cogMethod methodHeader]) }].
 	pc := blockEntry := cogMethod blockEntryOffset + cogMethod asInteger.
 	starts := OrderedCollection with: cogMethod.
 	[pc < end] whileTrue:

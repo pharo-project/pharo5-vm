@@ -5,5 +5,5 @@ lookupAddress: address
 	<doNotGenerate>
 	(objectMemory lookupAddress: address) ifNotNil:
 		[:lookup| ^lookup].
-	address / BytesPerWord = primTraceLog offset ifTrue: [^'primTraceLog'].
+	address / objectMemory wordSize = primTraceLog offset ifTrue: [^'primTraceLog'].
 	^nil

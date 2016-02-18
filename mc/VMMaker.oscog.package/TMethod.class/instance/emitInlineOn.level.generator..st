@@ -1,7 +1,7 @@
 C code generation
 emitInlineOn: aStream level: level generator: aCodeGen
 	"Emit C code for this method onto the given stream. All calls to inlined methods should already have been expanded."
-	self removeUnusedTemps.
+	self removeUnusedTempsAndNilIfRequiredIn: aCodeGen.
 	sharedLabel ifNotNil:
 		[aStream crtab: level-1; nextPutAll: sharedLabel; nextPut: $:.
 		aStream crtab: level.

@@ -4,8 +4,7 @@ numStrongSlotsOf: objOop format: fmt ephemeronInactiveIf: criterion
 	 Works with CompiledMethods, as well as ordinary objects."
 	<var: 'criterion' declareC: 'int (*criterion)(sqInt key)'>
 	<inline: true>
-	<asmLabel: false>
-	| numSlots  contextSize numLiterals |
+	| numSlots  contextSize numLiterals header |
 	fmt <= self lastPointerFormat ifTrue:
 		[numSlots := self numSlotsOf: objOop.
 		 fmt <= self arrayFormat ifTrue:
@@ -27,5 +26,6 @@ numStrongSlotsOf: objOop format: fmt ephemeronInactiveIf: criterion
 	fmt < self firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	numLiterals := coInterpreter literalCountOf: objOop.
+	header := self methodHeaderOf: objOop.
+	numLiterals := self literalCountOfMethodHeader: header.
 	^numLiterals + LiteralStart

@@ -1,3 +1,4 @@
 accessing
 trueObject
+	<api>
 	^trueObj

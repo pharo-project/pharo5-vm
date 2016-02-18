@@ -1,6 +1,10 @@
 patching
 patch
 	"(SpurBootstrapMonticelloPackagePatcher new
+			from: 'trunkpackages'
+			to: 'spurpackages')
+		patch"
+	"(SpurBootstrapMonticelloPackagePatcher new
 			from: '/Users/eliot/Squeak/Squeak4.5-spur/squeakv3-package-cache'
 			to: '/Users/eliot/Squeak/Squeak4.5-spur/package-cache')
 		patch"

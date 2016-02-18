@@ -5,7 +5,7 @@ bytesInObject: objOop
 	| headerNumSlots numSlots |
 	headerNumSlots := self rawNumSlotsOf: objOop.
 	numSlots := headerNumSlots = self numSlotsMask
-					ifTrue: [self longAt: objOop - self baseHeaderSize]
+					ifTrue: [self rawOverflowSlotsOf: objOop]
 					ifFalse: [headerNumSlots = 0 ifTrue: [1] ifFalse: [headerNumSlots]].
 	^numSlots + (numSlots bitAnd: 1) << self shiftForWord
 	+ (headerNumSlots = self numSlotsMask

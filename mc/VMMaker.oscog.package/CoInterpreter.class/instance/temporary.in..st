@@ -7,7 +7,7 @@ temporary: offset in: theFP
 	^(self isMachineCodeFrame: theFP)
 		ifTrue:
 			[offset < (frameNumArgs := self mframeNumArgs: theFP)
-				ifTrue: [stackPages longAt: theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * BytesPerWord)]
-				ifFalse: [stackPages longAt: theFP + FoxMFReceiver - BytesPerWord + ((frameNumArgs - offset) * BytesPerWord)]]
+				ifTrue: [stackPages longAt: theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * objectMemory wordSize)]
+				ifFalse: [stackPages longAt: theFP + FoxMFReceiver - objectMemory wordSize + ((frameNumArgs - offset) * objectMemory wordSize)]]
 		ifFalse:
 			[self itemporary: offset in: theFP]

@@ -17,7 +17,8 @@ ceCPICMiss: cPIC receiver: receiver
 	(objectMemory isOopForwarded: receiver) ifTrue:
 		[^coInterpreter ceSendFromInLineCacheMiss: cPIC].
 	outerReturn := coInterpreter stackTop.
-	cPIC cPICNumCases < numPICCases
+	self deny: (backEnd inlineCacheTagAt: outerReturn) = self picAbortDiscriminatorValue. 
+	cPIC cPICNumCases < maxCPICCases
 		ifTrue:
 			[self lookup: cPIC selector
 				for: receiver
@@ -29,7 +30,7 @@ ceCPICMiss: cPIC receiver: receiver
 	"We assume lookupAndCog:for: will *not* reclaim the method zone"
 	self assert: outerReturn = coInterpreter stackTop.
 	cacheTag := objectRepresentation inlineCacheTagForInstance: receiver.
-	(cPIC cPICNumCases >= numPICCases
+	(cPIC cPICNumCases >= maxCPICCases
 	 or: [(errorSelectorOrNil notNil and: [errorSelectorOrNil ~= SelectorDoesNotUnderstand])
 	 or: [(objectRepresentation inlineCacheTagIsYoung: cacheTag)
 	 or: [newTargetMethodOrNil isNil
@@ -46,7 +47,7 @@ ceCPICMiss: cPIC receiver: receiver
 		isMNUCase: errorSelectorOrNil = SelectorDoesNotUnderstand.
 	"Jump back into the pic at its entry in case this is an MNU."
 	coInterpreter
-		executeCogMethod: cPIC
+		executeCogPIC: cPIC
 		fromLinkedSendWithReceiver: receiver
 		andCacheTag: (backEnd inlineCacheTagAt: outerReturn).
 	"NOTREACHED"

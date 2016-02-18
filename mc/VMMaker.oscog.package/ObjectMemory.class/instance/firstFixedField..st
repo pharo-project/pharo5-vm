@@ -1,5 +1,5 @@
-object format
+object access
 firstFixedField: oop
 
 	<returnTypeC: #'void *'>
-	^ self pointerForOop: oop + BaseHeaderSize
+	^ self pointerForOop: oop + self baseHeaderSize

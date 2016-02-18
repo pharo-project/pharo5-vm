@@ -1,4 +1,4 @@
-bytecode generators
-genSendDynamicSuper: selector numArgs: numArgs
+bytecode generator support
+genSendDynamicSuper: selectorIndex numArgs: numArgs
 	self marshallSendArguments: numArgs.
-	^self genMarshalledSendDynamicSuper: selector numArgs: numArgs
+	^self genMarshalledSend: selectorIndex numArgs: numArgs sendTable: dynamicSuperSendTrampolines

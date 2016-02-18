@@ -7,9 +7,10 @@ initializeInterpreter: bytesToShift
 	self checkAssumedCompactClasses.
 	self initializeExtraClassInstVarIndices.
 	method := newMethod := objectMemory nilObject.
+	self cCode: '' inSmalltalk:
+		[breakSelectorLength ifNil:
+			[breakSelectorLength := objectMemory minSmallInteger]].
 	methodDictLinearSearchLimit := 8.
-	self flushMethodCache.
-	self flushAtCache.
 	self initialCleanup.
 	profileSemaphore := profileProcess := profileMethod := objectMemory nilObject.
 	interruptKeycode := 2094. "cmd-. as used for Mac but no other OS"

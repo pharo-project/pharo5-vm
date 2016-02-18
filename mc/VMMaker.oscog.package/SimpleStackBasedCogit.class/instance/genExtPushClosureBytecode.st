@@ -1,7 +1,7 @@
 bytecode generators
 genExtPushClosureBytecode
 	"Block compilation.  At this point in the method create the block.  Note its start
-	 and defer generating code for it until after the method and any other preceeding
+	 and defer generating code for it until after the method and any other preceding
 	 blocks.  The block's actual code will be compiled later."
 	"253		11111101 eei i i kkk	jjjjjjjj		Push Closure Num Copied iii (+ Ext A // 16 * 8) Num Args kkk (+ Ext A \\ 16 * 8) BlockSize jjjjjjjj (+ Ext B * 256). ee = num extensions"
 	| numArgs numCopied |

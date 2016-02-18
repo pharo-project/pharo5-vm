@@ -1,14 +1,17 @@
 running
 runBinaryConditionalJumpsViaSubCqR: assertPrintBar
 	"self defaultTester runBinaryConditionalJumpsViaSubCqR: false"
-	| mask reg1 reg2 setreg2 resultRegNum operandRegNum |
+	| mask count reg1 reg2 setreg2 resultRegNum operandRegNum |
 	mask := (1 << self processor bitsInWord) - 1.
-	resultRegNum := 0.
-	operandRegNum := 1.
+	count := 0.
 	self concreteCompilerClass dataRegistersWithAccessorsDo:
 		[:n :get :set|
-		n = resultRegNum ifTrue: [reg1 := get].
-		n = operandRegNum ifTrue: [reg2 := get. setreg2 := set]].
+		count = 0 ifTrue: [resultRegNum := n. reg1 := get].
+		count = 1 ifTrue: [operandRegNum := n. reg2 := get. setreg2 := set].
+		count := count + 1].
+	self assert: resultRegNum ~= nil.
+	self assert: operandRegNum ~= nil.
+	
 	#(	(JumpAbove > unsigned)			(JumpBelowOrEqual <= unsigned)
 		(JumpBelow < unsigned)			(JumpAboveOrEqual >= unsigned)
 		(JumpGreater > signed)			(JumpLessOrEqual <= signed)
@@ -21,7 +24,7 @@ runBinaryConditionalJumpsViaSubCqR: assertPrintBar
 			[:b| | jumpNotTaken jumpTaken nop memory bogus |
 			self resetGen.
 			self gen: SubCqR operand: b operand: operandRegNum.
-			jumpTaken := self gen: opcode.
+			jumpTaken := self genConditionalBranch: opcode operand: 0.
 			self gen: MoveCqR operand: 0 operand: resultRegNum.
 			jumpNotTaken := self gen: Jump.
 			jumpTaken jmpTarget: (self gen: MoveCqR operand: 1 operand: resultRegNum).
@@ -35,7 +38,7 @@ runBinaryConditionalJumpsViaSubCqR: assertPrintBar
 				[:a| | taken result expected |
 				self processor
 					reset;
-					perform: setreg2 with: a signedIntToLong.
+					perform: setreg2 with: (self processor convertIntegerToInternal: a).
 				[self processor singleStepIn: memory.
 				 self processor pc ~= nop address] whileTrue.
 				taken := (self processor perform: reg1) = 1.

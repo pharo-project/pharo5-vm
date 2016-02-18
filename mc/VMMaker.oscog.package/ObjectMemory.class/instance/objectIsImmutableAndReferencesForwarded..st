@@ -6,8 +6,8 @@ objectIsImmutableAndReferencesForwarded: oop
 	<inline: true>
 	(self isImmutableWhileForwarding: oop) ifTrue:
 		[fieldOffset := self lastPointerWhileForwarding: oop.
-		[fieldOffset >= BaseHeaderSize] whileTrue:
+		[fieldOffset >= self baseHeaderSize] whileTrue:
 			[fieldOop := self longAt: oop + fieldOffset.
 			(self isObjectForwarded: fieldOop) ifTrue: [^true].
-			 fieldOffset := fieldOffset - BytesPerWord]].
+			 fieldOffset := fieldOffset - self wordSize]].
 	^false

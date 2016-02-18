@@ -7,6 +7,6 @@ mtemporary: offset in: theFP put: valueOop
 	<var: #theFP type: #'char *'>
 	^stackPages
 		longAt: (offset < (frameNumArgs := self mframeNumArgs: theFP)
-					ifTrue: [theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * BytesPerWord)]
-					ifFalse: [theFP + FoxMFReceiver - BytesPerWord + ((frameNumArgs - offset) * BytesPerWord)])
+					ifTrue: [theFP + FoxCallerSavedIP + ((frameNumArgs - offset) * objectMemory wordSize)]
+					ifFalse: [theFP + FoxMFReceiver - objectMemory wordSize + ((frameNumArgs - offset) * objectMemory wordSize)])
 		put: valueOop

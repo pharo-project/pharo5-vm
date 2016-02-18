@@ -1,13 +1,15 @@
 simulation stack
 initSimStackForFramefulMethod: startpc
 	<var: #desc type: #'CogSimStackEntry *'>
-	optStatus isReceiverResultRegLive: false.
 	simSelf
 		type: SSBaseOffset;
 		spilled: true;
 		annotateUse: false;
 		register: FPReg;
 		offset: FoxMFReceiver.
+	optStatus 
+		isReceiverResultRegLive: false;
+		ssEntry: (self addressOf: simSelf).
 	simSpillBase := methodOrBlockNumTemps. "N.B. Includes num args"
 	simStackPtr := simSpillBase - 1.
 	"args"
@@ -19,7 +21,7 @@ initSimStackForFramefulMethod: startpc
 			spilled: true;
 			annotateUse: false;
 			register: FPReg;
-			offset: FoxCallerSavedIP + ((methodOrBlockNumArgs - i) * BytesPerWord);
+			offset: FoxCallerSavedIP + ((methodOrBlockNumArgs - i) * objectMemory wordSize);
 			bcptr: startpc].
 	"temps"
 	methodOrBlockNumArgs to: simStackPtr do:
@@ -30,5 +32,5 @@ initSimStackForFramefulMethod: startpc
 			spilled: true;
 			annotateUse: false;
 			register: FPReg;
-			offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * BytesPerWord);
+			offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * objectMemory wordSize);
 			bcptr: startpc]

@@ -5,5 +5,5 @@ setObjectFree: objOop
 	 (self long64At: objOop) ~= 0 assert in isEnumerableObject: isn't triggered."
 		 
 	(self rawNumSlotsOf: objOop) = 0 ifTrue:
-		[self setRawNumSlotsOf: objOop to: 1].
+		[self rawNumSlotsOf: objOop put: 1].
 	self setFree: objOop

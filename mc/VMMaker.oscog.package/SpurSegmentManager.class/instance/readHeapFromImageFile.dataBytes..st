@@ -26,14 +26,15 @@ readHeapFromImageFile: f dataBytes: numBytes
 			[totalBytesRead := totalBytesRead + bytesRead].
 	 bytesRead ~= nextSegmentSize ifTrue:
 		[^totalBytesRead].
-	 numSegments := numSegments + 1.
+	 (numSegments := numSegments + 1) >= numSegInfos ifTrue:
+		[self allocateOrExtendSegmentInfos].
 	 bridge := bridgehead + manager baseHeaderSize.
 	 bridgeSpan := (manager rawNumSlotsOf: bridgehead) = 0
 						ifTrue: [0]
-						ifFalse: [manager bytesPerSlot * (manager rawOverflowSlotsOf: bridge)].
+						ifFalse: [manager bytesPerOop * (manager rawOverflowSlotsOf: bridge)].
 	 oldBase := oldBase + nextSegmentSize + bridgeSpan.
 	 newBase := newBase + nextSegmentSize - manager bridgeSize.
-	 nextSegmentSize := manager long64At: bridge.
+	 nextSegmentSize := (manager long64At: bridge) asUnsignedInteger.
 	 nextSegmentSize ~= 0] whileTrue:
 		[bridgehead := bridgehead - manager bridgeSize + nextSegmentSize].
 	"newBase should point just past the last bridge. all others should have been eliminated."

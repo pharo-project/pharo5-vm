@@ -1,0 +1,3 @@
+primitive generators
+genPrimitiveIdentityHash
+	self subclassResponsibility

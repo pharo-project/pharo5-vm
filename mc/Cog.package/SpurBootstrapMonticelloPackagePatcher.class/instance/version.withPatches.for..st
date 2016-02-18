@@ -1,10 +1,20 @@
 patching
 version: version withPatches: patches for: package
-	| snapshot ancestry |
+	| snapshot ancestry possibleSpurAncestor actualAncestor |
 	snapshot := MCPatcher
-					apply: (self patchForPackage: package withPatches: patches snapshot: version snapshot)
+					apply: (self patches: patches forSnapshot: version snapshot)
 					to: version snapshot.
 	ancestry := MCWorkingAncestry new addAncestor: version info.
+	"this is a hack; we may not be patching w.r.t. a directory or trunk"
+	possibleSpurAncestor := (self spurBranchNameForInfo: version info ancestors first package: package) , '.mcz'.
+	(destDir includesKey: possibleSpurAncestor)
+		ifTrue:
+			[actualAncestor := self versionFor: possibleSpurAncestor in: destDir]
+		ifFalse:
+			[((self trunk versionNamesForPackageNamed: package name) includes: possibleSpurAncestor) ifTrue:
+				[actualAncestor := self trunk versionNamed: possibleSpurAncestor]].
+	actualAncestor ifNotNil:
+		[ancestry addAncestor: actualAncestor info].
 	^MCVersion
 		package: version package
 		info: (ancestry

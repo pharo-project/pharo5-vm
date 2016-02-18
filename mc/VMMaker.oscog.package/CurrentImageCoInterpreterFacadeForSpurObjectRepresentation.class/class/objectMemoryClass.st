@@ -1,3 +1,3 @@
-accessing
+accessing class hierarchy
 objectMemoryClass
 	^Spur32BitCoMemoryManager

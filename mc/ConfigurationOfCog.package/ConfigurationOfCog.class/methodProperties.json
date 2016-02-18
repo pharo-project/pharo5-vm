@@ -11,7 +11,7 @@
 		"metacelloVersion:loads:" : "jb 11/9/2010 13:56",
 		"project" : "jb 11/9/2010 13:56" },
 	"instance" : {
-		"baselineGit:" : "EstebanLorenzano 10/2/2014 16:21",
+		"baselineGit:" : "EstebanLorenzano 7/2/2014 17:29",
 		"development:" : "EstebanLorenzano 6/3/2014 14:15",
 		"fixForPharo10" : "IgorStasenko 2/3/2011 11:34",
 		"fixFreeTypePluginForPharo" : "IgorStasenko 7/6/2011 05:10",

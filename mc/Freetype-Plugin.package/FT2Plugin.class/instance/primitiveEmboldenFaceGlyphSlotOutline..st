@@ -3,7 +3,9 @@ primitiveEmboldenFaceGlyphSlotOutline: strength
 	"emboldens the outline in the face's glyphSlot by strength (expressed in 26.6 pixel format).
 	The new outline will be at most 4 times `strength' pixels wider and higher. "
 	| face rcvr |
-	self var: #face declareC: 'FT_Face face'.
+	
+	<var: #face declareC: 'FT_Face face'>
+	
 	rcvr := self 
 				primitive: 'primitiveEmboldenFaceGlyphSlotOutline'
 				parameters: #(#SmallInteger)

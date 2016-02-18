@@ -9,5 +9,5 @@ occurrencesInYoungReferrers: cogMethod
 	[pointer < limitAddress] whileTrue:
 		[cogMethod asInteger = (objectMemory longAt: pointer) ifTrue:
 			[count := count + 1].
-		 pointer := pointer + BytesPerWord].
+		 pointer := pointer + objectMemory wordSize].
 	^count

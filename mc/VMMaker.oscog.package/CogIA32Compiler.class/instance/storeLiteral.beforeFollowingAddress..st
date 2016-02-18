@@ -1,6 +1,6 @@
 inline cacheing
 storeLiteral: literal beforeFollowingAddress: followingAddress
-	"Rewrite the literal in the instruction immediately preceeding followingAddress."
+	"Rewrite the literal in the instruction immediately preceding followingAddress."
 	objectMemory
 		byteAt: followingAddress - 1 put: (literal >> 24 bitAnd: 16rFF);
 		byteAt: followingAddress - 2 put: (literal >> 16 bitAnd: 16rFF);

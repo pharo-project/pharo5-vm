@@ -1,0 +1,27 @@
+{
+	"class" : {
+		"imageType" : "EstebanLorenzano 8/27/2014 15:13" },
+	"instance" : {
+		"BehaviorPROTOTYPEidentityHash" : "EstebanLorenzano 8/27/2014 14:38",
+		"BlockClosurePROTOTYPEsimulateValueWithArguments:caller:" : "eem 9/7/2014 14:11",
+		"CharacterPROTOTYPEclone" : "EstebanLorenzano 8/27/2014 14:38",
+		"CharacterPROTOTYPEsetValue:" : "eem 9/9/2014 21:18",
+		"ClassDescriptionPROTOTYPEupdateMethodBindingsTo:" : "eem 9/7/2014 13:35",
+		"ClassPROTOTYPEimmediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:" : "EstebanLorenzano 8/27/2014 14:38",
+		"CompiledMethodPROTOTYPEbytecodeSetName" : "eem 9/11/2014 12:04",
+		"CompiledMethodPROTOTYPEheaderDescription" : "eem 9/11/2014 12:12",
+		"ContextPartPROTOTYPEactivateReturn:value:" : "eem 8/11/2014 12:28",
+		"ContextPartPROTOTYPEdoPrimitive:method:receiver:args:" : "eem 9/4/2014 15:17",
+		"ContextPartPROTOTYPEisPrimFailToken:" : "eem 8/11/2014 12:57",
+		"ContextPartPROTOTYPEsend:to:with:lookupIn:" : "eem 8/11/2014 13:43",
+		"ContextPartPROTOTYPEsend:to:with:super:" : "EstebanLorenzano 8/27/2014 14:38",
+		"ContextPartPROTOTYPEtryNamedPrimitiveIn:for:withArgs:" : "EstebanLorenzano 8/27/2014 14:38",
+		"IntegerclassPROTOTYPEinitialize" : "EstebanLorenzano 8/27/2014 14:38",
+		"MethodContextPROTOTYPEfailPrimitiveWith:" : "eem 9/4/2014 15:18",
+		"MethodContextclassPROTOTYPEallInstances" : "EstebanLorenzano 8/27/2014 14:38",
+		"MethodContextclassPROTOTYPEallInstancesDo:" : "EstebanLorenzano 8/27/2014 14:38",
+		"ProtoObjectPROTOTYPEscaledIdentityHash" : "EstebanLorenzano 8/27/2014 14:38",
+		"SmallIntegerPROTOTYPEclone" : "eem 12/1/2014 13:10",
+		"SmalltalkImagePROTOTYPErecreateSpecialObjectsArray" : "eem 11/25/2014 16:41",
+		"SmalltalkImagePROTOTYPEsetGCParameters" : "EstebanLorenzano 8/27/2014 14:38",
+		"SystemDictionaryPROTOTYPEsetGCParameters" : "EstebanLorenzano 8/27/2014 14:38" } }

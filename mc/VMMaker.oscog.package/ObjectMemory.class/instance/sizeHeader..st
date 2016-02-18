@@ -1,4 +1,4 @@
 header access
 sizeHeader: oop
 
-	^ self longAt: oop - (BytesPerWord*2)
+	^ self longAt: oop - (self wordSize*2)

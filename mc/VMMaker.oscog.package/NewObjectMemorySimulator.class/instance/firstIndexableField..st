@@ -9,9 +9,9 @@ firstIndexableField: oop
 		["pointer; may need to delve into the class format word"
 		totalLength := self lengthOf: oop baseHeader: hdr format: fmt.
 		fixedFields := self fixedFieldsOf: oop format: fmt length: totalLength.
-		^self cCoerce: (self pointerForOop: oop + BaseHeaderSize + (fixedFields << ShiftForWord)) to: 'oop *'].
+		^self cCoerce: (self pointerForOop: oop + self baseHeaderSize + (fixedFields << self shiftForWord)) to: 'oop *'].
 	^self
-		cCoerce: (self pointerForOop: oop + BaseHeaderSize)
+		cCoerce: (self pointerForOop: oop + self baseHeaderSize)
 		to: (fmt < self firstByteFormat
 				ifTrue: [fmt = self firstLongFormat
 						ifTrue: ["32 bit field objects" 'int *']

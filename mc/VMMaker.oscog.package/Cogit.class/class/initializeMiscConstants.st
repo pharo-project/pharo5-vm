@@ -6,18 +6,31 @@ initializeMiscConstants
 		ifTrue:
 			[EagerInstructionDecoration := initializationOptions at: #EagerInstructionDecoration]
 		ifFalse:
-			[EagerInstructionDecoration isNil ifTrue:
+			[EagerInstructionDecoration ifNil:
 				[EagerInstructionDecoration := false]]. "speeds up single stepping but could lose fidelity"
 
-	ProcessorClass := (initializationOptions at: #ISA ifAbsent: [#IA32]) caseOf: {
+	ProcessorClass := (initializationOptions at: #ISA ifAbsentPut: [self objectMemoryClass defaultISA]) caseOf: {
+							[#X64] 		->	[BochsX64Alien].
 							[#IA32] 	->	[BochsIA32Alien].
-							[#ARMv5]	->	[GdbARMAlien]. }.
+							[#ARMv5]	->	[GdbARMAlien].
+							[#MIPSEL]	->	[MIPSELSimulator] }.
+	CogCompilerClass := self activeCompilerClass.
+	(CogCompilerClass withAllSuperclasses copyUpTo: CogAbstractInstruction) reverseDo:
+		[:compilerClass| compilerClass initialize; initializeAbstractRegisters].
+	"Our criterion for which methods to JIT is literal count.  The default value is 60 literals or less."
+	MaxLiteralCountForCompile := initializationOptions at: #MaxLiteralCountForCompile ifAbsent: [60].
 	"we special-case 0, 1 & 2 argument sends, N is numArgs >= 3"
 	NumSendTrampolines := 4.
 	"Currently not even the ceImplicitReceiverTrampoline contains object references."
 	NumObjRefsInRuntime := 0.
-	"The implicit receiver cache has two entries, class and mixin oops."
-	NumOopsPerIRC := 2.
+
+	NSCSelectorIndex := (NSSendCache instVarNames indexOf: #selector) - 1.
+	NSCNumArgsIndex := (NSSendCache instVarNames indexOf: #numArgs) - 1.
+	NSCClassTagIndex := (NSSendCache instVarNames indexOf: #classTag) - 1.
+	NSCEnclosingObjectIndex := (NSSendCache instVarNames indexOf: #enclosingObject) - 1.
+	NSCTargetIndex := (NSSendCache instVarNames indexOf: #target) - 1.
+	NumOopsPerNSC := NSSendCache instVarNames size.
+
 	"Max size to alloca when compiling.
 	 Mac OS X 10.6.8 segfaults approaching 8Mb.
 	 Linux 2.6.9 segfaults above 11Mb.

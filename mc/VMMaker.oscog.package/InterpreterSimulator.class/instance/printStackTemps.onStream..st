@@ -21,7 +21,7 @@ printStackTemps: ctxt onStream: strm
 			strm nextPutAll: oop hex; space]].
 	
 	strm cr; tab; nextPutAll: 'stack: '.
-	nTemps + 1 to: (self lastPointerOf: ctxt)//BytesPerWord - TempFrameStart do:
+	nTemps + 1 to: (self lastPointerOf: ctxt)//self wordSize - TempFrameStart do:
 		[:i | oop := self fetchPointer: TempFrameStart + i-1 ofObject: ctxt.
 			strm nextPutAll: oop hex; space].
 	

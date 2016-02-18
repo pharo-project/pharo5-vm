@@ -1,0 +1,19 @@
+{
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tlk 5/9/2006 18:43",
+	"instvars" : [
+		"classSymbol",
+		"classIsMeta",
+		"methodSymbol",
+		"stringVersion",
+		"category",
+		"environment" ],
+	"name" : "MethodReference",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

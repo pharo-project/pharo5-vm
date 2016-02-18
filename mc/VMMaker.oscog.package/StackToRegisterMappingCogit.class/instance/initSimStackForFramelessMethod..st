@@ -10,8 +10,7 @@ initSimStackForFramelessMethod: startpc
 	optStatus
 		isReceiverResultRegLive: true;
 		ssEntry: (self addressOf: simSelf).
-	self assert: (methodOrBlockNumTemps = methodOrBlockNumArgs
-				or: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]).
+	self assert: methodOrBlockNumTemps >= methodOrBlockNumArgs.
 	self assert: self numRegArgs <= 2.
 	(methodOrBlockNumArgs between: 1 and: self numRegArgs)
 		ifTrue:
@@ -39,6 +38,8 @@ initSimStackForFramelessMethod: startpc
 					register: SPReg;
 					spilled: true;
 					annotateUse: false;
-					offset: ((methodOrBlockNumArgs - i) * BytesPerWord);
+					offset: ((backEnd hasLinkRegister
+								ifTrue: [methodOrBlockNumArgs - 1- i]
+								ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);
 					bcptr: startpc]].
 	simSpillBase := simStackPtr := methodOrBlockNumArgs - 1

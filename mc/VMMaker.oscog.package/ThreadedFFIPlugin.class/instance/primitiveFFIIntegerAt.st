@@ -31,4 +31,4 @@ primitiveFFIIntegerAt
 					ifTrue:[interpreterProxy signed32BitIntegerFor: value]
 					ifFalse:[interpreterProxy positive32BitIntegerFor: value].
 	].
-	interpreterProxy pop: 4 thenPush: value
+	^interpreterProxy pop: 4 thenPush: value

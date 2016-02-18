@@ -4,5 +4,5 @@ objectArg: index
 	| oop |
 	oop := self methodArg: index.
 	oop = 0 ifTrue:[^0]. "methodArg: failed"
-	(objectMemory isIntegerObject: oop) ifTrue: [self primitiveFail. ^ nil].
+	(objectMemory isImmediate: oop) ifTrue: [self primitiveFail. ^ nil].
 	^oop

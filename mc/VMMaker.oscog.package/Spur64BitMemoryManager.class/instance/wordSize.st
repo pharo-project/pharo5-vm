@@ -1,4 +1,6 @@
 word size
 wordSize
-	<cmacro: '() 8'>
+	"Answer the manager's word size, which is the size of an oop, and which
+	 is assumed to be equivalent to the underlying machine's word size."
+	<cmacro>
 	^8

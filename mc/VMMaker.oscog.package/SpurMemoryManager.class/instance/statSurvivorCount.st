@@ -1,3 +1,4 @@
 accessing
 statSurvivorCount
-	^statSurvivorCount
+	<doNotGenerate>
+	^scavenger statSurvivorCount

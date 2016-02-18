@@ -3,4 +3,5 @@ initializeSpurObjectRepresentationConstants
 	"SpurMemoryManager initializeSpurObjectRepresentationConstants"
 	BecamePointerObjectFlag := 1.
 	BecameCompiledMethodFlag := 2.
-	"BecameClassFlag := 4" "this turns out not to be actionable"
+	OldBecameNewFlag := 4.
+	BecameActiveClassFlag := 8 "For flushing method caches"

@@ -5,7 +5,7 @@ mapEndFor: cogMethod
 	<inline: true>
 	| end |
 	end := self mapStartFor: cogMethod.
-	[(coInterpreter byteAt: end) ~= MapEnd] whileTrue:
+	[(objectMemory byteAt: end) ~= MapEnd] whileTrue:
 		[end := end - 1.
 		 self assert: end > (cogMethod asInteger + cmNoCheckEntryOffset)].
 	^end

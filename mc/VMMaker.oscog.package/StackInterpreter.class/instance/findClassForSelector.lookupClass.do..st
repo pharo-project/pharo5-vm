@@ -5,7 +5,7 @@ findClassForSelector: aSelector lookupClass: startClass do: unaryBlock
 	| currClass classDict classDictSize i |
 	currClass := startClass.
 	[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: currClass.
-	 classDictSize := objectMemory fetchWordLengthOf: classDict.
+	 classDictSize := objectMemory numSlotsOf: classDict.
 	 i := SelectorStart.
 	 [i < classDictSize] whileTrue:
 		[aSelector = (objectMemory fetchPointer: i ofObject: classDict) ifTrue:

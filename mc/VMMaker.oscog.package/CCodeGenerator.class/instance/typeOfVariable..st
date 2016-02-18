@@ -1,5 +1,6 @@
 C code generator
-typeOfVariable: varName "<String>" 
+typeOfVariable: varName "<String>"
+	self assert: varName isString.
 	scopeStack reverseDo:
 		[:dict|
 		(dict includesKey: varName) ifTrue:
@@ -8,4 +9,9 @@ typeOfVariable: varName "<String>"
 				fromDeclaration: (dict at: varName)]].
 	^self
 		extractTypeFor: varName
-		fromDeclaration: (variableDeclarations at: varName ifAbsent: [^nil])
+		fromDeclaration: (variableDeclarations
+							at: varName
+							ifAbsent:
+								[apiVariables
+									ifNotNil: [apiVariables at: varName ifAbsent: [^nil]]
+									ifNil: [^nil]])

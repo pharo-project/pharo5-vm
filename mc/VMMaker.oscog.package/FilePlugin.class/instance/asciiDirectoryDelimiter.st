@@ -5,4 +5,4 @@ asciiDirectoryDelimiter
 		inSmalltalk:
 			[(Smalltalk classNamed: #FileSystem)
 				ifNotNil: [:fileSystem| fileSystem disk delimiter asciiValue]
-				ifNil: [(Smalltalk at: #FileDirectory) pathNameDelimiter asciiValue]]
+				ifNil: [FileDirectory pathNameDelimiter asciiValue]]

@@ -1,3 +1,0 @@
-controlling
-close
-   open := false

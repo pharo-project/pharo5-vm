@@ -31,7 +31,7 @@ primitiveBeCursor
 				self success: ((offsetX >= (extentX * -1)) and: [offsetX <= 0]).
 				self success: ((offsetY >= (extentY * -1)) and: [offsetY <= 0]).
 				self success: ((objectMemory isWords: bitsObj) and: [(objectMemory lengthOf: bitsObj) = (extentX * extentY)]).
-				cursorBitsIndex := bitsObj + BaseHeaderSize.
+				cursorBitsIndex := bitsObj + objectMemory baseHeaderSize.
 				self cCode: '' inSmalltalk:
 					[ourCursor := Cursor
 						extent: extentX @ extentY

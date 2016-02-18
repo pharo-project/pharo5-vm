@@ -11,8 +11,13 @@ tryToInlineMethodsIn: aCodeGen
 	parseTree
 		nodesDo:
 			[:node|
+			(self transformConditionalAssignment: node in: aCodeGen) ifNotNil:
+				[:replacement|
+				 sendsToInline at: node put: replacement].
 			(self inlineableFunctionCall: node in: aCodeGen) ifTrue:
-				[sendsToInline at: node put: (self inlineFunctionCall: node in: aCodeGen)]]
+				[(self inlineFunctionCall: node in: aCodeGen) ifNotNil:
+					[:replacement|
+					 sendsToInline at: node put: replacement]]]
 		unless: "Don't inline the arguments to asserts to keep the asserts readable"
 			[:node|
 			node isSend

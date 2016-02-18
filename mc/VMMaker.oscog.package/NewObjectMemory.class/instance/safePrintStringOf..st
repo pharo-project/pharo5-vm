@@ -5,9 +5,9 @@ safePrintStringOf: oop
 	<inline: false>
 	(self isIntegerObject: oop) ifTrue:
 		[^nil].
-	(oop between: self startOfMemory and: freeStart) ifFalse:
+	(self oop: oop isGreaterThanOrEqualTo: self startOfMemory andLessThan: freeStart) ifFalse:
 		[^nil].
-	(oop bitAnd: (BytesPerWord - 1)) ~= 0 ifTrue:
+	(oop bitAnd: (self wordSize - 1)) ~= 0 ifTrue:
 		[^nil].
 	header := self headerWhileForwardingOf: oop.
 	fmt := self formatOfHeader: header.

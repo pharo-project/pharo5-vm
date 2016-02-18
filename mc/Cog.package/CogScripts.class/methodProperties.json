@@ -5,6 +5,7 @@
 		"bootstrapClosuresCompilerPreloadCode" : "eem 6/13/2008 14:52",
 		"bootstrapClosuresNeuterMonticelloCode" : "eem 6/13/2008 14:56",
 		"browseExclusiveMethodImportsForPrimitiveClass:" : "eem 6/11/2010 13:21",
+		"changeMethodsForBasicConstantSendsIn:" : "eem 11/13/2014 13:57",
 		"changedMethodsForObjectMemorySends" : "eem 2/5/2014 10:31",
 		"createObjMemSims" : "eem 9/30/2010 13:20",
 		"createSVMTree" : "eem 6/8/2010 16:54",

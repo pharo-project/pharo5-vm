@@ -5,8 +5,8 @@ setSignalNumber: signalNumber handler: signalHandlerAddress
 	| sigHandlerAction oldHandlerAction |
 	<returnTypeC: 'void *'>
 	<var: 'signalHandlerAddress' type: 'void *'>
-	<var: 'sigHandlerAction' type: #'struct sigaction'>
-	<var: 'oldHandlerAction' type: #'struct sigaction'>
+	<var: 'sigHandlerAction' declareC: #'struct sigaction sigHandlerAction = {{0}}'>
+	<var: 'oldHandlerAction' declareC: #'struct sigaction oldHandlerAction = {{0}}'>
 	self needSigaltstack ifFalse:
 		[^self sig: signalNumber nal: signalHandlerAddress].
 

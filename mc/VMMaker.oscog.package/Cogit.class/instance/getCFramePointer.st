@@ -3,4 +3,6 @@ getCFramePointer
 	<api>
 	<cmacro: '() CFramePointer'>
 	"and in the simulator we use..."
-	^objectMemory longAt: coInterpreter inMemoryCFramePointerAddress
+	^(backEnd wantsNearAddressFor: #CFramePointer)
+		ifTrue: [CFramePointer]
+		ifFalse: [(objectMemory longAt: coInterpreter inMemoryCFramePointerAddress) asVoidPointer]

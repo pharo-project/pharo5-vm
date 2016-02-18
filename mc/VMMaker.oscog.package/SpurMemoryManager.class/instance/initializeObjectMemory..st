@@ -9,8 +9,8 @@ initializeObjectMemory: bytesToShift
 	<inline: false>
 	| freeListObj |
 	"Catch mis-initializations leading to bad translations to C"
-	self assert: BaseHeaderSize = self baseHeaderSize.
-	self assert: (self maxSlotsForAlloc * BytesPerWord) asInteger > 0.
+	self assert: self baseHeaderSize = self baseHeaderSize.
+	self assert: (self maxSlotsForAlloc * self wordSize) asInteger > 0.
 	self bootstrapping ifFalse:
 		[self
 			initSegmentBridgeWithBytes: self bridgeSize
@@ -32,10 +32,10 @@ initializeObjectMemory: bytesToShift
 	self assert: falseObj = (self objectAfter: nilObj).
 	self assert: trueObj = (self objectAfter: falseObj).
 	freeListObj := self objectAfter: trueObj.
-	self reInitializeClassTablePostLoad: (self objectAfter: freeListObj).
+	self setHiddenRootsObj: (self objectAfter: freeListObj).
 	markStack := self swizzleObjStackAt: MarkStackRootIndex.
 	weaklingStack := self swizzleObjStackAt: WeaklingStackRootIndex.
-	ephemeronQueue := self swizzleObjStackAt: EphemeronQueueRootIndex.
+	mournQueue := self swizzleObjStackAt: MournQueueRootIndex.
 	self assert: self validObjStacks.
 	self assert: (self isEmptyObjStack: markStack).
 	self assert: (self isEmptyObjStack: weaklingStack).
@@ -43,10 +43,12 @@ initializeObjectMemory: bytesToShift
 	self initializeFreeSpacePostLoad: freeListObj.
 	segmentManager collapseSegmentsPostSwizzle.
 	self computeFreeSpacePostSwizzle.
-	self bootstrapping ifFalse:
-		[self initializeNewSpaceVariables].
-	self initializeOldSpaceFirstFree: freeOldSpaceStart. "initializes endOfMemory, freeStart"
+	self initializeOldSpaceFirstFree: freeOldSpaceStart. "initializes endOfMemory, freeStart, free space"
+	self initializeNewSpaceVariables.
+	scavenger initializeRememberedSet.
 	segmentManager checkSegments.
+
+	numCompactionPasses := CompactionPassesForGC.
 
 	"These defaults should depend on machine size; e.g. too small on a powerful laptop, too big on a Pi."
 	growHeadroom := 16*1024*1024.		"headroom when growing"

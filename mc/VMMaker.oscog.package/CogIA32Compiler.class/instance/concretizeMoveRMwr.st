@@ -3,9 +3,9 @@ concretizeMoveRMwr
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| srcReg offset destReg |
-	srcReg := self concreteRegister: (operands at: 0).
+	srcReg := operands at: 0.
 	offset := operands at: 1.
-	destReg := self concreteRegister: (operands at: 2).
+	destReg := operands at: 2.
 	destReg ~= ESP ifTrue:
 		[(offset = 0 and: [destReg ~= EBP]) ifTrue:
 			[machineCode

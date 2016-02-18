@@ -91,11 +91,11 @@ double floatValueOf(sqInt oop);
 sqInt  integerObjectOf(sqInt value);
 sqInt  integerValueOf(sqInt oop);
 sqInt  positive32BitIntegerFor(sqInt integerValue);
-sqInt  positive32BitValueOf(sqInt oop);
+usqInt  positive32BitValueOf(sqInt oop);
 sqInt  signed32BitIntegerFor(sqInt integerValue);
-sqInt  signed32BitValueOf(sqInt oop);
+int    signed32BitValueOf(sqInt oop);
 sqInt  positive64BitIntegerFor(sqLong integerValue);
-sqLong positive64BitValueOf(sqInt oop);
+usqLong positive64BitValueOf(sqInt oop);
 sqInt  signed64BitIntegerFor(sqLong integerValue);
 sqLong signed64BitValueOf(sqInt oop);
 long  signedMachineIntegerValueOf(sqInt);
@@ -147,7 +147,8 @@ sqInt signalSemaphoreWithIndex(sqInt semaIndex);
 sqInt success(sqInt aBoolean);
 sqInt superclassOf(sqInt classPointer);
 sqInt ioMicroMSecs(void);
-usqLong ioUTCMicroseconds(void);
+unsigned volatile long long  ioUTCMicroseconds(void);
+unsigned volatile long long  ioUTCMicrosecondsNow(void);
 void forceInterruptCheck(void);
 sqInt getThisSessionID(void);
 sqInt ioFilenamefromStringofLengthresolveAliases(char* aCharBuffer, char* filenameIndex, sqInt filenameLength, sqInt resolveFlag);
@@ -165,8 +166,8 @@ sqInt classExternalData(void);
 sqInt classExternalFunction(void);
 sqInt classExternalLibrary(void);
 sqInt classExternalStructure(void);
-sqInt ioLoadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength);
-sqInt ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNameLength, sqInt moduleHandle);
+void *ioLoadModuleOfLength(sqInt moduleNameIndex, sqInt moduleNameLength);
+void *ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNameLength, sqInt moduleHandle);
 sqInt isInMemory(sqInt address);
 sqInt classAlien(void); /* Alien FFI */
 sqInt classUnsafeAlien(void); /* Alien FFI */
@@ -189,6 +190,7 @@ sqInt characterObjectOf(int charCode);
 sqInt characterValueOf(sqInt oop);
 sqInt isPinned(sqInt objOop);
 sqInt pinObject(sqInt objOop);
+sqInt unpinObject(sqInt objOop);
 #endif
 char *cStringOrNullFor(sqInt);
 
@@ -505,6 +507,7 @@ struct VirtualMachine* sqGetInterpreterProxy(void)
 	VM->isCharacterValue = isCharacterValue;
 	VM->isPinned = isPinned;
 	VM->pinObject = pinObject;
+	VM->unpinObject = unpinObject;
 #endif
 
 	return VM;
@@ -554,7 +557,7 @@ pushOutputFile(char *filenameOrStdioIndex)
 		fprintf(stderr,"output file stack is full.\n");
 		return;
 	}
-	switch ((unsigned)filenameOrStdioIndex) {
+	switch ((unsigned long)filenameOrStdioIndex) {
 	case STDOUT_FILENO: output = stdout; break;
 	case STDERR_FILENO: output = stderr; break;
 	default:

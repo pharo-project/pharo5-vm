@@ -16,7 +16,7 @@ extPushPseudoVariableOrOuterBytecode
 					[extB < 0
 						ifTrue:
 							[self 
-								explicitOuterReceiver: 0 - extB 
+								enclosingObjectAt: 0 - extB 
 								withObject: self receiver 
 								withMixin: (self methodClassOf: method)]
 						ifFalse:

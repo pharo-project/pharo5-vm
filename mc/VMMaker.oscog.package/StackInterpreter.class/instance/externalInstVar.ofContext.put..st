@@ -6,6 +6,7 @@ externalInstVar: index ofContext: maybeMarriedContext put: anOop
 	self assert: (objectMemory isContext: maybeMarriedContext).
 	self externalWriteBackHeadFramePointers.
 	"Assign the field of a married context."
+	self deny: (objectMemory isObjImmutable: maybeMarriedContext).
 	(self isStillMarriedContext: maybeMarriedContext) ifFalse:
 		[objectMemory storePointer: index ofObject: maybeMarriedContext withValue: anOop.
 		 index = StackPointerIndex ifTrue:

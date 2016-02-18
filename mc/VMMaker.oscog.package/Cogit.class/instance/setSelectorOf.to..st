@@ -7,11 +7,9 @@ setSelectorOf: cogMethod to: aSelectorOop
 	"self disassembleMethod: cogMethod"
 	coInterpreter
 		compilationBreak: aSelectorOop
-		point: (objectMemory lengthOf: aSelectorOop).
+		point: (objectMemory numBytesOf: aSelectorOop)
+		isMNUCase: false.
 	self assert: cogMethod cmType = CMMethod.
 	cogMethod selector: aSelectorOop.
-	(cogMethod cmRefersToYoung not
-	 and: [objectMemory isYoung: aSelectorOop]) ifTrue:
-		[self assert: (methodZone occurrencesInYoungReferrers: cogMethod) = 0.
-		 cogMethod cmRefersToYoung: true.
-		 methodZone addToYoungReferrers: cogMethod]
+	(objectMemory isYoung: aSelectorOop) ifTrue:
+		[methodZone ensureInYoungReferrers: cogMethod]

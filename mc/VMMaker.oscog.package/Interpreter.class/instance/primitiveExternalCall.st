@@ -84,9 +84,9 @@ primitiveExternalCall
 	functionLength := self lengthOf: functionName.
 	successFlag ifFalse: [^ nil].
 
-	addr := self ioLoadExternalFunction: functionName + BaseHeaderSize
+	addr := self ioLoadExternalFunction: functionName + self baseHeaderSize
 				OfLength: functionLength
-				FromModule: moduleName + BaseHeaderSize
+				FromModule: moduleName + self baseHeaderSize
 				OfLength: moduleLength.
 	addr = 0
 		ifTrue: [index := -1]

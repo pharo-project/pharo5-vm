@@ -5,9 +5,8 @@ primitiveTerminateThread
 
 	| handle |
 	<export: true>
-	<var: 'handle' type: 'HANDLE'>
-	<var: 'exitStatus' type: 'DWORD'>
-	(handle := self handleFrom: (interpreterProxy stackObjectValue: 0)) isNil ifTrue: [^ nil].
+	<var: 'handle' type: #HANDLE>
+	(handle := self handleFrom: (interpreterProxy stackObjectValue: 0)) isNil ifTrue: [^nil].
 	(self cCode: 'TerminateThread(handle, 0)' inSmalltalk: [false])
-		ifTrue: [^ interpreterProxy pop: 2 thenPush: interpreterProxy trueObject]
-		ifFalse: [^ interpreterProxy pop: 2 thenPush: interpreterProxy falseObject]
+		ifTrue: [interpreterProxy pop: 2 thenPush: interpreterProxy trueObject]
+		ifFalse: [interpreterProxy pop: 2 thenPush: interpreterProxy falseObject]

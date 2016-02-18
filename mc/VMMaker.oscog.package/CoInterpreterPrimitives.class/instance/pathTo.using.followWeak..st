@@ -70,7 +70,7 @@ pathTo: goal using: stack followWeak: followWeak
 					ifFalse:
 						[objectMemory mark: next.
 						 (objectMemory isCompiledMethod: next)
-							ifTrue: [index := (self literalCountOf: next) + LiteralStart]
+							ifTrue: [index := (objectMemory literalCountOf: next) + LiteralStart]
 							ifFalse: [index := objectMemory lengthOf: next]].
 				 current := next]].
 		 current = objectMemory specialObjectsOop ifTrue:

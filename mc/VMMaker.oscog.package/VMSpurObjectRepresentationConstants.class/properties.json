@@ -3,8 +3,10 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"BecameActiveClassFlag",
 		"BecameCompiledMethodFlag",
-		"BecamePointerObjectFlag" ],
+		"BecamePointerObjectFlag",
+		"OldBecameNewFlag" ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],

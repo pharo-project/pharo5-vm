@@ -1,1 +1,0 @@
-A Special subclass of VMMaker for building MAc OS-9 browser-plugin vms

@@ -14,23 +14,29 @@ setInterpreter: aCoInterpreter
 				objectRepresentation: objectRepresentation
 				cogit: self.
 	generatorTable := self class generatorTable.
-	primitiveGeneratorTable := self class primitiveTable.
 	processor := ProcessorClass new.
 	simulatedAddresses := Dictionary new.
 	simulatedTrampolines := Dictionary new.
 	simulatedVariableGetters := Dictionary new.
 	simulatedVariableSetters := Dictionary new.
 	traceStores := 0.
-	traceFlags := 8. "record prim trace on by default (see Cogit class>>decareCVarsIn:)"
+	traceFlags := (self class initializationOptions at: #recordPrimTrace ifAbsent: [true])
+					ifTrue: [8] "record prim trace on by default (see Cogit class>>decareCVarsIn:)"
+					ifFalse: [0].
 	debugPrimCallStackOffset := 0.
 	singleStep := printRegisters := printInstructions := clickConfirm := false.
-	breakBlock ifNil: [self breakPC: breakPC].
-	(backEnd := processor abstractInstructionCompilerClass new) cogit: self.
-	(methodLabel := processor abstractInstructionCompilerClass new) cogit: self.
-	sendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+	backEnd := CogCompilerClass for: self.
+	methodLabel := CogCompilerClass for: self.
+	(literalsManager := backEnd class literalsManagerClass new) cogit: self.
+	ordinarySendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
 	superSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+	BytecodeSetHasDirectedSuperSend ifTrue:
+		[directedSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
 	NewspeakVM ifTrue:
-		[dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
+		[selfSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+		dynamicSuperSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+		implicitReceiverSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines).
+		outerSendTrampolines := CArrayAccessor on: (Array new: NumSendTrampolines)].
 	"debug metadata"
 	objectReferencesInRuntime := CArrayAccessor on: (Array new: NumObjRefsInRuntime).
 	runtimeObjectRefIndex := 0.
@@ -38,5 +44,8 @@ setInterpreter: aCoInterpreter
 	trampolineAddresses := CArrayAccessor on: (Array new: NumTrampolines * 2).
 	trampolineTableIndex := 0.
 
-	compilationTrace ifNil: [compilationTrace := 0].
-	extA := extB := 0
+	extA := extB := 0.
+
+	compilationTrace ifNil: [compilationTrace := self class initializationOptions at: #compilationTrace ifAbsent: [0]].
+	debugOpcodeIndices := self class initializationOptions at: #debugOpcodeIndices ifAbsent: [Set new].
+	debugBytecodePointers := self class initializationOptions at: #debugBytecodePointers ifAbsent: [Set new]

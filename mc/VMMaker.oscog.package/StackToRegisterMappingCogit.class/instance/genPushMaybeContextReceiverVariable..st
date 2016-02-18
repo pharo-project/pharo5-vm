@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 genPushMaybeContextReceiverVariable: slotIndex 
 	<inline: false>
 	| jmpSingle jmpDone |
@@ -7,7 +7,7 @@ genPushMaybeContextReceiverVariable: slotIndex
 	self assert: needsFrame.
 	self ssAllocateCallReg: ReceiverResultReg and: SendNumArgsReg.
 	self ensureReceiverResultRegContainsSelf.
-	((self registerMaskFor: ReceiverResultReg) anyMask: callerSavedRegMask) ifTrue:
+	(self register: ReceiverResultReg isInMask: callerSavedRegMask) ifTrue:
 		["We have no way of reloading ReceiverResultReg since we need the inst var value as the result."
 		optStatus isReceiverResultRegLive: false].
 	"See CoInterpreter>>contextInstructionPointer:frame: for an explanation
