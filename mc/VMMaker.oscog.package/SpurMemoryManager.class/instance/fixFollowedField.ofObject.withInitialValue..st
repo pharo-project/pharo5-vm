@@ -4,6 +4,9 @@ fixFollowedField: fieldIndex ofObject: anObject withInitialValue: initialValue
 	<inline: #never>
 	| objOop |
 	self assert: (self isOopForwarded: initialValue).
-	objOop := self followForwarded: initialValue.
+	"inlined followForwarded: for speed (one less test)"
+	objOop := initialValue.
+	[objOop := self fetchPointer: 0 ofMaybeForwardedObject: objOop.
+	 self isOopForwarded: objOop] whileTrue.
 	self storePointer: fieldIndex ofObject: anObject withValue: objOop.
 	^objOop

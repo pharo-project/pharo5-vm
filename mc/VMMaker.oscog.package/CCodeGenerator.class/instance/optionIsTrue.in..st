@@ -5,6 +5,12 @@ optionIsTrue: pragma in: aClass
 	 or a class variable name or a variable name in VMBasicConstants."
 	| key |
 	key := pragma argumentAt: 1.
+
+	"If the option is one to be defined at compile time we'll generate a
+	 conditional around its declaration and definition."
+	(VMBasicConstants defineAtCompileTime: key) ifTrue:
+		[^true].
+
 	"If the option is the name of a subclass of Cogit, include it if it inherits from the Cogit class."
 	(Smalltalk classNamed: key) ifNotNil:
 		[:optionClass|

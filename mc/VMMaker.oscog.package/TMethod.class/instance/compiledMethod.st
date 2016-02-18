@@ -1,3 +1,5 @@
 accessing
 compiledMethod
-	^definingClass >> selector
+	^definingClass
+		compiledMethodAt: selector
+		ifAbsent: [definingClass compiledMethodAt: properties selector]

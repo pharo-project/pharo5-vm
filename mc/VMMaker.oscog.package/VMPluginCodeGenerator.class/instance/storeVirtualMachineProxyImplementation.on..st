@@ -15,8 +15,7 @@ storeVirtualMachineProxyImplementation: categoryList on: fileName
 	categoryList do:[:assoc|
 		stream cr; cr; nextPutAll:'/* InterpreterProxy methodsFor: ''',assoc key, ''' */'; cr.
 		(self sortStrings: assoc value) do:[:sel|
-			(methods at: sel) emitCFunctionPrototype: stream generator: self.
-			stream nextPut: $;; cr]].
+			(methods at: sel) emitCFunctionPrototype: stream generator: self]].
 
 	stream cr; nextPutAll:'struct VirtualMachine *VM = NULL;'; cr.
 	stream cr; nextPutAll:

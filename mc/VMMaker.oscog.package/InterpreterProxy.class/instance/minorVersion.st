@@ -1,3 +1,3 @@
 other
 minorVersion
-	self notYetImplemented
+	^ 8

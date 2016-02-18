@@ -11,7 +11,7 @@ lookupOrdinaryNoMNUEtcInClass: class
 			[lkupClass := self superclassOf: currentClass.
 			 ^SelectorCannotInterpret].
 		found := self lookupMethodInDictionary: dictionary.
-		self cppIf: #NewspeakVM
+		NewspeakVM
 			ifTrue:
 				[found ifTrue:
 					[(self isPublicMethod: newMethod) ifTrue:

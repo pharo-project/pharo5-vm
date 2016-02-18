@@ -18,7 +18,7 @@ findNewMethodInClassTag: classTagArg
 			ok ifTrue:
 				[^nil]].
  		 lkupClass := objectMemory classForClassTag: classTag.
-		 self cppIf: #NewspeakVM
+		 NewspeakVM
 				ifTrue: [self lookupOrdinarySend]
 				ifFalse: [self lookupMethodInClass: lkupClass].
 		 self addNewMethodToCache: lkupClass]

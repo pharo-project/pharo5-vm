@@ -12,7 +12,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 	| theIPPtr |
 	<inline: false>
 	<var: #theFP type: #'char *'>
-	<var: #theIPPtr type: #usqInt>
+	<var: #theIPPtr type: #'char *'>
 	<var: #callerFP type: #'char *'>
 	<var: #thePage type: #'StackPage *'>
 
@@ -34,9 +34,9 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
 			 theFP := thePage  headFP.
 			 "Skip the instruction pointer on top of stack of inactive pages."
-			 theIPPtr := thePage = stackPage ifTrue: [0] ifFalse: [thePage headSP asUnsignedInteger].
+			 theIPPtr := thePage = stackPage ifTrue: [0] ifFalse: [thePage headSP].
 			 [self assert: (thePage addressIsInPage: theFP).
-			  self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr asVoidPointer]).
+			  self assert: (theIPPtr = 0 or: [thePage addressIsInPage: theIPPtr]).
 			  oop := stackPages longAt: theFP + FoxReceiver.
 			  (objectMemory isOopForwarded: oop) ifTrue:
 				[stackPages

@@ -23,6 +23,5 @@ emitCFunctionPrototypes: methodList on: aStream
 				[m addFunctionAttribute: 'NoDbgRegParms'].
 			 m inline == #never ifTrue:
 				[m addFunctionAttribute: 'NeverInline']].
-		m emitCFunctionPrototype: aStream generator: self.
-		aStream nextPut: $; ; cr].
+		m emitCFunctionPrototype: aStream generator: self].
 	aStream cr

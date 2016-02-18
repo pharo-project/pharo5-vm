@@ -21,7 +21,7 @@ findNewMethodInClassTag: classTagArg
 					[^self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector]].
 			 "entry was not found in the cache; look it up the hard way "
 			 lkupClass := objectMemory classForClassTag: classTag.
-			 self cppIf: #NewspeakVM
+			 NewspeakVM
 				ifTrue: [self lookupOrdinarySend]
 				ifFalse: [self lookupMethodInClass: lkupClass].
 			 self addNewMethodToCache: lkupClass]

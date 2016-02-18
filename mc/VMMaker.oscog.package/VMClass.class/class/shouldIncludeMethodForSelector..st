@@ -7,11 +7,12 @@ shouldIncludeMethodForSelector: selector
 			 (c >> selector pragmaAt: #option:)
 				ifNotNil:
 					[:pragma|
-					initializationOptions
-						at: pragma arguments first
-						ifAbsent: [(self bindingOf: pragma arguments first)
-									ifNil: [false]
-									ifNotNil: [:binding| binding value ~~ #undefined]]]
+					(VMBasicConstants defineAtCompileTime: pragma arguments first)
+					 or: [initializationOptions
+							at: pragma arguments first
+							ifAbsent: [(self bindingOf: pragma arguments first)
+										ifNil: [false]
+										ifNotNil: [:binding| binding value ~~ #undefined]]]]
 				ifNil: [true]]
 		ifNil:
 			[Transcript nextPutAll: 'Cannot find implementation of '; nextPutAll: selector; nextPutAll: ' in hierarchy of '; print: self; cr; flush.
