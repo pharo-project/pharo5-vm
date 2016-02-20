@@ -1,3 +1,3 @@
 translation
 calloutStateClass
-	^ThreadedFFICalloutStateForX64SysV
+	^ThreadedFFICalloutStateForX64
