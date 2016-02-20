@@ -34,4 +34,4 @@ primitiveLoadSymbolFromModule
 	ptr := interpreterProxy firstIndexableField: oop.
 	ptr at: 0 put: address.
 	
-	interpreterProxy methodReturnValue: oop
+	^interpreterProxy methodReturnValue: oop

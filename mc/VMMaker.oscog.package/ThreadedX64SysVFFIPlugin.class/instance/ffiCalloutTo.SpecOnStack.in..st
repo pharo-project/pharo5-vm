@@ -72,7 +72,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 		 'typedef void* VoidPointer' and VoidPointer must be returned as pointer *not* as struct."
 		 (calloutState ffiRetHeader anyMask: FFIFlagPointer)
 			ifTrue:
-				[oop := self ffiReturnPointer: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState]
+				[oop := self ffiReturnPointer: intRet a ofType: (self ffiReturnType: specOnStack) in: calloutState]
 			ifFalse:
 				[oop := self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
 		 ^oop].
@@ -81,7 +81,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 		ifTrue:
 			[oop := interpreterProxy floatObjectOf: floatRet]
 		ifFalse:
-			[oop := self ffiCreateIntegralResultOop: intRet
+			[oop := self ffiCreateIntegralResultOop: intRet a
 						ofAtomicType: atomicType
 						in: calloutState].
 	^interpreterProxy methodReturnValue: oop

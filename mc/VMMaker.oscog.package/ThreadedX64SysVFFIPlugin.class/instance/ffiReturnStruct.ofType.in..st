@@ -14,7 +14,7 @@ ffiReturnStruct: sixteenByteRet ofType: ffiRetType in: calloutState
 					indexableSize: calloutState structReturnSize].
 	self mem: (interpreterProxy firstIndexableField: oop)
 		cp: ((self returnStructInRegisters: calloutState structReturnSize)
-				ifTrue: [self addressOf: sixteenByteRet]
+				ifTrue: [(self addressOf: sixteenByteRet) asVoidPointer]
 				ifFalse: [calloutState limit])
 		 y: calloutState structReturnSize.
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.
