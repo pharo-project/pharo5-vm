@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 2/19/2016 16:06",
+		"pluginClass" : "eem 2/16/2016 19:14" },
+	"instance" : {
+		"floatRegisters" : "eem 2/16/2016 19:08",
+		"floatRegisters:" : "eem 2/16/2016 19:08",
+		"initialize" : "eem 2/16/2016 19:14",
+		"integerRegisters" : "eem 2/16/2016 19:08",
+		"integerRegisters:" : "eem 2/16/2016 19:08",
+		"registerIndex" : "eem 2/16/2016 19:08",
+		"registerIndex:" : "eem 2/16/2016 19:08" } }

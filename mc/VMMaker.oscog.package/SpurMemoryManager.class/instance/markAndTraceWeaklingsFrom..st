@@ -10,6 +10,6 @@ markAndTraceWeaklingsFrom: startIndex
 		"N.B. generateToByDoLimitExpression:negative:on: guards against (unsigned)0 - 1 going +ve"
 		 0 to: (self numStrongSlotsOfWeakling: weakling) - 1 do:
 			[:i| | field |
-			field := self followObjField: i ofObject: weakling.
+			field := self followOopField: i ofObject: weakling.
 			((self isImmediate: field) or: [self isMarked: field]) ifFalse:
 				[self markAndTrace: field]]]

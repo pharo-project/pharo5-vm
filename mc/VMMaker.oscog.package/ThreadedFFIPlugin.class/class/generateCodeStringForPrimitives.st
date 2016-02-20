@@ -14,9 +14,23 @@ generateCodeStringForPrimitives
 			class identifyingPredefinedMacros ifNotNil:
 				[:predefinedMacros|
 				 s nextPutAll: 'if '.
+				class includingPredefinedMacros ifNotNil:
+					[:includingMacros|
+					 includingMacros do:
+						[:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPutAll: ') && '].
+					 s nextPut: $(].
+				class excludingPredefinedMacros ifNotNil:
+					[:excludingMacros|
+					 excludingMacros do:
+						[:predefinedMacro| s nextPutAll: '!defined('; nextPutAll: predefinedMacro; nextPutAll: ') && '].
+					 s nextPut: $(].
 				 predefinedMacros
 					do: [:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPut: $)]
 					separatedBy: [s nextPutAll: ' || '].
+				class excludingPredefinedMacros ifNotNil:
+					[s nextPut: $)].
+				class includingPredefinedMacros ifNotNil:
+					[s nextPut: $)].
 				 s cr; cr; nextPutAll: '#	include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
 				 s cr; cr; nextPutAll: '#el']].
 		 s nextPutAll: 'se'.

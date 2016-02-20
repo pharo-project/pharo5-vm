@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"calloutStateClass" : "eem 2/16/2016 19:35",
+		"identifyingPredefinedMacros" : "eem 2/16/2016 20:37",
+		"includingPredefinedMacros" : "eem 2/16/2016 20:42",
+		"initialize" : "eem 2/16/2016 19:35",
+		"moduleName" : "eem 2/16/2016 20:43",
+		"numFloatRegArgs" : "eem 2/16/2016 19:35",
+		"numRegArgs" : "eem 2/16/2016 19:35" },
+	"instance" : {
+		"ffiCalloutTo:SpecOnStack:in:" : "eem 2/19/2016 16:03",
+		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "eem 2/19/2016 15:54",
+		"returnStructInRegisters:" : "eem 2/16/2016 19:35" } }
