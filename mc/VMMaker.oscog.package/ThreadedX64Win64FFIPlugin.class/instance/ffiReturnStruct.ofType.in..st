@@ -1,6 +1,6 @@
 callout support
-ffiReturnStruct: longLongRet ofType: ffiRetType in: calloutState
-	<var: #longLongRet type: #usqLong>
+ffiReturnStruct: intRet ofType: ffiRetType in: calloutState
+	<var: #intRet type: #usqLong>
 	<var: #calloutState type: #'CalloutState *'>
 	"Create a structure return value from an external function call.  The value has been stored in
 	 alloca'ed space pointed to by the calloutState or in the return value."
@@ -14,7 +14,7 @@ ffiReturnStruct: longLongRet ofType: ffiRetType in: calloutState
 					indexableSize: calloutState structReturnSize].
 	self mem: (interpreterProxy firstIndexableField: oop)
 		cp: ((self returnStructInRegisters: calloutState structReturnSize)
-				ifTrue: [self addressOf: longLongRet]
+				ifTrue: [self addressOf: intRet]
 				ifFalse: [calloutState limit])
 		 y: calloutState structReturnSize.
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.

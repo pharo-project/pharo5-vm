@@ -3,10 +3,12 @@
 		"instVarNamesAndTypesForTranslationDo:" : "eem 2/19/2016 16:48",
 		"pluginClass" : "eem 2/16/2016 19:14" },
 	"instance" : {
+		"floatRegisterIndex" : "eem 2/19/2016 19:50",
+		"floatRegisterIndex:" : "eem 2/19/2016 19:50",
 		"floatRegisters" : "eem 2/16/2016 19:08",
 		"floatRegisters:" : "eem 2/16/2016 19:08",
 		"initialize" : "eem 2/16/2016 19:14",
+		"integerRegisterIndex" : "eem 2/19/2016 19:50",
+		"integerRegisterIndex:" : "eem 2/19/2016 19:50",
 		"integerRegisters" : "eem 2/16/2016 19:08",
-		"integerRegisters:" : "eem 2/16/2016 19:08",
-		"registerIndex" : "eem 2/16/2016 19:08",
-		"registerIndex:" : "eem 2/16/2016 19:08" } }
+		"integerRegisters:" : "eem 2/16/2016 19:08" } }

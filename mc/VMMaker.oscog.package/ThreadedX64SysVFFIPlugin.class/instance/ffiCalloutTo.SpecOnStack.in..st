@@ -7,7 +7,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	 the alloca of the outgoing stack frame in ffiCall:WithFlags:NumArgs:Args:AndTypes:"
 	| myThreadIndex atomicType floatRet intRet loadFloatRegs oop |
 	<var: #floatRet type: #double>
-	<var: #intRet type: #usqLong>
+	<var: #intRet type: 'SixteenByteReturn'>
 	<inline: true>
 	self cCode: '' inSmalltalk: [loadFloatRegs := #used. loadFloatRegs class].
 	self cppIf: COGMTVM ifTrue:
@@ -19,14 +19,14 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 
 	calloutState floatRegisterIndex > 0 ifTrue:
 		[self 
-			load: ((calloutState floatRegisters at: 0) at: 0)
-			Flo: ((calloutState floatRegisters at: 1) at: 0)
-			a: ((calloutState floatRegisters at: 2) at: 0)
-			t: ((calloutState floatRegisters at: 3) at: 0)
-			R: ((calloutState floatRegisters at: 4) at: 0)
-			e: ((calloutState floatRegisters at: 5) at: 0)
-			g: ((calloutState floatRegisters at: 6) at: 0)
-			s: ((calloutState floatRegisters at: 7) at: 0)].
+			load: (calloutState floatRegisters at: 0)
+			Flo: (calloutState floatRegisters at: 1)
+			a: (calloutState floatRegisters at: 2)
+			t: (calloutState floatRegisters at: 3)
+			R: (calloutState floatRegisters at: 4)
+			e: (calloutState floatRegisters at: 5)
+			g: (calloutState floatRegisters at: 6)
+			s: (calloutState floatRegisters at: 7)].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
 	(atomicType >> 1) = (FFITypeSingleFloat > 1)
@@ -52,7 +52,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 						with: (calloutState integerRegisters at: 5)]]
 		ifFalse:
 			[intRet := self 
-				dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'usqLong (*)(long, long, long, long, long, long)') 
+				dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'SixteenByteReturn (*)(long, long, long, long, long, long)') 
 				with: (calloutState integerRegisters at: 0)
 				with: (calloutState integerRegisters at: 1)
 				with: (calloutState integerRegisters at: 2)

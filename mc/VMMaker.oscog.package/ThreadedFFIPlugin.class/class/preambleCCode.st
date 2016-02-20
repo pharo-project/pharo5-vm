@@ -56,15 +56,8 @@ preambleCCode
 # endif
 # if WIN32
 #	define PLATFORM_API_USES_CALLEE_POPS_CONVENTION 1
-# else
-#	define PLATFORM_API_USES_CALLEE_POPS_CONVENTION 0
 # endif
 #endif /* defined(_X86_) || defined(i386) || defined(__i386) || defined(__i386__) */
-
-#if defined(__arm__)
-#	define WIN32_X86_STRUCT_RETURN 0
-#	define PLATFORM_API_USES_CALLEE_POPS_CONVENTION 0
-#endif /* defined(__arm__) */
 
 #if !defined(ALLOCA_LIES_SO_USE_GETSP)
 # if defined(__MINGW32__) && (__GNUC__ >= 3)
@@ -78,6 +71,10 @@ preambleCCode
 #	define ALLOCA_LIES_SO_USE_GETSP 0
 # endif
 #endif /* !defined(ALLOCA_LIES_SO_USE_GETSP) */
+
+#if !defined(PLATFORM_API_USES_CALLEE_POPS_CONVENTION)
+# define PLATFORM_API_USES_CALLEE_POPS_CONVENTION 0
+#endif
 
 /* The dispatchOn:in:with:with: generates an unwanted call on error.  Just squash it. */
 #define error(foo) 0

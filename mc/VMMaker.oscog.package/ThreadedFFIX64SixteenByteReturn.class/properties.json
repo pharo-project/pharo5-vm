@@ -6,9 +6,10 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
-	"name" : "ThreadedFFICalloutStateForX64Win64",
+		"a",
+		"b" ],
+	"name" : "ThreadedFFIX64SixteenByteReturn",
 	"pools" : [
 		 ],
-	"super" : "ThreadedFFICalloutStateForX64",
+	"super" : "VMStructType",
 	"type" : "normal" }

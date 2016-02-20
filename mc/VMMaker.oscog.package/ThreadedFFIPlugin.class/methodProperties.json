@@ -10,7 +10,7 @@
 		"initialize" : "eem 11/18/2009 16:17",
 		"maxNumArgs" : "eem 11/9/2009 14:52",
 		"moduleName" : "eem 4/28/2014 09:56",
-		"preambleCCode" : "EstebanLorenzano 2/3/2016 16:21",
+		"preambleCCode" : "eem 2/19/2016 19:37",
 		"translateInDirectory:doInlining:" : "dtl 5/29/2014 19:42" },
 	"instance" : {
 		"allocaLiesSoUseGetsp" : "eem 11/7/2009 09:09",
@@ -18,6 +18,8 @@
 		"cStackAlignment" : "eem 11/7/2009 09:09",
 		"cleanupCalloutState:" : "eem 11/11/2009 12:16",
 		"dispatchFunctionPointer:" : "eem 11/6/2009 16:55",
+		"dispatchFunctionPointer:with:with:with:with:" : "eem 2/19/2016 19:46",
+		"dispatchFunctionPointer:with:with:with:with:with:with:" : "eem 2/19/2016 19:46",
 		"externalFunctionHasStackSizeSlot" : "eem 11/18/2009 16:15",
 		"ffiAddressOf:startingAt:size:" : "EstebanLorenzano 12/8/2015 16:21",
 		"ffiAlloc:" : "eem 11/11/2009 13:35",

@@ -7,6 +7,7 @@
 		"numFloatRegArgs" : "eem 2/16/2016 19:35",
 		"numRegArgs" : "eem 2/16/2016 19:35" },
 	"instance" : {
-		"ffiCalloutTo:SpecOnStack:in:" : "eem 2/19/2016 16:03",
+		"ffiCalloutTo:SpecOnStack:in:" : "eem 2/19/2016 19:26",
 		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "eem 2/19/2016 15:54",
+		"ffiReturnStruct:ofType:in:" : "eem 2/20/2016 10:46",
 		"returnStructInRegisters:" : "eem 2/16/2016 19:35" } }

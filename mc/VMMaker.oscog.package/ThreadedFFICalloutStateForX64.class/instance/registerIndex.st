@@ -1,4 +1,0 @@
-accessing
-registerIndex
-
-	^ registerIndex

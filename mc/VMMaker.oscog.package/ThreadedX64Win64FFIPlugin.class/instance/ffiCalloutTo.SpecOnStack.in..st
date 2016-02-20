@@ -19,11 +19,11 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 
 	calloutState floatRegisterIndex > 0 ifTrue:
 		[self 
-			load: ((calloutState floatRegisters at: 0) at: 0)
-			Flo: ((calloutState floatRegisters at: 1) at: 0)
-			at: ((calloutState floatRegisters at: 2) at: 0)
-			Re: ((calloutState floatRegisters at: 3) at: 0)
-			gs: ((calloutState floatRegisters at: 4) at: 0)].
+			load: (calloutState floatRegisters at: 0)
+			Flo: (calloutState floatRegisters at: 1)
+			at: (calloutState floatRegisters at: 2)
+			Re: (calloutState floatRegisters at: 3)
+			gs: (calloutState floatRegisters at: 4)].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
 	(atomicType >> 1) = (FFITypeSingleFloat > 1)

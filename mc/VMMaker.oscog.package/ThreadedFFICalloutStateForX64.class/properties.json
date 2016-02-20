@@ -1,12 +1,13 @@
 {
-	"category" : "VMMaker-Plugins",
+	"category" : "VMMaker-Plugins-FFI",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "eem 2/16/2016 19:13",
 	"instvars" : [
-		"registerIndex",
+		"integerRegisterIndex",
+		"floatRegisterIndex",
 		"integerRegisters",
 		"floatRegisters" ],
 	"name" : "ThreadedFFICalloutStateForX64",

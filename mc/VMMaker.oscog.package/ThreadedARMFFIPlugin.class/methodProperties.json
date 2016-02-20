@@ -7,7 +7,6 @@
 		"numFloatRegArgs" : "djm 4/12/2014 19:13",
 		"numIntRegArgs" : "djm 4/12/2014 19:13" },
 	"instance" : {
-		"dispatchFunctionPointer:with:with:with:with:" : "djm 4/19/2014 17:42",
 		"ffiCalloutTo:SpecOnStack:in:" : "eem 2/19/2016 16:04",
 		"ffiPushDoubleFloat:in:" : "djm 4/17/2014 09:01",
 		"ffiPushPointer:in:" : "eem 7/10/2015 13:41",
@@ -23,6 +22,6 @@
 		"ffiPushUnsignedInt:in:" : "djm 4/12/2014 19:32",
 		"ffiPushUnsignedLongLong:in:" : "djm 4/16/2014 17:48",
 		"ffiPushUnsignedShort:in:" : "djm 4/12/2014 19:34",
-		"ffiReturnStruct:ofType:in:" : "eem 7/8/2015 11:03",
+		"ffiReturnStruct:ofType:in:" : "eem 2/20/2016 10:24",
 		"registerArgsSlop" : "eem 11/3/2009 13:19",
 		"returnStructInRegisters:" : "djm 4/19/2014 16:52" } }
