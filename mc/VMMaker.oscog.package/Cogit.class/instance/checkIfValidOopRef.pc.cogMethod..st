@@ -42,7 +42,7 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 					[coInterpreter print: 'cache tag leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 					^1]]
 			ifFalse: "unlinked send or super send; cacheTag is a selector unless 64-bit, in which case it is an index."
-				[(objectMemory wordSize = 8
+				[(self inlineCacheTagsAreIndexes
 				  or: [objectRepresentation checkValidOopReference: selectorOrCacheTag]) ifFalse:
 					[coInterpreter print: 'selector leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 					^1]]].

@@ -20,7 +20,7 @@ genLoadInlineCacheWithSelector: selectorIndex
 					ifTrue: [selectorIndex negated between: 1 and: self numSpecialSelectors]
 					ifFalse: [selectorIndex between: 0 and: (objectMemory literalCountOf: methodObj) - 1]).
 
-	objectMemory wordSize = 8
+	self inlineCacheTagsAreIndexes
 		ifTrue:
 			[cacheValue := selectorIndex]
 		ifFalse:

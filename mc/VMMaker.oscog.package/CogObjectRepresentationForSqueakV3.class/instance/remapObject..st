@@ -1,3 +1,4 @@
 garbage collection
-remapObject: oop
-	^objectMemory remap: oop
+remapObject: objOop
+	self assert: (objectMemory addressCouldBeObj: objOop).
+	^objectMemory remap: objOop

@@ -12,11 +12,12 @@ offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into: trinaryBlock
 	 or in-line cache tags (classes, class indices, immediate bit patterns, etc).
 	 Note that selectors can be immediate so there is no guarantee that they
 	 are markable/remappable objects."
-	tagCouldBeObj := objectRepresentation inlineCacheTagsMayBeObjects
-						or: [entryPoint < methodZoneBase
-						or: [(entryPoint bitAnd: entryPointMask) = uncheckedEntryAlignment
-						or: [(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
-							and: [(self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *') cmType = CMOpenPIC]]]].
+	tagCouldBeObj := self inlineCacheTagsAreIndexes not
+						and: [objectRepresentation inlineCacheTagsMayBeObjects
+							or: [entryPoint < methodZoneBase
+							or: [(entryPoint bitAnd: entryPointMask) = uncheckedEntryAlignment
+							or: [(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
+								and: [(self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *') cmType = CMOpenPIC]]]]].
 	trinaryBlock
 		value: entryPoint
 		value: cacheTag

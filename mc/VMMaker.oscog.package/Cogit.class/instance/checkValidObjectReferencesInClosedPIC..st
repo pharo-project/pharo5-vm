@@ -17,7 +17,8 @@ checkValidObjectReferencesInClosedPIC: cPIC
 	"For each case we check any object reference at the end address - sizeof(conditional instruction) and then increment the end address by case size"
 	2 to: cPIC cPICNumCases do:
 		[:i|
-		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+		(self inlineCacheTagsAreIndexes not
+		 and: [objectRepresentation inlineCacheTagsMayBeObjects]) ifTrue:
 			[(self checkMaybeObjRefInClosedPIC: (backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)) ifFalse:
 				[self print: 'object leak in CPIC '; printHex: cPIC asInteger;
 					print: ' @ '; printHex: pc - backEnd jumpLongConditionalByteSize - backEnd loadLiteralByteSize; cr.
