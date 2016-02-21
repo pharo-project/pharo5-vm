@@ -243,7 +243,10 @@ initializePrimitiveTable
 		(205 primitiveClosureValue) "value:value:value:value:"
 		(206 primitiveClosureValueWithArgs) "valueWithArguments:"
 
-		(207 209 primitiveFail)	"reserved for Cog primitives"
+		"OwnedLock Primitives"
+		(207 primitiveOwnedLockStrictRelease)
+		(208 primitiveOwnedLockTryAcquire)
+		(209 primitiveOwnedLockWaitAcquire)
 
 		(210 primitiveContextAt)
 		(211 primitiveContextAtPut)
