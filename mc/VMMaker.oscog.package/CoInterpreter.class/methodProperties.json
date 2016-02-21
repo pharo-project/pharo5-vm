@@ -138,7 +138,7 @@
 		"flushMethodCache" : "eem 10/31/2013 11:07",
 		"followForwardedFieldsInCurrentMethod" : "eem 12/6/2013 17:16",
 		"followForwardedMethodsInMethodZone" : "eem 1/14/2014 15:33",
-		"followForwardingPointersInStackZone:" : "eem 5/6/2015 17:35",
+		"followForwardingPointersInStackZone:" : "eem 2/20/2016 19:30",
 		"forProcessPrimitiveReturnToExecutivePostContextSwitch:" : "eem 5/7/2009 11:28",
 		"forceInterruptCheckFromHeartbeat" : "eem 7/16/2013 14:27",
 		"frameCallerContext:" : "eem 2/27/2013 13:50",

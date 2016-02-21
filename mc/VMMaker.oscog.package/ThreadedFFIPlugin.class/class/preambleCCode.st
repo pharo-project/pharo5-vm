@@ -3,6 +3,8 @@ preambleCCode
 	"For a source of builtin defines grep for builtin_define in a gcc release config directory."
 	^'
 #include "sqAssert.h" /* for assert */
+#define ThreadedFFIPlugin 1 /* to filter-out unwanted declarations from sqFFI.h */
+#include "sqFFI.h" /* for logging and surface functions */
 
 #ifdef _MSC_VER
 # define alloca _alloca
@@ -92,10 +94,4 @@ warning(char *s) { /* Print an error message but don''t exit. */
 #else
 # define EXTERN extern
 #endif
-int ffiLogCallOfLength(void *, int);               			/* sqFFIPlugin.c */
-int ffiLogFileNameOfLength(void *, int);             		/* sqFFIPlugin.c */
-EXTERN void initSurfacePluginFunctionPointers();				/* sqManualSurface.c */
-EXTERN int createManualSurface(int, int, int, int, int); 	/* sqManualSurface.c */
-EXTERN int destroyManualSurface(int);							/* sqManualSurface.c */
-EXTERN int setManualSurfacePointer(int, void*);				/* sqManualSurface.c */
 '
