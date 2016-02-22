@@ -260,7 +260,7 @@
 		"primitiveUTCMicrosecondClock" : "eem 3/11/2014 10:41",
 		"primitiveUnloadModule" : "eem 6/10/2010 16:13",
 		"primitiveUpdateTimezone" : "eem 8/24/2010 09:32",
-		"primitiveUtcWithOffset" : "dtl 5/29/2014 20:41",
+		"primitiveUtcWithOffset" : "tfel 2/22/2016 09:43",
 		"primitiveVMCurrentThreadId" : "eem 11/21/2010 11:27",
 		"primitiveVMPath" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"primitiveVMProfileInfoInto" : "eem 07/28/2014 07:54",
