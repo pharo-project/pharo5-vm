@@ -31,10 +31,12 @@ generateCodeStringForPrimitives
 					[s nextPut: $)].
 				class includingPredefinedMacros ifNotNil:
 					[s nextPut: $)].
-				 s cr; cr; nextPutAll: '#	include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
+				 s cr; cr; nextPutAll: '# define '; nextPutAll: class moduleName; nextPutAll: '_exports ';
+												nextPutAll: self moduleName; nextPutAll: '_exports'.
+				 s cr; nextPutAll: '# include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
 				 s cr; cr; nextPutAll: '#el']].
 		 s nextPutAll: 'se'.
 		 #(	'As yet no FFI implementation appears to exist for your platform.'
 			'Consider implementing it, starting by adding a subclass of ThreadedFFIPlugin.') do:
-			[:msg| s cr; nextPutAll: '#	error '; nextPutAll: msg].
+			[:msg| s cr; nextPutAll: '# error '; nextPutAll: msg].
 		 s cr; nextPutAll: '#endif'; cr]
