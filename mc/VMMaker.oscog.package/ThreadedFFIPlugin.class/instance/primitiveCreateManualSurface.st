@@ -9,7 +9,8 @@ primitiveCreateManualSurface
 	| width height rowPitch depth isMSB result |
 	<export: true>
 	
-	interpreterProxy methodArgumentCount == 5 ifFalse: [^interpreterProxy primitiveFail].
+	interpreterProxy methodArgumentCount = 5 ifFalse:
+		[^interpreterProxy primitiveFailFor: PrimErrBadNumArgs].
 	width := interpreterProxy stackIntegerValue: 4.
 	height := interpreterProxy stackIntegerValue: 3.
 	rowPitch := interpreterProxy stackIntegerValue: 2.
@@ -18,10 +19,10 @@ primitiveCreateManualSurface
 	isMSB := interpreterProxy booleanValueOf: isMSB. 
 	interpreterProxy failed ifTrue: [^nil].
 	
-	self touch: width; touch: height; touch: rowPitch; touch: depth; touch: isMSB.
-	
-	result := self cCode: 'createManualSurface(width, height, rowPitch, depth, isMSB)'.
-	result < 0 ifTrue: [^interpreterProxy primitiveFail].
-	result := interpreterProxy signed32BitIntegerFor: result.
+	result := self cCode: 'createManualSurface(width, height, rowPitch, depth, isMSB)'
+				inSmalltalk: [self create: width Man: height ual: rowPitch Surf: depth ace: isMSB].
+	result < 0 ifTrue:
+		[^interpreterProxy primitiveFail].
+	result := interpreterProxy signedMachineIntegerFor: result.
 	^interpreterProxy pop: 6 thenPush: result
 	

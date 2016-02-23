@@ -29,7 +29,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 			s: ((self cCoerceSimple: (self addressOf: (calloutState floatRegisters at: 14)) to: 'double *') at: 0)].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
-	(atomicType >> 1) = (FFITypeSingleFloat > 1)
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
 			[atomicType = FFITypeSingleFloat
 				ifTrue:
@@ -71,7 +71,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 				[oop := self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
 		 ^oop].
 	
-	(atomicType >> 1) = (FFITypeSingleFloat > 1)
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
 			[oop := interpreterProxy floatObjectOf: floatRet]
 		ifFalse:

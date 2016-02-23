@@ -99,6 +99,7 @@ initializeCTranslationDictionary
 	#asUnsignedInteger		#generateAsUnsignedInteger:on:indent:
 	#asLong					#generateAsLong:on:indent:
 	#asUnsignedLong			#generateAsUnsignedLong:on:indent:
+	#asUnsignedLongLong		#generateAsUnsignedLongLong:on:indent:
 	#asVoidPointer				#generateAsVoidPointer:on:indent:
 	#asSymbol					#generateAsSymbol:on:indent:
 	#flag:						#generateFlag:on:indent:
