@@ -162,7 +162,7 @@
 		"generateSequentialAnd:on:indent:" : "eem 9/14/2015 11:33",
 		"generateSequentialOr:on:indent:" : "eem 9/14/2015 11:34",
 		"generateSharedCodeDirective:on:indent:" : "",
-		"generateShiftLeft:on:indent:" : "eem 12/15/2014 18:54",
+		"generateShiftLeft:on:indent:" : "eem 2/22/2016 15:01",
 		"generateShiftRight:on:indent:" : "eem 12/16/2015 13:50",
 		"generateSignedBitShift:on:indent:" : "eem 7/1/2014 08:23",
 		"generateSignedIntFromLong64:on:indent:" : "eem 12/14/2015 12:22",
