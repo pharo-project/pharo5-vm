@@ -36,7 +36,7 @@
 		"genJumpNotSmallInteger:scratchReg:" : "eem 12/23/2015 05:19",
 		"genJumpNotSmallIntegerInScratchReg:" : "eem 12/27/2015 11:02",
 		"genJumpNotSmallIntegerValue:scratch:" : "eem 12/12/2015 11:40",
-		"genJumpNotSmallIntegersIn:andScratchReg:" : "eem 12/12/2015 11:36",
+		"genJumpNotSmallIntegersIn:andScratch:scratch:" : "eem 2/24/2016 16:31",
 		"genJumpSmallFloat:" : "eem 11/4/2015 08:45:43",
 		"genJumpSmallFloat:scratchReg:" : "eem 11/4/2015 08:47:42",
 		"genJumpSmallFloatInScratchReg:" : "eem 11/4/2015 08:48:23",

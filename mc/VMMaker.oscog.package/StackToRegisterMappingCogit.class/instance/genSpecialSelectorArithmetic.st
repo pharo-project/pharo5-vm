@@ -50,7 +50,7 @@ genSpecialSelectorArithmetic
 			 self MoveR: Arg0Reg R: TempReg].
 	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
 							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
-							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratchReg: TempReg].
+							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratch: TempReg scratch: ClassReg].
 	primDescriptor opcode caseOf: {
 		[AddRR] -> [argIsInt
 						ifTrue:
