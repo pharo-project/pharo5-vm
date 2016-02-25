@@ -8,7 +8,7 @@ processPlugins: pluginGenerators
 		gen doNotGenerate ifFalse: [
 			gen isInternal 
 				ifTrue: [
-					libs add: gen plugin moduleName ]
+					libs add: gen plugin moduleExportsName ]
 				ifFalse: [
 					"make main module to depend on external plugin, just to make sure it is built 
 					 before main module built"

@@ -1,9 +1,8 @@
 code generation
 generate
-	| pluginName moduleName |
+	| moduleName pluginName |
 
 	output := String new writeStream.
-
 	moduleName := self moduleName.
 	"99% of the time is the same as moduleName, but not always. 
 	 Check ThreadedFFIPlugin as an example."
@@ -49,20 +48,18 @@ generate
 	extraRules ifNotNil: [ extraRules value: self ].
 	
 	" generate a static lib for internal plugin, or shared for external"
-	internal ifTrue: [
-		self cmd: 'add_library' params:  moduleName , ' STATIC ${sources}'.
-	] ifFalse: [
-		self cmd: 'add_library' params: moduleName , ' SHARED ${sources}'.
-		
-	"	self cmd: 'set_property' params: 'TARGET ' , name , ' PROPERTY LINK_FLAGS -bundle'"
-	].
+	internal 
+		ifTrue: [ 
+			self cmd: 'add_library' params:  moduleName , ' STATIC ${sources}' ] 
+		ifFalse: [
+			self cmd: 'add_library' params: moduleName , ' SHARED ${sources}'.
+			"self cmd: 'set_property' params: 'TARGET ' , name , ' PROPERTY LINK_FLAGS -bundle'" ].
 
 	vmGen config extraPluginSettings: self.
 	
 	self isExternal ifTrue: [
 		self cmd: 'target_link_libraries'
-			params: moduleName, ' ${LINKLIBS}'.
-		].
+			params: moduleName, ' ${LINKLIBS}' ].
 	
 	" see senders of #linkFlags "
 	self 
@@ -72,8 +69,10 @@ generate
 	"set dependencies"
 	self puts: 'IF (', moduleName , '_dependencies)'.
 	
-	self cmd: 'add_dependencies'
+	self 
+		cmd: 'add_dependencies'
 		params: moduleName , ' ${', moduleName , '_dependencies}'.
 	
 	self puts: 'ENDIF (', moduleName , '_dependencies)'.
+	
 	self saveFile.
