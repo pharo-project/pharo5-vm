@@ -66,7 +66,6 @@ baselineGit: spec
 							'Sound' 
 							"'Alien-Core'"
 							'CogVMMakerPharoCompatibility') ];
-				package: 'NativeBoost-CogPlugin' with: [ spec requires: 'VMMaker' ];
 			 	package: 'BytecodeSets' with: [ spec requires: 'VMMaker' ];
 				package: 'CMakeLibSSH2' with: [ spec requires: 'CMakeVMMaker' ];
 				package: 'CMakeLibGit2' with: [ spec requires: 'CMakeVMMaker' ];
@@ -74,8 +73,8 @@ baselineGit: spec
 				package: 'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].
 			
 			spec 
-				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
+				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' "'pharoPlugins'" 'pharoBuilders' 'libs');
 				group: 'pharoCompatibility' with: #('CogVMMakerPharoCompatibility' 'SpurVMMakerPharoCompatibility');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
-				group: 'pharoPlugins' with: #('NativeBoost-CogPlugin');
+				"group: 'pharoPlugins' with: #();"
 				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]

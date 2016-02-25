@@ -1,6 +1,6 @@
 building
 buildUnix32
-	CogNativeBoostPlugin setTargetPlatform: #Linux32PlatformId.
+	(Smalltalk at: #CogNativeBoostPlugin) setTargetPlatform: #Linux32PlatformId.
 	
 	PharoUnixConfig new
 		"generateForDebug;"

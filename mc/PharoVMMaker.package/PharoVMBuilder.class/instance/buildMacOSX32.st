@@ -1,7 +1,7 @@
 building
 buildMacOSX32 
 	"Build with freetype, cairo, osprocess"
-	CogNativeBoostPlugin setTargetPlatform: #Mac32PlatformId.
+	(Smalltalk at: #CogNativeBoostPlugin) setTargetPlatform: #Mac32PlatformId.
 	
 	PharoOSXConfig new  
 		"generateForDebug;"

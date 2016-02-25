@@ -1,6 +1,5 @@
 building
 buildWin32
-	CogNativeBoostPlugin setTargetPlatform: #Win32PlatformId.
 	PharoSpur32WindowsConfig new  
 		generationType: generationType;
 		addExternalPlugins: #(  FT2Plugin SqueakSSLPlugin );

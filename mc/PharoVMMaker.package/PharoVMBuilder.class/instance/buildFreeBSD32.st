@@ -1,6 +1,6 @@
 building
 buildFreeBSD32
-	CogNativeBoostPlugin setTargetPlatform: #Linux32PlatformId.
+	(Smalltalk at: #CogNativeBoostPlugin) setTargetPlatform: #Linux32PlatformId.
 	
 	PharoFreeBSDConfig new
 		"generateForDebug;"
