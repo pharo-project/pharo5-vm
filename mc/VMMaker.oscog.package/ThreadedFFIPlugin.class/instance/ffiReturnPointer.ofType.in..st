@@ -15,7 +15,7 @@ ffiReturnPointer: retVal ofType: retType in: calloutState
 		self remapOop: retType in:
 			[oop := interpreterProxy
 						instantiateClass: interpreterProxy classExternalAddress 
-						indexableSize: 4.
+						indexableSize: BytesPerWord.
 			ptr := interpreterProxy firstIndexableField: oop.
 			ptr at: 0 put: (self cCoerceSimple: retVal to: #sqInt).
 			self remapOop: oop in:
@@ -32,7 +32,7 @@ ffiReturnPointer: retVal ofType: retType in: calloutState
 	self remapOop: retClass in:
 		[oop := interpreterProxy 
 					instantiateClass: classOop
-					indexableSize: 4].
+					indexableSize: BytesPerWord].
 	ptr := interpreterProxy firstIndexableField: oop.
 	ptr at: 0 put: (self cCoerceSimple: retVal to: #sqInt).
 	self remapOop: oop in:

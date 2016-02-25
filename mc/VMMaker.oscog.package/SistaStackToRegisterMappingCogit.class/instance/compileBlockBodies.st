@@ -17,7 +17,7 @@ compileBlockBodies
 		 self scanBlock: blockStart.
 		 initialOpcodeIndex := opcodeIndex.
 		 initialCounterIndex := counterIndex.
-		 self cppIf: #NewspeakVM ifTrue:
+		 NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
 		  initialStackPtr := simStackPtr.
@@ -42,7 +42,7 @@ compileBlockBodies
 									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
 				 counterIndex := initialCounterIndex.
-				 self cppIf: #NewspeakVM ifTrue:
+				 NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].
 	needsFrame := savedNeedsFrame.

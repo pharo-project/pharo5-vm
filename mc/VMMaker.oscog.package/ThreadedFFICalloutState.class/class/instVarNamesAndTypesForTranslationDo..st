@@ -9,8 +9,8 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 			value: (ivn caseOf: {
 						['argVector']	-> [#'char *'].
 						['currentArg']	-> [#'char *'].
-						['limit']	-> [#'char *'].
+						['limit']			-> [#'char *'].
 						['ffiArgSpec']	-> [#'void *'].
-						['stringArgs']	-> [{#'char *'. '[', ThreadedFFIPlugin maxNumArgs printString, ']'}] }
+						['stringArgs']	-> [{#'char *'. '[MaxNumArgs]'}] }
 					otherwise:
 						[#sqInt])]

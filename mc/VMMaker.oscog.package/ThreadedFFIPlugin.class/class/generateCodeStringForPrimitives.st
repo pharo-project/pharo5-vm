@@ -9,18 +9,34 @@ generateCodeStringForPrimitives
 		 s nextPutAll: (CCodeGenerator monticelloDescriptionFor: self).
 		 s cr; nextPutAll: ' */'.
 		 s cr; cr; nextPut: $#.
-		 (self subclasses sort: [:a :b| a name < b name]) do:
+		 (self allSubclasses sort: [:a :b| a name < b name]) do:
 			[:class |
 			class identifyingPredefinedMacros ifNotNil:
 				[:predefinedMacros|
 				 s nextPutAll: 'if '.
+				class includingPredefinedMacros ifNotNil:
+					[:includingMacros|
+					 includingMacros do:
+						[:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPutAll: ') && '].
+					 s nextPut: $(].
+				class excludingPredefinedMacros ifNotNil:
+					[:excludingMacros|
+					 excludingMacros do:
+						[:predefinedMacro| s nextPutAll: '!defined('; nextPutAll: predefinedMacro; nextPutAll: ') && '].
+					 s nextPut: $(].
 				 predefinedMacros
 					do: [:predefinedMacro| s nextPutAll: 'defined('; nextPutAll: predefinedMacro; nextPut: $)]
 					separatedBy: [s nextPutAll: ' || '].
-				 s cr; cr; nextPutAll: '#	include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
+				class excludingPredefinedMacros ifNotNil:
+					[s nextPut: $)].
+				class includingPredefinedMacros ifNotNil:
+					[s nextPut: $)].
+				 s cr; cr; nextPutAll: '# define '; nextPutAll: class moduleName; nextPutAll: '_exports ';
+												nextPutAll: self moduleName; nextPutAll: '_exports'.
+				 s cr; nextPutAll: '# include "'; nextPutAll: class moduleName; nextPutAll: '.c"'.
 				 s cr; cr; nextPutAll: '#el']].
 		 s nextPutAll: 'se'.
 		 #(	'As yet no FFI implementation appears to exist for your platform.'
 			'Consider implementing it, starting by adding a subclass of ThreadedFFIPlugin.') do:
-			[:msg| s cr; nextPutAll: '#	error '; nextPutAll: msg].
+			[:msg| s cr; nextPutAll: '# error '; nextPutAll: msg].
 		 s cr; nextPutAll: '#endif'; cr]

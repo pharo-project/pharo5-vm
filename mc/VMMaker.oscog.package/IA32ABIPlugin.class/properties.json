@@ -1,10 +1,10 @@
 {
-	"category" : "VMMaker-Plugins-Alien",
+	"category" : "VMMaker-Plugins-FFI",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "EstebanLorenzano 1/28/2016 18:56",
+	"commentStamp" : "eem 1/25/2016 11:59",
 	"instvars" : [
 		 ],
 	"name" : "IA32ABIPlugin",

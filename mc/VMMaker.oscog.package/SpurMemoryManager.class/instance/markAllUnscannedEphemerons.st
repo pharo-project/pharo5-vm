@@ -8,8 +8,9 @@ markAllUnscannedEphemerons
 	ptr := unscannedEphemerons top - self wordSize.
 	[ptr >= unscannedEphemerons start] whileTrue:
 		[| ephemeron key |
-		 key := self keyOfEphemeron: (ephemeron := self longAt: ptr).
-		 self markAndTrace: key;
+		 key := self followedKeyOfEphemeron: (ephemeron := self longAt: ptr).
+		 self
+			markAndTrace: key;
 			markAndTrace: ephemeron.
 		 unscannedEphemerons top: unscannedEphemerons top - self wordSize.
 		 ptr < unscannedEphemerons top ifTrue:

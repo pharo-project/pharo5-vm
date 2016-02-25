@@ -6,7 +6,7 @@
 		"initializeWithOptions:" : "eem 4/6/2012 14:55",
 		"numTrampolines" : "eem 6/4/2015 12:08" },
 	"instance" : {
-		"compileBlockBodies" : "eem 6/10/2015 17:32",
+		"compileBlockBodies" : "eem 2/12/2016 14:08",
 		"compileCogMethod:" : "eem 7/5/2014 17:21",
 		"compileFrameBuild" : "eem 7/7/2014 07:05",
 		"disassembleMethod:on:" : "eem 7/4/2014 15:45",
@@ -22,7 +22,7 @@
 		"genFallsThroughCountLogicCounterReg:counterAddress:" : "cb 4/25/2015 16:13",
 		"genJumpIf:to:" : "cb 5/5/2015 13:45",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 1/22/2016 16:23",
-		"genSpecialSelectorComparison" : "eem 12/3/2015 18:46",
+		"genSpecialSelectorComparison" : "eem 2/24/2016 16:23",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorEqualsEqualsWithForwarders" : "eem 12/10/2015 09:09",
 		"genUnconditionalTrapBytecode" : "cb 4/28/2015 09:59",
@@ -31,7 +31,7 @@
 		"getJumpTargetPCAt:" : "cb 4/28/2015 16:19",
 		"initialize" : "cb 5/5/2015 13:12",
 		"initializeCodeZoneFrom:upTo:" : "eem 7/4/2014 17:37",
-		"mapFor:bcpc:withAnnotationPerformUntil:arg:" : "eem 12/10/2015 13:39",
+		"mapFor:bcpc:withAnnotationPerformUntil:arg:" : "eem 2/20/2016 18:57",
 		"maybeAllocAndInitCounters" : "eem 7/5/2014 17:22",
 		"maybeFreeCounters" : "eem 4/6/2015 19:54",
 		"maybeFreeCountersOf:" : "eem 7/4/2014 12:12",
@@ -44,4 +44,4 @@
 		"populate:withPICInfoFor:firstCacheTag:" : "eem 11/17/2015 17:06",
 		"printPICDataForMethods" : "eem 2/14/2011 15:35",
 		"resetCountersIn:" : "eem 7/4/2014 12:23",
-		"scanMethod" : "eem 10/24/2014 11:26" } }
+		"scanMethod" : "eem 2/12/2016 14:00" } }

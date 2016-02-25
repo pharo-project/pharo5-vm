@@ -29,26 +29,26 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 			s: ((self cCoerceSimple: (self addressOf: (calloutState floatRegisters at: 14)) to: 'double *') at: 0)].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
-	(atomicType >> 1) = (FFITypeSingleFloat > 1)
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
 			[atomicType = FFITypeSingleFloat
 				ifTrue:
 					[floatRet := self 
-						dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'float (*)(int, int, int, int)') 
+						dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'float (*)(long, long, long, long)') 
 						with: (calloutState integerRegisters at: 0)
 						with: (calloutState integerRegisters at: 1)
 						with: (calloutState integerRegisters at: 2)
 						with: (calloutState integerRegisters at: 3)]
 				ifFalse: "atomicType = FFITypeDoubleFloat"
 					[floatRet := self 
-						dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'double (*)(int, int, int, int)') 
+						dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'double (*)(long, long, long, long)') 
 						with: (calloutState integerRegisters at: 0)
 						with: (calloutState integerRegisters at: 1)
 						with: (calloutState integerRegisters at: 2)
 						with: (calloutState integerRegisters at: 3)]]
 		ifFalse:
 			[intRet := self 
-				dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'usqLong (*)(int, int, int, int)') 
+				dispatchFunctionPointer: (self cCoerceSimple: procAddr to: 'usqLong (*)(long, long, long, long)') 
 				with: (calloutState integerRegisters at: 0)
 				with: (calloutState integerRegisters at: 1)
 				with: (calloutState integerRegisters at: 2)
@@ -71,7 +71,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 				[oop := self ffiReturnStruct: intRet ofType: (self ffiReturnType: specOnStack) in: calloutState].
 		 ^oop].
 	
-	(atomicType >> 1) = (FFITypeSingleFloat > 1)
+	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
 			[oop := interpreterProxy floatObjectOf: floatRet]
 		ifFalse:

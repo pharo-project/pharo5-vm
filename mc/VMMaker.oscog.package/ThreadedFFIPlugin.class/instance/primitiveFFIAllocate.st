@@ -4,14 +4,16 @@ primitiveFFIAllocate
 	| byteSize addr oop ptr |
 	<export: true>
 	<inline: false>
-	<var: #ptr type:'int *'>
+	<var: #ptr type: #'long *'>
 	byteSize := interpreterProxy stackIntegerValue: 0.
-	interpreterProxy failed ifTrue:[^nil].
+	interpreterProxy failed ifTrue:
+		[^nil].
 	addr := self ffiAlloc: byteSize.
-	addr = 0 ifTrue:[^interpreterProxy primitiveFail].
+	addr = 0 ifTrue:
+		[^interpreterProxy primitiveFail].
 	oop := interpreterProxy 
 			instantiateClass: interpreterProxy classExternalAddress 
-			indexableSize: 4.
+			indexableSize: (self sizeof: #long).
 	ptr := interpreterProxy firstIndexableField: oop.
 	ptr at: 0 put: addr.
 	^interpreterProxy pop: 2 thenPush: oop

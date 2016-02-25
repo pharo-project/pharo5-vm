@@ -15,7 +15,8 @@ mapObjectReferencesInClosedPIC: cPIC
 	"Next we check the potential class ref in the compare instruction, and the potential method oop load for each case."
 	2 to: cPIC cPICNumCases do:
 		[:i|
-		objectRepresentation inlineCacheTagsMayBeObjects ifTrue:
+		(self inlineCacheTagsAreIndexes not
+		 and: [objectRepresentation inlineCacheTagsMayBeObjects]) ifTrue:
 			[(self remapMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize) ifTrue:
 				[refersToYoung := true]].
 		(self remapMaybeObjRefInClosedPICAt: pc - backEnd jumpLongConditionalByteSize - backEnd cmpC32RTempByteSize) ifTrue:

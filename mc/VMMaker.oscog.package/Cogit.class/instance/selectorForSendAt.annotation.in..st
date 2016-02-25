@@ -12,7 +12,7 @@ selectorForSendAt: mcpc annotation: annotation in: aCompiledMethod
 						targetMethod := self cCoerceSimple: entryPoint - offset to: #'CogMethod *'.
 						targetMethod selector]
 					ifFalse:
-						[objectMemory wordSize = 8
+						[self inlineCacheTagsAreIndexes
 							ifTrue: [self selectorFromSelectorIndex: (backEnd inlineCacheTagAt: mcpc) signedIntFromLong
 										in: aCompiledMethod]
 							ifFalse: [backEnd inlineCacheTagAt: mcpc]].

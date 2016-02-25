@@ -15,7 +15,7 @@ generateVMPlugins
 					MiscPrimitivePlugin Mpeg3Plugin QuicktimePlugin RePlugin
 					ScratchPlugin SecurityPlugin SerialPlugin SocketPlugin
 					SoundCodecPlugin SoundGenerationPlugin SoundPlugin SqueakSSLPlugin StarSqueakPlugin
-					ThreadedFFIPlugin ThreadedARMFFIPlugin ThreadedIA32FFIPlugin
+					ThreadedFFIPlugin ThreadedARMFFIPlugin ThreadedIA32FFIPlugin ThreadedX64SysVFFIPlugin ThreadedX64Win64FFIPlugin
 					UnicodePlugin UnixAioPlugin UUIDPlugin UnixOSProcessPlugin
 					Win32OSProcessPlugin VMProfileLinuxSupportPlugin VMProfileMacSupportPlugin WeDoPlugin
 					XDisplayControlPlugin)

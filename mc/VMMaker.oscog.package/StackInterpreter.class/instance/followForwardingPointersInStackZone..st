@@ -28,7 +28,7 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 
 	self assert: stackPage ~= 0.
 	0 to: numStackPages - 1 do:
-		[:i| | thePage theFP callerFP ptr oop |
+		[:i| | thePage theFP callerFP offset oop |
 		thePage := stackPages stackPageAt: i.
 		thePage isFree ifFalse:
 			[self assert: (self ifCurrentStackPageHasValidHeadPointers: thePage).
@@ -60,14 +60,14 @@ followForwardingPointersInStackZone: theBecomeEffectsFlags
 				stackPages
 					longAt: theFP + FoxMethod
 					put: (oop := newOop)].
-			  ptr := (theFP + (self frameStackedReceiverOffset: theFP)) asInteger.
-			  oop := stackPages longAt: ptr.
+			  offset := self frameStackedReceiverOffset: theFP.
+			  oop := stackPages longAt: theFP + offset.
 			  (objectMemory isOopForwarded: oop) ifTrue:
 				[stackPages
-					longAt: ptr
+					longAt: theFP + offset
 					put: (objectMemory followForwarded: oop)].
 			  (callerFP := self frameCallerFP: theFP) ~= 0] whileTrue:
-				[theIPPtr := (theFP + FoxCallerSavedIP) asInteger.
+				[theIPPtr := (theFP + FoxCallerSavedIP) asUnsignedInteger.
 				 theFP := callerFP].
 			 "And finally follow the caller context."
 			 self assert: theFP = thePage baseFP.

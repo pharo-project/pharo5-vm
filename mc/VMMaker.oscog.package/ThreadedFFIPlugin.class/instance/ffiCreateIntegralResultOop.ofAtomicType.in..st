@@ -5,6 +5,8 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 	<var: #retVal type: #usqLong>
 	"Callout support. Return the appropriate oop for the given atomic type"
 	| shift value mask byteSize |
+	<var: 'value' type: #usqLong>
+	<var: 'mask' type: #usqLong>
 	self assert: atomicType < FFITypeSingleFloat.
 
 	atomicType = FFITypeBool ifTrue:
@@ -18,19 +20,21 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 			ifFalse:[interpreterProxy trueObject]].
 	atomicType <= FFITypeSignedInt ifTrue:
 		["these are all generall integer returns"
-		atomicType <= FFITypeSignedShort ifTrue:
+		atomicType <= (BytesPerWord = 8 ifTrue: [FFITypeSignedInt] ifFalse: [FFITypeSignedShort]) ifTrue:
 			["byte/short. first extract partial word, then sign extend"
-			shift := (atomicType >> 1) * 8. "# of significant bits"
-			value := retVal bitAnd: (1 << shift - 1). 
+			shift := (BytesPerWord = 8 and: [atomicType >= FFITypeUnsignedInt])
+						ifTrue: [32]
+						ifFalse: [(atomicType >> 1) * 8]. "# of significant bits"
+			value := retVal bitAnd: (1 asUnsignedLong << shift - 1). 
 			(atomicType anyMask: 1) ifTrue:
 				["make the guy signed"
-				mask := 1 << (shift-1).
+				mask := 1 asUnsignedLong << (shift-1).
 				value := (value bitAnd: mask-1) - (value bitAnd: mask)].
 			^interpreterProxy integerObjectOf: value].
-		"32bit integer return"
+		"Word sized integer return"
 		^(atomicType anyMask: 1)
-			ifTrue:[interpreterProxy signed32BitIntegerFor: retVal] "signed return"
-			ifFalse:[interpreterProxy positive32BitIntegerFor: retVal]]. "unsigned return"
+			ifTrue:[interpreterProxy signedMachineIntegerFor: retVal] "signed return"
+			ifFalse:[interpreterProxy positiveMachineIntegerFor: retVal]]. "unsigned return"
 
 	"longlong, char"
 	^(atomicType >> 1) = (FFITypeSignedLongLong >> 1) 

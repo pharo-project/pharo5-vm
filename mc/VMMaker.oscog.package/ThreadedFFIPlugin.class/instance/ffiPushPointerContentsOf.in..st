@@ -5,8 +5,8 @@ ffiPushPointerContentsOf: oop in: calloutState
 	| ptrClass ptrAddress |
 	<inline: false>
 	ptrClass := interpreterProxy fetchClassOf: oop.
-	ptrClass = interpreterProxy classExternalAddress ifTrue:[
-		ptrAddress := interpreterProxy fetchPointer: 0 ofObject: oop.
+	ptrClass = interpreterProxy classExternalAddress ifTrue:
+		[ptrAddress := (interpreterProxy fetchPointer: 0 ofObject: oop) asVoidPointer.
 		"Don't you dare to pass pointers into object memory"
 		(interpreterProxy isInMemory: ptrAddress) ifTrue:
 			[^FFIErrorInvalidPointer].
@@ -20,7 +20,7 @@ ffiPushPointerContentsOf: oop in: calloutState
 		   and: [interpreterProxy isYoung: oop]) ifTrue:
 			[^PrimErrObjectMayMove negated]].
 
-		ptrAddress := self cCoerce: (interpreterProxy firstIndexableField: oop) to: #int.
+		ptrAddress := interpreterProxy firstIndexableField: oop.
 		^self ffiPushPointer: ptrAddress in: calloutState].
 
 	(interpreterProxy includesBehavior: ptrClass ThatOf: interpreterProxy classAlien) ifTrue:

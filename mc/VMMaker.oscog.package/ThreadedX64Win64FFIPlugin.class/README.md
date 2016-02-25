@@ -1,0 +1,3 @@
+This subclass is for the Win64 x86-64 ABI.  The System V ABI uses 4 integer registers and 4 double-precision floating-point registers.  See w.g. https://msdn.microsoft.com/en-us/library/ms235286.aspx, or google for "Overview of x64 Calling Conventions - MSDN - Microsoft".
+
+Note that unlike the System V x86-64 ABI, the Win64 ABI does /not/ decompose structs passed by value across available parameter registers.

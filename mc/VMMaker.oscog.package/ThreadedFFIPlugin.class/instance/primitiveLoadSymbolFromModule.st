@@ -9,7 +9,7 @@ primitiveLoadSymbolFromModule
 	| symbol module moduleHandle address oop ptr |
 
 	<var: #address type: #'void *'>
-	<var: #ptr type:'unsigned int *'>
+	<var: #ptr type: #'void **'>
 	
 	interpreterProxy methodArgumentCount = 2 ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadNumArgs].	
@@ -21,17 +21,17 @@ primitiveLoadSymbolFromModule
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
 	address := interpreterProxy
-		ioLoadSymbol: (self cCoerce: (interpreterProxy firstIndexableField: symbol) to: #sqInt)
-		OfLength: (interpreterProxy byteSizeOf: symbol)
-		FromModule: moduleHandle.
+					ioLoadSymbol: (self cCoerce: (interpreterProxy firstIndexableField: symbol) to: #sqInt)
+					OfLength: (interpreterProxy byteSizeOf: symbol)
+					FromModule: moduleHandle.
 	(interpreterProxy failed
 	 or: [address = 0]) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
 	
 	oop := interpreterProxy 
-		instantiateClass: interpreterProxy classExternalAddress 
-		indexableSize: 4.
+			instantiateClass: interpreterProxy classExternalAddress 
+			indexableSize: (self sizeof: #'void *').
 	ptr := interpreterProxy firstIndexableField: oop.
 	ptr at: 0 put: address.
 	
-	interpreterProxy methodReturnValue: oop
+	^interpreterProxy methodReturnValue: oop

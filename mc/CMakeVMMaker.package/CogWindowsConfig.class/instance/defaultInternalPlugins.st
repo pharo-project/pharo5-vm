@@ -17,6 +17,7 @@ defaultInternalPlugins
 		FloatArrayPlugin 
 		FloatMathPlugin 
 		HostWindowPlugin 
+		ThreadedFFIPlugin "SqueakFFIPrims"
 		ThreadedIA32FFIPlugin "SqueakFFIPrims"
 		IA32ABIPlugin "IA32ABI"
 		JoystickTabletPlugin 

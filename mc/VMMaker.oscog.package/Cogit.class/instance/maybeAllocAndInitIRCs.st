@@ -2,7 +2,7 @@ newspeak support
 maybeAllocAndInitIRCs
 	"If this is the Newspeak VM and the objectRepresentation supports pinning
 	 then allocate space for the implicit receiver caches on the heap."
-	self cppIf: #NewspeakVM
+	NewspeakVM
 		ifTrue:
 			[indexOfIRC := theIRCs := 0.
 			 (objectRepresentation canPinObjects and: [numIRCs > 0]) ifTrue:

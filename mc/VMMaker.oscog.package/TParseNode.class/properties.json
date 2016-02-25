@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "dtl 9/15/2008 09:05",
 	"instvars" : [
 		"comment" ],
 	"name" : "TParseNode",

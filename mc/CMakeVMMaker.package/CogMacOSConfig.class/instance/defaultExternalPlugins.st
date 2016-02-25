@@ -4,7 +4,8 @@ defaultExternalPlugins
 	^ #(
 		BochsIA32Plugin
 		CroquetPlugin
-		ThreadedIA32FFIPlugin "SqueakFFIPrims"
+		ThreadedFFIPlugin "SqueakFFIPrims"
+		ThreadedIA32FFIPlugin 
 		FloatArrayPlugin
 		FloatMathPlugin
 		Mpeg3Plugin

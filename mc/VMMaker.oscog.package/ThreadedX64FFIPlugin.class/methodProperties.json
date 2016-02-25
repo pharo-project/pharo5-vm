@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"calloutStateClass" : "eem 2/19/2016 16:38",
+		"excludingPredefinedMacros" : "eem 2/19/2016 15:01",
+		"identifyingPredefinedMacros" : "eem 2/19/2016 16:31",
+		"initialize" : "eem 2/19/2016 15:01",
+		"moduleName" : "eem 2/19/2016 15:01",
+		"numFloatRegArgs" : "eem 2/19/2016 15:01",
+		"numRegArgs" : "eem 2/19/2016 15:01" },
+	"instance" : {
+		"ffiPushDoubleFloat:in:" : "eem 2/19/2016 15:01",
+		"ffiPushPointer:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSignedByte:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSignedChar:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSignedInt:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSignedLongLong:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSignedShort:in:" : "eem 2/19/2016 15:01",
+		"ffiPushSingleFloat:in:" : "eem 2/22/2016 17:57",
+		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "eem 2/19/2016 15:05",
+		"ffiPushUnsignedByte:in:" : "eem 2/19/2016 15:01",
+		"ffiPushUnsignedChar:in:" : "eem 2/19/2016 15:01",
+		"ffiPushUnsignedInt:in:" : "eem 2/19/2016 15:01",
+		"ffiPushUnsignedLongLong:in:" : "eem 2/19/2016 15:01",
+		"ffiPushUnsignedShort:in:" : "eem 2/19/2016 15:01",
+		"registerArgsSlop" : "eem 2/19/2016 15:01",
+		"returnStructInRegisters:" : "eem 2/19/2016 15:05" } }

@@ -15,17 +15,17 @@ emitCConstants: constList on: aStream
 			default = #undefined
 				ifTrue: [aStream nextPutAll: '#undef '; nextPutAll: node name; cr]
 				ifFalse:
-					[conditional := VMBasicConstants namesDefinedAtCompileTime includes: node name.
-					 conditional ifTrue:
+					[conditional := VMBasicConstants defineAtCompileTime: node name.
+					conditional ifTrue:
 						[aStream nextPutAll: '#if !defined('; nextPutAll: node name; nextPutAll: ') /* Allow this to be overridden on the compiler command line */'; cr].
-					 value := vmClass
+					value := vmClass
 								ifNotNil:
 									[(vmClass specialValueForConstant: node name default: default)
 										ifNotNil: [:specialDef| specialDef]
 										ifNil: [default]]
 								ifNil: [default].
 					value first ~= $# ifTrue:
-						[aStream nextPutAll: '#define '; nextPutAll: node name; space].
+						[aStream nextPutAll: (conditional ifTrue: ['# define '] ifFalse: ['#define ']); nextPutAll: node name; space].
 					aStream nextPutAll: value; cr.
 					conditional ifTrue:
 						[aStream nextPutAll: '#endif'; cr]]]].

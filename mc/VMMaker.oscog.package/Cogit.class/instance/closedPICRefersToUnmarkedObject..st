@@ -23,8 +23,9 @@ closedPICRefersToUnmarkedObject: cPIC
 	2 to: cPIC cPICNumCases do:
 		[:i| 
 		pc := self addressOfEndOfCase: i inCPIC: cPIC.
-		(objectRepresentation inlineCacheTagsMayBeObjects
-		and: [objectRepresentation couldBeObject: (object := literalsManager backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)]) ifTrue:
+		(self inlineCacheTagsAreIndexes not
+		 and: [objectRepresentation inlineCacheTagsMayBeObjects
+		 and: [objectRepresentation couldBeObject: (object := literalsManager backEnd literal32BeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize)]]) ifTrue:
 			[(objectMemory isMarked: object) ifFalse:
 				[^true]].
 		"Check the potential method oop for subsequent cases."
