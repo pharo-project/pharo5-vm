@@ -1,5 +1,6 @@
 primitive generators
 genPrimitiveIdentityHash
+	"Arguably we should fail for immediates, but so far no one has complained, so..."
 	| jumpImm jumpSI jumpNotSet ret |
 	<var: #jumpSI type: #'AbstractInstruction *'>
 	<var: #jumpImm type: #'AbstractInstruction *'>

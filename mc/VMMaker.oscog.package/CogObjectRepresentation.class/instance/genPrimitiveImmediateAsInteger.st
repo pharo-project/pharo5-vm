@@ -1,4 +1,4 @@
 primitive generators
-genPrimitiveCharacterValue
+genPrimitiveImmediateAsInteger
 	"subclasses override if they can"
 	^UnimplementedPrimitive

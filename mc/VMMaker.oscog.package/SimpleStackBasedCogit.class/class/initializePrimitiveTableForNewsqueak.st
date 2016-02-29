@@ -124,8 +124,8 @@ initializePrimitiveTableForNewsqueak
 
 		(169 genPrimitiveNotIdentical 1)
 
-		(170 genPrimitiveAsCharacter)			"SmallInteger>>asCharacter, Character class>>value:"
-		(171 genPrimitiveCharacterValue 0)	"Character>>value"
+		(170 genPrimitiveAsCharacter)				"SmallInteger>>asCharacter, Character class>>value:"
+		(171 genPrimitiveImmediateAsInteger 0)	"Character>>value SmallFloat64>>asInteger"
 			
 		"(173 primitiveSlotAt 1)"
 		"(174 primitiveSlotAtPut 2)"
