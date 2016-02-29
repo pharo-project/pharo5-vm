@@ -8,13 +8,9 @@ primitiveSocket: socket listenOnPort: port backlogSize: backlog interface: ifAdd
 	s := self socketValueOf: socket.
 	"If the security plugin can be loaded, use it to check for permission.
 	If  not, assume it's ok"
-	sCCLOPfn ~= 0
-		ifTrue: [okToListen := self cCode: ' ((int (*) (SocketPtr, int)) sCCLOPfn)(s, port)'.
-			okToListen
-				ifFalse: [^ interpreterProxy primitiveFail]].
+	sCCLOPfn ~= 0 ifTrue:
+		[okToListen := self cCode: ' ((sqInt (*) (sqInt, sqInt)) sCCLOPfn)((sqInt)s, port)'.
+		 okToListen ifFalse:
+			[^ interpreterProxy primitiveFail]].
 	addr := self netAddressToInt: (self cCoerce: ifAddr to: 'unsigned char *').
-	self
-		sqSocket: s
-		ListenOnPort: port
-		BacklogSize: backlog
-		Interface: addr
+	self sqSocket: s ListenOnPort: port BacklogSize: backlog Interface: addr

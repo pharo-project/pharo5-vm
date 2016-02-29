@@ -14,6 +14,8 @@ emitCCodeOn: aStream generator: aCodeGen
 	aCodeGen
 		pushScope: declarations
 		while: [parseTree emitCCodeOn: aStream level: 1 generator: aCodeGen].
+	(returnType = #void or: [parseTree endsWithReturn]) ifFalse:
+		[aStream tab; nextPutAll: 'return 0;'; cr].
 	aStream nextPut: $}; cr.
 	conditional ifTrue:
 		[self terminateConditionalDefineFor: self compileTimeOptionPragmas on: aStream]

@@ -9,8 +9,9 @@ primitiveSocket: socket listenOnPort: port
 	s := self socketValueOf: socket.
 	"If the security plugin can be loaded, use it to check for permission.
 	If  not, assume it's ok"
-	sCCLOPfn ~= 0
-		ifTrue: [okToListen := self cCode: ' ((int (*) (SocketPtr, int)) sCCLOPfn)(s, port)'.
-			okToListen
-				ifFalse: [^ interpreterProxy primitiveFail]].
-	interpreterProxy failed ifFalse:[self sqSocket: s ListenOnPort: port]
+	sCCLOPfn ~= 0 ifTrue:
+		[okToListen := self cCode: ' ((sqInt (*) (sqInt, sqInt)) sCCLOPfn)((sqInt)s, port)'.
+		 okToListen ifFalse:
+			[^ interpreterProxy primitiveFail]].
+	interpreterProxy failed ifFalse:
+		[self sqSocket: s ListenOnPort: port]
