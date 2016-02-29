@@ -5,5 +5,7 @@ generate
 	
 	self 
 		setVariables;
+		download;
+		unpack;
 		build;
 		copyArtefacts
