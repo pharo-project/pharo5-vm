@@ -9,6 +9,10 @@ nilOrBooleanConditionFor: nodeOrNil
 		[^nil].
 	nodeOrNil isSend ifFalse:
 		[^nil].
+	(#(ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:) includes: nodeOrNil selector) ifTrue:
+		[^self nilOrBooleanConstantReceiverOf: nodeOrNil receiver].
+	(#(and: or:) includes: nodeOrNil selector) ifTrue:
+		[^self nilOrBooleanConstantReceiverOf: nodeOrNil].
 	(#(cppIf:ifTrue: cppIf:ifTrue:ifFalse:) includes: nodeOrNil selector) ifTrue:
 		[(vmClass notNil
 		 and: [nodeOrNil args first isConstant
@@ -24,6 +28,4 @@ nilOrBooleanConditionFor: nodeOrNil
 		   and: [nodeOrNil args first isConstant
 		   and: [#(true false) includes: (optionsDictionary at: nodeOrNil args first name ifAbsent: [nil])]]) ifTrue:
 			[optionsDictionary at: nodeOrNil args first name]].
-
-	^(#(ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:) includes: nodeOrNil selector) ifTrue:
-		[self nilOrBooleanConstantReceiverOf: nodeOrNil]
+	^nil

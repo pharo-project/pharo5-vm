@@ -21,7 +21,7 @@ addMethodFor: aClass selector: selector
 	"Even thoug we exclude initialize methods, we must consider their
 	 global variable usage, otherwise globals may be incorrectly localized."
 	selector == #initialize ifTrue:
-		[self checkForGlobalUsage: (tmethod allReferencedVariablesIn: self) in: tmethod.
+		[self checkForGlobalUsage: (tmethod allReferencedVariablesUsing: self) in: tmethod.
 		 ^nil].
 	self addMethod: tmethod.
 	"If the method has a macro then add the macro.  But keep the method

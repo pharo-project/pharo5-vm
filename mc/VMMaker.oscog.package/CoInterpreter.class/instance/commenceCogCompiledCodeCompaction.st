@@ -31,4 +31,4 @@ commenceCogCompiledCodeCompaction
 
 	objectMemory checkForLeaks ~= 0 ifTrue:
 		[objectMemory clearLeakMapAndMapAccessibleObjects.
-		 self assert: (self checkCodeIntegrity: false)]
+		 self asserta: (self checkCodeIntegrity: false)]

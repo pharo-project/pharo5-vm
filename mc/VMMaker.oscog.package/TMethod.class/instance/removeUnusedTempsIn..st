@@ -4,8 +4,14 @@ removeUnusedTempsIn: aCodeGen
 	"After inlining some variable references are now obsolete, we could fix them there
 	 but the code seems a bit complicated, the other choice to to rebuild the locals
 	 before extruding. This is done here"
-	| refs |
-	refs := self allReferencedVariablesIn: aCodeGen.
+	| usedVariables |
+	usedVariables := self allReferencedVariablesUsing: aCodeGen.
 	"reset the locals to be only those still referred to"
-	locals := locals select: [:e| refs includes: e].
-	^refs
+	locals do:
+		[:local|
+		 ((usedVariables includes: local) not
+		  and: [((declarations at: local ifAbsent: ['']) includesSubString: 'static') not
+		  and: [((declarations at: local ifAbsent: ['']) includesSubString: 'extern') not]]) ifTrue:
+			[locals remove: local.
+			 declarations removeKey: local ifAbsent: []]].
+	^usedVariables

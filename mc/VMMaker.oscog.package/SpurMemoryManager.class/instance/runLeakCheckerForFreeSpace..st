@@ -4,4 +4,4 @@ runLeakCheckerForFreeSpace: gcModes
 	(gcModes anyMask: GCModeFreeSpace) ifTrue:
 		[coInterpreter reverseDisplayFrom: 16 to: 19.
 		 self clearLeakMapAndMapAccessibleFreeSpace.
-		 self assert: self checkHeapFreeSpaceIntegrity]
+		 self asserta: self checkHeapFreeSpaceIntegrity]

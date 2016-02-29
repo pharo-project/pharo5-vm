@@ -4,7 +4,7 @@ markAndTraceMachineCodeForNewSpaceGC
 	| pointer cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	objectMemory leakCheckNewSpaceGC ifTrue:
-		[self assert: self allMachineCodeObjectReferencesValid].
+		[self asserta: self allMachineCodeObjectReferencesValid].
 	codeModified := false.
 	pointer := methodZone youngReferrers.
 	[pointer < methodZone zoneEnd] whileTrue:
@@ -21,6 +21,6 @@ markAndTraceMachineCodeForNewSpaceGC
 				self markYoungObjectsIn: cogMethod]].
 		 pointer := pointer + objectMemory wordSize].
 	objectMemory leakCheckNewSpaceGC ifTrue:
-		[self assert: self allMachineCodeObjectReferencesValid].
+		[self asserta: self allMachineCodeObjectReferencesValid].
 	codeModified ifTrue: "After updating oops in inline caches we need to flush the icache."
 		[processor flushICacheFrom: methodZoneBase asUnsignedInteger to: methodZone limitZony asUnsignedInteger]
