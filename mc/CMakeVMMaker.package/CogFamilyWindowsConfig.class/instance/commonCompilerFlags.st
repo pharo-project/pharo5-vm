@@ -9,7 +9,6 @@ commonCompilerFlags
 	For more information see this thread: http://forum.world.st/There-are-something-fishy-with-FFI-plugin-td4584226.html
 	"
 	^ {  
-		'-march=pentium4'.
 		'-mwindows'.
 		'-D_MT'.
 		'-msse2'. 
@@ -18,6 +17,11 @@ commonCompilerFlags
 		'-mno-rtd'. 
 		'-mms-bitfields'. 
 		'-mno-accumulate-outgoing-args ', self winVer.
+		'-falign-loops=16'. 
+		'-falign-jumps=16'. 
+		'-falign-functions=16'. 
+		'-falign-labels=16'. 
+		'-Dsetjmp=_setjmp'.		
 		'-DWIN32'. 
 		'-DWIN32_FILE_SUPPORT'. 
 		'-DNO_ISNAN'.
