@@ -4,10 +4,6 @@ compilerFlagsDebug
 	^ {
 		'-g3'. 
 		'-O0'.
-		'-march=pentium4'. 
-		'-momit-leaf-frame-pointer'. 
-		'-maccumulate-outgoing-args'. 
-		'-funroll-loops'. 
 		'-DNDEBUG'.
 		'-DDEBUGVM=1'
 	}

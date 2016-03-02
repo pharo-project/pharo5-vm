@@ -17,6 +17,9 @@ commonCompilerFlags
 		'-mno-rtd'. 
 		'-mms-bitfields'. 
 		'-mno-accumulate-outgoing-args ', self winVer.
+		'-momit-leaf-frame-pointer'. 
+		'-maccumulate-outgoing-args'. 
+		'-funroll-loops'. 		
 		'-falign-loops=16'. 
 		'-falign-jumps=16'. 
 		'-falign-functions=16'. 

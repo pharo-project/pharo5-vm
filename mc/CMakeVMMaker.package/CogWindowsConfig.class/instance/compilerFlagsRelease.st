@@ -3,9 +3,6 @@ compilerFlagsRelease
 	"Define NDEBUG for production to exclude asserts "
 	^ {
 		'-g0'. 
-		'-momit-leaf-frame-pointer'.
-		'-maccumulate-outgoing-args'. 
-		'-funroll-loops'.
 		'-DNDEBUG'.
 		'-DDEBUGVM=0'.
 		'-O3'. 
