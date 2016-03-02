@@ -9,9 +9,9 @@ commonCompilerFlags
 	For more information see this thread: http://forum.world.st/There-are-something-fishy-with-FFI-plugin-td4584226.html
 	"
 	^ {  
+		'-march=pentium'.
 		'-mwindows'.
 		'-D_MT'.
-		'-msse2'. 
 		'-mthreads'. 
 		'-mwin32'.
 		'-mno-rtd'. 
