@@ -8,6 +8,8 @@ cogit: aCogit
 		[objectMemory cogit: aCogit].
 	(objectMemory respondsTo: #coInterpreter:) ifTrue:
 		[objectMemory coInterpreter: coInterpreter].
+	coInterpreter setUpForUseByFacade: self.
+	objectMemory setUpForUseByFacade: self.
 	#('stackLimit') do:
 		[:l| self addressForLabel: l].
 	self initializeObjectMap

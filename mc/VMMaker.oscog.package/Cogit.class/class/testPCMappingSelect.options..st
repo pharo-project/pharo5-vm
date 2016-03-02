@@ -2,8 +2,7 @@ tests
 testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 	"Test pc mapping both ways using a selection of the methods in the current image."
 	| cogit coInterpreter |
-	self initializeWithOptions: (self asOptionsDictionary: optionsDictionaryOrArray).
-	cogit := self new.
+	cogit := self instanceForTests: optionsDictionaryOrArray.
 	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
 			setInterpreter: coInterpreter;
@@ -17,8 +16,7 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 		[:m| | cm |
 		(m isQuick not
 		 and: [aBlock value: m]) ifTrue:
-			[coInterpreter voidHeaderToMethodMap.
-			 Transcript nextPut: $.; flush.
+			[Transcript nextPut: $.; flush.
 			 [coInterpreter.
 			  cm := cogit
 						cog: (coInterpreter oopForObject: m)

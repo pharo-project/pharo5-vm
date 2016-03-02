@@ -17,6 +17,7 @@
 		"variables" ],
 	"name" : "CurrentImageCoInterpreterFacade",
 	"pools" : [
+		"CogMethodConstants",
 		"VMBasicConstants",
 		"VMObjectIndices",
 		"VMSqueakClassIndices" ],

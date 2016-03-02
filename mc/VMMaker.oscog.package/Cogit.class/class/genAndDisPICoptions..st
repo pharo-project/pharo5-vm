@@ -1,11 +1,9 @@
 in-image compilation
 genAndDisPICoptions: optionsDictionaryOrArray
 	"StackToRegisterMappingCogit genAndDisPICoptions: #(ISA ARMv5 CogCompilerClass CogInLineLiteralsARMCompiler)"
-	| coInterpreter cogit |
-	self initializeWithOptions: (self asOptionsDictionary: optionsDictionaryOrArray).
-	CoInterpreter initializeWithOptions: initializationOptions.
-	CoInterpreter objectMemoryClass initializeWithOptions: initializationOptions.
-	coInterpreter := CurrentImageCoInterpreterFacade forCogit: (cogit := self new).
+	| cogit coInterpreter |
+	cogit := self instanceForTests: optionsDictionaryOrArray.
+	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
 		setInterpreter: coInterpreter;
 		singleStep: true;

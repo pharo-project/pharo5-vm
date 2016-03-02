@@ -70,6 +70,7 @@
 		"pushBool:" : "eem 6/10/2010 16:02",
 		"pushFloat:" : "eem 6/10/2010 16:50",
 		"pushInteger:" : "eem 6/10/2010 17:01",
+		"setUpForUseByFacade:" : "eem 3/1/2016 17:52",
 		"shortAt:" : "di 6/23/2004 14:29",
 		"shortAt:put:" : "di 6/23/2004 14:32",
 		"showDisplayBits:Left:Top:Right:Bottom:" : "eem 6/10/2010 16:55",
