@@ -8,7 +8,9 @@ generatorTableFrom: anArray
 						numBytes: tuple first;
 						generator: tuple fourth;
 						isReturn: (tuple includes: #return);
-						isMapped: ((tuple includes: #isMapped) or: [IMMUTABILITY and: [ tuple includes: #isMappedIfImmutability]]);
+						isMapped: ((tuple includes: #isMappedIfImmutability)
+										ifTrue: [self bindingOf: #IMMUTABILITY]
+										ifFalse: [tuple includes: #isMapped]);
 						isMappedInBlock: (tuple includes: #isMappedInBlock);
 						isBlockCreation: (tuple includes: #block);
 						spanFunction: (((tuple includes: #block) or: [(tuple includes: #branch)]) ifTrue:

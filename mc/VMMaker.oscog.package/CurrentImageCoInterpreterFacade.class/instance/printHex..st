@@ -4,4 +4,4 @@ printHex: anInteger
 	it16 := anInteger radix: 16.
 	coInterpreter transcript
 		next: 8 - it16 size put: Character space;
-		nextPutAll: (anInteger storeStringBase: 16)
+		nextPutAll: (anInteger printStringBase: 16)

@@ -15,7 +15,7 @@ printPCMapPairsFor: cogMethod on: aStream
 		 aStream ensureCr.
 		 map printOn: aStream base: 16.
 		 aStream nextPutAll: ': '.
-		 mapByte printOn: aStream base: 16.
+		 mapByte printOn: aStream base: 16 length: 2 padded: true.
 		 aStream space.
 		 annotation printOn: aStream base: 16.
 		 aStream nextPutAll: ' ('; print: (AnnotationConstantNames at: annotation + 1); nextPutAll: ') '.

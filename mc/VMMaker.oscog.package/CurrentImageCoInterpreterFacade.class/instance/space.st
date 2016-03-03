@@ -1,3 +1,3 @@
 printing
 space
-	Transcript space
+	coInterpreter transcript space
