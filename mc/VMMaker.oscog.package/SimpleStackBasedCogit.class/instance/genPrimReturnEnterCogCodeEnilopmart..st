@@ -78,7 +78,7 @@ genPrimReturnEnterCogCodeEnilopmart: profiling
 		arg: nil
 		arg: nil
 		resultReg: NoReg
-		saveRegs: false.
+		regsToSave: self emptyRegisterMask.
 
 	"On Spur ceActivateFailingPrimitiveMethod: may retry the primitive and return if successful.
 	 So continue by returning to the caller.

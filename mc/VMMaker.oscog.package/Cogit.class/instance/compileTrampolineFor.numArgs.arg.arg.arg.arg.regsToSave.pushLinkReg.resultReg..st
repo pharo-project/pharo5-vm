@@ -1,5 +1,5 @@
 initialization
-compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 saveRegs: saveRegs pushLinkReg: pushLinkReg resultReg: resultRegOrNone
+compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg: regOrConst3 regsToSave: regMask pushLinkReg: pushLinkReg resultReg: resultRegOrNone
 	"Generate a trampoline with up to four arguments.  Generate either a call or a jump to aRoutine
 	 as requested by callJumpBar.  If generating a call and resultRegOrNone is not NoReg pass the C
 	 result back in resultRegOrNone.
@@ -15,7 +15,7 @@ compileTrampolineFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst
 		arg: regOrConst2
 		arg: regOrConst3
 		resultReg: resultRegOrNone
-		saveRegs: saveRegs.
+		regsToSave: regMask.
 	backEnd genLoadStackPointers.
 	(pushLinkReg and: [backEnd hasLinkRegister])
 		ifTrue:

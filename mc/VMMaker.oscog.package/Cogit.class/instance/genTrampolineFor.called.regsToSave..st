@@ -1,7 +1,6 @@
 initialization
-genSafeTrampolineFor: aRoutine called: aString
-	"Generate a trampoline with no arguments that will
-	 save and restore all registers around the call"
+genTrampolineFor: aRoutine called: aString regsToSave: regMask
+	"Generate a trampoline with no arguments"
 	<var: #aRoutine type: #'void *'>
 	<var: #aString type: #'char *'>
 	^self
@@ -12,7 +11,7 @@ genSafeTrampolineFor: aRoutine called: aString
 		arg: nil
 		arg: nil
 		arg: nil
-		saveRegs: true
+		regsToSave: regMask
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: false

@@ -1,4 +1,4 @@
 register management
-registerMaskFor: reg
+emptyRegisterMask
 	<inline: true>
-	^1 << reg
+	^0

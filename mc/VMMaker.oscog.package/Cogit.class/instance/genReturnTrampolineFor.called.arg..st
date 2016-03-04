@@ -12,7 +12,7 @@ genReturnTrampolineFor: aRoutine  called: aString arg: regOrConst0
 		arg: nil
 		arg: nil
 		arg: nil
-		saveRegs: false
+		regsToSave: self emptyRegisterMask
 		pushLinkReg: false "Since the routine is reached by a return instruction it should /not/ push the link register."
 		resultReg: NoReg
 		appendOpcodes: false

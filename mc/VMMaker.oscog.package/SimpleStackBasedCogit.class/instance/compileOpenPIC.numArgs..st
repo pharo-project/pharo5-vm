@@ -59,5 +59,5 @@ compileOpenPIC: selector numArgs: numArgs
 		arg: nil
 		arg: nil
 		resultReg: NoReg
-		saveRegs: false
+		regsToSave: self emptyRegisterMask
 	"Note that this call does not return."

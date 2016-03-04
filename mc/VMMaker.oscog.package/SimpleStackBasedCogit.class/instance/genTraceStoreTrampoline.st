@@ -1,6 +1,7 @@
 initialization
 genTraceStoreTrampoline
-	ceTraceStoreTrampoline := self genSafeTrampolineFor: #ceTraceStoreOf:into:
+	ceTraceStoreTrampoline := self genTrampolineFor: #ceTraceStoreOf:into:
 										called: 'ceTraceStoreTrampoline'
 										arg: ClassReg
 										arg: ReceiverResultReg
+										regsToSave: callerSavedRegMask

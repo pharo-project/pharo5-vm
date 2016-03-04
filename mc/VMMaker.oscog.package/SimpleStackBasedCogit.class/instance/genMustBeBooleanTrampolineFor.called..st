@@ -13,7 +13,7 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 		arg: nil
 		arg: nil
 		arg: nil
-		saveRegs: false
+		regsToSave: self emptyRegisterMask
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: true

@@ -18,11 +18,13 @@ generateObjectRepresentationTrampolines
 									genTrampolineFor: #remember:
 									called: 'ceStoreCheckTrampoline'
 									arg: ReceiverResultReg
+									regsToSave: (cogit callerSavedRegMask bitClear: (cogit registerMaskFor: ReceiverResultReg))
 									result: cogit returnRegForStoreCheck.
 	ceStoreCheckContextReceiverTrampoline := self genStoreCheckContextReceiverTrampoline.
 	ceScheduleScavengeTrampoline := cogit
-											genSafeTrampolineFor: #ceScheduleScavenge
-											called: 'ceScheduleScavengeTrampoline'.
+											genTrampolineFor: #ceScheduleScavenge
+											called: 'ceScheduleScavengeTrampoline'
+											regsToSave: cogit callerSavedRegMask.
 	ceSmallActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: false inBlock: false called: 'ceSmallMethodContext'.
 	ceSmallActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: true called: 'ceSmallBlockContext'.
 	ceLargeActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: true inBlock: false called: 'ceLargeMethodContext'.
