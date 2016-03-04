@@ -10,9 +10,7 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	"if no need for the store check then returns"
 	needsStoreCheck ifFalse: [ ^ 0 ].
 	"now the check.  Is value stored an integer?  If so we're done"
-	cogit MoveR: sourceReg R: scratchReg.
-	cogit AndCq: 1 R: scratchReg.
-	jmpImmediate := cogit JumpNonZero: 0.
+	jmpImmediate := self genJumpImmediate: sourceReg.
 	"Get the old/new boundary in scratchReg"
 	cogit MoveAw: objectMemory youngStartAddress R: scratchReg.
 	"Is target young?  If so we're done"
@@ -37,12 +35,7 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	"Root bit is not set.  Call store check to insert dest into root table."
 	self assert: destReg == ReceiverResultReg.
 	cogit 
-		evaluateTrampolineCallBlock: 
-			[cogit
-				CallRT: ceStoreCheckTrampoline
-				registersToBeSavedMask: (((cogit registerMaskFor: sourceReg)
-												bitOr: cogit callerSavedRegMask)
-												bitClear: (cogit registerMaskFor: ReceiverResultReg))]
+		evaluateTrampolineCallBlock: [cogit CallRT: ceStoreCheckTrampoline]
 		protectLinkRegIfNot: inFrame.
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:

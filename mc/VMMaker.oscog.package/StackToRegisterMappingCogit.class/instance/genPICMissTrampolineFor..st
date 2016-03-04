@@ -13,7 +13,7 @@ genPICMissTrampolineFor: numArgs
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
-		saveRegs: false
+		regsToSave: self emptyRegisterMask
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: true.

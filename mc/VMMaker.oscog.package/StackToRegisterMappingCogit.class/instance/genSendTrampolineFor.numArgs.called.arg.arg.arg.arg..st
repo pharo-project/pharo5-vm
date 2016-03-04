@@ -18,7 +18,7 @@ genSendTrampolineFor: aRoutine numArgs: numArgs called: aString arg: regOrConst0
 		arg: regOrConst1
 		arg: regOrConst2
 		arg: regOrConst3
-		saveRegs: false
+		regsToSave: self emptyRegisterMask
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: true.

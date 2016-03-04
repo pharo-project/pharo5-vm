@@ -4,17 +4,20 @@ generateTracingTrampolines
 	 and avoid noise instructions in the lastNInstructions log by short-cutting these
 	 trampolines, but we need them in the real vm."
 	ceTraceLinkedSendTrampoline :=
-		self genSafeTrampolineFor: #ceTraceLinkedSend:
+		self genTrampolineFor: #ceTraceLinkedSend:
 			called: 'ceTraceLinkedSendTrampoline'
-			arg: ReceiverResultReg.
+			arg: ReceiverResultReg
+			regsToSave: callerSavedRegMask.
 	ceTraceBlockActivationTrampoline :=
 		self genTrampolineFor: #ceTraceBlockActivation
-			called: 'ceTraceBlockActivationTrampoline'.
+			called: 'ceTraceBlockActivationTrampoline'
+			regsToSave: callerSavedRegMask..
 	ceTraceStoreTrampoline :=
-		self genSafeTrampolineFor: #ceTraceStoreOf:into:
+		self genTrampolineFor: #ceTraceStoreOf:into:
 			called: 'ceTraceStoreTrampoline'
 			arg: ClassReg
-			arg: ReceiverResultReg.
+			arg: ReceiverResultReg
+			regsToSave: callerSavedRegMask..
 	self cCode: [] inSmalltalk:
 		[ceTraceLinkedSendTrampoline := self simulatedTrampolineFor: #ceShortCutTraceLinkedSend:.
 		 ceTraceBlockActivationTrampoline := self simulatedTrampolineFor: #ceShortCutTraceBlockActivation:.

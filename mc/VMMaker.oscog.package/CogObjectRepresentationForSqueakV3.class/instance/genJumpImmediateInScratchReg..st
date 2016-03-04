@@ -1,3 +1,0 @@
-compile abstract instructions
-genJumpImmediateInScratchReg: aRegister
-	^self genJumpSmallIntegerInScratchReg: aRegister
