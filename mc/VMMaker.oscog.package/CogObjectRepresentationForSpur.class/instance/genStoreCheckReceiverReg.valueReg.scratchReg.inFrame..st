@@ -6,8 +6,10 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
 	<var: #jmpSourceOld type: #'AbstractInstruction *'>
 	<var: #jmpAlreadyRemembered type: #'AbstractInstruction *'>
-	"Is value stored an immediate?  If so we're done"
-	jmpImmediate := self genJumpImmediate: valueReg.
+	"Is value stored an integer?  If so we're done"
+	cogit MoveR: valueReg R: scratchReg.
+	cogit AndCq: objectMemory tagMask R: scratchReg.
+	jmpImmediate := cogit JumpNonZero: 0.
 	"Get the old/new boundary in scratchReg"
 	cogit MoveCw: objectMemory storeCheckBoundary R: scratchReg.
 	"Is target young?  If so we're done"
@@ -28,9 +30,14 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 	cogit AndCq: mask R: scratchReg.
 	jmpAlreadyRemembered := cogit JumpNonZero: 0.
 	"Remembered bit is not set.  Call store check to insert dest into remembered table."
-	self assert: destReg = ReceiverResultReg.
+	self assert: destReg == ReceiverResultReg.
 	cogit 
-		evaluateTrampolineCallBlock: [cogit CallRT: ceStoreCheckTrampoline]
+		evaluateTrampolineCallBlock:
+			[cogit
+				CallRT: ceStoreCheckTrampoline
+				registersToBeSavedMask: (((cogit registerMaskFor: valueReg)
+												bitOr: cogit callerSavedRegMask)
+												bitClear: (cogit registerMaskFor: ReceiverResultReg and: scratchReg))]
 		protectLinkRegIfNot: inFrame.
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:

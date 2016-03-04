@@ -22,7 +22,7 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: false "The LinkReg has already been set above."
 		resultReg: NoReg.
 	jumpSICMiss jmpTarget: self Label.
@@ -33,7 +33,7 @@ genMethodAbortTrampoline
 		arg: nil
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: true "Push the LinkReg for the ceMethodAbort call."
 		resultReg: NoReg
 		appendOpcodes: true

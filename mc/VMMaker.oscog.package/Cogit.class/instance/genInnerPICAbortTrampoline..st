@@ -21,7 +21,7 @@ genInnerPICAbortTrampoline: name
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: false
 		resultReg: NoReg.
 	jumpMNUCase jmpTarget: self Label.
@@ -32,7 +32,7 @@ genInnerPICAbortTrampoline: name
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: false
 		resultReg: NoReg
 		appendOpcodes: true

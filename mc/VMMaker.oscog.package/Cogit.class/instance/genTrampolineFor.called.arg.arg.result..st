@@ -12,7 +12,7 @@ genTrampolineFor: aRoutine called: aString arg: regOrConst0 arg: regOrConst1 res
 		arg: regOrConst1
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: true
 		resultReg: resultReg
 		appendOpcodes: false

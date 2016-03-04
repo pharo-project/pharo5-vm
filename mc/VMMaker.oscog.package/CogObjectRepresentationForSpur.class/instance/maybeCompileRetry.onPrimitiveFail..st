@@ -19,7 +19,7 @@ maybeCompileRetry: retryInst onPrimitiveFail: primIndex
 		arg: nil
 		arg: nil
 		resultReg: TempReg
-		regsToSave: cogit emptyRegisterMask.
+		saveRegs: false.
 	cogit CmpCq: 0 R: TempReg.
 	cogit JumpNonZero: retryInst.
 	jmp jmpTarget: cogit Label.

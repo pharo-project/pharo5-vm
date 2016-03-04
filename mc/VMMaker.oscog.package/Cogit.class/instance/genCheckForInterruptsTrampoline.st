@@ -16,7 +16,7 @@ genCheckForInterruptsTrampoline
 		arg: nil
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: false
 		resultReg: NoReg
 		appendOpcodes: true

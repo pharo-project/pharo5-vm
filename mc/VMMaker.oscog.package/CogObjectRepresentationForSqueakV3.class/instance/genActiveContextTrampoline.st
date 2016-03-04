@@ -19,7 +19,7 @@ genActiveContextTrampoline
 		arg: nil
 		arg: nil
 		arg: nil
-		regsToSave: cogit emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: true
 		resultReg: ReceiverResultReg
 		appendOpcodes: true

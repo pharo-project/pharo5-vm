@@ -54,7 +54,7 @@ genNSSendTrampolineFor: aRoutine numArgs: numArgs enclosingObjectCheck: eoCheckF
 		arg: ReceiverResultReg
 		arg: nil
 		arg: nil
-		regsToSave: self emptyRegisterMask
+		saveRegs: false
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: true

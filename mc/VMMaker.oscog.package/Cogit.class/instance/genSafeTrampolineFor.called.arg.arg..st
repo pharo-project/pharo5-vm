@@ -1,7 +1,7 @@
 initialization
-genTrampolineFor: aRoutine called: aString arg: regOrConst0 arg: regOrConst1 regsToSave: regMask
-	"Generate a trampoline with two arguments.
-	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
+genSafeTrampolineFor: aRoutine called: aString arg: regOrConst0 arg: regOrConst1
+	"Generate a trampoline with two arguments that
+	 will save and restore all registers around the call"
 	<var: #aRoutine type: #'void *'>
 	<var: #aString type: #'char *'>
 	^self
@@ -12,7 +12,7 @@ genTrampolineFor: aRoutine called: aString arg: regOrConst0 arg: regOrConst1 reg
 		arg: regOrConst1
 		arg: nil
 		arg: nil
-		regsToSave: regMask
+		saveRegs: true
 		pushLinkReg: true
 		resultReg: NoReg
 		appendOpcodes: false
