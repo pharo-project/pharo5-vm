@@ -4,7 +4,7 @@ primitiveFFIDoubleAtPut
 	| byteOffset rcvr addr floatValue floatOop |
 	<export: true>
 	<inline: false>
-	<var: #floatValue type:'double '>
+	<var: #floatValue type: #double>
 	floatOop := interpreterProxy stackValue: 0.
 	(interpreterProxy isIntegerObject: floatOop)
 		ifTrue:[floatValue := self cCoerce: (interpreterProxy integerValueOf: floatOop) to:'double']
@@ -14,6 +14,5 @@ primitiveFFIDoubleAtPut
 	interpreterProxy failed ifTrue:[^0].
 	addr := self ffiAddressOf: rcvr startingAt: byteOffset size: 8.
 	interpreterProxy failed ifTrue:[^0].
-	self cCode:'((int*)addr)[0] = ((int*)(&floatValue))[0]'.
-	self cCode:'((int*)addr)[1] = ((int*)(&floatValue))[1]'.
+	self mem: addr cp: (self addressOf: floatValue) y: (self sizeof: floatValue).
 	^interpreterProxy pop: 3 thenPush: floatOop

@@ -4,12 +4,12 @@ primitiveFFIFloatAt
 	| byteOffset rcvr addr floatValue |
 	<export: true>
 	<inline: false>
-	<var: #floatValue type:'float '>
+	<var: #floatValue type: #float>
 	byteOffset := interpreterProxy stackIntegerValue: 0.
 	rcvr := interpreterProxy stackObjectValue: 1.
 	interpreterProxy failed ifTrue:[^0].
 	addr := self ffiAddressOf: rcvr startingAt: byteOffset size: 4.
 	interpreterProxy failed ifTrue:[^0].
-	self cCode:'((int*)(&floatValue))[0] = ((int*)addr)[0]'.
+	self mem: (self addressOf: floatValue) cp: addr y: (self sizeof: floatValue).
 	interpreterProxy pop: 2.
 	^interpreterProxy pushFloat: floatValue

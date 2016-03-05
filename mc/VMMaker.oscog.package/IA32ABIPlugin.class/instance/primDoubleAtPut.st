@@ -22,6 +22,5 @@ primDoubleAtPut
 	(startAddr := self startOfData: rcvr) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	addr := startAddr + byteOffset.
-	self cCode:'((int*)addr)[0] = ((int*)(&floatValue))[0]'.
-	self cCode:'((int*)addr)[1] = ((int*)(&floatValue))[1]'.
+	self mem: addr cp: (self addressOf: floatValue) y: (self sizeof: floatValue).
 	interpreterProxy methodReturnValue: valueOop

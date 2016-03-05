@@ -5,7 +5,7 @@ primFloatAt
 		<primitive: 'primFloatAt' error: errorCode module: 'IA32ABI'>"
 	| byteOffset rcvr startAddr addr floatValue |
 	<export: true>
-	<var: #floatValue type: 'float '>
+	<var: #floatValue type: #float>
 
 	byteOffset := (interpreterProxy stackPositiveMachineIntegerValue: 0) - 1.
 	rcvr := interpreterProxy stackObjectValue: 1.
@@ -16,7 +16,6 @@ primFloatAt
 	(startAddr := self startOfData: rcvr) = 0 ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	addr := startAddr + byteOffset.
-	self cCode:'((long *)(&floatValue))[0] = ((long *)addr)[0]'
-		inSmalltalk: [floatValue := rcvr floatAt: byteOffset].
+	self mem: (self addressOf: floatValue) cp: addr y: (self sizeof: floatValue).
 	interpreterProxy pop: 2.
 	^interpreterProxy pushFloat: floatValue
