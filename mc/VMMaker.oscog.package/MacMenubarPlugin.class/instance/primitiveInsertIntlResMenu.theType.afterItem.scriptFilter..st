@@ -6,7 +6,7 @@ primitiveInsertIntlResMenu: menuHandleOop theType: aResType afterItem: afterItem
 	self var: 'menuHandle' type: 'MenuHandle'.
 	self var: 'resType' type: 'ResType'.
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	resType := self cCoerce: (interpreterProxy positive32BitValueOf: aResType) to: 'ResType'.
 	self cCode: 'InsertIntlResMenu(menuHandle,resType,afterItemInteger,scriptFilterInteger)' inSmalltalk:[menuHandle].

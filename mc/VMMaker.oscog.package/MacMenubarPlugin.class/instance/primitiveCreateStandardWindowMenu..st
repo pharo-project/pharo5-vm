@@ -10,4 +10,4 @@ primitiveCreateStandardWindowMenu: inOptions
 '.
 	result := self cCode: 'CreateStandardWindowMenu(inOptions,&menuHandle);
 #endif' inSmalltalk:[0].
-	^interpreterProxy positive32BitIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')

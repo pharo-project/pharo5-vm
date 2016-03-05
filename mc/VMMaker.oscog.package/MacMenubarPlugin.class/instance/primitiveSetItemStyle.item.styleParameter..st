@@ -5,7 +5,7 @@ primitiveSetItemStyle: menuHandleOop item: anInteger styleParameter: chStyleInte
 		parameters: #(Oop SmallInteger SmallInteger).
 	self var: 'menuHandle' type: 'MenuHandle'.
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	self cCode: 'SetItemStyle(menuHandle,anInteger,chStyleInteger)' inSmalltalk:[menuHandle].
 	^nil

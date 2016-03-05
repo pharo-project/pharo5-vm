@@ -8,7 +8,7 @@ primitiveGetIndMenuItemWithCommandID: menuHandleOop commandID: aCommandID
 	self var: 'applicationMenu' type: 'MenuHandle'.
 	self var: 'outIndex' type: 'MenuItemIndex'.
 
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	commandID := self cCoerce: (interpreterProxy positive32BitValueOf: aCommandID) to: 'MenuCommand'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	self cCode: '#if TARGET_API_MAC_CARBON

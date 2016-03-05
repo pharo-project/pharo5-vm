@@ -5,4 +5,4 @@ primitiveGetMenuBar
 		parameters: #().
 	self var: 'menuHandle' type: 'Handle'.
 	menuHandle := self cCode: 'GetMenuBar()' inSmalltalk:[0].
-	^interpreterProxy positive32BitIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')

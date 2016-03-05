@@ -7,7 +7,7 @@ primitiveGetMenuItemText: menuHandleOop item: anInteger
 	self primitive: 'primitiveGetMenuItemText'
 		parameters: #(Oop SmallInteger).
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	aString at: 0 put: 0.
 	self cCode: 'GetMenuItemText(menuHandle,anInteger,aString)' inSmalltalk:[menuHandle].

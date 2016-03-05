@@ -6,4 +6,4 @@ primitiveGetMenuHandle: menuID
 	self var: 'menuHandle' type: 'MenuHandle'.
 	self var: 'menuID' type: 'MenuID'.
 	menuHandle := self cCode: 'GetMenuHandle(menuID)' inSmalltalk:[0].
-	^interpreterProxy positive32BitIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')

@@ -6,7 +6,7 @@ primitiveSetMenuItemTextEncoding: menuHandleOop item: anInteger inScriptID: aTex
 	self var: 'menuHandle' type: 'MenuHandle'.
 	self var: 'inScriptID' type: 'TextEncoding'.
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	inScriptID := self cCoerce: (interpreterProxy positive32BitValueOf: aTextEncodingOop) to: 'TextEncoding'.
 	self cCode: 'SetMenuItemTextEncoding(menuHandle,anInteger,inScriptID)' inSmalltalk:[menuHandle].

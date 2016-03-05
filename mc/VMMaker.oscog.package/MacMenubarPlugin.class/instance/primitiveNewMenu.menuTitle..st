@@ -10,4 +10,4 @@ primitiveNewMenu: menuID menuTitle: menuTitle
 	
 	constStr255 := self cCoerce: menuTitle to: 'ConstStr255Param'.	
 	menuHandle := self cCode: 'NewMenu(menuID,constStr255)' inSmalltalk:[0].
-	^interpreterProxy positive32BitIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')

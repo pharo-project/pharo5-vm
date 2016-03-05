@@ -5,7 +5,7 @@ primitiveCheckMenuItem: menuHandleOop item: anInteger checked: aBoolean
 		parameters: #(Oop SmallInteger Boolean).
 	self var: 'menuHandle' type: 'MenuHandle'.
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	self cCode: 'CheckMenuItem(menuHandle,anInteger,aBoolean)' inSmalltalk:[menuHandle].
 	^nil

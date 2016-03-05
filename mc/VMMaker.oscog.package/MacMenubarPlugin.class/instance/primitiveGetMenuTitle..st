@@ -7,7 +7,7 @@ primitiveGetMenuTitle: menuHandleOop
 	self primitive: 'primitiveGetMenuTitle'
 		parameters: #(Oop).
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	aString at: 0 put: 0.
 	self cCode: 'GetMenuTitle(menuHandle,aString)' inSmalltalk:[menuHandle].

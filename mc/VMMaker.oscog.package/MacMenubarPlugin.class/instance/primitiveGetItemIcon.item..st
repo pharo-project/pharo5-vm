@@ -6,7 +6,7 @@ primitiveGetItemIcon: menuHandleOop item: anInteger
 	self var: 'menuHandle' type: 'MenuHandle'.
 	self var: 'iconIndex' type: 'short'.
 	
-	menuHandle := self cCoerce: (interpreterProxy positive32BitValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	iconIndex := 0.
 	self cCode: 'GetItemIcon(menuHandle,anInteger,&iconIndex)' inSmalltalk:[menuHandle].
