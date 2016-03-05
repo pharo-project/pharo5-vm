@@ -12,6 +12,7 @@ sizeOfIntegralCType: anIntegralCType "<String>"
 	^prunedCType asString caseOf: {
 		['sqLong']	->	[8].
 		['usqLong']	->	[8].
+		['long long']	->	[8].
 		['sqInt']		->	[BytesPerWord].
 		['usqInt']	->	[BytesPerWord].
 		['int']		->	[4].
