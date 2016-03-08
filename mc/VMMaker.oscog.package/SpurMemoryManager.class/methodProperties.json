@@ -672,7 +672,7 @@
 		"printOopsFrom:to:" : "eem 6/13/2014 16:18",
 		"printReferencesTo:" : "eem 11/6/2013 07:31",
 		"printSortedFreeList" : "eem 5/21/2015 11:11",
-		"purgeDuplicateClassTableEntriesFor:" : "eem 1/8/2015 12:34",
+		"purgeDuplicateClassTableEntriesFor:" : "eem 3/8/2016 15:05",
 		"push:" : "eem 9/20/2013 18:05",
 		"push:onObjStack:" : "eem 10/31/2013 15:26",
 		"pushBool:" : "eem 9/20/2013 14:59",
