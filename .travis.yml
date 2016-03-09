@@ -1,7 +1,8 @@
 language: c
 os:
   - linux
-  - osx
+# disable osx for the moment
+#  - osx
 
 addons:
   apt:
@@ -45,5 +46,5 @@ matrix:
 # Ignore failures with OSX as the build forces to be build for OSX 10.6 and
 # the header files are not installed and we can't install them on OSX. This
 # could be easily fixed with a different CMakeLists.txt
-  allow_failures:
-    - os: osx
+#  allow_failures:
+#    - os: osx

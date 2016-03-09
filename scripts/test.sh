@@ -1,30 +1,13 @@
 #!/bin/bash 
 set -ex
 
-
-# ARGUMENT HANDLING ===========================================================
-if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
-	echo "This script runs a test image with the freshly built VM.
-"
-	exit 0;
-elif [ $# -gt 0 ]; then
-	echo "--help/-h is the only argument allowed"
-	exit 1;
-fi
-
-
-# FIND THIS SCRIPT's LOCATION =================================================
-SCRIPT_DIR=`readlink "$0"` || SCRIPT_DIR="$0";
-SCRIPT_DIR=`dirname "$SCRIPT_DIR"`;
-cd "$SCRIPT_DIR" 2> /dev/null
-SCRIPT_DIR=`pwd -P`
-
+echo "DIR: `pwd`"
 
 # VM PROPERTIES ===============================================================
 VM_TYPE="pharo"
 VM_BINARY_NAME="Pharo"
 VM_BINARY_NAME_LINUX="pharo"
-VM_DIR="$SCRIPT_DIR/../results"
+VM_DIR="results"
 
 
 # TEST VM LOCATION ============================================================
@@ -50,7 +33,7 @@ fi
 
 
 # ENSURE SOURCES FILE =========================================================
-cp $SCRIPT_DIR/pharo-vm/*.sources $VM_DIR
+cp image/pharo-vm/*.sources $VM_DIR
 
 
 # RUN TEST IMAGE ==============================================================
@@ -60,5 +43,5 @@ else
 	HEADLESS="--headless"
 fi
 
-TEST_IMAGE="$SCRIPT_DIR/../image/Pharo.image"
+TEST_IMAGE="image/Pharo.image"
 "$PHARO_TEST_VM" $HEADLESS "$TEST_IMAGE" test --no-xterm ".*"
