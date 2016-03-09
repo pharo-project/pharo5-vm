@@ -2,6 +2,7 @@
 set -ex
 
 # TEST VM LOCATION ============================================================
+VM_DIR="results"
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
 	VM_NAME="pharo"
 elif [ "$TRAVIS_OS_NAME" = "osx" ]]; then
@@ -10,7 +11,7 @@ else
     echo "Unsupported OS";
     exit 1;
 fi
-PHARO_TEST_VM=`find results -name $VM_NAME`;
+PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`;
 
 if [ -z "$PHARO_TEST_VM" ]; then
 	echo "Could not find test VM in $VM_DIR";
@@ -20,7 +21,6 @@ fi
 
 # ENSURE SOURCES FILE =========================================================
 cp image/pharo-vm/*.sources $VM_DIR
-
 
 # RUN TEST IMAGE ==============================================================
 if [ "$TRAVIS_OS_NAME" == "linux" ]; then
