@@ -10,7 +10,8 @@ markAndTraceClassOf: objOop
 	classObj := self classOrNilAtIndex: classIndex.
 	self assert: (coInterpreter objCouldBeClassObj: classObj).
 	realClassIndex := self rawHashBitsOf: classObj.
-	classIndex ~= realClassIndex ifTrue:
+	(classIndex ~= realClassIndex
+	 and: [realClassIndex > self lastClassIndexPun]) ifTrue:
 		[self setClassIndexOf: objOop to: realClassIndex].
 	(self isMarked: classObj) ifFalse:
 		[self setIsMarkedOf: classObj to: true.

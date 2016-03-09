@@ -6,6 +6,11 @@ setHiddenRootsObj: anOop
 						[self assert: self validClassTableRootPages]].
 	classTableFirstPage := self fetchPointer: 0 ofObject: hiddenRootsObj.
 	self assert: (self numSlotsOf: classTableFirstPage) - 1 = self classTableMinorIndexMask.
+	"Hack fix.  A bug in markAndTraceClassOf: caused the class of the first class table page
+	 to be changed from its pun.  This can be restored manually, but we do it here too."
+	self flag: 'remove at some stage'.
+	(self classIndexOf: classTableFirstPage) ~= self arrayClassIndexPun ifTrue:
+		[self setClassIndexOf: classTableFirstPage to: self arrayClassIndexPun].
 	"Set classTableIndex to the start of the last used page (excepting first page).
 	 Set numClassTablePages to the number of used pages."
 	numClassTablePages := self classTableRootSlots.
