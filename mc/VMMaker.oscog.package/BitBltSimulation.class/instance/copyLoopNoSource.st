@@ -24,7 +24,7 @@ copyLoopNoSource
 			destWord := (destMask bitAnd: mergeWord) bitOr: 
 							(destWord bitAnd: destMask bitInvert32).
 			self dstLongAt: destIndex put: destWord.
-			destIndex := destIndex + 4.
+			self incDestIndex: 4.
 
 		"This central horizontal loop requires no store masking"
 			destMask := AllOnes.
@@ -32,13 +32,13 @@ copyLoopNoSource
 				destWord := halftoneWord.
 				2 to: nWords-1 do:[ :word |
 					self dstLongAt: destIndex put: destWord.
-					destIndex := destIndex + 4].
+					self incDestIndex: 4].
 			] ifFalse:[ "Normal inner loop does merge"
 				2 to: nWords-1 do:[ :word | "Normal inner loop does merge"
 					destWord := self dstLongAt: destIndex.
 					mergeWord := self mergeFn: halftoneWord with: destWord.
 					self dstLongAt: destIndex put: mergeWord.
-					destIndex := destIndex + 4].
+					self incDestIndex: 4].
 			].
 
 		"This last section, if used, requires masking of the destination store..."
@@ -49,6 +49,6 @@ copyLoopNoSource
 			destWord := (destMask bitAnd: mergeWord) bitOr:
 							(destWord bitAnd: destMask bitInvert32).
 			self dstLongAt: destIndex put: destWord.
-			destIndex := destIndex + 4].
+			self incDestIndex: 4].
 
-	destIndex := destIndex + destDelta]
+	self incDestIndex: destDelta]

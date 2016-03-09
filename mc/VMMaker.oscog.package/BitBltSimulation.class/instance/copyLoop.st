@@ -37,7 +37,7 @@ copyLoop
 		preload ifTrue:
 			["load the 64-bit shifter"
 			prevWord := self srcLongAt: sourceIndex.
-			sourceIndex := sourceIndex + hInc]
+			self incSrcIndex: hInc]
 			ifFalse:
 			[prevWord := 0].
 
@@ -46,7 +46,7 @@ copyLoop
 			"This first section requires masking of the destination store..."
 			destMask := mask1.
 			thisWord := self srcLongAt: sourceIndex.  "pick up next word"
-			sourceIndex := sourceIndex + hInc.
+			self incSrcIndex: hInc.
 			skewWord := ((prevWord bitAnd: notSkewMask) bitShift: unskew)
 							bitOr:  "32-bit rotate"
 						((thisWord bitAnd: skewMask) bitShift: skew).
@@ -56,7 +56,7 @@ copyLoop
 			destWord := (destMask bitAnd: mergeWord) bitOr:
 							(destWord bitAnd: destMask bitInvert32).
 			self dstLongAt: destIndex put: destWord.
-			destIndex := destIndex + hInc.
+			self incDestIndex: hInc.
 
 		"This central horizontal loop requires no store masking"
 		destMask := AllOnes.
@@ -69,31 +69,31 @@ ifTrue: [(skew = 0) & (halftoneWord = AllOnes)
 				2 to: nWords-1 do: 
 					[ :word |
 					thisWord := self srcLongAt: sourceIndex.
-					sourceIndex := sourceIndex + hInc.
+					self incSrcIndex: hInc.
 					self dstLongAt: destIndex put: thisWord.
-					destIndex := destIndex + hInc]]
+					self incDestIndex: hInc]]
 		ifFalse: [2 to: nWords-1 do: 
 					[ :word |  "Note loop starts with prevWord loaded (due to preload)"
 					self dstLongAt: destIndex put: prevWord.
-					destIndex := destIndex + hInc.
+					self incDestIndex: hInc.
 					prevWord := self srcLongAt: sourceIndex.
-					sourceIndex := sourceIndex + hInc]]]
+					self incSrcIndex: hInc]]]
 		ifFalse:
 		["Special inner loop for STORE mode -- no need to call merge"
 		2 to: nWords-1 do: 
 			[ :word |
 			thisWord := self srcLongAt: sourceIndex.
-			sourceIndex := sourceIndex + hInc.
+			self incSrcIndex: hInc.
 			skewWord := ((prevWord bitAnd: notSkewMask) bitShift: unskew)
 							bitOr:  "32-bit rotate"
 						((thisWord bitAnd: skewMask) bitShift: skew).
 			prevWord := thisWord.
 			self dstLongAt: destIndex put: (skewWord bitAnd: halftoneWord).
-			destIndex := destIndex + hInc]]
+			self incDestIndex: hInc]]
 ] ifFalse: [2 to: nWords-1 do: "Normal inner loop does merge:"
 			[ :word |
 			thisWord := self srcLongAt: sourceIndex.  "pick up next word"
-			sourceIndex := sourceIndex + hInc.
+			self incSrcIndex: hInc.
 			skewWord := ((prevWord bitAnd: notSkewMask) bitShift: unskew)
 							bitOr:  "32-bit rotate"
 						((thisWord bitAnd: skewMask) bitShift: skew).
@@ -101,14 +101,14 @@ ifTrue: [(skew = 0) & (halftoneWord = AllOnes)
 			mergeWord := self mergeFn: (skewWord bitAnd: halftoneWord)
 							with: (self dstLongAt: destIndex).
 			self dstLongAt: destIndex put: mergeWord.
-			destIndex := destIndex + hInc]
+			self incDestIndex: hInc]
 ].
 
 		"This last section, if used, requires masking of the destination store..."
 		nWords > 1 ifTrue:
 			[destMask := mask2.
 			thisWord := self srcLongAt: sourceIndex.  "pick up next word"
-			sourceIndex := sourceIndex + hInc.
+			self incSrcIndex: hInc.
 			skewWord := ((prevWord bitAnd: notSkewMask) bitShift: unskew)
 							bitOr:  "32-bit rotate"
 						((thisWord bitAnd: skewMask) bitShift: skew).
@@ -117,7 +117,7 @@ ifTrue: [(skew = 0) & (halftoneWord = AllOnes)
 			destWord := (destMask bitAnd: mergeWord) bitOr:
 							(destWord bitAnd: destMask bitInvert32).
 			self dstLongAt: destIndex put: destWord.
-			destIndex := destIndex + hInc].
+			self incDestIndex: hInc].
 
-	sourceIndex := sourceIndex + sourceDelta.
-	destIndex := destIndex + destDelta]
+	self incSrcIndex: sourceDelta.
+	self incDestIndex: destDelta]

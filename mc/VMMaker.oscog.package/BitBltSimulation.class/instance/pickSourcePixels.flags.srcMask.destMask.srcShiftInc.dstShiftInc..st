@@ -20,7 +20,7 @@ pickSourcePixels: nPixels flags: mapperFlags srcMask: srcMask destMask: dstMask 
 			"adjust source pix index"
 			((srcShift := srcShift + srcShiftInc) bitAnd: 16rFFFFFFE0) = 0 ifFalse:[
 				sourceMSB ifTrue:[srcShift := srcShift + 32] ifFalse:[srcShift := srcShift - 32].
-				sourceWord := self srcLongAt: (sourceIndex := sourceIndex + 4)].
+				sourceWord := self srcLongAt: (self incSrcIndex: 4)].
 		(nPix := nPix - 1) = 0] whileFalse.
 	] ifFalse:[
 		[	"grab, colormap and mix in pixel"
@@ -32,7 +32,7 @@ pickSourcePixels: nPixels flags: mapperFlags srcMask: srcMask destMask: dstMask 
 			"adjust source pix index"
 			((srcShift := srcShift + srcShiftInc) bitAnd: 16rFFFFFFE0) = 0 ifFalse:[
 				sourceMSB ifTrue:[srcShift := srcShift + 32] ifFalse:[srcShift := srcShift - 32].
-				sourceWord := self srcLongAt: (sourceIndex := sourceIndex + 4)].
+				sourceWord := self srcLongAt: (self incSrcIndex: 4)].
 		(nPix := nPix - 1) = 0] whileFalse.
 	].
 	srcBitShift := srcShift. "Store back"

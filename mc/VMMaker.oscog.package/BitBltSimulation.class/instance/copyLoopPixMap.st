@@ -82,7 +82,7 @@ copyLoopPixMap
 								(destWord bitAnd: destMask bitInvert32).
 				self dstLongAt: destIndex put: destWord.
 			].
-			destIndex := destIndex + 4.
+			self incDestIndex: 4.
 			words = 2 "e.g., is the next word the last word?"
 				ifTrue:["set mask for last word in this row"
 						destMask := mask2.
@@ -92,5 +92,5 @@ copyLoopPixMap
 						nPix := destPPW].
 			(words := words - 1) = 0] whileFalse.
 		"--- end of inner loop ---"
-		sourceIndex := sourceIndex + sourceDelta.
-		destIndex := destIndex + destDelta]
+		self incSrcIndex: sourceDelta.
+		self incDestIndex: destDelta]
