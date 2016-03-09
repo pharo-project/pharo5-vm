@@ -1,6 +1,5 @@
-Build Status
+Build Status [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png)](https://travis-ci.org/estebanlm/pharo-vm)
 ============
-- Spur64 Branch: [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png?branch=spur64)](https://travis-ci.org/estebanlm/pharo-vm)
 
 REQUIREMENTS
 ============
