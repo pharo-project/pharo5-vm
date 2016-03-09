@@ -49,12 +49,16 @@ if [ -z "$PHARO_TEST_VM" ]; then
 fi
 
 
+# ENSURE SOURCES FILE =========================================================
+cp $SCRIPT_DIR/pharo-vm/*.sources $VM_DIR
+
+
 # RUN TEST IMAGE ==============================================================
 if [ "$OS" == "linux" ]; then
 	HEADLESS="--nodisplay"
 else
 	HEADLESS="--headless"
 fi
-	
-TEST_IMAGE=`"$SCRIPT_DIR/../image/newVMTestImage.sh"`
-"$PHARO_TEST_VM" $HEADLESS "$TEST_IMAGE" test ".*"
+
+TEST_IMAGE="$SCRIPT_DIR/../image/Pharo.image"
+"$PHARO_TEST_VM" $HEADLESS "$TEST_IMAGE" test --no-xterm ".*"

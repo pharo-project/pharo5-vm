@@ -6,6 +6,13 @@ os:
 addons:
   apt:
     packages:
+      # this are to be able to execute a VM downloaded from the internet during build
+      - lib32asound2
+      - lib32z1
+      - lib32ncurses5
+      - lib32bz2-1.0
+      - gvfs-daemons:i386
+      # this are requirements for building the vm
       - cmake
       - zip
       - bash-completion
@@ -29,17 +36,10 @@ addons:
       - build-essential
       - gcc-multilib
       - g++
-# to be able to execute a VM downloaded from the internet during build
-      - lib32asound2
-      - lib32z1
-      - lib32ncurses5
-      - lib32bz2-1.0
-      - gvfs-daemons:i386
 
 script: 
   - scripts/build.sh
-# broken because it loads a pre-spur image
-#  - scripts/test.sh
+  - scripts/test.sh
 
 matrix:
 # Ignore failures with OSX as the build forces to be build for OSX 10.6 and
