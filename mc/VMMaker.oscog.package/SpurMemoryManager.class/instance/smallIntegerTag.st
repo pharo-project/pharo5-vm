@@ -1,3 +1,3 @@
 cog jit support
 smallIntegerTag
-	^1
+	^self subclassResponsibility

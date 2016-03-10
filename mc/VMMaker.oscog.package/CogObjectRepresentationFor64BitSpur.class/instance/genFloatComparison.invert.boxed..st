@@ -12,11 +12,7 @@ genFloatComparison: jumpOpcodeGenerator invert: invertComparison boxed: rcvrBoxe
 	rcvrBoxed
 		ifTrue: [self genGetDoubleValueOf: ReceiverResultReg into: DPFPReg0]
 		ifFalse: [self genGetSmallFloatValueOf: ReceiverResultReg scratch: TempReg into: DPFPReg0].
-	cogit
-		MoveR: Arg0Reg R: ClassReg;
-		AndCq: objectMemory tagMask R: ClassReg;
-		CmpCq: objectMemory smallFloatTag R: ClassReg.
-	jumpNotSmallFloat := cogit JumpNonZero: 0.
+	jumpNotSmallFloat := self genJumpNotSmallFloat: Arg0Reg.
 	self genGetSmallFloatValueOf: Arg0Reg scratch: TempReg into: DPFPReg1.
 	compare := invertComparison "May need to invert for NaNs"
 					ifTrue: [cogit CmpRd: DPFPReg0 Rd: DPFPReg1]
@@ -26,14 +22,13 @@ genFloatComparison: jumpOpcodeGenerator invert: invertComparison boxed: rcvrBoxe
 	cogit genPrimReturn.
 	jumpCond jmpTarget: (cogit genMoveTrueR: ReceiverResultReg).
 	cogit genPrimReturn.
-	jumpNotSmallFloat jmpTarget:
-	(cogit CmpCq: objectMemory smallIntegerTag R: ClassReg).
-	jumpNotSmallInteger := cogit JumpNonZero: 0.
+	jumpNotSmallFloat jmpTarget: cogit Label.
+	jumpNotSmallInteger := self genJumpNotSmallInteger: Arg0Reg.
 	self genConvertSmallIntegerToIntegerInReg: Arg0Reg.
 	cogit ConvertR: Arg0Reg Rd: DPFPReg1.
 	cogit Jump: compare.
-	jumpNotSmallInteger jmpTarget: (cogit CmpCq: 0 R: ClassReg).
-	jumpImmediate := cogit JumpNonZero: 0.
+	jumpNotSmallInteger jmpTarget: cogit Label.
+	jumpImmediate := self genJumpImmediate: Arg0Reg.
 	self genGetCompactClassIndexNonImmOf: Arg0Reg into: SendNumArgsReg.
 	self genCmpClassFloatCompactIndexR: SendNumArgsReg.
 	jumpNotBoxedFloat := cogit JumpNonZero: 0.

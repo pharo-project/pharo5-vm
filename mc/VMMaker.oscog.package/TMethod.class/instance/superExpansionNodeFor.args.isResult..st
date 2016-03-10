@@ -1,5 +1,5 @@
 inlining
-superExpansionNodeFor: aSelector args: argumentNodes
+superExpansionNodeFor: aSelector args: argumentNodes isResult: superExpansionIsResult
 	"Answer the expansion of a super send.  Merge the super expansion's
 	 locals, properties and comment into this method's properties."
 	(definingClass superclass lookupSelector: aSelector)
@@ -33,4 +33,7 @@ superExpansionNodeFor: aSelector args: argumentNodes
 				[:scvn|
 				extraVariableNumber := extraVariableNumber ifNil: [scvn] ifNotNil: [:cvn| cvn + scvn]].
 			superTMethod elideAnyFinalReturn.
+			superExpansionIsResult ifFalse:
+				[superTMethod mapReturnsToGotos.
+				 labels addAll: superTMethod labels].
 			^superTMethod parseTree]

@@ -5,4 +5,5 @@ sixtyFourBitLongsClassIndexPun
 	 this class index.  But because the index doesn't match the class it
 	 won't show up in allInstances, hence hiding the object with a pun as
 	 its class index. The puns occupy indices 16 through 31."
+	<cmacro>
 	^19

@@ -5,10 +5,10 @@ countNumClassPagesPreSwizzle: bytesToShift
 	| firstObj classTableRoot nilObjPreSwizzle |
 	firstObj := self objectStartingAt: oldSpaceStart. "a.k.a. nilObj"
 	"first five objects are nilObj, falseObj, trueObj, freeListsObj, classTableRootObj"
-	classTableRoot := self objectAfter:
-							(self objectAfter:
-									(self objectAfter:
-											(self objectAfter: firstObj
+	classTableRoot := self noInlineObjectAfter:
+							(self noInlineObjectAfter:
+									(self noInlineObjectAfter:
+											(self noInlineObjectAfter: firstObj
 												limit: endOfMemory)
 										limit: endOfMemory)
 								limit: endOfMemory)

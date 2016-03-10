@@ -1,6 +1,7 @@
 {
 	"class" : {
-		 },
+		"initialize" : "eem 3/10/2016 11:20",
+		"windowColorSpecification" : "eem 3/10/2016 11:17" },
 	"instance" : {
 		"asUnsigned:" : "eem 1/8/2015 14:41",
 		"cStringOrNullFor:" : "eem 12/20/2012 10:02",

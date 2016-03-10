@@ -5,7 +5,7 @@ maybeGenConvertIfSmallFloatIn: oopReg scratchReg: scratch into: dpReg andJumpTo:
 	<var: 'targetInst' type: #'AbstractInstruction *'>
 	| jumpNotSF |
 	<var: 'jumpNotSF' type: #'AbstractInstruction *'>
-	jumpNotSF := self genJumpNotSmallFloat: oopReg scratchReg: scratch.
+	jumpNotSF := self genJumpNotSmallFloat: oopReg.
 	self genGetSmallFloatValueOf: oopReg scratch: scratch into: dpReg.
 	cogit Jump: targetInst.
 	jumpNotSF jmpTarget: cogit Label.

@@ -1,3 +1,3 @@
 object testing
 isIntegerObject: oop
-	^(oop bitAnd: 1) ~= 0
+	^(oop bitAnd: self smallIntegerTag) ~= 0

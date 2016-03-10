@@ -1,4 +1,4 @@
-interpreter access
+object testing
 isImmediateFloat: oop
 	<inline: true>
-	^(oop bitAnd: self tagMask) = self smallFloatTag
+	^oop anyMask: self smallFloatTag

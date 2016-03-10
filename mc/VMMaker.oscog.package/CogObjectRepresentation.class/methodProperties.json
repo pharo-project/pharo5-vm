@@ -41,7 +41,7 @@
 		"genJumpNotSmallIntegerValue:scratch:" : "eem 12/9/2015 11:10",
 		"genJumpNotSmallIntegersIn:andScratch:scratch:" : "eem 2/24/2016 16:21",
 		"genJumpSmallInteger:" : "eem 5/30/2015 11:22",
-		"genJumpSmallInteger:scratchReg:" : "eem 12/13/2015 16:53",
+		"genJumpSmallInteger:scratchReg:" : "eem 3/10/2016 10:39",
 		"genLoadSlot:sourceReg:destReg:" : "eem 9/30/2013 22:32",
 		"genNewArrayOfSize:initialized:" : "eem 5/31/2014 08:52",
 		"genPrimitiveAdd" : "eem 1/7/2016 13:37",

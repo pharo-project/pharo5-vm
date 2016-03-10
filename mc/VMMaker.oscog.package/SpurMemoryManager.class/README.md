@@ -1,15 +1,15 @@
 SpurMemoryManager is a new object representation and garbage collector for the Cog VM's.  Spur is dedicated to Andreas Raab, friend and colleague.  I miss you, Andreas.  The goal for Spur is an overall improvement in Cog of -50% (twice as fast) for memory-intensive benchmarks.  
 
 A detailed design sketch is included below after the instance variable descriptions.  The instance variable declarations can be checked for extra and missing declarations by making a literal array out of them and using
-	| ivs |
+	(| ivs |
 	ivs := (#(becomeEffectsFlags		<Integer> ...) piecesCutWhere: [:a :b| a = #>]) collect: [:ea| ea first].
 	{ivs reject: [:iv| SpurMemoryManager instVarNames includes: iv].
-	(SpurMemoryManager instVarNames reject: [:iv| ivs includes: iv]) sort}
+	(SpurMemoryManager instVarNames reject: [:iv| ivs includes: iv]) sort})
 The instance variable descriptions can be checked for extra and missing declarations by making a literal string out of them and using
-	| ivs |
+	(| ivs |
 	ivs := ('becomeEffectsFlags...' piecesCutWhere: [:a :b| a = Character cr]) select: [:s| s notEmpty and: [s first isLetter]] thenCollect: [:ea| ea withoutTrailingBlanks].
 	{ivs reject: [:iv| SpurMemoryManager instVarNames includes: iv].
-	(SpurMemoryManager instVarNames reject: [:iv| ivs includes: iv]) sort}
+	(SpurMemoryManager instVarNames reject: [:iv| ivs includes: iv]) sort})
 
 Instance Variables
 	becomeEffectsFlags		<Integer>
@@ -40,6 +40,7 @@ Instance Variables
 	lowSpaceThreshold		<Integer address>
 	marking					<Boolean>
 	markStack					<Integer objStack oop>
+	maxOldSpaceSize			<Integer>
 	memory					<Bitmap|LittleEndianBitmap>
 	needGCFlag				<Boolean>
 	newSpaceLimit				<Integer address>
@@ -76,13 +77,10 @@ Instance Variables
 	statScavengeGCUsecs		<Integer>
 	statScavenges				<Integer>
 	statShrinkMemory			<Integer>
-	statSpecialMarkCount		<Integer>
-	statSurvivorCount			<Integer>
 	totalFreeOldSpace			<Integer>
 	trueObj						<Integer oop>
 	unscannedEphemerons		<SpurContiguousObjStack>
 	weaklingStack				<Integer objStack oop>
-
 becomeEffectsFlags
 	- a set of flags to limit the work done during become; one of BecameCompiledMethodFlag, BecamePointerObjectFlag
 	
@@ -171,6 +169,9 @@ marking
 
 markStack
 	- the objStack that houses the mark stack.
+
+maxOldSpaceSize
+	- the maximum allowed size of old space in bytes.  If zero, there is no limit.
 
 memory
 	- in the Simulator this is the single oldSpace segment that contains the codeZone, newSpace and oldSpace.  In C it is effectively the base address of used memory.
@@ -301,7 +302,7 @@ For details see "60-bit immediate Floats" below.
 
 - efficient scavenging.  The current Squeak GC uses a slow pointer-reversal collector that writes every field in live objects three times in each collection, twice in the pointer-reversing heap traversal to mark live objects and once to update the pointer to its new location.  A scavenger writes every field of live data twice in each collection, once as it does a block copy of the object when copying to to space, once as it traverses the live pointers in the to space objects.  Of course the block copy is a relatively cheap write.
 
-- lazy become.  Squeak uses direct pointers and Spur retains them.  The JIT's use of inline cacheing provides a cheap way of avoiding scanning the heap as part of a become (which is the simple approach to implementing become in a system with direct pointers).  A becomeForward: on a (set of) non-zero-sized object(s) turns the object into a "forwarder" whose first (non-header) word/slot is replaced by a pointer to the target of the becomeForward:.  The forwarder's class index is set to one that identifies fowarders (in fact classIndex 8), and, because it is a special, hidden class index, will always fail an inline cache test.  The inline cache failure code is then responsible for following the forwarding pointer chain (these are Iliffe vectors :) ) and resolving to the actual target.  (In the interpreter there needs to be a similar check when probing the method cache).   It has yet to be determined exactly how this is done (e.g. change the receiver register and/or stack contents and retry the send, perhaps scanning the current activation).  See become read barrier below on how we deal with becomes on objects with named inst vars.  We insist that objects are at least 16 bytes in size (see 8-byte alignment below) so that there will always be space for a forwarding pointer.  Since none of the immediate classes can have non-immediate instances and since we allocate the immediate class indices corresponding to their tag pattern (SmallInteger = 1 & 3, Character = 2, SmallFloat = 5?) we can use all the class indices from 0 to 7 for special uses, 0 = free, and e.g. 1 = isForwarded.  In general what's going on here is the implemention of a partial read barrier. Certain operations require a read barrier to ensure access of the target of the forwarder, not the forwarder itself.  Read barriers stink (have poor performance), so we must restrict the read barrier to as few places as possible.  See become read barrier below.  See http://www.mirandabanda.org/cogblog/2013/09/13/lazy-become-and-a-partial-read-barrier/ & http://www.mirandabanda.org/cogblog/2014/02/08/primitives-and-the-partial-read-barrier/.
+- lazy become.  Squeak uses direct pointers and Spur retains them.  The JIT's use of inline cacheing provides a cheap way of avoiding scanning the heap as part of a become (which is the simple approach to implementing become in a system with direct pointers).  A becomeForward: on a (set of) non-zero-sized object(s) turns the object into a "forwarder" whose first (non-header) word/slot is replaced by a pointer to the target of the becomeForward:.  The forwarder's class index is set to one that identifies fowarders (in fact classIndex 8), and, because it is a special, hidden class index, will always fail an inline cache test.  The inline cache failure code is then responsible for following the forwarding pointer chain (these are Iliffe vectors :) ) and resolving to the actual target.  (In the interpreter there needs to be a similar check when probing the method cache).   It has yet to be determined exactly how this is done (e.g. change the receiver register and/or stack contents and retry the send, perhaps scanning the current activation).  See become read barrier below on how we deal with becomes on objects with named inst vars.  We insist that objects are at least 16 bytes in size (see 8-byte alignment below) so that there will always be space for a forwarding pointer.  Since none of the immediate classes can have non-immediate instances and since we allocate the immediate class indices corresponding to their tag pattern (in 32-bits, SmallInteger = 1 & 3, Character = 2; in 64-bits, SmallInteger = , Character = 2, SmallFloat = 4) we can use all the class indices from 0 to 7 for special uses, 0 = free, and e.g. 1 = isForwarded.  In general what's going on here is the implemention of a partial read barrier. Certain operations require a read barrier to ensure access of the target of the forwarder, not the forwarder itself.  Read barriers stink (have poor performance), so we must restrict the read barrier to as few places as possible.  See become read barrier below.  See http://www.mirandabanda.org/cogblog/2013/09/13/lazy-become-and-a-partial-read-barrier/ & http://www.mirandabanda.org/cogblog/2014/02/08/primitives-and-the-partial-read-barrier/.
 
 - pinning.  To support a robust and easy-to-use FFI the memory manager must support temporary pinning where individual objects can be prevented from being moved by the GC for as long as required, either by being one of an in-progress FFI call's arguments, or by having pinning asserted by a primitive (allowing objects to be passed to external code that retains a reference to the object after returning).  Pinning probably implies a per-object "is-pinned" bit in the object header.  Objects are only pinnable in old space.  Pinning of new space objects is done via lazy become; i..e an object in new space is forwarded to a pinned copy of the object in old space.
 
@@ -437,10 +438,10 @@ to      +/- 0x47ff,ffff,ffff,ffff / 6.8056473384188d+38
 The encoded tagged form has the sign bit moved to the least significant bit, which allows for faster encode/decode because offsetting the exponent can't overflow into the sign bit and because testing for +/- 0 is an unsigned compare for <= 0xf: 
     msb                                                                                        lsb 
     [8 exponent subset bits][52 mantissa bits ][1 sign bit][3 tag bits] 
-So assuming the tag is 5, the tagged non-zero bit patterns are 
-             0x0000,0000,0000,001[d/5] 
-to           0xffff,ffff,ffff,fff[d/5] 
-and +/- 0d is 0x0000,0000,0000,000[d/5] 
+So given the tag is 4, the tagged non-zero bit patterns are 
+             0x0000,0000,0000,001[c(8+4)] 
+to           0xffff,ffff,ffff,fff[c(8+4)] 
+and +/- 0d is 0x0000,0000,0000,000[c(8+4)] 
 Encode/decode of non-zero values in machine code looks like: 
 						msb                                              lsb 
 Decode:				[8expsubset][52mantissa][1s][3tags] 
@@ -455,7 +456,7 @@ shift:					[8expsubset][52 mantissa][1s][ 000 ]
 or/add tags:			[8expsubset][52mantissa][1s][3tags] 
 but is slower in C because 
 a) there is no rotate, and 
-b) raw conversion between double and quadword must (at least in the source) move bits through memory ( quadword = *(q64 *)&doubleVariable). 
+b) raw conversion between double and quadword must (at least in the source) move bits through memory (quadword = *(q64 *)&doubleVariable). 
 
 
 Heap Walking

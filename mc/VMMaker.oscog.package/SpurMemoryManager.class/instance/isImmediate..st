@@ -1,4 +1,4 @@
 object testing
 isImmediate: oop
 	<api>
-	^(oop bitAnd: self tagMask) ~= 0
+	^oop anyMask: self tagMask

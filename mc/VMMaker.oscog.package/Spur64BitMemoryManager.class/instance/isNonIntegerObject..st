@@ -1,3 +1,3 @@
 object testing
 isNonIntegerObject: oop
-	^(oop bitAnd: self tagMask) ~= 1
+	^oop noMask: self smallIntegerTag
