@@ -15,6 +15,7 @@ baselineGit: spec
 			package: 'SharedPool-Speech';
 			package: 'Balloon-Engine-Pools';
 			package: 'Sound';
+			package: 'SDL2DisplayPlugin';
 			"package: 'Alien-Core';"
 			package: 'VMMaker' with: [ 
 				spec 
@@ -73,8 +74,8 @@ baselineGit: spec
 				package: 'PharoVMMaker' with: [ spec requires: 'CMakeVMMaker' ].
 			
 			spec 
-				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' "'pharoPlugins'" 'pharoBuilders' 'libs');
+				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
 				group: 'pharoCompatibility' with: #('CogVMMakerPharoCompatibility' 'SpurVMMakerPharoCompatibility');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
-				"group: 'pharoPlugins' with: #();"
+				group: 'pharoPlugins' with: #('SDL2DisplayPlugin');
 				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
