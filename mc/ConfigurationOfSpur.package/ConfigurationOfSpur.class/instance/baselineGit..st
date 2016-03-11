@@ -15,7 +15,6 @@ baselineGit: spec
 			package: 'SharedPool-Speech';
 			package: 'Balloon-Engine-Pools';
 			package: 'Sound';
-			package: 'SDL2DisplayPlugin';
 			"package: 'Alien-Core';"
 			package: 'VMMaker' with: [ 
 				spec 
@@ -35,6 +34,7 @@ baselineGit: spec
 			package: 'ObjectiveC-Plugin' with: [ spec requires: #('VMMaker') ];
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
 			package: 'CryptographyPlugins' with: [ spec requires: #('VMMaker') ];
+			package: 'SDL2DisplayPlugin' with: [ spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
 			package: 'SpurVMMaker' with: [ spec requires: #('Cog') ].				
 
