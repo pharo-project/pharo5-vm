@@ -1,9 +1,8 @@
 building
 buildMacOSX32 
-	"Build with freetype, cairo, osprocess"
 	PharoSpur32OSXConfig new  
 		generationType: generationType;
-		addExternalPlugins: #( FT2Plugin );
+		addExternalPlugins: #( FT2Plugin SDL2DisplayPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		addThirdpartyLibraries: #(
 			'cairo' 
