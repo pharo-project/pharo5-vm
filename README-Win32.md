@@ -1,4 +1,4 @@
-#Windows Build Setup:
+#Windows (32bits) Build Setup:
 
 ##Prerequisites
 

@@ -3,54 +3,15 @@ Build Status [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png)](htt
 
 REQUIREMENTS
 ============
-
 The build relies on a valid gcc, cmake and 32 bit headers installation:
 
-Unix:
------
-see [setup-ubuntu.sh](scripts/setup-ubuntu.sh) for a complete setup for a recent ubuntu machine.
-
-Mac:
------
-To build the VM you need: git, cmake, wget, gnu-tar, the latest version of Xcode, and the MacOSX 10.6 SDK.
-
-One way of downloading and installing these is to use the [homebrew](http://brew.sh/) package manager:
-```bash
-# install homebrew with the following oneliner:
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# if you haven't installed git yet
-brew install git
-# if you haven't installed cmake yet
-brew install cmake
-# wget is needed in certain cases to download files
-brew install wget
-# OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
-#Follow the instruction of `brew info gnu-tar` to make this `tar` version the system default
-brew install gnu-tar --default-names
-```
-
-Install the latest version of [XCode](https://itunes.apple.com/en/app/xcode/id4977998350) and XCode command line tools.
-Download [MacOSX10.6.sdk.zip](http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip) and put in [Xcode SDK folder](file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs):
-```bash	  
-# make sure you're root: sudo su
-cd /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
-wget http://files.pharo.org/vm/src/lib/MacOSX10.6.sdk.zip
-unzip MacOSX10.6.sdk.zip
-rm MacOSX10.6.sdk.zip
-```
-
-Windows:
---------
-Building the VM under windows requires a more complex setup which is described in the separate [win32 readme](README-Win32.md) file.
-
-iOS:
-----
-Building the VM under iOS requires a more complex setup which is described in the separate [iOS readme](README-iOS.md) file.
-
+- [Linux](README-Linux.md)
+- [OSX](README-OSX.md)
+- [Win32](README-Win32.md)
+- [iOS](README-iOS.md)
 
 Building the VM
 ================
-(For Windows build, see below)
 
 1. Download the sources from [github](https://github.com/pharo-project/pharo-vm)
  ```bash
