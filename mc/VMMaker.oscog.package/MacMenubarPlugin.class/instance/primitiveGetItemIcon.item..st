@@ -1,12 +1,11 @@
 system primitives
 primitiveGetItemIcon: menuHandleOop item: anInteger
+	<var: #menuHandle type: #MenuHandle>
+	<var: #iconIndex type: #short>
 	| menuHandle iconIndex |
 	self primitive: 'primitiveGetItemIcon'
 		parameters: #(Oop SmallInteger).
-	self var: 'menuHandle' type: 'MenuHandle'.
-	self var: 'iconIndex' type: 'short'.
-	
-	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: #MenuHandle.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	iconIndex := 0.
 	self cCode: 'GetItemIcon(menuHandle,anInteger,&iconIndex)' inSmalltalk:[menuHandle].

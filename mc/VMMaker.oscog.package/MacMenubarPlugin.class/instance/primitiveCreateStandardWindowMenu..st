@@ -1,13 +1,9 @@
 system primitives
 primitiveCreateStandardWindowMenu: inOptions 
-
+	<var: #menuHandle type: #MenuHandle>
 	| menuHandle result |
 	self primitive: 'primitiveCreateStandardWindowMenu'
 		parameters: #(SmallInteger).
-	self var: 'menuHandle' type: 'MenuHandle'.
-	
-	self cCode: '#if TARGET_API_MAC_CARBON
-'.
-	result := self cCode: 'CreateStandardWindowMenu(inOptions,&menuHandle);
-#endif' inSmalltalk:[0].
+	self cppIf: #TARGET_API_MAC_CARBON
+		ifTrue: [result := self cCode: 'CreateStandardWindowMenu(inOptions,&menuHandle);' inSmalltalk:[0]].
 	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')

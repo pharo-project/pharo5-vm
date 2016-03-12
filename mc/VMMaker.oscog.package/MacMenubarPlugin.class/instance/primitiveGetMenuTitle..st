@@ -1,13 +1,12 @@
 system primitives
 primitiveGetMenuTitle: menuHandleOop
 	| menuHandle size oop ptr aString |
-	<var: 'menuHandle' type: 'MenuHandle'>
-	<var: #aString type: 'Str255 '>
+	<var: #menuHandle type: #MenuHandle>
+	<var: #aString type: #Str255>
 	<var: #ptr type: 'char *'>
 	self primitive: 'primitiveGetMenuTitle'
 		parameters: #(Oop).
-	
-	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: #MenuHandle.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	aString at: 0 put: 0.
 	self cCode: 'GetMenuTitle(menuHandle,aString)' inSmalltalk:[menuHandle].
