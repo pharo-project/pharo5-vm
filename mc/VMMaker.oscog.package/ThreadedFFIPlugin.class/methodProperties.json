@@ -90,7 +90,7 @@
 		"primitiveFFIIntegerAt" : "eem 3/9/2016 00:27",
 		"primitiveFFIIntegerAtPut" : "eem 2/21/2016 15:38",
 		"primitiveForceLoad" : "eem 11/24/2014 10:59",
-		"primitiveLoadSymbolFromModule" : "eem 2/22/2016 16:13",
+		"primitiveLoadSymbolFromModule" : "EstebanLorenzano 3/11/2016 15:38",
 		"primitiveLogCallsTo" : "eem 7/21/2011 14:12",
 		"primitiveSetManualSurfacePointer" : "eem 2/20/2016 11:36",
 		"registerArgsSlop" : "eem 11/3/2009 13:14",
