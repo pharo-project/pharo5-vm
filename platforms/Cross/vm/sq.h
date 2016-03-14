@@ -619,6 +619,11 @@ void *ioFindExternalFunctionInAccessorDepthInto(char *lookupName, void *moduleHa
 #else
 void *ioFindExternalFunctionIn(char *lookupName, void *moduleHandle);
 #endif
+/* ioFindGlobalFunction
+    Load a symbol in global module (current binary)
+*/
+void *ioFindGlobalFunction(char *lookupName);
+
 
 /* ioFreeModule:
 	Free the module with the associated handle.

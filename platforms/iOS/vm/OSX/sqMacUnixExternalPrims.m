@@ -322,6 +322,12 @@ ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
   return fn;
 }
 
+void *
+ioFindGlobalFunction(char *lookupName)
+{
+    return dlsym(RTLD_DEFAULT, lookupName);
+}
+
 
 /*  Free the module with the associated handle.  Answer 0 on error (do
  *  NOT fail the primitive!).

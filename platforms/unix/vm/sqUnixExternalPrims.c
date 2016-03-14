@@ -340,13 +340,13 @@ ioLoadModule(char *pluginName)
 			return handle;
 	}
 
-    if (   (handle= tryLoadingLinked(						pluginName)) 	// Try linked/referenced libs
-        || (handle= tryLoading(    "./",				 	pluginName))	// Try local dir
+    if (   (handle= tryLoadingLinked(				pluginName)) 	// Try linked/referenced libs
+        || (handle= tryLoading(    "./",			pluginName))	// Try local dir
         || (handle= tryLoadingPath("SQUEAK_PLUGIN_PATH", 	pluginName))	// Try squeak path
         || (handle= tryLoadingPath("LD_LIBRARY_PATH",		pluginName)) 	// Try library path
-        || (handle= tryLoading(    "",						pluginName))	// Try no path
+        || (handle= tryLoading(    "",				pluginName))	// Try no path
   #    if defined(VM_X11DIR)
-        || (handle= tryLoading(VM_X11DIR"/",		pluginName))			// Try X11 path
+        || (handle= tryLoading(VM_X11DIR"/",			pluginName))	// Try X11 path
   #    endif
         )
     return handle;
@@ -466,7 +466,11 @@ ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
   return fn;
 }
 
-
+void *
+ioFindGlobalFunction(char *lookupName)
+{
+    return dlsym(RTLD_DEFAULT, lookupName);
+}
 
 /*  Free the module with the associated handle.  Answer 0 on error (do
  *  NOT fail the primitive!).

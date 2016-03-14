@@ -436,6 +436,7 @@ ioLoadExternalFunctionOfLengthFromModuleOfLengthAccessorDepthInto
 /* ioLoadSymbolOfLengthFromModule
 	This entry point is exclusively for the FFI.
 */
+#include <dlfcn.h>
 void *
 ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNameLength, void *moduleHandle)
 {
@@ -448,7 +449,7 @@ ioLoadSymbolOfLengthFromModule(sqInt functionNameIndex, sqInt functionNameLength
 	functionName[functionNameLength] = 0;
 	return moduleHandle
 		? ioFindExternalFunctionIn(functionName, moduleHandle)
-		: 0;
+		: ioFindGlobalFunction(functionName);
 }
 
 /* ioLoadModuleOfLength
