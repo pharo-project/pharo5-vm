@@ -1,12 +1,11 @@
 system primitives
 primitiveGetMenuItemTextEncoding: menuHandleOop item: anInteger
+	<var: #menuHandle type: #MenuHandle>
+	<var: #outScriptID type: #TextEncoding>
 	| menuHandle outScriptID |
 	self primitive: 'primitiveGetMenuItemTextEncoding'
 		parameters: #(Oop SmallInteger).
-	self var: 'menuHandle' type: 'MenuHandle'.
-	self var: 'outScriptID' type: 'TextEncoding'.
-	
-	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: #MenuHandle.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
 	self cCode: 'GetMenuItemTextEncoding(menuHandle,anInteger,&outScriptID)' inSmalltalk:[menuHandle].
 	^interpreterProxy positive32BitIntegerFor: outScriptID

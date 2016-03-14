@@ -1,15 +1,13 @@
 system primitives
 primitiveDisableMenuCommand: menuHandleOop item: anInteger
+	<var: #menuHandle type: #MenuHandle>
+	<var: #commandID type: #MenuCommand>
 	| menuHandle commandID |
 	self primitive: 'primitiveDisableMenuCommand'
 		parameters: #(Oop Oop).
-	self var: 'menuHandle' type: 'MenuHandle'.
-	self var: 'commandID' type: 'MenuCommand'.
-	
-	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
-	commandID := self cCoerce: (interpreterProxy positive32BitValueOf: anInteger) to: 'MenuCommand'.
+	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: #MenuHandle.
+	commandID := self cCoerce: (interpreterProxy positive32BitValueOf: anInteger) to: #MenuCommand.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
-	self cCode: '#if TARGET_API_MAC_CARBON
-DisableMenuCommand(menuHandle,commandID);
-#endif' inSmalltalk:[menuHandle].
+	self cppIf: #TARGET_API_MAC_CARBON
+		ifTrue: [self cCode: 'DisableMenuCommand(menuHandle,commandID);' inSmalltalk: [menuHandle]].
 	^nil
