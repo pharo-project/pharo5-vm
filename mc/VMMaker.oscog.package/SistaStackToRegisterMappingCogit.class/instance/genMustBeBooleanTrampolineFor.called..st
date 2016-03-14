@@ -36,8 +36,9 @@ genMustBeBooleanTrampolineFor: boolean called: trampolineName
 		[self PopR: LinkReg].
 	"To keep ResultReceiverReg live if optStatus thought it was, simply reload it
 	 from the frame pointer.  This avoids having to reload it in the common case
-	 (counter does not trip) if it was live."
-	self putSelfInReceiverResultReg.
+	 (counter does not trip) if it was live.  Note we can't use putSelfInReceiverResultReg
+	 when generating trampolines because simSelf has not yet been initialized."
+	self MoveMw: FoxMFReceiver r: FPReg R: ReceiverResultReg.
 	self RetN: 0.
 	"If the objectRepresentation does want true & false to be mobile then we need to record these addresses."
 	self assert: (objectRepresentation shouldAnnotateObjectReference: boolean) not.

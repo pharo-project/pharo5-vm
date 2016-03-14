@@ -11,9 +11,7 @@ populate: tuple withPICInfoFor: cPIC firstCacheTag: firstCacheTag
 		pc := self addressOfEndOfCase: i inCPIC: cPIC.
 		cacheTag := i = 1
 						ifTrue: [firstCacheTag]
-						ifFalse: [backEnd literalBeforeFollowingAddress: pc
-																		- backEnd jumpLongConditionalByteSize
-																		- backEnd loadLiteralByteSize].
+						ifFalse: [backEnd literalBeforeFollowingAddress: pc - backEnd jumpLongConditionalByteSize].
 		classOop := objectRepresentation classForInlineCacheTag: cacheTag.
 		objectMemory storePointer: i * 2 - 1 ofObject: tuple withValue: classOop.
 		entryPoint := i = 1
