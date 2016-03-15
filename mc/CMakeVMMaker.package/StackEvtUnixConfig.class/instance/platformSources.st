@@ -5,7 +5,7 @@ platformSources
 
   ^ super platformSources collect: [ :file | (file = 'sqUnixMain.c') 
 											ifTrue: 'sqUnixEvtMain.c'  
-											ifFalse: [(file = 'sqUnixHeartbeat.c') 
+											ifFalse: [(file = 'sqUnixITimerHeartbeat.c') 
 												ifTrue: 'sqUnixEvtBeat.c'
 												ifFalse: file]
 											].

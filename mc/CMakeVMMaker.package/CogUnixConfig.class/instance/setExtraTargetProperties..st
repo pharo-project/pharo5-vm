@@ -9,7 +9,7 @@ setExtraTargetProperties: maker
 	
 	maker 
 		cmd: 'set_source_files_properties'
-		params: ' ${targetPlatform}/vm/sqUnixHeartbeat.c PROPERTIES 
+		params: ' ${targetPlatform}/vm/sqUnixITimerHeartbeat.c PROPERTIES 
 		COMPILE_FLAGS "-O1 -fno-omit-frame-pointer -mno-rtd -mno-accumulate-outgoing-args"'.
 						
 	super setExtraTargetProperties: maker.
