@@ -104,16 +104,6 @@ ioFindExternalFunctionIn(char *lookupName, void *moduleHandle)
 }
 #endif /* SPURVM */
 
-void *
-ioFindGlobalFunction(char *lookupName)
-{
-# ifdef UNICODE
-    return GetProcAddress(GetModuleHandle(NULL), toUnicode(lookupName));
-# else
-    return GetProcAddress(GetModuleHandle(NULL), lookupName);
-# endif
-}
-
 sqInt ioFreeModule(void *moduleHandle)
 {
 	return FreeLibrary((HANDLE) moduleHandle);
