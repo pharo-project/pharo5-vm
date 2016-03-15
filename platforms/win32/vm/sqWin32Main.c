@@ -7,7 +7,7 @@
 *   ADDRESS: University of Magdeburg, Germany
 *   EMAIL:   raab@isg.cs.uni-magdeburg.de
 *
-*   NOTES:
+*   NOTES: (I think this comment of Andreas' is obsolete; eem 6/2013)
 *    1) When using this module the virtual machine MUST NOT be compiled
 *       with Unicode support.
 *****************************************************************************/

@@ -70,8 +70,10 @@ extern sqSqueakAppDelegate *gDelegateApp;
 extern sqInt interpret(void);  //This is a VM Callback
 
 - (id) init {
-    [super init];
-    [self setNoHandlers: NO];
+    self = [super init];
+    if (self) {
+        [self setNoHandlers: NO];
+    }
     return self;
 }
 

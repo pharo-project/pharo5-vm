@@ -173,8 +173,6 @@ pcbufferSIGPROFhandler(int sig, siginfo_t *info, ucontext_t *uap)
 		pc_buffer_index = 0;
 		pc_buffer_wrapped = 1;
 	}
-	
-	return 0;
 }
 
 

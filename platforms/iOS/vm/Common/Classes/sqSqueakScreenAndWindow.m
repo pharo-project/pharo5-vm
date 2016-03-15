@@ -40,6 +40,7 @@ Some of this code was funded via a grant from the European Smalltalk User Group 
 #import "sqSqueakScreenAndWindow.h"
 #import "sqSqueakMainApplication+screen.h"
 #import "sqMacHostWindow.h"
+
 #ifdef BUILD_FOR_OSX
 #import "SqueakOSXAppDelegate.h"
 extern SqueakOSXAppDelegate *gDelegateApp;

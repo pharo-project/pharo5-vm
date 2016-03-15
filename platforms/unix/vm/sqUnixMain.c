@@ -42,14 +42,6 @@
 #include "sqUnixMain.h"
 #include "debug.h"
 
-#ifdef ioMSecs
-# undef ioMSecs
-#endif
-
-#ifdef ANDROID
-#include "androidUContext.h"
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -220,14 +212,8 @@ ioInitTime(void)
     }
 }
 
-sqInt ioLowResMSecs(void)
-{
-  return (useItimer)
-    ? lowResMSecs
-    : ioMSecs();
-}
 
-sqInt ioMSecs(void)
+long ioMSecs(void)
 {
   struct timeval now;
   gettimeofday(&now, 0);
@@ -240,7 +226,7 @@ sqInt ioMSecs(void)
   return lowResMSecs= (now.tv_usec / 1000 + now.tv_sec * 1000);
 }
 
-sqInt ioMicroMSecs(void)
+long ioMicroMSecs(void)
 {
   /* return the highest available resolution of the millisecond clock */
   return ioMSecs();	/* this already to the nearest millisecond */
@@ -865,7 +851,7 @@ reportStackState(char *msg, char *date, int printAll, ucontext_t *uap)
 			char *savedSP, *savedFP;
 
 			ifValidWriteBackStackPointersSaveTo(fp,sp,&savedFP,&savedSP);
-#endif
+#endif /* COGVM */
 
 			printingStack = true;
 			if (printAll) {

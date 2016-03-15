@@ -44,12 +44,13 @@
 #include "HostWindowPlugin.h"
 #ifdef BUILD_FOR_OSX
 #include <ApplicationServices/ApplicationServices.h>
+#define wHandleType  NSWindow *
 #else
 #include <CoreGraphics/CoreGraphics.h>
+#define wHandleType  UIWindow *
 #endif
 /* window handle type */
-#define wHandleType void *
-#define wIndexType sqInt 
+#define wIndexType sqInt
 
 typedef struct windowDescriptorBlock {
 	struct windowDescriptorBlock * next;

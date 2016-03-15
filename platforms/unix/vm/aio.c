@@ -95,19 +95,12 @@
 #endif
 
 
-#undef	DEBUG
-
-#if defined(DEBUG)
-  int aioLastTick= 0;
-  int aioThisTick= 0;
-# define FPRINTF(X) { aioThisTick= ioMSecs();  fprintf(stderr, "%8d %8d ", aioThisTick, aioThisTick - aioLastTick);  aioLastTick= aioThisTick;  fprintf X; }
-#else
-# define FPRINTF(X)
+#if defined(AIO_DEBUG)
+long aioLastTick= 0;
+long aioThisTick= 0;
 #endif
 
 #define _DO_FLAG_TYPE()	do { _DO(AIO_R, rd) _DO(AIO_W, wr) _DO(AIO_X, ex) } while (0)
-
-static int one= 1;
 
 static aioHandler  rdHandler[FD_SETSIZE];
 static aioHandler  wrHandler[FD_SETSIZE];
@@ -128,7 +121,10 @@ static void undefinedHandler(int fd, void *clientData, int flags)
   fprintf(stderr, "undefined handler called (fd %d, flags %x)\n", fd, flags);
 }
 
-#ifdef DEBUG
+#ifdef AIO_DEBUG
+const char *__shortFileName(const char *full__FILE__name)
+{ const char *p = strrchr(full__FILE__name,'/');
+  return p ? p + 1 : full__FILE__name;}
 static char *handlerName(aioHandler h)
 {
   if (h == undefinedHandler) return "undefinedHandler";
@@ -210,7 +206,7 @@ long aioPoll(long microSeconds)
   fd_set rd, wr, ex;
   unsigned long long us;
 
-  FPRINTF((stderr, "aioPoll(%d)\n", microSeconds));
+  FPRINTF((stderr, "aioPoll(%ld)\n", microSeconds));
   DO_TICK(SHOULD_TICK());
 
   /* get out early if there is no pending i/o and no need to relinquish cpu */

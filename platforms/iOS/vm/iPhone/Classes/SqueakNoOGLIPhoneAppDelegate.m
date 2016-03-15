@@ -60,7 +60,6 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 @synthesize viewController;
 @synthesize screenAndWindow;
 
-
 - (sqSqueakMainApplication *) makeApplicationInstance {
 	return [sqSqueakIPhoneApplication new];
 }

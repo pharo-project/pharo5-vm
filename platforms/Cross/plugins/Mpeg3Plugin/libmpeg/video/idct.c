@@ -70,7 +70,7 @@
 
  
 
-int mpeg3video_idctrow(short *blk)
+void mpeg3video_idctrow(short *blk)
 {
 	int x0, x1, x2, x3, x4, x5, x6, x7, x8;
 
@@ -79,7 +79,7 @@ int mpeg3video_idctrow(short *blk)
           (x4 = blk[1]) | (x5 = blk[7]) | (x6 = blk[5]) | (x7 = blk[3])))
 	{
       blk[0]=blk[1]=blk[2]=blk[3]=blk[4]=blk[5]=blk[6]=blk[7]=blk[0]<<3;
-      return 0;
+      return;
 	}
 
 	x0 = (blk[0]<<11) + 128; /* for proper rounding in the fourth stage */
@@ -133,7 +133,7 @@ int mpeg3video_idctrow(short *blk)
  */
 
 
-int mpeg3video_idctcol(short *blk)
+void mpeg3video_idctcol(short *blk)
 {
   int x0, x1, x2, x3, x4, x5, x6, x7, x8;
 
@@ -142,7 +142,7 @@ int mpeg3video_idctcol(short *blk)
         (x4 = blk[8*1]) | (x5 = blk[8 * 7]) | (x6 = blk[8 * 5]) | (x7 = blk[8 * 3]))){
     blk[8*0]=blk[8*1]=blk[8 * 2]=blk[8 * 3]=blk[8 * 4]=blk[8 * 5]=blk[8 * 6]=blk[8 * 7]=
       (blk[8*0]+32)>>6;
-    return 0;
+    return;
   }
 
   x0 = (blk[8*0]<<8) + 8192;

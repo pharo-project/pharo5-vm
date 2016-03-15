@@ -56,12 +56,10 @@ sqInt dir_GetMacFileTypeAndCreator(char *filename, sqInt filenameSize, char *fTy
 	 filenameSize is size of file name
 	 fType and fCreator is type and creator codes (4 bytes preallocated)
 	 */
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-	sqInt status = [gDelegateApp.squeakApplication.fileDirectoryLogic dir_GetMacFileTypeAndCreator: filename
-			fileNameSize: filenameSize
-			fType: fType
-			fCreator: fCreator];
-	[pool drain];
+    sqInt status = [gDelegateApp.squeakApplication.fileDirectoryLogic dir_GetMacFileTypeAndCreator: filename
+                                                                                          fileNameSize: filenameSize
+                                                                                                 fType: fType
+                                                                                              fCreator: fCreator];
 	return status;
 }
 
@@ -71,12 +69,11 @@ sqInt dir_SetMacFileTypeAndCreator(char *filename, sqInt filenameSize, char *fTy
 	 filenameSize is size of file name
 	 fType and fCreator is type and creator codes (4 bytes)
 	 */
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	sqInt status = [gDelegateApp.squeakApplication.fileDirectoryLogic dir_SetMacFileTypeAndCreator: filename
 			fileNameSize: filenameSize
 			fType: fType
 			fCreator: fCreator];
-	[pool drain];
+
 	return status;
 }
 
@@ -85,8 +82,34 @@ sqInt dir_Delimitor(void)
 	//API Documented
 	return DELIMITERInt;
 }
+sqInt dir_Lookup2(char *pathString, sqInt pathStringLength, sqInt index,
+                  /* outputs */
+                  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink);
+#if !defined(PharoVM)
+# define PharoVM 0
+#endif
 
+#if PharoVM
 sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
+                 /* outputs: */
+                 char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissionsVar, sqInt *isSymlinkVar)
+#else
+sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
+                 /* outputs: */
+                 char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+#define posixPermissionsVar nil
+#define isSymlinkVar nil
+#endif
+{
+    sqInt status = dir_Lookup2(pathString, pathStringLength, index, name, nameLength, creationDate, modificationDate, isDirectory, sizeIfFile,posixPermissionsVar,isSymlinkVar);
+    return status;
+}
+
+
+sqInt dir_Lookup2(char *pathString, sqInt pathStringLength, sqInt index,
                  /* outputs */
                  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
 				 sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
@@ -103,9 +126,7 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 	/*Implementation notes
 	 if pathStringLength = 0 then we use the current working directory
 	 if pathStringLength > 0 then we resolve the pathString and alias */
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-
-	sqInt status =
+    sqInt status =
 			[gDelegateApp.squeakApplication.fileDirectoryLogic dir_Lookup: pathString 
 			length: pathStringLength 
 			index:  index 
@@ -117,56 +138,58 @@ sqInt dir_Lookup(char *pathString, sqInt pathStringLength, sqInt index,
 			sizeIfFile: sizeIfFile
             posixPermissions: posixPermissions
             isSymlink: isSymlink];
-	[pool drain];
 	return status;
 }
 
+#if PharoVM
 sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString, sqInt nameStringLength,
-/* outputs: */  char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
-					  sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissions, sqInt *isSymlink)
+                      /* outputs: */
+                      char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                      sqInt *isDirectory, squeakFileOffsetType *sizeIfFile, sqInt *posixPermissionsVar, sqInt *isSymlinkVar)
+#else
+sqInt dir_EntryLookup(char *pathString, sqInt pathStringLength, char* nameString, sqInt nameStringLength,
+                      /* outputs: */
+                      char *name, sqInt *nameLength, sqInt *creationDate, sqInt *modificationDate,
+                      sqInt *isDirectory, squeakFileOffsetType *sizeIfFile)
+#endif
 {
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-	
+
 	/*Implementation notes
 	 if pathStringLength = 0 then we use the current working directory
 	 if pathStringLength > 0 then we resolve the pathString and alias */
 	sqInt status =
-	[gDelegateApp.squeakApplication.fileDirectoryLogic dir_EntryLookup: pathString 
-														   length: pathStringLength 
-															returnName: nameString
-													  returnNameLength: nameStringLength	
-															 name: name
-														   length: nameLength 
-													 creationDate: creationDate 
-												 modificationDate: modificationDate
-													  isDirectory: isDirectory
-													   sizeIfFile: sizeIfFile
-                                                 posixPermissions: posixPermissions
-                                                        isSymlink: isSymlink];
-	[pool drain];
+	[gDelegateApp.squeakApplication.fileDirectoryLogic
+				  dir_EntryLookup: pathString 
+						   length: pathStringLength 
+							returnName: nameString
+					  returnNameLength: nameStringLength	
+							 name: name
+						   length: nameLength 
+					 creationDate: creationDate 
+				 modificationDate: modificationDate
+					  isDirectory: isDirectory
+					   sizeIfFile: sizeIfFile
+				 posixPermissions: (PharoVM ? posixPermissionsVar : nil)
+						isSymlink:  (PharoVM ? isSymlinkVar : nil)];
 	return status;
 }
 
 sqInt dir_Create(char *pathString, sqInt pathStringLength){
 	//API Documented
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	sqInt status = [gDelegateApp.squeakApplication.fileDirectoryLogic
 			dir_Create: pathString 
 			length: pathStringLength];
-	[pool drain];
 	return status;
 }
 
 sqInt dir_Delete(char *pathString, sqInt pathStringLength){
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
 	sqInt status = [gDelegateApp.squeakApplication.fileDirectoryLogic
 			dir_Delete: pathString 
 			length: pathStringLength];
-	[pool drain];
 	return status;
 }
 
-NSString* createFilePathFromString(char * aFilenameString, 
+NSString* createFilePathFromString(char * aFilenameString,
 									sqInt filenameLength, sqInt resolveAlias) {
 	
 	NSAutoreleasePool * pool = [NSAutoreleasePool new];

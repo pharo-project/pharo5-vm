@@ -230,4 +230,3 @@ void* SurfacePlugin_exports[][3] = {
   {NULL, NULL, NULL}
 };
 #endif /* ifdef SQ_BUILTIN_PLUGIN */
-
