@@ -2,6 +2,7 @@ method map
 printPCMapPairsFor: cogMethod
 	<api>
 	<var: 'cogMethod' type: #'CogMethod *'>
+	<var: 'mapByte' type: #'unsigned char'>
 	| mcpc map mapByte annotation value |
 	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
 	map := self mapStartFor: cogMethod.

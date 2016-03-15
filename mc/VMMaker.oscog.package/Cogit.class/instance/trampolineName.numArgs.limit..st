@@ -4,6 +4,7 @@ trampolineName: routinePrefix numArgs: numArgs limit: argsLimit
 	<inline: true>
 	<returnTypeC: #'char *'>
 	<var: #routinePrefix type: #'char *'>
+	<var: #numArgs type: #int>
 	| theString |
 	<var: #theString type: #'char *'>
 	self cCode: '' inSmalltalk:

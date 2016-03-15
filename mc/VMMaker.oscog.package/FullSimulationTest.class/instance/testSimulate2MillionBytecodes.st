@@ -2,7 +2,11 @@ as yet unclassified
 testSimulate2MillionBytecodes
 	<timeout: 120>
 	| vm om |
-	vm := StackInterpreterSimulator newWithOptions: #(#ObjectMemory #Spur32BitMemoryManager ).
+	vm := StackInterpreterSimulator newWithOptions: (Smalltalk isRunningSpur
+		ifTrue: [Smalltalk wordSize = 4
+			ifTrue: [#(#ObjectMemory #Spur32BitMemoryManager )]
+			ifFalse: [#(#ObjectMemory #Spur64BitMemoryManager )]]
+		ifFalse: [#(#ObjectMemory)]).
 	om := vm objectMemory.
 	vm desiredNumStackPages: 8. "Makes simulation faster by creating fewer stack pages."
 	vm openOn: Smalltalk imageName.
