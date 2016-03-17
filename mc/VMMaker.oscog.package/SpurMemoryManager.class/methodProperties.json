@@ -782,7 +782,7 @@
 		"sqAllocateMemorySegmentOfSize:Above:AllocatedSizeInto:" : "eem 5/21/2014 10:55",
 		"sqDeallocateMemorySegmentAt:OfSize:" : "eem 5/21/2014 11:06",
 		"stObject:at:put:" : "eem 9/23/2013 14:24",
-		"stSizeOf:" : "nice 3/16/2016 22:32",
+		"stSizeOf:" : "nice 3/17/2016 23:42",
 		"stackFloatValue:" : "eem 9/24/2013 13:51",
 		"stackIntegerValue:" : "eem 9/20/2013 18:07",
 		"stackObjectValue:" : "eem 9/20/2013 18:05",
