@@ -43,11 +43,8 @@ magnitude64BitIntegerFor: magnitude neg: isNegative
 				storeByte: 1 ofObject: newLargeInteger withValue: (magnitude >>   8 bitAnd: 16rFF);
 				storeByte: 0 ofObject: newLargeInteger withValue: (magnitude ">> 0" bitAnd: 16rFF)]
 		ifFalse:
-			[sz > 4 ifTrue:
-				[objectMemory storeLong32: 1 ofObject: newLargeInteger withValue: magnitude >> 32].
-			objectMemory
-				storeLong32: 0
-				ofObject: newLargeInteger
-				withValue: (self cCode: [magnitude] inSmalltalk: [magnitude bitAnd: 16rFFFFFFFF])].
+			[sz > 4
+				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude]
+				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (self cCode: [magnitude] inSmalltalk: [magnitude bitAnd: 16rFFFFFFFF])]].
 
 	^newLargeInteger

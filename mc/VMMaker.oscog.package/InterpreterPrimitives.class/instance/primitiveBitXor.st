@@ -9,14 +9,7 @@ primitiveBitXor
 		ifTrue: "xoring will leave the tag bits zero, whether the tag is 1 or zero, so add it back in."
 			[self pop: 2 thenPush: (integerArgument bitXor: integerReceiver) + objectMemory smallIntegerTag]
 		ifFalse:
-			[objectMemory wordSize = 8
-				ifTrue:
-					[integerArgument := self positive64BitValueOf: integerArgument.
-					 integerReceiver := self positive64BitValueOf: integerReceiver.
-					 self successful ifTrue:
-						[self pop: 2 thenPush: (self positive64BitIntegerFor: (integerArgument bitXor: integerReceiver))]]
-				ifFalse:
-					[integerArgument := self positive32BitValueOf: integerArgument.
-					 integerReceiver := self positive32BitValueOf: integerReceiver.
-					 self successful ifTrue:
-						[self pop: 2 thenPush: (self positive32BitIntegerFor: (integerArgument bitXor: integerReceiver))]]]
+			[integerArgument := self positiveMachineIntegerValueOf: integerArgument.
+			 integerReceiver := self positiveMachineIntegerValueOf: integerReceiver.
+			 self successful ifTrue:
+				[self pop: 2 thenPush: (self positiveMachineIntegerFor: (integerArgument bitXor: integerReceiver))]]

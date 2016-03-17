@@ -4,6 +4,7 @@ positive32BitIntegerFor: integerValue
 	 N.B.  Returning in each arm separately enables Slang inlining.
 	 /Don't/ return the ifTrue:ifFalse: unless Slang inlining of conditionals is fixed."
 	<inline: true>
+	<var: 'integerValue' type: #'unsigned int'>
 	objectMemory hasSixtyFourBitImmediates
 		ifTrue:
 			[^objectMemory integerObjectOf: (integerValue bitAnd: 16rFFFFFFFF)]

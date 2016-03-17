@@ -1,16 +1,17 @@
 primitive support
 positive64BitIntegerFor: integerValue
 	<api>
-	<var: 'integerValue' type: #sqLong>
+	<var: 'integerValue' type: #usqLong>
+	<var: 'highWord' type: #'unsigned int'>
 	"Answer a Large Positive Integer object for the given integer value.  N.B. will *not* cause a GC."
 	| newLargeInteger highWord sz |
 	objectMemory hasSixtyFourBitImmediates
 		ifTrue:
-			[(integerValue >= 0 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
+			[integerValue <= objectMemory maxSmallInteger ifTrue:
 				[^objectMemory integerObjectOf: integerValue].
 			 sz := 8]
 		ifFalse:
-			[(highWord := integerValue >>> 32) = 0 ifTrue:
+			[(highWord := integerValue >> 32) = 0 ifTrue:
 				[^self positive32BitIntegerFor: integerValue].
 			 sz := 5.
 			 (highWord := highWord >> 8) = 0 ifFalse:

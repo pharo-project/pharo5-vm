@@ -4,31 +4,20 @@ signed64BitIntegerFor: integerValue
 	"Answer a Large Integer object for the given integer value.  N.B. will *not* cause a GC."
 	| newLargeInteger magnitude largeClass highWord sz |
 	<inline: false>
-	<var: 'magnitude' type: #sqLong>
+	<var: 'magnitude' type: #usqLong>
 	<var: 'highWord' type: #usqInt>
 
-	objectMemory wordSize = 8 ifTrue:
-		[(objectMemory isIntegerValue: integerValue) ifTrue:
-			[^objectMemory integerObjectOf: integerValue].
-		 sz := 8].
-
 	integerValue < 0
-		ifTrue:[	largeClass := ClassLargeNegativeIntegerCompactIndex.
-				magnitude := 0 - integerValue]
-		ifFalse:[	largeClass := ClassLargePositiveIntegerCompactIndex.
+		ifTrue:[	integerValue >= objectMemory minSmallInteger ifTrue: [^objectMemory integerObjectOf: integerValue asInteger].
+				largeClass := ClassLargeNegativeIntegerCompactIndex.
+				magnitude := 0 - (self cCoerceSimple: integerValue to: #usqLong)]
+		ifFalse:[	integerValue <= objectMemory maxSmallInteger ifTrue: [^objectMemory integerObjectOf: integerValue asInteger].
+				largeClass := ClassLargePositiveIntegerCompactIndex.
 				magnitude := integerValue].
 
-	"Make sure to handle the most -ve value correctly. 0 - most -ve = most -ve and most -ve - 1
-	 is +ve.  Alas the simple (negative or: [integerValue - 1 < 0]) fails with contemporary gcc and icc
-	 versions with optimization and sometimes without.  The shift works on all, touch wood."
-	
-	objectMemory wordSize = 4 ifTrue:
-		[(magnitude <= 16r7FFFFFFF
-		  and: [integerValue >= 0
-			  or: [0 ~= (self cCode: [integerValue << 1]
-							inSmalltalk: [integerValue << 1 bitAnd: (1 << 64) - 1])]]) ifTrue:
-				[^self signed32BitIntegerFor: integerValue].
-
+	objectMemory wordSize = 8
+		ifTrue: [sz := 8]
+		ifFalse: [
 		 (highWord := magnitude >> 32) = 0 
 			ifTrue: [sz := 4] 
 			ifFalse:
@@ -58,8 +47,7 @@ signed64BitIntegerFor: integerValue
 				storeByte: 1 ofObject: newLargeInteger withValue: (magnitude >>   8 bitAnd: 16rFF);
 				storeByte: 0 ofObject: newLargeInteger withValue: (magnitude ">> 0" bitAnd: 16rFF)]
 		ifFalse:
-			[sz > 4 ifTrue:
-				[objectMemory storeLong32: 1 ofObject: newLargeInteger withValue: magnitude >> 32.
-				 magnitude := magnitude bitAnd: 16rFFFFFFFF].
-			objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: magnitude].
+			[sz > 4
+				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude]
+				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (self cCode: [magnitude] inSmalltalk: [magnitude bitAnd: 16rFFFFFFFF])]].
 	^newLargeInteger

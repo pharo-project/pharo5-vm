@@ -8,4 +8,4 @@ isIntegerValue: intValue
 	<api>
 	^self
 		cCode: [(intValue >> 60 + 1 bitAnd: 16rF) <= 1] "N.B. (16rFFFFFFFFFFFFFFFF >> 60) + 1 = 16"
-		inSmalltalk: [intValue >= -16r1000000000000000 and: [intValue <= 16rFFFFFFFFFFFFFFF]]
+		inSmalltalk: [intValue >= self minSmallInteger and: [intValue <= self maxSmallInteger]]

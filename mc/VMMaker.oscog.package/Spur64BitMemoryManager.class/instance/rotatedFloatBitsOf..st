@@ -10,5 +10,5 @@ rotatedFloatBitsOf: oop
 	self assert: (self isImmediateFloat: oop).
 	^oop asUnsignedInteger >> (self numTagBits + 1)
 	 + ((oop anyMask: self smallFloatSignBit)
-		ifTrue: [-1 << (64 - self numTagBits - 1)]
+		ifTrue: [-1 asUnsignedInteger << (64 - self numTagBits - 1)]
 		ifFalse: [0])

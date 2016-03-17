@@ -5,7 +5,7 @@ integerObjectOf: value
 	 In Smalltalk we have to work harder because the simulator works with strictly positive bit patterns."
 	<returnTypeC: #sqInt>
 	^self
-		cCode: [value << self numTagBits + 1]
+		cCode: [value asUnsignedInteger << self numTagBits + 1]
 		inSmalltalk: [value << self numTagBits
 					+ (value >= 0
 						ifTrue: [1]

@@ -3,11 +3,11 @@ maybeInlinePositive32BitIntegerFor: integerValue
 	"N.B. will *not* cause a GC.
 	 integerValue is interpreted as POSITIVE, e.g. as the result of Bitmap>at:."
 	<notOption: #Spur64BitMemoryManager>
+	<var: 'integerValue' type: #'unsigned int'>
 	| newLargeInteger |
 	self deny: objectMemory hasSixtyFourBitImmediates.
-	(integerValue asInteger >= 0
-	 and: [objectMemory isIntegerValue: integerValue]) ifTrue:
-		[^objectMemory integerObjectOf: integerValue].
+	integerValue <= objectMemory maxSmallInteger
+		ifTrue: [^ objectMemory integerObjectOf: integerValue].
 	newLargeInteger := objectMemory
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: 4)

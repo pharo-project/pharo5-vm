@@ -2,10 +2,11 @@ primitive support
 signed32BitValueOf: oop
 	"Convert the given object into an integer value.
 	The object may be either a positive SmallInteger or a four-byte LargeInteger."
-	| value negative ok |
+	| value negative ok magnitude |
 	<inline: false>
 	<returnTypeC: #int>
 	<var: #value type: #int>
+	<var: #magnitude type: #'unsigned int'>
 	<var: #value64 type: #long>
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[objectMemory wordSize = 4
@@ -40,33 +41,22 @@ signed32BitValueOf: oop
 	(objectMemory numBytesOfBytes: oop) > 4 ifTrue:
 		[^self primitiveFail].
 
-	value := self cppIf: VMBIGENDIAN
+	magnitude := self cppIf: VMBIGENDIAN
 				ifTrue:
 					[ (objectMemory fetchByte: 0 ofObject: oop) +
 					 ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
 					 ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
 					 ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
 				ifFalse:
-					[objectMemory fetchLong32: 0 ofObject: oop].
-	self cCode: []
-		inSmalltalk:
-			[(value anyMask: 16r80000000) ifTrue:
-				[value := value - 16r100000000]].
-	"Filter out values out of range for the signed interpretation such as
-	 16rFFFFFFFF (positive w/ bit 32 set) and -16rFFFFFFFF (negative w/ bit
-	 32 set). Since the sign is implicit in the class we require that the high
-	 bit of the magnitude is not set which is a simple test here.  Note that
-	 we have to handle the most negative 32-bit value -2147483648 specially."
-	value < 0 ifTrue:
-		[self assert: (self sizeof: value) == 4.
-		 "Don't fail for -16r80000000/-2147483648
-		  Alas the simple (negative and: [value - 1 > 0]) isn't adequate since in C the result of signed integer
-		  overflow is undefined and hence under optimization this may fail.  The shift, however, is well-defined."
-		 (negative and: [0 = (self cCode: [value << 1]
-									inSmalltalk: [value << 1 bitAnd: (1 << 32) - 1])]) ifTrue: 
-			[^value].
-		 self primitiveFail.
-		 ^0].
-	^negative
-		ifTrue: [0 - value]
-		ifFalse: [value]
+					[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger].
+
+	(negative
+		ifTrue: [magnitude > 16r80000000]
+		ifFalse: [magnitude >= 16r80000000])
+			ifTrue:
+				[self primitiveFail.
+				^0].
+	negative
+		ifTrue: [value := 0 - magnitude]
+		ifFalse: [value := magnitude].
+	^value

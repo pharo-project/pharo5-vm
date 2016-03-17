@@ -1,6 +1,8 @@
 arithmetic integer primitives
 primitiveBitOr
 	<inline: false>
+	<var: 'integerArgument' type: #usqInt>
+	<var: 'intergerReceiver' type: #usqInt>
 	| integerReceiver integerArgument |
 	integerArgument := self stackTop.
 	integerReceiver := self stackValue: 1.
@@ -9,14 +11,10 @@ primitiveBitOr
 	 and: [objectMemory isIntegerObject: integerReceiver])
 		ifTrue: [self pop: 2 thenPush: (integerArgument bitOr: integerReceiver)]
 		ifFalse:
-			["objectMemory wordSize = 8
-				ifTrue:
-					[integerArgument := self positive64BitValueOf: integerArgument.
-					 integerReceiver := self positive64BitValueOf: integerReceiver.
-					 self successful ifTrue:
-						[self pop: 2 thenPush: (self positive64BitIntegerFor: (integerArgument bitOr: integerReceiver))]]
+			["
+			integerArgument := self positiveMachineIntegerValueOf: integerArgument.
+			integerReceiver := self positiveMachineIntegerValueOf: integerReceiver.
+			self successful ifTrue:
+					[self pop: 2 thenPush: (self positiveMachineIntegerFor: (integerArgument bitOr: integerReceiver))]
 				ifFalse:
-					[integerArgument := self positive32BitValueOf: integerArgument.
-					 integerReceiver := self positive32BitValueOf: integerReceiver.
-					 self successful ifTrue:
-						[self pop: 2 thenPush: (self positive32BitIntegerFor: (integerArgument bitOr: integerReceiver))]]"]"
+					[]"]"
