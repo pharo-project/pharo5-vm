@@ -117,7 +117,7 @@
 		"rgbMap16To32:" : "ar 10/28/1999 16:02",
 		"rgbMap32To32:" : "ar 10/27/1999 14:28",
 		"rgbMap:from:to:" : "di (auto pragmas 12/08) 4/10/1999 17:27",
-		"rgbMapPixel:flags:" : "ar (auto pragmas 12/08) 4/26/2001 18:37",
+		"rgbMapPixel:flags:" : "nice 3/16/2016 13:21",
 		"rgbMax:with:" : "jmv 4/1/2009 08:39",
 		"rgbMin:with:" : "jmv 4/1/2009 08:39",
 		"rgbMinInvert:with:" : "jmv 4/1/2009 08:39",
