@@ -517,7 +517,7 @@
 		"maybeFailForLastObjectOverwrite" : "eem 6/16/2014 12:47",
 		"maybeFixClonedCompiledMethod:" : "eem 7/14/2014 18:28",
 		"maybeFlagMethodAsInterpreted:" : "eem 1/30/2011 17:13",
-		"maybeInlinePositive32BitIntegerFor:" : "nice 3/15/2016 22:30",
+		"maybeInlinePositive32BitIntegerFor:" : "nice 3/18/2016 23:37",
 		"maybeRetryFailureDueToForwarding" : "eem 10/31/2014 09:25",
 		"maybeReturnToMachineCodeFrame" : "eem 12/28/2014 15:03",
 		"maybeSelectorOfMethod:" : "eem 12/6/2015 14:56",
