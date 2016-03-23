@@ -1,5 +1,5 @@
 object access
 stSizeOf: oop
-	"Return the number of indexable fields in the receiver"
+	"hack around the CoInterpreter/ObjectMemory split refactoring"
 	<doNotGenerate>
-	^oop basicSize
+	^coInterpreter stSizeOf: oop
