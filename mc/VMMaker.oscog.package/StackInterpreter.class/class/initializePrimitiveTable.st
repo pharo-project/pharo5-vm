@@ -275,7 +275,7 @@ initializePrimitiveTable
 		(241 primitiveLocalMicrosecondClock)		"was serial port primitive"
 		(242 primitiveSignalAtUTCMicroseconds)
 		(243 primitiveUpdateTimezone) "primStringtranslatefromtotable"
-		(244 primitiveFail) "primStringfindFirstInStringinSetstartingAt"
+		(244 primitiveUtcAndTimezoneOffset)
 		(245 primitiveFail) "primStringindexOfAsciiinStringstartingAt"
 		(246 primitiveFail) "primStringfindSubstringinstartingAtmatchTable"
 		(247 primitiveSnapshotEmbedded)
