@@ -2,7 +2,7 @@ arithmetic integer primitives
 primitiveBitXor
 	<inline: false>
 	<var: 'integerArgumentValue' type: #usqInt>
-	<var: 'intergerReceiverValue' type: #usqInt>
+	<var: 'integerReceiverValue' type: #usqInt>
 	| integerReceiver integerArgument integerArgumentValue integerReceiverValue |
 	integerArgument := self stackTop.
 	integerReceiver := self stackValue: 1.
