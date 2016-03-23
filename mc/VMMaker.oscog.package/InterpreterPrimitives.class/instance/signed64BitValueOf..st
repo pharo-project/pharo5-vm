@@ -40,7 +40,7 @@ signed64BitValueOf: oop
 		ifFalse:
 			[magnitude := sz > 4
 						ifTrue: [objectMemory fetchLong64: 0 ofObject: oop]
-						ifFalse: [(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger]].
+						ifFalse: [self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int']].
 
 	(negative
 		ifTrue: [magnitude > 16r8000000000000000]
