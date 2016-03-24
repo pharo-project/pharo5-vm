@@ -1,8 +1,8 @@
 Build Status 
 ============
 
-- [Master](https://github.com/pharo-project/pharo-vm): [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png)](https://travis-ci.org/pharo-project/pharo-vm)
-- [(dev) estebanlm](https://github.com/estebanlm/pharo-vm): [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png)](https://travis-ci.org/estebanlm/pharo-vm)
+- [Spur64](https://github.com/pharo-project/pharo-vm): [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=spur64)](https://travis-ci.org/pharo-project/pharo-vm)
+- [(dev) estebanlm](https://github.com/estebanlm/pharo-vm): [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png?branch=spur64)](https://travis-ci.org/estebanlm/pharo-vm)
 
 REQUIREMENTS
 ============
