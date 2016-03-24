@@ -19,12 +19,13 @@ if [ -z "$PHARO_TEST_VM" ]; then
 	exit 1
 fi
 
+# DOWNLOAD TEST IMAGE =========================================================
 TEST_IMAGE_DIR=test-image
 TEST_IMAGE="vm-test-image-50.zip"
 wget --quiet http://files.pharo.org/vm/src/$TEST_IMAGE
 unzip -d $TEST_IMAGE_DIR $TEST_IMAGE
 
-# ENSURE SOURCES FILE =========================================================
+# ENSURE SOURCES FILE (IN VM DIR) =============================================
 cp image/pharo-vm/*.sources $VM_DIR
 
 # RUN TEST IMAGE ==============================================================
@@ -41,4 +42,4 @@ NO_TEST="$NO_TEST(?!Athens)"		# no cairo, no athens
 NO_TEST="$NO_TEST(?!OSWindow)"		# no cairo, no oswindow
 NO_TEST="$NO_TEST(?!TxText)"		# no cairo, no TxText
 NO_TEST="$NO_TEST(?!ReleaseTests)"	# just not now :)
-"$PHARO_TEST_VM" $HEADLESS $TEST_IMAGE_DIR/Pharo.image test --no-xterm --fail-on-error "$NO_TEST[A-Z].*"
+"$PHARO_TEST_VM" $HEADLESS $TEST_IMAGE_DIR/Pharo.image test --no-xterm --fail-on-failure "$NO_TEST[A-Z].*"
