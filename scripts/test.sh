@@ -41,4 +41,4 @@ NO_TEST="$NO_TEST(?!Athens)"		# no cairo, no athens
 NO_TEST="$NO_TEST(?!OSWindow)"		# no cairo, no oswindow
 NO_TEST="$NO_TEST(?!TxText)"		# no cairo, no TxText
 NO_TEST="$NO_TEST(?!ReleaseTests)"	# just not now :)
-"$PHARO_TEST_VM" $HEADLESS $TEST_IMAGE/Pharo.image test --no-xterm --fail-on-error "$NO_TEST[A-Z].*"
+"$PHARO_TEST_VM" $HEADLESS $TEST_IMAGE_DIR/Pharo.image test --no-xterm --fail-on-error "$NO_TEST[A-Z].*"
