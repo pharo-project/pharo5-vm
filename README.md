@@ -1,4 +1,4 @@
-Build Status [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png)](https://travis-ci.org/estebanlm/pharo-vm)
+Build Status [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png)](https://travis-ci.org/estebanlm/pharo-vm)
 ============
 
 REQUIREMENTS
@@ -8,7 +8,6 @@ The build relies on a valid gcc, cmake and 32 bit headers installation:
 - [Linux](README-Linux.md)
 - [OSX](README-OSX.md)
 - [Win32](README-Win32.md)
-- [iOS](README-iOS.md)
 
 Building the VM
 ================
@@ -55,6 +54,11 @@ bash build.sh
 Before doing that, you would be well advised to make a tar or zipfile of the whole folder in case you encounter a compilation/resources download problem as doing the whole process above is quite long.
 
 5. Finally, run the freshly compiled VM from `results`.
+
+Building for iOS
+----------------
+Information on how to build a VM for iOS can be found [here](README-iOS.md).
+
 
 Building the VM from an IDE
 ===========================
