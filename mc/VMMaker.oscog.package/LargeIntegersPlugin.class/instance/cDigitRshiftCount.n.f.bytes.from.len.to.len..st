@@ -1,5 +1,5 @@
 C core
-cCoreBytesRshiftCount: count n: n f: f bytes: b from: pFrom len: fromLen to: pTo len: toLen 
+cDigitRshiftCount: count n: n f: f bytes: b from: pFrom len: fromLen to: pTo len: toLen 
 	| x digit |
 	<var: #pTo type: 'unsigned char * '>
 	<var: #pFrom type: 'unsigned char * '>
@@ -7,7 +7,7 @@ cCoreBytesRshiftCount: count n: n f: f bytes: b from: pFrom len: fromLen to: pTo
 	n = 0 ifTrue: ["Fast version for byte-aligned shifts"
 		"C indexed!"
 		^self
-			cBytesReplace: pTo
+			cDigitReplace: pTo
 			from: 0
 			to: toLen - 1
 			with: pFrom

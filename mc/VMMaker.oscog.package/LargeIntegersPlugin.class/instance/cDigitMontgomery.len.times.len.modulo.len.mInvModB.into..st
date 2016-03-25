@@ -1,5 +1,5 @@
 C core
-cdigitMontgomery: pBytesFirst
+cDigitMontgomery: pBytesFirst
 				len: firstLen
 				times: pBytesSecond
 				len: secondLen

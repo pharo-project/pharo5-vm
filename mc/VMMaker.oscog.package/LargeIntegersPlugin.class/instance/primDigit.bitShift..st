@@ -11,11 +11,11 @@ primDigit: anInteger bitShift: shiftCount
 			aLarge := self createLargeFromSmallInteger: anInteger]
 		ifFalse: [aLarge := anInteger].
 	shiftCount >= 0
-		ifTrue: [^ self bytes: aLarge Lshift: shiftCount]
+		ifTrue: [^ self digit: aLarge Lshift: shiftCount]
 		ifFalse: 
 			[rShift := 0 - shiftCount.
 			^ self normalize: (self
-					bytes: aLarge
+					digit: aLarge
 					Rshift: (rShift bitAnd: 7)
 					bytes: (rShift bitShift: -3)
-					lookfirst: (self byteSizeOfBytes: aLarge))]
+					lookfirst: (self digitSizeOfLargeInt: aLarge))]

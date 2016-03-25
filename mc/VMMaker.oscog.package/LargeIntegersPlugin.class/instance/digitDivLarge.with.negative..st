@@ -3,8 +3,8 @@ digitDivLarge: firstInteger with: secondInteger negative: neg
 	"Does not normalize."
 	"Division by zero has to be checked in caller."
 	| firstLen secondLen resultClass l d div rem quo result |
-	firstLen := self byteSizeOfBytes: firstInteger.
-	secondLen := self byteSizeOfBytes: secondInteger.
+	firstLen := self digitSizeOfLargeInt: firstInteger.
+	secondLen := self digitSizeOfLargeInt: secondInteger.
 	neg
 		ifTrue: [resultClass := interpreterProxy classLargeNegativeInteger]
 		ifFalse: [resultClass := interpreterProxy classLargePositiveInteger].
@@ -20,27 +20,27 @@ digitDivLarge: firstInteger with: secondInteger negative: neg
 	 to facilitate use of Knuth's algorithm, multiply rem and div by 2 (that 
 	 is, shift)   
 	 until the high byte of div is >=128"
-	d := 8 - (self cHighBit: (self unsafeByteOf: secondInteger at: secondLen)).
+	d := 8 - (self cHighBit: (self unsafeDigitOf: secondInteger at: secondLen)).
 	self remapOop: firstInteger
 		in: 
-			[div := self bytes: secondInteger Lshift: d.
-			div := self bytesOrInt: div growTo: (self digitLength: div)
+			[div := self digit: secondInteger Lshift: d.
+			div := self largeIntOrInt: div growTo: (self digitLength: div)
 							+ 1].
 	self remapOop: div
 		in: 
-			[rem := self bytes: firstInteger Lshift: d.
+			[rem := self digit: firstInteger Lshift: d.
 			(self digitLength: rem)
-				= firstLen ifTrue: [rem := self bytesOrInt: rem growTo: firstLen + 1]].
+				= firstLen ifTrue: [rem := self largeIntOrInt: rem growTo: firstLen + 1]].
 	self remapOop: #(div rem ) in: [quo := interpreterProxy instantiateClass: resultClass indexableSize: l].
 	self
-		cCoreDigitDivDiv: (interpreterProxy firstIndexableField: div)
+		cDigitDiv: (interpreterProxy firstIndexableField: div)
 		len: (self digitLength: div)
 		rem: (interpreterProxy firstIndexableField: rem)
 		len: (self digitLength: rem)
 		quo: (interpreterProxy firstIndexableField: quo)
 		len: (self digitLength: quo).
 	self remapOop: #(quo ) in: [rem := self
-					bytes: rem
+					digit: rem
 					Rshift: d
 					bytes: 0
 					lookfirst: (self digitLength: div)

@@ -3,8 +3,8 @@ digitCompareLarge: firstInteger with: secondInteger
 	"Compare the magnitude of firstInteger with that of secondInteger.      
 	Return a code of 1, 0, -1 for firstInteger >, = , < secondInteger"
 	| firstLen secondLen |
-	firstLen := self byteSizeOfBytes: firstInteger.
-	secondLen := self byteSizeOfBytes: secondInteger.
+	firstLen := self digitSizeOfLargeInt: firstInteger.
+	secondLen := self digitSizeOfLargeInt: secondInteger.
 	secondLen ~= firstLen
 		ifTrue: [secondLen > firstLen
 				ifTrue: [^ -1 asOop: SmallInteger]

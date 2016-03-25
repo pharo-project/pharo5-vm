@@ -1,5 +1,5 @@
 C core
-cCoreDigitDivDiv: pDiv len: divLen rem: pRem len: remLen quo: pQuo len: quoLen 
+cDigitDiv: pDiv len: divLen rem: pRem len: remLen quo: pQuo len: quoLen 
 	| dl ql dh dnh j t hi lo r3 l a cond q r1r2 mul |
 	<var: #pDiv type: #'unsigned char *'>
 	<var: #pRem type: #'unsigned char *'>

@@ -4,16 +4,16 @@ digitSubLarge: firstInteger with: secondInteger
 	| firstLen secondLen larger largerLen smaller smallerLen neg resLen res firstNeg |
 	firstNeg := (interpreterProxy fetchClassOf: firstInteger)
 				= interpreterProxy classLargeNegativeInteger.
-	firstLen := self byteSizeOfBytes: firstInteger.
-	secondLen := self byteSizeOfBytes: secondInteger.
+	firstLen := self digitSizeOfLargeInt: firstInteger.
+	secondLen := self digitSizeOfLargeInt: secondInteger.
 	firstLen = secondLen ifTrue: 
 		[[firstLen > 1
-		  and: [(self digitOfBytes: firstInteger at: firstLen) = (self digitOfBytes: secondInteger at: firstLen)]]
+		  and: [(self digitOfLargeInt: firstInteger at: firstLen) = (self digitOfLargeInt: secondInteger at: firstLen)]]
 			whileTrue: [firstLen := firstLen - 1].
 		secondLen := firstLen].
 	(firstLen < secondLen
 	 or: [firstLen = secondLen
-		 and: [(self digitOfBytes: firstInteger at: firstLen) < (self digitOfBytes: secondInteger at: firstLen)]])
+		 and: [(self digitOfLargeInt: firstInteger at: firstLen) < (self digitOfLargeInt: secondInteger at: firstLen)]])
 		ifTrue: 
 			[larger := secondInteger.
 			largerLen := secondLen.

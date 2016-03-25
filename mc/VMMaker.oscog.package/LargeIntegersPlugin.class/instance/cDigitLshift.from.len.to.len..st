@@ -1,5 +1,5 @@
 C core
-cBytesLshift: shiftCount from: pFrom len: lenFrom to: pTo len: lenTo 
+cDigitLshift: shiftCount from: pFrom len: lenFrom to: pTo len: lenTo 
 	"C indexed!"
 	| byteShift bitShift carry limit digit lastIx |
 	<returnTypeC: 'int'>
@@ -10,7 +10,7 @@ cBytesLshift: shiftCount from: pFrom len: lenFrom to: pTo len: lenTo
 	bitShift = 0 ifTrue: ["Fast version for byte-aligned shifts"
 		"C indexed!"
 		^ self
-			cBytesReplace: pTo
+			cDigitReplace: pTo
 			from: byteShift
 			to: lenTo - 1
 			with: pFrom

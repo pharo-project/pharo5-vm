@@ -2,8 +2,8 @@ oop functions
 digitMultiplyLarge: firstInteger with: secondInteger negative: neg 
 	"Normalizes."
 	| firstLen secondLen shortInt shortLen longInt longLen prod resultClass |
-	firstLen := self byteSizeOfBytes: firstInteger.
-	secondLen := self byteSizeOfBytes: secondInteger.
+	firstLen := self digitSizeOfLargeInt: firstInteger.
+	secondLen := self digitSizeOfLargeInt: secondInteger.
 	firstLen <= secondLen
 		ifTrue: 
 			[shortInt := firstInteger.

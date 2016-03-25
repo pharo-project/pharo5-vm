@@ -26,5 +26,5 @@ normalizePositive: aLargePositiveInteger
 			^val asOop: SmallInteger]].
 	"Return self, or a shortened copy"
 	len < oldLen ifTrue: "^ self growto: len"
-		[^self bytes: aLargePositiveInteger growTo: len].
+		[^self largeInt: aLargePositiveInteger growTo: len].
 	^aLargePositiveInteger

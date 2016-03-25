@@ -23,8 +23,8 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			[(interpreterProxy fetchClassOf: secondInteger)
 				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
 			secondLarge := secondInteger].
-	firstLen := self byteSizeOfBytes: firstLarge.
-	secondLen := self byteSizeOfBytes: secondLarge.
+	firstLen := self digitSizeOfLargeInt: firstLarge.
+	secondLen := self digitSizeOfLargeInt: secondLarge.
 	firstLen < secondLen
 		ifTrue: 
 			[shortLen := firstLen.
@@ -38,7 +38,7 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			longLarge := firstLarge].
 	self remapOop: #(shortLarge longLarge ) in: [result := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: longLen].
 	self
-		cByteOp: opIx
+		cDigitOp: opIx
 		short: (interpreterProxy firstIndexableField: shortLarge)
 		len: shortLen
 		long: (interpreterProxy firstIndexableField: longLarge)

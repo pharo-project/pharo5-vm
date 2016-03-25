@@ -29,10 +29,10 @@ normalizeNegative: aLargeNegativeInteger
 			byte := i > len ifTrue: [0] ifFalse: [pointer at: i - 1].
 			byte ~= (self cDigitOfCSI: interpreterProxy minSmallInteger at: i) ifTrue: "Not so; return self shortened"
 				[len < oldLen ifTrue: "^ self growto: len"
-					[^self bytes: aLargeNegativeInteger growTo: len].
+					[^self largeInt: aLargeNegativeInteger growTo: len].
 				 ^aLargeNegativeInteger]].
 		 ^interpreterProxy minSmallInteger asOop: SmallInteger].
 	"Return self, or a shortened copy"
 	len < oldLen ifTrue: "^ self growto: len"
-		[^self bytes: aLargeNegativeInteger growTo: len].
+		[^self largeInt: aLargeNegativeInteger growTo: len].
 	^aLargeNegativeInteger

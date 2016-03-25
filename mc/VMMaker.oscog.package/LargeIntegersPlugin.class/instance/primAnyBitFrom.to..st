@@ -11,7 +11,7 @@ primAnyBitFrom: from to: to
 			large := self createLargeFromSmallInteger: integer]
 		ifFalse: [large := integer].
 	^ (self
-		anyBitOfBytes: large
+		anyBitOfLargeInt: large
 		from: from
 		to: to)
 		asOop: Boolean

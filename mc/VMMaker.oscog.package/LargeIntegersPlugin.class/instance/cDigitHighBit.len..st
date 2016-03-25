@@ -1,5 +1,5 @@
 C core util
-cBytesHighBit: pByte len: len 
+cDigitHighBit: pByte len: len 
 	"Answer the index (in bits) of the high order bit of the receiver, or zero if the    
 	 receiver is zero. This method is allowed (and needed) for     
 	LargeNegativeIntegers as well, since Squeak's LargeIntegers are     

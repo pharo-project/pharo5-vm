@@ -1,5 +1,5 @@
 C core util
-cBytesCopyFrom: pFrom to: pTo len: len 
+cDigitCopyFrom: pFrom to: pTo len: len 
 	| limit |
 	<returnTypeC: 'int'>
 	<var: #pFrom type: 'unsigned char * '>

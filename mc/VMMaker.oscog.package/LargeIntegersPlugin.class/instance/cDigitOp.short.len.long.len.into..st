@@ -1,5 +1,5 @@
 C core
-cByteOp: opIndex short: pByteShort len: shortLen long: pByteLong len: longLen into: pByteRes 
+cDigitOp: opIndex short: pByteShort len: shortLen long: pByteLong len: longLen into: pByteRes 
 	"pByteRes len = longLen."
 	| limit |
 	<var: #pByteShort type: 'unsigned char * '>

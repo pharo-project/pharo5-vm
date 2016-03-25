@@ -3,8 +3,8 @@ digitAddLarge: firstInteger with: secondInteger
 	"Does not need to normalize!"
 	| over firstLen secondLen shortInt shortLen longInt longLen sum newSum resClass |
 	<var: #over type: 'unsigned char  '>
-	firstLen := self byteSizeOfBytes: firstInteger.
-	secondLen := self byteSizeOfBytes: secondInteger.
+	firstLen := self digitSizeOfLargeInt: firstInteger.
+	secondLen := self digitSizeOfLargeInt: secondInteger.
 	resClass := interpreterProxy fetchClassOf: firstInteger.
 	firstLen <= secondLen
 		ifTrue: 
@@ -30,7 +30,7 @@ digitAddLarge: firstInteger with: secondInteger
 			["sum := sum growby: 1."
 			self remapOop: sum in: [newSum := interpreterProxy instantiateClass: resClass indexableSize: longLen + 1].
 			self
-				cBytesCopyFrom: (interpreterProxy firstIndexableField: sum)
+				cDigitCopyFrom: (interpreterProxy firstIndexableField: sum)
 				to: (interpreterProxy firstIndexableField: newSum)
 				len: longLen.
 			sum := newSum.
