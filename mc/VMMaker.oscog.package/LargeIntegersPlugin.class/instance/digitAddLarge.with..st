@@ -2,7 +2,7 @@ oop functions
 digitAddLarge: firstInteger with: secondInteger 
 	"Does not need to normalize!"
 	| over firstLen secondLen shortInt shortLen longInt longLen sum newSum resClass |
-	<var: #over type: 'unsigned char  '>
+	<var: #over type: #'unsigned char'>
 	firstLen := self digitSizeOfLargeInt: firstInteger.
 	secondLen := self digitSizeOfLargeInt: secondInteger.
 	resClass := interpreterProxy fetchClassOf: firstInteger.

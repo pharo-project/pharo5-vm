@@ -4,8 +4,8 @@ cHighBit: uint
 	argument is zero."
 	"For 64 bit uints there could be added a 32-shift."
 	| shifted bitNo |
-
-	<var: #shifted type: 'unsigned int  '>
+	<var: #uint type: #'unsigned int'>
+	<var: #shifted type: #'unsigned int'>
 	shifted := uint.
 	bitNo := 0.
 	shifted < (1 << 16)

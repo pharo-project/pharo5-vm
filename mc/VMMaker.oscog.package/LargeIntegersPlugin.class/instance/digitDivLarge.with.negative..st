@@ -42,7 +42,6 @@ digitDivLarge: firstInteger with: secondInteger negative: neg
 	self remapOop: #(quo ) in: [rem := self
 					digit: rem
 					Rshift: d
-					bytes: 0
 					lookfirst: (self digitLength: div)
 							- 1].
 	"^ Array with: quo with: rem"

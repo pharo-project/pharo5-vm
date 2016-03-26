@@ -5,7 +5,8 @@ cDigitHighBit: pByte len: len
 	LargeNegativeIntegers as well, since Squeak's LargeIntegers are     
 	sign/magnitude."
 	| realLength lastDigit |
-	<var: #pByte type: 'unsigned char *  '>
+	<var: #pByte type: #'unsigned char *'>
+	<var: #lastDigit type: #'unsigned int'>
 	realLength := len.
 	[(lastDigit := pByte at: realLength - 1) = 0]
 		whileTrue: [(realLength := realLength - 1) = 0 ifTrue: [^ 0]].

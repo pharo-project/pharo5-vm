@@ -1,9 +1,9 @@
 C core util
 cDigitReplace: pTo from: start to: stop with: pFrom startingAt: repStart 
 	"C indexed!"
-	<returnTypeC: 'int'>
-	<var: #pTo type: 'unsigned char * '>
-	<var: #pFrom type: 'unsigned char * '>
+	<returnTypeC: #'int'>
+	<var: #pTo type: #'unsigned char *'>
+	<var: #pFrom type: #'unsigned char *'>
 	^ self
 		cDigitCopyFrom: pFrom + repStart
 		to: pTo + start

@@ -16,6 +16,5 @@ primDigitBitShiftMagnitude: shiftCount
 			[rShift := 0 - shiftCount.
 			^ self normalize: (self
 					digit: aLarge
-					Rshift: (rShift bitAnd: 7)
-					bytes: (rShift bitShift: -3)
+					Rshift: rShift
 					lookfirst: (self digitSizeOfLargeInt: aLarge))]

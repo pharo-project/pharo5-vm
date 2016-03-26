@@ -2,8 +2,10 @@ C core
 cDigitCompare: pFirst with: pSecond len: len 
 	"Precondition: pFirst len = pSecond len."
 	| secondDigit ix firstDigit |
-	<var: #pFirst type: 'unsigned char * '>
-	<var: #pSecond type: 'unsigned char * '>
+	<var: #pFirst type: #'unsigned char *'>
+	<var: #pSecond type: #'unsigned char *'>
+	<var: #firstDigit type: #'unsigned int'>
+	<var: #secondDigit type: #'unsigned int'>
 	ix := len - 1.
 	[ix >= 0]
 		whileTrue: 

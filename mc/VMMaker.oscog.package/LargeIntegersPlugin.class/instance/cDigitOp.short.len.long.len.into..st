@@ -2,9 +2,9 @@ C core
 cDigitOp: opIndex short: pByteShort len: shortLen long: pByteLong len: longLen into: pByteRes 
 	"pByteRes len = longLen."
 	| limit |
-	<var: #pByteShort type: 'unsigned char * '>
-	<var: #pByteLong type: 'unsigned char * '>
-	<var: #pByteRes type: 'unsigned char * '>
+	<var: #pByteShort type: #'unsigned char *'>
+	<var: #pByteLong type: #'unsigned char *'>
+	<var: #pByteRes type: #'unsigned char *'>
 	limit := shortLen - 1.
 	opIndex = andOpIndex
 		ifTrue: 

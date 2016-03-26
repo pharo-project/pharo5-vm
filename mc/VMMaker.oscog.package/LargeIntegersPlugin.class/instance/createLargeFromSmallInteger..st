@@ -2,7 +2,7 @@ oop util
 createLargeFromSmallInteger: anOop 
 	"anOop has to be a SmallInteger!"
 	| val class size res pByte byte |
-	<var: #pByte type: 'unsigned char *  '>
+	<var: #pByte type: #'unsigned char *'>
 	val := interpreterProxy integerValueOf: anOop.
 	val < 0
 		ifTrue: [class := interpreterProxy classLargeNegativeInteger]

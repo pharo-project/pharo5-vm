@@ -1,9 +1,9 @@
 C core util
 cDigitCopyFrom: pFrom to: pTo len: len 
 	| limit |
-	<returnTypeC: 'int'>
-	<var: #pFrom type: 'unsigned char * '>
-	<var: #pTo type: 'unsigned char * '>
+	<returnTypeC: #'int'>
+	<var: #pFrom type: #'unsigned char *'>
+	<var: #pTo type: #'unsigned char *'>
 
 	self cCode: '' inSmalltalk: [
 		(interpreterProxy isKindOf: InterpreterSimulator) ifTrue: [

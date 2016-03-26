@@ -13,7 +13,7 @@ cDigitMontgomery: pBytesFirst
 	<var: #pBytesSecond type: #'unsigned char *'>
 	<var: #pBytesThird type: #'unsigned char *'>
 	<var: #pBytesRes type: #'unsigned char *'>
-	<var: #accum type: #usqInt>
+	<var: #accum type: #'unsigned int'>
 	<var: #u type: #'unsigned char'>
 	<var: #lastByte type: #'unsigned char'>
 	limit1 := firstLen - 1.

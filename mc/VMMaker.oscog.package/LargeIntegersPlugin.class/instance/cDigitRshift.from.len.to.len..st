@@ -1,10 +1,10 @@
 C core
 cDigitRshift: shiftCount from: pFrom len: fromLen to: pTo len: toLen 
 	| digit bitShift carry digitShift leftShift limit start |
-	<var: #pTo type: 'unsigned char * '>
-	<var: #pFrom type: 'unsigned char * '>
-	<var: #carry type: 'unsigned int '>
-	<var: #digit type: 'unsigned int '>
+	<var: #pTo type: #'unsigned char *'>
+	<var: #pFrom type: #'unsigned char *'>
+	<var: #carry type: #'unsigned int'>
+	<var: #digit type: #'unsigned int'>
 	digitShift := shiftCount // 8.
 	bitShift := shiftCount \\ 8.
 	bitShift = 0 ifTrue: ["Fast version for byte-aligned shifts"
