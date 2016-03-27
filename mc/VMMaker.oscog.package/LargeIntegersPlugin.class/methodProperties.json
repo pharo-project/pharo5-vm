@@ -11,7 +11,7 @@
 		"cDigitAdd:len:with:len:into:" : "nice 3/26/2016 00:51",
 		"cDigitCompare:with:len:" : "nice 3/26/2016 00:51",
 		"cDigitCopyFrom:to:len:" : "nice 3/26/2016 00:54",
-		"cDigitDiv:len:rem:len:quo:len:" : "nice 3/26/2016 00:51",
+		"cDigitDiv:len:rem:len:quo:len:" : "nice 3/28/2016 00:21",
 		"cDigitHighBit:len:" : "nice 3/26/2016 00:54",
 		"cDigitLengthOfCSI:" : "eem 3/5/2015 14:48",
 		"cDigitLshift:from:len:to:len:" : "nice 3/26/2016 00:51",
