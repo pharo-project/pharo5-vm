@@ -8,6 +8,7 @@ initializeCTranslationDictionary
 	pairs := #(
 	#&				#generateAnd:on:indent:
 	#|				#generateOr:on:indent:
+	#abs			#generateAbs:on:indent:
 	#and:			#generateSequentialAnd:on:indent:
 	#or:			#generateSequentialOr:on:indent:
 	#not			#generateNot:on:indent:
