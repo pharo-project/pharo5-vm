@@ -36,6 +36,7 @@
  such third-party acknowledgments.
  */
 
+//
 #import "sqSqueakAppDelegate.h"
 #import "sqSqueakEventsAPI.h"
 #import "sqSqueakMainApplication+events.h"
@@ -47,10 +48,15 @@ extern struct	VirtualMachine* interpreterProxy;
 extern BOOL gQuitNowRightNow;
 extern sqSqueakScreenAndWindow *getMainWindowDelegate();
 
-
 void nativeIoProcessEvents(void) {
+
 	//API Documented
 		
+    if ([[NSThread currentThread] isCancelled]) {
+        gQuitNowRightNow = YES;
+        ioExit();  //This might not return, might call exittoshell
+    }
+
 	if ([getMainWindowDelegate() forceUpdateFlush]) {
 		[getMainWindowDelegate() ioForceDisplayUpdate];
 	}
@@ -79,7 +85,6 @@ sqInt ioProcessEvents(void) {
     return 0;
 }
 
-
 sqInt ioSetInputSemaphore(sqInt semaIndex) {
 	//API Documented
 	
@@ -96,3 +101,11 @@ sqInt ioGetNextEvent( sqInputEvent *evt) {
 	} */
 	return 0;
 }
+
+#if NewspeakVM
+/* For now this is only here to make the linker happy;
+   the function really does something interesting only on Windows.
+ */
+void
+ioDrainEventQueue() {}
+#endif /* NewspeakVM */

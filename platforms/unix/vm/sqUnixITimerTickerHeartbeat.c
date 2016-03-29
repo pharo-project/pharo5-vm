@@ -26,13 +26,13 @@
 #include <sys/types.h>
 #include <sys/time.h>
 
-#define SecondsFrom1901To1970      2177452800ULL
-#define MicrosecondsFrom1901To1970 2177452800000000ULL
+#define SecondsFrom1901To1970      2177452800LL
+#define MicrosecondsFrom1901To1970 2177452800000000LL
 
-#define MicrosecondsPerSecond 1000000ULL
-#define MillisecondsPerSecond 1000ULL
+#define MicrosecondsPerSecond 1000000LL
+#define MillisecondsPerSecond 1000LL
 
-#define MicrosecondsPerMillisecond 1000ULL
+#define MicrosecondsPerMillisecond 1000LL
 
 static unsigned volatile long long utcMicrosecondClock;
 static unsigned volatile long long localMicrosecondClock;
@@ -181,8 +181,8 @@ ioUTCMicroseconds() { return get64(utcMicrosecondClock); }
 unsigned volatile long long
 ioLocalMicroseconds() { return get64(localMicrosecondClock); }
 
-usqInt
-ioLocalSecondsOffset() { return (usqInt)(vmGMTOffset / MicrosecondsPerSecond); }
+sqInt
+ioLocalSecondsOffset() { return vmGMTOffset / MicrosecondsPerSecond; }
 
 /* This is an expensive interface for use by Smalltalk or vm profiling code that
  * wants the time now rather than as of the last heartbeat.

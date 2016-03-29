@@ -15,10 +15,10 @@
  copies of the Software, and to permit persons to whom the
  Software is furnished to do so, subject to the following
  conditions:
- 
+
  The above copyright notice and this permission notice shall be
  included in all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -27,7 +27,7 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
- 
+
  The end-user documentation included with the redistribution, if any, must include the following acknowledgment: 
  "This product includes software developed by Corporate Smalltalk Consulting Ltd (http://www.smalltalkconsulting.com) 
  and its contributors", in the same place and form as other third-party acknowledgments. 
@@ -51,7 +51,7 @@ extern SqueakOSXAppDelegate *gDelegateApp;
  bits. (The Mac shift and caps lock keys are both mapped to the single
  Squeak shift bit).  This was true for squeak upto 3.0.7. Then in 3.0.8 we 
  decided to not map the cap lock key to shift
- 
+
  Mac bits: <control><option><caps lock><shift><command>
  ST bits:  <command><option><control><shift>
  */
@@ -108,7 +108,7 @@ static int buttonState=0;
 
 - (void) pumpRunLoopEventSendAndSignal:(BOOL)signal {
     NSEvent *event;
-    
+
     while ((event = [NSApp
                         nextEventMatchingMask:NSAnyEventMask
                         untilDate:nil 
@@ -133,16 +133,16 @@ static int buttonState=0;
 	 using the runloop, but if you just run the runloop on the main thread,
 	 events won't get processed. You have to explicitly run this in order
 	 to get them to be processed.
-	 
+
 	 Note that using the default runloop mode with this is generally a bad
 	 idea. By running in the default mode you allow *everything* else to
 	 run, which means that some other code might decide that *it* wants an
 	 inner event loop as well. If you then want to quit before that other
 	 code has finished, tough cookies. Much better to control things more
 	 tightly by using a different runloop mode.
-	 
+
 	 */
-	
+
 }
 
 - (void ) processAsOldEventOrComplexEvent: (id) event placeIn: (sqInputEvent *) evt {
