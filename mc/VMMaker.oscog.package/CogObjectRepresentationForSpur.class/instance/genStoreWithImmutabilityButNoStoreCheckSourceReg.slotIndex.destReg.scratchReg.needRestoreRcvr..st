@@ -1,7 +1,7 @@
 compile abstract instructions
 genStoreWithImmutabilityButNoStoreCheckSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr
 
-	<var: #immutableJump type: #'AbstractInstruction *'>
+	<var: #mutableJump type: #'AbstractInstruction *'>
 	<var: #immutabilityFailure type: #'AbstractInstruction *'>
 	| immutabilityFailure mutableJump |
 	
