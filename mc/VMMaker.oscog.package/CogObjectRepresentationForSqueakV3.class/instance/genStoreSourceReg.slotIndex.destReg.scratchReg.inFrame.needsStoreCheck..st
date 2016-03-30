@@ -5,6 +5,8 @@ genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scrat
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
 	<var: #jmpSourceOld type: #'AbstractInstruction *'>
 	<var: #jmpAlreadyRoot type: #'AbstractInstruction *'>
+	
+	cogit genTraceStores.
 	"do the store"
 	cogit MoveR: sourceReg Mw: index * objectMemory wordSize + objectMemory baseHeaderSize r: destReg.
 	"if no need for the store check then returns"

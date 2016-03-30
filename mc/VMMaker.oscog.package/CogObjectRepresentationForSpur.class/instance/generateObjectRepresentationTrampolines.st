@@ -7,13 +7,7 @@ generateObjectRepresentationTrampolines
 	 remembered set and setting its isRemembered bit."
 	self 
 		cppIf: IMMUTABILITY
-		ifTrue: "c.f. genImmutableCheck:slotIndex:sourceReg:scratchReg:popBoolean:needRestoreRcvr:"
-			[ceCannotAssignToWithIndexTrampoline := cogit
-															genTrampolineFor: #ceCannotAssignTo:withIndex:valueToAssign:
-															called: 'ceCannotAssignToWithIndexTrampoline'
-															arg: ReceiverResultReg 
-															arg: TempReg
-															arg: ClassReg].
+		ifTrue: [ceStoreTrampoline := self genStoreTrampolineCalled: 'ceStoreTrampoline'].
 	ceStoreCheckTrampoline := cogit
 									genTrampolineFor: #remember:
 									called: 'ceStoreCheckTrampoline'

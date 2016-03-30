@@ -1,5 +1,7 @@
 compile abstract instructions
 genStoreSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg inFrame: inFrame needsStoreCheck: needsStoreCheck
+	
+	cogit genTraceStores.
 	"do the store"
 	cogit MoveR: sourceReg
 		   Mw: index * objectMemory wordSize + objectMemory baseHeaderSize

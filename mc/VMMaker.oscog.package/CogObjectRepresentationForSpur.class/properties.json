@@ -12,7 +12,7 @@
 		"ceLargeActiveContextInMethodTrampoline",
 		"ceLargeActiveContextInBlockTrampoline",
 		"ceStoreCheckContextReceiverTrampoline",
-		"ceCannotAssignToWithIndexTrampoline" ],
+		"ceStoreTrampoline" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
 		"VMBytecodeConstants",

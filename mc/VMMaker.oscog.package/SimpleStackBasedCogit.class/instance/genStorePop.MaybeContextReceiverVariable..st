@@ -1,8 +1,7 @@
 bytecode generator support
 genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	<inline: false>
-	| jmpSingle jmpDone immutabilityFailure |
-	<var: #immutabilityFailure type: #'AbstractInstruction *'>
+	| jmpSingle jmpDone |
 	<var: #jmpSingle type: #'AbstractInstruction *'>
 	<var: #jmpDone type: #'AbstractInstruction *'>
 	"The reason we need a frame here is that assigning to an inst var of a context may
@@ -20,24 +19,13 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	self CallRT: ceStoreContextInstVarTrampoline.
 	jmpDone := self Jump: 0.
 	jmpSingle jmpTarget: self Label.
-	traceStores > 0 ifTrue:
-		[self CallRT: ceTraceStoreTrampoline].
-	self cppIf: IMMUTABILITY ifTrue: 
-		[immutabilityFailure := objectRepresentation
-									genImmutableCheck: ReceiverResultReg
-									slotIndex: slotIndex
-									sourceReg: ClassReg
-									scratchReg: TempReg
-									needRestoreRcvr: true].
-	objectRepresentation
-		genStoreSourceReg: ClassReg
-		slotIndex: slotIndex
-		destReg: ReceiverResultReg
-		scratchReg: TempReg
-		inFrame: true.
-	jmpDone jmpTarget: self Label.
 	popBoolean ifTrue:
 		[self AddCq: objectMemory wordSize R: SPReg].
-	self cppIf: IMMUTABILITY ifTrue:
-		[immutabilityFailure jmpTarget: self Label].
+	self
+		genStoreSourceReg: ClassReg 
+		slotIndex: slotIndex 
+		destReg: ReceiverResultReg 
+		scratchReg: TempReg 
+		inFrame: needsFrame.
+	jmpDone jmpTarget: self Label.
 	^0

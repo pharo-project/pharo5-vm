@@ -1,8 +1,7 @@
 bytecode generator support
 genStorePop: popBoolean LiteralVariable: litVarIndex
 	<inline: false>
-	| association immutabilityFailure |
-	<var: #immutabilityFailure type: #'AbstractInstruction *'>
+	| association |
 	"The only reason we assert needsFrame here is that in a frameless method
 	 ReceiverResultReg must and does contain only self, but the ceStoreCheck
 	 trampoline expects the target of the store to be in ReceiverResultReg.  So
@@ -19,23 +18,10 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	popBoolean
 		ifTrue: [self PopR: ClassReg]
 		ifFalse: [self MoveMw: 0 r: SPReg R: ClassReg].
-	traceStores > 0 ifTrue:
-		[self CallRT: ceTraceStoreTrampoline].
-	self cppIf: IMMUTABILITY ifTrue: 
-		[immutabilityFailure := objectRepresentation
-									genImmutableCheck: ReceiverResultReg
-									slotIndex: ValueIndex
-									sourceReg: ClassReg
-									scratchReg: TempReg
-									needRestoreRcvr: true].
-	objectRepresentation
-		genStoreSourceReg: ClassReg
-		slotIndex: ValueIndex
-		destReg: ReceiverResultReg
-		scratchReg: TempReg
+	self
+		genStoreSourceReg: ClassReg 
+		slotIndex: ValueIndex 
+		destReg: ReceiverResultReg 
+		scratchReg: TempReg 
 		inFrame: needsFrame.
-
-	self cppIf: IMMUTABILITY ifTrue:
-		[immutabilityFailure jmpTarget: self Label].
-
 	^0

@@ -18,9 +18,6 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	optStatus isReceiverResultRegLive: false.
 	self ssStoreAndReplacePop: popBoolean toReg: topReg.
 	self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
-	 traceStores > 0 ifTrue:
-			[ self MoveR: topReg R: TempReg.
-			self CallRT: ceTraceStoreTrampoline. ].
 	^objectRepresentation
 		genStoreSourceReg: topReg
 		slotIndex: slotIndex
