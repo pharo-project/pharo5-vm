@@ -7,7 +7,7 @@ genStoreWithImmutabilityButNoStoreCheckSourceReg: sourceReg slotIndex: index des
 	
 	"imm check has its own trampoline"
 	mutableJump := self genJumpMutable: destReg scratchReg: scratchReg.
-	cogit MoveCq: index + 1 R: TempReg. "index + 1 as 0 is reserved for store checks"
+	cogit MoveCq: index R: TempReg.
 	cogit CallRT: ceStoreTrampoline.
 	cogit annotateBytecode: cogit Label.
 	needRestoreRcvr ifTrue: [ cogit putSelfInReceiverResultReg ].

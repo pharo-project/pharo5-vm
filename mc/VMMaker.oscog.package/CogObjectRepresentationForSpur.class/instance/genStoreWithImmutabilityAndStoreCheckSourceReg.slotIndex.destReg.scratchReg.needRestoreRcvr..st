@@ -1,14 +1,13 @@
 compile abstract instructions
 genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr 
 	"Store check code is duplicated to use a single trampoline"
+	| immutableJump jmpImmediate jmpDestYoung jmpSourceOld rememberedBitByteOffset jmpAlreadyRemembered mask |
 	<var: #immutableJump type: #'AbstractInstruction *'>
-	<var: #trampJump type: #'AbstractInstruction *'>
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
 	<var: #jmpSourceOld type: #'AbstractInstruction *'>
 	<var: #jmpAlreadyRemembered type: #'AbstractInstruction *'>
-	| immutableJump trampJump jmpImmediate jmpDestYoung jmpSourceOld rememberedBitByteOffset jmpAlreadyRemembered mask |
-	
+
 	immutableJump := self genJumpImmutable: destReg scratchReg: scratchReg.
 	
 	cogit genTraceStores.
@@ -39,13 +38,10 @@ genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destR
 	cogit MoveMb: rememberedBitByteOffset r: destReg R: scratchReg.
 	cogit AndCq: mask R: scratchReg.
 	jmpAlreadyRemembered := cogit JumpNonZero: 0.
-	"We know scratchReg now holds 0, this is convenient because the trampoline 
-	convention expects 0 for store check in scratchReg. What a coincidence ;-)"
-	"Remembered bit is not set.  Call store check to insert dest into remembered table."
-	trampJump := cogit Jump: 0.
-	"Here we reach the trampoline for Immutability failure"
-	immutableJump jmpTarget: (cogit MoveCq: index + 1 R: scratchReg). "index + 1 as 0 is reserved for store checks"
-	trampJump jmpTarget: (cogit CallRT: ceStoreTrampoline).
+	"Set the inst var index for the benefit of the immutability check. The trampoline will
+	 repeat the check to choose between the immutbality violation and the store check."
+	immutableJump jmpTarget: (cogit MoveCq: index R: scratchReg).
+	cogit CallRT: ceStoreTrampoline.
 	cogit annotateBytecode: cogit Label.
 	needRestoreRcvr ifTrue: [ cogit putSelfInReceiverResultReg ].
 

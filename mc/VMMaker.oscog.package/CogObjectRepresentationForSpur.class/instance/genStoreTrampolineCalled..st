@@ -11,11 +11,9 @@ genStoreTrampolineCalled: trampolineName
 	<var: #jumpSC type: #'AbstractInstruction *'>
 	<inline: false>
 	cogit zeroOpcodeIndex.
-	cogit CmpCq: 0 R: TempReg.
-	jumpSC := cogit JumpZero: 0.
-	
-	"CannotAssignTo:, we restore the index."
-	cogit SubCq: 1 R: TempReg.
+	cogit PushR: SendNumArgsReg.
+	jumpSC := self genJumpMutable: ReceiverResultReg scratchReg: SendNumArgsReg.
+	cogit PopR: SendNumArgsReg.
 	cogit
 		compileTrampolineFor: #ceCannotAssignTo:withIndex:valueToAssign:
 		numArgs: 3
@@ -28,7 +26,7 @@ genStoreTrampolineCalled: trampolineName
 		resultReg: NoReg.
 		
 	"Store check"
-	jumpSC jmpTarget: cogit Label.
+	jumpSC jmpTarget: (cogit PopR: SendNumArgsReg).
 	^ cogit genTrampolineFor: #remember:
 		called: trampolineName
 		numArgs: 1
