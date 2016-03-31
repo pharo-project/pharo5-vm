@@ -3,6 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
+		"CheckRememberedInTrampoline",
 		"NumStoreTrampolines" ],
 	"commentStamp" : "",
 	"instvars" : [

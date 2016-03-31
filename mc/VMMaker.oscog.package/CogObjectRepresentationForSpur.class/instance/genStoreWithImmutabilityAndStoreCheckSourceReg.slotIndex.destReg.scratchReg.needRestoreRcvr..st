@@ -1,7 +1,7 @@
 compile abstract instructions
 genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr 
 	"Store check code is duplicated to use a single trampoline"
-	| immutableJump jmpImmediate jmpDestYoung jmpSourceOld rememberedBitByteOffset jmpAlreadyRemembered mask |
+	| immutableJump jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRemembered |
 	<var: #immutableJump type: #'AbstractInstruction *'>
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
@@ -28,16 +28,9 @@ genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destR
 	cogit CmpR: scratchReg R: sourceReg. "N.B. FLAGS := valueReg - scratchReg"
 	jmpSourceOld := cogit JumpAboveOrEqual: 0.
 	"value is young and target is old.
-	 Need to remember this only if the remembered bit is not already set.
-	 Test the remembered bit.  Only need to fetch the byte containing it,
-	 which reduces the size of the mask constant."
-	rememberedBitByteOffset := jmpSourceOld isBigEndian
-									ifTrue: [objectMemory baseHeaderSize - 1 - (objectMemory rememberedBitShift // 8)]
-									ifFalse:[objectMemory rememberedBitShift // 8].
-	mask := 1 << (objectMemory rememberedBitShift \\ 8).
-	cogit MoveMb: rememberedBitByteOffset r: destReg R: scratchReg.
-	cogit AndCq: mask R: scratchReg.
-	jmpAlreadyRemembered := cogit JumpNonZero: 0.
+	 Need to remember this only if the remembered bit is not already set."
+	CheckRememberedInTrampoline ifFalse:
+		[jmpAlreadyRemembered := self genCheckRememberedBitOf: destReg scratch: scratchReg].
 	"Set the inst var index for the benefit of the immutability check. The trampoline will
 	 repeat the check to choose between the immutbality violation and the store check."
 	immutableJump jmpTarget: cogit Label.
@@ -47,7 +40,7 @@ genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destR
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:
-	(jmpAlreadyRemembered jmpTarget:
-		cogit Label))).
-	
+		cogit Label)).
+	CheckRememberedInTrampoline ifFalse:
+		[jmpAlreadyRemembered jmpTarget: jmpSourceOld getJmpTarget].
 	^ 0

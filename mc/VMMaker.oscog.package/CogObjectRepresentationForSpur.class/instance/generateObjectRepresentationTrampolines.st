@@ -20,12 +20,7 @@ generateObjectRepresentationTrampolines
 															numArgs: instVarIndex 
 															limit: NumStoreTrampolines - 2) 
 							instVarIndex: instVarIndex)]].
-	ceStoreCheckTrampoline := cogit
-									genTrampolineFor: #remember:
-									called: 'ceStoreCheckTrampoline'
-									arg: ReceiverResultReg
-									regsToSave: (cogit callerSavedRegMask bitClear: (cogit registerMaskFor: ReceiverResultReg))
-									result: cogit returnRegForStoreCheck.
+	ceStoreCheckTrampoline := self genStoreCheckTrampoline.
 	ceStoreCheckContextReceiverTrampoline := self genStoreCheckContextReceiverTrampoline.
 	ceScheduleScavengeTrampoline := cogit
 											genTrampolineFor: #ceScheduleScavenge

@@ -1,7 +1,7 @@
 compile abstract instructions
 genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFrame: inFrame
 	"Generate the code for a store check of valueReg into destReg."
-	| jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRemembered mask rememberedBitByteOffset |
+	| jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRemembered |
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
 	<var: #jmpDestYoung type: #'AbstractInstruction *'>
 	<var: #jmpSourceOld type: #'AbstractInstruction *'>
@@ -17,16 +17,9 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 	cogit CmpR: scratchReg R: valueReg. "N.B. FLAGS := valueReg - scratchReg"
 	jmpSourceOld := cogit JumpAboveOrEqual: 0.
 	"value is young and target is old.
-	 Need to remember this only if the remembered bit is not already set.
-	 Test the remembered bit.  Only need to fetch the byte containing it,
-	 which reduces the size of the mask constant."
-	rememberedBitByteOffset := jmpSourceOld isBigEndian
-									ifTrue: [objectMemory baseHeaderSize - 1 - (objectMemory rememberedBitShift // 8)]
-									ifFalse:[objectMemory rememberedBitShift // 8].
-	mask := 1 << (objectMemory rememberedBitShift \\ 8).
-	cogit MoveMb: rememberedBitByteOffset r: destReg R: scratchReg.
-	cogit AndCq: mask R: scratchReg.
-	jmpAlreadyRemembered := cogit JumpNonZero: 0.
+	 Need to remember this only if the remembered bit is not already set."
+	CheckRememberedInTrampoline ifFalse:
+		[jmpAlreadyRemembered := self genCheckRememberedBitOf: destReg scratch: scratchReg].
 	"Remembered bit is not set.  Call store check to insert dest into remembered table."
 	self assert: destReg = ReceiverResultReg.
 	cogit 
@@ -35,6 +28,7 @@ genStoreCheckReceiverReg: destReg valueReg: valueReg scratchReg: scratchReg inFr
 	jmpImmediate jmpTarget:
 	(jmpDestYoung jmpTarget:
 	(jmpSourceOld jmpTarget:
-	(jmpAlreadyRemembered jmpTarget:
-		cogit Label))).
+		cogit Label)).
+	CheckRememberedInTrampoline ifFalse:
+		[jmpAlreadyRemembered jmpTarget: jmpSourceOld getJmpTarget].
 	^0

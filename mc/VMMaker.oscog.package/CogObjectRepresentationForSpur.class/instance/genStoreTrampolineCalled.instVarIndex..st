@@ -9,10 +9,11 @@ genStoreTrampolineCalled: trampolineName instVarIndex: instVarIndex
 	Registers are not lived across this trampoline as the 
 	immutability failure may need new stack frames."
 	
-	| jumpSC |
+	| jumpSC jumpRC |
 	<option: #IMMUTABILITY>
 	<var: #trampolineName type: #'char *'>
 	<var: #jumpSC type: #'AbstractInstruction *'>
+	<var: #jumpRC type: #'AbstractInstruction *'>
 	<inline: false>
 	cogit zeroOpcodeIndex.
 	"SendNumArgsReg is mutated but we don't care as register are not live across the trampoline.
@@ -34,6 +35,19 @@ genStoreTrampolineCalled: trampolineName instVarIndex: instVarIndex
 		
 	"Store check"
 	jumpSC jmpTarget: cogit Label.
+	"If on 64-bits and doing the remembered bit test here, we can combine the tests to fetch the header once."
+	CheckRememberedInTrampoline ifTrue:
+		[objectMemory wordSize = 8
+			ifTrue:
+				[cogit TstCq: 1 << objectMemory rememberedBitShift R: SendNumArgsReg.
+				 jumpRC := cogit JumpZero: 0.
+				 cogit RetN: 0]
+			ifFalse:
+				[jumpRC := self genCheckRememberedBitOf: ReceiverResultReg scratch: SendNumArgsReg.
+				 self assert: jumpRC opcode = JumpNonZero.
+				 jumpRC opcode: JumpZero.
+				 cogit RetN: 0].
+		 jumpRC jmpTarget: cogit Label].
 	^ cogit genTrampolineFor: #remember:
 		called: trampolineName
 		numArgs: 1
