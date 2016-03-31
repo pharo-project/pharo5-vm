@@ -8,7 +8,7 @@ alphaBlend: sourceWord with: destinationWord
 	component.  The high byte of the result will be 0."
 	| alpha unAlpha result blendRB blendAG |
 	<inline: false>
-	<return: 'unsigned int'>
+	<returnTypeC: 'unsigned int'>
 	<var: #sourceWord type: 'unsigned int'>
 	<var: #destinationWord type: 'unsigned int'>
 	<var: #blendRB type: 'unsigned int'>

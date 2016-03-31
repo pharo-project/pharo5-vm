@@ -9,6 +9,8 @@ alphaSourceBlendBits32
 	"
 	| srcIndex dstIndex sourceWord srcAlpha destWord deltaX deltaY srcY dstY |
 	<inline: false> "This particular method should be optimized in itself"
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
 
 	"Give the compile a couple of hints"
 

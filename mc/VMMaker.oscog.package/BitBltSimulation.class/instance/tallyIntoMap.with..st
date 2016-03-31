@@ -6,6 +6,12 @@ tallyIntoMap: sourceWord with: destinationWord
 	to be performed at setup."
 	| mapIndex pixMask destShifted maskShifted pixVal |
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #pixMask type: 'unsigned int'>
+	<var: #destShifted type: 'unsigned int'>
+	<var: #maskShifted type: 'unsigned int'>
 	(cmFlags bitAnd: (ColorMapPresent bitOr: ColorMapIndexedPart)) = 
 		(ColorMapPresent bitOr: ColorMapIndexedPart)
 			ifFalse: [^ destinationWord "no op"].

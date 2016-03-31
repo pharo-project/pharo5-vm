@@ -13,6 +13,9 @@ rgbComponentAlpha8
 	
 	<inline: false>  "This particular method should be optimized in itself"
 	<var: #mappingTable declareC:'unsigned int *mappingTable'>
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	<var: #dstMask type: #'unsigned int'>
 	
 	mappingTable := self default8To32Table.
 	mapperFlags := cmFlags bitAnd: ColorMapNewStyle bitInvert32.

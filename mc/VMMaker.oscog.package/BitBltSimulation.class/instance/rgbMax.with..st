@@ -1,6 +1,9 @@
 combination rules
 rgbMax: sourceWord with: destinationWord
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
 	destDepth < 16 ifTrue:
 		["Max each pixel separately"
 		^ self partitionedMax: sourceWord with: destinationWord

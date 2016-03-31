@@ -3,8 +3,16 @@ copyLoop
 	| prevWord thisWord skewWord halftoneWord mergeWord hInc y unskew skewMask notSkewMask mergeFnwith destWord |
 	"This version of the inner loop assumes noSource = false."
 	<inline: false>
-	<var: #mergeFnwith declareC: 'sqInt (*mergeFnwith)(sqInt, sqInt)'>
-	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'sqInt (*)(sqInt, sqInt)'.
+	<var: #mergeFnwith declareC: 'unsigned int (*mergeFnwith)(unsigned int, unsigned int)'>
+	<var: #prevWord type: #'unsigned int'>
+	<var: #thisWord type: #'unsigned int'>
+	<var: #skewWord type: #'unsigned int'>
+	<var: #halftoneWord type: #'unsigned int'>
+	<var: #mergeWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	<var: #skewMask type: #'unsigned int'>
+	<var: #notSkewMask type: #'unsigned int'>
+	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'unsigned int (*)(unsigned int, unsigned int)'.
 	mergeFnwith.  "null ref for compiler"
 
 	hInc := hDir*4.  "Byte delta"

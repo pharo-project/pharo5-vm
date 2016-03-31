@@ -2,6 +2,10 @@ combination rules
 rgbMinInvert: wordToInvert with: destinationWord
 	| sourceWord |
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #wordToInvert type: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
 	sourceWord := wordToInvert bitInvert32.
 	destDepth < 16 ifTrue:
 		["Min each pixel separately"

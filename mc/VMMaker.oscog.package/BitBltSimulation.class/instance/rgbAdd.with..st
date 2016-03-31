@@ -1,6 +1,7 @@
 combination rules
 rgbAdd: sourceWord with: destinationWord
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
 	<var: #sourceWord type: 'unsigned int'>
 	<var: #destinationWord type: 'unsigned int'>
 	<var: #carryOverflowMask type: 'unsigned int'>

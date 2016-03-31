@@ -3,6 +3,8 @@ expensiveDither32To16: srcWord threshold: ditherValue
 	"Dither the given 32bit word to 16 bit. Ignore alpha."
 	| pv threshold value out |
 	<inline: true> "You bet"
+	<returnTypeC: 'unsigned int'>
+	<var: #srcWord type: 'unsigned int'>
 	pv := srcWord bitAnd: 255.
 	threshold := ditherThresholds16 at: (pv bitAnd: 7).
 	value := ditherValues16 at: (pv bitShift: -3).

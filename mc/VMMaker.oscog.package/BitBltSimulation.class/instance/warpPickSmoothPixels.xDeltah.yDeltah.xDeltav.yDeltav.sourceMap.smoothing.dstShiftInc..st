@@ -10,6 +10,7 @@ warpPickSmoothPixels: nPixels
 	This version is only called from WarpBlt with smoothingCount > 1"
 	| rgb x y a r g b xx yy xdh ydh xdv ydv dstMask destWord i j k nPix |
 	<inline: false> "nope - too much stuff in here"
+	<var: #rgb type: #'unsigned int'>
 	dstMask := maskTable at: destDepth.
 	destWord := 0.
 	n = 2 "Try avoiding divides for most common n (divide by 2 is generated as shift)"

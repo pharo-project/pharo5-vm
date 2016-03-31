@@ -1,6 +1,9 @@
 combination rules
 rgbMul: sourceWord with: destinationWord
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
 	destDepth < 16 ifTrue:
 		["Mul each pixel separately"
 		^ self partitionedMul: sourceWord with: destinationWord

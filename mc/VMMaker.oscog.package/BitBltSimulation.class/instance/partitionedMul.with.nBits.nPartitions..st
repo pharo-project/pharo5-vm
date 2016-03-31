@@ -8,6 +8,13 @@ partitionedMul: word1 with: word2 nBits: nBits nPartitions: nParts
 	"In C, integer multiplication might answer a wrong value if the unsigned values are declared as signed.
 	This problem does not affect this method, because the most significant bit (i.e. the sign bit) will
 	always be zero (jmv)"
+	<returnTypeC: 'unsigned int'>
+	<var: #word1 type: 'unsigned int'>
+	<var: #word2 type: 'unsigned int'>
+	<var: #sMask type: 'unsigned int'>
+	<var: #dMask type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
+	<var: #product type: 'unsigned int'>
 	sMask := maskTable at: nBits.  "partition mask starts at the right"
 	dMask :=  sMask << nBits.
 	result := (((word1 bitAnd: sMask)+1) * ((word2 bitAnd: sMask)+1) - 1 

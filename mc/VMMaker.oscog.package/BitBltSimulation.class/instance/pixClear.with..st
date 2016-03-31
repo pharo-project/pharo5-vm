@@ -3,6 +3,12 @@ pixClear: sourceWord with: destinationWord
 	"Clear all pixels in destinationWord for which the pixels of sourceWord have the same values. Used to clear areas of some constant color to zero."
 	| mask result nBits pv |
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #mask type: 'unsigned int'>
+	<var: #pv type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
 	destDepth = 32 ifTrue:[
 		sourceWord = destinationWord ifTrue:[^0] ifFalse:[^destinationWord].
 	].

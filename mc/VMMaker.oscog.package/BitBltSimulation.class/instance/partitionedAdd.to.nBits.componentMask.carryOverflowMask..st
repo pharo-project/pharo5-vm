@@ -4,6 +4,7 @@ partitionedAdd: word1 to: word2 nBits: nBits componentMask: componentMask carryO
 	This is useful for packed pixels, or packed colors"
 	| carryOverflow sum w1 w2 |
 	"Use unsigned int everywhere because it has a well known arithmetic model without undefined behavior w.r.t. overflow and shifts"
+	<returnTypeC: 'unsigned int'>
 	 <var: #word1 type: 'unsigned int'>
 	<var: #word2 type: 'unsigned int'>
 	 <var: #w1 type: 'unsigned int'>

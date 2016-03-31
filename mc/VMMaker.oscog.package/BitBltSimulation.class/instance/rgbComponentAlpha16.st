@@ -7,6 +7,9 @@ rgbComponentAlpha16
 		sourceForm ~= destForm.
 	"
 	<inline: false>  "This particular method should be optimized in itself"
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	<var: #dstMask type: #'unsigned int'>
 	
 	| srcIndex dstIndex sourceWord srcAlpha destWord deltaX deltaY 
 	srcY dstY dstMask srcShift ditherBase ditherIndex ditherThreshold |

@@ -6,6 +6,7 @@ partitionedSub: word1 from: word2 nBits: nBits nPartitions: nParts
 	"In C, most arithmetic operations answer the same bit pattern regardless of the operands being signed or unsigned ints
 	(this is due to the way 2's complement numbers work). However, comparisions might fail. Add the proper declaration of
 	words as unsigned int in those cases where comparisions are done (jmv)"
+	<returnTypeC: 'unsigned int'>
 	<var: #word1 type: 'unsigned int'>
 	<var: #word2 type: 'unsigned int'>
 	<var: #p1 type: 'unsigned int'>

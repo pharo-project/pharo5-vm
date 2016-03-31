@@ -9,6 +9,7 @@ alphaBlendScaled: sourceWord with: destinationWord
 	e.g., it is assumed that the source color is already scaled."
 	| unAlpha rb ag |
 	<inline: false>	"Do NOT inline this into optimized loops"
+	<returnTypeC: 'unsigned int'>
 	<var: #sourceWord type: 'unsigned int'>
 	<var: #destinationWord type: 'unsigned int'>
 	<var: #rb type: 'unsigned int'>

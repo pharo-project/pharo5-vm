@@ -1,6 +1,13 @@
 combination rules
 partitionedRgbComponentAlpha: sourceWord dest: destWord nBits: nBits nPartitions: nParts
 	| mask result p1 p2 v |
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destWord type: 'unsigned int'>
+	<var: #p1 type: 'unsigned int'>
+	<var: #p2 type: 'unsigned int'>
+	<var: #mask type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
 	mask := maskTable at: nBits.  "partition mask starts at the right"
 	result := 0.
 	1 to: nParts do:

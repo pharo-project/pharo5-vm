@@ -4,6 +4,9 @@ pickSourcePixels: nPixels flags: mapperFlags srcMask: srcMask destMask: dstMask 
 	color map, and justify them according to dstBitIndex in the resulting destWord."
 	| sourceWord destWord sourcePix destPix srcShift dstShift nPix |
 	<inline: true> "oh please"
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
 	sourceWord := self srcLongAt: sourceIndex.
 	destWord := 0.
 	srcShift := srcBitShift. "Hint: Keep in register"

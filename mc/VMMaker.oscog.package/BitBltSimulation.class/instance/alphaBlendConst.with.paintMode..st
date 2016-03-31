@@ -16,7 +16,7 @@ alphaBlendConst: sourceWord with: destinationWord paintMode: paintMode
 
 	| pixMask destShifted sourceShifted destPixVal rgbMask sourcePixVal unAlpha result pixBlend shift blend maskShifted bitsPerColor blendAG blendRB |
 	<inline: false>
-	<return: 'unsigned int'>
+	<returnTypeC: 'unsigned int'>
 	<var: #sourceWord type: 'unsigned int'>
 	<var: #destinationWord type: 'unsigned int'>
 	<var: #blendRB type: 'unsigned int'>
@@ -24,6 +24,13 @@ alphaBlendConst: sourceWord with: destinationWord paintMode: paintMode
 	<var: #result type: 'unsigned int'>
 	<var: #sourceAlpha type: 'unsigned int'>
 	<var: #unAlpha type: 'unsigned int'>
+	<var: #sourceShifted type: 'unsigned int'>
+	<var: #destShifted type: 'unsigned int'>
+	<var: #maskShifted type: 'unsigned int'>
+	<var: #pixMask type: 'unsigned int'>
+	<var: #rgbMask type: 'unsigned int'>
+	<var: #pixBlend type: 'unsigned int'>
+	<var: #blend type: 'unsigned int'>
 	destDepth < 16 ifTrue: [^ destinationWord "no-op"].
 	unAlpha := 255 - sourceAlpha.
 	result := destinationWord.

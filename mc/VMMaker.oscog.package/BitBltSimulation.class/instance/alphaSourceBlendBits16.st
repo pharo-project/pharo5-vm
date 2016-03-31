@@ -9,6 +9,9 @@ alphaSourceBlendBits16
 	| srcIndex dstIndex sourceWord srcAlpha destWord deltaX deltaY 
 	srcY dstY dstMask srcShift ditherBase ditherIndex ditherThreshold |
 	<inline: false> "This particular method should be optimized in itself"
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	<var: #dstMask type: #'unsigned int'>
 	deltaY := bbH + 1. "So we can pre-decrement"
 	srcY := sy.
 	dstY := dy.

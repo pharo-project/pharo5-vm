@@ -4,8 +4,11 @@ copyLoopNoSource
 	positive, and perload and skew are unused"
 	| halftoneWord mergeWord mergeFnwith destWord |
 	<inline: false>
-	<var: #mergeFnwith declareC: 'sqInt (*mergeFnwith)(sqInt, sqInt)'>
-	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'sqInt (*)(sqInt, sqInt)'.
+	<var: #mergeFnwith declareC: 'unsigned int (*mergeFnwith)(unsigned int, unsigned int)'>
+	<var: #halftoneWord type: #'unsigned int'>
+	<var: #mergeWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'unsigned int (*)(unsigned int, unsigned int)'.
 	mergeFnwith.  "null ref for compiler"
 
 	1 to: bbH do: "here is the vertical loop"

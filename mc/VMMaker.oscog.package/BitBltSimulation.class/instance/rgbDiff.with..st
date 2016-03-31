@@ -5,6 +5,14 @@ rgbDiff: sourceWord with: destinationWord
 	For non-rgb, return the number of differing pixels."
 	| pixMask destShifted sourceShifted destPixVal bitsPerColor rgbMask sourcePixVal diff maskShifted |
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
+	<var: #sourceShifted type: 'unsigned int'>
+	<var: #destShifted type: 'unsigned int'>
+	<var: #maskShifted type: 'unsigned int'>
+	<var: #pixMask type: 'unsigned int'>
+	<var: #rgbMask type: 'unsigned int'>
 	pixMask := maskTable at: destDepth.
 	destDepth = 16
 		ifTrue: [bitsPerColor := 5.  rgbMask := 16r1F]

@@ -1,6 +1,9 @@
 combination rules
 rgbSub: sourceWord with: destinationWord
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destinationWord type: 'unsigned int'>
 	destDepth < 16 ifTrue:
 		["Sub each pixel separately"
 		^ self partitionedSub: sourceWord from: destinationWord

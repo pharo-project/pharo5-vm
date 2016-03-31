@@ -5,6 +5,8 @@ pickWarpPixelAtX: xx y: yy
 	and still relatively important when smoothing is used."
 	| x y srcIndex sourceWord sourcePix |
 	<inline: true> "*please*"
+	<returnTypeC: #'unsigned int'>
+	<var: #sourceWord type: #'unsigned int'>
 
 	"note: it would be much faster if we could just
 	avoid these stupid tests for being inside sourceForm."

@@ -3,6 +3,12 @@ pixSwap: sourceWord with: destWord
 	"Swap the pixels in destWord"
 	| result shift lowMask highMask |
 	<inline: false>
+	<returnTypeC: 'unsigned int'>
+	<var: #sourceWord type: 'unsigned int'>
+	<var: #destWord type: 'unsigned int'>
+	<var: #lowMask type: 'unsigned int'>
+	<var: #highMask type: 'unsigned int'>
+	<var: #result type: 'unsigned int'>
 	destPPW = 1 ifTrue:[^destWord]. "a single pixel per word"
 	result := 0.
 	lowMask := (1 << destDepth) - 1. "mask low pixel"

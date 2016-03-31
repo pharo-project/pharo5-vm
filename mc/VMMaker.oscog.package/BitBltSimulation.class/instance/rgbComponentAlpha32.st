@@ -12,8 +12,9 @@ rgbComponentAlpha32
 	<inline: false> "This particular method should be optimized in itself"
 
 	"Give the compile a couple of hints"
-	<var: #sourceWord type: 'register long'>
 	<var: #deltaX type: 'register long'>
+	<var: #sourceWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
 
 	"The following should be declared as pointers so the compiler will
 	notice that they're used for accessing memory locations 

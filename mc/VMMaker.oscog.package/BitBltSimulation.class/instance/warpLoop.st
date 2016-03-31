@@ -6,9 +6,13 @@ warpLoop
 	  deltaP12x deltaP12y deltaP43x deltaP43y pAx pAy pBx pBy
 	  xDelta yDelta smoothingCount sourceMapOop
 	  nSteps nPix words destWord endBits mergeFnwith dstShiftInc dstShiftLeft mapperFlags |
-	<inline: false>
-	<var: #mergeFnwith declareC: 'sqInt (*mergeFnwith)(sqInt, sqInt)'>
-	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'sqInt (*)(sqInt, sqInt)'.
+	<inline: false>	
+	<var: #mergeFnwith declareC: 'unsigned int (*mergeFnwith)(unsigned int, unsigned int)'>
+	<var: #skewWord type: #'unsigned int'>
+	<var: #halftoneWord type: #'unsigned int'>
+	<var: #mergeWord type: #'unsigned int'>
+	<var: #destWord type: #'unsigned int'>
+	mergeFnwith := self cCoerce: (opTable at: combinationRule+1) to: 'unsigned int (*)(unsigned int, unsigned int)'.
 	mergeFnwith.  "null ref for compiler"
 
 	(interpreterProxy slotSizeOf: bitBltOop) >= (BBWarpBase+12)
