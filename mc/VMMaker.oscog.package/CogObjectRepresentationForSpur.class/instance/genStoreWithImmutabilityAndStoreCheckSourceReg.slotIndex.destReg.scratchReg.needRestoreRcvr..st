@@ -40,9 +40,8 @@ genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destR
 	jmpAlreadyRemembered := cogit JumpNonZero: 0.
 	"Set the inst var index for the benefit of the immutability check. The trampoline will
 	 repeat the check to choose between the immutbality violation and the store check."
-	immutableJump jmpTarget: (cogit MoveCq: index R: scratchReg).
-	cogit CallRT: ceStoreTrampoline.
-	cogit annotateBytecode: cogit Label.
+	immutableJump jmpTarget: cogit Label.
+	self genStoreTrampolineCall: index.
 	needRestoreRcvr ifTrue: [ cogit putSelfInReceiverResultReg ].
 
 	jmpImmediate jmpTarget:

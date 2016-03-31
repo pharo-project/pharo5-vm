@@ -7,7 +7,17 @@ generateObjectRepresentationTrampolines
 	 remembered set and setting its isRemembered bit."
 	self 
 		cppIf: IMMUTABILITY
-		ifTrue: [ceStoreTrampoline := self genStoreTrampolineCalled: 'ceStoreTrampoline'].
+		ifTrue: 
+			[ 0 to: self numStoreTrampolines do:
+				[ :instVarIndex |
+					ceStoreTrampolines
+						at: instVarIndex
+						put: (self 
+							genStoreTrampolineCalled: (cogit 
+								trampolineName: 'ceStoreTrampoline' 
+								numArgs: instVarIndex 
+								limit: self numStoreTrampolines - 1) 
+							instVarIndex: instVarIndex ) ] ].
 	ceStoreCheckTrampoline := cogit
 									genTrampolineFor: #remember:
 									called: 'ceStoreCheckTrampoline'
