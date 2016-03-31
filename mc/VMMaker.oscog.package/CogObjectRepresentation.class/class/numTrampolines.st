@@ -1,3 +1,3 @@
 accessing
 numTrampolines
-	^1
+	^1 "ceStoreCheckTrampoline"

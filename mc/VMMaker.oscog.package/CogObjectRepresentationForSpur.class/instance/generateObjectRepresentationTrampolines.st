@@ -8,16 +8,18 @@ generateObjectRepresentationTrampolines
 	self 
 		cppIf: IMMUTABILITY
 		ifTrue: 
-			[ 0 to: self numStoreTrampolines do:
-				[ :instVarIndex |
-					ceStoreTrampolines
-						at: instVarIndex
-						put: (self 
+			[self cCode: [] inSmalltalk:
+				[ceStoreTrampolines := CArrayAccessor on: (Array new: NumStoreTrampolines)].
+			 0 to: NumStoreTrampolines - 1 do:
+				[:instVarIndex |
+				 ceStoreTrampolines
+					at: instVarIndex
+					put: (self 
 							genStoreTrampolineCalled: (cogit 
-								trampolineName: 'ceStoreTrampoline' 
-								numArgs: instVarIndex 
-								limit: self numStoreTrampolines - 1) 
-							instVarIndex: instVarIndex ) ] ].
+															trampolineName: 'ceStoreTrampoline' 
+															numArgs: instVarIndex 
+															limit: NumStoreTrampolines - 2) 
+							instVarIndex: instVarIndex)]].
 	ceStoreCheckTrampoline := cogit
 									genTrampolineFor: #remember:
 									called: 'ceStoreCheckTrampoline'

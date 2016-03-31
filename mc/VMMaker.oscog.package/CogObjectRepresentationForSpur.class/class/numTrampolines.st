@@ -1,5 +1,7 @@
 accessing
 numTrampolines
-	(initializationOptions at: #IMMUTABILITY ifAbsent: [false])
-		ifTrue: [ ^ super numTrampolines + self new numStoreTrampolines + 7 ]
-		ifFalse: [ ^ super numTrampolines + 6 ]
+	^super numTrampolines
+	 + 6 "(small,large)x(method,block) context creation, ceStoreCheckContextReceiverTrampoline and ceScheduleScavengeTrampoline"
+	 + ((initializationOptions at: #IMMUTABILITY ifAbsent: [false])
+		ifTrue: [NumStoreTrampolines]
+		ifFalse: [0])

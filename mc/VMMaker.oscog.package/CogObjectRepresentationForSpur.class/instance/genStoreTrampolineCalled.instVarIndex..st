@@ -15,14 +15,17 @@ genStoreTrampolineCalled: trampolineName instVarIndex: instVarIndex
 	<var: #jumpSC type: #'AbstractInstruction *'>
 	<inline: false>
 	cogit zeroOpcodeIndex.
-	jumpSC := self genJumpMutable: ReceiverResultReg scratchReg: SendNumArgsReg. "SendNumArgsReg is mutated but we don't care as register are not live across the trampoline"
-	instVarIndex = self numStoreTrampolines
-		ifFalse: [ cogit MoveCq: instVarIndex R: TempReg ]. 
+	"SendNumArgsReg is mutated but we don't care as register are not live across the trampoline.
+	 There is no reason why registers cannot be saved over the remember: call, but since the
+	 immutability check is a suspension point, registers cannot remain live."
+	jumpSC := self genJumpMutable: ReceiverResultReg scratchReg: SendNumArgsReg.
 	cogit
 		compileTrampolineFor: #ceCannotAssignTo:withIndex:valueToAssign:
 		numArgs: 3
 		arg: ReceiverResultReg
-		arg: TempReg
+		arg: (instVarIndex < (NumStoreTrampolines - 1)
+				ifTrue: [cogit trampolineArgConstant: instVarIndex]
+				ifFalse: [TempReg])
 		arg: ClassReg
 		arg: nil
 		regsToSave: cogit emptyRegisterMask
