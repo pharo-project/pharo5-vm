@@ -1,6 +1,7 @@
 compile abstract instructions
 genStoreWithImmutabilityButNoStoreCheckSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr
-
+	"Gen an immutability check with no store check (e.g. assigning an immediate literal)"
+	<option: #IMMUTABILITY>
 	<var: #mutableJump type: #'AbstractInstruction *'>
 	<var: #immutabilityFailure type: #'AbstractInstruction *'>
 	| immutabilityFailure mutableJump |

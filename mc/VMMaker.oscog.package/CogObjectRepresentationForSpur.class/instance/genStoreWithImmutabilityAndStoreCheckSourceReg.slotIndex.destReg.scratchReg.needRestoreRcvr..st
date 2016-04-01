@@ -1,6 +1,7 @@
 compile abstract instructions
 genStoreWithImmutabilityAndStoreCheckSourceReg: sourceReg slotIndex: index destReg: destReg scratchReg: scratchReg needRestoreRcvr: needRestoreRcvr 
 	"Store check code is duplicated to use a single trampoline"
+	<option: #IMMUTABILITY>
 	| immutableJump jmpImmediate jmpDestYoung jmpSourceOld jmpAlreadyRemembered |
 	<var: #immutableJump type: #'AbstractInstruction *'>
 	<var: #jmpImmediate type: #'AbstractInstruction *'>
