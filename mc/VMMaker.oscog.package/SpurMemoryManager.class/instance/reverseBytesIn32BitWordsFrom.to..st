@@ -4,5 +4,5 @@ reverseBytesIn32BitWordsFrom: startAddr to: stopAddr
 	| addr |
 	addr := startAddr.
 	[self oop: addr isLessThan: stopAddr] whileTrue:
-		[self long32At: addr put: (self byteSwapped32Bits: (self long32At: addr)).
+		[self long32At: addr put: ((self long32At: addr) byteSwap32).
 		 addr := addr + 4]

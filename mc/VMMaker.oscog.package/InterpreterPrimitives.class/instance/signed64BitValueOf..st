@@ -34,9 +34,9 @@ signed64BitValueOf: oop
 
 	self cppIf: VMBIGENDIAN
 		ifTrue:
-			[magnitude := objectMemory fetchByte: sz - 1 ofObject: oop.
-			 sz - 2 to: 0 by: -1 do: [:i |
-				magnitude := magnitude << 8 + (objectMemory fetchByte: i ofObject: oop)]]
+			[magnitude := sz > 4
+						ifTrue: [(objectMemory fetchLong64: 0 ofObject: oop) byteSwap64]
+						ifFalse: [(self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int') byteSwap32]]
 		ifFalse:
 			[magnitude := sz > 4
 						ifTrue: [objectMemory fetchLong64: 0 ofObject: oop]

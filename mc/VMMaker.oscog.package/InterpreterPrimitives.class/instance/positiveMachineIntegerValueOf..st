@@ -30,22 +30,12 @@ positiveMachineIntegerValueOf: oop
 	and: [bs > 4]) ifTrue:
 		[^self cppIf: VMBIGENDIAN
 			ifTrue:
-				[    (objectMemory fetchByte: 0 ofObject: oop)
-				 + ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
-				 + ((objectMemory fetchByte: 2 ofObject: oop) << 16)
-				 + ((objectMemory fetchByte: 3 ofObject: oop) << 24)
-				 + ((objectMemory fetchByte: 4 ofObject: oop) << 32)
-				 + ((objectMemory fetchByte: 5 ofObject: oop) << 40)
-				 + ((objectMemory fetchByte: 6 ofObject: oop) << 48)
-				 + ((objectMemory fetchByte: 7 ofObject: oop) << 56)]
+				[(objectMemory fetchLong64: 0 ofObject: oop) byteSwap64]
 			ifFalse:
 				[objectMemory fetchLong64: 0 ofObject: oop]]
 		ifFalse:
 			[^self cppIf: VMBIGENDIAN
 				ifTrue:
-					[    (objectMemory fetchByte: 0 ofObject: oop)
-					 + ((objectMemory fetchByte: 1 ofObject: oop) <<  8)
-					 + ((objectMemory fetchByte: 2 ofObject: oop) << 16)
-					 + ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
+					[(self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int') byteSwap32]
 				ifFalse:
 					[self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int']]

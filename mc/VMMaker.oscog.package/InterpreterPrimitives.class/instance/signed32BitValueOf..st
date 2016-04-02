@@ -43,10 +43,7 @@ signed32BitValueOf: oop
 
 	magnitude := self cppIf: VMBIGENDIAN
 				ifTrue:
-					[ (objectMemory fetchByte: 0 ofObject: oop) +
-					 ((objectMemory fetchByte: 1 ofObject: oop) <<  8) +
-					 ((objectMemory fetchByte: 2 ofObject: oop) << 16) +
-					 ((objectMemory fetchByte: 3 ofObject: oop) << 24)]
+					[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger byteSwap32]
 				ifFalse:
 					[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger].
 

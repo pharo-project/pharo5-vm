@@ -35,17 +35,9 @@ signed64BitIntegerFor: integerValue
 							numSlots: sz + 3 // objectMemory bytesPerOop.
 	self cppIf: VMBIGENDIAN
 		ifTrue:
-			[sz > 4 ifTrue:
-				[objectMemory
-					storeByte: 7 ofObject: newLargeInteger withValue: (magnitude >> 56 bitAnd: 16rFF);
-					storeByte: 6 ofObject: newLargeInteger withValue: (magnitude >> 48 bitAnd: 16rFF);
-					storeByte: 5 ofObject: newLargeInteger withValue: (magnitude >> 40 bitAnd: 16rFF);
-					storeByte: 4 ofObject: newLargeInteger withValue: (magnitude >> 32 bitAnd: 16rFF)].
-			objectMemory
-				storeByte: 3 ofObject: newLargeInteger withValue: (magnitude >> 24 bitAnd: 16rFF);
-				storeByte: 2 ofObject: newLargeInteger withValue: (magnitude >> 16 bitAnd: 16rFF);
-				storeByte: 1 ofObject: newLargeInteger withValue: (magnitude >>   8 bitAnd: 16rFF);
-				storeByte: 0 ofObject: newLargeInteger withValue: (magnitude ">> 0" bitAnd: 16rFF)]
+			[sz > 4
+				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude byteSwap64]
+				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: magnitude byteSwap32]]
 		ifFalse:
 			[sz > 4
 				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude]

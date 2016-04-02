@@ -18,11 +18,7 @@ noInlineSigned32BitIntegerFor: integerValue
 							numSlots: 1.
 	self cppIf: VMBIGENDIAN
 		ifTrue:
-			[objectMemory
-				storeByte: 3 ofObject: newLargeInteger withValue: ((value >> 24) bitAnd: 16rFF);
-				storeByte: 2 ofObject: newLargeInteger withValue: ((value >> 16) bitAnd: 16rFF);
-				storeByte: 1 ofObject: newLargeInteger withValue: ((value >> 8) bitAnd: 16rFF);
-				storeByte: 0 ofObject: newLargeInteger withValue: (value bitAnd: 16rFF)]
+			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: value byteSwap32]
 		ifFalse:
 			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: value].
 	^newLargeInteger

@@ -4,6 +4,7 @@ cDigitSub: pByteSmall len: smallLen with: pByteLarge len: largeLen into: pByteRe
 	<var: #pByteSmall type: #'unsigned char *'>
 	<var: #pByteLarge type: #'unsigned char *'>
 	<var: #pByteRes type: #'unsigned char *'>
+	<var: #z type: #'unsigned int'>
 
 	z := 0. "Loop invariant is -1<=z<=1"
 	0 to: smallLen - 1 do: 

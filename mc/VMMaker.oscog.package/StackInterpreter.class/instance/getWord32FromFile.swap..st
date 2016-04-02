@@ -13,5 +13,5 @@ getWord32FromFile: aFile swap: swapFlag
 					Read: aFile]
 		inSmalltalk: [w := objectMemory nextWord32From: aFile].
 	^swapFlag
-		ifTrue: [objectMemory byteSwapped: w]
+		ifTrue: [w byteSwap32]
 		ifFalse: [w]

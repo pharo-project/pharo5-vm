@@ -16,11 +16,7 @@ maybeInlinePositive32BitIntegerFor: integerValue
 							numSlots: 1.
 	self cppIf: VMBIGENDIAN
 		ifTrue:
-			[objectMemory
-				storeByte: 3 ofObject: newLargeInteger withValue: (integerValue >> 24 bitAnd: 16rFF);
-				storeByte: 2 ofObject: newLargeInteger withValue: (integerValue >> 16 bitAnd: 16rFF);
-				storeByte: 1 ofObject: newLargeInteger withValue: (integerValue >>   8 bitAnd: 16rFF);
-				storeByte: 0 ofObject: newLargeInteger withValue: (integerValue ">> 0" bitAnd: 16rFF)]
+			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: integerValue byteSwap32]
 		ifFalse:
 			[objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: integerValue].
 	^newLargeInteger

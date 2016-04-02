@@ -38,6 +38,9 @@ initializeCTranslationDictionary
 	#truncateTo:		#generateTruncateTo:on:indent:
 	#rounded			#generateRounded:on:indent:
 
+	#byteSwap32		#generateByteSwap32:on:indent:
+	#byteSwap64		#generateByteSwap64:on:indent:
+	
 	#<				#generateLessThan:on:indent:
 	#<=			#generateLessThanOrEqual:on:indent:
 	#=				#generateEqual:on:indent:

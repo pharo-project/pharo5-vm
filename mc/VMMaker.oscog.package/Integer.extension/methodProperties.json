@@ -11,6 +11,8 @@
 		"asUnsignedLongLong" : "eem 2/20/2016 23:14",
 		"asVoidPointer" : "eem 10/31/2013 08:40",
 		"bitInvert64" : "eem 11/19/2014 20:18",
+		"byteSwap32" : "nice 4/2/2016 22:34",
+		"byteSwap64" : "nice 4/2/2016 22:40",
 		"coerceTo:sim:" : "eem 1/26/2015 14:29",
 		"hex8" : "eem 5/21/2010 11:09",
 		"isActiveBreakpoint" : "eem 12/24/2015 11:57",

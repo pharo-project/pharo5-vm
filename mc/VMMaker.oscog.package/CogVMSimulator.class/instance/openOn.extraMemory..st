@@ -22,7 +22,7 @@ openOn: fileName extraMemory: extraBytes
 	version := self getWord32FromFile: f swap: false.  "current version: 16r1968 (=6504) vive la revolucion!"
 	(self readableFormat: version)
 		ifTrue: [swapBytes := false]
-		ifFalse: [(version := objectMemory byteSwapped: version) = self imageFormatVersion
+		ifFalse: [(version := version byteSwap32) = self imageFormatVersion
 					ifTrue: [swapBytes := true]
 					ifFalse: [self error: 'incomaptible image format']].
 	headerSize := self getWord32FromFile: f swap: swapBytes.
