@@ -7,6 +7,8 @@
 		"byteAt:" : "eem 9/3/2013 14:54",
 		"byteAt:put:" : "eem 9/30/2013 16:43",
 		"byteAtPointer:" : "eem 9/4/2013 16:23",
+		"byteSwapped32IfBigEndian:" : "nice 4/6/2016 00:14",
+		"byteSwapped64IfBigEndian:" : "nice 4/6/2016 00:15",
 		"classTableFirstPage" : "eem 10/3/2013 00:03",
 		"coInterpreter:cogit:" : "eem 9/30/2013 16:15",
 		"cogCodeBase" : "eem 11/25/2013 13:17",

@@ -7,6 +7,8 @@
 		"byteAt:" : "eem 11/17/2014 14:05",
 		"byteAt:put:" : "eem 11/17/2014 14:05",
 		"byteAtPointer:" : "eem 9/4/2013 16:23",
+		"byteSwapped32IfBigEndian:" : "nice 4/6/2016 00:14",
+		"byteSwapped64IfBigEndian:" : "nice 4/6/2016 00:15",
 		"eek" : "eem 9/16/2013 15:11",
 		"endianness" : "eem 8/30/2013 11:47",
 		"fetchFloatAt:into:" : "eem 11/19/2014 13:29",
