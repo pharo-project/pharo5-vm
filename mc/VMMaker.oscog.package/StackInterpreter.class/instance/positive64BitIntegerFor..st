@@ -23,9 +23,5 @@ positive64BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: ClassLargePositiveIntegerCompactIndex
 							format: (objectMemory byteFormatForNumBytes: sz)
 							numSlots: 8 / objectMemory bytesPerOop.
-	self cppIf: VMBIGENDIAN
-		ifTrue:
-			[objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: integerValue byteSwap64]
-		ifFalse:
-			[objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: integerValue].
+	objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped64IfBigEndian: integerValue).
 	^newLargeInteger

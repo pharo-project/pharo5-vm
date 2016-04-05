@@ -4,6 +4,8 @@
 	"instance" : {
 		"byteAt:" : "nk 4/3/2004 06:58",
 		"byteAt:put:" : "eem 2/27/2009 11:11",
+		"byteSwapped32IfBigEndian:" : "nice 4/3/2016 08:34",
+		"byteSwapped64IfBigEndian:" : "nice 4/3/2016 08:34",
 		"charsOfLong:" : "ikp 12/11/1998 01:35",
 		"halfWordHighInLong32:" : "di 7/16/2004 14:59",
 		"halfWordLowInLong32:" : "di 7/16/2004 14:59",

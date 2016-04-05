@@ -40,6 +40,8 @@ initializeCTranslationDictionary
 
 	#byteSwap32		#generateByteSwap32:on:indent:
 	#byteSwap64		#generateByteSwap64:on:indent:
+	#byteSwapped32IfBigEndian:	generateByteSwap32IfBigEndian:on:indent:
+	#byteSwapped64IfBigEndian:	generateByteSwap64IfBigEndian:on:indent:
 	
 	#<				#generateLessThan:on:indent:
 	#<=			#generateLessThanOrEqual:on:indent:

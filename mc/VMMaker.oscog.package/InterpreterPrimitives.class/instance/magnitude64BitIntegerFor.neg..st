@@ -29,14 +29,13 @@ magnitude64BitIntegerFor: magnitude neg: isNegative
 							[sz := sz + 1.
 							 (highWord := highWord >> 8) = 0 ifFalse: [sz := sz + 1]]]]].
 	newLargeInteger := objectMemory instantiateClass: largeClass indexableSize:  sz.
-	self cppIf: VMBIGENDIAN
+	self cppIf: SPURVM
 		ifTrue:
-			[sz > 4
-				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude byteSwap64]
-				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (magnitude byteSwap32)]]
+			["Memory is eight byte aligned in SPUR, so we are sure to have room for 64bits word whatever allocated sz"
+			objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped64IfBigEndian: magnitude)]
 		ifFalse:
 			[sz > 4
-				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: magnitude]
-				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (self cCode: [magnitude] inSmalltalk: [magnitude bitAnd: 16rFFFFFFFF])]].
+				ifTrue: [objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped64IfBigEndian: magnitude)]
+				ifFalse: [objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped32IfBigEndian: magnitude)]].
 
 	^newLargeInteger

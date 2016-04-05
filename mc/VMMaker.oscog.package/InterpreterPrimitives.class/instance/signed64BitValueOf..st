@@ -32,15 +32,14 @@ signed64BitValueOf: oop
 		[self primitiveFail.
 		 ^0].
 
-	self cppIf: VMBIGENDIAN
+	"self cppIf: SPURVM
 		ifTrue:
-			[magnitude := sz > 4
-						ifTrue: [(objectMemory fetchLong64: 0 ofObject: oop) byteSwap64]
-						ifFalse: [(self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int') byteSwap32]]
+			[""Memory is 8 byte aligned in Spur and oversized bytes are set to zero, so we can safely fetch 8 bytes""
+			magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
 		ifFalse:
-			[magnitude := sz > 4
-						ifTrue: [objectMemory fetchLong64: 0 ofObject: oop]
-						ifFalse: [self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int']].
+			["sz > 4
+				ifTrue: [magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
+				ifFalse: [magnitude := self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int']"]".
 
 	(negative
 		ifTrue: [magnitude > 16r8000000000000000]

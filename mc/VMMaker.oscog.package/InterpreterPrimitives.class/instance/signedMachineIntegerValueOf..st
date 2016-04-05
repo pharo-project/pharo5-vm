@@ -28,19 +28,17 @@ signedMachineIntegerValueOf: oop
 	bs > (self sizeof: #'unsigned long') ifTrue:
 		[^self primitiveFail].
 
-	((self sizeof: #'unsigned long') = 8
-	and: [bs > 4]) ifTrue:
-		[magnitude := self cppIf: VMBIGENDIAN
-					ifTrue:
-						[(objectMemory fetchLong64: 0 ofObject: oop) byteSwap64]
-					ifFalse:
-						[objectMemory fetchLong64: 0 ofObject: oop]]
+	"self cppIf: SPURVM
+		ifTrue:
+			[""Memory is 8 byte aligned in Spur and oversized bytes are set to zero, so we can safely fetch 8 bytes""
+			magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
 		ifFalse:
-			[magnitude := self cppIf: VMBIGENDIAN
-						ifTrue:
-							[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger byteSwap32]
-						ifFalse:
-							[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger]].
+			["((self sizeof: #'unsigned long') = 8
+			and: [bs > 4])
+				ifTrue:
+					[magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
+				ifFalse:
+					[magnitude := self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int']"]".
 
 	limit := 1 asUnsignedInteger << ((self sizeof: #usqInt) * 8 - 1).
 	(negative

@@ -4,6 +4,8 @@
 	"instance" : {
 		"byteAt:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"byteAt:put:" : "eem (const to msg rewrite) 11/6/2014 11:00",
+		"byteSwapped32IfBigEndian:" : "nice 4/3/2016 08:38",
+		"byteSwapped64IfBigEndian:" : "nice 4/3/2016 08:37",
 		"endianness" : "eem 6/25/2011 14:03",
 		"fetchFloatAt:into:" : "eem 10/12/2009 03:55",
 		"halfWordHighInLong32:" : "di 7/16/2004 14:58",

@@ -26,16 +26,12 @@ positiveMachineIntegerValueOf: oop
 		[self primitiveFail.
 		 ^0].
 
-	((self sizeof: #'unsigned long') = 8
-	and: [bs > 4]) ifTrue:
-		[^self cppIf: VMBIGENDIAN
-			ifTrue:
-				[(objectMemory fetchLong64: 0 ofObject: oop) byteSwap64]
-			ifFalse:
-				[objectMemory fetchLong64: 0 ofObject: oop]]
-		ifFalse:
-			[^self cppIf: VMBIGENDIAN
+	"self cppIf: SPURVM
+		ifTrue: [""Memory is 8 byte aligned in Spur and oversized bytes are set to zero, so we can safely fetch 8 bytes""
+			^objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
+		ifFalse: ["((self sizeof: #'unsigned long') = 8
+			and: [bs > 4])
 				ifTrue:
-					[(self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int') byteSwap32]
+					[^objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
 				ifFalse:
-					[self cCoerceSimple: (objectMemory fetchLong32: 0 ofObject: oop) to: #'unsigned int']]
+					[^self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int']"]"

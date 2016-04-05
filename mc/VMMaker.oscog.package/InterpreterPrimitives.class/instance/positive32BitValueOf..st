@@ -30,8 +30,4 @@ positive32BitValueOf: oop
 			sz > 4 ifTrue:
 				[self primitiveFail.
 				 ^0].
-			^self cppIf: VMBIGENDIAN
-				ifTrue:
-					[(objectMemory fetchLong32: 0 ofObject: oop) byteSwap32]
-				ifFalse:
-					[objectMemory fetchLong32: 0 ofObject: oop]]
+			^self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int']

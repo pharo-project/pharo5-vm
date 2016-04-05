@@ -41,11 +41,7 @@ signed32BitValueOf: oop
 	(objectMemory numBytesOfBytes: oop) > 4 ifTrue:
 		[^self primitiveFail].
 
-	magnitude := self cppIf: VMBIGENDIAN
-				ifTrue:
-					[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger byteSwap32]
-				ifFalse:
-					[(objectMemory fetchLong32: 0 ofObject: oop) asUnsignedInteger].
+	magnitude := self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int'.
 
 	(negative
 		ifTrue: [magnitude > 16r80000000]
