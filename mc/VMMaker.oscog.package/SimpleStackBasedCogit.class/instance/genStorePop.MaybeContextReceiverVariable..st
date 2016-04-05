@@ -7,7 +7,6 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	"The reason we need a frame here is that assigning to an inst var of a context may
 	 involve wholesale reorganization of stack pages, and the only way to preserve the
 	 execution state of an activation in that case is if it has a frame."
-	extB := 0. "do the store check anyway"
 	self assert: needsFrame.
 	self putSelfInReceiverResultReg.
 	objectRepresentation

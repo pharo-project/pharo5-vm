@@ -3,7 +3,7 @@ genVanillaStorePop: popBoolean ReceiverVariable: slotIndex
 	<inline: true>
 	| topReg needStoreCheck |
 	self ssFlushUpThroughReceiverVariable: slotIndex.
-	needStoreCheck := self ssTopNeedsStoreCheck.
+	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	"Note that ReceiverResultReg remains live after ceStoreCheckTrampoline."
 	self ensureReceiverResultRegContainsSelf.
 	topReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: ReceiverResultReg). 

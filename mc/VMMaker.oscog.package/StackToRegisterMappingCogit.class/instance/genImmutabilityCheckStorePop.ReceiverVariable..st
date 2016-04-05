@@ -3,7 +3,7 @@ genImmutabilityCheckStorePop: popBoolean ReceiverVariable: slotIndex
 	<inline: true>
 	| needStoreCheck |
 	self assert: needsFrame. 
-	needStoreCheck := self ssTopNeedsStoreCheck.
+	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
 	"Note that ReceiverResultReg remains live after the trampoline."
 	self ensureReceiverResultRegContainsSelf.
 	self ssAllocateRequiredReg: ClassReg.

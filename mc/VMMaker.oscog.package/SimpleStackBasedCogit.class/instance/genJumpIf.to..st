@@ -19,5 +19,4 @@ genJumpIf: boolean to: targetBytecodePC
 					ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
 					ifFalse: [ceSendMustBeBooleanAddTrueTrampoline]).
 	ok jmpTarget: (self annotateBytecode: self Label).
-	extA := 0. "ignores the flag"
 	^0

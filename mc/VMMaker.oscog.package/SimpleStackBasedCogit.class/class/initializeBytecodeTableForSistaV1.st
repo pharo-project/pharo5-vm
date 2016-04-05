@@ -108,9 +108,9 @@ initializeBytecodeTableForSistaV1
 		(3 248 248 genCallPrimitiveBytecode)
 		(3 249 249 unknownBytecode) "reserved for Push Float"
 		(3 250 250 genExtPushClosureBytecode block v4:Block:Code:Size:)
-		(3 251 251 genExtPushRemoteTempOrRemoteInstVarLongBytecode)
-		(3 252 252 genExtStoreRemoteTempOrRemoteInstVarLongBytecode)
-		(3 253 253 genExtStoreAndPopRemoteTempOrRemoteInstVarLongBytecode)
+		(3 251 251 genPushRemoteTempLongBytecode)
+		(3 252 252 genStoreRemoteTempLongBytecode)
+		(3 253 253 genStoreAndPopRemoteTempLongBytecode)
 
 		(3 254 254	genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 			

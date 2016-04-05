@@ -8,7 +8,6 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex
 	 the temote temp store, unless we we smart enough to realise that
 	 ReceiverResultReg was unused after the literal variable store, unlikely given
 	 that methods return self by default."
-	extB := 0. "do the store check anyway"
 	self assert: needsFrame.
 	popBoolean
 		ifTrue: [self PopR: ClassReg]

@@ -9,7 +9,6 @@ genStorePop: popBoolean LiteralVariable: litVarIndex
 	 the literal store, unless we we smart enough to realise that ReceiverResultReg
 	 was unused after the literal variable store, unlikely given that methods
 	 return self by default."
-	extB := 0. "do the store check anyway"
 	self assert: needsFrame.
 	association := self getLiteral: litVarIndex.
 	self genMoveConstant: association R: ReceiverResultReg.

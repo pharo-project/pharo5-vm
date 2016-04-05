@@ -26,17 +26,12 @@ genJumpIf: boolean to: targetBytecodePC
 												ifFalse: [self Label]]).
 		 ^0].
 	desc popToReg: TempReg.
-	
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
 	 their distance send mustBeBoolean."
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
-	
-	(extA anyMask: 1) ifTrue: [ extA := 0. ^ 0 ].
-	self assert: extA = 0.
-	
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
