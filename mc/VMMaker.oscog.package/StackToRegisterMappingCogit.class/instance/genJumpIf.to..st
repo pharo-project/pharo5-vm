@@ -34,8 +34,8 @@ genJumpIf: boolean to: targetBytecodePC
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 	
-	extA = 1 ifTrue: [ extA := 0. ^ 0 ].
-	extA := 0.
+	(extA anyMask: 1) ifTrue: [ extA := 0. ^ 0 ].
+	self assert: extA = 0.
 	
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]

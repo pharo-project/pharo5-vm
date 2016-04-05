@@ -119,9 +119,9 @@ initializeBytecodeTableForSistaV1
 		(249		unknownBytecode) "reserved for Push Float"
 
 		(250		extPushClosureBytecode)
-		(251		pushRemoteTempLongBytecode)
-		(252		storeRemoteTempLongBytecode)
-		(253		storeAndPopRemoteTempLongBytecode)
+		(251		extPushRemoteTempOrRemoteInstVarLongBytecode)
+		(252		extStoreRemoteTempOrRemoteInstVarLongBytecode)
+		(253		extStoreAndPopRemoteTempOrRemoteInstVarLongBytecode)
 				
 		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
