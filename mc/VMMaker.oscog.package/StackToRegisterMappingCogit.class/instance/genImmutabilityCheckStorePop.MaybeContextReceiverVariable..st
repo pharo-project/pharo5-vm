@@ -8,7 +8,7 @@ genImmutabilityCheckStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	 involve wholesale reorganization of stack pages, and the only way to preserve the
 	 execution state of an activation in that case is if it has a frame."
 	self assert: needsFrame.
-	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
+	needStoreCheck := self ssTopNeedsStoreCheck.
 	"Note that ReceiverResultReg remains live after both
 	 ceStoreContextInstVarTrampoline and ceStoreCheckTrampoline."
 	self ensureReceiverResultRegContainsSelf.

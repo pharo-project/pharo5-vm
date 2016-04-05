@@ -1,20 +1,27 @@
 bytecode generator support
-genImmutabilityCheckStorePop: popBoolean ReceiverVariable: slotIndex
+genImmutabilityCheckStorePop: popBoolean RemoteInstVar: slotIndex At: objectIndex 
 	<inline: true>
 	| needStoreCheck |
 	self assert: needsFrame. 
 	needStoreCheck := self ssTopNeedsStoreCheck.
-	"Note that ReceiverResultReg remains live after the trampoline."
-	self ensureReceiverResultRegContainsSelf.
+	
+	self ssAllocateRequiredReg: ReceiverResultReg. 
+	optStatus isReceiverResultRegLive: false.
+	self MoveMw: (self frameOffsetOfTemporary: objectIndex) r: FPReg R: ReceiverResultReg.
+	
 	self ssAllocateRequiredReg: ClassReg.
 	self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
 	self ssFlushTo: simStackPtr.
+	
+	objectRepresentation 
+		genEnsureOopInRegNotForwarded: ReceiverResultReg 
+		scratchReg: TempReg.
+	
 	objectRepresentation 
 		genStoreWithImmutabilityCheckSourceReg: ClassReg 
 		slotIndex: slotIndex 
 		destReg: ReceiverResultReg 
 		scratchReg: TempReg 
 		needsStoreCheck: needStoreCheck 
-		needRestoreRcvr: true.
-		
+		needRestoreRcvr: false.
 	^ 0

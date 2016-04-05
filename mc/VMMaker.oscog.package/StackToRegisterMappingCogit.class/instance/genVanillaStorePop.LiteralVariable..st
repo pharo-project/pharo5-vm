@@ -12,7 +12,7 @@ genVanillaStorePop: popBoolean LiteralVariable: litVarIndex
 	self assert: needsFrame.
 	"N.B.  No need to check the stack for references because we generate code for
 	 literal variable loads that stores the result in a register, deferring only the register push."
-	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
+	needStoreCheck := self ssTopNeedsStoreCheck.
 	association := self getLiteral: litVarIndex.
 	optStatus isReceiverResultRegLive: false.
 	self ssAllocateRequiredReg: ReceiverResultReg. "for ceStoreCheck call in genStoreSourceReg: has to be ReceiverResultReg"

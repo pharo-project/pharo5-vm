@@ -9,7 +9,7 @@ genVanillaStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 	 execution state of an activation in that case is if it has a frame."
 	self assert: needsFrame.
 	self ssFlushUpThroughReceiverVariable: slotIndex.
-	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
+	needStoreCheck := self ssTopNeedsStoreCheck.
 	"Note that ReceiverResultReg remains live after both
 	 ceStoreContextInstVarTrampoline and ceStoreCheckTrampoline."
 	self ensureReceiverResultRegContainsSelf.
