@@ -7,6 +7,8 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 
 	| ok mustBeBooleanTrampoline |
 
+	extA := 0.
+
 	self ssFlushTo: simStackPtr - 1.
 	
 	self ssTop popToReg: TempReg.

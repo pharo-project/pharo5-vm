@@ -20,7 +20,7 @@ genJumpIf: boolean to: targetBytecodePC
 		[ branchReachedOnlyForCounterTrip := false.
 		^ self genCounterTripOnlyJumpIf: boolean to: targetBytecodePC ].
 	
-	boolean ifFalse:
+	boolean == objectMemory falseObject ifTrue:
 		[ "detection of and: / or:"
 		nextPC := bytecodePC + (self generatorAt: byte0) numBytes.
 		nextDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
@@ -28,6 +28,7 @@ genJumpIf: boolean to: targetBytecodePC
 		nextDescriptor := self generatorAt: (objectMemory fetchByte: targetBytecodePC ofObject: methodObj) + bytecodeSetOffset.
 		nextDescriptor generator ==  #genPushConstantFalseBytecode ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].  ].
 
+	extA := 0.
 
 	self ssFlushTo: simStackPtr - 1.
 	self ssTop popToReg: TempReg.

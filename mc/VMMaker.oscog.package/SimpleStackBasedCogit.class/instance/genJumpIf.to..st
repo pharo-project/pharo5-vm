@@ -6,6 +6,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 their distance send mustBeBoolean."
 	| ok |
 	<var: #ok type: #'AbstractInstruction *'>
+	extA := 0.
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self PopR: TempReg.
 	self annotate: (self SubCw: boolean R: TempReg) objRef: boolean.
