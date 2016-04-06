@@ -4,7 +4,7 @@ genExtStorePopRemoteTempOrInstVarLongBytecode: boolean
 	needsStoreCheck := self sistaNeedsStoreCheck.
 	maybeContext := self extBSpecifiesMaybeContext.
 	extB := 0.
-	(byte2 noMask: 1 << 7)
+	(byte2 noMask: coInterpreter remoteIsInstVarAccess)
 		ifTrue: 
 			[ self genStorePop: boolean RemoteTemp: byte1 At: byte2 needsStoreCheck: needsStoreCheck.
 			self cppIf: IMMUTABILITY ifTrue: [ self annotateBytecode: self Label ] ]
@@ -15,11 +15,11 @@ genExtStorePopRemoteTempOrInstVarLongBytecode: boolean
 				ifTrue: [ self 
 						genStorePop: boolean 
 						MaybeContextRemoteInstVar: index 
-						ofObjectAt: byte2 - (1 << 7) 
+						ofObjectAt: byte2 - coInterpreter remoteIsInstVarAccess 
 						needsStoreCheck: needsStoreCheck ]
 				ifFalse: [ self 
 						genStorePop: boolean 
 						RemoteInstVar: index 
-						ofObjectAt: byte2 - (1 << 7) 
+						ofObjectAt: byte2 - coInterpreter remoteIsInstVarAccess 
 						needsStoreCheck: needsStoreCheck ] ].
 	^ 0

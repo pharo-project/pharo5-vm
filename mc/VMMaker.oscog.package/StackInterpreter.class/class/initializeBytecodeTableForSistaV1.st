@@ -104,12 +104,12 @@ initializeBytecodeTableForSistaV1
 		(238		extJumpIfTrue)
 		(239		extJumpIfFalse)
 
-		(240		extStoreAndPopReceiverVariableBytecode)
-		(241		extStoreAndPopLiteralVariableBytecode)
+		(240		extSistaStoreAndPopReceiverVariableBytecode)
+		(241		extSistaStoreAndPopLiteralVariableBytecode)
 		(242		longStoreAndPopTemporaryVariableBytecode)
 
-		(243		extStoreReceiverVariableBytecode)
-		(244		extStoreLiteralVariableBytecode)
+		(243		extSistaStoreReceiverVariableBytecode)
+		(244		extSistaStoreLiteralVariableBytecode)
 		(245		longStoreTemporaryVariableBytecode)
 
 		(246 247	unknownBytecode)
@@ -119,9 +119,9 @@ initializeBytecodeTableForSistaV1
 		(249		unknownBytecode) "reserved for Push Float"
 
 		(250		extPushClosureBytecode)
-		(251		pushRemoteTempLongBytecode)
-		(252		storeRemoteTempLongBytecode)
-		(253		storeAndPopRemoteTempLongBytecode)
+		(251		extPushRemoteTempOrInstVarLongBytecode)
+		(252		extStoreRemoteTempOrInstVarLongBytecode)
+		(253		extStoreAndPopRemoteTempOrInstVarLongBytecode)
 				
 		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
