@@ -125,5 +125,5 @@ initializeBytecodeTableForSistaV1
 				
 		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
-		(255		unknownBytecode)
+		(255		extPushFullClosureBytecode)
 	)

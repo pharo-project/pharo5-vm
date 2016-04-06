@@ -5,7 +5,7 @@ startPCOrNilOfLiteral: lit in: aMethodObj
 	| outerContext |
 	((objectMemory isNonImmediate: lit)
 	 and: [(objectMemory formatOf: lit) = objectMemory indexablePointersFormat
-	 and: [(objectMemory numSlotsOf: lit) >= ClosureCopiedValuesIndex]]) ifFalse:
+	 and: [(objectMemory numSlotsOf: lit) >= ClosureFirstCopiedValueIndex]]) ifFalse:
 		[^nil].
 	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: lit.
 	(objectMemory isContext: outerContext) ifFalse:

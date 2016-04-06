@@ -23,4 +23,8 @@ initializeContextIndices
 	ClosureStartPCIndex := 1.
 	ClosureNumArgsIndex := 2.
 	ClosureFirstCopiedValueIndex := 3.
-	ClosureCopiedValuesIndex := 3
+	
+	"Class FullBlockClosure, outercontext and numArgs index are shared with the BlockClosure class."	
+	FullClosureCompiledBlockIndex := 1.
+	FullClosureReceiverIndex := 3.
+	FullClosureFirstCopiedValueIndex := 4.
