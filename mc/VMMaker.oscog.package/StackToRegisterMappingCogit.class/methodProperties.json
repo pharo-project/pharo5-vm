@@ -66,7 +66,6 @@
 		"genBinaryVarOpVarInlinePrimitive:" : "eem 12/12/2015 13:38",
 		"genCallPICEnilopmartNumArgs:" : "eem 1/10/2016 14:32",
 		"genCallPrimitiveBytecode" : "eem 12/12/2015 13:35",
-		"genCompConstant:R:" : "cb 4/17/2015 15:17",
 		"genEqualsEqualsComparisonArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "cb 4/24/2015 11:22",
 		"genEqualsEqualsNoBranchArgIsConstant:rcvrIsConstant:argReg:rcvrReg:" : "eem 12/10/2015 09:24",
 		"genExtPushClosureBytecode" : "eem 09/28/2015 18:48",

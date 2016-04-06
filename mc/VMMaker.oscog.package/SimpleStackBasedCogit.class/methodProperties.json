@@ -39,6 +39,7 @@
 		"frameOffsetOfTemporary:" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genBlockReturn" : "eem 4/19/2015 17:57",
 		"genCallPrimitiveBytecode" : "eem 4/10/2015 12:17",
+		"genCompConstant:R:" : "cb 4/17/2015 15:17",
 		"genDoubleFailIfZeroArgRcvr:arg:" : "eem 1/7/2016 13:17",
 		"genExtJumpIfFalse" : "eem 11/5/2012 16:12",
 		"genExtJumpIfTrue" : "eem 11/5/2012 16:11",

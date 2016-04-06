@@ -18,6 +18,7 @@
 		"compactCompiledCode" : "eem 7/18/2015 09:45",
 		"ensureInYoungReferrers:" : "eem 8/4/2014 12:15",
 		"findPreviouslyCompiledVersionOf:with:" : "eem 7/9/2014 19:58",
+		"followForwardedLiteralsInOpenPICList" : "eem 4/6/2016 10:12",
 		"freeMethod:" : "eem 7/18/2015 09:46",
 		"freeOlderMethodsForCompaction" : "eem 6/3/2015 18:57",
 		"freeStart" : "eem 12/3/2013 13:41",
