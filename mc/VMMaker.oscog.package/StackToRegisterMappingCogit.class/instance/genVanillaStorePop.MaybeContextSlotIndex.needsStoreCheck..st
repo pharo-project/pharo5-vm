@@ -1,18 +1,10 @@
 bytecode generator support
-genVanillaStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
+genVanillaStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck: needsStoreCheck
 	<inline: true>
-	| jmpSingle jmpDone needStoreCheck |
+	| jmpSingle jmpDone |
 	<var: #jmpSingle type: #'AbstractInstruction *'>
 	<var: #jmpDone type: #'AbstractInstruction *'>
-	"The reason we need a frame here is that assigning to an inst var of a context may
-	 involve wholesale reorganization of stack pages, and the only way to preserve the
-	 execution state of an activation in that case is if it has a frame."
-	self assert: needsFrame.
-	self ssFlushUpThroughReceiverVariable: slotIndex.
-	needStoreCheck := (objectRepresentation isUnannotatableConstant: self ssTop) not.
-	"Note that ReceiverResultReg remains live after both
-	 ceStoreContextInstVarTrampoline and ceStoreCheckTrampoline."
-	self ensureReceiverResultRegContainsSelf.
+
 	self ssPop: 1.
 	self ssAllocateCallReg: ClassReg and: SendNumArgsReg. "for ceStoreContextInstVarTrampoline"
 	self ssPush: 1.
@@ -32,7 +24,7 @@ genVanillaStorePop: popBoolean MaybeContextReceiverVariable: slotIndex
 		destReg: ReceiverResultReg
 		scratchReg: TempReg
 		inFrame: true
-		needsStoreCheck: needStoreCheck.
+		needsStoreCheck: needsStoreCheck.
 	jmpDone jmpTarget: self Label.
 	
 	^0

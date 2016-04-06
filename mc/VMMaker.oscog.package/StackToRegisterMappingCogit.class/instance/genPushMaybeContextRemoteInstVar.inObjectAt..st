@@ -1,6 +1,6 @@
 bytecode generator support
-genPushMaybeContextReceiverVariable: slotIndex 
+genPushMaybeContextRemoteInstVar: slotIndex inObjectAt: index
 	<inline: false>
 	self ssAllocateCallReg: ReceiverResultReg and: SendNumArgsReg.
-	self ensureReceiverResultRegContainsSelf.
+	self genLoadUnFwdTemp: index in: ReceiverResultReg.
 	^ self genPushMaybeContextSlotIndex: slotIndex

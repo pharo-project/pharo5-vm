@@ -95,11 +95,11 @@ initializeBytecodeTableForSistaV1
 		(2 239 239 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
 		"stores"
-		(2 240 240 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 241 241 genExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
+		(2 240 240 genSistaExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 241 241 genSistaExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 242 242 genLongStoreAndPopTemporaryVariableBytecode)
-		(2 243 243 genExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
-		(2 244 244 genExtStoreLiteralVariableBytecode isMappedIfImmutability)
+		(2 243 243 genSistaExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 244 244 genSistaExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 245 245 genLongStoreTemporaryVariableBytecode)
 
 		(2 246 247	unknownBytecode)
@@ -108,9 +108,9 @@ initializeBytecodeTableForSistaV1
 		(3 248 248 genCallPrimitiveBytecode)
 		(3 249 249 unknownBytecode) "reserved for Push Float"
 		(3 250 250 genExtPushClosureBytecode block v4:Block:Code:Size:)
-		(3 251 251 genPushRemoteTempLongBytecode)
-		(3 252 252 genStoreRemoteTempLongBytecode)
-		(3 253 253 genStoreAndPopRemoteTempLongBytecode)
+		(3 251 251 genExtPushRemoteTempOrInstVarLongBytecode)
+		(3 252 252 genExtStoreRemoteTempOrInstVarLongBytecode isMappedIfImmutability)
+		(3 253 253 genExtStoreAndPopRemoteTempOrInstVarLongBytecode isMappedIfImmutability)
 
 		(3 254 254	genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 			
