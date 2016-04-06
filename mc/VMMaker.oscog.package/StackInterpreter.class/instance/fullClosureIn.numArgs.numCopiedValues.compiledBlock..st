@@ -2,7 +2,6 @@ control primitives
 fullClosureIn: context numArgs: numArgs numCopiedValues: numCopied compiledBlock: compiledBlock 
 	| newClosure |
 	<inline: true>
-	self assert: ClassFullBlockClosureCompactIndex ~= 0.
 	ClassFullBlockClosureCompactIndex ~= 0
 		ifTrue:
 			[newClosure := objectMemory
