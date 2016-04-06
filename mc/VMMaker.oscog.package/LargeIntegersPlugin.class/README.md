@@ -27,6 +27,16 @@ Class vars:
 History
 --------
 
+v2.0
+
+Rewrite primitives to use 32-bits digits instead of 8-bits digits. This can fasten many operation up to 2x and multiplication up to 7x.
+Since Large Integers are still variable byte object, care is taken to allocate just enough bytes to contain integer value (not necessarily a multiple of 4 bytes).
+Primitives will use the extra bytes beyond necessary bytes up to next multiple of 4, so it's mandatory that those extra bytes be correctly set to zero
+At image side, digits are still 8-bits so that fallback code involve only SmallInteger.
+
+Primitives assume that byte ordering (endianness) is allways little endian, because LargeIntegers remain regular byte Objects.
+On (hypothetic) big endian machines, conversion is performed at fetch/store time thru usage of dedicated macro.
+
 v1.5
 
 - no code change at all compared to v1.4

@@ -1,43 +1,39 @@
 oop functions
 digitSubLarge: firstInteger with: secondInteger 
 	"Normalizes."
-	| firstLen secondLen larger largerLen smaller smallerLen neg resLen res firstNeg |
+	| firstDigitLen secondDigitLen larger largeDigitLen smaller smallerDigitLen neg resDigitLen res firstNeg |
 	firstNeg := (interpreterProxy fetchClassOf: firstInteger)
 				= interpreterProxy classLargeNegativeInteger.
-	firstLen := self digitSizeOfLargeInt: firstInteger.
-	secondLen := self digitSizeOfLargeInt: secondInteger.
-	firstLen = secondLen ifTrue: 
-		[[firstLen > 1
-		  and: [(self digitOfLargeInt: firstInteger at: firstLen) = (self digitOfLargeInt: secondInteger at: firstLen)]]
-			whileTrue: [firstLen := firstLen - 1].
-		secondLen := firstLen].
-	(firstLen < secondLen
-	 or: [firstLen = secondLen
-		 and: [(self digitOfLargeInt: firstInteger at: firstLen) < (self digitOfLargeInt: secondInteger at: firstLen)]])
+	firstDigitLen := self digitSizeOfLargeInt: firstInteger.
+	secondDigitLen := self digitSizeOfLargeInt: secondInteger.
+	firstDigitLen = secondDigitLen ifTrue: 
+		[[firstDigitLen > 1
+		  and: [(self unsafeDigitOfLargeInt: firstInteger at: firstDigitLen) = (self unsafeDigitOfLargeInt: secondInteger at: firstDigitLen)]]
+			whileTrue: [firstDigitLen := firstDigitLen - 1].
+		secondDigitLen := firstDigitLen].
+	(firstDigitLen < secondDigitLen
+	 or: [firstDigitLen = secondDigitLen
+		 and: [(self unsafeDigitOfLargeInt: firstInteger at: firstDigitLen) < (self unsafeDigitOfLargeInt: secondInteger at: firstDigitLen)]])
 		ifTrue: 
 			[larger := secondInteger.
-			largerLen := secondLen.
+			largeDigitLen := secondDigitLen.
 			smaller := firstInteger.
-			smallerLen := firstLen.
+			smallerDigitLen := firstDigitLen.
 			neg := firstNeg == false]
 		ifFalse: 
 			[larger := firstInteger.
-			largerLen := firstLen.
+			largeDigitLen := firstDigitLen.
 			smaller := secondInteger.
-			smallerLen := secondLen.
+			smallerDigitLen := secondDigitLen.
 			neg := firstNeg].
-	resLen := largerLen.
+	resDigitLen := largeDigitLen.
 	self remapOop: #(smaller larger)
-		in: [res := interpreterProxy
-					instantiateClass: (neg
-										ifTrue: [interpreterProxy classLargeNegativeInteger]
-										ifFalse: [interpreterProxy classLargePositiveInteger])
-					indexableSize: resLen].
+		in: [res := self createLargeIntegerNeg: neg digitLength: resDigitLen].
 	self
 		cDigitSub: (interpreterProxy firstIndexableField: smaller)
-		len: smallerLen
+		len: smallerDigitLen
 		with: (interpreterProxy firstIndexableField: larger)
-		len: largerLen
+		len: largeDigitLen
 		into: (interpreterProxy firstIndexableField: res).
 	^neg 
 		ifTrue: [self normalizeNegative: res]

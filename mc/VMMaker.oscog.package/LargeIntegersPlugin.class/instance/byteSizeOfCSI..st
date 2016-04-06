@@ -1,6 +1,6 @@
-C core util
-cDigitLengthOfCSI: csi 
-	"Answer the number of bytes required to represent the value of a CSmallInteger."
+util
+byteSizeOfCSI: csi 
+	"Answer the number of bytes required to represent the value of a C-SmallInteger."
 	csi >= 0 ifTrue:
 		[csi < 256 ifTrue:
 			[^1].

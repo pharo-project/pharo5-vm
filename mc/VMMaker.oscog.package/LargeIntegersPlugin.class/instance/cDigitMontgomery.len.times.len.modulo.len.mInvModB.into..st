@@ -1,55 +1,71 @@
 C core
-cDigitMontgomery: pBytesFirst
+cDigitMontgomery: pFirst
 				len: firstLen
-				times: pBytesSecond
+				times: pSecond
 				len: secondLen
-				modulo: pBytesThird
+				modulo: pThird
 				len: thirdLen
 				mInvModB: mInv
-				into: pBytesRes
+				into: pRes
 				
-	| u limit1 limit2 limit3 accum lastByte |
-	<var: #pBytesFirst type: #'unsigned char *'>
-	<var: #pBytesSecond type: #'unsigned char *'>
-	<var: #pBytesThird type: #'unsigned char *'>
-	<var: #pBytesRes type: #'unsigned char *'>
-	<var: #accum type: #'unsigned int'>
-	<var: #u type: #'unsigned char'>
-	<var: #lastByte type: #'unsigned char'>
+	| u limit1 limit2 limit3 accum accum2 accum3 lastDigit |
+	<var: #pFirst type: #'unsigned int *'>
+	<var: #pSecond type: #'unsigned int *'>
+	<var: #pThird type: #'unsigned int *'>
+	<var: #mInv type: #'unsigned int'>
+	<var: #pRes type: #'unsigned int *'>
+	<var: #accum type: #'unsigned long long'>
+	<var: #accum2 type: #'unsigned long long'>
+	<var: #accum3 type: #'unsigned long long'>
+	<var: #u type: #'unsigned long long '>
+	<var: #lastDigit type: #'unsigned int '>
 	limit1 := firstLen - 1.
 	limit2 := secondLen - 1.
 	limit3 := thirdLen - 1.
-	lastByte := 0.
+	lastDigit := 0.
 	0 to: limit1 do: 
 		[:i | 
-		accum := (pBytesRes at: 0) + ((pBytesFirst at: i)*(pBytesSecond at: 0)).
-		u := accum * mInv bitAnd: 255.
-		accum :=  accum + (u * (pBytesThird at: 0)).
+		accum3 := self cDigitOf: pFirst at: i.
+		accum3 := accum3*(self cDigitOf: pSecond at: 0) + (self cDigitOf: pRes at: 0).
+		u := accum3 * mInv bitAnd: 16rFFFFFFFF.
+		accum2 :=  u * (self cDigitOf: pThird at: 0).
+		accum := (accum2 bitAnd: 16rFFFFFFFF) + (accum3 bitAnd: 16rFFFFFFFF).
+		accum := (accum >> 32) + (accum2 >> 32) + (accum3 >> 32).
 		1 to: limit2 do: [:k |
-			accum := (accum >> 8) + (pBytesRes at: k) + ((pBytesFirst at: i)*(pBytesSecond at: k)) + (u * (pBytesThird at: k)).
-			pBytesRes at: k-1 put: (accum bitAnd: 255)].
+			accum3 := self cDigitOf: pFirst at: i.
+			accum3 := accum3*(self cDigitOf: pSecond at: k) + (self cDigitOf: pRes at: k).
+			accum2 :=  u * (self cDigitOf: pThird at: k).
+			accum := accum + (accum2 bitAnd: 16rFFFFFFFF) + (accum3 bitAnd: 16rFFFFFFFF).
+			self cDigitOf: pRes at: k-1 put: (accum bitAnd: 16rFFFFFFFF).
+			accum := (accum >> 32) + (accum2 >> 32) + (accum3 >> 32)].
 		secondLen to: limit3 do: [:k |
-			accum := (accum >> 8) + (pBytesRes at: k) + (u * (pBytesThird at: k)).
-			pBytesRes at: k-1 put: (accum bitAnd: 255)].
-		accum := (accum >> 8) + lastByte.
-		pBytesRes at: limit3 put: (accum bitAnd: 255).
-		lastByte := accum >> 8].
+			accum2 :=  u * (self cDigitOf: pThird at: k).
+			accum := accum + (self cDigitOf: pRes at: k) + (accum2 bitAnd: 16rFFFFFFFF).
+			self cDigitOf: pRes at: k-1 put: (accum bitAnd: 16rFFFFFFFF).
+			accum := (accum >> 32) + (accum2 >> 32)].
+		accum := accum + lastDigit.
+		self cDigitOf: pRes at: limit3 put: (accum bitAnd: 16rFFFFFFFF).
+		lastDigit := accum >> 32].
 	firstLen to: limit3 do: 
 		[:i | 
-		accum := (pBytesRes at: 0).
-		u := accum * mInv bitAnd: 255.
-		accum := accum + (u * (pBytesThird at: 0)).
+		accum := (self cDigitOf: pRes at: 0).
+		u := accum * mInv bitAnd: 16rFFFFFFFF.
+		accum := accum + (u * (self cDigitOf: pThird at: 0)).
+		accum := accum >> 32.
 		1 to: limit3 do: [:k |
-			accum := (accum >> 8) + (pBytesRes at: k) + (u * (pBytesThird at: k)).
-			pBytesRes at: k-1 put: (accum bitAnd: 255)].
-		accum := (accum >> 8) + lastByte.
-		pBytesRes at: limit3 put: (accum bitAnd: 255).
-		lastByte := accum >> 8].
-	(lastByte = 0 and: [(self cDigitCompare: pBytesThird with: pBytesRes len: thirdLen) = 1]) ifFalse: [
-		"self cDigitSub: pBytesThird len: thirdLen with: pBytesRes len: thirdLen into: pBytesRes"
+			accum2 :=  u * (self cDigitOf: pThird at: k).
+			accum := accum + (self cDigitOf: pRes at: k) + (accum2 bitAnd: 16rFFFFFFFF).
+			self cDigitOf: pRes at: k-1 put: (accum bitAnd: 16rFFFFFFFF).
+			accum := (accum >> 32) + (accum2 >> 32)].
+		accum := accum + lastDigit.
+		self cDigitOf: pRes at: limit3 put: (accum bitAnd: 16rFFFFFFFF).
+		lastDigit := accum >> 32].
+	(lastDigit = 0 and: [(self cDigitCompare: pThird with: pRes len: thirdLen) = 1]) ifFalse: [
+		"self cDigitSub: pThird len: thirdLen with: pRes len: thirdLen into: pRes"
 		accum := 0.
 		0 to: limit3 do: 
 			[:i | 
-			accum := accum + (pBytesRes at: i) - (pBytesThird at: i).
-			pBytesRes at: i put: (self cCode: [accum] inSmalltalk: [accum bitAnd: 255]).
-			accum := accum signedBitShift: -8]].
+			accum := accum + (self cDigitOf: pRes at: i) - (self cDigitOf: pThird at: i).
+			self cDigitOf: pRes at: i put: (accum bitAnd: 16rFFFFFFFF).
+			accum := 0 - (accum >> 63)]].
+	^0

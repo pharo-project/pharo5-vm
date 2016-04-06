@@ -1,41 +1,45 @@
 oop functions
 digitAddLarge: firstInteger with: secondInteger 
 	"Does not need to normalize!"
-	| over firstLen secondLen shortInt shortLen longInt longLen sum newSum resClass |
-	<var: #over type: #'unsigned char'>
-	firstLen := self digitSizeOfLargeInt: firstInteger.
-	secondLen := self digitSizeOfLargeInt: secondInteger.
-	resClass := interpreterProxy fetchClassOf: firstInteger.
-	firstLen <= secondLen
+	| over firstDigitLen secondDigitLen shortInt shortDigitLen longInt longDigitLen sum newSum neg |
+	<var: #over type: #'unsigned int'>
+	firstDigitLen := self digitSizeOfLargeInt: firstInteger.
+	secondDigitLen := self digitSizeOfLargeInt: secondInteger.
+	neg := (interpreterProxy fetchClassOf: firstInteger)
+		= interpreterProxy classLargeNegativeInteger.
+	firstDigitLen <= secondDigitLen
 		ifTrue: 
 			[shortInt := firstInteger.
-			shortLen := firstLen.
+			shortDigitLen := firstDigitLen.
 			longInt := secondInteger.
-			longLen := secondLen]
+			longDigitLen := secondDigitLen]
 		ifFalse: 
 			[shortInt := secondInteger.
-			shortLen := secondLen.
+			shortDigitLen := secondDigitLen.
 			longInt := firstInteger.
-			longLen := firstLen].
+			longDigitLen := firstDigitLen].
 	"	sum := Integer new: len neg: firstInteger negative."
-	self remapOop: #(shortInt longInt ) in: [sum := interpreterProxy instantiateClass: resClass indexableSize: longLen].
+	self remapOop: #(shortInt longInt ) in: [sum := self createLargeIntegerNeg: neg digitLength: longDigitLen].
 	over := self
 				cDigitAdd: (interpreterProxy firstIndexableField: shortInt)
-				len: shortLen
+				len: shortDigitLen
 				with: (interpreterProxy firstIndexableField: longInt)
-				len: longLen
+				len: longDigitLen
 				into: (interpreterProxy firstIndexableField: sum).
 	over > 0
 		ifTrue: 
 			["sum := sum growby: 1."
-			self remapOop: sum in: [newSum := interpreterProxy instantiateClass: resClass indexableSize: longLen + 1].
+			self remapOop: sum in: [newSum := self createLargeIntegerNeg: neg byteLength: longDigitLen * 4 + 1].
 			self
 				cDigitCopyFrom: (interpreterProxy firstIndexableField: sum)
 				to: (interpreterProxy firstIndexableField: newSum)
-				len: longLen.
+				len: longDigitLen.
 			sum := newSum.
 			"C index!"
-			(self cCoerce: (interpreterProxy firstIndexableField: sum)
-				to: 'unsigned char *')
-				at: longLen put: over].
+			self cDigitOf: (self cCoerce: (interpreterProxy firstIndexableField: sum) to: 'unsigned int *')
+				at: longDigitLen put: over]
+		ifFalse:
+			[sum := neg 
+				ifTrue: [self normalizeNegative: sum]
+				ifFalse: [self normalizePositive: sum]].
 	^ sum

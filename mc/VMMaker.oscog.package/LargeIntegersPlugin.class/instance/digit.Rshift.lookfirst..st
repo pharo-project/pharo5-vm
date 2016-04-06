@@ -1,24 +1,25 @@
 oop functions
-digit: aBytesOop Rshift: shiftCount lookfirst: a 
+digit: anOop Rshift: shiftCount lookfirst: a 
 	"Attention: this method invalidates all oop's! Only newBytes is valid at return."
-	"Shift right shiftCount bits, 0<=shiftCount.         
+	"Shift right 32*digitShift+bitShift bits, 0<=bitShift<32.         
 	Discard all digits beyond a, and all zeroes at or below a."
 	"Does not normalize."
-	| newByteLen newOop oldBitLen newBitLen oldDigitLen |
-	oldBitLen := self cDigitHighBit: (interpreterProxy firstIndexableField: aBytesOop) len: a.
-	oldDigitLen := oldBitLen + 7 // 8.
+	| newByteLen newOop oldBitLen newBitLen oldDigitLen newDigitLen |
+	oldBitLen := self cDigitHighBit: (interpreterProxy firstIndexableField: anOop) len: a.
+	oldDigitLen := oldBitLen + 31 // 32.
 	newBitLen := oldBitLen - shiftCount.
 	newBitLen <= 0 ifTrue: ["All bits lost"
 		^ interpreterProxy
-			instantiateClass: (interpreterProxy fetchClassOf: aBytesOop)
+			instantiateClass: (interpreterProxy fetchClassOf: anOop)
 			indexableSize: 0].
 	newByteLen := newBitLen + 7 // 8.
-	self remapOop: aBytesOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: aBytesOop)
+	newDigitLen := newByteLen + 3 // 4.
+	self remapOop: anOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop)
 					indexableSize: newByteLen].
 	self
 		cDigitRshift: shiftCount
-		from: (interpreterProxy firstIndexableField: aBytesOop)
+		from: (interpreterProxy firstIndexableField: anOop)
 		len: oldDigitLen
 		to: (interpreterProxy firstIndexableField: newOop)
-		len: newByteLen.
+		len: newDigitLen.
 	^ newOop

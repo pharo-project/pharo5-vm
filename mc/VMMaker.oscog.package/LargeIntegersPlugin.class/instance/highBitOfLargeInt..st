@@ -1,4 +1,6 @@
 util
-highBitOfLargeInt: aBytesOop 
-	^ self cDigitHighBit: (interpreterProxy firstIndexableField: aBytesOop)
-		len: (self digitSizeOfLargeInt: aBytesOop)
+highBitOfLargeInt: anOop 
+	<inline: true>
+	^ self
+		cDigitHighBit: (interpreterProxy firstIndexableField: anOop)
+		len: (self digitSizeOfLargeInt: anOop)

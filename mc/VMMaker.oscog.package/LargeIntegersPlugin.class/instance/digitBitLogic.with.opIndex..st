@@ -23,8 +23,8 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			[(interpreterProxy fetchClassOf: secondInteger)
 				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
 			secondLarge := secondInteger].
-	firstLen := self digitSizeOfLargeInt: firstLarge.
-	secondLen := self digitSizeOfLargeInt: secondLarge.
+	firstLen := self byteSizeOfLargeInt: firstLarge.
+	secondLen := self byteSizeOfLargeInt: secondLarge.
 	firstLen < secondLen
 		ifTrue: 
 			[shortLen := firstLen.
@@ -40,9 +40,9 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 	self
 		cDigitOp: opIx
 		short: (interpreterProxy firstIndexableField: shortLarge)
-		len: shortLen
+		len: shortLen + 3 // 4
 		long: (interpreterProxy firstIndexableField: longLarge)
-		len: longLen
+		len: longLen + 3 // 4
 		into: (interpreterProxy firstIndexableField: result).
 	interpreterProxy failed ifTrue: [^ 0].
 	^ self normalizePositive: result

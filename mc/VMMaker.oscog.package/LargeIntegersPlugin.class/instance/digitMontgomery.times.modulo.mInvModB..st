@@ -1,6 +1,6 @@
 oop functions
 digitMontgomery: firstLarge times: secondLarge modulo: thirdLarge mInvModB: mInv
-
+	<var: #mInv type: #'unsigned int'>
 	| firstLen secondLen thirdLen prod |
 	firstLen := self digitSizeOfLargeInt: firstLarge.
 	secondLen := self digitSizeOfLargeInt: secondLarge.
@@ -8,8 +8,7 @@ digitMontgomery: firstLarge times: secondLarge modulo: thirdLarge mInvModB: mInv
 
 	firstLen <= thirdLen ifFalse: [^interpreterProxy primitiveFail].
 	secondLen <= thirdLen ifFalse: [^interpreterProxy primitiveFail].
-	(mInv >= 0 and: [mInv <= 255]) ifFalse: [^interpreterProxy primitiveFail].
-	self remapOop: #(firstLarge secondLarge thirdLarge) in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen].
+	self remapOop: #(firstLarge secondLarge thirdLarge) in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen * 4].
 	self
 				cDigitMontgomery: (interpreterProxy firstIndexableField: firstLarge)
 				len: firstLen

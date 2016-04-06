@@ -2,14 +2,11 @@ oop functions
 digitDivLarge: firstInteger with: secondInteger negative: neg 
 	"Does not normalize."
 	"Division by zero has to be checked in caller."
-	| firstLen secondLen resultClass l d div rem quo result |
-	firstLen := self digitSizeOfLargeInt: firstInteger.
-	secondLen := self digitSizeOfLargeInt: secondInteger.
-	neg
-		ifTrue: [resultClass := interpreterProxy classLargeNegativeInteger]
-		ifFalse: [resultClass := interpreterProxy classLargePositiveInteger].
-	l := firstLen - secondLen + 1.
-	l <= 0
+	| firstDigitLen secondDigitLen quoDigitLen d div rem quo result |
+	firstDigitLen := self digitSizeOfLargeInt: firstInteger.
+	secondDigitLen := self digitSizeOfLargeInt: secondInteger.
+	quoDigitLen := firstDigitLen - secondDigitLen + 1.
+	quoDigitLen <= 0
 		ifTrue: 
 			[self remapOop: firstInteger in: [result := interpreterProxy instantiateClass: interpreterProxy classArray indexableSize: 2].
 			result stAt: 1 put: (0 asOop: SmallInteger).
@@ -19,30 +16,29 @@ digitDivLarge: firstInteger with: secondInteger negative: neg
 	  However,  
 	 to facilitate use of Knuth's algorithm, multiply rem and div by 2 (that 
 	 is, shift)   
-	 until the high byte of div is >=128"
-	d := 8 - (self cHighBit: (self unsafeDigitOf: secondInteger at: secondLen)).
+	 until the high word of div is >=16r80000000"
+	d := 32 - (self cHighBit32: (self unsafeDigitOfLargeInt: secondInteger at: secondDigitLen)).
 	self remapOop: firstInteger
 		in: 
 			[div := self digit: secondInteger Lshift: d.
-			div := self largeIntOrInt: div growTo: (self digitLength: div)
-							+ 1].
+			div := self largeInt: div growTo: (self digitSizeOfLargeInt: div) + 1 * 4].
 	self remapOop: div
 		in: 
 			[rem := self digit: firstInteger Lshift: d.
-			(self digitLength: rem)
-				= firstLen ifTrue: [rem := self largeIntOrInt: rem growTo: firstLen + 1]].
-	self remapOop: #(div rem ) in: [quo := interpreterProxy instantiateClass: resultClass indexableSize: l].
+			(self digitSizeOfLargeInt: rem) = firstDigitLen
+				ifTrue: [rem := self largeInt: rem growTo: firstDigitLen + 1 * 4]].
+	self remapOop: #(div rem ) in: [quo := self createLargeIntegerNeg: neg digitLength: quoDigitLen].
 	self
 		cDigitDiv: (interpreterProxy firstIndexableField: div)
-		len: (self digitLength: div)
+		len: (self digitSizeOfLargeInt: div)
 		rem: (interpreterProxy firstIndexableField: rem)
-		len: (self digitLength: rem)
+		len: (self digitSizeOfLargeInt: rem)
 		quo: (interpreterProxy firstIndexableField: quo)
-		len: (self digitLength: quo).
+		len: (self digitSizeOfLargeInt: quo).
 	self remapOop: #(quo ) in: [rem := self
 					digit: rem
 					Rshift: d
-					lookfirst: (self digitLength: div)
+					lookfirst: (self digitSizeOfLargeInt: div)
 							- 1].
 	"^ Array with: quo with: rem"
 	self remapOop: #(quo rem ) in: [result := interpreterProxy instantiateClass: interpreterProxy classArray indexableSize: 2].

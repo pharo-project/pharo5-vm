@@ -5,4 +5,4 @@ primMontgomeryDigitLength
 				primitive: 'primMontgomeryDigitLength'
 				parameters: #()
 				receiver: #Integer.
-	^interpreterProxy integerObjectOf: 8
+	^interpreterProxy integerObjectOf: 32

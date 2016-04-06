@@ -1,9 +1,9 @@
 oop functions
 digitMultiplyLarge: firstInteger with: secondInteger negative: neg 
 	"Normalizes."
-	| firstLen secondLen shortInt shortLen longInt longLen prod resultClass |
-	firstLen := self digitSizeOfLargeInt: firstInteger.
-	secondLen := self digitSizeOfLargeInt: secondInteger.
+	| firstLen secondLen shortInt shortLen longInt longLen prod |
+	firstLen := self byteSizeOfLargeInt: firstInteger.
+	secondLen := self byteSizeOfLargeInt: secondInteger.
 	firstLen <= secondLen
 		ifTrue: 
 			[shortInt := firstInteger.
@@ -15,14 +15,14 @@ digitMultiplyLarge: firstInteger with: secondInteger negative: neg
 			shortLen := secondLen.
 			longInt := firstInteger.
 			longLen := firstLen].
-	neg
-		ifTrue: [resultClass := interpreterProxy classLargeNegativeInteger]
-		ifFalse: [resultClass := interpreterProxy classLargePositiveInteger].
-	self remapOop: #(shortInt longInt ) in: [prod := interpreterProxy instantiateClass: resultClass indexableSize: longLen + shortLen].
+	self remapOop: #(shortInt longInt ) in: [prod := self createLargeIntegerNeg: neg byteLength: longLen + shortLen].
 	self
 		cDigitMultiply: (interpreterProxy firstIndexableField: shortInt)
-		len: shortLen
+		len: shortLen + 3 // 4
 		with: (interpreterProxy firstIndexableField: longInt)
-		len: longLen
-		into: (interpreterProxy firstIndexableField: prod).
-	^ self normalize: prod
+		len: longLen + 3 // 4
+		into: (interpreterProxy firstIndexableField: prod)
+		len: longLen + shortLen + 3 // 4.
+	^neg 
+		ifTrue: [self normalizeNegative: prod]
+		ifFalse: [self normalizePositive: prod]

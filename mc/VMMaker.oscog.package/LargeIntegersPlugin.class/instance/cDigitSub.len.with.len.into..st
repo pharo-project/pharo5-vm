@@ -1,19 +1,24 @@
 C core
-cDigitSub: pByteSmall len: smallLen with: pByteLarge len: largeLen into: pByteRes
+cDigitSub: pWordSmall
+		len: smallLen
+		with: pWordLarge
+		len: largeLen
+		into: pWordRes
 	| z |
-	<var: #pByteSmall type: #'unsigned char *'>
-	<var: #pByteLarge type: #'unsigned char *'>
-	<var: #pByteRes type: #'unsigned char *'>
-	<var: #z type: #'unsigned int'>
+	<var: #pWordSmall type: #'unsigned int *'>
+	<var: #pWordLarge type: #'unsigned int *'>
+	<var: #pWordRes type: #'unsigned int *'>
+	<var: #z type: #'unsigned long long'>
 
-	z := 0. "Loop invariant is -1<=z<=1"
+	z := 0.
 	0 to: smallLen - 1 do: 
 		[:i | 
-		z := z + (pByteLarge at: i) - (pByteSmall at: i).
-		pByteRes at: i put: (self cCode: [z] inSmalltalk: [z bitAnd: 255]).
-		z := z signedBitShift: -8].
+		z := z + (self cDigitOf: pWordLarge at: i) - (self cDigitOf: pWordSmall at: i).
+		self cDigitOf: pWordRes at: i put: (z bitAnd: 16rFFFFFFFF).
+		z := 0 - (z >> 63)].
 	smallLen to: largeLen - 1 do: 
 		[:i | 
-		z := z + (pByteLarge at: i) .
-		pByteRes at: i put: (self cCode: [z] inSmalltalk: [z bitAnd: 255]).
-		z := z signedBitShift: -8].
+		z := z + (self cDigitOf: pWordLarge at: i) .
+		self cDigitOf: pWordRes at: i put: (z bitAnd: 16rFFFFFFFF).
+		z := 0 - (z >> 63)].
+	^0

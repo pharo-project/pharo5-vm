@@ -1,23 +1,22 @@
 C core
-cDigitAdd: pByteShort len: shortLen with: pByteLong len: longLen into: pByteRes 
-	"pByteRes len = longLen; returns over.."
-	| accum limit |
-	<returnTypeC: #'unsigned char'>
-	<var: #pByteShort type: #'unsigned char *'>
-	<var: #pByteLong type: #'unsigned char *'>
-	<var: #pByteRes type: #'unsigned char *'>
-	<var: #accum type: #'unsigned int'>
+cDigitAdd: pWordShort len: shortLen with: pWordLong len: longLen into: pWordRes 
+	"pWordRes len = longLen; returns over.."
+	| accum |
+	<returnTypeC: #'unsigned int'>
+	<var: #pWordShort type: #'unsigned int *'>
+	<var: #pWordLong type: #'unsigned int *'>
+	<var: #pWordRes type: #'unsigned int *'>
+	<var: #accum type: #'unsigned long long'>
 	accum := 0.
-	limit := shortLen - 1.
-	0 to: limit do: 
+	0 to: shortLen - 1 do: 
 		[:i | 
-		accum := (accum >> 8)
-					+ (pByteShort at: i) + (pByteLong at: i).
-		pByteRes at: i put: (accum bitAnd: 255)].
-	limit := longLen - 1.
-	shortLen to: limit do: 
+		accum := (accum >> 32)
+					+ (self cDigitOf: pWordShort at: i)
+					+ (self cDigitOf: pWordLong at: i).
+		self cDigitOf: pWordRes at: i put: (accum bitAnd: 16rFFFFFFFF)].
+	shortLen to: longLen - 1 do: 
 		[:i | 
-		accum := (accum >> 8)
-					+ (pByteLong at: i).
-		pByteRes at: i put: (accum bitAnd: 255)].
-	^ accum >> 8
+		accum := (accum >> 32)
+					+ (self cDigitOf: pWordLong at: i).
+		self cDigitOf: pWordRes at: i put: (accum bitAnd: 16rFFFFFFFF)].
+	^ accum >> 32

@@ -1,18 +1,19 @@
 oop functions
-digit: aBytesOop Lshift: shiftCount 
-	"Attention: this method invalidates all oop's! Only newBytes is valid at return."
+digit: anOop Lshift: shiftCount 
+	"Attention: this method invalidates all oop's! Only newOop is valid at return."
 	"Does not normalize."
-	| newBytes highBit newLen oldLen |
-	oldLen := self digitSizeOfLargeInt: aBytesOop.
-	(highBit := self cDigitHighBit: (interpreterProxy firstIndexableField: aBytesOop)
-				len: oldLen) = 0 ifTrue: [^ 0 asOop: SmallInteger].
-	newLen := highBit + shiftCount + 7 // 8.
-	self remapOop: aBytesOop in: [newBytes := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: aBytesOop)
-					indexableSize: newLen].
+	| newOop highBit newDigitLen newByteLen oldDigitLen |
+	oldDigitLen := self digitSizeOfLargeInt: anOop.
+	(highBit := self cDigitHighBit: (interpreterProxy firstIndexableField: anOop)
+				len: oldDigitLen) = 0 ifTrue: [^  interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop) indexableSize: 1].
+	newByteLen := highBit + shiftCount + 7 // 8.
+	self remapOop: anOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop)
+					indexableSize: newByteLen].
+	newDigitLen := newByteLen + 3 // 4.
 	self
 		cDigitLshift: shiftCount
-		from: (interpreterProxy firstIndexableField: aBytesOop)
-		len: oldLen
-		to: (interpreterProxy firstIndexableField: newBytes)
-		len: newLen.
-	^ newBytes
+		from: (interpreterProxy firstIndexableField: anOop)
+		len: oldDigitLen
+		to: (interpreterProxy firstIndexableField: newOop)
+		len: newDigitLen.
+	^ newOop
