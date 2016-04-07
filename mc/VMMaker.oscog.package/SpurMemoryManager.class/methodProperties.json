@@ -10,7 +10,7 @@
 		"declareCVarsIn:" : "eem 6/29/2015 16:00",
 		"hasSpurMemoryManagerAPI" : "eem 1/6/2014 13:33",
 		"implicitReturnTypeFor:" : "eem 10/29/2013 23:43",
-		"initBytesPerWord:" : "nice 4/3/2016 00:34",
+		"initBytesPerWord:" : "eem 4/6/2016 17:28",
 		"initialize" : "eem 8/31/2015 11:05",
 		"initializeCompactClassIndices" : "cb 4/5/2016 18:17",
 		"initializeObjectHeaderConstants" : "eem 2/11/2015 11:08",
