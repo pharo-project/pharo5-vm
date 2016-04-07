@@ -1,0 +1,3 @@
+accessing
+cPtrAsOop
+	^arrayBaseAddress + ptrOffset

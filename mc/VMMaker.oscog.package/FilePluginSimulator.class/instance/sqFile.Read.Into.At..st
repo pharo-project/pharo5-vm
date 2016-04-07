@@ -1,7 +1,8 @@
 simulation
-sqFile: file Read: count Into: byteArrayIndex At: startIndex
-	| interpreter |
+sqFile: file Read: count Into: byteArrayIndexArg At: startIndex
+	| interpreter byteArrayIndex |
 	interpreter := interpreterProxy interpreter.
+	byteArrayIndex := byteArrayIndexArg isInteger ifTrue: [byteArrayIndexArg] ifFalse: [byteArrayIndexArg cPtrAsOop].
 	[[startIndex to: startIndex + count - 1 do:
 		[ :i |
 		file atEnd ifTrue:

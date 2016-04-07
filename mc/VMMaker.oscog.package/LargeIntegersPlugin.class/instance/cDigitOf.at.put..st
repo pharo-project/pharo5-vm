@@ -4,4 +4,6 @@ cDigitOf: cPointer at: zeroBasedDigitIndex put: aValue
 	<returnTypeC: #'unsigned int'>
 	<var: 'cPointer' type: #'unsigned int *'>
 	<var: 'aValue' type: #'unsigned int'>
-	^cPointer at: zeroBasedDigitIndex put: (self byteSwapped32IfBigEndian: aValue)
+	^(self cCode: [cPointer] inSmalltalk: [interpreterProxy cCoerce: cPointer to: #'unsigned int *'])
+		at: zeroBasedDigitIndex
+		put: (self byteSwapped32IfBigEndian: aValue)

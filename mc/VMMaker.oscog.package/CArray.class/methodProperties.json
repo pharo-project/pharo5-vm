@@ -9,10 +9,12 @@
 		"=" : "eem 11/7/2013 12:43",
 		"adaptToNumber:andSend:" : "ajh 8/20/2002 01:29",
 		"asCArrayAccessor" : "di 7/15/2004 16:55",
+		"asCArrayAccessorUnitSize:" : "eem 4/6/2016 17:19",
 		"asInteger" : "ajh 8/20/2002 01:10",
 		"at:" : "eem 11/19/2014 22:25",
 		"at:put:" : "eem 11/19/2014 22:24",
-		"coerceTo:sim:" : "eem 3/6/2015 14:37",
+		"cPtrAsOop" : "eem 4/6/2016 18:07",
+		"coerceTo:sim:" : "eem 4/6/2016 18:04",
 		"doesNotUnderstand:" : "ajh 8/20/2002 01:23",
 		"floatAt:" : "di 7/16/2004 12:45",
 		"floatAt:put:" : "di 7/16/2004 12:45",
@@ -22,4 +24,6 @@
 		"interpreter:address:unitSize:" : "ajh 8/20/2002 00:30",
 		"ptrAddress" : "ajh 8/20/2002 00:36",
 		"unitSize" : "eem 10/9/2010 16:03",
-		"unitSize:" : "eem 6/22/2011 14:14" } }
+		"unitSize:" : "eem 6/22/2011 14:14",
+		"unsignedIntAt:" : "eem 4/6/2016 16:02",
+		"unsignedIntAt:put:" : "eem 4/6/2016 16:03" } }
