@@ -12,7 +12,6 @@
 		"byteAtPointer:" : "di 6/23/2004 14:09",
 		"byteAtPointer:put:" : "di 6/23/2004 14:13",
 		"bytesPerOop" : "eem 11/6/2014 11:07",
-		"cCoerce:to:" : "crl 3/3/2003 01:15",
 		"capturePendingFinalizationSignals" : "eem 6/10/2010 09:41",
 		"checkedIntegerValueOf:" : "eem 10/9/2010 14:32",
 		"coInterpreter:cogit:" : "eem 10/12/2009 08:42",

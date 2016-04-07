@@ -36,6 +36,7 @@
 		"translateInDirectory:doInlining:" : "tpr 12/3/2015 10:27",
 		"translatedPrimitives" : "eem 2/16/2015 14:19" },
 	"instance" : {
+		"cCoerce:to:" : "eem 4/6/2016 18:19",
 		"doesNotUnderstand:" : "eem 3/13/2015 18:21",
 		"executeTranslatedPrimitiveMethod:arguments:subsidiaries:" : "eem 3/10/2015 17:41",
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",

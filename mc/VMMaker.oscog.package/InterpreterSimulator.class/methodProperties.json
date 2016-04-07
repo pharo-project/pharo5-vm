@@ -12,7 +12,6 @@
 		"byteAtPointer:put:" : "di 6/23/2004 14:13",
 		"byteCount" : "di 6/21/2004 15:05",
 		"byteCountText" : "di 4/21/2004 00:09",
-		"cCoerce:to:" : "crl 3/3/2003 01:15",
 		"callExternalPrimitive:" : "ar 5/11/2000 22:01",
 		"charsOfLong:" : "th 4/15/2000 17:22",
 		"checkForInterrupts" : "eem 10/22/2008 13:51",
