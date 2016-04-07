@@ -5,14 +5,15 @@ activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: ma
 	<inline: true>
 	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
 	numCopied := self copiedValueCountOfFullClosure: blockClosure.
-
-	theMethod := objectMemory followField: FullClosureCompiledBlockIndex ofObject: blockClosure.
+	theMethod := objectMemory fetchPointer: FullClosureCompiledBlockIndex ofObject: blockClosure.
+	self assert: (objectMemory isOopCompiledMethod: theMethod).
 	self push: instructionPointer.
 	self push: framePointer.
 	framePointer := stackPointer.
 	self push: theMethod.
 	self push: (self encodeFrameFieldHasContext: false isBlock: true numArgs: numArgs).
 	self push: objectMemory nilObject. "FxThisContext field"
+	"Because inst var access is not checked, we must follow the receiver in Spur to ensure it is valid."
 	self push: (objectMemory followField: FullClosureReceiverIndex ofObject: blockClosure).
 
 	"Copy the copied values..."
@@ -25,12 +26,12 @@ activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: ma
 	self assert: (self frameIsBlockActivation: framePointer).
 	self assert: (self frameHasContext: framePointer) not.
 
-	methodHeader := objectMemory methodHeaderOf: newMethod.
+	methodHeader := objectMemory methodHeaderOf: theMethod.
 	numTemps := self temporaryCountOfMethodHeader: methodHeader.
-	
+
 	numArgs + numCopied + 1 to: numTemps do: [ :i | self push: objectMemory nilObject].
 
-	instructionPointer := (self initialPCForHeader: methodHeader method: newMethod) - 1.
+	instructionPointer := (self initialPCForHeader: methodHeader method: theMethod) - 1.
 	
 	self setMethod: theMethod.
 

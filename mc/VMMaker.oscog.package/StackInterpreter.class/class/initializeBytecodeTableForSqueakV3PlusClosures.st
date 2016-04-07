@@ -3,6 +3,8 @@ initializeBytecodeTableForSqueakV3PlusClosures
 	"StackInterpreter initializeBytecodeTableForSqueakV3PlusClosures"
 	"Note: This table will be used to generate a C switch statement."
 
+	initializationOptions at: #SqueakV3PlusClosuresBytecodeSet put: true.
+
 	BytecodeTable := Array new: 256.
 	BytecodeEncoderClassName := #EncoderForV3PlusClosures.
 	LongStoreBytecode := 129.

@@ -3,16 +3,19 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	"Similar to activateNewMethod but for Closure and newMethod."
 	| numCopied outerContext theMethod closureIP |
 	<inline: true>
-	outerContext := objectMemory followField: ClosureOuterContextIndex ofObject: blockClosure.
+	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
+	self assert: (objectMemory isContext: outerContext).
 	numCopied := self copiedValueCountOfClosure: blockClosure.
 
-	theMethod := objectMemory followField: MethodIndex ofObject: outerContext.
+	theMethod := objectMemory fetchPointer: MethodIndex ofObject: outerContext.
+	self assert: (objectMemory isOopCompiledMethod: theMethod).
 	self push: instructionPointer.
 	self push: framePointer.
 	framePointer := stackPointer.
 	self push: theMethod.
 	self push: (self encodeFrameFieldHasContext: false isBlock: true numArgs: numArgs).
 	self push: objectMemory nilObject. "FxThisContext field"
+	"Because inst var access is not checked, we must follow the receiver in Spur to ensure it is valid."
 	self push: (objectMemory followField: ReceiverIndex ofObject: outerContext).
 
 	"Copy the copied values..."

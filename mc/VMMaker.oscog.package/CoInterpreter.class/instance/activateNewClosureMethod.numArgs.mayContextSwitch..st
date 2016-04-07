@@ -5,10 +5,12 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	 and to create an appropriate frame layout."
 	| numCopied outerContext theMethod methodHeader inInterpreter closureIP switched |
 	<inline: true>
-	outerContext := objectMemory followField: ClosureOuterContextIndex ofObject: blockClosure.
+	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
+	self assert: (objectMemory isContext: outerContext).
 	self assert: outerContext ~= blockClosure.
 	numCopied := self copiedValueCountOfClosure: blockClosure.
-	theMethod := objectMemory followField: MethodIndex ofObject: outerContext.
+	theMethod := objectMemory fetchPointer: MethodIndex ofObject: outerContext.
+	self assert: (objectMemory isOopCompiledMethod: theMethod).
 	methodHeader := self rawHeaderOf: theMethod.
 	(self isCogMethodReference: methodHeader) ifTrue:
 		[^self executeCogBlock: (self cogMethodOf: theMethod)
@@ -58,6 +60,7 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	self push: objectMemory nilObject. "FxThisContext field"
 	self push: (self encodeFrameFieldHasContext: false isBlock: true numArgs: numArgs).
 	self push: 0. "FoxIFSavedIP"
+	"Because inst var access is not checked, we must follow the receiver in Spur to ensure it is valid."
 	self push: (objectMemory followField: ReceiverIndex ofObject: outerContext).
 
 	"Copy the copied values..."

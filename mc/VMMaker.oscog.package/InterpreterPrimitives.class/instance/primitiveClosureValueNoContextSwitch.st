@@ -15,11 +15,10 @@ primitiveClosureValueNoContextSwitch
 	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
 	(objectMemory isContext: outerContext) ifFalse:
 		[^self primitiveFail].
+
 	closureMethod := objectMemory fetchPointer: MethodIndex ofObject: outerContext.
 	"Check if the closure's method is actually a CompiledMethod."
 	(objectMemory isOopCompiledMethod: closureMethod) ifFalse:
 		[^self primitiveFail].
 
-	"Note we use activateNewMethod, not executeNewMethod, to avoid
-	 quickCheckForInterrupts.  Don't check until we have a full activation."
 	self activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: false

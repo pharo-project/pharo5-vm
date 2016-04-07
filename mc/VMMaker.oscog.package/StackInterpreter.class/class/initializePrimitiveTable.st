@@ -305,7 +305,17 @@ initializePrimitiveTable
 
 		(520 primitiveFail)
 		(521 529 primitiveFail) "Reserved for Spur primitives"
-		(530 539 primitiveFail)
+		"new closure primitives (were Networking primitives)"
+		(530 primitiveFail)
+		(531 primitiveFullClosureValue) "value"
+		(532 primitiveFullClosureValue) "value:"
+		(533 primitiveFullClosureValue) "value:value:"
+		(534 primitiveFullClosureValue) "value:value:value:"
+		(535 primitiveFullClosureValue) "value:value:value:value:"
+		(536 primitiveFullClosureValueWithArgs) "valueWithArguments:"
+		(537 primitiveFullClosureValueNoContextSwitch) "valueNoContextSwitch"
+		(538 primitiveFullClosureValueNoContextSwitch) "valueNoContextSwitch:"
+		(539 primitiveFail)
 
 		(540 primitiveFail)
 		(541 primitiveSmallFloatAdd)
