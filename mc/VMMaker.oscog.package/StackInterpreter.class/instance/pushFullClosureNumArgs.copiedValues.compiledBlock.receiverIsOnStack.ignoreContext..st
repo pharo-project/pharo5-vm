@@ -1,19 +1,19 @@
 stack bytecodes
-pushFullClosureNumArgs: numArgs copiedValues: numCopiedArg compiledBlock: compiledBlock receiverIsOnStack: receiverIsOnStack
+pushFullClosureNumArgs: numArgs copiedValues: numCopiedArg compiledBlock: compiledBlock receiverIsOnStack: receiverIsOnStack ignoreContext: ignoreContext
 	"The compiler has pushed the values to be copied, if any. The receiver has been pushed on stack before if specified. 
 	 Create a Closure with space for the copiedValues and pop numCopied values off the stack into the closure.
 	 Sets outerContext, compiledBlock, numArgs and receiver as specified.."
 	<inline: true>
 	| numCopied newClosure context startIndex |
 	"No need to record the pushed copied values in the outerContext."
-	context := self ensureFrameIsMarried: localFP SP: localSP + (numCopiedArg * objectMemory bytesPerOop).
+	context := ignoreContext
+		ifTrue: [objectMemory nilObject ]
+		ifFalse: [self ensureFrameIsMarried: localFP SP: localSP + (numCopiedArg * objectMemory bytesPerOop)].
 	newClosure := self
 					fullClosureIn: context 
 					numArgs: numArgs 
 					numCopiedValues: numCopiedArg 
 					compiledBlock: compiledBlock.
-	cogit recordSendTrace ifTrue:
-		[self recordTrace: TraceBlockCreation thing: newClosure source: TraceIsFromInterpreter].
 	receiverIsOnStack
 		ifFalse: 
 			[ startIndex := FullClosureFirstCopiedValueIndex.
