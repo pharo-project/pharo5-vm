@@ -27,7 +27,7 @@ compileFullBlockMethodFrameBuild: numCopied
 	methodLabel addDependent: (self annotateAbsolutePCRef:
 			(self PushCw: methodLabel asInteger));
 			setLabelOffset: MFMethodFlagIsBlockFlag.. "method"
-	self genMoveConstant: objectMemory nilObject R: SendNumArgsReg.
+	self genMoveNilR: SendNumArgsReg.
 	self PushR: SendNumArgsReg. "context"
 	"Closure is on stack and initially in ReceiverResultReg.
 	 It is safe to use Arg0Reg because reg args are pushed by the value primitives if there are any.".

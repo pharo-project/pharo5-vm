@@ -1,4 +1,4 @@
 bytecode generator support
 genPushLiteral: literal
-	self annotate: (self PushCw: literal) objRef: literal.
+	self genPushConstant: literal.
 	^0

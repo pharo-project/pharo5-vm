@@ -1,5 +1,5 @@
 bytecode generators
 genReturnNilFromBlock
 	self assert: inBlock.
-	self genMoveConstant: objectMemory nilObject R: ReceiverResultReg.
+	self genMoveNilR: ReceiverResultReg.
 	^self genBlockReturn
