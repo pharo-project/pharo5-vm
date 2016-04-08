@@ -4,7 +4,7 @@ digit: anOop Lshift: shiftCount
 	"Does not normalize."
 	| newOop highBit newDigitLen newByteLen oldDigitLen |
 	oldDigitLen := self digitSizeOfLargeInt: anOop.
-	(highBit := self cDigitHighBit: (interpreterProxy firstIndexableField: anOop)
+	(highBit := self cDigitHighBit: (self firstIndexableField: anOop as: #'unsigned int *')
 				len: oldDigitLen) = 0 ifTrue: [^  interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop) indexableSize: 1].
 	newByteLen := highBit + shiftCount + 7 // 8.
 	self remapOop: anOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop)
@@ -12,8 +12,8 @@ digit: anOop Lshift: shiftCount
 	newDigitLen := newByteLen + 3 // 4.
 	self
 		cDigitLshift: shiftCount
-		from: (interpreterProxy firstIndexableField: anOop)
+		from: (self firstIndexableField: anOop as: #'unsigned int *')
 		len: oldDigitLen
-		to: (interpreterProxy firstIndexableField: newOop)
+		to: (self firstIndexableField: newOop as: #'unsigned int *')
 		len: newDigitLen.
 	^ newOop

@@ -5,7 +5,7 @@ digit: anOop Rshift: shiftCount lookfirst: a
 	Discard all digits beyond a, and all zeroes at or below a."
 	"Does not normalize."
 	| newByteLen newOop oldBitLen newBitLen oldDigitLen newDigitLen |
-	oldBitLen := self cDigitHighBit: (interpreterProxy firstIndexableField: anOop) len: a.
+	oldBitLen := self cDigitHighBit: (self firstIndexableField: anOop as: #'unsigned int *') len: a.
 	oldDigitLen := oldBitLen + 31 // 32.
 	newBitLen := oldBitLen - shiftCount.
 	newBitLen <= 0 ifTrue: ["All bits lost"
@@ -18,8 +18,8 @@ digit: anOop Rshift: shiftCount lookfirst: a
 					indexableSize: newByteLen].
 	self
 		cDigitRshift: shiftCount
-		from: (interpreterProxy firstIndexableField: anOop)
+		from: (self firstIndexableField: anOop as: #'unsigned int *')
 		len: oldDigitLen
-		to: (interpreterProxy firstIndexableField: newOop)
+		to: (self firstIndexableField: newOop as: #'unsigned int *')
 		len: newDigitLen.
 	^ newOop

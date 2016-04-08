@@ -15,13 +15,13 @@ digitMultiplyLarge: firstInteger with: secondInteger negative: neg
 			shortLen := secondLen.
 			longInt := firstInteger.
 			longLen := firstLen].
-	self remapOop: #(shortInt longInt ) in: [prod := self createLargeIntegerNeg: neg byteLength: longLen + shortLen].
+	self remapOop: #(shortInt longInt) in: [prod := self createLargeIntegerNeg: neg byteLength: longLen + shortLen].
 	self
-		cDigitMultiply: (interpreterProxy firstIndexableField: shortInt)
+		cDigitMultiply: (self firstIndexableField: shortInt as: #'unsigned int *')
 		len: shortLen + 3 // 4
-		with: (interpreterProxy firstIndexableField: longInt)
+		with: (self firstIndexableField: longInt as: #'unsigned int *')
 		len: longLen + 3 // 4
-		into: (interpreterProxy firstIndexableField: prod)
+		into: (self firstIndexableField: prod as: #'unsigned int *')
 		len: longLen + shortLen + 3 // 4.
 	^neg 
 		ifTrue: [self normalizeNegative: prod]

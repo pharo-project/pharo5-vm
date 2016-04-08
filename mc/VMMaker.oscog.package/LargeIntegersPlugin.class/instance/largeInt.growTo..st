@@ -7,11 +7,11 @@ largeInt: aBytesObject growTo: newByteLen
 					indexableSize: newByteLen].
 	newDigitLen := newByteLen + 3 // 4.
 	oldDigitLen := self digitSizeOfLargeInt: aBytesObject.
-	oldDigitLen < newDigitLen
-		ifTrue: [copyLen := oldDigitLen]
-		ifFalse: [copyLen := newDigitLen].
+	copyLen := oldDigitLen < newDigitLen
+					ifTrue: [oldDigitLen]
+					ifFalse: [newDigitLen].
 	self
-		cDigitCopyFrom: (interpreterProxy firstIndexableField: aBytesObject)
-		to: (interpreterProxy firstIndexableField: newBytes)
+		cDigitCopyFrom: (self firstIndexableField: aBytesObject as: #'unsigned int *')
+		to: (self firstIndexableField: newBytes as: #'unsigned int *')
 		len: copyLen.
-	^ newBytes
+	^newBytes

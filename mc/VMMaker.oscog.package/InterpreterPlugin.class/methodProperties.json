@@ -40,6 +40,7 @@
 		"doesNotUnderstand:" : "eem 3/13/2015 18:21",
 		"executeTranslatedPrimitiveMethod:arguments:subsidiaries:" : "eem 3/10/2015 17:41",
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",
+		"firstIndexableField:as:" : "eem 4/7/2016 14:51",
 		"getInterpreter" : "ikp (auto pragmas 12/08) 8/3/2004 19:18",
 		"getModuleName" : "eem 2/5/2015 14:33",
 		"halt" : "jcg 6/30/2008 17:36",

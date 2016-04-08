@@ -5,17 +5,17 @@ digitMontgomery: firstLarge times: secondLarge modulo: thirdLarge mInvModB: mInv
 	firstLen := self digitSizeOfLargeInt: firstLarge.
 	secondLen := self digitSizeOfLargeInt: secondLarge.
 	thirdLen := self digitSizeOfLargeInt: thirdLarge.
+	(firstLen <= thirdLen and: [secondLen <= thirdLen]) ifFalse: [^interpreterProxy primitiveFail].
 
-	firstLen <= thirdLen ifFalse: [^interpreterProxy primitiveFail].
-	secondLen <= thirdLen ifFalse: [^interpreterProxy primitiveFail].
-	self remapOop: #(firstLarge secondLarge thirdLarge) in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen * 4].
+	self remapOop: #(firstLarge secondLarge thirdLarge)
+		in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen * 4].
 	self
-				cDigitMontgomery: (interpreterProxy firstIndexableField: firstLarge)
-				len: firstLen
-				times: (interpreterProxy firstIndexableField: secondLarge)
-				len: secondLen
-				modulo: (interpreterProxy firstIndexableField: thirdLarge)
-				len: thirdLen
-				mInvModB: mInv
-				into: (interpreterProxy firstIndexableField: prod).
+		cDigitMontgomery: (self firstIndexableField: firstLarge as: #'unsigned int *')
+		len: firstLen
+		times: (self firstIndexableField: secondLarge as: #'unsigned int *')
+		len: secondLen
+		modulo: (self firstIndexableField: thirdLarge as: #'unsigned int *')
+		len: thirdLen
+		mInvModB: mInv
+		into: (self firstIndexableField: prod as: #'unsigned int *').
 	^self normalizePositive: prod

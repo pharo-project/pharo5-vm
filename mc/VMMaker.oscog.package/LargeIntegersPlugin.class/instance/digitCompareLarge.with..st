@@ -10,7 +10,7 @@ digitCompareLarge: firstInteger with: secondInteger
 				ifTrue: [^ -1 asOop: SmallInteger]
 				ifFalse: [^ 1 asOop: SmallInteger]].
 	^ (self
-		cDigitCompare: (interpreterProxy firstIndexableField: firstInteger)
-		with: (interpreterProxy firstIndexableField: secondInteger)
+		cDigitCompare: (self firstIndexableField: firstInteger as: #'unsigned int *')
+		with: (self firstIndexableField: secondInteger as: #'unsigned int *')
 		len: firstDigitLen)
 		asOop: SmallInteger
