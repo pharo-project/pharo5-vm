@@ -9,7 +9,7 @@ genJumpIf: boolean to: targetBytecodePC
 	extA := 0.
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self PopR: TempReg.
-	self genAnnotatedSubCw: boolean R: TempReg.
+	self genSubConstant: boolean R: TempReg.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 	self CmpCq: (boolean == objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
