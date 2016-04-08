@@ -126,4 +126,4 @@ initializeBytecodeTableForSistaV1
 
 		(3 254 254	genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode branch v4:Long:BranchIfNotInstanceOf:Distance:)
 		
-		(3 255 255	unknownBytecode))
+		(3 255 255	genExtPushFullClosureBytecode))

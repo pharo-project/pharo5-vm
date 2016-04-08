@@ -26,6 +26,7 @@
 		"genConvertIntegerToCharacterInReg:" : "eem 12/6/2013 14:49",
 		"genConvertSmallIntegerToCharacterInReg:" : "eem 12/24/2013 18:31",
 		"genCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem (const to msg rewrite) 11/6/2014 10:37",
+		"genCreateFullClosure:numArgs:numCopied:ignoreContext:contextNumArgs:large:inBlock:" : "cb 4/8/2016 15:40",
 		"genEnsureObjInRegNotForwarded:scratchReg:" : "eem 6/4/2014 16:48",
 		"genEnsureOopInRegNotForwarded:scratchReg:" : "cb 4/17/2015 13:32",
 		"genEnsureOopInRegNotForwarded:scratchReg:ifForwarder:ifNotForwarder:" : "eem 6/3/2015 09:11",

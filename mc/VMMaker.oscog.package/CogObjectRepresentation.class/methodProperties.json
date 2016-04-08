@@ -19,6 +19,7 @@
 		"genCmpClassFloatCompactIndexR:" : "eem 5/29/2015 19:53",
 		"genCmpClassMethodContextCompactIndexR:" : "eem 5/29/2015 19:52",
 		"genCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem 5/31/2014 23:12",
+		"genCreateFullClosure:numArgs:numCopied:ignoreContext:contextNumArgs:large:inBlock:" : "cb 4/8/2016 15:40",
 		"genDoubleArithmetic:preOpCheck:" : "eem 1/7/2016 13:42",
 		"genDoubleComparison:invert:" : "eem 1/7/2016 14:37",
 		"genEnsureObjInRegNotForwarded:scratchReg:" : "eem 5/14/2015 18:45",
