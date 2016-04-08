@@ -1,5 +1,5 @@
 compile abstract instructions
-compileCogFullBlockMethod
+compileCogFullBlockMethod: numCopied
 	<returnTypeC: #'CogMethod *'>
 	| numBytecodes numBlocks numCleanBlocks result |
 	hasYoungReferent := (objectMemory isYoungObject: methodObj).
@@ -30,6 +30,6 @@ compileCogFullBlockMethod
 
 	blockEntryLabel := nil.
 	methodLabel dependent: nil.
-	(result := self compileEntireFullBlockMethod) < 0 ifTrue:
+	(result := self compileEntireFullBlockMethod: numCopied) < 0 ifTrue:
 		[^coInterpreter cCoerceSimple: result to: #'CogMethod *'].
 	^self generateCogFullBlock

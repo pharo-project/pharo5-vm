@@ -1,11 +1,11 @@
 compile abstract instructions
-compileEntireFullBlockMethod
+compileEntireFullBlockMethod: numCopied
 	"Compile the abstract instructions for the entire method, including blocks."
 	| result |	
 	self compileFullBlockEntry.
 
 	"Frame build"
-	self compileFullBlockMethodFrameBuild.
+	self compileFullBlockMethodFrameBuild: numCopied.
 	"Method body"
 	(result := self compileMethodBody) < 0 ifTrue:
 		[^result].

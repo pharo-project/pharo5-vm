@@ -29,7 +29,7 @@ cogFullBlockMethod: aMethodObj numCopied: numCopied
 	objectRepresentation ensureNoForwardedLiteralsIn: aMethodObj.
 	methodObj := aMethodObj.
 	methodHeader := objectMemory methodHeaderOf: aMethodObj.
-	cogMethod := self compileCogFullBlockMethod.
+	cogMethod := self compileCogFullBlockMethod: numCopied.
 	(cogMethod asInteger between: MaxNegativeErrorCode and: -1) ifTrue:
 		[cogMethod asInteger = InsufficientCodeSpace ifTrue:
 			[coInterpreter callForCogCompiledCodeCompaction].
