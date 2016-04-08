@@ -16,6 +16,7 @@ initializeCodeZoneFrom: startAddress upTo: endAddress
 	self generateStackPointerCapture.
 	self generateTrampolines.
 	self computeEntryOffsets.
+	self computeFullBlockEntryOffsets.
 	self generateClosedPICPrototype.
 	"repeat so that now the methodZone ignores the generated run-time"
 	methodZone manageFrom: methodZoneBase to: endAddress.

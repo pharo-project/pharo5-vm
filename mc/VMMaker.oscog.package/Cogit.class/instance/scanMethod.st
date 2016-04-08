@@ -10,7 +10,6 @@ scanMethod
 	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
-	inBlock := false.
 	NewspeakVM ifTrue:
 		[numIRCs := 0].
 	(primitiveIndex > 0

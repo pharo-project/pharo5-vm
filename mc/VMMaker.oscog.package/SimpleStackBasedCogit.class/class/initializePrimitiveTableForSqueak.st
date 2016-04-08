@@ -155,6 +155,10 @@ initializePrimitiveTableForSqueak
 		(205 genPrimitiveClosureValue	4) "value:value:value:value:"
 		"(206 genPrimitiveClosureValueWithArgs)" "valueWithArguments:"
 
+		(207 genPrimitiveFullClosureValue) "value[:value:value:value:] et al"
+		"(208 genPrimitiveFullClosureValueWithArgs)" "valueWithArguments:"
+		(209 genPrimitiveFullClosureValueNoContextSwitch) "valueNoContextSwitch[:value:] et al"
+
 		"(210 primitiveContextAt)"
 		"(211 primitiveContextAtPut)"
 		"(212 primitiveContextSize)"

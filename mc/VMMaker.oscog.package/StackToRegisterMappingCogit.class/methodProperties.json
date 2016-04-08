@@ -172,7 +172,7 @@
 		"putSelfInReceiverResultReg" : "cb 11/25/2015 14:32",
 		"reinitializeFixupsFrom:through:" : "eem 11/14/2012 15:28",
 		"scanBlock:" : "eem 6/4/2015 09:29",
-		"scanMethod" : "eem 2/12/2016 14:01",
+		"scanMethod" : "eem 4/7/2016 14:06",
 		"setInterpreter:" : "eem 1/20/2016 15:29",
 		"simStackAt:" : "eem 12/11/2010 18:01",
 		"sistaNeedsStoreCheck" : "cb 4/5/2016 15:57",
