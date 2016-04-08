@@ -6,17 +6,11 @@ initializeWithOptions: optionsDictionaryOrArray objectMemoryClass: objectMemoryC
 	initializationOptions := optionsDictionaryOrArray isArray
 							ifTrue: [Dictionary newFromPairs: optionsDictionaryOrArray]
 							ifFalse: [optionsDictionaryOrArray].
+
 	(objectMemoryClassOrNil ifNil: [self objectMemoryClass])
 		initializeWithOptions: initializationOptions.
 
-	((initializationOptions at: #COGMTVM ifAbsent: [false])
-			ifTrue: [CoInterpreterMT]
-			ifFalse: [CoInterpreter])
-		initializeWithOptions: initializationOptions.
-
-	ByteCountsPerMicrosecond := initializationOptions
-										at: #ByteCountsPerMicrosecond
-										ifAbsent: [100].
+	self initializeWithOptions: initializationOptions.
 
 	(self cogitClass withAllSuperclasses copyUpTo: Cogit) reverseDo:
 		[:c| c initializeWithOptions: initializationOptions]
