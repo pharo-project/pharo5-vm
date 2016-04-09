@@ -29,11 +29,11 @@ digitDivLarge: firstInteger with: secondInteger negative: neg
 				ifTrue: [rem := self largeInt: rem growTo: firstDigitLen + 1 * 4]].
 	self remapOop: #(div rem ) in: [quo := self createLargeIntegerNeg: neg digitLength: quoDigitLen].
 	self
-		cDigitDiv: (self firstIndexableField: div as: #'unsigned int *')
+		cDigitDiv: (self pointerToFirstDigitOfLargeInt: div)
 		len: (self digitSizeOfLargeInt: div)
-		rem: (self firstIndexableField: rem as: #'unsigned int *')
+		rem: (self pointerToFirstDigitOfLargeInt: rem)
 		len: (self digitSizeOfLargeInt: rem)
-		quo: (self firstIndexableField: quo as: #'unsigned int *')
+		quo: (self pointerToFirstDigitOfLargeInt: quo)
 		len: (self digitSizeOfLargeInt: quo).
 	self remapOop: #(quo ) in: [rem := self
 					digit: rem

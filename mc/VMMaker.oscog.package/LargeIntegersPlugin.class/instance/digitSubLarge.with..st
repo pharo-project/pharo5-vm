@@ -30,11 +30,11 @@ digitSubLarge: firstInteger with: secondInteger
 	self remapOop: #(smaller larger)
 		in: [res := self createLargeIntegerNeg: neg digitLength: resDigitLen].
 	self
-		cDigitSub: (self firstIndexableField: smaller as: #'unsigned int *')
+		cDigitSub: (self pointerToFirstDigitOfLargeInt: smaller)
 		len: smallerDigitLen
-		with: (self firstIndexableField: larger as: #'unsigned int *')
+		with: (self pointerToFirstDigitOfLargeInt: larger)
 		len: largeDigitLen
-		into: (self firstIndexableField: res as: #'unsigned int *').
+		into: (self pointerToFirstDigitOfLargeInt: res).
 	^neg 
 		ifTrue: [self normalizeNegative: res]
 		ifFalse: [self normalizePositive: res]

@@ -2,5 +2,5 @@ util
 highBitOfLargeInt: anOop 
 	<inline: true>
 	^ self
-		cDigitHighBit: (self firstIndexableField: anOop as: #'unsigned int *')
+		cDigitHighBit: (self pointerToFirstDigitOfLargeInt: anOop)
 		len: (self digitSizeOfLargeInt: anOop)

@@ -39,10 +39,10 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 	self remapOop: #(shortLarge longLarge ) in: [result := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: longLen].
 	self
 		cDigitOp: opIx
-		short: (self firstIndexableField: shortLarge as: #'unsigned int *')
+		short: (self pointerToFirstDigitOfLargeInt: shortLarge)
 		len: shortLen + 3 // 4
-		long: (self firstIndexableField: longLarge as: #'unsigned int *')
+		long: (self pointerToFirstDigitOfLargeInt: longLarge)
 		len: longLen + 3 // 4
-		into: (self firstIndexableField: result as: #'unsigned int *').
+		into: (self pointerToFirstDigitOfLargeInt: result).
 	interpreterProxy failed ifTrue: [^ 0].
 	^ self normalizePositive: result

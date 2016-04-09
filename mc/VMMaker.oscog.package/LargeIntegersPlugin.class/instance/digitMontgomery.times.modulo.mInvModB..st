@@ -10,12 +10,12 @@ digitMontgomery: firstLarge times: secondLarge modulo: thirdLarge mInvModB: mInv
 	self remapOop: #(firstLarge secondLarge thirdLarge)
 		in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen * 4].
 	self
-		cDigitMontgomery: (self firstIndexableField: firstLarge as: #'unsigned int *')
+		cDigitMontgomery: (self pointerToFirstDigitOfLargeInt: firstLarge)
 		len: firstLen
-		times: (self firstIndexableField: secondLarge as: #'unsigned int *')
+		times: (self pointerToFirstDigitOfLargeInt: secondLarge)
 		len: secondLen
-		modulo: (self firstIndexableField: thirdLarge as: #'unsigned int *')
+		modulo: (self pointerToFirstDigitOfLargeInt: thirdLarge)
 		len: thirdLen
 		mInvModB: mInv
-		into: (self firstIndexableField: prod as: #'unsigned int *').
+		into: (self pointerToFirstDigitOfLargeInt: prod).
 	^self normalizePositive: prod

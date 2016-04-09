@@ -11,7 +11,7 @@ largeInt: aBytesObject growTo: newByteLen
 					ifTrue: [oldDigitLen]
 					ifFalse: [newDigitLen].
 	self
-		cDigitCopyFrom: (self firstIndexableField: aBytesObject as: #'unsigned int *')
-		to: (self firstIndexableField: newBytes as: #'unsigned int *')
+		cDigitCopyFrom: (self pointerToFirstDigitOfLargeInt: aBytesObject)
+		to: (self pointerToFirstDigitOfLargeInt: newBytes)
 		len: copyLen.
 	^newBytes

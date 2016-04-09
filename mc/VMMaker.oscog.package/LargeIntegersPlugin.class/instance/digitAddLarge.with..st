@@ -21,22 +21,22 @@ digitAddLarge: firstInteger with: secondInteger
 	"	sum := Integer new: len neg: firstInteger negative."
 	self remapOop: #(shortInt longInt ) in: [sum := self createLargeIntegerNeg: neg digitLength: longDigitLen].
 	over := self
-				cDigitAdd: (self firstIndexableField: shortInt as: #'unsigned int *')
+				cDigitAdd: (self pointerToFirstDigitOfLargeInt: shortInt)
 				len: shortDigitLen
-				with: (self firstIndexableField: longInt as: #'unsigned int *')
+				with: (self pointerToFirstDigitOfLargeInt: longInt)
 				len: longDigitLen
-				into: (self firstIndexableField: sum as: #'unsigned int *').
+				into: (self pointerToFirstDigitOfLargeInt: sum).
 	over > 0
 		ifTrue: 
 			["sum := sum growby: 1."
 			self remapOop: sum in: [newSum := self createLargeIntegerNeg: neg byteLength: longDigitLen * 4 + 1].
 			self
-				cDigitCopyFrom: (self firstIndexableField: sum as: #'unsigned int *')
-				to: (self firstIndexableField: newSum as: #'unsigned int *')
+				cDigitCopyFrom: (self pointerToFirstDigitOfLargeInt: sum)
+				to: (self pointerToFirstDigitOfLargeInt: newSum)
 				len: longDigitLen.
 			sum := newSum.
 			"C index!"
-			self cDigitOf: (self firstIndexableField: sum as: #'unsigned int *')
+			self cDigitOf: (self pointerToFirstDigitOfLargeInt: sum)
 				at: longDigitLen put: over]
 		ifFalse:
 			[sum := neg 

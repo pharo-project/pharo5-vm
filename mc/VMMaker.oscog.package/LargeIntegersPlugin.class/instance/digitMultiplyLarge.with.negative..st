@@ -17,11 +17,11 @@ digitMultiplyLarge: firstInteger with: secondInteger negative: neg
 			longLen := firstLen].
 	self remapOop: #(shortInt longInt) in: [prod := self createLargeIntegerNeg: neg byteLength: longLen + shortLen].
 	self
-		cDigitMultiply: (self firstIndexableField: shortInt as: #'unsigned int *')
+		cDigitMultiply: (self pointerToFirstDigitOfLargeInt: shortInt)
 		len: shortLen + 3 // 4
-		with: (self firstIndexableField: longInt as: #'unsigned int *')
+		with: (self pointerToFirstDigitOfLargeInt: longInt)
 		len: longLen + 3 // 4
-		into: (self firstIndexableField: prod as: #'unsigned int *')
+		into: (self pointerToFirstDigitOfLargeInt: prod)
 		len: longLen + shortLen + 3 // 4.
 	^neg 
 		ifTrue: [self normalizeNegative: prod]
