@@ -1,5 +1,5 @@
 bytecode generators
-genSistaExtStoreAndPopReceiverVariableBytecode: boolean
+genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: boolean
 	| index |
 	extB := 0. "Simple cogit don't use the extra flags"
 	index := byte1 + (extA << 8).

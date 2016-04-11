@@ -1,5 +1,6 @@
 bytecode generators
-genSistaExtStoreAndPopReceiverVariableBytecode: boolean
+genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: boolean
+	<inline: true>
 	| index needsStoreCheck |
 	needsStoreCheck := self sistaNeedsStoreCheck.
 	extB := 0.

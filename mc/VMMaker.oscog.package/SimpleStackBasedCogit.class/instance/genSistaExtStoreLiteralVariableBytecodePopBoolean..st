@@ -1,5 +1,5 @@
 bytecode generators
-genSistaExtStoreLiteralVariableBytecode: boolean
+genSistaExtStoreLiteralVariableBytecodePopBoolean: boolean
 	| index |
 	extB := 0. "SimpleCogit don't use the extra flags"
 	index := byte1 + (extA << 8).

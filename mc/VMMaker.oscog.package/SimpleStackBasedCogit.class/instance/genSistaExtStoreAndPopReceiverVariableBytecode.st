@@ -1,3 +1,3 @@
 bytecode generators
 genSistaExtStoreAndPopReceiverVariableBytecode
-	^ self genSistaExtStoreAndPopReceiverVariableBytecode: true
+	^ self genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: true
