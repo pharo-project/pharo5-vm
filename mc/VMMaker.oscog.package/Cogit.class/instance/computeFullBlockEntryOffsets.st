@@ -4,7 +4,6 @@ computeFullBlockEntryOffsets
 	 need cmNoCheckEntryOffset up front to be able to generate the map starting from cmNoCheckEntryOffset"
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
-	<var: 'sendMissCall' type: #'AbstractInstruction *'>
 	self allocateOpcodes: 24 bytecodes: 0.
 	methodOrBlockNumArgs := 0.
 	self compileFullBlockEntry.

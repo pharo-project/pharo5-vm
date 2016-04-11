@@ -301,7 +301,7 @@
 		"compileSendTrace" : "eem 8/17/2014 18:37",
 		"compileTrampolineFor:numArgs:arg:arg:arg:arg:regsToSave:pushLinkReg:resultReg:" : "eem 3/3/2016 14:30",
 		"computeEntryOffsets" : "eem 4/4/2015 14:00",
-		"computeFullBlockEntryOffsets" : "eem 4/7/2016 17:03",
+		"computeFullBlockEntryOffsets" : "cb 4/11/2016 11:00",
 		"computeMaximumSizes" : "eem 6/11/2015 14:12",
 		"configureCPIC:Case0:Case1Method:tag:isMNUCase:numArgs:delta:" : "eem 12/13/2015 13:41",
 		"configureMNUCPIC:methodOperand:numArgs:delta:" : "rmacnak 11/23/2015 23:32:56",

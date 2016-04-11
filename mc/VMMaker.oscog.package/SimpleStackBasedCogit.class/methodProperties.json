@@ -7,7 +7,7 @@
 		"initializeBytecodeTableForSistaV1" : "cb 4/8/2016 15:08",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 1/21/2016 19:18",
 		"initializePrimitiveTableForNewsqueak" : "eem 2/28/2016 10:49",
-		"initializePrimitiveTableForSqueak" : "eem 4/7/2016 15:57",
+		"initializePrimitiveTableForSqueak" : "cb 4/11/2016 10:59",
 		"table:from:" : "eem 1/9/2016 10:42" },
 	"instance" : {
 		"adjustArgumentsForPerform:" : "eem 2/23/2016 16:48",
