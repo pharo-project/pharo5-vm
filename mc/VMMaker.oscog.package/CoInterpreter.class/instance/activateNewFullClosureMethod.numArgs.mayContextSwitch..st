@@ -1,10 +1,8 @@
 control primitives
 activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayContextSwitch
 	"Similar to activateNewMethod but for Closure and newMethod."
-	| numCopied outerContext theMethod methodHeader numTemps |
+	| numCopied theMethod methodHeader numTemps |
 	<inline: true>
-	self break.
-	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
 	numCopied := self copiedValueCountOfFullClosure: blockClosure.
 	theMethod := objectMemory fetchPointer: FullClosureCompiledBlockIndex ofObject: blockClosure.
 	self assert: (objectMemory isOopCompiledMethod: theMethod).

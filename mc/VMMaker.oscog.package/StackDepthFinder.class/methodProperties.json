@@ -37,6 +37,7 @@
 		"pushConsArrayWithElements:" : "eem 11/26/2010 12:19",
 		"pushConstant:" : "eem 11/26/2010 11:01",
 		"pushExplicitOuter:" : "eem 11/15/2012 14:18",
+		"pushFullClosure:numCopied:" : "cb 4/10/2016 13:24",
 		"pushLiteralVariable:" : "eem 11/26/2010 11:01",
 		"pushNewArrayOfSize:" : "eem 11/26/2010 12:19",
 		"pushReceiver" : "eem 11/26/2010 11:01",

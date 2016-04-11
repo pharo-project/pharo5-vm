@@ -7,7 +7,7 @@ fullClosureIn: context numArgs: numArgs numCopiedValues: numCopied compiledBlock
 			[newClosure := objectMemory
 								eeInstantiateSmallClassIndex: ClassFullBlockClosureCompactIndex
 								format: objectMemory indexablePointersFormat
-								numSlots: ClosureFirstCopiedValueIndex + numCopied]
+								numSlots: FullClosureFirstCopiedValueIndex + numCopied]
 		ifFalse:
 			[newClosure := objectMemory
 								eeInstantiateSmallClass: (objectMemory splObj: ClassFullBlockClosure)
