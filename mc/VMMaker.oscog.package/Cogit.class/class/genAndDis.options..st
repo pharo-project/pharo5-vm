@@ -11,6 +11,6 @@ genAndDis: methodOrDoitString options: optionsDictionaryOrArray
 							ifFail: nil
 							logged: false)
 			 options: optionsDictionaryOrArray].
-	tuple := self cog: methodOrDoitString selector: methodOrDoitString selector options: optionsDictionaryOrArray.
+	tuple := self cog: methodOrDoitString selectorOrNumCopied: methodOrDoitString selector options: optionsDictionaryOrArray.
 	tuple second disassembleMethod: tuple last.
 	^tuple

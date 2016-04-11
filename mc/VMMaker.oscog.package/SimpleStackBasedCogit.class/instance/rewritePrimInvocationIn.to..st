@@ -4,6 +4,9 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 	<var: #cogMethod type: #'CogMethod *'>
 	<var: #primFunctionPointer declareC: #'void (*primFunctionPointer)(void)'>
 	| primIndex flags address extent |
+	self cCode: [] inSmalltalk:
+		[primFunctionPointer isInteger ifFalse:
+			[^self rewritePrimInvocationIn: cogMethod to: (self simulatedTrampolineFor: primFunctionPointer)]].
 	self assert: cogMethod cmType = CMMethod.
 	primIndex := coInterpreter
 					primitiveIndexOfMethod: cogMethod methodObject
@@ -21,15 +24,13 @@ rewritePrimInvocationIn: cogMethod to: primFunctionPointer
 						+ (externalPrimJumpOffsets at: cogMethod cmNumArgs).
 			extent := backEnd
 						rewriteJumpFullAt: address
-						target: (self cCode: [primFunctionPointer asUnsignedInteger]
-									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])]
+						target: primFunctionPointer asUnsignedInteger]
 		ifFalse:
 			[address := cogMethod asUnsignedInteger
 						+ (externalPrimCallOffsets at: cogMethod cmNumArgs).
 			extent := backEnd
 						rewriteCallFullAt: address
-						target: (self cCode: [primFunctionPointer asUnsignedInteger]
-									inSmalltalk: [self simulatedTrampolineFor: primFunctionPointer])].
+						target: primFunctionPointer asUnsignedInteger].
 	processor
 		flushICacheFrom: cogMethod asUnsignedInteger + cmNoCheckEntryOffset
 		to: address asUnsignedInteger + extent

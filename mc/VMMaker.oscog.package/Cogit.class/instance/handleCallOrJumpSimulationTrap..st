@@ -46,6 +46,7 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 		[coInterpreter checkForLastObjectOverwrite.
 		 coInterpreter primFailCode = 0
 			ifTrue: [(#(	primitiveClosureValue primitiveClosureValueWithArgs primitiveClosureValueNoContextSwitch
+						primitiveFullClosureValue primitiveFullClosureValueWithArgs primitiveFullClosureValueNoContextSwitch
 						primitiveSignal primitiveWait primitiveResume primitiveSuspend primitiveYield
 						primitiveExecuteMethodArgsArray primitiveExecuteMethod
 						primitivePerform primitivePerformWithArgs primitivePerformInSuperclass

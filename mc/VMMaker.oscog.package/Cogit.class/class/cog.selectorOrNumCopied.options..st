@@ -1,5 +1,5 @@
 in-image compilation
-cog: aCompiledMethod selector: aSelector options: optionsDictionaryOrArray
+cog: aCompiledMethod selectorOrNumCopied: selectorOrNumCopied options: optionsDictionaryOrArray
 	"StackToRegisterMappingCogit cog: (Integer >> #benchFib) selector: #benchFib options: #(COGMTVM false)"
 	| cogit coInterpreter |
 	cogit := self instanceForTests: optionsDictionaryOrArray.
@@ -16,4 +16,6 @@ cog: aCompiledMethod selector: aSelector options: optionsDictionaryOrArray
 			ex pass].
 	^{ coInterpreter.
 		cogit.
-		cogit cog: (coInterpreter oopForObject: aCompiledMethod) selector: (coInterpreter oopForObject: aSelector) }
+		selectorOrNumCopied isInteger
+			ifTrue: [ cogit cogFullBlockMethod: (coInterpreter oopForObject: aCompiledMethod) numCopied: selectorOrNumCopied ]
+			ifFalse: [ cogit cog: (coInterpreter oopForObject: aCompiledMethod) selector: (coInterpreter oopForObject: selectorOrNumCopied) ] }

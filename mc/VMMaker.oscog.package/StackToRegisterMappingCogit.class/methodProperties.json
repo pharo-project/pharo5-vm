@@ -94,7 +94,7 @@
 		"genPopStackBytecode" : "eem (const to msg rewrite) 11/6/2014 11:21",
 		"genPrimReturn" : "eem 1/7/2016 13:26",
 		"genPrimitiveClosureValue" : "eem 12/1/2010 10:12",
-		"genPrimitiveFullClosureValue" : "",
+		"genPrimitiveFullClosureValue" : "cb 4/11/2016 15:47",
 		"genPrimitivePerform" : "eem 1/7/2016 10:48",
 		"genPushActiveContextBytecode" : "eem 5/31/2014 16:50",
 		"genPushClosureCopyCopiedValuesBytecode" : "eem 09/28/2015 18:48",

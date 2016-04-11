@@ -5,7 +5,7 @@ compileFullBlockEntry
 
 	"Abort for stack overflow on full block activation (no inline cache miss possible).
 	 The flag is SendNumArgsReg."
-	fullBlockStackOverflowCall := self MoveCq: 0 R: ReceiverResultReg.
+	stackOverflowCall := self MoveCq: 0 R: ReceiverResultReg.
 	backEnd hasLinkRegister ifTrue: [self PushR: LinkReg].
 	"Since the only case in which this is called is the
 	 stack overflow case we can reuse the trampoline."

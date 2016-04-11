@@ -102,7 +102,6 @@
 		"entry",
 		"cmNoCheckEntryOffset",
 		"noCheckEntry",
-		"fullBlockStackOverflowCall",
 		"fullBlockEntry",
 		"cbEntryOffset",
 		"fullBlockNoContextSwitchEntry",

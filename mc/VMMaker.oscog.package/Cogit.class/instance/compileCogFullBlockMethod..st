@@ -12,9 +12,11 @@ compileCogFullBlockMethod: numCopied
 	"initial estimate.  Actual endPC is determined in scanMethod."
 	endPC := objectMemory numBytesOf: methodObj.
 	numBytecodes := endPC - initialPC + 1.
+	primitiveIndex := 0.
 	self allocateOpcodes: (numBytecodes + 10) * self estimateOfAbstractOpcodesPerBytecodes
 		bytecodes: numBytecodes
 		ifFail: [^coInterpreter cCoerceSimple: MethodTooBig to: #'CogMethod *'].
+	self flag: #TODO. "currently copiedValue access implies frameful method, this is suboptimal"
 	(numBlocks := self scanMethod) < 0 ifTrue:
 		[^coInterpreter cCoerceSimple: numBlocks to: #'CogMethod *'].
 	self assert: numBlocks = 0. "blocks in full blocks are full blocks, they are not inlined."

@@ -9,7 +9,7 @@ cogFullBlockMethod: aMethodObj numCopied: numCopied
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
 	self cCode: [] inSmalltalk: "for debugging, allow excluding methods based on selector or methodClass"
-		[self halt class initializationOptions
+		[self class initializationOptions
 			at: #DoNotJIT
 			ifPresent:
 				[:excluded| 
