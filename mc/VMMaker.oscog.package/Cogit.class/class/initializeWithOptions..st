@@ -1,6 +1,6 @@
 class initialization
 initializeWithOptions: optionsDictionary
-	{ self. CogMethod. CogMethodSurrogate. CogObjectRepresentation } do:
+	{ self. CogMethodSurrogate. } , (self ancilliaryClasses: optionsDictionary) do:
 		[:aSuperclass|
 		 aSuperclass withAllSubclasses do:
 			[:class| class initializationOptions: optionsDictionary]].

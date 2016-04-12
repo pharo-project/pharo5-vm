@@ -4,18 +4,12 @@ cLiteralFor: anObject
 	anObject isNumber
 		ifTrue:
 			[anObject isInteger ifTrue:
-				[| printString |
-				 printString := (anObject > 0
+				[| hex |
+				 hex := (anObject > 0
 								and: [(anObject >> anObject lowBit + 1) isPowerOfTwo
 								and: [(anObject highBit = anObject lowBit and: [anObject > 65536])
-									  or: [anObject highBit - anObject lowBit >= 4]]])
-									ifTrue: ['0x', (anObject printStringBase: 16)]
-									ifFalse: [anObject printString].
-				^anObject > 16rFFFFFFFF
-						ifTrue: [printString, ObjectMemory unsignedLongLongSuffix]
-						ifFalse: [anObject < 16r7FFFFFFF
-							ifTrue: [printString]
-							ifFalse: [printString, ObjectMemory unsignedIntegerSuffix]]].
+									  or: [anObject highBit - anObject lowBit >= 4]]]).
+				^self cLiteralForInteger: anObject hex: hex].
 			anObject isFloat ifTrue:
 				[^anObject printString]]
 		ifFalse:
