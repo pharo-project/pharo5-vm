@@ -5,6 +5,7 @@ ensureMultiThreadingOverridesAreUpToDate
 	 on cogThreadManager being non-nil or nil respectively.  i.e. they allow us to use this one
 	 simulator class to simulate for both CoInterpreterMT and CoInterpreter."
 	| thisClass me mtInterpreterClass |
+	self cppIf: COGMTVM ifTrue: [  ] ifFalse: [ ^self ].
 	thisClass := thisContext methodClass.
 	mtInterpreterClass := thisClass superclass.
 	me := thisClass name, '>>', thisContext method selector.

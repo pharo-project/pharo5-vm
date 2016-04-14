@@ -7,4 +7,4 @@ ioGetNextEvent: evtBuf
 	eventQueue isEmpty ifFalse:
 		[evt :=  eventQueue next.
 		 1 to: evtBuf size do:
-			[:i| (evt at: i) ifNotNil: [:val| evtBuf at: (i - 1) put: val]]]
+			[:i| (evt at: i) ifNotNil: [:val| evtBuf at: (i - 1) put: val asInteger]]]
