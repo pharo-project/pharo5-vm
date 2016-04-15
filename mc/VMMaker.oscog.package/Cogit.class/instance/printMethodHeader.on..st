@@ -38,7 +38,9 @@ printMethodHeader: cogMethod on: aStream
 	cogMethod cmType = CMClosedPIC
 		ifTrue:
 			[aStream crtab; nextPutAll: 'cPICNumCases: '.
-			 cogMethod cPICNumCases printOn: aStream base: 16.]
+			 cogMethod cPICNumCases printOn: aStream base: 16;
+			 tab; nextPutAll: 'cpicHasMNUCase: ';
+			 nextPutAll: (cogMethod cpicHasMNUCase ifTrue: ['yes'] ifFalse: ['no'])]
 		ifFalse:
 			[aStream crtab; nextPutAll: 'stackCheckOffset: '.
 			 cogMethod stackCheckOffset printOn: aStream base: 16.
@@ -55,7 +57,10 @@ printMethodHeader: cogMethod on: aStream
 					[aStream
 						crtab;
 						nextPutAll: 'cmRefersToYoung: ';
-						nextPutAll: (cogMethod cmRefersToYoung ifTrue: ['yes'] ifFalse: ['no'])].
+						nextPutAll: (cogMethod cmRefersToYoung ifTrue: ['yes'] ifFalse: ['no']);
+						tab;
+						nextPutAll: 'cmIsFullBlock: ';
+						nextPutAll: (cogMethod cmIsFullBlock ifTrue: ['yes'] ifFalse: ['no'])].
 			cogMethod cmType = CMMethod ifTrue:
 				[([cogMethod nextMethodOrIRCs] on: MessageNotUnderstood do: [:ex| nil]) ifNotNil:
 					[:nmoircs| aStream crtab; nextPutAll: 'nextMethodOrIRCs: '.

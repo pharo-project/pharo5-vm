@@ -87,20 +87,29 @@ makeBaseFrameFor: aContext "<Integer>"
 			 theMethod := cogMethod asInteger.
 			 maybeClosure ~= objectMemory nilObject
 				ifTrue:
-					["If the pc is the special HasBeenReturnedFromMCPC pc set the pc
-					  appropriately so that the frame stays in the cannotReturn: state."
-					 theIP = HasBeenReturnedFromMCPC
+					[(self isVanillaBlockClosure: maybeClosure)
 						ifTrue:
-							[theMethod := (cogit findMethodForStartBcpc: (self startPCOfClosure: maybeClosure)
-												inHomeMethod: (self cCoerceSimple: theMethod
-																	to: #'CogMethod *')) asInteger.
-							 theMethod = 0 ifTrue:
-								[self error: 'cannot find machine code block matching closure''s startpc'].
-							 theIP := cogit ceCannotResumePC]
+							["If the pc is the special HasBeenReturnedFromMCPC pc set the pc
+							  appropriately so that the frame stays in the cannotReturn: state."
+							 theIP = HasBeenReturnedFromMCPC
+								ifTrue:
+									[theMethod := (cogit findMethodForStartBcpc: (self startPCOfClosure: maybeClosure)
+														inHomeMethod: (self cCoerceSimple: theMethod
+																			to: #'CogMethod *')) asInteger.
+									 theMethod = 0 ifTrue:
+										[self error: 'cannot find machine code block matching closure''s startpc'].
+									 theIP := cogit ceCannotResumePC]
+								ifFalse:
+									[self assert: (theIP signedBitShift: -16) < -1. "See contextInstructionPointer:frame:"
+									 theMethod := theMethod - ((theIP signedBitShift: -16) * cogit blockAlignment).
+									 theIP := theMethod - theIP signedIntFromShort]]
 						ifFalse:
-							[self assert: (theIP signedBitShift: -16) < -1. "See contextInstructionPointer:frame:"
-							 theMethod := theMethod - ((theIP signedBitShift: -16) * cogit blockAlignment).
-							 theIP := theMethod - theIP signedIntFromShort].
+							[self assert: (theIP signedBitShift: -16) >= -1.
+							 "If the pc is the special HasBeenReturnedFromMCPC pc set the pc
+							  appropriately so that the frame stays in the cannotReturn: state."
+							 theIP := theIP = HasBeenReturnedFromMCPC
+										ifTrue: [cogit ceCannotResumePC]
+										ifFalse: [theMethod asInteger - theIP]].
 					 stackPages
 						longAt: (pointer := pointer - objectMemory wordSize)
 						put: theMethod + MFMethodFlagHasContextFlag + MFMethodFlagIsBlockFlag]

@@ -5,4 +5,4 @@ cpicHasMNUCase
 
 	^SistaV1BytecodeSet
 		ifTrue: [self cpicHasMNUCaseOrCMIsFullBlock and: [self cmType = CMClosedPIC]]
-		ifFalse: [cpicHasMNUCaseOrCMIsFullBlock]
+		ifFalse: [self cpicHasMNUCaseOrCMIsFullBlock]

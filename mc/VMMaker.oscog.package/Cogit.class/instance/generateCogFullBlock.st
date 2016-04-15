@@ -32,6 +32,7 @@ generateCogFullBlock
 	method := self fillInMethodHeader: (self cCoerceSimple: startAddress to: #'CogMethod *')
 					size: totalSize
 					selector: objectMemory nilObject.
+	method cpicHasMNUCaseOrCMIsFullBlock: true.
 	postCompileHook ifNotNil:
 		[self perform: postCompileHook with: method.
 		 postCompileHook := nil].

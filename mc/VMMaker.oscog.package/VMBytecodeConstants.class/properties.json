@@ -8,8 +8,11 @@
 		"LargeContextBit",
 		"LargeContextSize",
 		"LargeContextSlots",
+		"NewsqueakV4BytecodeSet",
+		"SistaV1BytecodeSet",
 		"SmallContextSize",
-		"SmallContextSlots" ],
+		"SmallContextSlots",
+		"SqueakV3PlusClosuresBytecodeSet" ],
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		 ],

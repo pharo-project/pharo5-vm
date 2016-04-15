@@ -12,6 +12,7 @@
 		"cogit" ],
 	"name" : "CogMethodSurrogate",
 	"pools" : [
-		 ],
+		"CogMethodConstants",
+		"VMBytecodeConstants" ],
 	"super" : "VMClass",
 	"type" : "normal" }

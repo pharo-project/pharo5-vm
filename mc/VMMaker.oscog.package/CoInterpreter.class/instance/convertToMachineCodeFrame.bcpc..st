@@ -25,10 +25,15 @@ convertToMachineCodeFrame: cogHomeMethod bcpc: bcpc
 	(self iframeIsBlockActivation: framePointer)
 		ifTrue:
 			[closure := self pushedReceiverOrClosureOfFrame: framePointer.
-			 startBcpc := self startPCOfClosure: closure.
-			 cogMethod := cogit
-								findMethodForStartBcpc: startBcpc
-								inHomeMethod: cogHomeMethod.
+			 (self isVanillaBlockClosure: closure)
+				ifTrue:
+					[startBcpc := self startPCOfClosure: closure.
+					 cogMethod := cogit
+										findMethodForStartBcpc: startBcpc
+										inHomeMethod: cogHomeMethod]
+				ifFalse:
+					[startBcpc := self startPCOfMethodHeader: cogHomeMethod methodHeader.
+					 cogMethod := self cCoerceSimple: cogHomeMethod to: #'CogBlockMethod *'].
 			 methodField := cogMethod asInteger + MFMethodFlagIsBlockFlag]
 		ifFalse:
 			[startBcpc := self startPCOfMethodHeader: cogHomeMethod methodHeader.

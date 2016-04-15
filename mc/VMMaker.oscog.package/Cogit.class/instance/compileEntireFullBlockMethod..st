@@ -1,7 +1,8 @@
 compile abstract instructions
 compileEntireFullBlockMethod: numCopied
 	"Compile the abstract instructions for the entire method, including blocks."
-	| result |	
+	| result |
+	self preenMethodLabel.
 	self compileFullBlockEntry.
 
 	"Frame build"

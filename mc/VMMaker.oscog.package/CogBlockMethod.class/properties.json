@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "eem 6/4/2015 09:06",
+	"commentStamp" : "eem 4/14/2016 10:39",
 	"instvars" : [
 		"objectHeader",
 		"homeOffset",
@@ -13,7 +13,7 @@
 		"cmNumArgs",
 		"cmType",
 		"cmRefersToYoung",
-		"cpicHasMNUCase",
+		"cpicHasMNUCaseOrCMIsFullBlock",
 		"cmUsageCount",
 		"cmUsesPenultimateLit",
 		"cbUsesInstVars",
@@ -22,6 +22,7 @@
 	"name" : "CogBlockMethod",
 	"pools" : [
 		"CogMethodConstants",
-		"VMBasicConstants" ],
+		"VMBasicConstants",
+		"VMBytecodeConstants" ],
 	"super" : "VMStructType",
 	"type" : "normal" }

@@ -27,7 +27,7 @@ genExtPushFullClosureBytecode
 		reg := self ssStorePop: true toPreferredReg: TempReg.
 		 objectRepresentation
 			genStoreSourceReg: reg
-			slotIndex: ClosureFirstCopiedValueIndex + numCopied - i
+			slotIndex: FullClosureFirstCopiedValueIndex + numCopied - i
 			intoNewObjectInDestReg: ReceiverResultReg].
 	receiverIsOnStack
 		ifTrue: [reg := self ssStorePop: true toPreferredReg: TempReg]

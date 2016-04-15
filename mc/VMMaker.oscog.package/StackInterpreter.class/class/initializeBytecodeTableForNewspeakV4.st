@@ -3,7 +3,7 @@ initializeBytecodeTableForNewspeakV4
 	"StackInterpreter initializeBytecodeTableForNewspeakV4"
 	"Note: This table will be used to generate a C switch statement."
 
-	initializationOptions at: #NewsqueakV4BytecodeSet put: true.
+	initializationOptions at: #NewsqueakV4BytecodeSet put: (NewsqueakV4BytecodeSet := true).
 
 	BytecodeTable := Array new: 256.
 	BytecodeEncoderClassName := #EncoderForNewsqueakV4.

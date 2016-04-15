@@ -2,6 +2,7 @@ compile abstract instructions
 compileEntireMethod
 	"Compile the abstract instructions for the entire method, including blocks."
 	| result |
+	self preenMethodLabel.
 	self compileAbort.
 	self compileEntry.
 	(result := self compilePrimitive) < 0 ifTrue:

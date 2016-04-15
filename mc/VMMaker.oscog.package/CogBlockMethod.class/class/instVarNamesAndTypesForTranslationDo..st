@@ -19,7 +19,8 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 								['cmNumArgs']				-> [#(unsigned ' : 8')].		"SqueakV3 needs only 5 bits"
 								['cmType']					-> [#(unsigned ' : 3')].
 								['cmRefersToYoung']		-> [#(unsigned #Boolean ' : 1')].
-								['cpicHasMNUCase']		-> [#(unsigned #Boolean ' : 1')].
+								['cpicHasMNUCaseOrCMIsFullBlock']
+															-> [#(unsigned #Boolean ' : 1')].
 								['cmUsageCount']			-> [#(unsigned ' : 3')].		"See CMMaxUsageCount in initialize"
 								['cmUsesPenultimateLit']	-> [#(unsigned #Boolean ' : 1')].
 								['cbUsesInstVars']			-> [#(unsigned #Boolean ' : 1')].

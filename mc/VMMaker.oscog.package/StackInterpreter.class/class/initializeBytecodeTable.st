@@ -2,6 +2,7 @@ initialization
 initializeBytecodeTable
 	"StackInterpreter initializeBytecodeTable"
 
+	VMBytecodeConstants falsifyBytecodeSetFlags.
 	BytecodeSetHasDirectedSuperSend := false.
 
 	(initializationOptions at: #bytecodeTableInitializer ifAbsent: nil) ifNotNil:
