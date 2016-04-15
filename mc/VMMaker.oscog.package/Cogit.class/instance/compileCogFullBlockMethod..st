@@ -1,6 +1,7 @@
 compile abstract instructions
 compileCogFullBlockMethod: numCopied
 	<returnTypeC: #'CogMethod *'>
+	<option: #SistaV1BytecodeSet>
 	| numBytecodes numBlocks numCleanBlocks result |
 	hasYoungReferent := (objectMemory isYoungObject: methodObj).
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.

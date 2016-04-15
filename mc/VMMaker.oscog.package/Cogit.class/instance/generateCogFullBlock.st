@@ -6,6 +6,7 @@ generateCogFullBlock
 	 that fixes up jumps.  When fixing up a jump the jump is not allowed to
 	 choose a smaller offset but must stick to the size set in the second pass."
 	<returnTypeC: #'CogMethod *'>
+	<option: #SistaV1BytecodeSet>
 	| codeSize headerSize mapSize totalSize startAddress result method |
 	<var: #method type: #'CogMethod *'>
 	headerSize := self sizeof: CogMethod.

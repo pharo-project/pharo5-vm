@@ -1,5 +1,6 @@
 compile abstract instructions
 compileFullBlockEntry
+	<option: #SistaV1BytecodeSet>
 	"Compile the abstract instructions for the entire method, including blocks."
 	| jumpNoContextSwitch |
 

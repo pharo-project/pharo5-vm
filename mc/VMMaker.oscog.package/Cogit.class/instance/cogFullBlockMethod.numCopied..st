@@ -5,6 +5,7 @@ cogFullBlockMethod: aMethodObj numCopied: numCopied
 	 attempt to reclaim the method zone.  Certain clients (e.g. ceSICMiss:)
 	 depend on the zone remaining constant across method generation."
 	<api>
+	<option: #SistaV1BytecodeSet>
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
