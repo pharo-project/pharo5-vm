@@ -14,11 +14,14 @@ disassembleMethod: surrogateOrAddress on: aStream
 			[disassemblingMethod := nil]].
 	self printMethodHeader: cogMethod on: aStream.
 
-	(mapEntries := Dictionary new)
-		at: cogMethod asInteger + cmEntryOffset put: 'entry'.
+	mapEntries := Dictionary new.
+	(cogMethod cmType = CMMethod and: [cogMethod cmIsFullBlock]) ifFalse:
+		[mapEntries at: cogMethod asInteger + cmEntryOffset put: 'entry'].
 	
 	cogMethod cmType = CMMethod ifTrue:
-		[mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry'].
+		[cogMethod cmIsFullBlock
+			ifTrue: [mapEntries at: cogMethod asInteger + cbNoSwitchEntryOffset put: 'noSwitchEntry']
+			ifFalse: [mapEntries at: cogMethod asInteger + cmNoCheckEntryOffset put: 'noCheckEntry']].
 
 	cogMethod cmType = CMClosedPIC
 		ifTrue:

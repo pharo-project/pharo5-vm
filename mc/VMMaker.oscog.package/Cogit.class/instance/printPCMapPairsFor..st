@@ -4,7 +4,7 @@ printPCMapPairsFor: cogMethod
 	<var: 'cogMethod' type: #'CogMethod *'>
 	<var: 'mapByte' type: #'unsigned char'>
 	| mcpc map mapByte annotation value |
-	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
+	mcpc := self firstMappedPCFor: cogMethod.
 	map := self mapStartFor: cogMethod.
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[annotation := mapByte >> AnnotationShift.

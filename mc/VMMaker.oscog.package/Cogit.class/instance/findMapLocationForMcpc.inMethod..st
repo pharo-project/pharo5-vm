@@ -2,7 +2,7 @@ method map
 findMapLocationForMcpc: targetMcpc inMethod: cogMethod
 	<var: #cogMethod type: #'CogMethod *'>
 	| mcpc map mapByte annotation |
-	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
+	mcpc := self firstMappedPCFor: cogMethod.
 	map := self mapStartFor: cogMethod.
 	mcpc = targetMcpc ifTrue: [^map].
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:

@@ -5,7 +5,7 @@ mapFor: cogMethod performUntil: functionSymbol arg: arg
 	<var: #functionSymbol declareC: 'sqInt (*functionSymbol)(sqInt annotation, char *mcpc, sqInt arg)'>
 	<inline: true>
 	| mcpc map mapByte annotation result |
-	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
+	mcpc := self firstMappedPCFor: cogMethod.
 	map := self mapStartFor: cogMethod.
 	self inlineCacheTagsAreIndexes ifTrue:
 		[enumeratingCogMethod := cogMethod].

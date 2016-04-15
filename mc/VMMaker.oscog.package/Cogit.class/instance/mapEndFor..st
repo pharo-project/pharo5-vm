@@ -7,5 +7,5 @@ mapEndFor: cogMethod
 	end := self mapStartFor: cogMethod.
 	[(objectMemory byteAt: end) ~= MapEnd] whileTrue:
 		[end := end - 1.
-		 self assert: end > (cogMethod asInteger + cmNoCheckEntryOffset)].
+		 self assert: end > (self firstMappedPCFor: cogMethod)].
 	^end

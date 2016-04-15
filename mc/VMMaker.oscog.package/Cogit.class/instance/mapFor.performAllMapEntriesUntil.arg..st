@@ -3,7 +3,7 @@ mapFor: cogMethod performAllMapEntriesUntil: functionSymbol arg: arg
 	"Analysis support"
 	<doNotGenerate>
 	| mcpc map mapByte result |
-	mcpc := cogMethod asInteger + cmNoCheckEntryOffset.
+	mcpc := self firstMappedPCFor: cogMethod.
 	map := self mapStartFor: cogMethod.
 	[(mapByte := objectMemory byteAt: map) ~= MapEnd] whileTrue:
 		[mapByte >= FirstAnnotation
