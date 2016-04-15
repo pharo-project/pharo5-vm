@@ -1,3 +1,4 @@
 configurations
 generateAllSistaConfigurationsUnderVersionControl
-	self generateSqueakSpurCogSistaVM
+	self generateSqueakSpurCogSistaVM;
+		generateSqueakSpurCogSista64VM
