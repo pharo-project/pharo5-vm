@@ -11,7 +11,7 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			self remapOop: secondInteger in: [firstLarge := self createLargeFromSmallInteger: firstInteger]]
 		ifFalse: 
 			[(interpreterProxy fetchClassOf: firstInteger)
-				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
+				= interpreterProxy classLargePositiveInteger ifFalse: [^ interpreterProxy primitiveFail].
 			firstLarge := firstInteger].
 	(interpreterProxy isIntegerObject: secondInteger)
 		ifTrue: 
@@ -21,7 +21,7 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			self remapOop: firstLarge in: [secondLarge := self createLargeFromSmallInteger: secondInteger]]
 		ifFalse: 
 			[(interpreterProxy fetchClassOf: secondInteger)
-				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
+				= interpreterProxy classLargePositiveInteger ifFalse: [^ interpreterProxy primitiveFail].
 			secondLarge := secondInteger].
 	firstLen := self byteSizeOfLargeInt: firstLarge.
 	secondLen := self byteSizeOfLargeInt: secondLarge.

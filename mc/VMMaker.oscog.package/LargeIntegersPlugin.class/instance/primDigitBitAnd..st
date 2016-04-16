@@ -4,10 +4,7 @@ primDigitBitAnd: secondInteger
 	or arg is negative, it fails."
 	| firstInteger |
 	self debugCode: [self msg: 'primDigitBitAnd: secondInteger'].
-	firstInteger := self
-				primitive: 'primDigitBitAnd'
-				parameters: #(Integer )
-				receiver: #Integer.
+	firstInteger := self primitive: 'primDigitBitAnd'.
 	^ self
 		digitBitLogic: firstInteger
 		with: secondInteger

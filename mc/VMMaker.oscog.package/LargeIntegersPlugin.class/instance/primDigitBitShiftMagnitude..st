@@ -4,12 +4,14 @@ primDigitBitShiftMagnitude: shiftCount
 	self debugCode: [self msg: 'primDigitBitShiftMagnitude: shiftCount'].
 	anInteger := self
 				primitive: 'primDigitBitShiftMagnitude'
-				parameters: #(#SmallInteger )
-				receiver: #Integer.
+				parameters: #(#SmallInteger ).
 	(interpreterProxy isIntegerObject: anInteger)
-		ifTrue: ["convert it to a not normalized LargeInteger"
+		ifTrue:
+			["convert it to a not normalized LargeInteger"
 			aLarge := self createLargeFromSmallInteger: anInteger]
-		ifFalse: [aLarge := anInteger].
+		ifFalse:
+			[(self isLargeIntegerOop: anInteger) ifFalse: [^interpreterProxy primitiveFail].
+			aLarge := anInteger].
 	shiftCount >= 0
 		ifTrue: [^ self digit: aLarge Lshift: shiftCount]
 		ifFalse: 
