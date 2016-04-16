@@ -10,6 +10,7 @@ scanMethod
 	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
+	numFixups := 0.
 	prevBCDescriptor := nil.
 	numCounters := 0.
 	NewspeakVM ifTrue:
@@ -42,13 +43,15 @@ scanMethod
 				ifTrue: [self initializeFixupAt: targetPC - initialPC]
 				ifFalse:
 					[latestContinuation := latestContinuation max: targetPC.
+					numFixups := numFixups + 1.
 					 (descriptor isBranchTrue or: [descriptor isBranchFalse]) ifTrue:
 						[numCounters := numCounters + 1]]].
 		 descriptor isBlockCreation ifTrue:
 			[numBlocks := numBlocks + 1.
 			 distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
-			 latestContinuation := latestContinuation max: targetPC].
+			 latestContinuation := latestContinuation max: targetPC.
+			 numFixups := numFixups + 1].
 		 NewspeakVM ifTrue:
 			[descriptor hasIRC ifTrue:
 				[numIRCs := numIRCs + 1]].

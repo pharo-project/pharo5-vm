@@ -18,5 +18,5 @@
 	"name" : "SistaStackToRegisterMappingCogit",
 	"pools" : [
 		"VMSqueakClassIndices" ],
-	"super" : "StackToRegisterMappingCogit",
+	"super" : "RegisterAllocatingCogit",
 	"type" : "normal" }

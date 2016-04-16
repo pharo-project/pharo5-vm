@@ -9,15 +9,15 @@ ensureFixupAt: targetIndex
 	self traceFixup: fixup.
 	self cCode: '' inSmalltalk:
 		[self assert: simStackPtr = (self debugStackPointerFor: targetIndex + initialPC).
-		 (fixup targetInstruction asUnsignedInteger > 1
-		  and: [fixup simStackPtr > -2]) ifTrue: "ignore backward branch targets"
-				[self assert: fixup simStackPtr = simStackPtr]].
-	fixup targetInstruction asUnsignedInteger <= 1
+		 (fixup isMergeFixupOrIsFixedUp
+		  and: [fixup isBackwardBranchFixup not]) ifTrue: "ignore backward branch targets"
+			[self assert: fixup simStackPtr = simStackPtr]].
+	fixup isNonMergeFixupOrNotAFixup
 		ifTrue: "convert a non-merge into a merge"
-			[fixup targetInstruction: (self cCoerceSimple: 2 to: #'AbstractInstruction *').
+			[fixup becomeMergeFixup.
 			 fixup simStackPtr: simStackPtr]
 		ifFalse:
-			[fixup simStackPtr <= -2
+			[fixup isBackwardBranchFixup
 				ifTrue: ["this is the target of a backward branch and
 						 so doesn't have a simStackPtr assigned yet."
 						fixup simStackPtr: simStackPtr]

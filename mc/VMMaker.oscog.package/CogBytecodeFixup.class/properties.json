@@ -3,7 +3,7 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		 ],
+		"NeedsFixupFlag" ],
 	"commentStamp" : "eem 1/20/2011 12:41",
 	"instvars" : [
 		"targetInstruction",

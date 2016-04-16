@@ -16,11 +16,10 @@ compileAbstractInstructionsFrom: start through: end
 	 descriptor isExtension ifFalse: "extended bytecodes must consume their extensions"
 		[self assert: (extA = 0 and: [extB = 0])].
 	 fixup := self fixupAt: bytecodePC - initialPC.
-	 fixup targetInstruction ~= 0 ifTrue:
+	 fixup needsFixup ifTrue:
 		["There is a fixup for this bytecode.  It must point to the first generated
 		   instruction for this bytecode.  If there isn't one we need to add a label."
-		 opcodeIndex = nextOpcodeIndex ifTrue:
-			[self Label].
+		 opcodeIndex = nextOpcodeIndex ifTrue: [self Label].
 		 fixup targetInstruction: (self abstractInstructionAt: nextOpcodeIndex)].
 	 self maybeDumpLiterals: descriptor.
 	 bytecodePC := self nextBytecodePCFor: descriptor at: bytecodePC exts: nExts in: methodObj.

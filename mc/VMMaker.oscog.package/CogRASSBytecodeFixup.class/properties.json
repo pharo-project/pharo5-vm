@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"mergeFixup" ],
+	"name" : "CogRASSBytecodeFixup",
+	"pools" : [
+		 ],
+	"super" : "CogSSBytecodeFixup",
+	"type" : "normal" }

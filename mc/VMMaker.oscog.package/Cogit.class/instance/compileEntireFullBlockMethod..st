@@ -1,6 +1,6 @@
 compile abstract instructions
 compileEntireFullBlockMethod: numCopied
-	"Compile the abstract instructions for the entire method, including blocks."
+	"Compile the abstract instructions for the entire full block method."
 	<option: #SistaV1BytecodeSet>
 	| result |
 	self preenMethodLabel.

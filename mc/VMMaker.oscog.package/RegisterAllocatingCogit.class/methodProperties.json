@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"allocateMergeFixups" : "cb 4/15/2016 16:17",
+		"bytecodeFixupClass" : "cb 4/15/2016 16:27",
+		"compileEntireFullBlockMethod:" : "cb 4/15/2016 16:19",
+		"compileEntireMethod" : "cb 4/15/2016 16:14",
+		"genJumpTo:" : "cb 4/15/2016 16:13",
+		"scanMethod" : "cb 4/15/2016 15:40" } }

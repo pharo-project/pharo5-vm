@@ -31,7 +31,7 @@ genVanillaSpecialSelectorEqualsEquals
 
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
-	(self fixupAt: nextPC - initialPC) targetInstruction = 0
+	(self fixupAt: nextPC - initialPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
 		 	 self ensureFixupAt: targetBytecodePC - initialPC.

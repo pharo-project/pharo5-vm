@@ -4,7 +4,8 @@
 		"numPushNilsFunction",
 		"pushNilSizeFunction" ],
 	"classvars" : [
-		 ],
+		"NeedsMergeFixupFlag",
+		"NeedsNonMergeFixupFlag" ],
 	"commentStamp" : "eem 12/19/2010 18:12",
 	"instvars" : [
 		"prevBCDescriptor",

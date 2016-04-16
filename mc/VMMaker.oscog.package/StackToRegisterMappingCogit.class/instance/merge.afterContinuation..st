@@ -9,13 +9,13 @@ merge: fixup afterContinuation: mergeWithContinuation
 	"If this instruction follows a return or an unconditional branch then the
 	 current simStackPtr is irrelevant and we continue with that of the fixup."
 	mergeWithContinuation ifFalse:
-		[self assert: fixup targetInstruction asUnsignedInteger >= 2.  "Must have a valid simStackPtr"
+		[self assert: fixup isMergeFixupOrIsFixedUp.  "Must have a valid simStackPtr"
 		 simStackPtr := fixup simStackPtr].
-	fixup targetInstruction asUnsignedInteger <= 2 ifTrue:
+	fixup notYetFixedUp ifTrue:
 		["This is either a forward or backward branch target.
 		  The stack must be flushed."
 		 self ssFlushTo: simStackPtr.
-		 fixup simStackPtr <= -2 ifTrue:
+		 fixup isBackwardBranchFixup ifTrue:
 			"This is the target of a backward branch.  It doesn't have a simStackPtr yet."
 			[fixup simStackPtr: simStackPtr].
 		 fixup targetInstruction: self Label].

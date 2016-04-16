@@ -6,6 +6,6 @@ ensureFixupAt: targetIndex
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt: targetIndex.
-	fixup targetInstruction = 0 ifTrue:
-		[fixup targetInstruction: (self cCoerceSimple: 1 to: #'AbstractInstruction *')].
+	fixup notAFixup ifTrue:
+		[fixup becomeFixup].
 	^fixup

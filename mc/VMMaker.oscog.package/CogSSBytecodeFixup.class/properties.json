@@ -3,7 +3,9 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		 ],
+		"NeedsMergeFixupFlag",
+		"NeedsNonMergeFixupFlag",
+		"UnknownSimStackPtrFlag" ],
 	"commentStamp" : "eem 1/20/2011 13:03",
 	"instvars" : [
 		"simStackPtr" ],

@@ -9,7 +9,7 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 	
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse])
 		ifTrue: "This is the path where the inlined comparison is followed immediately by a branch"
-			[ (self fixupAt: nextPC - initialPC) targetInstruction = 0
+			[ (self fixupAt: nextPC - initialPC) notAFixup
 				ifTrue: "The next instruction is dead.  we can skip it."
 					[deadCode := true.
 				 	 self ensureFixupAt: targetBytecodePC - initialPC.

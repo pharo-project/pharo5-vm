@@ -26,7 +26,7 @@
 		"genMustBeBooleanTrampolineFor:called:" : "eem 3/14/2016 11:43",
 		"genSpecialSelectorComparison" : "eem 2/24/2016 16:23",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
-		"genSpecialSelectorEqualsEqualsWithForwarders" : "eem 12/10/2015 09:09",
+		"genSpecialSelectorEqualsEqualsWithForwarders" : "cb 4/15/2016 17:46",
 		"genUnconditionalTrapBytecode" : "cb 4/28/2015 09:59",
 		"genUnoptimizedSpecialSelectorComparison" : "cb 4/28/2015 12:53",
 		"generateSistaRuntime" : "cb 4/16/2015 16:16",
@@ -46,4 +46,4 @@
 		"populate:withPICInfoFor:firstCacheTag:" : "eem 3/14/2016 11:38",
 		"printPICDataForMethods" : "eem 2/14/2011 15:35",
 		"resetCountersIn:" : "eem 7/4/2014 12:23",
-		"scanMethod" : "eem 4/7/2016 14:06" } }
+		"scanMethod" : "cb 4/15/2016 15:50" } }

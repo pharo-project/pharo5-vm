@@ -11,17 +11,17 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 	 N.B. We do one single alloca to save embarrassing C optimizers that
 	 generate incorrect code as both gcc and the intel compiler do on x86."
 	<inline: true>
-	| opcodeSize fixupSize allocSize |
+	| opcodeBytes fixupBytes allocBytes |
 	numAbstractOpcodes := numberOfAbstractOpcodes.
-	opcodeSize := (self sizeof: CogAbstractInstruction) * numAbstractOpcodes.
-	fixupSize := (self sizeof: CogBytecodeFixup) * numAbstractOpcodes.
-	allocSize := opcodeSize + fixupSize.
-	allocSize > MaxStackAllocSize ifTrue: [^failBlock value].
+	opcodeBytes := (self sizeof: CogAbstractInstruction) * numAbstractOpcodes.
+	fixupBytes := (self sizeof: CogBytecodeFixup) * numAbstractOpcodes.
+	allocBytes := opcodeBytes + fixupBytes.
+	allocBytes > MaxStackAllocSize ifTrue: [^failBlock value].
 	self
 		cCode:
-			[abstractOpcodes := self alloca: allocSize.
-			 self b: abstractOpcodes zero: allocSize.
-			 fixups := (abstractOpcodes asUnsignedInteger + opcodeSize) asVoidPointer]
+			[abstractOpcodes := self alloca: allocBytes.
+			 self b: abstractOpcodes zero: allocBytes.
+			 fixups := (abstractOpcodes asUnsignedInteger + opcodeBytes) asVoidPointer]
 		inSmalltalk:
 			[abstractOpcodes := CArrayAccessor on:
 									 ((1 to: numAbstractOpcodes) collect: [:ign| CogCompilerClass for: self]).

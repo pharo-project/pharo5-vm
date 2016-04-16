@@ -9,6 +9,6 @@ initializeFixupAt: targetIndex
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt: targetIndex.
 	fixup
-		targetInstruction: (self cCoerceSimple: 2 to: #'AbstractInstruction *');
-		simStackPtr: -2.
+		becomeMergeFixup;
+		setIsBackwardBranchFixup.
 	^fixup

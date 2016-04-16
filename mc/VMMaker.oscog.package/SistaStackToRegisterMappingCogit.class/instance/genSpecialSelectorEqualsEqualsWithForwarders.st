@@ -88,6 +88,6 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	jumpNotEqual jmpTarget: self Label.
 	self ssPushRegister: TempReg.
 	
-	(self fixupAt: nextPC - initialPC) targetInstruction = 0 ifTrue: [ branchReachedOnlyForCounterTrip := true ].
+	(self fixupAt: nextPC - initialPC) notAFixup ifTrue: [ branchReachedOnlyForCounterTrip := true ].
 	
 	^ 0

@@ -14,8 +14,8 @@ compileAbstractInstructionsFrom: start through: end
 	fixup := self fixupAt: bytecodePC - initialPC.
 	"If there's no fixup following a return there's no jump to that code and it is dead."
 	(descriptor notNil and: [descriptor isReturn]) ifTrue: [deadCode := true].
-	fixup targetInstruction asUnsignedInteger > 0 ifTrue:
-		[fixup targetInstruction asUnsignedInteger >= 2 ifTrue:
+	fixup needsFixupOrIsFixedUp ifTrue:
+		[fixup isMergeFixupOrIsFixedUp ifTrue:
 			[self merge: fixup afterContinuation: deadCode not].
 		deadCode := false].
 	 self cCode: '' inSmalltalk:
@@ -37,11 +37,10 @@ compileAbstractInstructionsFrom: start through: end
 	 descriptor isExtension ifFalse: "extended bytecodes must consume their extensions"
 		[self assert: (extA = 0 and: [extB = 0])].
 	 self traceDescriptor: descriptor; traceSimStack.
-	 (fixup targetInstruction asUnsignedInteger between: 1 and: 2) ifTrue:
+	 fixup needsFixup ifTrue:
 		["There is a fixup for this bytecode.  It must point to the first generated
 		   instruction for this bytecode.  If there isn't one we need to add a label."
-		 opcodeIndex = nextOpcodeIndex ifTrue:
-			[self Label].
+		 opcodeIndex = nextOpcodeIndex ifTrue: [self Label].
 		 fixup targetInstruction: (self abstractInstructionAt: nextOpcodeIndex)].
 	 self maybeDumpLiterals: descriptor.
 	 bytecodePC := self nextBytecodePCFor: descriptor at: bytecodePC exts: nExts in: methodObj.

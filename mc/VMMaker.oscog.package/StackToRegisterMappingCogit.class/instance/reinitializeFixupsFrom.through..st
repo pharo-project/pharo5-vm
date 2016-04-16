@@ -8,9 +8,7 @@ reinitializeFixupsFrom: start through: end
 	pc := start.
 	nExts := 0.
 	[pc <= end] whileTrue:
-		[(self fixupAt: pc - initialPC)
-			targetInstruction: 0;
-			simStackPtr: nil.
+		[(self fixupAt: pc - initialPC) reinitialize.
 		 byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 descriptor := self generatorAt: byte0.
 		 (descriptor isBranch

@@ -6,11 +6,11 @@ ensureNonMergeFixupAt: targetIndex
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt: targetIndex.
-	fixup targetInstruction = 0 ifTrue:
-		[fixup targetInstruction: (self cCoerceSimple: 1 to: #'AbstractInstruction *')].
+	fixup notAFixup ifTrue:
+		[fixup becomeNonMergeFixup].
 	self cCode: '' inSmalltalk:
-		[fixup targetInstruction asUnsignedInteger > 1 ifTrue:
+		[fixup isMergeFixupOrIsFixedUp ifTrue:
 			[self assert:
-					(fixup simStackPtr = -2 "backward branch target"
+					(fixup isBackwardBranchFixup
 					 or: [fixup simStackPtr = (self debugStackPointerFor: targetIndex + initialPC)])]].
 	^fixup
