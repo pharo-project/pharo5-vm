@@ -34,6 +34,7 @@ mergeWithFixupIfRequired: fixup
 	deadCode 
 		ifTrue: [simStackPtr := fixup simStackPtr] "case 3"
 		ifFalse: [self ssFlushTo: simStackPtr]. "case 4"
+	"cases 3 and 4"
 	deadCode := false.
 	fixup isBackwardBranchFixup ifTrue: [fixup simStackPtr: simStackPtr].
 	fixup targetInstruction: self Label.

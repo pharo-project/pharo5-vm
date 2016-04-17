@@ -1,6 +1,6 @@
 {
 	"class" : {
-		"instVarNamesAndTypesForTranslationDo:" : "cb 4/15/2016 16:25" },
+		"instVarNamesAndTypesForTranslationDo:" : "cb 4/16/2016 09:17" },
 	"instance" : {
-		"mergeFixup" : "cb 4/15/2016 16:32",
-		"mergeFixup:" : "cb 4/15/2016 16:32" } }
+		"mergeSimStack" : "cb 4/16/2016 09:17",
+		"mergeSimStack:" : "cb 4/16/2016 09:17" } }

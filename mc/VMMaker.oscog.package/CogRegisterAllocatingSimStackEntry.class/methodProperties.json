@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"ensureSpilledAt:from:" : "cb 4/16/2016 19:37",
+		"liveRegister" : "cb 4/16/2016 11:22",
+		"liveRegister:" : "cb 4/16/2016 11:22",
+		"popToReg:" : "cb 4/16/2016 19:37",
+		"printStateOn:" : "cb 4/16/2016 11:02",
+		"storeToReg:" : "cb 4/16/2016 19:37" } }

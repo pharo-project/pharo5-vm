@@ -8,5 +8,5 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 			value: ivn
 			value: (ivn caseOf: {
 					['targetInstruction']	-> [#'AbstractInstruction *'].
-					['mergeFixup']		-> [#'CogSimStackEntry *'] }
+					['mergeSimStack']	-> [#'CogSimStackEntry *'] }
 					otherwise: [#sqInt])]

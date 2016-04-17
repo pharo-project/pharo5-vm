@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"mergeSimStack" ],
-	"name" : "CogRASSBytecodeFixup",
+		"liveRegister" ],
+	"name" : "CogRegisterAllocatingSimStackEntry",
 	"pools" : [
 		 ],
-	"super" : "CogSSBytecodeFixup",
+	"super" : "CogSimStackEntry",
 	"type" : "normal" }

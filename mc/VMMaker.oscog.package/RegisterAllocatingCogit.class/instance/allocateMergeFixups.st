@@ -10,7 +10,8 @@ allocateMergeFixups
 	 generate incorrect code as both gcc and the intel compiler do on x86."
 	<inline: true>
 	| mergeSimStackBytes |
-	mergeSimStackBytes := numFixups * self  simStackSlots.
+	mergeSimStackBytes := numFixups * self simStackSlots * (self sizeof: CogSimStackEntry).
+	nextFixup := 0.
 	self cCode:
 		[mergeSimStacksBase := self alloca: mergeSimStackBytes.
 		 self b: mergeSimStacksBase zero: mergeSimStackBytes]
