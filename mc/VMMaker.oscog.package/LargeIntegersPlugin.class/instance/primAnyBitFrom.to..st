@@ -4,13 +4,12 @@ primAnyBitFrom: from to: to
 	self debugCode: [self msg: 'primAnyBitFrom: from to: to'].
 	integer := self
 				primitive: 'primAnyBitFromTo'
-				parameters: #(#SmallInteger #SmallInteger ).
+				parameters: #(#SmallInteger #SmallInteger )
+				receiver: #Integer.
 	(interpreterProxy isIntegerObject: integer)
 		ifTrue: ["convert it to a not normalized LargeInteger"
 			large := self createLargeFromSmallInteger: integer]
-		ifFalse:
-			[(self isLargeIntegerOop: integer) ifFalse: [^interpreterProxy primitiveFail].
-			large := integer].
+		ifFalse: [large := integer].
 	^ (self
 		anyBitOfLargeInt: large
 		from: from

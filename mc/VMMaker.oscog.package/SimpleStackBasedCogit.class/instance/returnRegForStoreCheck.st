@@ -6,7 +6,7 @@ returnRegForStoreCheck
 	 caller-saved we use the fact that ceStoreCheck: answers its argument to
 	 reload ReceiverResultReg cheaply.  Otherwise we don't care about the result
 	 and use the cResultRegister, effectively a no-op (see compileTrampoline...)"
-
-	^(self register: ReceiverResultReg isInMask: callerSavedRegMask)
+	<inline: true>
+	^(self isCallerSavedReg: ReceiverResultReg)
 		ifTrue: [ReceiverResultReg]
 		ifFalse: [backEnd cResultRegister]

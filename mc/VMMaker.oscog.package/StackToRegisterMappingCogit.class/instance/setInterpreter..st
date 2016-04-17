@@ -10,8 +10,8 @@ setInterpreter: aCoInterpreter
 	picAbortTrampolines := CArrayAccessor on: (Array new: self numRegArgs + 2).
 	picMissTrampolines := CArrayAccessor on: (Array new: self numRegArgs + 2).
 
-	simStack := CArrayAccessor on: ((1 to: self class simStackSlots) collect: [:i| CogSimStackEntry new cogit: self]).
-	simSelf := CogSimStackEntry new cogit: self.
+	simStack := CArrayAccessor on: ((1 to: self class simStackSlots) collect: [:i| self simStackEntryClass new cogit: self]).
+	simSelf := self simStackEntryClass new cogit: self.
 	optStatus := CogSSOptStatus new.
 
 	debugFixupBreaks := self class initializationOptions at: #debugFixupBreaks ifAbsent: [Set new].

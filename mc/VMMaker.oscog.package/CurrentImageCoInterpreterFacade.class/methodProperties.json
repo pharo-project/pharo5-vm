@@ -17,7 +17,7 @@
 		"byteAt:put:" : "eem 8/25/2014 15:51",
 		"byteSizeOf:" : "eem 7/28/2014 07:39",
 		"bytesPerOop" : "eem 12/4/2014 16:22",
-		"cCoerceSimple:to:" : "eem 2/15/2011 10:16",
+		"cCoerceSimple:to:" : "cb 4/16/2016 19:20",
 		"callForCogCompiledCodeCompaction" : "eem 1/8/2011 13:25",
 		"canContextSwitchIfActivating:header:" : "eem 4/21/2015 12:38",
 		"characterObjectOf:" : "eem 1/5/2016 15:13",

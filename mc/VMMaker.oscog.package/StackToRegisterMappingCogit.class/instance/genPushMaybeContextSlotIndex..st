@@ -6,7 +6,7 @@ genPushMaybeContextSlotIndex: slotIndex
 	<var: #jmpSingle type: #'AbstractInstruction *'>
 	<var: #jmpDone type: #'AbstractInstruction *'>
 	self assert: needsFrame.
-	(self register: ReceiverResultReg isInMask: callerSavedRegMask) ifTrue:
+	(self isCallerSavedReg: ReceiverResultReg) ifTrue:
 		["We have no way of reloading ReceiverResultReg since we need the inst var value as the result."
 		optStatus isReceiverResultRegLive: false].
 	"See CoInterpreter>>contextInstructionPointer:frame: for an explanation

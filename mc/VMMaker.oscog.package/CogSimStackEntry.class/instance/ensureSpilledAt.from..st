@@ -23,6 +23,4 @@ ensureSpilledAt: baseOffset from: baseRegister
 			 offset := baseOffset.
 			 register := baseRegister].
 	spilled := true.
-	annotateUse ifTrue:
-		[cogit annotateBytecode: inst.
-		 annotateUse := false]
+	self maybeAnnotateUse: inst

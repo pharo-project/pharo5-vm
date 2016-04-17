@@ -17,7 +17,7 @@ genLookupForPerformNumArgs: numArgs
 
 	cacheBaseReg := NoReg.
 	(backEnd isWithinMwOffsetRange: coInterpreter methodCacheAddress) ifFalse:
-		[self MoveCq: coInterpreter methodCacheAddress R: (cacheBaseReg := Scratch0Reg)].
+		[self MoveCq: coInterpreter methodCacheAddress R: (cacheBaseReg := Extra0Reg)].
 
 	"Do first of three probes.  See CoInterpreter>>lookupInMethodCacheSel:classTag:"
 	jumpSelectorMiss := self compilePerformMethodCacheProbeFor: Arg0Reg withShift: 0 baseRegOrNone: cacheBaseReg.

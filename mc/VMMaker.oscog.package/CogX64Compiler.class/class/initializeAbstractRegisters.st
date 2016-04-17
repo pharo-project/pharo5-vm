@@ -19,13 +19,13 @@ initializeAbstractRegisters
 	Arg0Reg				:= RDI. "So as to agree with C ABI arg 0"
 	Arg1Reg				:= RSI. "So as to agree with C ABI arg 1"
 	VarBaseReg			:= RBX. "Must be callee saved"
-	"R8 is either RISCTempReg or Scratch6Reg depending on subclass."
-	Scratch0Reg			:= R10.
-	Scratch1Reg			:= R11.
-	Scratch2Reg			:= R12.
-	Scratch3Reg			:= R13.
-	Scratch4Reg			:= R14.
-	Scratch5Reg			:= R15.
+	"R8 is either RISCTempReg or Extra6Reg depending on subclass."
+	Extra0Reg				:= R10.
+	Extra1Reg				:= R11.
+	Extra2Reg				:= R12.
+	Extra3Reg				:= R13.
+	Extra4Reg				:= R14.
+	Extra5Reg				:= R15.
 
 	DPFPReg0				:= XMM0L.
 	DPFPReg1				:= XMM1L.

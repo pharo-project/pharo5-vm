@@ -59,7 +59,7 @@
 		"testPCMappingFor:" : "eem 3/18/2013 11:12",
 		"testPCMappingFor:options:" : "cb 4/11/2016 15:38",
 		"testPCMappingSelect:" : "eem 3/18/2013 11:13",
-		"testPCMappingSelect:options:" : "eem 3/1/2016 17:57",
+		"testPCMappingSelect:options:" : "cb 4/17/2016 13:32",
 		"trampolines" : "eem 6/23/2009 18:04",
 		"typeForSelf" : "eem 2/9/2009 20:42" },
 	"instance" : {
@@ -631,6 +631,7 @@
 		"simulatedVariableAt:" : "tpr 5/29/2014 21:59",
 		"singleStep" : "eem 9/29/2009 22:24",
 		"singleStep:" : "eem 1/17/2009 12:21",
+		"sizeof:" : "cb 4/16/2016 09:09",
 		"spanFor:at:exts:in:" : "eem 11/2/2012 13:13",
 		"spanForCleanBlockStartingAt:" : "eem 07/28/2014 08:07",
 		"stackPointerAddress" : "eem 5/15/2014 09:51",

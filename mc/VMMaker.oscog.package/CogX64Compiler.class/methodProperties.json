@@ -6,11 +6,12 @@
 		"defaultCompilerClass" : "eem 12/4/2015 22:25",
 		"identifyingPredefinedMacros" : "eem 12/11/2015 23:43",
 		"initialize" : "eem 12/25/2015 19:09",
-		"initializeAbstractRegisters" : "eem 12/26/2015 14:28",
+		"initializeAbstractRegisters" : "cb 4/16/2016 15:31",
 		"isAbstract" : "eem 12/12/2015 11:45",
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52",
 		"wordSize" : "eem 12/11/2015 23:30" },
 	"instance" : {
+		"availableRegisterOrNoneFor:" : "cb 4/16/2016 15:23",
 		"cResultRegister" : "eem 12/25/2015 18:15",
 		"callFullTargetFromReturnAddress:" : "eem 12/6/2015 21:11",
 		"callInstructionByteSize" : "eem 2/13/2009 12:29",

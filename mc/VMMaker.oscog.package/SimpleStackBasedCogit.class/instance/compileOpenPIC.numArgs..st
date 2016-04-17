@@ -16,7 +16,7 @@ compileOpenPIC: selector numArgs: numArgs
 
 	cacheBaseReg := NoReg.
 	(backEnd isWithinMwOffsetRange: coInterpreter methodCacheAddress) ifFalse:
-		[self MoveCq: coInterpreter methodCacheAddress R: (cacheBaseReg := Scratch0Reg)].
+		[self MoveCq: coInterpreter methodCacheAddress R: (cacheBaseReg := Extra0Reg)].
 
 	"Do first of three probes.  See CoInterpreter>>lookupInMethodCacheSel:classTag:"
 	jumpSelectorMiss := self compileOpenPICMethodCacheProbeFor: selector withShift: 0 baseRegOrNone: cacheBaseReg.

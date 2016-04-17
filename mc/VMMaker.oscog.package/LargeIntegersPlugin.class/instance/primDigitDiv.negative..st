@@ -7,37 +7,36 @@ primDigitDiv: secondInteger negative: neg
 	self debugCode: [self msg: 'primDigitDiv: secondInteger negative: neg'].
 	firstInteger := self
 				primitive: 'primDigitDivNegative'
-				parameters: #(#Oop #Boolean ).
+				parameters: #(#Integer #Boolean )
+				receiver: #Integer.
+	"Avoid crashes in case of getting unnormalized args."
+	(self isNormalized: firstInteger)
+		ifFalse: [self
+				debugCode: [self msg: 'ERROR in primDigitDiv: secondInteger negative: neg'.
+					self msg: '------> receiver *not* normalized!'].
+			^ interpreterProxy primitiveFail].
+	(self isNormalized: secondInteger)
+		ifFalse: [self
+				debugCode: [self msg: 'ERROR in primDigitDiv: secondInteger negative: neg'.
+					self msg: '------> argument *not* normalized!'].
+			^ interpreterProxy primitiveFail].
 	"Coerce SmallIntegers to corresponding (not normalized) large integers  
 	and check for zerodivide."
 	(interpreterProxy isIntegerObject: firstInteger)
-		ifTrue:
-			["convert to LargeInteger"
+		ifTrue: ["convert to LargeInteger"
 			self
 				remapOop: secondInteger
 				in: [firstAsLargeInteger := self createLargeFromSmallInteger: firstInteger]]
-		ifFalse:
-			[(self isLargeIntegerOop: firstInteger) ifFalse: [^interpreterProxy primitiveFail].
-			"Avoid crashes in case of getting unnormalized args."
-			(self isNormalized: firstInteger) ifFalse: [self
-				debugCode: [self msg: 'ERROR in primDigitDiv: secondInteger negative: neg'.
-					self msg: '------> receiver *not* normalized!'].
-			^ interpreterProxy primitiveFail].firstAsLargeInteger := firstInteger].
+		ifFalse: [firstAsLargeInteger := firstInteger].
 	(interpreterProxy isIntegerObject: secondInteger)
-		ifTrue:
-			["check for zerodivide and convert to LargeInteger"
-			(interpreterProxy integerValueOf: secondInteger) = 0
+		ifTrue: ["check for zerodivide and convert to LargeInteger"
+			(interpreterProxy integerValueOf: secondInteger)
+					= 0
 				ifTrue: [^ interpreterProxy primitiveFail].
 			self
 				remapOop: firstAsLargeInteger
 				in: [secondAsLargeInteger := self createLargeFromSmallInteger: secondInteger]]
-		ifFalse:
-			[(self isLargeIntegerOop: secondInteger) ifFalse: [^interpreterProxy primitiveFail].
-			(self isNormalized: secondInteger) ifFalse: [self
-				debugCode: [self msg: 'ERROR in primDigitDiv: secondInteger negative: neg'.
-					self msg: '------> argument *not* normalized!'].
-			^ interpreterProxy primitiveFail].
-			secondAsLargeInteger := secondInteger].
+		ifFalse: [secondAsLargeInteger := secondInteger].
 	^ self
 		digitDivLarge: firstAsLargeInteger
 		with: secondAsLargeInteger

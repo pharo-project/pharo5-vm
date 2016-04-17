@@ -85,8 +85,8 @@ genGetSizeOf: sourceReg into: destReg formatReg: formatReg scratchReg: scratchRe
 	cogit MoveR: scratchReg R: formatReg.
 	cogit CmpCq: ClassMethodContextCompactIndex R: scratchReg.
 	jumpIsContext := cogit JumpZero: 0.
-	self genGetClassObjectOfClassIndex: formatReg into: Scratch0Reg scratchReg: scratchReg.
-	self genLoadSlot: InstanceSpecificationIndex sourceReg: Scratch0Reg destReg: formatReg.
+	self genGetClassObjectOfClassIndex: formatReg into: Extra0Reg scratchReg: scratchReg.
+	self genLoadSlot: InstanceSpecificationIndex sourceReg: Extra0Reg destReg: formatReg.
 	self genConvertSmallIntegerToIntegerInReg: formatReg.
 	cogit
 		AndCq: objectMemory fixedFieldsOfClassFormatMask R: formatReg;

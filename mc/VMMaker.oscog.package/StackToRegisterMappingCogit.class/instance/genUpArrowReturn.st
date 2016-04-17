@@ -31,4 +31,5 @@ genUpArrowReturn
 						or: [regArgsHaveBeenPushed])
 							ifTrue: [methodOrBlockNumArgs + 1 * objectMemory wordSize]
 							ifFalse: [0])].
+	deadCode := true. "can't fall through"
 	^0

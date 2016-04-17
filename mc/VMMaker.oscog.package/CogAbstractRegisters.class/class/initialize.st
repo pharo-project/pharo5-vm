@@ -28,14 +28,14 @@ initialize
 	TempReg			:= #undefined.
 
 	"A small fixed set of abstract scratch registers for register-rich machines (ARM can use 1, x64 can use 6 or 7)."
-	Scratch0Reg := #undefined.
-	Scratch1Reg := #undefined.
-	Scratch2Reg := #undefined.
-	Scratch3Reg := #undefined.
-	Scratch4Reg := #undefined.
-	Scratch5Reg := #undefined.
-	Scratch6Reg := #undefined.
-	Scratch7Reg := #undefined.
+	Extra0Reg := #undefined.
+	Extra1Reg := #undefined.
+	Extra2Reg := #undefined.
+	Extra3Reg := #undefined.
+	Extra4Reg := #undefined.
+	Extra5Reg := #undefined.
+	Extra6Reg := #undefined.
+	Extra7Reg := #undefined.
 
 	"RISC-specific registers"
 	LinkReg			:= #undefined.

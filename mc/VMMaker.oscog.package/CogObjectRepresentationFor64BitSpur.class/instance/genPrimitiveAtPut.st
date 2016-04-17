@@ -85,8 +85,8 @@ genPrimitiveAtPut
 	cogit CmpCq: ClassMethodContextCompactIndex R: formatReg.
 	jumpIsContext := cogit JumpZero: 0.
 	"get # fixed fields in formatReg"
-	self genGetClassObjectOfClassIndex: formatReg into: Scratch0Reg scratchReg: TempReg.
-	self genLoadSlot: InstanceSpecificationIndex sourceReg: Scratch0Reg destReg: formatReg.
+	self genGetClassObjectOfClassIndex: formatReg into: Extra0Reg scratchReg: TempReg.
+	self genLoadSlot: InstanceSpecificationIndex sourceReg: Extra0Reg destReg: formatReg.
 	self genConvertSmallIntegerToIntegerInReg: formatReg.
 	cogit AndCq: objectMemory fixedFieldsOfClassFormatMask R: formatReg.
 	cogit SubR: formatReg R: ClassReg.

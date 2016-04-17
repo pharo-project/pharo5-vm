@@ -12,6 +12,4 @@ popToReg: reg
 				[SSRegister]	-> [inst := reg ~= register
 												ifTrue: [cogit MoveR: register R: reg]
 												ifFalse: [cogit Label]] }].
-	annotateUse ifTrue:
-		[cogit annotateBytecode: inst.
-		 annotateUse := false]
+	self maybeAnnotateUse: inst

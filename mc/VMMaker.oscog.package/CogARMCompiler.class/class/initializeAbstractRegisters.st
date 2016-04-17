@@ -23,7 +23,7 @@ initializeAbstractRegisters
 	Arg1Reg			:= R5.
 	VarBaseReg		:= ConcreteVarBaseReg. "Must be callee saved"
 	RISCTempReg		:= ConcreteIPReg. "a.k.a. IP"
-	Scratch0Reg		:= R12.
+	Extra0Reg			:= R12.
 	LinkReg				:= LR. "R14"
 	PCReg				:= PC. "R15"	
 

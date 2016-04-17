@@ -117,8 +117,8 @@ genPrimitiveAt
 	cogit MoveR: TempReg R: formatReg.
 	cogit CmpCq: ClassMethodContextCompactIndex R: TempReg.
 	jumpIsContext := cogit JumpZero: 0.
-	self genGetClassObjectOfClassIndex: formatReg into: Scratch0Reg scratchReg: TempReg.
-	self genLoadSlot: InstanceSpecificationIndex sourceReg: Scratch0Reg destReg: formatReg.
+	self genGetClassObjectOfClassIndex: formatReg into: Extra0Reg scratchReg: TempReg.
+	self genLoadSlot: InstanceSpecificationIndex sourceReg: Extra0Reg destReg: formatReg.
 	self genConvertSmallIntegerToIntegerInReg: formatReg.
 	cogit
 		AndCq: objectMemory fixedFieldsOfClassFormatMask R: formatReg;
