@@ -2,7 +2,7 @@ translation
 instVarNamesAndTypesForTranslationDo: aBinaryBlock
 	"enumerate aBinaryBlock with the names and C type strings for the inst vars to include in a CogRASSBytecodeFixup struct."
 
-	self allInstVarNames do:
+	(self allInstVarNames copyWithout: 'cogit') do:
 		[:ivn|
 		aBinaryBlock
 			value: ivn

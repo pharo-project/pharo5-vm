@@ -8,12 +8,13 @@ mergeCurrentSimStackWith: mergeSimStack
 	from simStackPtr to methodOrBlockNumTemps, and if a conflict happen, we flush what remains
 	to be merged."
 	self flag: #TODO. "we could have a better algorithm with the current set of live registers to avoid flushing"
+	1halt.
 	simStackPtr to: methodOrBlockNumTemps by: -1 do:
 		[:i|
 			| currentSSEntry expectedSSEntry |
 			currentSSEntry := self simStackAt: i.
 			expectedSSEntry := self simStack: mergeSimStack at: i.
-			expectedSSEntry
+			expectedSSEntry type
 				caseOf: {
 					[SSBaseOffset]	-> [ self assert: (expectedSSEntry register = ReceiverResultReg or: [ expectedSSEntry register = FPReg ]).
 										(expectedSSEntry register = ReceiverResultReg and: [needsFrame]) ifTrue: 
