@@ -40,7 +40,8 @@ checkForAndFollowForwardedPrimitiveState
 						 self
 							followForwardedFrameContents: framePointer
 							stackPointer: stackPointer + (argumentCount + 1 * objectMemory wordSize) "don't repeat effort"]].
-				((objectMemory hasPointerFields: oop)
-				 and: [objectMemory followForwardedObjectFields: oop toDepth: accessorDepth]) ifTrue:
+				(accessorDepth > 0
+			 	 and: [(objectMemory hasPointerFields: oop)
+				 and: [objectMemory followForwardedObjectFields: oop toDepth: accessorDepth]]) ifTrue:
 					[found := true]]]].
 	^found

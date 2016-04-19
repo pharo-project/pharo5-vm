@@ -1,5 +1,6 @@
 indexing primitives
 primitiveSize
+	<accessorDepth: 0>
 	| rcvr hdr fmt fixedFields totalLength |
 	rcvr := self stackTop.
 	((objectMemory isImmediate: rcvr) "Integers are not indexable"
