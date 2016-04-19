@@ -7,5 +7,5 @@ ssPushAnnotatedConstant: literal
 		spilled: false;
 		constant: literal;
 		bcptr: bytecodePC.
-	self annotateBytecode: self Label.
+	self annotateInstructionForBytecode.
 	^0

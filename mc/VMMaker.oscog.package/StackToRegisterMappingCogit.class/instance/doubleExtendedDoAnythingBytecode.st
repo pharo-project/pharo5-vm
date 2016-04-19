@@ -16,10 +16,10 @@ doubleExtendedDoAnythingBytecode
 			[2]	->	[(coInterpreter isReadMediatedContextInstVarIndex: byte2)
 						ifTrue: [self genPushMaybeContextReceiverVariable: byte2]
 						ifFalse: [self genPushReceiverVariable: byte2.
-								self annotateBytecode: self Label.
+								self annotateInstructionForBytecode.
 								^0]].
 			[3]	->	[self genPushLiteralIndex: byte2.
-					 self annotateBytecode: self Label.
+					 self annotateInstructionForBytecode.
 					 ^0].
 			[4]	->	[self genPushLiteralVariable: byte2.].
 			[7]	->	[self genStorePop: false LiteralVariable: byte2.
