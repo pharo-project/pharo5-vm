@@ -8,5 +8,4 @@ storeToReg: reg
 		[SSConstant]	-> [inst := cogit genMoveConstant: constant R: reg].
 		[SSRegister]	-> [inst := reg ~= register
 										ifTrue: [cogit MoveR: register R: reg]
-										ifFalse: [cogit Label]] }.
-	self maybeAnnotateUse: inst
+										ifFalse: [cogit Label]] }

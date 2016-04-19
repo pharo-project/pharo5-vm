@@ -24,8 +24,6 @@ printStateOn: aStream
 		[aStream nextPutAll: ' (spilled)'].
 	liveRegister ~= NoReg ifTrue:
 		[aStream nextPutAll: ' (live: '; nextPutAll: (cogit backEnd nameForRegister: liveRegister); nextPut: $)].
-	annotateUse ifTrue:
-		[aStream nextPutAll: ' (ANNOTATED)'].
 	bcptr ifNotNil:
 		[aStream space; nextPut: ${; print: bcptr; nextPut: $}].
 	aStream nextPut: $)

@@ -5,7 +5,6 @@ ssPushConstant: literal
 	self ssTop
 		type: SSConstant;
 		spilled: false;
-		annotateUse: false;
 		constant: literal;
 		bcptr: bytecodePC.
 	^0

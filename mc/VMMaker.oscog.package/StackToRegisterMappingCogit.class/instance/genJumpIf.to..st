@@ -13,11 +13,6 @@ genJumpIf: boolean to: targetBytecodePC
 		["Must arrange there's a fixup at the target whether it is jumped to or
 		  not so that the simStackPtr can be kept correct."
 		 fixup := self ensureFixupAt: targetBytecodePC - initialPC.
-		 "Must enter any annotatedConstants into the map"
-		 desc annotateUse ifTrue:
-			[self annotateBytecode: (self prevInstIsPCAnnotated
-											ifTrue: [self Nop]
-											ifFalse: [self Label])].
 		 "Must annotate the bytecode for correct pc mapping."
 		 self annotateBytecode: (desc constant = boolean
 									ifTrue: [self Jump: fixup]

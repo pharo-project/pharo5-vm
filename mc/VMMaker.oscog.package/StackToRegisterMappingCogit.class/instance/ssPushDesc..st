@@ -6,7 +6,6 @@ ssPushDesc: simStackEntry
 				[simStackEntry type: SSBaseOffset].
 			simStackEntry
 				spilled: false;
-				annotateUse: false;
 				bcptr: bytecodePC.
 			 simStack
 				at: (simStackPtr := simStackPtr + 1)
@@ -18,7 +17,6 @@ ssPushDesc: simStackEntry
 						ifTrue: [SSBaseOffset]
 						ifFalse: [simStackEntry type]);
 				spilled: false;
-				annotateUse: false;
 				bcptr: bytecodePC].
 	self updateSimSpillBase.
 	^0

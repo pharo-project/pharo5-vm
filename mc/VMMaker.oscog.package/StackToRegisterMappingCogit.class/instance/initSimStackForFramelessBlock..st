@@ -8,7 +8,6 @@ initSimStackForFramelessBlock: startpc
 	simSelf
 		type: SSRegister;
 		spilled: false;
-		annotateUse: false;
 		register: ReceiverResultReg.
 	optStatus
 		isReceiverResultRegLive: true;
@@ -20,7 +19,6 @@ initSimStackForFramelessBlock: startpc
 		desc
 			type: SSBaseOffset;
 			spilled: true;
-			annotateUse: false;
 			register: SPReg;
 			offset: ((backEnd hasLinkRegister
 								ifTrue: [methodOrBlockNumArgs - 1- i]

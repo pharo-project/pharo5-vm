@@ -15,5 +15,4 @@ storeToReg: reg
 				[SSRegister]	-> [inst := reg ~= register
 												ifTrue: [cogit MoveR: register R: reg]
 												ifFalse: [cogit Label]] }].
-	self maybeAnnotateUse: inst.
 	reg ~= TempReg ifTrue: [ liveRegister := reg ]

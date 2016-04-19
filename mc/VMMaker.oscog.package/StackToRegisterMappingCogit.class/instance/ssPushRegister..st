@@ -5,7 +5,6 @@ ssPushRegister: reg
 	self ssTop
 		type: SSRegister;
 		spilled: false;
-		annotateUse: false;
 		register: reg;
 		bcptr: bytecodePC.
 	^0

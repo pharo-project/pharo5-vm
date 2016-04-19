@@ -4,7 +4,6 @@ initSimStackForFramefulMethod: startpc
 	simSelf
 		type: SSBaseOffset;
 		spilled: true;
-		annotateUse: false;
 		register: FPReg;
 		offset: FoxMFReceiver.
 	optStatus 
@@ -19,7 +18,6 @@ initSimStackForFramefulMethod: startpc
 		desc
 			type: SSBaseOffset;
 			spilled: true;
-			annotateUse: false;
 			register: FPReg;
 			offset: FoxCallerSavedIP + ((methodOrBlockNumArgs - i) * objectMemory wordSize);
 			bcptr: startpc].
@@ -30,7 +28,6 @@ initSimStackForFramefulMethod: startpc
 		desc
 			type: SSBaseOffset;
 			spilled: true;
-			annotateUse: false;
 			register: FPReg;
 			offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * objectMemory wordSize);
 			bcptr: startpc]

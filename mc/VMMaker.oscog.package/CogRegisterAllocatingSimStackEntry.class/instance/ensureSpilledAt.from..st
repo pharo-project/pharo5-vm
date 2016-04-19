@@ -26,4 +26,3 @@ ensureSpilledAt: baseOffset from: baseRegister
 			 offset := baseOffset.
 			 register := baseRegister].
 	spilled := true.
-	self maybeAnnotateUse: inst

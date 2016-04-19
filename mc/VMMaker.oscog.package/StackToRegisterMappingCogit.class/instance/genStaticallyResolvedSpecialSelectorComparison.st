@@ -16,9 +16,6 @@ genStaticallyResolvedSpecialSelectorComparison
 		[JumpGreaterOrEqual]	-> [result := rcvrInt >= argInt].
 		[JumpZero]				-> [result := rcvrInt = argInt].
 		[JumpNonZero]			-> [result := rcvrInt ~= argInt] }.
-	 "Must enter any annotatedConstants into the map"
-	 self annotateBytecodeIfAnnotated: (self ssValue: 1).
-	 self annotateBytecodeIfAnnotated: self ssTop.
 	 "Must annotate the bytecode for correct pc mapping."
 	 self ssPop: 2.
 	 ^self ssPushAnnotatedConstant: (result

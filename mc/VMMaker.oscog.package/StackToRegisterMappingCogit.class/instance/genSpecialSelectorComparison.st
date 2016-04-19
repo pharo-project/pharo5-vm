@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorComparison
 	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor
-	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB annotateInst index |
+	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB index |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
@@ -30,7 +30,6 @@ genSpecialSelectorComparison
 	argIsInt
 		ifTrue:
 			[(self ssValue: 1) popToReg: ReceiverResultReg.
-			 annotateInst := self ssTop annotateUse.
 			 self ssPop: 2.
 			 self MoveR: ReceiverResultReg R: TempReg]
 		ifFalse:
@@ -40,9 +39,7 @@ genSpecialSelectorComparison
 							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
 							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratch: TempReg scratch: ClassReg].
 	argIsInt
-		ifTrue: [annotateInst
-					ifTrue: [self annotateBytecode: (self CmpCq: argInt R: ReceiverResultReg)]
-					ifFalse: [self CmpCq: argInt R: ReceiverResultReg]]
+		ifTrue: [self CmpCq: argInt R: ReceiverResultReg]
 		ifFalse: [self CmpR: Arg0Reg R: ReceiverResultReg].
 	"Cmp is weird/backwards so invert the comparison.  Further since there is a following conditional
 	 jump bytecode define non-merge fixups and leave the cond bytecode to set the mergeness."

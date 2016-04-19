@@ -22,8 +22,6 @@ printStateOn: aStream
 							aStream print: offset] }.
 	(spilled and: [type ~= SSSpill]) ifTrue:
 		[aStream nextPutAll: ' (spilled)'].
-	annotateUse ifTrue:
-		[aStream nextPutAll: ' (ANNOTATED)'].
 	bcptr ifNotNil:
 		[aStream space; nextPut: ${; print: bcptr; nextPut: $}].
 	aStream nextPut: $)

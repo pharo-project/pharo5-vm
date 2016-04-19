@@ -5,7 +5,6 @@ initSimStackForFramelessMethod: startpc
 	simSelf
 		type: SSRegister;
 		spilled: false;
-		annotateUse: false;
 		register: ReceiverResultReg.
 	optStatus
 		isReceiverResultRegLive: true;
@@ -18,7 +17,6 @@ initSimStackForFramelessMethod: startpc
 			 desc
 				type: SSRegister;
 				spilled: false;
-				annotateUse: false;
 				register: Arg0Reg;
 				bcptr: startpc.
 			 methodOrBlockNumArgs > 1 ifTrue:
@@ -26,7 +24,6 @@ initSimStackForFramelessMethod: startpc
 				 desc
 					type: SSRegister;
 					spilled: false;
-					annotateUse: false;
 					register: Arg1Reg;
 					bcptr: startpc]]
 		ifFalse:
@@ -37,7 +34,6 @@ initSimStackForFramelessMethod: startpc
 					type: SSBaseOffset;
 					register: SPReg;
 					spilled: true;
-					annotateUse: false;
 					offset: ((backEnd hasLinkRegister
 								ifTrue: [methodOrBlockNumArgs - 1- i]
 								ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);

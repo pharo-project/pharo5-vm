@@ -24,7 +24,7 @@
 		"genFallsThroughCountLogicCounterReg:counterAddress:" : "cb 4/25/2015 16:13",
 		"genJumpIf:to:" : "cb 4/8/2016 15:04",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 3/14/2016 11:43",
-		"genSpecialSelectorComparison" : "eem 2/24/2016 16:23",
+		"genSpecialSelectorComparison" : "cb 4/18/2016 16:00",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genSpecialSelectorEqualsEqualsWithForwarders" : "cb 4/15/2016 17:46",
 		"genUnconditionalTrapBytecode" : "cb 4/28/2015 09:59",

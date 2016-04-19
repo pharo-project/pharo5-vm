@@ -5,7 +5,6 @@ ssPushBase: reg offset: offset
 	self ssTop
 		type: SSBaseOffset;
 		spilled: false;
-		annotateUse: false;
 		register: reg;
 		offset: offset;
 		bcptr: bytecodePC.

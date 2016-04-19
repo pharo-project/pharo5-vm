@@ -8,7 +8,6 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 			value: (ivn = 'register' ifTrue: ['registerr'] ifFalse: [ivn]) "avoid reservedWord conflict"
 			value: (ivn caseOf: {
 						['type']			-> [#char].
-						['spilled']		-> [#char].
-						['annotateUse']	-> [#char]}
+						['spilled']		-> [#char].}
 					otherwise:
 						[#sqInt])]

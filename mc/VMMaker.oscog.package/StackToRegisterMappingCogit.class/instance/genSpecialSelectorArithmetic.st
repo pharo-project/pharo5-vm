@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorArithmetic
 	| primDescriptor rcvrIsConst argIsConst rcvrIsInt argIsInt rcvrInt argInt result
-	 jumpNotSmallInts jumpContinue annotateInst instToAnnotate index |
+	 jumpNotSmallInts jumpContinue index |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
 	<var: #jumpContinue type: #'AbstractInstruction *'>
@@ -21,10 +21,7 @@ genSpecialSelectorArithmetic
 			[AndRR]	-> [result := rcvrInt bitAnd: argInt].
 			[OrRR]	-> [result := rcvrInt bitOr: argInt] }.
 		(objectMemory isIntegerValue: result) ifTrue:
-			["Must enter any annotatedConstants into the map"
-			 self annotateBytecodeIfAnnotated: (self ssValue: 1).
-			 self annotateBytecodeIfAnnotated: self ssTop.
-			 "Must annotate the bytecode for correct pc mapping."
+			["Must annotate the bytecode for correct pc mapping."
 			^self ssPop: 2; ssPushAnnotatedConstant: (objectMemory integerObjectOf: result)].
 		^self genSpecialSelectorSend].
 
@@ -42,7 +39,6 @@ genSpecialSelectorArithmetic
 		ifTrue:
 			[self ssFlushTo: simStackPtr - 2.
 			 (self ssValue: 1) popToReg: ReceiverResultReg.
-			 annotateInst := self ssTop annotateUse.
 			 self ssPop: 2.
 			 self MoveR: ReceiverResultReg R: TempReg]
 		ifFalse:
@@ -54,7 +50,7 @@ genSpecialSelectorArithmetic
 	primDescriptor opcode caseOf: {
 		[AddRR] -> [argIsInt
 						ifTrue:
-							[instToAnnotate := self AddCq: argInt - ConstZero R: ReceiverResultReg.
+							[self AddCq: argInt - ConstZero R: ReceiverResultReg.
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before continuing"
 							 self SubCq: argInt - ConstZero R: ReceiverResultReg]
@@ -70,7 +66,7 @@ genSpecialSelectorArithmetic
 									 objectRepresentation genSetSmallIntegerTagsIn: ReceiverResultReg]]].
 		[SubRR] -> [argIsInt
 						ifTrue:
-							[instToAnnotate := self SubCq: argInt - ConstZero R: ReceiverResultReg.
+							[self SubCq: argInt - ConstZero R: ReceiverResultReg.
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before continuing"
 							 self AddCq: argInt - ConstZero R: ReceiverResultReg]
@@ -82,17 +78,16 @@ genSpecialSelectorArithmetic
 							 self AddR: Arg0Reg R: ReceiverResultReg.
 							 objectRepresentation genSetSmallIntegerTagsIn: Arg0Reg]].
 		[AndRR] -> [argIsInt
-						ifTrue: [instToAnnotate := self AndCq: argInt R: ReceiverResultReg]
+						ifTrue: [self AndCq: argInt R: ReceiverResultReg]
 						ifFalse: [self AndR: Arg0Reg R: ReceiverResultReg].
 					jumpContinue := self Jump: 0].
 		[OrRR]	-> [argIsInt
-						ifTrue: [instToAnnotate := self OrCq: argInt R: ReceiverResultReg]
+						ifTrue: [self OrCq: argInt R: ReceiverResultReg]
 						ifFalse: [self OrR: Arg0Reg R: ReceiverResultReg].
 					jumpContinue := self Jump: 0] }.
 	jumpNotSmallInts jmpTarget: self Label.
 	argIsInt ifTrue:
-		[annotateInst ifTrue: [self annotateBytecode: instToAnnotate].
-		 self MoveCq: argInt R: Arg0Reg].
+		[self MoveCq: argInt R: Arg0Reg].
 	index := byte0 - self firstSpecialSelectorBytecodeOffset.
 	self genMarshalledSend: index negated - 1 numArgs: 1 sendTable: ordinarySendTrampolines.
 	jumpContinue jmpTarget: self Label.
