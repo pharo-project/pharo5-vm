@@ -229,6 +229,7 @@
 		"mayInline:" : "eem 7/30/2013 16:21",
 		"maybeBreakForInlineOf:in:" : "eem 2/23/2015 16:42",
 		"maybeBreakForTestToInline:in:" : "eem 2/23/2015 18:30",
+		"maybeEmitPrimitiveFailureDefineFor:on:" : "eem 4/19/2016 10:21",
 		"maybePutPreambleFor:on:" : "eem 7/16/2013 14:39",
 		"mergeTypeOf:in:with:method:" : "eem 12/16/2015 13:25",
 		"messageReceiverIsInterpreterProxy:" : "eem 7/19/2013 10:33",
