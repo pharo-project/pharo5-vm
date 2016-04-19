@@ -343,7 +343,7 @@
 		"findMethodForStartBcpc:inHomeMethod:" : "eem 12/12/2012 11:39",
 		"firstMappedPCFor:" : "eem 4/15/2016 10:04",
 		"fixupAt:" : "eem 12/11/2010 18:02",
-		"followForwardedLiteralsIn:" : "eem 8/4/2014 12:23",
+		"followForwardedLiteralsIn:" : "eem 4/18/2016 18:22",
 		"followForwardedMethods" : "eem 9/24/2014 12:03",
 		"followMaybeObjRefInClosedPICAt:" : "eem 11/20/2015 17:34",
 		"followMethodReferencesInClosedPIC:" : "eem 11/20/2015 17:44",

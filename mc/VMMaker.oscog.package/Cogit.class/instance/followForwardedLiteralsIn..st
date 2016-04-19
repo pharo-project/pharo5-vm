@@ -3,7 +3,7 @@ followForwardedLiteralsIn: cogMethod
 	<api>
 	<option: #SpurObjectMemory>
 	<var: #cogMethod type: #'CogMethod *'>
-	self assert: (objectMemory isForwarded: cogMethod methodObject) not.
+	self assert: (cogMethod cmType ~= CMMethod or: [(objectMemory isForwarded: cogMethod methodObject) not]).
 	(objectMemory shouldRemapOop: cogMethod selector) ifTrue:
 		[cogMethod selector: (objectMemory remapObj: cogMethod selector).
 		 (objectMemory isYoung: cogMethod selector) ifTrue:
