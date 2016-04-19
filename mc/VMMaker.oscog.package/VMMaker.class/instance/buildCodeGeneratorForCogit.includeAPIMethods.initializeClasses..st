@@ -16,6 +16,14 @@ buildCodeGeneratorForCogit: cogitClass includeAPIMethods: getAPIMethods initiali
 	cogitClasses := OrderedCollection withAll: (cogitClass withAllSuperclasses copyUpThrough: VMClass) reverse.
 	cogitClasses addAllLast: ((cogitClass ancilliaryClasses: optionsDictionary) reject: [:class| class isStructClass]).
 	cogitClasses do: [:cgc| cg addClass: cgc].
+	"Now make sure to add struct classes that the most specific subclasses specify.
+	 This makes sure that struct classes are ordered as the most specific cogitClass desires.
+	 This must happen for references between the struct classes to be resolved in a specific order."
+	cogitClasses := OrderedCollection with: cogitClass with: cogitClass objectRepresentationClass.
+	cogitClasses addAll: ((cogitClass ancilliaryClasses: optionsDictionary) reject:
+							[:class|
+							 class isStructClass
+							 or: [cogitClass objectRepresentationClass includesBehavior: class]]).
 	cg addStructClasses: (cg structClassesForTranslationClasses: cogitClasses).
 
 	getAPIMethods ifTrue:

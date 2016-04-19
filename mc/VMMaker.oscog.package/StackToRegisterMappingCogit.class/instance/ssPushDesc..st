@@ -1,6 +1,6 @@
 simulation stack
 ssPushDesc: simStackEntry
-	<var: #simStackEntry type: #CogSimStackEntry>
+	<var: #simStackEntry type: #SimStackEntry>
 	self cCode:
 			[simStackEntry type = SSSpill ifTrue:
 				[simStackEntry type: SSBaseOffset].

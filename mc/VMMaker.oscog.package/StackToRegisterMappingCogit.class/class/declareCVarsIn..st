@@ -22,7 +22,7 @@ declareCVarsIn: aCodeGen
 		var: #realCECallCogCodePopReceiverArg1Arg0Regs
 			declareC: 'void (*realCECallCogCodePopReceiverArg1Arg0Regs)(void)';
 		var: 'simStack'
-			declareC: 'CogSimStackEntry simStack[', self simStackSlots asString, ']';
+			declareC: 'SimStackEntry simStack[', self simStackSlots asString, ']';
 		var: 'simSelf'
 			type: #CogSimStackEntry;
 		var: #optStatus

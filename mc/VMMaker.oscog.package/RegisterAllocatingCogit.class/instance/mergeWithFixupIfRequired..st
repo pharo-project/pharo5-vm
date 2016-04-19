@@ -29,7 +29,6 @@ mergeWithFixupIfRequired: fixup
 	fixup isNonMergeFixup ifTrue: [deadCode := false. ^ 0 ].
 
 	"cases 3 and 4"
-	1halt.
 	self assert: fixup isMergeFixup.
 	self traceMerge: fixup.
 	deadCode 

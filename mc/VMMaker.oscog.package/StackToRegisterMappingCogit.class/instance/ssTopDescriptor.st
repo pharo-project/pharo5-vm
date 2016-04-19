@@ -1,4 +1,4 @@
 simulation stack
 ssTopDescriptor
-	<returnTypeC: #CogSimStackEntry>
+	<returnTypeC: #SimStackEntry>
 	^simStack at: simStackPtr

@@ -1,7 +1,8 @@
 {
 	"class" : {
 		"byteSizeForSimulator:" : "cb 4/16/2016 10:10",
-		"instVarNamesAndTypesForTranslationDo:" : "eem 1/22/2011 16:53" },
+		"instVarNamesAndTypesForTranslationDo:" : "eem 1/22/2011 16:53",
+		"structTypeName" : "eem 4/18/2016 09:15" },
 	"instance" : {
 		"annotateUse" : "eem 1/22/2011 16:54",
 		"annotateUse:" : "eem 1/22/2011 16:54",

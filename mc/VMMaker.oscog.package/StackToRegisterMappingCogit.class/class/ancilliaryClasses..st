@@ -1,4 +1,4 @@
 translation
 ancilliaryClasses: options
 	^(super ancilliaryClasses: options),
-	  { self basicNew bytecodeFixupClass. self basicNew simStackEntryClass. CogSSOptStatus }
+	  { self basicNew simStackEntryClass. self basicNew bytecodeFixupClass. CogSSOptStatus }
