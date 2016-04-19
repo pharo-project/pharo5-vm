@@ -2,7 +2,7 @@ object access primitives
 primitiveSetImmutability
 	<option: #IMMUTABILITY>
 	| rcvr wasImmutable |
-	 rcvr := self stackValue: argumentCount.
+	 rcvr := self stackValue: 1.
 	 (objectMemory isImmediate: rcvr) ifTrue:
 		[^self primitiveFailFor: PrimErrBadReceiver].
 	 wasImmutable := objectMemory isObjImmutable: rcvr.
