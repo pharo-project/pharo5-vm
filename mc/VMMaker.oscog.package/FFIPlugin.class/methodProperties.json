@@ -33,7 +33,7 @@
 		"ffiPushPointerContentsOf:" : "di (auto pragmas 12/08) 7/4/2004 08:40",
 		"ffiPushSignedLongLongOop:" : "tpr (auto pragmas 12/08) 12/29/2005 16:03",
 		"ffiPushStructureContentsOf:" : "di (auto pragmas 12/08) 7/4/2004 08:43",
-		"ffiPushUnsignedLongLongOop:" : "tpr (auto pragmas 12/08) 12/29/2005 16:03",
+		"ffiPushUnsignedLongLongOop:" : "nice 4/19/2016 22:08",
 		"ffiPushVoid:" : "ar 11/28/1999 19:25",
 		"ffiReturnCStringFrom:" : "tpr (auto pragmas 12/08) 12/29/2005 16:04",
 		"ffiSetLastError:" : "ar 11/28/1999 18:25",

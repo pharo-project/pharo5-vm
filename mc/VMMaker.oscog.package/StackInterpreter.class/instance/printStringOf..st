@@ -15,8 +15,7 @@ printStringOf: oop
 	((objectMemory is: oop
 		  instanceOf: (objectMemory splObj: ClassByteArray)
 		  compactClassIndex: classByteArrayCompactIndex)
-	or: [(self isInstanceOfClassLargePositiveInteger: oop)
-	or: [(self isInstanceOfClassLargeNegativeInteger: oop)]])
+	or: [(objectMemory isLargeIntegerInstance: oop)])
 		ifTrue:
 			[[i < cnt] whileTrue:
 				[self printHex: (objectMemory fetchByte: i ofObject: oop).

@@ -5,8 +5,7 @@ digitAddLarge: firstInteger with: secondInteger
 	<var: #over type: #'unsigned int'>
 	firstDigitLen := self digitSizeOfLargeInt: firstInteger.
 	secondDigitLen := self digitSizeOfLargeInt: secondInteger.
-	neg := (interpreterProxy fetchClassOf: firstInteger)
-		= interpreterProxy classLargeNegativeInteger.
+	neg := interpreterProxy isLargeNegativeIntegerObject: firstInteger.
 	firstDigitLen <= secondDigitLen
 		ifTrue: 
 			[shortInt := firstInteger.

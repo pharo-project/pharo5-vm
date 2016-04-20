@@ -10,8 +10,7 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			"convert it to a not normalized LargeInteger"
 			self remapOop: secondInteger in: [firstLarge := self createLargeFromSmallInteger: firstInteger]]
 		ifFalse: 
-			[(interpreterProxy fetchClassOf: firstInteger)
-				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
+			[(interpreterProxy isLargePositiveIntegerObject: firstInteger) ifFalse: [^ interpreterProxy primitiveFail].
 			firstLarge := firstInteger].
 	(interpreterProxy isIntegerObject: secondInteger)
 		ifTrue: 
@@ -20,8 +19,7 @@ digitBitLogic: firstInteger with: secondInteger opIndex: opIx
 			"convert it to a not normalized LargeInteger"
 			self remapOop: firstLarge in: [secondLarge := self createLargeFromSmallInteger: secondInteger]]
 		ifFalse: 
-			[(interpreterProxy fetchClassOf: secondInteger)
-				= interpreterProxy classLargeNegativeInteger ifTrue: [^ interpreterProxy primitiveFail].
+			[(interpreterProxy isLargePositiveIntegerObject: secondInteger) ifFalse: [^ interpreterProxy primitiveFail].
 			secondLarge := secondInteger].
 	firstLen := self byteSizeOfLargeInt: firstLarge.
 	secondLen := self byteSizeOfLargeInt: secondLarge.
