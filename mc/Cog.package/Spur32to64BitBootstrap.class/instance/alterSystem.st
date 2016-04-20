@@ -1,4 +1,4 @@
 bootstrap image
 alterSystem
-	self installSmallFloatInClassTable.
+	self ensureSmallFloatInClassTable.
 	self nilWordSize
