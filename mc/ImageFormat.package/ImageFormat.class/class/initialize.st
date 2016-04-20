@@ -8,4 +8,4 @@ initialize
 	BaseVersionMask := self baseVersionMask.
 	CapabilitiesBitsMask := self capabilitiesBitsMask.
 	ReservedBitsMask := self availableBits.
-	KnownVersionNumbers := self knownVersionNumbers
+	KnownVersionNumbers := self knownVersionNumbers.

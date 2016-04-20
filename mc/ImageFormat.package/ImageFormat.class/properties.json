@@ -15,7 +15,8 @@
 		"wordSize",
 		"requiresClosureSupport",
 		"requiresNativeFloatWordOrder",
-		"requiresSpurSupport" ],
+		"requiresSpurSupport",
+		"requiresNewSpur64TagAssignment" ],
 	"name" : "ImageFormat",
 	"pools" : [
 		 ],

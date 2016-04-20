@@ -6,12 +6,14 @@ fromInteger: anInteger
 	(anInteger bitAnd: ReservedBitsMask) ~= 0
 		ifTrue: [self error: 'invalid format number ', anInteger printString].
 	baseVersion := self  baseVersionBitsOf: anInteger.
-	(baseVersion = 6504 or: [baseVersion = 68002])
+	((baseVersion = 6504 or: [baseVersion = 68002]) or: [baseVersion = 68004])
 		ifTrue: [requiresClosureSupport := true].
 	(baseVersion = 6502 or: [baseVersion = 6504])
 		ifTrue: [wordSize := 4]
-		ifFalse: [(baseVersion = 68000 or: [baseVersion = 68002])
-			ifTrue: [wordSize := 8]
+		ifFalse: [((baseVersion = 68000 or: [baseVersion = 68002]) or: [baseVersion = 68004])
+			ifTrue: [wordSize := 8.
+					baseVersion = 68004
+						ifTrue: [self setRequiresNewSpur64TagAssignmentRequirement: true]]
 			ifFalse: [self error: 'invalid format number ', anInteger printString]].
 	capabilitiesBits := anInteger bitAnd: CapabilitiesBitsMask.
 	(capabilitiesBits bitAt: PlatformByteOrderBit) = 1

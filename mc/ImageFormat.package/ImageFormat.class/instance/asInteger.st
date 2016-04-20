@@ -11,4 +11,5 @@ asInteger
 	self requiresClosureSupport ifTrue: [val := val + 2].
 	self requiresNativeFloatWordOrder ifTrue: [val := val + 1].
 	self requiresSpurSupport ifTrue: [val := val + 2r10000].
+	self requiresNewSpur64TagAssignment ifTrue: [val := val + 2].
 	^val
