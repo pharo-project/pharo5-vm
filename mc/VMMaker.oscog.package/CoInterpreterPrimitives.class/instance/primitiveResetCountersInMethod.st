@@ -1,7 +1,7 @@
 method introspection primitives
 primitiveResetCountersInMethod
 	<export: true>
-	<option: #SistaStackToRegisterMappingCogit>
+	<option: #SistaCogit>
 	| methodReceiver |
 	argumentCount ~= 0 ifTrue:
 		[^self primitiveFailFor: PrimErrBadNumArgs].

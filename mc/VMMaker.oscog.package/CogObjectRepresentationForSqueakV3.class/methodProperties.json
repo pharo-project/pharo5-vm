@@ -75,7 +75,7 @@
 		"numSmallIntegerTagBits" : "eem 9/9/2009 12:28",
 		"remapObject:" : "eem 2/20/2016 18:12",
 		"remapOop:" : "eem 10/9/2009 03:10",
-		"resetCountersIn:" : "eem 7/6/2014 10:32",
+		"resetCountersIn:" : "eem 4/19/2016 14:24",
 		"shouldAnnotateObjectReference:" : "eem 4/3/2013 15:07",
 		"slotOffsetOfInstVarIndex:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"smallIntegerIsOnlyImmediateType" : "eem 10/3/2013 10:17",

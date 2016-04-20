@@ -2,7 +2,7 @@ configurations
 generateSqueakSpurCogSista64VM
 	^VMMaker
 		generate: CoInterpreter
-		and: SistaStackToRegisterMappingCogit
+		and: SistaCogit
 		with: #(	SistaVM true
 				ObjectMemory Spur64BitCoMemoryManager
 				MULTIPLEBYTECODESETS true

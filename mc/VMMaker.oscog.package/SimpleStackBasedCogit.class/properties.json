@@ -11,7 +11,9 @@
 		"primInvokeInstruction",
 		"externalPrimCallOffsets",
 		"externalPrimJumpOffsets",
-		"externalSetPrimOffsets" ],
+		"externalSetPrimOffsets",
+		"introspectionDataIndex",
+		"introspectionData" ],
 	"name" : "SimpleStackBasedCogit",
 	"pools" : [
 		"VMMethodCacheConstants",

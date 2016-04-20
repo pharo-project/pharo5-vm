@@ -3,7 +3,7 @@ generateSqueakSpurCogSistaVM
 	"No primitives since we can use those for the Cog VM"
 	^VMMaker
 		generate: CoInterpreter
-		and: SistaStackToRegisterMappingCogit
+		and: SistaCogit
 		with: #(	SistaVM true
 				ObjectMemory Spur32BitCoMemoryManager
 				MULTIPLEBYTECODESETS true

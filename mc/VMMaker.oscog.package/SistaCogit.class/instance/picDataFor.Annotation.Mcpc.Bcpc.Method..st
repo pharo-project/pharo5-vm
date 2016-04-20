@@ -1,9 +1,9 @@
 method introspection
-picDataFor: descriptor Annotation: annotation Mcpc: mcpc Bcpc: bcpc Method: cogMethodArg
+picDataFor: descriptor Annotation: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc: bcpc Method: cogMethodArg
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	<var: #mcpc type: #'char *'>
 	<var: #cogMethodArg type: #'void *'>
-	| entryPoint tuple counter |
+	| annotation entryPoint tuple counter |
 	<var: #counter type: #'unsigned long'>
 
 	descriptor ifNil:
@@ -19,10 +19,11 @@ picDataFor: descriptor Annotation: annotation Mcpc: mcpc Bcpc: bcpc Method: cogM
 								at: counterIndex.
 			 tuple := self picDataForCounter: counter at: bcpc + 1.
 			 tuple = 0 ifTrue: [^PrimErrNoMemory].
-			 objectMemory storePointer: picDataIndex ofObject: picData withValue: tuple.
-			 picDataIndex := picDataIndex + 1.
+			 objectMemory storePointer: introspectionDataIndex ofObject: introspectionData withValue: tuple.
+			 introspectionDataIndex := introspectionDataIndex + 1.
 			 counterIndex := counterIndex + 1].
 		 ^0].
+	annotation := isBackwardBranchAndAnnotation >> 1.
 	((self isPureSendAnnotation: annotation)
 	 and: [entryPoint := backEnd callTargetFromReturnAddress: mcpc asUnsignedInteger.
 		 entryPoint > methodZoneBase]) ifFalse: "send is not linked, or is not a send"
@@ -41,6 +42,6 @@ picDataFor: descriptor Annotation: annotation Mcpc: mcpc Bcpc: bcpc Method: cogM
 						at: mcpc
 						bcpc: bcpc + 1].
 	tuple = 0 ifTrue: [^PrimErrNoMemory].
-	objectMemory storePointer: picDataIndex ofObject: picData withValue: tuple.
-	picDataIndex := picDataIndex + 1.
+	objectMemory storePointer: introspectionDataIndex ofObject: introspectionData withValue: tuple.
+	introspectionDataIndex := introspectionDataIndex + 1.
 	^0

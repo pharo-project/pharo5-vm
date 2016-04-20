@@ -1,5 +1,5 @@
 method map
-find: descriptor IsBackwardBranch: isBackwardBranch Mcpc: mcpc Bcpc: bcpc MatchingMcpc: targetMcpc
+find: descriptor IsBackwardBranch: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc: bcpc MatchingMcpc: targetMcpc
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	<var: #mcpc type: #'char *'>
 	<var: #targetMcpc type: #'void *'>
@@ -7,7 +7,7 @@ find: descriptor IsBackwardBranch: isBackwardBranch Mcpc: mcpc Bcpc: bcpc Matchi
 	 except backward branches, where they map to the backward branch itself.
 	 This is so that loops continue, rather than terminate prematurely."
 	^targetMcpc = mcpc
-		ifTrue: [(descriptor isNil or: [isBackwardBranch])
+		ifTrue: [(descriptor isNil or: [isBackwardBranchAndAnnotation anyMask: 1])
 					ifTrue: [bcpc]
 					ifFalse: [bcpc + descriptor numBytes]]
 		ifFalse: [0]

@@ -6,12 +6,12 @@ picDataFor: cogMethod into: arrayObj
 	| errCode |
 	cogMethod stackCheckOffset = 0 ifTrue:
 		[^0].
-	picDataIndex := counterIndex := 0.
-	picData := arrayObj.
+	introspectionDataIndex := counterIndex := 0.
+	introspectionData := arrayObj.
 	errCode := self
 					mapFor: (self cCoerceSimple: cogMethod to: #'CogBlockMethod *')
 					bcpc: (coInterpreter startPCOfMethod: cogMethod methodObject)
-					withAnnotationPerformUntil: #picDataFor:Annotation:Mcpc:Bcpc:Method:
+					performUntil: #picDataFor:Annotation:Mcpc:Bcpc:Method:
 					arg: cogMethod asVoidPointer.
 	errCode ~= 0 ifTrue:
 		[self assert: errCode = PrimErrNoMemory.
@@ -23,4 +23,4 @@ picDataFor: cogMethod into: arrayObj
 		 errCode ~= 0 ifTrue:
 			[self assert: errCode = PrimErrNoMemory.
 			 ^-1]].
-	^picDataIndex
+	^introspectionDataIndex

@@ -5,17 +5,15 @@
 	"classvars" : [
 		"CounterBytes",
 		"MaxCounterValue" ],
-	"commentStamp" : "eem 4/7/2014 12:23",
+	"commentStamp" : "eem 4/19/2016 14:22",
 	"instvars" : [
-		"picDataIndex",
-		"picData",
 		"numCounters",
 		"counters",
 		"counterIndex",
 		"initialCounterValue",
 		"ceTrapTrampoline",
 		"branchReachedOnlyForCounterTrip" ],
-	"name" : "SistaStackToRegisterMappingCogit",
+	"name" : "SistaCogit",
 	"pools" : [
 		"VMSqueakClassIndices" ],
 	"super" : "RegisterAllocatingCogit",

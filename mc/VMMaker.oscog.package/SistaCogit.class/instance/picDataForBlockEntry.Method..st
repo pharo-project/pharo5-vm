@@ -11,5 +11,5 @@ picDataForBlockEntry: blockEntryMcpc Method: cogMethod
 	^self
 		mapFor: cogBlockMethod
 		bcpc: cogBlockMethod startpc
-		withAnnotationPerformUntil: #picDataFor:Annotation:Mcpc:Bcpc:Method:
+		performUntil: #picDataFor:Annotation:Mcpc:Bcpc:Method:
 		arg: cogMethod asVoidPointer

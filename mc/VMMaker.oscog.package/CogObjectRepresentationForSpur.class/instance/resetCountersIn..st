@@ -2,5 +2,5 @@ sista support
 resetCountersIn: cogMethod
 	<var: #cogMethod type: #'CogMethod *'>
 	<api>
-	<option: #SistaStackToRegisterMappingCogit>
+	<option: #SistaCogit>
 	cogit fillInCounters: (self numCountersFor: cogMethod counters) atStartAddress: cogMethod counters

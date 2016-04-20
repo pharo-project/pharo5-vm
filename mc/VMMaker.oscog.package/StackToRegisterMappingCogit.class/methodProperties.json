@@ -124,7 +124,7 @@
 		"genSendTrampolineFor:numArgs:called:arg:arg:arg:arg:" : "eem 03/03/2016 12:23",
 		"genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean:" : "cb 4/11/2016 11:10",
 		"genSistaExtStoreLiteralVariableBytecodePopBoolean:" : "cb 4/11/2016 11:11",
-		"genSpecialSelectorArithmetic" : "cb 4/18/2016 17:05",
+		"genSpecialSelectorArithmetic" : "eem 4/19/2016 16:39",
 		"genSpecialSelectorClass" : "eem 12/10/2015 09:01",
 		"genSpecialSelectorComparison" : "cb 4/18/2016 16:01",
 		"genSpecialSelectorEqualsEquals" : "eem 4/17/2015 18:16",
