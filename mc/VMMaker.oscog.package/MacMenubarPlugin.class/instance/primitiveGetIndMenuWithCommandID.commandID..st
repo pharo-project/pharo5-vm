@@ -10,7 +10,7 @@ primitiveGetIndMenuWithCommandID: menuHandleOop commandID: aCommandID
 	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: 'MenuHandle'.
 	commandID := self cCoerce: (interpreterProxy positive32BitValueOf: aCommandID) to: 'MenuCommand'.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
-	self cppIf: #TARGET_API_MAC_CARBON
+	self cppIf: #'TARGET_API_MAC_CARBON'
 		ifTrue: [self cCode: 'GetIndMenuItemWithCommandID(menuHandle, kHICommandHide, 1,
                    &applicationMenu, &outIndex);' inSmalltalk: [menuHandle]].
 	outIndex asSmallIntegerObj. "to avoid elimination of the variable..."
