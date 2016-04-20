@@ -16,8 +16,6 @@
 		"isInstanceOfClassArray:" : "eem 12/20/2012 09:56",
 		"isInstanceOfClassBlockClosure:" : "eem 12/20/2012 10:00",
 		"isInstanceOfClassByteString:" : "eem 1/2/2013 17:37",
-		"isInstanceOfClassLargeNegativeInteger:" : "eem 12/20/2012 09:58",
-		"isInstanceOfClassLargePositiveInteger:" : "eem 12/20/2012 09:57",
 		"isNegativeIntegerValueOf:" : "eem 10/31/2014 11:40",
 		"isPointerAlien:" : "eem 6/29/2011 13:01",
 		"magnitude64BitIntegerFor:neg:" : "nice 4/3/2016 09:15",

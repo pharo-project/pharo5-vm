@@ -49,7 +49,7 @@ primAlienReplace
 				[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 			src := (interpreterProxy integerValueOf: repl) + replStart - 1]
 		ifFalse:
-			[(interpreterProxy fetchClassOf: repl) ==  interpreterProxy classLargePositiveInteger
+			[(interpreterProxy isLargePositiveIntegerObject: repl)
 				ifTrue:
 					[src := (interpreterProxy positive32BitValueOf: repl) + replStart - 1.
 					 interpreterProxy failed ifTrue:

@@ -8,6 +8,6 @@ primitiveEnableMenuCommand: menuHandleOop item: anInteger
 	menuHandle := self cCoerce: (interpreterProxy positiveMachineIntegerValueOf: menuHandleOop) to: #MenuHandle.
 	commandID := self cCoerce: (interpreterProxy positive32BitValueOf: anInteger) to: #MenuCommand.
 	(self ioCheckMenuHandle: menuHandle) ifFalse: [^interpreterProxy success: false].
-	self cppIf: #TARGET_API_MAC_CARBON
+	self cppIf: #'TARGET_API_MAC_CARBON'
 		ifTrue: [self cCode: 'EnableMenuCommand(menuHandle,commandID);' inSmalltalk: [menuHandle]].
 	^nil

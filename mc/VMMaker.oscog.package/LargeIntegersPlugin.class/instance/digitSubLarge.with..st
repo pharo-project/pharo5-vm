@@ -2,8 +2,7 @@ oop functions
 digitSubLarge: firstInteger with: secondInteger 
 	"Normalizes."
 	| firstDigitLen secondDigitLen larger largeDigitLen smaller smallerDigitLen neg resDigitLen res firstNeg |
-	firstNeg := (interpreterProxy fetchClassOf: firstInteger)
-				= interpreterProxy classLargeNegativeInteger.
+	firstNeg := interpreterProxy isLargeNegativeIntegerObject: firstInteger.
 	firstDigitLen := self digitSizeOfLargeInt: firstInteger.
 	secondDigitLen := self digitSizeOfLargeInt: secondInteger.
 	firstDigitLen = secondDigitLen ifTrue: 
