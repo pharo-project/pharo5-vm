@@ -19,7 +19,10 @@ pcDataFor: descriptor Annotation: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc:
 					storePointerUnchecked: introspectionDataIndex + 1 ofObject: introspectionData withValue: (objectMemory integerObjectOf: cmEntryOffset);
 					storePointerUnchecked: introspectionDataIndex + 2 ofObject: introspectionData withValue: objectMemory nilObject;
 					storePointerUnchecked: introspectionDataIndex + 3 ofObject: introspectionData withValue: (objectMemory integerObjectOf: cmNoCheckEntryOffset)].
-		 introspectionDataIndex := introspectionDataIndex + 4.
+		 objectMemory
+			storePointerUnchecked: introspectionDataIndex + 4 ofObject: introspectionData withValue: (objectMemory integerObjectOf: bcpc + 1);
+			storePointerUnchecked: introspectionDataIndex + 5 ofObject: introspectionData withValue: (objectMemory integerObjectOf: (self cCoerceSimple: cogMethodArg to: #'CogMethod *') stackCheckOffset).
+		 introspectionDataIndex := introspectionDataIndex + 6.
 		 ^0].
 
 	(self isPCMappedAnnotation: isBackwardBranchAndAnnotation >> 1) ifTrue:
