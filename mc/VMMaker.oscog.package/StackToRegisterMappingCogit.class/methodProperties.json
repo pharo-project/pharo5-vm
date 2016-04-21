@@ -76,7 +76,7 @@
 		"genExtPushClosureBytecode" : "eem 09/28/2015 18:48",
 		"genExtPushFullClosureBytecode" : "cb 4/15/2016 09:33",
 		"genExtPushRemoteTempOrInstVarLongBytecode" : "cb 4/5/2016 17:12",
-		"genExtStorePopRemoteTempOrInstVarLongBytecode:" : "cb 4/5/2016 17:11",
+		"genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean:" : "cb 4/21/2016 16:16",
 		"genExternalizePointersForPrimitiveCall" : "eem 11/21/2010 16:39",
 		"genImmCheckStorePop:MaybeContextSlotIndex:needsStoreCheck:" : "cb 4/5/2016 14:30",
 		"genImmCheckStorePop:slotIndex:destReg:needsStoreCheck:needsRestoreRcvr:" : "cb 4/5/2016 16:29",

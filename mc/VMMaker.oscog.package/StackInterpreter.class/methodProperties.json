@@ -265,7 +265,7 @@
 		"extStoreAndPopRemoteTempOrInstVarLongBytecode" : "cb 4/5/2016 17:24",
 		"extStoreLiteralVariableBytecode" : "cb 1/18/2016 18:03",
 		"extStoreReceiverVariableBytecode" : "cb 1/18/2016 18:05",
-		"extStoreRemoteTempOrInstVarLongBytecode" : "cb 4/5/2016 17:24",
+		"extStoreRemoteTempOrInstVarLongBytecode" : "cb 4/21/2016 16:25",
 		"extTrapIfNotInstanceOfBehaviorsBytecode" : "eem 9/23/2014 12:23",
 		"extUnconditionalJump" : "eem 11/15/2012 11:44",
 		"extendedPushBytecode" : "jm 12/10/1998 16:46",
