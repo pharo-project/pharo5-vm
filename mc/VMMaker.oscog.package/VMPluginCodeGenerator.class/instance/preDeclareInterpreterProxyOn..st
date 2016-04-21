@@ -11,8 +11,11 @@ preDeclareInterpreterProxyOn: aStream
 	pcc preDeclareInterpreterProxyOn: Transcript.
 	Transcript flush"
 	| pluginFuncs interpreterClass objectMemoryClass |
+	self notePluginFunctionsUsedByMacros.
+	self preDeclareMacrosForFastClassChekingOn: aStream.
 	(pluginFuncs := self pluginFunctionsToClone) isEmpty ifTrue:
 		[^super preDeclareInterpreterProxyOn: aStream].
+	
 	aStream cr; nextPutAll: '#if !defined(SQUEAK_BUILTIN_PLUGIN)'; cr.
 	interpreterClass := self referenceInterpreterClass.
 	objectMemoryClass := self referenceObjectMemoryClass.
@@ -66,4 +69,4 @@ preDeclareInterpreterProxyOn: aStream
 						level: 0
 							generator: self.
 				 aStream nextPutAll: ' 0'; cr]].
-	aStream nextPutAll: 'extern'; cr; nextPutAll: '#endif'; cr
+	aStream nextPutAll: 'extern'; cr; nextPutAll: '#endif'; cr.
