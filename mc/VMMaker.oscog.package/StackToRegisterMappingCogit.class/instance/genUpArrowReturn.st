@@ -12,6 +12,7 @@ genUpArrowReturn
 				ret pc in LR.
 	 A fully framed activation is described in CoInterpreter class>initializeFrameIndices.
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
+	deadCode := true. "can't fall through"
 	inBlock ifTrue:
 		[self assert: needsFrame. 
 		 self CallRT: ceNonLocalReturnTrampoline.
@@ -31,5 +32,4 @@ genUpArrowReturn
 						or: [regArgsHaveBeenPushed])
 							ifTrue: [methodOrBlockNumArgs + 1 * objectMemory wordSize]
 							ifFalse: [0])].
-	deadCode := true. "can't fall through"
 	^0
