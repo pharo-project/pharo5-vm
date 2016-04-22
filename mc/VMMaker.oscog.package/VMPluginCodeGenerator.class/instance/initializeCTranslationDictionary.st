@@ -5,6 +5,6 @@ initializeCTranslationDictionary
 	super initializeCTranslationDictionary.
 	translationDict
 		at: #expandDereferenceInterpreterProxyFunctionTable
-			put: #generateInterpreterProxyFunctionDeference:on:indent:;
+			put: #generateInterpreterProxyFunctionDereference:on:indent:;
 		at: #remapOop:in:
 			put: #generateRemapOopIn:on:indent:

@@ -12,10 +12,13 @@ preDeclareInterpreterProxyOn: aStream
 	Transcript flush"
 	| pluginFuncs interpreterClass objectMemoryClass |
 	self notePluginFunctionsUsedByMacros.
-	self preDeclareMacrosForFastClassCheckingOn: aStream.
 	(pluginFuncs := self pluginFunctionsToClone) isEmpty ifTrue:
 		[^super preDeclareInterpreterProxyOn: aStream].
-	
+	(pluginFuncs includesAnyOf: self selectorsThatAreGeneratedAsMacros) ifTrue:
+		[self preDeclareMacrosForFastClassCheckingOn: aStream].
+	pluginFuncs := pluginFuncs copyWithoutAll: self selectorsThatAreGeneratedAsMacros.
+	pluginFuncs isEmpty ifTrue:
+		[^self].
 	aStream cr; nextPutAll: '#if !defined(SQUEAK_BUILTIN_PLUGIN)'; cr.
 	interpreterClass := self referenceInterpreterClass.
 	objectMemoryClass := self referenceObjectMemoryClass.
@@ -56,17 +59,18 @@ preDeclareInterpreterProxyOn: aStream
 	aStream nextPutAll: '#else /* !defined(SQUEAK_BUILTIN_PLUGIN) */'; cr.
 	pluginFuncs do:
 		[:tMethod|
-		self withOptionalVerbiageFor: tMethod selector
-			on: aStream
-			do: [tMethod static: false; export: false; emitCFunctionPrototype: aStream generator: self]
-			ifOptionalDo:
-				[aStream nextPutAll: '# define '.
-				 (TSendNode new
-					setSelector: tMethod selector
-						receiver: (TVariableNode new setName: 'interpreterProxy')
-							arguments: (tMethod args collect: [:a| TVariableNode new setName: a]))
-					emitCCodeAsArgumentOn: aStream
-						level: 0
-							generator: self.
-				 aStream nextPutAll: ' 0'; cr]].
-	aStream nextPutAll: 'extern'; cr; nextPutAll: '#endif'; cr.
+		self withGuardAgainstDefinitionOf: tMethod selector on: aStream do:
+			[self withOptionalVerbiageFor: tMethod selector
+				on: aStream
+				do: [tMethod static: false; export: false; emitCFunctionPrototype: aStream generator: self]
+				ifOptionalDo:
+					[aStream nextPutAll: '# define '.
+					 (TSendNode new
+						setSelector: tMethod selector
+							receiver: (TVariableNode new setName: 'interpreterProxy')
+								arguments: (tMethod args collect: [:a| TVariableNode new setName: a]))
+						emitCCodeAsArgumentOn: aStream
+							level: 0
+								generator: self.
+					 aStream nextPutAll: ' 0'; cr]]].
+	aStream nextPutAll: 'extern'; cr; nextPutAll: '#endif'; cr
