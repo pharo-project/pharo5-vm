@@ -8,7 +8,7 @@ concretizePushCq
 			at: 0 put: 16r6A;
 			at: 1 put: (value bitAnd: 16rFF).
 		^machineCodeSize := 2].
-	(self isSignExtendedFourByteValue: value) ifTrue:
+	(self is32BitSignedImmediate: value) ifTrue:
 		[machineCode
 			at: 0 put: 16r68;
 			at: 1 put: (value bitAnd: 16rFF);

@@ -268,7 +268,7 @@ computeMaximumSize
 		[PushCq]		-> [^(self isQuick: (operands at: 0))
 								ifTrue: [2]
 								ifFalse:
-									[(self isSignExtendedFourByteValue: (operands at: 0))
+									[(self is32BitSignedImmediate: (operands at: 0))
 										ifTrue: [5]
 										ifFalse: [self computeSizeOfPushCw]]].
 		[PushCw]		-> [^self computeSizeOfPushCw].
