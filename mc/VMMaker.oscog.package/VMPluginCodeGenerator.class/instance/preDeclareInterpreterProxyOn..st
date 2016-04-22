@@ -12,7 +12,7 @@ preDeclareInterpreterProxyOn: aStream
 	Transcript flush"
 	| pluginFuncs interpreterClass objectMemoryClass |
 	self notePluginFunctionsUsedByMacros.
-	self preDeclareMacrosForFastClassChekingOn: aStream.
+	self preDeclareMacrosForFastClassCheckingOn: aStream.
 	(pluginFuncs := self pluginFunctionsToClone) isEmpty ifTrue:
 		[^super preDeclareInterpreterProxyOn: aStream].
 	
