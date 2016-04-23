@@ -12,7 +12,7 @@ genJumpIf: boolean to: targetBytecodePC
 	<var: #ok type: #'AbstractInstruction *'>
 	<var: #retry type: #'AbstractInstruction *'>
 	<var: #countTripped type: #'AbstractInstruction *'>
-	<var: #nextDescriptor type: #'AbstractInstruction *'>
+	<var: #nextDescriptor type: #'BytecodeDescriptor *'>
 
 	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
 	

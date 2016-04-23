@@ -1,5 +1,6 @@
 stack bytecodes
 extStoreRemoteTempOrInstVarLongBytecode
+	<inline: true>
 	| slotIndex tempIndex object |
 	slotIndex := self fetchByte.
 	tempIndex := self fetchByte.

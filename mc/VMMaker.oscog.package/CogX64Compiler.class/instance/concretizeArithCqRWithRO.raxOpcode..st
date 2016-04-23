@@ -13,7 +13,7 @@ concretizeArithCqRWithRO: regOpcode raxOpcode: raxOpcode
 			at: 2 put: (self mod: ModReg RM: reg RO: regOpcode);
 			at: 3 put: (value bitAnd: 16rFF).
 		 ^machineCodeSize := 4].
-	(self isSignExtendedFourByteValue: value) ifTrue:
+	(self is32BitSignedImmediate: value) ifTrue:
 		[reg = RAX ifTrue:
 			[machineCode
 				at: 1 put: raxOpcode;

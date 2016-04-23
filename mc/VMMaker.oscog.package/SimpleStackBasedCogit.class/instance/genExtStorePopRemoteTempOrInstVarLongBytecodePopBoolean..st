@@ -1,5 +1,5 @@
 bytecode generators
-genExtStorePopRemoteTempOrInstVarLongBytecode: popBoolean
+genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: popBoolean
 	| index |
 	extB := 0. "simple cogit don't use the extra flag"
 	(byte2 noMask: 1 << 7)

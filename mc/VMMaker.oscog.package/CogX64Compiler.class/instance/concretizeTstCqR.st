@@ -14,7 +14,7 @@ concretizeTstCqR
 			at: 3 put: (value bitAnd: 16rFF).
 		 ^machineCodeSize := 4].
 	
-	(self isSignExtendedFourByteValue: value) ifTrue:
+	(self is32BitSignedImmediate: value) ifTrue:
 		[reg = RAX ifTrue:
 			[machineCode
 				at: 1 put: 16rA9;

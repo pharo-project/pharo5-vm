@@ -1,7 +1,8 @@
 C translation
-generateInterpreterProxyFunctionDeference: aNode on: aStream indent: anInteger
+generateInterpreterProxyFunctionDereference: aNode on: aStream indent: anInteger
 	| pluginsToClone |
-	(pluginsToClone := self pluginFunctionsToClone) isEmpty ifTrue:
+	pluginsToClone := self pluginFunctionsToClone copyWithoutAll: self selectorsThatAreGeneratedAsMacros.
+	pluginsToClone isEmpty ifTrue:
 		[^self].
 	aStream cr; nextPutAll: '#if !defined(SQUEAK_BUILTIN_PLUGIN)'; cr.
 	pluginsToClone do:

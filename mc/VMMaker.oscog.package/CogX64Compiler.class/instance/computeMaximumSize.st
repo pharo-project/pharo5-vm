@@ -265,10 +265,13 @@ computeMaximumSize
 										ifFalse: [0])].
 		[PopR]			-> [^(operands at: 0) < 8 ifTrue: [1] ifFalse: [2]].
 		[PushR]			-> [^(operands at: 0) < 8 ifTrue: [1] ifFalse: [2]].
-		[PushCq]		-> [^(self isQuick: (operands at: 0)) ifTrue: [2] ifFalse: [5]].
-		[PushCw]		-> [^(self inCurrentCompilation: (operands at: 0))
-								ifTrue: [9]
-								ifFalse: [self pushCwByteSize]].
+		[PushCq]		-> [^(self isQuick: (operands at: 0))
+								ifTrue: [2]
+								ifFalse:
+									[(self is32BitSignedImmediate: (operands at: 0))
+										ifTrue: [5]
+										ifFalse: [self computeSizeOfPushCw]]].
+		[PushCw]		-> [^self computeSizeOfPushCw].
 		[PrefetchAw]	-> [^(self isAddressRelativeToVarBase: (operands at: 0)) ifTrue: [7] ifFalse: [0]].
 		"Conversion"
 		[ConvertRRd]	-> [^5] }.

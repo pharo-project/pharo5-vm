@@ -1,5 +1,5 @@
 bytecode generators
-genExtStorePopRemoteTempOrInstVarLongBytecode: boolean
+genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: boolean
 	| index maybeContext needsStoreCheck |
 	needsStoreCheck := self sistaNeedsStoreCheck.
 	maybeContext := self extBSpecifiesMaybeContext.

@@ -1,3 +1,0 @@
-bytecode generators
-genExtStorePopRemoteTempOrInstVarLongBytecode
-	^ self genExtStorePopRemoteTempOrInstVarLongBytecode: true

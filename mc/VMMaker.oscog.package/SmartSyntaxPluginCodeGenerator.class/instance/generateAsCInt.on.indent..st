@@ -1,6 +1,3 @@
 translating builtins
 generateAsCInt: aNode on: aStream indent: anInteger
-
-	aStream nextPut: $(.
-	self emitCExpression: aNode receiver on: aStream.
-	aStream nextPutAll: ' >> 1)'.
+	self genCallOf: #integerValueOf: with: aNode receiver on: aStream
