@@ -12,6 +12,8 @@ returnTypeForSend: sendNode in: aTMethod
 		ifAbsent:
 			[sel
 				caseOf: {
+				[#integerValueOf:]		->	[#sqInt].
+				[#isIntegerObject:]		->	[#int].
 				[#negated]				->	[self promoteArithmeticTypes: (self typeFor: sendNode receiver in: aTMethod) and: #int].
 				[#+]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#-]						->	[self typeForArithmetic: sendNode in: aTMethod].
@@ -19,10 +21,10 @@ returnTypeForSend: sendNode in: aTMethod
 				[#/]						->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#//]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#\\]					->	[self typeForArithmetic: sendNode in: aTMethod].
-				[#>>]					->	[self typeForArithmetic: sendNode in: aTMethod].
-				[#<<]					->	[self
+				[#>>]					->	[self
 												promoteArithmeticTypes: (self unsignedTypeForIntegralType: (self typeFor: sendNode receiver in: aTMethod))
 												and: (self typeFor: sendNode args first in: aTMethod)].
+				[#<<]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#rem:]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#quo:]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#addressOf:]			->	[(self typeFor: sendNode receiver in: aTMethod)
