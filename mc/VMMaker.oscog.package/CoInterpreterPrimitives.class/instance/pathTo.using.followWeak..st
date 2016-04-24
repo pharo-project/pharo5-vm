@@ -6,6 +6,7 @@ pathTo: goal using: stack followWeak: followWeak
 		PrimErrBadIndex if search overflows stack
 		PrimErrNotFound if goal cannot be found"
 	| current index next stackSize stackp freeStartAtStart |
+	<var: #index type: #sqInt> "Force the sign because typeInference does not seem to work"
 	(objectMemory isArray: stack) ifFalse:
 		[^PrimErrBadArgument].
 	self assert: objectMemory allObjectsUnmarked.

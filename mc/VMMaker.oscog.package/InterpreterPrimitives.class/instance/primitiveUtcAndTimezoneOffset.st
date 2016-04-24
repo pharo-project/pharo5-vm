@@ -17,4 +17,4 @@ primitiveUtcAndTimezoneOffset
 	objectMemory
 		storePointerUnchecked: 1 ofObject: resultArray withValue: (objectMemory integerObjectOf: self ioLocalSecondsOffset);
 		storePointer: 0 ofObject: resultArray withValue: (self positive64BitIntegerFor: self ioUTCMicroseconds).
-	self pop: argumentCount thenPush: resultArray
+	self pop: argumentCount + 1 thenPush: resultArray

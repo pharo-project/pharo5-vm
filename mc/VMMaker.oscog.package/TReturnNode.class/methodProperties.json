@@ -19,4 +19,5 @@
 		"printOn:level:" : "",
 		"removeAssertions" : "ikp 9/26/97 14:50",
 		"replaceNodesIn:" : "",
-		"setExpression:" : "" } }
+		"setExpression:" : "",
+		"typeOrNilFrom:in:" : "nice 4/6/2016 23:54" } }
