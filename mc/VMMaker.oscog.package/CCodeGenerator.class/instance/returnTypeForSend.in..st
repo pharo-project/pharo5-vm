@@ -21,10 +21,10 @@ returnTypeForSend: sendNode in: aTMethod
 				[#/]						->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#//]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#\\]					->	[self typeForArithmetic: sendNode in: aTMethod].
-				[#>>]					->	[self
+"				[#>>]					->	[self
 												promoteArithmeticTypes: (self unsignedTypeForIntegralType: (self typeFor: sendNode receiver in: aTMethod))
 												and: (self typeFor: sendNode args first in: aTMethod)].
-				[#<<]					->	[self typeForArithmetic: sendNode in: aTMethod].
+				[#<<]					->	[self typeForArithmetic: sendNode in: aTMethod]."
 				[#rem:]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#quo:]					->	[self typeForArithmetic: sendNode in: aTMethod].
 				[#addressOf:]			->	[(self typeFor: sendNode receiver in: aTMethod)
