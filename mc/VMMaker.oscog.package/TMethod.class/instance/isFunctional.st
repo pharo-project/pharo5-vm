@@ -18,4 +18,6 @@ isFunctional
 			[^false]].
 	parseTree statements last expression nodesDo:
 		[ :n | n isReturn ifTrue: [^false]].
-	^#(sqInt usqInt sqLong usqLong #'sqInt *' #'CogMethod *' #'char *') includes: returnType
+	^#(int #'unsigned int' #long #'unsigned long' #'long long' #'unsigned long long'
+		sqInt usqInt sqLong usqLong
+		#'int *' #'unsigned int *' #'sqInt *' #'usqInt *' #'sqLong *' #'usqLong *' #'CogMethod *' #'char *') includes: returnType
