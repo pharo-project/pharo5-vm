@@ -39,7 +39,9 @@
 
 #import "sqSqueakMainApplication+attributes.h"
 #import "sqSqueakMainApplication+vmAndImagePath.h"
+#if COGVM
 #include "sqSCCSVersion.h"
+#endif
 
 extern struct VirtualMachine* interpreterProxy;
 

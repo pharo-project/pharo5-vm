@@ -47,8 +47,12 @@ such third-party acknowledgments.
 #import "sqSqueakMainApp.h"
 #import <limits.h>
 #import "sqPlatformSpecific.h"
-#import "sqMacV2Memory.h"
+
+#if STACKVM || COGVM
 #import "sqSCCSVersion.h"
+#else
+#import "sqMacV2Memory.h"
+#endif
 
 #if !defined(NOEXECINFO)
 # include <execinfo.h>
