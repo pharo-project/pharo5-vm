@@ -15,4 +15,4 @@ primitiveMultiply
 			ifTrue: [self primitiveFail]
 			ifFalse:
 				[integerResult := integerRcvr * integerArg.
-				self pop: 2 thenPush: (self integerObjectOf: integerResult)]]
+				self pop: 2 thenPush: (objectMemory integerObjectOf: integerResult)]]

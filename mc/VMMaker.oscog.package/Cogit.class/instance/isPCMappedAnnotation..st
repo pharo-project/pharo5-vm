@@ -1,6 +1,5 @@
 method map
 isPCMappedAnnotation: annotation
+	"See Cogit class>>initializeAnnotationConstants"
 	<inline: true>
-	^annotation >= IsSendCall
-	  or: [annotation = HasBytecodePC
-	  or: [NewspeakVM and: [annotation = IsNSSendCall]]]
+	^annotation >= HasBytecodePC
