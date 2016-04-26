@@ -15,6 +15,6 @@ printReferencesTo: anOop
 						ifFalse: [i := self lengthOf: oop]].
 			[(i := i - 1) >= 0] whileTrue:
 				[anOop = (self fetchPointer: i ofObject: oop) ifTrue:
-					[self interpreter printHex: oop; print: ' @ '; printNum: i; space; printOopShort: oop; cr.
+					[coInterpreter printHex: oop; print: ' @ '; printNum: i; space; printOopShort: oop; cr.
 					 i := 0]]].
 		 oop := self accessibleObjectAfter: oop]
