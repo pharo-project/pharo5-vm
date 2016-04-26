@@ -1,3 +1,4 @@
 accessing
 numMethods
+	<api>
 	^methodCount
