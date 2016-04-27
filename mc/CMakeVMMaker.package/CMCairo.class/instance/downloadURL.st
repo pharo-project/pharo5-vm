@@ -1,3 +1,3 @@
 package properties
 downloadURL
-	^ 'http://cairographics.org/snapshots/cairo-1.15.2.tar.xz'
+	^ 'http://www.cairographics.org/releases/cairo-1.12.14.tar.xz'

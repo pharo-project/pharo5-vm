@@ -13,7 +13,7 @@ building everything but just library
 add_custom_command(OUTPUT "${libcairoInstalled}"
 	COMMAND ./configure --prefix=''${installPrefix}'' PKG_CONFIG="${pkgconfigPath}"
 		PKG_CONFIG_PATH="${installPrefix}/lib/pkgconfig" CFLAGS="-m32 -march=pentium4 -I${installPrefix}/include" LDFLAGS="-m32 -march=pentium4 -L${installPrefix}/lib"
-		--disable-silent-rules --disable-xlib --disable-dependency-tracking --enable-gl
+		--disable-silent-rules --disable-xlib --disable-dependency-tracking
 
 	COMMAND echo "#define _SSIZE_T_DEFINED 1" >> config.h
 	COMMAND make
