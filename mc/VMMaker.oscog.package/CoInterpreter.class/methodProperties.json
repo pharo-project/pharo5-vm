@@ -111,7 +111,7 @@
 		"dumpPrimTraceLog" : "eem 1/10/2014 11:20",
 		"dumpTraceLog" : "eem 1/10/2014 11:22",
 		"encodedNativePCOf:cogMethod:" : "eem 12/14/2015 12:42",
-		"ensureAllContextsWithMethodHaveBytecodePCs:" : "eem 4/25/2016 19:14",
+		"ensureAllContextsWithMethodHaveBytecodePCs:" : "eem 4/27/2016 08:11",
 		"ensureContextHasBytecodePC:" : "eem 4/12/2012 16:42",
 		"ensureContextIsExecutionSafeAfterAssignToStackPointer:" : "eem 4/12/2012 16:43",
 		"ensureMethodIsCogged:" : "eem 11/28/2012 11:46",
@@ -136,7 +136,7 @@
 		"findNewMethodInClassTag:" : "eem 2/12/2016 13:57",
 		"flushAtCache" : "eem 1/24/2016 11:46",
 		"flushBecommedClassesInMethodZone" : "eem 4/9/2015 10:21",
-		"flushExternalPrimitiveOf:" : "eem 12/12/2012 11:26",
+		"flushExternalPrimitiveOf:" : "eem 4/27/2016 07:49",
 		"flushMethodCache" : "eem 10/31/2013 11:07",
 		"followForwardedFieldsInCurrentMethod" : "eem 12/6/2013 17:16",
 		"followForwardedMethodsInMethodZone" : "eem 1/14/2014 15:33",
@@ -372,4 +372,5 @@
 		"varBaseAddress" : "eem 9/23/2015 17:38",
 		"voidVMStateForSnapshotFlushingExternalPrimitivesIf:" : "eem 12/11/2013 10:04",
 		"warning:" : "eem 10/12/2009 01:04",
-		"whereIs:" : "eem 3/19/2014 16:31" } }
+		"whereIs:" : "eem 3/19/2014 16:31",
+		"widowOrForceToBytecodePC:" : "eem 4/27/2016 08:10" } }

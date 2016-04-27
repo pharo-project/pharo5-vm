@@ -1,12 +1,17 @@
 plugin primitive support
 flushExternalPrimitiveOf: methodObj
-	"methodObj is a CompiledMethod containing an external primitive. Flush the function address and session ID of the CM"
-	| lit |
-	(objectMemory literalCountOf: methodObj) > 0 ifFalse:
-		[^nil]. "Something's broken"
-	lit := self literal: 0 ofMethod: methodObj.
-	((objectMemory isArray: lit) and:[(objectMemory lengthOf: lit) = 4]) ifFalse:
-		[^nil]. "Something's broken"
-	"ConstZero is a known SmallInt so no root check needed"
-	objectMemory storePointerUnchecked: 2 ofObject: lit withValue: ConstZero.
-	objectMemory storePointerUnchecked: 3 ofObject: lit withValue: ConstZero
+	"methodObj is a CompiledMethod. If it contains an external primitive,
+	 flush the function address and session ID of the CM.  Answer the prim
+	 index for the benefit of subclass overrides."
+	<inline: false>
+	| header primIdx lit |
+	header := objectMemory methodHeaderOf: methodObj.
+	primIdx := self primitiveIndexOfMethod: methodObj header: header.
+	(primIdx = PrimitiveExternalCallIndex
+	 and: [(objectMemory literalCountOfMethodHeader: header) > 0]) ifTrue: "If not, something's broken"
+		[lit := self literal: 0 ofMethod: methodObj.
+		((objectMemory isArray: lit) and: [(objectMemory numSlotsOf: lit) = 4]) ifTrue: "If not, something's broken"
+			[objectMemory
+				storePointerUnchecked: 2 ofObject: lit withValue: ConstZero;
+				storePointerUnchecked: 3 ofObject: lit withValue: ConstZero]].
+	^primIdx
