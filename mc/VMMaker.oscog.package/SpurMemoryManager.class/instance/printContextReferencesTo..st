@@ -8,5 +8,7 @@ printContextReferencesTo: anOop
 			[i := CtxtTempFrameStart + (coInterpreter fetchStackPointerOf: obj).
 			 [(i := i - 1) >= 0] whileTrue:
 				[anOop = (self fetchPointer: i ofObject: obj) ifTrue:
-					[coInterpreter printHex: obj; print: ' @ '; printNum: i; space; printOopShort: obj; cr.
+					[coInterpreter
+						printHex: obj; print: ' @ '; printNum: i; space; printOopShort: obj;
+						print: ' pc '; printHex: (self fetchPointer: InstructionPointerIndex ofObject: obj); cr.
 					 i := 0]]]]
