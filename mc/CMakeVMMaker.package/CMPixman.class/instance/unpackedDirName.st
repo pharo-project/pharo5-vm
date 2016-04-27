@@ -1,3 +1,3 @@
 package properties
 unpackedDirName
-	^ 'pixman-0.34.0'
+	^ 'pixman-0.26.0'
