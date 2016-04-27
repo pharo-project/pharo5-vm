@@ -72,8 +72,8 @@ initializeAnnotationConstants
 										IsAnnotationExtension
 										IsObjectReference
 										IsAbsPCReference
-										HasBytecodePC
 										IsRelativeCall
+										HasBytecodePC
 										IsNSSendCall
 										IsSendCall
 										IsSuperSend

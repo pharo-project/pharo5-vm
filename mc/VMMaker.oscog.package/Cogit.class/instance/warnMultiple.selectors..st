@@ -1,6 +1,7 @@
 debug printing
 warnMultiple: cogMethod selectors: aSelectorOop
 	<inline: true>
+	self cCode: 'extern void *firstIndexableField(sqInt)'.
 	self cCode:
 			[self fp: #stderr
 				r: 'Warning, attempt to use method with selector %.*s and selector %.*s\n'

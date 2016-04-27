@@ -13,7 +13,9 @@ printMethodHeader: cogMethod on: aStream
 	cogMethod cmType = CMBlock ifTrue:
 		[aStream crtab; nextPutAll: 'homemth: '.
 		cogMethod cmHomeMethod asUnsignedInteger printOn: aStream base: 16.
-		aStream crtab; nextPutAll: 'startpc: '; print: cogMethod startpc].
+		aStream
+			nextPutAll: ' (offset '; print: cogMethod homeOffset; nextPut: $);
+			crtab; nextPutAll: 'startpc: '; print: cogMethod startpc].
 	aStream
 		crtab; nextPutAll: 'nArgs: ';	print: cogMethod cmNumArgs;
 		tab;    nextPutAll: 'type: ';	print: cogMethod cmType.

@@ -8,7 +8,7 @@ superclassSend
 	<sharedCodeInCase: #singleExtendedSuperBytecode>
 	| superclass |
 	superclass := self superclassOf: (self methodClassOf: method).
-	objectMemory ensureBehaviorHash: superclass.
+	"classTagForClass: uses ensureBehaviorHash:"
 	lkupClassTag := objectMemory classTagForClass: superclass.
 	"To maintain the invariant that all receivers are unforwarded we need an explicit
 	 read barrier in the super send cases.  Even though we always follow receivers
