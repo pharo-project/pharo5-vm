@@ -2,7 +2,7 @@ inlining
 tryToInlineMethodsIn: aCodeGen
 	"Expand any (complete) inline methods called by this method. Set the complete bit when all inlining has been done. Return true if something was inlined."
 
-	| stmtLists didSomething newStatements sendsToInline |
+	| stmtLists didSomething newStatements sendsToInline returningNodes |
 	self definedAsMacro ifTrue:
 		[complete := true.
 		 ^false].
@@ -32,18 +32,36 @@ tryToInlineMethodsIn: aCodeGen
 		[writtenToGlobalVarsCache := nil.
 		^didSomething].
 
+	returningNodes := Set new.
+	parseTree nodesDo:
+		[:node|
+		node isReturn ifTrue:
+			[returningNodes add: node expression.
+			 node expression isConditionalSend ifTrue:
+				[returningNodes addAll: (node expression args collect: [:stmtList| stmtList statements last])]]].
 	stmtLists := self statementsListsForInliningIn: aCodeGen.
 	stmtLists do:
 		[:stmtList|
-		newStatements := OrderedCollection new: 100.
+		newStatements := OrderedCollection new: stmtList statements size.
 		stmtList statements do:
 			[:stmt|
-			(self inlineCodeOrNilForStatement: stmt in: aCodeGen)
+			(self inlineCodeOrNilForStatement: stmt returningNodes: returningNodes in: aCodeGen)
 				ifNil: [newStatements addLast: stmt]
 				ifNotNil: [:inlinedStmts|
 					didSomething := true.
 					newStatements addAllLast: inlinedStmts]].
 		stmtList setStatements: newStatements asArray].
+
+	"This is a hack; forgive me. The inlining abiove tends to keep return statements in statement lists.
+	 In the case of returning ifs we don't want the returns in case the returning if is generated as an expression."
+	returningNodes do:
+		[:returningNode|
+		 (returningNode isConditionalSend
+		  and: [returningNode args anySatisfy: [:alternativeNode| alternativeNode endsWithReturn]]) ifTrue:
+			[returningNode args withIndexDo:
+				[:alternativeNode :index|
+				 alternativeNode endsWithReturn ifTrue:
+					[returningNode args at: index put: alternativeNode copyWithoutReturn]]]].
 
 	didSomething ifTrue:
 		[writtenToGlobalVarsCache := nil.

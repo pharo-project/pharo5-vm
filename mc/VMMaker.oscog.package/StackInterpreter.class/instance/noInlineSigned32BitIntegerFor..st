@@ -17,9 +17,9 @@ noInlineSigned32BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: largeClass
 							format: (objectMemory byteFormatForNumBytes: 4)
 							numSlots: 1.
-	self cppIf: SPURVM
+	SPURVM
 		ifTrue:
-			["Memory is 8 byte aligned in Spur, make sure that oversized bytes are set to zero"
+			["Memory is 8 byte aligned in Spur, make sure that oversized bytes are set to zero" "eem 4/28/2016 questionable; they should never be read"
 			objectMemory storeLong32: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped32IfBigEndian: magnitude).
 			objectMemory storeLong32: 1 ofObject: newLargeInteger withValue: 0]
 		ifFalse: 
