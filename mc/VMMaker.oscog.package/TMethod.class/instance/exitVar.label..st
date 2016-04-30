@@ -59,8 +59,6 @@ exitVar: exitVar label: exitLabel
 		 elisionMap := Dictionary new.
 		 elisions do: [:returnNode| elisionMap at: returnNode put: returnNode expression].
 		 parseTree replaceNodesIn: elisionMap].
-	"Afterwards all returns should be gone."
-	self deny: parseTree hasExplicitReturn.
 	"Now flatten any new statement lists..."
 	parseTree nodesDo:
 		[:node| | list |
