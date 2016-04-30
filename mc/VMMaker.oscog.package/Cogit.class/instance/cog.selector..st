@@ -8,16 +8,8 @@ cog: aMethodObj selector: aSelectorOop
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	self cCode: [] inSmalltalk: "for debugging, allow excluding methods based on selector or methodClass"
-		[self class initializationOptions
-			at: #DoNotJIT
-			ifPresent:
-				[:excluded| | methodClass selector |
-				methodClass := coInterpreter nameOfClass: (coInterpreter methodClassOf: aMethodObj).
-				selector := coInterpreter stringOf: aSelectorOop.
-				(excluded anySatisfy: [:exclude| selector = exclude or: [methodClass = exclude]]) ifTrue:
-					[coInterpreter transcript nextPutAll: 'EXCLUDING '; nextPutAll: methodClass; nextPutAll: '>>#'; nextPutAll: selector; cr; flush.
-					 ^nil]]].
+	(self exclude: aMethodObj selector: aSelectorOop) ifTrue:
+		[^nil].
 	"In Newspeak we support anonymous accessors and hence tolerate the same
 	 method being cogged multiple times.  But only if the method class association is nil."
 	NewspeakVM
@@ -28,7 +20,8 @@ cog: aMethodObj selector: aSelectorOop
 				 cogMethod selector = aSelectorOop ifTrue:
 					[^cogMethod].
 				 (coInterpreter methodClassAssociationOf: aMethodObj) ~= objectMemory nilObject ifTrue:
-					[self warnMultiple: cogMethod selectors: aSelectorOop.
+					[self cCode: 'extern void *firstIndexableField(sqInt)'. "Slang, au natural"
+					 self warnMultiple: cogMethod selectors: aSelectorOop.
 					^nil]]]
 		ifFalse: [self deny: (coInterpreter methodHasCogMethod: aMethodObj)].
 	"coInterpreter stringOf: aSelectorOop"

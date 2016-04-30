@@ -17,7 +17,7 @@ nilOrBooleanConditionFor: nodeOrNil
 		[(vmClass notNil
 		 and: [nodeOrNil args first isConstant
 		 and: [nodeOrNil args first value isSymbol
-		 and: [(VMBasicConstants defineAtCompileTime: nodeOrNil args first value) not
+		 and: [((vmClass ifNil: [VMBasicConstants]) defineAtCompileTime: nodeOrNil args first value) not
 		 and: [(vmClass bindingOf: nodeOrNil args first value) notNil]]]]) ifTrue:
 			[self logger
 					nextPutAll: 'Warning: cppIf: reference to ';

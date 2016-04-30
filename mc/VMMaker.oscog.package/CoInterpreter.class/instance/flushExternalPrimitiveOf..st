@@ -4,8 +4,10 @@ flushExternalPrimitiveOf: methodObj
 	 Flush the function address and session ID of the CM.  Override
 	 to also flush the machine code call if one exists."
 	<api>
-	super flushExternalPrimitiveOf: methodObj.
-	(self methodHasCogMethod: methodObj) ifTrue:
+	| primIdx |
+	primIdx := super flushExternalPrimitiveOf: methodObj.
+	(primIdx = PrimitiveExternalCallIndex
+	 and: [self methodHasCogMethod: methodObj]) ifTrue:
 		[cogit
 			rewritePrimInvocationIn: (self cogMethodOf: methodObj)
 			to: #primitiveExternalCall]

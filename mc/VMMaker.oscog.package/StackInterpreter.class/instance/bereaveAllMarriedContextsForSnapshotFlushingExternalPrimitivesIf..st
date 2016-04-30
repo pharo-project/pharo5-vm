@@ -9,22 +9,8 @@ bereaveAllMarriedContextsForSnapshotFlushingExternalPrimitivesIf: flushExtPrims
 		fmt := objectMemory formatOf: obj.
 		(fmt = objectMemory indexablePointersFormat
 		  and: [objectMemory isContextNonImm: obj]) ifTrue:
-			[(self isMarriedOrWidowedContext: obj)
-				ifTrue: "The stack pages have already been discarded.  Any remaining married contexts are actually widows."
-					[self markContextAsDead: obj]
-				ifFalse:
-					[self ensureContextHasBytecodePC: obj].
-			 "Fill slots beyond top of stack with nil"
-			 (self fetchStackPointerOf: obj) + CtxtTempFrameStart
-				to: (objectMemory numSlotsOf: obj) - 1
-				do: [:i |
-					objectMemory
-						storePointerUnchecked: i
-						ofObject: obj
-						withValue: objectMemory nilObject]].
+			[self makeContextSnapshotSafe: obj].
 		 "Clean out external functions from compiled methods"
 		 (flushExtPrims
-		  and: [fmt >= objectMemory firstCompiledMethodFormat]) ifTrue:
-			["Its primitiveExternalCall"
-			 (self primitiveIndexOf: obj) = PrimitiveExternalCallIndex ifTrue:
-				[self flushExternalPrimitiveOf: obj]]]
+		  and: [objectMemory isCompiledMethodFormat: fmt]) ifTrue:
+			[self flushExternalPrimitiveOf: obj]]

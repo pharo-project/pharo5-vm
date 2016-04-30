@@ -5,9 +5,10 @@ exitVar: exitVar label: exitLabel
 	 Answer if a goto was generated."
 	"Optimization: If exitVar is nil, the return value of the inlined method is not being used, so don't add the assignment statement."
 
-	| labelUsed map eliminateReturnSelfs |
+	| labelUsed map elisions eliminateReturnSelfs |
 	labelUsed := false.
 	map := Dictionary new.
+	elisions := Set new.
 	"Conceivably one might ^self from a struct class and mean it.  In most cases though
 	 ^self means `get me outta here, fast'.  So unless this method is from a VMStruct class,
 	 elide any ^self's"
@@ -16,31 +17,50 @@ exitVar: exitVar label: exitLabel
 	parseTree nodesDo:
 		[:node | | replacement |
 		node isReturn ifTrue:
-			[replacement := (node expression isVariable "Eliminate ^self's"
-							   and: [node expression name = 'self'
-							   and: [eliminateReturnSelfs]])
-								ifTrue: [nil]
-								ifFalse:
-									[exitVar
-										ifNil: [node expression]
-										ifNotNil: [TAssignmentNode new
-													setVariable: (TVariableNode new setName: exitVar)
-													expression: node expression]].
-			 node ~~ parseTree statements last ifTrue:
-				[replacement := replacement
-									ifNil: [TGoToNode new setLabel: exitLabel; yourself]
-									ifNotNil:
-										[TStmtListNode new
-											setArguments: #()
-											statements: {replacement.
-														  TGoToNode new setLabel: exitLabel; yourself};
-											yourself].
-				 labelUsed := true].
-			map
-				at: node
-				put: (replacement ifNil:
-						[TLabeledCommentNode new setComment: 'return ', node expression printString])]].
+			[self transformReturnSubExpression: node
+				toAssignmentOf: exitVar
+				andGoto: exitLabel
+				unless: eliminateReturnSelfs
+				into: [:rep :labelWasUsed|
+					replacement := rep.
+					labelWasUsed ifTrue: [labelUsed := true]].
+			"replaceNodesIn: is strictly top-down, so any replacement for ^expr ifTrue: [...^fu...] ifFalse: [...^bar...]
+			 will prevent replacement of either ^fu or ^bar. The corollary is that ^expr ifTrue: [foo] ifFalse: [^bar]
+			 must be transformed into expr ifTrue: [^foo] ifFalse: [^bar]"
+			(node expression isConditionalSend
+			 and: [node expression hasExplicitReturn])
+				ifTrue:
+					[elisions add: node.
+					 (node expression args reject: [:arg| arg endsWithReturn]) do:
+						[:nodeNeedingReturn|
+						 self transformReturnSubExpression: nodeNeedingReturn statements last
+							toAssignmentOf: exitVar
+							andGoto: exitLabel
+							unless: eliminateReturnSelfs
+							into: [:rep :labelWasUsed|
+								replacement := rep.
+								labelWasUsed ifTrue: [labelUsed := true]].
+						 map
+							at: nodeNeedingReturn statements last
+							put: replacement]]
+				ifFalse:
+					[map
+						at: node
+						put: (replacement ifNil:
+								[TLabeledCommentNode new setComment: 'return ', node expression printString])]]].
+	map isEmpty ifTrue:
+		[self deny: labelUsed.
+		 ^false].
+	"Now do a top-down replacement for all returns that should be mapped to assignments and gotos"
 	parseTree replaceNodesIn: map.
+	"Now it is safe to eliminate the returning ifs..."
+	elisions isEmpty ifFalse:
+		[| elisionMap |
+		 elisionMap := Dictionary new.
+		 elisions do: [:returnNode| elisionMap at: returnNode put: returnNode expression].
+		 parseTree replaceNodesIn: elisionMap].
+	"Afterwards all returns should be gone."
+	self deny: parseTree hasExplicitReturn.
 	"Now flatten any new statement lists..."
 	parseTree nodesDo:
 		[:node| | list |

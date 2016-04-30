@@ -1,7 +1,7 @@
 system control primitives
 primitiveFlushCacheByMethod
 	"The receiver is a compiledMethod.  Clear all entries in the method lookup cache that refer to this method, presumably because it has been redefined, overridden or removed."
-	| probe oldMethod primIdx |
+	| probe oldMethod |
 	oldMethod := self stackTop.
 	probe := 0.
 	1 to: MethodCacheEntries do:
@@ -9,8 +9,5 @@ primitiveFlushCacheByMethod
 		(methodCache at: probe + MethodCacheMethod) = oldMethod ifTrue:
 			[methodCache at: probe + MethodCacheSelector put: 0].
 		probe := probe + MethodCacheEntrySize].
-	primIdx := self primitiveIndexOf: oldMethod.
-	primIdx = PrimitiveExternalCallIndex ifTrue:
-		["It's primitiveExternalCall"
-		self flushExternalPrimitiveOf: oldMethod].
+	self flushExternalPrimitiveOf: oldMethod.
 	self flushAtCache

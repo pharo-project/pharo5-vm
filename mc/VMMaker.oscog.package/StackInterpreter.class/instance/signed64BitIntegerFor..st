@@ -33,7 +33,7 @@ signed64BitIntegerFor: integerValue
 							eeInstantiateSmallClassIndex: largeClass
 							format: (objectMemory byteFormatForNumBytes: sz)
 							numSlots: sz + 3 // objectMemory bytesPerOop.
-	self cppIf: SPURVM
+	SPURVM
 		ifTrue:
 			["Memory is eight byte aligned in SPUR, so we are sure to have room for 64bits word whatever allocated sz"
 			objectMemory storeLong64: 0 ofObject: newLargeInteger withValue: (objectMemory byteSwapped64IfBigEndian: magnitude)]

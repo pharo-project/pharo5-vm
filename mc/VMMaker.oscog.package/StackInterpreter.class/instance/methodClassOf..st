@@ -5,11 +5,11 @@ methodClassOf: methodPointer
 	 because the class index and ValueIndex of the association almost certainly share a cache line."
 	| literal |
 	literal := self followLiteral: (objectMemory literalCountOf: methodPointer) - 1 ofMethod: methodPointer.
-	^NewspeakVM
+	NewspeakVM
 		ifTrue:
-			[literal = objectMemory nilObject
-				ifTrue: [literal]
-				ifFalse: [objectMemory followField: ValueIndex ofObject: literal]]
+			[literal ~= objectMemory nilObject ifTrue:
+				[literal := objectMemory followField: ValueIndex ofObject: literal]]
 		ifFalse:
 			[self assert: ((objectMemory isPointers: literal) and: [(objectMemory numSlotsOf: literal) > ValueIndex]).
-			 objectMemory followField: ValueIndex ofObject: literal]
+			 literal := objectMemory followField: ValueIndex ofObject: literal].
+	^literal
