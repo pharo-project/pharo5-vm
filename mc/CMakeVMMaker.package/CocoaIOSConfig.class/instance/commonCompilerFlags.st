@@ -5,4 +5,5 @@ commonCompilerFlags
 	'-arch i386'. 
 	'-mmacosx-version-min=10.5'. 
 	'-DHAVE_UUID_GENERATE'. 
-	'-DDEFAULT_IMAGE_NAME="', self executableName, '.image"'}
+	'-DDEFAULT_IMAGE_NAME="', self executableName, '.image"'.
+	'-DmacintoshSqueak'}

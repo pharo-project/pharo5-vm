@@ -2,6 +2,7 @@ source files
 preferredIncludes
 	^ #(
 	'${buildDir}/'
-	'${platformsDir}/iOS/vm/iPhone' "config.h is here. Why???"
+	'${platformsDir}/Cross'	
+	'${platformsDir}/iOS/vm/OSX'
+	'${platformsDir}/iOS/vm/Common'
 	)
-	

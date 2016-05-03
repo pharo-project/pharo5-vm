@@ -48,6 +48,6 @@ platformSources
 		'OSX/sqSqueakOSXClipboardAPI.m'
 		'OSX/sqSqueakOSXApplication+clipboard.m'
 		'OSX/sqSqueakOSXDropAPI.m'
-		'iPhone/sqMacV2Memory.c'
-		'iPhone/osExports.c'
+		'Common/sqMacV2Memory.c'
+		'OSX/osExports.c'
 	  	'Common/Classes/sqSqueakScreenAPI.m')
