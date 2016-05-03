@@ -71,7 +71,7 @@ void MyProviderReleaseData (
         // Initialization code here.
 		squeakUIFlushPrimaryDeferNMilliseconds = 0.0f;
 		forceUpdateFlush = YES;
-		displayIsDirty = NO;
+		displayIsDirty = YES;
 	}
     return self;
 }
@@ -156,8 +156,6 @@ void MyProviderReleaseData (
 		return 0;
 	}
 	
-	
-		
 	CGRect clip = CGRectMake((CGFloat)affectedL,(CGFloat)(height-affectedB), (CGFloat)(affectedR-affectedL), (CGFloat)(affectedB-affectedT));
 	[gDelegateApp.mainView drawImageUsingClip: clip];
 

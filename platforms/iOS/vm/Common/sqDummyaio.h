@@ -1,8 +1,11 @@
-//
-//  sqSqueakMainApplication+imageReadWrite.m
-//
-//  Created by John M McIntosh on 5/22/08.
-//
+/*
+ *  sqDummyaio.h
+ *  SqueakNoOGLIPhone
+ *
+ *  Created by John M McIntosh on 5/29/08.
+ *
+ */
+
 /*
  Some of this code was funded via a grant from the European Smalltalk User Group (ESUG)
  Copyright (c) 2008 Corporate Smalltalk Consulting Ltd. All rights reserved.
@@ -34,52 +37,8 @@
  Alternately, this acknowledgment may appear in the software itself, in the same form and location as other 
  such third-party acknowledgments.
  */
-//
 
-#import "sqSqueakMainApplication+imageReadWrite.h"
 
-#ifdef SPURVM
-#  include <sys/stat.h>
-#else
-#import "sqMacV2Memory.h"
-#endif
-
-@implementation sqSqueakMainApplication (imageReadWrite) 
-- (void) findImageViaBundleOrPreferences {
-}
-
-- (BOOL) readImageIntoMemory {
-	NSAutoreleasePool * pool = [NSAutoreleasePool new];
-	const char * characterPathForImage = (const char *) [[NSFileManager defaultManager] fileSystemRepresentationWithPath: [self.imageNameURL path]];
-	sqImageFile f;
-	if (!characterPathForImage)  {
-		[pool drain];
-		return NO;
-	}
-	f = sqImageFileOpen(characterPathForImage, "rb");
-	if (f == 0) {
-		fprintf(stderr, "Failed to open image named %s", characterPathForImage);
-		exit(-1);
-	}
-
-#ifdef SPURVM
-    extern sqInt highBit(usqInt);
-    usqInt memory = 0;
-    {
-        struct stat sb;
-        stat(characterPathForImage, &sb);
-
-        off_t size = (long)sb.st_size;
-        size = 1 << highBit(size-1);
-        size = size + size / 4;
-        memory =  size + size / 4;
-    }
-#else
-    usqInt memory = sqGetAvailableMemory();
-#endif
-	readImageFromFileHeapSizeStartingAt(f, memory, (squeakFileOffsetType) 0);  //This is a VM Callback
-	sqImageFileClose(f);
-        [pool drain];
-	return YES;
-}
-@end
+int aioPoll(int microSeconds);
+void aioInit(void);
+int aioSleep(int microSeconds);

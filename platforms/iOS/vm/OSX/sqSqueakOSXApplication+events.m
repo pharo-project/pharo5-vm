@@ -276,7 +276,7 @@ static int buttonState=0;
 	int buttonAndModifiers = [self mapMouseAndModifierStateToSqueakBits: theEvent];
 	evt.buttons = buttonAndModifiers & 0x07;
 	evt.modifiers = buttonAndModifiers >> 3;
-#if COGVM | STACKVM
+#if COGVM || STACKVM
 	evt.nrClicks = 0;
 #else
 	evt.reserved1 = 0;

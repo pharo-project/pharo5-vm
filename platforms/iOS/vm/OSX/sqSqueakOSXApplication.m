@@ -43,7 +43,7 @@
 #import "sqSqueakOSXSoundCoreAudio.h"
 #import "sqSqueakSoundCoreAudioAPI.h"
 
-usqInt gMaxHeapSize=(512*1024*1024)+(4*1024*1024); //Last part are "eden bytes" needed in the new startup
+usqInt gMaxHeapSize=(512*1024*1024); //+(4*1024*1024); //Last part are "eden bytes" needed in the new startup
 
 #if defined(__GNUC__) && ( defined(i386) || defined(__i386) || defined(__i386__)  \
 || defined(i486) || defined(__i486) || defined (__i486__) \

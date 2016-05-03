@@ -141,7 +141,8 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 
 //This is fired via a cross thread message send from logic that checks to see if the window exists in the squeak thread.
 
-{		
+{
+		
 	// Set up content view
 	// The application frame includes the status area if needbe. 
 
@@ -153,7 +154,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 	BOOL useScrollingView = [self.info useScrollingView];
 	if (useScrollingView) {
 		scrollView = [[UIScrollView alloc ] initWithFrame: mainScreenSize];
-        
+
 		//Now setup the true view size as the width/height * 2.0  so we can have a larger squeak window and zoom in/out. 
 		CGRect fakeScreenSize = mainScreenSize;
 		fakeScreenSize.origin.x = 0;
@@ -182,6 +183,7 @@ SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 		self.scrollView.autoresizingMask=(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);	
 
 		self.viewController.view = self.scrollView;		
+		
 		
 		[self zoomToOrientation: UIInterfaceOrientationPortrait animated: NO];
 		[self.scrollView addSubview: self.mainView];

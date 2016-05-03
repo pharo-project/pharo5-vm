@@ -5,7 +5,7 @@
 *
 *   AUTHOR:  
 *   ADDRESS: 
-*   EMAIL:   
+*   EMAIL:
 *   RCSID:   $Id: sq.h 1283 2005-12-31 00:51:12Z rowledge $
 *
 */

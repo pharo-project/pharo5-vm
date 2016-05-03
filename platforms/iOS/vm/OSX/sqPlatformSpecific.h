@@ -52,6 +52,7 @@
 //
 
 #ifdef macintoshSqueak
+
 //#define SQUEAK_BUILTIN_PLUGIN
 #define ENABLE_URL_FETCH
 /* replace the image file manipulation macros with functions */
@@ -127,7 +128,7 @@ int plugInNotifyUser(char *msg);
 
 sqInt ioSetCursorARGB(sqInt cursorBitsIndex, sqInt extentX, sqInt extentY, sqInt offsetX, sqInt offsetY);
 
-#if COGVM || defined(HAVE_NATIVEBOOST) 
+#if COGVM
 extern void sqMakeMemoryExecutableFromTo(unsigned long, unsigned long);
 extern void sqMakeMemoryNotExecutableFromTo(unsigned long, unsigned long);
 
@@ -137,7 +138,7 @@ extern void reportMinimumUnusedHeadroom(void);
 #endif
 
 /* Thread support for thread-safe signalSemaphoreWithIndex and/or the COGMTVM */
-#if STACKVM
+#if STACKVM || COGVM
 # define sqLowLevelYield() sched_yield()
 # include <pthread.h>
 # define sqOSThread pthread_t
@@ -174,8 +175,9 @@ extern const pthread_key_t tltiIndex;
 #ifdef __GNUC__
 # undef EXPORT
 # define EXPORT(returnType) __attribute__((visibility("default"))) returnType
-//# define VM_LABEL(foo) asmXXX("\n.globl L" #foo "\nL" #foo ":")
-# define VM_LABEL(foo)  
+# if !defined(VM_LABEL)
+#	define VM_LABEL(foo) asm("\n.globl L" #foo "\nL" #foo ":")
+# endif
 #endif
 
 #if !defined(VM_LABEL) || COGVM
