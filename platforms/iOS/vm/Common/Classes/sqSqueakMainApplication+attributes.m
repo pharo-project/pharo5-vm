@@ -39,7 +39,7 @@
 
 #import "sqSqueakMainApplication+attributes.h"
 #import "sqSqueakMainApplication+vmAndImagePath.h"
-#if COGVM
+#if COGVM || STACKVM
 #include "sqSCCSVersion.h"
 #endif
 
