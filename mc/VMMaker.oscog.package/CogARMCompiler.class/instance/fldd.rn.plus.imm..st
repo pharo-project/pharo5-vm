@@ -1,7 +1,8 @@
 ARM convenience instructions
 fldd: destReg rn: srcReg plus: u imm: immediate8bitValue
 "FLDD or VLDR instruction to move a value from address in an ARM srcReg +/- offset<<2 to an fpu double destReg
-ARM_ARM v5 DDI 01001.pdf pp. C4-36"
+FLDD ARM_ARM v5 DDI 01001.pdf pp. C4-36
+VLDR.64 ARM_ARM v7 DDI10406 pp. A8-622-3"
 	<inline: true>
 	"Note that
 		offset is <<2 to make byte address 
