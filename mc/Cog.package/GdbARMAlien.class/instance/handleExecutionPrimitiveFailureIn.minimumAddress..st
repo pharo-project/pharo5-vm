@@ -4,11 +4,11 @@ handleExecutionPrimitiveFailureIn: memoryArray "<Bitmap|ByteArray>" minimumAddre
 	 memory read into register instructions into ProcessorSimulationTrap signals."
 	"self printRegistersOn: Transcript"
 	| pcOnEntry pc instr |
-	pcOnEntry := self pc.
+	pc := pcOnEntry := self pc.
 	self endCondition = InstructionPrefetchError ifTrue:
-		[self pc: self priorPc].
+		[pc := self pc: self priorPc].
 
-	((pc := self pc) between: minimumAddress and: memoryArray byteSize - 1) ifTrue:
+	(pc between: minimumAddress and: memoryArray byteSize - 1) ifTrue:
 		[instr := memoryArray unsignedLongAt:  pc + 1 bigEndian: false.
 
 		 (self endCondition = InstructionPrefetchError) ifTrue:
@@ -16,6 +16,9 @@ handleExecutionPrimitiveFailureIn: memoryArray "<Bitmap|ByteArray>" minimumAddre
 
 		 (self instructionIsAnyLoadStore: instr) ifTrue:
 			[^self handleFailingLoadStore: instr at: pc].
+
+		 (self instructionIsAnyFPArithmetic: instr) ifTrue:
+			[^self handleFailingFPArithmetic: instr at: pc].
 
 		 ^self handleExecutionPrimitiveFailureAt: pc in: memoryArray].
 
