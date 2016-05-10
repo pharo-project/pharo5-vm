@@ -10,7 +10,9 @@ reportLastNInstructions
 						ifFalse: [processor
 									decorateDisassembly: inst
 									for: self
-									fromAddress: (Integer readFrom: inst readStream base: 16)]); cr].
+									fromAddress: ((inst at: 3) = $r
+													ifTrue: [Integer readFrom: inst readStream]
+													ifFalse: [Integer readFrom: inst readStream base: 16])]); cr].
 	lastNInstructions withIndexDo:
 		[:thing :idx| | next pc label |
 		skipNext

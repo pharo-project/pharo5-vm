@@ -17,13 +17,13 @@ initializeAbstractRegisters
 	ClassReg			:= R8.
 	ReceiverResultReg	:= R7.
 	SendNumArgsReg	:= R6.
-	SPReg				:= SP. "R13"
+	SPReg				:= SP. "a.k.a. R13" self assert: SP = 13.
 	FPReg				:= R11.
 	Arg0Reg			:= R4.
 	Arg1Reg			:= R5.
-	VarBaseReg		:= ConcreteVarBaseReg. "Must be callee saved"
-	RISCTempReg		:= ConcreteIPReg. "a.k.a. IP"
-	Extra0Reg			:= R12.
+	Extra0Reg			:= R9.
+	VarBaseReg		:= R10.	"Must be callee saved" self assert: ConcreteVarBaseReg = R10.
+	RISCTempReg		:= R12.	"a.k.a. IP" self assert: ConcreteIPReg = R12.
 	LinkReg				:= LR. "R14"
 	PCReg				:= PC. "R15"	
 
