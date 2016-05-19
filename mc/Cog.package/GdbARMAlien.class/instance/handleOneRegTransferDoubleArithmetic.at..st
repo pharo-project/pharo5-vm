@@ -19,4 +19,5 @@ handleOneRegTransferDoubleArithmetic: instr at: pc
 			[self shouldBeImplemented].
 		[45"FCMPD"]	->
 			[self shouldBeImplemented]. }
-		otherwise: [self reportPrimitiveFailure]
+		otherwise: [self reportPrimitiveFailure].
+	self pc: pc + 4

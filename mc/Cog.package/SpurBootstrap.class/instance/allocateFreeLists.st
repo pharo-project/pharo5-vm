@@ -10,6 +10,6 @@ allocateFreeLists
 	0 to: newHeap numFreeLists - 1 do:
 		[:i|
 		newHeap
-			storePointerUnchecked: freeListsOop
+			storePointerUnchecked: i
 			ofObject: freeListsOop
 			withValue: 0]

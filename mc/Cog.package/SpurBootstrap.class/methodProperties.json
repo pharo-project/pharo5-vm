@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"bootstrapCuisImage:" : "eem 5/18/2016 09:45",
 		"bootstrapImage:type:" : "eem 7/31/2014 13:12",
 		"bootstrapOldSqueakImage:" : "eem 8/8/2014 17:24",
 		"bootstrapPharoImage:" : "EstebanLorenzano 10/14/2014 15:08",
@@ -16,10 +17,10 @@
 		"allPrototypeClassNamesDo:" : "eem 9/6/2013 21:32",
 		"allPrototypeMethodSymbols" : "EstebanLorenzano 12/7/2015 12:43",
 		"allocateClassTable" : "EstebanLorenzano 10/7/2014 15:21",
-		"allocateFreeLists" : "eem 10/8/2013 12:22",
+		"allocateFreeLists" : "eem 5/18/2016 16:34",
 		"bootstrapImage" : "eem 8/20/2014 03:09",
 		"bootstrapImage:" : "eem 7/8/2014 12:33",
-		"bootstrapImage:type:" : "eem 8/8/2014 17:25",
+		"bootstrapImage:type:" : "eem 5/18/2016 09:28",
 		"bootstrapImageUsingFileDirectory:" : "eem 10/16/2014 15:31",
 		"bootstrapImageUsingFileReference:" : "EstebanLorenzano 7/16/2014 18:49",
 		"buildClassMap" : "eem 9/5/2013 12:53",
