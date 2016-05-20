@@ -7,7 +7,6 @@
 	"instance" : {
 		"assimilateNewSegment:" : "eem 11/19/2013 12:02",
 		"ceScheduleScavenge" : "eem 3/12/2015 16:44",
-		"checkForLeaks" : "eem 11/17/2013 15:42",
 		"checkMemoryMap" : "eem 11/25/2013 14:34",
 		"clearLeakMapAndMapAccessibleObjects" : "eem 10/1/2013 16:58",
 		"ensureNoForwardedLiteralsIn:" : "eem 7/10/2014 17:09",

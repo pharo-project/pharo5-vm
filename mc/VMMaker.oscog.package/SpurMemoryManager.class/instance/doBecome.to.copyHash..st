@@ -9,6 +9,6 @@ doBecome: obj1 to: obj2 copyHash: copyHashFlag
 	self forward: obj1 to: obj2.
 	copyHashFlag ifTrue: [self setHashBitsOf: obj2 to: (self rawHashBitsOf: obj1)].
 	((self isOldObject: obj1)
-	 and: [self isYoungObject: obj2]) ifTrue:
+	 and: [self isYoung: obj2]) ifTrue:
 		[becomeEffectsFlags := becomeEffectsFlags bitOr: OldBecameNewFlag].
-	self deny: (self isForwarded: obj2)
+	self deny: (self isOopForwarded: obj2)

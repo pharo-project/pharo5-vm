@@ -15,4 +15,7 @@ mapInterpreterOops
 		[tempOop := objectMemory remapObj: tempOop].
 	(tempOop2 ~= 0
 	 and: [objectMemory shouldRemapOop: tempOop2]) ifTrue:
-		[tempOop2 := objectMemory remapObj: tempOop2]
+		[tempOop2 := objectMemory remapObj: tempOop2].
+	(tempOop3 ~= 0
+	 and: [objectMemory shouldRemapOop: tempOop3]) ifTrue:
+		[tempOop3 := objectMemory remapObj: tempOop3]

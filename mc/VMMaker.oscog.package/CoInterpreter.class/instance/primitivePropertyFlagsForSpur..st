@@ -9,8 +9,8 @@ primitivePropertyFlagsForSpur: primIndex
 		[baseFlags := baseFlags bitOr: PrimCallCollectsProfileSamples].
 
 	self cCode: [] inSmalltalk: [#(primitiveExternalCall primitiveCalloutToFFI)]. "For senders..."
-		(primIndex == 117 "#primitiveExternalCall"
-	 or: [primIndex == 120 "#primitiveCalloutToFFI"]) ifTrue: "For callbacks"
+		(primIndex = PrimNumberExternalCall "#primitiveExternalCall"
+	 or: [primIndex = PrimNumberFFICall "#primitiveCalloutToFFI"]) ifTrue: "For callbacks"
 		[baseFlags := baseFlags bitOr: PrimCallMayCallBack.
 		 checkAllocFiller ifTrue:
 			[baseFlags := baseFlags bitOr: CheckAllocationFillerAfterPrimCall]].

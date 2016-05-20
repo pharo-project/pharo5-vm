@@ -13,4 +13,4 @@ innerBecomeObjectsIn: array1 to: array2 copyHash: copyHashFlag
 		obj1 ~= obj2 ifTrue:
 			[self doBecome: obj1 to: obj2 copyHash: copyHashFlag.
 			 self followField: i ofObject: array1.
-			 self assert: (self isForwarded: obj2) not]]
+			 self assert: (self isOopForwarded: obj2) not]]
