@@ -12,5 +12,8 @@ nilUnmarkedWeaklingSlots
 		[:weakling| | anyUnmarked |
 		anyUnmarked := self nilUnmarkedWeaklingSlotsIn: weakling.
 		anyUnmarked ifTrue:
-			[coInterpreter fireFinalization: weakling]].
+			["fireFinalization: could grow the mournQueue and if so,
+			  additional pages must be marked to avoid being GC'ed."
+			 self assert: marking.
+			 coInterpreter fireFinalization: weakling]].
 	self emptyObjStack: weaklingStack

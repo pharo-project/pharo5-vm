@@ -12,9 +12,9 @@ markAllUnscannedEphemerons
 		 self
 			markAndTrace: key;
 			markAndTrace: ephemeron.
-		 unscannedEphemerons top: unscannedEphemerons top - self wordSize.
+		 unscannedEphemerons top: unscannedEphemerons top - self bytesPerOop.
 		 ptr < unscannedEphemerons top ifTrue:
 			["not the last entry; remove it by overwriting it with the last
 			  ephemeron (which must have been newly added by markAndTrace:)."
 			 self longAt: ptr put: (self longAt: unscannedEphemerons top)].
-		ptr := ptr - self wordSize]
+		ptr := ptr - self bytesPerOop]

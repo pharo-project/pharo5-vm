@@ -16,10 +16,10 @@ markInactiveEphemerons
 				[foundInactive := true.
 				 "Now remove the inactive ephemeron from the set, and scan-mark it.
 				  Scan-marking it may add more ephemerons to the set."
-				 unscannedEphemerons top: unscannedEphemerons top - self wordSize.
+				 unscannedEphemerons top: unscannedEphemerons top - self bytesPerOop.
 				 unscannedEphemerons top > ptr ifTrue:
 					[self longAt: ptr put: (self longAt: unscannedEphemerons top)].
 				 self markAndTrace: ephemeron]
 			ifFalse:
-				[ptr := ptr + self wordSize]].
+				[ptr := ptr + self bytesPerOop]].
 	^foundInactive
