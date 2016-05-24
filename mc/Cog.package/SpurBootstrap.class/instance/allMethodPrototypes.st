@@ -7,6 +7,6 @@ allMethodPrototypes
 			prototypes := (SpurBootstrapPrototypes prototypeClassFor: type) allMethodPrototypes.
 			allPrototypes
 				removeAllSuchThat: [:existing| prototypes anySatisfy: [:new| existing selector == new selector]];
-				addAll: prototypes;
+				addAll: (prototypes reject: [:prototype| (prototype pragmaAt: #ignore) notNil]);
 				yourself])
 		asArray sort: [:ma :mb| ma selector <= mb selector]

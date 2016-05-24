@@ -6,4 +6,20 @@ ArrayPROTOTYPEelementsForwardIdentityTo: otherArray
 	 the objects in this array should still be properly indexed in any existing hashed
 	 structures after the mutation."
 	<primitive: 72 error: ec>
+	ec == #'bad receiver' ifTrue:
+		[^self error: 'receiver must be of class Array'].
+	ec == #'bad argument' ifTrue:
+		[^self error: (otherArray class == Array
+						ifTrue: ['arg must be of class Array']
+						ifFalse: ['receiver and argument must have the same size'])].
+	ec == #'inappropriate operation' ifTrue:
+		[^self error: 'can''t become immediates such as SmallIntegers or Characters'].
+	ec == #'no modification' ifTrue:
+		[^self error: 'can''t become immutable objects'].
+	ec == #'object is pinned' ifTrue:
+		[^self error: 'can''t become pinned objects'].
+	ec == #'insufficient object memory' ifTrue:
+		[Smalltalk garbageCollect < 1048576 ifTrue:
+			[Smalltalk growMemoryByAtLeast: 1048576].
+		 ^self elementsForwardIdentityTo: otherArray].
 	self primitiveFailed

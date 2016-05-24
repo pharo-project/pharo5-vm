@@ -17,6 +17,8 @@ rehashImage
 	sim bootstrapping: true.
 	sim initializeInterpreter: 0.
 	sim instVarNamed: 'methodDictLinearSearchLimit' put: SmallInteger maxVal.
+	(imageTypes includes: 'cuis') ifTrue:
+		[newHeap scavenger growRememberedSet]. "Rehashing a 4.2 Cuis image overflows the 768 element high tide."
 	
 	sim redirectTranscriptToHost.
 

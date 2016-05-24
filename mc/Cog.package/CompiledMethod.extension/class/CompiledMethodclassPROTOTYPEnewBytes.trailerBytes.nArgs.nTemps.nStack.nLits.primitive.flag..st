@@ -7,7 +7,7 @@ CompiledMethodclassPROTOTYPEnewBytes: numberOfBytes trailerBytes: trailer nArgs:
 		[^self error: 'Cannot compile -- too many arguments'].
 	nTemps > 63 ifTrue:
 		[^self error: 'Cannot compile -- too many temporary variables'].	
-	nLits > 65535 ifTrue:
+	nLits > 32768 ifTrue:
 		[^self error: 'Cannot compile -- too many literals'].
 
 	method := trailer

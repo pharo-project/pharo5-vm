@@ -1,5 +1,5 @@
 method prototypes
 InstructionPrinterPROTOTYPEcallPrimitive: index
-	"Print the callPrimitive."
+	"Print the callPrimitive bytecode."
 
-	self print: 'callPrimtive: ' , index printString
+	self print: 'callPrimitive: ' , index printString

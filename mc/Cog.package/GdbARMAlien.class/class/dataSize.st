@@ -1,3 +1,3 @@
 instance creation
 dataSize
-	^1788
+	^1792

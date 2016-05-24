@@ -5,8 +5,8 @@
 		"prototypeClassFor:" : "eem 11/26/2014 09:09" },
 	"instance" : {
 		"ArrayPROTOTYPEelementsExchangeIdentityWith:" : "eem 12/25/2014 17:51",
-		"ArrayPROTOTYPEelementsForwardIdentityTo:" : "eem 12/26/2014 16:20",
-		"ArrayPROTOTYPEelementsForwardIdentityTo:copyHash:" : "eem 12/26/2014 16:24",
+		"ArrayPROTOTYPEelementsForwardIdentityTo:" : "eem 5/21/2016 11:28",
+		"ArrayPROTOTYPEelementsForwardIdentityTo:copyHash:" : "eem 5/21/2016 11:30",
 		"BehaviorPROTOTYPEallInstances" : "EstebanLorenzano 8/27/2014 14:37",
 		"BehaviorPROTOTYPEallInstancesDo:" : "EstebanLorenzano 8/27/2014 14:37",
 		"BehaviorPROTOTYPEallInstancesOrNil" : "EstebanLorenzano 8/27/2014 14:37",

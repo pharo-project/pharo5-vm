@@ -2,11 +2,13 @@
 	"class" : {
 		"imageType" : "eem 5/18/2016 09:28" },
 	"instance" : {
+		"ArrayPROTOTYPEcreateMethod:class:header:" : "eem 5/21/2016 10:34",
 		"BehaviorPROTOTYPEidentityHash" : "eem 5/18/2016 09:22",
 		"BlockClosurePROTOTYPEsimulateValueWithArguments:caller:" : "eem 5/18/2016 09:22",
 		"CharacterPROTOTYPEclone" : "eem 5/18/2016 09:22",
 		"CharacterPROTOTYPEsetValue:" : "eem 5/18/2016 09:22",
 		"CharacterPROTOTYPEvalue" : "eem 5/18/2016 16:06",
+		"CharacterclassPROTOTYPEinitialize" : "eem 5/23/2016 15:30",
 		"ClassDescriptionPROTOTYPEupdateInstancesFrom:" : "eem 5/18/2016 09:36",
 		"ClassDescriptionPROTOTYPEupdateMethodBindingsTo:" : "eem 5/18/2016 09:22",
 		"ClassPROTOTYPEimmediateSubclass:instanceVariableNames:classVariableNames:poolDictionaries:category:" : "eem 5/18/2016 09:22",
@@ -22,9 +24,11 @@
 		"MethodContextPROTOTYPEfailPrimitiveWith:" : "eem 5/18/2016 09:22",
 		"MethodContextclassPROTOTYPEallInstances" : "eem 5/18/2016 09:22",
 		"MethodContextclassPROTOTYPEallInstancesDo:" : "eem 5/18/2016 09:22",
+		"MethodNodePROTOTYPEgenerate:using:ifQuick:" : "eem 5/19/2016 17:30",
 		"ProtoObjectPROTOTYPEscaledIdentityHash" : "eem 5/18/2016 09:22",
 		"SmallIntegerPROTOTYPEclone" : "eem 5/18/2016 09:22",
 		"SmalltalkImagePROTOTYPErecreateSpecialObjectsArray" : "eem 5/18/2016 09:39",
 		"SmalltalkImagePROTOTYPEsetGCParameters" : "eem 5/18/2016 09:23",
 		"SystemDictionaryPROTOTYPErecreateSpecialObjectsArray" : "eem 5/18/2016 16:31",
-		"SystemDictionaryPROTOTYPEsetGCParameters" : "eem 5/18/2016 09:24" } }
+		"SystemDictionaryPROTOTYPEsetGCParameters" : "eem 5/18/2016 09:24",
+		"SystemDictionaryPROTOTYPEwordSize" : "eem 5/19/2016 12:50" } }

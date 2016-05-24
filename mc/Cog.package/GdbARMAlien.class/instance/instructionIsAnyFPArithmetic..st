@@ -1,16 +1,14 @@
 testing
 instructionIsAnyFPArithmetic: instr
-	"Identify single register transfer and double register transfer VFP instructions.
-	 See C3.3 & C3.4 in the ARM ARM."
-	| oneRegTransferMask twoRegTransferMask |
-	oneRegTransferMask := 16rF000F00.
-	(instr bitAnd: oneRegTransferMask) = 16rE000A00 ifTrue:
-		[^true].
-	(instr bitAnd: oneRegTransferMask) = 16rE000B00 ifTrue:
-		[^true].
-	twoRegTransferMask := 16rFE00FC0.
-	(instr bitAnd: twoRegTransferMask) = 16rC400A00 ifTrue:
-		[^true].
-	(instr bitAnd: twoRegTransferMask) = 16rC400B00 ifTrue:
-		[^true].
+	"Identify VFP instructions.
+	 See C3.1 - C3.4 in the ARM ARM v5 DDI01001."
+	| cp isFP |
+	
+	"All FP instructions are coprocessor instructions on coproc 10 or 11"
+	cp := instr>>8 bitAnd: 16rF.
+	isFP := cp = 10 or:[cp = 11].
+	(isFP and: [(instr>>25 bitAnd: 7) = 6]) ifTrue: [^true].
+	(isFP and: [(instr>>24 bitAnd: 16rF) = 16rE]) ifTrue: [^true].
+	
+	"nope"
 	^false
