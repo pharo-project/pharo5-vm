@@ -21,8 +21,8 @@ primitiveDoNamedPrimitiveWithArgs
 	spec := objectMemory fetchPointer: 1 "first literal" ofObject: methodArg.
 	isArray := self isInstanceOfClassArray: spec.
 	(isArray
-	and: [(objectMemory lengthOf: spec) = 4
-	and: [(self primitiveIndexOfMethod: methodArg header: methodHeader) = 117]]) ifFalse:
+	and: [(objectMemory numSlotsOf: spec) = 4
+	and: [(self primitiveIndexOfMethod: methodArg header: methodHeader) = PrimNumberExternalCall]]) ifFalse:
 		[^self primitiveFailFor: -3]. "invalid methodArg state"
 
 	(self argumentCountOfMethodHeader: methodHeader) = arraySize ifFalse:

@@ -6,6 +6,9 @@ initializePrimitiveTable
 	"NOTE: The real limit here is 2047 because of the old method header layout but there is no point in going over the needed size"
 	MaxPrimitiveIndex := 575.	
 	MaxQuickPrimitiveIndex := 519.
+	PrimNumberExternalCall := 117.
+	PrimNumberFFICall := 120.
+	PrimNumberDoExternalCall := 218.
 	PrimitiveTable := Array new: MaxPrimitiveIndex + 1.
 	self primitivesClass table: PrimitiveTable from: 
 	#(	"Integer Primitives (0-19)"
@@ -185,7 +188,7 @@ initializePrimitiveTable
 		(148 primitiveClone)
 		(149 primitiveGetAttribute)
 
-		"File Primitives (150-169) - NO LONGER INDEXED"
+		"Were File Primitives (150-169) - NO LONGER INDEXED"
 		(150 159 primitiveFail)
 		(160 primitiveAdoptInstance)
 		(161 primitiveSetOrHasIdentityHash)

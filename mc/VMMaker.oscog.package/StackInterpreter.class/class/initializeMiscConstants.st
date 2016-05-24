@@ -9,9 +9,10 @@ initializeMiscConstants
 	GCModeFull := 1.				"stop-the-world global GC"
 	GCModeNewSpace := 2.		"Spur's scavenge, or V3's incremental"
 	GCModeIncremental := 4.		"incremental global gc (Dijkstra tri-colour marking); as yet unimplemented"
-	GCModeBecome := 8.			"v3 post-become sweeping"
+	GCModeBecome := 8.			"v3 post-become sweeping/Spur forwarding"
 	GCModeImageSegment := 16.	"just a flag for leak checking image segments"
 	GCModeFreeSpace := 32.		"just a flag for leak checking free space; Spur only"
+	GCCheckPrimCall := 64.		"just a flag for leak checking external primitive calls"
 
 	StackPageTraceInvalid := -1.
 	StackPageUnreached := 0.

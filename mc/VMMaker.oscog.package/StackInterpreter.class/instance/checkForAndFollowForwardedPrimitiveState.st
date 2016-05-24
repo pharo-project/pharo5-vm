@@ -18,13 +18,13 @@ checkForAndFollowForwardedPrimitiveState
 	accessorDepth := primitiveAccessorDepthTable at: primIndex.
 	"For the method-executing primitives, failure could have been in those primitives or the
 	 primitives of the methods they execute.  Find out which failed by seeing what is in effect."
-	((primIndex = 117 and: [primitiveFunctionPointer ~~ #primitiveExternalCall])
-	 or: [primIndex = 218 and: [primitiveFunctionPointer ~~ #primitiveDoNamedPrimitiveWithArgs]])
+	((primIndex = PrimNumberExternalCall and: [primitiveFunctionPointer ~~ #primitiveExternalCall])
+	 or: [primIndex = PrimNumberDoExternalCall and: [primitiveFunctionPointer ~~ #primitiveDoNamedPrimitiveWithArgs]])
 		ifTrue:
 			[accessorDepth := self primitiveAccessorDepthForExternalPrimitiveMethod: newMethod]
 		ifFalse:
 			[self assert: (self saneFunctionPointerForFailureOfPrimIndex: primIndex)].
-	self assert: (accessorDepth between: -127 and: 127).
+	self assert: (accessorDepth between: -1 and: 4).
 	accessorDepth >= 0 ifTrue:
 		[0 to: argumentCount do:
 			[:index| | oop |

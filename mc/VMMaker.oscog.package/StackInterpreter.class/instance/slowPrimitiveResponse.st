@@ -14,6 +14,7 @@ slowPrimitiveResponse
 		 savedFramePointer := framePointer].
 	self initPrimCall.
 	self dispatchFunctionPointer: primitiveFunctionPointer.
+	self assert: (self maybeLeakCheckExternalPrimCall: newMethod).
 	self maybeRetryFailureDueToForwarding.
 	self maybeFailForLastObjectOverwrite.
 	(FailImbalancedPrimitives

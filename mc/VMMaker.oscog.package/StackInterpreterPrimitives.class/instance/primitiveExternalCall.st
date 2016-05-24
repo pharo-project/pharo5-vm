@@ -3,7 +3,7 @@ primitiveExternalCall
 	"Call an external primitive. External primitive methods first literals are an array of
 		* The module name (String | Symbol)
 		* The function name (String | Symbol)
-		* The session ID (SmallInteger) [OBSOLETE] (or in Spur, the accessorDepth)
+		* The session ID (SmallInteger) [OBSOLETE], or in Spur, the accessorDepth (Integer)
 		* The function index (Integer) in the externalPrimitiveTable
 	For fast interpreter dispatch in subsequent invocations the primitiveFunctionPointer
 	in the method cache is rewritten, either to the function itself, or to zero if the external
@@ -67,7 +67,7 @@ primitiveExternalCall
 		[self primitiveFailFor: PrimErrBadMethod].
 	functionLength := objectMemory lengthOf: functionName.
 
-	"Spur needs to know the primitive's accessorDepth which is stored in the last slot of the first literal."
+	"Spur needs to know the primitive's accessorDepth which is stored in the third slot of the first literal."
 	objectMemory hasSpurMemoryManagerAPI
 		ifTrue:
 			[addr := self ioLoadExternalFunction: functionName + objectMemory baseHeaderSize

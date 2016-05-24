@@ -11,6 +11,8 @@ markObjects: objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged
 	self initializeUnscannedEphemerons.
 	self initializeMarkStack.
 	self initializeWeaklingStack.
+	marking := true.
 	self markAccessibleObjectsAndFireEphemerons.
 	self expungeDuplicateAndUnmarkedClasses: objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged.
-	self nilUnmarkedWeaklingSlots
+	self nilUnmarkedWeaklingSlots.
+	marking := false

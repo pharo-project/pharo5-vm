@@ -9,5 +9,5 @@ pushOnUnscannedEphemeronsStack: anEphemeron
 	unscannedEphemerons top >= unscannedEphemerons limit ifTrue:
 		[^false].
 	self longAt: unscannedEphemerons top put: anEphemeron.
-	unscannedEphemerons top: unscannedEphemerons top + self wordSize.
+	unscannedEphemerons top: unscannedEphemerons top + self bytesPerOop.
 	^true
