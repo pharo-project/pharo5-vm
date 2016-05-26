@@ -41,4 +41,7 @@ invalidCompactClassError(char *s) { /* Print a (compact) class index error messa
 # define sigsetjmp(jb,ssmf) _setjmp(jb)
 # define siglongjmp(jb,v) _longjmp(jb,v)
 #endif
+
+#define odd(v) ((int)(v)&1)
+#define even(v) (!odd(v))
 '

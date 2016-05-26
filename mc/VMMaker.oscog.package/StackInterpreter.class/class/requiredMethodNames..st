@@ -3,7 +3,7 @@ requiredMethodNames: options
 	"return the list of method names that should be retained for export or other support reasons"
 	| requiredList |
 	requiredList := self exportAPISelectors: options.
-	requiredList addAll: (NewObjectMemory requiredMethodNames: options).
+	requiredList addAll: (self objectMemoryClass requiredMethodNames: options).
 	"A number of methods required by VM support code, jitter, specific platforms etc"
 	requiredList addAll: #(
 		assertValidExecutionPointe:r:s:

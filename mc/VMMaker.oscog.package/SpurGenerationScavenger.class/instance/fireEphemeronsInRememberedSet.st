@@ -9,15 +9,18 @@ fireEphemeronsInRememberedSet
 
 	i := 0.
 	[i < numRememberedEphemerons] whileTrue:
-		[ | ephemeron |
+		[ | ephemeron key |
 		 ephemeron := rememberedSet at: i.
 		 self assert: (manager isEphemeron: ephemeron).
-		 self assert: (self isScavengeSurvivor: (manager keyOfEphemeron: ephemeron)) not.
-		 coInterpreter fireEphemeron: ephemeron.
-		 manager
-			storePointerUnchecked: 0
-			ofObject: ephemeron
-			withValue: (self copyAndForward: (manager keyOfEphemeron: ephemeron)).
+		 key := manager keyOfEphemeron: ephemeron.
+		 (self isScavengeSurvivor: key) ifFalse:
+			[coInterpreter fireEphemeron: ephemeron.
+			 manager
+				storePointerUnchecked: 0
+				ofObject: ephemeron
+				withValue: (self copyAndForward: key)].
+		 "Fired ephemerons should have had their format changed."
+		 self deny: ((self isScavengeSurvivor: key) and: [manager isEphemeron: ephemeron]).
 		 (self scavengeReferentsOf: ephemeron)
 			ifTrue: "keep in set"
 				[i := i + 1]

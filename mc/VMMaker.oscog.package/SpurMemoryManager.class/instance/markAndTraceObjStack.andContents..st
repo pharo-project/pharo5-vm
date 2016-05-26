@@ -23,7 +23,7 @@ markAndTraceObjStack: stackOrNil andContents: markAndTraceContents
 	  if there were 6 slots in an oop stack, full would be 2, and the last 0-rel index is 5."
 	index := (self fetchPointer: ObjStackTopx ofObject: stackOrNil) + ObjStackNextx.
 	[index >= ObjStackFixedSlots] whileTrue:
-		[field := self fetchPointer: index ofObject: stackOrNil.
+		[field := self followObjField: index ofObject: stackOrNil.
 		 (self isImmediate: field) ifFalse:
 			[self markAndTrace: field].
 		 index := index - 1]

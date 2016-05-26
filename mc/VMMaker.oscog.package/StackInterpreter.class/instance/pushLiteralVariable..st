@@ -9,7 +9,7 @@ pushLiteralVariable: literalIndex
 			  rare; in my work image 8.7% of literals are globals)."
 			 litVar := self literal: literalIndex.
 			 (objectMemory isForwarded: litVar) ifTrue:
-				[litVar := objectMemory followForwarded: litVar].
+				[litVar := self unfollow: litVar atIndex: literalIndex].
 			 self internalPush:
 				(objectMemory fetchPointer: ValueIndex ofObject: litVar)]
 		ifFalse:
