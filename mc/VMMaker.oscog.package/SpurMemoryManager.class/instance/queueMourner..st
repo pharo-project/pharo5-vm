@@ -6,6 +6,7 @@ queueMourner: anEphemeronOrWeakArray
 	self assert: ((self isNonImmediate: anEphemeronOrWeakArray)
 				and: [(self formatOf: anEphemeronOrWeakArray) = self ephemeronFormat
 				   or: [(self formatOf: anEphemeronOrWeakArray) = self weakArrayFormat]]).
-	self deny: (self is: anEphemeronOrWeakArray onObjStack: mournQueue).
+	self deny: ((self formatOf: anEphemeronOrWeakArray) = self ephemeronFormat
+				and: [self is: anEphemeronOrWeakArray onObjStack: mournQueue]).
 	self ensureRoomOnObjStackAt: MournQueueRootIndex.
 	self push: anEphemeronOrWeakArray onObjStack: mournQueue

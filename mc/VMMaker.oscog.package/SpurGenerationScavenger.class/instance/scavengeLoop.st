@@ -33,6 +33,7 @@ scavengeLoop
 	 previousRememberedSetSize := rememberedSetSize.
 	 firstTime ifTrue:
 		[coInterpreter mapInterpreterOops.
+		 manager mapMournQueue.
 		 manager mapExtraRoots.
 		 firstTime := false].
 	 "if nothing more copied and forwarded (or remembered by mapInterpreterOops)

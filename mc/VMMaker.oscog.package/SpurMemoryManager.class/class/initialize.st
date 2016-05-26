@@ -17,8 +17,8 @@ initialize
 	 with the hot end at the head of the list.  It is a word object.  The stack
 	 pointer is in ObjStackTopx and 0 means empty.  The list goes through
 	 ObjStackNextx. We don't want to shrink objStacks, since they're used
-	 in GC and its good to keep their memory around.  So unused pages
-	 created by popping emptying pages are kept on the ObjStackFreex list.
+	 in GC and it's good to keep their memory around.  So unused pages
+	 created by popping emptied pages are kept on the ObjStackFreex list.
 	 ObjStackNextx must be the last field for swizzleObjStackAt:."
 	ObjStackPageSlots := 4092. "+ double header = 16k bytes per page in 32-bits"
 	ObjStackTopx := 0.

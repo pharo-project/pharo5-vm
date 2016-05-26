@@ -18,5 +18,5 @@ primitiveLength
 	0 to: length-1 do:[:i|
 		result := result + ((self cCoerce: (rcvrPtr at: i) to: 'double') * (self cCoerce: (rcvrPtr at: i) to: 'double')).
 	].
-	result := self cCode: [self sqrt:result] inSmalltalk: [result sqrt].
+	result := self cCode: 'sqrt(result)' inSmalltalk: [result sqrt].
 	interpreterProxy pop: 1 thenPush: (interpreterProxy floatObjectOf: result)

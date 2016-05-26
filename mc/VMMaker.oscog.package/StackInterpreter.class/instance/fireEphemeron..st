@@ -1,6 +1,7 @@
 finalization
 fireEphemeron: ephemeron
 	<option: #SpurObjectMemory>
-	objectMemory queueMourner: ephemeron..
-	self setFormatOf: ephemeron to: self nonIndexablePointerFormat.
+	objectMemory
+		queueMourner: ephemeron;
+		setFormatOf: ephemeron to: objectMemory nonIndexablePointerFormat.
 	self signalFinalization: ephemeron

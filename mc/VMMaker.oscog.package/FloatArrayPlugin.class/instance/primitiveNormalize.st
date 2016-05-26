@@ -21,7 +21,7 @@ primitiveNormalize
 	interpreterProxy success: (len > 0.0).
 	interpreterProxy failed ifTrue:[^nil].
 
-	len := self cCode: [self sqrt:len] inSmalltalk: [len sqrt].
+	len := self cCode: 'sqrt(len)' inSmalltalk: [len sqrt].
 	0 to: length-1 do:[:i|
 		rcvrPtr at: i put: ((self cCoerce: (rcvrPtr at: i) to: 'double') / len).
 	].

@@ -268,7 +268,6 @@
 		"primitiveAddLargeIntegers" : "ar (auto pragmas 12/08) 3/19/2008 21:37",
 		"primitiveAdoptInstance" : "eem 7/16/2010 19:57",
 		"primitiveAsOop" : "tpr 5/13/2005 10:17",
-		"primitiveAtEnd" : "dtl 5/4/2013 13:50",
 		"primitiveBitAndLargeIntegers" : "ar (auto pragmas 12/08) 3/19/2008 21:37",
 		"primitiveBitOrLargeIntegers" : "ar (auto pragmas 12/08) 3/19/2008 21:37",
 		"primitiveBitShiftLargeIntegers" : "ar (auto pragmas 12/08) 3/21/2008 20:41",

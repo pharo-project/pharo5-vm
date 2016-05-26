@@ -148,6 +148,20 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 							[coInterpreter print: 'non-root in remembered set @ '; printNum: i; print: ' = '; printHex: obj; cr.
 							 self eek.
 							 ok := false]]]].
+	self objStack: mournQueue do:
+		[:i :page| | obj |
+		obj := self fetchPointer: i ofObject: page.
+		(obj bitAnd: self wordSize - 1) ~= 0
+			ifTrue:
+				[coInterpreter print: 'misaligned oop in mournQueue @ '; printNum: i; print: ' in '; printHex: page; print: ' = '; printHex: obj; cr.
+				 self eek.
+				 ok := false]
+			ifFalse:
+				[(excludeUnmarkedNewSpaceObjs and: [(self isYoung: obj) and: [(self isMarked: obj) not]]) ifFalse:
+					[(heapMap heapMapAtWord: (self pointerForOop: obj)) = 0 ifTrue:
+						[coInterpreter print: 'object leak in mournQueue @ '; printNum: i; print: ' in '; printHex: page; print: ' = '; printHex: obj; cr.
+						 self eek.
+						 ok := false]]]].
 	1 to: remapBufferCount do:
 		[:ri| | obj |
 		obj := remapBuffer at: ri.
