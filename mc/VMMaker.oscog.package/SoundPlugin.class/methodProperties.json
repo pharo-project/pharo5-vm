@@ -5,7 +5,7 @@
 	"instance" : {
 		"initialiseModule" : "ar (auto pragmas 12/08) 5/12/2000 16:54",
 		"primitiveSoundAvailableSpace" : "ar 4/4/2006 21:11",
-		"primitiveSoundGetRecordingSampleRate" : "ar (auto pragmas 12/08) 4/4/2006 21:10",
+		"primitiveSoundGetRecordingSampleRate" : "EstebanLorenzano 5/26/2016 13:01",
 		"primitiveSoundGetVolume" : "eem 9/9/2011 16:48",
 		"primitiveSoundInsertSamples:from:leadTime:" : "dtl 4/26/2009 12:20",
 		"primitiveSoundPlaySamples:from:startingAt:" : "dtl 4/26/2009 11:19",

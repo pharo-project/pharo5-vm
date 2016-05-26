@@ -5,5 +5,5 @@ primitiveSoundGetRecordingSampleRate
 	| rate |
 	<var: #rate type: 'double '>
 	self primitive: 'primitiveSoundGetRecordingSampleRate'.
-	rate := self cCode: 'snd_GetRecordingSampleRate()'.  "fail if not recording"
+	rate := self snd_GetRecordingSampleRate.  "fail if not recording"
 	^rate asFloatObj
