@@ -3,10 +3,11 @@ noCheckPush: objOop onObjStack: objStack
 	"Push an element on an objStack.  Split from push:onObjStack: for testing."
 	| topx |
 	self eassert: [self isValidObjStack: objStack].
-	self cCode: [] "for debugging markAndTrace: set (MarkStackRecord := OrderedCollection new)"
+	self cCode: '' "for debugging markAndTrace: set (MarkStackRecord := OrderedCollection new)"
 		inSmalltalk:
-			[(self fetchPointer: ObjStackMyx ofObject: objStack) = MarkStackRootIndex ifTrue:
-				[MarkStackRecord ifNotNil: [MarkStackRecord addLast: {#push. objOop}]]].
+			[MarkStackRecord ifNotNil:
+				[(self fetchPointer: ObjStackMyx ofObject: objStack) = MarkStackRootIndex ifTrue:
+					[MarkStackRecord addLast: {#push. objOop}]]].
 	topx := self fetchPointer: ObjStackTopx ofObject: objStack.
 	topx >= ObjStackLimit
 		ifTrue:
