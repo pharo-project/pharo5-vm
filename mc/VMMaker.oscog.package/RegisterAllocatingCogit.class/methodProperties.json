@@ -20,7 +20,7 @@
 		"mergeWithFixupIfRequired:" : "eem 4/18/2016 09:33",
 		"moveSimStackConstantsToRegisters" : "cb 4/16/2016 17:46",
 		"restoreSimStackAtMergePoint:" : "cb 4/17/2016 16:31",
-		"scanMethod" : "cb 4/15/2016 15:40",
+		"scanMethod" : "cb 5/27/2016 11:20",
 		"setMergeSimStackOf:" : "cb 4/16/2016 18:12",
 		"simStack:at:" : "eem 4/18/2016 17:56",
 		"simStackEntryClass" : "cb 4/16/2016 10:55",

@@ -30,7 +30,8 @@
 		"debugFixupBreaks",
 		"realCECallCogCodePopReceiverArg0Regs",
 		"realCECallCogCodePopReceiverArg1Arg0Regs",
-		"deadCode" ],
+		"deadCode",
+		"needsTwoPath" ],
 	"name" : "StackToRegisterMappingCogit",
 	"pools" : [
 		"CogCompilationConstants",

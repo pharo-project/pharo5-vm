@@ -10,6 +10,7 @@ scanMethod
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
 	prevBCDescriptor := nil.
+	self cppIf: IMMUTABILITY ifTrue: [ needsTwoPath := false ].
 	NewspeakVM ifTrue:
 		[numIRCs := 0].
 	(primitiveIndex > 0
@@ -28,11 +29,22 @@ scanMethod
 		 (descriptor isReturn
 		  and: [pc >= latestContinuation]) ifTrue:
 			[endPC := pc].
-		 needsFrame ifFalse:
-			[(descriptor needsFrameFunction isNil
-			  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
-				ifTrue: [needsFrame := true]
-				ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]].
+		self cppIf: IMMUTABILITY 
+			ifTrue: 
+				[(needsFrame and: [needsTwoPath not]) ifFalse:
+					[(descriptor needsFrameFunction isNil
+					  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
+						ifTrue: 
+							[needsFrame := true.
+							 needsTwoPath := descriptor generator == #genStoreAndPopReceiverVariableBytecode ]
+						ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]]]
+			ifFalse: 
+				[needsFrame ifFalse:
+					[(descriptor needsFrameFunction isNil
+					  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
+						ifTrue: [needsFrame := true]
+						ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]]].
+			
 		 descriptor isBranch ifTrue:
 			[distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.

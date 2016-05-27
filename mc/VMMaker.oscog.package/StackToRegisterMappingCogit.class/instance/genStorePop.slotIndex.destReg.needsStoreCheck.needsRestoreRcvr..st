@@ -5,16 +5,24 @@ genStorePop: popBoolean slotIndex: slotIndex destReg: destReg needsStoreCheck: n
 	self 
 		cppIf: IMMUTABILITY
 		ifTrue: 
-			[ self 
-				genImmCheckStorePop: popBoolean 
-				slotIndex: slotIndex 
-				destReg: destReg 
-				needsStoreCheck: needsStoreCheck
-				needsRestoreRcvr: needsRestoreReceiver ]
+			[needsTwoPath
+				ifTrue: 
+					[self  "first path, receiver is mutable"
+						genVanillaStorePop: popBoolean 
+						slotIndex: slotIndex 
+						destReg: destReg 
+						needsStoreCheck: needsStoreCheck]
+				ifFalse: 
+					[self 
+						genImmCheckStorePop: popBoolean 
+						slotIndex: slotIndex 
+						destReg: destReg 
+						needsStoreCheck: needsStoreCheck
+						needsRestoreRcvr: needsRestoreReceiver]]
 		ifFalse: 
-			[ self 
+			[self 
 				genVanillaStorePop: popBoolean 
 				slotIndex: slotIndex 
 				destReg: destReg 
-				needsStoreCheck: needsStoreCheck ].
+				needsStoreCheck: needsStoreCheck].
 		

@@ -12,13 +12,18 @@ genUpArrowReturn
 				ret pc in LR.
 	 A fully framed activation is described in CoInterpreter class>initializeFrameIndices.
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
+	| framelessReturn |
 	deadCode := true. "can't fall through"
 	inBlock ifTrue:
 		[self assert: needsFrame. 
 		 self CallRT: ceNonLocalReturnTrampoline.
 		 self annotateBytecode: self Label.
 		 ^0].
-	needsFrame
+	self 
+		cppIf: IMMUTABILITY
+		ifTrue: [framelessReturn := needsFrame and: [needsTwoPath not]]
+		ifFalse: [framelessReturn := needsFrame].
+	framelessReturn
 		ifTrue:
 			[self MoveR: FPReg R: SPReg.
 			 self PopR: FPReg.
