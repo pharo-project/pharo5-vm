@@ -18,7 +18,7 @@ genStoreCheckTrampoline
 		arg: nil
 		arg: nil
 		arg: nil
-		regsToSave: (cogit callerSavedRegMask bitClear: (cogit registerMaskFor: ReceiverResultReg))
+		regsToSave: (CallerSavedRegisterMask bitClear: (cogit registerMaskFor: ReceiverResultReg))
 		pushLinkReg: true
 		resultReg: cogit returnRegForStoreCheck
 		appendOpcodes: CheckRememberedInTrampoline

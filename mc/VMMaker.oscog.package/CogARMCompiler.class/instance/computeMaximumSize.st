@@ -128,6 +128,9 @@ computeMaximumSize
 		[SMULL]				-> [^4].
 		[MSR]					-> [^4].
 		[CMPSMULL]			-> [^4]. "special compare for genMulR:R: usage"
+		"ARM Specific Data Movement"
+		[PopLDM]				-> [^4].
+		[PushSTM]				-> [^4].
 		"Data Movement"						
 		[MoveCqR]				-> [^self literalLoadInstructionBytes = 4
 										ifTrue: [self literalLoadInstructionBytes]

@@ -69,7 +69,7 @@ initializeBytecodeTableForSistaV1
 													v3:ShortForward:Branch:Distance:)
 		(1 192 199 genShortJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean"
 													v3:ShortForward:Branch:Distance:)
-		(1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability needsFrameIfImmutability: -1)
+		(1 200 207 genStoreAndPopReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability needsFrameIfImmutability: -1)
 		
 		(1 208 215 genStoreAndPopTemporaryVariableBytecode)
 
@@ -107,10 +107,10 @@ initializeBytecodeTableForSistaV1
 		(2 239 239 genExtJumpIfFalse			branch isBranchFalse isMapped "because of mustBeBoolean" v4:Long:Branch:Distance:)
 
 		"stores"
-		(2 240 240 genSistaExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 240 240 genSistaExtStoreAndPopReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability)
 		(2 241 241 genSistaExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 242 242 genLongStoreAndPopTemporaryVariableBytecode)
-		(2 243 243 genSistaExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
+		(2 243 243 genSistaExtStoreReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability)
 		(2 244 244 genSistaExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 245 245 genLongStoreTemporaryVariableBytecode)
 

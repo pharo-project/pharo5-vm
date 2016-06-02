@@ -90,6 +90,9 @@ dispatchConcretize
 		[SMULL]			-> [^self concretizeSMULL]	.
 		[CMPSMULL]		-> [^self concretizeCMPSMULL].
 		[MSR]				-> [^self concretizeMSR].
+		"ARM Specific Data Movement"
+		[PopLDM]			-> [^self concretizePushOrPopMultipleRegisters: false].
+		[PushSTM]			-> [^self concretizePushOrPopMultipleRegisters: true].
 		"Data Movement"
 		[MoveCqR]			-> [^self concretizeMoveCqR].
 		[MoveCwR]			-> [^self concretizeMoveCwR].

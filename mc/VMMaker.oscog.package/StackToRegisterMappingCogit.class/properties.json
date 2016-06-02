@@ -6,7 +6,7 @@
 	"classvars" : [
 		"NeedsMergeFixupFlag",
 		"NeedsNonMergeFixupFlag" ],
-	"commentStamp" : "eem 12/19/2010 18:12",
+	"commentStamp" : "eem 6/1/2016 14:50",
 	"instvars" : [
 		"prevBCDescriptor",
 		"numPushNilsFunction",
@@ -31,7 +31,7 @@
 		"realCECallCogCodePopReceiverArg0Regs",
 		"realCECallCogCodePopReceiverArg1Arg0Regs",
 		"deadCode",
-		"needsTwoPath" ],
+		"useTwoPaths" ],
 	"name" : "StackToRegisterMappingCogit",
 	"pools" : [
 		"CogCompilationConstants",

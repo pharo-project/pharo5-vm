@@ -21,7 +21,7 @@ genUpArrowReturn
 		 ^0].
 	self 
 		cppIf: IMMUTABILITY
-		ifTrue: [framelessReturn := needsFrame and: [needsTwoPath not]]
+		ifTrue: [framelessReturn := needsFrame and: [useTwoPaths not]]
 		ifFalse: [framelessReturn := needsFrame].
 	framelessReturn
 		ifTrue:

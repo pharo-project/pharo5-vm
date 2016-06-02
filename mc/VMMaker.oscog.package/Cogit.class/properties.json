@@ -86,7 +86,6 @@
 		"primitiveIndex",
 		"backEnd",
 		"literalsManager",
-		"callerSavedRegMask",
 		"postCompileHook",
 		"methodLabel",
 		"stackCheckLabel",

@@ -25,7 +25,7 @@ generateObjectRepresentationTrampolines
 	ceScheduleScavengeTrampoline := cogit
 											genTrampolineFor: #ceScheduleScavenge
 											called: 'ceScheduleScavengeTrampoline'
-											regsToSave: cogit callerSavedRegMask.
+											regsToSave: CallerSavedRegisterMask.
 	ceSmallActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: false inBlock: false called: 'ceSmallMethodContext'.
 	ceSmallActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: true called: 'ceSmallBlockContext'.
 	ceLargeActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: true inBlock: false called: 'ceLargeMethodContext'.

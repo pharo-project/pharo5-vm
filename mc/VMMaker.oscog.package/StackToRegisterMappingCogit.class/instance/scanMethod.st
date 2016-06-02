@@ -6,11 +6,12 @@ scanMethod
 		- what are the targets of any backward branches.
 		- how many blocks it creates
 	 Answer the block count or on error a negative error code"
-	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta |
+	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta seenInstVarStore |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
-	needsFrame := false.
+	needsFrame := useTwoPaths := seenInstVarStore := false.
+	self maybeInitNumFixups.
+	self maybeInitNumCounters.
 	prevBCDescriptor := nil.
-	self cppIf: IMMUTABILITY ifTrue: [ needsTwoPath := false ].
 	NewspeakVM ifTrue:
 		[numIRCs := 0].
 	(primitiveIndex > 0
@@ -29,33 +30,40 @@ scanMethod
 		 (descriptor isReturn
 		  and: [pc >= latestContinuation]) ifTrue:
 			[endPC := pc].
-		self cppIf: IMMUTABILITY 
-			ifTrue: 
-				[(needsFrame and: [needsTwoPath not]) ifFalse:
-					[(descriptor needsFrameFunction isNil
-					  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
-						ifTrue: 
-							[needsFrame := true.
-							 needsTwoPath := descriptor generator == #genStoreAndPopReceiverVariableBytecode ]
-						ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]]]
-			ifFalse: 
-				[needsFrame ifFalse:
-					[(descriptor needsFrameFunction isNil
-					  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
-						ifTrue: [needsFrame := true]
-						ifFalse: [framelessStackDelta := framelessStackDelta + descriptor stackDelta]]].
-			
+
+		  needsFrame ifFalse:
+			[(descriptor needsFrameFunction isNil
+			  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
+					ifTrue:
+						[needsFrame := true.
+						 self cppIf: IMMUTABILITY
+							ifTrue: [useTwoPaths := descriptor isInstVarStore]]
+					ifFalse:
+						[framelessStackDelta := framelessStackDelta + descriptor stackDelta.
+						 self cppIf: IMMUTABILITY
+							ifTrue: []
+							ifFalse:
+								[descriptor isInstVarStore ifTrue:
+									[seenInstVarStore
+										ifTrue: [useTwoPaths := true]
+										ifFalse: [seenInstVarStore := true]]]]].
+
 		 descriptor isBranch ifTrue:
 			[distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
 			 (self isBackwardBranch: descriptor at: pc exts: nExts in: methodObj)
 				ifTrue: [self initializeFixupAt: targetPC - initialPC]
-				ifFalse: [latestContinuation := latestContinuation max: targetPC]].
+				ifFalse:
+					[latestContinuation := latestContinuation max: targetPC.
+					 self maybeCountFixup.
+					 self maybeCountCounter]].
 		 descriptor isBlockCreation ifTrue:
 			[numBlocks := numBlocks + 1.
 			 distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
-			 latestContinuation := latestContinuation max: targetPC].
+			 latestContinuation := latestContinuation max: targetPC.
+			 self maybeCountFixup].
+
 		 NewspeakVM ifTrue:
 			[descriptor hasIRC ifTrue:
 				[numIRCs := numIRCs + 1]].

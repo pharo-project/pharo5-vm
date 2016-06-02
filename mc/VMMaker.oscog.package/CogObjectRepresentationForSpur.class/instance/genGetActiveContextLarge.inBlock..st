@@ -150,6 +150,8 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	
 	jumpNeedScavenge jmpTarget: cogit Label.
 	cogit backEnd saveAndRestoreLinkRegAround:
-		[cogit CallRT: ceScheduleScavengeTrampoline].
+		[cogit
+			CallRT: ceScheduleScavengeTrampoline
+			registersToBeSavedMask: (cogit registerMaskFor: ReceiverResultReg and: SendNumArgsReg and: ClassReg)].
 	cogit Jump: continuation.
 	^0

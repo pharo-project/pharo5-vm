@@ -5,7 +5,7 @@ genStorePop: popBoolean slotIndex: slotIndex destReg: destReg needsStoreCheck: n
 	self 
 		cppIf: IMMUTABILITY
 		ifTrue: 
-			[needsTwoPath
+			[useTwoPaths
 				ifTrue: 
 					[self  "first path, receiver is mutable"
 						genVanillaStorePop: popBoolean 

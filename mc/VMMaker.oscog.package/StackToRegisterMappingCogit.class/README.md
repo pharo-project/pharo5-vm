@@ -25,6 +25,7 @@ Instance Variables
 	simStack:										<CArrayAccessor of CogSimStackEntry>
 	simStackPtr:									<Integer>
 	traceSimStack:									<Integer>
+	useTwoPaths									<Boolean>
 
 callerSavedRegMask
 	- the bitmask of the ABI's caller-saved registers
@@ -76,3 +77,6 @@ simStack
 
 simStackPtr
 	- the pointer to the top of the simulation stack
+
+useTwoPaths
+	- a variable controlling whether to create two paths through a method based on the existence of inst var stores.  With immutability this causes a frameless path to be generated if an otherwise frameless method is frameful simply because of inst var stores.  In this case the test to take the first frameless path is if the receiver is not immutable.  Without immutability, if a frameless method contains two or more inst var stores, the first path will be code with no store check, chosen by a single check for the receiver being in new space.

@@ -7,17 +7,17 @@ generateTracingTrampolines
 		self genTrampolineFor: #ceTraceLinkedSend:
 			called: 'ceTraceLinkedSendTrampoline'
 			arg: ReceiverResultReg
-			regsToSave: callerSavedRegMask..
+			regsToSave: CallerSavedRegisterMask..
 	ceTraceBlockActivationTrampoline :=
 		self genTrampolineFor: #ceTraceBlockActivation
 			called: 'ceTraceBlockActivationTrampoline'
-			regsToSave: callerSavedRegMask..
+			regsToSave: CallerSavedRegisterMask..
 	ceTraceStoreTrampoline :=
 		self genTrampolineFor: #ceTraceStoreOf:into:
 			called: 'ceTraceStoreTrampoline'
 			arg: TempReg
 			arg: ReceiverResultReg
-			regsToSave: callerSavedRegMask..
+			regsToSave: CallerSavedRegisterMask..
 	self cCode: [] inSmalltalk:
 		[ceTraceLinkedSendTrampoline := self simulatedTrampolineFor: #ceShortCutTraceLinkedSend:.
 		 ceTraceBlockActivationTrampoline := self simulatedTrampolineFor: #ceShortCutTraceBlockActivation:.

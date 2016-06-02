@@ -6,4 +6,8 @@ availableRegisterOrNoneFor: liveRegsMask
 	<returnTypeC: #sqInt>
 	(cogit register: Extra0Reg isInMask: liveRegsMask) ifFalse:
 		[^Extra0Reg].
+	(cogit register: Extra1Reg isInMask: liveRegsMask) ifFalse:
+		[^Extra1Reg].
+	(cogit register: Extra2Reg isInMask: liveRegsMask) ifFalse:
+		[^Extra2Reg].
 	^super availableRegisterOrNoneFor: liveRegsMask

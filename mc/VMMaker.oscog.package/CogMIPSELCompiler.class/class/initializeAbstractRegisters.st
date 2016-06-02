@@ -8,6 +8,11 @@ initializeAbstractRegisters
 	 not need to save or restore them at runtime calls."
 	super initializeAbstractRegisters.
 
+	self flag: #OABI.
+	CallerSavedRegisterMask := self
+									registerMaskFor: T0 and: T1 and: T2 and: T3
+									and: T4 and: T5 and: T6 and: T7 and: T8 and: T9.
+
 	ReceiverResultReg		:= S0.
 	Arg0Reg				:= S1.
 	Arg1Reg				:= S2.

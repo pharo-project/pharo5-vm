@@ -3,11 +3,13 @@ compileFrameBuild
 	"Build a frame for a CogMethod activation.  See CoInterpreter class>>initializeFrameIndices.
 	 Override to push the register receiver and register arguments, if any."
 	self cppIf: IMMUTABILITY ifTrue: 
-		[needsTwoPath ifTrue: 
+		[useTwoPaths ifTrue: 
 			[self compileTwoPathFrameBuild.
 		 	^self]].
 	needsFrame ifFalse:
-		[self initSimStackForFramelessMethod: initialPC.
+		[useTwoPaths ifTrue: 
+			[self compileTwoPathFramelessInit].
+		 self initSimStackForFramelessMethod: initialPC.
 		 ^self].
 	self genPushRegisterArgs.
 	super compileFrameBuild.

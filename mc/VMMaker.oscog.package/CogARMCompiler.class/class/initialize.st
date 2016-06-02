@@ -80,5 +80,5 @@ initialize
 
 	"Specific instructions"
 	self
-		initializeSpecificOpcodes: #(SMULL MSR MRS LDMFD STMFD CMPSMULL)
+		initializeSpecificOpcodes: #(SMULL MSR MRS PopLDM PushSTM LDMFD STMFD CMPSMULL)
 		in: thisContext method

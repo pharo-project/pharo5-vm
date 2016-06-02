@@ -8,6 +8,9 @@ handleABICallOrJumpSimulationTrap: aProcessorSimulationTrap evaluable: evaluable
 		nextpc: aProcessorSimulationTrap nextpc
 		memory: coInterpreter memory.
 	self recordInstruction: {'(simulated call of '. aProcessorSimulationTrap address. '/'. evaluable selector. ')'}.
+	((printRegisters or: [printInstructions]) and: [clickConfirm]) ifTrue:
+ 		[(self confirm: 'skip run-time call?') ifFalse:
+			[clickConfirm := false. self halt]].
 	evaluable valueWithArguments: (processor
 										postCallArgumentsNumArgs: evaluable numArgs
 										in: coInterpreter memory).

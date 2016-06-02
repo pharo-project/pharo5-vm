@@ -18,7 +18,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(1  16   31 genPushTemporaryVariableBytecode needsFrameIfMod16GENumArgs: 1)
 		(1  32   63 genPushLiteralConstantBytecode needsFrameNever: 1)
 		(1  64   95 genPushLiteralVariableBytecode needsFrameNever: 1)
-		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability needsFrameIfImmutability: -1)
+		(1  96 103 genStoreAndPopReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability needsFrameIfImmutability: -1)
 		(1 104 111 genStoreAndPopTemporaryVariableBytecode)
 		(1 112 112 genPushReceiverBytecode needsFrameNever: 1)
 		(1 113 113 genPushConstantTrueBytecode needsFrameNever: 1)

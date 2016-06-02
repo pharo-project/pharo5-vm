@@ -47,6 +47,8 @@
 		"OverflowFlag",
 		"PC",
 		"PL",
+		"PopLDM",
+		"PushSTM",
 		"R0",
 		"R1",
 		"R10",

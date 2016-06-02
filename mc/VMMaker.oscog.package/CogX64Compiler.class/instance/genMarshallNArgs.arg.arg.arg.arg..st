@@ -23,38 +23,38 @@ genMarshallNArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg: regOrConst2 arg
 	<inline: true>
 	numArgs = 0 ifTrue: [^self].
 	(cogit isTrampolineArgConstant: regOrConst0)
-		ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst0) R: RDI]
+		ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst0) R: RDI] "a.k.a. Arg0Reg"
 		ifFalse:
 			[regOrConst0 ~= RDI ifTrue:
 				[cogit MoveR: regOrConst0 R: RDI]].
 	numArgs = 1 ifTrue: [^self].
 	(cogit isTrampolineArgConstant: regOrConst1)
-		ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst1) R: RSI]
+		ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst1) R: RSI] "a.k.a. Arg1Reg"
 		ifFalse:
 			[regOrConst1 ~= RSI ifTrue:
 				[cogit MoveR: regOrConst1 R: RSI]].
 	numArgs = 2 ifTrue: [^self].
 	self cppIf: ABI == #SysV ifTrue:
 		[(cogit isTrampolineArgConstant: regOrConst2)
-			ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst2) R: RDX]
+			ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst2) R: RDX] "a.k.a. ReceiverResultReg"
 			ifFalse:
 				[regOrConst2 ~= RDX ifTrue:
 					[cogit MoveR: regOrConst2 R: RDX]].
 		 numArgs = 3 ifTrue: [^self].
 		 (cogit isTrampolineArgConstant: regOrConst3)
-				ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst3) R: RCX]
+				ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst3) R: RCX] "a.k.a. ClassReg"
 				ifFalse:
 					[regOrConst3 ~= RCX ifTrue:
 						[cogit MoveR: regOrConst3 R: RCX]]].
-	self cppIf: ABI == #MSVC ifTrue:
+	self cppIf: ABI == #MSVC ifTrue: "completely untested..."
 		[(cogit isTrampolineArgConstant: regOrConst2)
-			ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst2) R: R8]
+			ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst2) R: R8] "a.k.a. RISCTempReg in CogInLineLiteralsX64Compiler and Extra6Reg in CogOutOfLineLiteralsX64Compiler"
 			ifFalse:
 				[regOrConst2 ~= R8 ifTrue:
 					[cogit MoveR: regOrConst2 R: R8]].
 		 numArgs = 3 ifTrue: [^self].
 		 (cogit isTrampolineArgConstant: regOrConst3)
-				ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst3) R: R9]
+				ifTrue: [cogit MoveCq: (cogit trampolineArgValue: regOrConst3) R: R9] "a.k.a. SendNumArgsReg"
 				ifFalse:
 					[regOrConst3 ~= R9 ifTrue:
 						[cogit MoveR: regOrConst3 R: R9]]].

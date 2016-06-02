@@ -4,4 +4,4 @@ genTraceStoreTrampoline
 										called: 'ceTraceStoreTrampoline'
 										arg: ClassReg
 										arg: ReceiverResultReg
-										regsToSave: callerSavedRegMask
+										regsToSave: CallerSavedRegisterMask

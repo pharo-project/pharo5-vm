@@ -5,6 +5,7 @@
 	"classvars" : [
 		"Arg0Reg",
 		"Arg1Reg",
+		"CallerSavedRegisterMask",
 		"ClassReg",
 		"DPFPReg0",
 		"DPFPReg1",

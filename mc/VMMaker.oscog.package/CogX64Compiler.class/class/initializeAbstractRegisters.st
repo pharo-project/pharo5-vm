@@ -3,12 +3,23 @@ initializeAbstractRegisters
 	"Assign the abstract registers with the identities/indices of the relevant concrete registers."
 	"[1] Figure 3.4 Register Usage in
 		System V Application Binary Interface
-		AMD64 Architecture Processor Supplement
-
-	N.B. RAX RCX & RDX are caller-save (scratch) registers.  Hence we use RCX for class and RDX for
-		receiver/result since these are written in all normal sends."
+		AMD64 Architecture Processor Supplement"
 
 	super initializeAbstractRegisters.
+
+	"N.B. RAX RCX & RDX are caller-save (scratch) registers.  Hence we use RCX for class and RDX for
+		receiver/result since these are written in all normal sends."
+
+	CallerSavedRegisterMask := self
+									registerMaskFor: RAX
+									and: RCX
+									and: RDX
+									and: RSI
+									and: RDI
+									and: R8
+									and: R9
+									and: R10
+									and: R11.
 
 	TempReg				:= RAX.
 	ClassReg				:= RCX.
