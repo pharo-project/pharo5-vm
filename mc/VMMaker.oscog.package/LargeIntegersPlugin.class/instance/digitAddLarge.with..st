@@ -19,6 +19,7 @@ digitAddLarge: firstInteger with: secondInteger
 			longDigitLen := firstDigitLen].
 	"	sum := Integer new: len neg: firstInteger negative."
 	self remapOop: #(shortInt longInt ) in: [sum := self createLargeIntegerNeg: neg digitLength: longDigitLen].
+	sum ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	over := self
 				cDigitAdd: (self pointerToFirstDigitOfLargeInt: shortInt)
 				len: shortDigitLen
@@ -29,6 +30,7 @@ digitAddLarge: firstInteger with: secondInteger
 		ifTrue: 
 			["sum := sum growby: 1."
 			self remapOop: sum in: [newSum := self createLargeIntegerNeg: neg byteLength: longDigitLen * 4 + 1].
+			newSum ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 			self
 				cDigitCopyFrom: (self pointerToFirstDigitOfLargeInt: sum)
 				to: (self pointerToFirstDigitOfLargeInt: newSum)

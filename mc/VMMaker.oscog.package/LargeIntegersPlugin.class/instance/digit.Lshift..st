@@ -7,8 +7,11 @@ digit: anOop Lshift: shiftCount
 	(highBit := self cDigitHighBit: (self pointerToFirstDigitOfLargeInt: anOop)
 				len: oldDigitLen) = 0 ifTrue: [^  interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop) indexableSize: 1].
 	newByteLen := highBit + shiftCount + 7 // 8.
-	self remapOop: anOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop)
-					indexableSize: newByteLen].
+	self remapOop: anOop in:
+		[newOop := interpreterProxy
+						instantiateClass: (interpreterProxy fetchClassOf: anOop)
+						indexableSize: newByteLen].
+	newOop ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	newDigitLen := newByteLen + 3 // 4.
 	self
 		cDigitLshift: shiftCount

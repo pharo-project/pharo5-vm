@@ -14,8 +14,11 @@ digit: anOop Rshift: shiftCount lookfirst: a
 			indexableSize: 0].
 	newByteLen := newBitLen + 7 // 8.
 	newDigitLen := newByteLen + 3 // 4.
-	self remapOop: anOop in: [newOop := interpreterProxy instantiateClass: (interpreterProxy fetchClassOf: anOop)
-					indexableSize: newByteLen].
+	self remapOop: anOop in:
+		[newOop := interpreterProxy
+						instantiateClass: (interpreterProxy fetchClassOf: anOop)
+						indexableSize: newByteLen].
+	newOop ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	self
 		cDigitRshift: shiftCount
 		from: (self pointerToFirstDigitOfLargeInt: anOop)

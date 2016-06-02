@@ -16,6 +16,7 @@ digitMultiplyLarge: firstInteger with: secondInteger negative: neg
 			longInt := firstInteger.
 			longLen := firstLen].
 	self remapOop: #(shortInt longInt) in: [prod := self createLargeIntegerNeg: neg byteLength: longLen + shortLen].
+	prod ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	self
 		cDigitMultiply: (self pointerToFirstDigitOfLargeInt: shortInt)
 		len: shortLen + 3 // 4

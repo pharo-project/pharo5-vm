@@ -9,6 +9,7 @@ digitMontgomery: firstLarge times: secondLarge modulo: thirdLarge mInvModB: mInv
 
 	self remapOop: #(firstLarge secondLarge thirdLarge)
 		in: [prod := interpreterProxy instantiateClass: interpreterProxy classLargePositiveInteger indexableSize: thirdLen * 4].
+	prod ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	self
 		cDigitMontgomery: (self pointerToFirstDigitOfLargeInt: firstLarge)
 		len: firstLen

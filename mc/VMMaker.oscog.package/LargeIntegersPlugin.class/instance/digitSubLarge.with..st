@@ -28,6 +28,7 @@ digitSubLarge: firstInteger with: secondInteger
 	resDigitLen := largeDigitLen.
 	self remapOop: #(smaller larger)
 		in: [res := self createLargeIntegerNeg: neg digitLength: resDigitLen].
+	res ifNil: [^interpreterProxy primitiveFailFor: PrimErrNoMemory].
 	self
 		cDigitSub: (self pointerToFirstDigitOfLargeInt: smaller)
 		len: smallerDigitLen
