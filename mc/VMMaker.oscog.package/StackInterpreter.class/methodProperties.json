@@ -381,7 +381,6 @@
 		"handleSpecialSelectorSendFaultFor:fp:sp:" : "eem 12/3/2014 15:12",
 		"handleStackOverflow" : "eem 8/14/2015 12:17",
 		"handleStackOverflowOrEventAllowContextSwitch:" : "eem 10/9/2010 17:01",
-		"headerIndicatesAlternateBytecodeSet:" : "eem 10/31/2012 15:49",
 		"highBit:" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"highestPriorityProcess" : "eem 07/28/2014 07:54",
 		"ifAppropriateCompileToNativeCode:selector:" : "eem 1/30/2011 17:10",
