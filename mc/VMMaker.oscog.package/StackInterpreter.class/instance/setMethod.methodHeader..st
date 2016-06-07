@@ -9,6 +9,6 @@ setMethod: aMethodObj methodHeader: methodHeader
 	self assert: (objectMemory isOopCompiledMethod: method).
 	self assert: (objectMemory methodHeaderOf: method) = methodHeader.
 	self cppIf: MULTIPLEBYTECODESETS
-		ifTrue: [bytecodeSetSelector := (self headerIndicatesAlternateBytecodeSet: methodHeader)
+		ifTrue: [bytecodeSetSelector := (objectMemory headerIndicatesAlternateBytecodeSet: methodHeader)
 											ifTrue: [256]
 											ifFalse: [0]]

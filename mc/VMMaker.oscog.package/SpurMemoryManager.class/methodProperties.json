@@ -343,6 +343,7 @@
 		"hashBitsOf:" : "eem 9/21/2013 08:44",
 		"headerForSlots:format:classIndex:" : "eem 11/18/2013 15:14",
 		"headerForSlots:hash:format:classIndex:" : "eem 3/25/2015 13:13",
+		"headerIndicatesAlternateBytecodeSet:" : "eem 6/7/2016 14:52",
 		"heapMap" : "eem 9/16/2013 11:58",
 		"hiddenRootSlots" : "eem 10/17/2013 05:47",
 		"identityHashFieldWidth" : "eem 10/15/2013 08:54",

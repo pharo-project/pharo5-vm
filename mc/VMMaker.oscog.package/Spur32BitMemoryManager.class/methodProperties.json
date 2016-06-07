@@ -25,6 +25,7 @@
 		"floatObjectOf:" : "eem 11/21/2014 16:23",
 		"floatValueOf:" : "eem 11/21/2014 17:18",
 		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:34",
+		"headerIndicatesAlternateBytecodeSet:" : "eem 6/7/2016 14:53",
 		"imageFormatVersion" : "eem 3/10/2016 12:42",
 		"initFreeChunkWithBytes:at:" : "eem 11/13/2014 12:15",
 		"initSegmentBridgeWithBytes:at:" : "eem 11/29/2013 12:29",

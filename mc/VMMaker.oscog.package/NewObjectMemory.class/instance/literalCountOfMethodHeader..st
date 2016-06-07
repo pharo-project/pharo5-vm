@@ -1,8 +1,8 @@
 memory access
-literalCountOfMethodHeader: header
+literalCountOfMethodHeader: methodHeader
 	<api>
 	<inline: true>
-	self assert: (self isIntegerObject: header).
-	^(coInterpreter headerIndicatesAlternateBytecodeSet: header)
-		ifTrue: [coInterpreter literalCountOfAlternateHeader: header]
-		ifFalse: [coInterpreter literalCountOfOriginalHeader: header]
+	self assert: (self isIntegerObject: methodHeader).
+	^(self headerIndicatesAlternateBytecodeSet: methodHeader)
+		ifTrue: [coInterpreter literalCountOfAlternateHeader: methodHeader]
+		ifFalse: [coInterpreter literalCountOfOriginalHeader: methodHeader]

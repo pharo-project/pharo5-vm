@@ -8,7 +8,7 @@ sizeOfCallPrimitiveBytecode: methodHeader
 		ifTrue: [3]
 		ifFalse:
 			[MULTIPLEBYTECODESETS
-				ifTrue: [(self headerIndicatesAlternateBytecodeSet: methodHeader)
+				ifTrue: [(objectMemory headerIndicatesAlternateBytecodeSet: methodHeader)
 							ifTrue: [3]
 							ifFalse: [0]]
 				ifFalse: [0]]

@@ -3,7 +3,7 @@ blockCreationBytecodeSizeForHeader: aMethodHeader
 	<inline: true>
 	^self cppIf: MULTIPLEBYTECODESETS
 		ifTrue:
-			[(coInterpreter headerIndicatesAlternateBytecodeSet: aMethodHeader)
+			[(objectMemory headerIndicatesAlternateBytecodeSet: aMethodHeader)
 				ifTrue: [AltBlockCreationBytecodeSize]
 				ifFalse: [BlockCreationBytecodeSize]]
 		ifFalse: [BlockCreationBytecodeSize]

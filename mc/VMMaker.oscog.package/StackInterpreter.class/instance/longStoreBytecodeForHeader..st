@@ -6,7 +6,7 @@ longStoreBytecodeForHeader: methodHeader
 	<api>
 	<inline: true>
 	^self cppIf: MULTIPLEBYTECODESETS
-		ifTrue: [(self headerIndicatesAlternateBytecodeSet: methodHeader)
+		ifTrue: [(objectMemory headerIndicatesAlternateBytecodeSet: methodHeader)
 					ifTrue: [AltLongStoreBytecode]
 					ifFalse: [LongStoreBytecode]]
 		ifFalse: [LongStoreBytecode]

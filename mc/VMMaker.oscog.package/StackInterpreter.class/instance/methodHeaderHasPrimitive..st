@@ -8,7 +8,7 @@ methodHeaderHasPrimitive: methodHeader
 		ifFalse:
 			[MULTIPLEBYTECODESETS
 				ifTrue:
-					[(self headerIndicatesAlternateBytecodeSet: methodHeader)
+					[(objectMemory headerIndicatesAlternateBytecodeSet: methodHeader)
 						ifTrue: [self alternateHeaderHasPrimitiveFlag: methodHeader]
 						ifFalse: [methodHeader anyMask: V3PrimitiveBitsMask]]
 				ifFalse:

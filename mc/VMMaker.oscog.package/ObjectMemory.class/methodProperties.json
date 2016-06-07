@@ -185,6 +185,7 @@
 		"hasSixtyFourBitImmediates" : "eem 2/12/2015 17:33",
 		"hasSpurMemoryManagerAPI" : "eem 9/9/2013 11:01",
 		"hashBitsOf:" : "eem 8/31/2009 13:37",
+		"headerIndicatesAlternateBytecodeSet:" : "eem 6/7/2016 14:58",
 		"headerType:" : "eem 6/14/2011 17:58",
 		"headerTypeOfHeader:" : "eem 6/14/2011 17:56",
 		"headerWhileForwardingOf:" : "eem (const to msg rewrite) 11/6/2014 10:59",
