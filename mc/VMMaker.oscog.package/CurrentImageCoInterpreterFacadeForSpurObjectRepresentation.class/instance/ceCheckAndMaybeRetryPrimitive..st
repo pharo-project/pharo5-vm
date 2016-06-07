@@ -1,0 +1,3 @@
+accessing
+ceCheckAndMaybeRetryPrimitive: primIndex
+	^coInterpreter ceCheckAndMaybeRetryPrimitive: primIndex

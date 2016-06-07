@@ -44,7 +44,7 @@ primitiveExternalCall
 		 addr ~= 0 ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: 'addr' inSmalltalk: [1000 + index]).
 			 self callExternalPrimitive: addr. "On Spur, sets primitiveFunctionPointer"
-			 self maybeRetryFailureDueToForwarding.
+			 self maybeRetryPrimitiveOnFailure.
 			 ^nil].
 		"if we get here, then an index to the external prim was 
 		kept on the ST side although the underlying prim 
@@ -102,7 +102,7 @@ primitiveExternalCall
 		ifTrue:
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: (self cCode: [addr] inSmalltalk: [1000 + index]).
 			 self callExternalPrimitive: addr.
-			 self maybeRetryFailureDueToForwarding]
+			 self maybeRetryPrimitiveOnFailure]
 		ifFalse: "Otherwise void the primitive function and fail"
 			[self rewriteMethodCacheEntryForExternalPrimitiveToFunction: 0.
 			 self assert: (objectMemory fetchPointer: 2 ofObject: lit) = ConstZero.

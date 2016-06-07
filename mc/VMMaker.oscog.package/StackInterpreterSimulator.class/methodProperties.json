@@ -139,6 +139,7 @@
 		"lookupOrdinaryNoMNUEtcInClass:" : "rmacnak 6/24/2015 21:17",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:" : "eem 1/2/2013 17:38",
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 5/20/2015 14:01",
+		"mappedPluginEntries" : "eem 6/3/2016 15:04",
 		"markContextAsDead:" : "eem 11/8/2013 17:00",
 		"messageSelector:" : "eem 9/12/2013 10:18",
 		"methodForContext:" : "eem 2/27/2013 13:50",

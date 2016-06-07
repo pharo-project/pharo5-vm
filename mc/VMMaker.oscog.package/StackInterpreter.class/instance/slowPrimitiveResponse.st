@@ -15,7 +15,7 @@ slowPrimitiveResponse
 	self initPrimCall.
 	self dispatchFunctionPointer: primitiveFunctionPointer.
 	self assert: (self maybeLeakCheckExternalPrimCall: newMethod).
-	self maybeRetryFailureDueToForwarding.
+	self maybeRetryPrimitiveOnFailure.
 	self maybeFailForLastObjectOverwrite.
 	(FailImbalancedPrimitives
 	and: [self successful

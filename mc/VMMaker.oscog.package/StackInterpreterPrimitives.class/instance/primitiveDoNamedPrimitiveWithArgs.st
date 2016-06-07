@@ -70,7 +70,7 @@ primitiveDoNamedPrimitiveWithArgs
 			[objectMemory storePointerUnchecked: 4 ofObject: tempOop withValue: newMethod.
 			 newMethod := methodArg.
 			 self callExternalPrimitive: addr. "On Spur, sets primitiveFunctionPointer"
-			 self maybeRetryFailureDueToForwarding.
+			 self maybeRetryPrimitiveOnFailure.
 			 newMethod := objectMemory fetchPointer: 4 ofObject: tempOop]
 		ifFalse:
 			[self callExternalPrimitive: addr].

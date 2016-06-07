@@ -24,7 +24,7 @@
 		"TopHashBit",
 		"TopOopBit",
 		"WeaklingStackRootIndex" ],
-	"commentStamp" : "eem 6/6/2016 12:29",
+	"commentStamp" : "eem 6/6/2016 12:41",
 	"instvars" : [
 		"coInterpreter",
 		"scavenger",

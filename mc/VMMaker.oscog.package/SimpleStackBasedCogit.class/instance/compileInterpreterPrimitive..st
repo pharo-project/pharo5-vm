@@ -4,12 +4,11 @@ compileInterpreterPrimitive: primitiveRoutine
 	 usual stack-switching dance, test the primFailCode and then either
 	 return on success or continue to the method body."
 	<var: #primitiveRoutine declareC: 'void (*primitiveRoutine)(void)'>
-	| flags jmp jmpSamplePrim retry continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
+	| flags jmp jmpSamplePrim continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
 	<var: #jmp type: #'AbstractInstruction *'>
-	<var: #retry type: #'AbstractInstruction *'>
 	<var: #jmpSamplePrim type: #'AbstractInstruction *'>
-	<var: #continuePostSamplePrim type: #'AbstractInstruction *'>
 	<var: #jmpSampleNonPrim type: #'AbstractInstruction *'>
+	<var: #continuePostSamplePrim type: #'AbstractInstruction *'>
 	<var: #continuePostSampleNonPrim type: #'AbstractInstruction *'>
 
 	"Save processor fp, sp and return pc in the interpreter's frame stack and instruction pointers"
@@ -40,7 +39,7 @@ compileInterpreterPrimitive: primitiveRoutine
 		[self genFastPrimTraceUsing: ClassReg and: SendNumArgsReg].
 
 	"Clear the primFailCode and set argumentCount"
-	retry := self MoveCq: 0 R: TempReg.
+	self MoveCq: 0 R: TempReg.
 	self MoveR: TempReg Aw: coInterpreter primFailCodeAddress.
 	methodOrBlockNumArgs ~= 0 ifTrue:
 		[self MoveCq: methodOrBlockNumArgs R: TempReg].
@@ -91,7 +90,7 @@ compileInterpreterPrimitive: primitiveRoutine
 				"If set, jump to record sample call."
 				jmpSamplePrim := self JumpNonZero: 0.
 				continuePostSamplePrim := self Label].
-			objectRepresentation maybeCompileRetry: retry onPrimitiveFail: primitiveIndex.
+			objectRepresentation maybeCompileRetryOnPrimitiveFail: primitiveIndex.
 			self maybeCompileAllocFillerCheck.
 			"Switch back to the Smalltalk stack.  Stack better be in either of these two states:
 				success:	stackPointer ->	result (was receiver)

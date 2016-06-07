@@ -9,21 +9,10 @@ ceActivateFailingPrimitiveMethod: aPrimitiveMethod
 	| methodHeader result |
 	self assert: primFailCode ~= 0.
 	self assert: newMethod = aPrimitiveMethod.
-	"If we're on Spur, check for forwarders and retry,
-	 returning if successful the second time around."
-	(objectMemory hasSpurMemoryManagerAPI
-	 and: [self checkForAndFollowForwardedPrimitiveState]) ifTrue:
-		[self initPrimCall.
-		 self cCode: [self dispatchFunctionPointer: primitiveFunctionPointer]
-			inSmalltalk:
-				[| evaluable |
-				 evaluable := primitiveFunctionPointer isInteger
-								ifTrue: [cogit simulatedTrampolines at: primitiveFunctionPointer]
-								ifFalse: [primitiveFunctionPointer].
-				 evaluable isMessageSend
-					ifTrue: [self assert: evaluable receiver == self]
-					ifFalse: [self assert: evaluable isBlock].
-				 evaluable value].
+	"If we're on Spur, retry the primitive, if appropriate,
+	 returning if successful after retry."
+	objectMemory hasSpurMemoryManagerAPI ifTrue:
+		[self retryPrimitiveOnFailure.
 		 self successful ifTrue:
 			[result := self stackTop.
 			 self stackTopPut: instructionPointer.
