@@ -4,5 +4,5 @@ returnTypeOrNilForSend: sendNode in: aTMethod
 	| sel |
 	(self anyMethodNamed: (sel := sendNode selector)) ifNotNil:
 		[:m|
-		^m returnType ifNotNil: [:type| ^self baseTypeForType: type]].
+		^m returnType ifNotNil: [:type| self baseTypeForType: type]].
 	^self returnTypeForSend: sendNode in: aTMethod

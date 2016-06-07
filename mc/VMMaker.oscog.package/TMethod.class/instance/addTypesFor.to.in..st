@@ -16,7 +16,7 @@ addTypesFor: node to: typeSet in: aCodeGen
 				inject: false
 				into: [:asYetUntyped :block|
 					asYetUntyped | (self addTypesFor: block to: typeSet in: aCodeGen)]].
-		(expr typeOrNilFrom: aCodeGen in: self)
+		(aCodeGen returnTypeOrNilForSend: expr in: self)
 			ifNil: [^(aCodeGen methodNamed: expr selector) notNil and: [expr selector ~~ selector]]
 			ifNotNil:
 				[:type |

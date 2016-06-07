@@ -718,7 +718,7 @@
 		"restoreStackLimit" : "eem 2/8/2009 11:19",
 		"resume:" : "eem 11/15/2012 11:11",
 		"resume:preemptedYieldingIf:" : "qwaq 4/23/2010 11:39",
-		"retryPrimitiveOnFailure" : "eem 6/6/2016 11:00",
+		"retryPrimitiveOnFailure" : "eem 6/6/2016 18:46",
 		"returnAs:ThroughCallback:Context:" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"returnFalse" : "eem (objmem refactor) 6/8/2010 17:12",
 		"returnNil" : "eem (objmem refactor) 6/8/2010 17:12",
