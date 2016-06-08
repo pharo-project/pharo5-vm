@@ -27,7 +27,7 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 		 and: [(locals includes: (var := node variable name))
 		 and: [(alreadyExplicitlyTypedOrNotToBeTyped includes: var) not]]) ifTrue: "don't be fooled by previously inferred types"
 		 	[type := node expression isSend
-						ifTrue: [aCodeGen returnTypeOrNilForSend: node expression in: self]
+						ifTrue: [aCodeGen returnTypeForSend: node expression in: self ifNil: nil]
 						ifFalse: [self typeFor: node expression in: aCodeGen].
 			 type "If untyped, then cannot type the variable yet. A subsequent assignment may assign a subtype of what this type ends up being"
 				ifNil: [alreadyExplicitlyTypedOrNotToBeTyped add: var] 

@@ -4,9 +4,9 @@
 	"instance" : {
 		"close" : "eem 6/22/2011 12:00",
 		"createDirectory:" : "eem 2/3/2015 18:33",
-		"fileOpenName:size:write:secure:" : "eem 6/22/2011 13:48",
+		"fileOpenName:size:write:secure:" : "eem 6/7/2016 16:16",
 		"fileValueOf:" : "cb 4/17/2015 13:39",
-		"initialiseModule" : "eem 3/18/2014 14:10",
+		"initialiseModule" : "eem 6/7/2016 16:15",
 		"ioCanCreatePath:OfSize:" : "ar 2/5/2001 19:23",
 		"ioCanDeleteFile:OfSize:" : "ar 2/5/2001 18:16",
 		"ioCanDeletePath:OfSize:" : "ar 2/5/2001 18:16",

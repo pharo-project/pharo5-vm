@@ -4,4 +4,6 @@ returnType: aString
 	 This string will be used in the C declaration of this function.
 	 If the type exists as a symbol, use that."
 
-	returnType := (Symbol findInterned: aString) ifNil: [aString]
+	returnType := aString isSymbol
+					ifTrue: [aString]
+					ifFalse: [(Symbol findInterned: aString) ifNil: [aString]]

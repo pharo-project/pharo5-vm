@@ -23,5 +23,6 @@ computeKernelReturnTypes
 		 fetchSingleFloatAt:into: #void storeSingleFloatAt:from: #void
 			fetchSingleFloatAtPointer:into: #void storeSingleFloatAtPointer:from: #void
 
-		 pointerForOop: #'char *' oopForPointer: #sqInt).
+		 pointerForOop: #'char *' oopForPointer: #sqInt
+		 baseHeaderSize #sqInt wordSize #sqInt bytesPerOop #sqInt).
 	^dictionary

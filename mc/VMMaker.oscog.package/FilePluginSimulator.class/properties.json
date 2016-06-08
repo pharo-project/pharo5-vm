@@ -7,7 +7,8 @@
 	"commentStamp" : "tpr 5/5/2003 12:02",
 	"instvars" : [
 		"openFiles",
-		"states" ],
+		"states",
+		"maxOpenFiles" ],
 	"name" : "FilePluginSimulator",
 	"pools" : [
 		 ],

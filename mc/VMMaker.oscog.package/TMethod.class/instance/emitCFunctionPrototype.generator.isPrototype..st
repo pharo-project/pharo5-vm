@@ -5,8 +5,9 @@ emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: isPrototype "<B
 	| compileTimeOptionPragmas returnTypeIsFunctionPointer |
 	(compileTimeOptionPragmas := self compileTimeOptionPragmas) notEmpty ifTrue:
 		[self outputConditionalDefineFor: compileTimeOptionPragmas on: aStream].
-	returnTypeIsFunctionPointer := returnType last = $)
-									and: [returnType includesSubString: (aCodeGen cFunctionNameFor: selector)].
+	returnTypeIsFunctionPointer := returnType notNil
+									and: [returnType last = $)
+									and: [returnType includesSubString: (aCodeGen cFunctionNameFor: selector)]].
 	export 
 		ifTrue:
 			[aStream nextPutAll: 'EXPORT('; nextPutAll: returnType; nextPut: $)]
@@ -17,7 +18,7 @@ emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: isPrototype "<B
 					[isPrototype ifTrue:
 						[aStream nextPutAll: 'extern ']].
 			 (isPrototype or: [inline ~~ #always]) ifFalse: [aStream nextPutAll: 'inline '].
-			 aStream nextPutAll: returnType].
+			 aStream nextPutAll: (returnType ifNil: [#sqInt])].
 	(functionAttributes isNil or: [returnTypeIsFunctionPointer]) ifFalse:
 		[aStream space; nextPutAll: functionAttributes].
 	isPrototype ifTrue: [aStream space] ifFalse: [aStream cr].

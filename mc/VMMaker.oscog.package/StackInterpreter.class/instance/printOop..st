@@ -40,7 +40,7 @@ printOop: oop
 									ifTrue: [' pointer @ ']
 									ifFalse: [' direct @ ']]).
 			 ^self printHex: (self startOfAlienData: oop) asUnsignedInteger; cr].
-		 (objectMemory isWords: oop) ifTrue:
+		 (objectMemory isWordsNonImm: oop) ifTrue:
 			[lastIndex := 64 min: ((objectMemory numBytesOf: oop) / objectMemory wordSize).
 			 lastIndex > 0 ifTrue:
 				[1 to: lastIndex do:

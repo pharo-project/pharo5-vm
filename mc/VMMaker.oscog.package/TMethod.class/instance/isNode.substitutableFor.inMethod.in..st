@@ -45,7 +45,7 @@ isNode: aNode substitutableFor: argName inMethod: targetMeth in: aCodeGen
 	"Don't inline expressions unless type-compatible,"
 	aNode isSend ifTrue:
 		[(aCodeGen
-				isActualType: (aCodeGen returnTypeForSend: aNode in: self)
+				isActualType: (aCodeGen returnTypeForSend: aNode in: self ifNil: #incompatible)
 				compatibleWithFormalType: (self typeFor: argName in: aCodeGen)) ifFalse:
 			[^false]].
 

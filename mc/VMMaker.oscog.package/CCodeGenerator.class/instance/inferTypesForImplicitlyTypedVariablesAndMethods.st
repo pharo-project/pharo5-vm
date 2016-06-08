@@ -36,7 +36,10 @@ inferTypesForImplicitlyTypedVariablesAndMethods
 	methods do:
 		[:m|
 		m returnType ifNil:
-			[m returnType: (self implicitReturnTypeFor: m selector)]].
+			[m returnType: (m returnsExpression
+								ifTrue: [#sqInt]
+								ifFalse: [self implicitReturnTypeFor: m])].
+		m transformReturns].
 
 	"Make a final pass to type anything assigned from the default type"
 	allMethods do:
