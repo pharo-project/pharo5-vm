@@ -13,7 +13,7 @@
 		"primJPEGErrorMgr2StructSize" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
 		"primJPEGPluginIsPresent" : "ar (auto pragmas 12/08) 11/27/2001 00:45",
 		"primJPEGReadHeader:fromByteArray:errorMgr:" : "eem 6/9/2016 17:01",
-		"primJPEGReadImage:fromByteArray:onForm:doDithering:errorMgr:" : "lpc 5/27/2016 12:44",
-		"primJPEGWriteImage:onByteArray:form:quality:progressiveJPEG:errorMgr:" : "lpc 6/8/2016 15:23",
+		"primJPEGReadImage:fromByteArray:onForm:doDithering:errorMgr:" : "lpc 6/13/2016 12:34",
+		"primJPEGWriteImage:onByteArray:form:quality:progressiveJPEG:errorMgr:" : "lpc 6/13/2016 12:34",
 		"primSupports8BitGrayscaleJPEGs" : "lpc 6/3/2016 14:13",
 		"shutdownModule" : "JMM (auto pragmas 12/08) 12/25/2003 23:11" } }

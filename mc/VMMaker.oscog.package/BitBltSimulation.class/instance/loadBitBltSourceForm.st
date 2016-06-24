@@ -24,7 +24,7 @@ loadBitBltSourceForm
 		sourcePitch := sourceWidth + (sourcePPW-1) // sourcePPW * 4.
 		sourceBitsSize := interpreterProxy byteSizeOf: sourceBits.
 		((interpreterProxy isWordsOrBytes: sourceBits)
-			and: [sourceBitsSize = (sourcePitch * sourceHeight)])
+			and: [sourceBitsSize >= (sourcePitch * sourceHeight)])
 			ifFalse: [^ false].
 		"Skip header since external bits don't have one"
 		sourceBits := self oopForPointer: (interpreterProxy firstIndexableField: sourceBits).

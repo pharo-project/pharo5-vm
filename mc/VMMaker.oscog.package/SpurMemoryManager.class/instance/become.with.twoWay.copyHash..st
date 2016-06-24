@@ -5,6 +5,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	 with with pointers to the other. The arguments must be arrays of the same length. 
 	 Answers PrimNoErr if the primitive succeeds, otherwise a relevant error code."
 	"Implementation: Uses lazy forwarding to defer updating references until message send."
+	<inline: false>
 	| ec |
 	self assert: becomeEffectsFlags = 0.
 	self runLeakCheckerFor: GCModeBecome.
@@ -13,12 +14,7 @@ become: array1 with: array2 twoWay: twoWayFlag copyHash: copyHashFlag
 	((self isArray: array2)
 	 and: [(self numSlotsOf: array1) = (self numSlotsOf: array2)]) ifFalse:
 		[^PrimErrBadArgument].
-	(twoWayFlag or: [copyHashFlag])
-		ifTrue:
-			[ec := self containsOnlyValidBecomeObjects: array1 and: array2]
-		ifFalse:
-			[self followForwardedObjectFields: array2 toDepth: 0.
-			ec := self containsOnlyValidBecomeObjects: array1].
+	ec := self containsOnlyValidBecomeObjects: array1 and: array2 twoWay: twoWayFlag copyHash: copyHashFlag.
 	ec ~= 0 ifTrue:
 		[becomeEffectsFlags := 0.
 		 ^ec].

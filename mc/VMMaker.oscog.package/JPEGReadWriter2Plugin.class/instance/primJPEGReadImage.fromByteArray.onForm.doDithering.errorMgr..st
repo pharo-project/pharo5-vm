@@ -31,7 +31,7 @@ primJPEGReadImage: aJPEGDecompressStruct fromByteArray: source onForm: form doDi
 	
 	interpreterProxy success: 
 		((interpreterProxy isWordsOrBytes: formBitmapOOP) and: 
-		[formBitmapSizeInBytes = (formPitch * formHeight)]).
+		[formBitmapSizeInBytes >= (formPitch * formHeight)]).
 	interpreterProxy failed ifTrue: [^ nil].
 	
 	sourceSize := interpreterProxy stSizeOf: (interpreterProxy stackValue: 3).

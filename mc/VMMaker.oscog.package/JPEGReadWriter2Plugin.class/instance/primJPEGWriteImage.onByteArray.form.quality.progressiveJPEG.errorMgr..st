@@ -31,7 +31,7 @@ primJPEGWriteImage: aJPEGCompressStruct onByteArray: destination form: form qual
 	formBitmapSizeInBytes := interpreterProxy byteSizeOf: formBitmapOOP.
 	interpreterProxy success: 
 		((interpreterProxy isWordsOrBytes: formBitmapOOP) and: 
-		[formBitmapSizeInBytes = (formPitch * formHeight)]).
+		[formBitmapSizeInBytes >= (formPitch * formHeight)]).
 	interpreterProxy failed ifTrue: [ ^ nil ].
 	
 	formBitmap := interpreterProxy firstIndexableField: formBitmapOOP.

@@ -25,7 +25,7 @@ loadBitBltDestForm
 		destPitch := destWidth + (destPPW-1) // destPPW * 4.
 		destBitsSize := interpreterProxy byteSizeOf: destBits.
 		((interpreterProxy isWordsOrBytes: destBits)
-			and: [destBitsSize = (destPitch * destHeight)])
+			and: [destBitsSize >= (destPitch * destHeight)])
 			ifFalse: [^ false].
 		"Skip header since external bits don't have one"
 		destBits := self oopForPointer: (interpreterProxy firstIndexableField: destBits).
