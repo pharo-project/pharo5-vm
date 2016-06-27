@@ -188,7 +188,7 @@
 		"reinitializeFixupsFrom:through:" : "cb 4/15/2016 17:44",
 		"restoreSimStackAtMergePoint:" : "cb 4/17/2016 16:18",
 		"scanBlock:" : "eem 6/4/2015 09:29",
-		"scanMethod" : "eem 6/1/2016 15:22",
+		"scanMethod" : "eem 6/26/2016 17:49",
 		"setInterpreter:" : "cb 4/16/2016 10:56",
 		"simStackAt:" : "eem 12/11/2010 18:01",
 		"simStackEntryClass" : "cb 4/16/2016 10:54",
