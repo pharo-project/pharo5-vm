@@ -1,9 +1,8 @@
 Author useAuthor: 'LoadVMMaker' during: [ 
-	Gofer new
-		url: 'filetree://../mc';
-		package: 'ConfigurationOfSpur';
-		load.	
-	(Smalltalk at: #ConfigurationOfSpur) loadGit ].
+	Metacello new
+		baseline: 'Spur';
+		repository: 'github://pharo-project/pharo-vm:master/mc';
+		load ].
 
 (Smalltalk saveAs: 'generator') 
     ifFalse: [ Smalltalk snapshot: false andQuit: true ].
