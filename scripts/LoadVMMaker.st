@@ -1,7 +1,7 @@
 Author useAuthor: 'LoadVMMaker' during: [ 
 	Metacello new
 		baseline: 'Spur';
-		repository: 'github://demarey/pharo-vm:master/mc';
+		repository: 'github://pharo-project/pharo-vm:master/mc';
 		load ].
 
 (Smalltalk saveAs: 'generator') 
