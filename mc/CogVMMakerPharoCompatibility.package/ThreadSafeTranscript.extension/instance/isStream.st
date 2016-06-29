@@ -1,0 +1,4 @@
+*CogVMMakerPharoCompatibility
+isStream
+	
+	^ true
