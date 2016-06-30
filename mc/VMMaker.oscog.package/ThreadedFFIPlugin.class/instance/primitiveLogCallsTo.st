@@ -5,7 +5,7 @@ primitiveLogCallsTo
 	<export: true>
 	interpreterProxy methodArgumentCount = 1 
 		ifFalse:[^interpreterProxy primitiveFail].
-	logFile := interpreterProxy stackObjectValue: 0.
+	logFile := interpreterProxy stackValue: 0.
 	logFile = interpreterProxy nilObject ifTrue:[ "disable logging"
 		ok := self ffiLogFileName: nil OfLength: 0.
 		ok ifFalse:[^interpreterProxy primitiveFail].

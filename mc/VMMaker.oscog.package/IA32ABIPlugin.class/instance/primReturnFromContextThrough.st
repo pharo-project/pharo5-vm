@@ -12,7 +12,7 @@ primReturnFromContextThrough
 	| mac vmCallbackContext vmCallbackReturnValue isMostRecent |
 	<var: #vmCallbackContext type: #'VMCallbackContext *'>
 	<var: #vmCallbackReturnValue type: #'VMCallbackReturnValue *'>
-	vmCallbackContext := self cCoerceSimple: (interpreterProxy positive32BitValueOf: (interpreterProxy stackValue: 0))
+	vmCallbackContext := self cCoerceSimple: (interpreterProxy positiveMachineIntegerValueOf: (interpreterProxy stackValue: 0))
 								to: #'VMCallbackContext *'.
 	(interpreterProxy failed or: [vmCallbackContext = 0]) ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].

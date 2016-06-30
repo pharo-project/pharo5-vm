@@ -8,7 +8,7 @@ primBoxedFree
 	<var: #ptr type: 'sqInt *'>
 	<var: #sizeField type: 'long'>
 
-	rcvr := interpreterProxy stackObjectValue: 0.
+	rcvr := interpreterProxy stackValue: 0.
 	(interpreterProxy byteSizeOf: rcvr) >= (2 * interpreterProxy bytesPerOop) ifFalse:
 		[^interpreterProxy primitiveFailFor: PrimErrBadReceiver].
 	ptr := interpreterProxy firstIndexableField: rcvr.

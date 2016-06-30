@@ -5,6 +5,6 @@ genStorePop: popBoolean MaybeContextRemoteInstVar: slotIndex ofObjectAt: objectI
 	 involve wholesale reorganization of stack pages, and the only way to preserve the
 	 execution state of an activation in that case is if it has a frame."
 	self assert: needsFrame.
-	self genLoadUnFwdTemp: objectIndex in: ReceiverResultReg.
+	self genLoadTemp: objectIndex in: ReceiverResultReg.
 	self genStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck: needsStoreCheck.
 	^ 0

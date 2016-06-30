@@ -5,7 +5,7 @@ primFree
 		<primitive: 'primFree' error: errorCode module: 'IA32ABI'>"
 	| addr |
 	<export: true>
-	addr := interpreterProxy positive32BitValueOf: (interpreterProxy stackValue: 0).
+	addr := interpreterProxy stackPositiveMachineIntegerValue: 0.
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 	"Don't you dare to free Squeak's memory!"
