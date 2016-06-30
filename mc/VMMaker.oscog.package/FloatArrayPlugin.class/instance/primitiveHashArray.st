@@ -3,13 +3,12 @@ primitiveHashArray
 
 	| rcvr rcvrPtr length result |
 	<export: true>
-	<var: #rcvrPtr type:'int *'>
-	rcvr := interpreterProxy stackObjectValue: 0.
-	interpreterProxy failed ifTrue:[^nil].
-	interpreterProxy success: (interpreterProxy isWords: rcvr).
-	interpreterProxy failed ifTrue:[^nil].
+	<var: #rcvrPtr type: #'int *'>
+	rcvr := interpreterProxy stackValue: 0.
+	(interpreterProxy isWords: rcvr) ifFalse:
+		[^interpreterProxy primitiveFail].
 	length := interpreterProxy stSizeOf: rcvr.
-	rcvrPtr := self cCoerce: (interpreterProxy firstIndexableField: rcvr) to: 'int *'.
+	rcvrPtr := self cCoerce: (interpreterProxy firstIndexableField: rcvr) to: #'int *'.
 	result := 0.
 	0 to: length-1 do:[:i|
 		result := result + (rcvrPtr at: i).

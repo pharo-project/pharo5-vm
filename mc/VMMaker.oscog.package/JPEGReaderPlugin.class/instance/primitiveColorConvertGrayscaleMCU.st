@@ -12,20 +12,18 @@ primitiveColorConvertGrayscaleMCU
 	interpreterProxy methodArgumentCount = 4
 		ifFalse:[^interpreterProxy primitiveFail].
 	ditherMask := interpreterProxy stackIntegerValue: 0.
-	arrayOop := interpreterProxy stackObjectValue: 1.
 	interpreterProxy failed ifTrue:[^nil].
+	arrayOop := interpreterProxy stackValue: 1.
 	((interpreterProxy isWords: arrayOop) and:[(interpreterProxy slotSizeOf: arrayOop) = 3])
 		ifFalse:[^interpreterProxy primitiveFail].
 	residuals := interpreterProxy firstIndexableField: arrayOop.
-	arrayOop := interpreterProxy stackObjectValue: 2.
-	interpreterProxy failed ifTrue:[^nil].
+	arrayOop := interpreterProxy stackValue: 2.
 	(interpreterProxy isWords: arrayOop)
 		ifFalse:[^interpreterProxy primitiveFail].
 	jpegBitsSize := interpreterProxy slotSizeOf: arrayOop.
 	jpegBits := interpreterProxy firstIndexableField: arrayOop.
-	arrayOop := interpreterProxy stackObjectValue: 3.
-	interpreterProxy failed ifTrue:[^nil].
+	arrayOop := interpreterProxy stackValue: 3.
 	(self yColorComponentFrom: arrayOop)
 		ifFalse:[^interpreterProxy primitiveFail].
 	self colorConvertGrayscaleMCU.
-	interpreterProxy pop: 4.
+	interpreterProxy pop: 4

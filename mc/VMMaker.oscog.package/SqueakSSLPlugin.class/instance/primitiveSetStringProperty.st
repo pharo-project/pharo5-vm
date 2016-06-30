@@ -7,7 +7,7 @@ primitiveSetStringProperty
 	<export: true>
 	interpreterProxy methodArgumentCount = 3
 		ifFalse:[^interpreterProxy primitiveFail].
-	srcOop := interpreterProxy stackObjectValue: 0.
+	srcOop := interpreterProxy stackValue: 0.
 	propID := interpreterProxy stackIntegerValue: 1.
 	handle := interpreterProxy stackIntegerValue: 2.
 	interpreterProxy failed ifTrue:[^nil].

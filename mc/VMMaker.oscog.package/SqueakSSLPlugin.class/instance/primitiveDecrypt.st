@@ -12,10 +12,10 @@ primitiveDecrypt
 	<export: true>
 	interpreterProxy methodArgumentCount = 5
 		ifFalse:[^interpreterProxy primitiveFail].
-	dstOop := interpreterProxy stackObjectValue: 0.
+	dstOop := interpreterProxy stackValue: 0.
 	srcLen := interpreterProxy stackIntegerValue: 1.
 	start := interpreterProxy stackIntegerValue: 2.
-	srcOop := interpreterProxy stackObjectValue: 3.
+	srcOop := interpreterProxy stackValue: 3.
 	handle := interpreterProxy stackIntegerValue: 4.
 	interpreterProxy failed ifTrue:[^nil].
 	((start > 0 and:[srcLen >= 0])

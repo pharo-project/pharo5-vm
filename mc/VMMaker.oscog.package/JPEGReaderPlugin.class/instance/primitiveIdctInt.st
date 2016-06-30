@@ -6,20 +6,18 @@ primitiveIdctInt
 	"
 	| arrayOop anArray qt |
 	<export: true>
-	<var: #anArray type: 'int *'>
-	<var: #qt type: 'int *'>
+	<var: #anArray type: #'int *'>
+	<var: #qt type: #'int *'>
 	self cCode:'' inSmalltalk:[self stInit].
 	interpreterProxy methodArgumentCount = 2
 		ifFalse:[^interpreterProxy primitiveFail].
-	arrayOop := interpreterProxy stackObjectValue: 0.
-	interpreterProxy failed ifTrue:[^nil].
+	arrayOop := interpreterProxy stackValue: 0.
 	((interpreterProxy isWords: arrayOop) and:[(interpreterProxy slotSizeOf: arrayOop) = DCTSize2])
 		ifFalse:[^interpreterProxy primitiveFail].
 	qt := interpreterProxy firstIndexableField: arrayOop.
-	arrayOop := interpreterProxy stackObjectValue: 1.
-	interpreterProxy failed ifTrue:[^nil].
+	arrayOop := interpreterProxy stackValue: 1.
 	((interpreterProxy isWords: arrayOop) and:[(interpreterProxy slotSizeOf: arrayOop) = DCTSize2])
 		ifFalse:[^interpreterProxy primitiveFail].
 	anArray := interpreterProxy firstIndexableField: arrayOop.
 	self idctBlockInt: anArray qt: qt.
-	interpreterProxy pop: 2.
+	interpreterProxy pop: 2
