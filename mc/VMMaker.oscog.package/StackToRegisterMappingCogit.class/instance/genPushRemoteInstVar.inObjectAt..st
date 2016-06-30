@@ -4,7 +4,7 @@ genPushRemoteInstVar: index inObjectAt: objectIndex
 	| objectReg resultReg |
 	self assert: needsFrame.
 	objectReg := self allocateRegNotConflictingWith: 0.
-	self genLoadUnFwdTemp: objectIndex in: objectReg.
+	self genLoadTemp: objectIndex in: objectReg.
 	resultReg := self availableRegOrNoneNotConflictingWith: (self registerMaskFor: objectReg). 
 	resultReg = NoReg ifTrue: [resultReg := objectReg].
 	objectRepresentation
