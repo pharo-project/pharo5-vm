@@ -31,7 +31,7 @@
 		"genGetSmallFloatValueOf:scratch:into:" : "eem 12/24/2015 13:39",
 		"genJumpCharacter:" : "eem 3/10/2016 10:53",
 		"genJumpCharacterInScratchReg:" : "eem 3/10/2016 10:52",
-		"genJumpIsSmallIntegerValue:scratch:" : "eem 12/12/2015 11:39",
+		"genJumpIsSmallIntegerValue:scratch:" : "eem 7/4/2016 16:00",
 		"genJumpNotCharacter:" : "eem 3/10/2016 10:42",
 		"genJumpNotCharacterInScratchReg:" : "eem 3/10/2016 10:40",
 		"genJumpNotSmallFloat:" : "eem 3/10/2016 10:43",

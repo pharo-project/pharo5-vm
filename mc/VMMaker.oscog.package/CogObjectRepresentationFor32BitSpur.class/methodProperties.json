@@ -20,7 +20,7 @@
 		"genGetNumBytesOf:into:" : "eem 12/10/2015 08:47",
 		"genGetOverflowSlotsOf:into:" : "eem 4/10/2015 15:54",
 		"genGetSizeOf:into:formatReg:scratchReg:abortJumpsInto:" : "eem 4/10/2015 18:08",
-		"genJumpIsSmallIntegerValue:scratch:" : "eem 12/9/2015 16:06",
+		"genJumpIsSmallIntegerValue:scratch:" : "eem 7/4/2016 16:06",
 		"genJumpNotSmallInteger:" : "eem 5/30/2015 11:07",
 		"genJumpNotSmallIntegerInScratchReg:" : "eem 10/1/2013 06:52",
 		"genJumpNotSmallIntegerValue:scratch:" : "eem 12/9/2015 16:09",
