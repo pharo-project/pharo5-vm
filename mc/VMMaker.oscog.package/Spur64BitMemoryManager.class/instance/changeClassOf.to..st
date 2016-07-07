@@ -16,6 +16,10 @@ changeClassOf: rcvr to: argClass
 	instFormat := self formatOf: rcvr.
 	normalizedInstFormat := self classFormatForInstanceFormat: instFormat.
 
+	"Fail for inability to access classIndex before making contexts snapshot-safe."
+	(classIndex := self ensureBehaviorHash: argClass) < 0 ifTrue:
+		[^classIndex negated].
+
 	(normalizedInstFormat > self lastPointerFormat
 	 and: [normalizedInstFormat = classFormat])
 		ifTrue: [newFormat := instFormat]
@@ -26,6 +30,9 @@ changeClassOf: rcvr to: argClass
 						[^PrimErrInappropriate].
 					 (self numSlotsOf: rcvr) < fixedFields ifTrue:
 						[^PrimErrBadReceiver].
+					 (instFormat = self indexablePointersFormat
+					  and: [self isContextNonImm: rcvr]) ifTrue:
+						[coInterpreter makeContextSnapshotSafe: rcvr].
 					 newFormat := classFormat]
 				ifFalse:
 					[| instBytes |
@@ -76,8 +83,6 @@ changeClassOf: rcvr to: argClass
 								[^PrimErrInappropriate].
 							 newFormat := instFormat] }]].
 
-	(classIndex := self ensureBehaviorHash: argClass) < 0 ifTrue:
-		[^classIndex negated].
 	self set: rcvr classIndexTo: classIndex formatTo: newFormat.
 	"ok"
 	^0

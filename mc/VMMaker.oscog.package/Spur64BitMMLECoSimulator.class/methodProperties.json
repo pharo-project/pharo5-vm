@@ -25,6 +25,7 @@
 		"headerForSlots:format:classIndex:" : "eem 9/4/2013 11:08",
 		"heapMapAtWord:" : "eem 5/9/2014 20:28",
 		"initialize" : "eem 11/14/2013 15:28",
+		"intAt:" : "eem 7/1/2016 10:46",
 		"intAt:put:" : "eem 9/23/2015 08:39",
 		"loadImageSegmentFrom:outPointers:" : "eem 10/22/2014 10:49",
 		"long32At:" : "eem 11/17/2014 14:05",
