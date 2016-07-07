@@ -15,6 +15,8 @@ brew install wget
 # OSX' default tar doesn't feature 7z compression needed for for some 3rd party libs
 #Follow the instruction of `brew info gnu-tar` to make this `tar` version the system default
 brew install gnu-tar --default-names
+#You also need to install the xz decompression tool that will be used by tar
+brew install xz
 ```
 
 Install the latest version of [XCode](https://itunes.apple.com/en/app/xcode/id4977998350) and XCode command line tools.
