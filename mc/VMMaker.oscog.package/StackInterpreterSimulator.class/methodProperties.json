@@ -114,6 +114,7 @@
 		"ioProcessEvents" : "",
 		"ioRelinquishProcessorForMicroseconds:" : "eem 7/15/2015 14:32",
 		"ioScreenDepth" : "ar 2/5/2001 17:24",
+		"ioScreenScaleFactor" : "topa 7/10/2016 23:14",
 		"ioScreenSize" : "eem 3/11/2015 19:25",
 		"ioSetInputSemaphore:" : "yo 2/14/2001 14:17",
 		"ioSetMaxExtSemTableSize:" : "eem 2/3/2010 12:57",
