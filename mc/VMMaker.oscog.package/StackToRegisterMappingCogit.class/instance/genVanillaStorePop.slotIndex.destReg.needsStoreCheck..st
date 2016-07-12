@@ -3,6 +3,7 @@ genVanillaStorePop: popBoolean slotIndex: slotIndex destReg: destReg needsStoreC
 	<inline: true>
 	| topReg |
 
+	self deny: (needsStoreCheck and: [self ssTopNeedsStoreCheck not]).
 	self cppIf: IMMUTABILITY
 		ifTrue: []
 		ifFalse: "First path, receiver is in newSpace"
@@ -16,10 +17,9 @@ genVanillaStorePop: popBoolean slotIndex: slotIndex destReg: destReg needsStoreC
 						[self MoveR: topReg R: TempReg].
 					 self CallRT: ceTraceStoreTrampoline].
 				 ^0]].
-
 	topReg := self 
-		allocateRegForStackEntryAt: 0 
-		notConflictingWith: (self registerMaskFor: destReg). 
+				allocateRegForStackEntryAt: 0 
+				notConflictingWith: (self registerMaskFor: destReg). 
 	self ssStorePop: popBoolean toReg: topReg.
 	objectRepresentation
 		genStoreSourceReg: topReg

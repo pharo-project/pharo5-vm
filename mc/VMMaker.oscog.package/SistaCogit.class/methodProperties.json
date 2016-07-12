@@ -20,7 +20,7 @@
 		"fillInOPICHeader:numArgs:selector:" : "eem 5/20/2015 19:12",
 		"genCounterTripOnlyJumpIf:to:" : "cb 4/8/2016 15:04",
 		"genExecutionCountLogicInto:counterReg:" : "cb 4/26/2015 13:36",
-		"genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode" : "eem 4/28/2015 14:42",
+		"genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode" : "eem 7/11/2016 17:11",
 		"genFallsThroughCountLogicCounterReg:counterAddress:" : "cb 4/25/2015 16:13",
 		"genJumpIf:to:" : "cb 4/21/2016 16:20",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 3/14/2016 11:43",

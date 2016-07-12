@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"expectedSends" : "eem 7/12/2016 13:10",
 		"initializeWithOptions:" : "eem 4/8/2016 12:02",
 		"initializeWithOptions:objectMemoryClass:" : "eem 4/8/2016 12:01",
 		"new" : "eem 9/3/2013 11:01",
@@ -55,6 +56,7 @@
 		"close" : "eem 6/22/2011 12:06",
 		"codeGeneratorToComputeAccessorDepth" : "eem 9/25/2014 15:18",
 		"cogit" : "eem 12/29/2008 12:30",
+		"collectSends" : "eem 7/12/2016 12:59",
 		"commenceCogCompiledCodeCompaction" : "eem 8/13/2012 10:13",
 		"convertToArray" : "eem 12/16/2008 12:25",
 		"convertToMachineCodeFrame:bcpc:" : "eem 8/8/2014 15:07",
@@ -87,6 +89,7 @@
 		"enterSmalltalkExecutiveFromCallback" : "eem 11/20/2010 21:51",
 		"enterSmalltalkExecutiveImplementation" : "eem 9/30/2010 13:21",
 		"executeCogBlock:closure:mayContextSwitch:" : "eem 1/3/2011 17:30",
+		"expectSends:" : "eem 7/12/2016 12:59",
 		"extABytecode" : "eem 11/13/2012 16:40",
 		"extBBytecode" : "eem 11/13/2012 16:40",
 		"externalCannotReturn:from:" : "eem 2/12/2009 16:51",
@@ -284,7 +287,7 @@
 		"printStringOf:on:" : "eem (const to msg rewrite) 11/5/2014 18:08",
 		"queueForwardedEvent:" : "eem 7/14/2015 23:42",
 		"recordThreadSwitchTo:source:" : "eem 11/20/2010 21:51",
-		"recordTrace:thing:source:" : "eem 11/20/2010 21:51",
+		"recordTrace:thing:source:" : "eem 7/12/2016 12:58",
 		"returnToSchedulingLoopAndReleaseVMOrWakeThread:source:" : "eem 11/20/2010 21:51",
 		"reverseBytesInImage" : "eem 4/18/2009 20:34",
 		"rewriteMethodCacheEntryForExternalPrimitiveToFunction:" : "eem 12/12/2012 11:38",

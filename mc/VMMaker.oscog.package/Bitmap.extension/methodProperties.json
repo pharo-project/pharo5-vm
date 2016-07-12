@@ -1,6 +1,6 @@
 {
 	"class" : {
-		 },
+		"defaultIntegerBaseInDebugger" : "eem 10/1/2015 10:47" },
 	"instance" : {
 		"coerceTo:sim:" : "ajh 8/20/2002 01:13",
 		"long64At:" : "eem 10/2/2015 12:10",

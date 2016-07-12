@@ -2,6 +2,7 @@ debug support
 objCouldBeClassObj: objOop
 	"Answer if objOop looks like a class object.  WIth Spur be lenient if the object doesn't
 	 yet have a hash (i.e. is not yet in the classTable), and accept forwarding pointers."
+	<api>
 	<inline: false>
 	| fieldOop |
 	^(objectMemory isPointersNonImm: objOop)

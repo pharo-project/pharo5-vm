@@ -3,7 +3,7 @@ initializeWithOptions: optionsDictionary
 	"StackInterpreter initializeWithOptions: Dictionary new"
 
 	super initializeWithOptions: optionsDictionary.
-	(self primitivesClass withAllSuperclasses copyUpTo: self) do:
+	(self primitivesClass withAllSuperclasses copyUpTo: StackInterpreter) do:
 		[:class| class initializationOptions: initializationOptions].
 	self initializeMiscConstants. "must precede other initialization."
 	self initializeAssociationIndex.

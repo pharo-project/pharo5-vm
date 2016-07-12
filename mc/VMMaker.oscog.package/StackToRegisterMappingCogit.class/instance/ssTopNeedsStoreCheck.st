@@ -1,4 +1,6 @@
 bytecode generator support
 ssTopNeedsStoreCheck
 	<inline: true>
-	^ (objectRepresentation isUnannotatableConstant: self ssTop) not
+	^self ssTop type ~= SSConstant
+	  or: [(objectMemory isNonImmediate: self ssTop constant)
+		and: [objectRepresentation shouldAnnotateObjectReference:  self ssTop constant]]

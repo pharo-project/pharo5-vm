@@ -7,13 +7,13 @@ genUnaryInlinePrimitive: prim
 	| rcvrReg resultReg |
 	rcvrReg := self allocateRegForStackEntryAt: 0.
 	resultReg := self allocateRegNotConflictingWith: (self registerMaskFor: rcvrReg).
-	self ssTop popToReg: rcvrReg.
-	self ssPop: 1.
 	prim
 		caseOf: {
 					"00		unchecked class"
 			[1] ->	"01		unchecked pointer numSlots"
-				[objectRepresentation
+				[self ssTop popToReg: rcvrReg.
+				 self ssPop: 1.
+				 objectRepresentation
 					genGetNumSlotsOf: rcvrReg into: resultReg;
 					genConvertIntegerToSmallIntegerInReg: resultReg].
 					"02		unchecked pointer basicSize"
@@ -24,8 +24,18 @@ genUnaryInlinePrimitive: prim
 					"04		unchecked short16Type format numShorts"
 					"05		unchecked word32Type format numWords"
 					"06		unchecked doubleWord64Type format numDoubleWords"
+			[11] ->	"11		unchecked fixed pointer basicNew"
+				[self ssTop type ~= SSConstant ifTrue:
+					[^EncounteredUnknownBytecode].
+				 (objectRepresentation
+					genGetInstanceOf: self ssTop constant
+						into: resultReg
+							initializingIf: self extBSpecifiesInitializeInstance) ~= 0 ifTrue:
+					[^ShouldNotJIT]. "e.g. bad class"
+				 self ssPop: 1]
 				  }
 		otherwise:
 			[^EncounteredUnknownBytecode].
+	extB := 0.
 	self ssPushRegister: resultReg.
 	^0

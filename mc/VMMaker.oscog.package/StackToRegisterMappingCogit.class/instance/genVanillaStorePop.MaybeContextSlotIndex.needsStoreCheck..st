@@ -5,6 +5,7 @@ genVanillaStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck:
 	<var: #jmpSingle type: #'AbstractInstruction *'>
 	<var: #jmpDone type: #'AbstractInstruction *'>
 
+	self deny: (needsStoreCheck and: [self ssTopNeedsStoreCheck not]).
 	self ssPop: 1.
 	self ssAllocateCallReg: ClassReg and: SendNumArgsReg. "for ceStoreContextInstVarTrampoline"
 	self ssPush: 1.

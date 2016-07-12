@@ -3,7 +3,8 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		"ByteCountsPerMicrosecond" ],
+		"ByteCountsPerMicrosecond",
+		"ExpectedSends" ],
 	"commentStamp" : "eem 9/3/2013 11:16",
 	"instvars" : [
 		"parent",
@@ -38,7 +39,9 @@
 		"extSemTabSize",
 		"debugStackDepthDictionary",
 		"performFilters",
-		"eventQueue" ],
+		"eventQueue",
+		"expectedSends",
+		"expecting" ],
 	"name" : "CogVMSimulator",
 	"pools" : [
 		 ],
