@@ -1,0 +1,2 @@
+# it's ok because Pharo is not under the GNU GPL
+pharo5-vm-core binary: possible-gpl-code-linked-with-openssl
