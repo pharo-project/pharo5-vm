@@ -1,3 +1,6 @@
+all: build_32bit pharo5_sources
+
+
 build_32bit:
 	@echo "Generating sources"
 	git clean -dxf .
@@ -11,3 +14,9 @@ build_32bit:
 
 	cd packaging/pharo5-vm-core && patch -p1 < ../fix-up-buildsystem.patch
 	cd packaging/pharo5-vm-core && dpkg-buildpackage -S -uc -us
+
+pharo5_sources:
+	cd packaging/pharo5-sources-files && wget http://files.pharo.org/sources/PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && unzip PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && rm PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && dpkg-buildpackage -S -uc -us
