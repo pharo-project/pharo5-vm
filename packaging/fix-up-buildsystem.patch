@@ -1,0 +1,45 @@
+Index: pharo5-vm-core/build/CMakeLists.txt
+===================================================================
+--- pharo5-vm-core.orig/build/CMakeLists.txt	2016-07-15 15:16:17.097557137 +0200
++++ pharo5-vm-core/build/CMakeLists.txt	2016-07-15 15:19:21.617559587 +0200
+@@ -18,27 +18,7 @@
+ set(extraSources version.c)
+ add_executable(pharo  ${coreSources} ${crossVMSources} ${platformVMSources} ${extraSources})
+ list(APPEND LINKLIBS asound)
+-add_subdirectory("thirdParty/libssh2")
+-set(libssh2_LIB "${externalModulesDir}/libssh2.so.1")
+-add_library("${libssh2_LIB}" SHARED IMPORTED GLOBAL)
+-	set_target_properties("${libssh2_LIB}" PROPERTIES IMPORTED_LOCATION "${libssh2_LIB}")
+-add_dependencies("${libssh2_LIB}" "libssh2")
+ 
+-add_dependencies(pharo libssh2)
+-add_subdirectory("thirdParty/libgit2")
+-set(libgit2_LIB "${externalModulesDir}/libgit2.so.0")
+-add_library("${libgit2_LIB}" SHARED IMPORTED GLOBAL)
+-	set_target_properties("${libgit2_LIB}" PROPERTIES IMPORTED_LOCATION "${libgit2_LIB}")
+-add_dependencies("${libgit2_LIB}" "libgit2")
+-
+-add_dependencies(pharo libgit2)
+-add_subdirectory("thirdParty/libsdl2")
+-set(libsdl2_LIB "${externalModulesDir}/libSDL2-2.0.so.0.2.1")
+-add_library("${libsdl2_LIB}" SHARED IMPORTED GLOBAL)
+-	set_target_properties("${libsdl2_LIB}" PROPERTIES IMPORTED_LOCATION "${libsdl2_LIB}")
+-add_dependencies("${libsdl2_LIB}" "libsdl2")
+-
+-add_dependencies(pharo libsdl2)
+ add_subdirectory("ADPCMCodecPlugin")
+ add_subdirectory("AsynchFilePlugin")
+ add_subdirectory("B2DPlugin")
+Index: pharo5-vm-core/build/SDL2DisplayPlugin/CMakeLists.txt
+===================================================================
+--- pharo5-vm-core.orig/build/SDL2DisplayPlugin/CMakeLists.txt	2016-07-15 15:16:17.093557137 +0200
++++ pharo5-vm-core/build/SDL2DisplayPlugin/CMakeLists.txt	2016-07-15 15:20:40.017560628 +0200
+@@ -6,7 +6,7 @@
+ set(LINKLIBS )
+ list(APPEND sources  "${pluginSrc}/SDL2DisplayPlugin.c")
+ include_directories(${pluginSrc} ${pluginCross} ${targetPlatform}/plugins/${pluginName})
+-list(APPEND LINKLIBS ${externalModulesDir}/libSDL2-2.0.so.0.2.1)
++list(APPEND LINKLIBS SDL2)
+ include_directories("${thirdpartyDir}/out/include")
+ list(APPEND sources  "${pluginCross}/SDL2DisplayPluginImpl.c")
+ add_library(SDL2DisplayPlugin SHARED ${sources})

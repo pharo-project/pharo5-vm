@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+export DH_OPTIONS=-v
+
+# Make sure that dpkg-buildflags are passed to the building process
+export CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+export CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+export CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+export LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@ -v --buildsystem=cmake --sourcedirectory=build
+
+override_dh_install:
+	mv results/vm-display-null results/vm-display-null.so
+	mv results/vm-display-X11 results/vm-display-X11.so
+	mv results/vm-sound-null results/vm-sound-null.so
+	mv results/vm-sound-ALSA results/vm-sound-ALSA.so
+	mv results/pharo results/pharo-vm
+	dh_install

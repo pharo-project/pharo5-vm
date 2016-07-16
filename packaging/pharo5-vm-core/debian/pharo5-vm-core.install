@@ -1,0 +1,12 @@
+results/pharo-vm                                usr/lib/pharo5-vm
+results/vm-*-null.so                            usr/lib/pharo5-vm
+results/vm-display-X11.so                       usr/lib/pharo5-vm
+results/vm-sound-ALSA.so                        usr/lib/pharo5-vm
+results/libInternetConfigPlugin.so              usr/lib/pharo5-vm
+results/libSqueakSSL.so                         usr/lib/pharo5-vm
+results/libJPEGReaderPlugin.so                  usr/lib/pharo5-vm
+results/libJPEGReadWriter2Plugin.so             usr/lib/pharo5-vm
+results/libRePlugin.so                          usr/lib/pharo5-vm
+results/libB3DAcceleratorPlugin.so              usr/lib/pharo5-vm
+results/libFT2Plugin.so                         usr/lib/pharo5-vm
+debian/pharo5-vm-core-resources/usr         .
