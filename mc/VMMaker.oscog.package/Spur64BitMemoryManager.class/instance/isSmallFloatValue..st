@@ -1,11 +1,12 @@
 interpreter access
 isSmallFloatValue: aFloat
 	<inline: true>
+	<var: #rawFloat type: #usqLong>
 	<var: #aFloat type: #double>
 	| exponent rawFloat |
-	rawFloat := self
-					cCode: [(self cCoerce: (self addressOf: aFloat) to: 'sqLong *') at: 0]
-					inSmalltalk: [(aFloat at: 1) << 32 + (aFloat at: 2)].
+	self
+		cCode: [self mem: (self addressOf: rawFloat) cp: (self addressOf: aFloat) y: (self sizeof: rawFloat)]
+		inSmalltalk: [rawFloat := (aFloat at: 1) << 32 + (aFloat at: 2)].
 	exponent := rawFloat >> self smallFloatMantissaBits bitAnd: 16r7FF.
 	^exponent > self smallFloatExponentOffset
 	 	ifTrue: [exponent <= (255 + self smallFloatExponentOffset)]

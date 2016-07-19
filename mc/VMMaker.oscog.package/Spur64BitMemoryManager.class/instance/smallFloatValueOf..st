@@ -7,12 +7,16 @@ smallFloatValueOf: oop
 	 shift away tags:		[ 000 ][8expsubset][52mantissa][1s] 
 	 add exponent offset:	[     11 exponent     ][52mantissa][1s] 
 	 rot sign:				[1s][     11 exponent     ][52mantissa]"
-	| bits |
+	| bits value |
 	<returnTypeC: #double>
+	<var: #value type: #double>
+	<var: #bits type: #usqLong>
 	bits := self smallFloatBitsOf: oop.
-	^self cCode: [(self cCoerce: (self addressOf: bits) to: #'double *') at: 0]
+	self cCode:
+			[self mem: (self addressOf: value) cp: (self addressOf: bits) y: (self sizeof: value).
+			^value]
 		inSmalltalk:
-			[(Float new: 2)
+			[^(Float new: 2)
 				at: 1 put: bits >> 32;
 				at: 2 put: (bits bitAnd: 16rFFFFFFFF);
 				* 1.0 "reduce to SmallFloat64 if possible"]

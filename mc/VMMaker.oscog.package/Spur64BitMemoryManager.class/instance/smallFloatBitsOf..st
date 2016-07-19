@@ -8,6 +8,8 @@ smallFloatBitsOf: oop
 	 add exponent offset:	[     11 exponent     ][52mantissa][1s] 
 	 rot sign:				[1s][     11 exponent     ][52mantissa]"
 	| rot |
+	<returnTypeC: #usqLong>
+	<var: #rot type: #usqLong>
 	self assert: (self isImmediateFloat: oop).
 	rot := oop asUnsignedInteger >> self numTagBits.
 	rot > 1 ifTrue: "a.k.a. ~= +/-0.0"

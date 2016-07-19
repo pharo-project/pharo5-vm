@@ -11,10 +11,12 @@ smallFloatObjectOf: aFloat
 	<inline: true>
 	<var: #aFloat type: #double>
 	| rawFloat rot |
-	<var: #rot type: #'unsigned long'>
+	<var: #rawFloat type: #usqLong>
+	<var: #rot type: #usqLong>
 	self assert: (self isSmallFloatValue: aFloat).
-	rawFloat := self cCode: [(self cCoerce: (self addressOf: aFloat) to: 'sqLong *') at: 0]
-					inSmalltalk: [(aFloat at: 1) << 32 + (aFloat at: 2)].
+	self
+		cCode: [self mem: (self addressOf: rawFloat) cp: (self addressOf: aFloat) y: (self sizeof: rawFloat)]
+		inSmalltalk: [rawFloat := (aFloat at: 1) << 32 + (aFloat at: 2)].
 	rot := self rotateLeft: rawFloat.
 	rot > 1 ifTrue: "a.k.a. ~= +/-0.0"
 		[rot := rot - (self smallFloatExponentOffset << (self smallFloatMantissaBits + 1)).
