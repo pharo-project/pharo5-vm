@@ -36,6 +36,7 @@
 		"oopForObject:" : "eem 12/2/2015 14:54",
 		"rawHashBitsOf:" : "eem 7/12/2016 10:36",
 		"rememberedBitShift" : "eem 6/1/2014 12:22",
+		"remoteIsInstVarAccess" : "cb 7/7/2016 17:01",
 		"shiftForWord" : "eem 6/4/2014 14:48",
 		"smallIntegerTag" : "eem 8/7/2014 05:03",
 		"smallObjectBytesForSlots:" : "eem 6/1/2014 12:18",

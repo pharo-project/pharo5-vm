@@ -19,6 +19,7 @@ genTrinaryInlinePrimitive: prim
 	self ssPop: 1.
 	objectRepresentation genConvertSmallIntegerToIntegerInReg: ra1.
 	"Now: ra is the variable object, rr is long, TempReg holds the value to store."
+	self flag: #TODO. "This is not really working as the immutability and store check needs to be present. "
 	prim caseOf: {
 		"0 - 1 pointerAt:put: and byteAt:Put:"
 		[0] ->	[ adjust := (objectMemory baseHeaderSize >> objectMemory shiftForWord) - 1. "shift by baseHeaderSize and then move from 1 relative to zero relative"

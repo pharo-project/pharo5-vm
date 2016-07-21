@@ -1,0 +1,3 @@
+accessing
+remoteIsInstVarAccess
+	^ 128

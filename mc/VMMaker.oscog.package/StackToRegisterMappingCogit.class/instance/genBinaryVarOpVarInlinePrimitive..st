@@ -16,10 +16,10 @@ genBinaryVarOpVarInlinePrimitive: prim
 				 self AddR: ra R: rr].
 		[1]	->	[self SubR: ra R: rr.
 				 objectRepresentation genAddSmallIntegerTagsTo: rr].
-		[2]	->	[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: rr.
-				 objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ra.
+		[2]	->	[self genShiftAwaySmallIntegerTagsInScratchReg: rr.
+				 self genRemoveSmallIntegerTagsInScratchReg: ra.
 				 self MulR: ra R: rr.
-				 objectRepresentation genAddSmallIntegerTagsTo: rr].
+				 self genSetSmallIntegerTagsIn: rr].
 
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 		[16] -> [ self AndR: ra R: rr ].

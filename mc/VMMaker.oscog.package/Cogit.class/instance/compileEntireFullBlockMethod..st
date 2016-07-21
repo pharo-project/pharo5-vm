@@ -12,4 +12,4 @@ compileEntireFullBlockMethod: numCopied
 	(result := self compileMethodBody) < 0 ifTrue:
 		[^result].
 	self assert: blockCount = 0.
-	^0
+	^-1

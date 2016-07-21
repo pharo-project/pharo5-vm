@@ -18,10 +18,10 @@ genBinaryConstOpVarInlinePrimitive: prim
 				 self SubR: ra R: TempReg.
 				 objectRepresentation genAddSmallIntegerTagsTo: TempReg.
 				 self MoveR: TempReg R: ra].
-		[2]	->	[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: ra.
-				 self MoveCq: (objectMemory integerValueOf: val) R: TempReg.
+		[2]	->	[objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: ra.
+				 self MoveCq: untaggedVal R: TempReg.
 				 self MulR: TempReg R: ra.
-				 objectRepresentation genAddSmallIntegerTagsTo: ra].
+				 objectRepresentation genSetSmallIntegerTagsIn: ra].
 
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 		[16] -> [ self AndCq: val R: ra ].

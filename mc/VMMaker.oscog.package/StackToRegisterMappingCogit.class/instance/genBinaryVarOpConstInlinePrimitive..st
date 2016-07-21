@@ -17,9 +17,9 @@ genBinaryVarOpConstInlinePrimitive: prim
 		[1]	->	[self SubCq: untaggedVal R: rr ].
 		[2]	->	[self flag: 'could use MulCq:R'.
 				 objectRepresentation genShiftAwaySmallIntegerTagsInScratchReg: rr.
-				 self MoveCq: (objectMemory integerValueOf: val) R: TempReg.
+				 self MoveCq: untaggedVal R: TempReg.
 				 self MulR: TempReg R: rr.
-				 objectRepresentation genAddSmallIntegerTagsTo: rr].
+				 objectRepresentation genSetSmallIntegerTagsIn: rr].
 
 		"2016 through 2019, bitAnd:, bitOr:, bitXor, bitShift:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 		[16] -> [ self AndCq: val R: rr ].
