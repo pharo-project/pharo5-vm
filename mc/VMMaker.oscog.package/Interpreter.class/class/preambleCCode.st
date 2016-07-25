@@ -4,7 +4,7 @@ preambleCCode
 'void printCallStack(void);
 
 /* Disable Intel compiler inlining of error & warning which are used for breakpoints */
-#pragma auto_inline off
+#pragma auto_inline(off)
 
 void
 warning(char *s) { /* Print an error message but don''t exit. */
@@ -12,7 +12,7 @@ warning(char *s) { /* Print an error message but don''t exit. */
 
 	printf("\n%s\n", s);
 }
-#pragma auto_inline on
+#pragma auto_inline(on)
 
 void
 invalidCompactClassError(char *s) { /* Print a compact class index error message and exit. */
