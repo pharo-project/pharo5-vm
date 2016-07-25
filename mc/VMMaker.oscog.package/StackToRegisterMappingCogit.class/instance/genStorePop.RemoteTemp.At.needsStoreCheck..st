@@ -1,4 +1,4 @@
-bytecode generator support
+bytecode generator stores
 genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex needsStoreCheck: needsStoreCheck
 	<inline: false>
 	"The only reason we assert needsFrame here is that in a frameless method
@@ -14,5 +14,11 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex needsStoreChec
 	self ssAllocateRequiredReg: ReceiverResultReg. 
 	optStatus isReceiverResultRegLive: false.
 	self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
-	self genVanillaStorePop: popBoolean slotIndex: slotIndex destReg: ReceiverResultReg needsStoreCheck: needsStoreCheck.
+	self 
+		genGenericStorePop: popBoolean 
+		slotIndex: slotIndex 
+		destReg: ReceiverResultReg 
+		needsStoreCheck: needsStoreCheck
+		needsRestoreRcvr: false "We don't keep ReceiverResultReg live with the receiver across this operation"
+		needsImmutabilityCheck: false. "never do immutability check on temp vectors"
 	^ 0

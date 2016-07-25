@@ -35,15 +35,19 @@ scanMethod
 			[(descriptor needsFrameFunction isNil
 			  or: [self perform: descriptor needsFrameFunction with: framelessStackDelta])
 					ifTrue:
-						[needsFrame := true]
+						["With immutability we win simply by avoiding a frame build if the receiver is young and not immutable."
+						 self cppIf: IMMUTABILITY
+							ifTrue: [descriptor is1ByteInstVarStore
+									ifTrue: [useTwoPaths := true]
+									ifFalse: [needsFrame := true. useTwoPaths := false]]
+							ifFalse: [needsFrame := true]]
 					ifFalse:
 						[framelessStackDelta := framelessStackDelta + descriptor stackDelta.
-						 "With immutability we win simply by avoiding a frame build if the receiver is not immutable.
-						  Without immutability we win if there are two or more stores amd the receiver is new."
+						 "Without immutability we win if there are two or more stores and the receiver is new."
 						 self cppIf: IMMUTABILITY
-							ifTrue: [useTwoPaths := descriptor isInstVarStore]
+							ifTrue: []
 							ifFalse:
-								[descriptor isInstVarStore ifTrue:
+								[descriptor is1ByteInstVarStore ifTrue:
 									[seenInstVarStore
 										ifTrue: [useTwoPaths := true]
 										ifFalse: [seenInstVarStore := true]]]]].

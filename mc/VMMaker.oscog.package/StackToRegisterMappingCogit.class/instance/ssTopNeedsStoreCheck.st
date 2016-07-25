@@ -1,4 +1,4 @@
-bytecode generator support
+testing
 ssTopNeedsStoreCheck
 	<inline: true>
 	^self ssTop type ~= SSConstant

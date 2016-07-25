@@ -1,4 +1,4 @@
-bytecode generator support
+testing
 extBSpecifiesNoStoreCheck 
 	<inline: true>
-	^ extB noMask: 1
+	^ extB anyMask: 1

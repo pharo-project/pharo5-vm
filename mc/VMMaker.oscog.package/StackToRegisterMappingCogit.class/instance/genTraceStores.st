@@ -1,4 +1,4 @@
-bytecode generator support
+bytecode generator stores
 genTraceStores
 	<inline: true>
 	traceStores > 0 ifTrue: 

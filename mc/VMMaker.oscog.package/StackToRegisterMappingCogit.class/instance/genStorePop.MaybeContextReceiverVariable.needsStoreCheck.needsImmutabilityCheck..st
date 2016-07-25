@@ -1,5 +1,5 @@
-bytecode generator support
-genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex needsStoreCheck: needsStoreCheck
+bytecode generator stores
+genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex needsStoreCheck: needsStoreCheck needsImmutabilityCheck: needsImmCheck
 	<inline: false>
 	"The reason we need a frame here is that assigning to an inst var of a context may
 	 involve wholesale reorganization of stack pages, and the only way to preserve the
@@ -7,5 +7,10 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex needsStoreCheck:
 	self assert: needsFrame.
 	self ssFlushUpThroughReceiverVariable: slotIndex.
 	self ensureReceiverResultRegContainsSelf.
-	self genStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck: needsStoreCheck.
+	self 
+		genGenericStorePop: popBoolean 
+		MaybeContextSlotIndex: slotIndex 
+		needsStoreCheck: needsStoreCheck
+		needsRestoreRcvr: true
+		needsImmutabilityCheck: needsImmCheck.
 	^ 0

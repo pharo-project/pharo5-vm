@@ -81,7 +81,7 @@
 		"genStoreTrampolineCalled:instVarIndex:" : "eem 1/1/1970 13:40",
 		"genStoreWithImmutabilityAndStoreCheckSourceReg:slotIndex:destReg:scratchReg:needRestoreRcvr:" : "eem 1/1/1970 17:05",
 		"genStoreWithImmutabilityButNoStoreCheckSourceReg:slotIndex:destReg:scratchReg:needRestoreRcvr:" : "eem 1/1/1970 17:06",
-		"genStoreWithImmutabilityCheckSourceReg:slotIndex:destReg:scratchReg:needsStoreCheck:needRestoreRcvr:" : "eem 1/1/1970 17:03",
+		"genStoreWithImmutabilityCheckSourceReg:slotIndex:destReg:scratchReg:needsStoreCheck:needRestoreRcvr:" : "cb 7/25/2016 11:12",
 		"generateObjectRepresentationTrampolines" : "eem 5/30/2016 13:57",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
 		"getLiteralCountOf:plusOne:inBytes:into:scratch:" : "eem 1/23/2016 12:23",

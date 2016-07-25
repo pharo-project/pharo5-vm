@@ -8,19 +8,19 @@ compileTwoPathFrameBuild
 	Note: this specific case happens only where there are only instance variabel stores. We could do something
 	similar for literal variable stores, but we don't as it's too uncommon."
 	<option: #IMMUTABILITY>
-	| jumpImmutable |
-	self assert: needsFrame.
+	| jumpImmutable jumpOld |
 	self assert: useTwoPaths.
 	self assert: blockCount = 0.
 	jumpImmutable := objectRepresentation genJumpImmutable: ReceiverResultReg scratchReg: TempReg.
+	jumpOld := objectRepresentation genJumpInOldSpace: ReceiverResultReg.
 	"first path. The receiver is mutable"
-	needsFrame := false.
+	self assert: needsFrame not.
 	self initSimStackForFramelessMethod: initialPC.
 	self compileMethodBody.
 	"second path. The receiver is mutable"
 	useTwoPaths := false. "reset because it impacts inst var store compilation"
 	needsFrame := true.
-	jumpImmutable jmpTarget: self Label.
+	jumpOld jmpTarget: (jumpImmutable jmpTarget: self Label).
 	self genPushRegisterArgs.
 	super compileFrameBuild.
 	self initSimStackForFramefulMethod: initialPC

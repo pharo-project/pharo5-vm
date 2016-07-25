@@ -1,4 +1,4 @@
-bytecode generator support
+testing
 extASpecifiesNoMustBeBoolean
 	<inline: true>
-	^ (extA anyMask: 1)
+	^ extA anyMask: 1

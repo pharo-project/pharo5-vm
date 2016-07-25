@@ -46,7 +46,7 @@ initializeBytecodeTableForNewspeakV4
 		(1 144 159 genSendLiteralSelector2ArgsBytecode isMapped)
 		(1 160 175	genSendAbsentImplicit0ArgsBytecode isMapped hasIRC)
 			
-		(1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability needsFrameIfImmutability: -1)
+		(1 176 183 genStoreAndPopReceiverVariableBytecode isInstVarRef is1ByteInstVarStore isMappedIfImmutability needsFrameIfImmutability: -1)
 			
 		(1 184 191 genStoreAndPopTemporaryVariableBytecode)
 
@@ -74,10 +74,10 @@ initializeBytecodeTableForNewspeakV4
 		(2 229 229 genExtPushIntegerBytecode				needsFrameNever: 1)
 		(2 230 230 genLongPushTemporaryVariableBytecode)
 		(2 231 231 genPushNewArrayBytecode)
-		(2 232 232 genExtStoreReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability)
+		(2 232 232 genExtStoreReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
 		(2 233 233 genExtStoreLiteralVariableBytecode isMappedIfImmutability)
 		(2 234 234 genLongStoreTemporaryVariableBytecode)
-		(2 235 235 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isInstVarStore isMappedIfImmutability)
+		(2 235 235 genExtStoreAndPopReceiverVariableBytecode isInstVarRef isMappedIfImmutability)
 		(2 236 236 genExtStoreAndPopLiteralVariableBytecode isMappedIfImmutability)
 		(2 237 237 genLongStoreAndPopTemporaryVariableBytecode)
 

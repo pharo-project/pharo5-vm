@@ -1,4 +1,4 @@
-bytecode generator support
+testing
 sistaNeedsStoreCheck
 	<inline: true>
 	"The store check can be ignored if the value assigned doesn't need it (immediate, etc)

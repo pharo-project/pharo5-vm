@@ -1,4 +1,4 @@
-bytecode generator support
+bytecode generator stores
 genStorePop: popBoolean TemporaryVariable: tempIndex
 	<inline: false>
 	| reg |
