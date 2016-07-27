@@ -91,7 +91,7 @@ initializeBytecodeTableForSistaV1
 		(227		extPushLiteralVariableBytecode)
 		(228		extPushLiteralBytecode)
 		(229		longPushTemporaryVariableBytecode)
-		(230		pushClosureTempsBytecode)
+		(230		unknownBytecode)
 		(231		pushNewArrayBytecode)
 		(232		extPushIntegerBytecode)
 		(233		extPushCharacterBytecode)
@@ -117,7 +117,7 @@ initializeBytecodeTableForSistaV1
 
 		"3 byte bytecodes"
 		(248		callPrimitiveBytecode)
-		(249		unknownBytecode) "reserved for Push Float"
+		(249		extPushFullClosureBytecode)
 
 		(250		extPushClosureBytecode)
 		(251		extPushRemoteTempOrInstVarLongBytecode)
@@ -126,5 +126,5 @@ initializeBytecodeTableForSistaV1
 				
 		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
 
-		(255		extPushFullClosureBytecode)
+		(255		unknownBytecode)
 	)

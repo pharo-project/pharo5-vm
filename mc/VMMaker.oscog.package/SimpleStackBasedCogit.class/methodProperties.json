@@ -4,7 +4,7 @@
 		"callingConvention" : "eem 3/21/2013 15:35",
 		"declareCVarsIn:" : "eem 1/8/2016 15:56",
 		"initializeBytecodeTableForNewspeakV4" : "eem 1/21/2016 17:29",
-		"initializeBytecodeTableForSistaV1" : "cb 4/8/2016 15:08",
+		"initializeBytecodeTableForSistaV1" : "cb 7/25/2016 14:33",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "eem 1/21/2016 19:18",
 		"initializePrimitiveTableForNewsqueak" : "eem 2/28/2016 10:49",
 		"initializePrimitiveTableForSqueak" : "cb 4/11/2016 10:59",
