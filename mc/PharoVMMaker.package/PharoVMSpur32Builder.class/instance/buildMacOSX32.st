@@ -1,13 +1,9 @@
 building
 buildMacOSX32 
+	"since opensmalltalk-vm, we do not generate CMake anymore, just sources"
 	PharoSpur32OSXConfig new  
-		generationType: generationType;
+		topDir: '../opensmalltalk-vm';
+		srcDir: '../opensmalltalk-vm/spursrc';
 		addExternalPlugins: #( FT2Plugin SDL2DisplayPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
-		addThirdpartyLibraries: #(
-			'cairo' 
-			'libgit2'
-			'libssh2'
-			'libsdl2');
-		generateSources; 
-		generate.
+		generateSources.
