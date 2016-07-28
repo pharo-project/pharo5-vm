@@ -28,4 +28,4 @@ defaultInternalPlugins
 		StarSqueakPlugin 
 		UnixAioPlugin
 		UnixOSProcessPlugin
-		)
+		AsynchFilePlugin)

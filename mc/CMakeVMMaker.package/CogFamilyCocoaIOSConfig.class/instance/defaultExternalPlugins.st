@@ -3,7 +3,6 @@ defaultExternalPlugins
 	^ #(
 		UUIDPlugin
 		FloatMathPlugin
-		AsynchFilePlugin
 		Mpeg3Plugin
 		CroquetPlugin
 		JoystickTabletPlugin
