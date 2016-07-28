@@ -5,6 +5,6 @@ generateSqueakSpurStackVM
 		generate: StackInterpreter
 		with: #(ObjectMemory Spur32BitMemoryManager
 				FailImbalancedPrimitives false)
-		to: (FileDirectory default directoryNamed: self sourceTree, '/spurstacksrc') fullName
-		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
+		to: (FileDirectory default pathFromURI: self sourceTree, '/spurstacksrc')
+		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including: #()

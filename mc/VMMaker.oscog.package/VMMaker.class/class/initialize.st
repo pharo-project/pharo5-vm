@@ -14,7 +14,7 @@ initialize
 	 Another is where the source tree is at the same level as the VMMaker image,
 	 in which case it is likely called oscogvm or Cog."
 	#('../platforms' 'oscogvm/platforms' 'Cog/platforms' '../oscogvm/platforms')
-		with: #('../' 'oscogvm' 'Cog' '../oscogvm')
+		with: #('..' 'oscogvm' 'Cog' '../oscogvm')
 		do: [:dir :path|
 			(FileDirectory default directoryExists: dir) ifTrue:
 				[DirNames at: #sourceTree put: path.

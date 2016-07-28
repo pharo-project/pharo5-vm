@@ -4,6 +4,6 @@ generateSqueakStackVM
 	^VMMaker
 		generate: StackInterpreter
 		with: #(FailImbalancedPrimitives false)
-		to: (FileDirectory default directoryNamed: self sourceTree, '/stacksrc') fullName
-		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
+		to: (FileDirectory default pathFromURI: self sourceTree, '/stacksrc')
+		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including: #()

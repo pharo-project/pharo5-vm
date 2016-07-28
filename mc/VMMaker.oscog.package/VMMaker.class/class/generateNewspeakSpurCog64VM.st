@@ -7,6 +7,6 @@ generateNewspeakSpurCog64VM
 		with: #(	ObjectMemory Spur64BitCoMemoryManager
 				MULTIPLEBYTECODESETS true
 				NewspeakVM true)
-		to: (FileDirectory default directoryNamed: self sourceTree, '/nsspur64src') fullName
-		platformDir: (FileDirectory default directoryNamed: self sourceTree, '/platforms') fullName
+		to: (FileDirectory default pathFromURI: self sourceTree, '/nsspur64src')
+		platformDir: (FileDirectory default pathFromURI: self sourceTree, '/platforms')
 		including:#()
