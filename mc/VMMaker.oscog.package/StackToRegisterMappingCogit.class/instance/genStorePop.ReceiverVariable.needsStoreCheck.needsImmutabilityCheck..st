@@ -4,12 +4,11 @@ genStorePop: popBoolean ReceiverVariable: slotIndex needsStoreCheck: needsStoreC
 	self ssFlushUpThroughReceiverVariable: slotIndex.
 	self ensureReceiverResultRegContainsSelf.
 	"In two path compilation the receiver is young AND mutable, hence no store check nor immutability check is needed"
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		slotIndex: slotIndex 
 		destReg: ReceiverResultReg 
 		needsStoreCheck: (useTwoPaths not and: [needsStoreCheck])
 		needsRestoreRcvr: true "ReceiverResultReg is kept live with the receiver across the operation"
-		needsImmutabilityCheck: (needsImmCheck and: [useTwoPaths not]). 
-	^ 0
+		needsImmutabilityCheck: (needsImmCheck and: [useTwoPaths not])
 		

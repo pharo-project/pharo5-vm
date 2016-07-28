@@ -14,11 +14,10 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex needsStoreChec
 	self ssAllocateRequiredReg: ReceiverResultReg. 
 	optStatus isReceiverResultRegLive: false.
 	self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		slotIndex: slotIndex 
 		destReg: ReceiverResultReg 
 		needsStoreCheck: needsStoreCheck
 		needsRestoreRcvr: false "We don't keep ReceiverResultReg live with the receiver across this operation"
-		needsImmutabilityCheck: false. "never do immutability check on temp vectors"
-	^ 0
+		needsImmutabilityCheck: false "never do immutability check on temp vectors"

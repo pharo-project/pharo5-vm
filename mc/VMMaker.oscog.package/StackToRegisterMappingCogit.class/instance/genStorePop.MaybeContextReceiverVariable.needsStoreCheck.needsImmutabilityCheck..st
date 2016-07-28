@@ -7,10 +7,9 @@ genStorePop: popBoolean MaybeContextReceiverVariable: slotIndex needsStoreCheck:
 	self assert: needsFrame.
 	self ssFlushUpThroughReceiverVariable: slotIndex.
 	self ensureReceiverResultRegContainsSelf.
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		MaybeContextSlotIndex: slotIndex 
 		needsStoreCheck: needsStoreCheck
 		needsRestoreRcvr: true
-		needsImmutabilityCheck: needsImmCheck.
-	^ 0
+		needsImmutabilityCheck: needsImmCheck

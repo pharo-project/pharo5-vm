@@ -1,6 +1,6 @@
 bytecode generator stores
 genStorePop: popBoolean ReceiverVariable: slotIndex
-	<inline: false>
+	<inline: true>
 	^self 
 		genStorePop: popBoolean 
 		ReceiverVariable: slotIndex 

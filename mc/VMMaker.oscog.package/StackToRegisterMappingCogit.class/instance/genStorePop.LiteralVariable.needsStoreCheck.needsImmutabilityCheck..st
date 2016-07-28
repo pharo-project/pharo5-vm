@@ -5,12 +5,11 @@ genStorePop: popBoolean LiteralVariable: litVarIndex needsStoreCheck: needsStore
 	and ReceiverResultReg holds only the receiver in frameless methods."
 	self assert: needsFrame.
 	self genLoadLiteralVariable: litVarIndex in: ReceiverResultReg.
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		slotIndex: ValueIndex 
 		destReg: ReceiverResultReg
 		needsStoreCheck: needsStoreCheck
 		needsRestoreRcvr: false
-		needsImmutabilityCheck: needsImmCheck.
-	^ 0
+		needsImmutabilityCheck: needsImmCheck
 		

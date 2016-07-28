@@ -1,6 +1,6 @@
 bytecode generator stores
 genStorePop: popBoolean LiteralVariable: litVarIndex
-	<inline: false>
+	<inline: true>
 	^self 
 		genStorePop: popBoolean 
 		LiteralVariable: litVarIndex 

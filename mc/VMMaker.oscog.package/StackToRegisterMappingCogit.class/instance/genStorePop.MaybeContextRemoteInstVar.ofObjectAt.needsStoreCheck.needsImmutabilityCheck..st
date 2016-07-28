@@ -6,10 +6,9 @@ genStorePop: popBoolean MaybeContextRemoteInstVar: slotIndex ofObjectAt: objectI
 	 execution state of an activation in that case is if it has a frame."
 	self assert: needsFrame.
 	self genLoadTemp: objectIndex in: ReceiverResultReg.
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		MaybeContextSlotIndex: slotIndex 
 		needsStoreCheck: needsStoreCheck
 		needsRestoreRcvr: false
-		needsImmutabilityCheck: needsImmCheck.
-	^ 0
+		needsImmutabilityCheck: needsImmCheck

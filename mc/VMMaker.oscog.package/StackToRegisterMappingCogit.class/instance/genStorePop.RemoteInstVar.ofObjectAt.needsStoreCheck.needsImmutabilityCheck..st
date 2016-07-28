@@ -3,11 +3,10 @@ genStorePop: popBoolean RemoteInstVar: slotIndex ofObjectAt: objectIndex needsSt
 	<inline: false>
 	self assert: needsFrame.
 	self genLoadTemp: objectIndex in: ReceiverResultReg.
-	self 
+	^self 
 		genGenericStorePop: popBoolean 
 		slotIndex: slotIndex 
 		destReg: ReceiverResultReg 
 		needsStoreCheck: needsStoreCheck
 		needsRestoreRcvr: false
-		needsImmutabilityCheck: needsImmCheck.
-	^ 0
+		needsImmutabilityCheck: needsImmCheck

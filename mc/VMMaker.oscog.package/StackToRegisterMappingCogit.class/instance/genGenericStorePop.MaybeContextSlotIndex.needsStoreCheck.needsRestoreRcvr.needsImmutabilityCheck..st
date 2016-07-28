@@ -35,7 +35,7 @@ genGenericStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck:
 				destReg: ReceiverResultReg 
 				scratchReg: TempReg 
 				needsStoreCheck: needsStoreCheck 
-				needRestoreRcvr: true]
+				needRestoreRcvr: needsRestoreReceiver]
 		ifFalse:
 			[objectRepresentation
 				genStoreSourceReg: ClassReg
