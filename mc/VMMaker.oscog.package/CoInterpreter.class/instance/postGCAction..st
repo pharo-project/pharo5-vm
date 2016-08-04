@@ -5,5 +5,5 @@ postGCAction: gcModeArg
 	self assert: gcModeArg = gcMode.
 	super postGCAction: gcModeArg.
 	cogit cogitPostGCAction: gcModeArg.
-	lastCoggableInterpretedBlockMethod := lastUncoggableInterpretedBlockMethod := nil.
+	self nilUncoggableMethods.
 	gcMode := 0

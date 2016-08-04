@@ -7,6 +7,7 @@ retryPrimitiveOnFailure
 	 due to an allocation failing.  Retry if external primitives have failed with PrimErrNoMemory after running
 	 first the scavenger and then on a subsequent failure, the global mark-sweep collector.  Hence lazily
 	 and transparently GC on memory exhaustion."
+	<option: #SpurObjectMemory>
 	<inline: false>
 	| gcDone followDone canRetry retry retried |
 	gcDone := 0.

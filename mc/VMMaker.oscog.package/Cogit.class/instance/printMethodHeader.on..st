@@ -40,8 +40,8 @@ printMethodHeader: cogMethod on: aStream
 	cogMethod cmType = CMClosedPIC
 		ifTrue:
 			[aStream crtab; nextPutAll: 'cPICNumCases: '.
-			 cogMethod cPICNumCases printOn: aStream base: 16;
-			 tab; nextPutAll: 'cpicHasMNUCase: ';
+			 cogMethod cPICNumCases printOn: aStream base: 16.
+			 aStream tab; nextPutAll: 'cpicHasMNUCase: ';
 			 nextPutAll: (cogMethod cpicHasMNUCase ifTrue: ['yes'] ifFalse: ['no'])]
 		ifFalse:
 			[aStream crtab; nextPutAll: 'stackCheckOffset: '.

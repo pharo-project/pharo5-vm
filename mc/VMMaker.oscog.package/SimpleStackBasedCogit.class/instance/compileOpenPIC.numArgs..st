@@ -9,8 +9,7 @@ compileOpenPIC: selector numArgs: numArgs
 	<var: #jumpBCMethod type: #'AbstractInstruction *'>
 	self preenMethodLabel.
 	self compilePICAbort: numArgs.
-	entry := objectRepresentation genGetClassTagOf: ReceiverResultReg into: ClassReg scratchReg: TempReg.
-	self MoveR: ClassReg R: SendNumArgsReg.
+	entry := objectRepresentation genGetClassTagOf: ReceiverResultReg into: SendNumArgsReg scratchReg: TempReg.
 
 	self flag: #lookupInMethodCacheSel:classTag:. "so this method shows up as a sender of lookupInMethodCacheSel:class:"
 

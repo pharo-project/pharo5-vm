@@ -1,4 +1,4 @@
-process primitive support
+cog jit support
 commenceCogCompiledCodeCompaction
 	| startTime |
 	<var: #startTime type: #usqLong>
@@ -21,6 +21,7 @@ commenceCogCompiledCodeCompaction
 		 self externalWriteBackHeadStackPointer].
 	self assertValidStackedInstructionPointers: #'__LINE__'.
 	cogit compactCogCompiledCode.
+	self nilUncoggableMethods.
 	instructionPointer ~= 0 ifTrue:
 		[instructionPointer := self popStack.
 		 self externalWriteBackHeadStackPointer].

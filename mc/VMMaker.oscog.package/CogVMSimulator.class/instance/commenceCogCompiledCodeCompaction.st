@@ -1,4 +1,4 @@
-process primitive support
+cog jit support
 commenceCogCompiledCodeCompaction
 	self halt.
 	^super commenceCogCompiledCodeCompaction

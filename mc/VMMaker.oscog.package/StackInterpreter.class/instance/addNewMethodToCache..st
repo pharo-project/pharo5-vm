@@ -12,7 +12,7 @@ addNewMethodToCache: classObj
 			Also, flushing is good when reprobe chains are getting full."
 	| probe hash primitiveIndex |
 	<inline: false>
-	hash := messageSelector bitXor: (objectMemory classTagForClass: classObj).  "drop low-order zeros from addresses (if classObj not classTag)"
+	hash := objectMemory methodCacheHashOf: messageSelector with: (objectMemory classTagForClass: classObj).  "shift drops low-order zeros from addresses"
 	(objectMemory isOopCompiledMethod: newMethod)
 		ifTrue:
 			[primitiveIndex := self primitiveIndexOf: newMethod.

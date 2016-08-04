@@ -44,7 +44,7 @@ genLookupForPerformNumArgs: numArgs
 
 	"Second probe missed.  Do last probe.  Shift hash right two and retry."
 	jumpSelectorMiss jmpTarget: self Label.
-	jumpSelectorMiss := self compilePerformMethodCacheProbeFor: Arg0Reg withShift: 1 baseRegOrNone: cacheBaseReg.
+	jumpSelectorMiss := self compilePerformMethodCacheProbeFor: Arg0Reg withShift: 2 baseRegOrNone: cacheBaseReg.
 	self JumpZero: itsAHit.
 
 	"Last probe missed.  Caller will generate the call to fall back on the interpreter primitive."

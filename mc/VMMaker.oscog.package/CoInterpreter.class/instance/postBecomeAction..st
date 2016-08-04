@@ -7,7 +7,5 @@ postBecomeAction: theBecomeEffectsFlags
 	 and: [theBecomeEffectsFlags anyMask: OldBecameNewFlag]) ifTrue:
 		[cogit addAllToYoungReferrers].
 	cogit cogitPostGCAction: gcMode.
-
-	lastCoggableInterpretedBlockMethod := lastUncoggableInterpretedBlockMethod := nil.
-
+	self nilUncoggableMethods.
 	gcMode := 0

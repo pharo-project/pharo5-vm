@@ -13,7 +13,7 @@ inlineLookupInMethodCacheSel: selector classTag: classTag
 
 	| hash probe |
 	<inline: true>
-	hash := selector bitXor: classTag.  "shift drops two low-order zeros from addresses"
+	hash := objectMemory methodCacheHashOf: selector with: classTag.  "shift drops two low-order zeros from addresses"
 
 	probe := hash bitAnd: MethodCacheMask.  "first probe"
 	(((methodCache at: probe + MethodCacheSelector) = selector) and:

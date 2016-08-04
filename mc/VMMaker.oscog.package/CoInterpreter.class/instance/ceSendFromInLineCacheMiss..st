@@ -13,6 +13,9 @@ ceSendFromInLineCacheMiss: cogMethodOrPIC
 	self assert: (objectMemory addressCouldBeOop: rcvr).
 	classTag := objectMemory fetchClassTagOf: rcvr.
 	argumentCount := numArgs.
+	false ifTrue: "would like to assert this but must also allow for an interpretable method in the cache."
+		[self deny: (cogMethodOrPIC cmType = CMOpenPIC
+					and: [self newMethodInLookupCacheAt: cogMethodOrPIC selector and: classTag])].
 	(self lookupInMethodCacheSel: cogMethodOrPIC selector classTag: classTag)
 		ifTrue:"check for coggability because method is in the cache"
 			[self

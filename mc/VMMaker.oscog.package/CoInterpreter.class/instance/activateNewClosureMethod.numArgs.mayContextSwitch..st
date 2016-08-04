@@ -25,7 +25,8 @@ activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayCon
 	 the last block method we failed to compile and avoid recompiling it."
 	(self methodWithHeaderShouldBeCogged: methodHeader)
 		ifTrue:
-			[theMethod = lastCoggableInterpretedBlockMethod
+			[(instructionPointer < objectMemory startOfMemory "If from machine code (via value primitive) attempt jitting"
+			  or: [theMethod = lastCoggableInterpretedBlockMethod]) "If from interpreter and repeat block, attempt jitting"
 				ifTrue:
 					[theMethod ~= lastUncoggableInterpretedBlockMethod ifTrue:
 						[cogit cog: theMethod selector: objectMemory nilObject.

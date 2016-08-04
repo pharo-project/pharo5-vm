@@ -1,6 +1,5 @@
 debugging
 compileSendTrace
-	<api>
-	<cmacro: '() (traceFlags & 2)'>
-	"256 = count sends, which is simulation only"
-	^(traceFlags bitAnd: 256 + 2) ~= 0
+	"2 is trace sends; 256+2 is traceLinkedSends, so one can trace just unlinked sends using 2"
+	<cmacro: '() ((traceFlags & 258) == 258)'>
+	^traceFlags allMask: 256 + 2

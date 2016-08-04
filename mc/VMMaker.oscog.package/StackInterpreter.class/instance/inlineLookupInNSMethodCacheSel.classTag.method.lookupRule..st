@@ -4,7 +4,7 @@ inlineLookupInNSMethodCacheSel: selector classTag: classTag method: callingMetho
 
 	| hash probe |
 	<inline: true>
-	hash := (selector bitXor: classTag) bitXor: (callingMethod bitXor: lookupRule).
+	hash := (objectMemory methodCacheHashOf: selector with: classTag) bitXor: (callingMethod bitXor: lookupRule).
 
 	probe := hash bitAnd: NSMethodCacheMask.  "first probe"
 	(((((nsMethodCache at: probe + NSMethodCacheSelector) = selector) and:

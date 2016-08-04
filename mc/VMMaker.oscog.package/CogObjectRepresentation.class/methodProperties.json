@@ -131,6 +131,7 @@
 		"maybeGenerateSelectorIndexDereferenceRoutine" : "eem 01/10/2016 10:01",
 		"maybeMarkCounters:" : "eem 10/21/2014 18:52",
 		"maybeNoteDescriptor:blockStart:" : "eem 6/4/2015 09:31",
+		"maybeShiftClassTagRegisterForMethodCacheProbe:" : "eem 8/4/2016 11:47",
 		"numCountersFor:" : "eem 7/5/2014 17:54",
 		"numRegArgs" : "eem 5/1/2014 07:20",
 		"resetCountersIn:" : "eem 7/4/2014 12:04",

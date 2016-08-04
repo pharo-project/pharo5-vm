@@ -7,8 +7,12 @@ compilePerformMethodCacheProbeFor: selectorReg withShift: shift baseRegOrNone: b
 	| jumpSelectorMiss |
 	<var: 'jumpSelectorMiss' type: #'AbstractInstruction *'>
 	self MoveR: SendNumArgsReg R: ClassReg.
+	objectRepresentation maybeShiftClassTagRegisterForMethodCacheProbe: ClassReg.
 	self XorR: selectorReg R: ClassReg.
-	objectMemory shiftForWord > shift ifTrue:
+	self assert: shift <= objectMemory shiftForWord.
+	"Need to shift the hash right by shift to form the probe, and then shift the probe left by shiftForWord to form the index.
+	 So shift left by shiftForWord - shift and and with the shifted mask."
+	shift < objectMemory shiftForWord ifTrue:
 		[self LogicalShiftLeftCq: objectMemory shiftForWord - shift R: ClassReg].
 	self AndCq: MethodCacheMask << objectMemory shiftForWord R: ClassReg.
 	baseRegOrNone = NoReg
