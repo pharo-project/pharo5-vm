@@ -4,7 +4,7 @@ primitiveTranslateFaceGlyphSlotOutline: deltaWordArray
 	
 	<var: #face declareC: 'FT_Face face'>
 	<var: #delta declareC: 'FT_Vector delta = {0}'>
-	<var: #deltasqIntPtr  declareC: 'sqInt *deltasqIntPtr'>
+	<var: #deltasqIntPtr  declareC: 'int *deltasqIntPtr'>
 	
 	rcvr := self 
 				primitive: 'primitiveTranslateFaceGlyphSlotOutline'
@@ -12,7 +12,7 @@ primitiveTranslateFaceGlyphSlotOutline: deltaWordArray
 				receiver: #FT2Face.
 	face := self ftHandleValueFromReceiver: rcvr.
 	face isNil ifTrue: [^interpreterProxy primitiveFail].
-	deltasqIntPtr := interpreterProxy arrayValueOf: deltaWordArray.
+	deltasqIntPtr := self cCoerce: (interpreterProxy arrayValueOf: deltaWordArray) to: 'int *'.
 	self cCode: 'delta.x = deltasqIntPtr[0]; delta.y = deltasqIntPtr[1];'.
 	interpreterProxy failed
 		ifFalse:[
