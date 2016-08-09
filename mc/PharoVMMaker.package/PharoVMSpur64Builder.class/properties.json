@@ -1,0 +1,14 @@
+{
+	"category" : "PharoVMMaker",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"generationType" ],
+	"name" : "PharoVMSpur64Builder",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+generateForRelease
+	generationType := #release

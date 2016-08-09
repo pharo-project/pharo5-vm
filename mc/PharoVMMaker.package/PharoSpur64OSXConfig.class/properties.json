@@ -1,0 +1,16 @@
+{
+	"category" : "PharoVMMaker-OSX",
+	"classinstvars" : [
+		 ],
+	"classtraitcomposition" : "TPharoOSXConfig classTrait",
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PharoSpur64OSXConfig",
+	"pools" : [
+		 ],
+	"super" : "CogCocoaIOSConfig",
+	"traitcomposition" : "TPharoOSXConfig - {#externalPlugins. #internalPlugins}",
+	"type" : "normal" }

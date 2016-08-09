@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"build" : "EstebanLorenzano 7/29/2016 16:43",
+		"buildMacOSX64" : "EstebanLorenzano 7/29/2016 16:22",
+		"buildOnJenkins:" : "EstebanLorenzano 7/29/2016 16:43",
+		"buildUnix64" : "EstebanLorenzano 7/29/2016 16:22",
+		"buildWin64" : "EstebanLorenzano 7/29/2016 16:22" },
+	"instance" : {
+		"buildMacOSX64" : "EstebanLorenzano 7/29/2016 16:41",
+		"buildUnix64" : "EstebanLorenzano 7/29/2016 16:31",
+		"buildWin32" : "EstebanLorenzano 7/29/2016 16:21",
+		"buildWin64" : "EstebanLorenzano 7/29/2016 16:31",
+		"generateForDebug" : "EstebanLorenzano 7/29/2016 16:21",
+		"generateForRelease" : "EstebanLorenzano 7/29/2016 16:21",
+		"generateForTrace" : "EstebanLorenzano 7/29/2016 16:21",
+		"initialize" : "EstebanLorenzano 7/29/2016 16:21" } }
