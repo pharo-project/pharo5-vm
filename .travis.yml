@@ -18,10 +18,10 @@ matrix:
   include:
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur"
-      before_script: (cd scripts && build-sources.sh -a i386)
+      before_script: bash -c "cd scripts && buildSources.sh -a i386"
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur"
-      before_script: (cd scripts && build-sources.sh -a x86_64)
+      before_script: bash -c "cd scripts && buildSources.sh -a x86_64"
 
 #install:
 #  - ./.travis_install.sh
