@@ -7,6 +7,7 @@ defaultExternalPlugins
 		CroquetPlugin
 		JoystickTabletPlugin
 		B3DAcceleratorPlugin
+		ClipboardExtendedPlugin
 		JPEGReadWriter2Plugin 
 		JPEGReaderPlugin
 		RePlugin

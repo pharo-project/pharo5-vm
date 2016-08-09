@@ -5,7 +5,6 @@ defaultInternalPlugins
 		BMPReadWriterPlugin 
 		BalloonEnginePlugin 
 		BitBltSimulation 
-		ClipboardExtendedPlugin
 		DSAPlugin 
 		DeflatePlugin 
 		DropPlugin 
