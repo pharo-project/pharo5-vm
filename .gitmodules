@@ -1,4 +1,4 @@
 [submodule "opensmalltalk-vm"]
 	path = opensmalltalk-vm
-	url = git@github.com:estebanlm/opensmalltalk-vm.git
+	url = https://github.com/estebanlm/opensmalltalk-vm.git
 	branch = merge-with-pharo
