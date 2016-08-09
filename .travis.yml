@@ -1,50 +1,33 @@
 language: c
-os:
-  - linux
-# disable osx for the moment
-#  - osx
+
+cache:
+  directories:
+    - armchroot
 
 addons:
   apt:
     packages:
-      # this are to be able to execute a VM downloaded from the internet during build
-      - lib32asound2
-      - lib32z1
-      - lib32ncurses5
-      - lib32bz2-1.0
-      - gvfs-daemons:i386
       # this are requirements for building the vm
-      - cmake
-      - zip
-      - bash-completion
-      - git
-      - xz-utils
       - debhelper
       - devscripts
-      - libc6-dev:i386
-      - libasound2:i386
-      - libasound2-dev:i386
-      - libssl-dev:i386
-      - libssl0.9.8:i386
-      - libfreetype6-dev:i386
-      - libx11-dev:i386
-      - libsm-dev:i386
-      - libice-dev:i386
-      - libgl1-mesa-glx:i386
-      - libgl1-mesa-dev:i386
-      - libxext-dev:i386
-      - libglapi-mesa:i386
-      - build-essential
+      - libasound2-dev
+      - libssl-dev
+      - libfreetype6-dev
+      - libx11-dev
+      - libxext-dev
       - gcc-multilib
-      - g++
-
-script: 
-  - scripts/build.sh
-  - scripts/test.sh
+      - uuid-dev
 
 matrix:
-# Ignore failures with OSX as the build forces to be build for OSX 10.6 and
-# the header files are not installed and we can't install them on OSX. This
-# could be easily fixed with a different CMakeLists.txt
-#  allow_failures:
-#    - os: osx
+  include:
+    - os: osx
+      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur"
+      before_script: cd scripts && build-sources.sh -a i386
+    - os: osx
+      env: ARCH="macos32x86" FLAVOR="pharo.cog.spur"
+      before_script: cd scripts && build-sources.sh -a x86_64
+
+#install:
+#  - ./.travis_install.sh
+script:
+  - $CHROOT ./.travis_build.sh
