@@ -17,17 +17,17 @@ addons:
 matrix:
   include:
     - os: osx
-      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur"
+      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
       before_script:
         - rm -Rf opensmalltalk-vm/spur64src/*
-        - (cd scripts && ./buildSources.sh -a i386)
     - os: osx
-      env: ARCH="macos32x86" FLAVOR="pharo.cog.spur"
+      env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       before_script: 
         - rm -Rf opensmalltalk-vm/spursrc/*
-        - (cd scripts && ./buildSources.sh -a x86_64)
 
 #install:
 #  - ./.travis_install.sh
 script:
+  - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
+  
