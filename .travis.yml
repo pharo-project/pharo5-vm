@@ -19,10 +19,12 @@ matrix:
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur"
       before_script:
+        - rm -Rf opensmalltalk-vm/spur64src/*
         - (cd scripts && ./buildSources.sh -a i386)
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur"
       before_script: 
+        - rm -Rf opensmalltalk-vm/spursrc/*
         - (cd scripts && ./buildSources.sh -a x86_64)
 
 #install:
