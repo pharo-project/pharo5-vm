@@ -1,6 +1,6 @@
 {
     "package": {
-        "name": "auto-upload",
+        "name": "build",
         "repo": "pharo-vm",
 		"subject": "estebanlm"
     },
