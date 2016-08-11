@@ -1,0 +1,15 @@
+{
+    "package": {
+        "name": "auto-upload",
+        "repo": "pharo-vm",
+		"subject": "pharo-project"
+    },
+    "version": {
+        "name": "$Rev$",
+        "desc": "Automatic build"
+    },
+    "files": [
+        {"includePattern": "./(cog_.*\\.(?:gz|zip))", "uploadPattern": "$1"}
+    ],
+    "publish": true
+}

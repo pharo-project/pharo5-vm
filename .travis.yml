@@ -1,9 +1,7 @@
 language: c
-
 addons:
   apt:
     packages:
-      # this are requirements for building the vm
       - debhelper
       - devscripts
       - libasound2-dev
@@ -13,21 +11,19 @@ addons:
       - libxext-dev
       - gcc-multilib
       - uuid-dev
-
 matrix:
   include:
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
-      before_script:
-        - rm -Rf opensmalltalk-vm/spur64src/*
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
-      before_script: 
-        - rm -Rf opensmalltalk-vm/spursrc/*
-
-#install:
-#  - ./.travis_install.sh
 script:
   - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
-  
+deploy:
+  on: merge-with-osvm
+  provider: bintray
+  file: .bintray.json
+  user: estebanlm
+  key:
+    secure: nMHiXqL/QdTyoyXtTkH8sMctw09k1PkHsWJEK5/mf66lRBsyjSsizLEzhRsyzjhl2o8+8XIieApyvdv8kWo2B7IPPClOpa8A5ST95xuG9FslZmutZhw0pVzDmkAJOgVrhCYiRIWLlJhaw7b+BAMBkMuYtfsJTaysL/0tnYSuoll6PW0nNavKRoKd2gDBCUixVC0YRRjSXiTHA4E52UJqslKXcfxKBwMKZznQjjlgUXr/mMyk7FizVHDOsgdcX00q3L2U8kunrKip+3WngG5w1eKiEq6BgxH0IW6YLlo4raChSnf/OikI3WbXESKEzcDfPPzP/zPJTdMvL8sMevr6m+iFItEr88P/tHT1t97yF27YD6tEDL37G1hOhzDCpQy0MRcy9hgl7glDXCTdj7uujfVW+uBODHBFz1AK0IsuhAQz2NqaRYxmLLjbpAyKRRR1SsnpV7L7KYnUmNl2flJP5xihG3QtTXwtBG+u5BZfu0GMQZOvPX021cchS2oKUeuvNjaQbEFrPFS3lJqF3/Zi21l0o4gPZLMUYScvTFOaDy2sxEXqQztbWTXuoQFmxXaIIn7Wn9UcJ7b1PKfGUnBlBdOQ+C/VOGIFcBL4hwXH0HbsSswquEeHPT3TuYdu3I81/dVD9oz/TWZCaEJ7jgX+LNuFsQM+MLolkyrZElp6cn0=
