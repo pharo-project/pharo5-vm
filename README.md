@@ -1,8 +1,5 @@
-Build Status 
+Pharo VM [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=spur64)](https://travis-ci.org/pharo-project/pharo-vm) [ ![Download](https://api.bintray.com/packages/estebanlm/pharo-vm/build/images/download.svg) ](https://bintray.com/estebanlm/pharo-vm/build/_latestVersion#files)
 ============
-
-- [Spur64](https://github.com/pharo-project/pharo-vm): [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=spur64)](https://travis-ci.org/pharo-project/pharo-vm)
-- [(dev) estebanlm](https://github.com/estebanlm/pharo-vm): [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png?branch=spur64)](https://travis-ci.org/estebanlm/pharo-vm)
 
 REQUIREMENTS
 ============
