@@ -122,6 +122,8 @@ initializePrimitiveTableForSqueak
 		"(118 primitiveDoPrimitiveWithArgs)"
 		"(119 primitiveFlushCacheSelective)"
 
+		(148 genPrimitiveShallowCopy 0)			"a.k.a. clone"
+
 		(169 genPrimitiveNotIdentical 1)
 
 		(170 genPrimitiveAsCharacter)				"SmallInteger>>asCharacter, Character class>>value:"
