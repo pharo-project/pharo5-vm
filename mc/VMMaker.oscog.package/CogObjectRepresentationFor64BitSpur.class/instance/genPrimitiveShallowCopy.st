@@ -68,7 +68,7 @@ genPrimitiveShallowCopy
 		MoveMw: 0 r: ReceiverResultReg R: TempReg;
 		MoveR: TempReg Mw: 0 r: ptrReg;
 		CmpR: ptrReg R: slotsReg;
-		JumpAbove: copyLoop;
+		JumpAboveOrEqual: copyLoop;
 		MoveR: resultReg R: ReceiverResultReg;
 		genPrimReturn.
 

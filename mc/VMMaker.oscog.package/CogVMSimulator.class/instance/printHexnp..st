@@ -2,4 +2,4 @@ debug printing
 printHexnp: anInteger
 
 	traceOn ifTrue:
-		[transcript nextPutAll: (anInteger storeStringBase: 16)]
+		[transcript nextPutAll: (anInteger asInteger storeStringBase: 16)]

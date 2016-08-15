@@ -23,7 +23,7 @@ printContext: aContext
 	sp := objectMemory fetchPointer: StackPointerIndex ofObject: aContext.
 	sp := sp min: (objectMemory lengthOf: aContext) - ReceiverIndex.
 	self print: 'sp       '; printNum: sp; print: ' ('; printNum: (objectMemory integerValueOf: sp); printChar: $); cr.
-	self print: 'method   '; shortPrintOop: (objectMemory fetchPointer: MethodIndex ofObject: aContext).
+	self print: 'method   '; printMethodFieldForPrintContext: aContext.
 	self print: 'closure  '; shortPrintOop: (objectMemory fetchPointer: ClosureIndex ofObject: aContext).
 	self print: 'receiver '; shortPrintOop: (objectMemory fetchPointer: ReceiverIndex ofObject: aContext).
 	sp := objectMemory integerValueOf: sp.
