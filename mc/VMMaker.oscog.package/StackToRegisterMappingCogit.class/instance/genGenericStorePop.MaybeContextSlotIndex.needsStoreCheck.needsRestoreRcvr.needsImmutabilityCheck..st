@@ -27,22 +27,26 @@ genGenericStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck:
 	self CallRT: ceStoreContextInstVarTrampoline.
 	jmpDone := self Jump: 0.
 	jmpSingle jmpTarget: self Label.
-	(IMMUTABILITY and: [needsImmCheck])
-		ifTrue: 
-			[objectRepresentation 
-				genStoreWithImmutabilityCheckSourceReg: ClassReg 
-				slotIndex: slotIndex 
-				destReg: ReceiverResultReg 
-				scratchReg: TempReg 
-				needsStoreCheck: needsStoreCheck 
-				needRestoreRcvr: needsRestoreReceiver]
-		ifFalse:
-			[objectRepresentation
-				genStoreSourceReg: ClassReg
-				slotIndex: slotIndex
-				destReg: ReceiverResultReg
-				scratchReg: TempReg
-				inFrame: true
-				needsStoreCheck: needsStoreCheck].
+	self 
+		cppIf: IMMUTABILITY
+		ifTrue:
+			[needsImmCheck
+				ifTrue: 
+					[objectRepresentation 
+						genStoreWithImmutabilityCheckSourceReg: ClassReg 
+						slotIndex: slotIndex 
+						destReg: ReceiverResultReg 
+						scratchReg: TempReg 
+						needsStoreCheck: needsStoreCheck 
+						needRestoreRcvr: needsRestoreReceiver.
+					jmpDone jmpTarget: self Label.
+					^0]].
+	objectRepresentation
+			genStoreSourceReg: ClassReg
+			slotIndex: slotIndex
+			destReg: ReceiverResultReg
+			scratchReg: TempReg
+			inFrame: true
+			needsStoreCheck: needsStoreCheck.
 	jmpDone jmpTarget: self Label.
 	^0

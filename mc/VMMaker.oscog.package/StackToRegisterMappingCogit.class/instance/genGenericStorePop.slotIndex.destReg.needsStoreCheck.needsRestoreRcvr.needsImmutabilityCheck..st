@@ -9,31 +9,32 @@ genGenericStorePop: popBoolean slotIndex: slotIndex destReg: destReg needsStoreC
 	<inline: true>
 	"We have two very different paths as only the immutability path requires a specific register 
 	for the value on top of stack as well as the stack flush"
-	(IMMUTABILITY and: [needsImmCheck])
-		ifTrue: 
-			[self ssAllocateRequiredReg: ClassReg.
-			 "we replace the top value for the flush"
-			 self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
-			 self ssFlushTo: simStackPtr.
-			 objectRepresentation 
-				genStoreWithImmutabilityCheckSourceReg: ClassReg 
-				slotIndex: slotIndex 
-				destReg: destReg 
-				scratchReg: TempReg 
-				needsStoreCheck: needsStoreCheck 
-				needRestoreRcvr: needsRestoreReceiver ]
-		ifFalse:
-			[| topReg |
-			 topReg := self 
-						allocateRegForStackEntryAt: 0 
-						notConflictingWith: (self registerMaskFor: destReg). 
-			 self ssStorePop: popBoolean toReg: topReg.
-			 objectRepresentation
-				genStoreSourceReg: topReg
-				slotIndex: slotIndex
-				destReg: destReg
-				scratchReg: TempReg
-				inFrame: needsFrame
-				needsStoreCheck: needsStoreCheck].
-	^ 0
+	| topReg |
+	self 
+		cppIf: IMMUTABILITY
+		ifTrue:
+			[needsImmCheck
+				ifTrue: 
+					[self ssAllocateRequiredReg: ClassReg.
+					 "we replace the top value for the flush"
+					 self ssStoreAndReplacePop: popBoolean toReg: ClassReg.
+					 self ssFlushTo: simStackPtr.
+					 ^objectRepresentation 
+						genStoreWithImmutabilityCheckSourceReg: ClassReg 
+						slotIndex: slotIndex 
+						destReg: destReg 
+						scratchReg: TempReg 
+						needsStoreCheck: needsStoreCheck 
+						needRestoreRcvr: needsRestoreReceiver]].
+		 topReg := self 
+					allocateRegForStackEntryAt: 0 
+					notConflictingWith: (self registerMaskFor: destReg). 
+		 self ssStorePop: popBoolean toReg: topReg.
+		 ^objectRepresentation
+			genStoreSourceReg: topReg
+			slotIndex: slotIndex
+			destReg: destReg
+			scratchReg: TempReg
+			inFrame: needsFrame
+			needsStoreCheck: needsStoreCheck
 	
