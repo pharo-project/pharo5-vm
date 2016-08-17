@@ -11,6 +11,7 @@ compileFrameBuild
 			[self compileTwoPathFramelessInit].
 		 self initSimStackForFramelessMethod: initialPC.
 		 ^self].
+	self deny: useTwoPaths.
 	self genPushRegisterArgs.
 	super compileFrameBuild.
 	self initSimStackForFramefulMethod: initialPC
