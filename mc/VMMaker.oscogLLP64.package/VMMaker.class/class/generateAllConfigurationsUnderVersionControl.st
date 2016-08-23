@@ -1,0 +1,5 @@
+configurations
+generateAllConfigurationsUnderVersionControl
+	self generateAllNewspeakConfigurationsUnderVersionControl;
+		generateAllSqueakConfigurationsUnderVersionControl;
+		generateVMPlugins

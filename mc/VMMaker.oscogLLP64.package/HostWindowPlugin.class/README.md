@@ -1,0 +1,1 @@
+This plugin provides access to creating, destroying and manipulating host OS windows. See the Cross/plugins/HostWindowPlugin/HostWindowPlugin.h file for documented declarations for the C functions you need to provide.

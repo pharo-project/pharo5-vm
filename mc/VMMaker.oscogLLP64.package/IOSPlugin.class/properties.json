@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins-IOS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "IOSPlugin",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

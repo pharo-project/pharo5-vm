@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ar 6/23/2010 21:27",
+		"moduleName" : "ar 7/16/2010 00:38" },
+	"instance" : {
+		"primitiveAccept" : "eem 6/28/2016 12:55",
+		"primitiveConnect" : "eem 6/28/2016 12:55",
+		"primitiveCreate" : "ar (auto pragmas eem 2014-01-09) 6/23/2010 20:56",
+		"primitiveDecrypt" : "eem 6/28/2016 12:56",
+		"primitiveDestroy" : "ar (auto pragmas eem 2014-01-09) 7/15/2010 20:55",
+		"primitiveEncrypt" : "eem 6/28/2016 12:56",
+		"primitiveGetIntProperty" : "ar (auto pragmas eem 2014-01-09) 7/16/2010 22:14",
+		"primitiveGetStringProperty" : "ar (auto pragmas eem 2014-01-09) 7/16/2010 22:16",
+		"primitiveSetIntProperty" : "ar (auto pragmas eem 2014-01-09) 7/16/2010 22:16",
+		"primitiveSetStringProperty" : "eem 6/28/2016 12:57" } }

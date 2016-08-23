@@ -1,0 +1,26 @@
+as yet unclassified
+initializeOpcodes
+	SPECIAL := 0.
+	REGIMM := 1.
+	J := 2.
+	JAL := 3.
+	BEQ := 4.
+	BNE := 5.
+	BLEZ := 6.
+	BGTZ := 7.
+	ADDIU := 9.
+	SLTI := 10.
+	SLTIU := 11.
+	ANDI := 12.
+	ORI := 13.
+	XORI := 14.
+	LUI := 15.
+	LB := 32.
+	LH := 33.
+	LW := 35.
+	LBU := 36.
+	LHU := 37.
+	SB := 40.
+	SH := 41.
+	SW := 43.
+	PREF := 51.

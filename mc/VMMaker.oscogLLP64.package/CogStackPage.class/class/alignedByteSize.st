@@ -1,0 +1,3 @@
+translation
+alignedByteSize
+	^self surrogateClass alignedByteSize

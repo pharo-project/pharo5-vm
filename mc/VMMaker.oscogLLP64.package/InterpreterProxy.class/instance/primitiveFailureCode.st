@@ -1,0 +1,3 @@
+other
+primitiveFailureCode
+	^primFailCode

@@ -1,0 +1,25 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/6/2014 14:59",
+	"instvars" : [
+		"memory",
+		"cogit",
+		"coInterpreter",
+		"objectMemory",
+		"objectMap",
+		"headerToMethodMap",
+		"cachedObject",
+		"cachedOop",
+		"variables" ],
+	"name" : "CurrentImageCoInterpreterFacade",
+	"pools" : [
+		"CogMethodConstants",
+		"VMBasicConstants",
+		"VMObjectIndices",
+		"VMSqueakClassIndices" ],
+	"super" : "CogClass",
+	"type" : "normal" }

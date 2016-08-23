@@ -1,0 +1,3 @@
+spur bootstrap
+weaklingStack
+	^weaklingStack

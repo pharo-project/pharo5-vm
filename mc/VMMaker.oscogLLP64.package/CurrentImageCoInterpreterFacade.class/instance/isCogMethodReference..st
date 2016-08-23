@@ -1,0 +1,3 @@
+accessing
+isCogMethodReference: methodHeader
+	^coInterpreter isCogMethodReference: methodHeader

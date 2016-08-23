@@ -1,0 +1,3 @@
+testing
+isKindOfInteger: objectOrientedPointer
+	^objectOrientedPointer isInteger

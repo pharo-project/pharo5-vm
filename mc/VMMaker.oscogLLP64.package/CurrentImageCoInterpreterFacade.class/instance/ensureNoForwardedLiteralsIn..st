@@ -1,0 +1,2 @@
+cog jit support
+ensureNoForwardedLiteralsIn: methodOop

@@ -1,0 +1,16 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"byteAt:" : "nk 4/3/2004 06:58",
+		"byteAt:put:" : "eem 2/27/2009 11:11",
+		"byteSwapped32IfBigEndian:" : "nice 4/3/2016 08:34",
+		"byteSwapped64IfBigEndian:" : "nice 4/3/2016 08:34",
+		"charsOfLong:" : "ikp 12/11/1998 01:35",
+		"halfWordHighInLong32:" : "di 7/16/2004 14:59",
+		"halfWordLowInLong32:" : "di 7/16/2004 14:59",
+		"nextLongFrom:" : "eem (const to msg rewrite) 11/6/2014 11:00",
+		"putLong:toFile:" : "crl 2/28/2003 01:22",
+		"shortAt:" : "di 6/23/2004 14:29",
+		"shortAt:put:" : "di 6/23/2004 14:31",
+		"vmEndianness" : "tpr 12/22/2005 17:46" } }

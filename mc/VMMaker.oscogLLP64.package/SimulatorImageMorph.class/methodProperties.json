@@ -1,0 +1,11 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"extent:" : "eem 7/17/2015 16:21",
+		"handleMouseDown:" : "eem 7/15/2015 13:32",
+		"handleMouseEnter:" : "eem 7/15/2015 13:33",
+		"handleMouseLeave:" : "eem 7/15/2015 13:32",
+		"handleMouseOver:" : "eem 7/15/2015 13:33",
+		"handleMouseUp:" : "eem 7/15/2015 13:33",
+		"handlerForMouseDown:" : "eem 7/15/2015 15:09" } }

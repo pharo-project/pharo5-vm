@@ -1,0 +1,20 @@
+{
+	"class" : {
+		"isNonArgumentImplicitReceiverVariableName:" : "eem 6/16/2015 10:25" },
+	"instance" : {
+		"allocateLiterals:" : "eem 6/8/2015 17:06",
+		"assertValidAnnotation:for:" : "eem 6/11/2015 16:05",
+		"checkLiteral:forInstruction:" : "eem 6/8/2015 11:20",
+		"checkQuickConstant:forInstruction:" : "eem 6/8/2015 11:20",
+		"cogit:" : "eem 11/18/2015 17:49",
+		"dumpLiterals:" : "eem 6/11/2015 14:12",
+		"endSizeOffset" : "tpr 10/15/2015 17:01",
+		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:35",
+		"literalBytesFollowingBranchInClosedPIC" : "eem 01/10/2016 10:01",
+		"literalBytesFollowingJumpInClosedPIC" : "eem 01/10/2016 10:01",
+		"mustDumpLiterals:" : "eem 6/11/2015 13:15",
+		"resetForBlockCompile" : "eem 01/10/2016 10:01",
+		"resetLiterals" : "eem 01/10/2016 10:01",
+		"saveForBlockCompile" : "eem 01/10/2016 10:01",
+		"storeLiteral:atAnnotatedAddress:using:" : "eem 6/11/2015 16:39",
+		"uniqueLiteral:forInstruction:" : "eem 6/10/2015 19:38" } }

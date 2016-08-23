@@ -1,0 +1,4 @@
+accessing
+processor
+	<doNotGenerate>
+	^processor

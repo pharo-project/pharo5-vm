@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Plugins-FFI",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"a",
+		"b" ],
+	"name" : "ThreadedFFIX64SixteenByteReturn",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

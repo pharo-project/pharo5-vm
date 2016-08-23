@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ikp 7/30/2012 14:39" },
+	"instance" : {
+		"primCameraName" : "jm (auto pragmas dtl 2014-01-04) 4/29/2009 06:59",
+		"primCloseCamera" : "jm (auto pragmas dtl 2014-01-04) 8/31/2004 12:14",
+		"primFrameExtent" : "jm (auto pragmas dtl 2014-01-04) 8/31/2004 12:15",
+		"primGetFrame" : "eem 1/30/2014 15:59",
+		"primGetParam" : "jm (auto pragmas dtl 2014-01-04) 9/5/2005 14:43",
+		"primOpenCamera" : "jm (auto pragmas dtl 2014-01-04) 9/5/2005 14:45" } }

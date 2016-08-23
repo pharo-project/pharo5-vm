@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 10/2/2015 11:22" },
+	"instance" : {
+		"test64BitBitmapAccessViaByteArray" : "eem 10/2/2015 11:44",
+		"testBitmap32BitLongs" : "eem 9/30/2015 16:38",
+		"testBitmap64BitLongs" : "eem 10/2/2015 11:53",
+		"testLittleEndianBitmap32BitLongs" : "eem 10/1/2015 09:20",
+		"testLittleEndianBitmap64BitLongs" : "eem 10/1/2015 12:35" } }

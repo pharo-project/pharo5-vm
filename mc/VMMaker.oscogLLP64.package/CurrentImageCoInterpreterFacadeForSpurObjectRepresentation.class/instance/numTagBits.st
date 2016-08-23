@@ -1,0 +1,3 @@
+accessing
+numTagBits
+	^objectMemory numTagBits

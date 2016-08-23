@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"primitiveGenerator",
+		"primNumArgs" ],
+	"name" : "CogPrimitiveDescriptor",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

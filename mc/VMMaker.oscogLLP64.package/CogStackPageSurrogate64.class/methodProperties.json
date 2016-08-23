@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"alignedByteSize" : "eem 3/6/2009 09:14" },
+	"instance" : {
+		"baseAddress" : "eem 10/9/2015 10:51",
+		"baseAddress:" : "eem 10/9/2015 10:52",
+		"baseFP" : "eem 10/9/2015 10:51",
+		"baseFP:" : "eem 10/9/2015 10:52",
+		"headFP" : "eem 10/9/2015 10:51",
+		"headFP:" : "eem 10/9/2015 10:52",
+		"headSP" : "eem 10/9/2015 10:51",
+		"headSP:" : "eem 10/9/2015 10:52",
+		"lastAddress" : "eem 10/9/2015 10:51",
+		"lastAddress:" : "eem 10/9/2015 10:52",
+		"nextPage" : "eem 10/9/2015 10:52",
+		"nextPage:" : "eem 10/9/2015 10:52",
+		"padToWord" : "eem 11/17/2015 13:34",
+		"padToWord:" : "eem 11/17/2015 13:34",
+		"prevPage" : "eem 10/9/2015 10:52",
+		"prevPage:" : "eem 10/9/2015 10:52",
+		"realStackLimit" : "eem 10/9/2015 10:51",
+		"realStackLimit:" : "eem 10/9/2015 10:52",
+		"stackLimit" : "eem 10/9/2015 10:51",
+		"stackLimit:" : "eem 10/9/2015 10:52",
+		"trace" : "eem 11/17/2015 13:34",
+		"trace:" : "eem 11/17/2015 13:34" } }

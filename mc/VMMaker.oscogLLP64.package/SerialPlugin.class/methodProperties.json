@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:11",
+		"requiresPlatformFiles" : "tpr 11/29/2000 22:38" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 5/12/2000 16:53",
+		"primitiveSerialPortClose:" : "TPR 2/17/2000 18:16",
+		"primitiveSerialPortOpen:baudRate:stopBitsType:parityType:dataBits:inFlowControlType:outFlowControlType:xOnByte:xOffByte:" : "TPR 2/11/2000 16:08",
+		"primitiveSerialPortOpenByName:baudRate:stopBitsType:parityType:dataBits:inFlowControlType:outFlowControlType:xOnByte:xOffByte:" : "EstebanLorenzano 5/20/2015 15:28",
+		"primitiveSerialPortRead:into:startingAt:count:" : "tpr 12/30/2005 15:52",
+		"primitiveSerialPortReadByName:into:startingAt:count:" : "EstebanLorenzano 5/20/2015 15:28",
+		"primitiveSerialPortWrite:from:startingAt:count:" : "TPR 3/21/2000 17:00",
+		"primitiveSerialPortWriteByName:from:startingAt:count:" : "EstebanLorenzano 5/20/2015 15:28",
+		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:55" } }

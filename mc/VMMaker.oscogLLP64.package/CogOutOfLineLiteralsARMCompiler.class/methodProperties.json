@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"literalsManagerClass" : "eem 6/8/2015 16:50" },
+	"instance" : {
+		"cmpC32RTempByteSize" : "eem 11/20/2015 16:49",
+		"concretizeLiteral" : "eem 6/18/2015 15:50",
+		"getDefaultCogCodeSize" : "eem 6/10/2015 14:02",
+		"inlineCacheTagAt:" : "eem 7/7/2015 13:34",
+		"isPCDependent" : "eem 6/18/2015 15:46",
+		"isSharable" : "eem 6/18/2015 11:05",
+		"literalBeforeFollowingAddress:" : "eem 11/21/2015 18:42",
+		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
+		"literalOpcodeIndex" : "eem 6/16/2015 17:31",
+		"loadLiteralByteSize" : "tpr 11/11/2015 11:05",
+		"mapEntryAddress" : "eem 6/11/2015 16:53",
+		"moveCw:intoR:" : "eem 6/18/2015 16:06",
+		"nsSendCacheAt:" : "rmacnak 12/12/2015 11:44:48",
+		"outOfLineLiteralOpcodeLimit" : "eem 6/19/2015 10:52",
+		"pcRelativeAddressAt:" : "eem 6/15/2015 17:48",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:07",
+		"rewriteFullTransferAt:target:expectedInstruction:" : "tpr 10/20/2015 12:07",
+		"rewriteInlineCacheAt:tag:target:" : "tpr 10/30/2015 16:45",
+		"rewriteInlineCacheTag:at:" : "eem 6/16/2015 12:39",
+		"setLiteralOpcodeIndex:" : "eem 6/18/2015 16:18",
+		"sizePCDependentInstructionAt:" : "eem 09/28/2015 18:48",
+		"storeLiteral:beforeFollowingAddress:" : "eem 11/21/2015 18:43",
+		"updateLabel:" : "eem 6/9/2015 09:46",
+		"usesOutOfLineLiteral" : "tpr 1/14/2016 15:35" } }

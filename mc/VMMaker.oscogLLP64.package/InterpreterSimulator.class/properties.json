@@ -1,0 +1,26 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:24",
+	"instvars" : [
+		"byteCount",
+		"sendCount",
+		"breakSelector",
+		"traceOn",
+		"myBitBlt",
+		"displayForm",
+		"imageName",
+		"pluginList",
+		"mappedPluginEntries",
+		"quitBlock",
+		"transcript",
+		"displayView",
+		"printSends" ],
+	"name" : "InterpreterSimulator",
+	"pools" : [
+		 ],
+	"super" : "Interpreter",
+	"type" : "normal" }

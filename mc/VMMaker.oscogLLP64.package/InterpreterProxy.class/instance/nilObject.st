@@ -1,0 +1,3 @@
+special objects
+nilObject
+	^nil

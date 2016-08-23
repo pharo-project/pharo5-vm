@@ -1,0 +1,3 @@
+garbage collection
+literalBytesFollowingBranchInClosedPIC
+	^0

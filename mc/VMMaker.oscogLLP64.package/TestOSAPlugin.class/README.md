@@ -1,0 +1,1 @@
+I am the Plugin for the Squeak/Applescript Interface. Since it requires platform support it will only be built when supported on your platform

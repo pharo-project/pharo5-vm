@@ -1,0 +1,3 @@
+translation
+maxSmallInteger
+	^16rFFFFFFFFFFFFFFF

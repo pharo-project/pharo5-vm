@@ -1,0 +1,3 @@
+accessing
+numSlotsHalfShift
+	^objectMemory numSlotsHalfShift

@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"stackMemory",
+		"indexOffset",
+		"pageSizeInSlots" ],
+	"name" : "InterpreterStackPages",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "CogStackPages",
+	"type" : "normal" }

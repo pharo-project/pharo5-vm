@@ -1,0 +1,1 @@
+A generic VMMaker that creates a single source tree, leaving it up to external files to decide what platform to compile for and what plugins to include.

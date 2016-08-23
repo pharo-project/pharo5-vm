@@ -1,0 +1,3 @@
+interpreter access
+isImmediateFloat: oop
+	self subclassResponsibility

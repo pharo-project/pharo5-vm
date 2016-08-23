@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"ccg:generateCoerceToOopFrom:on:" : "eem 10/2/2010 14:12",
+		"ccg:generateCoerceToValueFrom:on:" : "eem 10/3/2010 08:09",
+		"ccg:prolog:expr:index:" : "acg 9/18/1999 17:08" },
+	"instance" : {
+		"isBreakpointFor:" : "eem 12/24/2015 13:33",
+		"menuPrompt" : "eem 12/24/2015 13:08",
+		"shouldStopIfAtPC:" : "eem 12/24/2015 12:45",
+		"singleStepRequiredToTriggerIn:" : "eem 1/14/2016 15:43" } }

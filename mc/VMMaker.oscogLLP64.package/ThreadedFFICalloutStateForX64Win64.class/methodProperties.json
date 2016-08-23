@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "nice 8/11/2016 02:50",
+		"pluginClass" : "eem 2/16/2016 19:15" },
+	"instance" : {
+		"floatRegisterSignature" : "nice 8/10/2016 18:59",
+		"incrementFloatRegisterIndex" : "nice 8/11/2016 18:51",
+		"incrementIntegerRegisterIndex" : "nice 8/11/2016 18:50",
+		"initialize" : "nice 8/10/2016 18:59" } }

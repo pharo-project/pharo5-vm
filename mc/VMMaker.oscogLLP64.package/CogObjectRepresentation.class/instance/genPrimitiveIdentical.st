@@ -1,0 +1,3 @@
+primitive generators
+genPrimitiveIdentical
+	^self genPrimitiveIdenticalOrNotIf: false

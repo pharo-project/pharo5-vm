@@ -1,0 +1,35 @@
+{
+	"category" : "VMMaker-InterpreterSimulation-Morphic",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 7/14/2015 17:06",
+	"instvars" : [
+		"loadButton",
+		"helpButton",
+		"resetButton",
+		"stepButton",
+		"overButton",
+		"sendButton",
+		"returnButton",
+		"runButton",
+		"toggleTranscriptButton",
+		"optionsButton",
+		"transcriptPanel",
+		"commandPanel",
+		"contextPanel",
+		"stackPanel",
+		"callStackPanel",
+		"displayForm",
+		"displayView",
+		"eventEncoder",
+		"ioExitButton",
+		"fullDisplayUpdateButton",
+		"forceInterruptCheckButton",
+		"hackButton" ],
+	"name" : "SimulatorMorph",
+	"pools" : [
+		 ],
+	"super" : "SystemWindow",
+	"type" : "normal" }

@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"alignedByteSize" : "eem 10/9/2015 10:52" },
+	"instance" : {
+		"baseAddress" : "eem 12/28/2008 18:56",
+		"baseAddress:" : "eem 12/28/2008 18:56",
+		"baseFP" : "eem 12/28/2008 18:56",
+		"baseFP:" : "eem 12/28/2008 18:56",
+		"headFP" : "eem 12/28/2008 18:56",
+		"headFP:" : "eem 12/28/2008 18:56",
+		"headSP" : "eem 12/28/2008 18:56",
+		"headSP:" : "eem 12/28/2008 18:56",
+		"lastAddress" : "eem 12/28/2008 18:56",
+		"lastAddress:" : "eem 12/28/2008 18:56",
+		"nextPage" : "eem 12/29/2008 14:51",
+		"nextPage:" : "eem 10/9/2015 10:52",
+		"padToWord" : "eem 10/9/2015 10:51",
+		"padToWord:" : "eem 10/9/2015 10:52",
+		"prevPage" : "eem 12/29/2008 14:52",
+		"prevPage:" : "eem 10/9/2015 10:52",
+		"realStackLimit" : "eem 12/28/2008 18:56",
+		"realStackLimit:" : "eem 12/28/2008 18:56",
+		"stackLimit" : "eem 9/16/2009 17:54",
+		"stackLimit:" : "eem 10/9/2015 10:52",
+		"trace" : "eem 11/21/2013 12:33",
+		"trace:" : "eem 11/21/2013 12:33" } }

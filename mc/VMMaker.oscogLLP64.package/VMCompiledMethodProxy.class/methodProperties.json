@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"at:" : "eem 07/28/2014 08:07",
+		"encoderClass" : "eem 7/31/2014 09:12",
+		"endPC" : "eem 7/14/2011 17:02",
+		"header" : "eem 08/08/2014 10:42",
+		"initialPC" : "eem 11/26/2010 18:14",
+		"literalAt:" : "eem 11/26/2010 18:27",
+		"numArgs" : "eem 1/11/2013 16:38",
+		"numLiterals" : "eem 8/8/2014 11:10",
+		"numTemps" : "eem 11/26/2010 18:23",
+		"primitive" : "eem 8/10/2014 13:32",
+		"size" : "eem 07/28/2014 08:07" } }

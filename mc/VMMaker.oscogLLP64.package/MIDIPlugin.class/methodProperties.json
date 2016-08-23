@@ -1,0 +1,18 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:10",
+		"requiresPlatformFiles" : "tpr 11/29/2000 22:38" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 5/12/2000 16:53",
+		"primitiveMIDIClosePort:" : "ar 5/12/2000 17:14",
+		"primitiveMIDIGetClock" : "ar 5/12/2000 17:14",
+		"primitiveMIDIGetPortCount" : "ar 5/12/2000 17:14",
+		"primitiveMIDIGetPortDirectionality:" : "ar 5/12/2000 17:14",
+		"primitiveMIDIGetPortName:" : "eem 12/10/2014 15:57",
+		"primitiveMIDIOpenPort:sema:speed:" : "ar 5/12/2000 17:15",
+		"primitiveMIDIParameterGet:" : "ar 5/12/2000 17:15",
+		"primitiveMIDIParameterGetOrSet" : "ar (auto pragmas 12/08) 5/12/2000 17:15",
+		"primitiveMIDIParameterSet:value:" : "ar 5/12/2000 17:15",
+		"primitiveMIDIRead:into:" : "ar 5/12/2000 17:15",
+		"primitiveMIDIWrite:from:at:" : "ar 5/12/2000 17:15",
+		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:55" } }

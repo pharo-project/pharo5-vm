@@ -1,0 +1,17 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"at:" : "eem 3/7/2015 18:49",
+		"at:put:" : "eem 3/7/2015 18:49",
+		"basicAt:" : "eem 3/7/2015 17:21",
+		"basicAt:put:" : "eem 3/7/2015 17:21",
+		"basicSize" : "eem 3/7/2015 17:20",
+		"interpreter" : "eem 3/7/2015 16:18",
+		"interpreter:" : "eem 3/7/2015 16:18",
+		"interpreter:oop:unitSize:" : "eem 3/7/2015 16:28",
+		"oop" : "eem 3/7/2015 16:18",
+		"oop:" : "eem 3/7/2015 16:18",
+		"size" : "eem 3/7/2015 16:33",
+		"unitSize" : "eem 3/7/2015 16:18",
+		"unitSize:" : "eem 3/7/2015 16:18" } }

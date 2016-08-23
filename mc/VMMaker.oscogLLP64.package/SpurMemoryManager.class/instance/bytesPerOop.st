@@ -1,0 +1,3 @@
+accessing
+bytesPerOop
+	self subclassResponsibility

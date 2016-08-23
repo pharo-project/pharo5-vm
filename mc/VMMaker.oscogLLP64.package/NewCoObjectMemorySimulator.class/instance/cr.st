@@ -1,0 +1,3 @@
+printing
+cr
+	^coInterpreter cr

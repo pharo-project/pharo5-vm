@@ -1,0 +1,3 @@
+accessing
+objectMemory
+	^self

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"atEnd",
+		"simulator" ],
+	"name" : "FakeStdinStream",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "ReadStream",
+	"type" : "normal" }

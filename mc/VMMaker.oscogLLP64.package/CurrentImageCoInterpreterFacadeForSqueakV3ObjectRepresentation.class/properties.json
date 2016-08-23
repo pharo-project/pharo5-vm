@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CurrentImageCoInterpreterFacadeForSqueakV3ObjectRepresentation",
+	"pools" : [
+		 ],
+	"super" : "CurrentImageCoInterpreterFacade",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+smallObjectBytesForSlots: numSlots
+	^objectMemory smallObjectBytesForSlots: numSlots

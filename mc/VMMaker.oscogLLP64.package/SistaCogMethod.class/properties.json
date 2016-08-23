@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 7/4/2014 11:59",
+	"instvars" : [
+		"counters" ],
+	"name" : "SistaCogMethod",
+	"pools" : [
+		 ],
+	"super" : "CogMethod",
+	"type" : "normal" }

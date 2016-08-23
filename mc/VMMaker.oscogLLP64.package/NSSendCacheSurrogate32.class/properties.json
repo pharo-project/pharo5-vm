@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "NSSendCacheSurrogate32",
+	"pools" : [
+		 ],
+	"super" : "NSSendCacheSurrogate",
+	"type" : "normal" }

@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"BadRegisterSet",
+		"CogCompilerClass",
+		"NumSendTrampolines",
+		"SSBaseOffset",
+		"SSConstant",
+		"SSIllegal",
+		"SSRegister",
+		"SSSpill",
+		"UnimplementedOperation" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogCompilationConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

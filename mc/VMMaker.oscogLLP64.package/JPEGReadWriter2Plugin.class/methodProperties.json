@@ -1,0 +1,19 @@
+{
+	"class" : {
+		"hasHeaderFile" : "JMM 10/3/2001 11:44",
+		"requiresCrossPlatformFiles" : "tpr 3/1/2002 17:03",
+		"requiresPlatformFiles" : "JMM 10/3/2001 11:48" },
+	"instance" : {
+		"initialiseModule" : "JMM (auto pragmas 12/08) 12/25/2003 23:09",
+		"primImageHeight:" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
+		"primImageNumComponents:" : "lpc 5/18/2016 12:39",
+		"primImageWidth:" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
+		"primJPEGCompressStructSize" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
+		"primJPEGDecompressStructSize" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
+		"primJPEGErrorMgr2StructSize" : "jmv (auto pragmas 12/08) 11/30/2001 00:17",
+		"primJPEGPluginIsPresent" : "ar (auto pragmas 12/08) 11/27/2001 00:45",
+		"primJPEGReadHeader:fromByteArray:errorMgr:" : "eem 6/9/2016 17:01",
+		"primJPEGReadImage:fromByteArray:onForm:doDithering:errorMgr:" : "lpc 6/13/2016 12:34",
+		"primJPEGWriteImage:onByteArray:form:quality:progressiveJPEG:errorMgr:" : "lpc 6/13/2016 12:34",
+		"primSupports8BitGrayscaleJPEGs" : "lpc 6/3/2016 14:13",
+		"shutdownModule" : "JMM (auto pragmas 12/08) 12/25/2003 23:11" } }

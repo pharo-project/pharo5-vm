@@ -1,0 +1,3 @@
+process primitive support
+ioGetMaxExtSemTableSize
+	^extSemTabSize

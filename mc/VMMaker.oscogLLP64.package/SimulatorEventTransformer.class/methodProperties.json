@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"default" : "tty 2/8/2014 14:22",
+		"eventTypeMouse" : "eem 7/14/2015 17:31" },
+	"instance" : {
+		"degenerateEvent:" : "eem 7/14/2015 23:38",
+		"degenerateEvent:for:" : "eem 7/15/2015 14:28",
+		"degenerateKeyboardEvent:" : "eem 7/15/2015 14:23",
+		"degenerateKeyboardEvent:for:" : "eem 7/15/2015 14:23",
+		"degenerateMouseEvent:" : "eem 7/15/2015 14:22",
+		"degenerateMouseEvent:for:" : "eem 2/23/2016 21:51",
+		"initialize" : "eem 7/15/2015 14:22",
+		"windowIndex" : "eem 7/15/2015 14:08" } }

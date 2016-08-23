@@ -1,0 +1,3 @@
+class initialization
+ISA
+	^#MIPSEL

@@ -1,0 +1,4 @@
+testing
+isCaseStmt
+
+	^false

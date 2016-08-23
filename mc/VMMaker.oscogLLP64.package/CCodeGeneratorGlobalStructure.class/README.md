@@ -1,0 +1,3 @@
+This subclass of CCodeGenerator adds support for sticking most global variables into a large global array. This in turn means that suitably minded C compilers can do a better job of accessing those variables; in particular the Mac OS use of PPC and Acorn use of ARM benfits by a substantial margin. 
+
+Only simple globals are currently put in the array. Someday we might try adding pointers to the various arrays etc.

@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"BecameActiveClassFlag",
+		"BecameCompiledMethodFlag",
+		"BecamePointerObjectFlag",
+		"OldBecameNewFlag" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "VMSpurObjectRepresentationConstants",
+	"pools" : [
+		 ],
+	"super" : "VMBasicConstants",
+	"type" : "normal" }

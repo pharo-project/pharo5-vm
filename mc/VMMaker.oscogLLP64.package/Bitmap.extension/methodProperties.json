@@ -1,0 +1,18 @@
+{
+	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 10/1/2015 10:47" },
+	"instance" : {
+		"coerceTo:sim:" : "ajh 8/20/2002 01:13",
+		"long64At:" : "eem 10/2/2015 12:10",
+		"long64At:put:" : "eem 10/2/2015 11:59",
+		"longAt:" : "eem 10/1/2015 11:50",
+		"longAt:bigEndian:" : "eem 10/1/2015 11:58",
+		"longAt:put:" : "eem 10/1/2015 11:58",
+		"longAt:put:bigEndian:" : "eem 10/1/2015 11:57",
+		"unsignedByteAt:" : "eem 12/28/2008 18:45",
+		"unsignedByteAt:put:" : "eem 12/28/2008 18:46",
+		"unsignedLong64At:" : "eem 10/2/2015 12:15",
+		"unsignedLong64At:put:" : "eem 10/2/2015 12:13",
+		"unsignedLongAt:" : "eem 12/28/2008 18:42",
+		"unsignedLongAt:bigEndian:" : "eem 10/1/2015 11:56",
+		"unsignedLongAt:put:" : "eem 10/1/2015 11:56" } }

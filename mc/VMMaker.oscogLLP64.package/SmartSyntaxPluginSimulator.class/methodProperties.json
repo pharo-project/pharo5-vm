@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"newFor:" : "eem 10/1/2010 20:36",
+		"shouldBeTranslated" : "eem 10/3/2010 08:28" },
+	"instance" : {
+		"actualPlugin" : "eem 10/1/2010 09:22",
+		"actualPlugin:" : "eem 10/2/2010 10:04",
+		"ccgLoad:expr:asBooleanValueFrom:" : "eem 10/2/2010 22:00",
+		"ccgLoad:expr:asIntegerValueFrom:" : "eem 10/2/2010 21:48",
+		"ccgLoad:expr:asKindOf:from:" : "eem 10/2/2010 13:29",
+		"ccgLoad:expr:asKindOfIntegerFrom:" : "nice 4/18/2016 23:43",
+		"ccgLoad:expr:asMemberOfLargeNegativeIntegerFrom:" : "nice 4/19/2016 21:51",
+		"ccgLoad:expr:asMemberOfLargePositiveIntegerFrom:" : "nice 4/19/2016 21:51",
+		"ccgLoad:expr:asRawOopFrom:" : "eem 10/2/2010 21:46",
+		"computeSignatureFor:from:" : "eem 10/2/2010 22:31",
+		"computeSignatureMap" : "eem 10/5/2010 09:40",
+		"doesNotUnderstand:" : "eem 10/4/2010 17:33",
+		"generateCoerceToBooleanObjectFrom:on:" : "eem 10/11/2014 12:42",
+		"generateCoerceToFloatObjectFrom:on:" : "eem 10/11/2014 12:42",
+		"generateCoerceToSmallIntegerObjectFrom:on:" : "eem 10/2/2010 14:03",
+		"getPrimitiveSignatureFor:" : "eem 10/2/2010 22:21",
+		"initialiseModule" : "eem 10/2/2010 22:44",
+		"isPluginClass" : "eem 7/2/2014 17:56",
+		"isSmartSyntaxPluginSimulator" : "eem 7/2/2014 19:05",
+		"primitive:parameters:" : "eem 10/2/2010 21:36",
+		"primitive:parameters:receiver:" : "eem 10/2/2010 21:35",
+		"respondsTo:" : "eem 10/2/2010 22:31",
+		"setInterpreter:" : "eem 10/2/2010 22:45" } }
