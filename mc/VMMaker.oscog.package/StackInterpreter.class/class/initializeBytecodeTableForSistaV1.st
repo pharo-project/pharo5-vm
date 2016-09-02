@@ -125,7 +125,7 @@ initializeBytecodeTableForSistaV1
 		(252		extStoreRemoteTempOrInstVarLongBytecode)
 		(253		extStoreAndPopRemoteTempOrInstVarLongBytecode)
 				
-		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
+		(254		extJumpIfNotInstanceOfBehaviorsBytecode)
 
 		(255		unknownBytecode)
 	)
