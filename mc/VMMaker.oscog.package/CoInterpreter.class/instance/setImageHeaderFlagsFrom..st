@@ -7,6 +7,3 @@ setImageHeaderFlagsFrom: headerFlags
 	flagInterpretedMethods := (headerFlags bitAnd: 8) ~= 0.
 	preemptionYields := (headerFlags bitAnd: 16) = 0.
 	newFinalization := (headerFlags bitAnd: 64) ~= 0.
-
-	(SistaVM and: [flagInterpretedMethods]) ifTrue:
-		[self print: 'warning, flagInterpretedMethods inoperable in Sista VMs.'; cr]
