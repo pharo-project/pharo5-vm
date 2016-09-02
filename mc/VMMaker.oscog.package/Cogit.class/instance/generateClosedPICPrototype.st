@@ -5,10 +5,9 @@ generateClosedPICPrototype
 	 So we have to determine how big a full one is before hand."
 	| cPIC endAddress |
 	<var: 'cPIC' type: #'CogMethod *'>
-	maxCPICCases := 6.
 	"stack allocate the various collections so that they
 	 are effectively garbage collected on return."
-	self allocateOpcodes: maxCPICCases * 9 bytecodes: 0.
+	self allocateOpcodes: MaxCPICCases * 9 bytecodes: 0.
 	methodLabel address: methodZoneBase; dependent: nil. "for pc-relative MoveCw: cPIC R: ClassReg"
 	self compileClosedPICPrototype.
 	self computeMaximumSizes.
@@ -19,7 +18,7 @@ generateClosedPICPrototype
 	firstCPICCaseOffset := endCPICCase0 address - methodZoneBase.
 	cPICEndOfCodeOffset := cPICEndOfCodeLabel address - methodZoneBase.
 	cPICCaseSize := endCPICCase1 address - endCPICCase0 address.
-	cPICEndSize := closedPICSize - (maxCPICCases - 1 * cPICCaseSize + firstCPICCaseOffset).
+	cPICEndSize := closedPICSize - (MaxCPICCases - 1 * cPICCaseSize + firstCPICCaseOffset).
 	closedPICSize := methodZone roundUpLength: closedPICSize.
 	self assert: picInterpretAbort address = (methodLabel address + self picInterpretAbortOffset).
 	self assert: (self expectedClosedPICPrototype: cPIC) = 0.

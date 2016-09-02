@@ -11,7 +11,7 @@ cPIC: cPIC HasTarget: targetMethod
 	"First jump is unconditional; subsequent ones are conditional"
 	target = (backEnd jumpLongTargetBeforeFollowingAddress: pc) ifTrue:
 		[^true].
-	2 to: maxCPICCases do:
+	2 to: MaxCPICCases do:
 		[:i|
 		pc := pc + cPICCaseSize.
 		target = (backEnd jumpLongConditionalTargetBeforeFollowingAddress: pc) ifTrue:

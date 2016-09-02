@@ -24,6 +24,8 @@ initializeMiscConstants
 	NumSendTrampolines := 4.
 	"Currently not even the ceImplicitReceiverTrampoline contains object references."
 	NumObjRefsInRuntime := 0.
+	"6 is a fine number for the max number of PCI entries.  8 is too large."
+	MaxCPICCases := 6.
 
 	NSCSelectorIndex := (NSSendCache instVarNames indexOf: #selector) - 1.
 	NSCNumArgsIndex := (NSSendCache instVarNames indexOf: #numArgs) - 1.
