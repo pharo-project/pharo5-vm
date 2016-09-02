@@ -13,7 +13,7 @@ compileBlockBodies
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
 		[blockStart := self blockStartAt: compiledBlocksCount.
-		 self scanBlock: blockStart.
+		  (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
 		 initialOpcodeIndex := opcodeIndex.
 		 literalsManager saveForBlockCompile.
 		 NewspeakVM ifTrue:
