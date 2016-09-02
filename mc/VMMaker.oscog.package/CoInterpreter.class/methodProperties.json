@@ -42,7 +42,7 @@
 		"assertValidStackPageHeadPointers" : "eem 1/5/2009 14:16",
 		"assertValidStackedInstructionPointers:" : "eem 7/23/2013 15:44",
 		"assertValidStackedInstructionPointersIn:line:" : "eem 3/6/2015 13:42",
-		"attemptToSwitchToMachineCode:" : "eem 09/28/2015 18:48",
+		"attemptToSwitchToMachineCode:" : "cb 9/1/2016 17:18",
 		"baseFrameReturn" : "eem 8/14/2015 12:15",
 		"bytecodePCFor:cogMethod:startBcpc:" : "eem 6/30/2014 06:03",
 		"bytecodePrimAt" : "eem 1/24/2016 11:31",
