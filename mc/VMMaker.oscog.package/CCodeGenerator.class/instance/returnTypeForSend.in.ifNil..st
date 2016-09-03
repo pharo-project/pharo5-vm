@@ -72,6 +72,7 @@ returnTypeForSend: sendNode in: aTMethod ifNil: typeIfNil
 				[#asInteger]			->	[#sqInt].
 				[#asUnsignedInteger]	->	[#usqInt].
 				[#asUnsignedLong]		->	[#'unsigned long'].
+				[#asUnsignedLongLong]		->	[#'unsigned long long'].
 				[#asVoidPointer]		->	[#'void *'].
 				[#signedIntToLong]		->	[#usqInt]. "c.f. generateSignedIntToLong:on:indent:"
 				[#signedIntToShort]	->	[#usqInt]. "c.f. generateSignedIntToShort:on:indent:"
