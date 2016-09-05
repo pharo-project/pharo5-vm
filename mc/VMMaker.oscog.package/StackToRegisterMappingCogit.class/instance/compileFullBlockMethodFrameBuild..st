@@ -10,7 +10,7 @@ compileFullBlockMethodFrameBuild: numCopied
 			numArgs: methodOrBlockNumArgs;
 			numCopied: numCopied;
 			numInitialNils: 0.
-		 self compileBlockFramelessEntry: blockStart.
+		 self compileBlockFramelessEntry: (self addressOf: blockStart).
 		 ^self].
 	super compileFullBlockMethodFrameBuild: numCopied.
 	self initSimStackForFramefulMethod: initialPC
