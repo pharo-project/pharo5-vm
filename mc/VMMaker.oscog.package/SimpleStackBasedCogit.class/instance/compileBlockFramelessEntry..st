@@ -5,6 +5,7 @@ compileBlockFramelessEntry: blockStart
 	 instruction so that findMethodForStartBcpc:inHomeMethod: can function.
 	 We need two annotations because the first is a fiducial."
 	<var: #blockStart type: #'BlockStart *'>
+	self deny: blockStart hasInstVarRef. "Else we would need to unforward the receiver"
 	self annotateBytecode: blockStart entryLabel.
 	self annotateBytecode: blockStart entryLabel.
 	objectRepresentation
