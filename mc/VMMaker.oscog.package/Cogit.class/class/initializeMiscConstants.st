@@ -27,6 +27,10 @@ initializeMiscConstants
 	"6 is a fine number for the max number of PCI entries.  8 is too large."
 	MaxCPICCases := 6.
 
+	"One variable defines whether in a block and whether in a vanilla or full block."
+	InVanillaBlock := 1.
+	InFullBlock := 2.
+
 	NSCSelectorIndex := (NSSendCache instVarNames indexOf: #selector) - 1.
 	NSCNumArgsIndex := (NSSendCache instVarNames indexOf: #numArgs) - 1.
 	NSCClassTagIndex := (NSSendCache instVarNames indexOf: #classTag) - 1.

@@ -5,7 +5,7 @@ compileCogFullBlockMethod: numCopied
 	| numBytecodes numBlocks numCleanBlocks result |
 	hasYoungReferent := (objectMemory isYoungObject: methodObj).
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.
-	inBlock := true.
+	inBlock := InFullBlock.
 	postCompileHook := nil.
 	maxLitIndex := -1.
 	self assert: (coInterpreter primitiveIndexOf: methodObj) = 0.

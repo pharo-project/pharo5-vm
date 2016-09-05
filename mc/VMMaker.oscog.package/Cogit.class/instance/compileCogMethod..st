@@ -5,7 +5,7 @@ compileCogMethod: selector
 	hasYoungReferent := (objectMemory isYoungObject: methodObj)
 						  or: [objectMemory isYoung: selector].
 	methodOrBlockNumArgs := coInterpreter argumentCountOf: methodObj.
-	inBlock := false.
+	inBlock := 0.
 	postCompileHook := nil.
 	maxLitIndex := -1.
 	extra := ((primitiveIndex := coInterpreter primitiveIndexOf: methodObj) > 0

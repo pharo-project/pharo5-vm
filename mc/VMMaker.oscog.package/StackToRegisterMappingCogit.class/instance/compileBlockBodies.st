@@ -9,7 +9,7 @@ compileBlockBodies
 	savedNeedsFrame := needsFrame.
 	savedNumArgs := methodOrBlockNumArgs.
 	savedNumTemps := methodOrBlockNumTemps.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
 		[blockStart := self blockStartAt: compiledBlocksCount.

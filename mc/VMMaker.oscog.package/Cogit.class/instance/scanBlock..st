@@ -6,7 +6,7 @@ scanBlock: blockStart
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
 	methodOrBlockNumArgs := blockStart numArgs.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
 	framelessStackDelta := nExts := extA := extB := 0.

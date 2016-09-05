@@ -7,7 +7,7 @@ compileBlockBodies
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
 	savedNeedsFrame := needsFrame.
 	savedNumArgs := methodOrBlockNumArgs.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
 		[blockStart := self blockStartAt: compiledBlocksCount.

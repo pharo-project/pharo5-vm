@@ -14,7 +14,7 @@ genUpArrowReturn
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
 	| framelessReturn |
 	deadCode := true. "can't fall through"
-	inBlock ifTrue:
+	inBlock > 0 ifTrue:
 		[self assert: needsFrame. 
 		 self CallRT: ceNonLocalReturnTrampoline.
 		 self annotateBytecode: self Label.

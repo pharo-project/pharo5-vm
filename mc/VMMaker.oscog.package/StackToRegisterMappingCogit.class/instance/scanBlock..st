@@ -7,7 +7,7 @@ scanBlock: blockStart
 	needsFrame := false.
 	prevBCDescriptor := nil.
 	methodOrBlockNumArgs := blockStart numArgs.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
 	framelessStackDelta := nExts := extA := extB := 0.
