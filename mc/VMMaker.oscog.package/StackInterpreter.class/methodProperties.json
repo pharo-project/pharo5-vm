@@ -434,7 +434,7 @@
 		"interpreterAllocationReserveBytes" : "eem (const to msg rewrite) 11/5/2014 18:04",
 		"ioFilename:fromString:ofLength:resolveAliases:" : "tpr (auto pragmas 12/08) 12/29/2005 17:43",
 		"ioLoadExternalFunction:OfLength:FromModule:OfLength:" : "eem 1/5/2014 18:41",
-		"ioLoadExternalFunction:OfLength:FromModule:OfLength:AccessorDepthInto:" : "eem 1/5/2014 18:43",
+		"ioLoadExternalFunction:OfLength:FromModule:OfLength:AccessorDepthInto:" : "cb 9/5/2016 10:41",
 		"ioLocalMicroseconds" : "eem 10/3/2013 08:51",
 		"ioLocalMicrosecondsNow" : "eem 3/11/2014 10:43",
 		"ioLocalSecondsOffset" : "eem 3/11/2014 11:08",
