@@ -5,7 +5,10 @@ startMcpcAndCogMethodForMcpc: mcpc in: cogMethod do: aBinaryBlock
 	| startMcpc |
 	startMcpc := ((self codeRangesFor: cogMethod)
 					detect: [:range| range includes: mcpc]
-					ifNone: [^nil]) first.
+					ifNone:
+						[(self codeRangesFor: cogMethod)
+							detect: [:range| range last + 1 = mcpc]
+							ifNone: [^nil]]) first.
 	^aBinaryBlock
 		value: startMcpc
 		value: (startMcpc = (cogMethod asInteger + (self sizeof: CogMethod))

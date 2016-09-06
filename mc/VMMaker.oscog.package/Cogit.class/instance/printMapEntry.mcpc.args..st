@@ -10,7 +10,7 @@ printMapEntry: annotation mcpc: mcpc args: tupleOfStreamCodeRangesAndMethod
 	self startMcpcAndCogMethodForMcpc: mcpc in: cogMethod do:
 		[:startmcpc :subMethod| | name codeRange |
 		"Find the start of the block by searching the code ranges."
-		codeRange := codeRanges detect: [:range| range includes: mcpc].
+		codeRange := codeRanges detect: [:range| range includes: mcpc] ifNone: [codeRanges detect: [:range| range last + 1 = mcpc]].
 		codeRange first = mcpc ifTrue:
 			[aStream nextPutAll: 'startpc: '; print: codeRange startpc; cr].
 		aStream

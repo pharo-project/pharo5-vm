@@ -55,7 +55,7 @@ disassembleMethod: surrogateOrAddress on: aStream
 		(cogMethod cmType = CMMethod) ifTrue:
 			[mapEntries keysAndValuesDo:
 				[:mcpc :label| | bcpc selectorOrNone |
-				((range includes: mcpc)
+				(((range includes: mcpc) or: [range last + 1 = mcpc])
 				 and: [(AnnotationsWithBytecodePCs includes: label)
 				 and: [range cogMethod stackCheckOffset > 0]]) ifTrue:
 					[bcpc := self bytecodePCFor: mcpc startBcpc: range startpc in: range cogMethod.
