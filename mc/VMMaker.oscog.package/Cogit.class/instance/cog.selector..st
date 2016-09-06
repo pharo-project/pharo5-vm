@@ -24,6 +24,7 @@ cog: aMethodObj selector: aSelectorOop
 					 self warnMultiple: cogMethod selectors: aSelectorOop.
 					^nil]]]
 		ifFalse: [self deny: (coInterpreter methodHasCogMethod: aMethodObj)].
+	self deny: (objectMemory isCompiledMethod: (coInterpreter ultimateLiteralOf: aMethodObj)).
 	"coInterpreter stringOf: aSelectorOop"
 	coInterpreter
 		compilationBreak: aSelectorOop
