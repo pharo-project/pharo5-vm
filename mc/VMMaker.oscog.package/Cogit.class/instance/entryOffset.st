@@ -1,5 +1,5 @@
 accessing
 entryOffset
 	<api>
-	<cmacro: '() cmEntryOffset'>
+	<cmacro>
 	^cmEntryOffset
