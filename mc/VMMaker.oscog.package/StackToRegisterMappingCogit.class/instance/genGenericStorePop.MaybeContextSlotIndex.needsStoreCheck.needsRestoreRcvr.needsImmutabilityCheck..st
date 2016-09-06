@@ -6,8 +6,6 @@ genGenericStorePop: popBoolean MaybeContextSlotIndex: slotIndex needsStoreCheck:
 	- needRestoreRcvr (ensures the recevier is live across the store)
 	- needsImmCheck (do the call-back if the receiver is immutable)"
 	<inline: true>
-	<var: #jmpSingle type: #'AbstractInstruction *'>
-	<var: #jmpDone type: #'AbstractInstruction *'>
 	<var: #mutableJump type: #'AbstractInstruction *'>
 	<var: #immutabilityFailure type: #'AbstractInstruction *'>
 	| immutabilityFailure mutableJump |
