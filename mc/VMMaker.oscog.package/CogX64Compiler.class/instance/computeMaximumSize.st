@@ -127,9 +127,11 @@ computeMaximumSize
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 								ifTrue: [7]
 								ifFalse: [(operands at: 1) = RAX ifTrue: [10] ifFalse: [14]]].
+		[MoveA32R]	-> [^(operands at: 1) = RAX ifTrue: [9] ifFalse: [13]].
 		[MoveRAw]		-> [^(self isAddressRelativeToVarBase: (operands at: 1))
 								ifTrue: [7]
 								ifFalse: [(operands at: 0) = RAX ifTrue: [10] ifFalse: [14]]].
+		[MoveRA32]	-> [^(operands at: 0) = RAX ifTrue: [9] ifFalse: [13]].
 		[MoveAbR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
 								ifTrue: [7]
 								ifFalse: [(operands at: 1) = RAX ifTrue: [10] ifFalse: [14]]].
