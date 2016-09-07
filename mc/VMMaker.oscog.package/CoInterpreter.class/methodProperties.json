@@ -129,7 +129,7 @@
 		"extendedStoreBytecodePop:" : "cb 1/18/2016 18:04",
 		"externalAboutToReturn:through:" : "eem 3/11/2011 10:47",
 		"externalCannotReturn:from:" : "eem 3/11/2011 10:48",
-		"externalInstVar:ofContext:" : "eem 7/5/2016 15:26",
+		"externalInstVar:ofContext:" : "eem 9/7/2016 14:24",
 		"externalWriteBackHeadStackPointer" : "eem 11/13/2014 13:11",
 		"externalizeIPandSP" : "eem 5/8/2009 16:36",
 		"fastLogPrim:" : "eem 5/15/2015 17:10",
