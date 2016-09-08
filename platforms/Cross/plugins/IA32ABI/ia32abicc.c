@@ -33,11 +33,10 @@ void *getbaz() { return baz; }
 #include <string.h> /* for memcpy et al */
 #include <setjmp.h>
 #include <stdio.h> /* for fprintf(stderr,...) */
-#include <unistd.h>
 
+#include "sqMemoryAccess.h"
 #include "vmCallback.h"
 #include "sqAssert.h"
-#include "sqMemoryAccess.h"
 #include "sqVirtualMachine.h"
 #include "ia32abi.h"
 
@@ -171,7 +170,7 @@ getMostRecentCallbackContext() { return mostRecentCallbackContext; }
  * is then passed as an element of the VMCallbackContext.
  */
 long
-thunkEntry(void *thunkp, long *stackp)
+thunkEntry(void *thunkp, sqIntptr_t *stackp)
 {
 	VMCallbackContext vmcc;
 	VMCallbackContext *previousCallbackContext;

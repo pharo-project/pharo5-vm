@@ -81,7 +81,7 @@ extern sqInt printAllStacks(void);
 extern sqInt printCallStack(void);
 extern void dumpPrimTraceLog(void);
 extern BOOL NSApplicationLoad(void);
-extern void pushOutputFile(char *);
+extern void pushOutputFile(char *); 
 extern void popOutputFile(void);
 
 static void reportStackState(char *, char *, int, ucontext_t *);
