@@ -9,6 +9,7 @@ initialize
 			(self initialize)
 	The operand specifiers are
 		R		- general purpose register
+		Rs		- single-precision floating-point register
 		Rd		- double-precision floating-point register
 		Cq		- a `quick' constant that can be encoded in the minimum space possible.
 		Cw		- a constant with word size where word is the default operand size for the Smalltalk VM, 32-bits
@@ -73,6 +74,7 @@ initialize
 						"Control"
 						Call					"call within the code zone"
 						CallFull				"call anywhere within the full address space"
+						CallR
 						RetN
 						JumpR				"Not a regular jump, i.e. not pc dependent."
 						Stop				"Halt the processor"
@@ -116,17 +118,20 @@ initialize
 						MoveAbR
 						MoveRAb
 						MoveMwrR MoveRMwr MoveXwrRR MoveRXwrR MoveXowrR MoveRXowr
+						MoveM8rR MoveMs8rR MoveRM8r 
 						MoveM16rR MoveRM16r MoveX16rRR MoveRX16rR
 						MoveM32rR MoveRM32r MoveX32rRR MoveRX32rR
 						MoveMbrR MoveRMbr MoveXbrRR MoveRXbrR
 						MoveCqR MoveCwR MoveC32R MoveC64R
 						MoveRRd MoveRdR MoveRdRd MoveM64rRd MoveRdM64r
+						MoveRsRs MoveM32rRs MoveRsM32r
 						PopR PushR PushCq PushCw
 						PrefetchAw
 
 						"Arithmetic; destination is always last operand except Cmp; CmpXR is SubRX with no update of result"
 						LoadEffectiveAddressMwrR LoadEffectiveAddressXowrR "Variants of add/multiply"
 						NegateR "2's complement negation"
+						NotR
 						ArithmeticShiftRightCqR ArithmeticShiftRightRR
 						LogicalShiftRightCqR LogicalShiftRightRR
 						LogicalShiftLeftCqR LogicalShiftLeftRR
@@ -135,13 +140,19 @@ initialize
 						CmpRR AddRR SubRR AndRR OrRR XorRR
 						CmpCqR AddCqR SubCqR AndCqR OrCqR TstCqR XorCqR
 						CmpCwR CmpC32R AddCwR SubCwR AndCwR OrCwR XorCwR
+						AddcRR AddcCqR SubbRR
 
 						AndCqRR "Three address ops for RISCs; feel free to add and extend"
 
-						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd
+						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd XorRdRd
+						CmpRsRs AddRsRs SubRsRs MulRsRs DivRsRs SqrtRs XorRsRs
 
 						"Conversion"
-						ConvertRRd
+						ConvertRRd ConvertRdR
+						ConvertRsRd ConvertRdRs ConvertRsR ConvertRRs
+
+						SignExtend8RR SignExtend16RR
+						ZeroExtend8RR ZeroExtend16RR
 
 						LastRTLCode).
 

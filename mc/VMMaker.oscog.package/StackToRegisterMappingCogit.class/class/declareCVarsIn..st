@@ -29,6 +29,10 @@ declareCVarsIn: aCodeGen
 			type: #CogSSOptStatus;
 		var: 'prevBCDescriptor'
 			type: #'BytecodeDescriptor *'.
+	LowcodeVM ifTrue: [
+		aCodeGen var: 'simNativeStack'
+			declareC: 'CogSimStackNativeEntry simNativeStack[', ((CoInterpreter bindingOf: #LargeContextSlots) value * 5 / 4 // BytesPerWord) asString, ']'
+	].
 
 	self numPushNilsFunction ifNotNil:
 		[aCodeGen

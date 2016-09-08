@@ -14,7 +14,7 @@
 		"initialize" : "eem 5/26/2016 09:13",
 		"initializeCompactClassIndices" : "cb 4/5/2016 18:17",
 		"initializeObjectHeaderConstants" : "eem 2/11/2015 11:08",
-		"initializeSpecialObjectIndices" : "eem 9/23/2014 12:23",
+		"initializeSpecialObjectIndices" : "RonieSalgado 5/31/2016 19:06",
 		"initializeSpurObjectRepresentationConstants" : "eem 9/23/2014 12:32",
 		"initializeWithOptions:" : "eem 1/9/2016 10:34",
 		"isImmediate:" : "eem 10/30/2013 13:50",

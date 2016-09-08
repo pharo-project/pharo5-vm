@@ -45,6 +45,7 @@ setInterpreter: aCoInterpreter
 	trampolineTableIndex := 0.
 
 	extA := extB := 0.
+	extBFirstZero := false.
 
 	compilationTrace ifNil: [compilationTrace := self class initializationOptions at: #compilationTrace ifAbsent: [0]].
 	debugOpcodeIndices := self class initializationOptions at: #debugOpcodeIndices ifAbsent: [Set new].

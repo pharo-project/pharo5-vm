@@ -26,6 +26,7 @@ initializeMiscConstants
 	PharoVM := initializationOptions at: #PharoVM ifAbsentPut: [false].
 	NewspeakVM := initializationOptions at: #NewspeakVM ifAbsentPut: [false].
 	SistaVM := initializationOptions at: #SistaVM ifAbsentPut: [false].
+	LowcodeVM := initializationOptions at: #LowcodeVM ifAbsentPut: [false].
 	"But not these; they're compile-time"
 	MULTIPLEBYTECODESETS := initializationOptions at: #MULTIPLEBYTECODESETS ifAbsent: [false].
 	IMMUTABILITY := initializationOptions at: #IMMUTABILITY ifAbsent: [false].

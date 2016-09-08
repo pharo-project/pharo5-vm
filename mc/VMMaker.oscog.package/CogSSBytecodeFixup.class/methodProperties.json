@@ -14,7 +14,11 @@
 		"needsFixupOrIsFixedUp" : "cb 4/15/2016 17:48",
 		"notYetFixedUp" : "cb 4/15/2016 17:42",
 		"printStateOn:" : "eem 12/1/2010 10:52",
-		"reinitialize" : "cb 4/15/2016 17:44",
-		"setIsBackwardBranchFixup" : "cb 4/15/2016 17:40",
+		"reinitialize" : "rsf 8/9/2016 23:27",
+		"setIsBackwardBranchFixup" : "rsf 8/9/2016 23:16",
+		"simNativeStackPtr" : "RonieSalgado 4/29/2016 16:36",
+		"simNativeStackPtr:" : "RonieSalgado 4/29/2016 16:36",
+		"simNativeStackSize" : "RonieSalgado 4/29/2016 16:37",
+		"simNativeStackSize:" : "RonieSalgado 4/29/2016 16:37",
 		"simStackPtr" : "eem 11/22/2010 14:31",
 		"simStackPtr:" : "eem 11/22/2010 14:31" } }

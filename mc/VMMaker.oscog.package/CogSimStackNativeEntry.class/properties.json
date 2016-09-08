@@ -1,0 +1,29 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"cogit",
+		"objectRepresentation",
+		"type",
+		"spilled",
+		"register",
+		"registerSecond",
+		"offset",
+		"constant",
+		"constantInt32",
+		"constantInt64",
+		"constantFloat32",
+		"constantFloat64",
+		"constantNativePointer",
+		"bcptr" ],
+	"name" : "CogSimStackNativeEntry",
+	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
+		"CogRTLOpcodes" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

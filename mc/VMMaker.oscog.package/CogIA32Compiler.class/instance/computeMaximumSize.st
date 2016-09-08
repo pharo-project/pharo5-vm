@@ -11,6 +11,10 @@ computeMaximumSize
 		[Fill32]					-> [^4].
 		[Nop]					-> [^1].
 		"Specific Control/Data Movement"
+		[REP]					-> [^1].
+		[CLD]					-> [^1].
+		[MOVSB]				-> [^1].
+		[MOVSD]				-> [^1].
 		[CDQ]					-> [^1].
 		[IDIVR]					-> [^2].
 		[IMULRR]				-> [^3].
@@ -31,9 +35,13 @@ computeMaximumSize
 									   or: [(operands at: 1) = EAX])
 										ifTrue: [1]
 										ifFalse: [2]].
+		[FSTPS]					-> [^7].
+		[FSTPD]					-> [^7].
+						
 		"Control"
 		[CallFull]					-> [^5].
 		[Call]						-> [^5].
+		[CallR]					-> [^2].
 		[JumpR]						-> [^2].
 		[JumpFull]					-> [self resolveJumpTarget. ^5].
 		[JumpLong]					-> [self resolveJumpTarget. ^5].
@@ -69,6 +77,11 @@ computeMaximumSize
 
 		"Arithmetic"
 		[AddCqR]		-> [^(self isQuick: (operands at: 0))
+											ifTrue: [3]
+											ifFalse: [(operands at: 1) = EAX
+														ifTrue: [5]
+														ifFalse: [6]]].
+		[AddcCqR]		-> [^(self isQuick: (operands at: 0))
 											ifTrue: [3]
 											ifFalse: [(operands at: 1) = EAX
 														ifTrue: [5]
@@ -111,6 +124,7 @@ computeMaximumSize
 		[XorRR]			-> [^2].
 		[SubRR]			-> [^2].
 		[NegateR]		-> [^2].
+		[NotR]		-> [^2].
 		[LoadEffectiveAddressMwrR]
 						-> [^((self isQuick: (operands at: 0))
 											ifTrue: [3]
@@ -130,15 +144,35 @@ computeMaximumSize
 		[MulRdRd]					-> [^4].
 		[DivRdRd]					-> [^4].
 		[SqrtRd]					-> [^4].
+		[XorRdRd]					-> [^4].
+						
+		[AddRsRs]				-> [^4].
+		[CmpRsRs]				-> [^3].
+		[SubRsRs]				-> [^4].
+		[MulRsRs]				-> [^4].
+		[DivRsRs]				-> [^4].
+		[SqrtRs]					-> [^4].
+		[XorRsRs]					-> [^3].
+						
 		"Data Movement"
 		[MoveCqR]		-> [^(operands at: 0) = 0 ifTrue: [2] ifFalse: [5]].
 		[MoveCwR]		-> [^5].
 		[MoveRR]		-> [^2].
 		[MoveRdRd]		-> [^4].
+		[MoveRsRs]		-> [^4].
 		[MoveAwR]		-> [^(operands at: 1) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveRAw]		-> [^(operands at: 0) = EAX ifTrue: [5] ifFalse: [6]].
 		[MoveAbR]		-> [^7].
 		[MoveRAb]		-> [^(operands at: 0) = EAX ifTrue: [5] ifFalse: [6]].
+		[MoveRM32r]	-> [^((self isQuick: (operands at: 1))
+									ifTrue: [((operands at: 1) = 0
+											and: [(operands at: 2) ~= EBP])
+												ifTrue: [2]
+												ifFalse: [3]]
+									ifFalse: [6])
+								+ ((operands at: 2) = ESP
+									ifTrue: [1]
+									ifFalse: [0])].
 		[MoveRMwr]	-> [^((self isQuick: (operands at: 1))
 									ifTrue: [((operands at: 1) = 0
 											and: [(operands at: 2) ~= EBP])
@@ -154,10 +188,22 @@ computeMaximumSize
 										+ ((operands at: 2) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
+		[MoveRsM32r]	-> [^((self isQuick: (operands at: 1))
+											ifTrue: [5]
+											ifFalse: [8])
+										+ ((operands at: 2) = ESP
+											ifTrue: [1]
+											ifFalse: [0])].
 		[MoveMbrR]		-> [^(operands at: 1) = ESP
 								ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
 								ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
 		[MoveRMbr]		-> [^(operands at: 2) = ESP
+								ifTrue: [7]
+								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [3] ifFalse: [6]]].
+		[MoveM8rR]		-> [^(operands at: 1) = ESP
+								ifTrue: [(self isQuick: (operands at: 0)) ifTrue: [5] ifFalse: [8]]
+								ifFalse: [(self isQuick: (operands at: 0)) ifTrue: [4] ifFalse: [7]]].
+		[MoveRM8r]		-> [^(operands at: 2) = ESP
 								ifTrue: [7]
 								ifFalse: [(self isQuick: (operands at: 1)) ifTrue: [3] ifFalse: [6]]].
 		[MoveM16rR]	-> [^(operands at: 1) = ESP
@@ -172,6 +218,21 @@ computeMaximumSize
 										+ ((operands at: 1) = ESP
 											ifTrue: [1]
 											ifFalse: [0])].
+		[MoveM32rRs]	-> [^((self isQuick: (operands at: 0))
+											ifTrue: [5]
+											ifFalse: [8])
+										+ ((operands at: 1) = ESP
+											ifTrue: [1]
+											ifFalse: [0])].
+		[MoveM32rR]		-> [^((self isQuick: (operands at: 0))
+									ifTrue: [((operands at: 0) = 0
+											and: [(operands at: 1) ~= EBP])
+												ifTrue: [2]
+												ifFalse: [3]]
+									ifFalse: [6])
+								+ ((operands at: 1) = ESP
+									ifTrue: [1]
+									ifFalse: [0])].
 		[MoveMwrR]		-> [^((self isQuick: (operands at: 0))
 									ifTrue: [((operands at: 0) = 0
 											and: [(operands at: 1) ~= EBP])
@@ -206,5 +267,16 @@ computeMaximumSize
 		[PushCw]		-> [^5].
 		[PrefetchAw]	-> [^self hasSSEInstructions ifTrue: [7] ifFalse: [0]].
 		"Conversion"
-		[ConvertRRd]	-> [^4] }.
+		[ConvertRRd]	-> [^4].
+		[ConvertRdR]	-> [^4].
+
+		[ConvertRsRd]	-> [^4].
+		[ConvertRdRs]	-> [^4].
+		[ConvertRsR]	-> [^4].
+		[ConvertRRs]	-> [^4].
+
+		[SignExtend8RR] -> [^3].
+		[SignExtend16RR] -> [^3].
+		[ZeroExtend8RR] -> [^3].
+		[ZeroExtend16RR] -> [^3]. }.
 	^0 "to keep C compiler quiet"

@@ -1,0 +1,3 @@
+accessing
+nativeStackPointerAddress
+	^self addressForLabel: #nativeStackPointer
