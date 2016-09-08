@@ -31,6 +31,7 @@ baseline: spec
 			package: 'Applescript-Core' with: [ spec requires: #('VMMaker') ];
 			package: 'CryptographyPlugins' with: [ spec requires: #('VMMaker') ];
 			package: 'SDL2DisplayPlugin' with: [ spec requires: #('VMMaker') ];
+			package: 'EventsHandlerPlugin' with: [ spec requires: #('VMMaker') ];
 			package: 'CMakeVMMaker' with: [ spec requires: #('Cog') ];
 			package: 'SpurVMMaker' with: [ spec requires: #('Cog') ].				
 
@@ -73,5 +74,5 @@ baseline: spec
 				group: 'all' with: #('pharoCompatibility' 'maker' 'plugins' 'pharoPlugins' 'pharoBuilders' 'libs');
 				group: 'pharoCompatibility' with: #('CogVMMakerPharoCompatibility' 'SpurVMMakerPharoCompatibility');
 				group: 'pharoBuilders' with: #('CMakeVMMaker' 'SpurVMMaker' 'PharoVMMaker');
-				group: 'pharoPlugins' with: #('SDL2DisplayPlugin');
+				group: 'pharoPlugins' with: #('SDL2DisplayPlugin' 'EventsHandlerPlugin');
 				group: 'libs' with: #('CMakeLibSSH2' 'CMakeLibGit2' 'CMakeLibSDL2') ]
