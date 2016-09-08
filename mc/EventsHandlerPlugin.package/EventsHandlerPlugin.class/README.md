@@ -1,0 +1,1 @@
+I'm a fake plugin who's unique purpose is to expose to the image the functions needed to get control of the event handler, contained into EventsHandlerPluginImpl.c file.
