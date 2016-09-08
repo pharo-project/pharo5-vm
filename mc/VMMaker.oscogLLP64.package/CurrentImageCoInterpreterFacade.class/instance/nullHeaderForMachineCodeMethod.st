@@ -1,0 +1,3 @@
+accessing
+nullHeaderForMachineCodeMethod
+	^objectMemory nullHeaderForMachineCodeMethod

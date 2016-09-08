@@ -1,0 +1,1 @@
+A CFloatArray is a subclass of CArray that provides access via C float or double values

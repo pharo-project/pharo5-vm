@@ -1,0 +1,3 @@
+translation
+typeForSelf
+	^#implicit

@@ -1,0 +1,3 @@
+accessing
+isYoungObject: anOop
+	^false

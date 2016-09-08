@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/6/2014 14:46",
+	"instvars" : [
+		"coInterpreter",
+		"oop",
+		"objectMemory" ],
+	"name" : "VMObjectProxy",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

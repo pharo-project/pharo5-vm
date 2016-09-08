@@ -1,0 +1,3 @@
+compile abstract instructions
+genRemoveSmallIntegerTagsInScratchReg: scratchReg
+	self subclassResponsibility

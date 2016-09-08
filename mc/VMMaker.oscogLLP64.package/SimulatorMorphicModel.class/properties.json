@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-InterpreterSimulation-Morphic",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 7/14/2015 17:07",
+	"instvars" : [
+		"vm",
+		"title",
+		"stepping",
+		"morph" ],
+	"name" : "SimulatorMorphicModel",
+	"pools" : [
+		"EventSensorConstants" ],
+	"super" : "Model",
+	"type" : "normal" }

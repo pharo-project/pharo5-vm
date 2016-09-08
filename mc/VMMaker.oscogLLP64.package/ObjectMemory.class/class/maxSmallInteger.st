@@ -1,0 +1,3 @@
+translation
+maxSmallInteger
+	^1073741823

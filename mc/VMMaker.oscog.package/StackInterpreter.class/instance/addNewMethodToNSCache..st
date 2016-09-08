@@ -4,7 +4,7 @@ addNewMethodToNSCache: rule
 	<inline: false>
 	| classObj probe hash primitiveIndex |
 	classObj := lkupClass.
-	hash := (messageSelector bitXor: lkupClassTag) bitXor: (method bitXor: rule).
+	hash := (objectMemory methodCacheHashOf: messageSelector with: lkupClassTag) bitXor: (method bitXor: rule).
 	self deny: rule = LookupRuleOrdinary.
 
 	(objectMemory isOopCompiledMethod: newMethod)

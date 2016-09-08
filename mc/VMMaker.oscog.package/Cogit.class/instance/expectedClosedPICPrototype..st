@@ -17,7 +17,7 @@ expectedClosedPICPrototype: cPIC
 	(self asserta: entryPoint = (self cPICPrototypeCaseOffset + 16rCA5E10)) ifFalse:
 		[errors := errors + 2].
 
-	1 to: maxCPICCases - 1 do:
+	1 to: MaxCPICCases - 1 do:
 		[:i | | methodObjPC classTagPC |
 		pc := pc + cPICCaseSize.
 

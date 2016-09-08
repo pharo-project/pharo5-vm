@@ -24,14 +24,13 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 		OrCq: MFMethodFlagHasContextFlag R: ClassReg;
 		MoveR: ClassReg Mw: FoxMethod r: FPReg.
 	"now get the home CogMethod into ClassReg and save for post-instantiation."
-	isInBlock
-		ifTrue:
-			[cogit
-				SubCq: 3 R: ClassReg; "-3 is -(hasContext+isBlock) flags"
-				MoveM16: 0 r: ClassReg R: TempReg;
-				SubR: TempReg R: ClassReg]
-		ifFalse:
-			[cogit SubCq: 1 R: ClassReg]. "-1 is hasContext flag"
+	isInBlock caseOf: {
+	[InFullBlock]	-> [cogit SubCq: 3 R: ClassReg]. "-3 is -(hasContext+isBlock) flags"
+	[InVanillaBlock]	-> [cogit
+							SubCq: 3 R: ClassReg; "-3 is -(hasContext+isBlock) flags"
+							MoveM16: 0 r: ClassReg R: TempReg;
+							SubR: TempReg R: ClassReg].
+	[0]				-> [cogit SubCq: 1 R: ClassReg]. "-1 is hasContext flag" }.
 
 	"instantiate the context..."
 	slotSize := isLarge ifTrue: [LargeContextSlots] ifFalse: [SmallContextSlots].
@@ -80,7 +79,7 @@ genGetActiveContextLarge: isLarge inBlock: isInBlock
 	cogit MoveR: TempReg Mw: objectMemory baseHeaderSize + (StackPointerIndex * objectMemory bytesPerOop) r: ReceiverResultReg.
 
 	"Set closureOrNil to either the stacked receiver or nil"
-	isInBlock
+	isInBlock > 0
 		ifTrue:
 			[cogit
 				MoveR: SendNumArgsReg R: TempReg;

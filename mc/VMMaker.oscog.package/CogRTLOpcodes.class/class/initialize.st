@@ -16,16 +16,17 @@ initialize
 				  of bits.  This allows e.g. a garbage collector to update the value without invalidating the code.
 		C32	- a constant with 32 bit size.  The generated constant must occupy 32 bits.
 		C64	- a constant with 64 bit size.  The generated constant must occupy 64 bits.
-		Aw		- memory word at an absolute address
+		Aw		- memory word (32-bits for a 32-bit VM, 64-bits for a 64-bit VM) at an absolute address
 		Ab		- memory byte at an absolute address
+		A32	- memory 32-bit halfword at an absolute address
 		Mwr	- memory word whose address is at a constant offset from an address in a register
 		Mbr		- memory byte whose address is at a constant offset from an address in a register (zero-extended on read)
 		M16r	- memory 16-bit halfword whose address is at a constant offset from an address in a register
 		M32r	- memory 32-bit halfword whose address is at a constant offset from an address in a register
 		M64r	- memory 64-bit doubleword whose address is at a constant offset from an address in a register
-		Xbr		- memory word whose address is r * byte size away from an address in a register
-		X16r	- memory word whose address is r * (2 bytes size) away from an address in a register
-		X32r	- memory word whose address is r * (4 bytes size) away from an address in a register
+		Xbr		- memory byte whose address is r * byte size away from an address in a register
+		X16r	- memory 16-bit halfword whose address is r * (2 bytes size) away from an address in a register
+		X32r	- memory 32-bit halfword whose address is r * (4 bytes size) away from an address in a register
 		Xwr		- memory word whose address is r * word size away from an address in a register
 		Xowr	- memory word whose address is o + (r * word size) away from an address in a register (scaled indexed)
 
@@ -110,8 +111,8 @@ initialize
 
 						"Data Movement; destination is always last operand"
 						MoveRR
-						MoveAwR
-						MoveRAw
+						MoveAwR MoveA32R
+						MoveRAw MoveRA32
 						MoveAbR
 						MoveRAb
 						MoveMwrR MoveRMwr MoveXwrRR MoveRXwrR MoveXowrR MoveRXowr

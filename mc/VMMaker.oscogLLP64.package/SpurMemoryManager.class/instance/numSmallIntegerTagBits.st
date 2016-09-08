@@ -1,0 +1,3 @@
+interpreter access
+numSmallIntegerTagBits
+	^self subclassResponsibility

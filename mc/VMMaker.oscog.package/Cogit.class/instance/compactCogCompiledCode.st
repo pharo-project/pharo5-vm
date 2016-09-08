@@ -4,7 +4,7 @@ compactCogCompiledCode
 	self assert: self noCogMethodsMaximallyMarked.
 	coInterpreter markActiveMethodsAndReferents.
 	methodZone freeOlderMethodsForCompaction.
-	self freePICsWithFreedTargets.
+	self compactPICsWithFreedTargets.
 	methodZone planCompaction.
 	coInterpreter updateStackZoneReferencesToCompiledCodePreCompaction.
 	methodZone relocateMethodsPreCompaction.

@@ -1,0 +1,21 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		"opTable",
+		"maskTable",
+		"warpBitShiftTable",
+		"ditherMatrix4x4",
+		"ditherThresholds16",
+		"ditherValues16",
+		"dither8Lookup",
+		"isInitialised" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:22",
+	"instvars" : [
+		 ],
+	"name" : "BitBltSimulator",
+	"pools" : [
+		 ],
+	"super" : "BitBltSimulation",
+	"type" : "normal" }

@@ -1,0 +1,1 @@
+A VMCallbackReturnValue supports legacy Alien callbacks.

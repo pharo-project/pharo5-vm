@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Building",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CrossPlatformVMMaker",
+	"pools" : [
+		 ],
+	"super" : "VMMaker",
+	"type" : "normal" }

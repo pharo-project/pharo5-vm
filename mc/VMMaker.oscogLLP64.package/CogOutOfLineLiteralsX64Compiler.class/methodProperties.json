@@ -1,0 +1,7 @@
+{
+	"class" : {
+		"initializeAbstractRegisters" : "eem 04/16/2016 15:12",
+		"isRISCTempRegister:" : "eem 12/25/2015 18:47" },
+	"instance" : {
+		"availableRegisterOrNoneFor:" : "cb 4/16/2016 15:29",
+		"isPCDependent" : "eem 9/18/2015 09:12" } }

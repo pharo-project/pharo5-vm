@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SmartSyntaxPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"simulator" ],
+	"name" : "SmartSyntaxInterpreterPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

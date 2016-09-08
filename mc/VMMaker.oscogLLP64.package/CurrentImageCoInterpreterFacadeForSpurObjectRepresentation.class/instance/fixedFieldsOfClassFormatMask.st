@@ -1,0 +1,3 @@
+accessing
+fixedFieldsOfClassFormatMask
+	^objectMemory fixedFieldsOfClassFormatMask

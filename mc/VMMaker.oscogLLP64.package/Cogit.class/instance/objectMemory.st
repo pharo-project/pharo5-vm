@@ -1,0 +1,4 @@
+accessing
+objectMemory
+	<doNotGenerate>
+	^objectMemory

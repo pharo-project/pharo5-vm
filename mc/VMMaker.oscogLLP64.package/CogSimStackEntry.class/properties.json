@@ -1,0 +1,24 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"cogit",
+		"objectRepresentation",
+		"type",
+		"spilled",
+		"annotateUse",
+		"register",
+		"offset",
+		"constant",
+		"bcptr" ],
+	"name" : "CogSimStackEntry",
+	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
+		"CogRTLOpcodes" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

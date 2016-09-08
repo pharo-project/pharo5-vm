@@ -1,0 +1,3 @@
+interpreter access
+minSmallInteger
+	self subclassResponsibility

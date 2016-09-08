@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "eem 6/15/2015 20:34",
+		"isNonArgumentImplicitReceiverVariableName:" : "eem 6/16/2015 10:25" },
+	"instance" : {
+		"allocateLiteral:" : "eem 6/18/2015 13:31",
+		"allocateLiterals:" : "eem 6/18/2015 13:33",
+		"assertValidAnnotation:for:" : "eem 6/11/2015 16:07",
+		"checkLiteral:forInstruction:" : "eem 6/8/2015 17:39",
+		"checkQuickConstant:forInstruction:" : "eem 12/13/2015 17:01",
+		"cogit:" : "eem 6/16/2015 11:36",
+		"dumpLiterals:" : "eem 6/18/2015 16:17",
+		"endSizeOffset" : "tpr 11/4/2015 16:59",
+		"fetchLiteralAtAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
+		"literalInstructionAt:" : "eem 6/16/2015 12:06",
+		"literalInstructionInRange:" : "eem 6/16/2015 13:01",
+		"locateLiteral:" : "eem 6/18/2015 13:32",
+		"mustDumpLiterals:" : "eem 6/11/2015 13:16",
+		"resetForBlockCompile" : "eem 6/15/2015 17:12",
+		"resetLiterals" : "eem 6/18/2015 11:06",
+		"saveForBlockCompile" : "eem 6/15/2015 17:11",
+		"storeLiteral:atAnnotatedAddress:using:" : "eem 6/11/2015 16:48",
+		"uniqueLiteral:forInstruction:" : "eem 6/10/2015 19:37" } }

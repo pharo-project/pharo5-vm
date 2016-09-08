@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/6/2014 14:48",
+	"instvars" : [
+		 ],
+	"name" : "VMCompiledMethodProxy",
+	"pools" : [
+		 ],
+	"super" : "VMObjectProxy",
+	"type" : "normal" }

@@ -37,7 +37,9 @@ marryFrame: theFP SP: theSP copyTemps: copyTemps
 			 numArgs := cogMethod cmNumArgs.
 			 cogMethod cmType = CMMethod
 				ifTrue:
-					[closureOrNil := objectMemory nilObject]
+					[closureOrNil := cogMethod cmIsFullBlock
+										ifTrue: [self frameStackedReceiver: theFP numArgs: numArgs]
+										ifFalse: [objectMemory nilObject]]
 				ifFalse:
 					[cogMethod := (self cCoerceSimple: cogMethod to: #'CogBlockMethod *') cmHomeMethod.
 					 closureOrNil := self frameStackedReceiver: theFP numArgs: numArgs].

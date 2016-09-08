@@ -1,0 +1,3 @@
+snapshot
+freeOldSpaceStart
+	^freeOldSpaceStart

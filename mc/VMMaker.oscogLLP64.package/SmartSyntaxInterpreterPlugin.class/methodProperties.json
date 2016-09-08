@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"codeGeneratorClass" : "tpr 6/9/2003 16:36",
+		"doPrimitive:withArguments:" : "tpr 6/28/2003 17:28",
+		"implicitReturnTypeFor:" : "eem 3/4/2009 16:44",
+		"prepareToBeAddedToCodeGenerator:" : "eem 10/2/2010 10:01",
+		"shouldBeTranslated" : "tpr 6/9/2003 16:44",
+		"simulatorClass" : "tpr 6/28/2003 17:28",
+		"translateDoInlining:locally:debug:" : "sr 12/23/2001 22:24" },
+	"instance" : {
+		"primitive:parameters:" : "eem 10/2/2010 10:05",
+		"primitive:parameters:receiver:" : "eem 10/2/2010 10:13",
+		"simulator" : "eem 10/3/2010 08:31",
+		"simulator:" : "eem 10/2/2010 10:02",
+		"sqAssert:" : "eem 9/15/2015 12:03" } }

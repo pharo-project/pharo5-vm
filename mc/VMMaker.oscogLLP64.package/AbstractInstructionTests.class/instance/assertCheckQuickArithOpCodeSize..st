@@ -1,0 +1,3 @@
+running
+assertCheckQuickArithOpCodeSize: bytes
+	self subclassResponsibility

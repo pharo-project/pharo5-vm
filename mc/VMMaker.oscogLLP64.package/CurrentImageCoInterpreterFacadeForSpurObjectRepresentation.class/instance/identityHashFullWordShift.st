@@ -1,0 +1,3 @@
+accessing
+identityHashFullWordShift
+	^objectMemory identityHashFullWordShift

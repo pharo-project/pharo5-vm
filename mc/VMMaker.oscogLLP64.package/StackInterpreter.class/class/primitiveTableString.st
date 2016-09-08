@@ -1,0 +1,4 @@
+initialization
+primitiveTableString
+	"StackInterpreter initializePrimitiveTable primitiveTableString"
+	^self primitiveTableStringFor: self primitiveTable

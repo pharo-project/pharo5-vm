@@ -1,0 +1,28 @@
+{
+	"category" : "VMMaker-Building",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"vmMaker",
+		"allPluginsList",
+		"allPluginsSelection",
+		"allPluginsSelectionsArray",
+		"internalPluginsList",
+		"internalPluginsSelection",
+		"internalPluginsSelectionsArray",
+		"externalPluginsList",
+		"externalPluginsSelection",
+		"externalPluginsSelectionsArray",
+		"logger",
+		"interpreterClassMorph",
+		"platformPathMorph",
+		"platformNameMorph",
+		"generatedPathMorph" ],
+	"name" : "VMMakerTool",
+	"pools" : [
+		 ],
+	"super" : "Model",
+	"type" : "normal" }

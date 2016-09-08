@@ -1,0 +1,4 @@
+simulation only
+capturePendingFinalizationSignals
+	"hack around the CoInterpreter/ObjectMemory split refactoring"
+	^coInterpreter capturePendingFinalizationSignals

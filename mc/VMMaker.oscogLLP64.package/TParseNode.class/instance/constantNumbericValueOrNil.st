@@ -1,0 +1,4 @@
+testing
+constantNumbericValueOrNil
+
+	^nil

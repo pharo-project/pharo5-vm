@@ -1,16 +1,14 @@
 debug support
-findSelectorOfMethod: methArg
-	| meth classObj classDict classDictSize methodArray i |
-	(objectMemory addressCouldBeObj: methArg) ifFalse:
+findSelectorOfMethod: meth
+	| classObj classDict classDictSize methodArray i |
+	(objectMemory addressCouldBeObj: meth) ifFalse:
 		[^objectMemory nilObject].
-	(objectMemory isForwarded: methArg)
-		ifTrue: [meth := objectMemory followForwarded: methArg]
-		ifFalse: [meth := methArg].
+	(objectMemory isForwarded: meth) ifTrue:
+		[^self findSelectorOfMethod: (objectMemory followForwarded: meth)].
 	 (objectMemory isOopCompiledMethod: meth) ifFalse:
 		[^objectMemory nilObject].
-	NewspeakVM ifTrue:
-		[(self maybeSelectorOfMethod: meth) ifNotNil:
-			[:selector| ^selector]].
+	(self maybeSelectorOfMethod: meth) ifNotNil:
+		[:selector| ^selector].
 	classObj := self safeMethodClassOf: meth.
 	(self addressCouldBeClassObj: classObj) ifTrue:
 		[classDict := objectMemory fetchPointer: MethodDictionaryIndex ofObject: classObj.

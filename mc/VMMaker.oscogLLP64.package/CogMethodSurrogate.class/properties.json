@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"address",
+		"memory",
+		"baseHeaderSize",
+		"cogit" ],
+	"name" : "CogMethodSurrogate",
+	"pools" : [
+		"CogMethodConstants",
+		"VMBytecodeConstants" ],
+	"super" : "VMClass",
+	"type" : "normal" }

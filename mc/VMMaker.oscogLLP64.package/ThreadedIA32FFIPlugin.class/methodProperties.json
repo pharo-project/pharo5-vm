@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"identifyingPredefinedMacros" : "eem 4/21/2014 11:16",
+		"moduleName" : "eem 4/21/2014 11:05" },
+	"instance" : {
+		"ffiCalloutTo:SpecOnStack:in:" : "EstebanLorenzano 9/2/2015 13:55",
+		"ffiPushDoubleFloat:in:" : "eem 11/6/2009 16:36",
+		"ffiPushPointer:in:" : "eem 11/10/2009 17:15",
+		"ffiPushSignedByte:in:" : "eem 11/9/2009 11:41",
+		"ffiPushSignedChar:in:" : "eem 11/9/2009 11:43",
+		"ffiPushSignedInt:in:" : "eem 11/6/2009 15:20",
+		"ffiPushSignedLongLong:in:" : "eem 11/6/2009 15:19",
+		"ffiPushSignedShort:in:" : "eem 11/9/2009 11:44",
+		"ffiPushSingleFloat:in:" : "eem 11/6/2009 16:37",
+		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "eem 6/23/2012 18:53",
+		"ffiPushUnsignedByte:in:" : "eem 11/9/2009 11:44",
+		"ffiPushUnsignedChar:in:" : "eem 11/9/2009 11:44",
+		"ffiPushUnsignedInt:in:" : "eem 11/6/2009 15:21",
+		"ffiPushUnsignedLongLong:in:" : "eem 11/6/2009 15:19",
+		"ffiPushUnsignedShort:in:" : "eem 11/9/2009 11:45",
+		"ffiReturnStruct:ofType:in:" : "eem 7/8/2015 11:04",
+		"registerArgsSlop" : "eem 11/3/2009 13:16",
+		"returnStructInRegisters:" : "eem 11/5/2009 17:00" } }

@@ -1,0 +1,26 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"NumOperands" ],
+	"commentStamp" : "eem 4/21/2015 09:12",
+	"instvars" : [
+		"opcode",
+		"machineCodeSize",
+		"maxSize",
+		"annotation",
+		"machineCode",
+		"operands",
+		"address",
+		"dependent",
+		"cogit",
+		"objectMemory",
+		"bcpc" ],
+	"name" : "CogAbstractInstruction",
+	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
+		"CogRTLOpcodes" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

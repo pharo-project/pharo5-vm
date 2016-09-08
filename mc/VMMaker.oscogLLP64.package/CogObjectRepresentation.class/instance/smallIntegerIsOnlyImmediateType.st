@@ -1,0 +1,3 @@
+testing
+smallIntegerIsOnlyImmediateType
+	self subclassResponsibility

@@ -1,0 +1,27 @@
+{
+	"class" : {
+		"calloutStateClass" : "eem 11/7/2009 09:52",
+		"identifyingPredefinedMacros" : "eem 4/21/2014 11:14",
+		"initialize" : "djm 4/13/2014 19:33",
+		"moduleName" : "eem 4/21/2014 11:04",
+		"numFloatRegArgs" : "djm 4/12/2014 19:13",
+		"numIntRegArgs" : "djm 4/12/2014 19:13" },
+	"instance" : {
+		"ffiCalloutTo:SpecOnStack:in:" : "eem 2/21/2016 14:59",
+		"ffiPushDoubleFloat:in:" : "djm 4/17/2014 09:01",
+		"ffiPushPointer:in:" : "eem 7/10/2015 13:41",
+		"ffiPushSignedByte:in:" : "djm 4/12/2014 19:28",
+		"ffiPushSignedChar:in:" : "djm 4/12/2014 19:28",
+		"ffiPushSignedInt:in:" : "djm 4/12/2014 19:29",
+		"ffiPushSignedLongLong:in:" : "djm 4/16/2014 17:48",
+		"ffiPushSignedShort:in:" : "djm 4/12/2014 19:31",
+		"ffiPushSingleFloat:in:" : "djm 4/17/2014 09:07",
+		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "djm 5/6/2014 12:29",
+		"ffiPushUnsignedByte:in:" : "djm 4/12/2014 19:31",
+		"ffiPushUnsignedChar:in:" : "djm 4/12/2014 19:32",
+		"ffiPushUnsignedInt:in:" : "djm 4/12/2014 19:32",
+		"ffiPushUnsignedLongLong:in:" : "djm 4/16/2014 17:48",
+		"ffiPushUnsignedShort:in:" : "djm 4/12/2014 19:34",
+		"ffiReturnStruct:ofType:in:" : "eem 2/20/2016 10:24",
+		"registerArgsSlop" : "eem 11/3/2009 13:19",
+		"returnStructInRegisters:" : "djm 4/19/2014 16:52" } }

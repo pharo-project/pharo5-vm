@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-SpurMemoryManagerSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"parent",
+		"bootstrapping" ],
+	"name" : "Spur32BitMMLECoSimulator",
+	"pools" : [
+		 ],
+	"super" : "Spur32BitCoMemoryManager",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+instructionPointerAddress
+	^self addressForLabel: #instructionPointer

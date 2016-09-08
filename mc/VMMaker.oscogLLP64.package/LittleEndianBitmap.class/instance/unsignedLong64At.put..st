@@ -1,0 +1,17 @@
+accessing
+unsignedLong64At: byteIndex put: aValue
+	| lowBits mask wordIndex |
+	(lowBits := byteIndex - 1 \\ 4) = 0 ifTrue:
+		[self "N.B. Do the access that can fail first, before altering the receiver"
+			unsignedLongAt: byteIndex + 4 put: (aValue bitShift: -32);
+			unsignedLongAt: byteIndex put: (aValue bitAnd: 16rffffffff).
+		^aValue].
+	"There will always be three accesses; two partial words and a full word in the middle"
+	wordIndex := byteIndex - 1 // 4 + 1.
+	(aValue bitShift: -64) ~= 0 ifTrue:
+		[^self errorImproperStore].
+	mask := 16rFFFFFFFF bitShift: 4 - lowBits * -8.
+	self at: wordIndex put: (((self at: wordIndex) bitAnd: mask) bitXor: ((aValue bitShift: lowBits * 8) bitAnd: mask bitInvert32)).
+	self at: wordIndex + 1 put: ((aValue bitShift: 4 - lowBits * -8) bitAnd: 16rFFFFFFFF).
+	self at: wordIndex + 2 put: (((self at: wordIndex + 2) bitAnd: mask bitInvert32) bitXor: ((aValue bitShift: 4 - lowBits + 4 * -8) bitAnd: mask)).
+	^aValue

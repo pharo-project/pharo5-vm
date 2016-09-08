@@ -1,0 +1,9 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"assertCheckLongArithOpCodeSize:" : "rmacnak 11/24/2015 18:58:27",
+		"assertCheckQuickArithOpCodeSize:" : "rmacnak 11/30/2015 19:44:46",
+		"concreteCompilerClass" : "rmacnak 11/24/2015 18:13:18",
+		"memoryAsBytes:" : "rmacnak 11/24/2015 18:24:08",
+		"processor" : "rmacnak 11/24/2015 18:11:54" } }

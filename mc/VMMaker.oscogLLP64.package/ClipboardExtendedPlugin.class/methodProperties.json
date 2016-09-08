@@ -1,0 +1,9 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"ioAddClipboardData:data:dataFormat:" : "nice 7/8/2016 02:12",
+		"ioClearClipboard:" : "nice 7/8/2016 02:12",
+		"ioCreateClipboard" : "nice 4/2/2015 22:19",
+		"ioGetClipboardFormat:formatNumber:" : "nice 7/8/2016 02:12",
+		"ioReadClipboardData:format:" : "nice 7/8/2016 02:12" } }

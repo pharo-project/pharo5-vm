@@ -1,0 +1,3 @@
+cogit compatibility
+methodLabel
+	^nil

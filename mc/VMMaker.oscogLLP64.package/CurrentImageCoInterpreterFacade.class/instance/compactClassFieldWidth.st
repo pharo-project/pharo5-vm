@@ -1,0 +1,3 @@
+accessing
+compactClassFieldWidth
+	^objectMemory compactClassFieldWidth

@@ -1,0 +1,28 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 4/14/2016 10:39",
+	"instvars" : [
+		"objectHeader",
+		"homeOffset",
+		"startpc",
+		"padToWord",
+		"cmNumArgs",
+		"cmType",
+		"cmRefersToYoung",
+		"cpicHasMNUCaseOrCMIsFullBlock",
+		"cmUsageCount",
+		"cmUsesPenultimateLit",
+		"cbUsesInstVars",
+		"cmUnusedFlags",
+		"stackCheckOffset" ],
+	"name" : "CogBlockMethod",
+	"pools" : [
+		"CogMethodConstants",
+		"VMBasicConstants",
+		"VMBytecodeConstants" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

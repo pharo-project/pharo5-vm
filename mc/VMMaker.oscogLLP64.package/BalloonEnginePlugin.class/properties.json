@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 11:46",
+	"instvars" : [
+		 ],
+	"name" : "BalloonEnginePlugin",
+	"pools" : [
+		 ],
+	"super" : "BalloonEngineBase",
+	"type" : "normal" }

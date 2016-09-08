@@ -1,0 +1,3 @@
+accessing
+numIntRegArgs
+	^self subclassResponsibility

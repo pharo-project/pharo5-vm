@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogBlockMethodSurrogate64",
+	"pools" : [
+		 ],
+	"super" : "CogMethodSurrogate",
+	"type" : "normal" }

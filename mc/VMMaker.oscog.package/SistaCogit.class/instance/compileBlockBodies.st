@@ -10,11 +10,11 @@ compileBlockBodies
 	savedNeedsFrame := needsFrame.
 	savedNumArgs := methodOrBlockNumArgs.
 	savedNumTemps := methodOrBlockNumTemps.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
 		[blockStart := self blockStartAt: compiledBlocksCount.
-		 self scanBlock: blockStart.
+		 (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
 		 initialOpcodeIndex := opcodeIndex.
 		 initialCounterIndex := counterIndex.
 		 NewspeakVM ifTrue:

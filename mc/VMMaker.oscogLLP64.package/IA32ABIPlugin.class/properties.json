@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins-FFI",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 1/25/2016 11:59",
+	"instvars" : [
+		 ],
+	"name" : "IA32ABIPlugin",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

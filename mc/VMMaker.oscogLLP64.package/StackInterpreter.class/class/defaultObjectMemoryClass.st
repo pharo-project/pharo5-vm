@@ -1,0 +1,3 @@
+accessing class hierarchy
+defaultObjectMemoryClass
+	^NewObjectMemory

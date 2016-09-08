@@ -1,0 +1,23 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"coInterpreter",
+		"freeStart",
+		"reserveStart",
+		"scavengeThreshold",
+		"needGCFlag",
+		"fullGCLock",
+		"edenBytes",
+		"checkForLeaks",
+		"statGCEndUsecs",
+		"heapMap" ],
+	"name" : "NewObjectMemory",
+	"pools" : [
+		 ],
+	"super" : "ObjectMemory",
+	"type" : "normal" }

@@ -32,7 +32,7 @@ mapFor: cogMethod bcpc: startbcpc performUntil: functionSymbol arg: arg
 	 skip forward to the bytecode pc map entry for the stack check."
 	cogMethod cmType = CMMethod
 		ifTrue:
-			[isInBlock := false.
+			[isInBlock := cogMethod cmIsFullBlock.
 			 homeMethod := self cCoerceSimple: cogMethod to: #'CogMethod *'.
 			 self assert: startbcpc = (coInterpreter startPCOfMethodHeader: homeMethod methodHeader).
 			 map := self mapStartFor: homeMethod.

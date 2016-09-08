@@ -1,0 +1,3 @@
+plugin support
+classLargeNegativeInteger
+	^self knownClassAtIndex: ClassLargeNegativeIntegerCompactIndex

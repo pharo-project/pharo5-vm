@@ -1,0 +1,3 @@
+trampolines
+methodAbortTrampolineFor: numArgs
+	^ceMethodAbortTrampoline

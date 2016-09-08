@@ -1,0 +1,26 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 9/24/2014 15:59",
+	"instvars" : [
+		"youngReferrers",
+		"methodCount",
+		"openPICList",
+		"mzFreeStart",
+		"baseAddress",
+		"limitAddress",
+		"methodBytesFreedSinceLastCompaction",
+		"coInterpreter",
+		"objectRepresentation",
+		"cogit",
+		"objectMemory",
+		"unpairedMethodList" ],
+	"name" : "CogMethodZone",
+	"pools" : [
+		"CogMethodConstants",
+		"VMBasicConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

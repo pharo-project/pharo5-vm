@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"thunkp",
+		"stackp",
+		"intregargsp",
+		"floatregargsp",
+		"savedCStackPointer",
+		"savedCFramePointer",
+		"rvs",
+		"trampoline",
+		"savedReenterInterpreter" ],
+	"name" : "VMCallbackContext",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+spur bootstrap
+localSP
+	^localSP

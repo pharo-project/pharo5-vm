@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CounterBytes",
+		"MaxCounterValue" ],
+	"commentStamp" : "eem 4/19/2016 14:22",
+	"instvars" : [
+		"numCounters",
+		"counters",
+		"counterIndex",
+		"initialCounterValue",
+		"ceTrapTrampoline",
+		"branchReachedOnlyForCounterTrip" ],
+	"name" : "SistaCogit",
+	"pools" : [
+		"VMSqueakClassIndices" ],
+	"super" : "StackToRegisterMappingCogit",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+logBytesPerOop
+	^3

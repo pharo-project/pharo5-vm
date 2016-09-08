@@ -1,0 +1,3 @@
+accessing
+breakSrcInlineSelector: aSelector
+	breakSrcInlineSelectors add: aSelector

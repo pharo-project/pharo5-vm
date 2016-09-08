@@ -7,7 +7,7 @@ scanBlock: blockStart
 	needsFrame := false.
 	prevBCDescriptor := nil.
 	methodOrBlockNumArgs := blockStart numArgs.
-	inBlock := true.
+	inBlock := InVanillaBlock.
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
 	framelessStackDelta := nExts := extA := extB := 0.
@@ -55,4 +55,5 @@ scanBlock: blockStart
 	 the simulated stack, e.g. for pushNil; returnTopFromBlock methods."
 	needsFrame ifFalse:
 		[self assert: (framelessStackDelta >= 0 and: [blockStart numInitialNils >= framelessStackDelta]).
-		 blockStart numInitialNils: blockStart numInitialNils - framelessStackDelta]
+		 blockStart numInitialNils: blockStart numInitialNils - framelessStackDelta].
+	^0

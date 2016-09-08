@@ -1,0 +1,15 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"buildSortedVariablesCollection" : "eem 7/14/2014 12:15",
+		"checkForGlobalUsage:in:" : "tpr 5/14/2013 16:46",
+		"emitCCodeOn:doInlining:doAssertions:" : "tpr 5/14/2013 19:27",
+		"emitCVariablesOn:" : "tpr 5/15/2013 16:53",
+		"emitGlobalStructFlagOn:" : "tpr 5/14/2013 18:12",
+		"initialize" : "tpr 5/14/2013 17:47",
+		"isGlobalStructureBuild" : "",
+		"localizeGlobalVariables" : "",
+		"placeInStructure:" : "eem (auto rename) 8/11/2008 10:27",
+		"returnPrefixFromVariable:" : "eem 2/11/2009 09:03",
+		"structDefDefine:" : "tpr 5/14/2013 18:08" } }

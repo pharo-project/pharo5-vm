@@ -4,14 +4,14 @@ externalInstVar: offset ofContext: aContext
 	 If the context is still married compute the value of the
 	 relevant inst var from the spouse frame's state."
 	<inline: false>
+
 	self assert: (objectMemory isContext: aContext).
+	self assert: offset <= (ReceiverIndex + (self checkStackPointerForMaybeMarriedContext: aContext)).
 	"method, closureOrNil & receiver need no special handling; only
 	 sender, pc & stackp have to be computed for married contexts."
-	((self isReadMediatedContextInstVarIndex: offset)
-	 and: [self isMarriedOrWidowedContext: aContext]) ifFalse:
-		[^objectMemory fetchPointer: offset ofObject: aContext].
-
-	self externalWriteBackHeadFramePointers.
-	^(self isStillMarriedContext: aContext)
-		ifTrue: [self fetchPointer: offset ofMarriedContext: aContext]
-		ifFalse: [objectMemory fetchPointer: offset ofObject: aContext]
+	(self isReadMediatedContextInstVarIndex: offset) ifTrue:
+		[self externalWriteBackHeadFramePointers.
+		 (self isStillMarriedContext: aContext) ifTrue:
+			[^self fetchPointer: offset ofMarriedContext: aContext]].
+	
+	^objectMemory fetchPointer: offset ofObject: aContext

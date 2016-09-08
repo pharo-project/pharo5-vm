@@ -9,7 +9,8 @@ mustMapMachineCodePC: theIP context: aOnceMarriedContext
 		[^objectMemory nilObject].
 	maybeClosure := objectMemory fetchPointer: ClosureIndex ofObject: aOnceMarriedContext.
 	methodObj := objectMemory fetchPointer: MethodIndex ofObject: aOnceMarriedContext.
-	maybeClosure ~= objectMemory nilObject
+	(maybeClosure ~= objectMemory nilObject
+	and: [self isVanillaBlockClosure: maybeClosure])
 		ifTrue: [self assert: (theIP signedBitShift: -16) < -1.
 				startBcpc := self startPCOfClosure: maybeClosure]
 		ifFalse: [self assert: (theIP signedBitShift: -16) = -1.

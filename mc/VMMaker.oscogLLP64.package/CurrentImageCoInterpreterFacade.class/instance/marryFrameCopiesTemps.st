@@ -1,0 +1,3 @@
+frame access
+marryFrameCopiesTemps
+	^ false

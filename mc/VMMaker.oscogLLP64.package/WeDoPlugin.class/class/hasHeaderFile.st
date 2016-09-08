@@ -1,0 +1,4 @@
+translation
+hasHeaderFile
+
+	^true

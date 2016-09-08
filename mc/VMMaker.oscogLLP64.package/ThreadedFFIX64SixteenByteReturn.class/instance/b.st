@@ -1,0 +1,4 @@
+accessing
+b
+
+	^ b

@@ -1,0 +1,22 @@
+{
+	"class" : {
+		"calloutStateClass" : "eem 11/7/2009 09:51",
+		"initialize" : "eem 11/9/2009 17:38",
+		"moduleName" : "eem 4/21/2014 11:05",
+		"numRegArgs" : "eem 11/9/2009 17:39" },
+	"instance" : {
+		"ffiPushDoubleFloat:in:" : "eem 10/30/2009 09:43",
+		"ffiPushPointer:in:" : "eem 10/30/2009 09:43",
+		"ffiPushSignedByte:in:" : "eem 10/30/2009 09:43",
+		"ffiPushSignedChar:in:" : "eem 10/30/2009 09:43",
+		"ffiPushSignedInt:in:" : "eem 10/30/2009 09:43",
+		"ffiPushSignedLongLong:in:" : "eem 10/30/2009 12:12",
+		"ffiPushSignedShort:in:" : "eem 10/30/2009 09:43",
+		"ffiPushSingleFloat:in:" : "eem 10/30/2009 09:43",
+		"ffiPushUnsignedByte:in:" : "eem 10/30/2009 09:43",
+		"ffiPushUnsignedChar:in:" : "eem 10/30/2009 09:43",
+		"ffiPushUnsignedInt:in:" : "eem 10/30/2009 09:43",
+		"ffiPushUnsignedLongLong:in:" : "eem 10/30/2009 12:16",
+		"ffiPushUnsignedShort:in:" : "eem 10/30/2009 09:43",
+		"registerArgsSlop" : "eem 11/3/2009 13:18",
+		"returnStructInRegisters:" : "eem 11/5/2009 18:28" } }

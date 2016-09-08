@@ -1,0 +1,3 @@
+cog jit support
+remoteIsInstVarAccess
+	^coInterpreter remoteIsInstVarAccess
