@@ -35,13 +35,10 @@ fi
 # =============================================================================
 cd "$SCRIPT_DIR/../image"
 ./newImage.sh
-
-echo "
-NonInteractiveTranscript stdout install.
-PharoVMSpur32Builder buildOnJenkins: '$OS'.
-" > ./script.st
-
-./pharo generator.image --quit script.st
+./pharo generator.image eval "
+	NonInteractiveTranscript stdout install.
+	PharoVMSpur32Builder buildOnJenkins: '$OS'.
+"
 
 # =============================================================================
 
