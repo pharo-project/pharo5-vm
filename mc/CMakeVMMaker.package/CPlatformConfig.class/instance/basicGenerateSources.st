@@ -12,6 +12,7 @@ basicGenerateSources
 		"If #cogitClass is nil it will add Cogit->'nil' pair. 
 		 This is *CORRECT*, check VMClass class>>#cogitClass for insigts on the use"
 		maker options: { #Cogit. self cogitClass name }.
+		self interpreterClass initializeWithOptions: maker options.
 		self cogitClass ifNotNil: [ :cg | 
 			cg initializeWithOptions: maker options ].
 		maker generateEntire
