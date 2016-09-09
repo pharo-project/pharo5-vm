@@ -38,4 +38,8 @@ initSimStackForFramelessMethod: startpc
 								ifTrue: [methodOrBlockNumArgs - 1- i]
 								ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);
 					bcptr: startpc]].
-	simSpillBase := simStackPtr := methodOrBlockNumArgs - 1
+	simSpillBase := simStackPtr := methodOrBlockNumArgs - 1.
+	self cppIf: LowcodeVM ifTrue: [
+		simNativeSpillBase := simNativeStackPtr := -1.
+		simNativeStackSize := 0.
+	].

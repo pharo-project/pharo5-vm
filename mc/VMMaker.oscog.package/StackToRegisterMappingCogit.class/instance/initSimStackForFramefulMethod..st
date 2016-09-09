@@ -11,6 +11,10 @@ initSimStackForFramefulMethod: startpc
 		ssEntry: (self addressOf: simSelf).
 	simSpillBase := methodOrBlockNumTemps. "N.B. Includes num args"
 	simStackPtr := simSpillBase - 1.
+	self cppIf: LowcodeVM ifTrue: [
+		simNativeSpillBase := simNativeStackPtr := -1.
+		simNativeStackSize := 0.
+	].
 	"args"
 	0 to: methodOrBlockNumArgs - 1 do:
 		[:i| | desc |

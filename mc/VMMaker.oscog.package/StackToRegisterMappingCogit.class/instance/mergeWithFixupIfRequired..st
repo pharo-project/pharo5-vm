@@ -31,14 +31,34 @@ mergeWithFixupIfRequired: fixup
 	"cases 3 and 4"
 	self assert: fixup isMergeFixup.
 	self traceMerge: fixup.
-	deadCode 
-		ifTrue: [simStackPtr := fixup simStackPtr] "case 3"
-		ifFalse: [self ssFlushTo: simStackPtr]. "case 4"
+	deadCode ifTrue: [
+		"case 3"
+		simStackPtr := fixup simStackPtr.
+		self cppIf: LowcodeVM ifTrue: [
+			simNativeStackPtr := fixup simNativeStackPtr.
+			simNativeStackSize := fixup simNativeStackSize.
+		] 
+	] ifFalse: [
+		"case 4"
+		self ssFlushTo: simStackPtr
+	].
+
 	"cases 3 and 4"
 	deadCode := false.
-	fixup isBackwardBranchFixup ifTrue: [fixup simStackPtr: simStackPtr].
+	fixup isBackwardBranchFixup ifTrue: [
+		fixup simStackPtr: simStackPtr.
+		self cppIf: LowcodeVM ifTrue: [
+			fixup simNativeStackPtr: simNativeStackPtr.
+			fixup simNativeStackSize: simNativeStackSize.
+		]
+	].
 	fixup targetInstruction: self Label.
 	self assert: simStackPtr = fixup simStackPtr.
+	self cppIf: LowcodeVM ifTrue: [
+		self assert: simNativeStackPtr = fixup simNativeStackPtr.
+		self assert: simNativeStackSize = fixup simNativeStackSize.
+	].
+
 	self cCode: '' inSmalltalk:
 		[self assert: fixup simStackPtr = (self debugStackPointerFor: bytecodePC)].
 	self restoreSimStackAtMergePoint: fixup.

@@ -17,7 +17,11 @@ computeKernelReturnTypes
 						unalignedLong32At: #int unalignedLong32At:put: #int
 
 		 long64At: #sqLong long64At:put: #sqLong
-		
+		 long64AtPointer: #sqLong long64AtPointer:put: #sqLong
+	
+		singleFloatAtPointer: #float singleFloatAtPointerPut: #float		
+		floatAtPointer: #double floatAtPointerPut: #double
+				
 		 fetchFloatAt:into: #void storeFloatAt:from: #void
 			fetchFloatAtPointer:into: #void storeFloatAtPointer:from: #void
 		 fetchSingleFloatAt:into: #void storeSingleFloatAt:from: #void
@@ -25,4 +29,8 @@ computeKernelReturnTypes
 
 		 pointerForOop: #'char *' oopForPointer: #sqInt
 		 baseHeaderSize #sqInt wordSize #sqInt bytesPerOop #sqInt).
+	BytesPerWord = 8 ifTrue:
+		[#(long32At: long32At:put: unalignedLong32At: unalignedLong32At:put:) do:
+			[:accessor|
+			dictionary at: accessor put: #int]].
 	^dictionary
