@@ -4,6 +4,6 @@ buildMacOSX32
 	PharoSpur32OSXConfig new  
 		topDir: '../opensmalltalk-vm';
 		srcDir: '../opensmalltalk-vm/pharosrc';
-		addExternalPlugins: #( FT2Plugin SDL2DisplayPlugin );
+		addExternalPlugins: #( FT2Plugin EventsHandlerPlugin SDL2DisplayPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		generateSources.

@@ -1,4 +1,4 @@
-as yet unclassified
+plugins
 versionInternalPlugins 
 	^Array 
 		with: #ThreadedFFIPlugin
