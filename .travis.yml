@@ -13,14 +13,15 @@ addons:
       - uuid-dev
 matrix:
   include:
-#    - os: osx
-#      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
+    - os: osx
+      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
 script:
   - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
 before_deploy: 
+  - echo "BEFORE DEPLOY"
   - sh pre-deploy.sh
 deploy:
   provider: bintray
@@ -28,3 +29,5 @@ deploy:
   user: estebanlm
   key: $BINTRAY_API_KEY
   on: merge-with-osvm
+after_deploy: 
+  - echo "AFTER DEPLOY"  
