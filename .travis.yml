@@ -20,14 +20,11 @@ matrix:
 script:
   - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && ./.travis_build.sh)
-#before_deploy: 
-#  - echo "BEFORE DEPLOY"
-#  - sh pre-deploy.sh
-#deploy:
-#  provider: bintray
-#  file: .bintray.json
-#  user: estebanlm
-#  key: $BINTRAY_API_KEY
-#  on: merge-with-osvm
-#after_deploy: 
-#  - echo "AFTER DEPLOY"  
+before_deploy: 
+  - sh pre-deploy.sh
+deploy:
+  provider: bintray
+  file: .bintray.json
+  user: estebanlm
+  key: $BINTRAY_API_KEY
+  on: merge-with-osvm

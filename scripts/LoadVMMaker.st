@@ -1,9 +1,8 @@
 Author useAuthor: 'LoadVMMaker' during: [ 
-	Gofer new
-		url: 'filetree://../mc';
-		package: 'ConfigurationOfSpur';
-		load.	
-	(Smalltalk at: #ConfigurationOfSpur) loadGit ].
+	Metacello new
+		filetreeDirectory: '../mc';
+		baseline: 'Spur';
+		load ].
 
 (Smalltalk saveAs: 'generator') 
     ifFalse: [ Smalltalk snapshot: false andQuit: true ].
