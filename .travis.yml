@@ -19,7 +19,7 @@ matrix:
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
 script:
   - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
-  - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
+  - (cd opensmalltalk-vm && ./.travis_build.sh)
 before_deploy: 
   - echo "BEFORE DEPLOY"
   - sh pre-deploy.sh
