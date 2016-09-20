@@ -15,6 +15,19 @@ basicGenerateSources
 		self interpreterClass initializeWithOptions: maker options.
 		self cogitClass ifNotNil: [ :cg | 
 			cg initializeWithOptions: maker options ].
-		maker generateEntire
+		maker logDateAndTime.
+		"VM"
+		maker 
+			sourceDirectoryName: self srcDir;
+			generateInterpreterFile;
+			generateCogitFiles;
+			processFilesForCoreVM;
+			generateExportsFile.
+		"Plugins"
+		maker 
+			sourceDirectoryName: self srcPluginsDir;
+			generateInternalPlugins;
+			generateExternalPlugins.
+		maker logDateAndTime.
 	] on: ProvideAnswerNotification do: [:ex | ex resume: true ]]
 	on: Deprecation do: [:ex | ex resume ].

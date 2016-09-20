@@ -16,8 +16,9 @@ defaultInternalPlugins
 		FilePlugin 
 		FloatArrayPlugin 
 		FloatMathPlugin 
-		ThreadedFFIPlugin "SqueakFFIPrims"
-		ThreadedIA32FFIPlugin "SqueakFFIPrims"
+		ThreadedFFIPlugin 
+		ThreadedIA32FFIPlugin 
+		ThreadedARMFFIPlugin
 		IA32ABIPlugin "IA32ABI"
 		JoystickTabletPlugin 
 		KlattSynthesizerPlugin "Klatt"
