@@ -475,6 +475,26 @@ sqFileOpenNew(SQFile *f, char *sqFileName, sqInt sqFileNameSize, sqInt *exists) 
 	return interpreterProxy->success(false);
 }
 
+sqInt
+sqFileFdOpen(SQFile *sqFile, int fd, sqInt writeFlag)
+{
+	FILE *file = fdopen(fd, writeFlag ? "wb" : "rb");
+	if (!file)
+		return interpreterProxy->success(false);
+	return sqFileFileOpen(sqFile, file, writeFlag);
+}
+
+sqInt
+sqFileFileOpen(SQFile *sqFile, FILE *file, sqInt writeFlag)
+{
+	setFile(sqFile, file);
+	setSize(sqFile, 0);
+	sqFile->sessionID = thisSession;
+	sqFile->lastOp = UNCOMMITTED;
+	sqFile->writable = writeFlag;
+	return 1;
+}
+
 /*
  * Fill-in files with 3 handles for stdin, stdout and stderr as available and
  * answer a bit-mask of the availability, 1 corresponding to stdin, 2 to stdout
