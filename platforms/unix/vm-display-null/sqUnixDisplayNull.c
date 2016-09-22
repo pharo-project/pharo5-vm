@@ -32,6 +32,11 @@ static sqInt display_ioProcessEvents(void)
   return 0;
 }
 
+double display_ioScreenScaleFactor(void)
+{
+  return 1.0;
+}
+
 static sqInt display_ioScreenDepth(void)
 {
   return 1;
