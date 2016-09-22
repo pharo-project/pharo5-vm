@@ -45,6 +45,8 @@ squeakFileOffsetType sqFileGetPosition(SQFile *f);
 sqInt   sqFileInit(void);
 sqInt   sqFileShutdown(void);
 sqInt   sqFileOpen(SQFile *f, char* sqFileNameIndex, sqInt sqFileNameSize, sqInt writeFlag);
+sqInt   sqFileFdOpen(SQFile *f, int fd, sqInt writeFlag);
+sqInt   sqFileFileOpen(SQFile *f, FILE *inFile, sqInt writeFlag);
 size_t  sqFileReadIntoAt(SQFile *f, size_t count, char* byteArrayIndex, size_t startIndex);
 sqInt   sqFileRenameOldSizeNewSize(char* oldNameIndex, sqInt oldNameSize, char* newNameIndex, sqInt newNameSize);
 sqInt   sqFileSetPosition(SQFile *f, squeakFileOffsetType position);
