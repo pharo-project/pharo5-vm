@@ -22,9 +22,11 @@ matrix:
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       sudo: required
-      dist: trusty
-      group: edge
       install:
+        - sudo dpkg --add-architecture i386
+        - sudo apt-add-repository multiverse
+        - sudo apt-add-repository universe
+        - sudo apt-get update -myq || true
         - sudo apt-get install -yq --no-install-suggests --no-install-recommends --force-yes libsdl2-dev:i386
 #    - os: linux
 #      env: ARCH="linux64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
