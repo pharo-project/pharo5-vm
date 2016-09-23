@@ -20,7 +20,7 @@ matrix:
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
     - os: linux
-      env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386
+      env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       after_deploy: 
         - sh post-deploy.sh
     - os: linux
