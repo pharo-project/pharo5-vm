@@ -17,9 +17,15 @@ matrix:
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
+    - os: linux
+      env: ARCH="linux32ARMv6" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" CHROOT="schroot -p -c rpi
+        -- bash -c "
+      sudo: required
+      dist: trusty
+      group: edge	  
 script:
   - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
-  - (cd opensmalltalk-vm && ./.travis_build.sh)
+  - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
 before_deploy: 
   - sh pre-deploy.sh
 deploy:
@@ -28,3 +34,5 @@ deploy:
   user: estebanlm
   key: $BINTRAY_API_KEY
   on: merge-with-osvm
+install:
+  - (cd opensmalltalk-vm && ./.travis_build.sh)
