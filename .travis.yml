@@ -35,4 +35,4 @@ deploy:
   key: $BINTRAY_API_KEY
   on: merge-with-osvm
 install:
-  - (cd opensmalltalk-vm && ./.travis_build.sh)
+  - (cd opensmalltalk-vm && ./.travis_install.sh)
