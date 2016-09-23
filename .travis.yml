@@ -19,10 +19,10 @@ matrix:
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
+    - os: linux
+      env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386
       after_deploy: 
         - sh post-deploy.sh
-#    - os: linux
-#      env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
     - os: linux
       env: ARCH="linux32ARMv6" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" CHROOT="schroot -p -c rpi
         -- bash -c "
