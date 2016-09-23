@@ -22,6 +22,8 @@ matrix:
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       sudo: required
+      dist: trusty
+      group: edge
       install:
         - sudo apt-get install -yq --no-install-suggests --no-install-recommends --force-yes libsdl2-dev:i386
 #    - os: linux
