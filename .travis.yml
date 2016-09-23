@@ -27,8 +27,8 @@ matrix:
       env: ARCH="linux32ARMv6" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" CHROOT="schroot -p -c rpi
         -- bash -c "
       sudo: required
-#      dist: trusty
-#      group: edge
+      dist: trusty
+      group: edge
       install:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
 script:

@@ -1,12 +1,17 @@
 #! /bin/bash
 
 ./image/pharo ./image/Pharo.image eval "
-| json username password url currentMonth |
+| json username password url currentMonth stdout newLine |
+
+stdout := VTermOutputDriver stdout.
+newLine := Smalltalk platform lineEnding.
+
+stdout green: 'Cleaning bintray...', newLine.
 
 username := 'estebanlm'.
 password := '$BINTRAY_API_KEY'.
 url := 'https://api.bintray.com/packages/estebanlm/pharo-vm/build'.
-currentMonth := Month current year 	* 100 + Month current index.
+currentMonth := Month current year * 100 + Month current index.
 
 json := ZnClient new 
 	username: username password: password;
@@ -16,14 +21,15 @@ json := ZnClient new
 
 (json at: 'versions') 
 	select: [ :each | (each first: 6) asInteger < currentMonth ] 
-	thenDo: [ :each | | response newLine |
-		newLine := Smalltalk platform lineEnding.
+	thenDo: [ :each | | response |	
 		response := ZnClient new 
 			username: username password: password;
 			url: (url, '/versions/', each);
 			delete;
 			response.
 		response isSuccess
-			ifTrue: [ VTermOutputDriver stdout green: 'Version ', each, ' deleted.', newLine ]
-			ifFalse: [ VTermOutputDriver stdout red: 'Error while trying to remove ', each, '!', newLine ] ].
+			ifTrue: [ stdout green: 'Version ', each, ' deleted.', newLine ]
+			ifFalse: [ stdout red: 'Error while trying to remove ', each, '!', newLine ] ].
+
+stdout green: 'Done.', newLine.
 "
