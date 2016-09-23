@@ -3,3 +3,5 @@
 *.image
 *.sources
 *.changes
+# ignore 'src' directory
+src/
