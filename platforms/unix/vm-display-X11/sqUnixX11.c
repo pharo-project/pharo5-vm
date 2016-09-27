@@ -4845,6 +4845,10 @@ static sqInt display_ioProcessEvents(void)
   return 0;
 }
 
+double display_ioScreenScaleFactor(void)
+{
+  return 1.0;
+}
 
 /* returns the depth of the Squeak window */
 static sqInt display_ioScreenDepth(void)
