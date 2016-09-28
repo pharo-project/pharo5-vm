@@ -7,9 +7,8 @@
 		"buildWin64" : "EstebanLorenzano 7/29/2016 16:22" },
 	"instance" : {
 		"buildMacOSX64" : "EstebanLorenzano 9/20/2016 15:38",
-		"buildUnix64" : "EstebanLorenzano 7/29/2016 16:31",
-		"buildWin32" : "EstebanLorenzano 7/29/2016 16:21",
-		"buildWin64" : "EstebanLorenzano 7/29/2016 16:31",
+		"buildUnix64" : "EstebanLorenzano 9/25/2016 12:07",
+		"buildWin64" : "EstebanLorenzano 9/25/2016 12:08",
 		"generateForDebug" : "EstebanLorenzano 7/29/2016 16:21",
 		"generateForRelease" : "EstebanLorenzano 7/29/2016 16:21",
 		"generateForTrace" : "EstebanLorenzano 7/29/2016 16:21",
