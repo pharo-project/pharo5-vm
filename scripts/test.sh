@@ -5,7 +5,7 @@ set -ex
 VM_DIR="results"
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
 	VM_NAME="pharo"
-elif [ "$TRAVIS_OS_NAME" = "osx" ]]; then
+elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
 	VM_NAME="Pharo"
 else
     echo "Unsupported OS";
