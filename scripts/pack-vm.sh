@@ -41,15 +41,15 @@ zipFileName="`pwd`/../pharo-${os}-${ARCH}.zip"
 productDir="../opensmalltalk-vm"
 case "${PLATFORM}" in
 	linux32x86) 
-		productDir="`find $productDir/products -name "5.0-"`" 
+		productDir="`find $productDir/products -name "5.0*"`" 
 		pattern="*"
 		;;
 	linux64x64) 
-		productDir="`find $productDir/products -name "5.0-"`" 
+		productDir="`find $productDir/products -name "5.0*"`" 
 		pattern="*"
 		;;
 	linux32ARMv6) 
-		productDir="`find $productDir/products -name "5.0-"`" 
+		productDir="`find $productDir/products -name "5.0*"`" 
 		pattern="*"
 		;;
 	macos32x86) 
@@ -65,7 +65,12 @@ case "${PLATFORM}" in
 		exit 1
 esac
 
+if [ -z "${productDir}" ]; then
+	echo "Error: Product not found!"
+	exit 1
+fi
+
 pushd .
-cd $productDir
-zip -r $zipFileName $pattern
+cd ${productDir}
+zip -r ${zipFileName} ${pattern}
 popd
