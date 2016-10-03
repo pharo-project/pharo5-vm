@@ -57,7 +57,7 @@ case "${PLATFORM}" in
 		pattern="*.app"
 		;;
 	macos64x64) 
-		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur/*.app" 
+		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur" 
 		pattern="*.app"
 		;;
 	*) 
