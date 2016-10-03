@@ -11,7 +11,7 @@ addons:
       - libxext-dev
       - gcc-multilib
       - uuid-dev
-	  - zip
+      - zip
 matrix:
   include:
     - os: osx
