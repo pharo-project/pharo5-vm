@@ -9,6 +9,7 @@
 		"topDir",
 		"buildDir",
 		"srcDir",
+		"srcPluginsDir",
 		"platformsDir",
 		"outputDir",
 		"internalPlugins",
