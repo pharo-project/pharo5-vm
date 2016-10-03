@@ -67,5 +67,5 @@ esac
 
 pushd .
 cd $productDir
-zip -q -r $zipFileName $pattern
+zip -r $zipFileName $pattern
 popd
