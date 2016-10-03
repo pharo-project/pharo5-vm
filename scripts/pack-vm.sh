@@ -35,30 +35,33 @@ while getopts "hp:a:" option; do
 	esac
 done
 
-# DEFINE VARIABLES
-os="${TRAVIS_OS_NAME}" # this will change with appveyor
-zipFileName="`pwd`/../pharo-${os}-${ARCH}.zip"
 productDir="../opensmalltalk-vm"
 case "${PLATFORM}" in
-	linux32x86) 
-		productDir="`find $productDir/products -name "5.0*"`" 
-		pattern="*"
-		;;
-	linux64x64) 
-		productDir="`find $productDir/products -name "5.0*"`" 
-		pattern="*"
-		;;
-	linux32ARMv6) 
-		productDir="`find $productDir/products -name "5.0*"`" 
-		pattern="*"
-		;;
 	macos32x86) 
 		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur" 
 		pattern="*.app"
+		os="mac"
 		;;
 	macos64x64) 
 		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur" 
 		pattern="*.app"
+		os="mac"
+		;;
+	linux32x86) 
+		productDir="`find $productDir/products -name "5.0*"`" 
+		pattern="*"
+		os="linux"
+		;;
+	linux64x64) 
+		productDir="`find $productDir/products -name "5.0*"`" 
+		pattern="*"
+		os="linux"
+		;;
+	linux32ARMv6) 
+		productDir="`find $productDir/products -name "5.0*"`" 
+		pattern="*"
+		ARCH="ARMv6"
+		os="linux"
 		;;
 	*) 
 		echo "Undefined platform!"
@@ -70,6 +73,7 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
+zipFileName="`pwd`/../pharo-${os}-${ARCH}.zip"
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
