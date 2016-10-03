@@ -73,7 +73,8 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
-zipFileName="`pwd`/../pharo-${os}-${ARCH}.zip"
+buildId="${TRAVIS_COMMIT}"
+zipFileName="`pwd`/../pharo-${os}-${ARCH}.${buildId}.zip"
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
