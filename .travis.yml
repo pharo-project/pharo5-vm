@@ -11,6 +11,7 @@ addons:
       - libxext-dev
       - gcc-multilib
       - uuid-dev
+	  - zip
 matrix:
   include:
     - os: osx
@@ -52,8 +53,9 @@ matrix:
       install:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
 script:
-  - (cd scripts && ./buildSources.sh -a $SRC_ARCH)
+  - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
+  - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 before_deploy: 
   - sh pre-deploy.sh
 deploy:

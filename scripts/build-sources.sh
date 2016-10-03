@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -ex
 
 default_arch="i386"
