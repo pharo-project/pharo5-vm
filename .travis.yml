@@ -12,6 +12,11 @@ addons:
       - gcc-multilib
       - uuid-dev
       - zip
+      # next ones are required for compiling libgit2
+	  - cmake
+      - libssh2-1-dev
+      - openssh-client
+      - openssh-server
 matrix:
   include:
     - os: osx
