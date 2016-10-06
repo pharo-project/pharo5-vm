@@ -2,63 +2,37 @@
 
 set -ex
 
-default_arch="i386"
-ARCH=$default_arch
-PLATFORM=
+# This are defined elsewhere (usually in travis):
+# 
+# ARCH		- macos32x86, linux64x64, etc.
+# SRC_ARCH	- i386, x64_86
+# HEARTBEAT	- threaded, itimer (or none)
 
-# ARGUMENT HANDLING ===========================================================
-print_usage() {
-	echo "Usage: $0 -p [mac32x86|etc.] [-a i386|x86_64]"
-	echo ""
-	echo " -p 	Platform to pack. This value is required."
-	echo " -a 	Architecture to pack. Default is i386"
-	echo ""
-	echo "This script builds the sources for the VM for the currently running platform."
-}
-
-while getopts "hp:a:" option; do 
-	case "$option" in
-		p) PLATFORM=$OPTARG ;;
-		a) ARCH=$OPTARG ;;
-		h) 
-			print_usage
-			exit 1
-			;;
-		\?)
-      		echo "Invalid option: -$OPTARG" >&2
-      		exit 1
-      		;;
-    	:)
-      		echo "Option -$OPTARG requires an argument." >&2
-      		exit 1
-      		;; 
-	esac
-done
-
+vmVersion="5.0"
 productDir="../opensmalltalk-vm"
-case "${PLATFORM}" in
+case "${ARCH}" in
 	macos32x86) 
-		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur" 
+		productDir="$productDir/build.${ARCH}/pharo.cog.spur" 
 		pattern="*.app"
 		os="mac"
 		;;
 	macos64x64) 
-		productDir="$productDir/build.${PLATFORM}/pharo.cog.spur" 
+		productDir="$productDir/build.${ARCH}/pharo.cog.spur" 
 		pattern="*.app"
 		os="mac"
 		;;
 	linux32x86) 
-		productDir="`find $productDir/products -name "5.0*"`" 
+		productDir="`find $productDir/products -name "${vmVersion}*"`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux64x64) 
-		productDir="`find $productDir/products -name "5.0*"`" 
+		productDir="`find $productDir/products -name "${vmVersion}*"`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux32ARMv6) 
-		productDir="`find $productDir/products -name "5.0*"`" 
+		productDir="`find $productDir/products -name "${vmVersion}*"`" 
 		pattern="*"
 		ARCH="ARMv6"
 		os="linux"
@@ -73,8 +47,8 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
-buildId=${TRAVIS_COMMIT}
-zipFileName="`pwd`/../pharo-${os}-${ARCH}${HEARTBEAT}.${buildId}.zip"
+buildId="`echo ${TRAVIS_COMMIT} | cut -b 1-7`"
+zipFileName="`pwd`/../pharo-${os}-${SRC_ARCH}${HEARTBEAT}.${buildId}.zip"
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
