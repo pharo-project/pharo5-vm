@@ -113,7 +113,7 @@ tryLoading(NSString *dirNameString, char *moduleName)
 	NSString    *libName;
 	
 	libName = [dirNameString stringByAppendingPathComponent: [NSString stringWithUTF8String: moduleName]];
-	libName = [libName stringByAppendingPathExtension: @"bundle/Contents/MacOS/"];
+	libName = [libName stringByAppendingPathComponent: @"bundle/Contents/MacOS/"];
 	libName = [libName stringByAppendingPathComponent: [NSString stringWithUTF8String: moduleName]];
 	handle = tryLoadingInternals(libName);
 	if (handle) 
