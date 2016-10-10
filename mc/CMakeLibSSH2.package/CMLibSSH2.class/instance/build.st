@@ -15,10 +15,11 @@ ExternalProject_Add(
 	SOURCE_DIR ${libSourcesDir}
 	BUILD_COMMAND make
 	#external command (not built with cmake)
-	CONFIGURE_COMMAND ${libSourcesDir}/configure
-		--prefix=${installPrefix}
-		CFLAGS=-m32
+	CONFIGURE_COMMAND ${libSourcesDir}/configure 
+		--prefix=${installPrefix} 
+		CFLAGS=-m32 
 		LDFLAGS=-m32
+		LDFLAGS=-L/usr/local/lib
 )
 
 ExternalProject_Add_Step(libssh2 copy_libssh2_artefacts_to_results
