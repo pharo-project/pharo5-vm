@@ -14,6 +14,7 @@ addons:
       - zip
       # next ones are required for compiling libgit2
       - cmake
+      - openssl
       - libssh2-1-dev
       - openssh-client
       - openssh-server
@@ -21,10 +22,16 @@ matrix:
   include:
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
+#      before_install:
+#        - brew install openssl
+#        - brew link openssl --force
       after_deploy: 
         - sh post-deploy.sh
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
+#      before_install:
+#        - brew install openssl
+#        - brew link openssl --force
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="threaded"
       addons:
@@ -74,16 +81,13 @@ matrix:
     - os: linux
       env: ARCH="linux64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64" HEARTBEAT="itimer"
     - os: linux
+      sudo: required
       env: ARCH="linux32ARMv6" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" CHROOT="schroot -p -c rpi
         -- bash -c "
-      sudo: required
       dist: trusty
       group: edge
       install:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
-before_install:
-  - brew install openssl
-  - brew link openssl --force
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
