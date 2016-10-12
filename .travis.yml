@@ -81,6 +81,9 @@ matrix:
       group: edge
       install:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
+before_install:
+  - brew install openssl
+  - brew link openssl --force
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
