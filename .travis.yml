@@ -1,7 +1,7 @@
 language: c
 cache:
   directories:
-    - opensmalltalkvm/.thirdparty-cache
+    - opensmalltalk-vm/.thirdparty-cache
 addons:
   apt:
     packages:
