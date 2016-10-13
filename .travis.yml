@@ -1,4 +1,7 @@
 language: c
+cache:
+  directories:
+    - third-party-libs
 addons:
   apt:
     packages:
@@ -17,6 +20,8 @@ addons:
       - libssh2-1-dev
       - openssh-client
       - openssh-server
+env:
+  - THIRDPARTYCACHEDIR=$(HOME)/third-party-libs
 matrix:
   include:
     - os: osx
