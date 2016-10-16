@@ -23,21 +23,11 @@ addons:
 matrix:
   include:
     - os: osx
-      osx_image: xcode6.4
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
-#      sudo: required
-#      before_install:
-#        - brew install openssl
-#        - brew link openssl --force
       after_deploy: 
         - sh post-deploy.sh
     - os: osx
-      osx_image: xcode6.4
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
-#      sudo: required
-#      before_install:
-#        - brew install openssl
-#        - brew link openssl --force
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="threaded"
       addons:
