@@ -9,7 +9,11 @@
         "desc": "Automatic build"
     },
     "files": [
-        {"includePattern": "./(pharo-.*\\.(?:gz|zip))", "uploadPattern": "$1"}
+        {
+				"includePattern": "./(pharo-.*\\.(?:gz|zip))", 
+				"uploadPattern": "$1", 
+				"matrixParams": { "override": 1 }
+		}
     ],
     "publish": true
 }
