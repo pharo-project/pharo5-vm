@@ -23,7 +23,9 @@ install:
   - 'setup-x86.exe -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_CACHE%" -P mingw64-i686-gcc-core,mingw64-i686-gcc-g++,mingw64-i686-headers,mingw64-i686-runtime,zip'
 
 build_script:
-  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./.travis_build.sh"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./build-sources.sh -a i386"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
   
 # Cygwin build script
 #
@@ -32,9 +34,9 @@ build_script:
 # The stdin/stdout file descriptor appears not to be valid for the Appveyor
 # build which causes failures as certain functions attempt to redirect
 # default file handles. Ensure a dummy file descriptor is opened with 'exec'.
-test_script:
-  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
-  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
+#test_script:
+#  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
+#  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
 #before_deploy:
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./pre-deploy.sh"'
 #deploy:
