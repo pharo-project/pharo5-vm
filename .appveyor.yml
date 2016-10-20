@@ -28,10 +28,10 @@ build_script:
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
   
 on_failure:
-  - '%CYG_BASH% -lc "ls -l $APPVEYOR_BUILD_FOLDER/scripts"'
-  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/scripts/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/scripts/PharoDebug.log; done"'
-  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/scripts/stdout.txt ]; then cat $APPVEYOR_BUILD_FOLDER/scripts/stdout.txt; done"'
-  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/scripts/stderr.txt ]; then cat $APPVEYOR_BUILD_FOLDER/scripts/stderr.txt; done"'
+  - '%CYG_BASH% -lc "ls -l $APPVEYOR_BUILD_FOLDER/image"'
+  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log; done"'
+  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/image/stdout.txt ]; then cat $APPVEYOR_BUILD_FOLDER/image/stdout.txt; done"'
+  - '%CYG_BASH% -lc "if [ -z $APPVEYOR_BUILD_FOLDER/image/stderr.txt ]; then cat $APPVEYOR_BUILD_FOLDER/image/stderr.txt; done"'
 # Cygwin build script
 #
 # NOTES:
