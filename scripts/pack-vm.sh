@@ -10,6 +10,8 @@ set -ex
 
 vmVersion="5.0"
 productDir="../opensmalltalk-vm"
+productArch=$SRC_ARCH
+productHeartbeat=${HEARTBEAT}
 case "${ARCH}" in
 	macos32x86) 
 		productDir="$productDir/build.${ARCH}/pharo.cog.spur" 
@@ -34,8 +36,8 @@ case "${ARCH}" in
 	linux32ARMv6) 
 		productDir="`find $productDir/products -name "${vmVersion}*"`" 
 		pattern="*"
-		ARCH="ARMv6"
 		os="linux"
+		productArch="ARMv6"
 		;;
 	*) 
 		echo "Undefined platform!"
@@ -48,7 +50,7 @@ if [ -z "${productDir}" ]; then
 fi
 
 buildId="`echo ${TRAVIS_COMMIT} | cut -b 1-7`"
-zipFileName="`pwd`/../pharo-${os}-${SRC_ARCH}${HEARTBEAT}.${buildId}.zip"
+zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}.${buildId}.zip"
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
