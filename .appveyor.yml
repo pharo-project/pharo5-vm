@@ -1,0 +1,52 @@
+environment:
+  CYG_ROOT: C:\cygwin
+  CYG_MIRROR: http://cygwin.mirror.constant.com
+  CYG_CACHE: C:\cygwin\var\cache\setup
+  CYG_BASH: C:\cygwin\bin\bash
+#  BINTRAYAPIKEY:
+#    secure: uknPzww818XWJiLecwur9p1MfrkACOyx9d3iNrw/TuD89EoPSc8zLqKdPZjWdcQd
+  FLAVOR: pharo.cog.spur
+
+matrix:
+  fast_finish: false
+
+platform:
+  - x86
+
+clone_depth: 5
+
+init:
+  - git config --system core.longpaths true
+
+install:
+  - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
+  - 'setup-x86.exe -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_CACHE%" -P mingw64-i686-gcc-core,mingw64-i686-gcc-g++,mingw64-i686-headers,mingw64-i686-runtime,zip'
+
+build_script:
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./.travis_build.sh"'
+  
+# Cygwin build script
+#
+# NOTES:
+#
+# The stdin/stdout file descriptor appears not to be valid for the Appveyor
+# build which causes failures as certain functions attempt to redirect
+# default file handles. Ensure a dummy file descriptor is opened with 'exec'.
+test_script:
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
+#before_deploy:
+#  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./pre-deploy.sh"'
+#deploy:
+#- provider: BinTray
+#  username: estebanlm
+#  api_key: $BINTRAY_API_KEY
+#  subject: estebanlm
+#  repo: pharo-vm
+#  package: build 
+##  version: version
+#  publish: true
+#  override: true
+#  explode: false
+#  artifact: /pharo.*\.zip/ß
+#  on: merge-with-osvm-win32
