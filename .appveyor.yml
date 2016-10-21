@@ -4,15 +4,16 @@ environment:
   CYG_MIRROR: http://cygwin.mirror.constant.com
   CYG_CACHE: C:\cygwin\var\cache\setup
   CYG_BASH: C:\cygwin\bin\bash
-#  BINTRAYAPIKEY:
-#    secure: uknPzww818XWJiLecwur9p1MfrkACOyx9d3iNrw/TuD89EoPSc8zLqKdPZjWdcQd
   FLAVOR: pharo.cog.spur
-  ARCH: win32x86
-  SRC_ARCH: i386
+  matrix:
+    - platform: x86
+      ARCH: win32x86
+      SRC_ARCH: i386
+#    - platform: x64
+#      ARCH: win64x64
+#      SRC_ARCH: x86_64
 matrix:
   fast_finish: false
-platform:
-  - x86
 clone_depth: 5
 branches:
   only:
@@ -24,6 +25,11 @@ install:
   - git submodule update --init --recursive
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
   - 'setup-x86.exe -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_CACHE%" -P mingw64-i686-gcc-core,mingw64-i686-gcc-g++,mingw64-i686-headers,mingw64-i686-runtime,zip'
+# NOTES:
+#
+# The stdin/stdout file descriptor appears not to be valid for the Appveyor
+# build which causes failures as certain functions attempt to redirect
+# default file handles. Ensure a dummy file descriptor is opened with 'exec'.
 build_script:
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./build-sources.sh -a i386"'
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
@@ -32,13 +38,6 @@ on_failure:
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stdout ]; then cat $APPVEYOR_BUILD_FOLDER/image/stdout; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stderr ]; then cat $APPVEYOR_BUILD_FOLDER/image/stderr; fi"'
-# Cygwin build script
-#
-# NOTES:
-#
-# The stdin/stdout file descriptor appears not to be valid for the Appveyor
-# build which causes failures as certain functions attempt to redirect
-# default file handles. Ensure a dummy file descriptor is opened with 'exec'.
 #test_script:
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
