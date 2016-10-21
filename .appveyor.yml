@@ -6,6 +6,8 @@ environment:
 #  BINTRAYAPIKEY:
 #    secure: uknPzww818XWJiLecwur9p1MfrkACOyx9d3iNrw/TuD89EoPSc8zLqKdPZjWdcQd
   FLAVOR: pharo.cog.spur
+  ARCH: win32x86
+  SRC_ARCH: i386
 matrix:
   fast_finish: false
 platform:
