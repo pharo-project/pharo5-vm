@@ -8,6 +8,14 @@ IMAGE_DIR=`dirname "$IMAGE_DIR"`;
 cd "$IMAGE_DIR" 2> /dev/null
 IMAGE_DIR=`pwd -P`
 
+# Detect cygwin
+# This hack is made to make sure the image can be executed (otherwise image knows is windows
+# and threats PATH as win style... and well, it does not finds anything)
+OS="`uname -s | cut -b 1-6`"
+if [ $OS == "CYGWIN" ]; then
+	IMAGE_DIR="."
+fi
+
 # PREPARE VM MAKER IMAGE ===================================================
 wget -O- get.pharo.org/50+vm | bash
 
