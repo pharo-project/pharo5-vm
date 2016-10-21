@@ -6,31 +6,29 @@ environment:
 #  BINTRAYAPIKEY:
 #    secure: uknPzww818XWJiLecwur9p1MfrkACOyx9d3iNrw/TuD89EoPSc8zLqKdPZjWdcQd
   FLAVOR: pharo.cog.spur
-
 matrix:
   fast_finish: false
-
 platform:
   - x86
-
 clone_depth: 5
-
+branches:
+  only:
+    - master
+    - merge-with-osvm-win32
 init:
   - git config --system core.longpaths true
-
 install:
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
   - 'setup-x86.exe -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_CACHE%" -P mingw64-i686-gcc-core,mingw64-i686-gcc-g++,mingw64-i686-headers,mingw64-i686-runtime,zip'
-
 build_script:
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./build-sources.sh -a i386"'
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
-  
 on_failure:
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stdout ]; then cat $APPVEYOR_BUILD_FOLDER/image/stdout; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stderr ]; then cat $APPVEYOR_BUILD_FOLDER/image/stderr; fi"'
+
 # Cygwin build script
 #
 # NOTES:
