@@ -4,7 +4,7 @@ set -ex
 
 # This are defined elsewhere (usually in travis):
 # 
-# ARCH		- macos32x86, linux64x64, etc.
+# ARCH		- macos32x86, linux64x64, win32x86, etc.
 # SRC_ARCH	- i386, x64_86
 # HEARTBEAT	- threaded, itimer (or none)
 
