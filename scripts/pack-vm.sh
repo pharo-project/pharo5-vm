@@ -39,6 +39,16 @@ case "${ARCH}" in
 		os="linux"
 		productArch="ARMv6"
 		;;
+	win32x86) 
+		productDir="$productDir/build.${ARCH}/pharo.cog.spur/build/vm" 
+		pattern="*.exe *.dll"
+		os="win"
+		;;
+	win64x64) 
+		productDir="$productDir/build.${ARCH}/pharo.cog.spur/build/vm" 
+		pattern="*.exe *.dll"
+		os="win"
+		;;
 	*) 
 		echo "Undefined platform!"
 		exit 1
@@ -49,7 +59,13 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
-buildId="`echo ${TRAVIS_COMMIT} | cut -b 1-7`"
+
+if [[ "${APPVEYOR}" ]]; then
+	commitSHA="${APPVEYOR_REPO_COMMIT}"
+else
+	commitSHA="${TRAVIS_COMMIT}"
+fi
+buildId="`echo ${commitSHA} | cut -b 1-7`"
 zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}.${buildId}.zip"
 pushd .
 cd ${productDir}
