@@ -55,4 +55,5 @@ deploy:
     override: true
     explode: false
     artifact: /pharo.*\.zip/
-    on: merge-with-osvm-win32
+    on: 
+      branch: merge-with-osvm-win32
