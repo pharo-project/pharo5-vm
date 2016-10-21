@@ -1,3 +1,4 @@
+version: {build}
 environment:
   CYG_ROOT: C:\cygwin
   CYG_MIRROR: http://cygwin.mirror.constant.com
@@ -31,7 +32,6 @@ on_failure:
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stdout ]; then cat $APPVEYOR_BUILD_FOLDER/image/stdout; fi"'
   - '%CYG_BASH% -lc "if [ -e $APPVEYOR_BUILD_FOLDER/image/stderr ]; then cat $APPVEYOR_BUILD_FOLDER/image/stderr; fi"'
-
 # Cygwin build script
 #
 # NOTES:
@@ -44,16 +44,16 @@ on_failure:
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
 #before_deploy:
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./pre-deploy.sh"'
-#deploy:
-#- provider: BinTray
-#  username: estebanlm
-#  api_key: $BINTRAY_API_KEY
-#  subject: estebanlm
-#  repo: pharo-vm
-#  package: build 
-##  version: version
-#  publish: true
-#  override: true
-#  explode: false
-#  artifact: /pharo.*\.zip/ß
-#  on: merge-with-osvm-win32
+deploy:
+  - provider: BinTray
+    username: estebanlm
+    api_key: $BINTRAY_API_KEY
+    subject: estebanlm
+    repo: pharo-vm
+    package: build 
+#  version: version
+    publish: true
+    override: true
+    explode: false
+    artifact: /pharo.*\.zip/
+    on: merge-with-osvm-win32
