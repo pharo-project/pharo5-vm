@@ -40,19 +40,7 @@ on_failure:
 #test_script:
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec ./.travis_build.sh"'
 #  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
-#before_deploy:
-#  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./pre-deploy.sh"'
-deploy:
-  - provider: BinTray
-    username: estebanlm
-    api_key: $BINTRAY_API_KEY
-    subject: estebanlm
-    repo: pharo-vm
-    package: build 
-#  version: version
-    publish: true
-    override: true
-    explode: false
-    artifact: /pharo.*\.zip/
-    on: 
-      branch: merge-with-osvm-win32
+before_deploy:
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec scripts/deploy-before.sh"'
+deploy_script:
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec scripts/deploy-appveyor.sh"'

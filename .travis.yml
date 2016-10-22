@@ -31,7 +31,7 @@ matrix:
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       after_deploy: 
-        - sh post-deploy.sh
+        - sh ./scripts/deploy-after.sh
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: linux
@@ -95,7 +95,7 @@ script:
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 before_deploy: 
-  - sh pre-deploy.sh
+  - sh ./scripts/deploy-before.sh
 deploy:
   provider: bintray
   file: .bintray.json
