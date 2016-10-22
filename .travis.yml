@@ -99,6 +99,6 @@ before_deploy:
 deploy:
   provider: bintray
   file: .bintray.json
-  user: estebanlm
+  user: $BINTRAY_USER
   key: $BINTRAY_API_KEY
   on: merge-with-osvm

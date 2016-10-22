@@ -6,4 +6,4 @@ export PATH="C:\\Ruby23\\bin:$PATH"
 export CMDSHELL="cmd /C "
 
 $CMDSHELL gem install dpl
-$CMDSHELL dpl --provider=bintray --user=timfel --key=$BINTRAY_API_KEY --file=.bintray.json
+$CMDSHELL dpl --provider=bintray --user=$BINTRAY_USER --key=$BINTRAY_API_KEY --file=.bintray.json
