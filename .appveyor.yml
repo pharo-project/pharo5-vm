@@ -1,4 +1,3 @@
-version: {build}
 environment:
   CYG_ROOT: C:\cygwin
   CYG_MIRROR: http://cygwin.mirror.constant.com
