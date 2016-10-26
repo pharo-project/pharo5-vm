@@ -16,8 +16,7 @@ matrix:
 clone_depth: 5
 branches:
   only:
-    - master
-    - merge-with-osvm-win32
+    - merge-with-osvm
 init:
   - git config --system core.longpaths true
 install:
