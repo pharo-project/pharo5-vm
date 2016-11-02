@@ -5,7 +5,7 @@
 	"instance" : {
 		"allImmediate:branchIf:notInstanceOfBehaviors:target:" : "eem 12/17/2015 09:10",
 		"allocateCounters:" : "eem 7/9/2014 21:21",
-		"bitAndByteOffsetOfIsFullBlockBitInto:" : "eem 4/15/2016 12:11",
+		"bitAndByteOffsetOfIsFullBlockBitInto:" : "eem 10/13/2016 15:02",
 		"branch2CasesIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
 		"branchIf:hasNotImmediateTag:target:" : "eem 12/23/2015 05:20",
 		"fetchImmediateTagOtherThanTag1:tag2:" : "cb 4/16/2015 12:00",
