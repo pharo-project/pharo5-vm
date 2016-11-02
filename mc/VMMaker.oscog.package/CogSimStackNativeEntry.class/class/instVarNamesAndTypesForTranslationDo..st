@@ -7,7 +7,7 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 		aBinaryBlock
 			value: (ivn = 'register' ifTrue: ['registerr'] ifFalse: [ivn]) "avoid reservedWord conflict"
 			value: (ivn caseOf: {
-						['constaintInt64']			-> [#sqLong].
+						['constantInt64']			-> [#sqLong].
 						['constantFloat32']			-> [#float].
 						['constantFloat64']			-> [#double].
 						['type']			-> [#char].
