@@ -12,7 +12,6 @@ scanBlock: blockStart
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
 	framelessStackDelta := nExts := extA := extB := 0.
-	extBFirstZero := false.
 	pushingNils := true.
 	[pc < end] whileTrue:
 		[byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
