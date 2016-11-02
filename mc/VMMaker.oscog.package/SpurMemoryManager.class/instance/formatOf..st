@@ -14,4 +14,9 @@ formatOf: objOop
 	 12 - 15 16-bit indexable	(14 & 15 unused in 32-bits)
 	 16 - 23 byte indexable		(20-23 unused in 32-bits)
 	 24 - 31 compiled method	(28-31 unused in 32-bits)"
+	"A note on performance.  Since the format field is, by design, aligned on a byte boundary
+	 in the fourth byte of the header we could access it via
+		^(self byteAt: objOop + 3) bitAnd: self formatMask
+	 but al least on e.g. Core i7 x86-64 using the clang 6 compiler, this makes no difference,
+	 or at least any change is in the noise."
 	^(self longAt: objOop) >> self formatShift bitAnd: self formatMask
