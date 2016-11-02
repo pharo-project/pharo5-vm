@@ -11,15 +11,25 @@ commonVariable: rcvr at: index cacheIndex: atIx
 			[self assert: (objectMemory isContextNonImm: rcvr) not.
 			 fixedFields := atCache at: atIx+AtCacheFixedFields.
 			 ^objectMemory fetchPointer: index + fixedFields - 1 ofObject: rcvr].
-		 fmt < objectMemory firstByteFormat ifTrue:  "Bitmap"
-			[result := objectMemory fetchLong32: index - 1 ofObject: rcvr.
+		 fmt < objectMemory firstByteFormat ifTrue: "64, 32, & 16 bits"
+			[objectMemory hasSpurMemoryManagerAPI ifTrue:
+				[fmt >= objectMemory firstShortFormat ifTrue:
+					[^objectMemory integerObjectOf:
+						(objectMemory fetchShort16: index - 1 ofObject: rcvr)].
+				 fmt = objectMemory sixtyFourBitIndexableFormat ifTrue:
+					[^self positive64BitIntegerFor:
+						(objectMemory fetchLong64: index - 1 ofObject: rcvr)]].
+			 result := objectMemory fetchLong32: index - 1 ofObject: rcvr.
 			 ^self positive32BitIntegerFor: result].
 		 fmt >= objectMemory firstStringyFakeFormat  "Note fmt >= firstStringyFormat is an artificial flag for strings"
 			ifTrue: "String"
-				["Spur supports the String at:[put:] primitives on WideString"
+				["Spur supports the String at:[put:] primitives on WideString and DoubleByteString"
 				 result := (objectMemory hasSpurMemoryManagerAPI
-							and: [fmt - objectMemory firstStringyFakeFormat < objectMemory firstByteFormat])
-								ifTrue: [objectMemory fetchLong32: index - 1 ofObject: rcvr]
+							and: [fmt < (objectMemory firstByteFormat + objectMemory firstStringyFakeFormat)])
+								ifTrue:
+									[fmt < (objectMemory firstShortFormat + objectMemory firstStringyFakeFormat)
+										ifTrue: [objectMemory fetchLong32: index - 1 ofObject: rcvr]
+										ifFalse: [objectMemory fetchShort16: index - 1 ofObject: rcvr]]
 								ifFalse: [objectMemory fetchByte: index - 1 ofObject: rcvr].
 				^self characterForAscii: result]
 			ifFalse:

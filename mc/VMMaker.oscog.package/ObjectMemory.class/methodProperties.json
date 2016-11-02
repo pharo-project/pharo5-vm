@@ -264,6 +264,8 @@
 		"isPointers:" : "eem 12/4/2013 17:26",
 		"isPointersFormat:" : "eem 9/10/2013 08:50",
 		"isPointersNonImm:" : "eem 12/4/2013 17:26",
+		"isPureBitsFormat:" : "eem 10/25/2016 13:24",
+		"isPureBitsNonImm:" : "eem 10/25/2016 13:27",
 		"isSemaphoreObj:" : "eem 6/29/2014 11:30",
 		"isSemaphoreOop:" : "eem 6/29/2014 11:30",
 		"isWeak:" : "eem 9/26/2013 14:36",
