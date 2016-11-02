@@ -110,7 +110,7 @@
 		"hasThreeAddressArithmetic" : "eem 01/10/2016 10:01",
 		"hasVarBaseRegister" : "eem 1/10/2016 14:28",
 		"instructionSizeAt:" : "eem 12/8/2015 10:57",
-		"is32BitSignedImmediate:" : "eem 4/21/2016 16:11",
+		"is32BitSignedImmediate:" : "nice 7/8/2016 00:48",
 		"isAddressRelativeToVarBase:" : "eem 12/16/2015 23:26",
 		"isBigEndian" : "eem 01/10/2016 10:01",
 		"isCallPrecedingReturnPC:" : "eem 12/3/2015 22:26",
