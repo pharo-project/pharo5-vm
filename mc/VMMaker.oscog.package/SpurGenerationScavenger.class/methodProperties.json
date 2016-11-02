@@ -42,7 +42,7 @@
 		"isMaybeOldScavengeSurvivor:" : "eem 7/9/2014 06:49",
 		"isScavengeSurvivor:" : "eem 11/29/2013 12:49",
 		"newSpaceCapacity" : "eem 6/23/2014 18:02",
-		"newSpaceStart:newSpaceBytes:edenBytes:" : "topa 7/25/2016 17:43",
+		"newSpaceStart:newSpaceBytes:survivorBytes:" : "eem 10/28/2016 11:28",
 		"nextCorpseOffset:" : "eem 9/30/2013 11:46",
 		"nextCorpseOrNil:" : "eem 9/30/2013 11:39",
 		"noUnfiredEphemeronsAtEndOfRememberedSet" : "eem 9/29/2013 11:42",

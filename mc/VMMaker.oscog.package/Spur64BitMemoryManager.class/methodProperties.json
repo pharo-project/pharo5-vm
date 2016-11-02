@@ -19,6 +19,7 @@
 		"changeClassOf:to:" : "eem 7/5/2016 16:10",
 		"coalesce:and:" : "eem 12/15/2014 12:14",
 		"dbgFloatValueOf:" : "eem 12/1/2014 10:57",
+		"defaultEdenBytes" : "eem 10/27/2016 12:15",
 		"exponentOfSmallFloat:" : "eem 12/18/2014 13:56",
 		"fetchClassTagOf:" : "eem 7/25/2014 21:40",
 		"fetchLong32:ofFloatObject:" : "eem 2/11/2015 13:15",

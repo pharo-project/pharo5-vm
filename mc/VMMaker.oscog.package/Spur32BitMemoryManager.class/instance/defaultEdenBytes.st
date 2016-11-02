@@ -14,9 +14,7 @@ defaultEdenBytes
 	 using the same amount of memory for the 64-bit system causes a significant slow-down
 	 and a lot of compactions.  So we now use 4Mb for 32-bits and 7Mb for 64-bits."
 	<inline: false>
-	^self subclassResponsibility
-
-	"self systemNavigation browseAllCallsOn: #start: and: #limit:"
+	^4 * 1024 * 1024
 
 	"Here are the expressions used to collect the above-mentioned figures:"
 	"freeStart - self newSpaceStart"
