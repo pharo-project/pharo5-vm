@@ -460,7 +460,7 @@
 		"leaveNativeFrame" : "rsf 8/10/2016 00:19",
 		"liveFloatRegisters" : "eem 09/27/2016 11:20",
 		"liveRegisters" : "eem 09/27/2016 11:20",
-		"mapDeadDescriptorIfNeeded:" : "rsf 9/8/2016 17:43",
+		"mapDeadDescriptorIfNeeded:" : "eem 9/5/2016 14:13",
 		"marshallAbsentReceiverSendArguments:" : "eem 1/20/2016 14:23",
 		"marshallSendArguments:" : "eem 1/12/2013 10:53",
 		"maybeCountCounter" : "eem 6/1/2016 15:20",
