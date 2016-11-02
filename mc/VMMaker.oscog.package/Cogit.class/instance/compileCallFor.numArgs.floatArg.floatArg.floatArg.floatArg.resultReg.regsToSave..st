@@ -4,6 +4,7 @@ compileCallFor: aRoutine numArgs: numArgs floatArg: regOrConst0 floatArg: regOrC
 	 NoReg assign the C result to resultRegOrNone.  If saveRegs, save all registers.
 	 Hack: a negative arg value indicates an abstract register, a non-negative value
 	 indicates a constant."
+	<option: #LowcodeVM>
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
 	| regsToSave |

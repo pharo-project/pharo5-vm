@@ -1,5 +1,6 @@
 initialization
 generateLowcodeObjectTrampolines
+	<option: #LowcodeVM>
 	super generateLowcodeObjectTrampolines.
 	cePositive32BitIntegerTrampoline := cogit genTrampolineFor: #positive32BitIntegerFor:
 												called: 'cePositive32BitIntegerTrampoline'

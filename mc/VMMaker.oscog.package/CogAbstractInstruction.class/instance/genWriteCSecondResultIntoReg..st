@@ -1,5 +1,6 @@
 abi
 genWriteCSecondResultIntoReg: abstractRegister
+	<option: #LowcodeVM>
 	| cResultReg |
 	cResultReg := self cResultRegisterHigh.
 	abstractRegister ~= cResultReg ifTrue:

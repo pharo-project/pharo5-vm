@@ -4,6 +4,7 @@ compileTrampolineFor: aRoutine numArgs: numArgs floatArg: regOrConst0 floatArg: 
 	 as requested by callJumpBar.  If generating a call and resultRegOrNone is not NoReg pass the C
 	 result back in resultRegOrNone.
 	 Hack: a negative value indicates an abstract register, a non-negative value indicates a constant."
+	<option: #LowcodeVM>
 	<var: #aRoutine type: #'void *'>
 	<inline: false>
 	self genSmalltalkToCStackSwitch: pushLinkReg.

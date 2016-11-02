@@ -46,7 +46,7 @@
 		"genRemoveSmallIntegerTagsInScratchReg:" : "eem 10/1/2013 17:49",
 		"genShiftAwaySmallIntegerTagsInScratchReg:" : "eem 10/2/2013 22:12",
 		"genStoreHeader:intoNewInstance:using:" : "eem 12/7/2015 16:12",
-		"generateLowcodeObjectTrampolines" : "RonieSalgado 5/1/2016 18:23",
+		"generateLowcodeObjectTrampolines" : "eem 10/1/2016 16:06",
 		"getLiteralCountOf:plusOne:inBytes:into:scratch:" : "eem 1/23/2016 12:26",
 		"illegalClassTag" : "eem 01/10/2016 10:01",
 		"inlineCacheTagForClass:" : "eem 8/7/2014 04:48",

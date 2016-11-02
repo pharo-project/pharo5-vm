@@ -128,7 +128,7 @@
 		"genSmallIntegerComparison:" : "eem 1/7/2016 13:38",
 		"genSmallIntegerComparison:orDoubleComparison:invert:" : "eem 1/7/2016 13:49",
 		"genStoreSourceReg:slotIndex:destReg:scratchReg:inFrame:" : "cb 3/30/2016 15:17",
-		"generateLowcodeObjectTrampolines" : "RonieSalgado 5/2/2016 15:58",
+		"generateLowcodeObjectTrampolines" : "eem 10/1/2016 16:03",
 		"generateObjectRepresentationTrampolines" : "eem 7/14/2014 17:02",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
 		"hasSpurMemoryManagerAPI" : "eem 2/10/2015 18:56",

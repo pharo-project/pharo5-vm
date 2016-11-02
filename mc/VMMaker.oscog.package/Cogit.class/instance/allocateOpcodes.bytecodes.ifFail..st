@@ -27,5 +27,5 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 									 ((1 to: numAbstractOpcodes) collect: [:ign| CogCompilerClass for: self]).
 			 fixups := CArrayAccessor on:
 						((1 to: numAbstractOpcodes) collect: [:ign| self bytecodeFixupClass for: self])].
-	self zeroOpcodeIndex.
+	self zeroOpcodeIndexForNewOpcodes.
 	labelCounter := 0

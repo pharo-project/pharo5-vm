@@ -79,7 +79,7 @@ initialize
 						JumpR				"Not a regular jump, i.e. not pc dependent."
 						Stop				"Halt the processor"
 
-						"N.B.  Jumps are contiguous.  Long and Full jumps are contigiuous within them.  See FirstJump et al below"
+						"N.B.  Jumps are contiguous.  Long and Full jumps are contiguous within them.  See FirstJump et al below"
 						JumpFull			"Jump anywhere within the address space"
 						JumpLong			"Jump anywhere within the 16mb code zone."
 						JumpLongZero			"a.k.a. JumpLongEqual"

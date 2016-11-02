@@ -1,5 +1,6 @@
 initialization
 generateLowcodeObjectTrampolines
+	<option: #LowcodeVM>
 	ceFloatObjectOfTrampoline := cogit genTrampolineFor: #floatObjectOf:
 												called: 'ceFloatObjectOfTrampoline'
 												floatArg: DPFPReg0
