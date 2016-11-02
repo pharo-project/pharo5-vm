@@ -34,7 +34,7 @@ mergeWithFixupIfRequired: fixup
 	deadCode ifTrue: [
 		"case 3"
 		simStackPtr := fixup simStackPtr.
-		self cppIf: LowcodeVM ifTrue: [
+		LowcodeVM ifTrue: [
 			simNativeStackPtr := fixup simNativeStackPtr.
 			simNativeStackSize := fixup simNativeStackSize.
 		] 
@@ -47,14 +47,14 @@ mergeWithFixupIfRequired: fixup
 	deadCode := false.
 	fixup isBackwardBranchFixup ifTrue: [
 		fixup simStackPtr: simStackPtr.
-		self cppIf: LowcodeVM ifTrue: [
+		LowcodeVM ifTrue: [
 			fixup simNativeStackPtr: simNativeStackPtr.
 			fixup simNativeStackSize: simNativeStackSize.
 		]
 	].
 	fixup targetInstruction: self Label.
 	self assert: simStackPtr = fixup simStackPtr.
-	self cppIf: LowcodeVM ifTrue: [
+	LowcodeVM ifTrue: [
 		self assert: simNativeStackPtr = fixup simNativeStackPtr.
 		self assert: simNativeStackSize = fixup simNativeStackSize.
 	].

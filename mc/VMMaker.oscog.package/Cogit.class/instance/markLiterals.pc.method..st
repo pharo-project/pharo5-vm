@@ -13,7 +13,7 @@ markLiterals: annotation pc: mcpc method: cogMethod
 				atpc: mcpc asUnsignedInteger) ifTrue:
 			[codeModified := true]].
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[annotation = IsNSSendCall ifTrue:
 			[| nsSendCache sel eo |
 			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

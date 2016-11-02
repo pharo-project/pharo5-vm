@@ -26,7 +26,7 @@ genUpArrowReturn
 	framelessReturn
 		ifTrue:
 			[
-			 self cppIf: LowcodeVM ifTrue: [ hasNativeFrame ifTrue: [ self leaveNativeFrame ] ].
+			 LowcodeVM ifTrue: [ hasNativeFrame ifTrue: [ self leaveNativeFrame ] ].
 			 self MoveR: FPReg R: SPReg.
 			 self PopR: FPReg.
 			 backEnd hasLinkRegister ifTrue:

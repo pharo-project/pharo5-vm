@@ -2,7 +2,7 @@ accessing
 setIsBackwardBranchFixup
 	<inline: true>
 	simStackPtr := UnknownSimStackPtrFlag.
-	self cppIf: LowcodeVM ifTrue: [ 
+	LowcodeVM ifTrue: [ 
 		simNativeStackPtr := UnknownSimStackPtrFlag.
 		simNativeStackSize := 0.
 	]

@@ -4,7 +4,7 @@ unlinkIfLinkedSend: annotation pc: mcpc to: theCogMethod
 	<var: #nsSendCache type: #'NSSendCache *'>
 	| entryPoint |
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			[nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

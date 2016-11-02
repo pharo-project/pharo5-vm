@@ -30,7 +30,7 @@ printPCMapPairsFor: cogMethod
 		 	printChar: $ ;
 			printNum: annotation;
 			print: ' ('.
-		 self cppIf: NewspeakVM
+		 NewspeakVM
 			ifTrue:
 				[value
 					caseOf: {

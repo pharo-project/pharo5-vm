@@ -12,7 +12,7 @@ initializeInterpreter: bytesToShift
 			[breakSelectorLength := objectMemory minSmallInteger]].
 	methodDictLinearSearchLimit := 8.
 	self initialCleanup.
-	self cppIf: LowcodeVM ifTrue: [ self setupNativeStack ].
+	LowcodeVM ifTrue: [ self setupNativeStack ].
 	profileSemaphore := profileProcess := profileMethod := objectMemory nilObject.
 	interruptKeycode := 2094. "cmd-. as used for Mac but no other OS"
 	[globalSessionID = 0] whileTrue:

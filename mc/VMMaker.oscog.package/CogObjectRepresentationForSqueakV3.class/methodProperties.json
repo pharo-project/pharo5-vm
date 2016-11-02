@@ -73,7 +73,7 @@
 		"genSpecialSelectorEqualsEqualsGuts" : "cb 4/17/2015 09:34",
 		"genStoreSourceReg:slotIndex:destReg:scratchReg:inFrame:needsStoreCheck:" : "cb 3/30/2016 15:06",
 		"genStoreSourceReg:slotIndex:intoNewObjectInDestReg:" : "eem (const to msg rewrite) 11/6/2014 10:37",
-		"generateObjectRepresentationTrampolines" : "rsf 8/9/2016 21:32",
+		"generateObjectRepresentationTrampolines" : "eem 09/27/2016 11:20",
 		"hasValidHeaderPostGC:" : "eem 8/17/2011 11:30",
 		"illegalClassTag" : "eem 01/10/2016 10:01",
 		"inlineCacheTagForClass:" : "eem 7/7/2014 09:53",

@@ -39,6 +39,6 @@ generateRunTimeTrampolines
 	ceFreeTrampoline := self genTrampolineFor: #ceFree:
 											called: 'ceFreeTrampoline'
 											arg: ReceiverResultReg.
-	self cppIf: LowcodeVM ifTrue: [
+	LowcodeVM ifTrue: [
 		ceFFICalloutTrampoline := self genFFICalloutTrampoline.
 	]

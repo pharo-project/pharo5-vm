@@ -6,7 +6,7 @@ commonCallerReturn
 	<var: #callersFPOrNull type: #'char *'>
 
 	"TODO: Store/restore the nativeSP more properly, when it exists"
-	self cppIf: LowcodeVM ifTrue: [ 
+	LowcodeVM ifTrue: [ 
 		doWeHaveANativeFrame := self frameHasNativeFrame: localFP.
 		doWeHaveANativeFrame ifTrue: [
 			nativeStackPointer := (self nativePreviousStackPointerIn: localFP) - 1.

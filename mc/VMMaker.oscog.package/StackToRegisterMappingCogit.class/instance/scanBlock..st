@@ -5,7 +5,7 @@ scanBlock: blockStart
 	<var: #blockStart type: #'BlockStart *'>
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := false.
-	self cppIf: LowcodeVM ifTrue: [ hasNativeFrame := false ].
+	LowcodeVM ifTrue: [ hasNativeFrame := false ].
 	prevBCDescriptor := nil.
 	methodOrBlockNumArgs := blockStart numArgs.
 	inBlock := InVanillaBlock.

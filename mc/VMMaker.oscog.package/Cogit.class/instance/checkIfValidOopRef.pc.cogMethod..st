@@ -10,7 +10,7 @@ checkIfValidOopRef: annotation pc: mcpc cogMethod: cogMethod
 			[coInterpreter print: 'object ref leak in CM '; printHex: cogMethod asInteger; print: ' @ '; printHex: mcpc asInteger; cr.
 			^1]].
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[annotation = IsNSSendCall ifTrue:
 			[| nsSendCache enclosingObject |
 			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

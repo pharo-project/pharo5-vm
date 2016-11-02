@@ -15,7 +15,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 			  and: [objectMemory isYoung: mappedLiteral]) ifTrue:
 				[(self cCoerceSimple: hasYoungPtr to: #'sqInt *') at: 0 put: true]]].
 
-	self cppIf: NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
+	NewspeakVM ifTrue: [annotation = IsNSSendCall ifTrue:
 		[| nsSendCache oop mappedOop |
 		nsSendCache := self nsSendCacheFromReturnAddress: mcpc.
 		oop := nsSendCache selector.	

@@ -12,7 +12,7 @@ ssAllocateRequiredFloatRegMask: requiredRegsMask upThrough: stackPtr upThroughNa
 		liveRegs := liveRegs bitOr: (self simStackAt: i) registerMask.
 		((self simStackAt: i) floatRegisterMask bitAnd: requiredRegsMask) ~= 0 ifTrue:
 			[lastRequired := i]].
-	self cppIf: LowcodeVM ifTrue: [ 
+	LowcodeVM ifTrue: [ 
 		(simNativeSpillBase max: 0) to: nativeStackPtr do:
 			[:i|
 			liveRegs := liveRegs bitOr: (self simNativeStackAt: i) nativeRegisterMask.

@@ -45,7 +45,7 @@ scanMethod
 			 distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
 			 latestContinuation := latestContinuation max: targetPC].
-		 self cppIf: NewspeakVM ifTrue:
+		 NewspeakVM ifTrue:
 			[descriptor hasIRC ifTrue:
 				[numIRCs := numIRCs + 1]].
 		 pc := pc + descriptor numBytes.

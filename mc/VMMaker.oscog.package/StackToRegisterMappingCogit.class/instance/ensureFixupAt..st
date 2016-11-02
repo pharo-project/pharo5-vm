@@ -16,7 +16,7 @@ ensureFixupAt: targetIndex
 		ifTrue: "convert a non-merge into a merge"
 			[fixup becomeMergeFixup.
 			 fixup simStackPtr: simStackPtr.
-			 self cppIf: LowcodeVM ifTrue: [
+			 LowcodeVM ifTrue: [
 				 fixup simNativeStackPtr: simNativeStackPtr.
 				 fixup simNativeStackSize: simNativeStackSize.]]
 		ifFalse:
@@ -24,12 +24,12 @@ ensureFixupAt: targetIndex
 				ifTrue: ["this is the target of a backward branch and
 						 so doesn't have a simStackPtr assigned yet."
 						fixup simStackPtr: simStackPtr.
-			 			self cppIf: LowcodeVM ifTrue: [
+			 			LowcodeVM ifTrue: [
 				 			fixup simNativeStackPtr: simNativeStackPtr.
 				 			fixup simNativeStackSize: simNativeStackSize.]]
 				ifFalse: [
 					self assert: fixup simStackPtr = simStackPtr.
-					self cppIf: LowcodeVM ifTrue: [
+					LowcodeVM ifTrue: [
 				 		self assert: fixup simNativeStackPtr = simNativeStackPtr.
 		 			 	self assert: fixup simNativeStackSize = simNativeStackSize.]]].
 	^fixup

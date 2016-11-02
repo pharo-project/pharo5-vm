@@ -1,6 +1,6 @@
 simulation stack
 ssFlushTo: index nativeFlushTo: nativeIndex
-	self cppIf: LowcodeVM ifTrue: [ 
+	LowcodeVM ifTrue: [ 
 		self ssNativeFlushTo: nativeIndex.
 	].
 	methodOrBlockNumTemps to: simSpillBase - 1 do:

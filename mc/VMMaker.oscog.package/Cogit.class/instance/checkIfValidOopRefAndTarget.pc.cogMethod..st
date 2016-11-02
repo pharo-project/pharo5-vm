@@ -13,7 +13,7 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 			[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmRefersToYoung) ifFalse:
 				[^2]]].
 
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[annotation = IsNSSendCall ifTrue:
 			[| nsSendCache classTag enclosingObject nsTargetMethod |
 			nsSendCache := self nsSendCacheFromReturnAddress: mcpc asInteger.

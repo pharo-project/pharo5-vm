@@ -6,7 +6,7 @@ callPrimitiveBytecode
 	"Note that we simply skip a callPrimitiveBytecode at the start of a method
 	 that contains a primitive.  This because methods like Context(Part)>>reset
 	 have to be updated to skip the callPrimtiive bytecode otherwise."
-	self cppIf: SistaVM
+	SistaVM
 		ifTrue:
 			[| byte1 byte2 prim primSet header |
 			 byte1 := self fetchByte.
@@ -38,8 +38,7 @@ callPrimitiveBytecode
 					[^self trinaryInlinePrimitive: prim - 3000].
 			 ].
 		
-		self cppIf: LowcodeVM
-			ifTrue: [
+			LowcodeVM ifTrue: [
 				primSet = 1 ifTrue: [
 					prim < 1000 ifTrue:
 						[^self lowcodeNullaryInlinePrimitive: prim].

@@ -6,4 +6,4 @@ internalizeIPandSP
 	localIP := self pointerForOop: instructionPointer.
 	localSP := self pointerForOop: stackPointer.
 	localFP := self pointerForOop: framePointer.
-	self cppIf: LowcodeVM ifTrue: [ nativeSP := 0. ]
+	LowcodeVM ifTrue: [ nativeSP := 0. ]

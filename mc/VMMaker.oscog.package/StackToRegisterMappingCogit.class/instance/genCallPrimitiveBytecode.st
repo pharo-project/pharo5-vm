@@ -10,7 +10,7 @@ genCallPrimitiveBytecode
 	prim := byte2 - 128 << 8 + byte1.
 	primSet := prim >> 13 bitAnd: 3.
 	prim := prim bitAnd: 8191.
-	self cppIf: LowcodeVM
+	LowcodeVM
 		ifTrue:
 			[
 			primSet = 1 ifTrue: [
