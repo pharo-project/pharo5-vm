@@ -6,4 +6,4 @@ genCmpClassIndex: classIndex R: reg
 	 same size code over time, use a long comparison for unknown classes."
 	classIndex < objectMemory classTablePageSize
 		ifTrue: [cogit CmpCq: classIndex R: TempReg]
-		ifFalse: [cogit CmpCw: classIndex R: TempReg].
+		ifFalse: [cogit CmpCw: classIndex R: TempReg]
