@@ -4,6 +4,7 @@
 		 ],
 	"classvars" : [
 		"BaseHeaderSize",
+		"BytecodeSetHasExtensions",
 		"BytesPerOop",
 		"BytesPerWord",
 		"COGMTVM",

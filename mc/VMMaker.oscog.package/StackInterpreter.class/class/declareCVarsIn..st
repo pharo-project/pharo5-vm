@@ -43,9 +43,11 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).
 	MULTIPLEBYTECODESETS == false ifTrue:
 		[aCCodeGenerator
-			removeVariable: 'extA';
-			removeVariable: 'extB';
 			removeVariable: 'bytecodeSetSelector'].
+	BytecodeSetHasExtensions == false ifTrue:
+		[aCCodeGenerator
+			removeVariable: 'extA';
+			removeVariable: 'extB'].
 	aCCodeGenerator
 		var: #methodCache
 		declareC: 'long methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
