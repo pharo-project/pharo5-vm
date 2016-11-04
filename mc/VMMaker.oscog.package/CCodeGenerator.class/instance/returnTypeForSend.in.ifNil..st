@@ -70,7 +70,9 @@ returnTypeForSend: sendNode in: aTMethod ifNil: typeIfNil
 				[#sqrt]					->	[#double].
 				[#asLong]				->	[#long].
 				[#asInteger]			->	[#sqInt].
+				[#asIntegerPtr]			->	[#'sqIntptr_t'].
 				[#asUnsignedInteger]	->	[#usqInt].
+				[#asUnsignedIntegerPtr]->	[#'usqIntptr_t'].
 				[#asUnsignedLong]		->	[#'unsigned long'].
 				[#asUnsignedLongLong]		->	[#'unsigned long long'].
 				[#asVoidPointer]		->	[#'void *'].

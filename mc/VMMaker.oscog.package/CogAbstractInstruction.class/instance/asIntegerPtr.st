@@ -1,0 +1,4 @@
+coercion
+asIntegerPtr
+	<doNotGenerate>
+	^self

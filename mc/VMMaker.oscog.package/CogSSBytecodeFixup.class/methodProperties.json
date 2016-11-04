@@ -2,7 +2,9 @@
 	"class" : {
 		"initialize" : "cb 4/15/2016 17:36" },
 	"instance" : {
+		"asIntegerPtr" : "nice 7/8/2016 02:33",
 		"asUnsignedInteger" : "eem 12/11/2010 15:50",
+		"asUnsignedIntegerPtr" : "nice 7/8/2016 02:31",
 		"becomeMergeFixup" : "cb 4/15/2016 17:32",
 		"becomeNonMergeFixup" : "cb 4/15/2016 17:32",
 		"isBackwardBranchFixup" : "cb 4/15/2016 17:39",

@@ -102,7 +102,9 @@ initializeCTranslationDictionary
 	#inline:						#generateInlineDirective:on:indent:
 	#asFloat					#generateAsFloat:on:indent:
 	#asInteger					#generateAsInteger:on:indent:
+	#asIntegerPtr				#generateAsIntegerPtr:on:indent:
 	#asUnsignedInteger		#generateAsUnsignedInteger:on:indent:
+	#asUnsignedIntegerPtr		#generateAsUnsignedIntegerPtr:on:indent:
 	#asLong					#generateAsLong:on:indent:
 	#asUnsignedLong			#generateAsUnsignedLong:on:indent:
 	#asUnsignedLongLong		#generateAsUnsignedLongLong:on:indent:

@@ -9,18 +9,21 @@ sizeOfIntegralCType: anIntegralCType "<String>"
 						ifFalse: [(anIntegralCType beginsWith: 'signed ')
 									ifTrue: [(anIntegralCType allButFirst: 7) withBlanksTrimmed]
 									ifFalse: [anIntegralCType]].
+	
 	^prunedCType asString caseOf: {
 		['sqLong']	->	[8].
 		['usqLong']	->	[8].
 		['long long']	->	[8].
-		['sqInt']		->	[BytesPerWord].
-		['usqInt']	->	[BytesPerWord].
+		['sqInt']		->	[BytesPerOop].
+		['usqInt']	->	[BytesPerOop].
+		['sqIntptr_t']	->	[BytesPerWord].
+		['usqIntptr_t']	->	[BytesPerWord].
 		['int']		->	[4].
 		['short']		->	[2].
 		['short int']	->	[2].
 		['char']		->	[1].
-		['long']		->	[BytesPerWord].
-		['size_t']		->	[BytesPerWord].
+		['long']		->	[BytesPerWord]. "It's ambiguous on LLP64 and we'll later remove it"
+		['size_t']	->	[BytesPerWord].
 		['pid_t']		->	[BytesPerWord].
 	}
 	otherwise:

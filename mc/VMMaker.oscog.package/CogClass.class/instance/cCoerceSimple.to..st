@@ -7,6 +7,8 @@ cCoerceSimple: value to: cTypeString
 	   {	[#'unsigned long']							->	[value].
 		[#'unsigned int']							->	[value].
 		[#sqInt]										->	[value].
+		[#'sqIntptr_t']								->	[value].
+		[#'usqIntptr_t']								->	[value].
 		[#usqInt]									->	[value].
 		[#sqLong]									->	[value].
 		[#usqLong]									->	[value].

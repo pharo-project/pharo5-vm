@@ -4,10 +4,10 @@ sizeof: objectSymbolOrClass
 	| index |
 	objectSymbolOrClass isInteger ifTrue:
 		[^self class objectMemoryClass wordSize].
+	(#(usqInt sqInt) includes: objectSymbolOrClass) ifTrue: [^self class objectMemoryClass bytesPerOop].
 	objectSymbolOrClass isSymbol ifTrue:
 		[(objectSymbolOrClass last == $*
-		 or: [#long == objectSymbolOrClass
-		 or: [#'unsigned long' == objectSymbolOrClass]]) ifTrue:
+		 or: [#(#long #'unsigned long' #'sqIntptr_t'  #'usqIntptr_t' #'size_t') includes: objectSymbolOrClass]) ifTrue:
 			[^self class objectMemoryClass wordSize].
 		index := #(	#sqLong #usqLong #double
 					#int #'unsigned int' #float
@@ -15,8 +15,7 @@ sizeof: objectSymbolOrClass
 					#char #'unsigned char' #'signed char')
 						indexOf: objectSymbolOrClass
 						ifAbsent:
-							[(#(usqInt sqInt) includes: objectSymbolOrClass) ifTrue: [^self class objectMemoryClass bytesPerOop].
-							 self error: 'unrecognized C type name'].
+							[self error: 'unrecognized C type name'].
 		^#(8 8 8
 			4 4 4
 			2 2

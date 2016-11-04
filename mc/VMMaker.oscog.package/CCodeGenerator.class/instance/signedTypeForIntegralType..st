@@ -6,5 +6,7 @@ signedTypeForIntegralType: aCTypeString
 	(aCTypeString beginsWith: 'usq') ifTrue:
 		[^aCTypeString allButFirst].
 
+	aCTypeString = 'size_t' ifTrue: [^#usqIntptr_t].
+	
 	self error: 'unknown type'.
 	^#long
