@@ -26,10 +26,10 @@ primitiveFFIIntegerAtPut
 	byteSize < BytesPerWord ifTrue:
 		[isSigned
 			ifTrue:
-				[max := 1 << (8 * byteSize - 1).
+				[max := 1 asUnsignedLongLong << (8 * byteSize - 1).
 				(value >= (0 - max) and: [value < max]) ifFalse: [^interpreterProxy primitiveFail]]
 			ifFalse:
-				[value asUnsignedLongLong < (1 << (8*byteSize)) ifFalse: [^interpreterProxy primitiveFail]]].
+				[value asUnsignedLongLong < (1 asUnsignedLongLong << (8 * byteSize)) ifFalse: [^interpreterProxy primitiveFail]]].
 	byteSize <= 2
 		ifTrue:
 			[byteSize = 1

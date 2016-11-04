@@ -1,5 +1,5 @@
 accessing
 setMaxOldSpaceSize: limit
-	<var: #limit type: #usqInt>
+	<var: #limit type: #'unsigned long'>
 	maxOldSpaceSize := limit.
 	^0

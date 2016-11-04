@@ -4,7 +4,7 @@ picDataFor: descriptor Annotation: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc
 	<var: #mcpc type: #'char *'>
 	<var: #cogMethodArg type: #'void *'>
 	| annotation entryPoint tuple counter |
-	<var: #counter type: #usqInt>
+	<var: #counter type: #'unsigned long'>
 
 	descriptor ifNil:
 		[^0].
@@ -15,7 +15,7 @@ picDataFor: descriptor Annotation: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc
 							cCoerce: ((self
 											cCoerceSimple: cogMethodArg
 											to: #'CogMethod *') counters)
-							to: #'usqInt *')
+							to: #'unsigned long *')
 								at: counterIndex.
 			 tuple := self picDataForCounter: counter at: bcpc + 1.
 			 tuple = 0 ifTrue: [^PrimErrNoMemory].

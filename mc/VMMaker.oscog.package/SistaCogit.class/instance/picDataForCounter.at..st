@@ -1,7 +1,7 @@
 method introspection
 picDataForCounter: counter at: bcpc
 	| executedCount tuple untakenCount |
-	<var: #counter type: #usqInt>
+	<var: #counter type: #'unsigned long'>
 	tuple := objectMemory
 				eeInstantiateClassIndex: ClassArrayCompactIndex
 				format: objectMemory arrayFormat
