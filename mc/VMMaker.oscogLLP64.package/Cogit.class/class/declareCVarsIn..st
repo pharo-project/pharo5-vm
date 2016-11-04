@@ -58,9 +58,8 @@ declareCVarsIn: aCCodeGenerator
 		var: #postCompileHook
 			declareC: 'void (*postCompileHook)(CogMethod *)';
 		var: #openPICList declareC: 'CogMethod *openPICList = 0';
-		var: #maxMethodBefore type: #'CogBlockMethod *'.
-	self objectMemoryClass wordSize = 8 ifTrue:
-		[aCCodeGenerator var: 'enumeratingCogMethod' type: #'CogMethod *'].
+		var: #maxMethodBefore type: #'CogBlockMethod *';
+		var: 'enumeratingCogMethod' type: #'CogMethod *'.
 	aCCodeGenerator
 		declareVar: 'aMethodLabel' type: #'AbstractInstruction'; "Has to come lexicographically before backEnd & methodLabel"
 		var: #backEnd declareC: 'AbstractInstruction * const backEnd = &aMethodLabel';

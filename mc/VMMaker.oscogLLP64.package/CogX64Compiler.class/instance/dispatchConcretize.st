@@ -102,7 +102,9 @@ dispatchConcretize
 		[MoveC32R]		-> [^self concretizeMoveC32R].
 		[MoveRR]			-> [^self concretizeReverseOpRR: 16r89].
 		[MoveAwR]			-> [^self concretizeMoveAwR].
+		[MoveA32R]		-> [^self concretizeMoveA32R].
 		[MoveRAw]			-> [^self concretizeMoveRAw].
+		[MoveRA32]		-> [^self concretizeMoveRA32].
 		[MoveAbR]			-> [^self concretizeMoveAbR].
 		[MoveRAb]			-> [^self concretizeMoveRAb].
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].

@@ -4,6 +4,7 @@
 		 ],
 	"classvars" : [
 		"BaseHeaderSize",
+		"BytecodeSetHasExtensions",
 		"BytesPerOop",
 		"BytesPerWord",
 		"COGMTVM",
@@ -19,6 +20,7 @@
 		"GCModeIncremental",
 		"GCModeNewSpace",
 		"IMMUTABILITY",
+		"LowcodeVM",
 		"MULTIPLEBYTECODESETS",
 		"NewspeakVM",
 		"PharoVM",

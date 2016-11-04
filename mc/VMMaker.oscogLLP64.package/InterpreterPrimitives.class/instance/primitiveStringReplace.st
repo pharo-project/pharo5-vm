@@ -13,10 +13,10 @@ primitiveStringReplace
 	replStart := self stackIntegerValue: 0.
 
 	self successful ifFalse:
-		[^self primitiveFailFor: PrimErrBadArgument].
+		[^self primitiveFailFor: PrimErrBadArgument]. 
 	(objectMemory isImmediate: repl) ifTrue: "can happen in LgInt copy"
 		[^self primitiveFailFor: PrimErrBadArgument].
-	(objectMemory isObjImmutable: array) ifTrue:
+	(stop >= start and: [objectMemory isObjImmutable: array]) ifTrue:
 		[^self primitiveFailFor: PrimErrNoModification].
 
 	hdr := objectMemory baseHeader: array.

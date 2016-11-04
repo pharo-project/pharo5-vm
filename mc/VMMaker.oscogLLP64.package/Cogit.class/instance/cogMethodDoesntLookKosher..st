@@ -44,7 +44,7 @@ cogMethodDoesntLookKosher: cogMethod
 	cogMethod cmType = CMClosedPIC ifTrue:
 		[cogMethod blockSize ~= closedPICSize ifTrue:
 			[^31].
-		 (cogMethod cPICNumCases between: 1 and: maxCPICCases) ifFalse:
+		 (cogMethod cPICNumCases between: 1 and: MaxCPICCases) ifFalse:
 			[^32].
 		 cogMethod methodHeader ~= 0 ifTrue:
 			[^33].

@@ -8,6 +8,9 @@ generateRunTimeTrampolines
 														called: 'ceSendMustBeBooleanAddTrueTrampoline'.
 	ceNonLocalReturnTrampoline := self genNonLocalReturnTrampoline.
 	ceCheckForInterruptTrampoline := self genCheckForInterruptsTrampoline.
+	"Neither of the context inst var access trampolines save registers.  Their operation could cause
+	 arbitrary update of stack frames, so the assumption is that callers flush the stack before calling
+	 the context inst var access trampolines, and that everything except the result is dead afterwards."
 	ceFetchContextInstVarTrampoline := self genTrampolineFor: #ceContext:instVar:
 											called: 'ceFetchContextInstVarTrampoline'
 											arg: ReceiverResultReg
@@ -28,4 +31,14 @@ generateRunTimeTrampolines
 	ceReturnToInterpreterTrampoline := self
 											genReturnTrampolineFor: #ceReturnToInterpreter:
 											called: 'ceReturnToInterpreterTrampoline'
+											arg: ReceiverResultReg.
+	ceMallocTrampoline := self genTrampolineFor: #ceMalloc:
+											called: 'ceMallocTrampoline'
 											arg: ReceiverResultReg
+											result: TempReg.
+	ceFreeTrampoline := self genTrampolineFor: #ceFree:
+											called: 'ceFreeTrampoline'
+											arg: ReceiverResultReg.
+	LowcodeVM ifTrue: [
+		ceFFICalloutTrampoline := self genFFICalloutTrampoline.
+	]

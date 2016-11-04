@@ -1,4 +1,4 @@
 simulation support
 initExtensions
 	<inline: true>
-	self cppIf: MULTIPLEBYTECODESETS ifTrue: [extA := extB := 0]
+	BytecodeSetHasExtensions ifTrue: [extA := extB := 0]

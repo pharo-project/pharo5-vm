@@ -6,7 +6,7 @@ genUpArrowReturn
 				args
 		sp->	ret pc.
 	 Return pops receiver and arguments off the stack.  Callee pushes the result."
-	inBlock ifTrue:
+	inBlock > 0 ifTrue:
 		[self assert: needsFrame.
 		 self CallRT: ceNonLocalReturnTrampoline.
 		 self annotateBytecode: self Label.

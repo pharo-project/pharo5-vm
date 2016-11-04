@@ -1,5 +1,6 @@
 gc - scavenging
 initializeNewSpaceVariables
+	<inline: #never>
 	freeStart := scavenger eden start.
 	pastSpaceStart := scavenger pastSpace start.
 	scavengeThreshold := scavenger eden limit

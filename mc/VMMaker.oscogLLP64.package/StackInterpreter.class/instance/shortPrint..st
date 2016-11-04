@@ -55,7 +55,8 @@ shortPrint: oop
 	((objectMemory isPointersNonImm: oop)
 	 and: [classOop ~= objectMemory nilObject
 	 and: [((objectMemory instanceSizeOf: classOop) between: ValueIndex + 1 and: ValueIndex + 2)
-	 and: [(objectMemory isBytes: (objectMemory fetchPointer: KeyIndex ofObject: oop))]]]) ifTrue:
+	 and: [(objectMemory addressCouldBeObj: (objectMemory fetchPointer: KeyIndex ofObject: oop))]
+	 and: [(objectMemory isBytesNonImm: (objectMemory fetchPointer: KeyIndex ofObject: oop))]]]) ifTrue:
 		[| classLookupKey |
 		 classLookupKey := objectMemory fetchClassOfNonImm: (objectMemory splObj: SchedulerAssociation).
 		 [classLookupKey = objectMemory nilObject ifTrue:

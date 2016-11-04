@@ -6,9 +6,9 @@ callPrimitiveBytecode
 	"Note that we simply skip a callPrimitiveBytecode at the start of a method
 	 that contains a primitive.  This because methods like Context(Part)>>reset
 	 have to be updated to skip the callPrimtiive bytecode otherwise."
-	self cppIf: SistaVM
+	SistaVM
 		ifTrue:
-			[| byte1 byte2 prim header |
+			[| byte1 byte2 prim primSet header |
 			 byte1 := self fetchByte.
 			 byte2 := self fetchByte.
 			 self fetchNextBytecode.
@@ -21,20 +21,41 @@ callPrimitiveBytecode
 				 localIP := localIP - 3.
 				 ^self respondToUnknownBytecode].
 			 prim := byte2 - 128 << 8 + byte1.
-			 prim < 1000 ifTrue:
-				[^self nullaryInlinePrimitive: prim].
-
-			 prim < 2000 ifTrue:
-				[^self unaryInlinePrimitive: prim - 1000].
+			 primSet := prim >> 13 bitAnd: 3.
+			 prim := prim bitAnd: 8191.
+			 primSet = 0 ifTrue: [
 				
-			 prim < 3000 ifTrue:
-				[^self binaryInlinePrimitive: prim - 2000].
+				 prim < 1000 ifTrue:
+					[^self nullaryInlinePrimitive: prim].
 
-			 prim < 4000 ifTrue:
-				[^self trinaryInlinePrimitive: prim - 3000].
+				 prim < 2000 ifTrue:
+					[^self unaryInlinePrimitive: prim - 1000].
+				
+				 prim < 3000 ifTrue:
+					[^self binaryInlinePrimitive: prim - 2000].
 
-			 localIP := localIP - 3.
-			 ^self respondToUnknownBytecode]
+				 prim < 4000 ifTrue:
+					[^self trinaryInlinePrimitive: prim - 3000].
+			 ].
+		
+			LowcodeVM ifTrue: [
+				primSet = 1 ifTrue: [
+					prim < 1000 ifTrue:
+						[^self lowcodeNullaryInlinePrimitive: prim].
+
+					prim < 2000 ifTrue:
+						[^self lowcodeUnaryInlinePrimitive: prim - 1000].
+				
+					prim < 3000 ifTrue:
+						[^self lowcodeBinaryInlinePrimitive: prim - 2000].
+
+					prim < 4000 ifTrue:
+						[^self lowcodeTrinaryInlinePrimitive: prim - 3000].
+				].
+			].
+		
+			localIP := localIP - 3.
+			^self respondToUnknownBytecode]
 		ifFalse:
 			[| header |
 			 header := objectMemory methodHeaderOf: method.

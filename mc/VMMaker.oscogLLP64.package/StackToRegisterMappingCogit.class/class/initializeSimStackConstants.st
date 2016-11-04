@@ -11,4 +11,21 @@ initializeSimStackConstants
 	SSBaseOffset := 1.
 	SSConstant := 2.
 	SSRegister := 3.
-	SSSpill := 4
+	SSSpill := 4.
+	
+	" Native simulation stack"
+	SSNativeRegister := 5.
+	SSRegisterPair := 6.
+	SSRegisterDoubleFloat := 7.
+	SSRegisterSingleFloat := 8.
+
+	SSSpillNative := 9.
+	SSSpillInt64 := 10.
+	SSSpillFloat32 := 11.
+	SSSpillFloat64 := 12.
+
+	SSConstantInt32 := 13.
+	SSConstantInt64 := 14.
+	SSConstantFloat32 := 15.
+	SSConstantFloat64 := 16.
+	SSConstantNativePointer := 17.

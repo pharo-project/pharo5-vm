@@ -13,4 +13,11 @@ restoreSimStackAtMergePoint: fixup
 				offset: FoxMFReceiver - (i - methodOrBlockNumArgs + 1 * objectMemory bytesPerOop);
 				register: FPReg;
 				spilled: true].
+	LowcodeVM ifTrue: [
+		0 to: simNativeStackPtr do: [ :i |
+			(self simNativeStackAt: i)
+				ensureIsMarkedAsSpilled
+		].
+		simNativeSpillBase := simNativeStackPtr + 1
+	].
 	^ 0

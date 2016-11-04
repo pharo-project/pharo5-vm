@@ -5,7 +5,7 @@ directedSuperclassSend
 	 the receiver and arguments have been pushed onto the stack,"
 	"Note: This method is inlined into the interpreter dispatch loop."
 	<sharedCodeInCase: #extSendSuperBytecode>
-	<option: #SistaVM>
+	<option: #BytecodeSetHasDirectedSuperSend>
 	| class superclass |
 	class := self internalPopStack.
 	(objectMemory isForwarded: class) ifTrue:

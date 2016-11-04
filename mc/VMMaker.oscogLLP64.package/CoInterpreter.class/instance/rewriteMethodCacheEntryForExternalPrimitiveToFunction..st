@@ -18,4 +18,4 @@ rewriteMethodCacheEntryForExternalPrimitiveToFunction: localPrimAddress
 	(methodCache at: lastMethodCacheProbeWrite + MethodCacheMethod) = newMethod ifTrue:
 		[methodCache
 			at: lastMethodCacheProbeWrite + MethodCachePrimFunction
-			put: (self cCoerce: localPrimAddress to: #sqInt)]
+			put: (self cCoerce: localPrimAddress to: #'sqIntptr_t')]

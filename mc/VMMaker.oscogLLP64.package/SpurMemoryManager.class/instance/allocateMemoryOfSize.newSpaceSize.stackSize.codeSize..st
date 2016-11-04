@@ -21,6 +21,4 @@ allocateMemoryOfSize: memoryBytes newSpaceSize: newSpaceBytes stackSize: stackBy
 	scavenger manager: self.
 	scavenger newSpaceStart: newSpaceStart
 				newSpaceBytes: newSpaceBytes
-				edenBytes: newSpaceBytes
-						* (self scavengerDenominator - self numSurvivorSpaces)
-						// self scavengerDenominator
+				survivorBytes: newSpaceBytes // self scavengerDenominator

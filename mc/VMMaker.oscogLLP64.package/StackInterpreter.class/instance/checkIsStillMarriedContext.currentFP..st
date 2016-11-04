@@ -27,7 +27,8 @@ checkIsStillMarriedContext: aContext currentFP: currentFP
 	 only speculating about maybeFrame being a frame, and only speculating about
 	 maybeContext being a context, we need to be sure before we can safely follow."
 	(objectMemory hasSpurMemoryManagerAPI
+	 and: [(stackPages isFree: thePage) not
 	 and: [(self isFrame: maybeFP onPage: thePage)
-	 and: [objectMemory isForwarded: maybeFrameCtxt]]) ifTrue:
+	 and: [objectMemory isForwarded: maybeFrameCtxt]]]) ifTrue:
 		[maybeFrameCtxt := objectMemory followForwarded: maybeFrameCtxt].
 	^maybeFrameCtxt = aContext

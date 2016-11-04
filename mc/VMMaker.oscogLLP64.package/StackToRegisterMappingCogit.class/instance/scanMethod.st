@@ -9,6 +9,7 @@ scanMethod
 	| latestContinuation nExts descriptor pc numBlocks distance targetPC framelessStackDelta seenInstVarStore |
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	needsFrame := useTwoPaths := seenInstVarStore := false.
+	LowcodeVM ifTrue: [ hasNativeFrame := false ].
 	self maybeInitNumFixups.
 	self maybeInitNumCounters.
 	prevBCDescriptor := nil.

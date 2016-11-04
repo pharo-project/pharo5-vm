@@ -1,9 +1,10 @@
 generate machine code
 concretizeConvertRRd
 	"Will get inlined into concretizeAt: switch."
+	"CVTSI2D"
 	<inline: true>
 	| srcReg destReg |
-	srcReg := operands at:0.
+	srcReg := operands at: 0.
 	destReg := operands at: 1.
 	machineCode
 		at: 0 put: 16rF2;

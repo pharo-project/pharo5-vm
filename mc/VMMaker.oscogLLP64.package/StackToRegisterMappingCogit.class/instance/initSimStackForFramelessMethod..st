@@ -9,7 +9,7 @@ initSimStackForFramelessMethod: startpc
 	optStatus
 		isReceiverResultRegLive: true;
 		ssEntry: (self addressOf: simSelf).
-	self assert: methodOrBlockNumTemps >= methodOrBlockNumArgs.
+	self assert: methodOrBlockNumTemps = methodOrBlockNumArgs.
 	self assert: self numRegArgs <= 2.
 	(methodOrBlockNumArgs between: 1 and: self numRegArgs)
 		ifTrue:
@@ -38,4 +38,8 @@ initSimStackForFramelessMethod: startpc
 								ifTrue: [methodOrBlockNumArgs - 1- i]
 								ifFalse: [methodOrBlockNumArgs - i]) * objectMemory wordSize);
 					bcptr: startpc]].
-	simSpillBase := simStackPtr := methodOrBlockNumArgs - 1
+	simSpillBase := simStackPtr := methodOrBlockNumArgs - 1.
+	LowcodeVM ifTrue: [
+		simNativeSpillBase := simNativeStackPtr := -1.
+		simNativeStackSize := 0.
+	].

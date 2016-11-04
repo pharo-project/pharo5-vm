@@ -9,6 +9,8 @@ initializeBytecodeTableForSistaV1
 	BytecodeTable := Array new: 256.
 	BytecodeEncoderClassName := #EncoderForSistaV1.
 	BytecodeSetHasDirectedSuperSend := true.
+	BytecodeSetHasExtensions := true.
+	LongStoreBytecode := 245.
 	self table: BytecodeTable from:
 	#(	"1 byte bytecodes"
 		(   0  15 pushReceiverVariableBytecode)
@@ -124,7 +126,7 @@ initializeBytecodeTableForSistaV1
 		(252		extStoreRemoteTempOrInstVarLongBytecode)
 		(253		extStoreAndPopRemoteTempOrInstVarLongBytecode)
 				
-		(254		extJumpIfNotInstanceOfBehaviorsOrPopBytecode)
+		(254		extJumpIfNotInstanceOfBehaviorsBytecode)
 
 		(255		unknownBytecode)
 	)

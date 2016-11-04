@@ -10,6 +10,8 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'"vmCallback.h"';
 		addHeaderFile:'"sqMemoryFence.h"';
 		addHeaderFile:'"dispdbg.h"'.
+	LowcodeVM ifTrue: [ aCCodeGenerator addHeaderFile:'"sqLowcodeFFI.h"'].
+	
 	vmClass declareInterpreterVersionIn: aCCodeGenerator defaultName: 'Stack'.
 	aCCodeGenerator
 		var: #interpreterProxy  type: #'struct VirtualMachine*'.
@@ -21,7 +23,7 @@ declareCVarsIn: aCCodeGenerator
 		as: #usqInt
 		in: aCCodeGenerator.
 	"These are all pointers; char * because Slang has no support for C pointer arithmetic."
-	self declareC: #(localIP localSP localFP stackPointer framePointer stackLimit breakSelector)
+	self declareC: #(localIP localSP localFP nativeSP stackPointer framePointer stackLimit breakSelector nativeStackPointer nativeFramePointer shadowCallStack)
 		as: #'char *'
 		in: aCCodeGenerator.
 	aCCodeGenerator
@@ -41,9 +43,11 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator addConstantForBinding: (self bindingOf: #MULTIPLEBYTECODESETS).
 	MULTIPLEBYTECODESETS == false ifTrue:
 		[aCCodeGenerator
-			removeVariable: 'extA';
-			removeVariable: 'extB';
 			removeVariable: 'bytecodeSetSelector'].
+	BytecodeSetHasExtensions == false ifTrue:
+		[aCCodeGenerator
+			removeVariable: 'extA';
+			removeVariable: 'extB'].
 	aCCodeGenerator
 		var: #methodCache
 		declareC: 'sqIntptr_t methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
@@ -98,4 +102,13 @@ declareCVarsIn: aCCodeGenerator
 								statProcessSwitch statIOProcessEvents statForceInterruptCheck
 								statCheckForEvents statStackOverflow statStackPageDivorce)
 		in: aCCodeGenerator.
-	aCCodeGenerator var: #nextProfileTick type: #sqLong
+	aCCodeGenerator var: #nextProfileTick type: #sqLong.
+	
+	LowcodeVM ifTrue: [
+		aCCodeGenerator
+			var: #shadowCallStackPointer
+			type: #'char*'.
+		aCCodeGenerator
+			var: #lowcodeCalloutState
+			type: #'sqLowcodeCalloutState*'
+	].

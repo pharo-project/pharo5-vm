@@ -9,6 +9,7 @@ initialize
 			(self initialize)
 	The operand specifiers are
 		R		- general purpose register
+		Rs		- single-precision floating-point register
 		Rd		- double-precision floating-point register
 		Cq		- a `quick' constant that can be encoded in the minimum space possible.
 		Cw		- a constant with word size where word is the default operand size for the Smalltalk VM, 32-bits
@@ -16,8 +17,9 @@ initialize
 				  of bits.  This allows e.g. a garbage collector to update the value without invalidating the code.
 		C32	- a constant with 32 bit size.  The generated constant must occupy 32 bits.
 		C64	- a constant with 64 bit size.  The generated constant must occupy 64 bits.
-		Aw		- memory word at an absolute address
+		Aw		- memory word (32-bits for a 32-bit VM, 64-bits for a 64-bit VM) at an absolute address
 		Ab		- memory byte at an absolute address
+		A32	- memory 32-bit halfword at an absolute address
 		Mwr	- memory word whose address is at a constant offset from an address in a register
 		Mbr		- memory byte whose address is at a constant offset from an address in a register (zero-extended on read)
 		M16r	- memory 16-bit halfword whose address is at a constant offset from an address in a register
@@ -72,11 +74,12 @@ initialize
 						"Control"
 						Call					"call within the code zone"
 						CallFull				"call anywhere within the full address space"
+						CallR
 						RetN
 						JumpR				"Not a regular jump, i.e. not pc dependent."
 						Stop				"Halt the processor"
 
-						"N.B.  Jumps are contiguous.  Long and Full jumps are contigiuous within them.  See FirstJump et al below"
+						"N.B.  Jumps are contiguous.  Long and Full jumps are contiguous within them.  See FirstJump et al below"
 						JumpFull			"Jump anywhere within the address space"
 						JumpLong			"Jump anywhere within the 16mb code zone."
 						JumpLongZero			"a.k.a. JumpLongEqual"
@@ -110,22 +113,25 @@ initialize
 
 						"Data Movement; destination is always last operand"
 						MoveRR
-						MoveAwR
-						MoveRAw
+						MoveAwR MoveA32R
+						MoveRAw MoveRA32
 						MoveAbR
 						MoveRAb
 						MoveMwrR MoveRMwr MoveXwrRR MoveRXwrR MoveXowrR MoveRXowr
+						MoveM8rR MoveMs8rR MoveRM8r 
 						MoveM16rR MoveRM16r MoveX16rRR MoveRX16rR
 						MoveM32rR MoveRM32r MoveX32rRR MoveRX32rR
 						MoveMbrR MoveRMbr MoveXbrRR MoveRXbrR
 						MoveCqR MoveCwR MoveC32R MoveC64R
 						MoveRRd MoveRdR MoveRdRd MoveM64rRd MoveRdM64r
+						MoveRsRs MoveM32rRs MoveRsM32r
 						PopR PushR PushCq PushCw
 						PrefetchAw
 
 						"Arithmetic; destination is always last operand except Cmp; CmpXR is SubRX with no update of result"
 						LoadEffectiveAddressMwrR LoadEffectiveAddressXowrR "Variants of add/multiply"
 						NegateR "2's complement negation"
+						NotR
 						ArithmeticShiftRightCqR ArithmeticShiftRightRR
 						LogicalShiftRightCqR LogicalShiftRightRR
 						LogicalShiftLeftCqR LogicalShiftLeftRR
@@ -134,13 +140,19 @@ initialize
 						CmpRR AddRR SubRR AndRR OrRR XorRR
 						CmpCqR AddCqR SubCqR AndCqR OrCqR TstCqR XorCqR
 						CmpCwR CmpC32R AddCwR SubCwR AndCwR OrCwR XorCwR
+						AddcRR AddcCqR SubbRR
 
 						AndCqRR "Three address ops for RISCs; feel free to add and extend"
 
-						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd
+						CmpRdRd AddRdRd SubRdRd MulRdRd DivRdRd SqrtRd XorRdRd
+						CmpRsRs AddRsRs SubRsRs MulRsRs DivRsRs SqrtRs XorRsRs
 
 						"Conversion"
-						ConvertRRd
+						ConvertRRd ConvertRdR
+						ConvertRsRd ConvertRdRs ConvertRsR ConvertRRs
+
+						SignExtend8RR SignExtend16RR
+						ZeroExtend8RR ZeroExtend16RR
 
 						LastRTLCode).
 

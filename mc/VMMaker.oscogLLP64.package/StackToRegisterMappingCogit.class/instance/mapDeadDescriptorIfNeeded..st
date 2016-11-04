@@ -5,6 +5,6 @@ mapDeadDescriptorIfNeeded: descriptor
 	<var: #descriptor type: #'BytecodeDescriptor *'>
 	self flag: #annotateInstruction .
 	(descriptor isMapped
-		or: [inBlock and: [descriptor isMappedInBlock]]) 
+		or: [inBlock > 0 and: [descriptor isMappedInBlock]]) 
 		ifTrue: [self annotateBytecode: self Nop].
 	^ 0

@@ -26,7 +26,13 @@ generateObjectRepresentationTrampolines
 											genTrampolineFor: #ceScheduleScavenge
 											called: 'ceScheduleScavengeTrampoline'
 											regsToSave: CallerSavedRegisterMask.
-	ceSmallActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: false inBlock: false called: 'ceSmallMethodContext'.
-	ceSmallActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: true called: 'ceSmallBlockContext'.
-	ceLargeActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: true inBlock: false called: 'ceLargeMethodContext'.
-	ceLargeActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: true inBlock: true called: 'ceLargeBlockContext'
+	ceSmallActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: false inBlock: 0 called: 'ceSmallMethodContext'.
+	ceSmallActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: InVanillaBlock called: 'ceSmallBlockContext'.
+	SistaV1BytecodeSet ifTrue:
+		[ceSmallActiveContextInFullBlockTrampoline := self genActiveContextTrampolineLarge: false inBlock: InFullBlock called: 'ceSmallFullBlockContext'].
+	ceLargeActiveContextInMethodTrampoline := self genActiveContextTrampolineLarge: true inBlock: 0 called: 'ceLargeMethodContext'.
+	ceLargeActiveContextInBlockTrampoline := self genActiveContextTrampolineLarge: true inBlock: InVanillaBlock called: 'ceLargeBlockContext'.
+	SistaV1BytecodeSet ifTrue:
+		[ceLargeActiveContextInFullBlockTrampoline := self genActiveContextTrampolineLarge: true inBlock: InFullBlock called: 'ceLargeFullBlockContext'].
+		
+	LowcodeVM ifTrue: [ self generateLowcodeObjectTrampolines ]

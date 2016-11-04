@@ -88,4 +88,5 @@ initializeAnnotationConstants
 										IsDirectedSuperSend
 										IsNSSelfSend
 										IsNSDynamicSuperSend
-										IsNSImplicitReceiverSend)
+										IsNSImplicitReceiverSend),
+										{'IsRelativeCall:\HasBytecodePC' withCRs}

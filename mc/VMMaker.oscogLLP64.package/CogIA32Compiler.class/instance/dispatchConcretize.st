@@ -5,32 +5,21 @@ dispatchConcretize
 	 to get around the branch size limits in the SqueakV3 (blue book derived)
 	 bytecode set."
 	<returnTypeC: #void>
+	opcode >= CDQ ifTrue:
+		[^self dispatchConcretizeProcessorSpecific].
 	opcode caseOf: {
 		"Noops & Pseudo Ops"
 		[Label]				-> [^self concretizeLabel].
 		[AlignmentNops]	-> [^self concretizeAlignmentNops].
 		[Fill32]				-> [^self concretizeFill32].
 		[Nop]				-> [^self concretizeNop].
-		"Specific Control/Data Movement"
-		[CDQ]					-> [^self concretizeCDQ].
-		[IDIVR]					-> [^self concretizeIDIVR].
-		[IMULRR]				-> [^self concretizeMulRR].
-		[CPUID]					-> [^self concretizeCPUID].
-		[CMPXCHGAwR]			-> [^self concretizeCMPXCHGAwR].
-		[CMPXCHGMwrR]		-> [^self concretizeCMPXCHGMwrR].
-		[LFENCE]				-> [^self concretizeFENCE: 5].
-		[MFENCE]				-> [^self concretizeFENCE: 6].
-		[SFENCE]				-> [^self concretizeFENCE: 7].
-		[LOCK]					-> [^self concretizeLOCK].
-		[XCHGAwR]				-> [^self concretizeXCHGAwR].
-		[XCHGMwrR]			-> [^self concretizeXCHGMwrR].
-		[XCHGRR]				-> [^self concretizeXCHGRR].
 		"Control"
 		[Call]					-> [^self concretizeCall].
+		[CallR]					-> [^self concretizeCallR].
 		[CallFull]				-> [^self concretizeCall].
-		[JumpR]					-> [^self concretizeJumpR].
+		[JumpR]				-> [^self concretizeJumpR].
 		[JumpFull]				-> [^self concretizeJumpLong].
-		[JumpLong]				-> [^self concretizeJumpLong].
+		[JumpLong]			-> [^self concretizeJumpLong].
 		[JumpLongZero]		-> [^self concretizeConditionalJump: 16r4].
 		[JumpLongNonZero]	-> [^self concretizeConditionalJump: 16r5].
 		[Jump]					-> [^self concretizeJump].
@@ -64,47 +53,66 @@ dispatchConcretize
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeAddCqR].
 		[AddCwR]					-> [^self concretizeAddCwR].
-		[AddRR]						-> [^self concretizeOpRR: 16r03].
+		[AddRR]					-> [^self concretizeOpRR: 16r03].
+		[AddcRR]					-> [^self concretizeAddcRR].
+		[AddcCqR]					-> [^self concretizeAddcCqR].
 		[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58].
+		[AddRsRs]					-> [^self concretizeSEEOpRsRs: 16r58].
 		[AndCqR]					-> [^self concretizeAndCqR].
 		[AndCwR]					-> [^self concretizeAndCwR].
-		[AndRR]						-> [^self concretizeOpRR: 16r23].
+		[AndRR]					-> [^self concretizeOpRR: 16r23].
 		[TstCqR]					-> [^self concretizeTstCqR].
 		[CmpCqR]					-> [^self concretizeCmpCqR].
 		[CmpCwR]					-> [^self concretizeCmpCwR].
 		[CmpRR]					-> [^self concretizeReverseOpRR: 16r39].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
+		[CmpRsRs]					-> [^self concretizeCmpRsRs].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
+		[DivRsRs]					-> [^self concretizeSEEOpRsRs: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59].
-		[OrCqR]						-> [^self concretizeOrCqR].
+		[MulRsRs]					-> [^self concretizeSEEOpRsRs: 16r59].
+		[OrCqR]					-> [^self concretizeOrCqR].
 		[OrCwR]					-> [^self concretizeOrCwR].
 		[OrRR]						-> [^self concretizeOpRR: 16r0B].
 		[SubCqR]					-> [^self concretizeSubCqR].
 		[SubCwR]					-> [^self concretizeSubCwR].
-		[SubRR]						-> [^self concretizeOpRR: 16r2B].
+		[SubRR]					-> [^self concretizeOpRR: 16r2B].
+		[SubbRR]					-> [^self concretizeSubbRR].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].
+		[SubRsRs]					-> [^self concretizeSEEOpRsRs: 16r5C].
 		[SqrtRd]						-> [^self concretizeSqrtRd].
+		[SqrtRs]						-> [^self concretizeSqrtRs].
 		[XorCwR]						-> [^self concretizeXorCwR].
 		[XorRR]							-> [^self concretizeOpRR: 16r33].
+		[XorRdRd]						-> [^self concretizeXorRdRd].
+		[XorRsRs]						-> [^self concretizeXorRsRs].
 		[NegateR]						-> [^self concretizeNegateR].
+		[NotR]							-> [^self concretizeNotR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[ArithmeticShiftRightCqR]		-> [^self concretizeArithmeticShiftRightCqR].
 		[LogicalShiftRightCqR]			-> [^self concretizeLogicalShiftRightCqR].
 		[LogicalShiftLeftCqR]			-> [^self concretizeLogicalShiftLeftCqR].
-		[ArithmeticShiftRightRR]			-> [^self concretizeArithmeticShiftRightRR].
+		[ArithmeticShiftRightRR]		-> [^self concretizeArithmeticShiftRightRR].
 		[LogicalShiftLeftRR]				-> [^self concretizeLogicalShiftLeftRR].
 		"Data Movement"
 		[MoveCqR]			-> [^self concretizeMoveCqR].
 		[MoveCwR]			-> [^self concretizeMoveCwR].
 		[MoveRR]			-> [^self concretizeReverseOpRR: 16r89].
+		[MoveRdRd]		-> [^self concretizeMoveRdRd].
+		[MoveRsRs]			-> [^self concretizeMoveRsRs].
 		[MoveAwR]			-> [^self concretizeMoveAwR].
 		[MoveRAw]			-> [^self concretizeMoveRAw].
 		[MoveAbR]			-> [^self concretizeMoveAbR].
 		[MoveRAb]			-> [^self concretizeMoveRAb].
-		[MoveMbrR]			-> [^self concretizeMoveMbrR].
-		[MoveRMbr]			-> [^self concretizeMoveRMbr].
+		[MoveMbrR]		-> [^self concretizeMoveMbrR].
+		[MoveRMbr]		-> [^self concretizeMoveRMbr].
+		[MoveRM8r]		-> [^self concretizeMoveRMbr].
+		[MoveM8rR]		-> [^self concretizeMoveM8rR].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
 		[MoveRM16r]		-> [^self concretizeMoveRM16r].
+		[MoveM32rR]		-> [^self concretizeMoveMwrR].
+		[MoveRM32r]		-> [^self concretizeMoveRMwr].
+		[MoveM32rRs]		-> [^self concretizeMoveM32rRs].
 		[MoveM64rRd]		-> [^self concretizeMoveM64rRd].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
 		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].

@@ -10,8 +10,8 @@ mustBeGlobal: var
 		ceCallCogCodePopReceiverAndClassRegs realCECallCogCodePopReceiverAndClassRegs
 		'ceReturnToInterpreterTrampoline' 'ceCannotResumeTrampoline'
 		ceTryLockVMOwner ceUnlockVMOwner
-		'cmEntryOffset' 'cmNoCheckEntryOffset' 'cmDynSuperEntryOffset' 'cmSelfSendEntryOffset' 'missOffset'
-		'blockNoContextSwitchOffset' breakPC
+		'cmEntryOffset' 'cmNoCheckEntryOffset' 'cmDynSuperEntryOffset' 'cmSelfSendEntryOffset'
+		'missOffset' 'cbEntryOffset' 'cbNoSwitchEntryOffset' 'blockNoContextSwitchOffset' breakPC
 		CFramePointer CStackPointer 'cFramePointerInUse' ceGetFP ceGetSP
 		traceFlags 'traceStores' debugPrimCallStackOffset)
 			includes: var

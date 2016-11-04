@@ -7,7 +7,7 @@ relocateIfCallOrMethodReference: annotation mcpc: mcpc delta: refDelta
 
 	callDelta := backEnd zoneCallsAreRelative ifTrue: [refDelta] ifFalse: [0].
 	
-	self cppIf: NewspeakVM ifTrue:
+	NewspeakVM ifTrue:
 		[| nsSendCache |
 		 annotation = IsNSSendCall ifTrue:
 			["Retrieve the send cache before relocating the stub call. Fetching the send

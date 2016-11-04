@@ -1,0 +1,3 @@
+UI
+windowColorToUse
+	^Color lightBlue

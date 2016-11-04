@@ -1,6 +1,6 @@
 primitive generators
 genPrimitiveAt
-	| formatReg convertToIntAndReturn methodInBounds
+	| formatReg nSlotsOrBytesReg convertToIntAndReturn methodInBounds
 	  jumpNotIndexable jumpImmediate jumpBadIndex
 	  jumpIsBytes jumpIsShorts jumpIsWords jumpIsMethod jumpIsArray jumpIsContext
 	  jumpHasFixedFields jumpArrayOutOfBounds jumpFixedFieldsOutOfBounds
@@ -22,6 +22,8 @@ genPrimitiveAt
 	<var: #jumpWordsOutOfBounds type: #'AbstractInstruction *'>
 	<var: #jumpFixedFieldsOutOfBounds type: #'AbstractInstruction *'>
 
+	nSlotsOrBytesReg := ClassReg.
+
 	cogit genLoadArgAtDepth: 0 into: Arg0Reg.
 	jumpImmediate := self genJumpImmediate: ReceiverResultReg.
 	cogit MoveR: Arg0Reg R: Arg1Reg.
@@ -34,7 +36,7 @@ genPrimitiveAt
 		into: (formatReg := SendNumArgsReg)
 		leastSignificantHalfOfBaseHeaderIntoScratch: TempReg.
 
-	self genGetNumSlotsOf: ReceiverResultReg into: ClassReg.
+	self genGetNumSlotsOf: ReceiverResultReg into: nSlotsOrBytesReg.
 
 	"dispatch on format in a combination of highest dynamic frequency order first and convenience.
 		  0 = 0 sized objects (UndefinedObject True False et al)
@@ -67,17 +69,17 @@ genPrimitiveAt
 	jumpNotIndexable := cogit Jump: 0.
 
 	jumpIsArray jmpTarget:
-		(cogit CmpR: Arg1Reg R: ClassReg).
+		(cogit CmpR: Arg1Reg R: nSlotsOrBytesReg).
 	jumpArrayOutOfBounds := cogit JumpBelowOrEqual: 0.	
 	cogit AddCq: objectMemory baseHeaderSize >> objectMemory shiftForWord R: Arg1Reg.
 	cogit MoveXwr: Arg1Reg R: ReceiverResultReg R: ReceiverResultReg.
 	cogit genPrimReturn.
 
 	jumpIsBytes jmpTarget:
-		(cogit LogicalShiftLeftCq: objectMemory shiftForWord R: ClassReg).
+		(cogit LogicalShiftLeftCq: objectMemory shiftForWord R: nSlotsOrBytesReg).
 		cogit AndCq: objectMemory wordSize - 1 R: formatReg R: TempReg.
-		cogit SubR: TempReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
+		cogit SubR: TempReg R: nSlotsOrBytesReg;
+		CmpR: Arg1Reg R: nSlotsOrBytesReg.
 	jumpBytesOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit CmpCq: objectMemory firstCompiledMethodFormat R: formatReg.
 	jumpIsMethod := cogit JumpAboveOrEqual: 0.
@@ -95,17 +97,18 @@ genPrimitiveAt
 	cogit genPrimReturn.
 
 	jumpIsShorts jmpTarget:
-		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: ClassReg).
+		(cogit LogicalShiftLeftCq: objectMemory shiftForWord - 1 R: nSlotsOrBytesReg).
 		cogit AndCq: 1 R: formatReg.
-		cogit SubR: formatReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
+		cogit SubR: formatReg R: nSlotsOrBytesReg;
+		CmpR: Arg1Reg R: nSlotsOrBytesReg.
 	jumpShortsOutOfBounds := cogit JumpBelowOrEqual: 0.
+	cogit AddR: Arg1Reg R: ReceiverResultReg.
 	cogit AddR: Arg1Reg R: ReceiverResultReg.
 	cogit MoveM16: objectMemory baseHeaderSize r: ReceiverResultReg R: ReceiverResultReg.
 	cogit Jump: convertToIntAndReturn.
 
 	jumpIsWords jmpTarget:
-		(cogit CmpR: Arg1Reg R: ClassReg).
+		(cogit CmpR: Arg1Reg R: nSlotsOrBytesReg).
 	jumpWordsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	cogit AddCq: objectMemory baseHeaderSize >>  (objectMemory shiftForWord - 1) R: Arg1Reg.
 	cogit MoveX32r: Arg1Reg R: ReceiverResultReg R: TempReg.
@@ -122,8 +125,8 @@ genPrimitiveAt
 	self genConvertSmallIntegerToIntegerInReg: formatReg.
 	cogit
 		AndCq: objectMemory fixedFieldsOfClassFormatMask R: formatReg;
-		SubR: formatReg R: ClassReg;
-		CmpR: Arg1Reg R: ClassReg.
+		SubR: formatReg R: nSlotsOrBytesReg;
+		CmpR: Arg1Reg R: nSlotsOrBytesReg.
 	jumpFixedFieldsOutOfBounds := cogit JumpBelowOrEqual: 0.
 	"index is (formatReg (fixed fields) + Arg1Reg (0-rel index)) * wordSize + baseHeaderSize"
 	cogit AddR: formatReg R: Arg1Reg.
@@ -133,8 +136,8 @@ genPrimitiveAt
 
 	jumpIsMethod jmpTarget: cogit Label.
 	"Now check that the index is beyond the method's literals..."
-	self getLiteralCountOf: ReceiverResultReg plusOne: true inBytes: true into: ClassReg scratch: TempReg.
-	cogit CmpR: Arg1Reg R: ClassReg.
+	self getLiteralCountOf: ReceiverResultReg plusOne: true inBytes: true into: nSlotsOrBytesReg scratch: TempReg.
+	cogit CmpR: Arg1Reg R: nSlotsOrBytesReg.
 	cogit JumpBelow: methodInBounds.
 
 	jumpFixedFieldsOutOfBounds jmpTarget:

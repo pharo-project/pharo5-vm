@@ -16,18 +16,24 @@ subscript: array with: index storing: oopToStore format: fmt
 			 ^self].
 		 objectMemory storeByte: index - 1 ofObject: array withValue: signedValueToStore.
 		 ^self].
-	(objectMemory hasSpurMemoryManagerAPI
-	 and: [fmt >= objectMemory firstShortFormat]) ifTrue:
-		[(objectMemory isIntegerObject: oopToStore) ifFalse:
-			[primFailCode := PrimErrBadArgument.
+	objectMemory hasSpurMemoryManagerAPI ifTrue:
+		[fmt >= objectMemory firstShortFormat ifTrue:
+			[(objectMemory isIntegerObject: oopToStore) ifFalse:
+				[primFailCode := PrimErrBadArgument.
+				 ^self].
+			 signedValueToStore := objectMemory integerValueOf: oopToStore.
+			 (signedValueToStore >= 0 and: [signedValueToStore <= 65535]) ifFalse:
+				[primFailCode := PrimErrBadArgument.
+				 ^self].
+			 objectMemory storeShort16: index - 1 ofObject: array withValue: signedValueToStore.
 			 ^self].
-		 signedValueToStore := objectMemory integerValueOf: oopToStore.
-		 (signedValueToStore >= 0 and: [signedValueToStore <= 65535]) ifFalse:
-			[primFailCode := PrimErrBadArgument.
-			 ^self].
-		 objectMemory storeShort16: index - 1 ofObject: array withValue: signedValueToStore.
-		 ^self].
-	"double-word type objects; for now assume no 64-bit indexable objects"
+		 fmt = objectMemory sixtyFourBitIndexableFormat ifTrue:
+			[| unsigned64BitValueToStore |
+			 unsigned64BitValueToStore := self positive64BitValueOf: oopToStore.
+			 self successful ifTrue:
+				[objectMemory storeLong64: index - 1 ofObject: array withValue: unsigned64BitValueToStore].
+			 ^self]].
+	"32bit-word type objects"
 	unsignedValueToStore := self positive32BitValueOf: oopToStore.
 	self successful ifTrue:
 		[objectMemory storeLong32: index - 1 ofObject: array withValue: unsignedValueToStore]

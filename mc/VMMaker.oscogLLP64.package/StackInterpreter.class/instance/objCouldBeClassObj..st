@@ -8,12 +8,12 @@ objCouldBeClassObj: objOop
 	^(objectMemory isPointersNonImm: objOop)
 	  and: [(objectMemory numSlotsOfAny: objOop) > InstanceSpecificationIndex
 	  and: [fieldOop := objectMemory fetchPointer: SuperclassIndex ofObject: objOop.
-			((objectMemory isNonImmediate: fieldOop)
+			((objectMemory addressCouldBeObj: fieldOop)
 			and:[ (objectMemory isPointersNonImm: fieldOop)
 				or: [(objectMemory isOopForwarded: fieldOop)
 					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]])
 	  and: [fieldOop := objectMemory fetchPointer: MethodDictionaryIndex ofObject: objOop.
-			((objectMemory isNonImmediate: fieldOop)
+			((objectMemory addressCouldBeObj: fieldOop)
 			and:[ (objectMemory isPointersNonImm: fieldOop)
 				or: [(objectMemory isOopForwarded: fieldOop)
 					and: [objectMemory isPointers: (objectMemory followForwarded: fieldOop)]]])

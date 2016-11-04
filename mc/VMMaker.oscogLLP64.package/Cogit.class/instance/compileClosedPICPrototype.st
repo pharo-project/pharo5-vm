@@ -53,9 +53,9 @@ compileClosedPICPrototype
 	self MoveUniqueCw: 16r5EAF00D R: SendNumArgsReg.
 	self JumpLong: self cPICPrototypeCaseOffset + 16rCA5E10.
 	endCPICCase0 := self Label.
-	1 to: maxCPICCases - 1 do:
+	1 to: MaxCPICCases - 1 do:
 		[:h|
-		h = (maxCPICCases - 1) ifTrue:
+		h = (MaxCPICCases - 1) ifTrue:
 			[jumpNext jmpTarget: self Label]. "this is where we jump to for the first case"
 		"16rBADA550+h is the method oop, or 0, for the Nth case."
 		self MoveUniqueCw: 16rBADA550 + h R: SendNumArgsReg.

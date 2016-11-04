@@ -2,8 +2,11 @@ UI
 openAsMorphNoTranscript
 	"Open a morphic view on this simulation."
 	| localImageName borderWidth window |
-	localImageName := FileDirectory default localNameFor: imageName.
-	window := (SystemWindow labelled: 'Simulation of ' , localImageName) model: self.
+	localImageName := imageName
+							ifNotNil: [FileDirectory default localNameFor: imageName]
+							ifNil: [' synthetic image'].
+	window := (SystemWindow labelled: 'Simulation of ', localImageName) model: self.
+	window paneColor: self windowColorToUse.
 
 	window addMorph: (displayView := SimulatorImageMorph new image: displayForm)
 			frame: (0@0 corner: 1@0.95).

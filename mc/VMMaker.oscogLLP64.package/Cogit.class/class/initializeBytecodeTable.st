@@ -4,7 +4,7 @@ initializeBytecodeTable
 	"StackToRegisterMappingCogit initializeBytecodeTableWith: Dictionary new"
 
 	| initializer |
-	BytecodeSetHasDirectedSuperSend := false.
+	BytecodeSetHasDirectedSuperSend := BytecodeSetHasExtensions := false.
 	initializer := initializationOptions
 					at: #bytecodeTableInitializer
 					ifAbsent:

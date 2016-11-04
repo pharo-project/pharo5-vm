@@ -9,7 +9,10 @@
 		"ceCreateNewArrayTrampoline",
 		"cePositive32BitIntegerTrampoline",
 		"ceActiveContextTrampoline",
-		"ceClosureCopyTrampoline" ],
+		"ceClosureCopyTrampoline",
+		"ceSigned32BitIntegerTrampoline",
+		"ceSigned32BitValueOfTrampoline",
+		"cePositive32BitValueOfTrampoline" ],
 	"name" : "CogObjectRepresentationForSqueakV3",
 	"pools" : [
 		"VMSqueakClassIndices",

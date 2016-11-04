@@ -1,5 +1,5 @@
 accessing
 noCheckEntryOffset
 	<api>
-	<cmacro: '() cmNoCheckEntryOffset'>
+	<cmacro>
 	^cmNoCheckEntryOffset

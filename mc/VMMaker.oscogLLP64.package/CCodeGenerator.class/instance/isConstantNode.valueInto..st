@@ -1,4 +1,4 @@
-testing
+utilities
 isConstantNode: aNode valueInto: aBlock
 	"Answer if aNode evaluates to a constant, and if so, evaluate aBlock with the value of that constant."
 

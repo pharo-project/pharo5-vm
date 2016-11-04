@@ -8,7 +8,7 @@ extSendSuperBytecode
 	byte := self fetchByte.
 	messageSelector := self literal: (byte >> 3) + (extA << 5).
 	extA := 0.
-	SistaVM ifTrue:
+	BytecodeSetHasDirectedSuperSend ifTrue:
 		[extB >= 64 ifTrue:
 			[argumentCount := (byte bitAnd: 7) + (extB - 64 << 3).
 			 extB := 0.

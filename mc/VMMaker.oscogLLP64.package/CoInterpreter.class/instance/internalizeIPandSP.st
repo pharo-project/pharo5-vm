@@ -5,4 +5,5 @@ internalizeIPandSP
 	self assert: instructionPointer ~= cogit ceReturnToInterpreterPC.
 	localIP := self pointerForOop: instructionPointer.
 	localSP := self pointerForOop: stackPointer.
-	localFP := self pointerForOop: framePointer
+	localFP := self pointerForOop: framePointer.
+	LowcodeVM ifTrue: [ nativeSP := 0. ]
