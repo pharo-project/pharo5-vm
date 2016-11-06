@@ -4,12 +4,12 @@ putLong: aLong toFile: aFile
 	 depending on ObjectMemory.  (Bytes will be swapped, if necessary, when the image is read
 	 on a different platform.) Set successFlag to false if the write fails."
 
-	<var: #aLong type: #long>
+	<var: #aLong type: #sqInt>
 	<var: #aFile type: #sqImageFile>
 	<inline: false>
 	| objectsWritten |
 	objectsWritten := self
-						cCode: [self sq: (self addressOf: aLong) Image: (self sizeof: #long) File: 1 Write: aFile]
+						cCode: [self sq: (self addressOf: aLong) Image: (self sizeof: #sqInt) File: 1 Write: aFile]
 						inSmalltalk:
 							[| value |
 							 value := aLong.
