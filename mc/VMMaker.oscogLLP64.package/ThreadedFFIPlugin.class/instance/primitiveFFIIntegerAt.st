@@ -30,7 +30,7 @@ primitiveFFIIntegerAt
 	byteSize < BytesPerWord
 		ifTrue:
 			[isSigned ifTrue: "sign extend value"
-				[mask := 1 asUnsignedIntegerPtr << (byteSize * 8 - 1).
+				[mask := 1 asUnsignedLongLong << (byteSize * 8 - 1).
 				value := (value bitAnd: mask-1) - (value bitAnd: mask)].
 			 "note: byte/short (&long if BytesPerWord=8) never exceed SmallInteger range"
 			 valueOop := interpreterProxy integerObjectOf: value]
@@ -38,7 +38,7 @@ primitiveFFIIntegerAt
 			[isSigned
 				ifTrue:
 					[byteSize < 8 ifTrue: "sign extend value"
-						[mask := 1 asUnsignedIntegerPtr << (byteSize * 8 - 1).
+						[mask := 1 asUnsignedLongLong << (byteSize * 8 - 1).
 						value := (value bitAnd: mask-1) - (value bitAnd: mask)].
 					 valueOop := interpreterProxy signed64BitIntegerFor: value]
 				ifFalse:[valueOop := interpreterProxy positive64BitIntegerFor: value]].

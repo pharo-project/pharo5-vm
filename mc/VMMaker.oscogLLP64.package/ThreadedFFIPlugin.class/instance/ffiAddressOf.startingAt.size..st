@@ -18,6 +18,6 @@ ffiAddressOf: rcvr startingAt: byteOffset size: byteSize
 		ifFalse:
 			[byteOffset+byteSize-1 <= rcvrSize ifFalse:
 				[^interpreterProxy primitiveFail].
-			addr := self cCoerce: (interpreterProxy firstIndexableField: rcvr) to: #sqInt].
+			addr := self cCoerce: (interpreterProxy firstIndexableField: rcvr) to: #'sqIntptr_t'].
 	addr := addr + byteOffset - 1.
 	^addr

@@ -25,7 +25,7 @@ addNewMethodToNSCache: rule
 			nsMethodCache at: probe + NSMethodCacheCallingMethod put: method.
 			nsMethodCache at: probe + NSMethodCacheDepthOrLookupRule put: rule.
 			nsMethodCache at: probe + NSMethodCacheTargetMethod put: newMethod.
-			nsMethodCache at: probe + NSMethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #sqInt).
+			nsMethodCache at: probe + NSMethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 			nsMethodCache at: probe + NSMethodCacheActualReceiver put: localAbsentReceiverOrZero.
 			"lastMethodCacheProbeWrite := probe." "this for primitiveExternalMethod"
 			^self]].
@@ -37,7 +37,7 @@ addNewMethodToNSCache: rule
 	nsMethodCache at: probe + NSMethodCacheCallingMethod put: method.
 	nsMethodCache at: probe + NSMethodCacheDepthOrLookupRule put: rule.
 	nsMethodCache at: probe + NSMethodCacheTargetMethod put: newMethod.
-	nsMethodCache at: probe + NSMethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #sqInt).
+	nsMethodCache at: probe + NSMethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 	nsMethodCache at: probe + NSMethodCacheActualReceiver put: localAbsentReceiverOrZero.
 	"lastMethodCacheProbeWrite := probe. ""this for primitiveExternalMethod"
 
