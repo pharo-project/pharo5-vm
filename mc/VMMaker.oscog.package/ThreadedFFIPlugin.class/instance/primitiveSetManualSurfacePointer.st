@@ -6,7 +6,7 @@ primitiveSetManualSurfacePointer
 		ptr(uint32/uint64, 0)"
 	| surfaceID ptr result |
 	<export: true>
-	<var: #ptr type: #'unsigned long'>
+	<var: #ptr type: #'usqIntptr_t'>
 	
 	interpreterProxy methodArgumentCount = 2 ifFalse: [^interpreterProxy primitiveFail].
 	surfaceID := interpreterProxy stackIntegerValue: 1.

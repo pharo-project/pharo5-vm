@@ -30,7 +30,7 @@ addNewMethodToCache
 			methodCache at: probe + MethodCacheClass put: lkupClass.
 			methodCache at: probe + MethodCacheMethod put: newMethod.
 			methodCache at: probe + MethodCachePrim put: primitiveIndex.
-			methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: 'long').
+			methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 			^ nil]].
 
 	"OK, we failed to find an entry -- install at the first slot..."
@@ -39,7 +39,7 @@ addNewMethodToCache
 	methodCache at: probe + MethodCacheClass put: lkupClass.
 	methodCache at: probe + MethodCacheMethod put: newMethod.
 	methodCache at: probe + MethodCachePrim put: primitiveIndex.
-	methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: 'long').
+	methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 
 	"...and zap the following entries"
 	1 to: CacheProbeMax-1 do:

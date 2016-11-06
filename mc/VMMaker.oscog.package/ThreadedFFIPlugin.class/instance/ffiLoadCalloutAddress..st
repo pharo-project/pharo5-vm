@@ -2,7 +2,7 @@ symbol loading
 ffiLoadCalloutAddress: lit
 	"Load the address of the foreign function from the given object"
 	| addressPtr address ptr |
-	<var: #ptr type: #'long *'>
+	<var: #ptr type: #'sqIntptr_t *'>
 	"Lookup the address"
 	addressPtr := interpreterProxy fetchPointer: 0 ofObject: lit.
 	"Make sure it's an external handle"

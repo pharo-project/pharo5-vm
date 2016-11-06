@@ -8,4 +8,4 @@ maybeGenerateCheckFeatures
 		 backEnd generateCheckFeatures.
 		 self outputInstructionsForGeneratedRuntimeAt: startAddress.
 		 self recordGeneratedRunTime: 'ceCheckFeaturesFunction' address: startAddress.
-		 ceCheckFeaturesFunction := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)']
+		 ceCheckFeaturesFunction := self cCoerceSimple: startAddress to: #'usqIntptr_t (*)(void)']

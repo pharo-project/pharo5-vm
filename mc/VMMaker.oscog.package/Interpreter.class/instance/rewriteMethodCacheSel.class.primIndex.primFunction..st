@@ -11,5 +11,5 @@ rewriteMethodCacheSel: selector class: class primIndex: localPrimIndex primFunct
 			((methodCache at: probe + MethodCacheSelector) = selector
 					and: [(methodCache at: probe + MethodCacheClass) = class])
 				ifTrue: [methodCache at: probe + MethodCachePrim put: localPrimIndex.
-					methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: localPrimAddress to: 'long').
+					methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: localPrimAddress to: #'sqIntptr_t').
 					^ nil]]

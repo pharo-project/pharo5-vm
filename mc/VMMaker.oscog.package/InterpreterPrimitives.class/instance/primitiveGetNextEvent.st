@@ -2,7 +2,7 @@ I/O primitives
 primitiveGetNextEvent
 	"Primitive. Return the next input event from the VM event queue."
 	| evtBuf arg value eventTypeIs |
-	<var: #evtBuf declareC:'long evtBuf[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }'>
+	<var: #evtBuf declareC:'sqIntptr_t evtBuf[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }'>
 	self cCode: [] inSmalltalk: [evtBuf := objectMemory newInputEventAccessorOfSize: 8].
 	arg := self stackTop.
 	((objectMemory isArray: arg) and:[(objectMemory slotSizeOf: arg) = 8]) ifFalse:

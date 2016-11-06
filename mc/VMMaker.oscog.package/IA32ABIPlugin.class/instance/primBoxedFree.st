@@ -5,8 +5,9 @@ primBoxedFree
 		<primitive: 'primBoxedFree' error: errorCode module: 'IA32ABI'>"
 	| addr rcvr ptr sizeField |
 	<export: true>
-	<var: #ptr type: 'sqInt *'>
-	<var: #sizeField type: 'long'>
+	<var: #ptr type: #'sqIntptr_t *'>
+	<var: #addr type: #'sqIntptr_t'>
+	<var: #sizeField type: #'sqIntptr_t'>
 
 	rcvr := interpreterProxy stackValue: 0.
 	(interpreterProxy byteSizeOf: rcvr) >= (2 * interpreterProxy bytesPerOop) ifFalse:

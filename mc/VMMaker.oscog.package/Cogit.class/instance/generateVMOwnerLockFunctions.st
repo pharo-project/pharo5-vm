@@ -10,7 +10,7 @@ generateVMOwnerLockFunctions
 			backEnd generateLowLevelTryLock: coInterpreter vmOwnerLockAddress.
 			self outputInstructionsForGeneratedRuntimeAt: startAddress.
 			self recordGeneratedRunTime: 'ceTryLockVMOwner' address: startAddress.
-			ceTryLockVMOwner := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
+			ceTryLockVMOwner := self cCoerceSimple: startAddress to: #'usqIntptr_t (*)(void)'.
 
 			self zeroOpcodeIndex.
 			initialPC := 0.

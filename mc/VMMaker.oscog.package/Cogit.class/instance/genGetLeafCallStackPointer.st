@@ -11,7 +11,7 @@ genGetLeafCallStackPointer
 		RetN: 0.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	self recordGeneratedRunTime: 'ceGetFP' address: startAddress.
-	ceGetFP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'.
+	ceGetFP := self cCoerceSimple: startAddress to: #'usqIntptr_t (*)(void)'.
 	startAddress := methodZoneBase.
 	self zeroOpcodeIndex.
 	self MoveR: SPReg R: backEnd cResultRegister.
@@ -20,4 +20,4 @@ genGetLeafCallStackPointer
 	self RetN: 0.
 	self outputInstructionsForGeneratedRuntimeAt: startAddress.
 	self recordGeneratedRunTime: 'ceGetSP' address: startAddress.
-	ceGetSP := self cCoerceSimple: startAddress to: #'unsigned long (*)(void)'
+	ceGetSP := self cCoerceSimple: startAddress to: #'usqIntptr_t (*)(void)'

@@ -1,6 +1,6 @@
 trampoline support
 cFramePointerAddress
-	<cmacro: '() ((unsigned long)&CFramePointer)'>
+	<cmacro: '() ((usqIntptr_t)&CFramePointer)'>
 	^(backEnd wantsNearAddressFor: #CFramePointer)
 		ifTrue: [self simulatedReadWriteVariableAddress: #getCFramePointer in: self]
 		ifFalse: [coInterpreter inMemoryCFramePointerAddress]

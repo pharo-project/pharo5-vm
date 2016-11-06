@@ -8,7 +8,7 @@
 		"initialize" : "eem 10/4/2013 14:23",
 		"initializeAbstractRegisters" : "eem 5/30/2016 13:52",
 		"initializeSpecificOpcodes:in:" : "rmacnak 11/27/2015 17:57:18",
-		"instVarNamesAndTypesForTranslationDo:" : "eem 6/10/2015 16:38",
+		"instVarNamesAndTypesForTranslationDo:" : "nice 7/8/2016 02:14",
 		"isAbstract" : "eem 8/8/2012 13:11",
 		"isAccessor:" : "eem 10/19/2009 12:36",
 		"isRISCTempRegister:" : "eem 12/25/2015 18:47",

@@ -2,11 +2,11 @@ primitive support
 signedMachineIntegerValueOf: oop
 	"Answer a signed value of an integer up to the size of a machine word.
 	The object may be either a positive SmallInteger or a LargeInteger of size <= word size."
-	<returnTypeC: #'long'>
+	<returnTypeC: #'sqIntptr_t'>
 	| negative ok bs value limit magnitude |
-	<var: #value type: #long>
-	<var: #magnitude type: #usqInt>
-	<var: #limit type: #usqInt>
+	<var: #value type: #sqInt>
+	<var: #magnitude type: #'usqIntptr_t'>
+	<var: #limit type: #'usqIntptr_t'>
 	(objectMemory isIntegerObject: oop) ifTrue:
 		[^objectMemory integerValueOf: oop].
 
@@ -25,7 +25,7 @@ signedMachineIntegerValueOf: oop
 							compactClassIndex: ClassLargeNegativeIntegerCompactIndex.
 			ok ifFalse: [^self primitiveFail]].
 	bs := objectMemory numBytesOf: oop.
-	bs > (self sizeof: #'unsigned long') ifTrue:
+	bs > (self sizeof: #'usqIntptr_t') ifTrue:
 		[^self primitiveFail].
 
 	"self cppIf: SPURVM
@@ -33,14 +33,14 @@ signedMachineIntegerValueOf: oop
 			[""Memory is 8 byte aligned in Spur and oversized bytes are set to zero, so we can safely fetch 8 bytes""
 			magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
 		ifFalse:
-			["((self sizeof: #'unsigned long') = 8
+			["((self sizeof: #'sqIntptr_t') = 8
 			and: [bs > 4])
 				ifTrue:
 					[magnitude := objectMemory byteSwapped64IfBigEndian: (objectMemory fetchLong64: 0 ofObject: oop)]
 				ifFalse:
 					[magnitude := self cCoerceSimple: (objectMemory byteSwapped32IfBigEndian: (objectMemory fetchLong32: 0 ofObject: oop)) to: #'unsigned int']"]".
 
-	limit := 1 asUnsignedInteger << ((self sizeof: #usqInt) * 8 - 1).
+	limit := 1 asUnsignedIntegerPtr << ((self sizeof: #'sqIntptr_t') * 8 - 1).
 	(negative
 		ifTrue: [magnitude > limit]
 		ifFalse: [magnitude >= limit])

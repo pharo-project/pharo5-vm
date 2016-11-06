@@ -1,7 +1,7 @@
 io
 ioAddClipboardData: clipboard data: data dataFormat: aFormat
 	| clipboardAddress formatLength dataLength |
-	<var: #clipboardAddress type: #'unsigned long'>
+	<var: #clipboardAddress type: #'usqIntptr_t'>
 	self primitive: 'ioAddClipboardData' parameters: #(Oop ByteArray String).
 
 	clipboardAddress := interpreterProxy positiveMachineIntegerValueOf: clipboard.

@@ -6,4 +6,4 @@ primitiveCreateStandardWindowMenu: inOptions
 		parameters: #(SmallInteger).
 	self cppIf: #'TARGET_API_MAC_CARBON'
 		ifTrue: [result := self cCode: 'CreateStandardWindowMenu(inOptions,&menuHandle);' inSmalltalk:[0]].
-	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: #'usqIntptr_t')

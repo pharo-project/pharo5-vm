@@ -1,7 +1,7 @@
 io
 ioGetClipboardFormat: clipboard formatNumber: formatNumber 
 	| clipboardAddress itemCount |
-	<var: #clipboardAddress type: #'unsigned long'>
+	<var: #clipboardAddress type: #'usqIntptr_t'>
 	self primitive: 'ioGetClipboardFormat' parameters: #(#Oop #SmallInteger ).
 	clipboardAddress := interpreterProxy positiveMachineIntegerValueOf: clipboard.
 	itemCount := self sqPasteboardGetItemCount: clipboardAddress.

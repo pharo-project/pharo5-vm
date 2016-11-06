@@ -18,4 +18,4 @@ primitiveDLSym
 	self free: name.
 	^interpreterProxy methodReturnValue: (addr = 0
 												ifTrue: [interpreterProxy nilObject]
-												ifFalse: [interpreterProxy positiveMachineIntegerFor: addr asUnsignedLong])
+												ifFalse: [interpreterProxy positiveMachineIntegerFor: addr asUnsignedIntegerPtr])

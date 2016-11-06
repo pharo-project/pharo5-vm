@@ -17,7 +17,7 @@ declareCVarsIn: aCCodeGenerator
 		var: #interpreterProxy  type: #'struct VirtualMachine*'.
 	aCCodeGenerator
 		declareVar: #sendTrace type: 'volatile int';
-		declareVar: #byteCount type: 'unsigned long'.
+		declareVar: #byteCount type: #usqInt.
 	"These need to be pointers or unsigned."
 	self declareC: #(instructionPointer method newMethod)
 		as: #usqInt
@@ -50,10 +50,10 @@ declareCVarsIn: aCCodeGenerator
 			removeVariable: 'extB'].
 	aCCodeGenerator
 		var: #methodCache
-		declareC: 'long methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
+		declareC: 'sqIntptr_t methodCache[MethodCacheSize + 1 /* ', (MethodCacheSize + 1) printString, ' */]'.
 	aCCodeGenerator
 		var: #nsMethodCache
-		declareC: 'long nsMethodCache[NSMethodCacheSize + 1 /* ', (NSMethodCacheSize + 1) printString, ' */]'.
+		declareC: 'sqIntptr_t nsMethodCache[NSMethodCacheSize + 1 /* ', (NSMethodCacheSize + 1) printString, ' */]'.
 	AtCacheTotalSize isInteger ifTrue:
 		[aCCodeGenerator
 			var: #atCache

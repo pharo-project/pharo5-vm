@@ -8,4 +8,4 @@ maybeGenerateICacheFlush
 		 backEnd generateICacheFlush.
 		 self outputInstructionsForGeneratedRuntimeAt: startAddress.
 		 self recordGeneratedRunTime: 'ceFlushICache' address: startAddress.
-		 ceFlushICache := self cCoerceSimple: startAddress to: #'void (*)(unsigned long,unsigned long)']
+		 ceFlushICache := self cCoerceSimple: startAddress to: #'void (*)(usqIntptr_t,usqIntptr_t)']

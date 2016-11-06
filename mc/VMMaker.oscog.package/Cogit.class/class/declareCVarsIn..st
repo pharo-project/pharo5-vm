@@ -30,9 +30,9 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'"cogit.h"'.
 	aCCodeGenerator
 		var: #ceGetFP
-			declareC: 'unsigned long (*ceGetFP)(void)';
+			declareC: 'usqIntptr_t (*ceGetFP)(void)';
 		var: #ceGetSP
-			declareC: 'unsigned long (*ceGetSP)(void)';
+			declareC: 'usqIntptr_t (*ceGetSP)(void)';
 		var: #ceCaptureCStackPointers
 			declareC: 'void (*ceCaptureCStackPointers)(void)';
 		var: #ceEnterCogCodePopReceiverReg
@@ -48,11 +48,11 @@ declareCVarsIn: aCCodeGenerator
 		var: #realCECallCogCodePopReceiverAndClassRegs
 			declareC: 'void (*realCECallCogCodePopReceiverAndClassRegs)(void)';
 		var: #ceFlushICache
-			declareC: 'static void (*ceFlushICache)(unsigned long from, unsigned long to)';
+			declareC: 'static void (*ceFlushICache)(usqIntptr_t from, usqIntptr_t to)';
 		var: #ceCheckFeaturesFunction
-			declareC: 'static unsigned long (*ceCheckFeaturesFunction)(void)';
+			declareC: 'static usqIntptr_t (*ceCheckFeaturesFunction)(void)';
 		var: #ceTryLockVMOwner
-			declareC: 'unsigned long (*ceTryLockVMOwner)(void)';
+			declareC: 'usqIntptr_t (*ceTryLockVMOwner)(void)';
 		var: #ceUnlockVMOwner
 			declareC: 'void (*ceUnlockVMOwner)(void)';
 		var: #postCompileHook
@@ -103,8 +103,8 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator
 		declareVar: #CFramePointer type: #'void *';
 		declareVar: #CStackPointer type: #'void *';
-		declareVar: #minValidCallAddress type: #'unsigned long';
-		declareVar: #debugPrimCallStackOffset type: #'unsigned long'.
+		declareVar: #minValidCallAddress type: #'usqIntptr_t';
+		declareVar: #debugPrimCallStackOffset type: #'usqIntptr_t'.
 	aCCodeGenerator vmClass generatorTable ifNotNil:
 		[:bytecodeGenTable|
 		aCCodeGenerator

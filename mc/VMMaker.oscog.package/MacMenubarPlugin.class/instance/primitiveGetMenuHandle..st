@@ -6,4 +6,4 @@ primitiveGetMenuHandle: menuID
 	self primitive: 'primitiveGetMenuHandle'
 		parameters: #(SmallInteger).
 	menuHandle := self cCode: 'GetMenuHandle(menuID)' inSmalltalk:[0].
-	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: 'long')
+	^interpreterProxy positiveMachineIntegerFor: (self cCoerce: menuHandle to: #'usqIntptr_t')

@@ -6,5 +6,5 @@ primThunkEntryAddress
 	preclude making the plugin internal."
 	| address |
 	<export: true>
-	address := self cCode: [#thunkEntry asInteger] inSmalltalk: [0].
+	address := self cCode: [#thunkEntry asIntegerPtr] inSmalltalk: [0].
 	interpreterProxy methodReturnValue: (self positiveMachineIntegerFor: address)

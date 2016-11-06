@@ -9,9 +9,9 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 			[aBinaryBlock
 				value: ivn
 				value: (ivn caseOf: {
-							['address']			-> [#'unsigned long'].
+							['address']			-> [#'usqIntptr_t'].
 							['machineCode']	-> [self machineCodeDeclaration].
-							['operands']		-> [{#'unsigned long'. '[', NumOperands, ']'}].
+							['operands']		-> [{#'usqIntptr_t'. '[', NumOperands, ']'}].
 							['dependent']		-> ['struct _AbstractInstruction *']}
 						otherwise:
 							[#'unsigned char'])]]

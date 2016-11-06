@@ -3,7 +3,7 @@ printOopsFrom: startAddress to: endAddress
 	<api>
 	| oop limit |
 	oop := self objectBefore: startAddress.
-	limit := endAddress asUnsignedLong min: endOfMemory.
+	limit := endAddress asUnsignedIntegerPtr min: endOfMemory.
 	oop := oop
 				ifNil: [startAddress]
 				ifNotNil: [(self objectAfter: oop) = startAddress

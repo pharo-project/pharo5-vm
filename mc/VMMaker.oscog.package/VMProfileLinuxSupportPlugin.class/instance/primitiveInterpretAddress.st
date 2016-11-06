@@ -4,4 +4,4 @@ primitiveInterpretAddress
 	<export: true>
 	| interpret |
 	<var: #interpret declareC: 'extern void interpret()'>
-	^interpreterProxy methodReturnValue: (interpreterProxy positiveMachineIntegerFor: interpret asUnsignedLong)
+	^interpreterProxy methodReturnValue: (interpreterProxy positiveMachineIntegerFor: interpret asUnsignedIntegerPtr)

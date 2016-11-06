@@ -6,6 +6,6 @@ printHex: n
 	| len buf |
 	<var: #buf declareC: 'char buf[37]'> "large enough for a 64-bit value in hex plus the null plus 16 spaces"
 	self cCode: 'memset(buf,'' '',36)' inSmalltalk: [buf := 'doh!'].
-	len := self cCode: 'sprintf(buf + 2 + 2 * BytesPerWord, "0x%lx", (unsigned long)(n))'.
+	len := self cCode: 'sprintf(buf + 2 + 2 * BytesPerWord, "0x%" PRIxSQPTR, (usqIntptr_t)(n))'.
 	self cCode: 'printf("%s", buf + len)'.
 	len touch: buf

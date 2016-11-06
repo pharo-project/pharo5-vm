@@ -1,6 +1,6 @@
 callback support
 positiveMachineIntegerFor: value
-	<var: #value type: #'unsigned long'>
+	<var: #value type: #'usqIntptr_t'>
 	<inline: false>
 	| resultObj |
 	objectMemory wordSize = 8

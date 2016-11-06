@@ -29,7 +29,7 @@ addNewMethodToCache: classObj
 			methodCache at: probe + MethodCacheSelector put: messageSelector.
 			methodCache at: probe + MethodCacheClass put: (objectMemory classTagForClass: classObj).
 			methodCache at: probe + MethodCacheMethod put: newMethod.
-			methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #long).
+			methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 			lastMethodCacheProbeWrite := probe. "this for primitiveExternalMethod"
 			^self]].
 
@@ -38,7 +38,7 @@ addNewMethodToCache: classObj
 	methodCache at: probe + MethodCacheSelector put: messageSelector.
 	methodCache at: probe + MethodCacheClass put: (objectMemory classTagForClass: classObj).
 	methodCache at: probe + MethodCacheMethod put: newMethod.
-	methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #long).
+	methodCache at: probe + MethodCachePrimFunction put: (self cCoerce: primitiveFunctionPointer to: #'sqIntptr_t').
 	lastMethodCacheProbeWrite := probe. "this for primitiveExternalMethod"
 
 	"...and zap the following entries"

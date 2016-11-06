@@ -1,4 +1,4 @@
 plugin generation
 ccgDeclareCForVar: aSymbolOrString
 
-	^'unsigned long ', aSymbolOrString
+	^'usqIntptr_t ', aSymbolOrString
