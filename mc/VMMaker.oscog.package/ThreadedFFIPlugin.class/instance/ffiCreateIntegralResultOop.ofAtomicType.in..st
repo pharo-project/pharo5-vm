@@ -14,7 +14,7 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 		 byteSize := calloutState ffiRetHeader bitAnd: FFIStructSizeMask.
 		 value := byteSize = (self sizeof: retVal)
 					ifTrue:[retVal]
-					ifFalse:[retVal bitAnd: 1 << (byteSize * 8) - 1].
+					ifFalse:[retVal bitAnd: 1 asUnsignedLongLong << (byteSize * 8) - 1].
 		 ^value = 0
 			ifTrue:[interpreterProxy falseObject]
 			ifFalse:[interpreterProxy trueObject]].
@@ -25,10 +25,10 @@ ffiCreateIntegralResultOop: retVal ofAtomicType: atomicType in: calloutState
 			shift := (BytesPerWord = 8 and: [atomicType >= FFITypeUnsignedInt])
 						ifTrue: [32]
 						ifFalse: [(atomicType >> 1) * 8]. "# of significant bits"
-			value := retVal bitAnd: (1 asUnsignedLong << shift - 1). 
+			value := retVal bitAnd: (1 asUnsignedLongLong << shift - 1). 
 			(atomicType anyMask: 1) ifTrue:
 				["make the guy signed"
-				mask := 1 asUnsignedLong << (shift-1).
+				mask := 1 asUnsignedLongLong << (shift-1).
 				value := (value bitAnd: mask-1) - (value bitAnd: mask)].
 			^interpreterProxy integerObjectOf: value].
 		"Word sized integer return"

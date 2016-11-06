@@ -6,7 +6,7 @@ ffiPushPointer: pointer in: calloutState
 	calloutState integerRegisterIndex < NumIntRegArgs
 		ifTrue:
 			[calloutState integerRegisters at: calloutState integerRegisterIndex put: pointer asInteger.
-			 calloutState integerRegisterIndex: calloutState integerRegisterIndex + 1]
+			 calloutState incrementIntegerRegisterIndex]
 		ifFalse:
 			[calloutState currentArg + WordSize > calloutState limit ifTrue:
 				[^FFIErrorCallFrameTooBig].

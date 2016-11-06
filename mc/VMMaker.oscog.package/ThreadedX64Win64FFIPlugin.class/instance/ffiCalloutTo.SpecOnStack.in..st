@@ -17,7 +17,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	self registerArgsSlop + self cStackAlignment > 0 ifTrue:
 		[self setsp: calloutState argVector].
 
-	calloutState floatRegisterIndex > 0 ifTrue:
+	calloutState floatRegisterSignature > 0 ifTrue:
 		[self 
 			load: (calloutState floatRegisters at: 0)
 			Flo: (calloutState floatRegisters at: 1)

@@ -6,7 +6,7 @@ ffiPushUnsignedLongLong: value in: calloutState
 	calloutState integerRegisterIndex < NumIntRegArgs
 		ifTrue:
 			[calloutState integerRegisters at: calloutState integerRegisterIndex put: value.
-			 calloutState integerRegisterIndex: calloutState integerRegisterIndex + 1]
+			 calloutState incrementIntegerRegisterIndex]
 		ifFalse:
 			[calloutState currentArg + WordSize > calloutState limit ifTrue: [^FFIErrorCallFrameTooBig].
 			 interpreterProxy longAt: calloutState currentArg put: value.

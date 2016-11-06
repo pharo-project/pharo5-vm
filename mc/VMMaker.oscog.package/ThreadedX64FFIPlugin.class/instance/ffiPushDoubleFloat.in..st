@@ -7,7 +7,7 @@ ffiPushDoubleFloat: value in: calloutState
 	calloutState floatRegisterIndex < NumFloatRegArgs
 		ifTrue:
 			[calloutState floatRegisters at: calloutState floatRegisterIndex put: value.
-			 calloutState floatRegisterIndex: calloutState floatRegisterIndex + 1]
+			 calloutState incrementFloatRegisterIndex]
 		ifFalse:
 			[calloutState currentArg + WordSize > calloutState limit ifTrue:
 				[^FFIErrorCallFrameTooBig].

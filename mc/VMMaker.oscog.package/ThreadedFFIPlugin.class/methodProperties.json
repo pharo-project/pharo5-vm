@@ -32,7 +32,7 @@
 		"ffiCalloutTo:SpecOnStack:in:" : "eem 12/16/2009 11:07",
 		"ffiCheckReturn:With:in:" : "eem 2/20/2016 11:32",
 		"ffiContentsOfHandle:errCode:" : "eem 11/24/2014 10:58",
-		"ffiCreateIntegralResultOop:ofAtomicType:in:" : "nice 4/2/2016 23:07",
+		"ffiCreateIntegralResultOop:ofAtomicType:in:" : "nice 11/5/2016 13:24",
 		"ffiFail:" : "eem 7/13/2010 14:32",
 		"ffiFloatValueOf:" : "eem 2/22/2016 16:35",
 		"ffiFree:" : "eem 11/11/2009 13:34",

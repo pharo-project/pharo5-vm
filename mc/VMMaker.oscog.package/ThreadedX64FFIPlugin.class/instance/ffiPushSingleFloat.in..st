@@ -7,7 +7,7 @@ ffiPushSingleFloat: value in: calloutState
 	calloutState floatRegisterIndex < NumFloatRegArgs
 		ifTrue:
 			[(self cCoerce: calloutState floatRegisters + calloutState floatRegisterIndex to: #'float *') at: 0 put: value.
-			 calloutState floatRegisterIndex: calloutState floatRegisterIndex + 1]
+			 calloutState incrementFloatRegisterIndex]
 		ifFalse:
 			[calloutState currentArg + WordSize > calloutState limit ifTrue:
 				[^FFIErrorCallFrameTooBig].

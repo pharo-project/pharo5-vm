@@ -5,7 +5,7 @@ ffiPushUnsignedShort: value in: calloutState
 	calloutState integerRegisterIndex < NumIntRegArgs
 		ifTrue:
 			[calloutState integerRegisters at: calloutState integerRegisterIndex put: (self cCoerceSimple: value to: #'unsigned short').
-			 calloutState integerRegisterIndex: calloutState integerRegisterIndex + 1]
+			 calloutState incrementIntegerRegisterIndex]
 		ifFalse:
 			[calloutState currentArg + WordSize > calloutState limit ifTrue:
 				[^FFIErrorCallFrameTooBig].
