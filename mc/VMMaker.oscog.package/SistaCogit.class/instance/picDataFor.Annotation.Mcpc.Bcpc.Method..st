@@ -4,7 +4,8 @@ picDataFor: descriptor Annotation: isBackwardBranchAndAnnotation Mcpc: mcpc Bcpc
 	<var: #mcpc type: #'char *'>
 	<var: #cogMethodArg type: #'void *'>
 	| annotation entryPoint tuple counter |
-	<var: #counter type: #usqInt>
+	"N.B. Counters are always 32-bits, having two 16-bit halves for the reached and taken counts."
+	<var: #counter type: #'unsigned int'>
 
 	descriptor ifNil:
 		[^0].

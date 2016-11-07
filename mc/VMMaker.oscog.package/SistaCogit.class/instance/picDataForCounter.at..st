@@ -1,7 +1,8 @@
 method introspection
 picDataForCounter: counter at: bcpc
 	| executedCount tuple untakenCount |
-	<var: #counter type: #usqInt>
+	"N.B. Counters are always 32-bits, having two 16-bit halves for the reached and taken counts."
+	<var: #counter type: #'unsigned int'>
 	tuple := objectMemory
 				eeInstantiateClassIndex: ClassArrayCompactIndex
 				format: objectMemory arrayFormat
