@@ -8,7 +8,7 @@
 		"primitiveSerialPortOpen:baudRate:stopBitsType:parityType:dataBits:inFlowControlType:outFlowControlType:xOnByte:xOffByte:" : "TPR 2/11/2000 16:08",
 		"primitiveSerialPortOpenByName:baudRate:stopBitsType:parityType:dataBits:inFlowControlType:outFlowControlType:xOnByte:xOffByte:" : "EstebanLorenzano 5/20/2015 15:28",
 		"primitiveSerialPortRead:into:startingAt:count:" : "tpr 12/30/2005 15:52",
-		"primitiveSerialPortReadByName:into:startingAt:count:" : "EstebanLorenzano 5/20/2015 15:28",
-		"primitiveSerialPortWrite:from:startingAt:count:" : "TPR 3/21/2000 17:00",
-		"primitiveSerialPortWriteByName:from:startingAt:count:" : "EstebanLorenzano 5/20/2015 15:28",
+		"primitiveSerialPortReadByName:into:startingAt:count:" : "nice 11/11/2016 20:40",
+		"primitiveSerialPortWrite:from:startingAt:count:" : "nice 11/11/2016 20:39",
+		"primitiveSerialPortWriteByName:from:startingAt:count:" : "nice 11/11/2016 20:40",
 		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:55" } }

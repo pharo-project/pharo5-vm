@@ -7,5 +7,5 @@ primitiveMIDIRead: portNum into: array
 	arrayLength := interpreterProxy byteSizeOf: array cPtrAsOop.
 	bytesRead := self sqMIDIPort: portNum
 			Read: arrayLength
-			Into: array asInteger.
+			Into: array.
 	^bytesRead asSmallIntegerObj

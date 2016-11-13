@@ -14,7 +14,7 @@ primitiveSerialPortWriteByName: portName from: array startingAt: startIndex coun
 
 	interpreterProxy success: (startIndex >= 1 and: [startIndex + count - 1 <= (interpreterProxy byteSizeOf: array cPtrAsOop)]).
 	interpreterProxy failed
-		ifFalse: [arrayPtr := array asInteger + startIndex - 1.
+		ifFalse: [arrayPtr := array + startIndex - 1.
 			bytesWritten := self cCode: 'serialPortWriteFromByName(port, count, arrayPtr)' ].
 	
 	self free: port.

@@ -7,6 +7,6 @@ primitiveMIDIWrite: portNum from: array at: time
 	arrayLength := interpreterProxy byteSizeOf: array cPtrAsOop.
 	bytesWritten := self sqMIDIPort: portNum
 			Write: arrayLength
-			From: array asInteger
+			From: array
 			At: time.
 	^bytesWritten asSmallIntegerObj

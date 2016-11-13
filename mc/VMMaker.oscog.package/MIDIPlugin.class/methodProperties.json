@@ -13,6 +13,6 @@
 		"primitiveMIDIParameterGet:" : "ar 5/12/2000 17:15",
 		"primitiveMIDIParameterGetOrSet" : "ar (auto pragmas 12/08) 5/12/2000 17:15",
 		"primitiveMIDIParameterSet:value:" : "ar 5/12/2000 17:15",
-		"primitiveMIDIRead:into:" : "ar 5/12/2000 17:15",
-		"primitiveMIDIWrite:from:at:" : "ar 5/12/2000 17:15",
+		"primitiveMIDIRead:into:" : "nice 11/11/2016 20:42",
+		"primitiveMIDIWrite:from:at:" : "nice 11/11/2016 20:43",
 		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:55" } }

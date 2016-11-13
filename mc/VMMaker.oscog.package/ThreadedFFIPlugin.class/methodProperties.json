@@ -78,7 +78,7 @@
 		"nonRegisterStructReturnIsViaImplicitFirstArgument" : "eem 11/5/2009 15:25",
 		"primitiveCallout" : "eem 11/18/2012 19:42",
 		"primitiveCalloutWithArgs" : "eem 11/18/2012 19:42",
-		"primitiveCreateManualSurface" : "eem 2/20/2016 22:52",
+		"primitiveCreateManualSurface" : "nice 11/12/2016 02:53",
 		"primitiveDestroyManualSurface" : "jcg 6/14/2010 14:54",
 		"primitiveFFIAllocate" : "nice 7/13/2016 18:35",
 		"primitiveFFIDoubleAt" : "nice 11/8/2015 16:07",

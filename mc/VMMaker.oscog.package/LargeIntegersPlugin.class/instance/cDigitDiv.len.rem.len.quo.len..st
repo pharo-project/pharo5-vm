@@ -93,5 +93,5 @@ cDigitDiv: pDiv len: divLen rem: pRem len: remLen quo: pQuo len: quoLen
 								+ (self cDigitOf: pRem at: l - 1) + (self cDigitOf: pDiv at: i - 1).
 					self cDigitOf: pRem at: l - 1 put: (a bitAnd: 16rFFFFFFFF).
 					l := l + 1]].
-		self cDigitOf: pQuo at: quoLen - k put: q].
+		self cDigitOf: pQuo at: quoLen - k put: (self cCoerceSimple: q to: #'unsigned int')].
 	^0

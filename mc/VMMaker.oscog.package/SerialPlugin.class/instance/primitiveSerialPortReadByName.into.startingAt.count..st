@@ -15,7 +15,7 @@ primitiveSerialPortReadByName: portName into: array startingAt: startIndex count
 	port := self cCode: 'calloc(portNameSize+1, sizeof(char))'.
 	self cCode: 'memcpy(port, portName, portNameSize)'.
 
-	arrayPtr := array asInteger + startIndex - 1.
+	arrayPtr := array + startIndex - 1.
 	bytesRead := self cCode: 'serialPortReadIntoByName( port, count, arrayPtr)'.
 	
 	self free: port.
