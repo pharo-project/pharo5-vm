@@ -136,7 +136,7 @@
 		"createActualMessageTo:" : "eem (const to msg rewrite) 11/6/2014 11:00",
 		"disableCompiler" : "ikp 12/12/1998 21:44",
 		"dispatchFunctionPointer:" : "ikp (auto pragmas 12/08) 8/2/2004 18:08",
-		"displayBitsOf:Left:Top:Right:Bottom:" : "eem (const to msg rewrite) 11/6/2014 11:00",
+		"displayBitsOf:Left:Top:Right:Bottom:" : "nice 11/13/2016 13:39",
 		"doPrimitiveDiv:by:" : "di 11/29/1998 11:22",
 		"doPrimitiveMod:by:" : "di 11/29/1998 10:02",
 		"doubleExtendedDoAnythingBytecode" : "tpr 3/24/2004 18:35",

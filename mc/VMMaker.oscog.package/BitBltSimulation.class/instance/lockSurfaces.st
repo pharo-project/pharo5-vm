@@ -33,11 +33,11 @@ lockSurfaces
 	"
 	| sourceHandle destHandle l r t b fn |
 	<inline: true>
-	<var: #fn declareC:'sqInt (*fn)(sqInt, sqInt*, sqInt, sqInt, sqInt, sqInt)'>
+	<var: #fn declareC:'sqIntptr_t (*fn)(sqIntptr_t, int*, int, int, int, int)'>
 	hasSurfaceLock := false.
 	destBits = 0 ifTrue:["Blitting *to* OS surface"
 		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
-		fn := self cCoerce: lockSurfaceFn to: 'sqInt (*)(sqInt, sqInt*, sqInt, sqInt, sqInt, sqInt)'.
+		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
 		destHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: destForm.
 		(sourceBits = 0 and:[noSource not]) ifTrue:[
 			sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
@@ -68,7 +68,7 @@ lockSurfaces
 		sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
 		interpreterProxy failed ifTrue:[^nil]. "fetch sourceHandle could fail"
 		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
-		fn := self cCoerce: lockSurfaceFn to: 'sqInt (*)(sqInt, sqInt*, sqInt, sqInt, sqInt, sqInt)'.
+		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
 		"Warping requiring the entire surface"
 		isWarping ifTrue:[
 			sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, 0, 0, sourceWidth, sourceHeight)'.

@@ -7,6 +7,6 @@ querySourceSurface: handle
 	resizes the main window.
 	Note: Moved to a separate function for better inlining of the caller."
 	querySurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^false]].
-	^(self cCode:' ((sqInt (*) (sqInt, sqInt*, sqInt*, sqInt*, sqInt*))querySurfaceFn)
+	^(self cCode:' ((int (*) (sqIntptr_t, int*, int*, int*, int*))querySurfaceFn)
 		(handle, &sourceWidth, &sourceHeight, &sourceDepth, &sourceMSB)'
 			inSmalltalk:[false])
