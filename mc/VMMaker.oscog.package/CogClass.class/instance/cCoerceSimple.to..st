@@ -22,5 +22,4 @@ cCoerceSimple: value to: cTypeString
 		[#'void (*)()']								->	[value].
 		[#'void (*)(void)']							->	[value].
 		[#'unsigned long (*)(void)']					->	[value].
-		[#'void (*)(unsigned long,unsigned long)']	->	[value].
-		[#'usqIntptr_t (*)(void)']					->	[value] }
+		[#'void (*)(unsigned long,unsigned long)']	->	[value] }
