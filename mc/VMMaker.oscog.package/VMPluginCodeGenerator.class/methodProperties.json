@@ -14,6 +14,8 @@
 		"emitCTypesOn:" : "eem 9/12/2013 14:20",
 		"emitExportsOn:" : "eem 2/24/2016 08:27",
 		"emitIfdefForPluginFunctionOption:on:" : "eem 1/20/2016 19:03",
+		"generateIntegerObjectOf:on:indent:" : "eem 11/14/2016 15:15",
+		"generateIntegerValueOf:on:indent:" : "eem 11/14/2016 15:12",
 		"generateInterpreterProxyFunctionDereference:on:indent:" : "eem 4/22/2016 10:10",
 		"generateRemapOopIn:on:indent:" : "eem 7/2/2014 15:33",
 		"generateSpurRemapOopIn:on:indent:" : "eem 7/2/2014 15:32",

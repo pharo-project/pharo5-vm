@@ -250,6 +250,7 @@
 		"fetchPointer:ofMaybeForwardedObject:" : "eem 9/22/2013 15:12",
 		"fetchPointer:ofObject:" : "eem 12/15/2015 22:02",
 		"fetchShort16:ofObject:" : "eem 7/29/2014 08:11",
+		"fetchUnsignedShort16:ofObject:" : "nice 11/14/2016 22:32",
 		"fillObj:numSlots:with:" : "eem 9/26/2013 10:39",
 		"findAPig" : "eem 2/13/2014 11:39",
 		"findLargestFreeChunk" : "eem 3/3/2014 13:03",

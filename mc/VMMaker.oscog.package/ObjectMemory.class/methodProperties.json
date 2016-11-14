@@ -132,6 +132,7 @@
 		"fetchLong64:ofObject:" : "nice 3/29/2016 23:40",
 		"fetchPointer:ofObject:" : "eem (const to msg rewrite) 11/13/2014 14:06",
 		"fetchShort16:ofObject:" : "eem (const to msg rewrite) 11/6/2014 10:59",
+		"fetchUnsignedShort16:ofObject:" : "nice 11/14/2016 23:00",
 		"finalizeReference:" : "EstebanLorenzano 5/20/2015 12:21",
 		"firstAccessibleObject" : "eem 5/9/2011 14:40",
 		"firstByteFormat" : "eem 12/12/2015 14:16",

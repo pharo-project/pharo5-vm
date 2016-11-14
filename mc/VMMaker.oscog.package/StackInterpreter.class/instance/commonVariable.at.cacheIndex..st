@@ -15,7 +15,7 @@ commonVariable: rcvr at: index cacheIndex: atIx
 			[objectMemory hasSpurMemoryManagerAPI ifTrue:
 				[fmt >= objectMemory firstShortFormat ifTrue:
 					[^objectMemory integerObjectOf:
-						(objectMemory fetchShort16: index - 1 ofObject: rcvr)].
+						(objectMemory fetchUnsignedShort16: index - 1 ofObject: rcvr)].
 				 fmt = objectMemory sixtyFourBitIndexableFormat ifTrue:
 					[^self positive64BitIntegerFor:
 						(objectMemory fetchLong64: index - 1 ofObject: rcvr)]].
@@ -29,7 +29,7 @@ commonVariable: rcvr at: index cacheIndex: atIx
 								ifTrue:
 									[fmt < (objectMemory firstShortFormat + objectMemory firstStringyFakeFormat)
 										ifTrue: [objectMemory fetchLong32: index - 1 ofObject: rcvr]
-										ifFalse: [objectMemory fetchShort16: index - 1 ofObject: rcvr]]
+										ifFalse: [objectMemory fetchUnsignedShort16: index - 1 ofObject: rcvr]]
 								ifFalse: [objectMemory fetchByte: index - 1 ofObject: rcvr].
 				^self characterForAscii: result]
 			ifFalse:
