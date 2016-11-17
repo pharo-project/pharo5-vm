@@ -132,7 +132,7 @@
 		"primitiveInputWord" : "tpr 5/13/2005 10:17",
 		"primitiveInstVarAt" : "eem 6/20/2015 10:46",
 		"primitiveInstVarAtPut" : "eem 6/20/2015 10:46",
-		"primitiveIntegerAt" : "eem 9/21/2013 07:21",
+		"primitiveIntegerAt" : "eem 11/16/2016 18:44",
 		"primitiveIntegerAtPut" : "eem 1/20/2016 14:29",
 		"primitiveInterruptChecksPerMSec" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveInterruptSemaphore" : "eem 6/29/2014 11:41",
