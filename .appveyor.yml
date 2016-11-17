@@ -20,9 +20,9 @@ init:
 install:
   - git submodule update --init --recursive
 build_script:
-  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd ./scripts && ./build-sources.sh -a i386"'
-  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd ./opensmalltalk-vm && ./.travis_build.sh"'
-  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd ./scripts && ./pack-vm.sh"'
+  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd scripts && sh build-sources.sh -a i386"'
+  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd opensmalltalk-vm && sh .travis_build.sh"'
+  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd scripts && sh pack-vm.sh"'
 #test_script:
 #  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% -lc "cd ./scripts; exec 0</dev/null; exec ./run-tests.sh"'
 on_failure:
@@ -30,6 +30,6 @@ on_failure:
   - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"'
   - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"'
 before_deploy:
-  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "./scripts/deploy-before.sh"'
+  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "sh scripts/deploy-before.sh"'
 deploy_script:
-  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "./scripts/deploy-appveyor.sh"'
+  - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "sh scripts/deploy-appveyor.sh"'
