@@ -31,16 +31,16 @@ install:
 # build which causes failures as certain functions attempt to redirect
 # default file handles. Ensure a dummy file descriptor is opened with 'exec'.
 build_script:
-  - '%MSYS_SH% "cd $APPVEYOR_BUILD_FOLDER/scripts && exec ./build-sources.sh -a i386"'
-  - '%MSYS_SH% "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm && ./.travis_build.sh"'
-  - '%MSYS_SH% "cd $APPVEYOR_BUILD_FOLDER/scripts && ./pack-vm.sh"'
+  - '%MSYS_SH% "cd ./scripts && ./build-sources.sh -a i386"'
+  - '%MSYS_SH% "cd ./opensmalltalk-vm && ./.travis_build.sh"'
+  - '%MSYS_SH% "cd ./scripts && ./pack-vm.sh"'
 #test_script:
 #  - '%MSYS_SH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./run-tests.sh"'
 on_failure:
-  - '%MSYS_SH% "if [ -e $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log ]; then cat $APPVEYOR_BUILD_FOLDER/image/PharoDebug.log; fi"'
-  - '%MSYS_SH% "if [ -e $APPVEYOR_BUILD_FOLDER/image/stdout ]; then cat $APPVEYOR_BUILD_FOLDER/image/stdout; fi"'
-  - '%MSYS_SH% "if [ -e $APPVEYOR_BUILD_FOLDER/image/stderr ]; then cat $APPVEYOR_BUILD_FOLDER/image/stderr; fi"'
+  - '%MSYS_SH% "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"'
+  - '%MSYS_SH% "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"'
+  - '%MSYS_SH% "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"'
 before_deploy:
-  - '%MSYS_SH% "cd $APPVEYOR_BUILD_FOLDER && scripts/deploy-before.sh"'
+  - '%MSYS_SH% "./scripts/deploy-before.sh"'
 deploy_script:
-  - '%MSYS_SH% "cd $APPVEYOR_BUILD_FOLDER && scripts/deploy-appveyor.sh"'
+  - '%MSYS_SH% "./scripts/deploy-appveyor.sh"'
