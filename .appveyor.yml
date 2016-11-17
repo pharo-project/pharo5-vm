@@ -1,9 +1,5 @@
 environment:
-  CYG_ROOT: C:\cygwin
-  CYG_MIRROR: http://cygwin.mirror.constant.com
-  CYG_CACHE: C:\cygwin\var\cache\setup
-  CYG_BASH: C:\cygwin\bin\bash
-  MSYS_SH: C:\MinGW\msys\1.0\bin\sh
+  SHELL: C:\MinGW\msys\1.0\bin\sh
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
@@ -23,24 +19,17 @@ init:
   - git config --system core.longpaths true
 install:
   - git submodule update --init --recursive
-#  - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
-#  - 'setup-x86.exe -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_CACHE%" -P mingw64-i686-gcc-core,mingw64-i686-gcc-g++,mingw64-i686-headers,mingw64-i686-runtime,zip'
-# NOTES:
-#
-# The stdin/stdout file descriptor appears not to be valid for the Appveyor
-# build which causes failures as certain functions attempt to redirect
-# default file handles. Ensure a dummy file descriptor is opened with 'exec'.
 build_script:
-  - '%MSYS_SH% "cd ./scripts && ./build-sources.sh -a i386"'
-  - '%MSYS_SH% "cd ./opensmalltalk-vm && ./.travis_build.sh"'
-  - '%MSYS_SH% "cd ./scripts && ./pack-vm.sh"'
+  - '%SHELL% "cd ./scripts && ./build-sources.sh -a i386"'
+  - '%SHELL% "cd ./opensmalltalk-vm && ./.travis_build.sh"'
+  - '%SHELL% "cd ./scripts && ./pack-vm.sh"'
 #test_script:
-#  - '%MSYS_SH% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./run-tests.sh"'
+#  - '%SHELL% -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./run-tests.sh"'
 on_failure:
-  - '%MSYS_SH% "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"'
-  - '%MSYS_SH% "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"'
-  - '%MSYS_SH% "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"'
+  - '%SHELL% "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"'
+  - '%SHELL% "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"'
+  - '%SHELL% "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"'
 before_deploy:
-  - '%MSYS_SH% "./scripts/deploy-before.sh"'
+  - '%SHELL% "./scripts/deploy-before.sh"'
 deploy_script:
-  - '%MSYS_SH% "./scripts/deploy-appveyor.sh"'
+  - '%SHELL% "./scripts/deploy-appveyor.sh"'
