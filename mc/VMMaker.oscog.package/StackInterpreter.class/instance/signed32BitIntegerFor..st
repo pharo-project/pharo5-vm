@@ -13,4 +13,6 @@ signed32BitIntegerFor: integerValue
 									ifTrue: [-16r100000000]
 									ifFalse: [0])])]
 		ifFalse:
-			[^self noInlineSigned32BitIntegerFor: integerValue]
+			[(objectMemory isIntegerValue: integerValue) ifTrue:
+				[^objectMemory integerObjectOf: integerValue].
+			 ^self noInlineSigned32BitIntegerGutsFor: integerValue]

@@ -56,7 +56,7 @@
 		"touch" : "eem 2/9/2009 13:54",
 		"translationClass" : "eem 12/6/2012 15:01",
 		"typeForSelf" : "eem 2/9/2009 20:30",
-		"writeVMHeaderTo:bytesPerWord:" : "eem 11/19/2014 16:11" },
+		"writeVMHeaderTo:bytesPerWord:" : "eem 11/14/2016 15:12" },
 	"instance" : {
 		"addressOf:" : "eem 6/3/2010 09:00",
 		"addressOf:put:" : "eem 11/19/2013 10:48",
