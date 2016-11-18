@@ -20,7 +20,8 @@ clone_depth: 5
 branches:
   only:
     - merge-with-osvm
-    - merge-with-osvm-win32
+cache:
+  - opensmalltalk-vm\.thirdparty-cache
 init:
   - git config --system core.longpaths true
   - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%;%CYG_ROOT%\bin
