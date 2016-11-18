@@ -1,5 +1,5 @@
 environment:
-  SHELL: C:\MinGW\msys\1.0\bin\sh
+  SHELL: C:\MinGW\msys\1.0\bin\sh --login
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
@@ -20,6 +20,8 @@ init:
 install:
   - git submodule update --init --recursive
 build_script:
+  - echo %PATH%
+  - echo %cd%
   - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "ls && cd scripts && ls && sh build-sources.sh -a i386"'
   - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd opensmalltalk-vm && sh .travis_build.sh"'
   - 'cd %APPVEYOR_BUILD_FOLDER% & %SHELL% "cd scripts && sh pack-vm.sh"'
