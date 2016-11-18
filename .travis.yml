@@ -6,8 +6,7 @@ git:
   depth: 5
 branches:
   only:
-#    - merge-with-osvm
-    - do-not-exist
+    - merge-with-osvm
 addons:
   apt:
     packages:
