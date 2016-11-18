@@ -5,7 +5,7 @@ environment:
     - platform: x86
       ARCH: win32x86
       SRC_ARCH: i386
-	  CYG_ROOT: C:\cygwin
+      CYG_ROOT: C:\cygwin
       CYG_SETUP: setup-x86.exe
       MINGW_ARCH: i686
 #    - platform: x64
