@@ -1,5 +1,4 @@
 environment:
-  SHELL: C:\MinGW\msys\1.0\bin\sh --login
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
@@ -21,16 +20,16 @@ init:
 install:
   - git submodule update --init --recursive
 build_script:
-  - bash -c "exec 0</dev/null; ls; cd scripts; exec ./build-sources.sh -a i386"
-  - bash -c "exec 0</dev/null; cd opensmalltalk-vm; exec .travis_build.sh"
-  - bash -c "exec 0</dev/null; cd scripts; exec pack-vm.sh"'
+  - bash -c "cd scripts; exec ./build-sources.sh -a i386"
+  - bash -c "cd opensmalltalk-vm; exec ./.travis_build.sh"
+  - bash -c "cd scripts; exec ./pack-vm.sh"'
 #test_script:
-#  - '%SHELL% -lc "cd ./scripts; exec 0</dev/null; exec ./run-tests.sh"'
+#  - bash -c "cd scripts; exec 0</dev/null; exec ./run-tests.sh"
 on_failure:
-  - '%SHELL% "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"'
-  - '%SHELL% "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"'
-  - '%SHELL% "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"'
+  - bash -c "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"
+  - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
+  - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
 before_deploy:
-  - '%SHELL% "sh scripts/deploy-before.sh"'
+  - bash -c "exec ./scripts/deploy-before.sh
 deploy_script:
-  - '%SHELL% "sh scripts/deploy-appveyor.sh"'
+  - bash -c "exec ./scripts/deploy-appveyor.sh"
