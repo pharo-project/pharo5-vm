@@ -5,9 +5,15 @@ environment:
     - platform: x86
       ARCH: win32x86
       SRC_ARCH: i386
+	  CYG_ROOT: C:\cygwin
+      CYG_SETUP: setup-x86.exe
+      MINGW_ARCH: i686
 #    - platform: x64
 #      ARCH: win64x64
 #      SRC_ARCH: x86_64
+#      CYG_ROOT: C:\cygwin64
+#      CYG_SETUP: setup-x86_64.exe
+#      MINGW_ARCH: x86_64
 matrix:
   fast_finish: false
 clone_depth: 5
