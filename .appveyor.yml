@@ -1,4 +1,5 @@
 environment:
+  CYG_MIRROR: http://cygwin.mirror.constant.com
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
@@ -18,6 +19,9 @@ init:
   - git config --system core.longpaths true
   - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%
 install:
+  - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
+  - ps: 'Start-FileDownload "http://cygwin.com/setup-x86_64.exe" -FileName "setup-x86_64.exe"'
+  - '%CYG_SETUP% -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_ROOT%\var\cache\setup" -P mingw64-%MINGW_ARCH%-gcc-core,mingw64-%MINGW_ARCH%-gcc-g++,mingw64-%MINGW_ARCH%-headers,mingw64-%MINGW_ARCH%-runtime,zip,mingw64-%MINGW_ARCH%-clang'
   - git submodule update --init --recursive
 build_script:
   - bash -c "cd scripts; exec ./build-sources.sh -a i386"
