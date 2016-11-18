@@ -21,9 +21,10 @@ init:
 install:
   - git submodule update --init --recursive
 build_script:
-  - '%SHELL% "ls && cd scripts && ls && sh build-sources.sh -a i386"'
-  - '%SHELL% "cd opensmalltalk-vm && sh .travis_build.sh"'
-  - '%SHELL% "cd scripts && sh pack-vm.sh"'
+  - %SHELL% "ls && ls scripts"
+  - %SHELL% "cd scripts && sh build-sources.sh -a i386"
+  - %SHELL% "cd opensmalltalk-vm && sh .travis_build.sh"
+  - %SHELL% "cd scripts && sh pack-vm.sh"
 #test_script:
 #  - '%SHELL% -lc "cd ./scripts; exec 0</dev/null; exec ./run-tests.sh"'
 on_failure:
