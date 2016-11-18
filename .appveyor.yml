@@ -1,5 +1,5 @@
 environment:
-  SHELL: C:\MinGW\msys\1.0\bin\sh --login
+  SHELL: "C:\MinGW\msys\1.0\bin\sh --login"
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
@@ -21,8 +21,7 @@ init:
 install:
   - git submodule update --init --recursive
 build_script:
-  - echo %PATH%
-  - '%SHELL% "ls && ls scripts"'
+  - bash -lc "ls"
   - '%SHELL% "cd scripts && sh build-sources.sh -a i386"'
   - '%SHELL% "cd opensmalltalk-vm && sh .travis_build.sh"'
   - '%SHELL% "cd scripts && sh pack-vm.sh"'
