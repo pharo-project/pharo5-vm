@@ -1,5 +1,5 @@
 environment:
-  SHELL: "C:\MinGW\msys\1.0\bin\sh --login"
+  SHELL: C:\MinGW\msys\1.0\bin\sh --login
   FLAVOR: pharo.cog.spur
   matrix:
     - platform: x86
