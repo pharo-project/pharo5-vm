@@ -23,7 +23,7 @@ branches:
     - merge-with-osvm-win32
 init:
   - git config --system core.longpaths true
-  - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%
+  - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%CYG_ROOT%\bin;%PATH%
 install:
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86_64.exe" -FileName "setup-x86_64.exe"'
