@@ -31,7 +31,7 @@
 		"primitiveFileGetPosition" : "tpr (auto pragmas 12/08) 12/29/2005 16:14",
 		"primitiveFileOpen" : "tpr (auto pragmas 12/08) 12/30/2005 15:22",
 		"primitiveFileRead" : "eem 3/1/2016 17:31",
-		"primitiveFileReadWithPinning" : "eem 3/1/2016 17:32",
+		"primitiveFileReadWithPinning" : "eem 11/19/2016 08:15",
 		"primitiveFileReadWithoutPinning" : "eem 3/1/2016 17:32",
 		"primitiveFileRename" : "tpr (auto pragmas 12/08) 12/30/2005 15:31",
 		"primitiveFileSetPosition" : "eem 9/4/2014 16:26",
@@ -39,7 +39,7 @@
 		"primitiveFileStdioHandles" : "eem 1/21/2016 16:23",
 		"primitiveFileSync" : "monty 9/26/2015 22:26",
 		"primitiveFileTruncate" : "eem 3/22/2015 19:51",
-		"primitiveFileWrite" : "eem 11/1/2013 23:34",
+		"primitiveFileWrite" : "eem 11/19/2016 08:18",
 		"primitiveHasFileAccess" : "tpr (auto pragmas 12/08) 12/30/2005 15:41",
 		"setMacFile:Type:AndCreator:" : "ar (auto pragmas 12/08) 5/13/2000 14:51",
 		"shutdownModule" : "ar (auto pragmas 12/08) 5/12/2000 16:54" } }
