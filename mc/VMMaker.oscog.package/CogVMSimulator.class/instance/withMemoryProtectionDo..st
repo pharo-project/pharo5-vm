@@ -1,7 +1,7 @@
 debug printing
 withMemoryProtectionDo: aBlock
-	self writeProtectMemory.
+	objectMemory writeProtectMemory.
 	stackPages writeProtectMemory.
 	^aBlock ensure:
-		[self writeEnableMemory.
+		[objectMemory writeEnableMemory.
 		 stackPages writeEnableMemory]

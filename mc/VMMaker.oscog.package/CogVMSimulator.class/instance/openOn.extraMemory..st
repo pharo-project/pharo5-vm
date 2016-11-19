@@ -116,14 +116,11 @@ openOn: fileName extraMemory: extraBytes
 	self assert: cogCodeSize \\ 4 = 0.
 	self assert: objectMemory memoryLimit \\ 4 = 0.
 	self assert: self rumpCStackSize \\ 4 = 0.
+	objectMemory allocateMemoryOfSize: objectMemory memoryLimit.
 	"read in the image in bulk, then swap the bytes if necessary"
 	f position: headerSize.
-	objectMemory memory: ((cogit processor endianness == #little
-					ifTrue: [LittleEndianBitmap]
-					ifFalse: [Bitmap]) new: objectMemory memoryLimit // 4).
 	count := objectMemory readHeapFromImageFile: f dataBytes: dataSize.
-	count ~= dataSize ifTrue: [self halt].
-	]
+	count ~= dataSize ifTrue: [self halt]]
 		ensure: [f close].
 	self moveMethodCacheToMemoryAt: objectMemory cogCodeBase + cogCodeSize + stackZoneSize.
 	self movePrimTraceLogToMemoryAt: objectMemory cogCodeBase + cogCodeSize + stackZoneSize + methodCacheSize.

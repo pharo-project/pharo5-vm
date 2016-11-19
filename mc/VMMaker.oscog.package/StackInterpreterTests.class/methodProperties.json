@@ -2,6 +2,8 @@
 	"class" : {
 		 },
 	"instance" : {
+		"testByteMemoryAccess" : "eem 11/19/2016 09:13",
 		"testImmediateFloats" : "eem 12/15/2014 15:44",
 		"testPointerTaggingDetagging" : "nice 3/15/2016 23:41",
-		"testUnalignedMemoryAccess" : "eem 12/12/2015 15:02" } }
+		"testShortMemoryAccess" : "eem 11/19/2016 09:16",
+		"testUnalignedMemoryAccess" : "eem 11/18/2016 17:11" } }

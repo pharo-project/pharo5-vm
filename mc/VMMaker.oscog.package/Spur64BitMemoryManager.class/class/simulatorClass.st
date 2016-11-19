@@ -1,3 +1,5 @@
 simulation only
 simulatorClass
-	^Spur64BitMMLESimulator
+	^Spur64BitMMLESimulatorFor64Bits basicNew memoryClass
+		ifNil: [Spur64BitMMLESimulator]
+		ifNotNil: [Spur64BitMMLESimulatorFor64Bits]

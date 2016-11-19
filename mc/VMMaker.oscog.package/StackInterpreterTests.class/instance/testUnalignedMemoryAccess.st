@@ -35,3 +35,15 @@ testUnalignedMemoryAccess
 	self assert: (om unalignedLongAt: 0) equals: 16r4455667788AAAAAA.
 	self assert: (om unalignedLongAt: 8) equals: 16rAAAAAAAAAA112233.
 	self assert: (om unalignedLongAt: 3) equals: 16r1122334455667788.
+	(Smalltalk classNamed: #DoubleWordArray) ifNotNil:
+		[om := Spur64BitMMLECoSimulatorFor64Bits new allocateMemoryOfSize: 32.
+		 om unalignedLongAt: 3 put: 16r1122334455667788.
+		 self assert: (om unalignedLongAt: 0) equals: 16r4455667788000000.
+		 self assert: (om unalignedLongAt: 8) equals: 16r112233.
+		 self assert: (om unalignedLongAt: 3) equals: 16r1122334455667788.
+		 om longAt: 0 put: 16rAAAAAAAAAAAAAAAA.
+		 om longAt: 8 put: 16rAAAAAAAAAAAAAAAA.
+		 om unalignedLongAt: 3 put: 16r1122334455667788.
+		 self assert: (om unalignedLongAt: 0) equals: 16r4455667788AAAAAA.
+		 self assert: (om unalignedLongAt: 8) equals: 16rAAAAAAAAAA112233.
+		 self assert: (om unalignedLongAt: 3) equals: 16r1122334455667788]

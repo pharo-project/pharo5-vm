@@ -8,7 +8,9 @@ readHeapFrom: f at: location dataBytes: numBytes
 				File: numBytes
 				Read: f]
 		inSmalltalk:
-			[(f	readInto: manager memory
-				startingAt: location // 4 + 1
-				count: numBytes // 4)
-			 * 4]
+			[| bytesPerElement |
+			 bytesPerElement := manager memory bytesPerElement.
+			 (f	readInto: manager memory
+				startingAt: location // bytesPerElement + 1
+				count: numBytes // bytesPerElement)
+			  * bytesPerElement]

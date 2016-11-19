@@ -115,6 +115,7 @@
 		"containOnlyMutableOops:and:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"containOnlyOops:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"containOnlyOops:and:" : "eem (const to msg rewrite) 11/6/2014 10:59",
+		"convertToArray" : "eem 11/18/2016 17:02",
 		"copyObj:toSegment:addr:stopAt:saveOopAt:headerAt:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"dbgFloatValueOf:" : "eem 12/1/2014 10:56",
 		"displayObject" : "ar 10/7/1998 18:12",
@@ -457,4 +458,6 @@
 		"weakArrayFormat" : "eem 12/12/2015 14:16",
 		"weakFinalizerCheck:" : "eem 11/10/2014 12:49",
 		"whereIsMaybeHeapThing:" : "eem 3/24/2014 17:21",
-		"wordSize" : "eem 11/13/2014 15:24" } }
+		"wordSize" : "eem 11/13/2014 15:24",
+		"writeEnableMemory" : "eem 11/18/2016 16:59",
+		"writeProtectMemory" : "eem 11/18/2016 17:00" } }

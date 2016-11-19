@@ -1,6 +1,6 @@
 testing
-allocateMemoryOfSize: limit
+allocateMemoryOfSize: memoryBytes
 	<doNotGenerate>
-	memory := (self endianness == #little
-					ifTrue: [LittleEndianBitmap]
-					ifFalse: [Bitmap]) new: limit // 4
+	| bytesPerElement |
+	bytesPerElement := (self memoryClass basicNew: 0) bytesPerElement.
+	memory := self memoryClass new: memoryBytes + bytesPerElement - 1 // bytesPerElement

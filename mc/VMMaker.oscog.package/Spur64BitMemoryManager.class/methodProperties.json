@@ -5,7 +5,7 @@
 		"maxSmallInteger" : "eem 11/20/2014 13:01",
 		"minSmallInteger" : "eem 11/20/2014 13:03",
 		"numSmallIntegerTagBits" : "eem 11/18/2014 17:49",
-		"simulatorClass" : "eem 11/17/2014 13:35",
+		"simulatorClass" : "eem 11/18/2016 17:08",
 		"wordSize" : "eem 11/13/2014 15:24" },
 	"instance" : {
 		"addressAfter:" : "eem 9/22/2013 15:00",
@@ -56,6 +56,7 @@
 		"maxSlotsForAlloc" : "eem 12/11/2014 11:27",
 		"maxSmallInteger" : "eem 11/19/2014 15:55",
 		"mem:mo:ve:" : "eem 12/18/2014 17:04",
+		"memoryClass" : "eem 11/18/2016 16:24",
 		"methodDictionaryHash:mask:" : "eem 7/11/2014 12:52",
 		"minSmallInteger" : "eem 11/19/2014 15:12",
 		"negativeSmallFloatZero" : "eem 2/12/2015 09:36",

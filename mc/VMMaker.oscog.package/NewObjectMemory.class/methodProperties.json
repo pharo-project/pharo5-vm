@@ -19,6 +19,7 @@
 		"allocateChunk:" : "eem 6/16/2014 12:30",
 		"allocateChunkAfterGC:" : "eem 6/6/2013 11:36",
 		"allocateInterpreterChunk:" : "eem 11/10/2014 12:49",
+		"allocateMemoryOfSize:" : "eem 11/19/2016 09:21",
 		"baseAddressOfImage" : "eem 10/8/2013 15:44",
 		"become:with:twoWay:copyHash:" : "eem 2/7/2015 10:28",
 		"biasToGrow" : "eem 11/10/2014 12:49",

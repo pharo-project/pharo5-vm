@@ -8,15 +8,13 @@ allocateMemoryOfSize: memoryBytes newSpaceSize: newSpaceBytes stackSize: stackBy
 	self assert: (memoryBytes \\ self allocationUnit = 0
 				and: [newSpaceBytes \\ self allocationUnit = 0
 				and: [codeBytes \\ self allocationUnit = 0]]).
-	memory := (self endianness == #little
-					ifTrue: [LittleEndianBitmap]
-					ifFalse: [Bitmap]) new: (memoryBytes + newSpaceBytes + codeBytes + stackBytes) // 4.
+	self allocateMemoryOfSize: memoryBytes + newSpaceBytes + codeBytes + stackBytes.
 	newSpaceStart := codeBytes + stackBytes.
 	endOfMemory := freeOldSpaceStart := memoryBytes + newSpaceBytes + codeBytes + stackBytes.
 	"leave newSpace empty for the bootstrap"
 	freeStart := newSpaceBytes + newSpaceStart.
 	oldSpaceStart := newSpaceLimit := newSpaceBytes + newSpaceStart.
-	scavengeThreshold := memory size * 4. "Bitmap is a 4-byte per word array"
+	scavengeThreshold := memory size * memory bytesPerElement. "i.e. /don't/ scavenge."
 	scavenger := SpurGenerationScavengerSimulator new.
 	scavenger manager: self.
 	scavenger newSpaceStart: newSpaceStart
