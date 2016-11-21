@@ -33,7 +33,7 @@ install:
 build_script:
   - bash -c "cd scripts; exec ./build-sources.sh -a i386"
   - bash -c "cd opensmalltalk-vm; exec ./.travis_build.sh"
-  - bash -c "cd scripts; exec ./pack-vm.sh"'
+  - bash -c "cd scripts; exec ./pack-vm.sh"
 #test_script:
 #  - bash -c "cd scripts; exec 0</dev/null; exec ./run-tests.sh"
 on_failure:
@@ -41,6 +41,6 @@ on_failure:
   - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
   - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
 before_deploy:
-  - bash -c "exec ./scripts/deploy-before.sh
+  - bash -c "exec ./scripts/deploy-before.sh"
 deploy_script:
   - bash -c "exec ./scripts/deploy-appveyor.sh"
