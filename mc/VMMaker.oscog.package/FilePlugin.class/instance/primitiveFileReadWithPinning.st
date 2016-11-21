@@ -23,7 +23,9 @@ primitiveFileReadWithPinning
 		[^interpreterProxy primitiveFailFor: PrimErrBadIndex].
 
 	"Note: adjust startIndex for zero-origin byte indexing"
-	elementSize := (interpreterProxy byteSizeOf: array) // slotSize.
+	elementSize := slotSize = 0
+						ifTrue: [0]
+						ifFalse: [(interpreterProxy byteSizeOf: array) // slotSize].
 	bytesRead := self
 					sqFile: file
 					Read: count * elementSize
