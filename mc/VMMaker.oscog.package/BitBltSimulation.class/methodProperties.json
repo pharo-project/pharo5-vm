@@ -1,7 +1,7 @@
 {
 	"class" : {
 		"copyBitsFrom:" : "tfel 2/17/2016 13:57",
-		"declareCVarsIn:" : "tpr 6/19/2013 14:23",
+		"declareCVarsIn:" : "nice 11/21/2016 22:04",
 		"initialize" : "ar 5/4/2001 14:43",
 		"initializeRuleTable" : "IgorStasenko 7/12/2011 08:38",
 		"moduleName" : "ar 2/19/2000 20:55",

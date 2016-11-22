@@ -1,7 +1,7 @@
 primitive support
-noInlineSigned32BitValueOf: oop
+noInlineSigned32BitValueGutsOf: oop
 	"Convert the given object into an integer value.
-	The object may be either a SmallInteger or a four-byte LargeInteger."
+	The object may be a four-byte LargeInteger."
 	| value negative ok magnitude |
 	<notOption: #Spur64BitMemoryManager>
 	<inline: false>
@@ -9,8 +9,7 @@ noInlineSigned32BitValueOf: oop
 	<var: #value type: #int>
 	<var: #magnitude type: #'unsigned int'>
 	self deny: objectMemory hasSixtyFourBitImmediates.
-	(objectMemory isIntegerObject: oop) ifTrue:
-		[^objectMemory integerValueOf: oop].
+	self deny: (objectMemory isIntegerValue: oop).
 
 	(objectMemory isNonIntegerImmediate: oop) ifTrue:
 		[self primitiveFail.

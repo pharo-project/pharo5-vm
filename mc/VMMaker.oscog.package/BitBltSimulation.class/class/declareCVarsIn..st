@@ -52,4 +52,8 @@ declareCVarsIn: aCCodeGenerator
 
 	aCCodeGenerator var: 'querySurfaceFn' type: 'void *'.
 	aCCodeGenerator var: 'lockSurfaceFn' type: 'void *'.
-	aCCodeGenerator var: 'unlockSurfaceFn' type: 'void *'
+	aCCodeGenerator var: 'unlockSurfaceFn' type: 'void *'.
+	
+	#(sourcePitch sourceWidth sourceHeight sourceDepth sourceMSB sx sy
+		destPitch destWidth destHeight destDepth destMSB dx dy bbW bbH)
+		do: [:ivar | aCCodeGenerator var: ivar type: 'int'.]

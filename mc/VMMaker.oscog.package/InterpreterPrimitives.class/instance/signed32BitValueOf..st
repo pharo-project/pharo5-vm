@@ -16,4 +16,6 @@ signed32BitValueOf: oop
 			self primitiveFail.
 		 	^0]
 		ifFalse:
-			[^self noInlineSigned32BitValueOf: oop]
+			[(objectMemory isIntegerObject: oop) ifTrue:
+				[^objectMemory integerValueOf: oop].
+			^self noInlineSigned32BitValueGutsOf: oop]

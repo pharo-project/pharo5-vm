@@ -2,7 +2,7 @@
 	"class" : {
 		"declareCVarsIn:" : "ar 11/11/1998 22:01" },
 	"instance" : {
-		"absoluteSquared8Dot24:" : "ar (auto pragmas 12/08) 10/30/1998 20:02",
+		"absoluteSquared8Dot24:" : "nice 11/18/2016 21:57",
 		"adjustWideBezierLeft:width:offset:endX:" : "ar (auto pragmas 12/08) 11/8/1998 15:18",
 		"adjustWideBezierRight:width:offset:endX:" : "ar (auto pragmas 12/08) 11/8/1998 15:18",
 		"adjustWideLine:afterSteppingFrom:to:" : "ar (auto pragmas 12/08) 11/9/1998 15:34",
