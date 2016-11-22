@@ -9,8 +9,14 @@ cogFullBlockMethod: aMethodObj numCopied: numCopied
 	<returnTypeC: #'CogMethod *'>
 	| cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	(self exclude: aMethodObj) ifTrue:
-		[^nil].
+	self cCode: [] inSmalltalk: "for debugging, allow excluding methods based on selector or methodClass"
+		[self class initializationOptions
+			at: #DoNotJIT
+			ifPresent:
+				[:excluded| 
+				(excluded anySatisfy: [:exclude| aMethodObj = exclude]) ifTrue:
+					[coInterpreter transcript nextPutAll: 'EXCLUDING '; nextPutAll: aMethodObj; nextPutAll: ' (compiled block)'; cr; flush.
+					 ^nil]]].
 	self deny: (coInterpreter methodHasCogMethod: aMethodObj).
 	self assert: (objectMemory isOopCompiledMethod: (coInterpreter ultimateLiteralOf: aMethodObj)).
 	aMethodObj = breakMethod ifTrue: [self halt: 'Compilation of breakMethod'].

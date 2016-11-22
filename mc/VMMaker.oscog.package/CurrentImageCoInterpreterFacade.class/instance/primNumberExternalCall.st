@@ -1,3 +1,0 @@
-accessing
-primNumberExternalCall
-	^coInterpreter primNumberExternalCall

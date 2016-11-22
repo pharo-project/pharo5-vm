@@ -2,7 +2,7 @@ simulation only
 traceMerge: fixup
 	<cmacro: '(ign) 0'>
 	| index |
-	(compilationTrace anyMask: 16) ifTrue:
+	(compilationTrace anyMask: 4) ifTrue:
 		[index := (fixups object identityIndexOf: fixup) - 1.
 		 coInterpreter transcript
 			ensureCr;
