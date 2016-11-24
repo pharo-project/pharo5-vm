@@ -40,9 +40,7 @@ build_script:
 #  - bash -c "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"
 #  - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
 #  - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
-#before_deploy:
-#  - bash -c "./scripts/deploy-before.sh"
-#deploy_script:
-#  - bash -c "./scripts/deploy-appveyor.sh"
-#after_deploy:
-#  - echo OK
+before_deploy:
+  - bash -c "./scripts/deploy-before.sh"
+deploy_script:
+  - bash -c "./scripts/deploy-appveyor.sh"
