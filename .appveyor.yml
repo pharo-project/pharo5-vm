@@ -21,7 +21,7 @@ branches:
   only:
     - merge-with-osvm
 cache:
-  - opensmalltalk-vm\.thirdparty-cache
+  - .thirdparty-cache
 init:
   - git config --system core.longpaths true
   - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%;%CYG_ROOT%\bin
@@ -32,7 +32,7 @@ install:
   - '%CYG_SETUP% -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_ROOT%\var\cache\setup" -P mingw64-%MINGW_ARCH%-gcc-core,mingw64-%MINGW_ARCH%-gcc-g++,mingw64-%MINGW_ARCH%-headers,mingw64-%MINGW_ARCH%-runtime,zip,mingw64-%MINGW_ARCH%-clang'
 build_script:
   - bash -c "cd scripts; ./build-sources.sh -a i386"
-  - bash -c "cd opensmalltalk-vm; ./.travis_build.sh"
+  - bash -c "cd opensmalltalk-vm; export THIRDPARTYCACHEDIR=../../../.thirdparty-cache; ./.travis_build.sh"
   - bash -c "cd scripts; ./pack-vm.sh"
 #test_script:
 #  - bash -c "cd scripts; exec 0</dev/null; exec ./run-tests.sh"
