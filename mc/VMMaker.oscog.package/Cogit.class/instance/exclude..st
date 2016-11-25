@@ -8,12 +8,16 @@ exclude: aMethodObj
 			ifPresent:
 				[:excluded| 
 				(excluded anySatisfy: [:exclude| aMethodObj = exclude]) ifTrue:
-					[coInterpreter transcript nextPutAll: 'EXCLUDING '; nextPutAll: aMethodObj; nextPutAll: ' (compiled block)'; cr; flush.
+					[coInterpreter transcript
+						ensureCr; nextPutAll: 'EXCLUDING ';
+						nextPutAll: aMethodObj; nextPutAll: ' (compiled block)';
+						cr; flush.
 					 ^true]].
 		 (compilationTrace anyMask: 1) ifTrue:
 			[| methodClass |
 			 methodClass := coInterpreter nameOfClass: (coInterpreter methodClassOf: aMethodObj).
 			 coInterpreter transcript
+				ensureCr;
 				nextPutAll: 'compiling compiled block in ';
 				nextPutAll: methodClass;
 				cr; flush]].

@@ -18,4 +18,6 @@ popToReg: reg
 						[SSRegister]	-> [inst := reg ~= register
 														ifTrue: [cogit MoveR: register R: reg]
 														ifFalse: [cogit Label]] }]].
-	reg ~= TempReg ifTrue: [ liveRegister := reg ]
+	reg ~= TempReg ifTrue:
+		[liveRegister := reg.
+		 cogit observeLiveRegisterIn: self]

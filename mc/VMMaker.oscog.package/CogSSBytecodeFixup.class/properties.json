@@ -6,7 +6,7 @@
 		"NeedsMergeFixupFlag",
 		"NeedsNonMergeFixupFlag",
 		"UnknownSimStackPtrFlag" ],
-	"commentStamp" : "eem 1/20/2011 13:03",
+	"commentStamp" : "eem 11/22/2016 08:39",
 	"instvars" : [
 		"simStackPtr",
 		"simNativeStackPtr",

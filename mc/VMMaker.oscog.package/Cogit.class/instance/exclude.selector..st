@@ -12,10 +12,8 @@ exclude: aMethodObj selector: aSelectorOop
 				selector := coInterpreter stringOf: aSelectorOop.
 				(excluded anySatisfy: [:exclude| selector = exclude or: [methodClass = exclude]]) ifTrue:
 					[coInterpreter transcript
-						nextPutAll: 'EXCLUDING ';
-						nextPutAll: methodClass;
-						nextPutAll: '>>#';
-						nextPutAll: selector;
+						ensureCr; nextPutAll: 'EXCLUDING ';
+						nextPutAll: methodClass; nextPutAll: '>>#'; nextPutAll: selector;
 						cr; flush.
 					 ^true]].
 		 (compilationTrace anyMask: 1) ifTrue:
@@ -24,9 +22,7 @@ exclude: aMethodObj selector: aSelectorOop
 			 selector isEmpty ifTrue:
 				[selector := coInterpreter stringOf: (coInterpreter maybeSelectorOfMethod: aMethodObj)].
 			 coInterpreter transcript
-				nextPutAll: 'compiling ';
-				nextPutAll: methodClass;
-				nextPutAll: '>>#';
-				nextPutAll: selector;
+				ensureCr; nextPutAll: 'compiling ';
+				nextPutAll: methodClass; nextPutAll: '>>#'; nextPutAll: selector;
 				cr; flush]].
 	^false

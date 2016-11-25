@@ -8,5 +8,6 @@ genStorePop: popBoolean TemporaryVariable: tempIndex
 		Mw: (self frameOffsetOfTemporary: tempIndex)
 		r: FPReg.
 	reg ~= TempReg ifTrue:
-		[(self simStackAt: tempIndex) liveRegister: reg].
+		[(self simStackAt: tempIndex) liveRegister: reg.
+		 self observeLiveRegisterIn: (self simStackAt: tempIndex)].
 	^0

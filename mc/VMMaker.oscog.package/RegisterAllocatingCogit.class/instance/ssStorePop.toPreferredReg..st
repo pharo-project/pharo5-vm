@@ -8,7 +8,8 @@ ssStorePop: popBoolean toPreferredReg: preferredReg
 	self ssTop type = SSRegister ifTrue: 
 		[self assert: (self ssTop liveRegister = NoReg
 					  or: [self ssTop liveRegister = self ssTop register]).
-		self assert: self ssTop spilled not].
+		self assert: self ssTop spilled not.
+		actualReg := self ssTop register].
 	self ssTop liveRegister ~= NoReg ifTrue:
 		[actualReg := self ssTop liveRegister].
 	self ssStorePop: popBoolean toReg: actualReg. "generates nothing if ssTop is already in actualReg"
