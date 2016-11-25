@@ -44,7 +44,7 @@ initializeBytecodeTableForNewspeakV4
 		(101	 bytecodePrimAtEnd)
 		(102	 bytecodePrimIdenticalV4) "for booleanCheatV4:"
 		(103	 bytecodePrimClass)
-		(104	 bytecodePrimSpecialSelector24) "was blockCopy:"
+		(104	 bytecodePrimNotIdenticalV4) "was blockCopy:"
 		(105	 bytecodePrimValue)
 		(106	 bytecodePrimValueWithArg)
 		(107	 bytecodePrimDo)
