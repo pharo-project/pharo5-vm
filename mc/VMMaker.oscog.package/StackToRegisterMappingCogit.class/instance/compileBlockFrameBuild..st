@@ -13,5 +13,4 @@ compileBlockFrameBuild: blockStart
 				 1 to: blockStart numInitialNils do:
 					[:ign| self PushR: TempReg]]
 			ifFalse:
-				[self genPushConstant: objectMemory nilObject].
-		 methodOrBlockNumTemps := blockStart numArgs + blockStart numCopied]
+				[self genPushConstant: objectMemory nilObject]]
