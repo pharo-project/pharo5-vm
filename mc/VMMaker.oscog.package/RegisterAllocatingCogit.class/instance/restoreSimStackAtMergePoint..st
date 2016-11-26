@@ -7,6 +7,7 @@ restoreSimStackAtMergePoint: fixup
 	 away all simStack and optStatus optimization state."
 	fixup mergeSimStack ifNotNil:
 		[simSpillBase := methodOrBlockNumTemps.
+		 self flag: 'try and maintain this through the merge'.
 		 optStatus isReceiverResultRegLive: false.
 		 0 to: simStackPtr do:
 			[:i|

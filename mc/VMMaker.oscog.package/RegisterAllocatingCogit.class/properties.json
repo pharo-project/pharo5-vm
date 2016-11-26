@@ -10,7 +10,8 @@
 		"mergeSimStacksBase",
 		"nextFixup",
 		"scratchSimStack",
-		"scratchSpillBase" ],
+		"scratchSpillBase",
+		"scratchOptStatus" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

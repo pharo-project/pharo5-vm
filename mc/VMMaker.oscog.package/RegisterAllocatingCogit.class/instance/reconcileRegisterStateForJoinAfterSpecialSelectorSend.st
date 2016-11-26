@@ -1,4 +1,4 @@
-bytecode generators
+bytecode generator support
 reconcileRegisterStateForJoinAfterSpecialSelectorSend
 	"When the control flow from the inlined special selector code (e.g. add or comparison)
 	 joins the control flow from the send, taken when the inlined code fails, we should decide
@@ -6,19 +6,25 @@ reconcileRegisterStateForJoinAfterSpecialSelectorSend
 	 
 	"If ReceiverResultReg is live along the inlined path, and is used before the next full send,
 	 reload it on the uncommon path."
-	optStatus isReceiverResultRegLive ifTrue:
-		[self existsInstVarRefBeforeSendOrReturn
-			ifTrue: [optStatus ssEntry storeToReg: ReceiverResultReg]
+	scratchOptStatus isReceiverResultRegLive ifTrue:
+		[(self existsInstVarRefBeforeSendOrReturn
+		  or: [self receiverRefOnScratchSimStack])
+			ifTrue:
+				[optStatus isReceiverResultRegLive: true.
+				 optStatus ssEntry storeToReg: ReceiverResultReg]
 			ifFalse: [optStatus isReceiverResultRegLive: false]].
 
 	"Restore the simStack to that in scratchSimStack,
 	 popping any spilled state back into allocated registers."
 	simSpillBase := scratchSpillBase.
-	simStackPtr to: simSpillBase + 1 by: -1 do:
+	simStackPtr to: 0 by: -1 do:
 		[:i|
 		 self assert: (i = simStackPtr
 						ifTrue: [(self simStackAt: i) type = SSRegister]
 						ifFalse: [(self simStackAt: i) spilled]).
+		 (self addressOf: (scratchSimStack at: i)) spilled ifTrue:
+			[self assert: ((scratchSimStack at: i) isSameEntryAs: (self simStackAt: i)).
+			 ^self].
 		 (self addressOf: (scratchSimStack at: i)) reconcileWith: (self simStackAt: i).
 		 simStack
 			at: i

@@ -4,7 +4,10 @@ ensureFixupAt: targetIndex
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt: targetIndex.
 	fixup needsFixup 
-		ifTrue: [self mergeCurrentSimStackWith: fixup mergeSimStack ]
+		ifTrue:
+			[fixup mergeSimStack
+				ifNil: [self setMergeSimStackOf: fixup]
+				ifNotNil: [self mergeCurrentSimStackWith: fixup mergeSimStack]]
 		ifFalse: 
 			[self assert: fixup mergeSimStack isNil.
 			self moveSimStackConstantsToRegisters.

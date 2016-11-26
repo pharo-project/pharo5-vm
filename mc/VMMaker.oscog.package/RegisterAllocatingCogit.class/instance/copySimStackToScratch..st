@@ -5,4 +5,5 @@ copySimStackToScratch: spillBase
 		inSmalltalk: [0 to: simStackPtr do:
 						[:i|
 						scratchSimStack at: i put: (simStack at: i) copy]].
-	scratchSpillBase := spillBase
+	scratchSpillBase := spillBase.
+	scratchOptStatus := self cCode: [optStatus] inSmalltalk: [optStatus copy]
