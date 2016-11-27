@@ -9,5 +9,5 @@ genStorePop: popBoolean TemporaryVariable: tempIndex
 		r: FPReg.
 	reg ~= TempReg ifTrue:
 		[(self simStackAt: tempIndex) liveRegister: reg.
-		 self observeLiveRegisterIn: (self simStackAt: tempIndex)].
+		 self copyLiveRegisterToCopiesOf: (self simStackAt: tempIndex)].
 	^0

@@ -17,4 +17,4 @@ storeToReg: reg
 												ifFalse: [cogit Label]] }].
 	reg ~= TempReg ifTrue:
 		[liveRegister := reg.
-		 cogit observeLiveRegisterIn: self]
+		 cogit copyLiveRegisterToCopiesOf: self]

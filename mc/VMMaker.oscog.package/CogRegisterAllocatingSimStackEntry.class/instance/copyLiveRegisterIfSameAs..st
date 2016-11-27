@@ -1,6 +1,5 @@
 compile abstract instructions
-noteLiveRegisterIn: simStackEntry
-	"Copy the liveRegister state in simStackEntry into the receiver if it is the same value at a different location on the stack."
+copyLiveRegisterIfSameAs: simStackEntry
 	<inline: true>
 	self flag: 'should this also apply to SSConstant entries assigned to registers?'.
 	(self ~~ simStackEntry
