@@ -8,7 +8,10 @@
 	"instvars" : [
 		"numFixups",
 		"mergeSimStacksBase",
-		"nextFixup" ],
+		"nextFixup",
+		"scratchSimStack",
+		"scratchSpillBase",
+		"scratchOptStatus" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

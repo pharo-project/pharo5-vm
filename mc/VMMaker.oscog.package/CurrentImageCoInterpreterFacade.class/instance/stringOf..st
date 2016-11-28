@@ -1,3 +1,3 @@
 accessing
 stringOf: anOop
-	^self lookupAddress: anOop
+	^(self lookupAddress: anOop) asString

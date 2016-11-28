@@ -1,5 +1,5 @@
 bytecode generators
-genSpecialSelectorEqualsEqualsWithForwarders
+genForwardersInlinedIdenticalOrNotIf: orNot
 	| nextPC branchDescriptor unforwardRcvr argReg targetBytecodePC
 	unforwardArg  rcvrReg postBranchPC label fixup |
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
@@ -22,13 +22,18 @@ genSpecialSelectorEqualsEqualsWithForwarders
 
 	"If not followed by a branch, resolve to true or false."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
-		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
+		[^ self 
+			genIdenticalNoBranchArgIsConstant: unforwardArg not
+			rcvrIsConstant: unforwardRcvr not
+			argReg: argReg 
+			rcvrReg: rcvrReg 
+			orNotIf: orNot].
 	
 	"If branching the stack must be flushed for the merge"
 	self ssFlushTo: simStackPtr - 2.
 	
 	label := self Label.
-	self genEqualsEqualsComparisonArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
+	self genCmpArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 
 	"Further since there is a following conditional jump bytecode, define
@@ -41,14 +46,23 @@ genSpecialSelectorEqualsEqualsWithForwarders
 		ifFalse:
 			[self ssPushConstant: objectMemory trueObject]. "dummy value"
 
-	self assert: (unforwardArg or: [ unforwardRcvr ]).
-	branchDescriptor isBranchTrue 
-		ifTrue: 
-			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
-		ifFalse: "branchDescriptor is branchFalse"
-			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
+	self assert: (unforwardArg or: [unforwardRcvr]).
+	"We could use (branchDescriptor isBranchTrue xor: orNot) to simplify this."
+	orNot 
+		ifFalse: [branchDescriptor isBranchTrue
+					ifTrue: 
+						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+					ifFalse: "branchDescriptor is branchFalse"
+						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]]
+		ifTrue: [branchDescriptor isBranchTrue
+					ifFalse: "branchDescriptor is branchFalse"
+						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+					ifTrue:
+						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]].
 		
 	"The forwarders checks need to jump back to the comparison (label) if a forwarder is found, else 
 	jump forward either to the next forwarder check or to the postBranch or branch target (fixup)."

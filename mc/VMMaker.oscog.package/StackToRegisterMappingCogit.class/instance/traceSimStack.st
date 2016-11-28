@@ -1,5 +1,5 @@
 simulation only
 traceSimStack
 	<cmacro: '() 0'>
-	(compilationTrace anyMask: 1) ifTrue:
-		[self printSimStack]
+	(compilationTrace anyMask: 4) ifTrue:
+		[self printOptStatus; printSimStack]

@@ -1,5 +1,5 @@
 bytecode generators
-genSpecialSelectorEqualsEqualsWithForwarders
+genForwardersInlinedIdenticalOrNotIf: orNot
 	"Override to count inlined branches if followed by a conditional branch.
 	 We borrow the following conditional branch's counter and when about to
 	 inline the comparison we decrement the counter (without writing it back)
@@ -15,7 +15,7 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	<var: #jumpNotEqual type: #'AbstractInstruction *'>
 
 	((coInterpreter isOptimizedMethod: methodObj) or: [needsFrame not]) ifTrue:
-		[^super genSpecialSelectorEqualsEqualsWithForwarders].
+		[^super genForwardersInlinedIdenticalOrNotIf: orNot].
 
 	regMask := 0.
 	
@@ -40,7 +40,12 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	
 	"Only interested in inlining if followed by a conditional branch."
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse]) ifFalse:
-		[^ self genEqualsEqualsNoBranchArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg].
+		[^ self 
+			genIdenticalNoBranchArgIsConstant: unforwardArg not
+			rcvrIsConstant: unforwardRcvr not
+			argReg: argReg 
+			rcvrReg: rcvrReg 
+			orNotIf: orNot].
 	
 	"If branching the stack must be flushed for the merge"
 	self ssFlushTo: simStackPtr - 2.
@@ -56,18 +61,25 @@ genSpecialSelectorEqualsEqualsWithForwarders
 		counterReg: counterReg.
 	
 	self assert: (unforwardArg or: [ unforwardRcvr ]).
-	
-	self genEqualsEqualsComparisonArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
-	
+	self genCmpArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 	
-	branchDescriptor isBranchTrue 
-		ifTrue: 
-			[ fixup := self ensureNonMergeFixupAt: postBranchPC - initialPC.
-			self JumpZero: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger. ]
-		ifFalse: 
-			[ fixup := self ensureNonMergeFixupAt: targetBytecodePC - initialPC.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger. ].
+	"We could use (branchDescriptor isBranchTrue xor: orNot) to simplify this."
+	orNot 
+		ifFalse: [branchDescriptor isBranchTrue
+					ifTrue: 
+						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+					ifFalse: "branchDescriptor is branchFalse"
+						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]]
+		ifTrue: [branchDescriptor isBranchTrue
+					ifFalse: "branchDescriptor is branchFalse"
+						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+					ifTrue:
+						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]].
 	
 	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
 	self Jump: fixup.
@@ -76,12 +88,12 @@ genSpecialSelectorEqualsEqualsWithForwarders
 	
 	"inlined version of #== ignoring the branchDescriptor if the counter trips to have normal state for the optimizer"
 	self ssPop: -2. 
-	self genEqualsEqualsComparisonArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
+	self genCmpArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2. 
 	
 	"This code necessarily directly falls through the jumpIf: code which pops the top of the stack into TempReg. 
 	We therefore directly assign the result to TempReg to save one move instruction"
-	jumpEqual := self JumpZero: 0.
+	jumpEqual := orNot ifFalse: [self JumpZero: 0] ifTrue: [self JumpNonZero: 0].
 	self genMoveFalseR: TempReg.
 	jumpNotEqual := self Jump: 0.
 	jumpEqual jmpTarget: (self genMoveTrueR: TempReg).

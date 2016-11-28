@@ -61,7 +61,7 @@ initializeBytecodeTableForSistaV1
 		(117	 bytecodePrimAtEnd)
 		(118	 bytecodePrimIdenticalSistaV1) "for booleanCheatSistaV1:"
 		(119	 bytecodePrimClass)
-		(120	 bytecodePrimSpecialSelector24) "was blockCopy:"
+		(120	 bytecodePrimNotIdenticalSistaV1) "was blockCopy:"
 		(121	 bytecodePrimValue)
 		(122	 bytecodePrimValueWithArg)
 		(123	 bytecodePrimDo)			"i.e. a 1 arg special selector"

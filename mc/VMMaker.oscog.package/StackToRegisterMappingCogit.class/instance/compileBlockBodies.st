@@ -2,7 +2,7 @@ compile abstract instructions
 compileBlockBodies
 	<inline: false>
 	| result compiledBlocksCount blockStart savedNeedsFrame savedNumArgs savedNumTemps
-	  initialStackPtr initialOpcodeIndex initialIndexOfIRC |
+	  initialStackPtr initialOpcodeIndex initialIndexOfIRC initialCounterIndex |
 	<var: #blockStart type: #'BlockStart *'>
 	self assert: blockCount > 0.
 	"scanBlock: in compileBlockEntry: sets both of these appropriately for each block."
@@ -13,8 +13,9 @@ compileBlockBodies
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
 		[blockStart := self blockStartAt: compiledBlocksCount.
-		  (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
+		 (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
 		 initialOpcodeIndex := opcodeIndex.
+		 initialCounterIndex := self maybeCounterIndex."for SistaCogit"
 		 literalsManager saveForBlockCompile.
 		 NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
@@ -40,6 +41,7 @@ compileBlockBodies
 					inSmalltalk: [initialOpcodeIndex to: opcodeIndex - 1 do:
 									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
+				 self maybeSetCounterIndex: initialCounterIndex. "For SistaCogit"
 				 literalsManager resetForBlockCompile.
 				 NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].

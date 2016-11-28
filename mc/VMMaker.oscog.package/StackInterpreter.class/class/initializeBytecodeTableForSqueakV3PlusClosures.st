@@ -89,7 +89,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 		(197 bytecodePrimAtEnd)
 		(198 bytecodePrimIdentical)
 		(199 bytecodePrimClass)
-		(200 bytecodePrimSpecialSelector24)
+		(200 bytecodePrimNotIdentical) "was bytecodePrimSpecialSelector24 / blockCopy"
 		(201 bytecodePrimValue)
 		(202 bytecodePrimValueWithArg)
 		(203 bytecodePrimDo)
