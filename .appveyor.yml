@@ -17,9 +17,6 @@ environment:
 matrix:
   fast_finish: false
 clone_depth: 5
-branches:
-  only:
-    - merge-with-osvm
 cache:
   - .thirdparty-cache
 init:

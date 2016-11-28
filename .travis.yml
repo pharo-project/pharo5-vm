@@ -4,9 +4,6 @@ cache:
     - opensmalltalk-vm/.thirdparty-cache
 git:
   depth: 5
-branches:
-  only:
-    - merge-with-osvm
 addons:
   apt:
     packages:
