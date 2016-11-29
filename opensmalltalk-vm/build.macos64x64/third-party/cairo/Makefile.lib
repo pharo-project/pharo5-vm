@@ -1,0 +1,44 @@
+include ../common/Makefile.lib.extra
+
+$(info LIBRARY: cairo)
+
+# plugin definitions
+CAIROURL:=http://www.cairographics.org/releases/cairo-1.14.6.tar.xz
+CAIROLIBNAME:=libcairo.2.dylib
+CAIRODIR:=$(THIRDPARTYDIR)/cairo-1.14.6
+CAIROLIB:=$(THIRDPARTYINSTALLDIR)/$(CAIROLIBNAME)
+CAIROARCHIVE:=$(THIRDPARTYCACHEDIR)/cairo-1.14.6.tar.xz
+
+# ensure third-party library is built and recognised by plugins
+INCDIRS:=$(INCDIRS) $(THIRDPARTYINCLUDEDIR)
+EXTRALIBS:=$(EXTRALIBS) $(CAIROLIB)
+PLUGINREQS:=$(THIRDPARTYLIBS)
+
+$(CAIROARCHIVE): 
+	curl -o $(CAIROARCHIVE) -L $(CAIROURL) 
+
+$(THIRDPARTYLIBDIR)/$(CAIROLIBNAME): $(CAIROARCHIVE)
+	tar x -f $(CAIROARCHIVE) -C $(THIRDPARTYDIR)
+	cd $(CAIRODIR) \
+		&& ./configure \
+			--prefix="$(THIRDPARTYOUTDIR)" \
+			PKG_CONFIG="$(PKG_CONFIG)" \
+			PKG_CONFIG_PATH="$(PKG_CONFIG_PATH)" \
+			CFLAGS='-arch x86_64' \
+			LDFLAGS='-arch x86_64' \
+			--disable-silent-rules \
+			--disable-xlib \
+			--disable-dependency-tracking \
+		&& make \
+		&& make install
+
+$(CAIROLIB): pkgconfig libpng freetype2 pixman $(THIRDPARTYLIBDIR)/$(CAIROLIBNAME)
+	cp -f $(THIRDPARTYLIBDIR)/$(CAIROLIBNAME) $(THIRDPARTYINSTALLDIR)
+	install_name_tool -id "@executable_path/Plugins/$(CAIROLIBNAME)" $(CAIROLIB)
+	@echo "Fixing dependency links"
+	@for each in $(PIXMANLIBNAME) $(FREETYPE2LIBNAME) $(LIBPNGLIBNAME); do \
+		install_name_tool -change "$(THIRDPARTYLIBDIR)/$$each" "@executable_path/Plugins/$$each" $(CAIROLIB); \
+	done
+	@echo "DONE"
+	
+cairo: $(CAIROLIB)
