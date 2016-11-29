@@ -97,4 +97,4 @@ deploy:
   file: .bintray.json
   user: $BINTRAY_USER
   key: $BINTRAY_API_KEY
-  on: merge-with-osvm
+  on: master
