@@ -46,7 +46,7 @@ case "${ARCH}" in
 		;;
 	win64x64) 
 		productDir="$productDir/build.${ARCH}/pharo.cog.spur/build/vm" 
-		pattern="-x *Unstripped.exe *.exe *.dll"
+		pattern="-x *Unstripped.exe -i *.exe *.dll"
 		os="win"
 		;;
 	*) 
