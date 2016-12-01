@@ -12,7 +12,7 @@ ssStorePop: popBoolean toPreferredReg: preferredReg
 		actualReg := self ssTop register].
 	self ssTop liveRegister ~= NoReg ifTrue:
 		[actualReg := self ssTop liveRegister].
-	liveRegisters := self liveRegistersExceptingTopNItems: 1.
+	liveRegisters := self liveRegistersExceptingTopNItems: 1 in: simStack.
 	(self register: actualReg isInMask: liveRegisters) ifTrue:
 		[actualReg := self allocateRegNotConflictingWith: (self registerMaskFor: preferredReg).
 		 actualReg = NoReg ifTrue:
