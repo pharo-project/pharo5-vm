@@ -3,7 +3,7 @@ ssStorePop: popBoolean toPreferredReg: preferredReg
 	"Store or pop the top simulated stack entry to a register.
 	 Use preferredReg if the entry is not itself a register.
 	 Answer the actual register the result ends up in."
-	| actualReg |
+	| actualReg liveRegisters |
 	actualReg := preferredReg.
 	self ssTop type = SSRegister ifTrue: 
 		[self assert: (self ssTop liveRegister = NoReg
@@ -12,5 +12,11 @@ ssStorePop: popBoolean toPreferredReg: preferredReg
 		actualReg := self ssTop register].
 	self ssTop liveRegister ~= NoReg ifTrue:
 		[actualReg := self ssTop liveRegister].
+	liveRegisters := self liveRegistersExceptingTopNItems: 1.
+	(self register: actualReg isInMask: liveRegisters) ifTrue:
+		[actualReg := self allocateRegNotConflictingWith: (self registerMaskFor: preferredReg).
+		 actualReg = NoReg ifTrue:
+			[actualReg := preferredReg]].
+	self deny: (self register: actualReg isInMask: liveRegisters).
 	self ssStorePop: popBoolean toReg: actualReg. "generates nothing if ssTop is already in actualReg"
 	^actualReg

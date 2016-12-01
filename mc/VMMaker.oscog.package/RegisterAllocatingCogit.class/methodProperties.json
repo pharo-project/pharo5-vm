@@ -32,6 +32,7 @@
 		"initSimStackForFramelessMethod:" : "eem 11/28/2016 16:13",
 		"initializeCodeZoneFrom:upTo:" : "eem 11/22/2016 10:25",
 		"liveRegisters" : "eem 11/29/2016 08:23",
+		"liveRegistersExceptingTopNItems:" : "eem 11/30/2016 11:52",
 		"maybeCountFixup:" : "eem 11/29/2016 13:43",
 		"maybeInitNumFixups" : "eem 6/1/2016 15:11",
 		"mergeCurrentSimStackWith:" : "eem 4/18/2016 09:32",
@@ -51,4 +52,4 @@
 		"ssPushBase:offset:" : "cb 4/17/2016 17:12",
 		"ssPushConstant:" : "cb 4/17/2016 17:10",
 		"ssPushRegister:" : "cb 4/17/2016 17:12",
-		"ssStorePop:toPreferredReg:" : "eem 11/28/2016 16:15" } }
+		"ssStorePop:toPreferredReg:" : "eem 11/30/2016 11:57" } }
