@@ -48,7 +48,7 @@ ceSICMiss: receiver
 		 ^coInterpreter ceSendFromInLineCacheMiss: targetMethod].
 	"See if an Open PIC is already available."
 	pic := methodZone openPICWithSelector: targetMethod selector.
-	pic ifNil:
+	(pic isNil or: [self allowEarlyOpenPICPromotion not]) ifTrue:
 		["otherwise attempt to create a closed PIC for the two cases."
 		 pic := self cogPICSelector: targetMethod selector
 					numArgs: targetMethod cmNumArgs
