@@ -13,11 +13,11 @@ captureUnspilledSpillsForSpecialSelectorSend: liveRegisterMask
 	i := simStackPtr + 1. "We must spill a contiguous range at the hot top of stack, so we assign coldest first :-("
 	[reg ~= NoReg and: [i > simSpillBase and: [i > 0]]] whileTrue:
 		[i := i - 1.
-		 self deny: ((self simStackAt: i) spilled and: [(self simStackAt: i) type = SSBaseOffset]).
 		 ((self simStackAt: i) spilled not
 		  and: [(self simStackAt: i) type = SSBaseOffset]) ifTrue:
 			[reg := self allocateRegNotConflictingWith: liveRegs.
 			 reg ~= NoReg ifTrue:
-				[(self simStackAt: i) storeToReg: reg]]].
+				[(self simStackAt: i) storeToReg: reg.
+				 liveRegs := liveRegs bitOr: (self registerMaskFor: reg)]]].
 	reg = NoReg ifTrue:
 		[self ssFlushTo: i]
