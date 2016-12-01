@@ -7,6 +7,12 @@ initialize
 
 	self ~~ CogX64Compiler ifTrue: [^self].
 
+	initializationOptions ifNil: [ initializationOptions := Dictionary new ].
+	initializationOptions
+		at: #ABI
+		ifPresent: [:abi| SysV := abi asUppercase ~= #WIN64]
+		ifAbsent: [SysV := true]. "Default ABI; set to true for SysV, false for WIN64"
+
 	RAX := 0.
 	RCX := 1.  "Were they completely mad or simply sadistic?"
 	RDX := 2.
