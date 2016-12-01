@@ -33,10 +33,10 @@ build_script:
   - bash -c "cd scripts; ./pack-vm.sh"
 #test_script:
 #  - bash -c "cd scripts; exec 0</dev/null; exec ./run-tests.sh"
-#on_failure:
-#  - bash -c "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"
-#  - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
-#  - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
+on_failure:
+  - bash -c "if [ -e ./image/PharoDebug.log ]; then cat ./image/PharoDebug.log; fi"
+  - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
+  - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
 before_deploy:
   - bash -c "./scripts/deploy-before.sh"
 deploy_script:
