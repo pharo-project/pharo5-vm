@@ -22,10 +22,10 @@ reconcileRegisterStateForJoinAfterSpecialSelectorSend
 		 self assert: (i = simStackPtr
 						ifTrue: [(self simStackAt: i) type = SSRegister]
 						ifFalse: [(self simStackAt: i) spilled]).
-		 (self addressOf: (scratchSimStack at: i)) spilled ifTrue:
-			[self assert: ((scratchSimStack at: i) isSameEntryAs: (self simStackAt: i)).
+		 (self simStack: scratchSimStack at: i) spilled ifTrue:
+			[self assert: ((self simStack: scratchSimStack at: i) isSameEntryAs: (self simStackAt: i)).
 			 ^self].
-		 (self simStackAt: i) reconcilePoppingWith: (self addressOf: (scratchSimStack at: i)).
+		 (self simStackAt: i) reconcilePoppingWith: (self simStack: scratchSimStack at: i).
 		 simStack
 			at: i
 			put: (self
