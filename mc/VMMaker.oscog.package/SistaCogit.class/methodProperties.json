@@ -6,6 +6,7 @@
 		"initializeWithOptions:" : "eem 4/6/2012 14:55",
 		"numTrampolines" : "eem 6/4/2015 12:08" },
 	"instance" : {
+		"allowEarlyOpenPICPromotion" : "cb 12/1/2016 10:15",
 		"compileCogFullBlockMethod:" : "cb 4/15/2016 11:09",
 		"compileCogMethod:" : "eem 7/5/2014 17:21",
 		"compileFrameBuild" : "eem 7/7/2014 07:05",
