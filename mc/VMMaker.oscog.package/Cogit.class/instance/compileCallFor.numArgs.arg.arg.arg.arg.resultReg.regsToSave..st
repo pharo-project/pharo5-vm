@@ -22,6 +22,5 @@ compileCallFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg:
 						inSmalltalk: [self simulatedTrampolineFor: aRoutine]).
 	resultRegOrNone ~= NoReg ifTrue:
 		[backEnd genWriteCResultIntoReg: resultRegOrNone].
-	 numArgs > 0 ifTrue:
-		[backEnd genRemoveNArgsFromStack: numArgs].
+	backEnd genRemoveNArgsFromStack: numArgs.
 	backEnd genRestoreRegs: regsToSave

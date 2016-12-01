@@ -148,7 +148,7 @@
 		"genPushRegisterArgsForAbortMissNumArgs:" : "eem (const to msg rewrite) 11/6/2014 11:51",
 		"genPushRegisterArgsForNumArgs:scratchReg:" : "eem 6/1/2015 16:44",
 		"genPushRs:" : "RonieSalgado 4/29/2016 16:16",
-		"genRemoveNArgsFromStack:" : "eem 2/13/2009 12:37",
+		"genRemoveNArgsFromStack:" : "nice 11/27/2016 18:54",
 		"genRemoveNFloatArgsFromStack:" : "RonieSalgado 5/2/2016 14:41",
 		"genRestoreRegs:" : "eem 3/3/2016 14:11",
 		"genRestoreRegsExcept:" : "eem 12/25/2015 18:18",

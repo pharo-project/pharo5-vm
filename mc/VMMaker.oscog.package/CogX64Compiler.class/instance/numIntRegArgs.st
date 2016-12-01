@@ -1,3 +1,3 @@
 accessing
 numIntRegArgs
-	^6
+	^SysV ifTrue: [6] ifFalse: [4]

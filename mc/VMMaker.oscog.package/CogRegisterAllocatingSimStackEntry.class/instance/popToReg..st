@@ -4,9 +4,10 @@ popToReg: reg
 	liveRegister ~= NoReg
 		ifTrue: 
 			[self deny: spilled.
+			 self deny: (type = SSRegister and: [register ~= liveRegister]).
 			 reg ~= liveRegister
 				ifTrue: [cogit MoveR: liveRegister R: reg]
-				ifFalse: [cogit Label] ]
+				ifFalse: [cogit Label]]
 		ifFalse: 
 			[spilled
 				ifTrue:
@@ -18,6 +19,7 @@ popToReg: reg
 						[SSRegister]	-> [reg ~= register
 												ifTrue: [cogit MoveR: register R: reg]
 												ifFalse: [cogit Label]] }]].
-	reg ~= TempReg ifTrue:
+
+	(reg ~= TempReg and: [reg ~= liveRegister and: [type ~= SSRegister]]) ifTrue:
 		[liveRegister := reg.
 		 cogit copyLiveRegisterToCopiesOf: self]

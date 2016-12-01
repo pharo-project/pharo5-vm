@@ -5,7 +5,7 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 	<var: #jumpIsImm type: #'AbstractInstruction *'>
 	<var: #jumpNotForwarded type: #'AbstractInstruction *'>
 	<var: #loop type: #'AbstractInstruction *'>
-	instReg = destReg ifTrue:
+	(instReg = destReg or: [instReg = scratchReg or: [destReg = scratchReg]]) ifTrue:
 		[^BadRegisterSet].
 	loop := cogit MoveR: instReg R: scratchReg.
 	cogit AndCq: objectMemory tagMask R: scratchReg.
@@ -25,8 +25,12 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 		jumpNotForwarded jmpTarget: cogit Label].
 	jumpIsImm jmpTarget:
 	(cogit MoveR: scratchReg R: destReg).
-	cogit PushR: instReg.
+	scratchReg = TempReg
+		ifTrue: [cogit PushR: instReg]
+		ifFalse: [cogit MoveR: instReg R: scratchReg].
 	self genGetClassObjectOfClassIndex: destReg into: instReg scratchReg: TempReg.
 	cogit MoveR: instReg R: destReg.
-	cogit PopR: instReg.
+	scratchReg = TempReg
+		ifTrue: [cogit PopR: instReg]
+		ifFalse: [cogit MoveR: scratchReg R: instReg].
 	^0

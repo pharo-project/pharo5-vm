@@ -24,6 +24,5 @@ compileCallFor: aRoutine numArgs: numArgs arg: regOrConst0 arg: regOrConst1 arg:
 		[backEnd genWriteCResultIntoReg: resultRegOrNone].
 	resultReg2OrNone ~= NoReg ifTrue:
 		[backEnd genWriteCSecondResultIntoReg: resultReg2OrNone].
-	 numArgs > 0 ifTrue:
-		[backEnd genRemoveNArgsFromStack: numArgs].
+	backEnd genRemoveNArgsFromStack: numArgs.
 	backEnd genRestoreRegs: regsToSave

@@ -60,16 +60,14 @@ scanMethod
 				ifTrue: [self initializeFixupAt: targetPC - initialPC]
 				ifFalse:
 					[latestContinuation := latestContinuation max: targetPC.
-					 (descriptor isBranchTrue or: [descriptor isBranchFalse]) ifTrue:
-						[self maybeCountFixup].
-					 self maybeCountFixup.
+					 self maybeCountFixup: descriptor.
 					 self maybeCountCounter]].
 		 descriptor isBlockCreation ifTrue:
 			[numBlocks := numBlocks + 1.
 			 distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
 			 latestContinuation := latestContinuation max: targetPC.
-			 self maybeCountFixup].
+			 self maybeCountFixup: descriptor].
 
 		 NewspeakVM ifTrue:
 			[descriptor hasIRC ifTrue: [numIRCs := numIRCs + 1]].

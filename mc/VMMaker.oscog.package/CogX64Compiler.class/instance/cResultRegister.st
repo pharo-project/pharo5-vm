@@ -1,5 +1,5 @@
 accessing
 cResultRegister
-	"Answer the register through which C funcitons return integral results."
+	"Answer the register through which C functions return integral results."
 	<inline: true>
 	^RAX

@@ -13,4 +13,4 @@ ssStorePop: popBoolean toPreferredReg: preferredReg
 	self ssTop liveRegister ~= NoReg ifTrue:
 		[actualReg := self ssTop liveRegister].
 	self ssStorePop: popBoolean toReg: actualReg. "generates nothing if ssTop is already in actualReg"
-	^ actualReg
+	^actualReg
