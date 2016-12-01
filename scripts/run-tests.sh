@@ -3,10 +3,12 @@ set -ex
 
 # TEST VM LOCATION ============================================================
 VM_DIR="results"
-if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+if [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "linux" ]]; then
 	VM_NAME="pharo"
-elif [ "$TRAVIS_OS_NAME" = "osx" ]]; then
+elif [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "osx" ]]; then
 	VM_NAME="Pharo"
+elif [ "$APPVEYOR" = "True" ]; then
+	VM_NAME="PharoConsole"
 else
     echo "Unsupported OS";
     exit 1;
