@@ -2,8 +2,7 @@ compile abstract instructions
 storeToReg: reg
 	liveRegister ~= NoReg
 		ifTrue:
-			[self deny: spilled.
-			 self deny: (type = SSRegister and: [register ~= liveRegister]).
+			[self deny: (type = SSRegister and: [register ~= liveRegister]).
 			 reg ~= liveRegister
 				ifTrue: [cogit MoveR: liveRegister R: reg]
 				ifFalse: [cogit Label]]

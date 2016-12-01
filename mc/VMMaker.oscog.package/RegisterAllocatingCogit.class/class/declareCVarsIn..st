@@ -2,6 +2,6 @@ C translation
 declareCVarsIn: aCodeGen
 	aCodeGen
 		var: #scratchSimStack
-			type: #'CogSimStackEntry *';
+			type: #'SimStackEntry *';
 		var: #scratchOptStatus
 			type: #CogSSOptStatus

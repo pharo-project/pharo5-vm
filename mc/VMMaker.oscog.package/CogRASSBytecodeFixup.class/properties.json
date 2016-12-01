@@ -7,7 +7,8 @@
 	"commentStamp" : "eem 11/22/2016 08:44",
 	"instvars" : [
 		"cogit",
-		"mergeSimStack" ],
+		"mergeSimStack",
+		"isReceiverResultRegSelf" ],
 	"name" : "CogRASSBytecodeFixup",
 	"pools" : [
 		 ],

@@ -25,7 +25,7 @@ reconcileRegisterStateForJoinAfterSpecialSelectorSend
 		 (self addressOf: (scratchSimStack at: i)) spilled ifTrue:
 			[self assert: ((scratchSimStack at: i) isSameEntryAs: (self simStackAt: i)).
 			 ^self].
-		 (self addressOf: (scratchSimStack at: i)) reconcileWith: (self simStackAt: i).
+		 (self simStackAt: i) reconcilePoppingWith: (self addressOf: (scratchSimStack at: i)).
 		 simStack
 			at: i
 			put: (self
