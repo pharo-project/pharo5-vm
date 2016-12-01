@@ -26,11 +26,12 @@ genGetClassObjectOf: instReg into: destReg scratchReg: scratchReg instRegIsRecei
 	jumpIsImm jmpTarget:
 	(cogit MoveR: scratchReg R: destReg).
 	scratchReg = TempReg
-		ifTrue: [cogit PushR: instReg]
-		ifFalse: [cogit MoveR: instReg R: scratchReg].
-	self genGetClassObjectOfClassIndex: destReg into: instReg scratchReg: TempReg.
-	cogit MoveR: instReg R: destReg.
-	scratchReg = TempReg
-		ifTrue: [cogit PopR: instReg]
-		ifFalse: [cogit MoveR: scratchReg R: instReg].
+		ifTrue:
+			[cogit PushR: instReg.
+			 self genGetClassObjectOfClassIndex: destReg into: instReg scratchReg: TempReg.
+			 cogit MoveR: instReg R: destReg.
+			 cogit PopR: instReg]
+		ifFalse:
+			[self genGetClassObjectOfClassIndex: destReg into: scratchReg scratchReg: TempReg.
+			 cogit MoveR: scratchReg R: destReg].
 	^0

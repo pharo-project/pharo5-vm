@@ -39,7 +39,7 @@
 		"moveSimStackConstantsToRegisters" : "eem 11/29/2016 10:50",
 		"receiverRefOnScratchSimStack" : "eem 11/29/2016 15:48",
 		"reconcileRegisterStateForBackwardJoin:" : "eem 11/29/2016 11:27",
-		"reconcileRegisterStateForJoinAfterSpecialSelectorSend" : "eem 11/29/2016 15:48",
+		"reconcileRegisterStateForJoinAfterSpecialSelectorSend" : "eem 11/30/2016 11:14",
 		"registerMaskUndesirableForTempVars" : "eem 11/28/2016 09:45",
 		"restoreSimStackAtMergePoint:" : "eem 11/25/2016 16:35",
 		"setMergeSimStackOf:" : "eem 11/29/2016 15:23",

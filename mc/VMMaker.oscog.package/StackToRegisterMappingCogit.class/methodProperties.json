@@ -24,7 +24,7 @@
 		"adjustArgumentsForPerform:" : "eem 2/23/2016 16:24",
 		"allocateEqualsEqualsRegistersArgNeedsReg:rcvrNeedsReg:into:" : "eem 12/10/2015 09:10",
 		"allocateRegForStackEntryAt:" : "cb 4/26/2015 12:25",
-		"allocateRegForStackEntryAt:notConflictingWith:" : "eem 11/28/2016 16:18",
+		"allocateRegForStackEntryAt:notConflictingWith:" : "eem 11/30/2016 11:09",
 		"allocateRegForStackTopThreeEntriesInto:thirdIsReceiver:" : "eem 11/28/2016 16:20",
 		"allocateRegForStackTopTwoEntriesInto:" : "eem 11/28/2016 16:21",
 		"allocateRegNotConflictingWith:" : "eem 12/10/2015 09:17",

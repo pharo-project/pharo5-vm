@@ -39,7 +39,7 @@
 		"genGetActiveContextNumArgs:large:inBlock:" : "eem 9/5/2016 14:26",
 		"genGetBits:ofFormatByteOf:into:" : "eem 12/10/2015 08:47",
 		"genGetClassIndexOfNonImm:into:" : "eem 10/3/2013 10:15",
-		"genGetClassObjectOf:into:scratchReg:instRegIsReceiver:" : "eem 11/28/2016 18:20",
+		"genGetClassObjectOf:into:scratchReg:instRegIsReceiver:" : "eem 11/30/2016 11:29",
 		"genGetClassObjectOfClassIndex:into:scratchReg:" : "eem 12/15/2015 21:03",
 		"genGetClassTagOf:into:scratchReg:" : "eem 7/7/2014 11:57",
 		"genGetCompactClassIndexNonImmOf:into:" : "eem 10/3/2013 10:15",
