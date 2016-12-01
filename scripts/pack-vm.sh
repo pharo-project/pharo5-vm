@@ -41,12 +41,12 @@ case "${ARCH}" in
 		;;
 	win32x86) 
 		productDir="$productDir/build.${ARCH}/pharo.cog.spur/build/vm" 
-		pattern="-x *Unstripped.exe *.exe *.dll"
+		pattern="-x \"*Unstripped.exe\" -i \"*.exe *.dll\""
 		os="win"
 		;;
 	win64x64) 
 		productDir="$productDir/build.${ARCH}/pharo.cog.spur/build/vm" 
-		pattern="-x *Unstripped.exe -i *.exe *.dll"
+		pattern="-x \"*Unstripped.exe\" -i \"*.exe *.dll\""
 		os="win"
 		;;
 	*) 
