@@ -16,7 +16,7 @@ reconcileForwardsWith: targetEntry
 		 ^self].
 	spilled
 		ifTrue:
-			[targetEntry spilled ifTrue:
+			[targetEntry spilled ifFalse:
 				[cogit PopR: targetReg. "KISS; generate the least number of instructions..."
 				 ^self]]
 		ifFalse:

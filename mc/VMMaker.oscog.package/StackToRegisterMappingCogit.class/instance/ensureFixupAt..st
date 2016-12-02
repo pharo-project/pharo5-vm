@@ -18,18 +18,19 @@ ensureFixupAt: targetIndex
 			 fixup simStackPtr: simStackPtr.
 			 LowcodeVM ifTrue: [
 				 fixup simNativeStackPtr: simNativeStackPtr.
-				 fixup simNativeStackSize: simNativeStackSize.]]
+				 fixup simNativeStackSize: simNativeStackSize]]
 		ifFalse:
 			[fixup isBackwardBranchFixup
-				ifTrue: ["this is the target of a backward branch and
+				ifTrue: "this is the target of a backward branch and
 						 so doesn't have a simStackPtr assigned yet."
-						fixup simStackPtr: simStackPtr.
-			 			LowcodeVM ifTrue: [
-				 			fixup simNativeStackPtr: simNativeStackPtr.
-				 			fixup simNativeStackSize: simNativeStackSize.]]
-				ifFalse: [
-					self assert: fixup simStackPtr = simStackPtr.
-					LowcodeVM ifTrue: [
-				 		self assert: fixup simNativeStackPtr = simNativeStackPtr.
-		 			 	self assert: fixup simNativeStackSize = simNativeStackSize.]]].
+						[fixup simStackPtr: simStackPtr.
+			 			 LowcodeVM ifTrue:
+				 			[fixup simNativeStackPtr: simNativeStackPtr.
+				 			 fixup simNativeStackSize: simNativeStackSize]]
+				ifFalse:
+					[self assert: fixup simStackPtr = simStackPtr.
+					 LowcodeVM ifTrue:
+				 		[self assert: fixup simNativeStackPtr = simNativeStackPtr.
+		 			 	 self assert: fixup simNativeStackSize = simNativeStackSize]]].
+	fixup recordBcpc: bytecodePC.
 	^fixup

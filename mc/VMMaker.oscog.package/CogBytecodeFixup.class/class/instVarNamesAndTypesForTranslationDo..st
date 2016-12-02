@@ -4,9 +4,10 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 
 	self allInstVarNames do:
 		[:ivn|
-		aBinaryBlock
-			value: ivn
-			value: (ivn = 'targetInstruction'
-					ifTrue: [#'AbstractInstruction *']
-					ifFalse:
-						[#sqInt])]
+		ivn ~= 'bcpc' ifTrue:
+			[aBinaryBlock
+				value: ivn
+				value: (ivn = 'targetInstruction'
+						ifTrue: [#'AbstractInstruction *']
+						ifFalse:
+							[#sqInt])]]

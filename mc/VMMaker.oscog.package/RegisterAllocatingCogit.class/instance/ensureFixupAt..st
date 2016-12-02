@@ -10,6 +10,6 @@ ensureFixupAt: targetIndex
 				ifNotNil: [self mergeCurrentSimStackWith: fixup mergeSimStack]]
 		ifFalse: 
 			[self assert: fixup mergeSimStack isNil.
-			self moveSimStackConstantsToRegisters.
-			self setMergeSimStackOf: fixup ].
-	^super ensureFixupAt: targetIndex.
+			self moveVolatileSimStackEntriesToRegisters.
+			self setMergeSimStackOf: fixup].
+	^super ensureFixupAt: targetIndex
