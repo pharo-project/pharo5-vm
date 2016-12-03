@@ -2,7 +2,7 @@ bytecode generators
 genPushNewArrayBytecode
 	| size popValues |
 	self assert: needsFrame.
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverResultRegContainsSelf.
 	(popValues := byte1 > 127)
 		ifTrue: [self ssFlushTo: simStackPtr]
 		ifFalse: [self ssAllocateCallReg: SendNumArgsReg and: ReceiverResultReg].

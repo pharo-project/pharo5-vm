@@ -9,7 +9,7 @@ genExtPushFullClosureBytecode
 	numCopied := byte2 bitAnd: 1<< 6 - 1.
 	receiverIsOnStack := byte2 anyMask: 1 << 7.
 	ignoreContext := byte2 anyMask: 1 << 6.
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverResultRegContainsSelf.
 	self ssAllocateCallReg: ReceiverResultReg
 		and: SendNumArgsReg
 		and: ClassReg.

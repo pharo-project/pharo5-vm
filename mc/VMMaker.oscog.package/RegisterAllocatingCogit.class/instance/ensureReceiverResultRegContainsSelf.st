@@ -1,7 +1,7 @@
 bytecode generator support
 ensureReceiverResultRegContainsSelf
 	super ensureReceiverResultRegContainsSelf.
-	0 to: simStackPtr do:
+	methodOrBlockNumTemps to: simStackPtr do:
 		[:i|
 		(simSelf isSameEntryAs: (self simStackAt: i))
 			ifTrue: [(self simStackAt: i) liveRegister: ReceiverResultReg]

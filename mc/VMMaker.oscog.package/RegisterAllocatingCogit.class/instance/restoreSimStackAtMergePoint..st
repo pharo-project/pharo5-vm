@@ -5,8 +5,9 @@ restoreSimStackAtMergePoint: fixup
 	 on stack and the optStatus is unknown.  If the merge point follows a return, it
 	 isn't a merge, but a skip past a return.  If it is a real merge point then throw
 	 away all simStack and optStatus optimization state."
-	(optStatus isReceiverResultRegLive: fixup isReceiverResultRegSelf) ifFalse:
-		[simSelf liveRegister: NoReg].
+	simSelf liveRegister: ((optStatus isReceiverResultRegLive: fixup isReceiverResultRegSelf)
+							ifTrue: [ReceiverResultReg]
+							ifFalse: [NoReg]).
 	fixup mergeSimStack ifNotNil:
 		[simSpillBase := methodOrBlockNumTemps.
 		 0 to: simStackPtr do:

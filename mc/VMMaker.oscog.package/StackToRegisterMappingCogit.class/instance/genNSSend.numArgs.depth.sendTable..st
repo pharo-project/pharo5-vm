@@ -23,6 +23,6 @@ genNSSend: selectorIndex numArgs: numArgs depth: depth sendTable: sendTable
 	self MoveUniqueCw: nsSendCache R: SendNumArgsReg.
 	self CallNewspeakSend: (sendTable at: (numArgs min: NumSendTrampolines - 1)).
 
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverOptStatus.
 	self ssPushRegister: ReceiverResultReg.
 	^0

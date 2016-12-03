@@ -7,15 +7,17 @@ moveVolatileSimStackEntriesToRegisters
 							self at: 1 put: (expr ifTrue: [a] ifFalse: [b])
 						 The first one needs 1 saving to a register to reconcile with 2.
 						 The second one has 1 on both paths, but we're not clever enough to spot this case yet.]
-	 Volatile contents are constants and base-offset references other than temporaries and spills (regsier ~= FPReg)"
+	 Volatile contents are anything not spilled to the stack, because as yet we can only merge registers."
 	<inline: true>
 	<var: #desc type: #'SimStackEntry *'>
 	(simSpillBase max: 0) to: simStackPtr do: 
 		[:i| | desc reg |
 		 desc := self simStackAt: i.
-		 ((desc type = SSConstant or: [desc type = SSBaseOffset and: [desc register ~= FPReg]])
-		  and: [desc liveRegister = NoReg]) ifTrue:
-			[reg := self allocateRegNotConflictingWith: 0.
-			 reg = NoReg
-				ifTrue: [self halt] "have to spill"
-				ifFalse: [desc storeToReg: reg]]]
+		 desc spilled
+			ifTrue: [simSpillBase := i]
+			ifFalse:
+				[desc registerOrNone = NoReg ifTrue:
+					[reg := self allocateRegNotConflictingWith: 0.
+					 reg = NoReg
+						ifTrue: [self halt] "have to spill"
+						ifFalse: [desc storeToReg: reg]]]]

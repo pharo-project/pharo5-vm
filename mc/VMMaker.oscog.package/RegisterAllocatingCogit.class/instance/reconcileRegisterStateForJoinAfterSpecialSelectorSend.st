@@ -12,9 +12,7 @@ reconcileRegisterStateForJoinAfterSpecialSelectorSend
 			ifTrue:
 				[optStatus isReceiverResultRegLive: true.
 				 optStatus ssEntry storeToReg: ReceiverResultReg]
-			ifFalse:
-				[optStatus isReceiverResultRegLive: false.
-				 optStatus ssEntry liveRegister: NoReg]].
+			ifFalse: [self voidReceiverOptStatus]].
 
 	"Restore the simStack to that in scratchSimStack,
 	 popping any spilled state back into allocated registers."
