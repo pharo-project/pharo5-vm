@@ -1,15 +1,16 @@
 bytecode generator support
-mergeCurrentSimStackWith: mergeSimStack
+mergeCurrentSimStackWith: fixup
+	<var: #fixup type: #'BytecodeFixup *'>
+	| mergeSimStack currentEntry targetEntry |
 	<var: #mergeSimStack type: #'SimStackEntry *'>
 	"At a merge point the cogit expects the stack to be in the same state as mergeSimStack.
 	 mergeSimStack is the state as of some jump forward to this point.  So make simStack agree
 	 with mergeSimStack (it is, um, problematic to plant code at the jump).
 	 Values may have to be assigned to registers.  Registers may have to be swapped.
 	 The state of optStatus must agree."
-	| currentEntry targetEntry |
 	<var: #currentEntry type: #'SimStackEntry *'>
 	<var: #targetEntry type: #'SimStackEntry *'>
-	mergeSimStack ifNil: [^self].
+	(mergeSimStack := fixup mergeSimStack) ifNil: [^self].
 	"Assignments amongst the registers must be made in order to avoid overwriting.
 	 If necessary exchange registers amongst simStack's entries to resolve any conflicts."
 	self resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack.
@@ -26,4 +27,8 @@ mergeCurrentSimStackWith: mergeSimStack
 			at: i
 			put: (self
 					cCode: [mergeSimStack at: i]
-					inSmalltalk: [(mergeSimStack at: i) copy])"]
+					inSmalltalk: [(mergeSimStack at: i) copy])"].
+
+	"a.k.a. fixup isReceiverResultRegSelf: (fixup isReceiverResultRegSelf and: [optStatus isReceiverResultRegLive])"
+	optStatus isReceiverResultRegLive ifFalse:
+		[fixup isReceiverResultRegSelf: false]
