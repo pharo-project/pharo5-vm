@@ -1,5 +1,5 @@
-"the bae configuration for loading VMMaker can be found under
-../codegen-scripts/LoadVMMaker.st"
+"the bare configuration for loading VMMaker can be found under 
+../scripts/LoadVMMaker.st"
 
 
 "Only load this startup script in interactive mode"
