@@ -26,12 +26,10 @@ genSpecialSelectorComparison
 	inlineCAB ifFalse:
 		[^self genSpecialSelectorSend].
 
-	"In-line, but if the types are not SmallInteger then we will need to do a send.
-	 Since we're allocating values in registers we would like to keep those registers live on the inlined path
-	 and reload registers along the non-inlined send path.  But any values that would need to be spilled
-	 along the non-inlined path must be captured before the split so that both paths can join.  If we don't
-	 capture the values on the non-iblined path we could access stale values.  So for all stack entries that
-	 would be spilled along the non-inlined path, assign them to registers, or spill if none are available."
+	"In-line the comparison and the jump, but if the types are not SmallInteger then we will need
+	 to do a send and fall through to the following conditional branch.  Since we're allocating values
+	 in registers we would like to keep those registers live on the inlined path and reload registers
+	 along the non-inlined send path.  The merge logic at the branch destinations handles this."
 	argIsInt
 		ifTrue:
 			[rcvrReg := self allocateRegForStackEntryAt: 1.
@@ -47,7 +45,6 @@ genSpecialSelectorComparison
 			 self MoveR: argReg R: TempReg.
 			 regMask := self registerMaskFor: rcvrReg and: argReg].
 	self ssPop: 2.
-	self captureUnspilledSpillsForSpecialSelectorSend: regMask.
 	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
 							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
 							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: rcvrReg andScratch: TempReg scratch: ClassReg].

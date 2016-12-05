@@ -15,11 +15,7 @@ reconcilePoppingWith: targetEntry
 				[SSRegister]	-> [targetReg ~= register ifTrue:
 										[cogit MoveR: register R: targetReg]] }.
 		 ^self].
-	targetEntry type = SSConstant ifTrue:
-		[self assert: (targetEntry registerOrNone) = NoReg.
-		 cogit AddCq: objectRepresentation wordSize R: SPReg.
-		 ^self].
-	(targetReg := targetEntry registerOrNone) ~= NoReg ifTrue:
-		[cogit PopR: targetReg.
-		 ^self].
-	self halt
+	(targetEntry type ~= SSConstant
+	 and: [(targetReg := targetEntry registerOrNone) ~= NoReg])
+		ifTrue: [cogit PopR: targetReg]
+		ifFalse: [cogit AddCq: objectRepresentation wordSize R: SPReg]

@@ -8,8 +8,9 @@ mergeCurrentSimStackWith: fixup
 	 with mergeSimStack (it is, um, problematic to plant code at the jump).
 	 Values may have to be assigned to registers.  Registers may have to be swapped.
 	 The state of optStatus must agree."
-	<var: #currentEntry type: #'SimStackEntry *'>
 	<var: #targetEntry type: #'SimStackEntry *'>
+	<var: #currentEntry type: #'SimStackEntry *'>
+	<var: #duplicateEntry type: #'SimStackEntry *'>
 	(mergeSimStack := fixup mergeSimStack) ifNil: [^self].
 	"Assignments amongst the registers must be made in order to avoid overwriting.
 	 If necessary exchange registers amongst simStack's entries to resolve any conflicts."
@@ -19,7 +20,9 @@ mergeCurrentSimStackWith: fixup
 		[:i|
 		 currentEntry := self simStack: simStack at: i.
 		 targetEntry := self simStack: mergeSimStack at: i.
-		 currentEntry reconcileForwardsWith: targetEntry.
+		 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
+			[self assert: i >= methodOrBlockNumArgs.
+			 self deassignRegisterForTempVar: targetEntry in: mergeSimStack].
 		 "Note, we could update the simStack and spillBase here but that is done in restoreSimStackAtMergePoint:
 		 spilled ifFalse:
 			[simSpillBase := i - 1].
