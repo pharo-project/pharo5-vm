@@ -1,6 +1,11 @@
 Pharo VM 
 ============
-[![Download](https://api.bintray.com/packages/estebanlm/pharo-vm/build/images/download.svg) ](https://bintray.com/estebanlm/pharo-vm/build/_latestVersion#files) [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=spur64)](https://travis-ci.org/pharo-project/pharo-vm) [![Windows Build status](https://ci.appveyor.com/api/projects/status/kskw07q17nphv5qy?svg=true)](https://ci.appveyor.com/project/estebanlm/pharo-vm)
+[![Download](https://api.bintray.com/packages/pharo-project/pharo-vm/build/images/download.svg) ](https://bintray.com/pharo-project/pharo-vm/build/_latestVersion#files) [![Build Status](https://travis-ci.org/pharo-project/pharo-vm.png?branch=spur64)](https://travis-ci.org/pharo-project/pharo-vm) [![Windows Build status](https://ci.appveyor.com/api/projects/status/v8tkyye60e67wq5c?svg=true)](https://ci.appveyor.com/project/estebanlm/pharo-vm-0xuf7)
+
+Development fork(s)
+-------------------
+
+- [Esteban Lorenzano](https://github.com/estebanlm/pharo-vm) [![Build Status](https://travis-ci.org/estebanlm/pharo-vm.png?branch=spur64)](https://travis-ci.org/estebanlm/pharo-vm) [![Windows Build status](https://ci.appveyor.com/api/projects/status/kskw07q17nphv5qy?svg=true)](https://ci.appveyor.com/project/estebanlm/pharo-vm)
 
 REQUIREMENTS
 ============
