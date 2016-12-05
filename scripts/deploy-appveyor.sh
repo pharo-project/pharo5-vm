@@ -1,7 +1,7 @@
 # Deploy in appveyor environment
 
-# deploy if enabled
-if [ "$BINTRAY_SHOULD_DEPLOY" != "YES" ]; then
+# deploy if repository is pharo-project/pharo-vm
+if [ "$APPVEYOR_REPO_NAME" != "pharo-project/pharo-vm" ]; then
 	exit 
 fi
 

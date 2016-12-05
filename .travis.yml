@@ -99,4 +99,4 @@ deploy:
   key: $BINTRAY_API_KEY
   on:
     branch: master
-    condition: $BINTRAY_SHOULD_DEPLOY = YES
+    repo: pharo-project/pharo-vm
