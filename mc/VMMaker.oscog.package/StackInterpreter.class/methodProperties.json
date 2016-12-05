@@ -1159,7 +1159,7 @@
 		"sizeOfCallPrimitiveBytecode:" : "eem 6/7/2016 14:46",
 		"sizeOfLongStoreTempBytecode:" : "eem 11/14/2012 14:49",
 		"sizeOfSTArrayFromCPrimitive:" : "eem (const to msg rewrite) 11/5/2014 18:04",
-		"slowPrimitiveResponse" : "eem 6/3/2016 11:58",
+		"slowPrimitiveResponse" : "eem 12/1/2016 11:43",
 		"snapshot:" : "eem 2/12/2014 18:13",
 		"space" : "eem (auto pragmas 12/08) 7/8/2008 20:29",
 		"specialSelector:" : "eem 8/21/2013 12:57",

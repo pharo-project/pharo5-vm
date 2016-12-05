@@ -1,7 +1,7 @@
 bytecode generators
 genPushActiveContextBytecode
 	self assert: needsFrame.
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverResultRegContainsSelf.
 	objectRepresentation getActiveContextAllocatesInMachineCode
 		ifTrue: [self ssAllocateCallReg: ReceiverResultReg
 					and: SendNumArgsReg

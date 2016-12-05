@@ -1,7 +1,7 @@
 bytecode generator support
 setMergeSimStackOf: fixup
 	<var: #fixup type: #'BytecodeFixup *'>
-	self moveSimStackConstantsToRegisters.
+	self moveVolatileSimStackEntriesToRegisters.
 	fixup mergeSimStack
 		ifNil:
 			[self assert: nextFixup <= numFixups.

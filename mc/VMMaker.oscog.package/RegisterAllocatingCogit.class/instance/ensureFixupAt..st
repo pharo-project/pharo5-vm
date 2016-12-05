@@ -7,9 +7,9 @@ ensureFixupAt: targetIndex
 		ifTrue:
 			[fixup mergeSimStack
 				ifNil: [self setMergeSimStackOf: fixup]
-				ifNotNil: [self mergeCurrentSimStackWith: fixup mergeSimStack]]
+				ifNotNil: [self mergeCurrentSimStackWith: fixup]]
 		ifFalse: 
 			[self assert: fixup mergeSimStack isNil.
-			self moveSimStackConstantsToRegisters.
-			self setMergeSimStackOf: fixup ].
-	^super ensureFixupAt: targetIndex.
+			self moveVolatileSimStackEntriesToRegisters.
+			self setMergeSimStackOf: fixup].
+	^super ensureFixupAt: targetIndex

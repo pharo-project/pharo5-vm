@@ -12,7 +12,7 @@ genStorePop: popBoolean RemoteTemp: slotIndex At: remoteTempIndex needsStoreChec
 	"N.B.  No need to check the stack for references because we generate code for
 	 remote temp loads that stores the result in a register, deferring only the register push."
 	self ssAllocateRequiredReg: ReceiverResultReg. 
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverResultRegContainsSelf.
 	self MoveMw: (self frameOffsetOfTemporary: remoteTempIndex) r: FPReg R: ReceiverResultReg.
 	^self 
 		genGenericStorePop: popBoolean 

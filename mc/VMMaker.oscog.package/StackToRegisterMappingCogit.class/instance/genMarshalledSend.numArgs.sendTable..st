@@ -17,5 +17,5 @@ genMarshalledSend: selectorIndex numArgs: numArgs sendTable: sendTable
 		[self genMoveConstant: tempOop R: TempReg].
 	self genLoadInlineCacheWithSelector: selectorIndex.
 	(self Call: (sendTable at: (numArgs min: NumSendTrampolines - 1))) annotation: annotation.
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverOptStatus.
 	^self ssPushRegister: ReceiverResultReg

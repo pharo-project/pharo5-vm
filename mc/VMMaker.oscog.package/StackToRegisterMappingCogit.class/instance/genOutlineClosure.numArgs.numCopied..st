@@ -3,7 +3,7 @@ genOutlineClosure: startpc numArgs: numArgs numCopied: numCopied
 	<inline: true>
 	numCopied > 0 ifTrue:
 		[self ssFlushTo: simStackPtr].
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverResultRegContainsSelf.
 	objectRepresentation getActiveContextAllocatesInMachineCode
 		ifTrue: [self ssAllocateCallReg: ReceiverResultReg
 					and: SendNumArgsReg

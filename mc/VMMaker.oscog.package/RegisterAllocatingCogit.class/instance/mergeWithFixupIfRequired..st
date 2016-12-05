@@ -33,7 +33,7 @@ mergeWithFixupIfRequired: fixup
 	self traceMerge: fixup.
 	deadCode 
 		ifTrue: [simStackPtr := fixup simStackPtr] "case 3"
-		ifFalse: [self mergeCurrentSimStackWith: fixup mergeSimStack]. "case 4"
+		ifFalse: [self mergeCurrentSimStackWith: fixup]. "case 4"
 	"cases 3 and 4"
 	deadCode := false.
 	fixup isBackwardBranchFixup ifTrue:

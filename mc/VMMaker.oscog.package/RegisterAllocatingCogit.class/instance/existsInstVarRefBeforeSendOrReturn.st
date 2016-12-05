@@ -1,11 +1,12 @@
 bytecode generator support
 existsInstVarRefBeforeSendOrReturn
 	"Answer if the current bytecode is followed by an inst var ref before the next full send."
-	| pc nExts descriptor |
+	| pc nExts byte descriptor |
 	pc := bytecodePC.
 	nExts := 0.
 	[pc <= endPC] whileTrue:
-		[descriptor := self generatorAt: pc.
+		[byte := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
+		 descriptor := self generatorAt: byte.
 		 (descriptor isMapped
 		  or: [descriptor isBranchTrue
 		  or: [descriptor isBranchFalse

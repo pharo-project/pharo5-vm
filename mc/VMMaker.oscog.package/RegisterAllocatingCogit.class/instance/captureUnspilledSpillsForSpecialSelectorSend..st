@@ -7,6 +7,7 @@ captureUnspilledSpillsForSpecialSelectorSend: liveRegisterMask
 	 would be spilled along the non-inlined path, assign them to registers, or spill if none are available."
 	| i liveRegs reg |
 	liveRegs := liveRegisterMask.
+	self assert: (simSelf liveRegister = ReceiverResultReg) = optStatus isReceiverResultRegLive.
 	optStatus isReceiverResultRegLive ifTrue:
 		[liveRegs := liveRegs + (self registerMaskFor: ReceiverResultReg)].
 	reg := TempReg. "Anything but NoReg"

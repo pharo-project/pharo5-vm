@@ -47,7 +47,8 @@
 		"NumOopsPerNSC",
 		"NumSpecialSelectors",
 		"NumTrampolines",
-		"ProcessorClass" ],
+		"ProcessorClass",
+		"RRRName" ],
 	"commentStamp" : "eem 4/6/2015 15:56",
 	"instvars" : [
 		"coInterpreter",

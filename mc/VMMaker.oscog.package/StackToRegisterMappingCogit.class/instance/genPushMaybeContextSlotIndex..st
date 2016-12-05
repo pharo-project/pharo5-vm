@@ -8,7 +8,7 @@ genPushMaybeContextSlotIndex: slotIndex
 	self assert: needsFrame.
 	(self isCallerSavedReg: ReceiverResultReg) ifTrue:
 		["We have no way of reloading ReceiverResultReg since we need the inst var value as the result."
-		optStatus isReceiverResultRegLive: false].
+		self voidReceiverResultRegContainsSelf].
 	"See CoInterpreter>>contextInstructionPointer:frame: for an explanation
 	 of the instruction pointer slot handling."
 	slotIndex = InstructionPointerIndex ifTrue:

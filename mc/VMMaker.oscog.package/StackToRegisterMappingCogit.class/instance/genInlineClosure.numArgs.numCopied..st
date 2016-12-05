@@ -2,7 +2,7 @@ bytecode generator support
 genInlineClosure: startpc numArgs: numArgs numCopied: numCopied
 	<inline: true>
 	self assert: objectRepresentation getActiveContextAllocatesInMachineCode.
-	 optStatus isReceiverResultRegLive: false.
+	 self voidReceiverResultRegContainsSelf.
 	 self ssAllocateCallReg: ReceiverResultReg
 		and: SendNumArgsReg
 		and: ClassReg.

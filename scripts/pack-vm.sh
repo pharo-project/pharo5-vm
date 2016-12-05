@@ -59,14 +59,24 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
-
+# revision date
+buildDate="`grep -m1 "SvnRawRevisionString" ../opensmalltalk-vm/platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
+if [ -z "${buildDate}" ]; then 
+	buildDate="NODATE"
+fi
+# revision id
 if [[ "${APPVEYOR}" ]]; then
 	commitSHA="${APPVEYOR_REPO_COMMIT}"
 else
 	commitSHA="${TRAVIS_COMMIT}"
 fi
 buildId="`echo ${commitSHA} | cut -b 1-7`"
-zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}.${buildId}.zip"
+if [ -z "${buildId}" ]; then 
+	buildId="NOSHA" 
+fi
+# zip
+zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}-${buildDate}-${buildId}.zip"
+
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}

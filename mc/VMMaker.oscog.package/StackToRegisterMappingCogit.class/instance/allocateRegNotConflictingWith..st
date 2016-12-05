@@ -6,5 +6,5 @@ allocateRegNotConflictingWith: regMask
 	reg = NoReg ifTrue: "No free register, choose one that does not conflict with regMask"
 		[reg := self freeAnyRegNotConflictingWith: regMask].
 	reg = ReceiverResultReg ifTrue: "If we've allocated RcvrResultReg, it's not live anymore"
-		[optStatus isReceiverResultRegLive: false].
+		[self voidReceiverResultRegContainsSelf].
 	^ reg

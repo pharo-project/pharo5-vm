@@ -11,4 +11,4 @@ reconcileRegisterStateForBackwardJoin: fixup
 	simStackPtr to: 0 by: -1 do:
 		[:i|
 		 self assert: (self simStackAt: i) spilled.
-		 (self simStackAt: i) reconcileWith: (fixupSimStack at: i)]
+		 (self simStackAt: i) reconcileBackwardsWith: (fixupSimStack at: i)]
