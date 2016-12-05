@@ -69,7 +69,7 @@ buildId="`echo ${commitSHA} | cut -b 1-7`"
 if [ -z "${buildId}" ]; then 
 	buildId="NOSHA" 
 fi
-buildRevision="`grep -m1 "SvnRawRevisionString" platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
+buildRevision="`grep -m1 "SvnRawRevisionString" ../platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
 if [ -z "${buildRevision}" ]; then 
 	buildRevision="NOREVISION"
 fi
