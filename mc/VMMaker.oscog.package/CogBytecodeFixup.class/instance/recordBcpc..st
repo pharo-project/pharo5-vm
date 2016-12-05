@@ -1,10 +1,10 @@
 simulation
-recordBcpc: bytecodePC
+recordBcpc: theBytecodePC
 	<inline: true>
 	self cCode: '' inSmalltalk:
 		[bcpc
-			ifNil: [bcpc := bytecodePC]
+			ifNil: [bcpc := theBytecodePC]
 			ifNotNil:
 				[bcpc := bcpc isInteger
-							ifTrue: [{bcpc. bytecodePC}]
-							ifFalse: [bcpc, {bytecodePC}]]]
+							ifTrue: [{bcpc. theBytecodePC}]
+							ifFalse: [bcpc, {theBytecodePC}]]]
