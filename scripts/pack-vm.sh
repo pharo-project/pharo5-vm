@@ -59,7 +59,13 @@ if [ -z "${productDir}" ]; then
 	exit 1
 fi
 
-
+# revision date
+echo "`cat platforms/Cross/vm/sqSCCSVersion.h | .git_filters/RevDateURL.smudge`" > platforms/Cross/vm/sqSCCSVersion.h
+buildDate="`grep -m1 "SvnRawRevisionString" platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
+if [ -z "${buildDate}" ]; then 
+	buildDate="NODATE"
+fi
+# revision id
 if [[ "${APPVEYOR}" ]]; then
 	commitSHA="${APPVEYOR_REPO_COMMIT}"
 else
@@ -69,11 +75,9 @@ buildId="`echo ${commitSHA} | cut -b 1-7`"
 if [ -z "${buildId}" ]; then 
 	buildId="NOSHA" 
 fi
-buildRevision="`grep -m1 "SvnRawRevisionString" ../platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
-if [ -z "${buildRevision}" ]; then 
-	buildRevision="NOREVISION"
-fi
-zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}-${buildRevision}-${buildId}.zip"
+# zip
+zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}-${buildDate}-${buildId}.zip"
+
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
