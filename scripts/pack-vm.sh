@@ -60,7 +60,6 @@ if [ -z "${productDir}" ]; then
 fi
 
 # revision date
-#echo "`cat ../opensmalltalk-vm/platforms/Cross/vm/sqSCCSVersion.h | ../opensmalltalk-vm/.git_filters/RevDateURL.smudge`" > ../opensmalltalk-vm/platforms/Cross/vm/sqSCCSVersion.h
 buildDate="`grep -m1 "SvnRawRevisionString" ../opensmalltalk-vm/platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
 if [ -z "${buildDate}" ]; then 
 	buildDate="NODATE"

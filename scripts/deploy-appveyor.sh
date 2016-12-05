@@ -1,5 +1,10 @@
 # Deploy in appveyor environment
 
+# deploy if enabled
+if [ "$BINTRAY_SHOULD_DEPLOY" != "YES" ]; then
+	exit 
+fi
+
 # deploy on master branch
 if [ "$APPVEYOR_REPO_BRANCH" != "master" ]; then
 	exit 

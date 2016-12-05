@@ -2,7 +2,7 @@
     "package": {
         "name": "build",
         "repo": "pharo-vm",
-		"subject": "estebanlm"
+		"subject": "pharo-project"
     },
     "version": {
         "name": "$Rev$",

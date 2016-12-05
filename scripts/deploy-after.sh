@@ -8,9 +8,9 @@ newLine := Smalltalk platform lineEnding.
 
 stdout green: 'Cleaning bintray...', newLine.
 
-username := 'estebanlm'.
+username := '$BINTRAY_USER'.
 password := '$BINTRAY_API_KEY'.
-url := 'https://api.bintray.com/packages/estebanlm/pharo-vm/build'.
+url := 'https://api.bintray.com/packages/pharo-project/pharo-vm/build'.
 currentMonth := Month current year * 100 + Month current index.
 
 json := ZnClient new 

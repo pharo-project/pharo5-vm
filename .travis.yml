@@ -97,4 +97,6 @@ deploy:
   file: .bintray.json
   user: $BINTRAY_USER
   key: $BINTRAY_API_KEY
-  on: master
+  on:
+    branch: master
+    condition: $BINTRAY_SHOULD_DEPLOY = YES
