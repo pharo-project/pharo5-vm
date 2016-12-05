@@ -66,7 +66,14 @@ else
 	commitSHA="${TRAVIS_COMMIT}"
 fi
 buildId="`echo ${commitSHA} | cut -b 1-7`"
-zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}.${buildId}.zip"
+if [ -z "${buildId}" ]; then 
+	buildId="NOSHA" 
+fi
+buildRevision="`grep -m1 "SvnRawRevisionString" platforms/Cross/vm/sqSCCSVersion.h | sed 's/[^0-9.]*\([0-9.]*\).*/\1/'`"
+if [ -z "${buildRevision}" ]; then 
+	buildRevision="NOREVISION"
+fi
+zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}-${buildRevision}-${buildId}.zip"
 pushd .
 cd ${productDir}
 zip -r ${zipFileName} ${pattern}
