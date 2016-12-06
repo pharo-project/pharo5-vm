@@ -3,6 +3,8 @@ cog: aCompiledMethod selectorOrNumCopied: selectorOrNumCopied options: optionsDi
 	"StackToRegisterMappingCogit cog: (Integer >> #benchFib) selector: #benchFib options: #(COGMTVM false)"
 	| cogit coInterpreter |
 	cogit := self instanceForTests: optionsDictionaryOrArray.
+	(aCompiledMethod respondsTo: #tempNames) ifTrue:
+		[initializationOptions at: #tempNames put: aCompiledMethod tempNames].
 	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
 		setInterpreter: coInterpreter;

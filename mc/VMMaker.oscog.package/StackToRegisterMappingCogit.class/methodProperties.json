@@ -485,8 +485,9 @@
 		"printSimSelf" : "eem 12/2/2016 12:33",
 		"printSimStack" : "eem 11/25/2016 16:33",
 		"printSimStack:" : "eem 11/30/2016 12:39",
-		"printSimStack:toDepth:spillBase:on:" : "eem 11/25/2016 16:32",
+		"printSimStack:toDepth:spillBase:on:" : "eem 12/6/2016 13:43",
 		"pushNilSize:numInitialNils:" : "eem 4/2/2015 16:44",
+		"put:paddedTo:tabWidth:on:" : "eem 12/6/2016 13:37",
 		"putSelfInReceiverResultReg" : "cb 11/25/2015 14:32",
 		"reinitializeFixupsFrom:through:" : "cb 4/15/2016 17:44",
 		"restoreSimStackAtMergePoint:" : "eem 12/02/2016 14:51",
@@ -563,4 +564,5 @@
 		"v4:Num:Push:Nils:" : "eem 7/29/2014 07:24",
 		"v4PushNilSize:numInitialNils:" : "eem 4/2/2015 16:48",
 		"voidReceiverOptStatus" : "eem 12/2/2016 17:00",
-		"voidReceiverResultRegContainsSelf" : "eem 12/2/2016 17:01" } }
+		"voidReceiverResultRegContainsSelf" : "eem 12/2/2016 17:01",
+		"widthInDefaultFontOf:" : "eem 12/6/2016 13:36" } }
