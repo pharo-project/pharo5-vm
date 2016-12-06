@@ -56,8 +56,8 @@ genSpecialSelectorComparison
 	self genConditionalBranch: (branchDescriptor isBranchTrue
 				ifTrue: [primDescriptor opcode]
 				ifFalse: [self inverseBranchFor: primDescriptor opcode])
-		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
+		operand: (self ensureFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+	self Jump: (self ensureFixupAt: postBranchPC - initialPC).
 	jumpNotSmallInts jmpTarget: self Label.
 	self ssFlushTo: simStackPtr.
 	self deny: rcvrReg = Arg0Reg.

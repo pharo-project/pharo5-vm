@@ -14,8 +14,7 @@ resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack
 	 i.e. rA := current[0]; rB := rD; (rC := rC); (rD := rD).
 
 	 So find any conflicts, and if there are any, swap registers in the simStack to resolve them.
-	 The trivial case of a single conflict is resolved by assigning that conflict to TempReg.
-	"
+	 The trivial case of a single conflict is resolved by assigning that conflict to TempReg."
 	| currentRegsMask mergeRegsMask potentialConflictRegMask conflictingRegsMask
 	   currentRegMask mergeRegMask currentEntry targetEntry |
 	<var: #currentEntry type: #'SimStackEntry *'>
@@ -33,5 +32,5 @@ resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack
 	conflictingRegsMask := potentialConflictRegMask bitAnd: (currentRegsMask bitAnd: mergeRegsMask).
 	conflictingRegsMask ~= 0 ifTrue:
 		[(self isAPowerOfTwo: conflictingRegsMask) "Multiple conflicts mean we have to sort"
-			ifFalse: [self swapCurrentRegistersInMask: currentRegsMask accordingToRegisterOrderIn: mergeSimStack]
+			ifFalse: [self swapCurrentRegistersInMask: conflictingRegsMask accordingToRegisterOrderIn: mergeSimStack]
 			ifTrue: [self assignToTempRegConflictingRegisterIn: conflictingRegsMask]].

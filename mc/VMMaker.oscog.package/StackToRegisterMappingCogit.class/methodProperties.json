@@ -64,7 +64,7 @@
 		"endHighLevelCallWithCleanup" : "rsf 8/10/2016 00:20",
 		"endHighLevelCallWithoutCleanup" : "rsf 8/10/2016 00:20",
 		"ensureFixupAt:" : "eem 12/2/2016 11:43",
-		"ensureNonMergeFixupAt:" : "cb 4/15/2016 17:39",
+		"ensureNonMergeFixupAt:" : "eem 12/6/2016 10:54",
 		"ensureReceiverResultRegContainsSelf" : "cb 11/25/2015 14:32",
 		"evaluate:at:" : "eem 6/1/2014 17:40",
 		"extASpecifiesNoMustBeBoolean" : "cb 7/25/2016 13:08",
