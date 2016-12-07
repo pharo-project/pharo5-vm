@@ -13,4 +13,5 @@ ensureNonMergeFixupAt: targetIndex
 			[self assert:
 					(fixup isBackwardBranchFixup
 					 or: [fixup simStackPtr = (self debugStackPointerFor: targetIndex + initialPC)])]].
+	fixup recordBcpc: bytecodePC.
 	^fixup
