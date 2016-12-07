@@ -41,7 +41,7 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 		 	 self ensureFixupAt: targetBytecodePC - initialPC.
 			 self ensureFixupAt: postBranchPC - initialPC]
 		ifFalse:
-			[self ssPushConstant: objectMemory trueObject]. "dummy value"
+			[self deny: deadCode]. "push dummy value below"
 
 	self assert: (unforwardArg or: [unforwardRcvr]).
 	"We could use (branchDescriptor isBranchTrue xor: orNot) to simplify this."
@@ -60,7 +60,9 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 					ifTrue:
 						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]].
-		
+
+	deadCode ifFalse:
+		[self ssPushConstant: objectMemory trueObject]. "dummy value"
 	"The forwarders checks need to jump back to the comparison (label) if a forwarder is found, else 
 	jump forward either to the next forwarder check or to the postBranch or branch target (fixup)."
 	unforwardArg ifTrue: 

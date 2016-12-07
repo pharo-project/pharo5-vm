@@ -15,7 +15,7 @@ printSimStack: aSimStack toDepth: limit spillBase: spillBase on: aStream
 				[width := width + tabWidth]]].
 	0 to: limit do:
 		[:i|
-		tempNamesOrNil ifNotNil:
+		width ifNotNil:
 			[self put: (tempNamesOrNil at: i + 1 ifAbsent: ['']) paddedTo: width tabWidth: tabWidth on: aStream].
 		aStream print: i.
 		i = spillBase

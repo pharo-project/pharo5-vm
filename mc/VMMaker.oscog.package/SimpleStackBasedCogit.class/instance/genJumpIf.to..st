@@ -16,7 +16,7 @@ genJumpIf: boolean to: targetBytecodePC
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.
 	ok := self JumpZero: 0.
-	self CallRT: (boolean == objectMemory falseObject
+	self CallRT: (boolean = objectMemory falseObject
 					ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
 					ifFalse: [ceSendMustBeBooleanAddTrueTrampoline]).
 	ok jmpTarget: (self annotateBytecode: self Label).

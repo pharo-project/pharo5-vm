@@ -26,9 +26,6 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 			rcvrReg: rcvrReg 
 			orNotIf: orNot].
 	
-	"If branching the stack must be flushed for the merge"
-	self ssFlushTo: simStackPtr - 2.
-	
 	self genCmpArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 
