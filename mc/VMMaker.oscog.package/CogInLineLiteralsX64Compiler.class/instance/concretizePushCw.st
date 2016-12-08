@@ -31,7 +31,6 @@ concretizePushCw
 		at:  8 put: (value >> 48 bitAnd: 16rFF);
 		at:  9 put: (value >> 56 bitAnd: 16rFF);
 		at: 10 put: 16r41;
-		at: 11 put: 16r48 + RISCTempReg. "The 48 will disambiguate between MoveCwR, PushCwR and ArithCwR, which ends with a (self mod: ModReg RM: 0 RO: 0)"
-		self assert: RISCTempReg >= 8.
-	self assert: (self mod: ModReg RM: 0 RO: 0) > 16r57.
+		at: 11 put: 16r48 + RISCTempReg. "The 48 will disambiguate between MoveCwR, PushCw and ArithCwR, which ends with a (self mod: ModReg RM: 0 RO: 0)"
+	self assert: (machineCode at: 11) < 16r90. "see literalBeforeFollowingAddress:"
 	^machineCodeSize := 12

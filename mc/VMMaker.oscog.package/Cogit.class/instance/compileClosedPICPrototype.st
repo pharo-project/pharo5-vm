@@ -49,16 +49,14 @@ compileClosedPICPrototype
 	jumpNext := self compileCPICEntry.
 	"At the end of the entry code we need to jump to the first case code, which is actually the last chunk.
 	 On each entension we must update this jump to move back one case."
-	"16r5EAF00D is the method oop, or 0, for the 1st case."
-	self MoveUniqueCw: 16r5EAF00D R: SendNumArgsReg.
+	self MoveUniqueCw: self firstPrototypeMethodOop R: SendNumArgsReg.
 	self JumpLong: self cPICPrototypeCaseOffset + 16rCA5E10.
 	endCPICCase0 := self Label.
 	1 to: MaxCPICCases - 1 do:
 		[:h|
 		h = (MaxCPICCases - 1) ifTrue:
 			[jumpNext jmpTarget: self Label]. "this is where we jump to for the first case"
-		"16rBADA550+h is the method oop, or 0, for the Nth case."
-		self MoveUniqueCw: 16rBADA550 + h R: SendNumArgsReg.
+		self MoveUniqueCw: self subsequentPrototypeMethodOop + h R: SendNumArgsReg.
 		"16rBABE1F15+h is the class tag for the Nth case"
 		self CmpC32: 16rBABE1F15+h R: TempReg.
 		self JumpLongZero: self cPICPrototypeCaseOffset + 16rCA5E10 + (h * 16).

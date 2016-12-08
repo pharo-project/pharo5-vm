@@ -1,7 +1,7 @@
 inline cacheing
 storeLiteral: literal beforeFollowingAddress: followingAddress
-	"Rewrite the long constant loaded by a MoveCwR or PushCwR before the given address"
-	self flag: #bogus. "The caller ought to know what it is patching, and this should be split into separate methods with stricter checking."
+	"Rewrite the long constant loaded by a MoveCwR or PushCw before the given address"
+	self flag: #bogus. "The caller ought to know what it is patching, and this should be split into separate methods with stricter checking. rmacnak 12/13/2015"
 	
 	"Cmp/MoveCwR
 	 pc-8	lui rx, uper

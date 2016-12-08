@@ -49,9 +49,7 @@ genJumpIf: boolean to: targetBytecodePC
 		[self MoveR: reg R: TempReg].
 	self copySimStackToScratch: simSpillBase.
 	self ssFlushTo: simStackPtr.
-	self CallRT: (boolean = objectMemory falseObject
-					ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
-					ifFalse: [ceSendMustBeBooleanAddTrueTrampoline]).
+	self genCallMustBeBooleanFor: boolean.
 	"NOTREACHED"
 	ok jmpTarget: (self annotateBytecode: self Label).
 	self restoreSimStackFromScratch.

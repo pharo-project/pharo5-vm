@@ -22,4 +22,5 @@ concretizeArithCwR: x64opcode
 		at: 12 put: (reverse
 					ifTrue: [self mod: ModReg RM: reg RO: RISCTempReg]
 					ifFalse: [self mod: ModReg RM: RISCTempReg RO: reg]).
+	self assert: (machineCode at: 12) > 16r90. "See literalBeforeFollowingAddress:"
 	^machineCodeSize := 13

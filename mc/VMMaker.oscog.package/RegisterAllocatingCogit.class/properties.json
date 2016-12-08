@@ -11,7 +11,9 @@
 		"nextFixup",
 		"scratchSimStack",
 		"scratchSpillBase",
-		"scratchOptStatus" ],
+		"scratchOptStatus",
+		"ceSendMustBeBooleanAddTrueLongTrampoline",
+		"ceSendMustBeBooleanAddFalseLongTrampoline" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

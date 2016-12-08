@@ -4,7 +4,7 @@ relocateMethodReferenceBeforeAddress: pc by: delta
 	"cogit disassembleFrom: pc - 16 to: pc + 16 a StackToRegisterMappingCogit."
 	
 	((self opcodeAtAddress: pc - 8) = ADDIU and: [(self opcodeAtAddress: pc - 4) = SW]) ifTrue:
-		["PushCwR"
+		["PushCw"
 		oldValue := self literalAtAddress: pc - 12.
 		newValue := oldValue + delta.
 		self literalAtAddress: pc - 12 put: newValue.	
