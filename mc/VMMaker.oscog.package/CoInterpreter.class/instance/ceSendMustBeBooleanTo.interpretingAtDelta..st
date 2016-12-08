@@ -11,8 +11,8 @@ ceSendMustBeBooleanTo: aNonBooleanObject interpretingAtDelta: jumpSize
 	((self mframeIsBlockActivation: framePointer)
 	 and: [cogMethod cmIsFullBlock not])
 		ifTrue:
-			[methodHeader := cogMethod cmHomeMethod methodHeader.
-			 methodObj := cogMethod cmHomeMethod methodObject.
+			[methodHeader := (self cCoerceSimple: cogMethod cmHomeMethod to: #'CogMethod *') methodHeader.
+			 methodObj := (self cCoerceSimple: cogMethod cmHomeMethod to: #'CogMethod *') methodObject.
 			 startBcpc := cogMethod startpc]
 		ifFalse:
 			[methodHeader := (self cCoerceSimple: cogMethod to: #'CogMethod *') methodHeader.
