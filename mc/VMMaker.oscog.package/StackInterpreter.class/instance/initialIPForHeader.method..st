@@ -1,5 +1,5 @@
 compiled methods
-initialPCForHeader: methodHeader method: theMethod
+initialIPForHeader: methodHeader method: theMethod
 	"Answer a pointer to the initial byte for a method; used only in methods that build a frame."
 	<inline: true>
 	^theMethod

@@ -34,7 +34,7 @@ makeBaseFrameFor: aContext "<Integer>"
 			 numArgs := self argumentCountOfMethodHeader: header.
 			 "If this is a synthetic context its IP could be pointing at the CallPrimitive opcode.  If so, skip it."
 			 ((self methodHeaderHasPrimitive: header)
-			  and: [theIP = (1 + (objectMemory lastPointerOfMethodHeader: header))]) ifTrue:
+			  and: [theIP = (1 + (self startPCOfMethodHeader: header))]) ifTrue:
 				[theIP := theIP + (self sizeOfCallPrimitiveBytecode: header)].
 			 stackPages longAt: pointer put: rcvr].
 	"Put the arguments on the stack"

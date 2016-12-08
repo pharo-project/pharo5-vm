@@ -8,12 +8,9 @@ findNewMethodInClassTag: classTag
 			ifFalse: [(self nameOfClass: class)].
 		self cr; print: cName , '>>' , (self stringOf: messageSelector)].
 "
-	(self stringOf: messageSelector) = 'doesNotUnderstand:' ifTrue: [self halt].
+	messageSelector = (objectMemory splObj: SelectorDoesNotUnderstand) ifTrue: [self halt].
 
-	sendCount := sendCount + 1.
-
-	printSends ifTrue:
-		[self cr; print: byteCount; space; printStringOf: messageSelector; cr].
+	self logSend: messageSelector.
 "
 	(sendCount > 1000 and: [sendCount\\10 = 0]) ifTrue:
 		[Transcript print: sendCount; space.

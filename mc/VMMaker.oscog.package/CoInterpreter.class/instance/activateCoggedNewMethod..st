@@ -34,7 +34,7 @@ activateCoggedNewMethod: inInterpreter
 	(self methodHeaderHasPrimitive: methodHeader) ifTrue:
 		[| initialPC |
 		 "Store the error code if the method starts with a long store temp.  No instructionPointer skip because we're heading for machine code."
-		 initialPC := (self initialPCForHeader: methodHeader method: newMethod) + (self sizeOfCallPrimitiveBytecode: methodHeader).
+		 initialPC := (self initialIPForHeader: methodHeader method: newMethod) + (self sizeOfCallPrimitiveBytecode: methodHeader).
 		 primFailCode ~= 0 ifTrue:
 			[(objectMemory byteAt: initialPC) = (self longStoreBytecodeForHeader: methodHeader) ifTrue:
 				[errorCode := self getErrorObjectFromPrimFailCode.

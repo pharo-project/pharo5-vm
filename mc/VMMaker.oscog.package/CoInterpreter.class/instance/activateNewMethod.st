@@ -35,7 +35,7 @@ activateNewMethod
 	numArgs+1 to: numTemps do:
 		[:i | self push: objectMemory nilObject].
 
-	instructionPointer := (self initialPCForHeader: methodHeader method: newMethod) - 1.
+	instructionPointer := (self initialIPForHeader: methodHeader method: newMethod) - 1.
 
 	(self methodHeaderHasPrimitive: methodHeader) ifTrue:
 		["Skip the CallPrimitive bytecode, if it's there, and store the error code if the method starts

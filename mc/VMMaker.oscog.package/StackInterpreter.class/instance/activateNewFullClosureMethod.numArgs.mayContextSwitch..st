@@ -30,7 +30,7 @@ activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: ma
 
 	numArgs + numCopied + 1 to: numTemps do: [ :i | self push: objectMemory nilObject].
 
-	instructionPointer := (self initialPCForHeader: methodHeader method: theMethod) - 1.
+	instructionPointer := (self initialIPForHeader: methodHeader method: theMethod) - 1.
 	
 	self setMethod: theMethod.
 

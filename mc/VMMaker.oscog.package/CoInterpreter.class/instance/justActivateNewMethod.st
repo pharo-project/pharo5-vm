@@ -21,7 +21,7 @@ justActivateNewMethod
 	self push: instructionPointer.
 	self push: framePointer.
 	framePointer := stackPointer.
-	initialIP := self initialPCForHeader: methodHeader method: newMethod.
+	initialIP := self initialIPForHeader: methodHeader method: newMethod.
 	activateCogMethod
 		ifTrue:
 			[self push: cogMethod asUnsignedInteger.
