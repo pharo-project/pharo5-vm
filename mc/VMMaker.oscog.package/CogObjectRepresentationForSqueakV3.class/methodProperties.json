@@ -34,7 +34,7 @@
 		"genGetInlineCacheClassTagFrom:into:forEntry:" : "eem (const to msg rewrite) 11/6/2014 10:37",
 		"genGetNumSlotsOf:into:" : "RonieSalgado 5/1/2016 01:01",
 		"genGetSizeOf:into:formatReg:scratchReg:abortJumpsInto:" : "eem (const to msg rewrite) 11/13/2014 14:04",
-		"genInlinedIdenticalOrNotIf:" : "cb 11/24/2016 10:54",
+		"genInlinedIdenticalOrNotIfGuts:" : "eem 12/7/2016 15:18",
 		"genJumpImmediate:" : "eem 5/29/2015 18:14",
 		"genJumpInOldSpace:" : "eem 6/1/2016 16:09",
 		"genJumpIsSmallIntegerValue:scratch:" : "eem 7/4/2016 16:20",

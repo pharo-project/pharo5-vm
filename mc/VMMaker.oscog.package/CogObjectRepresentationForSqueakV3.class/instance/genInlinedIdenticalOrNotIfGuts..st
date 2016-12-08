@@ -1,4 +1,4 @@
 compile abstract instructions
-genInlinedIdenticalOrNotIf: orNot
+genInlinedIdenticalOrNotIfGuts: orNot
 	<inline: true>
 	^ cogit genVanillaInlinedIdenticalOrNotIf: orNot
