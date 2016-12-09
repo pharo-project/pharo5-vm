@@ -12,7 +12,7 @@ if [ "$APPVEYOR_REPO_BRANCH" != "master" ]; then
 	exit 
 fi
 
-echo "Deploying to bintray with user $BINTRAY_USER"
+echo "Deploying to bintray with user: $BINTRAY_USER"
 appveyor DownloadFile https://curl.haxx.se/ca/cacert.pem
 export SSL_CERT_FILE=cacert.pem
 gem install dpl
