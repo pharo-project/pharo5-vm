@@ -10,7 +10,7 @@ sqFile: file Read: count Into: byteArrayIndexArg At: startIndex
 			 ^i - startIndex].
 		interpreter
 			byteAt: byteArrayIndex + i
-			put: file next asInteger]]
+			put: (file next ifNil: [(file isKindOf: FakeStdinStream) ifTrue: [^0]] ifNotNil: [:c| c asInteger])]]
 			on: Error
 			do: [:ex|
 				(file isKindOf: TranscriptStream) ifFalse: [ex pass].

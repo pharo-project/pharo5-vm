@@ -139,7 +139,8 @@
 		"nativeStackPointer",
 		"lowcodeCalloutState",
 		"shadowCallStackPointer",
-		"debugCallbackPath" ],
+		"debugCallbackPath",
+		"callbackReturnSP" ],
 	"name" : "StackInterpreter",
 	"pools" : [
 		"VMBasicConstants",

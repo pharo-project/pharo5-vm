@@ -40,6 +40,7 @@ returnAs: returnTypeOop ThroughCallback: vmCallbackContext Context: callbackMeth
 							 framePointer := self frameCallerFP: framePointer.
 							 self setMethod: (self frameMethodObject: framePointer).
 							 self restoreCStackStateForCallbackContext: vmCallbackContext.
+							 callbackReturnSP := stackPointer.
 							 "N.B. siglongjmp is defines as _longjmp on non-win32 platforms.
 							  This matches the use of _setjmp in ia32abicc.c."
 							 self siglong: vmCallbackContext trampoline jmp: (self integerValueOf: returnTypeOop).
@@ -70,6 +71,7 @@ returnAs: returnTypeOop ThroughCallback: vmCallbackContext Context: callbackMeth
 	self setStackPageAndLimit: thePage.
 	self restoreCStackStateForCallbackContext: vmCallbackContext.
 	debugCallbackPath := debugCallbackPath bitOr: 2048.
+	callbackReturnSP := stackPointer.
 	 "N.B. siglongjmp is defines as _longjmp on non-win32 platforms.
 	  This matches the use of _setjmp in ia32abicc.c."
 	self siglong: vmCallbackContext trampoline jmp: (self integerValueOf: returnTypeOop).

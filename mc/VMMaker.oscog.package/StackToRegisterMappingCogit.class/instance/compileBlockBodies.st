@@ -12,7 +12,8 @@ compileBlockBodies
 	inBlock := InVanillaBlock.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
-		[blockStart := self blockStartAt: compiledBlocksCount.
+		[blockPass := 1.
+		 blockStart := self blockStartAt: compiledBlocksCount.
 		 (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
 		 initialOpcodeIndex := opcodeIndex.
 		 initialCounterIndex := self maybeCounterIndex."for SistaCogit"
@@ -32,6 +33,7 @@ compileBlockBodies
 		  initialStackPtr = simStackPtr]
 			whileFalse:
 				[self assert: initialStackPtr > simStackPtr.
+				 blockPass := blockPass + 1. "for asserts :-("
 				 blockStart numInitialNils: blockStart numInitialNils + simStackPtr - initialStackPtr.
 				 blockStart fakeHeader dependent: nil.
 				 self reinitializeFixupsFrom: blockStart startpc + blockStart numInitialNils

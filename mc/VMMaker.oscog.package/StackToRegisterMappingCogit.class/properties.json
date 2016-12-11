@@ -37,7 +37,8 @@
 		"simNativeStackPtr",
 		"simNativeSpillBase",
 		"simNativeStackSize",
-		"hasNativeFrame" ],
+		"hasNativeFrame",
+		"blockPass" ],
 	"name" : "StackToRegisterMappingCogit",
 	"pools" : [
 		"CogCompilationConstants",
