@@ -7,6 +7,8 @@
 	"instance" : {
 		"allYoungObjectsAgeInFullGC" : "eem 11/18/2013 10:57",
 		"allocateNPinnedSlots:" : "eem 7/9/2014 21:23",
+		"branchIf:instanceOfBehavior:target:" : "cb 12/11/2016 16:22",
+		"branchIf:instanceOfBehaviors:target:" : "cb 12/11/2016 16:24",
 		"branchIf:notInstanceOfBehavior:target:" : "eem 6/3/2015 09:12",
 		"branchIf:notInstanceOfBehaviors:target:" : "cb 4/28/2015 09:57",
 		"cacheTagIsMarked:" : "eem 11/18/2013 13:30",
@@ -116,7 +118,9 @@
 		"maybeMarkCounters:" : "eem 4/19/2016 14:23",
 		"maybeNoteDescriptor:blockStart:" : "eem 6/4/2015 09:33",
 		"maybeShiftClassTagRegisterForMethodCacheProbe:" : "eem 8/4/2016 11:49",
+		"mixed:branchIf:instanceOfBehaviors:target:" : "cb 12/11/2016 16:53",
 		"mixed:branchIf:notInstanceOfBehaviors:target:" : "eem 6/3/2015 09:13",
+		"noneImmediateBranchIf:instanceOfBehaviors:target:" : "cb 12/11/2016 16:42",
 		"noneImmediateBranchIf:notInstanceOfBehaviors:target:" : "eem 6/3/2015 09:14",
 		"numCharacterBits" : "eem 1/11/2016 17:52",
 		"numRegArgs" : "eem 01/10/2016 10:01",
