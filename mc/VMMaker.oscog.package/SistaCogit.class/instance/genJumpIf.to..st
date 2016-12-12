@@ -65,7 +65,7 @@ genJumpIf: boolean to: targetBytecodePC
 
 	self genFallsThroughCountLogicCounterReg: SendNumArgsReg counterAddress: counterAddress.
 
-	self CmpCq: (boolean == objectMemory falseObject
+	self CmpCq: (boolean = objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.
