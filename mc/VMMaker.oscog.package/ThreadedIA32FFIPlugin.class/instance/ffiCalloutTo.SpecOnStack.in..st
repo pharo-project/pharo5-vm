@@ -12,7 +12,7 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	[(calloutState callFlags anyMask: FFICallFlagThreaded) ifTrue:
 		[myThreadIndex := interpreterProxy disownVM: 0]].
 
-	self registerArgsSlop + self cStackAlignment > 0 ifTrue:
+	(self allocaLiesSoSetSpBeforeCall or: [self mustAlignStack]) ifTrue:
 		[self setsp: calloutState argVector].
 
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.

@@ -18,5 +18,4 @@
 		"ffiPushUnsignedInt:in:" : "eem 10/30/2009 09:43",
 		"ffiPushUnsignedLongLong:in:" : "eem 10/30/2009 12:16",
 		"ffiPushUnsignedShort:in:" : "eem 10/30/2009 09:43",
-		"registerArgsSlop" : "eem 11/3/2009 13:18",
 		"returnStructInRegisters:" : "eem 11/5/2009 18:28" } }

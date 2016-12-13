@@ -56,17 +56,16 @@ ffiCall: externalFunction ArgArrayOrNil: argArrayOrNil NumArgs: nArgs
 	argClass := interpreterProxy fetchPointer: 1 ofObject: argType.
 	(err := self ffiCheckReturn: argSpec With: argClass in: calloutState) ~= 0 ifTrue:
 		[^self ffiFail: err]. "cannot return"
-	"alloca the outgoing stack frame, leaving room for register args while marshalling, and including space for the return struct, if any."
-	allocation := self alloca: stackSize + calloutState structReturnSize + self registerArgsSlop + self cStackAlignment.
-	self allocaLiesSoUseGetsp ifTrue:
-		[allocation := self getsp].
-	self cStackAlignment ~= 0 ifTrue:
-		[allocation := self cCoerce: (allocation asUnsignedInteger bitClear: self cStackAlignment - 1)
+	"alloca the outgoing stack frame, leaving room for marshalling args, and including space for the return struct, if any.
+	Additional space reserved for saving register args like mandated by Win64 X64 or PPC ABI, will be managed by the call itself"
+	allocation := self alloca: stackSize + calloutState structReturnSize + self cStackAlignment.
+	self mustAlignStack ifTrue:
+		[allocation := self cCoerce: (allocation asUnsignedIntegerPtr bitClear: self cStackAlignment - 1)
 						to: #'char *'].
 	calloutState
 		argVector: allocation;
-		currentArg: allocation + self registerArgsSlop;
-		limit: allocation + stackSize + self registerArgsSlop.
+		currentArg: allocation;
+		limit: allocation + stackSize.
 	(calloutState structReturnSize > 0
 	 and: [self nonRegisterStructReturnIsViaImplicitFirstArgument
 	 and: [(self returnStructInRegisters: calloutState structReturnSize) not]]) ifTrue:

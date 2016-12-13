@@ -14,9 +14,6 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 	[(calloutState callFlags anyMask: FFICallFlagThreaded) ifTrue:
 		[myThreadIndex := interpreterProxy disownVM: 0]].
 
-	self registerArgsSlop + self cStackAlignment > 0 ifTrue:
-		[self setsp: calloutState argVector].
-
 	calloutState floatRegisterSignature > 0 ifTrue:
 		[self 
 			load: (calloutState floatRegisters at: 0)
@@ -25,6 +22,9 @@ ffiCalloutTo: procAddr SpecOnStack: specOnStack in: calloutState
 			Re: (calloutState floatRegisters at: 3)
 			gs: (calloutState floatRegisters at: 4)].
 
+	(self allocaLiesSoSetSpBeforeCall or: [self mustAlignStack]) ifTrue:
+		[self setsp: calloutState argVector].
+	
 	atomicType := self atomicTypeOf: calloutState ffiRetHeader.
 	(atomicType >> 1) = (FFITypeSingleFloat >> 1)
 		ifTrue:
