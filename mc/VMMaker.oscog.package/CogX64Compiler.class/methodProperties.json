@@ -164,5 +164,6 @@
 		"unalignedLong32At:put:" : "eem 12/13/2015 11:19",
 		"unalignedLongAt:" : "eem 12/12/2015 15:25",
 		"unalignedLongAt:put:" : "eem 12/12/2015 15:26",
+		"usesTempRegForAbsoluteLoads" : "eem 12/14/2016 15:15",
 		"wantsNearAddressFor:" : "eem 10/19/2015 09:32:36",
 		"zoneCallsAreRelative" : "rmacnak 12/9/2015 23:07:11" } }

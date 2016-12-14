@@ -3,12 +3,13 @@ ffiCall: externalFunction ArgArrayOrNil: argArrayOrNil NumArgs: nArgs
 	"Generic callout. Does the actual work.  If argArrayOrNil is nil it takes args from the stack
 	 and the spec from the method.  If argArrayOrNil is not nil takes args from argArrayOrNil
 	 and the spec from the receiver."
-	| flags argTypeArray address argType oop argSpec argClass err theCalloutState calloutState requiredStackSize stackSize allocation result |
+	| flags argTypeArray address argType oop argSpec argClass err theCalloutState calloutState requiredStackSize stackSize allocation result primNumArgs |
 	<inline: true>
 	<var: #theCalloutState type: #'CalloutState'>
 	<var: #calloutState type: #'CalloutState *'>
 	<var: #allocation type: #'char *'>
 
+	primNumArgs := interpreterProxy methodArgumentCount.
 	(interpreterProxy is: externalFunction KindOfClass: interpreterProxy classExternalFunction) ifFalse:
 		[^self ffiFail: FFIErrorNotFunction].
 	"Load and check the values in the externalFunction before we call out"
@@ -60,8 +61,7 @@ ffiCall: externalFunction ArgArrayOrNil: argArrayOrNil NumArgs: nArgs
 	Additional space reserved for saving register args like mandated by Win64 X64 or PPC ABI, will be managed by the call itself"
 	allocation := self alloca: stackSize + calloutState structReturnSize + self cStackAlignment.
 	self mustAlignStack ifTrue:
-		[allocation := self cCoerce: (allocation asUnsignedIntegerPtr bitClear: self cStackAlignment - 1)
-						to: #'char *'].
+		[allocation := self cCoerce: (allocation asUnsignedIntegerPtr bitClear: self cStackAlignment - 1) to: #'char *'].
 	calloutState
 		argVector: allocation;
 		currentArg: allocation;
@@ -102,4 +102,6 @@ ffiCall: externalFunction ArgArrayOrNil: argArrayOrNil NumArgs: nArgs
 	"Go out and call this guy"
 	result := self ffiCalloutTo: address SpecOnStack: argArrayOrNil notNil in: calloutState.
 	self cleanupCalloutState: calloutState.
+	"Can not safely use argumentCount (via e.g. methodReturnValue:) since it may have been changed by a callback."
+	interpreterProxy pop: primNumArgs + 1 thenPush: result. 
 	^result

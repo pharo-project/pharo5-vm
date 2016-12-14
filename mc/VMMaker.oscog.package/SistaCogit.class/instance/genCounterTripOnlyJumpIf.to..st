@@ -22,10 +22,7 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	self MoveCq: 1 R: SendNumArgsReg.
 	
 	"The first time this is reached, it calls necessarily the counter trip for the trampoline because SendNumArgsReg is non zero"
-	mustBeBooleanTrampoline := self CallRT: (boolean == objectMemory falseObject
-						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
-						ifFalse: [ceSendMustBeBooleanAddTrueTrampoline]).
-
+	mustBeBooleanTrampoline := self genCallMustBeBooleanFor: boolean.
 	self annotateBytecode: self Label.
 
 	"Cunning trick by LPD.  If true and false are contiguous subtract the smaller.
@@ -35,7 +32,7 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	self genSubConstant: boolean R: TempReg.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
-	self CmpCq: (boolean == objectMemory falseObject
+	self CmpCq: (boolean = objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.

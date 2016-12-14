@@ -10,6 +10,8 @@ checkStackPointerIndexForFrame: theFP
 	<var: #theFP type: #'char *'>
 	<var: #thePage type: #'StackPage *'>
 	<var: #theSP type: #'char *'>
+	theFP = framePointer ifTrue:
+		[^self stackPointerIndexForFrame: theFP WithSP: stackPointer].
 	thePage := stackPages stackPageFor: theFP.
 	theSP := self findSPOrNilOf: theFP
 				on: thePage

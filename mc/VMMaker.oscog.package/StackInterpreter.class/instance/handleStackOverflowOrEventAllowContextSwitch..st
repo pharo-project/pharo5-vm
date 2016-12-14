@@ -14,5 +14,5 @@ handleStackOverflowOrEventAllowContextSwitch: mayContextSwitch
 			 switched := false]
 		ifFalse: [switched := self checkForEventsMayContextSwitch: mayContextSwitch].
 
-	self handleStackOverflow.
+	self checkForStackOverflow.
 	^switched
