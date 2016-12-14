@@ -7,7 +7,7 @@
 		"numFloatRegArgs" : "djm 4/12/2014 19:13",
 		"numIntRegArgs" : "djm 4/12/2014 19:13" },
 	"instance" : {
-		"ffiCalloutTo:SpecOnStack:in:" : "nice 11/13/2016 16:40",
+		"ffiCalloutTo:SpecOnStack:in:" : "nice 12/13/2016 22:08",
 		"ffiPushDoubleFloat:in:" : "djm 4/17/2014 09:01",
 		"ffiPushPointer:in:" : "eem 7/10/2015 13:41",
 		"ffiPushSignedByte:in:" : "djm 4/12/2014 19:28",
@@ -23,5 +23,4 @@
 		"ffiPushUnsignedLongLong:in:" : "djm 4/16/2014 17:48",
 		"ffiPushUnsignedShort:in:" : "djm 4/12/2014 19:34",
 		"ffiReturnStruct:ofType:in:" : "eem 2/20/2016 10:24",
-		"registerArgsSlop" : "eem 11/3/2009 13:19",
 		"returnStructInRegisters:" : "djm 4/19/2014 16:52" } }
