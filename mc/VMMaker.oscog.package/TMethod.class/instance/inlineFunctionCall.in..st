@@ -31,6 +31,6 @@ inlineFunctionCall: aSendNode in: aCodeGen
 		(doNotRename includes: argName) ifFalse:
 			[locals remove: argName]].
 	meth parseTree bindVariablesIn: substitutionDict.
-	^meth statements first isReturn
-		ifTrue: [meth statements first expression]
+	^meth parseTree endsWithReturn
+		ifTrue: [meth parseTree copyWithoutReturn]
 		ifFalse: [meth parseTree]

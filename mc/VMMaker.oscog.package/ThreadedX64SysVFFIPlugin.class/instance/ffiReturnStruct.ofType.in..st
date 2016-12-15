@@ -1,6 +1,6 @@
 callout support
 ffiReturnStruct: sixteenByteRet ofType: ffiRetType in: calloutState
-	<var: #sixteenByteRet type: 'SixteenByteReturn'>
+	<var: #sixteenByteRet type: #SixteenByteReturn>
 	<var: #calloutState type: #'CalloutState *'>
 	"Create a structure return value from an external function call.  The value has been stored in
 	 alloca'ed space pointed to by the calloutState or in the return value."
