@@ -1,17 +1,15 @@
 message sending
 handleStackOverflow
-	"Check for stack overflow, moving frames to another stack if so."
+	"Check for stack overflow, moving frames to another stack if so.
+	 This should *only* be sent from checkForStackOverflow."
+	<inline: #never>
 	| newPage theFP callerFP overflowLimitAddress overflowCount |
 	<var: #newPage type: #'StackPage *'>
 	<var: #theFP type: #'char *'>
 	<var: #callerFP type: #'char *'>
 	<var: #overflowLimitAddress type: #'char *'>
 
-	"After checkForInterrupts another event check may have been forced, setting both
-	 stackLimit and stackPage stackLimit to all ones.  So here we must check against
-	 the real stackLimit, not the effective stackLimit."
-	stackPointer < stackPage realStackLimit ifFalse:
-		[^self].
+	self assert: stackPointer < stackPage realStackLimit.
 
 	self maybeTraceStackOverflow.
 	statStackOverflow := statStackOverflow + 1.

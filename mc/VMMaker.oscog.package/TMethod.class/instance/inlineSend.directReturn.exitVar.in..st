@@ -21,6 +21,11 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 		[^nil].
 	meth := meth copy.
 
+	(meth statements size > 1
+	 and: [meth statements first isSend
+	 and: [meth statements first selector == #flag:]]) ifTrue:
+		[meth statements removeFirst].
+
 	"Propagate the return type of an inlined method"
 	(directReturn or: [exitVar notNil]) ifTrue:
 		[exitType := directReturn 

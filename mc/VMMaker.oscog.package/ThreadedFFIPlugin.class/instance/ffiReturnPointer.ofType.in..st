@@ -10,7 +10,8 @@ ffiReturnPointer: retVal ofType: retType in: calloutState
 		["Create ExternalData upon return"
 		atomicType := self atomicTypeOf: calloutState ffiRetHeader.
 		(atomicType >> 1) = (FFITypeSignedChar >> 1) ifTrue: "String return"
-			[^self ffiReturnCStringFrom: (self cCoerceSimple: retVal to: #usqInt)].
+			[retOop := self ffiReturnCStringFrom: (self cCoerceSimple: retVal to: #usqInt).
+			 ^retOop].
 		"generate external data"
 		self remapOop: retType in:
 			[oop := interpreterProxy
@@ -24,7 +25,7 @@ ffiReturnPointer: retVal ofType: retType in: calloutState
 								indexableSize: 0].
 			interpreterProxy storePointer: 0 ofObject: retOop withValue: oop].
 		interpreterProxy storePointer: 1 ofObject: retOop withValue: retType.
-		^interpreterProxy methodReturnValue: retOop].
+		^retOop].
 	"non-atomic pointer return"
 	classOop := (calloutState ffiRetHeader anyMask: FFIFlagStructure)
 					ifTrue:[interpreterProxy classByteArray]
@@ -38,4 +39,4 @@ ffiReturnPointer: retVal ofType: retType in: calloutState
 	self remapOop: oop in:
 		[retOop := interpreterProxy instantiateClass: retClass indexableSize: 0].
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.
-	^interpreterProxy methodReturnValue: retOop
+	^retOop

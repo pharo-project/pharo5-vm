@@ -8,7 +8,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 decrements the lower half.  N.B. We *do not* eliminate dead branches (true ifTrue:/true ifFalse:)
 	 so that scanning for send and branch data is simplified and that branch data is correct."
 	<inline: false>
-	| ok counterAddress countTripped retry nextPC nextDescriptor desc |
+	| ok counterAddress countTripped retry nextPC nextDescriptor desc reg |
 	<var: #ok type: #'AbstractInstruction *'>
 	<var: #desc type: #'CogSimStackEntry *'>
 	<var: #retry type: #'AbstractInstruction *'>
@@ -16,22 +16,23 @@ genJumpIf: boolean to: targetBytecodePC
 	<var: #nextDescriptor type: #'BytecodeDescriptor *'>
 
 	"In optimized code we don't generate counters to improve performance"
-	(coInterpreter isOptimizedMethod: methodObj) ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
+	(coInterpreter isOptimizedMethod: methodObj) ifTrue:
+		[^super genJumpIf: boolean to: targetBytecodePC].
 	
 	"If the branch is reached only for the counter trip trampoline 
 	(typically, var1 == var2 ifTrue: falls through to the branch only for the trampoline)
 	we generate a specific path to drastically reduce the number of machine instructions"
 	branchReachedOnlyForCounterTrip ifTrue: 
-		[ branchReachedOnlyForCounterTrip := false.
-		^ self genCounterTripOnlyJumpIf: boolean to: targetBytecodePC ].
-	
+		[branchReachedOnlyForCounterTrip := false.
+		 ^self genCounterTripOnlyJumpIf: boolean to: targetBytecodePC].
+
 	"We detect and: / or:, if found, we don't generate the counters to avoid pathological counter slow down"
-	boolean == objectMemory falseObject ifTrue:
+	boolean = objectMemory falseObject ifTrue:
 		[ nextPC := bytecodePC + (self generatorAt: byte0) numBytes.
 		  nextDescriptor := self generatorAt: (objectMemory fetchByte: nextPC ofObject: methodObj) + bytecodeSetOffset.
 		  nextDescriptor generator ==  #genPushConstantTrueBytecode ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].
 		  nextDescriptor := self generatorAt: (objectMemory fetchByte: targetBytecodePC ofObject: methodObj) + bytecodeSetOffset.
-		  nextDescriptor generator ==  #genPushConstantFalseBytecode ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ].  ].
+		  nextDescriptor generator == #genPushConstantFalseBytecode ifTrue: [ ^ super genJumpIf: boolean to: targetBytecodePC ]. ].
 
 	extA := 0. "We ignore the noMustBeBoolean flag. It should not be present in methods with counters, and if it is we don't care."
 
@@ -40,9 +41,15 @@ genJumpIf: boolean to: targetBytecodePC
 	(desc type == SSConstant
 	 and: [desc constant = objectMemory trueObject or: [desc constant = objectMemory falseObject]]) ifTrue:
 		[ ^ super genJumpIf: boolean to: targetBytecodePC ].
-	
-	self ssFlushTo: simStackPtr - 1.
-	desc popToReg: TempReg.
+
+	self flag: 'Because of the restriction on x64 that absolute loads must target %rax, it would perhaps be a better choice to use TempReg (%rax) for the counter reg and SendNumArgsReg for the boolean.'.
+	"try and use the top entry's register if ant, but only if it can be destroyed."
+	reg := (desc type ~= SSRegister
+			or: [(self anyReferencesToRegister: desc register inAllButTopNItems: 0)
+			or: [(desc register = ReceiverResultReg and: [optStatus isReceiverResultRegLive])]])
+				ifTrue: [TempReg]
+				ifFalse: [desc register].
+	desc popToReg: reg.
 	self ssPop: 1.
 
 	"We need SendNumArgsReg because of the mustBeBooleanTrampoline"
@@ -60,7 +67,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 Correct result is either 0 or the distance between them.  If result is not 0 or
 	 their distance send mustBeBoolean."
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
-	self genSubConstant: boolean R: TempReg.
+	self genSubConstant: boolean R: reg.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
 	self genFallsThroughCountLogicCounterReg: SendNumArgsReg counterAddress: counterAddress.
@@ -68,17 +75,28 @@ genJumpIf: boolean to: targetBytecodePC
 	self CmpCq: (boolean = objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
-		R: TempReg.
+		R: reg.
 	ok := self JumpZero: 0.
 	self MoveCq: 0 R: SendNumArgsReg. "if counterReg is 0 this is a mustBeBoolean, not a counter trip."
-	
-	countTripped jmpTarget: (self genCallMustBeBooleanFor: boolean).
+	reg ~= TempReg ifTrue:
+		[self MoveR: reg R: TempReg].
+	countTripped jmpTarget: self Label.
+	self copySimStackToScratch: simSpillBase.
+	self ssFlushTo: simStackPtr.
+	self genCallMustBeBooleanFor: boolean.
 						
-	"If we're in an image which hasn't got the Sista code loaded then the ceCounterTripped:
-	 trampoline will return directly to machine code, returning the boolean.  So the code should
-	 jump back to the retry point. The trampoline makes sure that TempReg has been reloaded."
-	self annotateBytecode: self Label. "For some reason if I write self annotateBytecode: (self Jump: retry) the annotation is not at the correct place."
+	"If we're in an image which hasn't got the Sista code loaded then the ceCounterTripped: trampoline
+	 will return directly to machine code, returning the boolean.  So the code should jump back to the
+	 retry point. The trampoline preserves register state when taking the ceCounterTripped: path."
+	"Clément: For some reason if I write self annotateBytecode: (self Jump: retry) the annotation is not at the correct place."
+	"Eliot: Annotations apply the the address following an instruction, and the annotation must be for the return address
+	 of the call (since this is the address the run-time sees), so it must be on a label before the jump, not after the jump."
+	self annotateBytecode: self Label.
+	simSpillBase ~= scratchSpillBase ifTrue:
+		[self assert: simSpillBase > scratchSpillBase.
+		 self AddCq: simSpillBase - scratchSpillBase * objectMemory wordSize R: SPReg].
 	self Jump: retry.
-	
+
 	ok jmpTarget: self Label.
+	self restoreSimStackFromScratch.
 	^0

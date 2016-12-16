@@ -34,7 +34,7 @@
 		"genMustBeBooleanTrampolineFor:called:" : "eem 12/7/2016 14:45",
 		"genSpecialSelectorArithmetic" : "eem 12/5/2016 11:32",
 		"genSpecialSelectorClass" : "eem 11/28/2016 16:56",
-		"genSpecialSelectorComparison" : "eem 12/6/2016 10:57",
+		"genSpecialSelectorComparison" : "eem 12/12/2016 11:49",
 		"genStorePop:TemporaryVariable:" : "eem 11/29/2016 08:52",
 		"genVanillaInlinedIdenticalOrNotIf:" : "eem 12/6/2016 18:00",
 		"generateRunTimeTrampolines" : "eem 12/7/2016 14:43",

@@ -6,7 +6,7 @@ inlineBuiltin: aSendNode in: aCodeGen
 	sel := aSendNode receiver selector.
 	meth := aCodeGen methodNamed: sel.
 	(meth notNil and: [meth inline == true]) ifFalse: [^nil].
-	meth isFunctional ifTrue:
+	(meth isFunctionalIn: aCodeGen) ifTrue:
 		[inlinedReplacement := (aCodeGen methodNamed: aSendNode receiver selector) copy
 									inlineFunctionCall: aSendNode receiver
 									in: aCodeGen.

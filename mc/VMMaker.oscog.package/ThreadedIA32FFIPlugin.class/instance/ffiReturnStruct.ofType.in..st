@@ -12,10 +12,10 @@ ffiReturnStruct: longLongRet ofType: ffiRetType in: calloutState
 		in: [oop := interpreterProxy 
 					instantiateClass: interpreterProxy classByteArray 
 					indexableSize: calloutState structReturnSize].
-	(self returnStructInRegisters: calloutState structReturnSize)
-		ifTrue:
-			[self mem: (interpreterProxy firstIndexableField: oop) cp: (self addressOf: longLongRet) y: calloutState structReturnSize]
-		ifFalse:
-			[self mem: (interpreterProxy firstIndexableField: oop) cp: calloutState limit y: calloutState structReturnSize].
+	self mem: (interpreterProxy firstIndexableField: oop)
+		cp: ((self returnStructInRegisters: calloutState structReturnSize)
+				ifTrue: [(self addressOf: longLongRet) asVoidPointer]
+				ifFalse: [calloutState limit])
+		 y: calloutState structReturnSize.
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.
-	^interpreterProxy methodReturnValue: retOop
+	^retOop

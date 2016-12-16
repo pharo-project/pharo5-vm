@@ -8,11 +8,8 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	| ok mustBeBooleanTrampoline |
 
 	extA := 0.
-
-	self ssFlushTo: simStackPtr - 1.
 	
 	self ssTop popToReg: TempReg.
-	
 	self ssPop: 1.
 
 	counterIndex := counterIndex + 1. "counters are increased / decreased in the inlined branch"
@@ -22,9 +19,7 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	self MoveCq: 1 R: SendNumArgsReg.
 	
 	"The first time this is reached, it calls necessarily the counter trip for the trampoline because SendNumArgsReg is non zero"
-	mustBeBooleanTrampoline := self CallRT: (boolean == objectMemory falseObject
-						ifTrue: [ceSendMustBeBooleanAddFalseTrampoline]
-						ifFalse: [ceSendMustBeBooleanAddTrueTrampoline]).
+	mustBeBooleanTrampoline := self genCallMustBeBooleanFor: boolean.
 
 	self annotateBytecode: self Label.
 
@@ -35,7 +30,7 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	self genSubConstant: boolean R: TempReg.
 	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
 
-	self CmpCq: (boolean == objectMemory falseObject
+	self CmpCq: (boolean = objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]
 					ifFalse: [objectMemory falseObject - objectMemory trueObject])
 		R: TempReg.

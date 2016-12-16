@@ -17,9 +17,8 @@ primitiveLoadSymbolFromModule
 	module := interpreterProxy stackValue: 0.
 	symbol := interpreterProxy stackValue: 1.
 
-	module ~= interpreterProxy nilObject 
-		ifTrue: [ moduleHandle := self ffiLoadCalloutModule: module ]
-		ifFalse: [ moduleHandle := nil ].
+	moduleHandle := module ~= interpreterProxy nilObject ifTrue:
+						[self ffiLoadCalloutModule: module].
 	interpreterProxy failed ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrNotFound].
 	address := interpreterProxy

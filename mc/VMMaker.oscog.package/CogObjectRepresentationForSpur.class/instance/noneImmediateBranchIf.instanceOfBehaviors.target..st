@@ -3,7 +3,6 @@ noneImmediateBranchIf: reg instanceOfBehaviors: arrayObj target: targetFixUp
 	"All classes in arrayObj are not immediate"
 	| classObj jmp |
 	<var: #targetFixUp type: #'AbstractInstruction *'>
-	<var: #label type: #'AbstractInstruction *'>
 	<var: #jmp type: #'AbstractInstruction *'>
 	jmp := self genJumpImmediate: reg.
 	self genGetClassIndexOfNonImm: reg into: TempReg.

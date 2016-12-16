@@ -18,4 +18,4 @@ ffiReturnStruct: intRet ofType: ffiRetType in: calloutState
 				ifFalse: [calloutState limit])
 		 y: calloutState structReturnSize.
 	interpreterProxy storePointer: 0 ofObject: retOop withValue: oop.
-	^interpreterProxy methodReturnValue: retOop
+	^retOop
