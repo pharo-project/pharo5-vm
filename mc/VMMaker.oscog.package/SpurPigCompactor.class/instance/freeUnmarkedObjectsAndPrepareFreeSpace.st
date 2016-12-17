@@ -1,0 +1,4 @@
+compaction - api
+freeUnmarkedObjectsAndPrepareFreeSpace
+	<inline: true>
+	self freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact

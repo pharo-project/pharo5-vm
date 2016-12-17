@@ -9,20 +9,20 @@ tryToMovePig: pigObj at: pigStart end: pigEnd
 	pigBytes := pigEnd - pigStart.
 	[freeChunk ~= 0 and: [freeChunk < pigObj]] whileTrue:
 		[| next dest chunkBytes newChunk |
-		 next			:= self nextInSortedFreeListLink: freeChunk given: prevFree.
-		 dest			:= self startOfObject: freeChunk.
-		 chunkBytes	:= (self addressAfter: freeChunk) - dest.
+		 next			:= manager nextInSortedFreeListLink: freeChunk given: prevFree.
+		 dest			:= manager startOfObject: freeChunk.
+		 chunkBytes	:= (manager addressAfter: freeChunk) - dest.
 		 "N.B. *must* add allocationUnit, not subtract, to avoid unsigned arithmetic issues when chunkBytes = 0"
 		 (chunkBytes = pigBytes
-		  or: [chunkBytes > (pigBytes + self allocationUnit)]) ifTrue:
-			[self mem: dest asVoidPointer cp: pigStart asVoidPointer y: pigBytes.
-			 self forwardUnchecked: pigObj to: dest + (pigObj - pigStart).
+		  or: [chunkBytes > (pigBytes + manager allocationUnit)]) ifTrue:
+			[manager mem: dest asVoidPointer cp: pigStart asVoidPointer y: pigBytes.
+			 manager forwardUnchecked: pigObj to: dest + (pigObj - pigStart).
 			 next ~= 0 ifTrue:
-				[nextNext  := self nextInSortedFreeListLink: next given: freeChunk].
+				[nextNext  := manager nextInSortedFreeListLink: next given: freeChunk].
 			 "now either shorten the chunk, or remove it, adjusting the links to keep the list sorted."
 			 pigBytes < chunkBytes "if false, filled entire free chunk"
 				ifTrue:
-					[newChunk := self initFreeChunkWithBytes: chunkBytes - pigBytes at: dest + pigBytes.
+					[newChunk := manager initFreeChunkWithBytes: chunkBytes - pigBytes at: dest + pigBytes.
 					 self inSortedFreeListLink: prevFree to: newChunk given: prevPrevFree.
 					 self inSortedFreeListLink: newChunk to: next given: prevFree.
 					 next ~= 0 ifTrue:

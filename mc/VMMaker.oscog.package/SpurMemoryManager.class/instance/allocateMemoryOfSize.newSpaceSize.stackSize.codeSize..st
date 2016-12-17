@@ -19,4 +19,5 @@ allocateMemoryOfSize: memoryBytes newSpaceSize: newSpaceBytes stackSize: stackBy
 	scavenger manager: self.
 	scavenger newSpaceStart: newSpaceStart
 				newSpaceBytes: newSpaceBytes
-				survivorBytes: newSpaceBytes // self scavengerDenominator
+				survivorBytes: newSpaceBytes // self scavengerDenominator.
+	compactor := self class compactorClass new manager: self; yourself.

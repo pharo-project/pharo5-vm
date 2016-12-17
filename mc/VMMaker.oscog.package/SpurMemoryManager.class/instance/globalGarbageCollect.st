@@ -6,7 +6,7 @@ globalGarbageCollect
 	self assert: (self isEmptyObjStack: weaklingStack).
 
 	self markObjects: true.
-	self freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact.
+	compactor freeUnmarkedObjectsAndPrepareFreeSpace.
 
 	"Mid-way the leak check must be more lenient.  Unmarked classes will have been
 	 expunged from the table, but unmarked instances will not yet have been reclaimed."
@@ -14,7 +14,7 @@ globalGarbageCollect
 		excludeUnmarkedNewSpaceObjs: true
 		classIndicesShouldBeValid: true.
 
-	self compact.
+	compactor compact.
 	self setHeapSizeAtPreviousGC.
 
 	self assert: self validObjStacks.

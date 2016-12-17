@@ -8,7 +8,7 @@ pigCompact
 	self sortedFreeListPairwiseReverseDo:
 		[:low :high| | scanAddress |
 		 self cCode: '' inSmalltalk: [coInterpreter transcript nextPut: $.; flush].
-		 scanAddress := self addressAfter: low.
+		 scanAddress := manager addressAfter: low.
 		 [self oop: scanAddress isLessThan: high] whileTrue:
 			[scanAddress := self moveARunOfObjectsStartingAt: scanAddress upTo: high.
 			 scanAddress = 0 ifTrue:

@@ -1,9 +1,9 @@
-gc - global
+compaction - asserts
 checkNoForwardersBelowFirstFreeChunk
-	self allOldSpaceEntitiesDo:
+	manager allOldSpaceEntitiesDo:
 		[:o|
 		(self oop: o isGreaterThanOrEqualTo: firstFreeChunk) ifTrue:
 			[^true].
-		(self asserta: (self isForwarded: o) not) ifFalse:
+		(self asserta: (manager isForwarded: o) not) ifFalse:
 			[^false]].
 	^true

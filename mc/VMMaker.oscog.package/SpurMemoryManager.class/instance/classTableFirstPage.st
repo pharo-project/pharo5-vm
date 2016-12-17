@@ -1,3 +1,4 @@
-debug support
+accessing
 classTableFirstPage
+	<cmacro>
 	^classTableFirstPage

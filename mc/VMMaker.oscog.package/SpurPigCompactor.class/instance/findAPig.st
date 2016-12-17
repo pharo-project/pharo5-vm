@@ -1,11 +1,11 @@
 compaction - analysis
 findAPig
-	"Answer a large low free chuink."
+	"Answer a large low free chunk."
 	<doNotGenerate>
 	| pig |
-	self allObjectsInFreeTreeDo:
+	manager allObjectsInFreeTreeDo:
 		[:f|
-		(self bytesInObject: f) >= 1000000 ifTrue:
+		(manager bytesInObject: f) >= 1000000 ifTrue:
 			[(pig isNil or: [pig > f]) ifTrue:
 				[pig := f]]].
 	^pig

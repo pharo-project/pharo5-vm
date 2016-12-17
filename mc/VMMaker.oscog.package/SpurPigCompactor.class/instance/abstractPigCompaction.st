@@ -4,11 +4,11 @@ abstractPigCompaction
 	<doNotGenerate>
 	| pig pork moved unmoved nmoved nunmoved |
 	pig := self findAPig.
-	pork := self bytesInObject: pig.
+	pork := manager bytesInObject: pig.
 	moved := unmoved := nmoved := nunmoved := 0.
-	self allOldSpaceObjectsFrom: pig do:
+	manager allOldSpaceObjectsFrom: pig do:
 		[:o| | bytes |
-		bytes := self bytesInObject: o.
+		bytes := manager bytesInObject: o.
 		bytes <= pork
 			ifTrue:
 				[moved := moved + bytes.
@@ -17,4 +17,4 @@ abstractPigCompaction
 			ifFalse:
 				[unmoved := unmoved + bytes.
 				 nunmoved := nunmoved + 1]].
-	^{ self bytesInObject: pig. pork. moved. nmoved. unmoved. nunmoved }
+	^{ manager bytesInObject: pig. pork. moved. nmoved. unmoved. nunmoved }

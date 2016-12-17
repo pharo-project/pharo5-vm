@@ -22,56 +22,56 @@ moveARunOfObjectsStartingAt: startAddress upTo: limit
 	<var: #destination type: #usqInt>
 	<var: #maxFreeChunk type: #usqInt>
 	here := startAddress.
-	hereObj := self objectStartingAt: startAddress.
-	hereObjHeader := self atLeastClassIndexHalfHeader: hereObj.
+	hereObj := manager objectStartingAt: startAddress.
+	hereObjHeader := manager atLeastClassIndexHalfHeader: hereObj.
 	prevPrevFreeChunk := prevFreeChunk := 0.
 	thisFreeChunk := maxFreeChunk := firstFreeChunk.
 	[thisFreeChunk ~= 0] whileTrue:
 		[| freeBytes endOfFree nextFree destination there moved |
 
 		 "skip any initial immobile objects"
-		 [(self isMobileObjectHeader: hereObjHeader)] whileFalse:
-			[here := self addressAfter: hereObj.
+		 [(manager isMobileObjectHeader: hereObjHeader)] whileFalse:
+			[here := manager addressAfter: hereObj.
 			 here >= limit ifTrue:
 				[^maxFreeChunk >= startAddress ifTrue: [0] ifFalse: [limit]].
-			 hereObj := self objectStartingAt: here.
-			 hereObjHeader := self atLeastClassIndexHalfHeader: hereObj].
+			 hereObj := manager objectStartingAt: here.
+			 hereObjHeader := manager atLeastClassIndexHalfHeader: hereObj].
 
 		 "grab a free chunk, and the following one, because we want to overwrite this one."
-		 self assert: ((self isFreeObject: firstFreeChunk) and: [self isFreeObject: thisFreeChunk]).
-		 freeBytes		:= self bytesInObject: thisFreeChunk.
-		 nextFree		:= self nextInSortedFreeListLink: thisFreeChunk given: prevFreeChunk.
-		 destination	:= self startOfObject: thisFreeChunk.
+		 self assert: ((manager isFreeObject: firstFreeChunk) and: [manager isFreeObject: thisFreeChunk]).
+		 freeBytes		:= manager bytesInObject: thisFreeChunk.
+		 nextFree		:= manager nextInSortedFreeListLink: thisFreeChunk given: prevFreeChunk.
+		 destination	:= manager startOfObject: thisFreeChunk.
 		 endOfFree		:= destination + freeBytes.
 		 moved			:= false.
 		 maxFreeChunk	:= maxFreeChunk max: nextFree.
-		 self assert: (nextFree = 0 or: [self isFreeObject: nextFree]).
+		 self assert: (nextFree = 0 or: [manager isFreeObject: nextFree]).
 
 		"move as many objects as will fit in freeBytes..."
-		 [there := self addressAfter: hereObj.
+		 [there := manager addressAfter: hereObj.
 		  "N.B. *must* add allocationUnit, not subtract, to avoid unsigned arithmetic issues when freeBytes = 0"
-		  (self isMobileObjectHeader: hereObjHeader)
-		  and: [freeBytes > (there - here + self allocationUnit)
+		  (manager isMobileObjectHeader: hereObjHeader)
+		  and: [freeBytes > (there - here + manager allocationUnit)
 			    or: [freeBytes = (there - here)]]] whileTrue:
 			[moved := true.
-			 self mem: destination asVoidPointer cp: here asVoidPointer y: there - here.
-			 self forwardUnchecked: hereObj to: destination + (hereObj - here).
+			 manager mem: destination asVoidPointer cp: here asVoidPointer y: there - here.
+			 manager forwardUnchecked: hereObj to: destination + (hereObj - here).
 			 destination := destination + (there - here).
 			 freeBytes := freeBytes - (there - here).
-			 hereObj := self objectStartingAt: there.
+			 hereObj := manager objectStartingAt: there.
 			 here := there.
-			 hereObjHeader := self atLeastClassIndexHalfHeader: hereObj].
+			 hereObjHeader := manager atLeastClassIndexHalfHeader: hereObj].
 
 		 moved
 			ifTrue: "we did overwrite it; we need to repair the free list"
 				[| nextNextFree |
 				 nextFree ~= 0 ifTrue:
-					[nextNextFree  := self nextInSortedFreeListLink: nextFree given: thisFreeChunk.
-					 self assert: (self isFreeObject: nextFree)].
+					[nextNextFree  := manager nextInSortedFreeListLink: nextFree given: thisFreeChunk.
+					 self assert: (manager isFreeObject: nextFree)].
 				 (destination > thisFreeChunk "if false couldn't move anything"
 				  and: [destination < endOfFree]) "if false, filled entire free chunk"
 					ifTrue:
-						[thisFreeChunk := self initFreeChunkWithBytes: endOfFree - destination at: destination.
+						[thisFreeChunk := manager initFreeChunkWithBytes: endOfFree - destination at: destination.
 						 self inSortedFreeListLink: prevFreeChunk to: thisFreeChunk given: prevPrevFreeChunk.
 						 self inSortedFreeListLink: thisFreeChunk to: nextFree given: prevFreeChunk.
 						 nextFree ~= 0 ifTrue:
@@ -89,18 +89,18 @@ moveARunOfObjectsStartingAt: startAddress upTo: limit
 				 prevFreeChunk := thisFreeChunk.
 				 thisFreeChunk := nextFree].
 
-		 (self isMobileObjectHeader: hereObjHeader) ifFalse:
+		 (manager isMobileObjectHeader: hereObjHeader) ifFalse:
 			[^maxFreeChunk >= startAddress ifTrue: [0] ifFalse: [there]].
 
 		 "Was the loop stopped by a pig? If so, try and find space for it"
-		 there - here >= (self averageObjectSizeInBytes * 8) ifTrue: "256b in 32 bit, 512b in 64 bit"
+		 there - here >= (manager averageObjectSizeInBytes * 8) ifTrue: "256b in 32 bit, 512b in 64 bit"
 			[| usedChunk |
 			 usedChunk := self tryToMovePig: hereObj at: here end: there.
 			"if it couldn't be moved we need to advance, so always
 			 set here to there whether the pig was moved or not."
-			 hereObj := self objectStartingAt: there.
+			 hereObj := manager objectStartingAt: there.
 			 here := there.
-			 hereObjHeader := self atLeastClassIndexHalfHeader: hereObj.
+			 hereObjHeader := manager atLeastClassIndexHalfHeader: hereObj.
 			 "In general it's a bad idea to reset the enumeration; it leads to N^2 behaviour
 			  when encountering pigs.  But if the move affected the enumeration this is
 			  simpler than resetting the list pointers."

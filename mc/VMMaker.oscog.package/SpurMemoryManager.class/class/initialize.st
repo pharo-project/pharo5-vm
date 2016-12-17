@@ -7,11 +7,6 @@ initialize
 	 old ObjectMemory simulator is used before a Spur simulator is created.."
 	self initializeSpurObjectRepresentationConstants.
 
-	"Pig compact can be repeated to compact better.  Experience shows that 3 times
-	 compacts very well, desirable for snapshots.  But this is overkill for normal GCs."
-	CompactionPassesForGC := 2.
-	CompactionPassesForSnapshot := 3.
-
 	"An obj stack is a stack of objects stored in a hidden root slot, such as
 	 the markStack or the ephemeronQueue.  It is a linked list of segments,
 	 with the hot end at the head of the list.  It is a word object.  The stack

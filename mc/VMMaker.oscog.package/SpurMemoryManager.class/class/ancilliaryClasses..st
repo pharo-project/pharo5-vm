@@ -1,4 +1,4 @@
 translation
 ancilliaryClasses: options
-	^{	SpurGenerationScavenger. SpurSegmentManager. SpurSegmentInfo },
+	^{	SpurGenerationScavenger. SpurSegmentManager. SpurSegmentInfo. self compactorClass },
 		SpurNewSpaceSpace withAllSubclasses

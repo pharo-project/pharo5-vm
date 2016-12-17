@@ -47,8 +47,7 @@ initializeObjectMemory: bytesToShift
 	self initializeNewSpaceVariables.
 	scavenger initializeRememberedSet.
 	segmentManager checkSegments.
-
-	numCompactionPasses := CompactionPassesForGC.
+	compactor biasForGC.
 
 	"These defaults should depend on machine size; e.g. too small on a powerful laptop, too big on a Pi."
 	growHeadroom := 16*1024*1024.		"headroom when growing"

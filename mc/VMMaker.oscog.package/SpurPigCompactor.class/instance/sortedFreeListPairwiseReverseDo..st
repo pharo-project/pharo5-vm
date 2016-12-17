@@ -13,8 +13,8 @@ sortedFreeListPairwiseReverseDo: aBinaryBlock
 	prevPrevFree := prevFree := 0.
 	[free ~= 0] whileTrue:
 		[aBinaryBlock value: free value: (prevFree = 0
-											ifTrue: [endOfMemory - self bridgeSize]
-											ifFalse: [self startOfObject: prevFree]).
+											ifTrue: [manager endOfMemory - manager bridgeSize]
+											ifFalse: [manager startOfObject: prevFree]).
 		 "post evaluation of aBinaryBlock the value of free may be invalid
 		  because moveARunOfObjectsStartingAt:upTo: may have filled it.
 		  So reconstruct the position in the enumeration."
@@ -22,16 +22,16 @@ sortedFreeListPairwiseReverseDo: aBinaryBlock
 			ifTrue:
 				[self assert: free = lastFreeChunk.
 				 prevFree := lastFreeChunk.
-				 free := self nextInSortedFreeListLink: lastFreeChunk given: 0]
+				 free := manager nextInSortedFreeListLink: lastFreeChunk given: 0]
 			ifFalse:
-				[self assert: (self isFreeObject: prevFree).
+				[self assert: (manager isFreeObject: prevFree).
 				 prevPrevFree = 0
 					ifTrue:
 						[prevPrevFree := lastFreeChunk.
-						 prevFree := self nextInSortedFreeListLink: lastFreeChunk given: 0]
+						 prevFree := manager nextInSortedFreeListLink: lastFreeChunk given: 0]
 					ifFalse:
-						[self assert: (self isFreeObject: prevPrevFree).
-						 free := self nextInSortedFreeListLink: prevFree given: prevPrevFree.
+						[self assert: (manager isFreeObject: prevPrevFree).
+						 free := manager nextInSortedFreeListLink: prevFree given: prevPrevFree.
 						 prevPrevFree := prevFree.
 						 prevFree := free].
-				 free := self nextInSortedFreeListLink: prevFree given: prevPrevFree]]
+				 free := manager nextInSortedFreeListLink: prevFree given: prevPrevFree]]

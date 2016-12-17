@@ -8,6 +8,6 @@ inSortedFreeListLink: freeChunk to: nextFree given: prevFree
 		ifTrue:
 			[firstFreeChunk := nextFree]
 		ifFalse:
-			[self storePointer: self freeChunkNextIndex
+			[manager storePointer: manager freeChunkNextIndex
 				ofFreeChunk: freeChunk
 				withUncheckedValue: (prevFree bitXor: nextFree)]

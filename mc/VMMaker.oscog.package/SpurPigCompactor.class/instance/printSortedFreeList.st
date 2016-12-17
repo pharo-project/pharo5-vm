@@ -7,12 +7,12 @@ printSortedFreeList
 		 ^self].
 	freeChunk := firstFreeChunk.
 	prevFree := 0.
-	[((self addressCouldBeObj: freeChunk)
-	 and: [self isFreeObject: freeChunk]) ifFalse:
+	[((manager addressCouldBeObj: freeChunk)
+	 and: [manager isFreeObject: freeChunk]) ifFalse:
 		[coInterpreter printHexnp: freeChunk; print: ' is not a free chunk!' ; cr.
 		 ^self].
-	 self printFreeChunk: freeChunk printAsTreeNode: false.
+	 manager printFreeChunk: freeChunk printAsTreeNode: false.
 	 freeChunk ~= lastFreeChunk] whileTrue:
-		[nextFree := self nextInSortedFreeListLink: freeChunk given: prevFree.
+		[nextFree := manager nextInSortedFreeListLink: freeChunk given: prevFree.
 		 prevFree := freeChunk.
 		 freeChunk := nextFree]

@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"initialize" : "eem 12/16/2016 15:53" },
+	"instance" : {
+		"abstractPigCompaction" : "eem 12/16/2016 16:06",
+		"biasForGC" : "eem 12/16/2016 15:59",
+		"biasForSnapshot" : "eem 12/16/2016 15:59",
+		"checkNoForwardersBelowFirstFreeChunk" : "eem 12/16/2016 16:06",
+		"checkTraversableSortedFreeList" : "eem 12/16/2016 16:06",
+		"coInterpreter:" : "eem 12/16/2016 16:31",
+		"compact" : "eem 12/16/2016 16:06",
+		"eliminateAndFreeForwardersForPigCompact" : "eem 12/16/2016 16:51",
+		"findAPig" : "eem 12/16/2016 16:14",
+		"freeUnmarkedObjectsAndPrepareFreeSpace" : "eem 12/16/2016 16:11",
+		"freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact" : "eem 12/16/2016 16:06",
+		"inSortedFreeListLink:to:given:" : "eem 12/16/2016 16:06",
+		"manager:" : "eem 12/16/2016 16:27",
+		"moveARunOfObjectsStartingAt:upTo:" : "eem 12/16/2016 16:06",
+		"noForwardersBelowFirstFreeChunk" : "eem 12/16/2016 16:06",
+		"pigCompact" : "eem 12/16/2016 16:06",
+		"printSortedFreeList" : "eem 12/16/2016 16:06",
+		"rebuildFreeListsForPigCompact" : "eem 12/16/2016 16:06",
+		"sortedFreeListDo:" : "eem 12/16/2016 16:06",
+		"sortedFreeListPairwiseReverseDo:" : "eem 12/16/2016 16:06",
+		"sweepToCoallesceFreeSpaceForPigCompactFrom:" : "eem 12/16/2016 16:06",
+		"sweepToFollowForwardersForPigCompact" : "eem 12/16/2016 16:06",
+		"tryToMovePig:at:end:" : "eem 12/16/2016 16:06",
+		"unmarkSurvivingObjectsForPigCompact" : "eem 12/16/2016 16:06" } }

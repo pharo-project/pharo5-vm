@@ -20,6 +20,7 @@ initialize
 	"we can initialize things that are virtual in C."
 	scavenger := SpurGenerationScavengerSimulator new manager: self; yourself.
 	segmentManager := SpurSegmentManager new manager: self; yourself.
+	compactor := self class compactorClass new manager: self; yourself.
 
 	"We can also initialize here anything that is only for simulation."
 	heapMap := CogCheck32BitHeapMap new.

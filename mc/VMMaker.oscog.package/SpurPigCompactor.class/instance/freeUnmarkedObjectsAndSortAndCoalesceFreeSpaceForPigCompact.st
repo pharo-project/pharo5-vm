@@ -1,4 +1,4 @@
-gc - global
+compaction
 freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact
 	"Sweep all of old space, freeing unmarked objects, coalescing free chunks, and sorting free space.
 
@@ -12,32 +12,32 @@ freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact
 
 	| prevPrevFree prevFree |
 	<inline: #never> "for profiling"
-	self checkFreeSpace: GCModeFull.
+	manager checkFreeSpace: GCModeFull.
 	scavenger forgetUnmarkedRememberedObjects.
-	self doScavenge: MarkOnTenure.
-	segmentManager prepareForGlobalSweep."for notePinned:"
+	manager doScavenge: MarkOnTenure.
+	manager segmentManager prepareForGlobalSweep."for notePinned:"
 	"throw away the list heads, including the tree."
-	self resetFreeListHeads.
+	manager resetFreeListHeads.
 	firstFreeChunk := prevPrevFree := prevFree := 0.
-	self allOldSpaceEntitiesForCoalescingFrom: self firstObject do:
+	manager allOldSpaceEntitiesForCoalescingFrom: manager firstObject do:
 		[:o|
-		 self assert: (firstFreeChunk = 0 or: [self isFreeObject: firstFreeChunk]).
-		 (self isMarked: o)
+		 self assert: (firstFreeChunk = 0 or: [manager isFreeObject: firstFreeChunk]).
+		 (manager isMarked: o)
 			ifTrue: "forwarders should have been followed in markAndTrace:"
-				[self assert: (self isForwarded: o) not.
-				 self setIsMarkedOf: o to: false. "this will unmark bridges. undo the damage in notePinned:"
-				 (self isPinned: o) ifTrue:
-					[segmentManager notePinned: o]]
+				[self assert: (manager isForwarded: o) not.
+				 manager setIsMarkedOf: o to: false. "this will unmark bridges. undo the damage in notePinned:"
+				 (manager isPinned: o) ifTrue:
+					[manager segmentManager notePinned: o]]
 			ifFalse: "unmarked; two cases, an unreachable object or a free chunk."
 				[| here |
-				 self assert: (self isRemembered: o) not. "scavenger should have cleared this above"
-				 here := self coallesceFreeChunk: o.
-				 self setObjectFree: here.
+				 self assert: (manager isRemembered: o) not. "scavenger should have cleared this above"
+				 here := manager coallesceFreeChunk: o.
+				 manager setObjectFree: here.
 				 self inSortedFreeListLink: prevFree to: here given: prevPrevFree.
 				 prevPrevFree := prevFree.
 				 prevFree := here]].
 	prevFree ~= firstFreeChunk ifTrue:
-		[self storePointer: self freeChunkNextIndex
+		[manager storePointer: manager freeChunkNextIndex
 			ofFreeChunk: prevFree
 			withValue: prevPrevFree].
 	lastFreeChunk := prevFree.
