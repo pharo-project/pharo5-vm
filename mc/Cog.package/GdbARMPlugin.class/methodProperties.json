@@ -7,7 +7,7 @@
 		"primitiveDisassembleAt:InMemory:" : "eem 9/15/2015 11:53",
 		"primitiveErrorAndLog" : "eem 9/15/2015 11:53",
 		"primitiveFlushICacheFrom:To:" : "eem 1/15/2009 09:57",
-		"primitiveNewCPU" : "eem 1/14/2009 15:28",
+		"primitiveNewCPU" : "eem 11/17/2016 15:45",
 		"primitiveResetCPU" : "eem 1/14/2009 15:28",
 		"primitiveRunInMemory:minimumAddress:maximumAddress:readOnlyBelow:" : "eem 11/21/2013 16:40",
 		"primitiveRunInMemory:minimumAddress:readOnlyBelow:" : "tpr 5/8/2014 08:23",

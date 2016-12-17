@@ -10,27 +10,10 @@ disassembleFrom: startAddress to: endAddress in: memory for: aSymbolManager "<Co
 			[:label| aStream nextPutAll: label; nextPut: $:; cr].
 		(labelDictionary at: address ifAbsent: []) ifNotNil:
 			[:label|
-			label isArray
-				ifTrue: [label first == #literal
-							ifTrue:
-								[label size = 4 ifTrue:
-									[aStream nextPutAll: label last; nextPut: $:; cr].
-								 aStream
-									nextPutAll: (address printStringBase: 16 length: 8 padded: true) asLowercase;
-									nextPut: $:; space;
-									nextPutAll: ((aSymbolManager objectMemory longAt: address) printStringBase: 16 length: 8 padded: true) asLowercase.
-								 (aSymbolManager lookupAddress: (aSymbolManager objectMemory longAt: address)) ifNotNil:
-									[:name| aStream space; nextPutAll: name]]
-							ifFalse:
-								[aStream
-									nextPutAll: label first;
-									nextPut: $:; cr;
-									nextPutAll: (address printStringBase: 16 length: 8 padded: true) asLowercase;
-									nextPut: $:; space;
-									nextPutAll: (aSymbolManager perform: label second with: address) asString].
-						string := nil.
-						size := label third]
-				ifFalse: [aStream nextPutAll: label; nextPut: $:; cr]].
+			self printLabel: label on: aStream at: address for: aSymbolManager.
+			label isArray ifTrue:
+				[string := nil.
+				 size := label third]].
 		string ifNotNil:
 			[aStream nextPutAll: (self decorateDisassembly: string for: aSymbolManager fromAddress: address).
 			 (string includesSubString: ': ldr	') ifTrue:"i.e. colon space 'ldr' tab" 
@@ -54,4 +37,6 @@ disassembleFrom: startAddress to: endAddress in: memory for: aSymbolManager "<Co
 		address := address + size]
 			valueWithArguments: (self
 									primitiveDisassembleAt: address
-									inMemory: memory)]
+									inMemory: memory)].
+	(labelDictionary at: address ifAbsent: []) ifNotNil:
+		[:label| self printLabel: label on: aStream at: address for: aSymbolManager]

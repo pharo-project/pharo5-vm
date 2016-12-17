@@ -1,0 +1,21 @@
+{
+	"category" : "Cog-Bootstrapping",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/15/2016 19:49",
+	"instvars" : [
+		"oldHeap",
+		"newHeap",
+		"map",
+		"reverseMap",
+		"oldInterpreter",
+		"newInterpreter",
+		"imageHeaderFlags",
+		"savedWindowSize" ],
+	"name" : "Spur32BitPreen",
+	"pools" : [
+		"VMObjectIndices" ],
+	"super" : "SimulatorHarness",
+	"type" : "normal" }
