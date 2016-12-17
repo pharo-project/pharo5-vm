@@ -5,7 +5,13 @@ globalGarbageCollect
 	self assert: (self isEmptyObjStack: markStack).
 	self assert: (self isEmptyObjStack: weaklingStack).
 
+	"Mark objects /before/ scavenging, to empty the rememberedTable of unmarked roots."
 	self markObjects: true.
+
+	scavenger forgetUnmarkedRememberedObjects.
+	self doScavenge: MarkOnTenure.
+	segmentManager prepareForGlobalSweep. "for notePinned:"
+
 	compactor freeUnmarkedObjectsAndPrepareFreeSpace.
 
 	"Mid-way the leak check must be more lenient.  Unmarked classes will have been

@@ -12,7 +12,7 @@
 		"eliminateAndFreeForwardersForPigCompact" : "eem 12/16/2016 16:51",
 		"findAPig" : "eem 12/16/2016 16:14",
 		"freeUnmarkedObjectsAndPrepareFreeSpace" : "eem 12/16/2016 16:11",
-		"freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact" : "eem 12/16/2016 16:06",
+		"freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact" : "eem 12/17/2016 11:03",
 		"inSortedFreeListLink:to:given:" : "eem 12/16/2016 16:06",
 		"manager:" : "eem 12/16/2016 16:27",
 		"moveARunOfObjectsStartingAt:upTo:" : "eem 12/16/2016 16:06",
