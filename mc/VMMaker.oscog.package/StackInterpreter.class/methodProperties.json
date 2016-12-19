@@ -1223,7 +1223,7 @@
 		"tryLoadNewPlugin:pluginEntries:" : "tpr 12/3/2015 10:28",
 		"ultimateLiteralOf:" : "eem 9/6/2016 09:59",
 		"unPop:" : "eem (const to msg rewrite) 11/5/2014 18:04",
-		"unaryInlinePrimitive:" : "eem 7/12/2016 13:39",
+		"unaryInlinePrimitive:" : "cb 12/19/2016 11:09",
 		"unconditionnalTrapBytecode" : "cb 8/29/2016 11:06",
 		"undoFetchNextBytecode" : "eem 6/20/2011 17:33",
 		"unfollow:atIndex:" : "eem 5/25/2016 11:24",
