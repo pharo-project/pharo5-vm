@@ -79,5 +79,5 @@ zipFileName="`pwd`/../pharo-${os}-${productArch}${productHeartbeat}-${buildDate}
 
 pushd .
 cd ${productDir}
-zip -r ${zipFileName} ${pattern}
+zip -y -r ${zipFileName} ${pattern}
 popd
