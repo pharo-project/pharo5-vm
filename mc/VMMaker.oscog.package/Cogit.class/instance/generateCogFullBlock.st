@@ -26,7 +26,7 @@ generateCogFullBlock
 	self assert: startAddress + cbNoSwitchEntryOffset = fullBlockNoContextSwitchEntry address.
 	result := self outputInstructionsAt: startAddress + headerSize.
 	self assert: startAddress + headerSize + codeSize = result.
-	backEnd padIfPossibleWithStopsFrom: result to: startAddress + totalSize - mapSize.
+	backEnd padIfPossibleWithStopsFrom: result to: startAddress + totalSize - mapSize - 1.
 	self generateMapAt: startAddress + totalSize - 1 start: startAddress + cbNoSwitchEntryOffset.
 	self flag: #TOCHECK. "It's not clear we want the same header than regular methods. 
 	It could be of the same size, but maybe the cmType could be different and the selector could be ignored." 
