@@ -2,7 +2,7 @@ bytecode generators
 genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: popBoolean
 	| index |
 	extB := 0. "simple cogit don't use the extra flag"
-	(byte2 noMask: 1 << 7)
+	(byte2 noMask: coInterpreter remoteIsInstVarAccess)
 		ifTrue: 
 			[ self genStorePop: popBoolean RemoteTemp: byte1 At: byte2.
 			self cppIf: IMMUTABILITY ifTrue: [ self annotateBytecode: self Label ] ]
@@ -13,9 +13,9 @@ genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: popBoolean
 				ifTrue: [ self 
 						genStorePop: popBoolean 
 						MaybeContextRemoteInstVar: index 
-						ofObjectAt: byte2 - (1 << 7) ]
+						ofObjectAt: byte2 - coInterpreter remoteIsInstVarAccess ]
 				ifFalse: [ self 
 						genStorePop: popBoolean 
 						RemoteInstVar: index 
-						ofObjectAt: byte2 - (1 << 7)  ] ].
+						ofObjectAt: byte2 - coInterpreter remoteIsInstVarAccess  ] ].
 	^ 0
