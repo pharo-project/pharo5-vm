@@ -82,7 +82,7 @@
 		"enableCog:" : "eem 2/7/2009 08:39",
 		"ensureContextIsExecutionSafeAfterAssignToStackPointer:" : "eem 12/3/2010 08:34",
 		"ensureDebugAtEachStepBlock" : "eem 9/27/2010 16:49",
-		"ensureMethodIsCogged:" : "eem 11/27/2012 17:29",
+		"ensureMethodIsCogged:maybeClosure:" : "eem 12/21/2016 10:52",
 		"ensureMultiThreadingOverridesAreUpToDate" : "cb 4/13/2016 09:59",
 		"enterSmalltalkExecutive" : "eem 9/30/2010 13:21",
 		"enterSmalltalkExecutiveFromCallback" : "eem 11/20/2010 21:51",

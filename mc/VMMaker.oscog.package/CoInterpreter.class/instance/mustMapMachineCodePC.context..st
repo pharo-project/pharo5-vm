@@ -15,9 +15,7 @@ mustMapMachineCodePC: theIP context: aOnceMarriedContext
 				startBcpc := self startPCOfClosure: maybeClosure]
 		ifFalse: [self assert: (theIP signedBitShift: -16) = -1.
 				startBcpc := self startPCOfMethod: methodObj].
-	(maybeClosure ~= objectMemory nilObject and: [(self isVanillaBlockClosure: maybeClosure) not])
-		ifTrue: [cogMethod := self ensureBlockIsCogged: methodObj numCopied: (self copiedValueCountOfFullClosure: maybeClosure)]
-		ifFalse: [cogMethod := self ensureMethodIsCogged: methodObj].
+	cogMethod := self ensureMethodIsCogged: methodObj maybeClosure: maybeClosure.
 	bcpc := self bytecodePCFor: theIP cogMethod: cogMethod startBcpc: startBcpc.
 	self assert: bcpc >= (self startPCOfMethod: methodObj).
 	"If there's a CallPrimitive we need to skip it."

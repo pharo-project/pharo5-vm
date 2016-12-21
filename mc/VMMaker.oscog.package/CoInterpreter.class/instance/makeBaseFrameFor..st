@@ -83,9 +83,7 @@ makeBaseFrameFor: aContext "<Integer>"
 			[| cogMethod |
 			 "Since we would have to generate a machine-code method to be able to map
 			  the native pc anyway we should create a native method and native frame."
-			 (maybeClosure ~= objectMemory nilObject and: [(self isVanillaBlockClosure: maybeClosure) not])
-				ifTrue: [cogMethod := self ensureBlockIsCogged: theMethod numCopied: (self copiedValueCountOfFullClosure: maybeClosure)]
-				ifFalse: [cogMethod := self ensureMethodIsCogged: theMethod].
+			 cogMethod := self ensureMethodIsCogged: theMethod maybeClosure: maybeClosure.
 			 theMethod := cogMethod asInteger.
 			 maybeClosure ~= objectMemory nilObject
 				ifTrue:
