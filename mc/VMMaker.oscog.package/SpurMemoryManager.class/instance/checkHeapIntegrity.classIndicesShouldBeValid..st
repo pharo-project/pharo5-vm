@@ -1,5 +1,5 @@
 debug support
-checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: classIndicesShouldBeValid
+checkHeapIntegrity: excludeUnmarkedObjs classIndicesShouldBeValid: classIndicesShouldBeValid
 	"Perform an integrity/leak check using the heapMap.  Assume clearLeakMapAndMapAccessibleObjects
 	 has set a bit at each (non-free) object's header.  Scan all objects in the heap checking that every
 	 pointer points to a header.  Scan the rememberedSet, remapBuffer and extraRootTable checking
@@ -27,7 +27,7 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 				 self eek.
 				 ok := false]
 			ifFalse:
-				[((self isMarked: obj) not and: [excludeUnmarkedNewSpaceObjs]) ifFalse:
+				[((self isMarked: obj) not and: [excludeUnmarkedObjs]) ifFalse:
 					[(self isRemembered: obj) ifTrue:
 						[coInterpreter print: 'young object '; printHex: obj; print: ' is remembered'; cr.
 						 self eek.
@@ -79,7 +79,8 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 							 self eek.
 							 ok := false].]]]
 			ifFalse:
-				[containsYoung := false.
+				[(excludeUnmarkedObjs and: [(self isMarked: obj)not]) ifTrue: [] ifFalse: [
+				 containsYoung := false.
 				 (self isRemembered: obj) ifTrue:
 					[numRememberedObjectsInHeap := numRememberedObjectsInHeap + 1.
 					 (scavenger isInRememberedSet: obj) ifFalse:
@@ -107,7 +108,7 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 							[:fi|
 							 fieldOop := self fetchPointer: fi ofObject: obj.
 							 (self isNonImmediate: fieldOop) ifTrue:
-								[(heapMap heapMapAtWord: (self pointerForOop: fieldOop)) = 0 ifTrue:
+								[(self heapMapAtWord: (self pointerForOop: fieldOop)) = 0 ifTrue:
 									[coInterpreter print: 'object leak in '; printHex: obj; print: ' @ '; printNum: fi; print: ' = '; printHex: fieldOop; cr.
 									 self eek.
 									 ok := false].
@@ -118,7 +119,7 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 					[(self isRemembered: obj) ifFalse:
 						[coInterpreter print: 'unremembered object '; printHex: obj; print: ' contains young oop(s)'; cr.
 						 self eek.
-						 ok := false]]]].
+						 ok := false]]]]].
 	numRememberedObjectsInHeap ~= scavenger rememberedSetSize ifTrue:
 		[coInterpreter
 			print: 'root count mismatch. #heap roots ';
@@ -157,7 +158,7 @@ checkHeapIntegrity: excludeUnmarkedNewSpaceObjs classIndicesShouldBeValid: class
 				 self eek.
 				 ok := false]
 			ifFalse:
-				[(excludeUnmarkedNewSpaceObjs and: [(self isYoung: obj) and: [(self isMarked: obj) not]]) ifFalse:
+				[(excludeUnmarkedObjs and: [(self isMarked: obj) not]) ifFalse:
 					[(heapMap heapMapAtWord: (self pointerForOop: obj)) = 0 ifTrue:
 						[coInterpreter print: 'object leak in mournQueue @ '; printNum: i; print: ' in '; printHex: page; print: ' = '; printHex: obj; cr.
 						 self eek.

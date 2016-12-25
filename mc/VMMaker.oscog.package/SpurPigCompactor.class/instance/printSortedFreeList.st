@@ -13,6 +13,6 @@ printSortedFreeList
 		 ^self].
 	 manager printFreeChunk: freeChunk printAsTreeNode: false.
 	 freeChunk ~= lastFreeChunk] whileTrue:
-		[nextFree := manager nextInSortedFreeListLink: freeChunk given: prevFree.
+		[nextFree := self nextInSortedFreeListLink: freeChunk given: prevFree.
 		 prevFree := freeChunk.
 		 freeChunk := nextFree]

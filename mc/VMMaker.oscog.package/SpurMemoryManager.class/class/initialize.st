@@ -37,4 +37,8 @@ initialize
 	RemapBufferSize := 25.
 
 	"Extra roots are for plugin support."
-	ExtraRootsSize := 2048 "max. # of external roots"
+	ExtraRootsSize := 2048. "max. # of external roots"
+
+	"gcPhaseInProgress takes these values to identify phases as required."
+	ScavengeInProgress := 1.
+	SlidingCompactionInProgress := 2

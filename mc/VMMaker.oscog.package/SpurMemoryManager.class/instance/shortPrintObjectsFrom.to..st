@@ -10,5 +10,5 @@ shortPrintObjectsFrom: startAddress to: endAddress
 							ifFalse: [oop]].
 	[self oop: oop isLessThan: endAddress] whileTrue:
 		[(self isFreeObject: oop) ifFalse:
-			[self shortPrintOop: oop].
+			[coInterpreter shortPrintOop: oop].
 		oop := self objectAfter: oop]

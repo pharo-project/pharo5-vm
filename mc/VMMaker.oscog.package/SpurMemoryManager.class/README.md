@@ -53,7 +53,6 @@ Instance Variables
 	pastSpaceStart				<Integer address>
 	remapBuffer				<CArrayAccessor on: (Array new: RemapBufferSize)>
 	remapBufferCount			<Integer>
-	scavengeInProgress		<Boolean>
 	scavengeThreshold		<Integer address>
 	scavenger					<SourGenerationScavenger>
 	segmentManager			<SpurSegmentManager>
@@ -81,6 +80,7 @@ Instance Variables
 	trueObj						<Integer oop>
 	unscannedEphemerons		<SpurContiguousObjStack>
 	weaklingStack				<Integer objStack oop>
+
 becomeEffectsFlags
 	- a set of flags to limit the work done during become; one of BecameCompiledMethodFlag, BecamePointerObjectFlag
 	
@@ -131,6 +131,9 @@ freeOldSpaceStart
 
 freeStart
 	- the last used address in eden.  this is where new objects are allocated if there is room in eden.
+
+gcPhaseInProgress
+	- flag taking values 0, ScavengeInProgress, SlidingCompactionInProgress, for remapObj: to decide what to do.
 
 gcStartUsecs
 	- the time in microseconds of the start of the most recent gc, used to compute the duration of a gc.
@@ -210,9 +213,6 @@ remapBuffer
 
 remapBufferCount
 	- the index of the last used entry in remampBuffer
-
-scavengeInProgress
-	- flag indicating what it says it does
 
 scavengeThreshold
 	- a tidemark in eden.  needGCFlag is set if a newSpace allocation pushes freeStart past scavengeThreshold

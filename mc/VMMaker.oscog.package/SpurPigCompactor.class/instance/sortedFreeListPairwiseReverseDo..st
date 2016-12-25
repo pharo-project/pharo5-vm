@@ -22,16 +22,16 @@ sortedFreeListPairwiseReverseDo: aBinaryBlock
 			ifTrue:
 				[self assert: free = lastFreeChunk.
 				 prevFree := lastFreeChunk.
-				 free := manager nextInSortedFreeListLink: lastFreeChunk given: 0]
+				 free := self nextInSortedFreeListLink: lastFreeChunk given: 0]
 			ifFalse:
 				[self assert: (manager isFreeObject: prevFree).
 				 prevPrevFree = 0
 					ifTrue:
 						[prevPrevFree := lastFreeChunk.
-						 prevFree := manager nextInSortedFreeListLink: lastFreeChunk given: 0]
+						 prevFree := self nextInSortedFreeListLink: lastFreeChunk given: 0]
 					ifFalse:
 						[self assert: (manager isFreeObject: prevPrevFree).
-						 free := manager nextInSortedFreeListLink: prevFree given: prevPrevFree.
+						 free := self nextInSortedFreeListLink: prevFree given: prevPrevFree.
 						 prevPrevFree := prevFree.
 						 prevFree := free].
-				 free := manager nextInSortedFreeListLink: prevFree given: prevPrevFree]]
+				 free := self nextInSortedFreeListLink: prevFree given: prevPrevFree]]

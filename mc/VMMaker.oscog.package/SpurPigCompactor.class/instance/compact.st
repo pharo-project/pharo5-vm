@@ -4,6 +4,7 @@ compact
 	 well enough in practice.  So use pig compact.  Fill large free objects starting
 	 from low memory with objects taken from the end of memory."
 	<inline: #never> "for profiling"
+	self freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact.
 	manager statCompactPassCount: manager statCompactPassCount + 1.
 	self assert: (firstFreeChunk = 0 or: [manager isFreeObject: firstFreeChunk]).
 	1 to: numCompactionPasses do:

@@ -9,7 +9,7 @@ tryToMovePig: pigObj at: pigStart end: pigEnd
 	pigBytes := pigEnd - pigStart.
 	[freeChunk ~= 0 and: [freeChunk < pigObj]] whileTrue:
 		[| next dest chunkBytes newChunk |
-		 next			:= manager nextInSortedFreeListLink: freeChunk given: prevFree.
+		 next			:= self nextInSortedFreeListLink: freeChunk given: prevFree.
 		 dest			:= manager startOfObject: freeChunk.
 		 chunkBytes	:= (manager addressAfter: freeChunk) - dest.
 		 "N.B. *must* add allocationUnit, not subtract, to avoid unsigned arithmetic issues when chunkBytes = 0"
@@ -18,7 +18,7 @@ tryToMovePig: pigObj at: pigStart end: pigEnd
 			[manager mem: dest asVoidPointer cp: pigStart asVoidPointer y: pigBytes.
 			 manager forwardUnchecked: pigObj to: dest + (pigObj - pigStart).
 			 next ~= 0 ifTrue:
-				[nextNext  := manager nextInSortedFreeListLink: next given: freeChunk].
+				[nextNext  := self nextInSortedFreeListLink: next given: freeChunk].
 			 "now either shorten the chunk, or remove it, adjusting the links to keep the list sorted."
 			 pigBytes < chunkBytes "if false, filled entire free chunk"
 				ifTrue:

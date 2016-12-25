@@ -15,7 +15,7 @@ eliminateAndFreeForwardersForPigCompact
 	manager followForwardedObjStacks.
 	coInterpreter mapInterpreterOops.
 	scavenger followRememberedForwardersAndForgetFreeObjectsForPigCompact.
-	self unmarkSurvivingObjectsForPigCompact.
+	manager unmarkSurvivingObjectsForCompact.
 	lowestForwarder := self sweepToFollowForwardersForPigCompact.
 	self sweepToCoallesceFreeSpaceForPigCompactFrom: lowestForwarder.
 	self assert: manager numberOfForwarders = 0

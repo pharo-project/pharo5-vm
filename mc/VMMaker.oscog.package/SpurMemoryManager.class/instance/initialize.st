@@ -6,8 +6,8 @@ initialize
 	remapBufferCount := extraRootCount := 0. "see below"
 	freeListsMask := totalFreeOldSpace := lowSpaceThreshold := 0.
 	checkForLeaks := 0.
-	needGCFlag := signalLowSpace := scavengeInProgress := marking := false.
-	becomeEffectsFlags := 0.
+	needGCFlag := signalLowSpace := marking := false.
+	becomeEffectsFlags := gcPhaseInProgress := 0.
 	statScavenges := statIncrGCs := statFullGCs := 0.
 	statScavengeGCUsecs := statIncrGCUsecs := statFullGCUsecs := statGCEndUsecs := 0.
 	statSGCDeltaUsecs := statIGCDeltaUsecs := statFGCDeltaUsecs := 0.

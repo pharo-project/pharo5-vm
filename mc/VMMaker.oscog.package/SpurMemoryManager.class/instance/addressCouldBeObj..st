@@ -6,4 +6,4 @@ addressCouldBeObj: address
 	  and: [(self isInOldSpace: address)
 		or: [(self isInEden: address)
 		or: [(self isInPastSpace: address)
-		or: [scavengeInProgress and: [self isInFutureSpace: address]]]]]
+		or: [self scavengeInProgress and: [self isInFutureSpace: address]]]]]

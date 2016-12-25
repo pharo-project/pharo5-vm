@@ -10,7 +10,7 @@ sortedFreeListDo: aBlock
 	free := firstFreeChunk.
 	prevPrevFree := prevFree := 0.
 	[free ~= 0] whileTrue:
-		[nextFree := manager nextInSortedFreeListLink: free given: prevFree.
+		[nextFree := self nextInSortedFreeListLink: free given: prevFree.
 		 self assert: (manager isFreeObject: free).
 		 self assert: (nextFree = 0 or: [nextFree > free and: [manager isFreeObject: nextFree]]).
 		 self assert: (prevFree = 0 or: [prevFree < free]).

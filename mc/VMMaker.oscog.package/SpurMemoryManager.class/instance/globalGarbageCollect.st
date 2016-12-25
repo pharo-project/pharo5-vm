@@ -10,16 +10,14 @@ globalGarbageCollect
 
 	scavenger forgetUnmarkedRememberedObjects.
 	self doScavenge: MarkOnTenure.
-	segmentManager prepareForGlobalSweep. "for notePinned:"
-
-	compactor freeUnmarkedObjectsAndPrepareFreeSpace.
 
 	"Mid-way the leak check must be more lenient.  Unmarked classes will have been
 	 expunged from the table, but unmarked instances will not yet have been reclaimed."
 	self runLeakCheckerFor: GCModeFull
-		excludeUnmarkedNewSpaceObjs: true
+		excludeUnmarkedObjs: true
 		classIndicesShouldBeValid: true.
 
+	segmentManager prepareForGlobalSweep. "for notePinned:"
 	compactor compact.
 	self setHeapSizeAtPreviousGC.
 

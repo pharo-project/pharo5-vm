@@ -4,5 +4,5 @@ isInMemory: address
 	(self isInNewSpace: address) ifTrue:
 		[^(self isInEden: address)
 			or: [(self isInPastSpace: address)
-			or: [scavengeInProgress and: [self isInFutureSpace: address]]]].
+			or: [self scavengeInProgress and: [self isInFutureSpace: address]]]].
 	^segmentManager isInSegments: address

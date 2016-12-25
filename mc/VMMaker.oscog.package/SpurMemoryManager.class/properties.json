@@ -22,7 +22,7 @@
 		"TopHashBit",
 		"TopOopBit",
 		"WeaklingStackRootIndex" ],
-	"commentStamp" : "eem 6/6/2016 12:41",
+	"commentStamp" : "eem 12/25/2016 10:56",
 	"instvars" : [
 		"coInterpreter",
 		"scavenger",
@@ -65,7 +65,7 @@
 		"growHeadroom",
 		"shrinkThreshold",
 		"gcStartUsecs",
-		"scavengeInProgress",
+		"gcPhaseInProgress",
 		"marking",
 		"remapBuffer",
 		"remapBufferCount",

@@ -11,7 +11,7 @@ checkTraversableSortedFreeList
 		[:o| | objOop next limit |
 		(manager isFreeObject: o) ifTrue:
 			[self assert: o = freeChunk.
-			 next := manager nextInSortedFreeListLink: freeChunk given: prevFree.
+			 next := self nextInSortedFreeListLink: freeChunk given: prevFree.
 			 limit := next = 0 ifTrue: [manager endOfMemory] ifFalse: [next].
 			 "coInterpreter transcript cr; print: freeChunk; tab; print: o; tab; print: prevFree; nextPutAll: '<->'; print: next; flush."
 			 objOop := freeChunk.
@@ -21,6 +21,6 @@ checkTraversableSortedFreeList
 			 prevFree := freeChunk.
 			 freeChunk := next]].
 	self assert: prevFree = lastFreeChunk.
-	self assert: (manager nextInSortedFreeListLink: lastFreeChunk given: 0) = prevPrevFree.
+	self assert: (self nextInSortedFreeListLink: lastFreeChunk given: 0) = prevPrevFree.
 	self assert: freeChunk = 0.
 	^true

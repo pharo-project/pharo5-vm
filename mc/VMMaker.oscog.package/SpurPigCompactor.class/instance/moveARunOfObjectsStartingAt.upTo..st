@@ -40,7 +40,7 @@ moveARunOfObjectsStartingAt: startAddress upTo: limit
 		 "grab a free chunk, and the following one, because we want to overwrite this one."
 		 self assert: ((manager isFreeObject: firstFreeChunk) and: [manager isFreeObject: thisFreeChunk]).
 		 freeBytes		:= manager bytesInObject: thisFreeChunk.
-		 nextFree		:= manager nextInSortedFreeListLink: thisFreeChunk given: prevFreeChunk.
+		 nextFree		:= self nextInSortedFreeListLink: thisFreeChunk given: prevFreeChunk.
 		 destination	:= manager startOfObject: thisFreeChunk.
 		 endOfFree		:= destination + freeBytes.
 		 moved			:= false.
@@ -66,7 +66,7 @@ moveARunOfObjectsStartingAt: startAddress upTo: limit
 			ifTrue: "we did overwrite it; we need to repair the free list"
 				[| nextNextFree |
 				 nextFree ~= 0 ifTrue:
-					[nextNextFree  := manager nextInSortedFreeListLink: nextFree given: thisFreeChunk.
+					[nextNextFree  := self nextInSortedFreeListLink: nextFree given: thisFreeChunk.
 					 self assert: (manager isFreeObject: nextFree)].
 				 (destination > thisFreeChunk "if false couldn't move anything"
 				  and: [destination < endOfFree]) "if false, filled entire free chunk"

@@ -3,5 +3,5 @@ runLeakCheckerFor: gcModes
 	<inline: false>
 	^self
 		inLineRunLeakCheckerFor: gcModes
-		excludeUnmarkedNewSpaceObjs: false
+		excludeUnmarkedObjs: false
 		classIndicesShouldBeValid: true

@@ -1,0 +1,3 @@
+testing
+slidingCompactionInProgress
+	^gcPhaseInProgress == SlidingCompactionInProgress

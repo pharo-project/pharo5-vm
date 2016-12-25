@@ -35,8 +35,9 @@ mapStackPages
 					[stackPages
 						longAt: theFP + FoxThisContext
 						put: (objectMemory remapObj: (self frameContext: theFP))].
-				 "With SqueakV3 objectMemory can't assert since object body is yet to move."
-				 objectMemory hasSpurMemoryManagerAPI ifTrue:
+				 "With SqueakV3 objectMemory or SpurPlanningCompactor can't assert since object body is yet to move."
+				 (objectMemory hasSpurMemoryManagerAPI
+				  and: [objectMemory slidingCompactionInProgress not]) ifTrue:
 					[self assert: ((self isMarriedOrWidowedContext: (self frameContext: theFP))
 								  and: [(self frameOfMarriedContext: (self frameContext: theFP)) = theFP])]].
 			 (objectMemory shouldRemapObj: (self frameMethod: theFP)) ifTrue:
