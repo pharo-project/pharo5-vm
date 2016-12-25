@@ -8,7 +8,7 @@ copyAndUnmarkMobileObjects
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start - manager bytesPerOop.
 	self deny: (manager isMarked: firstFreeObject).
-	manager allOldSpaceEntitiesForCompactingFrom: firstMobileObject do:
+	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
 		[:o|
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:

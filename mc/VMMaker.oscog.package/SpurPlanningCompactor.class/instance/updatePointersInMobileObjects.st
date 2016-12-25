@@ -8,7 +8,7 @@ updatePointersInMobileObjects
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start - manager bytesPerOop.
 	self deny: (manager isMarked: firstFreeObject).
-	manager allOldSpaceEntitiesFrom: firstMobileObject do:
+	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
