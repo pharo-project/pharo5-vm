@@ -6,4 +6,5 @@ initializeCompaction
 	manager
 		resetFreeListHeads;
 		totalFreeOldSpace: 0;
-		beginSlidingCompaction
+		beginSlidingCompaction.
+	savedFirstFieldsSpace top: savedFirstFieldsSpace start - manager bytesPerOop

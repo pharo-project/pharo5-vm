@@ -4,8 +4,9 @@ compact
 	 Let the segmentManager mark which segments contain pinned objects via notePinned:."
 	| onePass |
 	<inline: #never> "for profiling"
-	self initializeCompaction;
-		initializeScan.
+	self initializeScanCheckingForFullyCompactedHeap ifTrue:
+		[^self unmarkObjectsInFullyCompactedHeap].
+	self initializeCompaction.
 	[onePass := self planCompactSavingForwarders.
 	 self updatePointers.
 	 self copyAndUnmark.
