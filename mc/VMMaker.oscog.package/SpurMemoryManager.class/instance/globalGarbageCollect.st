@@ -19,6 +19,7 @@ globalGarbageCollect
 
 	segmentManager prepareForGlobalSweep. "for notePinned:"
 	compactor compact.
+	self attemptToShrink.
 	self setHeapSizeAtPreviousGC.
 
 	self assert: self validObjStacks.

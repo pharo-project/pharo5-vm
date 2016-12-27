@@ -3,10 +3,11 @@ checkHeapFreeSpaceIntegrity
 	"Perform an integrity/leak check using the heapMap.  Assume clearLeakMapAndMapAccessibleFreeSpace
 	 has set a bit at each free chunk's header.  Scan all objects in the heap checking that no pointer points
 	 to a free chunk and that all free chunks that refer to others refer to marked chunks.  Answer if all checks pass."
-	| ok |
+	| ok total |
 	<inline: false>
+	<var: 'total' type: #usqInt>
 	ok := true.
-
+	total := 0.
 	0 to: self numFreeLists - 1 do:
 		[:i|
 		(freeLists at: i) ~= 0 ifTrue:
@@ -55,7 +56,8 @@ checkHeapFreeSpaceIntegrity
 						 and: [(heapMap heapMapAtWord: (self pointerForOop: fieldOop)) = 0]) ifTrue:
 							[coInterpreter print: 'leak in free chunk '; printHex: obj; print: ' @ '; printNum: fi; print: ' = '; printHex: fieldOop; print: ' is unmapped'; cr.
 							 self eek.
-							 ok := false].]]]
+							 ok := false]]].
+				total := total + (self bytesInObject: obj)]
 			ifFalse:
 				[0 to: (self numPointerSlotsOf: obj) - 1 do:
 					[:fi|
@@ -65,4 +67,8 @@ checkHeapFreeSpaceIntegrity
 							[coInterpreter print: 'object leak in '; printHex: obj; print: ' @ '; printNum: fi; print: ' = '; printHex: fieldOop; print: ' is free'; cr.
 							 self eek.
 							 ok := false]]]]].
+	total ~= totalFreeOldSpace ifTrue:
+		[coInterpreter print: 'incorrect totalFreeOldSpace; expected '; printNum: totalFreeOldSpace; print: ' found '; printNum: total; cr.
+		 self eek.
+		 ok := false].
 	^ok

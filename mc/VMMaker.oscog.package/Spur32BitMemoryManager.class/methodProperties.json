@@ -10,8 +10,8 @@
 	"instance" : {
 		"addressAfter:" : "eem 9/11/2013 15:19",
 		"allocateSlots:format:classIndex:" : "eem 09/28/2015 18:48",
-		"allocateSlotsForPinningInOldSpace:bytes:format:classIndex:" : "eem 1/24/2016 13:47",
-		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 1/24/2016 13:47",
+		"allocateSlotsForPinningInOldSpace:bytes:format:classIndex:" : "eem 12/27/2016 12:06",
+		"allocateSlotsInOldSpace:bytes:format:classIndex:" : "eem 12/27/2016 12:00",
 		"areIntegers:and:" : "eem 11/19/2014 14:01",
 		"byteSwapped:" : "nice 4/2/2016 22:49",
 		"bytesInObject:" : "eem 9/18/2014 15:56",

@@ -8,7 +8,6 @@ fullGC
 	statMarkCount := 0.
 	coInterpreter preGCAction: GCModeFull.
 	self globalGarbageCollect.
-	self attemptToShrink.
 	coInterpreter postGCAction: GCModeFull.
 	statFullGCs := statFullGCs + 1.
 	statGCEndUsecs := self ioUTCMicrosecondsNow.

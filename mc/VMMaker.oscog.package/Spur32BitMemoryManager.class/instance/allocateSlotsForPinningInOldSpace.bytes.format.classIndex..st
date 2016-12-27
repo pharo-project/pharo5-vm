@@ -10,11 +10,9 @@ allocateSlotsForPinningInOldSpace: numSlots bytes: totalBytes format: formatFiel
 				   suchThat: [:f| (segmentManager segmentContainingObj: f) containsPinned].
 	chunk ifNil:
 		[chunk := self allocateOldSpaceChunkOfBytes: totalBytes.
-		 chunk ifNotNil:
-			[(segmentManager segmentContainingObj: chunk) containsPinned: true]].
-	self checkFreeSpace: GCModeNewSpace.
-	chunk ifNil:
-		[^nil].
+		 chunk ifNil:
+			[^nil].
+		 (segmentManager segmentContainingObj: chunk) containsPinned: true].
 	numSlots >= self numSlotsMask ifTrue: "for header parsing we put a saturated slot count in the prepended overflow size word"
 		[self flag: #endianness.
 		 self longAt: chunk put: numSlots.
@@ -22,8 +20,10 @@ allocateSlotsForPinningInOldSpace: numSlots bytes: totalBytes format: formatFiel
 		 self long64At: chunk + self baseHeaderSize
 			 put: ((self headerForSlots: self numSlotsMask format: formatField classIndex: classIndex)
 					bitOr: 1 << self pinnedBitShift).
+		 self checkFreeSpace: GCModeNewSpace.
 		 ^chunk + self baseHeaderSize].
 	self long64At: chunk
 		put: ((self headerForSlots: numSlots format: formatField classIndex: classIndex)
 					bitOr: 1 << self pinnedBitShift).
+	self checkFreeSpace: GCModeNewSpace.
 	^chunk
