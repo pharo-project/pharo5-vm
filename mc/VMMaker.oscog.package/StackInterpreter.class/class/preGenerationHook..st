@@ -13,5 +13,5 @@ preGenerationHook: aCCodeGen
 														copyWithout: #primitiveFail).
 	aCCodeGen selectorsAndMethodsDo:
 		[:s :m|
-		(m export or: [publicMethodNames includes: s]) ifTrue:
+		(m export or: [m isAPIMethod or: [publicMethodNames includes: s]]) ifTrue:
 			[m static: false]]

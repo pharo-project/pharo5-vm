@@ -1,11 +1,9 @@
 translation
 requiredMethodNames: options
-	"return the list of method names that should be retained for export or other support reasons"
+	"Answer the list of method names that should be retained for export or other support reasons"
 	| requiredList |
-	requiredList := self exportAPISelectors: options.
-	requiredList addAll: (self objectMemoryClass requiredMethodNames: options).
-	"A number of methods required by VM support code, jitter, specific platforms etc"
-	requiredList addAll: #(
+	"A number of methods required by VM support code, specific platforms, etc"
+	requiredList := #(
 		assertValidExecutionPointe:r:s:
 		characterForAscii:
 		findClassOfMethod:forReceiver: findSelectorOfMethod:
@@ -20,7 +18,7 @@ requiredMethodNames: options
 		readableFormat: readImageFromFile:HeapSize:StartingAt:
 		setFullScreenFlag: setInterruptKeycode: setInterruptPending: setInterruptCheckChain:
 			setSavedWindowSize: success:
-		validInstructionPointer:inMethod:framePointer:).
+		validInstructionPointer:inMethod:framePointer:) asSet.
 
 	"Nice to actually have all the primitives available"
 	requiredList addAll: (self primitiveTable select: [:each| each isSymbol]).
