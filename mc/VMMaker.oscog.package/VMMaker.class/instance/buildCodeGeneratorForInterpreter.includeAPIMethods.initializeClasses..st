@@ -18,7 +18,7 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 		[:vmClass| | theClass |
 		 theClass := vmClass.
 		 [theClass ~~ VMClass] whileTrue:
-			[theClass initializationOptions: optionsDictionary.
+			[theClass initializationOptions: interpreterClass initializationOptions.
 			 interpreterClasses addFirst: theClass.
 			 theClass := theClass superclass]].
 	interpreterClasses
@@ -29,7 +29,7 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 		[interpreterClasses do:
 			[:ic|
 			(ic respondsTo: #initializeWithOptions:)
-				ifTrue: [ic initializeWithOptions: optionsDictionary]
+				ifTrue: [ic initializeWithOptions: interpreterClass initializationOptions]
 				ifFalse: [ic initialize]].
 		 (cg structClassesForTranslationClasses: interpreterClasses) do:
 			[:structClass| structClass initialize]].
