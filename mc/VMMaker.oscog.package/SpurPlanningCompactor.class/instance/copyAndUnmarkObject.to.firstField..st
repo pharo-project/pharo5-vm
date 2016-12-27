@@ -2,7 +2,7 @@ compaction
 copyAndUnmarkObject: o to: toFinger firstField: firstField
 	"Copy the object to toFinger, clearing its mark bit and restoring its firstField, which was overwritten with a forwarding pointer.
 	 Answer the number of bytes in the object, including overflow header."
-	<inline: #always>
+	<inline: true>
 	| bytes numSlots destObj start |
 	numSlots := manager rawNumSlotsOf: o.
 	 destObj := (manager objectWithRawSlotsHasOverflowHeader: numSlots)

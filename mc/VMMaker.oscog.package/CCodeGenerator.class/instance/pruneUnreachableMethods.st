@@ -11,6 +11,8 @@ pruneUnreachableMethods
 	methods do: [ :m |
 		m export ifTrue:
 			[neededSelectors add: m selector].
+		m isAPIMethod ifTrue:
+			[neededSelectors add: m selector].
 		m isRealMethod ifFalse:
 			[neededSelectors add: m selector]].
 

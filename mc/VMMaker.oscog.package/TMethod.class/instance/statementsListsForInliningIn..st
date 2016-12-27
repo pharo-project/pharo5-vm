@@ -23,7 +23,7 @@ statementsListsForInliningIn: aCodeGen
 			[node selector = #cCode:inSmalltalk: ifTrue:
 				[node nodesDo:
 					[:ccisNode| stmtLists remove: ccisNode ifAbsent: []]].
-			 node selector = #cppIf:ifTrue:ifFalse: ifTrue:
+			 (node selector = #cppIf:ifTrue:ifFalse: or: [node selector = #cppIf:ifTrue:]) ifTrue:
 				[node args first nodesDo:
 					[:inCondNode| stmtLists remove: inCondNode ifAbsent: []]].
 			((node selector = #and:) or: [node selector = #or:]) ifTrue:

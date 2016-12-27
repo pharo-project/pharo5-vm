@@ -73,9 +73,12 @@ collectInlineList: inlineFlagOrSymbol
 						[(#(asSpecified asSpecifiedOrQuick) includes: inlineFlagOrSymbol) ifTrue:
 							[selectorsOfMethodsNotToInline add: m selector]]]].
 
-	(#(asSpecified asSpecifiedOrQuick) includes: inlineFlagOrSymbol) ifFalse:
-		[callsOf associationsDo:
-			[:assoc|
-			(assoc value = 1
-			 and: [(selectorsOfMethodsNotToInline includes: assoc key) not]) ifTrue:
-				[inlineList add: assoc key]]]
+	(#(asSpecified asSpecifiedOrQuick) includes: inlineFlagOrSymbol)
+		ifTrue:
+			[methods do: [:m| m inline ifNil: [m inline: (inlineList includes: m selector)]]]
+		ifFalse:
+			[callsOf associationsDo:
+				[:assoc|
+				(assoc value = 1
+				 and: [(selectorsOfMethodsNotToInline includes: assoc key) not]) ifTrue:
+					[inlineList add: assoc key]]]

@@ -13,7 +13,8 @@ inlineableFunctionCall: aNode in: aCodeGen
 		ifNotNil:
 			[:m|
 			 (m ~~ self
-			  and: [(m isFunctionalIn: aCodeGen) 
+			  and: [(m isFunctionalIn: aCodeGen)
+			  and: [m mayBeInlined
 			  and: [(aCodeGen mayInline: m selector)
-			  and: [aNode args allSatisfy: [:a| self isSubstitutableNode: a intoMethod: m in: aCodeGen]]]])
+			  and: [aNode args allSatisfy: [:a| self isSubstitutableNode: a intoMethod: m in: aCodeGen]]]]])
 			 or: [m checkForRequiredInlinability]]

@@ -6,7 +6,8 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 	initializeClasses ifTrue:
 		[interpreterClass initializeWithOptions: optionsDictionary.
 		 interpreterClass hasCogit ifTrue:
-			[interpreterClass cogitClass initializeWithOptions: optionsDictionary]].
+			[interpreterClass cogitClass initializeWithOptions: optionsDictionary].
+		 interpreterClass objectMemoryClass initializationOptions: optionsDictionary].
 
 	(cg := self createCodeGenerator) vmClass: interpreterClass.
 
@@ -17,7 +18,8 @@ buildCodeGeneratorForInterpreter: interpreterClass includeAPIMethods: getAPIMeth
 		[:vmClass| | theClass |
 		 theClass := vmClass.
 		 [theClass ~~ VMClass] whileTrue:
-			[interpreterClasses addFirst: theClass.
+			[theClass initializationOptions: optionsDictionary.
+			 interpreterClasses addFirst: theClass.
 			 theClass := theClass superclass]].
 	interpreterClasses
 		addFirst: VMClass;

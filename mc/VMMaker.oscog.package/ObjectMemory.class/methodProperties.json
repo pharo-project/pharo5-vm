@@ -351,6 +351,7 @@
 		"printActivationsOf:" : "eem 4/26/2016 17:11",
 		"printContextReferencesTo:" : "eem 4/25/2016 18:08",
 		"printInstancesOf:" : "eem 9/4/2013 17:21",
+		"printMethodImplementorsOf:" : "eem 12/26/2016 18:29",
 		"printMethodReferencesTo:" : "eem 8/1/2013 11:38",
 		"printReferencesTo:" : "eem 12/4/2013 17:27",
 		"printWronglySizedContexts" : "eem 07/28/2014 08:07",

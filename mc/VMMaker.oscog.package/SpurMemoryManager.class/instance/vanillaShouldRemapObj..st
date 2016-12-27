@@ -1,6 +1,6 @@
 gc - scavenge/compact
 vanillaShouldRemapObj: objOop
-	<inline: #always>
+	<inline: true>
 	"Answer if the obj should be scavenged, or simply followed. Sent via the compactor
 	 from shouldRemapObj:.  We test for being already scavenged because mapStackPages
 	 via mapInterpreterOops may be applied twice in the context of a global GC where a

@@ -1,6 +1,6 @@
 compaction
 updatePointersFrom: start to: finish in: obj
-	<inline: #always>
+	<inline: true>
 	start to: finish do:
 		[:i| | oop fwd |
 		 oop := manager fetchPointer: i ofObject: obj.
