@@ -19,7 +19,6 @@
 		"makeDirEntryName:size:createDate:modDate:isDir:fileSize:posixPermissions:isSymlink:" : "EstebanLorenzano 5/21/2015 21:43",
 		"primitiveDirectoryEntry" : "eem 6/10/2010 15:59",
 		"primitiveDirectoryLookup" : "eem 6/10/2010 16:25",
-		"primitiveFileRename" : "ar 5/11/2000 22:12",
 		"recordStateOf:" : "eem 3/18/2014 14:09",
 		"sqFile:Read:Into:At:" : "eem 12/10/2016 18:06",
 		"sqFile:SetPosition:" : "eem 3/18/2014 14:11",

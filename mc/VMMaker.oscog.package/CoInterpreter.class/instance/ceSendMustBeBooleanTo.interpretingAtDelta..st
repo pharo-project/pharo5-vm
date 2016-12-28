@@ -6,6 +6,7 @@ ceSendMustBeBooleanTo: aNonBooleanObject interpretingAtDelta: jumpSize
 	<api>
 	| cogMethod methodObj methodHeader startBcpc |
 	<var: 'cogMethod' type: #'CogBlockMethod *'>
+	<var: 'p' type: #'char *'>
 	self assert: (objectMemory addressCouldBeOop: aNonBooleanObject).
 	cogMethod := self mframeCogMethod: framePointer.
 	((self mframeIsBlockActivation: framePointer)

@@ -1,8 +1,8 @@
 compaction
-continueCopyAndUnmarkMobileObjectsFrom: anUnpinnedEntity
-	"copyAndUnmarkMobileObjects has encountered a run of pinned objects around which
-	 it cannot compact, but savedFirstFieldsSpace is still not full.  Continue the pass with a
-	 new firstFreeObject, resetting it before continuing.
+continueUpdatePointersInMobileObjectsFrom: anUnpinnedEntity withTop: top
+	"updatePointersInMobileObjects has encountered a run of pinned objects around which
+	 planCompactSavingForwarders cannot compact, but savedFirstFieldsSpace is still not full.
+	 Continue the pass with a new firstFreeObject , resetting it before continuing.
 	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed)."
 	| result savedFirstFreeObject savedFirstMobileObject nextFreeObject |
 	self assert: (self oop: anUnpinnedEntity isLessThan: manager endOfMemory).
@@ -14,6 +14,6 @@ continueCopyAndUnmarkMobileObjectsFrom: anUnpinnedEntity
 	nextFreeObject ifNil:
 		[^true].
 	firstFreeObject := nextFreeObject.
-	result := self copyAndUnmarkMobileObjects.
+	result := self updatePointersInMobileObjectsWithTop: top.
 	firstFreeObject := savedFirstFreeObject.
 	^result

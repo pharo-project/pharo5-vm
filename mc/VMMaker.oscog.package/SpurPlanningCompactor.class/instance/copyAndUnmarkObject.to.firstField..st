@@ -5,12 +5,12 @@ copyAndUnmarkObject: o to: toFinger firstField: firstField
 	<inline: true>
 	| bytes numSlots destObj start |
 	numSlots := manager rawNumSlotsOf: o.
-	 destObj := (manager objectWithRawSlotsHasOverflowHeader: numSlots)
+	destObj := (manager objectWithRawSlotsHasOverflowHeader: numSlots)
 					ifTrue: [toFinger + manager baseHeaderSize]
 					ifFalse: [toFinger].
-	 bytes := manager bytesInObject: o given: numSlots.
-	 start := manager startOfObject: o given: numSlots.
-	 manager
+	bytes := manager bytesInObject: o given: numSlots.
+	start := manager startOfObject: o given: numSlots.
+	manager
 		mem: toFinger asVoidPointer cp: start asVoidPointer y: bytes;
 		setIsMarkedOf: destObj to: false;
 		storePointerUnchecked: 0 ofObject: destObj withValue: firstField.

@@ -4,4 +4,4 @@ updatePointersInSurvivingObjects
 	manager allPastSpaceObjectsDo:
 		[:o|
 		self assert: (manager isMarked: o).
-		self updatePointersIn: o startingAt: 0 savedFirstFieldPointer: nil]
+		self updatePointersIn: o]

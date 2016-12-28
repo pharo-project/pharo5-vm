@@ -1,25 +1,22 @@
 compaction
-updatePointersInMobileObjects
+updatePointersInMobileObjectsWithTop: initialTop
 	"Sweep the mobile portion of the heap, updating all references to objects to their eventual locations.
 	 Remember to update the savedFirstFields of pointer objects, as these have been forwarded.
 	 This enumeration matches that in planCompactSavingForwarders and copyAndUnmarkMobileObjects."
 
 	| toFinger top previousPin |
 	toFinger := manager startOfObject: firstFreeObject.
-	top := savedFirstFieldsSpace start - manager bytesPerOop.
+	top := initialTop.
 	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
-				ifTrue:
-					[self updatePointersIn: o startingAt: 0 savedFirstFieldPointer: nil.
+				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
+					[self updatePointersIn: o.
 					 previousPin ifNotNil:
-						[self assert: previousPin > toFinger.
-						 ((manager isSegmentBridge: previousPin)
-						  and: [manager isSegmentBridge: o]) ifTrue:
-							[self halt: 'empty segment']].
+						[toFinger := manager addressAfter: previousPin].
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
@@ -35,19 +32,8 @@ updatePointersInMobileObjects
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
-							[^self continueUpdatePointersInMobileObjectsFrom: next].
+							[^self continueUpdatePointersInMobileObjectsFrom: next withTop: top].
 						 previousPin := (manager isPinned: next) ifTrue: [next]].
-					 ((manager formatOf: o) <= manager lastPointerFormat
-					  and: [(manager numSlotsOf: o) > 0]) ifTrue:
-						[| oop fwd |
-						 "Relocate the saved first field; Note that CompiledMethods can be excluded since their
-						  first field is either a SmallInteger or a reference to a CogMethod outside of oldSpace."
-						 oop := manager longAt: top.
-						 ((manager isNonImmediate: oop) and: [self isMobile: oop]) ifTrue:
-							[self assert: (manager isMarked: oop).
-							 fwd := manager fetchPointer: 0 ofObject: oop.
-							 self assert: (self isPostMobile: fwd).
-							 manager longAt: top put: fwd]].
-					 self updatePointersIn: o startingAt: 1 savedFirstFieldPointer: top.
+					 self updatePointersIn: o savedFirstFieldPointer: top.
 					 toFinger := toFinger + (manager bytesInObject: o)]]].
 	^true

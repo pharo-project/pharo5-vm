@@ -9,9 +9,11 @@ planCompactSavingForwarders
 	 causes the the algorithm to encounter another run of immobile objects it will
 	 recurse via continuePlanCompactSavingForwardersFrom:.
 
-	 This enumeration matches that in updatePointersInMobileObjects and copyAndUnmarkMobileObjects."
+	 This enumeration matches those in updatePointersInMobileObjects and copyAndUnmarkMobileObjects."
 
 	| toFinger top previousPin |
+	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
+		[self logPhase: 'planning...'].
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace top.
 	self deny: (manager isMarked: firstFreeObject).
@@ -20,12 +22,11 @@ planCompactSavingForwarders
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
-				ifTrue:
+				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
 					[previousPin ifNotNil:
-						[self assert: previousPin > toFinger.
-						 ((manager isSegmentBridge: previousPin)
-						  and: [manager isSegmentBridge: o]) ifTrue:
-							[self halt: 'empty segment']].
+						[self assert: (manager startOfObject: previousPin) - toFinger >= (manager allocationUnit * 2).
+						 toFinger := manager addressAfter: previousPin.
+						 self assert: toFinger < (manager startOfObject: o)].
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
