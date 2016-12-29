@@ -7,7 +7,7 @@ logOfBytesVerify: nBytes fromFileNamed: fileName fromStart: loggingStart
 	logFile := (FileStream readOnlyFileNamed: fileName) binary.
 	transcript clear.
 	byteCount := 0.
-	quitBlock := [^ self].
+	quitBlock := [^self close].
 	self initStackPages.
 	self loadInitialContext.
 	self internalizeIPandSP.

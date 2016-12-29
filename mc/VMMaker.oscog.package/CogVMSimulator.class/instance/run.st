@@ -7,7 +7,7 @@ run
 					((World submorphs includes: topWindow)
 					 and: [UIManager default confirm: 'close?']) ifTrue:
 						[topWindow delete]]].
-				  ^self].
+				  ^self close].
 	self initStackPages.
 	self loadInitialContext.
 	self initialEnterSmalltalkExecutive

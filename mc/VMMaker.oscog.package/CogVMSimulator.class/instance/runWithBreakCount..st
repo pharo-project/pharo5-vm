@@ -7,7 +7,7 @@ runWithBreakCount: theBreakCount
 					((World submorphs includes: topWindow)
 					 and: [UIManager default confirm: 'close?']) ifTrue:
 						[topWindow delete]]].
-				  ^self].
+				  ^self close].
 	breakCount := theBreakCount.
 	self initStackPages.
 	self loadInitialContext.

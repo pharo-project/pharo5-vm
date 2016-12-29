@@ -3,7 +3,7 @@ testBreakCount: breakCount printSends: shouldPrintSends printFrames: shouldPrint
 	self initStackPages.
 	self loadInitialContext.
 	transcript clear.
-	quitBlock := [^self].
+	quitBlock := [^self close].
 	printSends := true & shouldPrintSends. "true & foo allows evaluating printFoo := true in the debugger"
 	printFrameAtEachStep := true & shouldPrintFrames.
 	printBytecodeAtEachStep := true & shouldPrintBytecodes.

@@ -9,7 +9,7 @@ logOfSendsVerify: nSends fromFileNamed: fileName fromStart: loggingStart
 	byteCount := 0.
 	sendCount := 0.
 	priorFrame := localFP.
-	quitBlock := [^ self].
+	quitBlock := [^self close].
 	self initStackPages.
 	self loadInitialContext.
 	self internalizeIPandSP.

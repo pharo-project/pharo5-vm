@@ -4,7 +4,7 @@ testBreakCount: breakCount printSends: shouldPrintSends printFrames: shouldPrint
 	self loadInitialContext.
 	transcript clear.
 	byteCount := 0.
-	quitBlock := [^self].
+	quitBlock := [^self close].
 	printSends := true & shouldPrintSends. "true & foo allows evaluating printFoo := true in the debugger"
 	printFrameAtEachStep := true & shouldPrintFrames.
 	printBytecodeAtEachStep := true & shouldPrintBytecodes.

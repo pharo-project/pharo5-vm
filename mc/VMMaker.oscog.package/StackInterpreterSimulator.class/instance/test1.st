@@ -6,7 +6,7 @@ test1
 	byteCount := 0.
 	breakCount := -1.
 	self setBreakSelector: #blockCopy:.
-	quitBlock := [^self].
+	quitBlock := [^self close].
 	printSends := printReturns := true.
 	self internalizeIPandSP.
 	self fetchNextBytecode.

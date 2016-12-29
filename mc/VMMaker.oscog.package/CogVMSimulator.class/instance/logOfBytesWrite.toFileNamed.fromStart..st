@@ -7,7 +7,7 @@ logOfBytesWrite: nBytes toFileNamed: fileName fromStart: loggingStart
 	logFile := (FileStream newFileNamed: fileName) binary.
 	transcript clear.
 	byteCount := 0.
-	quitBlock := [^ self].
+	quitBlock := [^self close].
 	self initStackPages.
 	self loadInitialContext.
 	self internalizeIPandSP.
