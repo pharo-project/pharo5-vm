@@ -2,9 +2,9 @@ initialize
 computeSignatureMap
 	forMap := true. "true only while we compute the signatureMap"
 	signatureMap := Dictionary new.
-	actualPlugin class selectorsAndMethodsDo:
+	pluginClass selectorsAndMethodsDo:
 		[:s :m|
-		(m messages includesAnyOf: #(primitive:parameters: primitive:parameters:receiver:))
+		(m messages includesAnyOf: #(primitive: primitive:parameters: primitive:parameters:receiver:))
 			ifTrue: [self getPrimitiveSignatureFor: s]
 			ifFalse:
 				[(m pragmaAt: #export:) ifNotNil:

@@ -21,6 +21,9 @@ doesNotUnderstand: aMessage
 							ifFalse: [ex pass]].
 	interpreterProxy failed ifTrue:
 		[^nil].
+	result == actualPlugin ifTrue:
+		[interpreterProxy pop: interpreterProxy methodArgumentCount.
+		 ^nil].
 	interpreterProxy
 		pop: interpreterProxy methodArgumentCount + 1
 		thenPush: result.

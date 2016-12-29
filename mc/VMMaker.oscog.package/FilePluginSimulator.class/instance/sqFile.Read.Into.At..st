@@ -2,7 +2,7 @@ simulation
 sqFile: file Read: count Into: byteArrayIndexArg At: startIndex
 	| interpreter byteArrayIndex |
 	interpreter := interpreterProxy interpreter.
-	byteArrayIndex := byteArrayIndexArg isInteger ifTrue: [byteArrayIndexArg] ifFalse: [byteArrayIndexArg cPtrAsOop].
+	byteArrayIndex := byteArrayIndexArg asInteger. "Coerces CArray et al correctly"
 	[[startIndex to: startIndex + count - 1 do:
 		[ :i |
 		file atEnd ifTrue:
