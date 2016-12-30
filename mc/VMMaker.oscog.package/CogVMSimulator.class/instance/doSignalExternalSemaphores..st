@@ -1,8 +1,14 @@
 process primitive support
 doSignalExternalSemaphores: minTableSize
 	"This is a non-thread-safe simulation.  See platforms/Cross/vm/sqExternalSemaphores.c
-	 for the real code."
-	| switched |
+	 for the real code.  For the benefit of the SocketPluginSimulator, do a yield every 100
+	 virtual microseconds."
+	| now switched |
+	now := self ioUTCMicroseconds.
+	now - lastYieldMicroseconds >= 100 ifTrue:
+		[lastYieldMicroseconds := now.
+		 Processor yield].
+
 	switched := false.
 	1 to: (minTableSize min: externalSemaphoreSignalRequests size) do:
 		[:i| | responses |

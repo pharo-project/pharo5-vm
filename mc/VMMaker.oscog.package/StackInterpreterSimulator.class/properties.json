@@ -30,6 +30,7 @@
 		"printBytecodeAtEachStep",
 		"systemAttributes",
 		"startMicroseconds",
+		"lastYieldMicroseconds",
 		"externalSemaphoreSignalRequests",
 		"externalSemaphoreSignalResponses",
 		"extSemTabSize",

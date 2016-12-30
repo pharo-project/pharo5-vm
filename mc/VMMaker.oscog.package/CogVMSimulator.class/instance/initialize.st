@@ -45,7 +45,7 @@ initialize
 	desiredNumStackPages := desiredEdenBytes := desiredCogCodeSize := 0.
 	"This is initialized on loading the image, but convenient for testing stack page values..."
 	numStackPages := self defaultNumStackPages. 
-	startMicroseconds := self ioUTCStartMicroseconds.
+	startMicroseconds := lastYieldMicroseconds := self ioUTCStartMicroseconds.
 	maxLiteralCountForCompile := MaxLiteralCountForCompile.
 	minBackwardJumpCountForCompile := MinBackwardJumpCountForCompile.
 	flagInterpretedMethods := false.

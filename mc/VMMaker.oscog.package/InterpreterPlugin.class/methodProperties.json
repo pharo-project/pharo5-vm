@@ -38,6 +38,7 @@
 	"instance" : {
 		"cCoerce:to:" : "eem 4/6/2016 18:19",
 		"cCoerceSimple:to:" : "eem 11/19/2016 09:52",
+		"close" : "eem 12/29/2016 13:01",
 		"doesNotUnderstand:" : "eem 3/13/2015 18:21",
 		"executeTranslatedPrimitiveMethod:arguments:subsidiaries:" : "eem 3/10/2015 17:41",
 		"expandDereferenceInterpreterProxyFunctionTable" : "eem 11/13/2014 16:42",
