@@ -9,7 +9,8 @@
 		"actualPlugin",
 		"signatureMap",
 		"forMap",
-		"pluginClass" ],
+		"pluginClass",
+		"logging" ],
 	"name" : "SmartSyntaxPluginSimulator",
 	"pools" : [
 		 ],

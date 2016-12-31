@@ -22,7 +22,7 @@
 		"ccgValBlock:" : "eem 12/28/2016 21:20",
 		"computeSignatureFor:from:" : "eem 10/2/2010 22:31",
 		"computeSignatureMap" : "eem 12/28/2016 21:56",
-		"doesNotUnderstand:" : "eem 12/28/2016 22:34",
+		"doesNotUnderstand:" : "eem 12/30/2016 14:20",
 		"generateCoerceToBooleanObjectFrom:on:" : "eem 10/11/2014 12:42",
 		"generateCoerceToFloatObjectFrom:on:" : "eem 10/11/2014 12:42",
 		"generateCoerceToSmallIntegerObjectFrom:on:" : "eem 10/2/2010 14:03",
@@ -30,8 +30,11 @@
 		"initialiseModule" : "eem 10/2/2010 22:44",
 		"isPluginClass" : "eem 7/2/2014 17:56",
 		"isSmartSyntaxPluginSimulator" : "eem 7/2/2014 19:05",
+		"log:" : "eem 12/30/2016 13:17",
+		"logging" : "eem 12/30/2016 13:05",
+		"logging:" : "eem 12/30/2016 13:05",
 		"primitive:" : "eem 12/28/2016 21:49",
 		"primitive:parameters:" : "eem 10/2/2010 21:36",
 		"primitive:parameters:receiver:" : "eem 10/2/2010 21:35",
 		"respondsTo:" : "eem 10/2/2010 22:31",
-		"setInterpreter:" : "eem 10/2/2010 22:45" } }
+		"setInterpreter:" : "eem 12/30/2016 13:15" } }
