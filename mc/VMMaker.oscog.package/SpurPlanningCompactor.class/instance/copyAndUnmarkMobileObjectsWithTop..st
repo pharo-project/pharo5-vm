@@ -9,7 +9,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 	top := initialTop.
 	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
-		[:o| | availableSpace |
+		[:o|
 		 self check: o.
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
@@ -26,7 +26,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 						 self assert: toFinger < (manager startOfObject: o)].
 					 previousPin := o]
 				ifFalse:
-					[| bytes next |
+					[| availableSpace bytes next |
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
 						[self freeFrom: toFinger upTo: (manager startOfObject: o) previousPin: previousPin.
 						 ^false].
@@ -42,9 +42,8 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
-							[^self continueCopyAndUnmarkMobileObjectsFrom: next withTop: top].
+							[^self continueCopyAndUnmarkMobileObjectsFrom: o withTop: top - manager bytesPerOop].
 						 previousPin := (manager isPinned: next) ifTrue: [next]].
-					 bytes := self copyAndUnmarkObject: o to: toFinger firstField: (manager longAt: top).
-					 toFinger := toFinger + bytes]]].
+					 toFinger := self copyAndUnmarkObject: o to: toFinger firstField: (manager longAt: top)]]].
 	self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
 	^true

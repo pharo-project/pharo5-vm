@@ -14,4 +14,4 @@ copyAndUnmarkObject: o to: toFinger firstField: firstField
 		mem: toFinger asVoidPointer cp: start asVoidPointer y: bytes;
 		setIsMarkedOf: destObj to: false;
 		storePointerUnchecked: 0 ofObject: destObj withValue: firstField.
-	^bytes
+	^toFinger + bytes

@@ -4,12 +4,14 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 	 it cannot compact, but savedFirstFieldsSpace is still not full.  Continue the pass with a
 	 new firstFreeObject, resetting it before continuing.
 	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed)."
-	| result toFinger savedFirstMobileObject nextFreeObject |
+	| result toFinger savedFirstMobileObject savedFirstFreeObject nextFreeObject |
 	self assert: (self oop: anUnpinnedEntity isLessThan: manager endOfMemory).
 	self deny: (manager isPinned: anUnpinnedEntity).
 	toFinger := initialToFinger.
 	savedFirstMobileObject := firstMobileObject.
 	nextFreeObject := self scanForFirstFreeAndFirstMobileObjectFrom: anUnpinnedEntity.
+	"Forward the run of immobile objects since all unpinned objects between firstMobileObject
+	 and lastMobileObject must be forwarded.  Return if savedFirstFieldsSpace fills up."
 	manager allOldSpaceEntitiesFrom: anUnpinnedEntity to: firstMobileObject do:
 		[:o| | newTop |
 		 (o < firstMobileObject
@@ -21,17 +23,8 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 						[firstMobileObject := savedFirstMobileObject.
 						 ^false]].
 					 self assert: (manager startOfObject: o) >= toFinger.
-					 manager
-						longAt: newTop
-							put: (manager fetchPointer: 0 ofObject: o);
-						storePointerUnchecked: 0
-							ofObject: o
-								withValue: ((manager hasOverflowHeader: o)
-												ifTrue: [toFinger + manager baseHeaderSize]
-												ifFalse: [toFinger]).
-					 savedFirstFieldsSpace top: newTop.
-					 toFinger := toFinger + (manager bytesInObject: o).
-					 lastMobileObject := o]].
+					 toFinger := self forwardMobileObject: o to: toFinger savedFirstFieldPtr: newTop.
+					 savedFirstFieldsSpace top: newTop]].
 	firstMobileObject := savedFirstMobileObject.
 	nextFreeObject ifNil:
 		[^true].
@@ -39,6 +32,8 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 	manager allOldSpaceEntitiesFrom: (manager objectAfter: lastMobileObject) to: nextFreeObject do:
 		[:o|
 		 self deny: ((manager isMarked: o) and: [(manager isPinned: o) not])].
+	savedFirstFreeObject := firstFreeObject.
 	firstFreeObject := nextFreeObject.
 	result := self planCompactSavingForwarders.
+	firstFreeObject := savedFirstFreeObject.
 	^result

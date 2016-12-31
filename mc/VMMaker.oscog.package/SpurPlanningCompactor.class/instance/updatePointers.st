@@ -7,6 +7,7 @@ updatePointers
 	"If savedFirstFieldsSpace is empty there is nothing to do."
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[^self].
+	self assert: (manager startOfObject: firstFreeObject) = mobileStart.
 	coInterpreter mapInterpreterOops.
 	self updatePointersInManagerHeapEntities.
 	self updatePointersInSurvivingObjects.

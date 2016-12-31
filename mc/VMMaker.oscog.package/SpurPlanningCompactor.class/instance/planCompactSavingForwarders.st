@@ -47,14 +47,6 @@ planCompactSavingForwarders
 							[savedFirstFieldsSpace top: top - manager bytesPerOop.
 							 ^self continuePlanCompactSavingForwardersFrom: o toFinger: toFinger].
 						 previousPin := (manager isPinned: next) ifTrue: [next]].
-					 lastMobileObject := o.
-					 manager
-						longAt: top put: (manager fetchPointer: 0 ofObject: o);
-					 	storePointerUnchecked: 0 "Don't use forward:to:; we dont want to alter the object in any way other than by setting the forwarding pointer"
-							ofObject: o
-								withValue: ((manager hasOverflowHeader: o)
-											ifTrue: [toFinger + manager baseHeaderSize]
-											ifFalse: [toFinger]).
-					 toFinger := toFinger + (manager bytesInObject: o)]]].
+					 toFinger := self forwardMobileObject: o to: toFinger savedFirstFieldPtr: top]]].
 	savedFirstFieldsSpace top: top.
 	^true

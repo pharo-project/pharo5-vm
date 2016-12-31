@@ -33,7 +33,7 @@ updatePointersInMobileObjectsWithTop: initialTop
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
-							[^self continueUpdatePointersInMobileObjectsFrom: next withTop: top].
+							[^self continueUpdatePointersInMobileObjectsFrom: o withTop: top - manager bytesPerOop].
 						 previousPin := (manager isPinned: next) ifTrue: [next]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.
 					 toFinger := toFinger + (manager bytesInObject: o)]]].
