@@ -10,6 +10,7 @@ updatePointersInMobileObjectsWithTop: initialTop
 	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
+		 self check: o.
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)

@@ -10,6 +10,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
 		[:o| | availableSpace |
+		 self check: o.
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)

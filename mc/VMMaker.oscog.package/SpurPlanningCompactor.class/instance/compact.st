@@ -8,6 +8,7 @@ compact
 		[^self unmarkObjectsInFullyCompactedHeap].
 	self initializeCompaction.
 	[onePass := self planCompactSavingForwarders.
+	 self assert: (self validRelocationPlanInPass: onePass) = 0.
 	 self updatePointers.
 	 self copyAndUnmark.
 	 manager checkFreeSpace: GCModeFull.

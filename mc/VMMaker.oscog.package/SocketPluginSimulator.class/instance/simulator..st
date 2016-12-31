@@ -1,4 +1,4 @@
 accessing
 simulator: aSmartSyntaxPluginSimulator
 	super simulator: aSmartSyntaxPluginSimulator.
-	aSmartSyntaxPluginSimulator logging: true
+	"aSmartSyntaxPluginSimulator logging: true"

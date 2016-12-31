@@ -19,6 +19,7 @@ planCompactSavingForwarders
 	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
+		 self check: o.
 		 self assert: (previousPin isNil or: [toFinger < previousPin]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
@@ -31,7 +32,7 @@ planCompactSavingForwarders
 				ifFalse:
 					[| availableSpace bytes next |
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
-						[savedFirstFieldsSpace top: top.
+						[savedFirstFieldsSpace top: top - manager bytesPerOop.
 						 ^false].
 					 [previousPin notNil
 					  and: [availableSpace := (manager startOfObject: previousPin) - toFinger.
@@ -43,8 +44,8 @@ planCompactSavingForwarders
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
-							[savedFirstFieldsSpace top: top.
-							 ^self continuePlanCompactSavingForwardersFrom: next].
+							[savedFirstFieldsSpace top: top - manager bytesPerOop.
+							 ^self continuePlanCompactSavingForwardersFrom: o toFinger: toFinger].
 						 previousPin := (manager isPinned: next) ifTrue: [next]].
 					 lastMobileObject := o.
 					 manager
