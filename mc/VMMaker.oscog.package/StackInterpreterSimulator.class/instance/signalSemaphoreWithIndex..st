@@ -16,7 +16,9 @@ signalSemaphoreWithIndex: index
 			replaceFrom: 1
 			to: externalSemaphoreSignalResponses size
 			with: externalSemaphoreSignalResponses
-			startingAt: 1].
+			startingAt: 1.
+		externalSemaphoreSignalRequests := newRequests.
+		externalSemaphoreSignalResponses := newResponses].
 	externalSemaphoreSignalRequests
 		at: index
 		put: (externalSemaphoreSignalRequests at: index) + 1.

@@ -78,6 +78,7 @@
 		"shortAt:put:" : "di 6/23/2004 14:32",
 		"showDisplayBits:Left:Top:Right:Bottom:" : "eem 6/10/2010 16:55",
 		"signalFinalization:" : "eem 6/10/2010 17:04",
+		"signalSemaphoreWithIndex:" : "eem 12/30/2016 14:59",
 		"signed32BitIntegerFor:" : "eem 11/15/2011 13:16",
 		"signed32BitValueOf:" : "eem 11/15/2011 13:18",
 		"signedMachineIntegerValueOf:" : "eem 1/26/2015 16:28",

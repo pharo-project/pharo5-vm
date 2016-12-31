@@ -781,6 +781,7 @@
 		"shutDownIncrementalGC:" : "eem 10/18/2014 19:34",
 		"signalLowSpace" : "eem 9/10/2013 15:06",
 		"signalLowSpace:" : "eem 10/12/2013 10:23",
+		"signalSemaphoreWithIndex:" : "eem 12/30/2016 14:59",
 		"signed32BitIntegerFor:" : "eem 1/24/2014 12:41",
 		"signed32BitValueOf:" : "eem 2/18/2014 15:05",
 		"signedMachineIntegerValueOf:" : "eem 1/24/2015 16:41",

@@ -2,14 +2,15 @@
 	"class" : {
 		"declareCVarsIn:" : "ikp 3/31/2005 13:43",
 		"hasHeaderFile" : "tpr 5/23/2001 17:11",
-		"requiresPlatformFiles" : "tpr 11/29/2000 22:38" },
+		"requiresPlatformFiles" : "tpr 11/29/2000 22:38",
+		"simulatorClass" : "eem 12/28/2016 21:42" },
 	"instance" : {
-		"initialiseModule" : "JMM (auto pragmas 12/08) 1/21/2002 11:09",
+		"initialiseModule" : "eem 12/28/2016 22:55",
 		"intToNetAddress:" : "tpr (auto pragmas 12/08) 12/29/2005 17:16",
 		"moduleUnloaded:" : "JMM (auto pragmas 12/08) 1/21/2002 11:10",
 		"netAddressToInt:" : "tpr (auto pragmas 12/08) 12/29/2005 17:16",
 		"primitiveDisableSocketAccess" : "eem 2/25/2016 13:26",
-		"primitiveHasSocketAccess" : "eem 2/25/2016 13:26",
+		"primitiveHasSocketAccess" : "eem 12/30/2016 14:17",
 		"primitiveInitializeNetwork:" : "TPR 2/18/2000 10:39",
 		"primitiveResolverAbortLookup" : "TPR 2/18/2000 11:47",
 		"primitiveResolverAddressLookupResult" : "TPR 3/21/2000 16:47",
