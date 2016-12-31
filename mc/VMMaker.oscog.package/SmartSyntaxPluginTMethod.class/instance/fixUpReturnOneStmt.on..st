@@ -24,9 +24,14 @@ fixUpReturnOneStmt: stmt on: sStream
 		 sStream nextPut: (self pop: fullArgs size + 1 thenReturnExpr: stmt expression).
 		 sStream nextPut: self nullReturnExpr.
 		 ^nil].
-	"^ expr with guardchecking"
+	"^ expr with necessary guard checking"
 	self generateFailureGuardOn: sStream.
-	sStream nextPut: (self assign: (self oopVariable: '_return_value') expression: stmt expression).
-	self generateFailureGuardOn: sStream.
-	sStream nextPut: (self pop: fullArgs size + 1 thenReturnExpr: (self oopVariable: '_return_value')).
+	(self resultExpressionAlwaysFails: stmt expression)
+		ifTrue:
+			[sStream nextPut: stmt expression]
+		ifFalse:
+			[sStream nextPut: (self assign: (self oopVariable: '_return_value') expression: stmt expression).
+			 (self resultExpressionCanFail: stmt expression) ifTrue:
+				[self generateFailureGuardOn: sStream].
+			 sStream nextPut: (self pop: fullArgs size + 1 thenReturnExpr: (self oopVariable: '_return_value'))].
 	sStream nextPut: self nullReturnExpr
