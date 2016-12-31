@@ -25,7 +25,7 @@ fixUpReturnOneStmt: stmt on: sStream
 		 sStream nextPut: self nullReturnExpr.
 		 ^nil].
 	"^ expr with necessary guard checking"
-	self generateFailureGuardOn: sStream.
+	sStream isEmpty ifFalse: [self generateFailureGuardOn: sStream].
 	(self resultExpressionAlwaysFails: stmt expression)
 		ifTrue:
 			[sStream nextPut: stmt expression]
