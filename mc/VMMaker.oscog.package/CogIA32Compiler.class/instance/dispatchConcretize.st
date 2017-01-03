@@ -113,6 +113,7 @@ dispatchConcretize
 		[MoveM32rR]		-> [^self concretizeMoveMwrR].
 		[MoveRM32r]		-> [^self concretizeMoveRMwr].
 		[MoveM32rRs]		-> [^self concretizeMoveM32rRs].
+		[MoveRsM32r]		-> [^self concretizeMoveRsM32r].
 		[MoveM64rRd]		-> [^self concretizeMoveM64rRd].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
 		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].
@@ -127,4 +128,16 @@ dispatchConcretize
 		[PushCw]			-> [^self concretizePushCw].
 		[PrefetchAw]		-> [^self concretizePrefetchAw].
 		"Conversion"
-		[ConvertRRd]		-> [^self concretizeConvertRRd] }
+		[ConvertRRd]		-> [^self concretizeConvertRRd].
+		[ConvertRdR]		-> [^self concretizeConvertRdR].
+		
+		[ConvertRsRd]		-> [^self concretizeConvertRsRd].
+		[ConvertRdRs]		-> [^self concretizeConvertRdRs].
+		[ConvertRsR]		-> [^self concretizeConvertRsR].
+		[ConvertRRs]		-> [^self concretizeConvertRRs].
+			
+		[SignExtend8RR]		-> [^self concretizeSignExtend8RR].
+		[SignExtend16RR]		-> [^self concretizeSignExtend16RR].
+		
+		[ZeroExtend8RR]		-> [^self concretizeZeroExtend8RR].
+		[ZeroExtend16RR]		-> [^self concretizeZeroExtend16RR].}
