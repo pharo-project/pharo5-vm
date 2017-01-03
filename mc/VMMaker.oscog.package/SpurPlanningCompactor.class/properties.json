@@ -18,7 +18,8 @@
 		"savedFirstFieldsSpaceWasAllocated",
 		"firstFieldOfRememberedSet",
 		"interestingObj",
-		"anomaly" ],
+		"anomaly",
+		"objectAfterLastMobileObject" ],
 	"name" : "SpurPlanningCompactor",
 	"pools" : [
 		"SpurMemoryManagementConstants",

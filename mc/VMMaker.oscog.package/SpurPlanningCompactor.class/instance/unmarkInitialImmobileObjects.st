@@ -4,6 +4,6 @@ unmarkInitialImmobileObjects
 	manager allOldSpaceObjectsFrom: manager firstObject do:
 		[:o|
 		self check: o.
-		o >= firstMobileObject ifTrue:
+		(self oop: o isGreaterThanOrEqualTo: firstMobileObject) ifTrue:
 			[^self].
 		manager setIsMarkedOf: o to: false]

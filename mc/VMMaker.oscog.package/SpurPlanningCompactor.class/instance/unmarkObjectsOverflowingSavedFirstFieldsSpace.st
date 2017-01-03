@@ -1,3 +1,0 @@
-compaction
-unmarkObjectsOverflowingSavedFirstFieldsSpace
-	self shouldBeImplemented

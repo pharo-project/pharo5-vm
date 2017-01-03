@@ -1,4 +1,3 @@
 interpreter shell
 fetchByte
-
-	^ self byteAt: (localIP := localIP + 1).
+	^objectMemory byteAt: (localIP := localIP + 1).

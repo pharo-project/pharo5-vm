@@ -4,7 +4,9 @@ continueUpdatePointersInMobileObjectsFrom: anUnpinnedEntity withTop: initialTop
 	 planCompactSavingForwarders cannot compact, but savedFirstFieldsSpace is still not full.
 	 Continue the pass with a new firstFreeObject , resetting it before continuing.
 	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed)."
+	<var: 'initialTop' type: #usqInt>
 	| result top savedFirstFreeObject savedFirstMobileObject nextFreeObject |
+	<var: 'top' type: #usqInt>
 	self assert: (self oop: anUnpinnedEntity isLessThan: manager endOfMemory).
 	self deny: (manager isPinned: anUnpinnedEntity).
 	savedFirstMobileObject := firstMobileObject.
@@ -13,7 +15,7 @@ continueUpdatePointersInMobileObjectsFrom: anUnpinnedEntity withTop: initialTop
 	"Update the run of immobile objects to match the enumeration in continuePlanCompactSavingForwardersFrom:toFinger:."
 	manager allOldSpaceEntitiesFrom: anUnpinnedEntity to: firstMobileObject do:
 		[:o|
-		 (o < firstMobileObject
+		 ((self oop: o isLessThan: firstMobileObject)
 		  and: [manager isMarked: o]) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: [self updatePointersIn: o]

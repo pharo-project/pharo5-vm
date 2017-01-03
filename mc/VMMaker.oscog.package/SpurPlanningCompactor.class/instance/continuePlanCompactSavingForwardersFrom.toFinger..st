@@ -4,7 +4,9 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 	 it cannot compact, but savedFirstFieldsSpace is still not full.  Continue the pass with a
 	 new firstFreeObject, resetting it before continuing.
 	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed)."
+	<var: 'initialToFinger' type: #usqInt>
 	| result toFinger savedFirstMobileObject savedFirstFreeObject nextFreeObject |
+	<var: 'toFinger' type: #usqInt>
 	self assert: (self oop: anUnpinnedEntity isLessThan: manager endOfMemory).
 	self deny: (manager isPinned: anUnpinnedEntity).
 	toFinger := initialToFinger.
@@ -14,7 +16,7 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 	 and lastMobileObject must be forwarded.  Return if savedFirstFieldsSpace fills up."
 	manager allOldSpaceEntitiesFrom: anUnpinnedEntity to: firstMobileObject do:
 		[:o| | newTop |
-		 (o < firstMobileObject
+		 ((self oop: o isLessThan: firstMobileObject)
 		  and: [manager isMarked: o]) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: [self assert: (manager addressAfter: o) <= initialToFinger]
@@ -28,7 +30,7 @@ continuePlanCompactSavingForwardersFrom: anUnpinnedEntity toFinger: initialToFin
 	firstMobileObject := savedFirstMobileObject.
 	nextFreeObject ifNil:
 		[^true].
-	self assert: nextFreeObject > lastMobileObject.
+	self assert: (self oop: nextFreeObject isGreaterThan: lastMobileObject).
 	manager allOldSpaceEntitiesFrom: (manager objectAfter: lastMobileObject) to: nextFreeObject do:
 		[:o|
 		 self deny: ((manager isMarked: o) and: [(manager isPinned: o) not])].

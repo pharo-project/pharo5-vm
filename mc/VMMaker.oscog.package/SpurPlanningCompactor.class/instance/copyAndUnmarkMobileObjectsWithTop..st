@@ -3,8 +3,10 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 	"Sweep the mobile portion of the heap, moving objects to their eventual locations, and clearing their marked bits.
 	 Remember to update the savedFirstFields of pointer objects, as these have been forwarded.
 	 This enumeration matches those in planCompactSavingForwarders and updatePointersInMobileObjects."
-
+	<var: 'initialTop' type: #usqInt>
 	| toFinger top previousPin |
+	<var: 'top' type: #usqInt>
+	<var: 'toFinger' type: #usqInt>
 	toFinger := manager startOfObject: firstFreeObject.
 	top := initialTop.
 	self deny: (manager isMarked: firstFreeObject).
@@ -12,6 +14,9 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 		[:o|
 		 self check: o.
 		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
+		 self assert: (savedFirstFieldsSpaceWasAllocated
+					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
+					or: [toFinger < top]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue:
@@ -41,7 +46,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 							[manager addFreeChunkWithBytes: availableSpace at: toFinger].
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
-						 next >= o ifTrue:
+						 (self oop: next isGreaterThanOrEqualTo: o) ifTrue:
 							[^self continueCopyAndUnmarkMobileObjectsFrom: o withTop: top - manager bytesPerOop].
 						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 toFinger := self copyAndUnmarkObject: o to: toFinger firstField: (manager longAt: top)]]].

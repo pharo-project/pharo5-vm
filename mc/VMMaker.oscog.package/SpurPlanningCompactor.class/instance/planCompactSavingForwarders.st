@@ -12,6 +12,8 @@ planCompactSavingForwarders
 	 This enumeration matches those in updatePointersInMobileObjects and copyAndUnmarkMobileObjects."
 
 	| toFinger top previousPin |
+	<var: 'top' type: #usqInt>
+	<var: 'toFinger' type: #usqInt>
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[self logPhase: 'planning...'].
 	toFinger := manager startOfObject: firstFreeObject.
@@ -21,6 +23,9 @@ planCompactSavingForwarders
 		[:o|
 		 self check: o.
 		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
+		 self assert: (savedFirstFieldsSpaceWasAllocated
+					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
+					or: [toFinger < top]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
@@ -43,7 +48,7 @@ planCompactSavingForwarders
 						  Move toFinger beyond previousPin and update previousPin appropriately."
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
-						 next >= o ifTrue:
+						 (self oop: next isGreaterThanOrEqualTo: o) ifTrue:
 							[savedFirstFieldsSpace top: top - manager bytesPerOop.
 							 ^self continuePlanCompactSavingForwardersFrom: o toFinger: toFinger].
 						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].

@@ -3,8 +3,10 @@ updatePointersInMobileObjectsWithTop: initialTop
 	"Sweep the mobile portion of the heap, updating all references to objects to their eventual locations.
 	 Remember to update the savedFirstFields of pointer objects, as these have been forwarded.
 	 This enumeration matches that in planCompactSavingForwarders and copyAndUnmarkMobileObjects."
-
+	<var: 'initialTop' type: #usqInt>
 	| toFinger top previousPin |
+	<var: 'top' type: #usqInt>
+	<var: 'toFinger' type: #usqInt>
 	toFinger := manager startOfObject: firstFreeObject.
 	top := initialTop.
 	self deny: (manager isMarked: firstFreeObject).
@@ -32,7 +34,7 @@ updatePointersInMobileObjectsWithTop: initialTop
 						  Move toFinger beyond previousPin and update previousPin appropriately."
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
-						 next >= o ifTrue:
+						 (self oop: next isGreaterThanOrEqualTo: o) ifTrue:
 							[^self continueUpdatePointersInMobileObjectsFrom: o withTop: top - manager bytesPerOop].
 						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.

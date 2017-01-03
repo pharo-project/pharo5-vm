@@ -1,11 +1,12 @@
 private
-numPointerSlotsWhileCompactingOf: obj withFormat: fmt savedFirstFieldPointer: firstFieldPtrOrNil
+numPointerSlotsWhileCompactingOf: obj withFormat: fmt savedFirstFieldPointer: firstFieldPtr
 	"This is a version of SpurMemoryManager>>numPointerSlotsOf: that deals with the
 	 possibility of obj being a CompiledMethod whose header is in savedFirstFieldsSpace.
 	 Answer the number of pointer fields in the given object.
 	 Works with CompiledMethods, as well as ordinary objects."
 	<inline: true>
 	| contextSize numLiterals header |
+	self assert: (firstFieldPtr notNil and: [self isMobile: obj]).
 	fmt <= manager lastPointerFormat ifTrue:
 		[(fmt = manager indexablePointersFormat
 		  and: [manager isContextNonImm: obj]) ifTrue:
@@ -17,9 +18,6 @@ numPointerSlotsWhileCompactingOf: obj withFormat: fmt savedFirstFieldPointer: fi
 	fmt < manager firstCompiledMethodFormat ifTrue: [^0]. "no pointers"
 
 	"CompiledMethod: contains both pointers and bytes"
-	self assert: firstFieldPtrOrNil notNil == (self isMobile: obj).
-	header := firstFieldPtrOrNil
-				ifNil: [manager methodHeaderOf: obj]
-				ifNotNil: [manager methodHeaderFromSavedFirstField: (manager longAt: firstFieldPtrOrNil)].
+	header := manager methodHeaderFromSavedFirstField: (manager longAt: firstFieldPtr).
 	numLiterals := manager literalCountOfMethodHeader: header.
 	^numLiterals + LiteralStart
