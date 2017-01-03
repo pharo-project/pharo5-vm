@@ -11,7 +11,7 @@ updatePointersInMobileObjectsWithTop: initialTop
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin isNil or: [toFinger < previousPin]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
@@ -34,7 +34,7 @@ updatePointersInMobileObjectsWithTop: initialTop
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
 							[^self continueUpdatePointersInMobileObjectsFrom: o withTop: top - manager bytesPerOop].
-						 previousPin := (manager isPinned: next) ifTrue: [next]].
+						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.
 					 toFinger := toFinger + (manager bytesInObject: o)]]].
 	^true

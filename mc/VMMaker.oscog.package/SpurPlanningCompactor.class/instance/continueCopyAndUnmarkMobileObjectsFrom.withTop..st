@@ -26,7 +26,7 @@ continueCopyAndUnmarkMobileObjectsFrom: anUnpinnedEntity withTop: initialTop
 					 self assert: o = (manager fetchPointer: 0 ofObject: o).
 					 manager
 						setIsMarkedOf: o to: false;
-						storePointerUnchecked: 0 ofObject: o withValue: (manager longAt: o)]]].
+						storePointerUnchecked: 0 ofObject: o withValue: (manager longAt: top)]]].
 	firstMobileObject := savedFirstMobileObject.
 	nextFreeObject ifNil:
 		[^true].

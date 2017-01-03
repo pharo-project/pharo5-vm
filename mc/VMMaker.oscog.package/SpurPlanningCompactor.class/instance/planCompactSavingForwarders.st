@@ -20,7 +20,7 @@ planCompactSavingForwarders
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin isNil or: [toFinger < previousPin]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
@@ -46,7 +46,7 @@ planCompactSavingForwarders
 						 next >= o ifTrue:
 							[savedFirstFieldsSpace top: top - manager bytesPerOop.
 							 ^self continuePlanCompactSavingForwardersFrom: o toFinger: toFinger].
-						 previousPin := (manager isPinned: next) ifTrue: [next]].
+						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 toFinger := self forwardMobileObject: o to: toFinger savedFirstFieldPtr: top]]].
 	savedFirstFieldsSpace top: top.
 	^true

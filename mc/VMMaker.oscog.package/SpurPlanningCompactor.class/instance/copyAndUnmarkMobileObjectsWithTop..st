@@ -11,7 +11,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin isNil or: [toFinger < previousPin]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue:
@@ -43,7 +43,7 @@ copyAndUnmarkMobileObjectsWithTop: initialTop
 						 next := manager objectStartingAt: toFinger.
 						 next >= o ifTrue:
 							[^self continueCopyAndUnmarkMobileObjectsFrom: o withTop: top - manager bytesPerOop].
-						 previousPin := (manager isPinned: next) ifTrue: [next]].
+						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 toFinger := self copyAndUnmarkObject: o to: toFinger firstField: (manager longAt: top)]]].
 	self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
 	^true
