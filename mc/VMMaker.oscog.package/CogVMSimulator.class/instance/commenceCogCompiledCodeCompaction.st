@@ -1,4 +1,4 @@
 cog jit support
 commenceCogCompiledCodeCompaction
-	self halt.
+	"self halt."
 	^super commenceCogCompiledCodeCompaction
