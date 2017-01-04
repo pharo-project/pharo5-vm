@@ -6,4 +6,4 @@ printRumpCStackTo: address
 		by: objectMemory wordSize negated
 		do:
 			[:addr|
-			self printHex: addr; tab; printHex: (self longAt: addr); cr]
+			self printHex: addr; tab; printHex: (objectMemory longAt: addr); cr]

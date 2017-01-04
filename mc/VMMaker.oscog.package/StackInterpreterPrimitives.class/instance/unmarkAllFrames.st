@@ -9,7 +9,7 @@ unmarkAllFrames
 		thePage := stackPages stackPageAt: i.
 		(stackPages isFree: thePage) ifFalse:
 			[theFP := thePage  headFP.
-			 [flags := self longAt: theFP + FoxFrameFlags.
+			 [flags := objectMemory longAt: theFP + FoxFrameFlags.
 			  (flags bitAnd: 2) ~= 0 ifTrue:
-				[self longAt: theFP + FoxFrameFlags put: flags - 2].
+				[objectMemory longAt: theFP + FoxFrameFlags put: flags - 2].
 			  (theFP := self frameCallerFP: theFP) ~= 0] whileTrue]]

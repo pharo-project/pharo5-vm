@@ -48,8 +48,6 @@
 		"initialize" : "eem 9/26/2013 01:02",
 		"insufficientMemoryAvailableError" : "tpr 2/26/2003 14:01",
 		"insufficientMemorySpecifiedError" : "tpr 2/26/2003 14:01",
-		"integerAt:" : "ar 3/3/2001 22:31",
-		"integerAt:put:" : "ar 3/3/2001 22:31",
 		"internalExecuteNewMethod" : "tpr 6/23/2004 15:12",
 		"interpreter" : "eem 6/10/2010 15:47",
 		"invalidCompactClassError:" : "eem 12/30/2008 12:27",

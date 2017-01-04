@@ -40,6 +40,6 @@ primitiveObjectPointsTo
 		to: numSlots - 1 * objectMemory bytesPerOop + objectMemory baseHeaderSize
 		by: objectMemory bytesPerOop
 		do: [:i|
-			(self longAt: rcvr + i) = thang ifTrue:
+			(objectMemory longAt: rcvr + i) = thang ifTrue:
 				[^self pop: 2 thenPushBool: true]].
 	self pop: 2 thenPushBool: false

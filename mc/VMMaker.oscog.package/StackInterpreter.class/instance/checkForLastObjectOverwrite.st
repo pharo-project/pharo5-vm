@@ -4,4 +4,4 @@ checkForLastObjectOverwrite
 	| freeStart |
 	checkAllocFiller ifTrue: 
 		[self assert: ((freeStart := objectMemory freeStart) >= objectMemory scavengeThreshold
-					  or: [(self longAt: freeStart) = freeStart])]
+					  or: [(objectMemory longAt: freeStart) = freeStart])]
