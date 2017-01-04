@@ -22,7 +22,7 @@ planCompactSavingForwarders
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger < previousPin]]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger <= previousPin]]).
 		 self assert: (savedFirstFieldsSpaceWasAllocated
 					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
 					or: [toFinger < top]]).
@@ -32,7 +32,7 @@ planCompactSavingForwarders
 					[previousPin ifNotNil:
 						[self assert: (manager startOfObject: previousPin) - toFinger >= (manager allocationUnit * 2).
 						 toFinger := manager addressAfter: previousPin.
-						 self assert: toFinger < (manager startOfObject: o)].
+						 self assert: toFinger <= (manager startOfObject: o)].
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
