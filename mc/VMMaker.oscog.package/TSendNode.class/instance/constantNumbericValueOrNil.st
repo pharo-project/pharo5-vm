@@ -1,4 +1,4 @@
-C code generation
+accessing
 constantNumbericValueOrNil
 	(#(* // + -) includes: selector) ifTrue:
 		[receiver constantNumbericValueOrNil ifNotNil:

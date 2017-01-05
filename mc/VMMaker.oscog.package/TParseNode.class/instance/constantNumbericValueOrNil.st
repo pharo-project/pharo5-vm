@@ -1,4 +1,4 @@
-testing
+accessing
 constantNumbericValueOrNil
 
 	^nil
