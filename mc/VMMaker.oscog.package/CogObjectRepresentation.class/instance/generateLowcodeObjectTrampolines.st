@@ -11,8 +11,8 @@ generateLowcodeObjectTrampolines
 												floatResult: DPFPReg0.
 	ceInstantiateClassIndexableSizeTrampoline := cogit genTrampolineFor: #instantiateClass:indexableSize:
 												called: 'ceInstantiateClassIndexableSizeTrampoline'
-												arg: ReceiverResultReg
 												arg: Arg0Reg
+												arg: Arg1Reg
 												result: TempReg.
 	ceInstantiateClassTrampoline := cogit genTrampolineFor: #instantiateClass:indexableSize:
 												called: 'ceInstantiateClassTrampoline'
@@ -21,7 +21,6 @@ generateLowcodeObjectTrampolines
 												result: TempReg.
 	ceByteSizeOfTrampoline := cogit genTrampolineFor: #byteSizeOf:
 												called: 'ceByteSizeOfTrampoline'
-												arg: ReceiverResultReg
 												arg: Arg0Reg
 												result: TempReg.
 	BytesPerOop = 4 ifTrue: [

@@ -20,7 +20,10 @@ cogMNUPICSelector: selector receiver: rcvr methodOperand: methodOperand numArgs:
 		 ^0].
 
 	"memcpy the prototype across to our allocated space; because anything else would be silly"
-	objectMemory mem: startAddress cp: cPICPrototype y: closedPICSize.
+	objectMemory
+		mem: (self cCoerceSimple: startAddress to: #'CogMethod *')
+		cp: (self cCoerceSimple: cPICPrototype to: #'CogMethod *')
+		y: closedPICSize.
 	
 	self configureMNUCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		methodOperand: methodOperand

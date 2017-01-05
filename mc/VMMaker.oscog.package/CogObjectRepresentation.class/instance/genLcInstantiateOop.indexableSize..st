@@ -1,18 +1,18 @@
 inline primitive support
 genLcInstantiateOop: classOop indexableSize: indexableSize
 	<option: #LowcodeVM>
-	classOop ~= ReceiverResultReg ifTrue: [
-		indexableSize = ReceiverResultReg ifTrue: [
+	classOop ~= Arg0Reg ifTrue: [
+		indexableSize = Arg0Reg ifTrue: [
 			cogit MoveR: indexableSize R: TempReg.
 		].
-		cogit MoveR: classOop R: ReceiverResultReg
+		cogit MoveR: classOop R: Arg0Reg
 	].
 
-	indexableSize ~= Arg0Reg ifTrue: [
-		indexableSize = ReceiverResultReg ifTrue: [
-			cogit MoveR: TempReg R: Arg0Reg.
+	indexableSize ~= Arg1Reg ifTrue: [
+		indexableSize = Arg0Reg ifTrue: [
+			cogit MoveR: TempReg R: Arg1Reg.
 		] ifFalse: [
-			cogit MoveR: indexableSize R: Arg0Reg.
+			cogit MoveR: indexableSize R: Arg1Reg.
 		]
 	].
 

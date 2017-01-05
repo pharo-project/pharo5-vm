@@ -1,3 +1,3 @@
 accessing
 numTrampolines
-	^ super numTrampolines + 4 "lowcode"
+	^ super numTrampolines + (LowcodeVM ifTrue: [4] ifFalse: [0])

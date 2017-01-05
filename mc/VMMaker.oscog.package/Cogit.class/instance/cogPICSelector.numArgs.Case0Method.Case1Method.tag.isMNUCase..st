@@ -22,7 +22,10 @@ cogPICSelector: selector numArgs: numArgs Case0Method: case0CogMethod Case1Metho
 		[^self cCoerceSimple: InsufficientCodeSpace to: #'CogMethod *'].
 
 	"memcpy the prototype across to our allocated space; because anything else would be silly"
-	objectMemory mem: startAddress cp: cPICPrototype y: closedPICSize.
+	objectMemory
+		mem: (self cCoerceSimple: startAddress to: #'CogMethod *')
+		cp: (self cCoerceSimple: cPICPrototype to: #'CogMethod *')
+		y: closedPICSize.
 	
 	self configureCPIC: (self cCoerceSimple: startAddress to: #'CogMethod *')
 		Case0: case0CogMethod

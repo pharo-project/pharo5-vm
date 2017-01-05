@@ -2,8 +2,8 @@ inline primitive support
 genLcPointerToOop: pointer class: pointerClass
 	<option: #LowcodeVM>
 	cogit PushR: pointer.
-	cogit annotate: (cogit MoveCw: pointerClass R: ReceiverResultReg) objRef: pointerClass.
-	cogit MoveCq: BytesPerOop R: Arg0Reg.
+	cogit annotate: (cogit MoveCw: pointerClass R: Arg0Reg) objRef: pointerClass.
+	cogit MoveCq: BytesPerOop R: Arg1Reg.
 	cogit CallRT: ceInstantiateClassIndexableSizeTrampoline.
 
 	cogit PopR: pointer.

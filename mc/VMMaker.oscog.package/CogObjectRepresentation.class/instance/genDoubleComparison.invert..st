@@ -1,7 +1,7 @@
 primitive generators
 genDoubleComparison: jumpOpcodeGenerator invert: invertComparison
 	<option: #DPFPReg0>
-	<var: #jumpOpcodeGenerator declareC: 'AbstractInstruction *(*jumpOpcodeGenerator)(void *)'>
+	<var: #jumpOpcodeGenerator declareC: 'AbstractInstruction * NoDbgRegParms (*jumpOpcodeGenerator)(void *)'>
 	| jumpFail jumpImmediate jumpNonInt jumpCond compare |
 	<var: #jumpImmediate type: #'AbstractInstruction *'>
 	<var: #jumpNonInt type: #'AbstractInstruction *'>

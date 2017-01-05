@@ -11,8 +11,8 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 			value: ivn
 			value: (ivn caseOf: {
 							['generator']			->	[#('sqInt (*' ')(void)')].
-							['spanFunction']			->	[#('sqInt (*' ')(struct _BytecodeDescriptor *,sqInt,sqInt,sqInt)')].
-							['needsFrameFunction']	->	[#('sqInt (*' ')(sqInt)')].
+							['spanFunction']			->	[#('sqInt NoDbgRegParms (*' ')(struct _BytecodeDescriptor *,sqInt,sqInt,sqInt)')].
+							['needsFrameFunction']	->	[#('sqInt NoDbgRegParms (*' ')(sqInt)')].
 							['numBytes']			->	['unsigned char'].
 							['stackDelta']			->	['signed char'].
 							['opcode']				->	['unsigned char'] }
