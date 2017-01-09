@@ -20,5 +20,7 @@ selectSavedFirstFieldsSpace
 				[^self].
 			 (manager sizeOfFree: highestSuitableFreeBlock) > sizeOfEden ifTrue:
 				[self useFreeChunkForSavedFirstFieldsSpace: highestSuitableFreeBlock.
-				 ^self]]].
+				 ^self]].
+		 (self useSegmentForSavedFirstFieldsSpace: spaceEstimate) ifTrue:
+			[^self]].
 	self useEdenForSavedFirstFieldsSpace

@@ -103,7 +103,7 @@
 		"checkForInterrupts" : "eem (auto pragmas 12/08) 11/3/2008 13:41",
 		"checkImageVersionFrom:startingAt:" : "tpr (auto pragmas 12/08) 12/29/2005 16:23",
 		"checkIntegerResult:" : "di 11/27/1998 15:26",
-		"checkInterpreterIntegrity" : "eem 5/21/2009 10:47",
+		"checkInterpreterIntegrity" : "eem 1/5/2017 13:19",
 		"checkedIntegerValueOf:" : "",
 		"classNameOf:Is:" : "tpr (auto pragmas 12/08) 12/29/2005 16:23",
 		"closureNumArgs:instructionPointer:numCopiedValues:" : "eem (const to msg rewrite) 11/6/2014 11:00",

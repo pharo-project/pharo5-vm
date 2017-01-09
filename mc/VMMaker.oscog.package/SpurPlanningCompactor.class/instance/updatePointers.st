@@ -9,9 +9,10 @@ updatePointers
 		[^self].
 	self assert: (manager startOfObject: firstFreeObject) = mobileStart.
 	coInterpreter mapInterpreterOops.
+	manager mapExtraRoots.
 	self updatePointersInManagerHeapEntities.
 	self updatePointersInSurvivingObjects.
 	self updatePointersInInitialImmobileObjects.
-	onePass := self updatePointersInMobileObjectsWithTop: savedFirstFieldsSpace start - manager bytesPerOop.
+	onePass := self updatePointersInMobileObjects.
 	onePass ifFalse:
 		[self updatePointersInObjectsOverflowingSavedFirstFieldsSpace]
