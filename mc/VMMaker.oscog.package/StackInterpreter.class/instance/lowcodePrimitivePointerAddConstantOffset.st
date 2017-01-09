@@ -11,4 +11,5 @@ lowcodePrimitivePointerAddConstantOffset
 
 	self internalPushPointer: result.
 	extB := 0.
+	numExtB := 0.
 

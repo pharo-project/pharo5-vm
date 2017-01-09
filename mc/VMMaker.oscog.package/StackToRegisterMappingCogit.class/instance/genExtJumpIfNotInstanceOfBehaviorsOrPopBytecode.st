@@ -15,6 +15,7 @@ genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode
 	extA := 0.
 	distance := extB * 256 + byte2.
 	extB := 0.
+	numExtB := 0.
 	
 	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'.
 		

@@ -7,4 +7,5 @@ extSendAbsentDynamicSuperBytecode
 	extA := 0.
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
+	numExtB := 0.
 	self commonSendDynamicSuper

@@ -11,7 +11,7 @@ scanBlock: blockStart
 	inBlock := InVanillaBlock.
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
-	framelessStackDelta := nExts := extA := extB := 0.
+	framelessStackDelta := nExts := extA := numExtB := extB := 0.
 	pushingNils := true.
 	[pc < end] whileTrue:
 		[byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
@@ -49,7 +49,7 @@ scanBlock: blockStart
 		 pc := self nextBytecodePCFor: descriptor at: pc exts: nExts in: methodObj.
 		 descriptor isExtension
 			ifTrue: [nExts := nExts + 1]
-			ifFalse: [nExts := extA := extB := 0].
+			ifFalse: [nExts := extA := numExtB := extB := 0].
 		 prevBCDescriptor := descriptor].
 	"It would be nice of this wasn't necessary but alas we need to do the eager
 	 scan for frameless methods so that we don't end up popping too much off

@@ -10,4 +10,5 @@ extPushPseudoVariable
 			[self respondToUnknownBytecode].
 	self fetchNextBytecode.
 	self internalPush: theThingToPush.
-	extB := 0
+	extB := 0.
+	numExtB := 0.

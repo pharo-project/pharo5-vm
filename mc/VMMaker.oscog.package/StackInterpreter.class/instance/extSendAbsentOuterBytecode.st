@@ -7,5 +7,6 @@ extSendAbsentOuterBytecode
 	extA := 0.
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
+	numExtB := 0.
 	depth := self fetchByte.
 	self commonSendOuter: depth

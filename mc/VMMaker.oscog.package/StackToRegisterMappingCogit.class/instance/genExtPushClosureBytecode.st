@@ -11,7 +11,7 @@ genExtPushClosureBytecode
 		numArgs: (numArgs := (byte1 bitAnd: 16r7) + (extA \\ 16 * 8))
 		numCopied: (numCopied := ((byte1 >> 3) bitAnd: 7) + (extA // 16 * 8))
 		span: byte2 + (extB << 8).
-	extA := extB := 0.
+	extA := numExtB := extB := 0.
 
 	objectRepresentation createsClosuresInline
 		ifTrue: [ self genInlineClosure: startpc numArgs: numArgs numCopied: numCopied ]

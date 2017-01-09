@@ -4,6 +4,7 @@ genExtPushPseudoVariableOrOuterBytecode
 	| ext |
 	ext := extB.
 	extB := 0.
+	numExtB := 0.
 	ext caseOf: {
 		[0]	->	[^self genPushLiteral: objectMemory falseObject].
 		[1]	->	[^self genPushLiteral: objectMemory trueObject].

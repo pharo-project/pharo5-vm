@@ -10,5 +10,5 @@ extPushClosureBytecode
 	numCopied := ((byte >> 3) bitAnd: 7) + (extA // 16 * 8).
 	extA := 0.
 	blockSize := self fetchByte + (extB << 8).
-	extB := 0.
+	numExtB := extB := 0.
 	self pushClosureNumArgs: numArgs copiedValues: numCopied blockSize: blockSize

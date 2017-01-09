@@ -4,6 +4,7 @@ genExtPushPseudoVariable
 	| ext |
 	ext := extB.
 	extB := 0.
+	numExtB := 0.
 	ext caseOf: {
 		[0]	->	[^self genPushActiveContextBytecode].
 		}

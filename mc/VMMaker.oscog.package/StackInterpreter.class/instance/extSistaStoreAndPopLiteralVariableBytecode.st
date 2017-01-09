@@ -6,6 +6,6 @@ extSistaStoreAndPopLiteralVariableBytecode
 	variableIndex := self fetchByte + (extA << 8).
 	value := self internalStackTop.
 	self internalPop: 1.
-	extA := extB := 0..
+	extA := numExtB := extB := 0.
 	self storeLiteralVariable: variableIndex withValue: value.
 	self fetchNextBytecode.

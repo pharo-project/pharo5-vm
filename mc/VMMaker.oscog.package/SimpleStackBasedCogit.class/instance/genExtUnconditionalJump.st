@@ -8,6 +8,7 @@ genExtUnconditionalJump
 								Branch: (extA ~= 0 ifTrue: [1] ifFalse: [0]) + (extB ~= 0 ifTrue: [1] ifFalse: [0])
 								Distance: methodObj).
 	extB := 0.
+	numExtB := 0.
 	target := distance + 2 + bytecodePC.
 	distance < 0 ifTrue:
 		[^self genJumpBackTo: target].

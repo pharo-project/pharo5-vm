@@ -4,6 +4,7 @@ extBBytecode
 	| byte |
 	byte := self fetchByte.
 	self fetchNextBytecode.
-	extB := (extB = 0 and: [byte > 127])
+	extB := (numExtB = 0 and: [byte > 127])
 				ifTrue: [byte - 256]
-				ifFalse: [(extB bitShift: 8) + byte]
+				ifFalse: [(extB bitShift: 8) + byte].
+	numExtB := numExtB + 1

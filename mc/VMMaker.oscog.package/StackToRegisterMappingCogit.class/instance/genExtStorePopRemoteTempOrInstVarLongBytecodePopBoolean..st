@@ -5,6 +5,7 @@ genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: boolean
 	maybeContext := self extBSpecifiesMaybeContext.
 	needsImmCheck := self extBSpecifiesImmCheck.
 	extB := 0.
+	numExtB := 0.
 	(byte2 noMask: coInterpreter remoteIsInstVarAccess)
 		ifTrue: 
 			[ self 

@@ -4,5 +4,5 @@ extJumpIfTrue
 	| byte offset |
 	byte := self fetchByte.
 	offset := byte + (extB << 8).
-	extB := extA := 0.
+	numExtB := extB := extA := 0.
 	self jumplfTrueBy: offset

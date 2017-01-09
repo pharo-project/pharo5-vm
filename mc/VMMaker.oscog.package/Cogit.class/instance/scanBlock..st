@@ -9,7 +9,7 @@ scanBlock: blockStart
 	inBlock := InVanillaBlock.
 	pc := blockStart startpc.
 	end := blockStart startpc + blockStart span.
-	framelessStackDelta := nExts := extA := extB := 0.
+	framelessStackDelta := nExts := extA := numExtB := extB := 0.
 	[pc < end] whileTrue:
 		[byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 descriptor := self generatorAt: byte0.
@@ -25,7 +25,7 @@ scanBlock: blockStart
 		 pc := self nextBytecodePCFor: descriptor at: pc exts: nExts in: methodObj.
 		 descriptor isExtension
 			ifTrue: [nExts := nExts + 1]
-			ifFalse: [nExts := extA := extB := 0]].
+			ifFalse: [nExts := extA := numExtB := 0. extB := 0]].
 	needsFrame ifFalse:
 		[framelessStackDelta < 0 ifTrue:
 			[self error: 'negative stack delta in block; block contains bogus code or internal error'].

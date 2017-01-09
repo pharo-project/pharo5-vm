@@ -19,7 +19,7 @@ scanMethod
 	 and: [coInterpreter isQuickPrimitiveIndex: primitiveIndex]) ifTrue:
 		[^0].
 	pc := latestContinuation := initialPC.
-	numBlocks := framelessStackDelta := nExts := extA := extB := 0.
+	numBlocks := framelessStackDelta := nExts := extA := numExtB := extB := 0.
 	[pc <= endPC] whileTrue:
 		[byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 descriptor := self generatorAt: byte0.
@@ -72,6 +72,6 @@ scanMethod
 		 NewspeakVM ifTrue:
 			[descriptor hasIRC ifTrue: [numIRCs := numIRCs + 1]].
 		 pc := pc + descriptor numBytes.
-		 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [extA := extB := 0].
+		 nExts := descriptor isExtension ifTrue: [nExts + 1] ifFalse: [extA := numExtB := extB := 0].
 		 prevBCDescriptor := descriptor].
 	^numBlocks

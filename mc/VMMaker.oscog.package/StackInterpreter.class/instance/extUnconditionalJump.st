@@ -5,6 +5,7 @@ extUnconditionalJump
 	byte := self fetchByte.
 	offset := byte + (extB << 8).
 	extB := 0.
+	numExtB := 0.
 	localIP := localIP + offset.
 	self ifBackwardsCheckForEvents: offset.
 	self fetchNextBytecode

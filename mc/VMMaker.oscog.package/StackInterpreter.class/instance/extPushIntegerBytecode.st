@@ -5,4 +5,5 @@ extPushIntegerBytecode
 	value := self fetchByte + (extB << 8).
 	self fetchNextBytecode.
 	extB := 0.
+	numExtB := 0.
 	self internalPush: (objectMemory integerObjectOf: value)

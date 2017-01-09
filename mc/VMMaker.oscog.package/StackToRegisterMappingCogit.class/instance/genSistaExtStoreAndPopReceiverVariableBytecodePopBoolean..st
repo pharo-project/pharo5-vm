@@ -9,6 +9,7 @@ genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: popBoolean
 	hence generate the context form if the flag is set or if this is a popInto."
 	maybeContext := popBoolean or: [self extBSpecifiesMaybeContext].
 	extB := 0.
+	numExtB := 0.
 	index := byte1 + (extA << 8).
 	extA := 0.
 	^((coInterpreter isWriteMediatedContextInstVarIndex: index) and: [maybeContext])

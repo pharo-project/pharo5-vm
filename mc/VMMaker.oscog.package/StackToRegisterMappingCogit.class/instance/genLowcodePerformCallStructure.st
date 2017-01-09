@@ -15,6 +15,7 @@ genLowcodePerformCallStructure
 	self ssPushNativeRegister: ReceiverResultReg.
 	extA := 0.
 	extB := 0.
+	numExtB := 0.
 
 	^ 0
 

@@ -5,4 +5,5 @@ genExtPushIntegerBytecode
 	| value |
 	value := byte1 + (extB << 8).
 	extB := 0.
+	numExtB := 0.
 	^self genPushLiteral: (objectMemory integerObjectOf: value)

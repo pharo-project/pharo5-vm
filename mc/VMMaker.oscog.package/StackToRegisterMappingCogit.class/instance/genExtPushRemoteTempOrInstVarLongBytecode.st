@@ -8,6 +8,7 @@ genExtPushRemoteTempOrInstVarLongBytecode
 			index := byte1 + (extA << 8).
 			extA := 0.
 			extB := 0.
+			numExtB := 0.
 			((coInterpreter isReadMediatedContextInstVarIndex: index) and: [ maybeContext ])
 				ifTrue: [ self genPushMaybeContextRemoteInstVar: index inObjectAt: byte2 - coInterpreter remoteIsInstVarAccess ]
 				ifFalse: [ self genPushRemoteInstVar: index inObjectAt: byte2 - coInterpreter remoteIsInstVarAccess ] ]

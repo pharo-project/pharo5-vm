@@ -14,4 +14,4 @@ lowcodePrimitivePerformCallStructure
 	self internalPushPointer: resultPointer.
 	extA := 0.
 	extB := 0.
-
+	numExtB := 0.

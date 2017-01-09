@@ -15,4 +15,5 @@ extSendSuperBytecode
 			 ^self directedSuperclassSend]].
 	argumentCount := (byte bitAnd: 7) + (extB << 3).
 	extB := 0.
+	numExtB := 0.
 	self superclassSend

@@ -6,4 +6,5 @@ genExtSendAbsentDynamicSuperBytecode
 	extA := 0.
 	nArgs := (byte1 bitAnd: 7) + (extB << 3).
 	extB := 0.
+	numExtB := 0.
 	^self genSendAbsentDynamicSuper: litIndex numArgs: nArgs

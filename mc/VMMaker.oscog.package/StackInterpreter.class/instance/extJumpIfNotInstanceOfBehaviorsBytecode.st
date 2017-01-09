@@ -11,6 +11,7 @@ extJumpIfNotInstanceOfBehaviorsBytecode
 	distance := extB << 8 + self fetchByte.
 	extA := 0.
 	extB := 0.
+	numExtB := 0.
 	(objectMemory isArrayNonImm: literal)
 		ifTrue:
 			[0 to: (objectMemory numSlotsOf: literal) asInteger - 1 do: [:i |

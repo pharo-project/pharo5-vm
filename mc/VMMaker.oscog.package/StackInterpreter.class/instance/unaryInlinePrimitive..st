@@ -36,6 +36,7 @@ unaryInlinePrimitive: primIndex
 					[0 to: numSlots - 1 do:
 						[:i| objectMemory storePointerUnchecked: i ofObject: result withValue: objectMemory nilObject]].
 				 extB := 0.
+				numExtB := 0.
 				 self internalStackTopPut: result].
 		"1020 	identityHash"
 		[20] ->	[result := objectMemory hashBitsOf: self internalStackTop.

@@ -18,5 +18,6 @@ genLowcodePointerAddConstantOffset
 	self ssPushNativeRegister: base.
 
 	extB := 0.
+	numExtB := 0.
 	^ 0
 

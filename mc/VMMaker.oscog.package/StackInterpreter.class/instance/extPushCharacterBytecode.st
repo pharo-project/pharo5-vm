@@ -5,4 +5,4 @@ extPushCharacterBytecode
 	value := self fetchByte + (extB << 8).
 	self fetchNextBytecode.
 	self internalPush: (objectMemory characterObjectOf: value).
-	extB := 0
+	numExtB := extB := 0

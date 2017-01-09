@@ -9,6 +9,6 @@ extPushRemoteTempOrInstVarLongBytecode
 		ifFalse: 
 			[ slotIndex := slotIndex + (extA << 8).
 			tempIndex := tempIndex - self remoteIsInstVarAccess.
-			extA := extB := 0.
+			numExtB := extA := extB := 0.
 			object := self temporary: tempIndex in: localFP.
 			self pushMaybeContext: object receiverVariable: slotIndex ]

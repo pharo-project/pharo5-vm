@@ -46,5 +46,6 @@ genUnaryInlinePrimitive: prim
 		otherwise:
 			[^EncounteredUnknownBytecode].
 	extB := 0.
+	numExtB := 0.
 	self ssPushRegister: resultReg.
 	^0

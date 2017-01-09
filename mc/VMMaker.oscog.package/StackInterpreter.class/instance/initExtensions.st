@@ -1,4 +1,4 @@
 simulation support
 initExtensions
 	<inline: true>
-	BytecodeSetHasExtensions ifTrue: [extA := extB := 0]
+	BytecodeSetHasExtensions ifTrue: [extA := numExtB := extB := 0]

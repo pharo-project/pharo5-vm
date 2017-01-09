@@ -3,4 +3,4 @@ assertExtsAreConsumed: descriptor
 	 "extended bytecodes must consume their extensions"
 	 <inline: true>
 	 descriptor isExtension ifFalse:
-		[self assert: (extA = 0 and: [extB = 0])].
+		[self assert: (extA = 0 and: [extB = 0 and: [numExtB = 0]])].

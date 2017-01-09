@@ -23,4 +23,5 @@ extPushPseudoVariableOrOuterBytecode
 							[self error: 'undefined extension for extPushPseudoVariableOrOuter'.
 							 objectMemory nilObject]].
 	extB := 0.
+	numExtB := 0.
 	self internalPush: thing

@@ -2,6 +2,7 @@ bytecode generators
 genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: popBoolean
 	| index |
 	extB := 0. "simple cogit don't use the extra flag"
+	numExtB := 0.
 	(byte2 noMask: coInterpreter remoteIsInstVarAccess)
 		ifTrue: 
 			[ self genStorePop: popBoolean RemoteTemp: byte1 At: byte2.

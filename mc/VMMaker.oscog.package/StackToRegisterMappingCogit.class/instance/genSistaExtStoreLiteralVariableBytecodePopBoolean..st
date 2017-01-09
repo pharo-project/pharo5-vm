@@ -5,7 +5,7 @@ genSistaExtStoreLiteralVariableBytecodePopBoolean: boolean
 	needsStoreCheck := self sistaNeedsStoreCheck.
 	needsImmCheck := self extBSpecifiesImmCheck.
 	index := byte1 + (extA << 8).
-	extA := extB := 0.
+	extA := numExtB := extB := 0.
 	^self 
 		genStorePop: boolean 
 		LiteralVariable: index 
