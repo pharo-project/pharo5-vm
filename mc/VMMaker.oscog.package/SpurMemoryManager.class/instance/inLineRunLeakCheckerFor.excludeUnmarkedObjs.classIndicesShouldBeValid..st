@@ -7,6 +7,6 @@ inLineRunLeakCheckerFor: gcModes excludeUnmarkedObjs: excludeUnmarkedObjs classI
 			ifFalse: [coInterpreter reverseDisplayFrom: 8 to: 15].
 		 self clearLeakMapAndMapAccessibleObjects.
 		 self asserta: (self checkHeapIntegrity: excludeUnmarkedObjs classIndicesShouldBeValid: classIndicesShouldBeValid).
-		 self asserta: coInterpreter checkInterpreterIntegrity.
+		 self asserta: coInterpreter checkInterpreterIntegrity = 0.
 		 self asserta: coInterpreter checkStackIntegrity.
 		 self asserta: (coInterpreter checkCodeIntegrity: gcModes)]
