@@ -9,7 +9,7 @@ allOldSpaceEntitiesForCompactingFrom: initialObject do: aBlock
 	 self oop: objOop isLessThan: endOfMemory] whileTrue:
 		[self assert: (self long64At: objOop) ~= 0.
 		 nextObj := self objectAfter: objOop limit: endOfMemory.
-		 aBlock value: objOop value: nextObj.
+		 aBlock value: objOop.
 		 prevPrevObj := prevObj.
 		 prevObj := objOop.
 		 objOop := nextObj].

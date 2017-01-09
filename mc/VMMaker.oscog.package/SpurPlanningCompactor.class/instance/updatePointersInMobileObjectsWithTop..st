@@ -1,22 +1,19 @@
 compaction
-updatePointersInMobileObjects
+updatePointersInMobileObjectsWithTop: initialTop
 	"Sweep the mobile portion of the heap, updating all references to objects to their eventual locations.
 	 Remember to update the savedFirstFields of pointer objects, as these have been forwarded.
-	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed).
-
 	 This enumeration matches that in planCompactSavingForwarders and copyAndUnmarkMobileObjects."
+	<var: 'initialTop' type: #usqInt>
 	| toFinger top previousPin |
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
-	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
-	top := savedFirstFieldsSpace start.
+	top := initialTop.
+	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin
-						ifNil: [toFinger <= (manager startOfObject: o)]
-						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger <= previousPin]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
@@ -26,6 +23,8 @@ updatePointersInMobileObjects
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
+					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
+						[^false].
 					 [previousPin notNil
 					  and: [availableSpace := (manager startOfObject: previousPin) - toFinger.
 							bytes := manager bytesInObject: o.
@@ -35,11 +34,9 @@ updatePointersInMobileObjects
 						  Move toFinger beyond previousPin and update previousPin appropriately."
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
+						 (self oop: next isGreaterThanOrEqualTo: o) ifTrue:
+							[^self continueUpdatePointersInMobileObjectsFrom: o withTop: top - manager bytesPerOop].
 						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.
-					 toFinger := toFinger + (manager bytesInObject: o).
-					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
-						[self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
-						 ^self noMobileObjectsAfter: o]]]].
-	self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
+					 toFinger := toFinger + (manager bytesInObject: o)]]].
 	^true

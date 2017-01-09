@@ -3,45 +3,45 @@ checkInterpreterIntegrity
 	"Perform an integrity/leak check using the heapMap.  Assume
 	 clearLeakMapAndMapAccessibleObjects has set a bit at each
 	 object's header.  Check that all oops in the interpreter's state
-	 points to a header.  Answer 0 if all checks pass."
-	| flags |
-	flags := 0.
+	 points to a header.  Answer if all checks pass."
+	| ok |
+	ok := true.
 	(objectMemory checkOopIntegrity: objectMemory specialObjectsOop named: 'specialObjectsOop')ifFalse:
-		[flags := 1].
+		[ok := false].
 	"No longer check messageSelector; it is ephemeral, not living beyond message lookup.
 	(objectMemory isNonImmediate: messageSelector) ifTrue:
 		[(objectMemory checkOopIntegrity: messageSelector named: 'messageSelector')ifFalse:
 			[ok := false]]."
 	(objectMemory checkOopIntegrity: newMethod named: 'newMethod')ifFalse:
-		[flags := flags + 2].
+		[ok := false].
 	"No longer check lkupClass; it is ephemeral, not living beyond message lookup.
 	(objectMemory checkOopIntegrity: lkupClass named: 'lkupClass')ifFalse:
 		[ok := false]."
 	(objectMemory checkOopIntegrity: profileProcess named: 'profileProcess')ifFalse:
-		[flags := flags + 4].
+		[ok := false].
 	(objectMemory checkOopIntegrity: profileMethod named: 'profileMethod')ifFalse:
-		[flags := flags + 8].
+		[ok := false].
 	(objectMemory checkOopIntegrity: profileSemaphore named: 'profileSemaphore')ifFalse:
-		[flags := flags + 16].
+		[ok := false].
 	tempOop = 0 ifFalse:
 		[(objectMemory checkOopIntegrity: tempOop named: 'tempOop')ifFalse:
-			[flags := flags + 32]].
+			[ok := false]].
 	tempOop2 = 0 ifFalse:
 		[(objectMemory checkOopIntegrity: tempOop2 named: 'tempOop2')ifFalse:
-			[flags := flags + 64]].
+			[ok := false]].
 	tempOop3 = 0 ifFalse:
 		[(objectMemory checkOopIntegrity: tempOop3 named: 'tempOop3')ifFalse:
-			[flags := flags + 128]].
+			[ok := false]].
 
 	"Callback support - check suspended callback list"
 	1 to: jmpDepth do:
 		[:i|
 		(objectMemory checkOopIntegrity: (suspendedCallbacks at: i) named: 'suspendedCallbacks' index: i) ifFalse:
-			[flags := flags + 256].
+			[ok := false].
 		(objectMemory checkOopIntegrity: (suspendedMethods at: i) named: 'suspendedMethods' index: i) ifFalse:
-			[flags := flags + 512]].
+			[ok := false]].
 
 	self checkLogIntegrity ifFalse:
-		[flags := flags + 1024].
+		[ok := false].
 
-	^flags
+	^ok

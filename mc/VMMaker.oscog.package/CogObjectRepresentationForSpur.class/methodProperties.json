@@ -1,9 +1,9 @@
 {
 	"class" : {
-		"declareCVarsIn:" : "eem 1/5/2017 12:55",
+		"declareCVarsIn:" : "eem 1/1/1970 12:12",
 		"initialize" : "eem 1/1/1970 11:49",
 		"initializeMiscConstants" : "eem 1/1/1970 12:44",
-		"numTrampolines" : "eem 9/5/2016 14:24" },
+		"numTrampolines" : "rsf 1/4/2017 23:03" },
 	"instance" : {
 		"allYoungObjectsAgeInFullGC" : "eem 11/18/2013 10:57",
 		"allocateNPinnedSlots:" : "eem 7/9/2014 21:23",
@@ -99,7 +99,7 @@
 		"genStoreWithImmutabilityAndStoreCheckSourceReg:slotIndex:destReg:scratchReg:needRestoreRcvr:" : "eem 1/1/1970 17:05",
 		"genStoreWithImmutabilityButNoStoreCheckSourceReg:slotIndex:destReg:scratchReg:needRestoreRcvr:" : "eem 1/1/1970 17:06",
 		"genStoreWithImmutabilityCheckSourceReg:slotIndex:destReg:scratchReg:needsStoreCheck:needRestoreRcvr:" : "cb 7/25/2016 11:12",
-		"generateObjectRepresentationTrampolines" : "eem 09/27/2016 11:20",
+		"generateObjectRepresentationTrampolines" : "rsf 1/4/2017 22:34",
 		"getActiveContextAllocatesInMachineCode" : "eem 5/31/2014 16:49",
 		"getLiteralCountOf:plusOne:inBytes:into:scratch:" : "eem 1/23/2016 12:23",
 		"hasSpurMemoryManagerAPI" : "eem 2/10/2015 18:56",

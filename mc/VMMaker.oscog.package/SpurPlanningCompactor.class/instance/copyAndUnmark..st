@@ -10,6 +10,6 @@ copyAndUnmark: firstPass
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[self assert: (self oop: firstMobileObject isGreaterThanOrEqualTo: manager endOfMemory).
 		 ^self].
-	onePass := self copyAndUnmarkMobileObjects.
+	onePass := self copyAndUnmarkMobileObjectsWithTop: savedFirstFieldsSpace start - manager bytesPerOop.
 	(onePass not and: [biasForGC]) ifTrue: "only ever one pass if biasForGC is true."
 		[self unmarkObjectsAfterLastMobileObject]

@@ -5,6 +5,10 @@ planCompactSavingForwarders
 	 Continue until either the end of the heap is reached or savedFirstFieldsSpace is full.
 	 Answer if the end of the heap was reached (savedFirstFieldsSpace has not overflowed).
 
+	 Note that this method is potentially recursive. If skipping a run of pinned objects
+	 causes the the algorithm to encounter another run of immobile objects it will
+	 recurse via continuePlanCompactSavingForwardersFrom:.
+
 	 This enumeration matches those in updatePointersInMobileObjects and copyAndUnmarkMobileObjects."
 
 	| toFinger top previousPin |
@@ -12,15 +16,13 @@ planCompactSavingForwarders
 	<var: 'toFinger' type: #usqInt>
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[self logPhase: 'planning...'].
-	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
-	top := savedFirstFieldsSpace start.
+	top := savedFirstFieldsSpace top.
+	self deny: (manager isMarked: firstFreeObject).
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
-		 self assert: (previousPin
-						ifNil: [toFinger <= (manager startOfObject: o)]
-						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
+		 self assert: (previousPin isNil or: [(manager isMarked: previousPin) and: [toFinger <= previousPin]]).
 		 self assert: (savedFirstFieldsSpaceWasAllocated
 					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
 					or: [toFinger < top]]).
@@ -34,6 +36,9 @@ planCompactSavingForwarders
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
+					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
+						[savedFirstFieldsSpace top: top - manager bytesPerOop.
+						 ^false].
 					 [previousPin notNil
 					  and: [availableSpace := (manager startOfObject: previousPin) - toFinger.
 							bytes := manager bytesInObject: o.
@@ -43,10 +48,10 @@ planCompactSavingForwarders
 						  Move toFinger beyond previousPin and update previousPin appropriately."
 						 toFinger := manager addressAfter: previousPin.
 						 next := manager objectStartingAt: toFinger.
+						 (self oop: next isGreaterThanOrEqualTo: o) ifTrue:
+							[savedFirstFieldsSpace top: top - manager bytesPerOop.
+							 ^self continuePlanCompactSavingForwardersFrom: o toFinger: toFinger].
 						 previousPin := ((manager isMarked: next) and: [manager isPinned: next]) ifTrue: [next]].
-					 toFinger := self forwardMobileObject: o to: toFinger savedFirstFieldPtr: top.
-					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
-						[savedFirstFieldsSpace top: top - manager bytesPerOop.
-						 ^self noMobileObjectsAfter: o]]]].
-	savedFirstFieldsSpace top: top - manager bytesPerOop.
+					 toFinger := self forwardMobileObject: o to: toFinger savedFirstFieldPtr: top]]].
+	savedFirstFieldsSpace top: top.
 	^true
