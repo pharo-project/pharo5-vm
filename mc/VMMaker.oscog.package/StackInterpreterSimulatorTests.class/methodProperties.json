@@ -1,0 +1,7 @@
+{
+	"class" : {
+		"imageNameForTests" : "eem 1/10/2017 11:42" },
+	"instance" : {
+		"testEmptySimulatorCanCloneSimulation" : "eem 1/10/2017 11:38",
+		"testEmptySimulatorCloneCanLoadImage" : "eem 1/10/2017 11:39",
+		"testSimulatorCanReloadImage" : "eem 1/10/2017 11:37" } }

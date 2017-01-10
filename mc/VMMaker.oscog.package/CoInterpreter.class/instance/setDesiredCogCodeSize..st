@@ -1,4 +1,4 @@
 internal interpreter access
 setDesiredCogCodeSize: dccs
-	<cmacro: '(dccs) (desiredCogCodeSize = (dccs))'>
+	<inline: true>
 	desiredCogCodeSize := dccs
