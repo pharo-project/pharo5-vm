@@ -92,7 +92,7 @@ script:
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 before_deploy: 
-  - sh ./scripts/deploy-key.sh
+  - (cd scripts && sh ./deploy-key.sh)
   - sh ./scripts/deploy-before.sh
 deploy:
   provider: bintray
