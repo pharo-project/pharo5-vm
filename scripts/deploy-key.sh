@@ -10,3 +10,4 @@ echo "Host files.pharo.org
 	ProxyCommand ssh $DEPLOY_USER@sesi-ssh.inria.fr \"nc file-pharo.inria.fr %p 2> /dev/null\"" >> ~/.ssh/config
 
 ssh-keyscan -H sesi-ssh.inria.fr >> ~/.ssh/known_hosts
+ssh-keyscan -H files.pharo.org >> ~/.ssh/known_hosts
