@@ -38,6 +38,8 @@ on_failure:
   - bash -c "if [ -e ./image/stdout ]; then cat ./image/stdout; fi"
   - bash -c "if [ -e ./image/stderr ]; then cat ./image/stderr; fi"
 before_deploy:
+  - bash -c "cd scripts; ./deploy-key.sh"
   - bash -c "./scripts/deploy-before.sh"
 deploy_script:
   - bash -c "./scripts/deploy-appveyor.sh"
+  - bash -c "./scripts/deploy-file-server-appveyor.sh"
