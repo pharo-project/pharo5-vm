@@ -95,16 +95,17 @@ before_deploy:
   - (cd scripts && sh ./deploy-key.sh)
   - sh ./scripts/deploy-before.sh
 deploy:
-  provider: bintray
-  file: .bintray.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_API_KEY
-  on:
-    branch: master
-    repo: pharo-project/pharo-vm
-deploy:
-  provider: script
-  script: sh ./scripts/deploy-file-server.sh
-  on:
-    branch: master
-#    repo: pharo-project/pharo-vm
+  - provider: bintray
+    skip_cleanup: true
+    file: .bintray.json
+    user: $BINTRAY_USER
+    key: $BINTRAY_API_KEY
+    on:
+      branch: master
+      repo: pharo-project/pharo-vm
+  - provider: script
+    skip_cleanup: true
+    script: sh ./scripts/deploy-file-server.sh
+    on:
+      branch: master
+#      repo: pharo-project/pharo-vm
