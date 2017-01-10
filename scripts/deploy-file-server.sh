@@ -1,3 +1,3 @@
 #! /bin/bash
 
-scp *.zip files.pharo.org:~
+scp -o StrictHostKeyChecking=no *.zip files.pharo.org:~
