@@ -16,3 +16,7 @@ ssh-keyscan -H sesi-ssh.inria.fr >> ~/.ssh/known_hosts
 ssh-keyscan -H 128.93.162.72 >> ~/.ssh/known_hosts
 ssh-keyscan -H file-pharo.inria.fr,128.93.162.72 >> ~/.ssh/known_hosts
 ssh-keyscan -H file-pharo.inria.fr >> ~/.ssh/known_hosts
+
+ssh-keyscan -H 128.93.162.72 >> ~/.ssh/known_hosts
+ssh-keyscan -H files.pharo.org,128.93.162.72 >> ~/.ssh/known_hosts
+ssh-keyscan -H files.pharo.org >> ~/.ssh/known_hosts
