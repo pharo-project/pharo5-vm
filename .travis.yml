@@ -92,6 +92,7 @@ script:
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 before_deploy: 
+  - sh ./scripts/deploy-key.sh
   - sh ./scripts/deploy-before.sh
 deploy:
   provider: bintray
@@ -101,3 +102,9 @@ deploy:
   on:
     branch: master
     repo: pharo-project/pharo-vm
+deploy:
+  provider: script
+  script: sh ./scripts/deploy-file-server.sh
+  on:
+    branch: master
+#    repo: pharo-project/pharo-vm
