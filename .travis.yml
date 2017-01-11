@@ -28,9 +28,9 @@ matrix:
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
       after_script:
-        - sh ./scripts/run-rests.sh
+        - ./scripts/run-tests.sh
       after_deploy: 
-        - sh ./scripts/deploy-after.sh
+        - ./scripts/deploy-after.sh
     - os: osx
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: linux
@@ -78,7 +78,7 @@ matrix:
           - gcc-multilib
           - uuid-dev:i386
       after_script:
-        - sh ./scripts/run-rests.sh
+        - ./scripts/run-tests.sh
     - os: linux
       env: ARCH="linux64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64" HEARTBEAT="threaded"
     - os: linux
@@ -97,7 +97,7 @@ script:
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 before_deploy: 
   - (cd scripts && sh ./deploy-key.sh)
-  - sh ./scripts/deploy-before.sh
+  - ./scripts/deploy-before.sh
 deploy:
   - provider: bintray
     skip_cleanup: true
@@ -109,7 +109,7 @@ deploy:
       repo: pharo-project/pharo-vm
   - provider: script
     skip_cleanup: true
-    script: sh ./scripts/deploy-files.pharo.org.sh
+    script: ./scripts/deploy-files.pharo.org.sh
     on:
       branch: master
       repo: pharo-project/pharo-vm
