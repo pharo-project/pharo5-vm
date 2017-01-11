@@ -1,8 +1,13 @@
 #!/bin/bash 
+
 set -ex
 
-# TEST VM LOCATION ============================================================
+# UNZIP packed VM
+VM_ARCHIVE=`ls pharo-*.zip`
 VM_DIR="results"
+unzip $VM_ARCHIVE -d $VM_DIR
+
+# TEST VM LOCATION ============================================================
 if [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "linux" ]]; then
 	VM_NAME="pharo"
 elif [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "osx" ]]; then

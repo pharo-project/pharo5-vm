@@ -35,8 +35,10 @@ if [ -z "$productName" ]; then
 	echo "Product not found in `pwd`. Aborting deploy."
 	exit 1
 fi 
+echo "Uploading $productName to pharo.files.org/$destDir"
 scp $productName files.pharo.org:$destDir/$productName
 if [ "$HEARTBEAT" = "threaded" ]; then 
 	SUFFIX="-threaded"
 fi
+echo "Uploading $productName to pharo.files.org/$destDir/latest$SUFFIX.zip"
 scp $productName files.pharo.org:$destDir/latest$SUFFIX.zip

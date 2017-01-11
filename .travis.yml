@@ -91,6 +91,7 @@ script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
+  - if [ "$ARCH" != "linux32ARMv6" ]; then sh ./scripts/run-rests.sh; fi
 before_deploy: 
   - (cd scripts && sh ./deploy-key.sh)
   - sh ./scripts/deploy-before.sh
