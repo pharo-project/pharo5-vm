@@ -41,7 +41,7 @@ genPrimitiveStringAtPut
 
 	"dispatch on format; words and/or bytes.
 		  0 to 8 = pointer objects, forwarders, reserved.
-		  9 (?) 64-bit indexable
+		  9 64-bit indexable
 		10 - 11 32-bit indexable
 		12 - 15 16-bit indexable
 		16 - 23 byte indexable

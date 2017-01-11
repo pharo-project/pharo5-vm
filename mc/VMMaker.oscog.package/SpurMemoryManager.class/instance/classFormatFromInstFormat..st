@@ -1,5 +1,5 @@
 object access
-formatOfHeader: header
+classFormatFromInstFormat: instFormat
 	"0 = 0 sized objects (UndefinedObject True False et al)
 	 1 = non-indexable objects with inst vars (Point et al)
 	 2 = indexable objects with no inst vars (Array et al)
@@ -14,5 +14,11 @@ formatOfHeader: header
 	 12 - 15 16-bit indexable
 	 16 - 23 byte indexable
 	 24 - 31 compiled method"
-	<var: 'header' type: #usqLong>
-	^header >> self formatShift bitAnd: self formatMask
+	<inline: true>
+	instFormat >= self firstByteFormat ifTrue: "this is likely the common case"
+		[^instFormat bitAnd: -8].
+	instFormat <= self sixtyFourBitIndexableFormat ifTrue:
+		[^instFormat].
+	instFormat < self firstShortFormat ifTrue:
+		[^instFormat bitAnd: -2].
+	^instFormat bitAnd: -4
