@@ -1,8 +1,8 @@
 # deploy if repository is pharo-project/pharo-vm
-#if [ "$APPVEYOR_REPO_NAME" != "pharo-project/pharo-vm" ]; then
-#	echo "Trying to deploy in repository: $APPVEYOR_REPO_NAME. Skipping."
-#	exit 
-#fi
+if [ "$APPVEYOR_REPO_NAME" != "pharo-project/pharo-vm" ]; then
+	echo "Trying to deploy in repository: $APPVEYOR_REPO_NAME. Skipping."
+	exit 
+fi
 
 # deploy on master branch
 if [ "$APPVEYOR_REPO_BRANCH" != "master" ]; then

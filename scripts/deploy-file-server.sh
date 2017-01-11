@@ -32,4 +32,7 @@ esac
 
 productName=`find . -name "pharo-*.zip"`
 scp $productName files.pharo.org:$destDir/$productName
-scp $productName files.pharo.org:$destDir/latest.zip
+if [ "$HEARTBEAT" = "threaded" ]; then 
+	SUFFIX="-threaded"
+fi
+scp $productName files.pharo.org:$destDir/latest$SUFFIX.zip
