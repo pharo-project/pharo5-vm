@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "StackInterpreterSimulatorTests",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

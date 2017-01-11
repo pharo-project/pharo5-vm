@@ -346,7 +346,7 @@
 		"sendInvokeCallback:Stack:Registers:Jmpbuf:" : "eem 7/7/2011 16:04",
 		"sendInvokeCallbackContext:" : "eem 7/7/2011 16:04",
 		"setCogVMFlags:" : "eem 9/30/2015 10:51",
-		"setDesiredCogCodeSize:" : "eem 3/27/2009 10:11",
+		"setDesiredCogCodeSize:" : "eem 1/10/2017 11:12",
 		"setIFrameHasContext:" : "eem 6/21/2012 12:37",
 		"setImageHeaderFlagsFrom:" : "cb 8/29/2016 10:31",
 		"setMethod:" : "eem 2/19/2012 10:06",

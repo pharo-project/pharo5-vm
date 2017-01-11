@@ -9,7 +9,7 @@ formatMask
 	 4 = weak indexable objects with inst vars (WeakArray et al)
 	 5 = weak non-indexable objects with inst vars (ephemerons) (Ephemeron)
 	 6,7,8 unused
-	 9 (?) 64-bit indexable
+	 9 64-bit indexable
 	 10 - 11 32-bit indexable
 	 12 - 15 16-bit indexable
 	 16 - 23 byte indexable

@@ -1,0 +1,8 @@
+{
+	"class" : {
+		"imageNameForTests" : "eem 1/10/2017 11:51",
+		"preenImage" : "eem 1/10/2017 11:21" },
+	"instance" : {
+		"initialize" : "eem 1/10/2017 12:12",
+		"initializedVM" : "eem 1/10/2017 12:18",
+		"testIncompactibleHeap" : "eem 1/10/2017 13:03" } }
