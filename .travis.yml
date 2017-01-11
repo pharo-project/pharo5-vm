@@ -105,7 +105,7 @@ deploy:
       repo: pharo-project/pharo-vm
   - provider: script
     skip_cleanup: true
-    script: sh ./scripts/deploy-file-server.sh
+    script: sh ./scripts/deploy-files.pharo.org.sh
     on:
       branch: master
       repo: pharo-project/pharo-vm

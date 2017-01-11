@@ -10,4 +10,4 @@ if [ "$APPVEYOR_REPO_BRANCH" != "master" ]; then
 	exit 
 fi
 
-sh `dirname $0`/deploy-file-server.sh
+sh `dirname $0`/deploy-files.pharo.org.sh
