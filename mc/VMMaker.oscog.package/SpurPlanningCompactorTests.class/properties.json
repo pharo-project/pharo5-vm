@@ -9,6 +9,6 @@
 		"emptyVM" ],
 	"name" : "SpurPlanningCompactorTests",
 	"pools" : [
-		 ],
+		"VMSqueakClassIndices" ],
 	"super" : "TestCase",
 	"type" : "normal" }

@@ -15,7 +15,7 @@
 		"firstMobileObject",
 		"lastMobileObject",
 		"savedFirstFieldsSpace",
-		"savedFirstFieldsSpaceWasAllocated",
+		"savedFirstFieldsSpaceNotInOldSpace",
 		"firstFieldOfRememberedSet",
 		"interestingObj",
 		"anomaly",

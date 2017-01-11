@@ -4,4 +4,6 @@ useEdenForSavedFirstFieldsSpace
 	<inline: true>
 	savedFirstFieldsSpace
 		start: scavenger eden start;
-		limit: scavenger eden limit
+		limit: scavenger eden limit.
+	savedFirstFieldsSpaceNotInOldSpace := true.
+	self deny: self savedFirstFieldsSpaceWasAllocated

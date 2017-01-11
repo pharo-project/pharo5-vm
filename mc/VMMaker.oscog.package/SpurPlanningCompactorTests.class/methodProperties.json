@@ -1,8 +1,10 @@
 {
 	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 1/11/2017 10:37",
 		"imageNameForTests" : "eem 1/10/2017 11:51",
 		"preenImage" : "eem 1/10/2017 11:21" },
 	"instance" : {
 		"initialize" : "eem 1/10/2017 12:12",
-		"initializedVM" : "eem 1/10/2017 12:18",
-		"testIncompactibleHeap" : "eem 1/10/2017 13:03" } }
+		"initializedVM" : "eem 1/11/2017 09:39",
+		"testIncompactibleHeap" : "eem 1/11/2017 09:43",
+		"testRunOfContiguousPinnedObjects" : "eem 1/11/2017 10:24" } }

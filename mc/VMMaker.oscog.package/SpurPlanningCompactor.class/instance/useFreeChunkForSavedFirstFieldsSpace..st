@@ -6,4 +6,6 @@ useFreeChunkForSavedFirstFieldsSpace: highestSuitableFreeBlock
 	<inline: true>
 	savedFirstFieldsSpace
 		start: highestSuitableFreeBlock + (manager freeChunkLargerIndex * manager bytesPerOop);
-		limit: (manager addressAfter: highestSuitableFreeBlock)
+		limit: (manager addressAfter: highestSuitableFreeBlock).
+	savedFirstFieldsSpaceNotInOldSpace := false.
+	self deny: self savedFirstFieldsSpaceWasAllocated

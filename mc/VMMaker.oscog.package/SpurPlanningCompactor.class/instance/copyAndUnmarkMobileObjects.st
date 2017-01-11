@@ -18,20 +18,23 @@ copyAndUnmarkMobileObjects
 		 self assert: (previousPin
 						ifNil: [toFinger <= (manager startOfObject: o)]
 						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
-		 self assert: (savedFirstFieldsSpaceWasAllocated
-					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
-					or: [toFinger < top]]).
+		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue:
 					[(manager isSegmentBridge: o) ifFalse:
 						[manager setIsMarkedOf: o to: false.
 						 manager segmentManager notePinned: o].
-					 previousPin ifNotNil:
+					 [previousPin notNil and: [previousPin ~= o]] whileTrue:
 						[| limit |
 						 limit := manager startOfObject: previousPin.
-						 manager addFreeChunkWithBytes: limit - toFinger at: toFinger.
+						 self assert: (limit - toFinger >= (manager allocationUnit * 2) or: [limit = toFinger]).
+						 limit > toFinger ifTrue:
+							[manager addFreeChunkWithBytes: limit - toFinger at: toFinger.].
 						 toFinger := manager addressAfter: previousPin.
+						 previousPin := manager objectStartingAt: toFinger.
+						 ((manager isPinned: previousPin) and: [manager isMarked: previousPin]) ifFalse:
+							[previousPin := nil].
 						 self assert: toFinger <= (manager startOfObject: o)].
 					 previousPin := o]
 				ifFalse:

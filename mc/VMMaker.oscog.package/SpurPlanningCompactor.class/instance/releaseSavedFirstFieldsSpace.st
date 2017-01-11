@@ -1,8 +1,7 @@
 space management
 releaseSavedFirstFieldsSpace
 	<inline: true>
-	savedFirstFieldsSpaceWasAllocated ifTrue:
+	self savedFirstFieldsSpaceWasAllocated ifTrue:
 		[manager
 			sqDeallocateMemorySegmentAt: savedFirstFieldsSpace start asVoidPointer
-			OfSize: savedFirstFieldsSpace limit - savedFirstFieldsSpace start.
-		 savedFirstFieldsSpaceWasAllocated := false]
+			OfSize: savedFirstFieldsSpace limit - savedFirstFieldsSpace start]

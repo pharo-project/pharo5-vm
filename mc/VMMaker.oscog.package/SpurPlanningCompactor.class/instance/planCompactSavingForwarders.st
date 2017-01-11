@@ -21,16 +21,18 @@ planCompactSavingForwarders
 		 self assert: (previousPin
 						ifNil: [toFinger <= (manager startOfObject: o)]
 						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
-		 self assert: (savedFirstFieldsSpaceWasAllocated
-					or: [savedFirstFieldsSpace limit <= manager firstObject asUnsignedInteger
-					or: [toFinger < top]]).
+		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
-					[previousPin ifNotNil:
-						[self assert: (manager startOfObject: previousPin) - toFinger >= (manager allocationUnit * 2).
+					[[previousPin notNil and: [previousPin ~= o]] whileTrue:
+						[self assert: ((manager startOfObject: previousPin) - toFinger >= (manager allocationUnit * 2)
+									or: [(manager startOfObject: previousPin) = toFinger]).
 						 toFinger := manager addressAfter: previousPin.
-						 self assert: toFinger <= (manager startOfObject: o)].
+						 previousPin := manager objectStartingAt: toFinger.
+						 ((manager isPinned: previousPin) and: [manager isMarked: previousPin])
+							ifTrue: [toFinger := manager addressAfter: previousPin]
+							ifFalse: [previousPin := nil]].
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
