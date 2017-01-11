@@ -6,7 +6,7 @@ lowcodePrimitiveInt32ToPointer
 	<var: #result type: #'char*' >
 	value := self internalPopStackInt32.
 
-	result := self cCoerce: value to: 'uintptr_t'.
+	result := self cCoerce: (self cCoerce: value to: 'uintptr_t') to: 'char*'.
 
 	self internalPushPointer: result.
 
