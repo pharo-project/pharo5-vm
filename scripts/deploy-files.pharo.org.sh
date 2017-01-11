@@ -30,7 +30,11 @@ case "${ARCH}" in
 		exit 1
 esac
 
-productName=`find . -name "pharo-*.zip"`
+productName=`ls ./pharo-*.zip`
+if [ -z "$productName" ]; then 
+	echo "Product not found in `pwd`. Aborting deploy."
+	exit 1
+fi 
 scp $productName files.pharo.org:$destDir/$productName
 if [ "$HEARTBEAT" = "threaded" ]; then 
 	SUFFIX="-threaded"
