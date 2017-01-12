@@ -8,12 +8,13 @@ if [ "$SRC_ARCH" = "x86_64" ]; then
 fi
 
 if [ "$ARCH" = "linux32ARMv6" ]; then
-	echo "Skipping tests for ARMv6."
+	echo "Skipping tests for ARMv6 (It would be too long)."
 	exit
 fi
 
 if [ "$HEARTBEAT" = "threaded" ]; then
-	echo "Skipping tests for threaded heartbeat."
+	echo "Skipping tests for threaded (It requires a special linux configuration)."
+	exit
 fi
 
 # UNZIP packed VM
