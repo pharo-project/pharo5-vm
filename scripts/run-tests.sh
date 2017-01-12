@@ -28,7 +28,7 @@ if [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "linux" ]]; then
 elif [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "osx" ]]; then
 	VM_NAME="Pharo"
 elif [ "$APPVEYOR" = "True" ]; then
-	VM_NAME="PharoConsole"
+	VM_NAME="PharoConsole.exe"
 else
     echo "Unsupported OS";
     exit 1;
