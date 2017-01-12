@@ -1,4 +1,4 @@
 initialization
 initialize
-	numSegments := numSegInfos := 0.
+	numSegments := numSegInfos := sweepIndex := 0.
 	canSwizzle := false

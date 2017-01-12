@@ -21,8 +21,14 @@ updatePointersInMobileObjects
 			[(manager isPinned: o)
 				ifTrue: "The empty gaps between two adjacent pinned objects (when not filled below) are freed."
 					[self updatePointersIn: o.
-					 previousPin ifNotNil:
-						[toFinger := manager addressAfter: previousPin].
+					 [previousPin notNil and: [previousPin ~= o]] whileTrue:
+						[self assert: ((manager startOfObject: previousPin) - toFinger >= (manager allocationUnit * 2)
+									or: [(manager startOfObject: previousPin) = toFinger]).
+						 toFinger := manager addressAfter: previousPin.
+						 previousPin := manager objectStartingAt: toFinger.
+						 ((manager isPinned: previousPin) and: [manager isMarked: previousPin]) ifFalse:
+							[previousPin := nil].
+						 self assert: toFinger <= (manager startOfObject: o)].
 					 previousPin := o]
 				ifFalse:
 					[| availableSpace bytes next |
