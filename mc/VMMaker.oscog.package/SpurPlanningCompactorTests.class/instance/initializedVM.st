@@ -1,7 +1,7 @@
 private
 initializedVM
 	| newVM |
-	newVM := emptyVM cloneSimulation.
+	newVM := self resources anyOne current emptyVM cloneSimulation.
 	newVM
 		openOn: self class imageNameForTests extraMemory: 0;
 		initStackPages.

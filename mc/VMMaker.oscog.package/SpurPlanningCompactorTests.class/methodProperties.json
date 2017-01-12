@@ -2,9 +2,11 @@
 	"class" : {
 		"defaultIntegerBaseInDebugger" : "eem 1/11/2017 10:37",
 		"imageNameForTests" : "eem 1/10/2017 11:51",
-		"preenImage" : "eem 1/10/2017 11:21" },
+		"preenImage" : "eem 1/10/2017 11:21",
+		"resources" : "eem 1/12/2017 10:14" },
 	"instance" : {
-		"initialize" : "eem 1/10/2017 12:12",
-		"initializedVM" : "eem 1/11/2017 09:39",
+		"initializedVM" : "eem 1/12/2017 10:18",
 		"testIncompactibleHeap" : "eem 1/11/2017 09:43",
-		"testRunOfContiguousPinnedObjects" : "eem 1/11/2017 10:24" } }
+		"testRunOfContiguousPinnedObjects" : "eem 1/12/2017 10:23",
+		"testRunOfNonContiguousPinnedObjects" : "eem 1/12/2017 10:23",
+		"testRunOfNonContiguousPinnedObjectsWithSpaceInBetween" : "eem 1/12/2017 10:40" } }

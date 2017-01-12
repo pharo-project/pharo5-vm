@@ -7,7 +7,7 @@ freeFrom: toFinger upTo: limit previousPin: previousPinOrNil
 	effectiveToFinger := toFinger.
 	previousPinOrNil ifNotNil:
 		[manager addFreeChunkWithBytes: (manager startOfObject: previousPinOrNil) - toFinger at: toFinger.
-		 firstUnpinned := self firstUnpinnedObjectFollowing: previousPinOrNil.
+		 firstUnpinned := self unmarkPinnedObjectsAndFindFirstUnpinnedObjectFollowing: previousPinOrNil.
 		 firstUnpinned >= limit ifTrue:
 			[^self].
 		 effectiveToFinger := manager startOfObject: firstUnpinned].

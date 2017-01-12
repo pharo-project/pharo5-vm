@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
-	"name" : "SpurPlanningCompactorTests",
+		"emptyVM" ],
+	"name" : "SpurPlanningCompactorTestsImageResource",
 	"pools" : [
-		"VMSqueakClassIndices" ],
-	"super" : "TestCase",
+		 ],
+	"super" : "TestResource",
 	"type" : "normal" }
