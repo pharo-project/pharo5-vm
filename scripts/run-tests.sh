@@ -2,6 +2,20 @@
 
 set -ex
 
+if [ "$SRC_ARCH" = "x86_64" ]; then
+	echo "Skipping tests for 64bits (TEMPORAL)."
+	exit
+fi
+
+if [ "$ARCH" = "linux32ARMv6" ]; then
+	echo "Skipping tests for ARMv6."
+	exit
+fi
+
+if [ "$HEARTBEAT" = "threaded" ]; then
+	echo "Skipping tests for threaded heartbeat."
+fi
+
 # UNZIP packed VM
 VM_ARCHIVE=`ls pharo-*.zip`
 VM_DIR="results"

@@ -27,8 +27,6 @@ matrix:
   include:
     - os: osx
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
-      after_script:
-        - ./scripts/run-tests.sh
       after_deploy: 
         - ./scripts/deploy-after.sh
     - os: osx
@@ -77,8 +75,6 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
-      after_script:
-        - test `./scripts/run-tests.sh` = 0 && echo "SCRIPT OK"
     - os: linux
       env: ARCH="linux64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64" HEARTBEAT="threaded"
     - os: linux
@@ -95,6 +91,7 @@ script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
+  - ./scripts/run-tests.sh
 before_deploy: 
   - (cd scripts && sh ./deploy-key.sh)
   - ./scripts/deploy-before.sh
