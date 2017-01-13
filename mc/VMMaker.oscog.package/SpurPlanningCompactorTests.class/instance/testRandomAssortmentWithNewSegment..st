@@ -135,4 +135,4 @@ testRandomAssortmentWithNewSegment: random
 	"And the memory should shrink if the shrinkThreshold is low enough"
 	om shrinkThreshold: om growHeadroom.
 	om attemptToShrink.
-	self assert: om segmentManager numSegments = 1.
+	self assert: om segmentManager numSegments = 1
