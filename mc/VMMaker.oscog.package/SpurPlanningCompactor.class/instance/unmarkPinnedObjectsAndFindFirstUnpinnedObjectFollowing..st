@@ -1,5 +1,6 @@
 private
 unmarkPinnedObjectsAndFindFirstUnpinnedObjectFollowing: pinnedObj
+	<inline: true>
 	| nextObj |
 	self assert: (manager isPinned: pinnedObj).
 	nextObj := pinnedObj.

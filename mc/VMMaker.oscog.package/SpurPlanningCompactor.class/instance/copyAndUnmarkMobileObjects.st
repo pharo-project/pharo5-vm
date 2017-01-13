@@ -22,6 +22,9 @@ copyAndUnmarkMobileObjects
 						ifNil: [toFinger <= (manager startOfObject: o)]
 						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
 		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
+		 o > lastMobileObject ifTrue:
+			[self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
+			 ^true].
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue:

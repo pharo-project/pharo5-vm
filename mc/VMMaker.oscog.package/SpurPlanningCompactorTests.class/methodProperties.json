@@ -7,8 +7,8 @@
 	"instance" : {
 		"initializedVM" : "eem 1/12/2017 10:18",
 		"testIncompactibleHeap" : "eem 1/11/2017 09:43",
-		"testRandomAssortment:" : "eem 1/12/2017 13:15",
-		"testRandomAssortments" : "eem 1/12/2017 11:47",
+		"testRandomAssortment:" : "eem 1/12/2017 15:38",
+		"testRandomAssortments" : "eem 1/12/2017 15:41",
 		"testRunOfContiguousPinnedObjects" : "eem 1/12/2017 10:23",
 		"testRunOfNonContiguousPinnedObjects" : "eem 1/12/2017 10:23",
 		"testRunOfNonContiguousPinnedObjectsWithSpaceInBetween" : "eem 1/12/2017 10:40" } }
