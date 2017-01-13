@@ -10,6 +10,9 @@ validFreeTreeChunk: chunk parent: parent
 		[^'too small'].
 	parent ~= (self fetchPointer: self freeChunkParentIndex ofFreeChunk: chunk) ifTrue:
 		[^'bad parent'].
+
+	(segmentManager segmentContainingObj: chunk) ~~ (segmentManager segmentContainingObj: (self addressAfter: chunk)) ifTrue:
+		[^'not in one segment'].
 	(self validFreeTreeChunk: (self fetchPointer: self freeChunkSmallerIndex ofFreeChunk: chunk) parent: chunk) ifNotNil:
 		[:reason| ^reason].
 	(self validFreeTreeChunk: (self fetchPointer: self freeChunkLargerIndex ofFreeChunk: chunk) parent: chunk) ifNotNil:

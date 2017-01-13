@@ -1,14 +1,18 @@
 private
-testRandomAssortment: random
-	"Test that the compactor can handle a random assortment of live, pinned, dead, and free chunks."
-	| om lastObj obj expectedFreeSpace liveFill pinFill liveCount pinCount totalLive totalPinned pinned |
+testRandomAssortmentWithNewSegment: random
+	"Test that the compactor can handle a random assortment of live, pinned, dead, and free chunks,
+	 with some allocation in a new segment.  No live pinned objects are created in the new segment
+	 to obtain the situation that the last segment is entirely empty after compaction.  This tests shrinkage."
+	| om pig lastObj obj expectedFreeSpace liveFill pinFill liveCount pinCount totalLive totalPinned pinned |
 	random reset. "random is a read stream on 3000 random numbers; for repeatability"
 	om := self initializedVM objectMemory.
 	om allOldSpaceObjectsDo: [:o| om setIsMarkedOf: o to: true. lastObj := o].
+
 	pinFill := 16r99999900.
 	liveFill := 16r55AA0000.
 	liveCount := pinCount := expectedFreeSpace := 0.
 	pinned := Set new.
+
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
@@ -34,9 +38,35 @@ testRandomAssortment: random
 				 next >= 0.2
 					ifTrue: [om setIsMarkedOf: newObj to: false]
 					ifFalse: [om setObjectFree: newObj]]].
+
+	 pig := om allocateSlotsInOldSpace: (om numSlotsOfAny: om findLargestFreeChunk) format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+	 self deny: pig isNil.
+	 self assert: 0 equals: om bytesLeftInOldSpace.
+	 om growOldSpaceByAtLeast: om growHeadroom // 2.
+	 self assert: om growHeadroom equals: om bytesLeftInOldSpace + om bridgeSize.
+	 expectedFreeSpace := expectedFreeSpace + (om bytesInObject: pig).
+
+	1000 timesRepeat:
+		[| nSlots next newObj |
+		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+		 "No pinned objects in second segment."
+		 om fillObj: newObj numSlots: nSlots with: liveFill + (liveCount := liveCount + 1).
+		 (next := random next) >= 0.333
+			ifTrue:
+				[om setIsMarkedOf: newObj to: true.
+				 (om isPinned: newObj) ifTrue:
+					[pinned add: newObj]]
+			ifFalse: "dead or free"
+				[expectedFreeSpace := expectedFreeSpace + (om bytesInObject: newObj).
+				 liveCount := liveCount - 1.
+				 next >= 0.2
+					ifTrue: [om setIsMarkedOf: newObj to: false]
+					ifFalse: [om setObjectFree: newObj]]].
+
 	totalPinned := pinCount.
 	totalLive := liveCount.
-	self assert: totalPinned < (totalPinned + totalLive / 10). "should average 5%"
+	self assert: totalPinned < (totalPinned + totalLive / 20). "should average 2.5%"
 
 	"useful pre-compaction printing:"
 	false ifTrue:
@@ -94,6 +124,15 @@ testRandomAssortment: random
 							ifFalse: [liveFill + (liveCount := liveCount + 1)].
 		 1 to: (om numSlotsOf: obj) do:
 			[:i| self assert: expectedFill equals: (actualFill := om fetchPointer: i - 1 ofObject: obj)]].
-	"They should be the last objects..."
+	"the Last segment should be empty"
+	self assert: (om segmentManager isEmptySegment: (om segmentManager segments at: 1)).
+	"They should be the last objects, followed by a free object to the end fo the first segment, a bridge, then an empty segment with a single free object in it."
 	self assert: (om isFreeObject: (om objectAfter: obj)).
-	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: obj))
+	self assert: (om isSegmentBridge: (om objectAfter: (om objectAfter: obj))).
+	self assert: (om isFreeObject: (om objectAfter: (om objectAfter: (om objectAfter: obj)))).
+	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: (om objectAfter: (om objectAfter: obj)))).
+
+	"And the memory should shrink if the shrinkThreshold is low enough"
+	om shrinkThreshold: om growHeadroom.
+	om attemptToShrink.
+	self assert: om segmentManager numSegments = 1.
