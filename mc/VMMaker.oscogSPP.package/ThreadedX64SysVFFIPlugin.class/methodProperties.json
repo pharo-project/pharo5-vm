@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"ancilliaryClasses:" : "eem 2/20/2016 10:59",
+		"excludingPredefinedMacros" : "eem 2/16/2016 20:33",
+		"identifyingPredefinedMacros" : "eem 2/16/2016 20:37",
+		"initialize" : "eem 2/16/2016 19:33",
+		"moduleName" : "eem 2/16/2016 19:33",
+		"numFloatRegArgs" : "eem 2/16/2016 19:07",
+		"numRegArgs" : "eem 2/16/2016 19:23" },
+	"instance" : {
+		"ffiCalloutTo:SpecOnStack:in:" : "eem 12/15/2016 12:10",
+		"ffiPushStructure:ofSize:typeSpec:ofLength:in:" : "eem 2/19/2016 14:46",
+		"ffiReturnStruct:ofType:in:" : "eem 12/15/2016 12:05",
+		"returnStructInRegisters:" : "eem 2/18/2016 15:37" } }

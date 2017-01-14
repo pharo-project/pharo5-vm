@@ -1,0 +1,3 @@
+accessing
+firstShortFormat
+	^objectMemory firstShortFormat

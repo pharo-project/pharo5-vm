@@ -1,0 +1,3 @@
+initialization
+startOfMemory
+	self shouldNotImplement

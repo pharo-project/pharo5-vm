@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"primFailCode",
+		"remapBuffer",
+		"stack",
+		"method",
+		"argumentCount",
+		"bb",
+		"thisSessionID" ],
+	"name" : "InterpreterProxy",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+shiftForWord
+	^objectMemory shiftForWord

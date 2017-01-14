@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "CogVMSimulatorLSB",
+	"pools" : [
+		 ],
+	"super" : "CogVMSimulator",
+	"type" : "normal" }

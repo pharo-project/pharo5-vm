@@ -1,0 +1,3 @@
+translation
+isStructClass
+	^true

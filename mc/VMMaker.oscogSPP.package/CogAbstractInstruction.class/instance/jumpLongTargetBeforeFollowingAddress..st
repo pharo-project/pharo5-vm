@@ -1,0 +1,3 @@
+inline cacheing
+jumpLongTargetBeforeFollowingAddress: mcpc
+	^self subclassResponsibility

@@ -1,0 +1,21 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "cb 4/15/2016 14:58",
+	"instvars" : [
+		"numFixups",
+		"mergeSimStacksBase",
+		"nextFixup",
+		"scratchSimStack",
+		"scratchSpillBase",
+		"scratchOptStatus",
+		"ceSendMustBeBooleanAddTrueLongTrampoline",
+		"ceSendMustBeBooleanAddFalseLongTrampoline" ],
+	"name" : "RegisterAllocatingCogit",
+	"pools" : [
+		 ],
+	"super" : "StackToRegisterMappingCogit",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+testing
+isLargePositiveIntegerObject: objectOrientedPointer
+	^objectOrientedPointer isMemberOf: LargePositiveInteger

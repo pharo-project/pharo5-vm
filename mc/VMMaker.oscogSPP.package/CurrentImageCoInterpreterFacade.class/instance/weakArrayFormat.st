@@ -1,0 +1,3 @@
+accessing
+weakArrayFormat
+	^objectMemory weakArrayFormat

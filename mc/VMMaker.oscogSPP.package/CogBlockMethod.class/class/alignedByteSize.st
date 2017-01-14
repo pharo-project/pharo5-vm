@@ -1,0 +1,3 @@
+accessing
+alignedByteSize
+	self shouldNotImplement

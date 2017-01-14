@@ -1,0 +1,1 @@
+I am a variant of the StackInterpreter that can co-exist with the Cog JIT.  I interpret unjitted methods, either because they have been found for the first time or because they are judged to be too big to JIT.  See CogMethod class's comment for method interoperability.

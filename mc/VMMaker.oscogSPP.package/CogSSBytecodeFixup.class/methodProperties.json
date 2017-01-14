@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"initialize" : "cb 4/15/2016 17:36" },
+	"instance" : {
+		"asIntegerPtr" : "nice 7/8/2016 02:33",
+		"asUnsignedInteger" : "eem 12/11/2010 15:50",
+		"asUnsignedIntegerPtr" : "nice 7/8/2016 02:31",
+		"becomeMergeFixup" : "cb 4/15/2016 17:32",
+		"becomeNonMergeFixup" : "cb 4/15/2016 17:32",
+		"isBackwardBranchFixup" : "cb 4/15/2016 17:39",
+		"isMergeFixup" : "cb 4/17/2016 11:48",
+		"isMergeFixupOrIsFixedUp" : "cb 4/15/2016 17:39",
+		"isNonMergeFixup" : "cb 4/16/2016 18:58",
+		"isNonMergeFixupOrNotAFixup" : "cb 4/15/2016 17:36",
+		"needsFixup" : "cb 4/15/2016 17:29",
+		"needsFixupOrIsFixedUp" : "cb 4/15/2016 17:48",
+		"notYetFixedUp" : "cb 4/15/2016 17:42",
+		"printStateOn:" : "eem 12/2/2016 11:48",
+		"reinitialize" : "eem 09/27/2016 11:20",
+		"setIsBackwardBranchFixup" : "eem 09/27/2016 11:20",
+		"simNativeStackPtr" : "RonieSalgado 4/29/2016 16:36",
+		"simNativeStackPtr:" : "RonieSalgado 4/29/2016 16:36",
+		"simNativeStackSize" : "RonieSalgado 4/29/2016 16:37",
+		"simNativeStackSize:" : "RonieSalgado 4/29/2016 16:37",
+		"simStackPtr" : "eem 11/22/2010 14:31",
+		"simStackPtr:" : "eem 11/22/2010 14:31" } }

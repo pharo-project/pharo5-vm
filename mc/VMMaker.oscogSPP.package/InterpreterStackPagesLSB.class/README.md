@@ -1,0 +1,1 @@
+I am a class that helps simulate the StackInterpreter's stack organization on little-endian platforms.

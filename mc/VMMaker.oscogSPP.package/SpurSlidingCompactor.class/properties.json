@@ -1,0 +1,19 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 12/17/2016 15:30",
+	"instvars" : [
+		"manager",
+		"scavenger",
+		"coInterpreter",
+		"compactedCopySpace" ],
+	"name" : "SpurSlidingCompactor",
+	"pools" : [
+		"SpurMemoryManagementConstants",
+		"VMBasicConstants",
+		"VMSpurObjectRepresentationConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

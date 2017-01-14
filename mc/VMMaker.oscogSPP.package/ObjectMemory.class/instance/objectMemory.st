@@ -1,0 +1,4 @@
+simulation
+objectMemory
+	<doNotGenerate>
+	^self

@@ -1,0 +1,3 @@
+testing
+isTMethod
+	^true

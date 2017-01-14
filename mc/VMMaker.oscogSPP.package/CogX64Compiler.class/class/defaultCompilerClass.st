@@ -1,0 +1,3 @@
+translation
+defaultCompilerClass
+	^CogInLineLiteralsX64Compiler

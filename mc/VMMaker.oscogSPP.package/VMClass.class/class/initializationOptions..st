@@ -1,0 +1,3 @@
+initialization
+initializationOptions: optionsDictionary
+	initializationOptions := optionsDictionary

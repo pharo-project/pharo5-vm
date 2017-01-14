@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/23/2003 11:17",
+	"instvars" : [
+		"localStructDef",
+		"structDefDefine" ],
+	"name" : "CCodeGeneratorGlobalStructure",
+	"pools" : [
+		 ],
+	"super" : "CCodeGenerator",
+	"type" : "normal" }

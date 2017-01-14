@@ -1,0 +1,3 @@
+printing
+space
+	^coInterpreter space

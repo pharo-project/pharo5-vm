@@ -1,0 +1,31 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"FoxCallerContext",
+		"FoxCallerSavedIP",
+		"FoxFrameFlags",
+		"FoxIFReceiver",
+		"FoxIFSavedIP",
+		"FoxIFrameFlags",
+		"FoxMFReceiver",
+		"FoxMethod",
+		"FoxReceiver",
+		"FoxSavedFP",
+		"FoxThisContext",
+		"FrameSlots",
+		"IFrameSlots",
+		"MFMethodFlagHasContextFlag",
+		"MFMethodFlagIsBlockFlag",
+		"MFMethodFlagsMask",
+		"MFMethodMask",
+		"MFrameSlots" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMStackFrameOffsets",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

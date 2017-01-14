@@ -1,0 +1,3 @@
+api characterization
+hasSpurMemoryManagerAPI
+	^false

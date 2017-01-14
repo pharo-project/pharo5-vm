@@ -1,0 +1,1 @@
+Variation of TMethod node of the Smalltalk C Code Generator, used in conjunction with TestCodeGenerator and TestInterpreterPlugin to generate named primitives with type coercion specifications.

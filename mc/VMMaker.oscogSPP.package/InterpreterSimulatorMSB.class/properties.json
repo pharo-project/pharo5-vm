@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "InterpreterSimulatorMSB",
+	"pools" : [
+		 ],
+	"super" : "InterpreterSimulator",
+	"type" : "normal" }

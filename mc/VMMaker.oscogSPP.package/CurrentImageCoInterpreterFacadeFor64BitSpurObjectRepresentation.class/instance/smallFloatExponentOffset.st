@@ -1,0 +1,3 @@
+accessing
+smallFloatExponentOffset
+	^objectMemory smallFloatExponentOffset

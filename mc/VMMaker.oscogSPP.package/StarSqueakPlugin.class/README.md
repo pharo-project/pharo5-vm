@@ -1,0 +1,1 @@
+This plugin defines primitives accelerators to support StarSqueak. The plugin library, usually named "StarSqueakPlugin", should be put in the same folder as the Squeak interpreter. If this plugin is not available the primitives will still work, but they will be run much more slowly, since they will be running as Squeak code.

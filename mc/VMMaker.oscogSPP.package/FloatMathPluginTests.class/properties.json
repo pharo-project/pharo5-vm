@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"random" ],
+	"name" : "FloatMathPluginTests",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

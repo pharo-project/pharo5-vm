@@ -1,0 +1,3 @@
+debugger
+defaultIntegerBaseInDebugger
+	^VMClass defaultIntegerBaseInDebugger

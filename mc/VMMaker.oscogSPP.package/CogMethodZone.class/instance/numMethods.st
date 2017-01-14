@@ -1,0 +1,4 @@
+accessing
+numMethods
+	<api>
+	^methodCount

@@ -1,0 +1,16 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"getByteFunctional" : "ar 3/11/2009 00:34",
+		"getByteFunctionalAt:" : "ar 3/11/2009 00:42",
+		"getByteNonFunctional" : "ar 3/11/2009 00:39",
+		"getByteNonFunctionalAt:" : "ar 3/11/2009 00:42",
+		"testTypePropagationBasic" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicAt" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicFunctional" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicFunctionalAt" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicNoPropagate" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicNoPropagateAt" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicNoPropagateFunctional" : "ar 3/11/2009 00:43",
+		"testTypePropagationBasicNoPropagateFunctionalAt" : "ar 3/11/2009 00:43" } }

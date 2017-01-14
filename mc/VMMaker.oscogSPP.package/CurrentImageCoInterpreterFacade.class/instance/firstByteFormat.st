@@ -1,0 +1,3 @@
+accessing
+firstByteFormat
+	^objectMemory firstByteFormat

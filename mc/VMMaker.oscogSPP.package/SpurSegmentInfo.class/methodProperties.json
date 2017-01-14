@@ -1,0 +1,19 @@
+{
+	"class" : {
+		"instVarNamesAndTypesForTranslationDo:" : "eem 10/5/2013 15:05" },
+	"instance" : {
+		"containsPinned" : "eem 10/21/2013 09:17",
+		"containsPinned:" : "eem 10/21/2013 09:17",
+		"initialize" : "eem 10/21/2013 09:16",
+		"lastFreeObject" : "eem 2/12/2014 17:16",
+		"lastFreeObject:" : "eem 2/12/2014 17:16",
+		"printOn:" : "eem 11/16/2013 08:03",
+		"savedSegSize" : "eem 2/12/2014 17:11",
+		"savedSegSize:" : "eem 2/12/2014 17:11",
+		"segLimit" : "eem 11/11/2013 16:44",
+		"segSize" : "eem 10/6/2013 10:29",
+		"segSize:" : "eem 10/6/2013 10:29",
+		"segStart" : "eem 10/12/2013 11:25",
+		"segStart:" : "eem 10/12/2013 11:25",
+		"swizzle" : "eem 10/5/2013 15:00",
+		"swizzle:" : "eem 10/5/2013 15:00" } }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins-FFI",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 2/17/2016 20:03",
+	"instvars" : [
+		 ],
+	"name" : "ThreadedX64SysVFFIPlugin",
+	"pools" : [
+		 ],
+	"super" : "ThreadedX64FFIPlugin",
+	"type" : "normal" }

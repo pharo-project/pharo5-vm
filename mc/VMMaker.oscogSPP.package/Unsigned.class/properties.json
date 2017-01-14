@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SmartSyntaxPlugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/5/2003 12:21",
+	"instvars" : [
+		 ],
+	"name" : "Unsigned",
+	"pools" : [
+		 ],
+	"super" : "Behavior",
+	"type" : "normal" }

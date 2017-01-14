@@ -1,0 +1,3 @@
+accessing
+quickPrimitiveGeneratorFor: aQuickPrimitiveIndex
+	^coInterpreter quickPrimitiveGeneratorFor: aQuickPrimitiveIndex

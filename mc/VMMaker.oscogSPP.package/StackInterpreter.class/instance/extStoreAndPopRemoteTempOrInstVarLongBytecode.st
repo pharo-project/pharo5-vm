@@ -1,0 +1,4 @@
+stack bytecodes
+extStoreAndPopRemoteTempOrInstVarLongBytecode
+	self extStoreRemoteTempOrInstVarLongBytecode.
+	self internalPop: 1

@@ -1,0 +1,3 @@
+accessing
+numSmallIntegerTagBits
+	^1

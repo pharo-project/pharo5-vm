@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogX64CompilerForTests",
+	"pools" : [
+		 ],
+	"super" : "CogInLineLiteralsX64Compiler",
+	"type" : "normal" }

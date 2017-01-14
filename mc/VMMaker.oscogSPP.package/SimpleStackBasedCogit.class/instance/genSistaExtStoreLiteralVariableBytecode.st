@@ -1,0 +1,3 @@
+bytecode generators
+genSistaExtStoreLiteralVariableBytecode
+	^ self genSistaExtStoreLiteralVariableBytecodePopBoolean: false

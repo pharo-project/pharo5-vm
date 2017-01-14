@@ -1,0 +1,3 @@
+accessing
+segLimit
+	^segSize + segStart

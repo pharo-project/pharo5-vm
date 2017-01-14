@@ -1,0 +1,3 @@
+accessing
+sizeOfLongStoreTempBytecode: methodHeaderOop 
+	^coInterpreter sizeOfLongStoreTempBytecode: methodHeaderOop

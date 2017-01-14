@@ -1,0 +1,3 @@
+testing
+scavengeInProgress
+	^gcPhaseInProgress == ScavengeInProgress

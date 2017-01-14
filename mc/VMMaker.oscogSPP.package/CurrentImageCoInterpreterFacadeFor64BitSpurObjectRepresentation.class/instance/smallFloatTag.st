@@ -1,0 +1,3 @@
+accessing
+smallFloatTag
+	^objectMemory smallFloatTag

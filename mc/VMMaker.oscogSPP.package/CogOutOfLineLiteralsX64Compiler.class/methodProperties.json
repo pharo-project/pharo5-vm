@@ -1,0 +1,8 @@
+{
+	"class" : {
+		"initializeAbstractRegistersSysV" : "eem 11/28/2016 18:05",
+		"initializeAbstractRegistersWin64" : "eem 11/28/2016 18:06",
+		"isRISCTempRegister:" : "eem 12/25/2015 18:47" },
+	"instance" : {
+		"availableRegisterOrNoneFor:" : "cb 4/16/2016 15:29",
+		"isPCDependent" : "eem 9/18/2015 09:12" } }

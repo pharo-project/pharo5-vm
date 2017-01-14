@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 11/25/2013 14:47",
+	"instvars" : [
+		"cogit" ],
+	"name" : "Spur32BitCoMemoryManager",
+	"pools" : [
+		"CogMethodConstants" ],
+	"super" : "Spur32BitMemoryManager",
+	"type" : "normal" }

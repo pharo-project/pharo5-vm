@@ -1,0 +1,3 @@
+security
+ioCanWriteImage
+	^true

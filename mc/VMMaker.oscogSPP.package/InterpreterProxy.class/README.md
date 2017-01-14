@@ -1,0 +1,2 @@
+This class should provide the definition of what interpreter support plugins need and can have access to. Note that the proxy related files platforms - Cross - vm - sqVirtualMachine.[ch] are kept under the SVN tree at www.squeakvm.org .
+The main use of the class is to support the vm simulator

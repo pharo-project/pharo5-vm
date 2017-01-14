@@ -1,0 +1,5 @@
+class initialization
+initializeWithOptions: optionsDictionary
+
+	super initializeWithOptions: optionsDictionary.
+	self initializeSimStackConstants

@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"majorNO" : "sr 6/25/2001 20:49",
+		"minorNO" : "sr 6/25/2001 20:50",
+		"moduleNameAndVersion" : "sr 4/15/2001 17:44",
+		"version" : "sr 6/25/2001 20:42",
+		"versionNO" : "sr 6/25/2001 20:46",
+		"versionString" : "NS 8/8/2001 15:31" },
+	"instance" : {
+		"cSquaredDistanceFrom:to:" : "eem 9/9/2011 16:04",
+		"cSubstAngleFactorFrom:to:" : "sr 6/5/2001 06:53",
+		"majorNO" : "NS 7/12/2001 11:54",
+		"minorNO" : "NS 7/12/2001 11:54",
+		"primSameClassAbsoluteStrokeDistanceMyPoints:otherPoints:myVectors:otherVectors:mySquaredLengths:otherSquaredLengths:myAngles:otherAngles:maxSizeAndReferenceFlag:rowBase:rowInsertRemove:rowInsertRemoveCount:" : "eem 9/9/2011 16:05",
+		"primVersionNO" : "sr 6/25/2001 20:39" } }

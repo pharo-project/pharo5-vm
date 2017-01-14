@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"emptyVM" ],
+	"name" : "SpurPlanningCompactorTestsImageResource",
+	"pools" : [
+		 ],
+	"super" : "TestResource",
+	"type" : "normal" }

@@ -1,0 +1,20 @@
+{
+	"category" : "VMMaker-Multithreading",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"AWOLProcessesIncrement",
+		"CTMAssignableOrInVM",
+		"CTMInitializing",
+		"CTMUnavailable",
+		"CTMWantingOwnership",
+		"ThreadIdIndex",
+		"ThreadIdMask" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "VMThreadingConstants",
+	"pools" : [
+		 ],
+	"super" : "SharedPool",
+	"type" : "normal" }

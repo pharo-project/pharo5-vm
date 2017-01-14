@@ -1,0 +1,12 @@
+{
+	"class" : {
+		"ccg:prolog:expr:index:" : "eem 1/30/2015 12:27",
+		"ccgDeclareCForVar:" : "ikp 3/31/2005 14:20" },
+	"instance" : {
+		"addBreakpoint:" : "eem 12/24/2015 12:59",
+		"coerceTo:sim:" : "di 5/9/2004 09:55",
+		"isActiveBreakpoint" : "eem 12/24/2015 11:53",
+		"isBreakpointFor:" : "eem 12/24/2015 11:53",
+		"menuPrompt" : "eem 12/24/2015 13:10",
+		"removeBreakpoint:" : "eem 12/24/2015 13:00",
+		"singleStepRequiredToTriggerIn:" : "eem 12/24/2015 12:39" } }
