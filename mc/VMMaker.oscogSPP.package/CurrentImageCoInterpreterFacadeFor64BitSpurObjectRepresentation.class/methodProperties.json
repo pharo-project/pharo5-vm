@@ -1,0 +1,11 @@
+{
+	"class" : {
+		"objectMemoryClass" : "eem 9/22/2015 19:57",
+		"objectRepresentationClass" : "eem 9/22/2015 19:58" },
+	"instance" : {
+		"objectForOop:" : "eem 12/2/2015 14:47",
+		"oopForObject:" : "eem 12/2/2015 15:01",
+		"smallFloatExponentOffset" : "eem 12/7/2015 22:36",
+		"smallFloatMantissaBits" : "eem 12/7/2015 22:36",
+		"smallFloatTag" : "eem 11/4/2015 09:18:58",
+		"specialObjectsArrayAddress" : "eem 10/23/2015 18:33:46" } }

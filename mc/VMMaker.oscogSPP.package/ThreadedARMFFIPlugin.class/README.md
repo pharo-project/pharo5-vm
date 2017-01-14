@@ -1,0 +1,1 @@
+This subclass is for the 32-bit ARM ABI.  It typically has 4 integer registers.

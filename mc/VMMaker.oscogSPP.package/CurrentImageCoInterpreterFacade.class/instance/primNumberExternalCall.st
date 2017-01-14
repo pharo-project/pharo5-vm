@@ -1,0 +1,3 @@
+accessing
+primNumberExternalCall
+	^coInterpreter primNumberExternalCall

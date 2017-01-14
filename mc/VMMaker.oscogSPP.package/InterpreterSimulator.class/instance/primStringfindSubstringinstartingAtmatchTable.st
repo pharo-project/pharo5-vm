@@ -1,0 +1,3 @@
+other primitives
+primStringfindSubstringinstartingAtmatchTable
+	^self primitiveFail

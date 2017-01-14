@@ -1,0 +1,33 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"EdgeInitTable",
+		"EdgeStepTable",
+		"FillTable",
+		"WideLineFillTable",
+		"WideLineWidthTable" ],
+	"commentStamp" : "tpr 5/5/2003 11:45",
+	"instvars" : [
+		"workBuffer",
+		"objBuffer",
+		"getBuffer",
+		"aetBuffer",
+		"spanBuffer",
+		"engine",
+		"formArray",
+		"engineStopped",
+		"geProfileTime",
+		"dispatchedValue",
+		"dispatchReturnValue",
+		"objUsed",
+		"doProfileStats",
+		"copyBitsFn",
+		"loadBBFn",
+		"bbPluginName" ],
+	"name" : "BalloonEngineBase",
+	"pools" : [
+		"BalloonEngineConstants" ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

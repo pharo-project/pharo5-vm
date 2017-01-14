@@ -1,0 +1,4 @@
+private
+ptrAddress
+
+	^ arrayBaseAddress + ptrOffset

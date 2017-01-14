@@ -1,0 +1,3 @@
+coercing
+asVoidPointer
+	^self

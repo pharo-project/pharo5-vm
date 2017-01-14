@@ -1,0 +1,3 @@
+simulation only
+simulatorClass
+	^Spur32BitMMLESimulator

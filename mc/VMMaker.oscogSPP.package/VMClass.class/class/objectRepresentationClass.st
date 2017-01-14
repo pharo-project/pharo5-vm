@@ -1,0 +1,3 @@
+accessing class hierarchy
+objectRepresentationClass
+	^self objectMemoryClass objectRepresentationClass

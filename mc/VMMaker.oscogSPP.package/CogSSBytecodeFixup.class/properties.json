@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"NeedsMergeFixupFlag",
+		"NeedsNonMergeFixupFlag",
+		"UnknownSimStackPtrFlag" ],
+	"commentStamp" : "eem 11/22/2016 08:39",
+	"instvars" : [
+		"simStackPtr",
+		"simNativeStackPtr",
+		"simNativeStackSize" ],
+	"name" : "CogSSBytecodeFixup",
+	"pools" : [
+		 ],
+	"super" : "CogBytecodeFixup",
+	"type" : "normal" }

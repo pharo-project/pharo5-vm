@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"dateAndTimeFrom:" : "eem 12/12/2016 11:18",
+		"implementation:isDifferentThan:" : "eem 12/12/2016 10:36",
+		"implementation:isNewerThan:" : "eem 12/12/2016 11:51",
+		"initializeWithOptions:" : "eem 12/12/2016 09:21",
+		"syncCodeIn:with:leavingUnchanged:" : "eem 12/12/2016 11:14",
+		"syncCodeWithSistaCogit" : "eem 12/12/2016 11:01" },
+	"instance" : {
+		"genCounterTripOnlyJumpIf:to:" : "eem 12/14/2016 15:03",
+		"genForwardersInlinedIdenticalOrNotIf:" : "eem 12/12/2016 16:05",
+		"genJumpIf:to:" : "eem 12/13/2016 08:19",
+		"genSpecialSelectorComparison" : "eem 12/12/2016 11:49" } }

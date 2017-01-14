@@ -1,0 +1,3 @@
+cogit compatibility
+objectMemory
+	^self

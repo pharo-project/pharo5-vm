@@ -1,0 +1,4 @@
+accessing
+nilObject
+	<api>
+	^nilObj

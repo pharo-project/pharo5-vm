@@ -1,0 +1,1 @@
+A plugin to provide fast read and write of .bmp files

@@ -1,0 +1,3 @@
+accessing
+newSpaceBytes
+	^self edenBytes

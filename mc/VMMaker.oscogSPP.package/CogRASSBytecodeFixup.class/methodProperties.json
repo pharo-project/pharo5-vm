@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"for:" : "cb 4/17/2016 17:00",
+		"instVarNamesAndTypesForTranslationDo:" : "cb 4/17/2016 17:00" },
+	"instance" : {
+		"cogit:" : "eem 11/29/2016 10:57",
+		"isReceiverResultRegSelf" : "eem 11/29/2016 10:56",
+		"isReceiverResultRegSelf:" : "eem 11/29/2016 10:56",
+		"mergeSimStack" : "cb 4/16/2016 09:17",
+		"mergeSimStack:" : "cb 4/16/2016 09:17",
+		"printSimStack" : "eem 11/25/2016 16:32",
+		"printStateOn:" : "eem 11/25/2016 16:33",
+		"reinitialize" : "eem 11/29/2016 10:55" } }

@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-PostProcessing",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"directory",
+		"interpreterFilename" ],
+	"name" : "Gnuifier",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

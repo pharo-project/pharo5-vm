@@ -1,0 +1,1 @@
+VMInterfaceConsistencyTests tests that the interpreter proxy implementations are consistent.

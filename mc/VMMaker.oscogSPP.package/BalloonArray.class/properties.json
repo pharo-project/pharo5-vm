@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"simArray" ],
+	"name" : "BalloonArray",
+	"pools" : [
+		 ],
+	"super" : "CArray",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation-Morphic",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 7/15/2015 09:48",
+	"instvars" : [
+		 ],
+	"name" : "SimulatorImageMorph",
+	"pools" : [
+		 ],
+	"super" : "ImageMorph",
+	"type" : "normal" }

@@ -1,0 +1,4 @@
+accessing
+setInitialised
+
+	isInitialised := true.

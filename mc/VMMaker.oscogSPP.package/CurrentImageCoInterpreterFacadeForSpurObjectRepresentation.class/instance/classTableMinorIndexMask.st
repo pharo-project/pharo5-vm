@@ -1,0 +1,3 @@
+accessing
+classTableMinorIndexMask
+	^objectMemory classTableMinorIndexMask

@@ -1,0 +1,3 @@
+primitive generators
+genPrimitiveImmediateAsInteger
+	self subclassResponsibility

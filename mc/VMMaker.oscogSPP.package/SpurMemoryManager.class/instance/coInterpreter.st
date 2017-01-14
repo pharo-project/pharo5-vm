@@ -1,0 +1,4 @@
+simulation
+coInterpreter
+	<doNotGenerate>
+	^coInterpreter

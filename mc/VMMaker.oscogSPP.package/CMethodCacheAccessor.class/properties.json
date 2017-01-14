@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"methodCacheArray",
+		"entrySize",
+		"functionPointerIndex" ],
+	"name" : "CMethodCacheAccessor",
+	"pools" : [
+		 ],
+	"super" : "CArrayOfLongsAccessor",
+	"type" : "normal" }

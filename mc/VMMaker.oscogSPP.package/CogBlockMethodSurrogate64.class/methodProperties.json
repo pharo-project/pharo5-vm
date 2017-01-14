@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"alignedByteSize" : "eem 11/3/2015 17:41:12" },
+	"instance" : {
+		"cbUsesInstVars" : "eem 6/4/2015 09:09",
+		"cbUsesInstVars:" : "eem 6/4/2015 09:09",
+		"cmIsUnlinked" : "eem 2/26/2009 16:48",
+		"cmIsUnlinked:" : "eem 2/26/2009 16:48",
+		"cmNumArgs" : "eem 10/9/2013 16:00",
+		"cmNumArgs:" : "eem 10/9/2013 16:00",
+		"cmRefersToYoung" : "eem 10/9/2013 16:00",
+		"cmRefersToYoung:" : "eem 10/9/2013 16:00",
+		"cmType" : "eem 10/9/2013 16:00",
+		"cmType:" : "eem 10/9/2013 16:00",
+		"cmUsageCount" : "eem 10/9/2013 16:00",
+		"cmUsageCount:" : "eem 10/9/2013 16:00",
+		"cmUsesPenultimateLit" : "eem 10/9/2013 16:00",
+		"cmUsesPenultimateLit:" : "eem 10/9/2013 16:00",
+		"cpicHasMNUCaseOrCMIsFullBlock" : "eem 4/14/2016 08:40",
+		"cpicHasMNUCaseOrCMIsFullBlock:" : "eem 4/14/2016 08:40",
+		"homeOffset" : "eem 1/9/2011 13:56",
+		"homeOffset:" : "eem 1/9/2011 13:56",
+		"padToWord" : "eem 9/28/2015 21:00",
+		"padToWord:" : "eem 9/28/2015 21:00",
+		"stackCheckOffset" : "eem 10/9/2013 16:00",
+		"stackCheckOffset:" : "eem 10/9/2013 16:00",
+		"startpc" : "eem 1/9/2011 08:20",
+		"startpc:" : "eem 1/9/2011 08:20" } }

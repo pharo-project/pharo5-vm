@@ -1,0 +1,1 @@
+A ThreadedFFICalloutStateForX64 is a holder for the callout state maintained while marshalling an FFI call on an X64 (x86-64) system.

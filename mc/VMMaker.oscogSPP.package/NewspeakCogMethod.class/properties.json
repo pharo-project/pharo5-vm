@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"nextMethodOrIRCs" ],
+	"name" : "NewspeakCogMethod",
+	"pools" : [
+		 ],
+	"super" : "CogMethod",
+	"type" : "normal" }

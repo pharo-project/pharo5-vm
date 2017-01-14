@@ -1,0 +1,1 @@
+This plugin pulls together a number of translatable methods with no particularly meaningful home. See class>translatedPrimitives for the list

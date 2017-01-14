@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation-Morphic",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SimulatorMorphicEventTests",
+	"pools" : [
+		"EventSensorConstants" ],
+	"super" : "TestCase",
+	"type" : "normal" }

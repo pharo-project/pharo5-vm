@@ -1,0 +1,1 @@
+This plugin implements the one crucial function for efficiently decompressing streams.

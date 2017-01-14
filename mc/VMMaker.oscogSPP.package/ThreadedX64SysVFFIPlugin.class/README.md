@@ -1,0 +1,3 @@
+This subclass is for the System V x86-64 ABI.  The System V ABI uses 6 integer registers and 8 double-precision floating-point registers.  See http://www.x86-64.org/documentation/abi.pdf.  It seems that Mac OS X and linux use draft version 0.90, http://people.freebsd.org/~obrien/amd64-elf-abi.pdf.
+
+Note that the System V x86-64 ABI decomposes structs of 2 eightbytes or smaller passed by value across available parameter registers.  double fields will be passed in an xmm register.

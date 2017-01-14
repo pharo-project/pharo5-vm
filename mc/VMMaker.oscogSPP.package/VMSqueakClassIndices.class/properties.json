@@ -1,0 +1,25 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ClassArrayCompactIndex",
+		"ClassBitmapCompactIndex",
+		"ClassBlockClosureCompactIndex",
+		"ClassBlockContextCompactIndex",
+		"ClassByteArrayCompactIndex",
+		"ClassByteStringCompactIndex",
+		"ClassFloatCompactIndex",
+		"ClassFullBlockClosureCompactIndex",
+		"ClassLargeNegativeIntegerCompactIndex",
+		"ClassLargePositiveIntegerCompactIndex",
+		"ClassMessageCompactIndex",
+		"ClassMethodContextCompactIndex" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "VMSqueakClassIndices",
+	"pools" : [
+		 ],
+	"super" : "VMBasicConstants",
+	"type" : "normal" }

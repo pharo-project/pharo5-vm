@@ -1,0 +1,3 @@
+interpreter access
+floatObjectOf: aFloat
+	self subclassResponsibility

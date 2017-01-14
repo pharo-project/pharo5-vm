@@ -1,0 +1,25 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/14/2015 12:06",
+	"instvars" : [
+		"stackLimit",
+		"headSP",
+		"headFP",
+		"baseFP",
+		"baseAddress",
+		"realStackLimit",
+		"lastAddress",
+		"trace",
+		"padToWord",
+		"nextPage",
+		"prevPage" ],
+	"name" : "CogStackPage",
+	"pools" : [
+		"VMBasicConstants",
+		"VMBytecodeConstants" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

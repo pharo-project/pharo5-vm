@@ -1,0 +1,3 @@
+accessing
+statIGCDeltaUsecs
+	^statIGCDeltaUsecs

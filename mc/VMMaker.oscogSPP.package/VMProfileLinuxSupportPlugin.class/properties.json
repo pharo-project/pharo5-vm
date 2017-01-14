@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 6/5/2013 12:10",
+	"instvars" : [
+		"numModules",
+		"primErr" ],
+	"name" : "VMProfileLinuxSupportPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

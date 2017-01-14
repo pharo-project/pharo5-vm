@@ -1,0 +1,3 @@
+accessing
+smallIntegerTag
+	^objectMemory smallIntegerTag

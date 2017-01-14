@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"start",
+		"limit" ],
+	"name" : "SpurNewSpaceSpace",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

@@ -1,0 +1,8 @@
+{
+	"class" : {
+		"hasHeaderFile" : "ikp 7/30/2012 14:37" },
+	"instance" : {
+		"primClosePort" : "jm (auto pragmas dtl 2014-01-04) 5/12/2009 15:14",
+		"primOpenPort" : "jm (auto pragmas dtl 2014-01-04) 12/3/2008 09:32",
+		"primRead" : "eem 1/30/2014 12:41",
+		"primWrite" : "eem 1/30/2014 12:41" } }

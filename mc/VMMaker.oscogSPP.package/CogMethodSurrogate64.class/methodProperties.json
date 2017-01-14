@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"alignedByteSize" : "eem 10/9/2013 16:00",
+		"offsetOf:" : "eem 12/5/2015 14:24" },
+	"instance" : {
+		"blockEntryOffset" : "eem 10/9/2013 16:00",
+		"blockEntryOffset:" : "eem 10/9/2013 16:00",
+		"blockSize" : "eem 10/9/2013 16:00",
+		"blockSize:" : "eem 10/9/2013 16:00",
+		"methodHeader" : "eem 9/28/2015 21:00",
+		"methodHeader:" : "eem 9/28/2015 21:00",
+		"methodObject" : "eem 9/28/2015 21:00",
+		"methodObject:" : "eem 9/28/2015 21:00",
+		"selector" : "eem 9/28/2015 21:00",
+		"selector:" : "eem 9/28/2015 21:00" } }

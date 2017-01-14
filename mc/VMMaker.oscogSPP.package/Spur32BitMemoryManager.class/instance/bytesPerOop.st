@@ -1,0 +1,3 @@
+accessing
+bytesPerOop
+	^4

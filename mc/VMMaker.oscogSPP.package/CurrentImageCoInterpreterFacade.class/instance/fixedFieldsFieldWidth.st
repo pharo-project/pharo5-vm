@@ -1,0 +1,3 @@
+accessing
+fixedFieldsFieldWidth
+	^objectMemory fixedFieldsFieldWidth

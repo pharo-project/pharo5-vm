@@ -1,0 +1,27 @@
+{
+	"category" : "VMMaker-Multithreading",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"index",
+		"state",
+		"priority",
+		"osSemaphore",
+		"osThread",
+		"newMethodOrNull",
+		"argumentCount",
+		"inMachineCode",
+		"cStackPointer",
+		"cFramePointer",
+		"reenterInterpreter",
+		"awolProcIndex",
+		"awolProcLength",
+		"awolProcesses" ],
+	"name" : "CogVMThread",
+	"pools" : [
+		"VMThreadingConstants" ],
+	"super" : "VMStructType",
+	"type" : "normal" }

@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"m23ResultX",
+		"m23ResultY",
+		"m23ArgX",
+		"m23ArgY" ],
+	"name" : "Matrix2x3Plugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"ceSigned32BitIntegerTrampoline",
+		"ceSigned32BitValueOfTrampoline",
+		"cePositive32BitValueOfTrampoline",
+		"cePositive32BitIntegerTrampoline" ],
+	"name" : "CogObjectRepresentationFor32BitSpur",
+	"pools" : [
+		 ],
+	"super" : "CogObjectRepresentationForSpur",
+	"type" : "normal" }

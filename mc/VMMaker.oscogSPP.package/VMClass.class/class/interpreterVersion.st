@@ -1,0 +1,3 @@
+accessing
+interpreterVersion 
+	^ self subclassResponsibility

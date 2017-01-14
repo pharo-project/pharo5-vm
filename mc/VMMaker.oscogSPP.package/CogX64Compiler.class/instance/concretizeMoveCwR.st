@@ -1,0 +1,3 @@
+generate machine code
+concretizeMoveCwR
+	self subclassResponsibility

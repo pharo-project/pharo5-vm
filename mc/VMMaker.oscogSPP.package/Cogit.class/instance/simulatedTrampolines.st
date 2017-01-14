@@ -1,0 +1,4 @@
+initialization
+simulatedTrampolines
+	<doNotGenerate>
+	^simulatedTrampolines
