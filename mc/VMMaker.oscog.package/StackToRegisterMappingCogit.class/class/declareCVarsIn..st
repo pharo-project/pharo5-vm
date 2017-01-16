@@ -31,7 +31,7 @@ declareCVarsIn: aCodeGen
 			type: #'BytecodeDescriptor *'.
 	LowcodeVM ifTrue: [
 		aCodeGen var: 'simNativeStack'
-			declareC: 'CogSimStackNativeEntry simNativeStack[', ((CoInterpreter bindingOf: #LargeContextSlots) value * 5 / 4 // BytesPerWord) asString, ']'
+			declareC: 'CogSimStackNativeEntry simNativeStack[', self simNativeStackSlots asString, ']'
 	].
 
 	self numPushNilsFunction ifNotNil:

@@ -5,5 +5,5 @@ internalPopStackInt32
 	| topInt32 |
 	nativeSP := self nativeStackPointerIn: localFP.
 	topInt32 := stackPages int32AtPointer: nativeSP - 1.
-	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + BytesPerOop.
+	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + objectMemory bytesPerOop.
 	^topInt32

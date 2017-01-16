@@ -1,15 +1,17 @@
 inline primitive generated code
 lowcodePrimitiveLocalFrameSize
 	<option: #LowcodeVM>	"Lowcode instruction generator"
-	| size |
+	| alignedSize size |
 	size := extA.
 
+	"Align the size to 16 bytes."
+	alignedSize := size + 15 bitAnd: -16.
 	"Mark the frame"
 	self setFrameHasNativeFrame: localFP.
 	"Store the previous stack pointer"
 	self nativePreviousStackPointerIn: localFP put: nativeStackPointer + 1.
 	"Make the frame pointer"
-	nativeStackPointer := nativeStackPointer - size.
+	nativeStackPointer := nativeStackPointer - alignedSize.
 	self nativeFramePointerIn: localFP put: nativeStackPointer + 1.
 	"Set the stack pointer"
 	nativeSP := nativeStackPointer + 1.

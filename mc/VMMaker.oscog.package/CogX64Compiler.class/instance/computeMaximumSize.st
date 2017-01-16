@@ -27,9 +27,14 @@ computeMaximumSize
 									   or: [(operands at: 1) = RAX])
 											ifTrue: [2]
 											ifFalse: [3]].
+		[REP]					-> [^1].
+		[CLD]					-> [^1].
+		[MOVSB]				-> [^1].
+		[MOVSQ]				-> [^2].
 		"Control"
 		[CallFull]					-> [^12].
 		[Call]						-> [^5].
+		[CallR]						-> [^3].
 		[JumpR]						-> [^2].
 		[JumpFull]					-> [self resolveJumpTarget. ^12].
 		[JumpLong]					-> [self resolveJumpTarget. ^5].
@@ -103,12 +108,51 @@ computeMaximumSize
 		[LogicalShiftLeftRR]			-> [^self computeShiftRRSize].
 		[LogicalShiftRightRR]		-> [^self computeShiftRRSize].
 		[ArithmeticShiftRightRR]		-> [^self computeShiftRRSize].
-		[AddRdRd]					-> [^4].
-		[CmpRdRd]					-> [^4].
-		[SubRdRd]					-> [^4].
-		[MulRdRd]					-> [^4].
-		[DivRdRd]					-> [^4].
-		[SqrtRd]					-> [^4].
+		[AddRdRd]					-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[CmpRdRd]					-> [^ 4
+											+ ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[SubRdRd]					-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[MulRdRd]					-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[DivRdRd]					-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[SqrtRd]					-> [^ 4 + (((operands at: 0) > 7)
+											ifTrue: [1]
+											ifFalse: [0])].
+		[XorRdRd]					-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+						
+		[AddRsRs]				-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[CmpRsRs]				-> [^ 3 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[SubRsRs]				-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[MulRsRs]				-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[DivRsRs]				-> [^ 4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[SqrtRs]					-> [^ 4 + (((operands at: 0) > 7)
+											ifTrue: [1]
+											ifFalse: [0])].
+		[XorRsRs]					-> [^ 3 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+						
 		"Data Movement"
 		[MoveCqR]		-> [^(operands at: 0) = 0
 								ifTrue: [3]
@@ -121,7 +165,14 @@ computeMaximumSize
 								ifFalse: [self moveCwRByteSize]].
 		[MoveC32R]	-> [^7]. "N.B. Always inlined."
 		[MoveRR]		-> [^3].
-		[MoveRdRd]		-> [^4].
+		[MoveRdRd]		-> [^4 
+								+((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
+		[MoveRsRs]		-> [^4
+								 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+											ifTrue: [1]
+											ifFalse: [0])].
 		[MoveRRd]		-> [^5].
 		[MoveRdR]		-> [^5].
 		[MoveAwR]		-> [^(self isAddressRelativeToVarBase: (operands at: 0))
@@ -148,6 +199,30 @@ computeMaximumSize
 								+ (((operands at: 2) bitAnd: 7) = RSP
 									ifTrue: [1]
 									ifFalse: [0])].
+		[MoveRM32r]	-> [^((self isQuick: (operands at: 1))
+								ifTrue: [((operands at: 1) = 0
+										and: [((operands at: 2) bitAnd: 6) ~= RSP])
+											ifTrue: [2]
+											ifFalse: [3]]
+								ifFalse: [6])
+							+ ((((operands at: 2) bitAnd: 7) = RSP and: [(operands at: 1) ~= 0])
+								ifTrue: [1]
+								ifFalse: [0])
+							+ ((((operands at: 2) > 7) or: [(operands at: 0) > 7])
+								ifTrue: [1]
+								ifFalse: [0])].
+		[MoveRsM32r]	-> [^((self isQuick: (operands at: 1))
+								ifTrue: [((operands at: 1) = 0
+										and: [((operands at: 2) bitAnd: 6) ~= RSP])
+											ifTrue: [4]
+											ifFalse: [5]]
+								ifFalse: [8])
+							+ ((((operands at: 2) bitAnd: 7) = RSP and: [(operands at: 1) ~= 0])
+								ifTrue: [1]
+								ifFalse: [0])
+							+ ((((operands at: 2) > 7) or: [(operands at: 0) > 7])
+								ifTrue: [1]
+								ifFalse: [0])].
 		[MoveRdM64r]	-> [^((self isQuick: (operands at: 1))
 								ifTrue: [((operands at: 1) = 0
 										and: [((operands at: 2) bitAnd: 6) ~= RSP])
@@ -200,6 +275,30 @@ computeMaximumSize
 								+ (((operands at: 0) > 7 or: [(operands at: 2) > 7])
 									ifTrue: [1]
 									ifFalse: [0])].
+		[MoveM32rR]	-> [^((self isQuick: (operands at: 0))
+								ifTrue: [((operands at: 0) = 0
+										and: [((operands at: 1) bitAnd: 6) ~= RSP])
+											ifTrue: [2]
+											ifFalse: [3]]
+								ifFalse: [6])
+							+ ((((operands at: 1) bitAnd: 7) = RSP and: [(operands at: 0) ~= 0])
+								ifTrue: [1]
+								ifFalse: [0])
+							+ ((((operands at: 1) > 7) or: [(operands at: 2) > 7])
+								ifTrue: [1]
+								ifFalse: [0])].
+		[MoveM32rRs]	-> [^((self isQuick: (operands at: 0))
+								ifTrue: [((operands at: 0) = 0
+										and: [((operands at: 1) bitAnd: 6) ~= RSP])
+											ifTrue: [4]
+											ifFalse: [5]]
+								ifFalse: [8])
+							+ ((((operands at: 1) bitAnd: 7) = RSP and: [(operands at: 0) ~= 0])
+								ifTrue: [1]
+								ifFalse: [0])
+							+ ((((operands at: 1) > 7) or: [(operands at: 2) > 7])
+								ifTrue: [1]
+								ifFalse: [0])].
 		[MoveM64rRd]	-> [^((self isQuick: (operands at: 0))
 								ifTrue: [((operands at: 0) = 0
 										and: [((operands at: 1) bitAnd: 6) ~= RSP])
@@ -276,5 +375,32 @@ computeMaximumSize
 		[PushCw]		-> [^self computeSizeOfPushCw].
 		[PrefetchAw]	-> [^(self isAddressRelativeToVarBase: (operands at: 0)) ifTrue: [7] ifFalse: [0]].
 		"Conversion"
-		[ConvertRRd]	-> [^5] }.
+		[ConvertRRd]		-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		[ConvertRdR]		-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		[ConvertRRs]		-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		[ConvertRsR]		-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		[ConvertRsRd]	-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		[ConvertRdRs]	-> [^4 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+
+		[SignExtend8RR] -> [^4].
+		[SignExtend16RR] -> [^4].
+		[SignExtend32RR] -> [^4].
+		[ZeroExtend8RR] -> [^4].
+		[ZeroExtend16RR] -> [^4].
+		[ZeroExtend32RR] -> [^2 + ((((operands at: 1) > 7) or: [(operands at: 0) > 7])
+									ifTrue: [1]
+									ifFalse: [0])].
+		}.
 	^0 "to keep C compiler quiet"

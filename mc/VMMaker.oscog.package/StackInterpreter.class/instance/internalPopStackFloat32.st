@@ -7,5 +7,5 @@ internalPopStackFloat32
 	| topSingle  |
 	nativeSP := self nativeStackPointerIn: localFP.
 	topSingle := stackPages singleFloatAtPointer: nativeSP - 1.
-	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + 4.
+	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + objectMemory bytesPerOop.
 	^topSingle

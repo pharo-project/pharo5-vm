@@ -3,7 +3,7 @@ internalPushPointer: pointerValue
 	<option: #LowcodeVM>
 	<var: #pointerValue type: #'char*' >
 	"In the StackInterpreter stacks grow down."
-	nativeSP := (self nativeStackPointerIn: localFP) - BytesPerOop.
+	nativeSP := (self nativeStackPointerIn: localFP) - objectMemory bytesPerOop.
 	self nativeStackPointerIn: localFP put: nativeSP.
 
 	"In the StackInterpreter stacks grow down."

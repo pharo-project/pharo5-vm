@@ -11,7 +11,7 @@ setInterpreter: aCoInterpreter
 	picMissTrampolines := CArrayAccessor on: (Array new: self numRegArgs + 2).
 
 	simStack := CArrayAccessor on: ((1 to: self class simStackSlots) collect: [:i| self simStackEntryClass new cogit: self]).
-	simNativeStack := CArrayAccessor on: ((1 to: self class simStackSlots) collect: [:i| self simStackNativeEntryClass new cogit: self]).
+	simNativeStack := CArrayAccessor on: ((1 to: self class simNativeStackSlots) collect: [:i| self simStackNativeEntryClass new cogit: self]).
 	simSelf := self simStackEntryClass new cogit: self.
 	optStatus := CogSSOptStatus new.
 

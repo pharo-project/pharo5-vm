@@ -7,5 +7,5 @@ internalPopStackPointer
 	| topPointer |
 	nativeSP := self nativeStackPointerIn: localFP.
 	topPointer := stackPages pointerAtPointer: nativeSP - 1.
-	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + BytesPerOop.
+	nativeSP := self nativeStackPointerIn: localFP put: nativeSP + objectMemory bytesPerOop.
 	^topPointer

@@ -151,8 +151,8 @@ initialize
 						ConvertRRd ConvertRdR
 						ConvertRsRd ConvertRdRs ConvertRsR ConvertRRs
 
-						SignExtend8RR SignExtend16RR
-						ZeroExtend8RR ZeroExtend16RR
+						SignExtend8RR SignExtend16RR SignExtend32RR
+						ZeroExtend8RR ZeroExtend16RR ZeroExtend32RR
 
 						LastRTLCode).
 

@@ -2,7 +2,7 @@
 	"class" : {
 		"ancilliaryClasses:" : "rsf 8/9/2016 23:49",
 		"callingConvention" : "eem 1/7/2016 14:51",
-		"declareCVarsIn:" : "rsf 8/9/2016 22:50",
+		"declareCVarsIn:" : "rsf 1/15/2017 21:51",
 		"initializeBytecodeTableForNewspeakV4" : "cb 11/24/2016 13:39",
 		"initializeBytecodeTableForSistaV1" : "cb 11/24/2016 13:39",
 		"initializeBytecodeTableForSqueakV3PlusClosures" : "cb 11/24/2016 13:39",
@@ -17,6 +17,7 @@
 		"pushNilSizeFunction" : "eem 11/15/2012 16:28",
 		"requiredMethodNames:" : "eem 07/29/2014 06:48",
 		"shouldGenerateTypedefFor:" : "eem 10/31/2013 00:05",
+		"simNativeStackSlots" : "rsf 1/15/2017 21:50",
 		"simStackSlots" : "cb 4/15/2016 16:15",
 		"stackToRegisterMapping" : "eem 09/28/2015 18:49" },
 	"instance" : {
@@ -494,8 +495,9 @@
 		"restoreSimStackAtMergePoint:" : "eem 12/02/2016 14:51",
 		"scanBlock:" : "rsf 1/5/2017 16:08",
 		"scanMethod" : "rsf 1/5/2017 16:08",
-		"setInterpreter:" : "rsf 8/9/2016 22:46",
+		"setInterpreter:" : "rsf 1/15/2017 21:52",
 		"simNativeStackAt:" : "RonieSalgado 4/30/2016 17:57",
+		"simNativeStackSlots" : "rsf 1/15/2017 21:52",
 		"simStackAt:" : "eem 12/11/2010 18:01",
 		"simStackEntryClass" : "cb 4/16/2016 10:54",
 		"simStackNativeEntryClass" : "rsf 8/9/2016 23:44",

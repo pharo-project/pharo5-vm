@@ -25,8 +25,13 @@ dispatchConcretize
 		"[XCHGAwR]				-> [^self concretizeXCHGAwR]."
 		"[XCHGMwrR]			-> [^self concretizeXCHGMwrR]."
 		[XCHGRR]				-> [^self concretizeXCHGRR].
+		[REP]					-> [^self concretizeREP].
+		[CLD]					-> [^self concretizeCLD].
+		[MOVSB]				-> [^self concretizeMOVSB].
+		[MOVSQ]				-> [^self concretizeMOVSQ].
 		"Control"
 		[Call]					-> [^self concretizeCall].
+		[CallR]					-> [^self concretizeCallR].
 		[CallFull]				-> [^self concretizeCallFull].
 		[JumpR]					-> [^self concretizeJumpR].
 		[JumpFull]				-> [^self concretizeJumpFull].
@@ -65,6 +70,7 @@ dispatchConcretize
 		[AddCqR]					-> [^self concretizeArithCqRWithRO: 0 raxOpcode: 15r05].
 		[AddCwR]					-> [^self concretizeArithCwR: 16r03].
 		[AddRR]						-> [^self concretizeOpRR: 16r03].
+		[AddRsRs]					-> [^self concretizeSEEOpRsRs: 16r58].
 		[AddRdRd]					-> [^self concretizeSEE2OpRdRd: 16r58].
 		[AndCqR]					-> [^self concretizeArithCqRWithRO: 4 raxOpcode: 16r25].
 		[AndCwR]					-> [^self concretizeArithCwR: 16r23].
@@ -75,8 +81,11 @@ dispatchConcretize
 		[CmpC32R]					-> [^self concretizeCmpC32R].
 		[CmpRR]					-> [^self concretizeReverseOpRR: 16r39].
 		[CmpRdRd]					-> [^self concretizeCmpRdRd].
+		[CmpRsRs]					-> [^self concretizeCmpRsRs].
 		[DivRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5E].
+		[DivRsRs]					-> [^self concretizeSEEOpRsRs: 16r5E].
 		[MulRdRd]					-> [^self concretizeSEE2OpRdRd: 16r59].
+		[MulRsRs]					-> [^self concretizeSEEOpRsRs: 16r59].
 		[OrCqR]						-> [^self concretizeArithCqRWithRO: 1 raxOpcode: 16r0D].
 		[OrCwR]					-> [^self concretizeArithCwR: 16r0B].
 		[OrRR]						-> [^self concretizeOpRR: 16r0B].
@@ -84,9 +93,13 @@ dispatchConcretize
 		[SubCwR]					-> [^self concretizeArithCwR: 16r2B].
 		[SubRR]						-> [^self concretizeOpRR: 16r2B].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].
+		[SubRsRs]					-> [^self concretizeSEEOpRsRs: 16r5C].
 		[SqrtRd]					-> [^self concretizeSqrtRd].
+		[SqrtRs]					-> [^self concretizeSqrtRs].
 		[XorCwR]					-> [^self concretizeArithCwR: 16r33].
 		[XorRR]						-> [^self concretizeOpRR: 16r33].
+		[XorRdRd]						-> [^self concretizeXorRdRd].
+		[XorRsRs]						-> [^self concretizeXorRsRs].
 		[NegateR]					-> [^self concretizeNegateR].
 		[LoadEffectiveAddressMwrR]	-> [^self concretizeLoadEffectiveAddressMwrR].
 		[RotateLeftCqR]				-> [^self concretizeShiftCqRegOpcode: 0].
@@ -111,6 +124,8 @@ dispatchConcretize
 		[MoveRMbr]			-> [^self concretizeMoveRMbr].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
 		[MoveRM16r]		-> [^self concretizeMoveRM16r].
+		[MoveM32rR]		-> [^self concretizeMoveM32rR].
+		[MoveM32rRs]		-> [^self concretizeMoveM32rRs].
 		[MoveM64rRd]		-> [^self concretizeMoveM64rRd].
 		[MoveMwrR]		-> [^self concretizeMoveMwrR].
 		[MoveXbrRR]		-> [^self concretizeMoveXbrRR].
@@ -120,13 +135,31 @@ dispatchConcretize
 		[MoveX32rRR]		-> [^self concretizeMoveX32rRR].
 		[MoveRX32rR]		-> [^self concretizeMoveRX32rR].
 		[MoveRMwr]		-> [^self concretizeMoveRMwr].
+		[MoveRM32r]		-> [^self concretizeMoveRM32r].
+		[MoveRsM32r]		-> [^self concretizeMoveRsM32r].
 		[MoveRdM64r]		-> [^self concretizeMoveRdM64r].
 		[MoveRdR]			-> [^self concretizeMoveRdR].
 		[MoveRRd]			-> [^self concretizeMoveRRd].
+		[MoveRdRd]		-> [^self concretizeMoveRdRd].
+		[MoveRsRs]		-> [^self concretizeMoveRsRs].
 		[PopR]				-> [^self concretizePopR].
 		[PushR]				-> [^self concretizePushR].
 		[PushCq]			-> [^self concretizePushCq].
 		[PushCw]			-> [^self concretizePushCw].
 		[PrefetchAw]		-> [^self concretizePrefetchAw].
 		"Conversion"
-		[ConvertRRd]		-> [^self concretizeConvertRRd] }
+		[ConvertRRd]		-> [^self concretizeConvertRRd].
+		[ConvertRdR]		-> [^self concretizeConvertRdR].
+		[ConvertRRs]		-> [^self concretizeConvertRRs].
+		[ConvertRsR]		-> [^self concretizeConvertRsR].
+		[ConvertRsRd]	-> [^self concretizeConvertRsRd].
+		[ConvertRdRs]	-> [^self concretizeConvertRdRs].
+			
+		[SignExtend8RR]		-> [^self concretizeSignExtend8RR].
+		[SignExtend16RR]	-> [^self concretizeSignExtend16RR].
+		[SignExtend32RR]	-> [^self concretizeSignExtend32RR].
+		
+		[ZeroExtend8RR]		-> [^self concretizeZeroExtend8RR].
+		[ZeroExtend16RR]	-> [^self concretizeZeroExtend16RR].
+		[ZeroExtend32RR]	-> [^self concretizeZeroExtend32RR].
+		}

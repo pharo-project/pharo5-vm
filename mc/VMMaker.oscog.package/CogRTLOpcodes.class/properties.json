@@ -134,6 +134,7 @@
 		"RotateLeftCqR",
 		"RotateRightCqR",
 		"SignExtend16RR",
+		"SignExtend32RR",
 		"SignExtend8RR",
 		"SqrtRd",
 		"SqrtRs",
@@ -151,6 +152,7 @@
 		"XorRdRd",
 		"XorRsRs",
 		"ZeroExtend16RR",
+		"ZeroExtend32RR",
 		"ZeroExtend8RR" ],
 	"commentStamp" : "eem 12/26/2015 14:00",
 	"instvars" : [

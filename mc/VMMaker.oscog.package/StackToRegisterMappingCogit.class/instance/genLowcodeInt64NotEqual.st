@@ -57,12 +57,13 @@ genLowcodeInt64NotEqual
 		self ssNativePop: 1.
 
 		self CmpR: second R: first.
-		falseJump := self JumpNonZero: 0.
+		falseJump := self JumpZero: 0.
 		"True result"
 		self MoveCq: 1 R: first.
 		contJump := self Jump: 0.
 		"False result"
-		falseJump jmpTarget: self self MoveCq: 0 R: first.
+		falseJump jmpTarget: self Label.
+		self MoveCq: 0 R: first.
 		contJump jmpTarget: self Label.
 		self ssPushNativeRegister: first.
 

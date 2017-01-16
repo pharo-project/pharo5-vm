@@ -13,8 +13,7 @@ genLowcodeSmallInt32ToOop
 	self ssNativeTop nativePopToReg: value.
 	self ssNativePop: 1.
 
-	self LogicalShiftLeftCq: 1 R: value.
-	self OrCq: 1 R: value.
+	objectRepresentation genConvertIntegerToSmallIntegerInReg: value.
 	self ssPushRegister: value.
 
 	^ 0
