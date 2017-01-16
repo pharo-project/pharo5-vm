@@ -510,6 +510,7 @@
 		"isCFramePointerInUse" : "eem 3/26/2009 11:13",
 		"isDebugPC" : "cb 4/20/2016 12:35",
 		"isDirectedSuper:extA:extB:" : "eem 4/6/2015 12:31",
+		"isNonLocalReturnPC:" : "eem 1/15/2017 16:53",
 		"isPCMappedAnnotation:" : "eem 4/26/2016 08:34",
 		"isPCWithinMethodZone:" : "eem 4/7/2015 10:32",
 		"isPureSendAnnotation:" : "eem 4/3/2015 14:42",

@@ -13,11 +13,16 @@ maybeCheckStackDepth: delta sp: sp pc: mcpc
 					ifFalse: [self startPCOfClosure: (self pushedReceiverOrClosureOfFrame: framePointer)].
 	bcpc := cogit bytecodePCFor: mcpc startBcpc: startbcpc in: cogBlockMethod.
 	self assert: bcpc ~= 0.
-	cogBlockMethod ~= cogHomeMethod ifTrue:
+	(cogBlockMethod ~= cogHomeMethod
+	 and: [cogit isNonLocalReturnPC: mcpc]) ifTrue:
 		[| lastbcpc |
+		 "Method returns within a block (within an unwind-protect) must check the stack depth at the
+		  return, not the bytecode following, but the pc mapping maps to the bytecode following the
+		  return. lastBytecodePCForBlockAt:in: catches method returns at the end of a block, modifying
+		  the bcpc to that of the return.  isNonLocalReturnPC: catches method returns not at the end.
+		  Assumes method return bytecodes are 1 bytecode long;a  dodgy assumption, but good enough."
 		 lastbcpc := cogit lastBytecodePCForBlockAt: startbcpc in: cogHomeMethod methodObject.
-		 bcpc > lastbcpc ifTrue:
-			[bcpc := lastbcpc]].
+		 bcpc := bcpc > lastbcpc ifTrue: [lastbcpc] ifFalse: [bcpc - 1]].
 	asp := self stackPointerIndexForFrame: framePointer WithSP: sp + objectMemory wordSize.
 	csp := debugStackPointers at: bcpc ifAbsent: [-1].
 	"Compensate lazily for absent receiver sends."
