@@ -9,5 +9,6 @@ resetStackAfterBranchOrReturn
 					ifTrue: [^self bar]
 					ifFalse: [^self baz].
 				^nil"
+				deadCode := true.
 				^self].
 		 stackp := joins at: pc]

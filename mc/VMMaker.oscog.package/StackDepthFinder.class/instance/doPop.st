@@ -1,4 +1,5 @@
 instruction decoding
 doPop
 	"Remove Top Of Stack bytecode."
-	self drop
+	deadCode ifFalse:
+		[self drop]
