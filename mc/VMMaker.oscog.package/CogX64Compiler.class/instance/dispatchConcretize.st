@@ -39,7 +39,7 @@ dispatchConcretize
 		[JumpLongZero]		-> [^self concretizeConditionalJump: 16r4].
 		[JumpLongNonZero]	-> [^self concretizeConditionalJump: 16r5].
 		[Jump]					-> [^self concretizeJump].
-		"Table B-1 Intel¬Æ 64 and IA-32 Architectures Software Developer's Manual Volume 1: Basic Architecture"
+		"Table B-1 Intel 64 and IA-32 Architectures Software Developer's Manual Volume 1: Basic Architecture"
 		[JumpZero]				-> [^self concretizeConditionalJump: 16r4].
 		[JumpNonZero]			-> [^self concretizeConditionalJump: 16r5].
 		[JumpNegative]			-> [^self concretizeConditionalJump: 16r8].
