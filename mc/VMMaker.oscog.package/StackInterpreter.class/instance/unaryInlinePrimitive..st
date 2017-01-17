@@ -40,15 +40,11 @@ unaryInlinePrimitive: primIndex
 				 self internalStackTopPut: result].
 		"1020 	identityHash"
 		[20] ->	[result := objectMemory hashBitsOf: self internalStackTop.
-				 self internalStackTopPut: (objectMemory integerObjectOf: result)].
+				 self internalStackTopPut: (objectMemory integerObjectOf: result)]
 		"1021		identityHash (SmallInteger)"
 		"1022		identityHash (Character)"
 		"1023		identityHash (SmallFloat64)"
 		"1024		identityHash (Behavior)"
-		"1030 	immediateAsInteger (Character)
-		 1031 	immediateAsInteger (SmallFloat64)"
-		[30] -> [ result := objectMemory characterValueOf: self internalStackTop.
-				 self internalStackTopPut: (objectMemory integerObjectOf: result)]
 		 }
 	otherwise:
 		[localIP := localIP - 3.

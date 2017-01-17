@@ -122,6 +122,8 @@ dispatchConcretize
 		[MoveRAb]			-> [^self concretizeMoveRAb].
 		[MoveMbrR]			-> [^self concretizeMoveMbrR].
 		[MoveRMbr]			-> [^self concretizeMoveRMbr].
+		[MoveM8rR]		-> [^self concretizeMoveMbrR].
+		[MoveRM8r]		-> [^self concretizeMoveRMbr].
 		[MoveM16rR]		-> [^self concretizeMoveM16rR].
 		[MoveRM16r]		-> [^self concretizeMoveRM16r].
 		[MoveM32rR]		-> [^self concretizeMoveM32rR].
