@@ -1,3 +1,3 @@
 accessing
 registerSecondOrNil
-	^ type SSRegisterPair ifTrue: [registerSecond]
+	^ type = SSRegisterPair ifTrue: [registerSecond]

@@ -2,6 +2,6 @@ inline primitive generated code
 lowcodePrimitiveLockRegisters
 	<option: #LowcodeVM>	"Lowcode instruction generator"
 
-	self abort.
+	"Nop in the interpreter"
 
 
