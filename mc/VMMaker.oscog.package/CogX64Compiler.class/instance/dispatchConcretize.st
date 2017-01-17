@@ -5,30 +5,14 @@ dispatchConcretize
 	 to get around the branch size limits in the SqueakV3 (blue book derived)
 	 bytecode set."
 	<returnTypeC: #void>
+	opcode >= CDQ ifTrue:
+		[^self dispatchConcretizeProcessorSpecific].
 	opcode caseOf: {
 		"Noops & Pseudo Ops"
 		[Label]				-> [^self concretizeLabel].
 		[AlignmentNops]	-> [^self concretizeAlignmentNops].
 		[Fill32]				-> [^self concretizeFill32].
 		[Nop]				-> [^self concretizeNop].
-		"Specific Control/Data Movement"
-		[CDQ]					-> [^self concretizeCDQ].
-		[IDIVR]					-> [^self concretizeIDIVR].
-		[IMULRR]				-> [^self concretizeMulRR].
-		"[CPUID]					-> [^self concretizeCPUID]."
-		"[CMPXCHGAwR]			-> [^self concretizeCMPXCHGAwR]."
-		"[CMPXCHGMwrR]		-> [^self concretizeCMPXCHGMwrR]."
-		"[LFENCE]				-> [^self concretizeFENCE: 5]."
-		"[MFENCE]				-> [^self concretizeFENCE: 6].
-		[SFENCE]				-> [^self concretizeFENCE: 7]."
-		"[LOCK]					-> [^self concretizeLOCK]."
-		"[XCHGAwR]				-> [^self concretizeXCHGAwR]."
-		"[XCHGMwrR]			-> [^self concretizeXCHGMwrR]."
-		[XCHGRR]				-> [^self concretizeXCHGRR].
-		[REP]					-> [^self concretizeREP].
-		[CLD]					-> [^self concretizeCLD].
-		[MOVSB]				-> [^self concretizeMOVSB].
-		[MOVSQ]				-> [^self concretizeMOVSQ].
 		"Control"
 		[Call]					-> [^self concretizeCall].
 		[CallR]					-> [^self concretizeCallR].
