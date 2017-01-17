@@ -32,7 +32,7 @@ compileBlockBodies
 		   N.B.  No need to reinitialize the literalsManager because it answers existing literals."
 		  initialStackPtr = simStackPtr]
 			whileFalse:
-				[self assert: initialStackPtr > simStackPtr.
+				[self assert: (initialStackPtr > simStackPtr or: [deadCode]).
 				 blockPass := blockPass + 1. "for asserts :-("
 				 blockStart numInitialNils: blockStart numInitialNils + simStackPtr - initialStackPtr.
 				 blockStart fakeHeader dependent: nil.

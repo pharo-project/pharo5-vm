@@ -9,7 +9,7 @@ compileAbstractInstructionsFrom: start through: end
 	nExts := result := 0.
 	descriptor := nil.
 	deadCode := false.
-	[self cCode: '' inSmalltalk: [self isDebugPC ifTrue: [self halt]].
+	[self maybeHaltIfDebugPC.
 	 fixup := self fixupAt: bytecodePC - initialPC.
 	 self mergeWithFixupIfRequired: fixup.
 	 self assertCorrectSimStackPtr.

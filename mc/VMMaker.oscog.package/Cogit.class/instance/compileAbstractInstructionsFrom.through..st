@@ -7,7 +7,7 @@ compileAbstractInstructionsFrom: start through: end
 	bytecodePC := start.
 	nExts := result := 0.
 	descriptor := nil.
-	[self cCode: '' inSmalltalk: [self isDebugPC ifTrue: [self halt]].
+	[self maybeHaltIfDebugPC.
 	 descriptor := self loadBytesAndGetDescriptor.
 	 nextOpcodeIndex := opcodeIndex.
 	 result := self perform: descriptor generator.

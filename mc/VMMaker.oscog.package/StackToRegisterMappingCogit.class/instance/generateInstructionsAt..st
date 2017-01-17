@@ -6,7 +6,10 @@ generateInstructionsAt: eventualAbsoluteAddress
 	 assuming that any branches branched over are long.
 	 Compute backward branches based on actual address.
 	 Reuse the fixups array to record the pc-dependent instructions that need to have
-	 their code generation postponed until after the others."
+	 their code generation postponed until after the others.
+
+	 Override to andd handling for null branches (branches to the immediately following
+	 instruction) occasioned by StackToRegisterMapping's following of jumps."
 	| absoluteAddress pcDependentIndex abstractInstruction fixup |
 	<var: #abstractInstruction type: #'AbstractInstruction *'>
 	<var: #fixup type: #'BytecodeFixup *'>
@@ -19,9 +22,17 @@ generateInstructionsAt: eventualAbsoluteAddress
 		abstractInstruction isPCDependent
 			ifTrue:
 				[abstractInstruction sizePCDependentInstructionAt: absoluteAddress.
-				 fixup := self fixupAt: pcDependentIndex.
-				 pcDependentIndex := pcDependentIndex + 1.
-				 fixup instructionIndex: i.
+				 (abstractInstruction isJump
+				  and: [i + 1 < opcodeIndex
+				  and: [abstractInstruction getJmpTarget == (self abstractInstructionAt: i + 1)]])
+					ifTrue:
+						[abstractInstruction
+							opcode: Nop;
+							concretizeAt: absoluteAddress]
+					ifFalse:
+						[fixup := self fixupAt: pcDependentIndex.
+						 pcDependentIndex := pcDependentIndex + 1.
+						 fixup instructionIndex: i].
 				 absoluteAddress := absoluteAddress + abstractInstruction machineCodeSize]
 			ifFalse:
 				[absoluteAddress := abstractInstruction concretizeAt: absoluteAddress]].

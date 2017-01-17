@@ -23,44 +23,44 @@ mergeWithFixupIfRequired: fixup
 	
 	<var: #fixup type: #'BytecodeFixup *'>
 	"case 1"
-	fixup notAFixup ifTrue: [^ 0].
+	fixup notAFixup ifTrue:
+		[^0].
 
 	"case 2"
-	fixup isNonMergeFixup ifTrue: [deadCode := false. ^ 0 ].
+	fixup isNonMergeFixup ifTrue:
+		[deadCode := false. ^0].
 
 	"cases 3 and 4"
 	self assert: fixup isMergeFixup.
 	self traceMerge: fixup.
-	deadCode ifTrue: [
-		"case 3"
-		simStackPtr := fixup simStackPtr.
-		LowcodeVM ifTrue: [
-			simNativeStackPtr := fixup simNativeStackPtr.
-			simNativeStackSize := fixup simNativeStackSize.
-		] 
-	] ifFalse: [
-		"case 4"
-		self ssFlushTo: simStackPtr
-	].
+	deadCode
+		ifTrue: "case 3"
+			["Would like to assert fixup simStackPtr >= (methodOrBlockNumTemps - 1) but can't because
+			   a) the initialNils hack, b) deadCode removal allows arriving at an isBackwardBranchFixup."
+			 self assert: (fixup simStackPtr >= (methodOrBlockNumTemps - 1) or: [inBlock = InVanillaBlock or: [fixup isBackwardBranchFixup]]).
+			 fixup isBackwardBranchFixup ifFalse:
+				[simStackPtr := fixup simStackPtr].
+			 LowcodeVM ifTrue:
+				[simNativeStackPtr := fixup simNativeStackPtr.
+				simNativeStackSize := fixup simNativeStackSize]]
+		ifFalse: "case 4"
+			[self ssFlushTo: simStackPtr].
 
 	"cases 3 and 4"
 	deadCode := false.
-	fixup isBackwardBranchFixup ifTrue: [
-		fixup simStackPtr: simStackPtr.
-		LowcodeVM ifTrue: [
-			fixup simNativeStackPtr: simNativeStackPtr.
-			fixup simNativeStackSize: simNativeStackSize.
-		]
-	].
+	fixup isBackwardBranchFixup ifTrue:
+		[fixup simStackPtr: simStackPtr.
+		LowcodeVM ifTrue:
+			[fixup simNativeStackPtr: simNativeStackPtr.
+			 fixup simNativeStackSize: simNativeStackSize]].
 	fixup targetInstruction: self Label.
 	self assert: simStackPtr = fixup simStackPtr.
-	LowcodeVM ifTrue: [
-		self assert: simNativeStackPtr = fixup simNativeStackPtr.
-		self assert: simNativeStackSize = fixup simNativeStackSize.
-	].
+	LowcodeVM ifTrue:
+		[self assert: simNativeStackPtr = fixup simNativeStackPtr.
+		 self assert: simNativeStackSize = fixup simNativeStackSize].
 
 	self cCode: '' inSmalltalk:
 		[self assert: fixup simStackPtr = (self debugStackPointerFor: bytecodePC)].
 	self restoreSimStackAtMergePoint: fixup.
-	
+
 	^0

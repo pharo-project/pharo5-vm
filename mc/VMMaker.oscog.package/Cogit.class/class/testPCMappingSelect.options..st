@@ -1,7 +1,7 @@
 tests
 testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 	"Test pc mapping both ways using a selection of the methods in the current image."
-	| cogit coInterpreter |
+	| n cogit coInterpreter |
 	cogit := self instanceForTests: optionsDictionaryOrArray.
 	coInterpreter := CurrentImageCoInterpreterFacade forCogit: cogit.
 	[cogit
@@ -12,11 +12,12 @@ testPCMappingSelect: aBlock options: optionsDictionaryOrArray
 		do: [:ex|
 			(ex messageText beginsWith: 'cannot find receiver for') ifTrue:
 				[ex resume: coInterpreter]].
+	n := -1.
 	SystemNavigation new allSelect:
 		[:m| | cm |
 		(m isQuick not
 		 and: [aBlock value: m]) ifTrue:
-			[Transcript nextPut: $.; flush.
+			[(n := n + 1) \\ 10 = 0 ifTrue: [Transcript nextPut: $.; flush].
 			 cm := cogit
 						cog: (coInterpreter oopForObject: m)
 						selector: (coInterpreter oopForObject: m selector).
