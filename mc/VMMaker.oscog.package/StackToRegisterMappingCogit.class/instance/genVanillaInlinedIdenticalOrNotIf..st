@@ -42,10 +42,7 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 		ifFalse:
 			[self deny: deadCode]. "push dummy value below"
 		
-	"We could simplify this with a xor:"
-	self genConditionalBranch: (orNot 
-						ifFalse: [branchDescriptor isBranchTrue ifTrue: [JumpZero] ifFalse: [JumpNonZero]]
-						ifTrue: [branchDescriptor isBranchTrue ifTrue: [JumpNonZero] ifFalse: [JumpZero]])
+	self genConditionalBranch: (orNot == branchDescriptor isBranchTrue ifTrue: [JumpNonZero] ifFalse: [JumpZero])
 		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 
 	"If the branch is dead, then we can just fall through postBranchPC (only a nop in-between), else 

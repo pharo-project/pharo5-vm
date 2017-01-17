@@ -47,22 +47,13 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 			[self deny: deadCode]. "push dummy value below"
 
 	self assert: (unforwardArg or: [unforwardRcvr]).
-	"We could use (branchDescriptor isBranchTrue xor: orNot) to simplify this."
-	orNot 
-		ifFalse: [branchDescriptor isBranchTrue
-					ifTrue: 
-						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
-					ifFalse: "branchDescriptor is branchFalse"
-						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]]
-		ifTrue: [branchDescriptor isBranchTrue
-					ifFalse: "branchDescriptor is branchFalse"
-						[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-						self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
-					ifTrue:
-						[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-						self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ]].
+	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
+		ifFalse:
+			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+		ifTrue:
+			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
 
 	deadCode ifFalse:
 		[self ssPushConstant: objectMemory trueObject]. "dummy value"
