@@ -3,12 +3,12 @@ concretizeMoveRM32r
 	"Will get inlined into concretizeAt: switch."
 	<inline: true>
 	| offset srcReg destReg skip |
-	srcReg := operands at: 0.
-	offset := operands at: 1.
+	offset := operands at: 0.
+	srcReg := operands at: 1.
 	destReg := operands at: 2.
 	(srcReg <= 7 and: [destReg <= 7])
 		ifTrue: [skip := 0]
-		ifFalse: [skip := 1. machineCode at: 0 put: (self rexw: false r: srcReg x: 0 b: destReg)].
+		ifFalse: [machineCode at: (skip := 1) put: (self rexw: false r: srcReg x: 0 b: destReg)].
 	machineCode
 		at: skip + 0 put: 16r89.
 	offset = 0 ifTrue:

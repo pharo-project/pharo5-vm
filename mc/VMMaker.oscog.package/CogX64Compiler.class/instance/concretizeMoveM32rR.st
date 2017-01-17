@@ -8,7 +8,7 @@ concretizeMoveM32rR
 	destReg := operands at: 2.
 	(srcReg <= 7 and: [destReg <= 7])
 		ifTrue: [skip := 0]
-		ifFalse: [skip := 1. machineCode at: 0 put: (self rexw: false r: destReg x: 0 b: srcReg)].
+		ifFalse: [machineCode at: (skip := 1) put: (self rexw: false r: destReg x: 0 b: srcReg)].
 	machineCode
 		at: skip + 0 put: 16r8b.
 	offset = 0 ifTrue:
