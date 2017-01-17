@@ -1,4 +1,4 @@
 accessing class hierarchy
 compactorClass
 	"Answer the compaction algorithm to use."
-	^Smalltalk classNamed: (initializationOptions at: #compactorClass ifAbsent: [#SpurPlanningCompactor])
+	^Smalltalk classNamed: (initializationOptions at: #compactorClass ifAbsent: [#SpurPigCompactor])
