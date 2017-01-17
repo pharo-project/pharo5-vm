@@ -572,7 +572,7 @@
 		"maybeFreeCountersOf:" : "eem 7/3/2014 14:51",
 		"maybeGenerateCheckFeatures" : "nice 7/12/2016 13:51",
 		"maybeGenerateICacheFlush" : "nice 7/12/2016 13:53",
-		"maybeHaltIfDebugPC" : "eem 1/16/2017 12:34",
+		"maybeHaltIfDebugPC" : "eem 1/17/2017 09:18",
 		"maybeMarkCountersIn:" : "eem 7/5/2014 20:07",
 		"maybeMarkIRCsIn:" : "eem 2/12/2016 13:59",
 		"mcPCFor:startBcpc:in:" : "eem 4/14/2014 11:28",
