@@ -1,0 +1,3 @@
+accessing
+baseHeaderSize
+	^SpurMemoryManager baseHeaderSize

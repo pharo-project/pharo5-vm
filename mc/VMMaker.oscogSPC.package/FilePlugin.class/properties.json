@@ -1,0 +1,25 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"DirBadPath",
+		"DirEntryFound",
+		"DirNoMoreEntries" ],
+	"commentStamp" : "tpr 5/5/2003 12:01",
+	"instvars" : [
+		"sCCPfn",
+		"sCDPfn",
+		"sCGFTfn",
+		"sCLPfn",
+		"sCSFTfn",
+		"sDFAfn",
+		"sCDFfn",
+		"sCOFfn",
+		"sCRFfn",
+		"sHFAfn" ],
+	"name" : "FilePlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

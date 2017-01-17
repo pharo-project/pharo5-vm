@@ -1,0 +1,24 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"compare:with:collated:" : "dtl 11/9/2010 19:48",
+		"compress:toByteArray:" : "dtl 11/10/2010 19:42",
+		"convert8bitSignedFrom:to16Bit:" : "dtl 11/10/2010 20:03",
+		"decompress:fromByteArray:at:" : "dtl 11/10/2010 19:42",
+		"findFirstInString:inSet:startingAt:" : "dtl 11/10/2010 20:03",
+		"findSubstring:in:startingAt:matchTable:" : "dtl 11/9/2010 19:38",
+		"indexOfAscii:inString:startingAt:" : "dtl 11/10/2010 20:03",
+		"mixSampleCount:into:startingAt:leftVol:rightVol:" : "dtl 11/10/2010 20:36",
+		"testCompareWithCollated" : "dtl 11/9/2010 20:00",
+		"testCompressToByteArray" : "dtl 11/10/2010 08:03",
+		"testConvert8bitSignedFromTo16Bit" : "dtl 11/10/2010 20:14",
+		"testDecompressFromByteArrayAt" : "dtl 11/10/2010 20:00",
+		"testFindFirstInStringInSetStartingAt" : "dtl 11/9/2010 20:54",
+		"testFindSubstring" : "dtl 11/9/2010 20:14",
+		"testIindexOfAsciiInStringStartingAt" : "dtl 11/9/2010 20:57",
+		"testMixSampleCountIntoStartingAtLeftVolRightVol" : "dtl 11/10/2010 20:45",
+		"testTranslateFromToTable" : "dtl 11/9/2010 20:33",
+		"todoForADPCMCodecPlugin" : "dtl 11/9/2010 21:02",
+		"todoForSoundGeneratorPlugin" : "dtl 11/9/2010 21:02",
+		"translate:from:to:table:" : "dtl 11/10/2010 20:03" } }

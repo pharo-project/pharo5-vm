@@ -1,0 +1,4 @@
+accessing
+isReceiverResultRegSelf
+
+	^ isReceiverResultRegSelf

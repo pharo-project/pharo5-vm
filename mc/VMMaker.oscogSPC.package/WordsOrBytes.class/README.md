@@ -1,0 +1,1 @@
+Coercion specification for bits objects like ByteString, Bitmap, ByteArray, WordArray, LargePositiveInteger et al

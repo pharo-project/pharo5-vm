@@ -1,0 +1,3 @@
+accessing
+cmpC32RTempByteSize
+	self subclassResponsibility

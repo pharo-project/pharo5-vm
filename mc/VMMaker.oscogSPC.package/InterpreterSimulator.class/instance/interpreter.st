@@ -1,0 +1,3 @@
+interpreter shell
+interpreter
+	^self

@@ -1,0 +1,13 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"addBreakpoint:" : "eem 12/24/2015 12:58",
+		"asIntegerPtr" : "nice 7/8/2016 02:34",
+		"asUnsignedInteger" : "eem 6/22/2009 14:07",
+		"asUnsignedIntegerPtr" : "nice 7/8/2016 02:31",
+		"isActiveBreakpoint" : "eem 12/24/2015 11:55",
+		"isBreakpointFor:" : "eem 12/24/2015 11:55",
+		"menuPrompt" : "eem 12/24/2015 13:07",
+		"shouldStopIfAtPC:" : "eem 12/24/2015 12:11",
+		"singleStepRequiredToTriggerIn:" : "eem 12/24/2015 12:03" } }

@@ -1,0 +1,3 @@
+accessing
+firstCompiledMethodFormat
+	^objectMemory firstCompiledMethodFormat

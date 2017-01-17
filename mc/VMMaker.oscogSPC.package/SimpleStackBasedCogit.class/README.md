@@ -1,0 +1,1 @@
+I am the stage one JIT for Cog that does not attempt to eliminate the stack via deferred code generation.

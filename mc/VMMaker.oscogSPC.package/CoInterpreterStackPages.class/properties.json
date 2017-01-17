@@ -1,0 +1,17 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/14/2015 16:10",
+	"instvars" : [
+		"stackBasePlus1",
+		"pageMap",
+		"minStackAddress",
+		"maxStackAddress" ],
+	"name" : "CoInterpreterStackPages",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "CogStackPages",
+	"type" : "normal" }

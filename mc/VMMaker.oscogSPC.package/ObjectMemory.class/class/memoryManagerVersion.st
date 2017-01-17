@@ -1,0 +1,3 @@
+accessing
+memoryManagerVersion 
+	^ 'SqueakV3'

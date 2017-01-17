@@ -1,0 +1,3 @@
+sista support
+allocateCounters: nCounters
+	self subclassResponsibility

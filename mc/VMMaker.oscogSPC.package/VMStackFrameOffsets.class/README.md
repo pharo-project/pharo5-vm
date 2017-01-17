@@ -1,0 +1,1 @@
+I am a shared pool for the constants that define frame layout shared between the stack interpreters and the cogit.

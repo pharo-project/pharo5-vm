@@ -1,0 +1,22 @@
+{
+	"class" : {
+		"byteSizeForSimulator:" : "eem 7/18/2013 11:53",
+		"for:" : "cb 4/17/2016 16:59",
+		"initialize" : "cb 4/15/2016 17:16",
+		"instVarNamesAndTypesForTranslationDo:" : "eem 12/2/2016 11:36",
+		"structTypeName" : "eem 11/22/2010 09:42" },
+	"instance" : {
+		"asInteger" : "eem 2/15/2009 10:22",
+		"bcpc" : "eem 12/2/2016 11:37",
+		"bcpc:" : "eem 12/2/2016 11:37",
+		"becomeFixup" : "cb 4/15/2016 17:31",
+		"cCoerceSimple:to:" : "cb 4/15/2016 17:50",
+		"initialize" : "eem 11/25/2010 13:29",
+		"instructionIndex" : "eem 2/11/2009 21:27",
+		"instructionIndex:" : "eem 2/11/2009 21:28",
+		"needsFixup" : "cb 4/15/2016 17:29",
+		"notAFixup" : "cb 4/15/2016 17:18",
+		"printStateOn:" : "eem 12/2/2016 11:46",
+		"recordBcpc:" : "EstebanLorenzano 12/5/2016 09:56",
+		"targetInstruction" : "eem 2/11/2009 11:51",
+		"targetInstruction:" : "eem 2/11/2009 11:51" } }

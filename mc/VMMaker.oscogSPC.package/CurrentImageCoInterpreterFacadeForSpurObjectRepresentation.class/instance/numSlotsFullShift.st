@@ -1,0 +1,3 @@
+accessing
+numSlotsFullShift
+	^objectMemory numSlotsFullShift

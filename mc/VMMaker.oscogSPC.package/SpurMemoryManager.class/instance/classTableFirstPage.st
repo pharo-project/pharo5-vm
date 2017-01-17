@@ -1,0 +1,4 @@
+accessing
+classTableFirstPage
+	<cmacro>
+	^classTableFirstPage

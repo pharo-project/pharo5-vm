@@ -1,0 +1,16 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "eem 8/14/2015 16:50" },
+	"instance" : {
+		"couldBeFramePointer:" : "eem (const to msg rewrite) 11/6/2014 09:35",
+		"extraStackBytes" : "eem 8/14/2015 11:39",
+		"initializeStack:numSlots:pageSize:" : "eem 8/14/2015 15:56",
+		"initializeWithByteSize:for:" : "eem 8/14/2015 15:48",
+		"longAt:" : "eem 11/10/2014 15:45",
+		"longAt:put:" : "eem 3/7/2015 17:43",
+		"memIndexFor:" : "eem 8/14/2015 16:45",
+		"pageIndexFor:" : "eem 3/8/2013 15:31",
+		"pageIndexFor:stackMemory:bytesPerPage:" : "eem 3/4/2009 09:01",
+		"whereIsMaybeStackThing:" : "eem 8/14/2015 16:04",
+		"writeEnableMemory" : "bgf 3/15/2009 00:25",
+		"writeProtectMemory" : "bgf 3/15/2009 00:24" } }

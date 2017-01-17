@@ -1,0 +1,11 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"emitCCodeOn:level:generator:" : "",
+		"emitCCodeOn:prependToEnd:level:generator:" : "eem 10/30/2012 15:25",
+		"isGoTo" : "",
+		"label" : "",
+		"nodesDo:parent:" : "eem 10/25/2013 14:43",
+		"printOn:level:" : "",
+		"setLabel:" : "eem 4/12/2012 10:51" } }

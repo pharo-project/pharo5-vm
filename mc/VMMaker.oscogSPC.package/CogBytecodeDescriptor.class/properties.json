@@ -1,0 +1,30 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 11/18/2010 06:32",
+	"instvars" : [
+		"generator",
+		"spanFunction",
+		"needsFrameFunction",
+		"stackDelta",
+		"opcode",
+		"numBytes",
+		"isBranchTrue",
+		"isBranchFalse",
+		"isReturn",
+		"isBlockCreation",
+		"isMapped",
+		"isMappedInBlock",
+		"isExtension",
+		"isInstVarRef",
+		"is1ByteInstVarStore",
+		"hasIRC",
+		"isCallPrimitive" ],
+	"name" : "CogBytecodeDescriptor",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

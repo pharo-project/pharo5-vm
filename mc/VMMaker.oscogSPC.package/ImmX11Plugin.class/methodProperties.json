@@ -1,0 +1,26 @@
+{
+	"class" : {
+		"declareHeaderFilesIn:" : "Tsutomu Hiroshima 6/14/2004 22:13" },
+	"instance" : {
+		"initialiseModule" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/8/2003 11:02",
+		"primGetEncoding" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 04:49",
+		"primGetLocale" : "eem 12/11/2012 13:14",
+		"primGetLocaleEncoding" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 04:51",
+		"primGetPathEnc" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 12/5/2003 14:43",
+		"primGetTextEnc" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 04:51",
+		"primGetXWinEnc" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 12/1/2003 18:34",
+		"primIsTextEncUTF8" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/28/2003 16:24",
+		"primSetCompositionFocus:" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 4/13/2004 13:58",
+		"primSetCompositionWindowPositionX:y:" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 1/17/2004 08:14",
+		"primSetEncoding:" : "eem 12/11/2012 13:15",
+		"primSetEncodingToLocale" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 05:07",
+		"primSetLocale:" : "eem 12/11/2012 13:15",
+		"primSetLocaleEncoding:" : "eem 12/11/2012 13:15",
+		"primSetPathEnc:" : "eem 12/11/2012 13:15",
+		"primSetPathEncToLocale" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 12/5/2003 14:40",
+		"primSetTextEnc:" : "eem 12/11/2012 13:16",
+		"primSetTextEncToLocale" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 05:08",
+		"primSetTextEncUTF8:" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/30/2003 05:13",
+		"primSetXWinEnc:" : "eem 12/11/2012 13:16",
+		"primSetXWinEncToLocale" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 12/1/2003 18:35",
+		"shutdownModule" : "Tsutomu (auto pragmas dtl 2011-02-01) Hiroshima 11/10/2003 21:58" } }

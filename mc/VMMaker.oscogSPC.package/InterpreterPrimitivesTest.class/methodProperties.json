@@ -1,0 +1,8 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"expectedFailures" : "dtl 9/22/2012 16:06",
+		"testPrimitiveSubtractLargeIntegersParameterBounds" : "dtl 9/22/2012 16:07",
+		"testSigned64BitValueOfLargeNegativeInteger" : "dtl 9/22/2012 15:53",
+		"testSigned64BitValueOfLargePositiveInteger" : "dtl 9/22/2012 16:04" } }

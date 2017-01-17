@@ -1,0 +1,3 @@
+bytecode generators
+genSpecialSelectorEqualsEquals
+	^ self genInlinedIdenticalOrNotIf: false

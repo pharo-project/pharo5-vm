@@ -1,0 +1,5 @@
+testing
+expectedFailures
+
+	^#(testFindSubstringOldVersionWithMissingTypeChecks
+		testFindSubstringInWideString)

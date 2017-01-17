@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"primitiveGeneratorTable",
+		"primSetFunctionLabel",
+		"primInvokeInstruction",
+		"externalPrimCallOffsets",
+		"externalPrimJumpOffsets",
+		"externalSetPrimOffsets",
+		"introspectionDataIndex",
+		"introspectionData" ],
+	"name" : "SimpleStackBasedCogit",
+	"pools" : [
+		"VMMethodCacheConstants",
+		"VMObjectIndices" ],
+	"super" : "Cogit",
+	"type" : "normal" }

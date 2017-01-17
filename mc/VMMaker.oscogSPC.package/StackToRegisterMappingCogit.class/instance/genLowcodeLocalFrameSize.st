@@ -1,0 +1,29 @@
+inline primitive generators generated code
+genLowcodeLocalFrameSize
+	<option: #LowcodeVM>	"Lowcode instruction generator"
+	| size alignedSize |
+	size := extA.
+
+	self assert: needsFrame.
+	hasNativeFrame := true.
+	"Align the size to 16 bytes."
+	alignedSize := size + 15 bitAnd: -16.
+	"Mark the stack frame"
+	self annotate: (self MoveCw: (objectMemory splObj: LowcodeContextMark) R: TempReg) objRef: (objectMemory splObj: LowcodeContextMark).
+	self MoveR: TempReg Mw: self frameOffsetOfNativeFrameMark r: FPReg.
+	"Fetch the stack"
+	self MoveAw: coInterpreter nativeStackPointerAddress R: TempReg.
+	self AddCq: 1 R: TempReg.
+	self MoveR: TempReg Mw: self frameOffsetOfPreviousNativeStackPointer r: FPReg.
+	"Store the frame pointer"
+	self SubCq: alignedSize R: TempReg.
+	self MoveR: TempReg Mw: self frameOffsetOfNativeFramePointer r: FPReg.
+	"Store the new stack pointer"
+	self MoveR: TempReg Mw: self frameOffsetOfNativeStackPointer r: FPReg.
+	"Allocate space for the locals"
+	self SubCq: 1 + coInterpreter defaultNativeStackFrameSize R: TempReg.
+	self MoveR: TempReg Aw: coInterpreter nativeStackPointerAddress.
+
+	extA := 0.
+	^ 0
+

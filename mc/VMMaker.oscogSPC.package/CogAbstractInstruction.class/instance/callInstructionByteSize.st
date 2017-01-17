@@ -1,0 +1,3 @@
+accessing
+callInstructionByteSize
+	self subclassResponsibility

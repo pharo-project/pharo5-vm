@@ -1,0 +1,3 @@
+accessing
+specialObjectsArrayAddress
+	^self addressForLabel: #specialObjectsOop

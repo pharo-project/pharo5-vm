@@ -1,0 +1,4 @@
+unloading
+unload
+
+	TheWorldMenu unregisterOpenCommandWithReceiver: self

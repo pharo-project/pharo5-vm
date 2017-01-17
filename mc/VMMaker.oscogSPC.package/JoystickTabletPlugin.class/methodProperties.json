@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:08",
+		"requiresPlatformFiles" : "tpr 3/26/2002 15:22" },
+	"instance" : {
+		"initialiseModule" : "ar (auto pragmas 12/08) 5/12/2000 16:53",
+		"primitiveGetTabletParameters:" : "tpr (auto pragmas 12/08) 12/29/2005 16:35",
+		"primitiveReadJoystick:" : "TPR 3/24/2000 18:33",
+		"primitiveReadTablet:" : "tpr (auto pragmas 12/08) 12/29/2005 16:36",
+		"shutdownModule" : "tpr (auto pragmas 12/08) 3/26/2002 15:22" } }

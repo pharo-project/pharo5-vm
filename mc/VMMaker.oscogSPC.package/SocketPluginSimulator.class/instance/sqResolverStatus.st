@@ -1,0 +1,3 @@
+simulation
+sqResolverStatus
+	^NetNameResolver primNameResolverStatus

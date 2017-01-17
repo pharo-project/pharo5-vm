@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 4/7/2016 09:39",
+	"instvars" : [
+		 ],
+	"name" : "CFloatArray",
+	"pools" : [
+		 ],
+	"super" : "CArray",
+	"type" : "normal" }

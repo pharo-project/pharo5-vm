@@ -1,0 +1,4 @@
+accessing
+isSmartSyntaxPluginSimulator
+	<doNotGenerate>
+	^false

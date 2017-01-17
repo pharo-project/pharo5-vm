@@ -1,0 +1,1 @@
+BalloonArray keeps a shadow copy of its raw memory data in a Smalltalk array.  This allows support for C's inhomogeneous access, returning floats where Floats were stored, and negative ints where they were stored.  This ruse only works, of course where we have control over all the access.

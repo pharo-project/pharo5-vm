@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Building",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "UnixVMMaker",
+	"pools" : [
+		 ],
+	"super" : "VMMaker",
+	"type" : "normal" }

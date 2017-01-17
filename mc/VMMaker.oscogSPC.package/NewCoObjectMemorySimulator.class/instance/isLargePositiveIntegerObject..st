@@ -1,0 +1,3 @@
+simulation only
+isLargePositiveIntegerObject: offset
+	^coInterpreter isLargePositiveIntegerObject: offset

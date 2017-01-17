@@ -1,0 +1,3 @@
+accessing
+bounds
+	^morph bounds.

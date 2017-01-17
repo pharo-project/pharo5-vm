@@ -1,0 +1,4 @@
+compaction
+unmarkObjectsInFullyCompactedHeap
+	self unmarkInitialImmobileObjects.
+	manager unmarkSurvivingObjectsForCompact

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogInLineLiteralsARMCompiler",
+	"pools" : [
+		 ],
+	"super" : "CogARMCompiler",
+	"type" : "normal" }

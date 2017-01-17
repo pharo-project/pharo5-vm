@@ -1,0 +1,4 @@
+simulation only
+minBackwardJumpCountForCompile
+	<doNotGenerate>
+	^minBackwardJumpCountForCompile

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurPlanningCompactorTests",
+	"pools" : [
+		"VMSqueakClassIndices" ],
+	"super" : "TestCase",
+	"type" : "normal" }

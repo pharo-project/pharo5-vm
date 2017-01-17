@@ -1,0 +1,24 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"callFullTargetFromReturnAddress:" : "eem 09/28/2015 18:48",
+		"cmpC32RTempByteSize" : "eem 11/20/2015 16:48",
+		"cogit:" : "eem 10/6/2015 16:25",
+		"extract32BitOperandFrom4InstructionsPreceding:" : "eem 9/28/2015 19:00",
+		"getDefaultCogCodeSize" : "eem 6/10/2015 14:03",
+		"inlineCacheTagAt:" : "eem 9/28/2015 19:01",
+		"insert32BitOperand:into4InstructionsPreceding:" : "eem 9/28/2015 19:02",
+		"isPCDependent" : "eem 6/9/2015 21:04",
+		"literal32BeforeFollowingAddress:" : "eem 11/20/2015 16:43",
+		"literalBeforeFollowingAddress:" : "eem 9/28/2015 19:01",
+		"literalLoadInstructionBytes" : "eem 6/8/2015 12:20",
+		"loadLiteralByteSize" : "tpr 11/11/2015 11:05",
+		"moveCw:intoR:" : "eem 6/8/2015 14:53",
+		"nsSendCacheAt:" : "rmacnak 12/12/2015 11:44:41",
+		"relocateMethodReferenceBeforeAddress:by:" : "eem 9/28/2015 19:07",
+		"rewriteFullTransferAt:target:expectedInstruction:" : "eem 9/28/2015 19:02",
+		"rewriteInlineCacheAt:tag:target:" : "eem 12/16/2015 19:20",
+		"rewriteInlineCacheTag:at:" : "eem 9/28/2015 19:02",
+		"sizePCDependentInstructionAt:" : "eem 09/28/2015 18:48",
+		"storeLiteral:beforeFollowingAddress:" : "eem 9/28/2015 19:03" } }

@@ -1,0 +1,2 @@
+compile abstract instructions
+resetForBlockCompile

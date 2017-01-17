@@ -1,0 +1,4 @@
+accessing
+generatorTable
+	<doNotGenerate>
+	^generatorTable

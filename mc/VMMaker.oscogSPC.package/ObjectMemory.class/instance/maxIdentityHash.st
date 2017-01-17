@@ -1,0 +1,3 @@
+forward compatibility
+maxIdentityHash
+	^HashMaskUnshifted

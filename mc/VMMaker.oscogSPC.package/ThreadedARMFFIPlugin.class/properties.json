@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Plugins-FFI",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"NumFloatRegArgs",
+		"NumIntRegArgs" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "ThreadedARMFFIPlugin",
+	"pools" : [
+		 ],
+	"super" : "ThreadedFFIPlugin",
+	"type" : "normal" }

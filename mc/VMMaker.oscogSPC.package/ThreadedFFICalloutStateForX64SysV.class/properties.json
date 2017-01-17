@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins-FFI",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "ThreadedFFICalloutStateForX64SysV",
+	"pools" : [
+		 ],
+	"super" : "ThreadedFFICalloutStateForX64",
+	"type" : "normal" }

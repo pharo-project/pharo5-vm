@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SistaCogitClone",
+	"pools" : [
+		 ],
+	"super" : "SistaRegisterAllocatingCogit",
+	"type" : "normal" }

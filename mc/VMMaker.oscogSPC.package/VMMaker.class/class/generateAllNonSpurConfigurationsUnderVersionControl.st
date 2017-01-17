@@ -1,0 +1,5 @@
+configurations
+generateAllNonSpurConfigurationsUnderVersionControl
+	self generateSqueakCogVM;
+		generateSqueakCogMTVM;
+		generateSqueakStackVM

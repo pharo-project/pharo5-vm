@@ -1,0 +1,3 @@
+simulation only
+transcript
+	^transcript

@@ -1,0 +1,3 @@
+accessing
+statNumGCs
+	^statIncrGCs + statFullGCs
