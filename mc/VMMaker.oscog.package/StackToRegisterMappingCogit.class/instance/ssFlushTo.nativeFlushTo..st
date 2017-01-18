@@ -5,7 +5,7 @@ ssFlushTo: index nativeFlushTo: nativeIndex
 	0 to: methodOrBlockNumTemps - 1 do:
 		[:i| self assert: ((self simStackAt: i) type = SSBaseOffset
 						or: [self maybeCompilingFirstPassOfBlockWithInitialPushNil])].
-	methodOrBlockNumTemps to: simSpillBase - 1 do:
+	methodOrBlockNumTemps to: simSpillBase - 1 do: "simSpillBase and simStackPtr are 0-relative"
 		[:i| self assert: (self simStackAt: i) spilled].
 	simSpillBase <= index ifTrue:
 		[(simSpillBase max: methodOrBlockNumTemps) to: index do:

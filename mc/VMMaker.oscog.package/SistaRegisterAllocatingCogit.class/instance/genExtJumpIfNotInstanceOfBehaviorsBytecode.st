@@ -8,7 +8,6 @@ genExtJumpIfNotInstanceOfBehaviorsBytecode
 	 We could use a fixed register here...."
 	reg := self allocateRegForStackEntryAt: 0.
 	self ssTop popToReg: reg.
-	self ssFlushTo: simStackPtr. "flushed but the value is still in reg"
 	self ssPop: 1.
 
 	literal := self getLiteral: (extA * 256 + byte1).
@@ -16,6 +15,9 @@ genExtJumpIfNotInstanceOfBehaviorsBytecode
 		[extB := extB + 128].
 	distance := extB * 256 + byte2.
 	extA := extB := numExtB := 0.
+
+	"For now just deny we're in the situation we have yet to implement ;-)"
+	self deny: (self mergeRequiredForJumpTo: bytecodePC + 3 + distance).
 
 	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'.
 	inverse

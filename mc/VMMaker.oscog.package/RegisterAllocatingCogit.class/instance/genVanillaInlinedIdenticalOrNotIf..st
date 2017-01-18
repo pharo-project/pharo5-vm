@@ -29,6 +29,10 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 	self genCmpArgIsConstant: argIsConstant rcvrIsConstant: rcvrIsConstant argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 
+	"For now just deny we're in the situation we have yet to implement ;-)"
+	self deny: (self mergeRequiredForJumpTo: targetBytecodePC).
+	self deny: (self mergeRequiredForJumpTo: postBranchPC).
+
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
 	(self fixupAt: nextPC - initialPC) notAFixup
