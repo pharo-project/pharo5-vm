@@ -11,8 +11,8 @@ setMergeSimStackOf: fixup
 			[self assert: fixup simStackPtr = simStackPtr.
 			 0 to: simStackPtr do:
 				[:i|
-				self assert: ((self simStackAt: i) isSameEntryAs: (fixup mergeSimStack at: i)).
-				(self simStackAt: i) liveRegister ~= (fixup mergeSimStack at: i) liveRegister ifTrue:
+				self assert: ((self simStackAt: i) isSameEntryAs: (self addressOf: (fixup mergeSimStack at: i))).
+				(self simStackAt: i) liveRegister ~= (self addressOf: (fixup mergeSimStack at: i)) liveRegister ifTrue:
 					[(self simStackAt: i) liveRegister: NoReg]]].
 	fixup
 		simStackPtr: simStackPtr;

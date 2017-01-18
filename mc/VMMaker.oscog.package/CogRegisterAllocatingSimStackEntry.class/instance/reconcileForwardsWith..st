@@ -10,7 +10,7 @@ reconcileForwardsWith: targetEntry
 	 this is because if merging a non-temp with a temp that has a live register we
 	 can assign to the register, but must unassign the register from the temp,
 	 otherwise the temp will acquire the merged value without an assignment."
-	<var: #targetEntry type: #'targetEntry *'>
+	<var: #targetEntry type: #'SimStackEntry *'>
 	| targetReg |
 	(targetReg := targetEntry registerOrNone) = NoReg ifTrue:
 		[| reg |

@@ -5,6 +5,7 @@ deassignRegisterForTempVar: targetEntry in: mergeSimStack
 	 the temp will acquire the merged value without an assignment.  The targetEntry
 	 must also be transmogrified into an SSRegister entry."
 	<var: #targetEntry type: #'SimStackEntry *'>
+	<var: #duplicateEntry type: #'SimStackEntry *'>
 	<var: #mergeSimStack type: #'SimStackEntry *'>
 	<inline: true>
 	| reg |

@@ -10,7 +10,6 @@ mergeCurrentSimStackWith: fixup
 	 The state of optStatus must agree."
 	<var: #targetEntry type: #'SimStackEntry *'>
 	<var: #currentEntry type: #'SimStackEntry *'>
-	<var: #duplicateEntry type: #'SimStackEntry *'>
 	(mergeSimStack := fixup mergeSimStack) ifNil: [^self].
 	"Assignments amongst the registers must be made in order to avoid overwriting.
 	 If necessary exchange registers amongst simStack's entries to resolve any conflicts."
