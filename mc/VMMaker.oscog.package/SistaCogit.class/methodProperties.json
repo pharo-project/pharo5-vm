@@ -35,7 +35,7 @@
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genTrinaryInlinePrimitive:" : "cb 8/29/2016 10:45",
 		"genUnaryInlinePrimitive:" : "cb 1/18/2017 10:50",
-		"genUnconditionalTrapBytecode" : "cb 4/28/2015 09:59",
+		"genUnconditionalTrapBytecode" : "cb 1/19/2017 12:11",
 		"genUnoptimizedSpecialSelectorComparison" : "cb 4/28/2015 12:53",
 		"generateSistaRuntime" : "cb 4/16/2015 16:16",
 		"getJumpTargetPCAt:" : "cb 4/28/2015 16:19",
