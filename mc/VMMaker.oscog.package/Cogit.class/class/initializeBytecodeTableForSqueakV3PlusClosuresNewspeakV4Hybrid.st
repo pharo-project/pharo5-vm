@@ -12,5 +12,6 @@ initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid
 	AltFirstSpecialSelector := FirstSpecialSelector.
 	AltNumSpecialSelectors := NumSpecialSelectors.
 	self initializeBytecodeTableForSqueakV3PlusClosures.
+	BytecodeSetHasExtensions := true.
 	v3Table := generatorTable.
 	generatorTable := CArrayAccessor on: v3Table object, v4Table object

@@ -17,4 +17,7 @@ methodWithHeaderShouldBeCogged: methodHeader
 				50->2 51->1 53->1 55->1 56->1
 				87->1 108->1 171->1)
 	 literalCountOfHeader: does not include the header word."
-	^(objectMemory literalCountOfMethodHeader: methodHeader) <= maxLiteralCountForCompile
+	^SistaVM
+		ifTrue: [(self isOptimizedMethodHeader: methodHeader)
+				or: [(objectMemory literalCountOfMethodHeader: methodHeader) <= maxLiteralCountForCompile]]
+		ifFalse: [(objectMemory literalCountOfMethodHeader: methodHeader) <= maxLiteralCountForCompile]

@@ -11,5 +11,6 @@ initializeBytecodeTableForSqueakV3PlusClosuresSistaV1Hybrid
 	AltFirstSpecialSelector := FirstSpecialSelector.
 	AltNumSpecialSelectors := NumSpecialSelectors.
 	self initializeBytecodeTableForSqueakV3PlusClosures.
+	BytecodeSetHasExtensions := true.
 	v3Table := generatorTable.
 	generatorTable := CArrayAccessor on: v3Table object, v1Table object
