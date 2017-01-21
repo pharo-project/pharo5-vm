@@ -6,5 +6,6 @@ branchIf: reg hasNotImmediateTag: classIndex target: targetFixUp
 	classIndex = objectMemory smallIntegerTag ifTrue:
 		[jmpImmediate := self genJumpNotSmallInteger: reg].
 	classIndex = objectMemory characterTag ifTrue:
-		[jmpImmediate := self genJumpNotCharacter: reg].
+		[cogit MoveR: reg R: TempReg.
+		 jmpImmediate := self genJumpNotCharacterInScratchReg: reg].
 	jmpImmediate jmpTarget: targetFixUp
