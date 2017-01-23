@@ -7,7 +7,7 @@ printDecodeMethodHeaderOop: methodHeaderOop
 		[self print: ' largeFrame'].
 	(SistaVM and: [self isOptimizedMethodHeader: methodHeaderOop]) ifTrue:
 		[self print: ' optimized'].
-	(MULTIPLEBYTECODESETS and: [self integerValueOf: methodHeaderOop]) < 0 ifTrue:
+	(MULTIPLEBYTECODESETS and: [objectMemory integerValueOf: methodHeaderOop]) < 0 ifTrue:
 		[self print: ' altSet'].
 	NewspeakVM ifTrue:
 		[self print: ((self accessModifierOfMethodHeader: methodHeaderOop) caseOf: {

@@ -4,7 +4,10 @@ initializeCodeZoneFrom: startAddress upTo: endAddress
 	self initializeBackend.
 	backEnd stopsFrom: startAddress to: endAddress - 1.
 	self cCode: [self sqMakeMemoryExecutableFrom: startAddress To: endAddress]
-		inSmalltalk: [self initializeProcessor].
+		inSmalltalk:
+			[startAddress = self class guardPageSize ifTrue:
+				[backEnd stopsFrom: 0 to: endAddress - 1].
+			 self initializeProcessor].
 	codeBase := methodZoneBase := startAddress.
 	minValidCallAddress := (codeBase min: coInterpreter interpretAddress)
 								min: coInterpreter primitiveFailAddress.

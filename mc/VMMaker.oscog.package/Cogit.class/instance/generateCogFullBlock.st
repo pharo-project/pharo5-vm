@@ -1,4 +1,4 @@
-compile abstract instructions
+generate machine code
 generateCogFullBlock
 	"We handle jump sizing simply.  First we make a pass that asks each
 	 instruction to compute its maximum size.  Then we make a pass that
