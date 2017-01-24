@@ -2,7 +2,7 @@ symbol loading
 ffiLoadCalloutModule: module
 	"Load the given module and return its handle"
 	| moduleHandlePtr moduleHandle ffiModuleName moduleLength rcvr ptr |
-	<var: #ptr type:'int *'>
+	<var: #ptr type:'sqInt *'>
 	(interpreterProxy isBytes: module) ifTrue:[
 		"plain module name"
 		ffiModuleName := module.
