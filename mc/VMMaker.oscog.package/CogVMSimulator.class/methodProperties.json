@@ -210,7 +210,7 @@
 		"mapInterpreterOops" : "eem 9/30/2010 13:21",
 		"mappedPluginEntries" : "eem 6/3/2016 16:22",
 		"markAndTraceInterpreterOops:" : "eem 9/30/2010 13:21",
-		"maybeCheckStackDepth:sp:pc:" : "eem 1/15/2017 17:09",
+		"maybeCheckStackDepth:sp:pc:" : "eem 1/24/2017 13:46",
 		"maybeMapPrimitiveFunctionPointerBackToSomethingEvaluable" : "eem 6/6/2016 12:09",
 		"memory" : "eem (objmem refactor) 6/8/2010 17:12",
 		"methodCache" : "eem 10/2/2013 15:19",

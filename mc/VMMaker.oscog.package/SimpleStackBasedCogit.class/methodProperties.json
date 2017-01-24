@@ -127,7 +127,7 @@
 		"genPushLiteralVariable16CasesBytecode" : "eem 11/2/2012 14:12",
 		"genPushLiteralVariable:" : "cb 4/25/2015 15:12",
 		"genPushLiteralVariableBytecode" : "eem 1/14/2009 19:57",
-		"genPushLiteralVariableGivenDirectedSuper:" : "eem 4/6/2015 10:04",
+		"genPushLiteralVariableGivenDirectedSuper:" : "eem 1/24/2017 11:00",
 		"genPushMaybeContextReceiverVariable:" : "eem 1/20/2016 14:22",
 		"genPushMaybeContextRemoteInstVar:inObjectAt:" : "cb 4/8/2016 08:58",
 		"genPushNewArrayBytecode" : "eem 5/31/2014 08:52",
