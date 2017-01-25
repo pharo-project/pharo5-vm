@@ -1,4 +1,4 @@
 accessing
 mergeSimStack
-
-	^ mergeSimStack
+	<returnTypeC: #'CogSimStackEntry *'>
+	^mergeSimStack

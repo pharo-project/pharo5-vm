@@ -9,6 +9,6 @@ voidReceiverResultRegContainsSelf
 	optStatus isReceiverResultRegLive: false.
 	methodOrBlockNumTemps to: simStackPtr do:
 		[:i|
-		(simSelf isSameEntryAs: (self simStackAt: i)) ifTrue:
+		((self addressOf: simSelf) isSameEntryAs: (self simStackAt: i)) ifTrue:
 			[(self simStackAt: i) liveRegister: NoReg]].
 	simSelf liveRegister: NoReg

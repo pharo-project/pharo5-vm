@@ -10,8 +10,10 @@ copyAndUnmarkMobileObjects
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	<inline: #never>
 	| toFinger top previousPin |
+	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
+	<var: 'previousPin' type: #usqInt>
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.

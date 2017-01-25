@@ -2,7 +2,7 @@ compile abstract instructions
 reconcilePoppingWith: targetEntry
 	"Make the state of a targetEntry, a stack entry following a non-inlined special selector
 	 send, the same as the corresponding entry (the receiver) along the inlined path."
-	<var: #targetEntry type: #'targetEntry *'>
+	<var: #targetEntry type: #'SimStackEntry *'>
 	| targetReg |
 	targetEntry spilled ifTrue:
 		[self assert: (self isSameEntryAs: targetEntry).

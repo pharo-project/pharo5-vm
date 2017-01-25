@@ -1,6 +1,5 @@
 compile abstract instructions
 popToReg: reg
-	<var: #inst type: #'AbstractInstruction *'>
 	liveRegister ~= NoReg
 		ifTrue: 
 			[self deny: (type = SSRegister and: [register ~= liveRegister and: [cogit needsFrame]]).

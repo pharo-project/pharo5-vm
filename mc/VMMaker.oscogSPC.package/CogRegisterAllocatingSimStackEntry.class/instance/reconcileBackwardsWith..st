@@ -2,7 +2,7 @@ compile abstract instructions
 reconcileBackwardsWith: targetEntry
 	"Make the state of the receiver, a stack entry at a backward jump,
 	 the same as the corresponding simStackEntry at the target of the jump"
-	<var: #targetEntry type: #'targetEntry *'>
+	<var: #targetEntry type: #'SimStackEntry *'>
 	| targetReg |
 	(targetReg := targetEntry registerOrNone) = NoReg ifTrue:
 		[^self].

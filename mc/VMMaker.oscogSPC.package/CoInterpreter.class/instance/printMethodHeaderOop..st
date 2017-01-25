@@ -6,5 +6,5 @@ printMethodHeaderOop: anOop
 	(self isCogMethodReference: anOop) ifTrue:
 		[cogMethod := cogMethodZone methodFor: (self pointerForOop: anOop).
 		 cogMethod ~= 0 ifTrue:
-			[^self printHex: anOop; space; printOopShort: cogMethod methodHeader]].
-	^self printOopShort: anOop
+			[^self printHex: anOop; space; printDecodeMethodHeaderOop: cogMethod methodHeader]].
+	^self printDecodeMethodHeaderOop: anOop

@@ -1,3 +1,3 @@
 accessing
 counters
-	^memory long64At: address + 33 + baseHeaderSize
+	^memory unsignedLong64At: address + 33 + baseHeaderSize

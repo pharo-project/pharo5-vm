@@ -52,9 +52,11 @@ handleCallOrJumpSimulationTrap: aProcessorSimulationTrap
 						primitivePerform primitivePerformWithArgs primitivePerformInSuperclass
 						primitiveTerminateTo primitiveStoreStackp primitiveDoPrimitiveWithArgs)
 							includes: function) ifFalse:
-						[self assert: savedFramePointer = coInterpreter framePointer.
-						 self assert: savedStackPointer + (savedArgumentCount * objectMemory wordSize)
-								= coInterpreter stackPointer]]
+						["This is a rare case (e.g. in Scorch where a married context's sender is set to nil on trapTrpped and hence the stack layout is altered."
+						 (function == #primitiveSlotAtPut and: [objectMemory isContext: (coInterpreter frameReceiver: coInterpreter framePointer)]) ifFalse:
+							[self assert: savedFramePointer = coInterpreter framePointer.
+							 self assert: savedStackPointer + (savedArgumentCount * objectMemory wordSize)
+									= coInterpreter stackPointer]]]
 			ifFalse:
 				[self assert: savedFramePointer = coInterpreter framePointer.
 				 self assert: savedStackPointer = coInterpreter stackPointer]].

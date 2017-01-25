@@ -45,7 +45,7 @@ genJumpIf: boolean to: targetBytecodePC
 	eventualTarget := self eventualTargetOf: targetBytecodePC.
 
 	self flag: 'Because of the restriction on x64 that absolute loads must target %rax, it would perhaps be a better choice to use TempReg (%rax) for the counter reg and SendNumArgsReg for the boolean.'.
-	"try and use the top entry's register if ant, but only if it can be destroyed."
+	"try and use the top entry's register if any, but only if it can be destroyed."
 	reg := (desc type ~= SSRegister
 			or: [(self anyReferencesToRegister: desc register inAllButTopNItems: 0)
 			or: [(desc register = ReceiverResultReg and: [optStatus isReceiverResultRegLive])]])

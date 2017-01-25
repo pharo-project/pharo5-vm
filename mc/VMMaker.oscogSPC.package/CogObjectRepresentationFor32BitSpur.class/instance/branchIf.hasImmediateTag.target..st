@@ -3,9 +3,9 @@ branchIf: reg hasImmediateTag: classIndex target: targetFixUp
 	<var: #targetFixUp type: #'AbstractInstruction *'>
 	| jmpImmediate|
 	<inline: true>
-	cogit MoveR: reg R: TempReg.
 	classIndex = objectMemory smallIntegerTag ifTrue:
-		[jmpImmediate := self genJumpSmallIntegerInScratchReg: TempReg].
+		[jmpImmediate := self genJumpSmallInteger: reg].
 	classIndex = objectMemory characterTag ifTrue:
-		[jmpImmediate := self genJumpCharacterInScratchReg: TempReg].
+		[cogit MoveR: reg R: TempReg.
+		 jmpImmediate := self genJumpCharacterInScratchReg: reg].
 	jmpImmediate jmpTarget: targetFixUp

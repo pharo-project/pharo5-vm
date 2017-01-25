@@ -1,4 +1,5 @@
 space management
 savedFirstFieldsSpaceInFreeChunk
 	<inline: true>
-	^savedFirstFieldsSpaceNotInOldSpace not and: [savedFirstFieldsSpace start >= manager nilObject]
+	^savedFirstFieldsSpaceNotInOldSpace not
+	 and: [self oop: savedFirstFieldsSpace start isGreaterThan: manager nilObject]

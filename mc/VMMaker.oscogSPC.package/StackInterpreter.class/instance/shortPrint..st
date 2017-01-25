@@ -7,9 +7,9 @@ shortPrint: oop
 			[^(objectMemory characterValueOf: oop) < 256
 				ifTrue:
 					['=$', (objectMemory characterValueOf: oop) printString,
-					' (', (String with: (Character value: (objectMemory characterValueOf: oop))), ')']
+					' ($', (String with: (Character value: (objectMemory characterValueOf: oop))), ')']
 				ifFalse:
-					['=$', (objectMemory characterValueOf: oop) printString, '(???)']].
+					['=$', (objectMemory characterValueOf: oop) printString, '($???)']].
 		(objectMemory isIntegerObject: oop) ifTrue:
 			[^'=', (objectMemory integerValueOf: oop) printString,
 			' (', (objectMemory integerValueOf: oop) hex, ')'].

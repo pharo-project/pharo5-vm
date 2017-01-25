@@ -11,8 +11,10 @@ planCompactSavingForwarders
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	<inline: #never>
 	| toFinger top previousPin |
+	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
+	<var: 'previousPin' type: #usqInt>
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[self logPhase: 'planning...'].
 	self deny: (manager isMarked: firstFreeObject).

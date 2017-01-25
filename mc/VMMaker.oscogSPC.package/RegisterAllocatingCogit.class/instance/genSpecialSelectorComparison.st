@@ -12,7 +12,7 @@ genSpecialSelectorComparison
 				 and: [objectMemory isIntegerObject: (self ssValue: 1) constant].
 
 	(argIsInt and: [rcvrIsInt]) ifTrue:
-		[^ self genStaticallyResolvedSpecialSelectorComparison].
+		[^self genStaticallyResolvedSpecialSelectorComparison].
 
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
 		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
@@ -49,6 +49,11 @@ genSpecialSelectorComparison
 	argIsInt
 		ifTrue: [self CmpCq: argInt R: rcvrReg]
 		ifFalse: [self CmpR: argReg R: rcvrReg].
+
+	"For now just deny we're in the situation we have yet to implement ;-)"
+	self deny: (self mergeRequiredForJumpTo: targetBytecodePC).
+	self deny: (self mergeRequiredForJumpTo: postBranchPC).
+
 	"Cmp is weird/backwards so invert the comparison.  Further since there is a following conditional
 	 jump bytecode define non-merge fixups and leave the cond bytecode to set the mergeness."
 	self genConditionalBranch: (branchDescriptor isBranchTrue

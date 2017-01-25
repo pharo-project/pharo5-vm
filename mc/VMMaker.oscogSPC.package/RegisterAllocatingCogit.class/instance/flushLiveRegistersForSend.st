@@ -9,7 +9,7 @@ flushLiveRegistersForSend
 					 and: [(self simStackAt: i) type = SSConstant
 						or: [((self simStackAt: i) type = SSBaseOffset
 							or: [i >= methodOrBlockNumTemps
-								and: (self simStackAt: i) type = SSSpill])
+								and: [(self simStackAt: i) type = SSSpill]])
 							 and: [(self simStackAt: i) register = FPReg
 							 and: [(self simStackAt: i) offset = (self frameOffsetOfTemporary: i)]]]]).
 		 (self simStackAt: i) liveRegister: NoReg]

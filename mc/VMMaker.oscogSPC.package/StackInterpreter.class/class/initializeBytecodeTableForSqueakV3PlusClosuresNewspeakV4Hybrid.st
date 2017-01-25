@@ -8,5 +8,6 @@ initializeBytecodeTableForSqueakV3PlusClosuresNewspeakV4Hybrid
 	AltBytecodeEncoderClassName := BytecodeEncoderClassName.
 	AltLongStoreBytecode := LongStoreBytecode.
 	self initializeBytecodeTableForSqueakV3PlusClosures.
+	BytecodeSetHasExtensions := true.
 	v3Table := BytecodeTable.
 	BytecodeTable := v3Table, v4Table

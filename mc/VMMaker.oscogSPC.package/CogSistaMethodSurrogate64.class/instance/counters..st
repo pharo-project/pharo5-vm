@@ -1,5 +1,5 @@
 accessing
 counters: aValue
 	^memory
-		long64At: address + 33 + baseHeaderSize
+		unsignedLong64At: address + baseHeaderSize + 33
 		put: aValue

@@ -127,7 +127,7 @@
 		"genPushLiteralVariable16CasesBytecode" : "eem 11/2/2012 14:12",
 		"genPushLiteralVariable:" : "cb 4/25/2015 15:12",
 		"genPushLiteralVariableBytecode" : "eem 1/14/2009 19:57",
-		"genPushLiteralVariableGivenDirectedSuper:" : "eem 4/6/2015 10:04",
+		"genPushLiteralVariableGivenDirectedSuper:" : "eem 1/24/2017 11:00",
 		"genPushMaybeContextReceiverVariable:" : "eem 1/20/2016 14:22",
 		"genPushMaybeContextRemoteInstVar:inObjectAt:" : "cb 4/8/2016 08:58",
 		"genPushNewArrayBytecode" : "eem 5/31/2014 08:52",
@@ -222,6 +222,6 @@
 		"v3:ShortForward:Branch:Distance:" : "eem 11/2/2012 10:25",
 		"v4:Block:Code:Size:" : "eem 11/13/2012 14:43",
 		"v4:Long:Branch:Distance:" : "eem 11/5/2012 16:25",
-		"v4:Long:BranchIfNotInstanceOf:Distance:" : "cb 6/10/2015 10:33",
+		"v4:Long:BranchIfNotInstanceOf:Distance:" : "cb 1/19/2017 11:54",
 		"v4:LongForward:Branch:Distance:" : "eem 11/5/2012 16:25",
 		"voidCogCompiledCode" : "eem 8/17/2015 20:38" } }

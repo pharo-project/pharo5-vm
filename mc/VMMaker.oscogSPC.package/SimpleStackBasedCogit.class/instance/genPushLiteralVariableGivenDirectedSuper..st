@@ -3,8 +3,8 @@ genPushLiteralVariableGivenDirectedSuper: literalIndex
 	"This is a version of genPushLiteralVariable: that looks ahead for a directed super send bytecode
 	 and does not generate any code for the dereference yet if followed by a directed super send."
 	<inline: false>
-	self nextDescriptorAndExtensionsInto:
-		[:descriptor :exta :extb|
+	self nextDescriptorExtensionsAndNextPCInto:
+		[:descriptor :exta :extb :followingPC|
 		(self isDirectedSuper: descriptor extA: exta extB: extb) ifTrue:
 			[tempOop := self getLiteral: literalIndex.
 			 ^0]].

@@ -5,4 +5,5 @@ v4: descriptor Long: pc BranchIfNotInstanceOf: nExts Distance: aMethodObj
 	| extBValue |
 	self assert: nExts >= 0.
 	self parseV4Exts: nExts priorTo: pc in: aMethodObj into: [:ea :eb| extBValue := eb].
+	extBValue < 0 ifTrue: [extBValue := extBValue + 128].
 	^(objectMemory fetchByte: pc + 2 ofObject: aMethodObj) + (extBValue << 8)
