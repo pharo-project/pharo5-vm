@@ -9,10 +9,8 @@ updatePointersInMobileObjects
 	 would make understanding an already tricky algorithm more difficult.  Instead we tolerate the duplication and encourage
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	| toFinger top previousPin |
-	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
-	<var: 'previousPin' type: #usqInt>
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
@@ -52,7 +50,7 @@ updatePointersInMobileObjects
 						 [previousPin >= o
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
-							[previousPin := manager oldSpaceObjectAfter: previousPin].
+							[previousPin := manager objectAfter: previousPin].
 						 previousPin >= o ifTrue:
 							[previousPin := nil]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.

@@ -35,7 +35,8 @@ genUnaryInlinePrimitive: prim
 					[^ShouldNotJIT]. "e.g. bad class"
 				 self ssPop: 1] .
 			[20] ->	"20 	identityHash"
-				[objectRepresentation genGetIdentityHash: rcvrReg resultReg: resultReg.
+				[self ssTop popToReg: rcvrReg.
+				 objectRepresentation genGetHashFieldNonImmOf: rcvrReg asSmallIntegerInto: resultReg.
 				 self ssPop: 1] .
 					"21		identityHash (SmallInteger)"
 					"22		identityHash (Character)"

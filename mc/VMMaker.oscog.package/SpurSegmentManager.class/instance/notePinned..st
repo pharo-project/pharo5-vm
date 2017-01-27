@@ -6,6 +6,6 @@ notePinned: objOop
 		ifTrue:
 			[manager setIsMarkedOf: objOop to: true]
 		ifFalse:
-			[[self oop: (segments at: sweepIndex) segLimit isLessThan: objOop] whileTrue:
+			[[(segments at: sweepIndex) segLimit < objOop] whileTrue:
 				[sweepIndex := sweepIndex + 1].
 			 (segments at: sweepIndex) containsPinned: true]

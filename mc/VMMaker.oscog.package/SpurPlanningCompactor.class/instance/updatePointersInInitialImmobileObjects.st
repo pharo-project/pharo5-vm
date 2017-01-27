@@ -4,7 +4,7 @@ updatePointersInInitialImmobileObjects
 	manager allOldSpaceObjectsFrom: manager firstObject do:
 		[:o|
 		self check: o.
-		(self oop: o isGreaterThanOrEqualTo: firstFreeObject) ifTrue:
+		o >= firstFreeObject ifTrue:
 			[^self].
 		self assert: (manager isMarked: o).
 		self updatePointersIn: o]

@@ -20,7 +20,6 @@ generateObjectRepresentationTrampolines
 															numArgs: instVarIndex 
 															limit: NumStoreTrampolines - 2) 
 							instVarIndex: instVarIndex)]].
-	SistaVM ifTrue: [ceNewHashTrampoline := self genNewHashTrampoline].
 	ceStoreCheckTrampoline := self genStoreCheckTrampoline.
 	ceStoreCheckContextReceiverTrampoline := self genStoreCheckContextReceiverTrampoline.
 	ceScheduleScavengeTrampoline := cogit

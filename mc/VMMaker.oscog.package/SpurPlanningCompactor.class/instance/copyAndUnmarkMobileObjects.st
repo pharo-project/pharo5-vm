@@ -10,10 +10,8 @@ copyAndUnmarkMobileObjects
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	<inline: #never>
 	| toFinger top previousPin |
-	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
-	<var: 'previousPin' type: #usqInt>
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
@@ -24,12 +22,11 @@ copyAndUnmarkMobileObjects
 						ifNil: [toFinger <= (manager startOfObject: o)]
 						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
 		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
+		 o > lastMobileObject ifTrue:
+			[self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
+			 ^true].
 		 (manager isMarked: o) ifTrue:
-			[o > lastMobileObject ifTrue:
-				[self assert: ((manager isPinned: o) not or: [previousPin isNil]).
-				 self freeFrom: toFinger upTo: manager endOfMemory previousPin: ((manager isPinned: o) ifTrue: [o] ifFalse: [previousPin]).
-				 ^true].
-			 (manager isPinned: o)
+			[(manager isPinned: o)
 				ifTrue:
 					[previousPin ifNil:
 						[previousPin := o]]
@@ -61,7 +58,7 @@ copyAndUnmarkMobileObjects
 						 [previousPin >= o
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
-							[previousPin := manager oldSpaceObjectAfter: previousPin].
+							[previousPin := manager objectAfter: previousPin].
 						 previousPin >= o ifTrue:
 							[previousPin := nil]].
 					 self copyAndUnmarkObject: o to: toFinger bytes: bytes firstField: (manager longAt: top).

@@ -7,5 +7,6 @@ hashBitsOf: objOop
 			self assert: (coInterpreter addressCouldBeClassObj: objOop) not
 		  but instance-specific behaviors that are instances of themselves may
 		  fail this test."
-		 hash := self newHashBitsOf: objOop].
+		 hash := self newObjectHash bitAnd: self identityHashHalfWordMask.
+		 self setHashBitsOf: objOop to: hash].
 	^hash

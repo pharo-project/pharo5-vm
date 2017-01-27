@@ -12,4 +12,4 @@ forwardMobileObject: o to: toFinger savedFirstFieldPtr: savedFirstFieldPtr
 				withValue: ((manager hasOverflowHeader: o)
 								ifTrue: [toFinger + manager baseHeaderSize]
 								ifFalse: [toFinger]).
-	self cCode: '' inSmalltalk: [relocationMap ifNotNil: [:rm| rm at: o put: savedFirstFieldPtr]]
+	^toFinger + (manager bytesInObject: o)

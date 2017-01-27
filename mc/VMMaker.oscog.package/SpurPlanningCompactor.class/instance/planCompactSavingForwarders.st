@@ -11,10 +11,8 @@ planCompactSavingForwarders
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	<inline: #never>
 	| toFinger top previousPin |
-	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
-	<var: 'previousPin' type: #usqInt>
 	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
 		[self logPhase: 'planning...'].
 	self deny: (manager isMarked: firstFreeObject).
@@ -56,7 +54,7 @@ planCompactSavingForwarders
 						 [previousPin >= o
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
-							[previousPin := manager oldSpaceObjectAfter: previousPin].
+							[previousPin := manager objectAfter: previousPin].
 						 previousPin >= o ifTrue:
 							[previousPin := nil]].
 					 self forwardMobileObject: o to: toFinger savedFirstFieldPtr: top.

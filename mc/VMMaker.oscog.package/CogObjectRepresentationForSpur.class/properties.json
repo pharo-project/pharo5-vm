@@ -15,8 +15,7 @@
 		"ceLargeActiveContextInBlockTrampoline",
 		"ceLargeActiveContextInFullBlockTrampoline",
 		"ceStoreCheckContextReceiverTrampoline",
-		"ceStoreTrampolines",
-		"ceNewHashTrampoline" ],
+		"ceStoreTrampolines" ],
 	"name" : "CogObjectRepresentationForSpur",
 	"pools" : [
 		"VMBytecodeConstants",
