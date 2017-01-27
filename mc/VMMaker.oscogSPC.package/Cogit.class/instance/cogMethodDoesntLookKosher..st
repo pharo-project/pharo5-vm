@@ -18,8 +18,18 @@ cogMethodDoesntLookKosher: cogMethod
 		 (objectRepresentation couldBeObject: cogMethod methodObject) ifFalse:
 			[^12].
 		 (cogMethod stackCheckOffset > 0
-		 and: [cogMethod stackCheckOffset < cmNoCheckEntryOffset]) ifTrue:
+		  and: [cogMethod stackCheckOffset < cmNoCheckEntryOffset]) ifTrue:
 			[^13].
+		 (SistaVM
+		  and: [objectRepresentation canPinObjects
+		  and: [cogMethod counters ~= 0]]) ifTrue:
+			[(objectRepresentation couldBeDerivedObject: cogMethod counters) ifFalse:
+				[^14]].
+		 (NewspeakVM
+		  and: [objectRepresentation canPinObjects
+		  and: [cogMethod nextMethodOrIRCs ~= 0]]) ifTrue:
+			[(objectRepresentation couldBeDerivedObject: cogMethod nextMethodOrIRCs) ifFalse:
+				[^15]].
 		 ^0].
 
 	cogMethod cmType = CMOpenPIC ifTrue:
