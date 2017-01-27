@@ -66,6 +66,7 @@
 		"ceInterpretMethodFromPIC:receiver:" : "eem 10/24/2014 13:35",
 		"ceMNUFromPICMNUMethod:receiver:" : "eem 5/15/2015 12:54",
 		"ceNewArraySlotSize:" : "eem 1/20/2015 15:09",
+		"ceNewHashOf:" : "cb 1/27/2017 14:39",
 		"ceNonLocalReturn:" : "eem 4/30/2015 12:06",
 		"ceOuterSend:receiver:" : "rmacnak 8/24/2015 22:41",
 		"ceReturnToInterpreter:" : "eem 10/1/2013 14:36",
