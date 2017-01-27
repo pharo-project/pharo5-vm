@@ -9,7 +9,8 @@ copyAndUnmarkObject: o to: toFinger bytes: bytes firstField: firstField
 					ifTrue: [toFinger + manager baseHeaderSize]
 					ifFalse: [toFinger].
 	start := manager startOfObject: o given: numSlots.
+	"memmove must be used since the ranges may overlap."
 	manager
-		mem: toFinger asVoidPointer cp: start asVoidPointer y: bytes;
+		mem: toFinger asVoidPointer mo: start asVoidPointer ve: bytes;
 		setIsMarkedOf: destObj to: false;
 		storePointerUnchecked: 0 ofObject: destObj withValue: firstField
