@@ -52,7 +52,7 @@ updatePointersInMobileObjects
 						 [previousPin >= o
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
-							[previousPin := manager oldSpaceObjectAfter: previousPin].
+							[previousPin := manager objectAfter: previousPin].
 						 previousPin >= o ifTrue:
 							[previousPin := nil]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.
