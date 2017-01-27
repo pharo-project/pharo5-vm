@@ -1,6 +1,7 @@
 indexing primitive support
 commonVariable: rcvr at: index put: value cacheIndex: atIx
 	"This code assumes the receiver has been identified at location atIx in the atCache."
+	<returnTypeC: #void>
 	| stSize fmt fixedFields valToPut isCharacter |
 	<inline: true>
 	stSize := atCache at: atIx+AtCacheSize.

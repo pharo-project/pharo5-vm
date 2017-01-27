@@ -21,7 +21,7 @@
 		"coalesce:and:" : "eem 11/26/2014 15:55",
 		"dbgFloatValueOf:" : "eem 12/1/2014 10:56",
 		"defaultEdenBytes" : "eem 10/27/2016 12:14",
-		"fetchClassTagOf:" : "eem 2/4/2015 16:08",
+		"fetchClassTagOf:" : "cb 1/23/2017 10:42",
 		"fetchLong32:ofFloatObject:" : "eem 12/17/2014 14:14",
 		"fillObj:numSlots:with:" : "eem 11/13/2014 12:15",
 		"floatObjectOf:" : "RonieSalgado 5/1/2016 20:56",
