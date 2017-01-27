@@ -29,10 +29,10 @@ initializeObjectMemory: bytesToShift
 	 conditional branch code as a result).  In addition, Spur places the free lists and
 	 class table root page immediately following them."
 	self assert: nilObj = oldSpaceStart.
-	self assert: falseObj = (self oldSpaceObjectAfter: nilObj).
-	self assert: trueObj = (self oldSpaceObjectAfter: falseObj).
-	freeListObj := self oldSpaceObjectAfter: trueObj.
-	self setHiddenRootsObj: (self oldSpaceObjectAfter: freeListObj).
+	self assert: falseObj = (self objectAfter: nilObj).
+	self assert: trueObj = (self objectAfter: falseObj).
+	freeListObj := self objectAfter: trueObj.
+	self setHiddenRootsObj: (self objectAfter: freeListObj).
 	markStack := self swizzleObjStackAt: MarkStackRootIndex.
 	weaklingStack := self swizzleObjStackAt: WeaklingStackRootIndex.
 	mournQueue := self swizzleObjStackAt: MournQueueRootIndex.
