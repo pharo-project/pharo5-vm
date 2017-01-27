@@ -17,15 +17,6 @@ allMachineCodeObjectReferencesValid
 								 performUntil: #checkIfValidOopRefAndTarget:pc:cogMethod:
 								 arg: cogMethod asInteger) = 0)) ifFalse:
 				[ok := false]].
-		(cogMethod cmType = CMMethod
-		 and: [(NewspeakVM or: [SistaVM])
-		 and: [objectRepresentation canPinObjects]]) ifTrue:
-			[(SistaVM and: [cogMethod counters ~= 0]) ifTrue:
-				[(self asserta: (objectRepresentation checkValidDerivedObjectReference: cogMethod counters)) ifFalse:
-					[ok := false]].
-			 (NewspeakVM and: [cogMethod nextMethodOrIRCs ~= 0]) ifTrue:
-				[(self asserta: (objectRepresentation checkValidDerivedObjectReference: cogMethod nextMethodOrIRCs)) ifFalse:
-					[ok := false]]].
 		cogMethod cmType = CMClosedPIC ifTrue:
 			[(self asserta: (self noTargetsFreeInClosedPIC: cogMethod)) ifFalse:
 				[ok := false]].

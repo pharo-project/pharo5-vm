@@ -10,7 +10,7 @@ compact
 	firstPass := true.
 	[onePass := self planCompactSavingForwarders.
 	 self assert: (self validRelocationPlanInPass: onePass) = 0.
-	 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject.
+	 objectAfterLastMobileObject := manager objectAfter: lastMobileObject.
 	 self updatePointers.
 	 self copyAndUnmark: firstPass.
 	 manager checkFreeSpace: GCModeFull.
