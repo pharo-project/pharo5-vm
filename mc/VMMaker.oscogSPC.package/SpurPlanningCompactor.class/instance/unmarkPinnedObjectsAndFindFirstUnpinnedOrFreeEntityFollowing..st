@@ -5,7 +5,7 @@ unmarkPinnedObjectsAndFindFirstUnpinnedOrFreeEntityFollowing: pinnedObj
 	self assert: ((manager isPinned: pinnedObj) and: [manager isMarked: pinnedObj]).
 	nextObj := pinnedObj.
 	[self unmarkPinned: nextObj.
-	 nextObj := manager oldSpaceObjectAfter: nextObj.
+	 nextObj := manager objectAfter: nextObj limit: manager endOfMemory.
 	 (self oop: nextObj isGreaterThanOrEqualTo: manager endOfMemory) ifTrue:
 		[^manager endOfMemory].
 	 (manager isPinned: nextObj) and: [manager isMarked: nextObj]] whileTrue.
