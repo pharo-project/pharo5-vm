@@ -9,12 +9,12 @@ freeAllUnpinnedObjectsFromObject: nextObj toFinger: initialToFinger
 	[[nextPinnedObj >= manager endOfMemory
 	  or: [(manager isMarked: nextPinnedObj)
 		  and: [manager isPinned: nextPinnedObj]]] whileFalse:
-		[nextPinnedObj := manager objectAfter: nextPinnedObj].
+		[nextPinnedObj := manager objectAfter: nextPinnedObj limit: manager endOfMemory].
 	 nextPinnedObj < manager endOfMemory] whileTrue:
 		[toFinger < (manager startOfObject: nextPinnedObj) ifTrue:
 			[manager addFreeChunkWithBytes: (manager startOfObject: nextPinnedObj) - toFinger at: toFinger].
 		 self unmarkPinned: nextPinnedObj.
 		 toFinger := manager addressAfter: nextPinnedObj.
-		 nextPinnedObj := manager objectAfter: nextPinnedObj].
+		 nextPinnedObj := manager oldSpaceObjectAfter: nextPinnedObj].
 	toFinger < manager endOfMemory ifTrue:
 		[manager addFreeChunkWithBytes: manager endOfMemory - toFinger at: toFinger]
