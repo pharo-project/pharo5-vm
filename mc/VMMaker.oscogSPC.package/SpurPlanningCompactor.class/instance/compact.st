@@ -16,6 +16,6 @@ compact
 	 manager checkFreeSpace: GCModeFull.
 	 onePass or: [biasForGC]] whileFalse:
 		[firstPass := false.
-		 self reinitializeScan;
+		 self reinitializeScanFrom: objectAfterLastMobileObject;
 			updateSavedFirstFieldsSpaceIfNecessary].
 	self endCompaction
