@@ -7,5 +7,4 @@ initializeCompaction
 		resetFreeListHeads;
 		totalFreeOldSpace: 0;
 		beginSlidingCompaction.
-	savedFirstFieldsSpace top: savedFirstFieldsSpace start - manager bytesPerOop.
-	self cCode: '' inSmalltalk: [relocationMap := Dictionary new]
+	savedFirstFieldsSpace top: savedFirstFieldsSpace start - manager bytesPerOop
