@@ -20,4 +20,4 @@ adjustAllOopsBy: bytesToShift
 				ifFalse:
 					[classIndex = self isFreeObjectClassIndexPun ifTrue:
 						[self swizzleFieldsOfFreeChunk: obj]].
-			 obj := self objectAfter: obj]]
+			 obj := self objectAfter: obj limit: endOfMemory]]

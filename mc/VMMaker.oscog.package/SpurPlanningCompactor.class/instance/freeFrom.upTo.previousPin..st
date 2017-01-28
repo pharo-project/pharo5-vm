@@ -2,7 +2,11 @@ private
 freeFrom: toFinger upTo: limit previousPin: previousPinOrNil
 	"Free from toFinger up to limit, dealing with a possible intervening run of pinned objects starting at previousPinOrNil."
 	<inline: false>
+	<var: 'limit' type: #usqInt>
+	<var: 'toFinger' type: #usqInt>
+	<var: 'previousPinOrNil' type: #usqInt>
 	| effectiveToFinger pin nextUnpinned start seg |
+	<var: 'nextUnpinned' type: #usqInt>
 	<var: #seg type: #'SpurSegmentInfo *'>
 	self cCode: [] inSmalltalk:
 		[coInterpreter cr; cr; print: 'freeing at '; printHexnp: toFinger; print: ' up to '; printHexnp: limit; print: ' pin '; printHexnp: previousPinOrNil; cr].
