@@ -26,5 +26,4 @@ freeFrom: toFinger upTo: limit previousPin: previousPinOrNil
 			[^self].
 		 effectiveToFinger := manager startOfObject: nextUnpinned.
 		 pin := self findNextMarkedPinnedAfter: nextUnpinned].
-	limit > effectiveToFinger ifTrue:
-		[manager addFreeChunkWithBytes: limit - effectiveToFinger at: effectiveToFinger]
+	manager addFreeChunkWithBytes: limit - effectiveToFinger at: effectiveToFinger
