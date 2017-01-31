@@ -34,7 +34,7 @@ remapIfObjectRef: annotation pc: mcpc hasYoung: hasYoungPtr
 		^0 "keep scanning"]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:
-		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
+		[self entryCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj | | mappedCacheTag |
 			 (tagCouldBeObj
 			  and: [objectRepresentation couldBeObject: cacheTag]) ifTrue:
