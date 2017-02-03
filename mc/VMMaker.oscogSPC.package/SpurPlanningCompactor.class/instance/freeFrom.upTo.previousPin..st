@@ -16,10 +16,9 @@ freeFrom: toFinger upTo: limit previousPin: previousPinOrNil
 	 segment boundaries must still be observed.  So in this case use the nearest bridge above toFinger as the pin."
 	pin ifNil:
 		[seg := manager segmentManager segmentContainingObj: toFinger.
-		 self deny: seg isNil.
 		 seg segLimit < limit ifTrue:
 			[pin := manager segmentManager bridgeFor: seg]].
-	[pin notNil and: [pin < limit]] whileTrue:
+	[pin notNil] whileTrue:
 		[(start := manager startOfObject: pin) > toFinger ifTrue:
 			[manager addFreeChunkWithBytes: start - effectiveToFinger at: effectiveToFinger].
 		 nextUnpinned := self unmarkPinnedObjectsAndFindFirstUnpinnedOrFreeEntityFollowing: pin.
@@ -27,5 +26,4 @@ freeFrom: toFinger upTo: limit previousPin: previousPinOrNil
 			[^self].
 		 effectiveToFinger := manager startOfObject: nextUnpinned.
 		 pin := self findNextMarkedPinnedAfter: nextUnpinned].
-	limit > effectiveToFinger ifTrue:
-		[manager addFreeChunkWithBytes: limit - effectiveToFinger at: effectiveToFinger]
+	manager addFreeChunkWithBytes: limit - effectiveToFinger at: effectiveToFinger
