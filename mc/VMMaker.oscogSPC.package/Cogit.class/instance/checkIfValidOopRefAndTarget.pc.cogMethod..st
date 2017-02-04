@@ -34,9 +34,8 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 	(self isPureSendAnnotation: annotation) ifTrue:
 		[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmType = CMMethod) ifFalse:
 			[^3].
-		 self entryCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
-			[:entryPt :cacheTag :tagCouldBeObject|
-			entryPoint := entryPt.
+		 self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
+			[:offset :cacheTag :tagCouldBeObject|
 			tagCouldBeObject
 				ifTrue:
 					[(objectRepresentation couldBeObject: cacheTag)
@@ -51,19 +50,9 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 						[(self asserta: (self cCoerceSimple: cogMethod to: #'CogMethod *') cmRefersToYoung) ifFalse:
 							[^6]]]
 				ifFalse:
-					[(self inlineCacheTagsAreIndexes
-					  and: [self self entryPointTagIsSelector: entryPoint])
-						ifTrue:
-							[cacheTag signedIntFromLong < 0
-								ifTrue:
-									[cacheTag signedIntFromLong negated > NumSpecialSelectors ifTrue:
-										[^7]]
-								ifFalse:
-									[cacheTag >= (objectMemory literalCountOf: enumeratingCogMethod methodObject) ifTrue:
-										[^8]]]
-						ifFalse:
-							[(self asserta: (objectRepresentation validInlineCacheTag: cacheTag)) ifFalse:
-								[^9]]]].
+					[(self asserta: (objectRepresentation validInlineCacheTag: cacheTag)) ifFalse:
+						[^7]]].
+		entryPoint := backEnd callTargetFromReturnAddress: mcpc asInteger.
 		entryPoint > methodZoneBase ifTrue:
 			["It's a linked send; find which kind."
 			 self targetMethodAndSendTableFor: entryPoint annotation: annotation into:
@@ -71,5 +60,5 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 					 (self asserta: (targetMethod cmType = CMMethod
 								   or: [targetMethod cmType = CMClosedPIC
 								   or: [targetMethod cmType = CMOpenPIC]])) ifFalse:
-						[^10]]]].
+						[^8]]]].
 	^0 "keep scanning"

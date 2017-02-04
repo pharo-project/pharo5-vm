@@ -17,15 +17,33 @@ copyAndUnmarkMobileObjects
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
-	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject to: lastMobileObject do:
-		[:o :n|
+	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
+		[:o :n| | done |
 		 self check: o.
 		 self assert: (previousPin
 						ifNil: [toFinger <= (manager startOfObject: o)]
 						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
 		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
 		 (manager isMarked: o) ifTrue:
-			[(manager isPinned: o)
+			[o > lastMobileObject ifTrue:
+				["If this is onePass (noMobileObjectsFrom: objectAfterLastMobileObject) free up to end of memory.
+				  A bug in this approach is that it may create two free objects at the end of memory.  Work around
+				  this with the coalesce pass below.
+				  If this is multi-pass, free up to startOfObject: objectAfterLastMobileObject."
+				 | maybeStartOfFree |
+				 self assert: (self oop: o isGreaterThanOrEqualTo: objectAfterLastMobileObject).
+				 self freeFrom: toFinger upTo: (manager startOfObject: objectAfterLastMobileObject) previousPin: previousPin.
+				 maybeStartOfFree := toFinger < (manager startOfObject: objectAfterLastMobileObject)
+											ifTrue: [manager objectStartingAt: toFinger]
+											ifFalse: [objectAfterLastMobileObject].
+				 done := self noMobileObjectsFrom: objectAfterLastMobileObject.
+				 done ifTrue:
+					[toFinger := manager startOfObject: objectAfterLastMobileObject.
+					 previousPin := (manager isPinned: objectAfterLastMobileObject) ifTrue: [objectAfterLastMobileObject].
+					 self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
+					 self coalesceFrom: maybeStartOfFree].
+				 ^done].
+			 (manager isPinned: o)
 				ifTrue:
 					[previousPin ifNil:
 						[previousPin := o]]
@@ -64,9 +82,11 @@ copyAndUnmarkMobileObjects
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
 						[self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
-						 self assert: n = objectAfterLastMobileObject.
-						 self freeFrom: toFinger upTo: (manager startOfObject: n) nextObject: (previousPin ifNil: [n]).
-						^false]]]].
-	self freeFrom: toFinger upTo: manager endOfMemory nextObject: (previousPin ifNil: [objectAfterLastMobileObject]).
-	self coalesceFrom: toFinger.
+						 done := self noMobileObjectsFrom: n.
+						 done
+							ifTrue: [self freeAllUnpinnedObjectsFromObject: (previousPin ifNil: [n]) toFinger: toFinger]
+							ifFalse: [self freeFrom: toFinger upTo: (manager startOfObject: n) previousPin: previousPin].
+						^done]]]].
+	self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
+	self coalesceFrom: (manager objectStartingAt: toFinger).
 	^true

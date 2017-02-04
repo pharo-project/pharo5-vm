@@ -17,7 +17,7 @@ primitiveDirectoryEntry
 	arrayNilOrSymbol isArray ifFalse:
 		["arrayNilOrSymbol ~~ #primFailed ifTrue:
 			[self halt]. "
-		self transcript show: name, ' NOT FOUND'.
+		Transcript show: name, ' NOT FOUND'.
 		 ^self primitiveFail].
 
 	result := PharoVM 

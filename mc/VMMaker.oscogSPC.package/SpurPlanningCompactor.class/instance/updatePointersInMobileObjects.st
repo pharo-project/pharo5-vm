@@ -59,6 +59,6 @@ updatePointersInMobileObjects
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
 						[self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
-						 ^false]]]].
+						 ^self noMobileObjectsFrom: o]]]].
 	self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
 	^true

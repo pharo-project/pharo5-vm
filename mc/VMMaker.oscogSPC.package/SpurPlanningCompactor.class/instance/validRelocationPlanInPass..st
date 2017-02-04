@@ -22,12 +22,11 @@ validRelocationPlanInPass: onePass
 				 (self oop: o isGreaterThan: lastMobileObject) ifTrue:
 					[anomaly := o. ^2].
 				 o = lastMobileObject ifTrue:
-					[^savedFirstFieldsSpace top + manager bytesPerOop - savedFirstFieldsSpace start / manager bytesPerOop
+					[^savedFirstFieldsSpace top - savedFirstFieldsSpace start / manager bytesPerOop + 1
 					   = nMobiles
 						ifTrue: [0]
 						ifFalse: [3]]]]].
-	"N.B. written this way so that if there are no mobiles the expression evaluates to 0 in Smalltalk /and/ in C unsigned arithmetic."
-	^savedFirstFieldsSpace top + manager bytesPerOop - savedFirstFieldsSpace start / manager bytesPerOop
+	^savedFirstFieldsSpace top - savedFirstFieldsSpace start / manager bytesPerOop + 1
 	  = nMobiles
 		ifTrue: [0]
 		ifFalse: [4]
