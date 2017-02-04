@@ -3,7 +3,7 @@ copyAndUnmark: firstPass
 	"Sweep the heap, unmarking all objects and moving mobile objects to their correct positions,
 	 restoring their savedFirstFields."
 	<inline: #never>
-	| onePass |
+	| finalPass |
 	self logPhase: 'copying and unmarking...'.
 	firstPass ifTrue:
 		[self unmarkInitialImmobileObjects].
@@ -12,6 +12,6 @@ copyAndUnmark: firstPass
 		[self assert: ((self oop: firstMobileObject isGreaterThanOrEqualTo: manager endOfMemory)
 					or: [lastMobileObject < firstMobileObject]).
 		 ^self].
-	onePass := self copyAndUnmarkMobileObjects.
-	(onePass not and: [biasForGC]) ifTrue: "only ever one pass if biasForGC is true."
+	finalPass := self copyAndUnmarkMobileObjects.
+	(finalPass not and: [biasForGC]) ifTrue: "only ever one pass if biasForGC is true."
 		[self unmarkObjectsAfterLastMobileObject]
