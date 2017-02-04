@@ -3,7 +3,10 @@ printFreeChunk: freeChunk printAsTreeNode: printAsTreeNode
 	| numBytes |
 	numBytes := self bytesInObject: freeChunk.
 	coInterpreter
-		print: 'freeChunk '; printHexPtrnp: freeChunk;
+		print: 'freeChunk '; printHexPtrnp: freeChunk.
+	printAsTreeNode ifTrue:
+		[coInterpreter print: ' - '; printHexPtrnp:(self addressAfter: freeChunk)].
+	coInterpreter
 		print: ' bytes '; printNum: numBytes;
 		print: ' next '; printHexPtrnp: (self fetchPointer: self freeChunkNextIndex
 											ofFreeChunk: freeChunk).
