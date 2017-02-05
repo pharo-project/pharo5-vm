@@ -5,5 +5,5 @@ updatePointersInObjectsOverflowingSavedFirstFieldsSpace
 	manager allOldSpaceObjectsFrom: objectAfterLastMobileObject do:
 		[:o|
 		self check: o.
-		(manager isMarked: o) ifTrue:
-			[self updatePointersIn: o]]
+		self assert: (manager isMarked: o).
+		self updatePointersIn: o]
