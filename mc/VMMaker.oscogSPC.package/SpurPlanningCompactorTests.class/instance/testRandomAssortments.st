@@ -4,4 +4,6 @@ testRandomAssortments
 	<timeout: 60>
 	| random |
 	random := Random new.
-	10 timesRepeat: [self testRandomAssortment: (random next: 3000) readStream]
+	10 timesRepeat:
+		[self testRandomAssortment: (random next: 3000) readStream
+			with: self initializedVM]
