@@ -95,7 +95,7 @@ script:
   - (cd scripts && ./build-makefile-linux.sh)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
-#  - ./scripts/run-tests.sh
+  - ./scripts/run-tests.sh
 before_deploy: 
   - (cd scripts && sh ./deploy-key.sh)
   - ./scripts/deploy-before.sh

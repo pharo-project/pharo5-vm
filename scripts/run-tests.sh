@@ -34,10 +34,9 @@ else
     exit 1;
 fi
 
-PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`;
+PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
 if [ -z "$PHARO_TEST_VM" ]; then
-	echo "Could not find test VM in $VM_DIR";
-	echo "Build the VM with scripts/build.sh"
+	echo "Could not find test VM in $VM_DIR"
 	exit 1
 fi
 
