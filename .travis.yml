@@ -23,6 +23,9 @@ addons:
       - libssh2-1-dev
       - openssh-client
       - openssh-server
+      - libtool
+      - automake
+      - autoconf
 matrix:
   include:
     - os: osx
@@ -89,6 +92,7 @@ matrix:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
+  - (cd opensmalltalk-vm/platforms/unix/config/ && $CHROOT make configure )
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 #  - ./scripts/run-tests.sh
