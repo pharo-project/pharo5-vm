@@ -8,33 +8,34 @@ updatePointersInMobileObjects
 	 match.  We could implement them as a single enumeration method taking several block arguments, but arguably that
 	 would make understanding an already tricky algorithm more difficult.  Instead we tolerate the duplication and encourage
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
-	| toFinger top previousPin |
+	| toFinger top previousPin startOfPreviousPin |
 	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
 	<var: 'previousPin' type: #usqInt>
+	<var: 'startOfPreviousPin' type: #usqInt>
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
+	startOfPreviousPin := 0.
 	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		 self check: o.
 		 self assert: (previousPin
 						ifNil: [toFinger <= (manager startOfObject: o)]
-						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
+						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= startOfPreviousPin]]).
 		 (manager isMarked: o) ifTrue:
 			[(manager isPinned: o)
 				ifTrue:
 					[previousPin ifNil:
-						[previousPin := o].
+						[previousPin := o. startOfPreviousPin := manager startOfObject: o].
 					 self updatePointersIn: o]
 				ifFalse:
 					[| availableSpace bytes |
 					 bytes := manager bytesInObject: o.
-					 [previousPin notNil
-					  and: [availableSpace := (manager startOfObject: previousPin) - toFinger.
-							bytes ~= availableSpace
-							and: [bytes + (2 * manager allocationUnit) > availableSpace]]] whileTrue:
+					 [toFinger <= startOfPreviousPin
+					  and: [bytes ~= (availableSpace := startOfPreviousPin - toFinger)
+					  and: [bytes + (2 * manager allocationUnit) > availableSpace]]] whileTrue:
 						["The object does not fit in the space between toFinger and previousPin.
 						   Move toFinger up to point at the first unmarked or mobile object after
 						   previousPin, or, if previousPin is contiguous with o, to the start of this
@@ -53,8 +54,9 @@ updatePointersInMobileObjects
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
 							[previousPin := manager oldSpaceObjectAfter: previousPin].
-						 previousPin >= o ifTrue:
-							[previousPin := nil]].
+						 previousPin >= o
+							ifTrue: [previousPin := nil. startOfPreviousPin := 0]
+							ifFalse: [startOfPreviousPin := manager startOfObject: previousPin]].
 					 self updatePointersIn: o savedFirstFieldPointer: top.
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
