@@ -1,3 +1,0 @@
-simulation
-simulatorClass
-	^SpurPlanningCompactorSimulator

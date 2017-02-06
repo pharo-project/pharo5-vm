@@ -1,3 +1,0 @@
-accessing
-forceMultiPass
-	sffsMode := #multiPass
