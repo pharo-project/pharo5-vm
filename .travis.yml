@@ -92,7 +92,7 @@ matrix:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
-  - (cd opensmalltalk-vm/platforms/unix/config/ && $CHROOT make configure )
+  - (if [ "$TRAVIS_OS_NAME" == "linux" ]; then cd opensmalltalk-vm/platforms/unix/config/ && $CHROOT make configure; fi)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
 #  - ./scripts/run-tests.sh
