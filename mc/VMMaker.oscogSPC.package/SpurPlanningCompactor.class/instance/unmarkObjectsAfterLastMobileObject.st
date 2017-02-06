@@ -10,11 +10,12 @@ unmarkObjectsAfterLastMobileObject
 		(manager isMarked: o)
 			ifFalse:
 				[startOfFree ifNil: [startOfFree := manager startOfObject: o].
-				 freeBytes := freeBytes + manager bytesInObject: o]
+				 freeBytes := freeBytes + (manager bytesInObject: o)]
 			ifTrue:
 				[startOfFree ifNotNil:
 					[manager addFreeChunkWithBytes: freeBytes at: startOfFree.
 					 startOfFree := nil.
 					 freeBytes := 0].
-				 (manager isSegmentBridge: o) ifFalse:
-					[manager setIsMarkedOf: o to: false]]]
+				 (manager isPinned: o)
+					ifTrue: [self unmarkPinned: o]
+					ifFalse: [manager setIsMarkedOf: o to: false]]]
