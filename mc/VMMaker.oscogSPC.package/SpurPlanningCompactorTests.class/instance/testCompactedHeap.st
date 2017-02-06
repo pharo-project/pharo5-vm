@@ -5,4 +5,8 @@ testCompactedHeap
 	om := self initializedVM objectMemory.
 	freeSpace := om bytesLeftInOldSpace.
 	om fullGC.
-	self assert: freeSpace equals: om bytesLeftInOldSpace
+	self assert: freeSpace equals: om bytesLeftInOldSpace.
+	self checkForLeaksIn: om.
+	om fullGC.
+	self assert: freeSpace equals: om bytesLeftInOldSpace.
+	self checkForLeaksIn: om

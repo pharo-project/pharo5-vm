@@ -12,7 +12,7 @@ testRandomAssortment: random with: theVM
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
 		 (next := random next) > 0.95
 			ifTrue: "pinned"
 				[om
@@ -104,4 +104,5 @@ testRandomAssortment: random with: theVM
 			[:i| self assert: expectedFill equals: (actualFill := om fetchPointer: i - 1 ofObject: obj)]].
 	"They should be the last objects..."
 	self assert: (om isFreeObject: (om objectAfter: obj)).
-	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: obj))
+	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: obj)).
+	self checkForLeaksIn: om
