@@ -10,7 +10,6 @@ compact
 	firstPass := true.
 	[finalPass := self planCompactSavingForwarders.
 	 self assert: (self validRelocationPlanInPass: finalPass) = 0.
-	 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject.
 	 self updatePointers.
 	 self copyAndUnmark: firstPass.
 	 "Would like to check here, but can't if multi-pass."
