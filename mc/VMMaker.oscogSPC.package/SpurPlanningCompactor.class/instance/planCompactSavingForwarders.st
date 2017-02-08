@@ -63,6 +63,6 @@ planCompactSavingForwarders
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
 						[savedFirstFieldsSpace top: top - manager bytesPerOop.
-						 ^self noMobileObjectsAfter: o]]]].
+						 ^false]]]].
 	savedFirstFieldsSpace top: top - manager bytesPerOop.
 	^true
