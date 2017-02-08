@@ -9,7 +9,6 @@
 		 ],
 	"name" : "SpurPlanningCompactorTests",
 	"pools" : [
-		"VMBasicConstants",
 		"VMSqueakClassIndices" ],
-	"super" : "LongTestCase",
+	"super" : "TestCase",
 	"type" : "normal" }
