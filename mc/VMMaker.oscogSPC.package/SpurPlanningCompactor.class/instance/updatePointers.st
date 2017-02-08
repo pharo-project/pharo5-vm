@@ -5,8 +5,7 @@ updatePointers
 	<inline: #never>
 	| onePass |
 	self logPhase: 'updating pointers...'.
-	"If savedFirstFieldsSpace is empty there is nothing to do."
-	savedFirstFieldsSpace top < savedFirstFieldsSpace start ifTrue:
+	self thereAreObjectsToMove ifFalse:
 		[^self].
 	self assert: (manager startOfObject: firstFreeObject) = mobileStart.
 	coInterpreter mapInterpreterOops.

@@ -65,6 +65,10 @@ planCompactSavingForwarders
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
 						[savedFirstFieldsSpace top: top - manager bytesPerOop.
+						 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject.
 						 ^false]]]].
-	savedFirstFieldsSpace top: top - manager bytesPerOop.
+	"If the heap is already fully compacted there will be no lastMobileObject..."
+	lastMobileObject ifNotNil:
+		[savedFirstFieldsSpace top: top - manager bytesPerOop.
+		 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject].
 	^true

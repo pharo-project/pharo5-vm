@@ -19,7 +19,7 @@ copyAndUnmarkMobileObjects
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
 	startOfPreviousPin := 0.
-	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject to: lastMobileObject do:
+	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject to: (lastMobileObject ifNil: manager nilObject) do:
 		[:o :n|
 		 self check: o.
 		 self assert: (previousPin
@@ -76,6 +76,6 @@ copyAndUnmarkMobileObjects
 							ifFalse:
 								[firstFreeObject := previousPin].
 						^false]]]].
-	self freeFrom: toFinger upTo: manager endOfMemory nextObject: (previousPin ifNil: [objectAfterLastMobileObject]).
+	self freeFrom: toFinger upTo: manager endOfMemory nextObject: (previousPin ifNil: [objectAfterLastMobileObject ifNil: [manager objectAfter: firstFreeObject]]).
 	self coalesceFrom: toFinger.
 	^true
