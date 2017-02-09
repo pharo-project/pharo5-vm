@@ -102,7 +102,7 @@ primitiveVMParameter
 			[:i | objectMemory storePointerUnchecked: i ofObject: result withValue: ConstZero].
 		objectMemory hasSpurMemoryManagerAPI ifTrue:
 			[objectMemory
-				storePointerUnchecked: 18	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory statCompactionUsecs + 500 // 1000);
+				storePointerUnchecked: 17	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory statCompactionUsecs + 500 // 1000);
 				storePointerUnchecked: 18	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory scavengeThresholdAsExtent)].
 		objectMemory storePointer:				19	ofObject: result withValue: (objectMemory positive64BitIntegerFor: self ioUTCStartMicroseconds).
 		objectMemory storePointerUnchecked: 20	ofObject: result withValue: (objectMemory integerObjectOf: objectMemory rootTableCount).
