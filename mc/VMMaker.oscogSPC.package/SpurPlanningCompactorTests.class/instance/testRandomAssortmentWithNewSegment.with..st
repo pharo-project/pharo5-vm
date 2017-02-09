@@ -16,7 +16,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
 		 (next := random next) > 0.95
 			ifTrue: "pinned"
 				[om
@@ -39,7 +39,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 					ifTrue: [om setIsMarkedOf: newObj to: false]
 					ifFalse: [om setObjectFree: newObj]]].
 
-	 pig := om allocateSlotsInOldSpace: (om numSlotsOfAny: om findLargestFreeChunk) format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+	 pig := om allocateSlotsInOldSpace: (om numSlotsOfAny: om findLargestFreeChunk) format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
 	 self deny: pig isNil.
 	 self assert: 0 equals: om bytesLeftInOldSpace.
 	 om growOldSpaceByAtLeast: om growHeadroom // 2.
@@ -49,7 +49,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
 		 "No pinned objects in second segment."
 		 om fillObj: newObj numSlots: nSlots with: liveFill + (liveCount := liveCount + 1).
 		 (next := random next) >= 0.333
@@ -143,4 +143,5 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	"And the memory should shrink if the shrinkThreshold is low enough"
 	om shrinkThreshold: om growHeadroom.
 	om attemptToShrink.
-	self assert: om segmentManager numSegments = 1
+	self assert: om segmentManager numSegments = 1.
+	self checkForLeaksIn: om
