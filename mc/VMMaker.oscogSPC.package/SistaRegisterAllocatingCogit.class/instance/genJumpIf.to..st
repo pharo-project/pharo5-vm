@@ -70,7 +70,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 their distance send mustBeBoolean."
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self genSubConstant: boolean R: reg.
-	self JumpZero: (self ensureFixupAt: eventualTarget - initialPC).
+	self JumpZero: (self ensureFixupAt: eventualTarget).
 
 	self genFallsThroughCountLogicCounterReg: SendNumArgsReg counterAddress: counterAddress.
 
