@@ -2,22 +2,26 @@ compaction - api
 compact
 	"Sweep all of old space, sliding unpinned marked objects down over free and unmarked objects.
 	 Let the segmentManager mark which segments contain pinned objects via notePinned:."
-	| onePass firstPass |
+	| finalPass firstPass |
 	<inline: #never> "for profiling"
 	self initializeScanCheckingForFullyCompactedHeap ifTrue:
 		[^self unmarkObjectsInFullyCompactedHeap].
 	self initializeCompaction.
 	firstPass := true.
-	[onePass := self planCompactSavingForwarders.
-	 self assert: (self validRelocationPlanInPass: onePass) = 0.
+	[finalPass := self planCompactSavingForwarders.
+	 self assert: (self validRelocationPlanInPass: finalPass) = 0.
 	 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject.
 	 self updatePointers.
 	 self copyAndUnmark: firstPass.
 	 "Would like to check here, but can't if multi-pass."
 	 false ifTrue: [manager checkFreeSpace: GCModeFull].
-	 onePass or: [biasForGC]] whileFalse:
+	 "Currently we do only a single pass if a normal GC, assuming that a pass will
+	  always compact plenty of space. But we should perhaps check this assumption
+	  by looking at the large free tree and seeing that the ratio of the largest free
+	  chunk to the total ammount of free space is high."
+	 finalPass or: [biasForGC]] whileFalse:
 		[firstPass := false.
-		 self reinitializeScanFrom: objectAfterLastMobileObject;
+		 self reinitializeScanFrom: firstFreeObject;
 			updateSavedFirstFieldsSpaceIfNecessary].
 	manager checkFreeSpace: GCModeFull.
 	self endCompaction
