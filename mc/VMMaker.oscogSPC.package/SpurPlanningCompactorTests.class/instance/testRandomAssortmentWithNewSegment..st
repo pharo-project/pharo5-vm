@@ -1,11 +1,11 @@
 private
-testRandomAssortmentWithNewSegment: random with: theVM
+testRandomAssortmentWithNewSegment: random
 	"Test that the compactor can handle a random assortment of live, pinned, dead, and free chunks,
 	 with some allocation in a new segment.  No live pinned objects are created in the new segment
 	 to obtain the situation that the last segment is entirely empty after compaction.  This tests shrinkage."
 	| om pig lastObj obj expectedFreeSpace liveFill pinFill liveCount pinCount totalLive totalPinned pinned |
 	random reset. "random is a read stream on 3000 random numbers; for repeatability"
-	om := theVM objectMemory.
+	om := self initializedVM objectMemory.
 	om allOldSpaceObjectsDo: [:o| om setIsMarkedOf: o to: true. lastObj := o].
 
 	pinFill := 16r99999900.
@@ -16,7 +16,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
 		 (next := random next) > 0.95
 			ifTrue: "pinned"
 				[om
@@ -39,7 +39,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 					ifTrue: [om setIsMarkedOf: newObj to: false]
 					ifFalse: [om setObjectFree: newObj]]].
 
-	 pig := om allocateSlotsInOldSpace: (om numSlotsOfAny: om findLargestFreeChunk) format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
+	 pig := om allocateSlotsInOldSpace: (om numSlotsOfAny: om findLargestFreeChunk) format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
 	 self deny: pig isNil.
 	 self assert: 0 equals: om bytesLeftInOldSpace.
 	 om growOldSpaceByAtLeast: om growHeadroom // 2.
@@ -49,7 +49,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
 		 "No pinned objects in second segment."
 		 om fillObj: newObj numSlots: nSlots with: liveFill + (liveCount := liveCount + 1).
 		 (next := random next) >= 0.333
@@ -80,11 +80,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 									ifFalse: [liveCount := liveCount + 1])
 								printPaddedWith: Character space to: 3 base: 10), ' '] 
 					ifFalse: ['     ']).
-			 om printEntity: o].
-		 om allOldSpaceEntitiesFrom: (om objectAfter: lastObj) to: (om objectBefore: om endOfMemory) do:
-			[:o|
-			((om isMarked: o) and: [om isPinned: o]) ifTrue:
-				[om printEntity: o]]].
+			 om printEntity: o]].
 
 	expectedFreeSpace := expectedFreeSpace + om bytesLeftInOldSpace.
 	om compactor compact.
@@ -103,11 +99,7 @@ testRandomAssortmentWithNewSegment: random with: theVM
 									ifFalse: [liveCount := liveCount + 1])
 								printPaddedWith: Character space to: 3 base: 10), ' '] 
 					ifTrue: ['     ']).
-			 om printEntity: o].
-		 om allOldSpaceEntitiesFrom: (om objectAfter: lastObj) to: (om objectBefore: om endOfMemory) do:
-			[:o|
-			(om isPinned: o) ifTrue:
-				[om printEntity: o]]].
+			 om printEntity: o]].
 
 	"First check and/or count populations..."
 	liveCount := pinCount := 0.
@@ -143,5 +135,4 @@ testRandomAssortmentWithNewSegment: random with: theVM
 	"And the memory should shrink if the shrinkThreshold is low enough"
 	om shrinkThreshold: om growHeadroom.
 	om attemptToShrink.
-	self assert: om segmentManager numSegments = 1.
-	self checkForLeaksIn: om
+	self assert: om segmentManager numSegments = 1

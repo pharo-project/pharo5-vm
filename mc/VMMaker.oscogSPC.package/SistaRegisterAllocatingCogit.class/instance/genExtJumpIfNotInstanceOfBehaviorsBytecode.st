@@ -19,7 +19,7 @@ genExtJumpIfNotInstanceOfBehaviorsBytecode
 	"For now just deny we're in the situation we have yet to implement ;-)"
 	self deny: (self mergeRequiredForJumpTo: bytecodePC + 3 + distance).
 
-	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance) to: #'AbstractInstruction *'.
+	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'.
 	inverse
 		ifFalse: 
 			[(objectMemory isArrayNonImm: literal)

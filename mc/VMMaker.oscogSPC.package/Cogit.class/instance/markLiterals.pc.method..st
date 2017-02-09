@@ -32,7 +32,7 @@ markLiterals: annotation pc: mcpc method: cogMethod
 							self markAndTraceUpdatedLiteral: eo in: (self cCoerceSimple: cogMethod to: #'CogMethod *')]]]].
 
 	(self isPureSendAnnotation: annotation) ifTrue:
-		[self entryCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
+		[self offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into:
 			[:entryPoint :cacheTag :tagCouldBeObj |
 			 tagCouldBeObj ifTrue:
 				[(objectRepresentation

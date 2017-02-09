@@ -5,4 +5,5 @@ updateSavedFirstFieldsSpaceIfNecessary
 	self savedFirstFieldsSpaceInFreeChunk ifTrue:
 		[self useFreeChunkForSavedFirstFieldsSpace: manager findLargestFreeChunk].
 
-	savedFirstFieldsSpace top: savedFirstFieldsSpace start - manager bytesPerOop
+	savedFirstFieldsSpace top: savedFirstFieldsSpace start - manager bytesPerOop.
+	manager resetFreeListHeads
