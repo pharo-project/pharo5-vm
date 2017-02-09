@@ -17,7 +17,7 @@ genExtJumpIfNotInstanceOfBehaviorsBytecode
 	distance := extB * 256 + byte2.
 	extA := extB := numExtB := 0.
 
-	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'.
+	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance) to: #'AbstractInstruction *'.
 	inverse
 		ifFalse: 
 			[(objectMemory isArrayNonImm: literal)
