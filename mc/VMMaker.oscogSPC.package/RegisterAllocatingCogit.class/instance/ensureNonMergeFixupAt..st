@@ -1,9 +1,8 @@
 compile abstract instructions
-ensureNonMergeFixupAt: targetPC
-	"Make sure there's a flagged fixup at the target pc in fixups.
-	 Initially a fixup's target is just a flag.  Later on it is replaced with a proper instruction.
-	 Override to remember the simStack state at tyeh target, if required."
+ensureNonMergeFixupAt: targetIndex
+	"Make sure there's a flagged fixup at the targetIndex (pc relative to first pc) in fixups.
+	 Initially a fixup's target is just a flag.  Later on it is replaced with a proper instruction."
 	| fixup |
-	fixup := super ensureNonMergeFixupAt: targetPC.
+	fixup := super ensureNonMergeFixupAt: targetIndex.
 	fixup mergeSimStack ifNil: [self setMergeSimStackOf: fixup].
 	^fixup

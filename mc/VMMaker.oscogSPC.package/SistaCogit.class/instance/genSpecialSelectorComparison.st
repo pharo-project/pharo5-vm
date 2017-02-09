@@ -65,11 +65,11 @@ genSpecialSelectorComparison
 	self genConditionalBranch: (branchDescriptor isBranchTrue
 				ifTrue: [primDescriptor opcode]
 				ifFalse: [self inverseBranchFor: primDescriptor opcode])
-		operand: (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
+		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 		
 	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
 	
-	self Jump: (self ensureNonMergeFixupAt: postBranchPC).
+	self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
 	countTripped jmpTarget: (jumpNotSmallInts jmpTarget: self Label).
 	
 	argIsInt ifTrue:

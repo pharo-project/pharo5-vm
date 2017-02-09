@@ -19,7 +19,7 @@ genJumpIf: boolean to: targetBytecodePC
 		 desc constant = boolean
 			ifTrue:
 				[deadCode := true. "Can't fall through."
-				 fixup := self ensureFixupAt: eventualTarget.
+				 fixup := self ensureFixupAt: eventualTarget - initialPC.
 				 self annotateBytecode: (self Jump: fixup)]
 		 	ifFalse:
 				[self annotateBytecode: (self prevInstIsPCAnnotated
@@ -52,15 +52,15 @@ genJumpIf: boolean to: targetBytecodePC
 							ifFalse: [objectMemory falseObject - objectMemory trueObject])
 				R: reg.
 			 noMustBeBoolean ifTrue: 
-				[self JumpZero: (self ensureFixupAt: eventualTarget). "generates merge code"
+				[self JumpZero: (self ensureFixupAt: eventualTarget - initialPC). "generates merge code"
 				 ok jmpTarget: (self annotateBytecode: self lastOpcode).
 				 ^0].
 			 mbb := self JumpNonZero: 0.
-			 self Jump: (self ensureFixupAt: eventualTarget). "generates merge code"
+			 self Jump: (self ensureFixupAt: eventualTarget - initialPC). "generates merge code"
 			 mbb jmpTarget: self Label]
 		ifFalse:
 			[self genSubConstant: boolean R: reg.
-			 self JumpZero: (self ensureFixupAt: eventualTarget).
+			 self JumpZero: (self ensureFixupAt: eventualTarget - initialPC).
 			 noMustBeBoolean ifTrue: 
 				[self annotateBytecode: self lastOpcode.
 				 ^0].

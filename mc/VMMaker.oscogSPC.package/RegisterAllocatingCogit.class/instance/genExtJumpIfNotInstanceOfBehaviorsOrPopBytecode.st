@@ -23,10 +23,10 @@ genExtJumpIfNotInstanceOfBehaviorsOrPopBytecode
 	 instead of the incorrect
 			... merge code ...
 			jump cond Ltarget"
-	(self mergeRequiredForJumpTo: bytecodePC + 3 + distance) ifTrue:
+	(self mergeRequiredForJumpTo: bytecodePC + 3 + distance - initialPC) ifTrue:
 		[self shouldBeImplemented].
 
-	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance) to: #'AbstractInstruction *'.
+	targetFixUp := self cCoerceSimple: (self ensureFixupAt: bytecodePC + 3 + distance - initialPC) to: #'AbstractInstruction *'.
 		
 	(objectMemory isArrayNonImm: literal)
 		ifTrue: [objectRepresentation branchIf: reg notInstanceOfBehaviors: literal target: targetFixUp]

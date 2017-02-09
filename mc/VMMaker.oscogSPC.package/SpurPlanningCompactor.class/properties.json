@@ -17,8 +17,10 @@
 		"savedFirstFieldsSpace",
 		"savedFirstFieldsSpaceNotInOldSpace",
 		"firstFieldOfRememberedSet",
+		"interestingObj",
 		"anomaly",
-		"objectAfterLastMobileObject" ],
+		"objectAfterLastMobileObject",
+		"relocationMap" ],
 	"name" : "SpurPlanningCompactor",
 	"pools" : [
 		"SpurMemoryManagementConstants",

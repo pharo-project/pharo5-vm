@@ -6,12 +6,4 @@ reinitializeScanFrom: initialObject
 	firstMobileObject := manager endOfMemory.
 	firstFreeObject := self scanForFirstFreeAndFirstMobileObjectFrom: initialObject.
 	firstFreeObject ifNotNil:
-		[mobileStart := manager startOfObject: firstFreeObject].
-	objectAfterLastMobileObject ifNotNil:
-		[manager allOldSpaceEntitiesFrom: firstFreeObject to: objectAfterLastMobileObject do:
-			[:o|
-			 ((manager isPinned: o)
-			  or: [(manager isMarked: o) not
-			  or: [objectAfterLastMobileObject = o]]) ifFalse:
-				[manager setIsMarkedOf: o to: false]].
-		 firstMobileObject := objectAfterLastMobileObject]
+		[mobileStart := manager startOfObject: firstFreeObject]

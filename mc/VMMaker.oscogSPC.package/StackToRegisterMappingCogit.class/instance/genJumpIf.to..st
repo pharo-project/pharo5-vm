@@ -13,7 +13,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 and: [desc constant = objectMemory trueObject or: [desc constant = objectMemory falseObject]]) ifTrue:
 		["Must arrange there's a fixup at the target whether it is jumped to or
 		  not so that the simStackPtr can be kept correct."
-		 fixup := self ensureFixupAt: eventualTarget.
+		 fixup := self ensureFixupAt: eventualTarget - initialPC.
 		 "Must annotate the bytecode for correct pc mapping."
 		 self annotateBytecode: (desc constant = boolean
 									ifTrue: [self Jump: fixup]
@@ -28,7 +28,7 @@ genJumpIf: boolean to: targetBytecodePC
 	 their distance send mustBeBoolean."
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self genSubConstant: boolean R: TempReg.
-	self JumpZero: (self ensureFixupAt: eventualTarget).
+	self JumpZero: (self ensureFixupAt: eventualTarget - initialPC).
 	
 	self extASpecifiesNoMustBeBoolean ifTrue: 
 		[ extA := 0. 
