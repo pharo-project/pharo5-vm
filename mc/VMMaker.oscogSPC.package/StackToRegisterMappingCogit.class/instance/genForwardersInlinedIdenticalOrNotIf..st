@@ -41,19 +41,19 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	(self fixupAt: nextPC - initialPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
-		 	 self ensureFixupAt: targetBytecodePC - initialPC.
-			 self ensureFixupAt: postBranchPC - initialPC]
+		 	 self ensureFixupAt: targetBytecodePC.
+			 self ensureFixupAt: postBranchPC]
 		ifFalse:
 			[self deny: deadCode]. "push dummy value below"
 
 	self assert: (unforwardArg or: [unforwardRcvr]).
 	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
 		ifFalse:
-			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
-			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
+			[ fixup := (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
+			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger ]
 		ifTrue:
-			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
+			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
+			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger ].
 
 	deadCode ifFalse:
 		[self ssPushConstant: objectMemory trueObject]. "dummy value"
