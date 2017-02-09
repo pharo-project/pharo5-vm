@@ -5,7 +5,7 @@ ensureFixupAt: targetPC
 	<returnTypeC: #'BytecodeFixup *'>
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
-	fixup := self fixupAt:  targetPC - initialPC.
+	fixup := self fixupAt:  targetPC.
 	self traceFixup: fixup.
 	self cCode: '' inSmalltalk:
 		[self assert: simStackPtr = (self debugStackPointerFor: targetPC).

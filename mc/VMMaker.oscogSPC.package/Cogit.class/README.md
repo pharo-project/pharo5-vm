@@ -60,7 +60,7 @@ noCheckEntryOffset <Integer>
 noCheckEntry <CogAbstractOpcode>
 	label for the first instruction of start of a method proper
 fixups <Array of <AbstractOpcode Label | nil>>
-	the labels for forward jumps that will be fixed up when reaching the relevant bytecode.  fixup shas one element per byte in methodObj's bytecode
+	the labels for forward jumps that will be fixed up when reaching the relevant bytecode.  fixups has one element per byte in methodObj's bytecode; initialPC maps to fixups[0].
 abstractOpcodes <Array of <AbstractOpcode>>
 	the code generated when compiling methodObj
 byte0 byte1 byte2 byte3 <Integer>

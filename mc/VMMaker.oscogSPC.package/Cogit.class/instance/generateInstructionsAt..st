@@ -19,7 +19,7 @@ generateInstructionsAt: eventualAbsoluteAddress
 		abstractInstruction isPCDependent
 			ifTrue:
 				[abstractInstruction sizePCDependentInstructionAt: absoluteAddress.
-				 fixup := self fixupAt: pcDependentIndex.
+				 fixup := self fixupAtIndex: pcDependentIndex.
 				 pcDependentIndex := pcDependentIndex + 1.
 				 fixup instructionIndex: i.
 				 absoluteAddress := absoluteAddress + abstractInstruction machineCodeSize]
@@ -27,7 +27,7 @@ generateInstructionsAt: eventualAbsoluteAddress
 				[absoluteAddress := abstractInstruction concretizeAt: absoluteAddress]].
 	0 to: pcDependentIndex - 1 do:
 		[:j|
-		fixup := self fixupAt: j.
+		fixup := self fixupAtIndex: j.
 		abstractInstruction := self abstractInstructionAt: fixup instructionIndex.
 		self maybeBreakGeneratingAt: abstractInstruction address.
 		abstractInstruction concretizeAt: abstractInstruction address].
