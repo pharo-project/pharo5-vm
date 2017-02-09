@@ -5,6 +5,6 @@ buildMacOSX32
 		topDir: '../opensmalltalk-vm';
 		srcDir: '../opensmalltalk-vm/spursrc';
 		srcPluginsDir: '../opensmalltalk-vm/src';
-		addExternalPlugins: #( FT2Plugin EventsHandlerPlugin SDL2DisplayPlugin Gtk3DisplayPlugin );
+		addExternalPlugins: #( FT2Plugin EventsHandlerPlugin SDL2DisplayPlugin );
 		addInternalPlugins: #( UnixOSProcessPlugin );
 		generateSources
