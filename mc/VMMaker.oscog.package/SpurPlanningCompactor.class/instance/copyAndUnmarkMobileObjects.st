@@ -9,37 +9,34 @@ copyAndUnmarkMobileObjects
 	 would make understanding an already tricky algorithm more difficult.  Instead we tolerate the duplication and encourage
 	 the reader to diff the three methods to see where they diverge (e.g. via Cmd-shift-C)."
 	<inline: #never>
-	| toFinger top previousPin |
+	| toFinger top previousPin startOfPreviousPin |
 	<var: 'o' type: #usqInt>
 	<var: 'top' type: #usqInt>
 	<var: 'toFinger' type: #usqInt>
 	<var: 'previousPin' type: #usqInt>
+	<var: 'startOfPreviousPin' type: #usqInt>
 	self deny: (manager isMarked: firstFreeObject).
 	toFinger := manager startOfObject: firstFreeObject.
 	top := savedFirstFieldsSpace start.
-	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject do:
+	startOfPreviousPin := 0.
+	manager allOldSpaceEntitiesForCompactingFrom: firstFreeObject to: (lastMobileObject ifNil: manager nilObject) do:
 		[:o :n|
 		 self check: o.
 		 self assert: (previousPin
 						ifNil: [toFinger <= (manager startOfObject: o)]
-						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= (manager startOfObject: previousPin)]]).
+						ifNotNil: [(manager isMarked: previousPin) and: [toFinger <= startOfPreviousPin]]).
 		 self assert: (savedFirstFieldsSpaceNotInOldSpace or: [toFinger < top]).
 		 (manager isMarked: o) ifTrue:
-			[o > lastMobileObject ifTrue:
-				[self assert: ((manager isPinned: o) not or: [previousPin isNil]).
-				 self freeFrom: toFinger upTo: manager endOfMemory previousPin: ((manager isPinned: o) ifTrue: [o] ifFalse: [previousPin]).
-				 ^true].
-			 (manager isPinned: o)
+			[(manager isPinned: o)
 				ifTrue:
 					[previousPin ifNil:
-						[previousPin := o]]
+						[previousPin := o. startOfPreviousPin := manager startOfObject: o]]
 				ifFalse:
 					[| availableSpace bytes |
 					 bytes := manager bytesInObject: o.
-					 [previousPin notNil
-					  and: [availableSpace := (manager startOfObject: previousPin) - toFinger.
-							bytes ~= availableSpace
-							and: [bytes + (2 * manager allocationUnit) > availableSpace]]] whileTrue:
+					 [toFinger <= startOfPreviousPin
+					  and: [bytes ~= (availableSpace := startOfPreviousPin - toFinger)
+					  and: [bytes + (2 * manager allocationUnit) > availableSpace]]] whileTrue:
 						["The object does not fit in the space between toFinger and previousPin.
 						   Move toFinger up to point at the first unmarked or mobile object after
 						   previousPin, or, if previousPin is contiguous with o, to the start of this
@@ -62,17 +59,23 @@ copyAndUnmarkMobileObjects
 						  or: [(manager isMarked: previousPin)
 						  and: [manager isPinned: previousPin]]] whileFalse:
 							[previousPin := manager oldSpaceObjectAfter: previousPin].
-						 previousPin >= o ifTrue:
-							[previousPin := nil]].
+						 previousPin >= o
+							ifTrue: [previousPin := nil. startOfPreviousPin := 0]
+							ifFalse: [startOfPreviousPin := manager startOfObject: previousPin]].
 					 self copyAndUnmarkObject: o to: toFinger bytes: bytes firstField: (manager longAt: top).
 					 toFinger := toFinger + bytes.
 					 (top := top + manager bytesPerOop) >= savedFirstFieldsSpace limit ifTrue:
-						[| done |
-						 self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
-						 done := self noMobileObjectsAfter: n.
-						 done
-							ifTrue: [self freeAllUnpinnedObjectsFromObject: (previousPin ifNil: [n]) toFinger: toFinger]
-							ifFalse: [self freeFrom: toFinger upTo: (manager startOfObject: n) previousPin: previousPin].
-						^done]]]].
-	self freeFrom: toFinger upTo: manager endOfMemory previousPin: previousPin.
+						[self assert: savedFirstFieldsSpace top = (top - manager bytesPerOop).
+						 self assert: n = objectAfterLastMobileObject.
+						 previousPin ifNil: [previousPin := n. startOfPreviousPin := manager startOfObject: n].
+						 "Create a free object for firstFreeObject to be set to on the next pass, but
+						   do not link it into the free tree as it will be written over in that next pass."
+						 toFinger < startOfPreviousPin
+							ifTrue:
+								[firstFreeObject := manager initFreeChunkWithBytes: startOfPreviousPin - toFinger at: toFinger]
+							ifFalse:
+								[firstFreeObject := previousPin].
+						^false]]]].
+	self freeFrom: toFinger upTo: manager endOfMemory nextObject: (previousPin ifNil: [objectAfterLastMobileObject ifNil: [manager objectAfter: firstFreeObject]]).
+	self coalesceFrom: toFinger.
 	^true

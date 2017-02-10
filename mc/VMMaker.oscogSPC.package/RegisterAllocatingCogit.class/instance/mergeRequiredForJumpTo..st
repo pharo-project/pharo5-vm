@@ -34,4 +34,4 @@ mergeRequiredForJumpTo: targetPC
 	 provided that 1 and 2 are assigned to the same target register."
 
 	self flag: 'be lazy for now; this needs more work to ignore compatible sim stacks'.
-	^(self fixupAt: targetPC - initialPC) hasMergeSimStack
+	^(self fixupAt: targetPC) hasMergeSimStack

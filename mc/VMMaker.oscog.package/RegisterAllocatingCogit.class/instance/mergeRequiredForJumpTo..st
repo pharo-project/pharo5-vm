@@ -1,5 +1,5 @@
 bytecode generator support
-mergeRequiredForJumpTo: target
+mergeRequiredForJumpTo: targetPC
 	"While this is a multi-pass compiler, no intermediate control-flow graph is built from bytecode and
 	 there is a monotonically increasing one-to-one relationship between bytecode pcs and machine
 	 code pcs that map to one another.  Therefore, when jumping forward, any required code to merge
@@ -34,4 +34,4 @@ mergeRequiredForJumpTo: target
 	 provided that 1 and 2 are assigned to the same target register."
 
 	self flag: 'be lazy for now; this needs more work to ignore compatible sim stacks'.
-	^(self fixupAt: target - initialPC) hasMergeSimStack
+	^(self fixupAt: targetPC) hasMergeSimStack

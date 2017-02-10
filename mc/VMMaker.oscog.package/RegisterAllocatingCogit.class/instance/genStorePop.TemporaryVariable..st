@@ -9,7 +9,8 @@ genStorePop: popBoolean TemporaryVariable: tempIndex
 	 if, for example, the ssEntry to be popped is already in ReceiverResultReg (as the result of a send).
 	 ReceiverResultReg is not a good choice for a temporary variable; it has other uses.  So if the ssEntry
 	 at top of stack has ReceiverResultReg as its live variable, try and allocate an alternative."
-	((self ssTop registerMaskOrNone anyMask: self registerMaskUndesirableForTempVars)
+	((self ssTop type = SSConstant
+	  or: [self ssTop registerMaskOrNone anyMask: self registerMaskUndesirableForTempVars])
 	 and: [(destReg := self availableRegOrNoneNotConflictingWith: (self registerMaskUndesirableForTempVars bitOr: self liveRegisters)) ~= NoReg])
 		ifTrue: [self ssStorePop: popBoolean toReg: destReg]
 		ifFalse: [destReg := self ssStorePop: popBoolean toPreferredReg: TempReg].

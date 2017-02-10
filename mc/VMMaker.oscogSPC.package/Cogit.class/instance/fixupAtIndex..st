@@ -1,8 +1,7 @@
 compile abstract instructions
-fixupAt: index
+fixupAtIndex: index
+	"The fixups Array maps to bytecode pcs such that initialPC maps to index 0.
+	 fixupAt: does the conversion."
 	<cmacro: '(index) (&fixups[index])'>
 	<returnTypeC: #'BytecodeFixup *'>
-	((debugFixupBreaks includes: index)
-	 and: [breakMethod isNil or: [methodObj = breakMethod]]) ifTrue:
-		[self halt].
 	^self addressOf: (fixups at: index)

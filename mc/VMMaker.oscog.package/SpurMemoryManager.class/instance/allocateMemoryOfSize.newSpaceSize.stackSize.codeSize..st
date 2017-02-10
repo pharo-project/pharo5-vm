@@ -15,9 +15,9 @@ allocateMemoryOfSize: memoryBytes newSpaceSize: newSpaceBytes stackSize: stackBy
 	freeStart := newSpaceBytes + newSpaceStart.
 	oldSpaceStart := newSpaceLimit := newSpaceBytes + newSpaceStart.
 	scavengeThreshold := memory size * memory bytesPerElement. "i.e. /don't/ scavenge."
-	scavenger := SpurGenerationScavengerSimulator new.
+	scavenger := SpurGenerationScavenger simulatorClass new.
 	scavenger manager: self.
 	scavenger newSpaceStart: newSpaceStart
 				newSpaceBytes: newSpaceBytes
 				survivorBytes: newSpaceBytes // self scavengerDenominator.
-	compactor := self class compactorClass new manager: self; yourself.
+	compactor := self class compactorClass simulatorClass new manager: self; yourself

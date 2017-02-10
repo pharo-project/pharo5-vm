@@ -6,10 +6,10 @@ genJumpBackTo: targetBytecodePC
 	 the check for interrups and we can avoid generating the register reload code twice."
 	(nothingToFlush := simStackPtr < 0 or: [self ssTop spilled]) ifTrue:
 		[label := self Label].
-	self reconcileRegisterStateForBackwardJoin: (self fixupAt: targetBytecodePC - initialPC).
+	self reconcileRegisterStateForBackwardJoin: (self fixupAt: targetBytecodePC).
 	self MoveAw: coInterpreter stackLimitAddress R: TempReg.
 	self CmpR: TempReg R: SPReg. "N.B. FLAGS := SPReg - TempReg"
-	self JumpAboveOrEqual: (self fixupAt: targetBytecodePC - initialPC).
+	self JumpAboveOrEqual: (self fixupAt: targetBytecodePC).
 
 	self ssFlushTo: simStackPtr.
 	self CallRT: ceCheckForInterruptTrampoline.
@@ -18,7 +18,7 @@ genJumpBackTo: targetBytecodePC
 		ifTrue:
 			[self Jump: label]
 		ifFalse:
-			[self reconcileRegisterStateForBackwardJoin: (self fixupAt: targetBytecodePC - initialPC).
-			 self Jump: (self fixupAt: targetBytecodePC - initialPC)].
+			[self reconcileRegisterStateForBackwardJoin: (self fixupAt: targetBytecodePC).
+			 self Jump: (self fixupAt: targetBytecodePC)].
 	deadCode := true. "can't fall through"
 	^0

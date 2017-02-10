@@ -192,6 +192,7 @@
 		"numLowLevelLockOpcodes" : "eem 7/18/2009 13:16",
 		"numberOfSaveableRegisters" : "eem 8/8/2012 13:20",
 		"padIfPossibleWithStopsFrom:to:" : "rmacnak 12/3/2015 19:00:20",
+		"registerToSaveIP" : "rsf 1/21/2017 03:38",
 		"relocateCallBeforeReturnPC:by:" : "eem 6/13/2014 13:27",
 		"relocateMethodReferenceBeforeAddress:by:" : "eem 12/2/2015 13:31",
 		"rewriteCPICJumpAt:target:" : "nice 7/29/2016 18:11",

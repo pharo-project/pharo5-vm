@@ -91,6 +91,6 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	jumpNotEqual jmpTarget: self Label.
 	self ssPushRegister: TempReg.
 	
-	(self fixupAt: nextPC - initialPC) notAFixup ifTrue: [ branchReachedOnlyForCounterTrip := true ].
+	(self fixupAt: nextPC) notAFixup ifTrue: [ branchReachedOnlyForCounterTrip := true ].
 	
 	^ 0

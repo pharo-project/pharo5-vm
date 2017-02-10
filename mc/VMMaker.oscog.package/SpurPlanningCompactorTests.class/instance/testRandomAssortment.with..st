@@ -1,9 +1,9 @@
 private
-testRandomAssortment: random
+testRandomAssortment: random with: theVM
 	"Test that the compactor can handle a random assortment of live, pinned, dead, and free chunks."
 	| om lastObj obj expectedFreeSpace liveFill pinFill liveCount pinCount totalLive totalPinned pinned |
 	random reset. "random is a read stream on 3000 random numbers; for repeatability"
-	om := self initializedVM objectMemory.
+	om := theVM objectMemory.
 	om allOldSpaceObjectsDo: [:o| om setIsMarkedOf: o to: true. lastObj := o].
 	pinFill := 16r99999900.
 	liveFill := 16r55AA0000.
@@ -12,7 +12,7 @@ testRandomAssortment: random
 	1000 timesRepeat:
 		[| nSlots next newObj |
 		 nSlots := (random next * 300) rounded. "Make sure we stray into overflow size field territory."
-		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassBitmapCompactIndex.
+		 newObj := om allocateSlotsInOldSpace: nSlots format: om firstLongFormat classIndex: ClassByteArrayCompactIndex.
 		 (next := random next) > 0.95
 			ifTrue: "pinned"
 				[om
@@ -50,7 +50,11 @@ testRandomAssortment: random
 									ifFalse: [liveCount := liveCount + 1])
 								printPaddedWith: Character space to: 3 base: 10), ' '] 
 					ifFalse: ['     ']).
-			 om printEntity: o]].
+			 om printEntity: o].
+		 om allOldSpaceEntitiesFrom: (om objectAfter: lastObj) to: (om objectBefore: om endOfMemory) do:
+			[:o|
+			((om isMarked: o) and: [om isPinned: o]) ifTrue:
+				[om printEntity: o]]].
 
 	expectedFreeSpace := expectedFreeSpace + om bytesLeftInOldSpace.
 	om compactor compact.
@@ -69,7 +73,11 @@ testRandomAssortment: random
 									ifFalse: [liveCount := liveCount + 1])
 								printPaddedWith: Character space to: 3 base: 10), ' '] 
 					ifTrue: ['     ']).
-			 om printEntity: o]].
+			 om printEntity: o].
+		 om allOldSpaceEntitiesFrom: (om objectAfter: lastObj) to: (om objectBefore: om endOfMemory) do:
+			[:o|
+			(om isPinned: o) ifTrue:
+				[om printEntity: o]]].
 
 	"First check and/or count populations..."
 	liveCount := pinCount := 0.
@@ -96,4 +104,5 @@ testRandomAssortment: random
 			[:i| self assert: expectedFill equals: (actualFill := om fetchPointer: i - 1 ofObject: obj)]].
 	"They should be the last objects..."
 	self assert: (om isFreeObject: (om objectAfter: obj)).
-	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: obj))
+	self assert: om endOfMemory equals: (om addressAfter: (om objectAfter: obj)).
+	self checkForLeaksIn: om

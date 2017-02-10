@@ -9,21 +9,21 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 
 	(branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse])
 		ifTrue: "This is the path where the inlined comparison is followed immediately by a branch"
-			[ (self fixupAt: nextPC - initialPC) notAFixup
+			[ (self fixupAt: nextPC) notAFixup
 				ifTrue: "The next instruction is dead.  we can skip it."
 					[deadCode := true.
-				 	 self ensureFixupAt: targetBytecodePC - initialPC.
-					 self ensureFixupAt: postBranchPC - initialPC ]
+				 	 self ensureFixupAt: targetBytecodePC.
+					 self ensureFixupAt: postBranchPC ]
 				ifFalse:
 					[self ssPushConstant: objectMemory trueObject]. "dummy value"
 			self genConditionalBranch: (branchDescriptor isBranchTrue ifTrue: [opTrue] ifFalse: [opFalse])
-				operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+				operand: (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
 			"We can only elide the jump if the pc after nextPC is the same as postBranchPC.
 			 Branch following means it may not be."
 			self nextDescriptorExtensionsAndNextPCInto:
 				[:iguana1 :iguana2 :iguana3 :followingPC| nextPC := followingPC].
 			(deadCode and: [nextPC = postBranchPC]) ifFalse:
-				[ self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC) ] ]
+				[ self Jump: (self ensureNonMergeFixupAt: postBranchPC) ] ]
 		ifFalse: "This is the path where the inlined comparison is *not* followed immediately by a branch"
 			[| condJump jump |
 			condJump := self genConditionalBranch: opTrue operand: 0.
