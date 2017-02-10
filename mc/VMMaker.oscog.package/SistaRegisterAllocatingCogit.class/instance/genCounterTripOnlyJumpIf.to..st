@@ -28,7 +28,7 @@ genCounterTripOnlyJumpIf: boolean to: targetBytecodePC
 	 their distance send mustBeBoolean."
 	self assert: (objectMemory objectAfter: objectMemory falseObject) = objectMemory trueObject.
 	self genSubConstant: boolean R: TempReg.
-	self JumpZero: (self ensureFixupAt: targetBytecodePC - initialPC).
+	self JumpZero: (self ensureFixupAt: targetBytecodePC).
 
 	self CmpCq: (boolean = objectMemory falseObject
 					ifTrue: [objectMemory trueObject - objectMemory falseObject]

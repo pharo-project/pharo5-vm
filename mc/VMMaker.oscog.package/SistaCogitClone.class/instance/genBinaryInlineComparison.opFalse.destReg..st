@@ -12,13 +12,13 @@ genBinaryInlineComparison: opTrue opFalse: opFalse destReg: destReg
 			[ (self fixupAt: nextPC - initialPC) notAFixup
 				ifTrue: "The next instruction is dead.  we can skip it."
 					[deadCode := true.
-				 	 self ensureFixupAt: targetBytecodePC - initialPC.
-					 self ensureFixupAt: postBranchPC - initialPC ]
+				 	 self ensureFixupAt: targetBytecodePC.
+					 self ensureFixupAt: postBranchPC ]
 				ifFalse:
 					[self ssPushConstant: objectMemory trueObject]. "dummy value"
 			self genConditionalBranch: (branchDescriptor isBranchTrue ifTrue: [opTrue] ifFalse: [opFalse])
-				operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger. 
-			deadCode ifFalse: [ self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC) ] ]
+				operand: (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger. 
+			deadCode ifFalse: [ self Jump: (self ensureNonMergeFixupAt: postBranchPC) ] ]
 		ifFalse: "This is the path where the inlined comparison is *not* followed immediately by a branch"
 			[| condJump jump |
 			condJump := self genConditionalBranch: opTrue operand: 0.

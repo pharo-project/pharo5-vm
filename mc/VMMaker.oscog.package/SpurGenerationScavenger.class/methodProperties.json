@@ -3,7 +3,8 @@
 		"declareCVarsIn:" : "nice 7/20/2016 17:32",
 		"implicitReturnTypeFor:" : "eem 10/29/2013 23:43",
 		"initialize" : "eem 5/5/2015 17:37",
-		"isNonArgumentImplicitReceiverVariableName:" : "eem 10/13/2013 18:46" },
+		"isNonArgumentImplicitReceiverVariableName:" : "eem 10/13/2013 18:46",
+		"simulatorClass" : "eem 2/3/2017 09:37" },
 	"instance" : {
 		"addToEphemeronList:" : "eem 3/25/2015 10:53",
 		"addToWeakList:" : "eem 3/25/2015 10:53",
