@@ -58,7 +58,7 @@ scanMethod
 			 targetPC := pc + descriptor numBytes + distance.
 			 self maybeCountFixup: descriptor.
 			 (self isBackwardBranch: descriptor at: pc exts: nExts in: methodObj)
-				ifTrue: [self initializeFixupAt: targetPC - initialPC]
+				ifTrue: [self initializeFixupAt: targetPC]
 				ifFalse:
 					[latestContinuation := latestContinuation max: targetPC.
 					 self maybeCountCounter]].

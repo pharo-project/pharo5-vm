@@ -19,7 +19,7 @@
 		"fillInMethodHeader:size:selector:" : "eem 7/5/2014 11:35",
 		"fillInOPICHeader:numArgs:selector:" : "eem 5/20/2015 19:12",
 		"genBinaryConstOpVarInlinePrimitive:" : "cb 1/13/2017 11:22",
-		"genBinaryInlineComparison:opFalse:destReg:" : "eem 02/07/2017 15:59",
+		"genBinaryInlineComparison:opFalse:destReg:" : "eem 02/09/2017 09:39",
 		"genBinaryVarOpConstInlinePrimitive:" : "cb 1/13/2017 11:53",
 		"genBinaryVarOpVarInlinePrimitive:" : "cb 1/13/2017 11:22",
 		"genCallPrimitiveBytecode" : "cb 8/29/2016 10:44",
