@@ -6,8 +6,8 @@ genFFICalloutTrampoline
 	backEnd hasLinkRegister ifTrue: [
 		self MoveR: LinkReg Aw: coInterpreter instructionPointerAddress
 	] ifFalse: [
-		self PopR: ClassReg.
-		self MoveR: ClassReg Aw: coInterpreter instructionPointerAddress
+		self PopR: backEnd registerToSaveIP.
+		self MoveR: backEnd registerToSaveIP Aw: coInterpreter instructionPointerAddress
 	].
 
 	self CallR: TempReg.
@@ -15,8 +15,8 @@ genFFICalloutTrampoline
 	backEnd hasLinkRegister ifTrue: [
 		self MoveAw: coInterpreter instructionPointerAddress R: LinkReg 
 	] ifFalse: [
-		self MoveAw: coInterpreter instructionPointerAddress R: ClassReg.
-		self PushR: ClassReg.
+		self MoveAw: coInterpreter instructionPointerAddress R: backEnd registerToSaveIP.
+		self PushR: backEnd registerToSaveIP.
 	].
 
 	self RetN: 0.
