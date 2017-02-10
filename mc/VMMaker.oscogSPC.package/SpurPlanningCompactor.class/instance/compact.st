@@ -13,9 +13,11 @@ compact
 	 objectAfterLastMobileObject := manager oldSpaceObjectAfter: lastMobileObject.
 	 self updatePointers.
 	 self copyAndUnmark: firstPass.
-	 manager checkFreeSpace: GCModeFull.
+	 "Would like to check here, but can't if multi-pass."
+	 false ifTrue: [manager checkFreeSpace: GCModeFull].
 	 onePass or: [biasForGC]] whileFalse:
 		[firstPass := false.
 		 self reinitializeScanFrom: objectAfterLastMobileObject;
 			updateSavedFirstFieldsSpaceIfNecessary].
+	manager checkFreeSpace: GCModeFull.
 	self endCompaction
