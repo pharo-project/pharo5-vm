@@ -5,7 +5,7 @@ ensureFixupAt: targetPC
 	 Override to enerate stack merging code if required."
 	| fixup |	
 	<var: #fixup type: #'BytecodeFixup *'>
-	fixup := self fixupAt:  targetPC - initialPC.
+	fixup := self fixupAt:  targetPC.
 	fixup needsFixup 
 		ifTrue:
 			[fixup mergeSimStack

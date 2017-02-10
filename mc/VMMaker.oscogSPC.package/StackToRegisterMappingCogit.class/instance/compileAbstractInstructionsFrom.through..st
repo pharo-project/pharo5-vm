@@ -10,7 +10,7 @@ compileAbstractInstructionsFrom: start through: end
 	descriptor := nil.
 	deadCode := false.
 	[self maybeHaltIfDebugPC.
-	 fixup := self fixupAt: bytecodePC - initialPC.
+	 fixup := self fixupAt: bytecodePC.
 	 self mergeWithFixupIfRequired: fixup.
 	 self assertCorrectSimStackPtr.
 	 descriptor := self loadBytesAndGetDescriptor.
