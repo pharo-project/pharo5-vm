@@ -1,3 +1,3 @@
-instance initialization
+accessing
 interestingObj: obj
 	interestingObj := obj
