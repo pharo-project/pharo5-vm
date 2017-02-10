@@ -1,3 +1,3 @@
-accessing
+compaction
 recordMovements
 	relocationMap := Dictionary new

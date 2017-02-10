@@ -35,20 +35,20 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
-	(self fixupAt: nextPC) notAFixup
+	(self fixupAt: nextPC - initialPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
-		 	 self ensureFixupAt: targetBytecodePC.
-			 self ensureFixupAt: postBranchPC]
+		 	 self ensureFixupAt: targetBytecodePC - initialPC.
+			 self ensureFixupAt: postBranchPC - initialPC]
 		ifFalse:
 			[self deny: deadCode]. "push dummy value below"
 		
 	self genConditionalBranch: (orNot == branchDescriptor isBranchTrue ifTrue: [JumpNonZero] ifFalse: [JumpZero])
-		operand: (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
+		operand: (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
 
 	"If the branch is dead, then we can just fall through postBranchPC (only a nop in-between), else 
 	we need to jump over the code of the branch"
 	deadCode ifFalse:
-		[self Jump: (self ensureNonMergeFixupAt: postBranchPC).
+		[self Jump: (self ensureNonMergeFixupAt: postBranchPC - initialPC).
 		 self ssPushConstant: objectMemory trueObject]. "dummy value"
 	^0

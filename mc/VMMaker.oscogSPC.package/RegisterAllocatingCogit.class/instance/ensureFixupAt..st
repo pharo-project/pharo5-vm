@@ -1,11 +1,8 @@
 bytecode generator support
-ensureFixupAt: targetPC
-	"Make sure there's a flagged fixup at the target pc in fixups.
-	 Initially a fixup's target is just a flag.  Later on it is replaced with a proper instruction.
-	 Override to enerate stack merging code if required."
+ensureFixupAt: targetIndex
 	| fixup |	
 	<var: #fixup type: #'BytecodeFixup *'>
-	fixup := self fixupAt:  targetPC.
+	fixup := self fixupAt: targetIndex.
 	fixup needsFixup 
 		ifTrue:
 			[fixup mergeSimStack
@@ -13,6 +10,6 @@ ensureFixupAt: targetPC
 				ifNotNil: [self mergeCurrentSimStackWith: fixup]]
 		ifFalse: 
 			[self assert: fixup mergeSimStack isNil.
-			 self moveVolatileSimStackEntriesToRegisters.
-			 self setMergeSimStackOf: fixup].
-	^super ensureFixupAt: targetPC
+			self moveVolatileSimStackEntriesToRegisters.
+			self setMergeSimStackOf: fixup].
+	^super ensureFixupAt: targetIndex

@@ -12,7 +12,7 @@ compileAbstractInstructionsFrom: start through: end
 	 nextOpcodeIndex := opcodeIndex.
 	 result := self perform: descriptor generator.
 	 self assertExtsAreConsumed: descriptor.
-	 fixup := self fixupAt: bytecodePC.
+	 fixup := self fixupAt: bytecodePC - initialPC.
 	 self patchFixupTargetIfNeeded: fixup nextOpcodeIndex: nextOpcodeIndex.
 	 self maybeDumpLiterals: descriptor.
 	 bytecodePC := self nextBytecodePCFor: descriptor exts: nExts.

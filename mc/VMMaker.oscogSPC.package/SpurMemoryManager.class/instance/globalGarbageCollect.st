@@ -17,7 +17,6 @@ globalGarbageCollect
 		excludeUnmarkedObjs: true
 		classIndicesShouldBeValid: true.
 
-	compactionStartUsecs := coInterpreter ioUTCMicrosecondsNow.
 	segmentManager prepareForGlobalSweep. "for notePinned:"
 	compactor compact.
 	self attemptToShrink.

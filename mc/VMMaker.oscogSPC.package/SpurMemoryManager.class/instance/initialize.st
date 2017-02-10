@@ -9,7 +9,7 @@ initialize
 	needGCFlag := signalLowSpace := marking := false.
 	becomeEffectsFlags := gcPhaseInProgress := 0.
 	statScavenges := statIncrGCs := statFullGCs := 0.
-	statScavengeGCUsecs := statIncrGCUsecs := statFullGCUsecs := statCompactionUsecs := statGCEndUsecs := 0.
+	statScavengeGCUsecs := statIncrGCUsecs := statFullGCUsecs := statGCEndUsecs := 0.
 	statSGCDeltaUsecs := statIGCDeltaUsecs := statFGCDeltaUsecs := 0.
 	statGrowMemory := statShrinkMemory := statRootTableCount := 0.
 	statRootTableOverflows := statMarkCount := statCompactPassCount := statCoalesces := 0.
@@ -18,9 +18,9 @@ initialize
 	unscannedEphemerons := SpurContiguousObjStack new.
 
 	"we can initialize things that are virtual in C."
-	scavenger := SpurGenerationScavenger simulatorClass new manager: self; yourself.
-	segmentManager := SpurSegmentManager simulatorClass new manager: self; yourself.
-	compactor := self class compactorClass simulatorClass new manager: self; yourself.
+	scavenger := SpurGenerationScavengerSimulator new manager: self; yourself.
+	segmentManager := SpurSegmentManager new manager: self; yourself.
+	compactor := self class compactorClass new manager: self; yourself.
 
 	"We can also initialize here anything that is only for simulation."
 	heapMap := CogCheck32BitHeapMap new.

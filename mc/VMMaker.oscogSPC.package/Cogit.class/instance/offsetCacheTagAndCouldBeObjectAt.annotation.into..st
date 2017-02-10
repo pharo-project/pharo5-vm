@@ -1,6 +1,6 @@
 in-line cacheing
-entryCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into: trinaryBlock
-	"Evaluate trinaryBlock with the entryPoint, inline cache tag and whether the cache
+offsetCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into: trinaryBlock
+	"Evaluate trinaryBlock with the entry, inline cache tag and whether the cache
 	 tag could be an object, for the send at mcpc with annotation annotation."
 	<inline: true>
 	| cacheTag entryPoint tagCouldBeObj |
@@ -14,7 +14,10 @@ entryCacheTagAndCouldBeObjectAt: mcpc annotation: annotation into: trinaryBlock
 	 are markable/remappable objects."
 	tagCouldBeObj := self inlineCacheTagsAreIndexes not
 						and: [objectRepresentation inlineCacheTagsMayBeObjects
-							or: [self entryPointTagIsSelector: entryPoint]].
+							or: [entryPoint < methodZoneBase
+							or: [(entryPoint bitAnd: entryPointMask) = uncheckedEntryAlignment
+							or: [(entryPoint bitAnd: entryPointMask) = checkedEntryAlignment
+								and: [(self cCoerceSimple: entryPoint - cmEntryOffset to: #'CogMethod *') cmType = CMOpenPIC]]]]].
 	trinaryBlock
 		value: entryPoint
 		value: cacheTag

@@ -8,14 +8,14 @@ reinitializeFixupsFrom: start through: end
 	pc := start.
 	nExts := 0.
 	[pc <= end] whileTrue:
-		[(self fixupAt: pc) reinitialize.
+		[(self fixupAt: pc - initialPC) reinitialize.
 		 byte0 := (objectMemory fetchByte: pc ofObject: methodObj) + bytecodeSetOffset.
 		 descriptor := self generatorAt: byte0.
 		 (descriptor isBranch
 		  and: [self isBackwardBranch: descriptor at: pc exts: nExts in: methodObj]) ifTrue:
 			[distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.
 			 targetPC := pc + descriptor numBytes + distance.
-			 self initializeFixupAt: targetPC].
+			 self initializeFixupAt: targetPC - initialPC].
 		 descriptor isBlockCreation
 			ifTrue:
 				[distance := self spanFor: descriptor at: pc exts: nExts in: methodObj.

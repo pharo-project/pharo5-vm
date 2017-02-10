@@ -1,17 +1,17 @@
 compile abstract instructions
-ensureNonMergeFixupAt: targetPC
-	"Make sure there's a flagged fixup at the target pc in fixups.
+ensureNonMergeFixupAt: targetIndex
+	"Make sure there's a flagged fixup at the targetIndex (pc relative to first pc) in fixups.
 	 Initially a fixup's target is just a flag.  Later on it is replaced with a proper instruction."
 	<returnTypeC: #'BytecodeFixup *'>
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
-	fixup := self fixupAt:  targetPC.
+	fixup := self fixupAt: targetIndex.
 	fixup notAFixup ifTrue:
 		[fixup becomeNonMergeFixup].
 	self cCode: '' inSmalltalk:
 		[fixup isMergeFixupOrIsFixedUp ifTrue:
 			[self assert:
 					(fixup isBackwardBranchFixup
-					 or: [fixup simStackPtr = (self debugStackPointerFor: targetPC)])]].
+					 or: [fixup simStackPtr = (self debugStackPointerFor: targetIndex + initialPC)])]].
 	fixup recordBcpc: bytecodePC.
 	^fixup

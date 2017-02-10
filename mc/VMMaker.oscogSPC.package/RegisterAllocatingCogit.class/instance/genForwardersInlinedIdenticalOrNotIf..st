@@ -33,29 +33,28 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	self genCmpArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 
-	"For now just deny we're in the situation we have yet to implement ;-)
-	 self printSimStack; printSimStack: (self fixupAt: postBranchPC) mergeSimStack"
+	"For now just deny we're in the situation we have yet to implement ;-)"
 	self deny: (self mergeRequiredForJumpTo: targetBytecodePC).
 	self deny: (self mergeRequiredForJumpTo: postBranchPC).
 
 	"Further since there is a following conditional jump bytecode, define
 	 non-merge fixups and leave the cond bytecode to set the mergeness."
-	(self fixupAt: nextPC) notAFixup
+	(self fixupAt: nextPC - initialPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
-		 	 self ensureFixupAt: targetBytecodePC.
-			 self ensureFixupAt: postBranchPC]
+		 	 self ensureFixupAt: targetBytecodePC - initialPC.
+			 self ensureFixupAt: postBranchPC - initialPC]
 		ifFalse:
 			[self deny: deadCode]. "push dummy value below"
 
 	self assert: (unforwardArg or: [unforwardRcvr]).
 	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
 		ifFalse: "branchDescriptor is branchFalse"
-			[ fixup := (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
-			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger ]
+			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
 		ifTrue:
-			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger ].
+			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
 
 	deadCode ifFalse:
 		[self ssPushConstant: objectMemory trueObject]. "dummy value"

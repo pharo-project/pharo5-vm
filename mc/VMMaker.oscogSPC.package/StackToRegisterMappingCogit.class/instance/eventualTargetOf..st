@@ -23,10 +23,9 @@ eventualTargetOf: targetBytecodePC
 			 nextPC := nextPC + descriptor numBytes + span]
 		ifFalse:
 			[descriptor generator == #genPushConstantTrueBytecode ifTrue: [ cond := true ]
-			 ifFalse: [ descriptor generator == #genPushConstantFalseBytecode ifTrue: [ cond := false ]
-			 ifFalse: [ ^currentTarget ] ].
+			 ifFalse: [ descriptor generator == #genPushConstantFalseBytecode ifTrue: [ cond := false ] 							ifFalse: [ ^currentTarget ] ].
 			 "Don't step into loops across a pushTrue; jump:if: boundary, so as not to confuse stack depth fixup."
-			 (self fixupAt: nextPC) isBackwardBranchFixup ifTrue:
+			 (fixups at: nextPC - initialPC) isBackwardBranchFixup ifTrue:
 				[^currentTarget].
 			 nextPC := self eventualTargetOf: nextPC + descriptor numBytes.
 			 nExts := 0.

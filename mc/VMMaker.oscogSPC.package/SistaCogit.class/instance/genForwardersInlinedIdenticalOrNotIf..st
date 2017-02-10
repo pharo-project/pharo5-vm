@@ -66,11 +66,11 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	
 	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
 		ifFalse:
-			[ fixup := (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
-			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger ]
+			[ fixup := (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger.
+			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger ]
 		ifTrue:
-			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger ].
+			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC - initialPC) asUnsignedInteger.
+			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC - initialPC) asUnsignedInteger ].
 	
 	self genFallsThroughCountLogicCounterReg: counterReg counterAddress: counterAddress.
 	self Jump: fixup.
@@ -91,6 +91,6 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	jumpNotEqual jmpTarget: self Label.
 	self ssPushRegister: TempReg.
 	
-	(self fixupAt: nextPC) notAFixup ifTrue: [ branchReachedOnlyForCounterTrip := true ].
+	(self fixupAt: nextPC - initialPC) notAFixup ifTrue: [ branchReachedOnlyForCounterTrip := true ].
 	
 	^ 0
