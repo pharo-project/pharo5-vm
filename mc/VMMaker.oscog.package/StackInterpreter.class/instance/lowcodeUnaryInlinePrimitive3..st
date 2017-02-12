@@ -30,20 +30,13 @@ lowcodeUnaryInlinePrimitive3: prim
 			[144]	-> [ ^ self lowcodePrimitiveNot64 ].
 			[145]	-> [ ^ self lowcodePrimitiveOr32 ].
 			[146]	-> [ ^ self lowcodePrimitiveOr64 ].
-			[147]	-> [ ^ self lowcodePrimitivePerformCallFloat32 ].
-			[148]	-> [ ^ self lowcodePrimitivePerformCallFloat64 ].
-			[149]	-> [ ^ self lowcodePrimitivePerformCallIndirectFloat32 ].
-			[150]	-> [ ^ self lowcodePrimitivePerformCallIndirectFloat64 ].
-			[151]	-> [ ^ self lowcodePrimitivePerformCallIndirectInt32 ].
-			[152]	-> [ ^ self lowcodePrimitivePerformCallIndirectInt64 ].
-			[153]	-> [ ^ self lowcodePrimitivePerformCallIndirectPointer ].
-			[154]	-> [ ^ self lowcodePrimitivePerformCallIndirectStructure ].
-			[155]	-> [ ^ self lowcodePrimitivePerformCallIndirectVoid ].
-			[156]	-> [ ^ self lowcodePrimitivePerformCallInt32 ].
-			[157]	-> [ ^ self lowcodePrimitivePerformCallInt64 ].
-			[158]	-> [ ^ self lowcodePrimitivePerformCallPointer ].
-			[159]	-> [ ^ self lowcodePrimitivePerformCallStructure ].
-			[160]	-> [ ^ self lowcodePrimitivePerformCallVoid ].
+			[147]	-> [ ^ self lowcodePrimitivePerformCallout ].
+			[148]	-> [ ^ self lowcodePrimitivePerformCalloutIndirect ].
+			[149]	-> [ ^ self lowcodePrimitivePushCalloutResultFloat32 ].
+			[150]	-> [ ^ self lowcodePrimitivePushCalloutResultFloat64 ].
+			[151]	-> [ ^ self lowcodePrimitivePushCalloutResultInt32 ].
+			[152]	-> [ ^ self lowcodePrimitivePushCalloutResultInt64 ].
+			[153]	-> [ ^ self lowcodePrimitivePushCalloutResultPointer ].
 			[161]	-> [ ^ self lowcodePrimitivePlaftormCode ].
 			[162]	-> [ ^ self lowcodePrimitivePointerAddConstantOffset ].
 			[163]	-> [ ^ self lowcodePrimitivePointerAddOffset32 ].
@@ -63,6 +56,13 @@ lowcodeUnaryInlinePrimitive3: prim
 			[177]	-> [ ^ self lowcodePrimitivePushNullPointer ].
 			[178]	-> [ ^ self lowcodePrimitivePushOne32 ].
 			[179]	-> [ ^ self lowcodePrimitivePushOne64 ].
+			[180]	-> [ ^ self lowcodePrimitivePushOneFloat32 ].
+			[181]	-> [ ^ self lowcodePrimitivePushOneFloat64 ].
+			[182]	-> [ ^ self lowcodePrimitivePushPhysicalFloat32 ].
+			[183]	-> [ ^ self lowcodePrimitivePushPhysicalFloat64 ].
+			[184]	-> [ ^ self lowcodePrimitivePushPhysicalInt32 ].
+			[185]	-> [ ^ self lowcodePrimitivePushPhysicalInt64 ].
+			[186]	-> [ ^ self lowcodePrimitivePushPhysicalPointer ].
 		}
 		otherwise: [ ^ self lowcodeUnaryInlinePrimitive4: prim ].
 	

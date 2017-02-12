@@ -3,13 +3,6 @@ genLowcodeUnaryInlinePrimitive4: prim
 	<option: #LowcodeVM>	"Lowcode instruction generator dispatch"
 	prim
 		caseOf: {
-			[180]	-> [ ^ self genLowcodePushOneFloat32 ].
-			[181]	-> [ ^ self genLowcodePushOneFloat64 ].
-			[182]	-> [ ^ self genLowcodePushPhysicalFloat32 ].
-			[183]	-> [ ^ self genLowcodePushPhysicalFloat64 ].
-			[184]	-> [ ^ self genLowcodePushPhysicalInt32 ].
-			[185]	-> [ ^ self genLowcodePushPhysicalInt64 ].
-			[186]	-> [ ^ self genLowcodePushPhysicalPointer ].
 			[187]	-> [ ^ self genLowcodePushSessionIdentifier ].
 			[188]	-> [ ^ self genLowcodePushZero32 ].
 			[189]	-> [ ^ self genLowcodePushZero64 ].
@@ -63,6 +56,13 @@ genLowcodeUnaryInlinePrimitive4: prim
 			[237]	-> [ ^ self genLowcodeUmul64 ].
 			[238]	-> [ ^ self genLowcodeUnlockRegisters ].
 			[239]	-> [ ^ self genLowcodeUnlockVM ].
+			[240]	-> [ ^ self genLowcodeUrem32 ].
+			[241]	-> [ ^ self genLowcodeUrem64 ].
+			[242]	-> [ ^ self genLowcodeXor32 ].
+			[243]	-> [ ^ self genLowcodeXor64 ].
+			[244]	-> [ ^ self genLowcodeZeroExtend32From16 ].
+			[245]	-> [ ^ self genLowcodeZeroExtend32From8 ].
+			[246]	-> [ ^ self genLowcodeZeroExtend64From16 ].
 		}
 		otherwise: [ ^ self genLowcodeUnaryInlinePrimitive5: prim ].
 	^ 0

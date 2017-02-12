@@ -30,20 +30,13 @@ genLowcodeUnaryInlinePrimitive3: prim
 			[144]	-> [ ^ self genLowcodeNot64 ].
 			[145]	-> [ ^ self genLowcodeOr32 ].
 			[146]	-> [ ^ self genLowcodeOr64 ].
-			[147]	-> [ ^ self genLowcodePerformCallFloat32 ].
-			[148]	-> [ ^ self genLowcodePerformCallFloat64 ].
-			[149]	-> [ ^ self genLowcodePerformCallIndirectFloat32 ].
-			[150]	-> [ ^ self genLowcodePerformCallIndirectFloat64 ].
-			[151]	-> [ ^ self genLowcodePerformCallIndirectInt32 ].
-			[152]	-> [ ^ self genLowcodePerformCallIndirectInt64 ].
-			[153]	-> [ ^ self genLowcodePerformCallIndirectPointer ].
-			[154]	-> [ ^ self genLowcodePerformCallIndirectStructure ].
-			[155]	-> [ ^ self genLowcodePerformCallIndirectVoid ].
-			[156]	-> [ ^ self genLowcodePerformCallInt32 ].
-			[157]	-> [ ^ self genLowcodePerformCallInt64 ].
-			[158]	-> [ ^ self genLowcodePerformCallPointer ].
-			[159]	-> [ ^ self genLowcodePerformCallStructure ].
-			[160]	-> [ ^ self genLowcodePerformCallVoid ].
+			[147]	-> [ ^ self genLowcodePerformCallout ].
+			[148]	-> [ ^ self genLowcodePerformCalloutIndirect ].
+			[149]	-> [ ^ self genLowcodePushCalloutResultFloat32 ].
+			[150]	-> [ ^ self genLowcodePushCalloutResultFloat64 ].
+			[151]	-> [ ^ self genLowcodePushCalloutResultInt32 ].
+			[152]	-> [ ^ self genLowcodePushCalloutResultInt64 ].
+			[153]	-> [ ^ self genLowcodePushCalloutResultPointer ].
 			[161]	-> [ ^ self genLowcodePlaftormCode ].
 			[162]	-> [ ^ self genLowcodePointerAddConstantOffset ].
 			[163]	-> [ ^ self genLowcodePointerAddOffset32 ].
@@ -63,6 +56,13 @@ genLowcodeUnaryInlinePrimitive3: prim
 			[177]	-> [ ^ self genLowcodePushNullPointer ].
 			[178]	-> [ ^ self genLowcodePushOne32 ].
 			[179]	-> [ ^ self genLowcodePushOne64 ].
+			[180]	-> [ ^ self genLowcodePushOneFloat32 ].
+			[181]	-> [ ^ self genLowcodePushOneFloat64 ].
+			[182]	-> [ ^ self genLowcodePushPhysicalFloat32 ].
+			[183]	-> [ ^ self genLowcodePushPhysicalFloat64 ].
+			[184]	-> [ ^ self genLowcodePushPhysicalInt32 ].
+			[185]	-> [ ^ self genLowcodePushPhysicalInt64 ].
+			[186]	-> [ ^ self genLowcodePushPhysicalPointer ].
 		}
 		otherwise: [ ^ self genLowcodeUnaryInlinePrimitive4: prim ].
 	^ 0

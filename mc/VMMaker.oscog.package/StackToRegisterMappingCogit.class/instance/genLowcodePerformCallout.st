@@ -1,12 +1,12 @@
 inline primitive generators generated code
-genLowcodePerformCallIndirectVoid
+genLowcodePerformCallout
 	<option: #LowcodeVM>	"Lowcode instruction generator"
 
-	self ssNativeTop nativeStackPopToReg: TempReg.
-	self ssNativePop: 1.
 	self callSwitchToCStack.
+	self MoveCw: extA R: TempReg.
 	self CallRT: ceFFICalloutTrampoline.
 	self annotateBytecode: self Label.
+	extA := 0.
 
 	^ 0
 
