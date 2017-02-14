@@ -8,4 +8,4 @@ primitiveSmallFloatFractionalPart
 	rcvr := objectMemory smallFloatValueOf: self stackTop.
 	frac := self cCode: [self mod: rcvr f: (self addressOf: trunc)]
 				inSmalltalk: [rcvr fractionPart].
-	self pop: 1 thenPushFloat: frac
+	self stackTopPut: (objectMemory floatObjectOf: frac)

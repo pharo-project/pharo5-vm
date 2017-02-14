@@ -3,10 +3,6 @@ genEnsureOopInRegNotForwarded: reg scratchReg: scratch ifForwarder: fwdJumpTarge
 	"Make sure that the oop in reg is not forwarded.  
 	 Use the fact that isForwardedObjectClassIndexPun is a power of two to save an instruction."
 	| imm ok finished |
-	<inline: true>
-	<var: #ok type: #'AbstractInstruction *'>
-	<var: #imm type: #'AbstractInstruction *'>
-	<var: #finished type: #'AbstractInstruction *'>
 	self assert: reg ~= scratch.
 	imm := self genJumpImmediate: reg.
 	"notionally
@@ -20,8 +16,8 @@ genEnsureOopInRegNotForwarded: reg scratchReg: scratch ifForwarder: fwdJumpTarge
 	ok := cogit JumpNonZero: 0.
 	self genLoadSlot: 0 sourceReg: reg destReg: reg.
 	cogit Jump: fwdJumpTarget.
-	finished := nonFwdJumpTargetOrZero = 0
-		ifTrue: [ cogit Label ]
-		ifFalse: [ self cCoerceSimple: nonFwdJumpTargetOrZero to: #'AbstractInstruction *' ].
+	finished := nonFwdJumpTargetOrZero asUnsignedInteger = 0
+					ifTrue: [cogit Label]
+					ifFalse: [nonFwdJumpTargetOrZero].
 	imm jmpTarget: (ok jmpTarget: finished).
 	^0

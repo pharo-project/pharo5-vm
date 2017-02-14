@@ -64,7 +64,8 @@ collectInlineList: inlineFlagOrSymbol
 			ifFalse:
 				[(inlineFlagOrSymbol caseOf: {
 						[#asSpecified]			-> [inlineIt == true].
-						[#asSpecifiedOrQuick]	-> [inlineIt == true or: [m compiledMethod isQuick]].
+						[#asSpecifiedOrQuick]	-> [inlineIt == true
+													or: [self isQuickCompiledMethod: m compiledMethod]].
 						[true]					-> [nodeCount < 40 or: [inlineIt == true]].
 						[false]					-> [false]})
 					ifTrue: "inline if method has no C code and is either small or contains inline directive"

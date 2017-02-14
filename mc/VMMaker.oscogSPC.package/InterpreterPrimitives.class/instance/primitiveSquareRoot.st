@@ -1,9 +1,9 @@
 arithmetic float primitives
 primitiveSquareRoot
+	"N.B. IMO we should be able to assume the receiver is a float because this primitive is specific to floats. eem 2/13/2017"
 	| rcvr |
 	<var: #rcvr type: #double>
-	rcvr := self popFloat.
-	self success: rcvr >= 0.0.
-	self successful
-		ifTrue: [self pushFloat: rcvr sqrt]
-		ifFalse: [self unPop: 1]
+	rcvr := self stackFloatValue: 0.
+	(self successful and: [rcvr >= 0.0])
+		ifTrue: [self stackTopPut: (objectMemory floatObjectOf: rcvr sqrt)]
+		ifFalse: [self primitiveFail]

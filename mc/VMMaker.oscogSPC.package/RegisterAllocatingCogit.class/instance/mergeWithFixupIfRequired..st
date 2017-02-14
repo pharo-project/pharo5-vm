@@ -19,14 +19,23 @@ mergeWithFixupIfRequired: fixup
 			restores the simStack to the state the jumps to the merge point expects it to be.
 			
 	In addition, if this is a backjump merge point, we patch the fixup to hold the current simStackPtr 
-	for later assertions."
-	
+	for later assertions. self printSimStack: fixup mergeSimStack"
+
 	<var: #fixup type: #'BytecodeFixup *'>
 	"case 1"
-	fixup notAFixup ifTrue: [^ 0].
+	fixup notAFixup ifTrue: [^0].
 
 	"case 2"
-	fixup isNonMergeFixup ifTrue: [deadCode := false. ^ 0 ].
+	fixup isNonMergeFixup ifTrue:
+		[deadCode
+			ifTrue:
+				[self deny: fixup simStackPtr isNil.
+				 simStackPtr := fixup simStackPtr.
+				 self restoreSimStackAtMergePoint: fixup.
+				 deadCode := false]
+			ifFalse:
+				[self flushRegistersOnlyLiveOnFallThrough: fixup].
+		 ^0].
 
 	"cases 3 and 4"
 	self assert: fixup isMergeFixup.

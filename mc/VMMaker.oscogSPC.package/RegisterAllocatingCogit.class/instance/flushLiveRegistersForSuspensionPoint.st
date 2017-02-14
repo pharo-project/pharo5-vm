@@ -1,13 +1,12 @@
 bytecode generator support
-flushLiveRegistersForCRunTimeCall
-	"Flush any live registers for a C call, i.e. don't flush caller-saved registers.
+flushLiveRegistersForSuspensionPoint
+	"Flush any live registers for a C call at a suspension/resumption point, i.e.flush all registers.
 	 Answer if any registers were flushed."
 	<inline: true>
-	| flushed reg |
+	| flushed |
 	flushed := false.
 	self assert: simSelf type = SSBaseOffset.
-	reg := simSelf liveRegister.
-	(reg ~= NoReg and: [(self isCallerSavedReg: reg)]) ifTrue:
+	simSelf liveRegister ~= NoReg ifTrue:
 		[simSelf liveRegister: NoReg.
 		 flushed := true].
 	0 to: simStackPtr do:
@@ -15,8 +14,7 @@ flushLiveRegistersForCRunTimeCall
 		 self assert: (self simStackAt: i) type = (i < methodOrBlockNumTemps
 													ifTrue: [SSBaseOffset]
 													ifFalse: [SSSpill]).
-		 reg := (self simStackAt: i) liveRegister.
-		 (reg ~= NoReg and: [(self isCallerSavedReg: reg)]) ifTrue:
+		 (self simStackAt: i) liveRegister ~= NoReg ifTrue:
 			[(self simStackAt: i) liveRegister: NoReg.
 			 flushed := true]].
 	^flushed

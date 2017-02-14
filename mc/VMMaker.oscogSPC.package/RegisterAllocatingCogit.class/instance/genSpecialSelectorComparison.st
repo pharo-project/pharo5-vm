@@ -1,7 +1,7 @@
 bytecode generators
 genSpecialSelectorComparison
-	| nextPC postBranchPC targetBytecodePC primDescriptor branchDescriptor
-	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB index rcvrReg argReg |
+	| nextPC postBranchPC targetPC primDescriptor branchDescriptor
+	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB index rcvrReg argReg branchToTarget needMergeToContinue needMergeToTarget |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
@@ -15,7 +15,7 @@ genSpecialSelectorComparison
 		[^self genStaticallyResolvedSpecialSelectorComparison].
 
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
-		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetPC := target ].
 
 	"Only interested in inlining if followed by a conditional branch."
 	inlineCAB := branchDescriptor isBranchTrue or: [branchDescriptor isBranchFalse].
@@ -33,34 +33,57 @@ genSpecialSelectorComparison
 	argIsInt
 		ifTrue:
 			[rcvrReg := self allocateRegForStackEntryAt: 1.
-			 (self ssValue: 1) popToReg: rcvrReg.
-			 self MoveR: rcvrReg R: TempReg]
+			 (self ssValue: 1) popToReg: rcvrReg]
 		ifFalse:
 			[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
 			 rcvrReg = Arg0Reg ifTrue:
 				[rcvrReg := argReg. argReg := Arg0Reg].
 			 self ssTop popToReg: argReg.
 			 (self ssValue: 1) popToReg: rcvrReg.
-			 self MoveR: argReg R: TempReg].
+			 rcvrIsInt ifFalse:
+				[self MoveR: argReg R: TempReg]].
 	self ssPop: 2.
 	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
-							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
-							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: rcvrReg andScratch: TempReg scratch: ClassReg].
+							ifFalse: "Neither known to be ints; and them together for the test..."
+								[objectRepresentation genJumpNotSmallIntegersIn: rcvrReg andScratch: TempReg scratch: ClassReg]
+							ifTrue: "One known; in-place single-bit test for the other"
+								[objectRepresentation genJumpNotSmallInteger: (rcvrIsInt ifTrue: [argReg] ifFalse: [rcvrReg])].
 	argIsInt
 		ifTrue: [self CmpCq: argInt R: rcvrReg]
 		ifFalse: [self CmpR: argReg R: rcvrReg].
 
-	"For now just deny we're in the situation we have yet to implement ;-)"
-	self deny: (self mergeRequiredForJumpTo: targetBytecodePC).
-	self deny: (self mergeRequiredForJumpTo: postBranchPC).
-
-	"Cmp is weird/backwards so invert the comparison.  Further since there is a following conditional
-	 jump bytecode define non-merge fixups and leave the cond bytecode to set the mergeness."
-	self genConditionalBranch: (branchDescriptor isBranchTrue
-				ifTrue: [primDescriptor opcode]
-				ifFalse: [self inverseBranchFor: primDescriptor opcode])
-		operand: (self ensureFixupAt: targetBytecodePC) asUnsignedInteger.
-	self Jump: (self ensureFixupAt: postBranchPC).
+	"self printSimStack; printSimStack: (self fixupAt: postBranchPC) mergeSimStack; printSimStack: (self fixupAt: targetPC) mergeSimStack"
+	"If there are merges to be performed on the forward branches we have to execute
+	 the merge code only along the path requiring that merge, and exactly once."
+	needMergeToTarget := self mergeRequiredForJumpTo: targetPC.
+	needMergeToContinue := self mergeRequiredForJumpTo: postBranchPC.
+	"Cmp is weird/backwards so invert the comparison."
+	(needMergeToTarget and: [needMergeToContinue]) ifTrue:
+		[branchToTarget := self genConditionalBranch: (branchDescriptor isBranchTrue
+										ifTrue: [primDescriptor opcode]
+										ifFalse: [self inverseBranchFor: primDescriptor opcode])
+								operand: 0.
+		 self Jump: (self ensureFixupAt: postBranchPC).
+		 branchToTarget jmpTarget: self Label.
+		 self Jump: (self ensureFixupAt: targetPC)].
+	(needMergeToTarget and: [needMergeToContinue not]) ifTrue:
+		[self genConditionalBranch: (branchDescriptor isBranchFalse
+										ifTrue: [primDescriptor opcode]
+										ifFalse: [self inverseBranchFor: primDescriptor opcode])
+			operand: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
+		 self Jump: (self ensureFixupAt: targetPC)].
+	(needMergeToTarget not and: [needMergeToContinue]) ifTrue:
+		[self genConditionalBranch: (branchDescriptor isBranchTrue
+										ifTrue: [primDescriptor opcode]
+										ifFalse: [self inverseBranchFor: primDescriptor opcode])
+			operand: (self ensureNonMergeFixupAt: targetPC) asUnsignedInteger.
+		 self Jump: (self ensureFixupAt: postBranchPC)].
+	(needMergeToTarget or: [needMergeToContinue]) ifFalse:
+		[self genConditionalBranch: (branchDescriptor isBranchTrue
+										ifTrue: [primDescriptor opcode]
+										ifFalse: [self inverseBranchFor: primDescriptor opcode])
+			operand: (self ensureNonMergeFixupAt: targetPC) asUnsignedInteger.
+		 self Jump: (self ensureNonMergeFixupAt: postBranchPC)].
 	jumpNotSmallInts jmpTarget: self Label.
 	self ssFlushTo: simStackPtr.
 	self deny: rcvrReg = Arg0Reg.

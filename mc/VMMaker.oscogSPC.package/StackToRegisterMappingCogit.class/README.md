@@ -34,7 +34,7 @@ ceEnter0ArgsPIC ceEnter1ArgsPIC ceEnter2ArgsPIC
 	- the trampoline for entering an N-arg PIC
 
 ceEnterCogCodePopReceiverArg0Regs ceEnterCogCodePopReceiverArg1Arg0Regs
-	- teh trampoline for entering a method with N register args
+	- the trampoline for entering a method with N register args
 	
 debugBytecodePointers
 	- a Set of bytecode pcs for setting breakpoints (simulation only)

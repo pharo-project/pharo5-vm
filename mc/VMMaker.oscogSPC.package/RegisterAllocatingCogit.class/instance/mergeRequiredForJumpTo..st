@@ -32,6 +32,8 @@ mergeRequiredForJumpTo: targetPC
 		22 <77> pushConstant: 2
 		23 <C0> send: at:
 	 provided that 1 and 2 are assigned to the same target register."
-
-	self flag: 'be lazy for now; this needs more work to ignore compatible sim stacks'.
-	^(self fixupAt: targetPC) hasMergeSimStack
+	| fixup |
+	(fixup := self fixupAt: targetPC) hasMergeSimStack ifFalse:
+		[^false].
+	self assert: simStackPtr = fixup simStackPtr.
+	^self mergeRequiredToTarget: fixup mergeSimStack

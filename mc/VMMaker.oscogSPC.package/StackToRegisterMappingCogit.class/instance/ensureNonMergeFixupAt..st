@@ -6,6 +6,7 @@ ensureNonMergeFixupAt: targetPC
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt:  targetPC.
+	self traceFixup: fixup merge: true.
 	fixup notAFixup ifTrue:
 		[fixup becomeNonMergeFixup].
 	self cCode: '' inSmalltalk:

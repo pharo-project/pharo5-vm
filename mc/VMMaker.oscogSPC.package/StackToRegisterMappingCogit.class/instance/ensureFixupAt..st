@@ -6,7 +6,7 @@ ensureFixupAt: targetPC
 	| fixup |
 	<var: #fixup type: #'BytecodeFixup *'>
 	fixup := self fixupAt:  targetPC.
-	self traceFixup: fixup.
+	self traceFixup: fixup merge: true.
 	self cCode: '' inSmalltalk:
 		[self assert: simStackPtr = (self debugStackPointerFor: targetPC).
 		 (fixup isMergeFixupOrIsFixedUp
