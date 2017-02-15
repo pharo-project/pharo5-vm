@@ -30,14 +30,16 @@ genSpecialSelectorComparison
 	argIsInt
 		ifTrue:
 			[(self ssValue: 1) popToReg: ReceiverResultReg.
-			 self ssPop: 2.
-			 self MoveR: ReceiverResultReg R: TempReg]
+			 self ssPop: 2]
 		ifFalse:
 			[self marshallSendArguments: 1.
-			 self MoveR: Arg0Reg R: TempReg].
+			 rcvrIsInt ifFalse:
+				[self MoveR: Arg0Reg R: TempReg]].
 	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
-							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
-							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratch: TempReg scratch: ClassReg].
+							ifFalse: "Neither known to be ints; and them together for the test..."
+								[objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratch: TempReg scratch: ClassReg]
+							ifTrue: "One known; in-place single-bit test for the other"
+								[objectRepresentation genJumpNotSmallInteger: (rcvrIsInt ifTrue: [Arg0Reg] ifFalse: [ReceiverResultReg])].
 	argIsInt
 		ifTrue: [self CmpCq: argInt R: ReceiverResultReg]
 		ifFalse: [self CmpR: Arg0Reg R: ReceiverResultReg].

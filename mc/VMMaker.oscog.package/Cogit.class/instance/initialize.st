@@ -1,6 +1,7 @@
 initialization
 initialize
 	| wordSize |
+	initialPC := 0.
 	wordSize := self class objectMemoryClass wordSize.
 	cogMethodSurrogateClass := NewspeakVM
 									ifTrue:

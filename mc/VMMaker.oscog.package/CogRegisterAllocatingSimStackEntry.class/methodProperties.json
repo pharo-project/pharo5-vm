@@ -4,11 +4,13 @@
 	"instance" : {
 		"copyLiveRegisterIfSameAs:" : "eem 11/26/2016 10:37",
 		"ensureSpilledAt:from:" : "eem 11/23/2016 12:49",
+		"isIdenticalEntryAs:" : "eem 2/11/2017 10:37",
+		"isMergedWithTargetEntry:" : "eem 2/10/2017 19:29",
 		"isSameEntryAs:" : "eem 1/18/2017 13:55",
 		"liveRegister" : "cb 4/16/2016 11:22",
 		"liveRegister:" : "cb 4/16/2016 11:22",
 		"offset" : "eem 11/23/2016 15:31",
-		"popToReg:" : "eem 1/18/2017 13:46",
+		"popToReg:" : "eem 2/10/2017 15:37",
 		"printStateOn:" : "eem 12/7/2016 18:43",
 		"reconcileBackwardsWith:" : "eem 1/18/2017 13:51",
 		"reconcileForwardsWith:" : "eem 1/18/2017 13:51",
@@ -17,4 +19,4 @@
 		"registerMask" : "eem 11/23/2016 12:41",
 		"registerMaskOrNone" : "eem 11/30/2016 11:20",
 		"registerOrNone" : "eem 11/22/2016 13:04",
-		"storeToReg:" : "eem 11/29/2016 12:31" } }
+		"storeToReg:" : "eem 2/10/2017 15:36" } }

@@ -50,5 +50,7 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 	we need to jump over the code of the branch"
 	deadCode ifFalse:
 		[self Jump: (self ensureNonMergeFixupAt: postBranchPC).
-		 self ssPushConstant: objectMemory trueObject]. "dummy value"
+		 "duplicate the merge fixup's top of stack so as to avoid a false confict."
+		 self ssPushDesc: ((self fixupAt: nextPC) mergeSimStack at: simStackPtr + 1)].
+
 	^0

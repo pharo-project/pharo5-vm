@@ -1,7 +1,7 @@
 bytecode generators
 genForwardersInlinedIdenticalOrNotIf: orNot
 	| nextPC branchDescriptor unforwardRcvr argReg targetBytecodePC
-	unforwardArg  rcvrReg postBranchPC label fixup |
+	  unforwardArg  rcvrReg postBranchPC label fixup |
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #label type: #'AbstractInstruction *'>
 	
@@ -36,8 +36,8 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 	self genCmpArgIsConstant: unforwardArg not rcvrIsConstant: unforwardRcvr not argReg: argReg rcvrReg: rcvrReg.
 	self ssPop: 2.
 
-	"Further since there is a following conditional jump bytecode, define
-	 non-merge fixups and leave the cond bytecode to set the mergeness."
+	"Since there is a following conditional jump bytecode (unless there is deadCode),
+	 define non-merge fixups and leave the cond bytecode to set the mergeness."
 	(self fixupAt: nextPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
@@ -48,33 +48,24 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 
 	self assert: (unforwardArg or: [unforwardRcvr]).
 	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
-		ifFalse:
-			[ fixup := (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
-			self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger ]
-		ifTrue:
-			[ fixup := (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
-			self JumpZero: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger ].
-
-	deadCode ifFalse:
-		[self ssPushConstant: objectMemory trueObject]. "dummy value"
+		ifFalse: "a == b ifTrue: ... or a ~~ b ifFalse: ... jump on equal to target pc"
+			[fixup := self ensureNonMergeFixupAt: postBranchPC.
+			 self JumpZero:  (self ensureNonMergeFixupAt: targetBytecodePC)]
+		ifTrue: "a == b ifFalse: ... or a ~~ b ifTrue: ... jump on equal to post-branch pc"
+			[fixup := self ensureNonMergeFixupAt: targetBytecodePC.
+			 self JumpZero: (self ensureNonMergeFixupAt: postBranchPC)].
 		
 	"The forwarders checks need to jump back to the comparison (label) if a forwarder is found, else 
-	jump forward either to the next forwarder check or to the postBranch or branch target (fixup)."
-	unforwardArg ifTrue: 
-		[ unforwardRcvr
-			ifTrue: [ objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label ]
-			ifFalse: [ objectRepresentation 
-				genEnsureOopInRegNotForwarded: argReg 
-				scratchReg: TempReg 
-				ifForwarder: label
-				ifNotForwarder: fixup ] ].
-	unforwardRcvr ifTrue: 
-		[ objectRepresentation 
-			genEnsureOopInRegNotForwarded: rcvrReg 
-			scratchReg: TempReg 
-			ifForwarder: label
-			ifNotForwarder: fixup ].
+	 jump forward either to the next forwarder check or to the postBranch or branch target (fixup)."
+	(unforwardArg and: [unforwardRcvr]) ifTrue:
+		[objectRepresentation genEnsureOopInRegNotForwarded: argReg scratchReg: TempReg jumpBackTo: label].
+	objectRepresentation 
+		genEnsureOopInRegNotForwarded: (unforwardRcvr ifTrue: [rcvrReg] ifFalse: [argReg]) 
+		scratchReg: TempReg 
+		ifForwarder: label
+		ifNotForwarder: fixup.
 		
-	"Not reached, execution flow have jumped to fixup"
-	
+	"Not reached, execution flow has jumped to fixup"
+	deadCode ifFalse:
+		[self ssPushConstant: objectMemory trueObject]. "dummy value"
 	^0

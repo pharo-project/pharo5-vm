@@ -1,6 +1,7 @@
 testing
 addressIsInFixups: address
-	<var: #address type: #'AbstractInstruction *'>
-	^self cCode: 'address >= (AbstractInstruction *)&fixups[0] && address < (AbstractInstruction *)&fixups[numAbstractOpcodes]'
-		inSmalltalk: [fixups notNil
-					and: [(fixups object identityIndexOf: address) between: 1 and: numAbstractOpcodes]]
+	<var: #address type: #'BytecodeFixup *'>
+	^self cCode: '(AbstractInstruction *)address >= fixups && (AbstractInstruction *)address < (fixups + numAbstractOpcodes)'
+		inSmalltalk:
+			[fixups notNil
+			 and: [(fixups object identityIndexOf: address) between: 1 and: numAbstractOpcodes]]

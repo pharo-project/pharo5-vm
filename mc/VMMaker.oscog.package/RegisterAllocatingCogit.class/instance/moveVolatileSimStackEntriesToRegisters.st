@@ -1,6 +1,6 @@
 bytecode generator support
 moveVolatileSimStackEntriesToRegisters
-	"When jumping forward to a merge point the stack mst be reconcilable with the state that falls through to the merge point.
+	"When jumping forward to a merge point the stack must be reconcilable with the state that falls through to the merge point.
 	 We cannot easily arrange that later we add code to the branch, e.g. to spill values.  Instead, any volatile contents must be
 	 moved to registers.  [In fact, that's not exactly true, consider these two code sequences:
 							self at: (expr ifTrue: [1] ifFalse: [2]) put: a

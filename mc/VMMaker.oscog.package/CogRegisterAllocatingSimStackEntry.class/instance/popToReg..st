@@ -20,6 +20,6 @@ popToReg: reg
 												ifTrue: [cogit MoveR: register R: reg]
 												ifFalse: [cogit Label]] }]].
 
-	(reg ~= TempReg and: [reg ~= liveRegister and: [type ~= SSRegister]]) ifTrue:
+	(reg ~= TempReg and: [liveRegister = NoReg and: [type ~= SSRegister]]) ifTrue:
 		[liveRegister := reg.
 		 cogit copyLiveRegisterToCopiesOf: self]

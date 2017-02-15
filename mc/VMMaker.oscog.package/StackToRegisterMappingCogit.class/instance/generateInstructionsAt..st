@@ -23,8 +23,11 @@ generateInstructionsAt: eventualAbsoluteAddress
 			ifTrue:
 				[abstractInstruction sizePCDependentInstructionAt: absoluteAddress.
 				 (abstractInstruction isJump
-				  and: [i + 1 < opcodeIndex
-				  and: [abstractInstruction getJmpTarget == (self abstractInstructionAt: i + 1)]])
+				  and: [(i + 1 < opcodeIndex
+				  		and: [abstractInstruction getJmpTarget == (self abstractInstructionAt: i + 1)])
+					or: [i + 2 < opcodeIndex
+						and: [abstractInstruction getJmpTarget == (self abstractInstructionAt: i + 2)
+						and: [(self abstractInstructionAt: i + 1) opcode = Nop]]]])
 					ifTrue:
 						[abstractInstruction
 							opcode: Nop;
