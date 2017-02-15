@@ -3,13 +3,6 @@ lowcodeUnaryInlinePrimitive4: prim
 	<option: #LowcodeVM>	"Lowcode instruction interpreter dispatch"
 	prim
 		caseOf: {
-			[180]	-> [ ^ self lowcodePrimitivePushOneFloat32 ].
-			[181]	-> [ ^ self lowcodePrimitivePushOneFloat64 ].
-			[182]	-> [ ^ self lowcodePrimitivePushPhysicalFloat32 ].
-			[183]	-> [ ^ self lowcodePrimitivePushPhysicalFloat64 ].
-			[184]	-> [ ^ self lowcodePrimitivePushPhysicalInt32 ].
-			[185]	-> [ ^ self lowcodePrimitivePushPhysicalInt64 ].
-			[186]	-> [ ^ self lowcodePrimitivePushPhysicalPointer ].
 			[187]	-> [ ^ self lowcodePrimitivePushSessionIdentifier ].
 			[188]	-> [ ^ self lowcodePrimitivePushZero32 ].
 			[189]	-> [ ^ self lowcodePrimitivePushZero64 ].
@@ -63,6 +56,13 @@ lowcodeUnaryInlinePrimitive4: prim
 			[237]	-> [ ^ self lowcodePrimitiveUmul64 ].
 			[238]	-> [ ^ self lowcodePrimitiveUnlockRegisters ].
 			[239]	-> [ ^ self lowcodePrimitiveUnlockVM ].
+			[240]	-> [ ^ self lowcodePrimitiveUrem32 ].
+			[241]	-> [ ^ self lowcodePrimitiveUrem64 ].
+			[242]	-> [ ^ self lowcodePrimitiveXor32 ].
+			[243]	-> [ ^ self lowcodePrimitiveXor64 ].
+			[244]	-> [ ^ self lowcodePrimitiveZeroExtend32From16 ].
+			[245]	-> [ ^ self lowcodePrimitiveZeroExtend32From8 ].
+			[246]	-> [ ^ self lowcodePrimitiveZeroExtend64From16 ].
 		}
 		otherwise: [ ^ self lowcodeUnaryInlinePrimitive5: prim ].
 	

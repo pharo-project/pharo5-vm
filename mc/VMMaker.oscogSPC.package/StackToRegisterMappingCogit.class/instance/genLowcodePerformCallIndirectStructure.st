@@ -12,6 +12,7 @@ genLowcodePerformCallIndirectStructure
 	"Call the function"
 	self callSwitchToCStack.
 	self CallRT: ceFFICalloutTrampoline.
+	self annotateBytecode: self Label.
 	"Fetch the result"
 	self MoveR: backEnd cResultRegister R: ReceiverResultReg.
 	self ssPushNativeRegister: ReceiverResultReg.

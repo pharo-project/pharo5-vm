@@ -1,0 +1,3 @@
+accessing
+counters
+	^ 0

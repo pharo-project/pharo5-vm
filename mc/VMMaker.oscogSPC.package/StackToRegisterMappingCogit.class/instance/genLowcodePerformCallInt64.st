@@ -5,6 +5,7 @@ genLowcodePerformCallInt64
 	self callSwitchToCStack.
 	self MoveCw: extA R: TempReg.
 	self CallRT: ceFFICalloutTrampoline.
+	self annotateBytecode: self Label.
 	BytesPerWord = 4 ifTrue: [
 	self MoveR: backEnd cResultRegisterLow R: ReceiverResultReg.
 	self MoveR: backEnd cResultRegisterHigh R: Arg0Reg.

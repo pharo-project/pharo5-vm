@@ -1,0 +1,6 @@
+configurations
+generateAllSpurLowcodeConfigurations
+	self generateSqueakSpurLowcodeCogVM;
+		generateSqueakSpurLowcodeStackVM;
+		generateSqueakSpurLowcodeCog64VM;
+		generateSqueakSpurLowcodeStack64VM

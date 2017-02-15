@@ -52,7 +52,7 @@ checkIfValidOopRefAndTarget: annotation pc: mcpc cogMethod: cogMethod
 							[^6]]]
 				ifFalse:
 					[(self inlineCacheTagsAreIndexes
-					  and: [self self entryPointTagIsSelector: entryPoint])
+					  and: [self entryPointTagIsSelector: entryPoint])
 						ifTrue:
 							[cacheTag signedIntFromLong < 0
 								ifTrue:

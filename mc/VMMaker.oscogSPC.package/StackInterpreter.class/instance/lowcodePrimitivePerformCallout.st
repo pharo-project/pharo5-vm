@@ -1,10 +1,10 @@
 inline primitive generated code
-lowcodePrimitivePerformCallVoid
+lowcodePrimitivePerformCallout
 	<option: #LowcodeVM>	"Lowcode instruction generator"
 	| function |
 	function := extA.
 
-	self lowcodeCalloutInt32Result: (self cCoerce: function to: #'char*').
+	self lowcodeDoCallout: (self cCoerce: function to: #'char*').
 
 	extA := 0.
 

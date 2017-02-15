@@ -5,6 +5,7 @@ genLowcodePerformCallInt32
 	self callSwitchToCStack.
 	self MoveCw: extA R: TempReg.
 	self CallRT: ceFFICalloutTrampoline.
+	self annotateBytecode: self Label.
 	self MoveR: backEnd cResultRegister R: ReceiverResultReg.
 	self ssPushNativeRegister: ReceiverResultReg.
 	extA := 0.

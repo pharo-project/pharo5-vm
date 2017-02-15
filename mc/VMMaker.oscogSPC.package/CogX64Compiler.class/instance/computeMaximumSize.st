@@ -34,7 +34,7 @@ computeMaximumSize
 		"Control"
 		[CallFull]					-> [^12].
 		[Call]						-> [^5].
-		[CallR]						-> [^2 + ((operands at: 0) > 7 ifTrue: [ 1 ] ifFalse: [ 0 ]) ].
+		[CallR]						-> [^3].
 		[JumpR]						-> [^2].
 		[JumpFull]					-> [self resolveJumpTarget. ^12].
 		[JumpLong]					-> [self resolveJumpTarget. ^5].

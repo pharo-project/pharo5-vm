@@ -1,10 +1,10 @@
 inline primitive generated code
-lowcodePrimitivePerformCallIndirectVoid
+lowcodePrimitivePerformCalloutIndirect
 	<option: #LowcodeVM>	"Lowcode instruction generator"
 	| function |
 	<var: #function type: #'char*' >
 	function := self internalPopStackPointer.
 
-	self lowcodeCalloutInt32Result: function.
+	self lowcodeDoCallout: function.
 
 

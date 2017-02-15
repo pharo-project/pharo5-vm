@@ -6,6 +6,7 @@ genLowcodePerformCallIndirectFloat64
 	self ssNativePop: 1.
 	self callSwitchToCStack.
 	self CallRT: ceFFICalloutTrampoline.
+	self annotateBytecode: self Label.
 	backEnd cFloatResultToRd: DPFPReg0.
 	self ssPushNativeRegisterDoubleFloat: DPFPReg0.
 
