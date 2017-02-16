@@ -90,6 +90,7 @@
 		"genPushRegisterArgsForNumArgs:scratchReg:" : "eem 6/1/2015 16:43",
 		"genSaveStackPointers" : "eem 5/15/2014 09:49",
 		"genSubstituteReturnAddress:" : "eem 5/6/2009 10:15",
+		"genSwapR:R:Scratch:" : "eem 2/15/2017 13:28",
 		"genWriteCResultIntoReg:" : "eem 12/13/2010 18:54",
 		"genWriteCSecondResultIntoReg:" : "eem 10/1/2016 16:17",
 		"generateICacheFlush" : "eem 2/12/2009 22:47",
