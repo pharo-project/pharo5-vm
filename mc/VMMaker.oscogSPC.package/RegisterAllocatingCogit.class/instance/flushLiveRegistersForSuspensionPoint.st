@@ -11,9 +11,9 @@ flushLiveRegistersForSuspensionPoint
 		 flushed := true].
 	0 to: simStackPtr do:
 		[:i|
-		 self assert: (i < methodOrBlockNumTemps
-						ifTrue: [(self simStackAt: i) type = SSBaseOffset]
-						ifFalse: [(self simStackAt: i)  spilled]).
+		 self assert: (self simStackAt: i) type = (i < methodOrBlockNumTemps
+													ifTrue: [SSBaseOffset]
+													ifFalse: [SSSpill]).
 		 (self simStackAt: i) liveRegister ~= NoReg ifTrue:
 			[(self simStackAt: i) liveRegister: NoReg.
 			 flushed := true]].
