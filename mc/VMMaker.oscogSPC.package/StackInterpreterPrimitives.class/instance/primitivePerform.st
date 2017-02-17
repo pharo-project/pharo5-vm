@@ -36,10 +36,7 @@ primitivePerform
 		stackPages longAt: stackPointer + (argumentCount * objectMemory wordSize) put: messageSelector.
 		argumentCount := argumentCount + 1.
 		newMethod := performMethod.
-		 "Must reset primitiveFunctionPointer for checkForAndFollowForwardedPrimitiveState"
-		 objectMemory hasSpurMemoryManagerAPI ifTrue:
-			[primitiveFunctionPointer := #primitivePerform].
-		^self primitiveFailFor: PrimErrBadNumArgs].
+		^self primitiveFail].
 
 	self executeNewMethod.
 	"Recursive xeq affects primErrorCode"
