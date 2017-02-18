@@ -3,6 +3,7 @@ compactCompiledCode
 	| objectHeaderValue source dest bytes |
 	<var: #source type: #'CogMethod *'>
 	<var: #dest type: #'CogMethod *'>
+	compactionInProgress := true.
 	objectHeaderValue := objectMemory nullHeaderForMachineCodeMethod.
 	source := coInterpreter cCoerceSimple: baseAddress to: #'CogMethod *'.
 	openPICList := nil.
@@ -64,4 +65,5 @@ compactCompiledCode
 							cCoerceSimple: source asUnsignedInteger + bytes
 							to: #'CogMethod *'].
 	mzFreeStart := dest asUnsignedInteger.
-	methodBytesFreedSinceLastCompaction := 0
+	methodBytesFreedSinceLastCompaction := 0.
+	compactionInProgress := false
