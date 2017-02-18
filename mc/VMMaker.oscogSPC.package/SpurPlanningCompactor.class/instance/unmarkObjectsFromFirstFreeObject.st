@@ -18,4 +18,6 @@ unmarkObjectsFromFirstFreeObject
 					 freeBytes := 0].
 				 (manager isPinned: o)
 					ifTrue: [self unmarkPinned: o]
-					ifFalse: [manager setIsMarkedOf: o to: false]]]
+					ifFalse: [manager setIsMarkedOf: o to: false]]].
+	startOfFree ifNotNil:
+		[manager addFreeChunkWithBytes: freeBytes at: startOfFree].
