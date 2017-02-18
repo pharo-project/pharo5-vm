@@ -35,15 +35,17 @@ swapCurrentRegistersInMask: conflictingRegsMask accordingToRegisterOrderIn: merg
 		(ssEntry registerMaskOrNone anyMask: visitedMask) ifTrue:
 			[order at: ssEntry registerOrNone put: (n := n + 1).
 			 visitedMask := visitedMask - ssEntry registerMaskOrNone]].
-	self assert: n >= 1.
-	n <= 2 ifTrue: "simple case; here to show me what I have to do in addition to the sort"
+	self assert: n > 1.
+	n = 2 ifTrue: "simple case; here to show me what I have to do in addition to the sort"
 		[regA := conflictingRegsMask highBit - 1.
 		 regB := (conflictingRegsMask - (1 << regA)) highBit - 1.
-		 self SwapR: regA R: regB Scratch: TempReg.
-		 0 to: simStackPtr do:
+		 self MoveR: regA R: TempReg.
+		 self MoveR: regB R: regA.
+		 self MoveR: TempReg R: regB.
+		0 to: simStackPtr do:
 			[:i|
-			 ssEntry := self simStack: simStack at: i.
-			 (ssEntry registerMaskOrNone anyMask: conflictingRegsMask) ifTrue:
+			 ssEntry := self simStackAt: i.
+			(ssEntry registerMaskOrNone anyMask: conflictingRegsMask) ifTrue:
 				[| reg |
 				 reg := ssEntry registerOrNone = regA ifTrue: [regB] ifFalse: [regA].
 				 ssEntry type = SSRegister ifTrue:

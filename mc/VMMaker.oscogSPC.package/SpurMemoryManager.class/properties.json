@@ -75,7 +75,6 @@
 		"gcPhaseInProgress",
 		"gcStartUsecs",
 		"compactionStartUsecs",
-		"bogon",
 		"statCoalesces",
 		"statCompactPassCount",
 		"statFGCDeltaUsecs",

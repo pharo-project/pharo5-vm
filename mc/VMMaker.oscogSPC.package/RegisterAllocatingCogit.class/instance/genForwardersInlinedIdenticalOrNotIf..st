@@ -53,17 +53,17 @@ genForwardersInlinedIdenticalOrNotIf: orNot
 		ifFalse: "a == b ifTrue: ... or a ~~ b ifFalse: ... jump on equal to target pc"
 			[fixup := needMergeToContinue
 						ifTrue: [0] "jumps will fall-through to to-continue merge code"
-						ifFalse: [self ensureFixupAt: postBranchPC].
+						ifFalse: [self ensureNonMergeFixupAt: postBranchPC].
 			 comparison := self JumpZero: (needMergeToTarget
 												ifTrue: [0] "comparison will be fixed up to to-target merge code"
-												ifFalse: [self ensureFixupAt: targetPC])]
+												ifFalse: [self ensureNonMergeFixupAt: targetPC])]
 		ifTrue: "a == b ifFalse: ... or a ~~ b ifTrue: ... jump on equal to post-branch pc"
 			[fixup := needMergeToTarget
 						ifTrue: [0] "jumps will fall-through to to-target merge code"
-						ifFalse: [self ensureFixupAt: targetPC].
+						ifFalse: [(self ensureNonMergeFixupAt: targetPC)].
 			 comparison := self JumpZero: (needMergeToContinue
 												ifTrue: [0] "comparison will be fixed up to to-continue merge code"
-												ifFalse: [self ensureFixupAt: postBranchPC])].
+												ifFalse: [self ensureNonMergeFixupAt: postBranchPC])].
 
 	"The forwarders check(s) need(s) to jump back to the comparison (retry) if a forwarder is found,
 	 else jump forward either to the next forwarder check or to the postBranch or branch target (fixup).

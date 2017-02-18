@@ -70,20 +70,20 @@ genSpecialSelectorComparison
 		[self genConditionalBranch: (branchDescriptor isBranchFalse
 										ifTrue: [primDescriptor opcode]
 										ifFalse: [self inverseBranchFor: primDescriptor opcode])
-			operand: (self ensureFixupAt: postBranchPC) asUnsignedInteger.
+			operand: (self ensureNonMergeFixupAt: postBranchPC) asUnsignedInteger.
 		 self Jump: (self ensureFixupAt: targetPC)].
 	(needMergeToTarget not and: [needMergeToContinue]) ifTrue:
 		[self genConditionalBranch: (branchDescriptor isBranchTrue
 										ifTrue: [primDescriptor opcode]
 										ifFalse: [self inverseBranchFor: primDescriptor opcode])
-			operand: (self ensureFixupAt: targetPC) asUnsignedInteger.
+			operand: (self ensureNonMergeFixupAt: targetPC) asUnsignedInteger.
 		 self Jump: (self ensureFixupAt: postBranchPC)].
 	(needMergeToTarget or: [needMergeToContinue]) ifFalse:
 		[self genConditionalBranch: (branchDescriptor isBranchTrue
 										ifTrue: [primDescriptor opcode]
 										ifFalse: [self inverseBranchFor: primDescriptor opcode])
-			operand: (self ensureFixupAt: targetPC) asUnsignedInteger.
-		 self Jump: (self ensureFixupAt: postBranchPC)].
+			operand: (self ensureNonMergeFixupAt: targetPC) asUnsignedInteger.
+		 self Jump: (self ensureNonMergeFixupAt: postBranchPC)].
 	jumpNotSmallInts jmpTarget: self Label.
 	self ssFlushTo: simStackPtr.
 	self deny: rcvrReg = Arg0Reg.

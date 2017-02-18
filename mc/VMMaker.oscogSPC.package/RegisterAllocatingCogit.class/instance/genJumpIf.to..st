@@ -60,7 +60,7 @@ genJumpIf: boolean to: targetBytecodePC
 			 mbb jmpTarget: self Label]
 		ifFalse:
 			[self genSubConstant: boolean R: reg.
-			 self JumpZero: (self ensureFixupAt: eventualTarget).
+			 self JumpZero: (self ensureNonMergeFixupAt: eventualTarget).
 			 noMustBeBoolean ifTrue: 
 				[self annotateBytecode: self lastOpcode.
 				 ^0].
