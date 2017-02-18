@@ -28,8 +28,14 @@ cogMethodDoesntLookKosher: cogMethod
 		 (NewspeakVM
 		  and: [objectRepresentation canPinObjects
 		  and: [cogMethod nextMethodOrIRCs ~= 0]]) ifTrue:
-			[(objectRepresentation couldBeDerivedObject: cogMethod nextMethodOrIRCs) ifFalse:
-				[^15]].
+			[(cogMethod nextMethodOrIRCs < methodZone zoneEnd)
+				ifTrue: "check the nextMethod (unpairedMethodList) unless we're compacting."
+					[(methodZone compactionInProgress
+					  or: [cogMethod nextMethodOrIRCs = (methodZone methodFor: cogMethod nextMethodOrIRCs) asUnsignedInteger]) ifFalse:
+						[^15]]
+				ifFalse:
+					[(objectRepresentation couldBeDerivedObject: cogMethod nextMethodOrIRCs) ifFalse:
+						[^16]]].
 		 ^0].
 
 	cogMethod cmType = CMOpenPIC ifTrue:
@@ -37,15 +43,11 @@ cogMethodDoesntLookKosher: cogMethod
 			[^21].
 		 cogMethod methodHeader ~= 0 ifTrue:
 			[^22].
-		
 		 "Check the nextOpenPIC link unless we're compacting"
 		 cogMethod objectHeader >= 0 ifTrue:
-			[(cogMethod methodObject ~= 0
-			 and: [cogMethod methodObject < methodZoneBase
-				   or: [cogMethod methodObject > (methodZone freeStart - openPICSize)
-				   or: [(cogMethod methodObject bitAnd: objectMemory wordSize - 1) ~= 0
-				   or: [(self cCoerceSimple: cogMethod methodObject
-							to: #'CogMethod *') cmType ~= CMOpenPIC]]]]) ifTrue:
+			[(cogMethod methodObject = 0
+			  or: [methodZone compactionInProgress
+			  or: [cogMethod methodObject = (methodZone methodFor: cogMethod methodObject) asUnsignedInteger]]) ifFalse:
 				[^23]].
 		 cogMethod stackCheckOffset ~= 0 ifTrue:
 			[^24].
