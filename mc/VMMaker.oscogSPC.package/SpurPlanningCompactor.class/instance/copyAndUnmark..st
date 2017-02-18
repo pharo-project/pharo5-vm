@@ -11,4 +11,4 @@ copyAndUnmark: firstPass
 	(self thereAreObjectsToMove
 	 and: [finalPass not
 	 and: [biasForGC]]) ifTrue: "only ever one pass if biasForGC is true."
-		[self unmarkObjectsAfterLastMobileObject]
+		[self unmarkObjectsFromFirstFreeObject]
