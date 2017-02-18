@@ -23,6 +23,7 @@ sendInvokeCallback: thunkPtr Stack: stackPtr Registers: regsPtr Jmpbuf: jmpBufPt
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:
 		[self maybeFlagMethodAsInterpreted: newMethod].
+	self externalWriteBackHeadFramePointers.
 	self checkForStackOverflow.
 	self enterSmalltalkExecutiveFromCallback.
 	"not reached"

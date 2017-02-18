@@ -58,12 +58,6 @@ primitiveObject: actualReceiver perform: selector withArguments: argumentArray l
 		 self assert:  argumentCount = arraySize.
 		 self pop: arraySize + 1.
 		 newMethod := self popStack.
-		 "Must reset primitiveFunctionPointer for checkForAndFollowForwardedPrimitiveState"
-		 objectMemory hasSpurMemoryManagerAPI ifTrue:
-			[argumentCount := performArgCount.
-			 primitiveFunctionPointer := lookupClassOrNil
-												ifNil: [#primitivePerformWithArgs]
-												ifNotNil: [#primitivePerformInSuperclass]].
 		 ^self primitiveFailFor: PrimErrBadNumArgs].
 
 	"Cannot fail this primitive from here-on.  Slide the actual receiver and arguments down

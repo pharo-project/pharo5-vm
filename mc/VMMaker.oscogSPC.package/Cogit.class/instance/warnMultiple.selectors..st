@@ -7,7 +7,7 @@ warnMultiple: cogMethod selectors: aSelectorOop
 				r: 'Warning, attempt to use method with selector %.*s and selector %.*s\n'
 				i: (self cCoerceSimple: (objectMemory numBytesOf: cogMethod selector) to: #int)
 				n: (self cCoerceSimple: (objectMemory firstIndexableField: cogMethod selector) to: #'char *')
-				t: (self cCoerceSimple: (objectMemory numBytesOf: aSelectorOop) to: #int)
+				t: (objectMemory numBytesOf: aSelectorOop)
 				f: (self cCoerceSimple: (objectMemory firstIndexableField: aSelectorOop) to: #'char *')]
 		inSmalltalk:
 			[self warn: 'Warning, attempt to use method with selector ',
