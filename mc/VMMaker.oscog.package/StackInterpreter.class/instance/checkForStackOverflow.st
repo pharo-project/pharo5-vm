@@ -1,9 +1,9 @@
 message sending
 checkForStackOverflow
-	"Check for stack overflow, moving frames to another stack if so."
+	"Check for stack overflow, moving frames to another stack if so.  Since event checking
+	 piggy-backs off the stackLimit by setting it to all ones, the check for overflow must be
+	 against the real stack limit to find out if overflow has actually occurred."
 	<inline: true>
-	"After checkForInterrupts another event check may have been forced, setting both
-	 stackLimit and stackPage stackLimit to all ones.  So here we must check against
-	 the real stackLimit, not the effective stackLimit."
+	self externalWriteBackHeadFramePointers.
 	stackPointer < stackPage realStackLimit ifTrue:
 		[self handleStackOverflow]

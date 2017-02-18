@@ -4,9 +4,7 @@ freeMethod: cogMethod
 	<var: #cogMethod type: #'CogMethod *'>
 	<inline: false>
 	self assert: cogMethod cmType ~= CMFree.
-	self assert: ((cogit cogMethodDoesntLookKosher: cogMethod) = 0
-				 or: [(cogit cogMethodDoesntLookKosher: cogMethod) = 23
-					 and: [(cogit cCoerceSimple: cogMethod methodObject to: #'CogMethod *') cmType = CMFree]]).
+	self assert: (cogit cogMethodDoesntLookKosher: cogMethod) = 0.
 	cogMethod cmType = CMMethod ifTrue:
 		["For non-Newspeak there should ne a one-to-one mapping between bytecoded and
 		  cog methods.  For Newspeak not necessarily, but only for anonymous accessors."
@@ -15,7 +13,7 @@ freeMethod: cogMethod
 			ifTrue:
 				[coInterpreter rawHeaderOf: cogMethod methodObject put: cogMethod methodHeader.
 				 NewspeakVM ifTrue:
-					[(objectRepresentation canPinObjects and: [cogMethod nextMethodOrIRCs ~= 0]) ifTrue:
+					[(objectRepresentation canPinObjects and: [cogMethod nextMethodOrIRCs > self zoneEnd]) ifTrue:
 						[objectRepresentation freeIRCs: cogMethod nextMethodOrIRCs]]]
 			ifFalse:
 				[self cCode: [self assert: (cogit noAssertMethodClassAssociationOf: cogMethod methodObject) = objectMemory nilObject]

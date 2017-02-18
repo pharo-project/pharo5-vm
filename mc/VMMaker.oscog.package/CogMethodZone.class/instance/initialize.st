@@ -1,4 +1,5 @@
 initialization
 initialize
 	"Make youngReferrers arithmetic for addressIsInCodeZone:"
-	youngReferrers := 0
+	youngReferrers := methodCount := methodBytesFreedSinceLastCompaction := 0.
+	compactionInProgress := false

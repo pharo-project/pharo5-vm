@@ -27,7 +27,6 @@ sendInvokeCallbackContext: vmCallbackContext
 	self justActivateNewMethod.
 	(self isMachineCodeFrame: framePointer) ifFalse:
 		[self maybeFlagMethodAsInterpreted: newMethod].
-	self externalWriteBackHeadFramePointers.
 	self checkForStackOverflow.
 	self enterSmalltalkExecutiveFromCallback.
 	"not reached"

@@ -1,10 +1,10 @@
 compaction
-unmarkObjectsAfterLastMobileObject
+unmarkObjectsFromFirstFreeObject
 	"Sweep the final immobile heap, freeing and coalescing unmarked and free objects,
 	 and unmarking all marked objects up to the end of memory."
 	| startOfFree freeBytes |
 	freeBytes := 0.
-	manager allOldSpaceEntitiesFrom: objectAfterLastMobileObject do:
+	manager allOldSpaceEntitiesFrom: firstFreeObject do:
 		[:o|
 		self check: o.
 		(manager isMarked: o)
@@ -18,4 +18,6 @@ unmarkObjectsAfterLastMobileObject
 					 freeBytes := 0].
 				 (manager isPinned: o)
 					ifTrue: [self unmarkPinned: o]
-					ifFalse: [manager setIsMarkedOf: o to: false]]]
+					ifFalse: [manager setIsMarkedOf: o to: false]]].
+	startOfFree ifNotNil:
+		[manager addFreeChunkWithBytes: freeBytes at: startOfFree].
