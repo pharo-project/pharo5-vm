@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "eem 2/17/2017 16:12",
 	"instvars" : [
 		"nextMethodOrIRCs" ],
 	"name" : "NewspeakCogMethod",

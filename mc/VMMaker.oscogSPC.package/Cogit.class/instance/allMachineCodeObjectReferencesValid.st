@@ -24,8 +24,9 @@ allMachineCodeObjectReferencesValid
 				[(self asserta: (objectRepresentation checkValidDerivedObjectReference: cogMethod counters)) ifFalse:
 					[ok := false]].
 			 (NewspeakVM and: [cogMethod nextMethodOrIRCs ~= 0]) ifTrue:
-				[(self asserta: (objectRepresentation checkValidDerivedObjectReference: cogMethod nextMethodOrIRCs)) ifFalse:
-					[ok := false]]].
+				[(cogMethod nextMethodOrIRCs > methodZone zoneEnd) ifTrue:
+					[(self asserta: (objectRepresentation checkValidDerivedObjectReference: cogMethod nextMethodOrIRCs)) ifFalse:
+						[ok := false]]]].
 		cogMethod cmType = CMClosedPIC ifTrue:
 			[(self asserta: (self noTargetsFreeInClosedPIC: cogMethod)) ifFalse:
 				[ok := false]].
