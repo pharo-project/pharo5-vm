@@ -10,22 +10,12 @@ deassignRegisterForTempVar: targetEntry in: mergeSimStack
 	<inline: true>
 	| reg |
 	reg := targetEntry liveRegister.
-	self assert: ((targetEntry type = SSConstant and: [reg ~= NoReg])
-				or: [targetEntry type = SSBaseOffset and: [targetEntry register = FPReg]]).
-	targetEntry type = SSConstant
-		ifTrue:
-			[simStackPtr to: 0 by: -1 do:
-				[:j| | duplicateEntry |
-				 duplicateEntry := self simStack: mergeSimStack at: j.
-				 (duplicateEntry registerOrNone = reg
-				  and: [duplicateEntry type = SSBaseOffset or: [duplicateEntry type = SSSpill]]) ifTrue:
-					[duplicateEntry liveRegister: NoReg]]]
-		ifFalse:
-			[simStackPtr to: 0 by: -1 do:
-				[:j| | duplicateEntry |
-				 duplicateEntry := self simStack: mergeSimStack at: j.
-				 (targetEntry isSameEntryAs: duplicateEntry) ifTrue:
-					[duplicateEntry liveRegister: NoReg]]].
+	self assert: (targetEntry type = SSBaseOffset and: [targetEntry register = FPReg]).
+	simStackPtr to: 0 by: -1 do:
+		[:j| | duplicateEntry |
+		 duplicateEntry := self simStack: mergeSimStack at: j.
+		 (targetEntry isSameEntryAs: duplicateEntry) ifTrue:
+			[duplicateEntry liveRegister: NoReg]].
 	targetEntry
 		type: SSRegister;
 		register: reg
