@@ -91,6 +91,7 @@ matrix:
       install:
         - (cd opensmalltalk-vm && ./.travis_install.sh)
 script:
+  - (echo $PATH)
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd scripts && ./build-makefile-linux.sh)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)

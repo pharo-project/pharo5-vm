@@ -21,6 +21,8 @@ cache:
   - .thirdparty-cache
 init:
   - git config --system core.longpaths true
+  - echo "Windows Original Path:"
+  - echo %PATH%
   - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%;%CYG_ROOT%\bin
 install:
   - git submodule update --init --recursive
