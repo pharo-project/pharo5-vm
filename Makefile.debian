@@ -1,0 +1,20 @@
+all: build_srcpackage pharo5_sources
+
+
+build_srcpackage:
+	@echo "Generating sources"
+	git clean -dxf .
+	cd image && ./newImage.sh
+	cd image && ./pharo generator.image eval 'PharoVMSpur32Builder buildUnix32'
+	cd image && ./pharo generator.image eval 'PharoVMSpur64Builder buildUnix64'
+	./packaging/patch_version.sh
+
+	cp -a opensmalltalk-vm/* packaging/pharo5-vm-core/
+	cd packaging/pharo5-vm-core/platforms/unix/config && make configure
+	cd packaging/pharo5-vm-core && dpkg-buildpackage -S -uc -us -d
+
+pharo5_sources:
+	cd packaging/pharo5-sources-files && wget http://files.pharo.org/sources/PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && unzip PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && rm PharoV50.sources.zip
+	cd packaging/pharo5-sources-files && dpkg-buildpackage -S -uc -us -d

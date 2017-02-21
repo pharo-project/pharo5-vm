@@ -1,0 +1,26 @@
+Source: pharo5-vm-core
+Maintainer: Norbert Hartl <norbert@hartl.name>
+Section: interpreters
+Priority: optional
+Standards-Version: 3.9.5
+Homepage: http://www.pharo.org
+Build-Depends: debhelper (>= 7.0.50~), libssl-dev, libfreetype6-dev, libsm-dev, libice-dev, libasound2-dev, cmake, mesa-common-dev, libgl1-mesa-dev, libpulse-dev, libmpeg3-dev, libsdl2-dev
+
+Package: pharo5-vm-core
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: pharo-vm-core
+Suggests: pharo-vm-desktop, pharo-launcher
+Multi-Arch: foreign
+Description: Clean and innovative Smalltalk-inspired environment.
+ Pharo's goal is to deliver a clean, innovative, free open-source
+ Smalltalk-inspired environment. By providing a stable and small core
+ system, excellent dev tools, and maintained releases, Pharo is an
+ attractive platform to build and deploy mission critical applications.
+ .
+ This package provides the executable VM. You should probably not care
+ about this package (which represents a packaging detail) and have a
+ look at the pharo-vm-core package instead.
+ .
+ Please fill bug reports on http://bugs.pharo.org under the 'Ubuntu
+ packaging (ppa:cassou/pharo)' project.
