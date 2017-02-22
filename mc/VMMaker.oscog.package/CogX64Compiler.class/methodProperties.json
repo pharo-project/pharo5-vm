@@ -17,6 +17,7 @@
 		"cFloatResultToRd:" : "rsf 1/12/2017 15:12",
 		"cFloatResultToRs:" : "rsf 1/12/2017 15:20",
 		"cResultRegister" : "nice 11/25/2016 22:15",
+		"cResultRegisterHigh" : "rsf 2/21/2017 03:29",
 		"callFullTargetFromReturnAddress:" : "eem 12/6/2015 21:11",
 		"callInstructionByteSize" : "eem 2/13/2009 12:29",
 		"callTargetFromReturnAddress:" : "eem 12/13/2015 19:13",
