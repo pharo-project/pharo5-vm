@@ -1,4 +1,4 @@
 printing
 print: aString
-	<cmacro: '(aString) printf("%s", aString)'>
+	<cmacro: '(aString) printf(aString)'>
 	coInterpreter transcript print: aString
