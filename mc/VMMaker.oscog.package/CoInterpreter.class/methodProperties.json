@@ -196,7 +196,7 @@
 		"instructionPointerForFrame:currentFP:currentIP:" : "eem 11/3/2014 09:35",
 		"internalActivateNewMethod" : "eem 12/08/2016 14:12",
 		"internalExecuteNewMethod" : "eem 10/31/2012 11:53",
-		"internalFindNewMethodOrdinary" : "eem 7/18/2015 07:35",
+		"internalFindNewMethodOrdinary" : "eem 2/20/2017 13:16",
 		"internalMustMapMachineCodePC:context:" : "eem 6/18/2009 16:59",
 		"internalizeIPandSP" : "eem 09/27/2016 11:20",
 		"interpretAddress" : "eem 12/12/2012 11:34",

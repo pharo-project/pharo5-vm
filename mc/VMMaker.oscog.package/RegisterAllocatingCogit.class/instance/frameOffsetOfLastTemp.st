@@ -1,3 +1,0 @@
-bytecode generator support
-frameOffsetOfLastTemp
-	^self frameOffsetOfTemporary: methodOrBlockNumTemps

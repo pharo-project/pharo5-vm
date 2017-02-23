@@ -1,5 +1,5 @@
 comparing
-isMergedWithTargetEntry: targetEntry
+simplifiedIsMergedWithTargetEntry: targetEntry
 	"The receiver is a simStackEntry at a jump to the corresponding simStackEntry at the jump's target.
 	 Answer if no merge is required for the jump."
 	<var: 'ssEntry' type: #'CogSimStackEntry *'>

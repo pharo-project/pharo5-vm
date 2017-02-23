@@ -14,9 +14,7 @@ mergeWithFixupIfRequired: fixup
 			restores the simStack to the state the jumps to the merge point expects it to be.
 		4) the bytecode has a merge fixup and execution flow *can* fall through to the merge point.
 			the fixup has needsMergeFixup and deadCode = false.
-			flushes the stack to the stack pointer so the fall through execution path simStack is 
-				in the state the merge point expects it to be. 
-			restores the simStack to the state the jumps to the merge point expects it to be.
+			Merge the state into the fixup's state via mergeCurrentSimStackWith:forwards:.
 			
 	In addition, if this is a backjump merge point, we patch the fixup to hold the current simStackPtr 
 	for later assertions. self printSimStack: fixup mergeSimStack"
@@ -42,7 +40,7 @@ mergeWithFixupIfRequired: fixup
 	self traceMerge: fixup.
 	deadCode 
 		ifTrue: [simStackPtr := fixup simStackPtr] "case 3"
-		ifFalse: [self mergeCurrentSimStackWith: fixup]. "case 4"
+		ifFalse: [self mergeCurrentSimStackWith: fixup forwards: true]. "case 4"
 	"cases 3 and 4"
 	deadCode := false.
 	fixup isBackwardBranchFixup ifTrue:

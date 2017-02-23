@@ -9,5 +9,8 @@ assignToTempRegConflictingRegisterIn: conflictingRegisterMask
 			[(self simStackAt: i)
 				storeToReg: TempReg;
 				liveRegister: TempReg.
+			 i+1 to: simStackPtr do:
+				[:j|
+				self deny: (self simStackAt: i) registerMaskOrNone = conflictingRegisterMask].
 			 ^self]].
 	self error: 'conflict entry not found'

@@ -31,6 +31,8 @@ printMethodHeader: cogMethod on: aStream
 		cogMethod selector printOn: aStream base: 16.
 		(coInterpreter lookupAddress: cogMethod selector) ifNotNil:
 			[:string| aStream nextPut: $=; nextPutAll: string].
+		cogMethod selector = objectMemory nilObject ifTrue:
+			[aStream space; nextPut: $(; nextPutAll: (coInterpreter stringOf: (coInterpreter maybeSelectorOfMethod: cogMethod methodObject)); nextPut: $)]. 
 		cogMethod cmType = CMMethod ifTrue:
 			[aStream crtab; nextPutAll: 'blkentry: '.
 			 cogMethod blockEntryOffset printOn: aStream base: 16.

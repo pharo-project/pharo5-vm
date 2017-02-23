@@ -1,7 +1,7 @@
 bytecode generator support
 mergeCurrentSimStackWith: fixup
 	<var: #fixup type: #'BytecodeFixup *'>
-	| mergeSimStack direction currentEntry targetEntry |
+	| mergeSimStack currentEntry targetEntry |
 	<var: #mergeSimStack type: #'SimStackEntry *'>
 	"At a merge point the cogit expects the stack to be in the same state as mergeSimStack.
 	 mergeSimStack is the state as of some jump forward to this point.  So make simStack agree
@@ -14,12 +14,8 @@ mergeCurrentSimStackWith: fixup
 	"Assignments amongst the registers must be made in order to avoid overwriting.
 	 If necessary exchange registers amongst simStack's entries to resolve any conflicts."
 	self resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack.
-	self assert: (self conflcitsResolvedBetweenSimStackAnd: mergeSimStack).
-	"Must determine if we will push or pop values.
-	 If pushing values must enumerate from bottom to top.
-	 If popping, must enumerate from top to bottom."
-	direction := self directionForMergeWith: mergeSimStack.
-	direction > 0
+	self assert: (self conflictsResolvedBetweenSimStackAnd: mergeSimStack).
+	(self pushForMergeWith: mergeSimStack)
 		ifTrue:
 			[0 to: simStackPtr do:
 				[:i|

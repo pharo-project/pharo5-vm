@@ -81,6 +81,7 @@ disassembleMethod: surrogateOrAddress on: aStream
 				[range first > (cogMethod address + cmNoCheckEntryOffset) ifTrue:
 					[self printMethodHeader: range cogMethod
 						on: aStream].
+				self maybeNoteStartpcFor: range.
 				self disassembleFrom: range first to: range last labels: mapEntries on: aStream]].
 	aStream nextPutAll: 'startpc: '; print: codeRanges first startpc; cr.
 	(cogMethod cmType = CMMethod

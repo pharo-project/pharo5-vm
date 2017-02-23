@@ -4,8 +4,10 @@ reconcilePoppingWith: targetEntry
 	 send, the same as the corresponding entry (the receiver) along the inlined path."
 	<var: #targetEntry type: #'SimStackEntry *'>
 	| targetReg |
-	targetEntry spilled ifTrue:
-		[self assert: (self isSameEntryAs: targetEntry).
+	spilled = targetEntry spilled ifTrue:
+		[self assert: (targetEntry spilled
+						ifTrue: [self isSameEntryAs: targetEntry]
+						ifFalse: [targetEntry registerOrNone ~= NoReg]).
 		 (targetReg := targetEntry registerOrNone) = NoReg ifTrue:
 			[^self].
 		 type caseOf: {
@@ -15,6 +17,7 @@ reconcilePoppingWith: targetEntry
 				[SSRegister]	-> [targetReg ~= register ifTrue:
 										[cogit MoveR: register R: targetReg]] }.
 		 ^self].
+	self assert: spilled.
 	(targetEntry type ~= SSConstant
 	 and: [(targetReg := targetEntry registerOrNone) ~= NoReg])
 		ifTrue: [cogit PopR: targetReg]

@@ -18,6 +18,7 @@ internalFindNewMethodOrdinary
 				(self lookupInMethodCacheSel: messageSelector classTag: lkupClassTag) ifTrue:
 					[^self ifAppropriateCompileToNativeCode: newMethod selector: messageSelector]].
 			lkupClass := objectMemory classForClassTag: lkupClassTag.
+			self assert: (lkupClass notNil and: [self addressCouldBeClassObj: lkupClass]).
 			NewspeakVM
 				ifTrue: [self lookupOrdinarySend]
 				ifFalse: [self lookupMethodInClass: lkupClass].

@@ -1,5 +1,5 @@
 bytecode generator support
-conflcitsResolvedBetweenSimStackAnd: mergeSimStack 
+conflictsResolvedBetweenSimStackAnd: mergeSimStack 
 	"There are no register conflicts between simStack and mergeSimStack if
 	 traversing both stacks from hot end (simStackPtr) to cold end (0) no register
 	 exists in simStack that has previously existed in mergeSimStack.  This is because

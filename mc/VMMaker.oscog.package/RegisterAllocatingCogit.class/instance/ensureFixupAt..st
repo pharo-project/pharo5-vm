@@ -5,12 +5,13 @@ ensureFixupAt: targetPC
 	 Override to enerate stack merging code if required."
 	| fixup |	
 	<var: #fixup type: #'BytecodeFixup *'>
-	fixup := self fixupAt:  targetPC.
+	self assert: targetPC > bytecodePC.
+	fixup := self fixupAt: targetPC.
 	fixup needsFixup 
 		ifTrue:
 			[fixup mergeSimStack
 				ifNil: [self setMergeSimStackOf: fixup]
-				ifNotNil: [self mergeCurrentSimStackWith: fixup]]
+				ifNotNil: [self mergeCurrentSimStackWith: fixup forwards: true]]
 		ifFalse: 
 			[self assert: fixup mergeSimStack isNil.
 			 self moveVolatileSimStackEntriesToRegisters.

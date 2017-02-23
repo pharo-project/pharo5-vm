@@ -54,6 +54,4 @@ reconcileForwardsWith: targetEntry
 	"If merging a non-temp with a temp that has a live register we can assign
 	 to the register, but must unassign the register from the temp, otherwise
 	 the temp will acquire the merged value without an assignment."
-	 or: [targetEntry type = SSBaseOffset
-		  and: [targetEntry register = FPReg
-		  and: [(self isSameEntryAs: targetEntry) not]]]
+	 or: [targetEntry isFrameTempVar and: [(self isSameEntryAs: targetEntry) not]]
