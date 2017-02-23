@@ -1,0 +1,14 @@
+image/pharo-vm/libB3DAcceleratorPlugin.so
+image/pharo-vm/libFT2Plugin.so
+image/pharo-vm/libInternetConfigPlugin.so
+image/pharo-vm/libJPEGReadWriter2Plugin.so
+image/pharo-vm/libJPEGReaderPlugin.so
+image/pharo-vm/libRePlugin.so
+image/pharo-vm/libSqueakFFIPrims.so
+image/pharo-vm/libSqueakSSL.so
+image/pharo-vm/pharo
+image/pharo-vm/vm-display-X11
+image/pharo-vm/vm-display-null
+image/pharo-vm/vm-sound-ALSA
+image/pharo-vm/vm-sound-null
+processors/IA32/bochs/patches/beos-gui-fabo.capture-filter
