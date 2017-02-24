@@ -1,0 +1,3 @@
+accessing
+maxLookupNoMNUErrorCode
+	^coInterpreter maxLookupNoMNUErrorCode

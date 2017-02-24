@@ -50,6 +50,7 @@ cog: aMethodObj selector: aSelectorOop
 	objectRepresentation ensureNoForwardedLiteralsIn: aMethodObj.
 	methodObj := aMethodObj.
 	methodHeader := objectMemory methodHeaderOf: aMethodObj.
+	receiverTags := objectMemory receiverTagBitsForMethod: methodObj.
 	cogMethod := self compileCogMethod: aSelectorOop.
 	(cogMethod asInteger between: MaxNegativeErrorCode and: -1) ifTrue:
 		[cogMethod asInteger = InsufficientCodeSpace ifTrue:

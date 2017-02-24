@@ -12,15 +12,13 @@ ssAllocateRequiredRegMask: requiredRegsMask upThrough: stackPtr upThroughNative:
 		liveRegs := liveRegs bitOr: (self simStackAt: i) registerMask.
 		((self simStackAt: i) registerMask bitAnd: requiredRegsMask) ~= 0 ifTrue:
 			[lastRequired := i]].
-	LowcodeVM ifTrue: [
-		(simNativeSpillBase max: 0) to: nativeStackPtr do:
+	LowcodeVM ifTrue:
+		[(simNativeSpillBase max: 0) to: nativeStackPtr do:
 			[:i|
 			liveRegs := liveRegs bitOr: (self simNativeStackAt: i) nativeRegisterMask.
-			((self simNativeStackAt: i) nativeRegisterMask bitAnd: requiredRegsMask) ~= 0 ifTrue:
-				[lastRequiredNative := i]].
-	].
+			((self simNativeStackAt: i) nativeRegisterMask anyMask: requiredRegsMask) ifTrue:
+				[lastRequiredNative := i]]].
 	"If any of requiredRegsMask are live we must spill."
-	(liveRegs bitAnd: requiredRegsMask) = 0 ifFalse:
-		["Some live, must spill"
-		self ssFlushTo: lastRequired nativeFlushTo: lastRequiredNative.
+	(liveRegs anyMask: requiredRegsMask) ifTrue:
+		[self ssFlushTo: lastRequired nativeFlushTo: lastRequiredNative.
 		self assert: (self liveRegisters bitAnd: requiredRegsMask) = 0]

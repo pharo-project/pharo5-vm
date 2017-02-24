@@ -8,10 +8,11 @@ genSpecialSelectorArithmetic
 	primDescriptor := self generatorAt: byte0.
 	argIsInt := (argIsConst := self ssTop type = SSConstant)
 				 and: [objectMemory isIntegerObject: (argInt := self ssTop constant)].
-	rcvrIsInt := (rcvrIsConst := (self ssValue: 1) type = SSConstant)
-				 and: [objectMemory isIntegerObject: (rcvrInt := (self ssValue: 1) constant)].
+	rcvrIsInt := ((rcvrIsConst := (self ssValue: 1) type = SSConstant)
+				  and: [objectMemory isIntegerObject: (rcvrInt := (self ssValue: 1) constant)])
+				or: [self mclassIsSmallInteger and: [(self ssValue: 1) isSameEntryAs: (self addressOf: simSelf)]].
 
-	(argIsInt and: [rcvrIsInt]) ifTrue:
+	(argIsInt and: [rcvrIsInt and: [rcvrIsConst]]) ifTrue:
 		[rcvrInt := objectMemory integerValueOf: rcvrInt.
 		 argInt := objectMemory integerValueOf: argInt.
 		 primDescriptor opcode caseOf: {
@@ -38,14 +39,16 @@ genSpecialSelectorArithmetic
 		ifTrue:
 			[self ssFlushTo: simStackPtr - 2.
 			 (self ssValue: 1) popToReg: ReceiverResultReg.
-			 self ssPop: 2.
-			 self MoveR: ReceiverResultReg R: TempReg]
+			 self ssPop: 2]
 		ifFalse:
-			[self marshallSendArguments: 1.
-			 self MoveR: Arg0Reg R: TempReg].
-	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
-							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
-							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg andScratch: TempReg scratch: ClassReg].
+			[self marshallSendArguments: 1].
+	jumpNotSmallInts := (rcvrIsInt and: [argIsInt]) ifFalse:
+							[argIsInt
+								ifTrue: [objectRepresentation genJumpNotSmallInteger: ReceiverResultReg]
+								ifFalse:
+									[rcvrIsInt
+										ifTrue: [objectRepresentation genJumpNotSmallInteger: Arg0Reg]
+										ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: ReceiverResultReg and: Arg0Reg scratch: TempReg]]].
 	primDescriptor opcode caseOf: {
 		[AddRR] -> [argIsInt
 						ifTrue:
@@ -58,7 +61,7 @@ genSpecialSelectorArithmetic
 							 self AddR: Arg0Reg R: ReceiverResultReg.
 							jumpContinue := self JumpNoOverflow: 0.
 							"overflow; must undo the damage before continuing"
-							 rcvrIsInt
+							 (rcvrIsInt and: [rcvrIsConst])
 								ifTrue: [self MoveCq: rcvrInt R: ReceiverResultReg]
 								ifFalse:
 									[self SubR: Arg0Reg R: ReceiverResultReg.
@@ -79,12 +82,18 @@ genSpecialSelectorArithmetic
 		[AndRR] -> [argIsInt
 						ifTrue: [self AndCq: argInt R: ReceiverResultReg]
 						ifFalse: [self AndR: Arg0Reg R: ReceiverResultReg].
-					jumpContinue := self Jump: 0].
+					jumpContinue := jumpNotSmallInts ifNotNil: [self Jump: 0]].
 		[OrRR]	-> [argIsInt
 						ifTrue: [self OrCq: argInt R: ReceiverResultReg]
 						ifFalse: [self OrR: Arg0Reg R: ReceiverResultReg].
-					jumpContinue := self Jump: 0] }.
-	jumpNotSmallInts jmpTarget: self Label.
+					jumpContinue := jumpNotSmallInts ifNotNil: [self Jump: 0]] }.
+	jumpNotSmallInts
+		ifNil: [jumpContinue ifNil: "overflow cannot happen"
+				[self annotateInstructionForBytecode.
+				 self ssPushRegister: ReceiverResultReg.
+				 ^0]]
+		ifNotNil:
+			[jumpNotSmallInts jmpTarget: self Label].
 	argIsInt ifTrue:
 		[self MoveCq: argInt R: Arg0Reg].
 	index := byte0 - self firstSpecialSelectorBytecodeOffset.

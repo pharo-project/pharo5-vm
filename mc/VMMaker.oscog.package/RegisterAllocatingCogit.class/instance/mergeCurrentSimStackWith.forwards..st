@@ -10,6 +10,7 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 	 registers can be deassigned (since registers are always written to temp vars).
 	 But if backwards, nothing can be deassigned, and the state /must/ reflect the target."
 	"self printSimStack; printSimStack: fixup mergeSimStack"
+	"abstractOpcodes object copyFrom: startIndex to: opcodeIndex"
 	<var: #fixup type: #'BytecodeFixup *'>
 	| startIndex mergeSimStack currentEntry targetEntry writtenToRegisters |
 	<var: #mergeSimStack type: #'SimStackEntry *'>

@@ -31,7 +31,7 @@
 		"genJumpIf:to:" : "eem 02/07/2017 15:59",
 		"genMustBeBooleanTrampolineFor:called:" : "eem 3/14/2016 11:43",
 		"genNullaryInlinePrimitive:" : "cb 8/29/2016 10:46",
-		"genSpecialSelectorComparison" : "eem 02/07/2017 15:59",
+		"genSpecialSelectorComparison" : "eem 2/24/2017 10:33",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genTrinaryInlinePrimitive:" : "cb 8/29/2016 10:45",
 		"genUnaryInlinePrimitive:" : "cb 1/21/2017 14:58",

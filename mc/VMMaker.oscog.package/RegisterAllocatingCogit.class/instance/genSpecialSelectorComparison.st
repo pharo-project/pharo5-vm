@@ -1,17 +1,18 @@
 bytecode generators
 genSpecialSelectorComparison
 	| nextPC postBranchPC targetPC primDescriptor branchDescriptor
-	  rcvrIsInt argIsInt argInt jumpNotSmallInts inlineCAB index rcvrReg argReg branchToTarget needMergeToContinue needMergeToTarget |
+	  rcvrIsInt rcvrIsConst argIsIntConst argInt jumpNotSmallInts inlineCAB index rcvrReg argReg branchToTarget needMergeToContinue needMergeToTarget |
 	<var: #primDescriptor type: #'BytecodeDescriptor *'>
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	<var: #jumpNotSmallInts type: #'AbstractInstruction *'>
 	primDescriptor := self generatorAt: byte0.
-	argIsInt := self ssTop type = SSConstant
+	argIsIntConst := self ssTop type = SSConstant
 				 and: [objectMemory isIntegerObject: (argInt := self ssTop constant)].
-	rcvrIsInt := (self ssValue: 1) type = SSConstant
-				 and: [objectMemory isIntegerObject: (self ssValue: 1) constant].
+	rcvrIsInt := ((rcvrIsConst := (self ssValue: 1) type = SSConstant)
+				  and: [objectMemory isIntegerObject: (self ssValue: 1) constant])
+				or: [self mclassIsSmallInteger and: [(self ssValue: 1) isSameEntryAs: (self addressOf: simSelf)]].
 
-	(argIsInt and: [rcvrIsInt]) ifTrue:
+	(argIsIntConst and: [rcvrIsInt and: [rcvrIsConst]]) ifTrue:
 		[^self genStaticallyResolvedSpecialSelectorComparison].
 
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
@@ -22,7 +23,7 @@ genSpecialSelectorComparison
 	"Further, only interested in inlining = and ~= if there's a SmallInteger constant involved.
 	 The relational operators successfully statically predict SmallIntegers; the equality operators do not."
 	(inlineCAB and: [primDescriptor opcode = JumpZero or: [primDescriptor opcode = JumpNonZero]]) ifTrue:
-		[inlineCAB := argIsInt or: [rcvrIsInt]].
+		[inlineCAB := argIsIntConst or: [rcvrIsInt]].
 	inlineCAB ifFalse:
 		[^self genSpecialSelectorSend].
 
@@ -30,25 +31,26 @@ genSpecialSelectorComparison
 	 to do a send and fall through to the following conditional branch.  Since we're allocating values
 	 in registers we would like to keep those registers live on the inlined path and reload registers
 	 along the non-inlined send path.  The merge logic at the branch destinations handles this."
-	argIsInt
+	argIsIntConst
 		ifTrue:
 			[rcvrReg := self allocateRegForStackEntryAt: 1.
-			 (self ssValue: 1) popToReg: rcvrReg]
+			 (self ssValue: 1) popToReg: rcvrReg.
+			 argReg := NoReg]
 		ifFalse:
 			[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
 			 rcvrReg = Arg0Reg ifTrue:
 				[rcvrReg := argReg. argReg := Arg0Reg].
 			 self ssTop popToReg: argReg.
-			 (self ssValue: 1) popToReg: rcvrReg.
-			 rcvrIsInt ifFalse:
-				[self MoveR: argReg R: TempReg]].
+			 (self ssValue: 1) popToReg: rcvrReg].
 	self ssPop: 2.
-	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
-							ifFalse: "Neither known to be ints; and them together for the test..."
-								[objectRepresentation genJumpNotSmallIntegersIn: rcvrReg andScratch: TempReg scratch: ClassReg]
-							ifTrue: "One known; in-place single-bit test for the other"
-								[objectRepresentation genJumpNotSmallInteger: (rcvrIsInt ifTrue: [argReg] ifFalse: [rcvrReg])].
-	argIsInt
+	jumpNotSmallInts := (rcvrIsInt and: [argIsIntConst]) ifFalse:
+							[argIsIntConst
+								ifTrue: [objectRepresentation genJumpNotSmallInteger: rcvrReg]
+								ifFalse:
+									[rcvrIsInt
+										ifTrue: [objectRepresentation genJumpNotSmallInteger: argReg]
+										ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: rcvrReg and: argReg scratch: TempReg]]].
+	argIsIntConst
 		ifTrue: [self CmpCq: argInt R: rcvrReg]
 		ifFalse: [self CmpR: argReg R: rcvrReg].
 
@@ -84,10 +86,19 @@ genSpecialSelectorComparison
 										ifFalse: [self inverseBranchFor: primDescriptor opcode])
 			operand: (self ensureFixupAt: targetPC) asUnsignedInteger.
 		 self Jump: (self ensureFixupAt: postBranchPC)].
+	jumpNotSmallInts ifNil:
+		[self annotateInstructionForBytecode.
+		 deadCode := true.
+		 ^0].
 	jumpNotSmallInts jmpTarget: self Label.
 	self ssFlushTo: simStackPtr.
-	self deny: rcvrReg = Arg0Reg.
-	argIsInt
+	rcvrReg = Arg0Reg
+		ifTrue:
+			[argReg = ReceiverResultReg
+				ifTrue: [self SwapR: Arg0Reg R: Arg0Reg Scratch: TempReg. argReg := Arg0Reg]
+				ifFalse: [self MoveR: rcvrReg R: ReceiverResultReg].
+			 rcvrReg := ReceiverResultReg].
+	argIsIntConst
 		ifTrue: [self MoveCq: argInt R: Arg0Reg]
 		ifFalse: [argReg ~= Arg0Reg ifTrue: [self MoveR: argReg R: Arg0Reg]].
 	rcvrReg ~= ReceiverResultReg ifTrue: [self MoveR: rcvrReg R: ReceiverResultReg].

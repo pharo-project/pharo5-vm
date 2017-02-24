@@ -1,3 +1,5 @@
 cog jit support
 smallIntegerTag
-	^self subclassResponsibility
+	<api>
+	<cmacro>
+	^1

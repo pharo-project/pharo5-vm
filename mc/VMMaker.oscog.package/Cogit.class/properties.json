@@ -188,6 +188,7 @@
 		"numIRCs",
 		"indexOfIRC",
 		"theIRCs",
+		"receiverTags",
 		"implicitReceiverSendTrampolines",
 		"cogMethodSurrogateClass",
 		"cogBlockMethodSurrogateClass",

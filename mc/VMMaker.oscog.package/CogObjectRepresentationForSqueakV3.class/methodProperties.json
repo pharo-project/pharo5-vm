@@ -42,7 +42,6 @@
 		"genJumpNotSmallInteger:" : "eem 5/30/2015 11:07",
 		"genJumpNotSmallIntegerInScratchReg:" : "eem 2/15/2009 10:20",
 		"genJumpNotSmallIntegerValue:scratch:" : "eem 12/9/2015 16:10",
-		"genJumpNotSmallIntegersIn:andScratch:scratch:" : "eem 2/24/2016 16:22",
 		"genJumpSmallInteger:" : "eem 5/29/2015 18:14",
 		"genJumpSmallIntegerInScratchReg:" : "eem 2/15/2009 10:19",
 		"genLcFirstFieldPointer:" : "rsf 8/10/2016 00:27",

@@ -2,12 +2,10 @@
 	"class" : {
 		 },
 	"instance" : {
-		"complicatedIsMergedWithTargetEntry:" : "eem 2/22/2017 08:53",
 		"copyLiveRegisterIfSameAs:" : "eem 11/26/2016 10:37",
 		"ensureSpilledAt:from:" : "eem 11/23/2016 12:49",
 		"isIdenticalEntryAs:" : "eem 2/11/2017 10:37",
 		"isMergedWithTargetEntry:" : "eem 2/21/2017 17:24",
-		"isSameEntryAs:" : "eem 1/18/2017 13:55",
 		"liveRegister" : "cb 4/16/2016 11:22",
 		"liveRegister:" : "cb 4/16/2016 11:22",
 		"offset" : "eem 11/23/2016 15:31",
@@ -20,5 +18,4 @@
 		"registerMask" : "eem 11/23/2016 12:41",
 		"registerMaskOrNone" : "eem 11/30/2016 11:20",
 		"registerOrNone" : "eem 11/22/2016 13:04",
-		"simplifiedIsMergedWithTargetEntry:" : "eem 2/22/2017 08:49",
 		"storeToReg:" : "eem 2/10/2017 15:36" } }

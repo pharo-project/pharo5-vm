@@ -9,10 +9,11 @@ genSpecialSelectorArithmetic
 	primDescriptor := self generatorAt: byte0.
 	argIsInt := (argIsConst := self ssTop type = SSConstant)
 				 and: [objectMemory isIntegerObject: (argInt := self ssTop constant)].
-	rcvrIsInt := (rcvrIsConst := (self ssValue: 1) type = SSConstant)
-				 and: [objectMemory isIntegerObject: (rcvrInt := (self ssValue: 1) constant)].
+	rcvrIsInt := ((rcvrIsConst := (self ssValue: 1) type = SSConstant)
+				  and: [objectMemory isIntegerObject: (rcvrInt := (self ssValue: 1) constant)])
+				or: [self mclassIsSmallInteger and: [(self ssValue: 1) isSameEntryAs: (self addressOf: simSelf)]].
 
-	(argIsInt and: [rcvrIsInt]) ifTrue:
+	(argIsInt and: [rcvrIsInt and: [rcvrIsConst]]) ifTrue:
 		[| result |
 		 rcvrInt := objectMemory integerValueOf: rcvrInt.
 		 argInt := objectMemory integerValueOf: argInt.
@@ -45,25 +46,27 @@ genSpecialSelectorArithmetic
 		ifTrue:
 			[rcvrReg := self allocateRegForStackEntryAt: 1.
 			 (self ssValue: 1) popToReg: rcvrReg.
-			 self MoveR: rcvrReg R: TempReg.
 			 regMask := self registerMaskFor: rcvrReg]
 		ifFalse:
 			[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
 			 self ssTop popToReg: argReg.
 			 (self ssValue: 1) popToReg: rcvrReg.
-			 self MoveR: argReg R: TempReg.
 			 regMask := self registerMaskFor: rcvrReg and: argReg].
 
 	"rcvrReg can be reused for the result iff the receiver is a constant or is an SSRegister that is not used elsewhere."
-	destReg := (rcvrIsInt
+	destReg := ((rcvrIsInt and: [rcvrIsConst])
 				 or: [(self ssValue: 1) type = SSRegister
 					 and: [(self anyReferencesToRegister: rcvrReg inAllButTopNItems: 2) not]])
 					ifTrue: [rcvrReg]
 					ifFalse: [self allocateRegNotConflictingWith: regMask].
 	self ssPop: 2.
-	jumpNotSmallInts := (argIsInt or: [rcvrIsInt])
-							ifTrue: [objectRepresentation genJumpNotSmallIntegerInScratchReg: TempReg]
-							ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: rcvrReg andScratch: TempReg scratch: ClassReg].
+	jumpNotSmallInts := (rcvrIsInt and: [argIsInt]) ifFalse:
+							[argIsInt
+								ifTrue: [objectRepresentation genJumpNotSmallInteger: rcvrReg]
+								ifFalse:
+									[rcvrIsInt
+										ifTrue: [objectRepresentation genJumpNotSmallInteger: argReg]
+										ifFalse: [objectRepresentation genJumpNotSmallIntegersIn: rcvrReg and: argReg scratch: TempReg]]].
 	rcvrReg ~= destReg ifTrue:
 		[self MoveR: rcvrReg R: destReg].
 	primDescriptor opcode caseOf: {
@@ -80,7 +83,7 @@ genSpecialSelectorArithmetic
 							 jumpContinue := self JumpNoOverflow: 0.
 							"overflow; must undo the damage before doing send"
 							 destReg = rcvrReg ifTrue:
-								[rcvrIsInt
+								[(rcvrIsInt and: [rcvrIsConst])
 									ifTrue: [self MoveCq: rcvrInt R: rcvrReg]
 									ifFalse:
 										[self SubR: argReg R: rcvrReg.
@@ -103,7 +106,7 @@ genSpecialSelectorArithmetic
 									 jumpContinue := self Jump: 0.
 									 jumpOverflow jmpTarget: self Label.
 									 "overflow; must undo the damage before doing send"
-									 (rcvrIsInt or: [destReg ~= rcvrReg]) ifFalse:
+									 ((rcvrIsInt and: [rcvrIsConst]) or: [destReg ~= rcvrReg]) ifFalse:
 										[self AddR: argReg R: destReg].
 									 objectRepresentation genSetSmallIntegerTagsIn: argReg]
 								ifFalse:
@@ -111,7 +114,7 @@ genSpecialSelectorArithmetic
 									 self SubR: argReg R: destReg.
 									 jumpContinue := self JumpNoOverflow: 0.
 									 "overflow; must undo the damage before doing send"
-									 (rcvrIsInt or: [destReg ~= rcvrReg]) ifFalse:
+									 ((rcvrIsInt and: [rcvrIsConst]) or: [destReg ~= rcvrReg]) ifFalse:
 										[self AddR: argReg R: rcvrReg].
 									 objectRepresentation genSetSmallIntegerTagsIn: argReg]]].
 		[AndRR] -> [argIsInt
@@ -127,7 +130,12 @@ genSpecialSelectorArithmetic
 	self copySimStackToScratch: (simSpillBase min: simStackPtr - 1).
 	self ssPop: 1.
 	self ssFlushTo: simStackPtr.
-	self deny: rcvrReg = Arg0Reg.
+	rcvrReg = Arg0Reg
+		ifTrue:
+			[argReg = ReceiverResultReg
+				ifTrue: [self SwapR: Arg0Reg R: Arg0Reg Scratch: TempReg. argReg := Arg0Reg]
+				ifFalse: [self MoveR: rcvrReg R: ReceiverResultReg].
+			 rcvrReg := ReceiverResultReg].
 	argIsInt
 		ifTrue: [self MoveCq: argInt R: Arg0Reg]
 		ifFalse: [argReg ~= Arg0Reg ifTrue: [self MoveR: argReg R: Arg0Reg]].
