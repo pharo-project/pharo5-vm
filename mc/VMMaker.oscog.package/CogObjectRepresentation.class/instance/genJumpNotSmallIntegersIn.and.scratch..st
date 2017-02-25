@@ -4,4 +4,8 @@ genJumpNotSmallIntegersIn: aRegister and: bRegister scratch: scratchRegister
 	 i.e. don't branch if both aRegister and bRegister contain SmallIntegers.
 	 Answer the jump.  Destroy scratchRegister if required."
 	<returnTypeC: #'AbstractInstruction *'>
-	^self subclassResponsibility
+	<inline: true>
+	cogit
+		MoveR: aRegister R: scratchRegister;
+		AndR: bRegister R: scratchRegister.
+	^self genJumpNotSmallIntegerInScratchReg: scratchRegister

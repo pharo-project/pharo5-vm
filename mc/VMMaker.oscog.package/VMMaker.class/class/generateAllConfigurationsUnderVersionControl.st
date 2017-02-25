@@ -2,4 +2,5 @@ configurations
 generateAllConfigurationsUnderVersionControl
 	self generateAllNewspeakConfigurationsUnderVersionControl;
 		generateAllSqueakConfigurationsUnderVersionControl;
+		generateAllSpurLowcodeConfigurations;
 		generateVMPlugins
