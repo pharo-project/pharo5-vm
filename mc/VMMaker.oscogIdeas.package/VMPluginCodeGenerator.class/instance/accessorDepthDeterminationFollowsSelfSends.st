@@ -1,0 +1,3 @@
+spur primitive compilation
+accessorDepthDeterminationFollowsSelfSends
+	^true

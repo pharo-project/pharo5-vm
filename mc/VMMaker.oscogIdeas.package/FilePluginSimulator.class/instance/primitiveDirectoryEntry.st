@@ -1,0 +1,3 @@
+simulation
+primitiveDirectoryEntry
+	^interpreterProxy interpreter primitiveDirectoryEntry

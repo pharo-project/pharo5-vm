@@ -1,0 +1,1 @@
+A VMCompiledMethodProxy is a wrapper for the oop of a CompiledMethod object in the simulator VM's heap that provides accessd to the oop as if it were a CompiledMethod object.

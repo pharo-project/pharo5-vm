@@ -1,0 +1,3 @@
+system simulation
+simulatorClass
+	^BitBltSimulator

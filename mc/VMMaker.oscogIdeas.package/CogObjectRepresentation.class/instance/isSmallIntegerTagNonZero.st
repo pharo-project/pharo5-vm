@@ -1,0 +1,3 @@
+testing
+isSmallIntegerTagNonZero
+	self subclassResponsibility

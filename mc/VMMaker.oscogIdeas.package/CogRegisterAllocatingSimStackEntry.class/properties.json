@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"liveRegister" ],
+	"name" : "CogRegisterAllocatingSimStackEntry",
+	"pools" : [
+		 ],
+	"super" : "CogSimStackEntry",
+	"type" : "normal" }

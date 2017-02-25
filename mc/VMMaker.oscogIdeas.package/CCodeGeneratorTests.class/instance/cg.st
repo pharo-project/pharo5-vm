@@ -1,0 +1,3 @@
+private
+cg
+	^CCodeGenerator new

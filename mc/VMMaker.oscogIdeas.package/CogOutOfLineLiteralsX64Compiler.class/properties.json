@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogOutOfLineLiteralsX64Compiler",
+	"pools" : [
+		 ],
+	"super" : "CogX64Compiler",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+numArgs
+	^arguments size

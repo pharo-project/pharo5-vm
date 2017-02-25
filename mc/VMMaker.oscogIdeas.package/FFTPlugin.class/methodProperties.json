@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "eem 3/5/2009 13:18" },
+	"instance" : {
+		"checkedFloatPtrOf:" : "ar (auto pragmas 12/08) 9/16/1998 21:40",
+		"checkedWordPtrOf:" : "ar (auto pragmas 12/08) 9/16/1998 21:40",
+		"loadFFTFrom:" : "ar 10/10/1998 21:43",
+		"permuteData" : "tpr (auto pragmas 12/08) 12/29/2005 16:05",
+		"primitiveFFTPermuteData" : "ar (auto pragmas 12/08) 10/11/1998 01:59",
+		"primitiveFFTScaleData" : "ar (auto pragmas 12/08) 10/11/1998 01:59",
+		"primitiveFFTTransformData" : "ar (auto pragmas 12/08) 10/11/1998 01:59",
+		"scaleData" : "tpr (auto pragmas 12/08) 12/29/2005 16:05",
+		"transformData:" : "ar 9/16/1998 20:21",
+		"transformForward:" : "nice 12/27/2012 19:10" } }

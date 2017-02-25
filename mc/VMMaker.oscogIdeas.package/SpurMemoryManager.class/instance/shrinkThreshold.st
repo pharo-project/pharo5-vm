@@ -1,0 +1,3 @@
+free space
+shrinkThreshold
+	^shrinkThreshold

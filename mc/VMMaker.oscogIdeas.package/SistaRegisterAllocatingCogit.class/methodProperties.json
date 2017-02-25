@@ -1,0 +1,14 @@
+{
+	"class" : {
+		"dateAndTimeFrom:" : "eem 12/12/2016 11:18",
+		"implementation:isDifferentThan:" : "eem 12/12/2016 10:36",
+		"implementation:isNewerThan:" : "eem 12/12/2016 11:51",
+		"initializeWithOptions:" : "eem 12/12/2016 09:21",
+		"syncCodeIn:with:leavingUnchanged:" : "eem 12/12/2016 11:14",
+		"syncCodeWithSistaCogit" : "eem 12/12/2016 11:01" },
+	"instance" : {
+		"genCounterTripOnlyJumpIf:to:" : "eem 02/07/2017 15:59",
+		"genExtJumpIfNotInstanceOfBehaviorsBytecode" : "eem 02/07/2017 15:59",
+		"genForwardersInlinedIdenticalOrNotIf:" : "eem 02/09/2017 09:39",
+		"genJumpIf:to:" : "eem 02/07/2017 15:59",
+		"genSpecialSelectorComparison" : "eem 2/24/2017 12:16" } }

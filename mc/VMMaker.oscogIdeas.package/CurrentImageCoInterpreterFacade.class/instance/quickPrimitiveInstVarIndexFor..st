@@ -1,0 +1,3 @@
+accessing
+quickPrimitiveInstVarIndexFor: aQuickPrimitiveIndex
+	^coInterpreter quickPrimitiveInstVarIndexFor: aQuickPrimitiveIndex

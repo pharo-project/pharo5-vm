@@ -1,0 +1,3 @@
+accessing
+statSpecialMarkCount
+	^0

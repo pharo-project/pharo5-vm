@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"on:" : "eem 11/26/2010 12:32" },
+	"instance" : {
+		"encoderClass" : "eem 8/2/2014 08:57",
+		"encoderClass:" : "eem 8/2/2014 08:56",
+		"interpretNextInstructionFor:" : "eem 8/5/2014 11:14",
+		"method:" : "eem 11/26/2010 12:30",
+		"method:pc:" : "eem 11/26/2010 12:32",
+		"print:" : "eem 11/26/2010 12:33",
+		"printInstructionsOn:" : "eem 8/5/2014 11:26",
+		"stackHeightComputer" : "eem 1/11/2013 16:19",
+		"stackHeightComputer:" : "eem 1/11/2013 16:19" } }

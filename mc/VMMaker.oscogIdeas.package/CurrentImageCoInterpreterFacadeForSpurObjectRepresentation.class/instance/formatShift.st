@@ -1,0 +1,3 @@
+accessing
+formatShift
+	^objectMemory formatShift

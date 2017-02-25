@@ -1,0 +1,4 @@
+transformations
+bindVariablesIn: aDictionary
+
+	^self

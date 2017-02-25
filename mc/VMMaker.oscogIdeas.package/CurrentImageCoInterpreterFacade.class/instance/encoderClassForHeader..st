@@ -1,0 +1,3 @@
+accessing
+encoderClassForHeader: headerInteger
+	^coInterpreter encoderClassForHeader: headerInteger

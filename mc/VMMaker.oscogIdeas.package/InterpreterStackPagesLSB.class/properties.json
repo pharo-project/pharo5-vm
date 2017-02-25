@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "InterpreterStackPagesLSB",
+	"pools" : [
+		 ],
+	"super" : "InterpreterStackPages",
+	"type" : "normal" }

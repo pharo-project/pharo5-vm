@@ -1,0 +1,12 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"cameFrom" : "eem 8/13/2016 11:12",
+		"cameFrom:" : "eem 8/13/2016 11:12",
+		"computeRefCountToShrinkRT" : "eem 5/5/2015 19:18",
+		"copyAndForward:" : "eem 8/13/2016 11:11",
+		"copyAndForwardMourner:" : "eem 8/13/2016 11:11",
+		"manager:" : "eem 10/9/2013 13:29",
+		"recordMovements" : "eem 8/13/2016 11:12",
+		"scavenge:" : "eem 8/13/2016 11:13" } }

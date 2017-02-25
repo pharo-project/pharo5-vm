@@ -1,0 +1,3 @@
+garbage collection
+allYoungObjectsAgeInFullGC
+	^false

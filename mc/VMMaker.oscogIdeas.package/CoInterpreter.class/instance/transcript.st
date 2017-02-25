@@ -1,0 +1,4 @@
+simulation
+transcript
+	<doNotGenerate>
+	^Transcript

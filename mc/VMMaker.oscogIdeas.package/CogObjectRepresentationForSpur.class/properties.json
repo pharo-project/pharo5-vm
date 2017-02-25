@@ -1,0 +1,25 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CheckRememberedInTrampoline",
+		"NumStoreTrampolines" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"ceScheduleScavengeTrampoline",
+		"ceSmallActiveContextInMethodTrampoline",
+		"ceSmallActiveContextInBlockTrampoline",
+		"ceSmallActiveContextInFullBlockTrampoline",
+		"ceLargeActiveContextInMethodTrampoline",
+		"ceLargeActiveContextInBlockTrampoline",
+		"ceLargeActiveContextInFullBlockTrampoline",
+		"ceStoreCheckContextReceiverTrampoline",
+		"ceStoreTrampolines",
+		"ceNewHashTrampoline" ],
+	"name" : "CogObjectRepresentationForSpur",
+	"pools" : [
+		"VMBytecodeConstants",
+		"VMSqueakClassIndices" ],
+	"super" : "CogObjectRepresentation",
+	"type" : "normal" }

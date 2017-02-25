@@ -1,0 +1,12 @@
+inline cacheing
+rewriteCallFullAt: callSiteReturnAddress target: callTargetAddress
+	"Rewrite a callFull instruction to jump to a different target.  This variant
+	 is used to rewrite cached primitive calls where we load the target address into ip
+	and use the 'blx ip' instruction for the actual call.
+	Answer the extent of the
+	 code change which is used to compute the range of the icache to flush."
+	<inline: true>
+	^self
+		rewriteFullTransferAt: callSiteReturnAddress
+		target: callTargetAddress
+		expectedInstruction: 16rE12FFF3C

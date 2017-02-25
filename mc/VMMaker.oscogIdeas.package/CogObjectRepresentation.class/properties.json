@@ -1,0 +1,34 @@
+{
+	"category" : "VMMaker-JIT",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"cogit",
+		"methodZone",
+		"objectMemory",
+		"coInterpreter",
+		"ceStoreCheckTrampoline",
+		"ceByteSizeOfTrampoline",
+		"ceInstantiateClassTrampoline",
+		"ceInstantiateClassIndexableSizeTrampoline",
+		"ceFloatObjectOfTrampoline",
+		"ceFloatValueOfTrampoline",
+		"ceSigned64BitIntegerTrampoline",
+		"ceSigned64BitValueOfTrampoline",
+		"cePositive64BitIntegerTrampoline",
+		"cePositive64BitValueOfTrampoline" ],
+	"name" : "CogObjectRepresentation",
+	"pools" : [
+		"CogAbstractRegisters",
+		"CogCompilationConstants",
+		"CogMethodConstants",
+		"CogRTLOpcodes",
+		"VMBasicConstants",
+		"VMObjectIndices",
+		"VMSqueakClassIndices",
+		"VMStackFrameOffsets" ],
+	"super" : "CogClass",
+	"type" : "normal" }

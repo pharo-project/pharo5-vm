@@ -1,0 +1,3 @@
+accessing
+inGC
+	^gcStartUsecs > statGCEndUsecs

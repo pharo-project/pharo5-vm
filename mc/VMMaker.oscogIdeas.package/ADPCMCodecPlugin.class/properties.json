@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 3/24/2004 14:48",
+	"instvars" : [
+		 ],
+	"name" : "ADPCMCodecPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

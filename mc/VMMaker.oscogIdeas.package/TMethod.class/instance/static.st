@@ -1,0 +1,3 @@
+accessing
+static
+	^static

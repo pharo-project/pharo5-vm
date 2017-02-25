@@ -1,0 +1,3 @@
+initialization
+mclassIsSmallInteger
+	^objectMemory isIntegerObject: receiverTags

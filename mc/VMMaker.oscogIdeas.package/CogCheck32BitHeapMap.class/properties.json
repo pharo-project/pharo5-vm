@@ -1,0 +1,18 @@
+{
+	"category" : "VMMaker-InterpreterSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"ByteShift",
+		"NumPages",
+		"PageMask",
+		"PageShift",
+		"PageSize" ],
+	"commentStamp" : "eem 2/27/2013 16:26",
+	"instvars" : [
+		"pages" ],
+	"name" : "CogCheck32BitHeapMap",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

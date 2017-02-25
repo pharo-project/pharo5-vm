@@ -1,0 +1,16 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 10/8/2015 12:49",
+	"instvars" : [
+		"objectMemory",
+		"address",
+		"elementByteSize" ],
+	"name" : "CArrayOfLongsAccessor",
+	"pools" : [
+		 ],
+	"super" : "CObjectAccessor",
+	"type" : "normal" }

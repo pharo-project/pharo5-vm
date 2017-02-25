@@ -1,0 +1,3 @@
+accessing
+classIndexMask
+	^objectMemory classIndexMask

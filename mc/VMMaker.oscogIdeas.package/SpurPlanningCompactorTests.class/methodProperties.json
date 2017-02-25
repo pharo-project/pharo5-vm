@@ -1,0 +1,23 @@
+{
+	"class" : {
+		"defaultIntegerBaseInDebugger" : "eem 1/11/2017 10:37",
+		"imageNameForTests" : "eem 1/10/2017 11:51",
+		"preenImage" : "eem 1/10/2017 11:21",
+		"resources" : "eem 1/12/2017 10:14" },
+	"instance" : {
+		"checkForLeaksIn:" : "eem 2/6/2017 11:00",
+		"expectedFailures" : "eem 2/6/2017 10:41",
+		"initializedVM" : "eem 1/12/2017 10:18",
+		"testCompactedHeap" : "eem 2/6/2017 10:59",
+		"testIncompactibleHeap" : "eem 1/11/2017 09:43",
+		"testInitializedVM" : "eem 2/6/2017 11:12",
+		"testMultiPassRandomAssortments" : "eem 2/3/2017 10:23",
+		"testMultiPassRandomAssortmentsWithNewSegment" : "eem 2/3/2017 17:07",
+		"testRandomAssortment:with:" : "eem 2/6/2017 11:04",
+		"testRandomAssortmentWithNewSegment:with:" : "eem 2/6/2017 11:05",
+		"testRandomAssortments" : "eem 2/3/2017 10:20",
+		"testRandomAssortmentsWithNewSegment" : "eem 2/3/2017 10:22",
+		"testRunOfContiguousPinnedObjects" : "eem 1/12/2017 10:23",
+		"testRunOfNonContiguousPinnedObjects" : "eem 1/12/2017 10:23",
+		"testRunOfNonContiguousPinnedObjectsWithSpaceInBetween" : "eem 1/12/2017 10:40",
+		"testRunOfObjectsWithExtraSegment" : "eem 1/13/2017 12:53" } }

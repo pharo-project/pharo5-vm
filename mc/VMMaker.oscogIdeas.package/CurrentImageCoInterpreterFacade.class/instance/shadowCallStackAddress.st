@@ -1,0 +1,3 @@
+accessing
+shadowCallStackAddress
+	^self addressForLabel: #shadowCallStackAddress

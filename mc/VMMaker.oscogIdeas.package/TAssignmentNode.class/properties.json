@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"variable",
+		"expression" ],
+	"name" : "TAssignmentNode",
+	"pools" : [
+		 ],
+	"super" : "TParseNode",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+tenuringClassIndex
+	^tenuringClassIndex

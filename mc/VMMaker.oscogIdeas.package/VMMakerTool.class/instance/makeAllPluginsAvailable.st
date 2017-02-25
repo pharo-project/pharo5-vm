@@ -1,0 +1,5 @@
+menus
+makeAllPluginsAvailable
+
+
+	vmMaker makeAllModulesAvailable

@@ -1,0 +1,1 @@
+This is another JPEG reader plugin, this time not requiring jpeglib support. 

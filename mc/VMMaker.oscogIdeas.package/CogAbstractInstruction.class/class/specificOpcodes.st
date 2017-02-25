@@ -1,0 +1,3 @@
+verification
+specificOpcodes
+	^self subclassResponsibility

@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-JITSimulation",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"returnValue" ],
+	"name" : "ReenterInterpreter",
+	"pools" : [
+		 ],
+	"super" : "Notification",
+	"type" : "normal" }

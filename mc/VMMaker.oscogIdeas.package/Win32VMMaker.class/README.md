@@ -1,0 +1,1 @@
+A special form of VMMaker to suit Windows machines.  Copies files around a little.

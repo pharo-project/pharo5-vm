@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"byteRegistersWithNamesDo:" : "eem 10/5/2015 17:34",
+		"dataRegistersWithAccessorsDo:" : "eem 4/16/2009 11:16",
+		"dataRegistersWithAccessorsExcept:do:" : "eem 9/10/2009 08:04",
+		"fp64RegistersWithAccessorsDo:" : "eem 9/18/2010 17:04",
+		"fp64registers" : "eem 9/18/2010 17:02",
+		"registers" : "eem 12/1/2015 15:38",
+		"registersWithNamesDo:" : "eem 4/16/2009 11:16",
+		"xmmRegistersWithNamesDo:" : "eem 4/16/2009 11:03" },
+	"instance" : {
+		"concretizeAt:" : "eem 9/22/2015 11:02",
+		"hasSSE2Instructions" : "eem 4/10/2015 18:32" } }

@@ -1,0 +1,23 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"nu",
+		"fftSize",
+		"sinTable",
+		"sinTableSize",
+		"permTable",
+		"permTableSize",
+		"realData",
+		"realDataSize",
+		"imagData",
+		"imagDataSize" ],
+	"name" : "FFTPlugin",
+	"pools" : [
+		 ],
+	"super" : "InterpreterPlugin",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+baseHeaderSize
+	^ObjectMemory baseHeaderSize

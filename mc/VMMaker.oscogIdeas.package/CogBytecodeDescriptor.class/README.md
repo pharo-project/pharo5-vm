@@ -1,0 +1,1 @@
+I am an entry in the Cogit's dispatch table for bytecodes.  I hold the routine to call to generate code for the partcular bytecode I represent and the number of bytes the bytecode has.  For eliminating temps in frameless blocks I maintain a stack delta for bytecodes that are valid in a frameless block.  The order of my instance variables is chosen for compact struct packing.

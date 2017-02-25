@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "dtl 10/9/2010 12:22",
+	"instvars" : [
+		 ],
+	"name" : "JPEGReadWriter2PluginTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

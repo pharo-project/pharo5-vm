@@ -1,0 +1,3 @@
+immediates
+integerObjectOfCharacterObject: oop
+	self subclassResponsibility

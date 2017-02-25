@@ -1,0 +1,29 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 12/23/2016 17:50",
+	"instvars" : [
+		"manager",
+		"scavenger",
+		"coInterpreter",
+		"biasForGC",
+		"firstFreeObject",
+		"mobileStart",
+		"firstMobileObject",
+		"lastMobileObject",
+		"savedFirstFieldsSpace",
+		"savedFirstFieldsSpaceNotInOldSpace",
+		"firstFieldOfRememberedSet",
+		"anomaly",
+		"objectAfterLastMobileObject" ],
+	"name" : "SpurPlanningCompactor",
+	"pools" : [
+		"SpurMemoryManagementConstants",
+		"VMBasicConstants",
+		"VMBytecodeConstants",
+		"VMSpurObjectRepresentationConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

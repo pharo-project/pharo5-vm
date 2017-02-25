@@ -1,0 +1,15 @@
+inline primitive generators generated code
+genLowcodePushCalloutResultInt64
+	<option: #LowcodeVM>	"Lowcode instruction generator"
+
+	BytesPerWord = 4 ifTrue: [
+	self MoveR: backEnd cResultRegisterLow R: ReceiverResultReg.
+	self MoveR: backEnd cResultRegisterHigh R: Arg0Reg.
+	self ssPushNativeRegister: ReceiverResultReg secondRegister: Arg0Reg.
+	] ifFalse: [
+	self MoveR: backEnd cResultRegister R: ReceiverResultReg.
+	self ssPushNativeRegister: ReceiverResultReg.
+	].
+
+	^ 0
+

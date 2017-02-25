@@ -1,0 +1,2 @@
+This class adds the plugin functionality for the Balloon graphics engine.
+BalloonEnginePlugin should be translated but its superclass should not since it is incorporated within this class's translation process. Nor should the simulation subclass be translated

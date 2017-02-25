@@ -1,0 +1,19 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/31/2005 18:41",
+		"requiresPlatformFiles" : "tpr 5/31/2005 17:00" },
+	"instance" : {
+		"initialiseModule" : "tpr (auto pragmas 12/08) 6/1/2005 18:20",
+		"primitiveCountry" : "tpr 5/31/2005 18:59",
+		"primitiveCurrencyNotation" : "tpr 5/31/2005 18:25",
+		"primitiveCurrencySymbol" : "tpr 6/1/2005 13:22",
+		"primitiveDaylightSavings" : "tpr 5/31/2005 18:24",
+		"primitiveDecimalSymbol" : "tpr 6/1/2005 12:23",
+		"primitiveDigitGroupingSymbol" : "tpr 6/1/2005 12:24",
+		"primitiveLanguage" : "tpr 6/1/2005 12:24",
+		"primitiveLongDateFormat" : "tpr 6/1/2005 12:24",
+		"primitiveMeasurementMetric" : "tpr 5/31/2005 18:28",
+		"primitiveShortDateFormat" : "tpr 6/1/2005 12:25",
+		"primitiveTimeFormat" : "tpr 6/1/2005 12:25",
+		"primitiveTimezoneOffset" : "tpr 6/1/2005 19:43",
+		"primitiveVMOffsetToUTC" : "tpr 6/1/2005 19:04" } }

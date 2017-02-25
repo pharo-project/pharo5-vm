@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"hasHeaderFile" : "tpr 5/23/2001 17:10",
+		"requiresPlatformFiles" : "tpr 3/20/2001 12:33" },
+	"instance" : {
+		"initialiseModule" : "JMM (auto pragmas 12/08) 8/15/2001 11:59",
+		"primitiveCanWriteImage" : "tpr (auto pragmas 12/08) 7/24/2003 12:54",
+		"primitiveDisableImageWrite" : "eem 7/10/2009 12:12",
+		"primitiveGetSecureUserDirectory" : "tpr (auto pragmas 12/08) 12/30/2005 15:51",
+		"primitiveGetUntrustedUserDirectory" : "tpr (auto pragmas 12/08) 12/30/2005 15:52",
+		"secCan:ListenOnPort:" : "(auto pragmas 12/08) ",
+		"secCanConnect:ToPort:" : "(auto pragmas 12/08) ",
+		"secCanCreate:SocketOfType:" : "(auto pragmas 12/08) ",
+		"secCanCreatePath:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanDeleteFile:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanDeletePath:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanGetFileType:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanListPath:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanOpenAsyncFile:OfSize:Writable:" : "(auto pragmas 12/08) ",
+		"secCanOpenFile:OfSize:Writable:" : "(auto pragmas 12/08) ",
+		"secCanRenameFile:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanRenameImage" : "eem 10/8/2013 16:45",
+		"secCanSetFileType:OfSize:" : "(auto pragmas 12/08) ",
+		"secCanWriteImage" : "(auto pragmas 12/08) ",
+		"secDisableFileAccess" : "(auto pragmas 12/08) ",
+		"secDisableSocketAccess" : "(auto pragmas 12/08) ",
+		"secHasFileAccess" : "(auto pragmas 12/08) ",
+		"secHasSocketAccess" : "(auto pragmas 12/08) " } }

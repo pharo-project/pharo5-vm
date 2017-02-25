@@ -1,0 +1,19 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"segStart",
+		"segSize",
+		"swizzle",
+		"containsPinned",
+		"savedSegSize",
+		"lastFreeObject" ],
+	"name" : "SpurSegmentInfo",
+	"pools" : [
+		 ],
+	"super" : "VMStructType",
+	"type" : "normal" }

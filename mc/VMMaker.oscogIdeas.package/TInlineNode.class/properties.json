@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"method" ],
+	"name" : "TInlineNode",
+	"pools" : [
+		 ],
+	"super" : "TParseNode",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+accessing
+formatMask
+	^objectMemory formatMask

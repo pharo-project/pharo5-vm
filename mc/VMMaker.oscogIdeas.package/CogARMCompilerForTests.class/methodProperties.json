@@ -1,0 +1,8 @@
+{
+	"class" : {
+		"dataRegistersWithAccessorsDo:" : "tpr 5/31/2014 12:06",
+		"fp64RegistersWithAccessorsDo:" : "lw 7/31/2012 14:43",
+		"registers" : "eem 12/1/2015 15:38",
+		"registersWithNamesDo:" : "lw 7/25/2012 16:38" },
+	"instance" : {
+		"concretizeAt:" : "eem 9/22/2015 11:03" } }

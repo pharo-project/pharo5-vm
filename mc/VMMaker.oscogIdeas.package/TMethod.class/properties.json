@@ -1,0 +1,34 @@
+{
+	"category" : "VMMaker-Translation to C",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CaseStatements" ],
+	"commentStamp" : "dtl 9/15/2008 09:06",
+	"instvars" : [
+		"args",
+		"comment",
+		"complete",
+		"declarations",
+		"definingClass",
+		"export",
+		"extraVariableNumber",
+		"globalStructureBuildMethodHasFoo",
+		"inline",
+		"labels",
+		"locals",
+		"parseTree",
+		"primitive",
+		"properties",
+		"returnType",
+		"selector",
+		"sharedCase",
+		"sharedLabel",
+		"static",
+		"writtenToGlobalVarsCache",
+		"functionAttributes" ],
+	"name" : "TMethod",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

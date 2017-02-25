@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-Interpreter",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 8/14/2015 16:43",
+	"instvars" : [
+		"coInterpreter",
+		"objectMemory",
+		"pages",
+		"mostRecentlyUsedPage",
+		"overflowLimit",
+		"bytesPerPage",
+		"statNumMaps",
+		"statPageCountWhenMappingSum",
+		"statMaxPageCountWhenMapping" ],
+	"name" : "CogStackPages",
+	"pools" : [
+		"VMBasicConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

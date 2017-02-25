@@ -1,0 +1,3 @@
+cog jit support
+callForCogCompiledCodeCompaction
+	cogit methodZone quickClearCogCompiledCode

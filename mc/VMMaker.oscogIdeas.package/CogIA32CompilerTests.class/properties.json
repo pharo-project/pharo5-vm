@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CogIA32CompilerTests",
+	"pools" : [
+		 ],
+	"super" : "AbstractInstructionTests",
+	"type" : "normal" }

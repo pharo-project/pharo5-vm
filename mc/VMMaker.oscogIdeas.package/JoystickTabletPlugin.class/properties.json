@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Plugins",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "tpr 5/2/2003 15:48",
+	"instvars" : [
+		 ],
+	"name" : "JoystickTabletPlugin",
+	"pools" : [
+		 ],
+	"super" : "SmartSyntaxInterpreterPlugin",
+	"type" : "normal" }

@@ -1,0 +1,22 @@
+{
+	"category" : "VMMaker-SpurMemoryManager",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CompactionPassesForGC",
+		"CompactionPassesForSnapshot" ],
+	"commentStamp" : "eem 12/16/2016 16:20",
+	"instvars" : [
+		"manager",
+		"scavenger",
+		"coInterpreter",
+		"firstFreeChunk",
+		"lastFreeChunk",
+		"numCompactionPasses" ],
+	"name" : "SpurPigCompactor",
+	"pools" : [
+		"SpurMemoryManagementConstants",
+		"VMBasicConstants",
+		"VMSpurObjectRepresentationConstants" ],
+	"super" : "CogClass",
+	"type" : "normal" }

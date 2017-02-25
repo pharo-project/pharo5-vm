@@ -1,0 +1,4 @@
+initialization
+simStackNativeEntryClass
+	<doNotGenerate>
+	^CogSimStackNativeEntry
