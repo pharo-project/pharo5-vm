@@ -4,13 +4,13 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "eem 2/25/2017 11:14",
 	"instvars" : [
 		"cogit",
 		"objectRepresentation",
 		"type",
 		"spilled",
-		"annotateUse",
+		"liveRegister",
 		"register",
 		"offset",
 		"constant",

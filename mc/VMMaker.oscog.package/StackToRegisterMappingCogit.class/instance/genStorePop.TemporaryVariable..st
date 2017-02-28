@@ -7,4 +7,5 @@ genStorePop: popBoolean TemporaryVariable: tempIndex
 	self MoveR: reg
 		Mw: (self frameOffsetOfTemporary: tempIndex)
 		r: FPReg.
+	(self simStackAt: tempIndex) bcptr: bytecodePC. "for debugging"
 	^0
