@@ -9,4 +9,4 @@ put: aString paddedTo: compositionWidth tabWidth: tabWidth on: aStream
 		 fittedString := aString contractTo: size].
 	aStream
 		nextPutAll: fittedString;
-		tab: compositionWidth - width + (width \\ tabWidth) // tabWidth
+		tab: compositionWidth - width + (width \\ tabWidth) // tabWidth + 1

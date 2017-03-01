@@ -1,11 +1,11 @@
 bytecode generators
 genVanillaInlinedIdenticalOrNotIf: orNot
-	| nextPC postBranchPC targetBytecodePC branchDescriptor
+	| nextPC postBranchPC targetPC branchDescriptor
 	  rcvrReg argReg argIsConstant rcvrIsConstant  |
 	<var: #branchDescriptor type: #'BytecodeDescriptor *'>
 	
 	self extractMaybeBranchDescriptorInto: [ :descr :next :postBranch :target | 
-		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetBytecodePC := target ].
+		branchDescriptor := descr. nextPC := next. postBranchPC := postBranch. targetPC := target ].
 	
 	argIsConstant := self ssTop type = SSConstant.
 	"They can't be both constants to use correct machine opcodes.
@@ -37,17 +37,22 @@ genVanillaInlinedIdenticalOrNotIf: orNot
 	(self fixupAt: nextPC) notAFixup
 		ifTrue: "The next instruction is dead.  we can skip it."
 			[deadCode := true.
-		 	 self ensureFixupAt: targetBytecodePC.
+		 	 self ensureFixupAt: targetPC.
 			 self ensureFixupAt: postBranchPC]
 		ifFalse:
 			[self deny: deadCode]. "push dummy value below"
 		
-	self genConditionalBranch: (orNot == branchDescriptor isBranchTrue ifTrue: [JumpNonZero] ifFalse: [JumpZero])
-		operand: (self ensureNonMergeFixupAt: targetBytecodePC) asUnsignedInteger.
 
-	"If the branch is dead, then we can just fall through postBranchPC (only a nop in-between), else 
-	we need to jump over the code of the branch"
+	orNot == branchDescriptor isBranchTrue "orNot is true for ~~"
+		ifFalse: "a == b ifTrue: ... or a ~~ b ifFalse: ... jump on equal to target pc"
+			[self JumpZero:  (self ensureNonMergeFixupAt: targetPC).
+			 self Jump: (self ensureNonMergeFixupAt: postBranchPC)]
+		ifTrue: "a == b ifFalse: ... or a ~~ b ifTrue: ... jump on equal to post-branch pc"
+			[self ensureNonMergeFixupAt: targetPC.
+			 self JumpZero: (self ensureNonMergeFixupAt: postBranchPC).
+			 self Jump: (self ensureNonMergeFixupAt: targetPC)].
+
+	"Not reached, execution flow has jumped to fixup"
 	deadCode ifFalse:
-		[self Jump: (self ensureNonMergeFixupAt: postBranchPC).
-		 self ssPushConstant: objectMemory trueObject]. "dummy value"
+		[self ssPushConstant: objectMemory trueObject]. "dummy value"
 	^0
