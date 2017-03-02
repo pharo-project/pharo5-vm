@@ -21,8 +21,7 @@
 		"isExtension",
 		"isInstVarRef",
 		"is1ByteInstVarStore",
-		"hasIRC",
-		"isCallPrimitive" ],
+		"hasIRC" ],
 	"name" : "CogBytecodeDescriptor",
 	"pools" : [
 		 ],
