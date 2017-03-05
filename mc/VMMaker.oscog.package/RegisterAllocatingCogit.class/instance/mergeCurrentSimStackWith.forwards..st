@@ -23,6 +23,8 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 	self resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack.
 	(self asserta: (self conflictsResolvedBetweenSimStackAnd: mergeSimStack)) ifFalse:
 		[Notification new tag: #failedMerge; signal].
+	"Compute written to registers.  Perhaps we should use 0 in place of methodOrBlockNumArgs
+	 but Smalltalk does not assign to arguments."
 	writtenToRegisters := 0.
 	(self pushForMergeWith: mergeSimStack)
 		ifTrue:
@@ -33,7 +35,10 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 				 writtenToRegisters := writtenToRegisters bitOr: targetEntry registerMask.
 				 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
 					[self assert: i >= methodOrBlockNumArgs.
-					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack].
+					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack.
+					 targetEntry
+						type: SSRegister;
+						register: targetEntry liveRegister].
 				 "Note, we could update the simStack and spillBase here but that is done in restoreSimStackAtMergePoint:
 				 spilled ifFalse:
 					[simSpillBase := i - 1].
@@ -50,7 +55,10 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 				 writtenToRegisters := writtenToRegisters bitOr: targetEntry registerMask.
 				 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
 					[self assert: i >= methodOrBlockNumArgs.
-					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack].
+					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack.
+					 targetEntry
+						type: SSRegister;
+						register: targetEntry liveRegister].
 				 "Note, we could update the simStack and spillBase here but that is done in restoreSimStackAtMergePoint:
 				 spilled ifFalse:
 					[simSpillBase := i - 1].
@@ -59,7 +67,8 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 					put: (self
 							cCode: [mergeSimStack at: i]
 							inSmalltalk: [(mergeSimStack at: i) copy])"]].
-	methodOrBlockNumArgs - 1 to: 0 by: -1 do:
+	"Note that since we've deassigned any conflicts beyond the temps above we need only compare the temps here."
+	methodOrBlockNumTemps - 1 to: 0 by: -1 do:
 		[:i|
 		 targetEntry := self simStack: mergeSimStack at: i.
 		 (targetEntry registerMask noMask: writtenToRegisters) ifTrue:

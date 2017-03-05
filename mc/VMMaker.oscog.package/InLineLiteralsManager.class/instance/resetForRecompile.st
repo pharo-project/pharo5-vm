@@ -1,2 +1,2 @@
 compile abstract instructions
-resetForBlockCompile
+resetForRecompile

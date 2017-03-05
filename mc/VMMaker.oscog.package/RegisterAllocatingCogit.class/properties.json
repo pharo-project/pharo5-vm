@@ -13,7 +13,8 @@
 		"scratchSpillBase",
 		"scratchOptStatus",
 		"ceSendMustBeBooleanAddTrueLongTrampoline",
-		"ceSendMustBeBooleanAddFalseLongTrampoline" ],
+		"ceSendMustBeBooleanAddFalseLongTrampoline",
+		"recompileForLoopRegisterAssignments" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

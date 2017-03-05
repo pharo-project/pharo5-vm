@@ -12,12 +12,12 @@ compileBlockBodies
 	inBlock := InVanillaBlock.
 	compiledBlocksCount := 0.
 	[compiledBlocksCount < blockCount] whileTrue:
-		[blockPass := 1.
+		[compilationPass := 1.
 		 blockStart := self blockStartAt: compiledBlocksCount.
 		 (result := self scanBlock: blockStart) < 0 ifTrue: [^result].
 		 initialOpcodeIndex := opcodeIndex.
 		 initialCounterIndex := self maybeCounterIndex."for SistaCogit"
-		 literalsManager saveForBlockCompile.
+		 literalsManager saveForRecompile.
 		 NewspeakVM ifTrue:
 			[initialIndexOfIRC := indexOfIRC].
 		 [self compileBlockEntry: blockStart.
@@ -33,7 +33,7 @@ compileBlockBodies
 		  initialStackPtr = simStackPtr]
 			whileFalse:
 				[self assert: (initialStackPtr > simStackPtr or: [deadCode]).
-				 blockPass := blockPass + 1. "for asserts :-("
+				 compilationPass := compilationPass + 1. "for asserts"
 				 blockStart numInitialNils: blockStart numInitialNils + simStackPtr - initialStackPtr.
 				 blockStart fakeHeader dependent: nil.
 				 self reinitializeFixupsFrom: blockStart startpc + blockStart numInitialNils
@@ -44,7 +44,7 @@ compileBlockBodies
 									[:i| abstractOpcodes at: i put: (CogCompilerClass for: self)]].
 				 opcodeIndex := initialOpcodeIndex.
 				 self maybeSetCounterIndex: initialCounterIndex. "For SistaCogit"
-				 literalsManager resetForBlockCompile.
+				 literalsManager resetForRecompile.
 				 NewspeakVM ifTrue:
 					[indexOfIRC := initialIndexOfIRC]].
 		compiledBlocksCount := compiledBlocksCount + 1].

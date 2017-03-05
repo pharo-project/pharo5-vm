@@ -7,4 +7,6 @@ recordBcpc: theBytecodePC
 			ifFalse:
 				[bcpc := bcpc isInteger
 							ifTrue: [{bcpc. theBytecodePC}]
-							ifFalse: [bcpc, {theBytecodePC}]]]
+							ifFalse:
+								[(bcpc includes: theBytecodePC) ifTrue: [^self].
+								 bcpc, {theBytecodePC}]]]

@@ -1,24 +1,11 @@
 analysis
-identifySignedComparisons
-	"self identifySignedComparisons"
-	| vmm cg noise |
-	noise := #('(manager bytesInObject: largestFreeChunk) >= spaceEstimate'
-				'(self classIndexOf: o*) > self isForwardedObjectClassIndexPun'
-				'GCModeFull > 0'
-				'ReceiverIndex + (objectMemory integerValueOf: sp*) < (objectMemory lengthOf: o*)'
-				'availableSpace > 0'
-				'bytes + 2 * 8 > availableSpace'
-				'fmt* < manager firstCompiledMethodFormat'
-				'fmt* < self firstCompiledMethodFormat'
-				'fmt* <= 5'
-				'gcPhaseInProgress > 0'
-				'i <= finishIndex'
-				'i >= 0'
-				'numPointerSlots > 0'
-				'scavenger rememberedSetSize > 0').
+identifySignedComparisonsFor: options noise: noise
+	"self identify32BitSignedComparisons"
+	"self identify64BitSignedComparisons"
+	| vmm cg |
 	vmm := (VMMaker forPlatform: 'Cross')
 				interpreterClass: StackInterpreter;
-				options: #(ObjectMemory Spur32BitMemoryManager).
+				options: options.
 	cg := [vmm buildCodeGeneratorForInterpreter]
 			on: Notification
 			do: [:ex|

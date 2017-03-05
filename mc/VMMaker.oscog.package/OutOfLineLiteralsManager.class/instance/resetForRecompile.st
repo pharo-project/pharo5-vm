@@ -1,5 +1,6 @@
 initialization
-resetForBlockCompile
+resetForRecompile
+	<inline: true>
 	firstOpcodeIndex := savedFirstOpcodeIndex.
 	nextLiteralIndex := savedNextLiteralIndex.
 	lastDumpedLiteralIndex := savedLastDumpedLiteralIndex

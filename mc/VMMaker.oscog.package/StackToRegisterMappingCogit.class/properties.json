@@ -6,7 +6,7 @@
 	"classvars" : [
 		"NeedsMergeFixupFlag",
 		"NeedsNonMergeFixupFlag" ],
-	"commentStamp" : "eem 2/9/2017 10:07",
+	"commentStamp" : "eem 3/3/2017 10:29",
 	"instvars" : [
 		"prevBCDescriptor",
 		"numPushNilsFunction",
@@ -38,7 +38,7 @@
 		"simNativeSpillBase",
 		"simNativeStackSize",
 		"hasNativeFrame",
-		"blockPass" ],
+		"compilationPass" ],
 	"name" : "StackToRegisterMappingCogit",
 	"pools" : [
 		"CogCompilationConstants",

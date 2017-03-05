@@ -40,12 +40,15 @@ mergeWithFixupIfRequired: fixup
 	self traceMerge: fixup.
 	deadCode 
 		ifTrue: [simStackPtr := fixup simStackPtr] "case 3"
-		ifFalse: [self mergeCurrentSimStackWith: fixup forwards: true]. "case 4"
+		ifFalse: [(fixup isBackwardBranchFixup and: [compilationPass > 1]) ifTrue:
+					[fixup simStackPtr: simStackPtr].
+				self mergeCurrentSimStackWith: fixup forwards: true]. "case 4"
 	"cases 3 and 4"
 	deadCode := false.
 	fixup isBackwardBranchFixup ifTrue:
-		[self assert: fixup mergeSimStack isNil.
-		 self setMergeSimStackOf: fixup].
+		[self assert: fixup mergeSimStack isNil == (compilationPass = 1).
+		 fixup mergeSimStack ifNil:
+			[self setMergeSimStackOf: fixup]].
 	fixup targetInstruction: self Label.
 	self assert: simStackPtr = fixup simStackPtr.
 	self cCode: '' inSmalltalk:

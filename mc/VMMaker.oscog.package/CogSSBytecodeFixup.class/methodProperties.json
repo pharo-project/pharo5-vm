@@ -1,5 +1,6 @@
 {
 	"class" : {
+		"filteredInstVarNames" : "eem 3/2/2017 11:56",
 		"initialize" : "cb 4/15/2016 17:36" },
 	"instance" : {
 		"asIntegerPtr" : "nice 7/8/2016 02:33",
@@ -16,7 +17,7 @@
 		"needsFixupOrIsFixedUp" : "cb 4/15/2016 17:48",
 		"notYetFixedUp" : "cb 4/15/2016 17:42",
 		"printStateOn:" : "eem 12/2/2016 11:48",
-		"reinitialize" : "eem 09/27/2016 11:20",
+		"reinitialize" : "eem 3/4/2017 10:11",
 		"setIsBackwardBranchFixup" : "eem 09/27/2016 11:20",
 		"simNativeStackPtr" : "RonieSalgado 4/29/2016 16:36",
 		"simNativeStackPtr:" : "RonieSalgado 4/29/2016 16:36",
