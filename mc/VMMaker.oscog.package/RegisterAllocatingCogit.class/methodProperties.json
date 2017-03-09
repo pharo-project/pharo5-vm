@@ -62,7 +62,7 @@
 		"reconcileRegisterStateForJoinAfterSpecialSelectorSend" : "eem 12/2/2016 15:04",
 		"registerMaskUndesirableForTempVars" : "eem 11/28/2016 09:45",
 		"reinitializeAllButBackwardFixupsFrom:through:" : "eem 3/4/2017 18:31",
-		"reinitializeOpcodesFrom:to:" : "eem 3/4/2017 12:29",
+		"reinitializeOpcodesFrom:to:" : "eem 3/8/2017 15:41",
 		"resetSimStack:" : "eem 3/4/2017 14:28",
 		"resolveRegisterOrderConflictsBetweenCurrentSimStackAnd:" : "eem 3/4/2017 13:00",
 		"restoreSimStackAtMergePoint:" : "eem 12/2/2016 14:53",

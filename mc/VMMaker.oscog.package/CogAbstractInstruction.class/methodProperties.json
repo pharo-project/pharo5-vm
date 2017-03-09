@@ -155,7 +155,7 @@
 		"operands:" : "eem 2/15/2009 16:15",
 		"outputMachineCodeAt:" : "eem 4/21/2015 23:14",
 		"printStateOn:" : "eem 12/26/2015 02:24",
-		"reinitialize" : "eem 3/4/2017 12:30",
+		"reinitializeOpcode" : "eem 3/8/2017 15:45",
 		"relocateCallBeforeReturnPC:by:" : "eem 3/9/2009 09:43",
 		"relocateJumpLongBeforeFollowingAddress:by:" : "eem 4/19/2015 18:10",
 		"relocateJumpLongConditionalBeforeFollowingAddress:by:" : "eem 12/5/2015 16:24",
