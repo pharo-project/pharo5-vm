@@ -23,12 +23,12 @@ init:
   - git config --system core.longpaths true
   - echo "Windows Original Path:"
   - echo %PATH%
-  - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%;%CYG_ROOT%\bin
+  - set PATH=%CYG_ROOT%\bin;%PATH%
 install:
   - git submodule update --init --recursive
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86_64.exe" -FileName "setup-x86_64.exe"'
-  - '%CYG_SETUP% -qnNdO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_ROOT%\var\cache\setup" -P mingw64-%MINGW_ARCH%-gcc-core-5.4.0-3,mingw64-%MINGW_ARCH%-gcc-g++-5.4.0-3,mingw64-%MINGW_ARCH%-headers,mingw64-%MINGW_ARCH%-runtime,zip,mingw64-%MINGW_ARCH%-clang'
+  - '%CYG_SETUP% -dgnqNO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_ROOT%\var\cache\setup" -P mingw64-%MINGW_ARCH%-gcc-core,mingw64-%MINGW_ARCH%-gcc-g++,mingw64-%MINGW_ARCH%-headers,mingw64-%MINGW_ARCH%-runtime,zip,mingw64-%MINGW_ARCH%-clang,findutils'
 build_script:
   - bash -e -c "cd scripts; ./build-sources.sh -a i386"
   - bash -e -c "cd opensmalltalk-vm; export THIRDPARTYCACHEDIR=../../../.thirdparty-cache; ./.travis_build.sh"
@@ -41,3 +41,6 @@ before_deploy:
 deploy_script:
   - bash -e -c "./scripts/deploy-bintray-appveyor.sh"
   - bash -e -c "./scripts/deploy-files.pharo.org-appveyor.sh"
+
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

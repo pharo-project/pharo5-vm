@@ -12,7 +12,7 @@ IMAGE_DIR=`pwd -P`
 # This hack is made to make sure the image can be executed (otherwise image knows is windows
 # and threats PATH as win style... and well, it does not finds anything)
 OS="`uname -s | cut -b 1-6`"
-if [ $OS == "CYGWIN" ]; then
+if [ $OS == "CYGWIN" -o $OS == "MSYS_N" ]; then
 	IMAGE_DIR="."
 fi
 
