@@ -12,12 +12,10 @@ if [ "$ARCH" = "linux32ARMv6" ]; then
 	exit
 fi
 
-if [ "$HEARTBEAT" = "threaded" ]; then
+#if [ "$HEARTBEAT" = "threaded" ]; then
 #	echo "Skipping tests for threaded (It requires a special linux configuration)."
 #	exit
-	ulimit -r 2
-	EXEC_PREFIX="exec setuidgid $TRAVIS_USER"
-fi
+#fi
 
 # UNZIP packed VM
 VM_ARCHIVE=`ls pharo-*.zip`
@@ -65,4 +63,4 @@ NO_TEST="$NO_TEST(?!Athens)"		# no cairo, no athens
 NO_TEST="$NO_TEST(?!OSWindow)"		# no cairo, no oswindow
 NO_TEST="$NO_TEST(?!TxText)"		# no cairo, no TxText
 NO_TEST="$NO_TEST(?!ReleaseTests)"	# just not now :)
-"$EXEC_PREFIX $PHARO_TEST_VM" $HEADLESS $TEST_IMAGE_DIR/Pharo.image test --no-xterm --fail-on-failure "$NO_TEST[A-Z].*"
+"$PHARO_TEST_VM" $HEADLESS $TEST_IMAGE_DIR/Pharo.image test --no-xterm --fail-on-failure "$NO_TEST[A-Z].*"
