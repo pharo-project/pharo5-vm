@@ -12,10 +12,10 @@ if [ "$ARCH" = "linux32ARMv6" ]; then
 	exit
 fi
 
-#if [ "$HEARTBEAT" = "threaded" ]; then
-#	echo "Skipping tests for threaded (It requires a special linux configuration)."
-#	exit
-#fi
+if [ "$HEARTBEAT" = "threaded" ]; then
+	echo "Skipping tests for threaded (It requires a special linux configuration)."
+	exit
+fi
 
 # UNZIP packed VM
 VM_ARCHIVE=`ls pharo-*.zip`
