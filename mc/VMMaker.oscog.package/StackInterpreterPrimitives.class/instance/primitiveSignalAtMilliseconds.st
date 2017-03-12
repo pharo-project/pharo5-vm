@@ -5,6 +5,7 @@ primitiveSignalAtMilliseconds
 	 the given tick value. A tick value of zero turns off timer interrupts."
 	| msecsObj msecs deltaMsecs sema |
 	<var: #msecs type: #usqInt>
+	<var: #deltaMsecs type: #usqLong>
 	msecsObj := self stackTop.
 	sema := self stackValue: 1.
 	msecs := self positive32BitValueOf: msecsObj.
