@@ -4,9 +4,10 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 	 For debugging answer a Dictionary from var to the nodes that determined types
 	 This for debugging:
 		(self copy inferTypesForImplicitlyTypedVariablesIn: aCodeGen)"
-	| alreadyExplicitlyTypedOrNotToBeTyped effectiveNodes |
+	| alreadyExplicitlyTypedOrNotToBeTyped asYetUntyped effectiveNodes |
 	aCodeGen maybeBreakForTestToInline: selector in: self.
 	alreadyExplicitlyTypedOrNotToBeTyped := declarations keys asSet.
+	asYetUntyped := locals copyWithoutAll: alreadyExplicitlyTypedOrNotToBeTyped.
 	effectiveNodes := Dictionary new. "this for debugging"
 	parseTree nodesDo:
 		[:node| | type var |
@@ -31,8 +32,11 @@ inferTypesForImplicitlyTypedVariablesIn: aCodeGen
 						ifFalse: [self typeFor: node expression in: aCodeGen].
 			 type "If untyped, then cannot type the variable yet. A subsequent assignment may assign a subtype of what this type ends up being"
 				ifNil: [alreadyExplicitlyTypedOrNotToBeTyped add: var] 
-				ifNotNil: "Merge simple types; complex types must be defined by the programmer."
+				ifNotNil: "Merge simple types (but *don't* merge untyped vars); complex types must be defined by the programmer."
 					[(aCodeGen isSimpleType: type) ifTrue:
-						[aCodeGen mergeTypeOf: var in: declarations with: type method: self.
+						[(asYetUntyped includes: var)
+							ifTrue: [declarations at: var put: type, ' ', var. asYetUntyped remove: var]
+							ifFalse:
+								[aCodeGen mergeTypeOf: var in: declarations with: type method: self].
 						 effectiveNodes at: var put: { declarations at: var. node }, (effectiveNodes at: var ifAbsent: [#()])]]]].
 	^effectiveNodes

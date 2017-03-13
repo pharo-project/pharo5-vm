@@ -29,6 +29,9 @@ addTypesFor: node to: typeSet in: aCodeGen
 										ifTrue: [#void]
 										ifFalse: [#sqInt])]].
 	expr isConstant ifTrue:
-		[(expr typeOrNilFrom: aCodeGen in: self) ifNotNil:
-			[:type | typeSet add: type]]..
+		[(expr value isInteger and: [expr value >= 0]) "cannot determine if signed or unsigned yet..."
+			ifTrue: [typeSet add: expr value]
+			ifFalse:
+				[(expr typeOrNilFrom: aCodeGen in: self) ifNotNil:
+					[:type | typeSet add: type]]].
 	^false

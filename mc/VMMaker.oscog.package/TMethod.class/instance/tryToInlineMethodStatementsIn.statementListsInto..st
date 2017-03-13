@@ -6,13 +6,26 @@ tryToInlineMethodStatementsIn: aCodeGen statementListsInto: aBlock
 	| stmtLists didSomething newStatements returningNodes |
 	didSomething := false.
 	returningNodes := Set new.
+	stmtLists := self statementsListsForInliningIn: aCodeGen.
+	"stmtLists may include expressions that are used for value but the exitVar is distant because its in an ifTrue:ifTrue:,
+	 e.g. in
+			context := ignoreContext
+							ifTrue: [objectMemory nilObject ]
+							ifFalse: [self ensureFrameIsMarried: localFP SP: localSP + (numCopiedArg * objectMemory bytesPerOop)].
+	ensureFrameIsMarried:SP: *does* have an exitVar, context, but it is the exitVar for the ifTrue:ifFalse:.  So
+	inlineCodeOrNilForStatement:returningNodes:in: should not consider inlining these in its last phrase where exitVar is nil."
 	parseTree nodesDo:
 		[:node|
 		node isReturn ifTrue:
 			[returningNodes add: node expression.
 			 node expression isConditionalSend ifTrue:
-				[returningNodes addAll: (node expression args collect: [:stmtList| stmtList statements last])]]].
-	stmtLists := self statementsListsForInliningIn: aCodeGen.
+				[returningNodes addAll: (node expression args collect: [:stmtList| stmtList statements last])]].
+		node isAssignment ifTrue:
+			[node expression nodesDo:
+				[:assignmentSubNode|
+				(stmtLists includes: assignmentSubNode) ifTrue:
+					[stmtLists remove: assignmentSubNode]]]].
+	
 	stmtLists do:
 		[:stmtList|
 		newStatements := OrderedCollection new: stmtList statements size.
