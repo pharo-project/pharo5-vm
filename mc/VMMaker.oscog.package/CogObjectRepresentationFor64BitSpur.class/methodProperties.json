@@ -11,6 +11,7 @@
 		"branch2CasesIf:notInstanceOfBehaviors:target:" : "cb 4/16/2015 12:19",
 		"branchIf:hasImmediateTag:target:" : "eem 1/20/2017 17:24",
 		"branchIf:hasNotImmediateTag:target:" : "eem 1/20/2017 17:24",
+		"classForInlineCacheTag:" : "eem 3/14/2017 12:05",
 		"fetchImmediateTagOtherThanTag1:tag2:" : "cb 4/16/2015 12:00",
 		"genAddSmallIntegerTagsTo:" : "eem 12/4/2015 10:36",
 		"genAllocFloatValue:into:scratchReg:scratchReg:" : "eem 12/9/2015 17:54",
