@@ -12,7 +12,6 @@
 		"floatregargsp",
 		"savedCStackPointer",
 		"savedCFramePointer",
-		"savedPrimFunctionPointer",
 		"rvs",
 		"trampoline",
 		"savedReenterInterpreter" ],

@@ -1,6 +1,6 @@
 {
 	"class" : {
-		"instVarNamesAndTypesForTranslationDo:" : "eem 3/13/2017 08:28",
+		"instVarNamesAndTypesForTranslationDo:" : "nice 7/13/2016 18:44",
 		"needsTypeTag" : "eem 12/25/2010 22:49",
 		"printTypedefOn:" : "eem 12/25/2010 22:32" },
 	"instance" : {
@@ -14,8 +14,6 @@
 		"savedCFramePointer:" : "eem 10/12/2010 18:45",
 		"savedCStackPointer" : "eem 10/12/2010 18:45",
 		"savedCStackPointer:" : "eem 10/12/2010 18:45",
-		"savedPrimFunctionPointer" : "eem 3/13/2017 08:27",
-		"savedPrimFunctionPointer:" : "eem 3/13/2017 08:27",
 		"savedReenterInterpreter" : "eem 11/5/2010 16:56",
 		"savedReenterInterpreter:" : "eem 11/5/2010 16:56",
 		"stackp" : "eem 10/12/2010 18:45",

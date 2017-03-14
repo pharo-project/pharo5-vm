@@ -1,7 +1,7 @@
 {
 	"class" : {
 		"ancilliaryClasses:" : "eem 8/21/2013 12:26",
-		"declareCVarsIn:" : "eem 3/11/2017 14:27",
+		"declareCVarsIn:" : "eem 12/25/2010 22:56",
 		"hasHeaderFile" : "John M McIntosh 11/21/2008 13:14",
 		"moduleName" : "eem 10/31/2007 18:05",
 		"shouldGenerateTypedefFor:" : "eem 10/14/2010 09:45",
@@ -28,7 +28,7 @@
 		"primInLibraryFindSymbol" : "eem 12/12/2014 15:38",
 		"primLoadLibrary" : "eem 12/12/2014 15:39",
 		"primMalloc" : "eem 12/12/2014 12:39",
-		"primReturnAsFromContextThrough" : "eem 3/11/2017 14:38",
+		"primReturnAsFromContextThrough" : "eem 4/9/2013 18:17",
 		"primReturnFromContextThrough" : "eem 6/29/2016 17:29",
 		"primSignedByteAt" : "eem 7/13/2011 10:48",
 		"primSignedByteAtPut" : "eem 12/11/2012 16:20",

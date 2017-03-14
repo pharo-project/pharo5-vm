@@ -17,11 +17,7 @@ primReturnAsFromContextThrough
 	<var: #vmCallbackContext type: #'VMCallbackContext *'>
 	interpreterProxy methodArgumentCount = 3
 		ifTrue:
-			[self assert: (interpreterProxy isNonImmediate: (interpreterProxy stackValue: 3)).
-			 self assert: (interpreterProxy fetchClassOf: (interpreterProxy stackValue: 2)) = interpreterProxy classSemaphore.
-			 self assert: (interpreterProxy isIntegerObject: (interpreterProxy stackValue: 1)).
-			 self assert: (interpreterProxy isNonImmediate: (interpreterProxy stackValue: 0)).
-			 vmCallbackContext := self cCoerceSimple: (self startOfData: (interpreterProxy stackValue: 3))
+			[vmCallbackContext := self cCoerceSimple: (self startOfData: (interpreterProxy stackValue: 3))
 										to: #'VMCallbackContext *'.
 			 isMostRecent := vmCallbackContext = self getMostRecentCallbackContext.
 			 isMostRecent ifFalse:
@@ -30,11 +26,7 @@ primReturnAsFromContextThrough
 				[^interpreterProxy primitiveFailFor: PrimErrBadArgument].
 			[interpreterProxy signalNoResume: (interpreterProxy stackValue: 2)] whileFalse]
 		ifFalse:
-			[self assert: interpreterProxy methodArgumentCount = 2.
-			 self assert: (interpreterProxy isNonImmediate: (interpreterProxy stackValue: 2)).
-			 self assert: (interpreterProxy isIntegerObject: (interpreterProxy stackValue: 1)).
-			 self assert: (interpreterProxy isNonImmediate: (interpreterProxy stackValue: 0)).
-			 vmCallbackContext := self cCoerceSimple: (self startOfData: (interpreterProxy stackValue: 2))
+			[vmCallbackContext := self cCoerceSimple: (self startOfData: (interpreterProxy stackValue: 2))
 										to: #'VMCallbackContext *'].
 	(interpreterProxy
 		returnAs: (interpreterProxy stackValue: 1)
