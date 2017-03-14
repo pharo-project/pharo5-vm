@@ -6,9 +6,9 @@ pushFullClosureNumArgs: numArgs copiedValues: numCopiedArg compiledBlock: compil
 	<inline: true>
 	| numCopied newClosure context startIndex |
 	"No need to record the pushed copied values in the outerContext."
-	context := ignoreContext
-		ifTrue: [objectMemory nilObject ]
-		ifFalse: [self ensureFrameIsMarried: localFP SP: localSP + (numCopiedArg * objectMemory bytesPerOop)].
+	ignoreContext
+		ifTrue: [context := objectMemory nilObject ]
+		ifFalse: [context := self ensureFrameIsMarried: localFP SP: localSP + (numCopiedArg * objectMemory bytesPerOop)].
 	newClosure := self
 					fullClosureIn: context 
 					numArgs: numArgs 

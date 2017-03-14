@@ -4,9 +4,6 @@ primitiveDirectoryEntry
 	name := self stringOf: self stackTop.
 	pathName := self stringOf: (self stackValue: 1).
 	
-	"temporary work-around to make it work in Pharo..."
-	self cppIf: PharoVM ifTrue: [ pathName := Smalltalk imagePath ].
-	
 	self successful ifFalse:
 		[^self primitiveFail].
 
@@ -25,7 +22,7 @@ primitiveDirectoryEntry
 			[self makeDirEntryName: (arrayNilOrSymbol at: 1) size: (arrayNilOrSymbol at: 1) size
 				createDate: (arrayNilOrSymbol at: 2) modDate: (arrayNilOrSymbol at: 3)
 				isDir: (arrayNilOrSymbol at: 4) fileSize: (arrayNilOrSymbol at: 5)
-				posixPermissions: (arrayNilOrSymbol at: 6) isSymlink: (arrayNilOrSymbol at: 7) ]
+				posixPermissions: (arrayNilOrSymbol at: 6 ifAbsent: [8r644]) isSymlink: (arrayNilOrSymbol at: 7 ifAbsent: [false]) ]
 		ifFalse:
 			[self makeDirEntryName: (arrayNilOrSymbol at: 1) size: (arrayNilOrSymbol at: 1) size
 				createDate: (arrayNilOrSymbol at: 2) modDate: (arrayNilOrSymbol at: 3)
