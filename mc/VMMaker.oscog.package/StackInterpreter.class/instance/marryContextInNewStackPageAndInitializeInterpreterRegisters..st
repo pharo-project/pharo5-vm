@@ -9,7 +9,6 @@ marryContextInNewStackPageAndInitializeInterpreterRegisters: aContext
 	self assert: stackPage = 0.
 	newPage := self makeBaseFrameFor: aContext.
 	self setStackPageAndLimit: newPage.
-	framePointer := stackPage headFP.
-	stackPointer := stackPage headSP.
+	self setStackPointersFromPage: newPage.
 	self setMethod: (self iframeMethod: stackPage headFP).
 	instructionPointer := self popStack

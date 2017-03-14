@@ -6,6 +6,8 @@ generateMapAt: addressOrNull start: startAddress
 	 unless it is an IsAnnotationExtension byte, in which case those bits are the extension.
 	 In the most signficant bits are the type of annotation at the point reached.  A null
 	 byte ends the map."
+	<var: 'addressOrNull' type: #usqInt>
+	<var: 'startAddress' type: #usqInt>
 	| length location |
 	<var: #instruction type: #'AbstractInstruction *'>
 	length := 0.

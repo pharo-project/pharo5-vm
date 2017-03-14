@@ -44,11 +44,11 @@ reestablishContextPriorToCallback: callbackContext
 			  there is no instructionPointer on the top frame of the current page."
 			 self assert: thePage ~= stackPage.
 			 stackPointer := (self findSPOf: theFP on: thePage) - objectMemory wordSize.
-			 framePointer := theFP]
+			 framePointer := theFP.
+			 self assert: stackPointer < framePointer]
 		ifFalse:
 			[thePage := self makeBaseFrameFor: calloutContext.
-			 framePointer := thePage headFP.
-			 stackPointer := thePage headSP].
+			 self setStackPointersFromPage: thePage].
 	instructionPointer := self popStack.
 	self setStackPageAndLimit: thePage.
 	^true

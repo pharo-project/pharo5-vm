@@ -24,8 +24,7 @@ tearDownAndRebuildFrameForCannotReturnBaseFrameReturnFrom: contextToReturnFrom t
 	newPage := self makeBaseFrameFor: contextToReturnFrom.
 	self assert: stackPage = newPage.
 	self setStackPageAndLimit: newPage.
-	framePointer := stackPage headFP.
-	stackPointer := stackPage headSP.
+	self setStackPointersFromPage: newPage.
 	self assert: self stackTop = cogit ceCannotResumePC.
 	"overwrite the ceSendCannotResumePC on the stack.  If ever re-executed
 	 the returnValue will be taken from top-of-stack by ceCannotResume."

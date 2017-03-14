@@ -1,4 +1,4 @@
-as yet unclassified
+internal interpreter access
 internalPopStackNativeSize: popSize
 	<option: #LowcodeVM>
 	"In the StackInterpreter stacks grow down."

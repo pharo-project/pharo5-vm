@@ -27,8 +27,7 @@ primitiveVoidVMStateForMethod
 			 thePage := stackPages stackPageFor: theFrame.
 			 self assert: thePage headFP = theFrame.
 			 self setStackPageAndLimit: thePage.
-			 stackPointer := thePage headSP.
-			 framePointer := thePage headFP.
+			 self setStackPointersFromPage: thePage.
 			 instructionPointer := self popStack.
 			 self assert: methodObj = self stackTop]
 		ifFalse:

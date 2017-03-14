@@ -26,8 +26,7 @@ externalInstVar: index ofContext: maybeMarriedContext put: anOop
 				[self ensureContextIsExecutionSafeAfterAssignToStackPointer: maybeMarriedContext]].
 	onCurrentPage
 		ifTrue:
-			[framePointer := stackPage headFP.
-			 stackPointer := stackPage headSP]
+			[self setStackPointersFromPage: stackPage]
 		ifFalse:
 			[stackPages markStackPageMostRecentlyUsed: stackPage].
 	stackPages assert: stackPage = stackPages mostRecentlyUsedPage.

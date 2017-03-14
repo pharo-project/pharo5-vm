@@ -75,7 +75,7 @@
 		"log2BytesPerWord" : "eem 5/31/2014 17:43",
 		"markAndTraceCacheTagLiteral:in:atpc:" : "eem 11/21/2015 11:39",
 		"maybeGenConvertIfSmallFloatIn:scratchReg:into:andJumpTo:" : "eem 3/10/2016 10:30",
-		"maybeGenerateSelectorIndexDereferenceRoutine" : "eem 04/16/2016 15:12",
+		"maybeGenerateSelectorIndexDereferenceRoutine" : "eem 3/10/2017 17:17",
 		"numCountersFor:" : "eem 7/5/2014 17:54",
 		"numSmallIntegerBits" : "eem 9/27/2015 10:36",
 		"numSmallIntegerTagBits" : "eem 10/22/2015 16:59:03",

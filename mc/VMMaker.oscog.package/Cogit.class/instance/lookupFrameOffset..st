@@ -1,5 +1,6 @@
 disassembly
 lookupFrameOffset: anInteger
+	<doNotGenerate>
 	(self class initializationOptions at: #tempNames ifAbsent: nil) ifNotNil:
 		[:dict|
 		 (self class initializationOptions at: #startpc ifAbsent: nil) ifNotNil:

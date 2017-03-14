@@ -33,8 +33,7 @@ externalSetStackPageAndPointersForSuspendedContextOfProcess: aProcess
 			[thePage := self makeBaseFrameFor: newContext.
 			 theFrame := thePage baseFP].
 	self setStackPageAndLimit: thePage.
-	stackPointer := thePage headSP.
-	framePointer := thePage headFP.
+	self setStackPointersFromPage: thePage.
 	(self isMachineCodeFrame: framePointer) ifFalse:
 		[self setMethod: (self iframeMethod: framePointer)].
 	instructionPointer := self popStack.

@@ -37,8 +37,7 @@ handleStackOverflow
 	newPage := stackPages newStackPage.
 	self moveFramesIn: stackPage through: theFP toPage: newPage.
 	self setStackPageAndLimit: newPage.
-	framePointer := stackPage headFP.
-	stackPointer := stackPage headSP.
+	self setStackPointersFromPage: newPage.
 	self isCog
 		ifFalse: "To overflow the stack this must be a new frame, but in Cog base frames are married."
 			[self assert: (self frameHasContext: framePointer) not.

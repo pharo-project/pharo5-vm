@@ -32,8 +32,7 @@ ceCounterTripped: condition
 		 classObj := objectMemory classForClassTag: classTag.
 		 (self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
 			[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
-			 ^condition].
-		 self addNewMethodToCache: classObj].
+			 ^condition]].
 
 	(primitiveFunctionPointer ~= 0
 	or: [(self argumentCountOf: newMethod) ~= 1]) ifTrue:

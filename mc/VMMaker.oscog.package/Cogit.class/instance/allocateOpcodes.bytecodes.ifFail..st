@@ -16,7 +16,11 @@ allocateOpcodes: numberOfAbstractOpcodes bytecodes: numberOfBytecodes ifFail: fa
 	opcodeBytes := (self sizeof: CogAbstractInstruction) * numAbstractOpcodes.
 	fixupBytes := (self sizeof: CogBytecodeFixup) * numAbstractOpcodes.
 	allocBytes := opcodeBytes + fixupBytes.
-	allocBytes > MaxStackAllocSize ifTrue: [^failBlock value].
+	"Document the fact that the MaxStackAllocSize ensures that the number of abstract
+	 opcodes fits in a 16 bit integer (e.g. CogBytecodeFixup's instructionIndex)."
+	self assert: (self sizeof: CogAbstractInstruction) + (self sizeof: CogBytecodeFixup) * 32768 > MaxStackAllocSize.
+	allocBytes > MaxStackAllocSize ifTrue:
+		[^failBlock value].
 	self
 		cCode:
 			[abstractOpcodes := self alloca: allocBytes.

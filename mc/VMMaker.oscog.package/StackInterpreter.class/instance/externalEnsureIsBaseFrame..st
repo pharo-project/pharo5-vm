@@ -20,8 +20,7 @@ externalEnsureIsBaseFrame: aFramePtr
 	onCurrent
 		ifTrue:
 			[self assert: stackPage ~~ thePage. "stackPage has moved to a new page"
-			 framePointer := stackPage headFP.
-			 stackPointer := stackPage headSP]
+			 self setStackPointersFromPage: stackPage]
 		ifFalse:
 			[stackPages markStackPageMostRecentlyUsed: stackPage].
 	self assert: stackPages pageListIsWellFormed.

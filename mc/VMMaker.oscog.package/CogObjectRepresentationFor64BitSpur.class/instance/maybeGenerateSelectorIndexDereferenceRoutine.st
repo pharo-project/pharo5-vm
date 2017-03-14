@@ -19,7 +19,7 @@ maybeGenerateSelectorIndexDereferenceRoutine
 		TstCq: MFMethodFlagIsBlockFlag R: Extra0Reg.
 	jumpNotBlock := cogit JumpZero: 0.
 	"If in a block, need to find the home method...  If using full blocks, need to test the cpicHasMNUCaseOrCMIsFullBlock bit"
-	cogit AndCq: methodZone alignment negated R: Extra0Reg.
+	cogit AndCq: methodZone zoneAlignment negated R: Extra0Reg.
 	SistaV1BytecodeSet ifTrue:
 		[self bitAndByteOffsetOfIsFullBlockBitInto:
 			[:bitmask :byteOffset|
@@ -34,7 +34,7 @@ maybeGenerateSelectorIndexDereferenceRoutine
 	SistaV1BytecodeSet ifTrue:
 		[jumpFullBlock jmpTarget: jumpNotBlock getJmpTarget].
 	cogit "Now fetch the method object and index with the literal index to retrieve the selector"
-		AndCq: methodZone alignment negated R: Extra0Reg;
+		AndCq: methodZone zoneAlignment negated R: Extra0Reg;
 		MoveMw: (cogit offset: CogMethod of: #methodObject) r: Extra0Reg R: Extra1Reg;
 		MoveXwr: ClassReg R: Extra1Reg R: ClassReg;
 		RetN: 0.

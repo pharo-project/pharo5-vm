@@ -20,8 +20,7 @@ primitiveStoreStackp
 		 self externalDivorceFrame: theFP andContext: ctxt.
 		 onCurrentPage
 			ifTrue:
-				[framePointer := stackPage headFP.
-				 stackPointer := stackPage headSP]
+				[self setStackPointersFromPage: stackPage]
 			ifFalse:
 				[self assert: stackPage = (stackPages stackPageFor: framePointer).
 				 stackPages markStackPageMostRecentlyUsed: stackPage]].

@@ -63,8 +63,7 @@ ceSend: selector super: superNormalBar to: rcvr numArgs: numArgs
 									ifFalse: [cogit noCheckEntryOffset])
 							receiver: rcvr].
 				self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: classObj.
-				self assert: false "NOTREACHED"].
-			 self addNewMethodToCache: classObj].
+				self assert: false "NOTREACHED"]].
 	"Method found and has a cog method.  Attempt to link to it.  The receiver's class may be young.
 	 If the Cogit can't store young classes in inline caches we can link to an open PIC instead."
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:

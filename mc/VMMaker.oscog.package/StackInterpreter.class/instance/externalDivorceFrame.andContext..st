@@ -28,8 +28,7 @@ externalDivorceFrame: theFP andContext: ctxt
 			 onCurrent
 				ifTrue:
 					[self setStackPageAndLimit: newPage.
-					 framePointer := stackPage headFP.
-					 stackPointer := stackPage headSP]
+					 self setStackPointersFromPage: newPage]
 				ifFalse:
 					[stackPages markStackPageMostRecentlyUsed: newPage].
 			 self assert: (self frameCallerContext: frameAbove) = ctxt].

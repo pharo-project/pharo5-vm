@@ -1,5 +1,6 @@
 method map
 findMapLocationForMcpc: targetMcpc inMethod: cogMethod
+	<var: #targetMcpc type: #usqInt>
 	<var: #cogMethod type: #'CogMethod *'>
 	| mcpc map mapByte annotation |
 	mcpc := self firstMappedPCFor: cogMethod.

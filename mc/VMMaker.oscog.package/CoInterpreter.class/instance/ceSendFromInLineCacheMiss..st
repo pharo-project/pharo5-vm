@@ -33,8 +33,7 @@ ceSendFromInLineCacheMiss: cogMethodOrPIC
 			 (errSelIdx := self lookupOrdinaryNoMNUEtcInClass: classObj) ~= 0 ifTrue:
 				[self handleMNU: errSelIdx InMachineCodeTo: rcvr classForMessage: classObj.
 				"NOTREACHED"
-				self assert: false].
-			 self addNewMethodToCache: classObj].
+				self assert: false]].
 	instructionPointer := self popStack.
 	(self maybeMethodHasCogMethod: newMethod) ifTrue:
 		[self executeNewMethod.

@@ -91,8 +91,7 @@ ceNonLocalReturn: returnValue
 					 self markContextAsDead: currentCtx.
 					 currentCtx := nextCntx]].
 		 self setStackPageAndLimit: newPage.
-		 stackPointer := stackPage headSP.
-		 framePointer := stackPage headFP].
+		 self setStackPointersFromPage: newPage].
 
 	"Two cases.  Returning to the top frame or an interior frame.  The
 	 top frame has its instruction pointer on top of stack.  An interior

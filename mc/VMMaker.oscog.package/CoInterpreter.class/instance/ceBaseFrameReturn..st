@@ -53,8 +53,7 @@ ceBaseFrameReturn: returnValue
 					 self assert: newPage = stackPage.
 					 self moveFramesIn: thePage through: frameAbove toPage: newPage.
 					 stackPages markStackPageMostRecentlyUsed: newPage.
-					 framePointer := thePage headFP.
-					 stackPointer := thePage headSP]]
+					 self setStackPointersFromPage: thePage]]
 		ifFalse:
 			[(isAContext
 			  and: [objectMemory isIntegerObject: (objectMemory fetchPointer: InstructionPointerIndex ofObject: contextToReturnTo)]) ifFalse:
@@ -67,8 +66,7 @@ ceBaseFrameReturn: returnValue
 			 compaction in makeBaseFrameFor:."
 			 instructionPointer := 0.
 			 thePage := self makeBaseFrameFor: contextToReturnTo.
-			 framePointer := thePage headFP.
-			 stackPointer := thePage headSP].
+			 self setStackPointersFromPage: thePage].
 	self setStackPageAndLimit: thePage.
 	self assert: (stackPages stackPageFor: framePointer) = stackPage.
 	(self isMachineCodeFrame: framePointer) ifTrue:
