@@ -26,7 +26,7 @@ transformToStructClassMethodFor: aCCodeGenerator
 							receiver: selfNode
 							arguments: #())]]].
 	replacements notEmpty ifTrue:
-		[parseTree := parseTree replaceNodesIn: replacements].
+		[self replaceNodesIn: replacements].
 	typeForSelf := self typeForSelf.
 	self assert: (typeForSelf notNil and: [typeForSelf ~~ #implicit]).
 	self declarationAt: (args addFirst: selfNode name)

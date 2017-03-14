@@ -13,6 +13,7 @@ tryToInlineMethodsIn: aCodeGen
 			[^false].
 		 ^complete := true].
 
+	self ensureConditionalAssignmentsAreTransformedIn: aCodeGen.
 	didSomething := self tryToInlineMethodStatementsIn: aCodeGen statementListsInto: [:stmtLists| statementLists := stmtLists].
 	didSomething := (self tryToInlineMethodExpressionsIn: aCodeGen) or: [didSomething].
 
