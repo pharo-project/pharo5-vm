@@ -8,7 +8,7 @@ mustBeGlobal: var
 			'deferDisplayUpdates' 'extraVMMemory' 'showSurfaceFn'
 			'desiredNumStackPages' 'desiredEdenBytes'
 			'breakSelector' 'breakSelectorLength' 'sendTrace' 'checkAllocFiller' 'checkedPluginName'
-			'suppressHeartbeatFlag') includes: var)
+			'suppressHeartbeatFlag' 'debugCallbackInvokes' 'debugCallbackPath' 'debugCallbackReturns') includes: var)
 	   or: [ "This allows slow machines to define bytecodeSetSelector as 0
 			to avoid the interpretation overhead."
 			MULTIPLEBYTECODESETS not and: [var = 'bytecodeSetSelector']]]]
