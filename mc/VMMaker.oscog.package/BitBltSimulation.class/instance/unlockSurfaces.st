@@ -1,40 +1,36 @@
 surface support
 unlockSurfaces
 	"Unlock the bits of any OS surfaces."
-	"See the comment in lockSurfaces. Similar rules apply. That is, the area provided in ioUnlockSurface can be used to determine the dirty region after drawing. If a source is unlocked, then the area will be (0,0,0,0) to indicate that no portion is dirty."
-	| sourceHandle destHandle destLocked fn |
-	<var: #fn declareC:'int (*fn)(sqIntptr_t, int, int, int, int)'>
-	hasSurfaceLock ifTrue:[
-		unlockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
-		self ensureDestAndSourceFormsAreValid.
-		fn := self cCoerce: unlockSurfaceFn to: 'int (*)(sqIntptr_t, int, int, int, int)'.
-		destLocked := false.
-		destHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: destForm.
-		(interpreterProxy isIntegerObject: destHandle) ifTrue:[
-			destHandle := interpreterProxy integerValueOf: destHandle.
-			"The destBits are always assumed to be dirty"
-			self cCode:'fn(destHandle, affectedL, affectedT, affectedR-affectedL, affectedB-affectedT)'.
-			destBits := destPitch := 0.
-			destLocked := true.
-		].
-		noSource ifFalse:[
-			self ensureDestAndSourceFormsAreValid.
-			sourceHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: sourceForm.
-			(interpreterProxy isIntegerObject: sourceHandle) ifTrue:[
-				sourceHandle := interpreterProxy integerValueOf: sourceHandle.
-				"Only unlock sourceHandle if different from destHandle"
-				(destLocked and:[sourceHandle = destHandle]) 
-					ifFalse:[self cCode: 'fn(sourceHandle, 0, 0, 0, 0)'].
-				sourceBits := sourcePitch := 0.
-			].
-		].
-		hasSurfaceLock := false.
-		self cCode: [] inSmalltalk:
-			[self touch: fn.
-			 interpreterProxy displayObject = destForm ifTrue:
-				[interpreterProxy getDeferDisplayUpdates "for some reason this is true..."
-					ifTrue:
-						[interpreterProxy fullDisplayUpdate]
-					ifFalse:
-						[interpreterProxy fullDisplayUpdate]]].
-	].
+	"See the comment in lockSurfaces. Similar rules apply. That is, the area provided in ioUnlockSurface
+	 can be used to determine the dirty region after drawing. If a source is unlocked, then the area will
+	 be (0,0,0,0) to indicate that no portion is dirty.  Note that if a GC happens during unlockSourceFn
+	 (if it is effectively a callback) no matter.  No bits are touched after unlock."
+	| sourceHandle destHandle destLocked |
+	hasSurfaceLock ifFalse: [^self].
+	unlockSurfaceFn = 0 ifTrue:
+		[self loadSurfacePlugin ifFalse:
+			[^self]].
+	self ensureDestAndSourceFormsAreValid.
+	destLocked := false.
+	destHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: destForm.
+	(interpreterProxy isIntegerObject: destHandle) ifTrue: "The destBits are always assumed to be dirty"
+		[self unlock: (interpreterProxy integerValueOf: destHandle)
+			Sur: affectedL
+			fa: affectedT
+			ce: affectedR - affectedL
+			Fn: affectedB - affectedT.
+		 destBits := destPitch := 0.
+		 destLocked := true].
+	noSource ifFalse:
+		[self ensureDestAndSourceFormsAreValid.
+		 sourceHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: sourceForm.
+		 (interpreterProxy isIntegerObject: sourceHandle) ifTrue:
+			["Only unlock sourceHandle if different from destHandle"
+			 (destLocked and: [sourceHandle = destHandle]) ifFalse:
+				[self unlock: (interpreterProxy integerValueOf: sourceHandle) Sur: 0 fa: 0 ce: 0 Fn: 0].
+			sourceBits := sourcePitch := 0]].
+	hasSurfaceLock := false.
+	self cCode: [] inSmalltalk:
+		[interpreterProxy displayObject = destForm ifTrue:
+			[interpreterProxy getDeferDisplayUpdates ifFalse:
+				[interpreterProxy fullDisplayUpdate]]]

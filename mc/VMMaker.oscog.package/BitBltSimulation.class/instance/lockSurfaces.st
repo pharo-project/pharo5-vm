@@ -33,64 +33,88 @@ lockSurfaces
 	* Fail if a GC has occurred since the primitive started (presumably in the lockSurface
 	   function), because one or more of the primitives' parameters may have been moved.
 	"
-	| sourceHandle destHandle l r t b fn |
+	| sourceHandle destHandle l r t b |
 	<inline: true>
-	<var: #fn declareC:'sqIntptr_t (*fn)(sqIntptr_t, int*, int, int, int, int)'>
 	self assert: numGCsOnInvocation = interpreterProxy statNumGCs.
 	hasSurfaceLock := false.
-	destBits = 0 ifTrue:["Blitting *to* OS surface"
-		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^false]].
-		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
-		destHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: destForm.
-		(sourceBits = 0 and:[noSource not]) ifTrue:[
-			sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
-			"Handle the special case of equal source and dest handles"
-			(sourceHandle = destHandle) ifTrue:[
+	destBits = 0 ifTrue: "Blitting *to* OS surface"
+		[lockSurfaceFn = 0 ifTrue: [self loadSurfacePlugin ifFalse: [^false]].
+		 destHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: destForm.
+		 (sourceBits ~= 0 or: [noSource]) ifFalse:
+			[sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
+			 "Handle the special case of equal source and dest handles"
+			 sourceHandle = destHandle ifTrue:
 				"If we have overlapping source/dest we lock the entire area
 				so that there is only one area transmitted"
-				isWarping ifFalse:[
-					"When warping we always need the entire surface for the source"
-					sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, 0,0, sourceWidth, sourceHeight)'.
-				] ifTrue:[
-					"Otherwise use overlapping area"
-					l := sx min: dx. r := (sx max: dx) + bbW.
-					t := sy min: dy. b := (sy max: dy) + bbH.
-					sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, l, t, r-l, b-t)'.
-				].
+				[isWarping
+					ifFalse: "When warping we always need the entire surface for the source"
+						[sourceBits := self lock: sourceHandle
+											Su: (self addressOf: sourcePitch)
+											rf: 0
+											ac: 0
+											eF: sourceWidth
+											n: sourceHeight]
+					ifTrue: "Otherwise use overlapping area"
+						[l := sx min: dx. r := (sx max: dx) + bbW.
+						t := sy min: dy. b := (sy max: dy) + bbH.
+						sourceBits := self lock: sourceHandle
+											Su: (self addressOf: sourcePitch)
+											rf: l
+											ac: t
+											eF: r - l
+											n: b - t].
 				destBits := sourceBits.
 				destPitch := sourcePitch.
 				hasSurfaceLock := true.
 				numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
-					[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+					[self unlockSurfaces.
+					 interpreterProxy primitiveFailFor: PrimErrObjectMoved.
 					 ^false].
 				destBits = 0 ifTrue:
-					[interpreterProxy primitiveFailFor: PrimErrCallbackError].
-				^destBits ~= 0
-			].
-			"Fall through - if not equal it'll be handled below"
-		].
-		destBits := self cCode:'fn(destHandle, &destPitch, dx, dy, bbW, bbH)'.
+					[self unlockSurfaces.
+					 interpreterProxy primitiveFailFor: PrimErrCallbackError.
+					 ^false].
+				^true]].
+		"Fall through - if not equal it'll be handled below"
+		destBits := self lock: destHandle
+						Su: (self addressOf: destPitch)
+						rf: dx
+						ac: dy
+						eF: bbW
+						n: bbH.
 		hasSurfaceLock := true.
 		numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
-			[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+			[self unlockSurfaces.
+			 interpreterProxy primitiveFailFor: PrimErrObjectMoved.
 			 ^false].
-	].
-	(sourceBits = 0 and:[noSource not]) ifTrue:["Blitting *from* OS surface"
-		sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
-		interpreterProxy failed ifTrue:[^nil]. "fetch sourceHandle could fail"
+		destBits = 0 ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrCallbackError]].
+
+	(sourceBits ~= 0 or: [noSource]) ifFalse: "Blitting *from* OS surface"
+		[sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
+		 interpreterProxy failed ifTrue: [^false]. "fetch sourceHandle could fail"
 		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^false]].
-		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
 		"Warping requiring the entire surface"
-		isWarping ifTrue:[
-			sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, 0, 0, sourceWidth, sourceHeight)'.
-		] ifFalse:[
-			sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, sx, sy, bbW, bbH)'.
-		].
+		isWarping
+			ifTrue:
+				[sourceBits := self lock: sourceHandle
+												Su: (self addressOf: sourcePitch)
+												rf: 0
+												ac: 0
+												eF: sourceWidth
+												n: sourceHeight]
+			ifFalse:
+				[sourceBits := self lock: sourceHandle
+									Su: (self addressOf: sourcePitch)
+									rf: sx
+									ac: sy
+									eF: bbW
+									n: bbH].
 		hasSurfaceLock := true.
 		numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
-			[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+			[self unlockSurfaces.
+			 interpreterProxy primitiveFailFor: PrimErrObjectMoved.
 			 ^false].
 		sourceBits = 0 ifTrue:
-			[interpreterProxy primitiveFailFor: PrimErrCallbackError].
-	].
-	^destBits ~= 0 and: [sourceBits ~= 0 or:[noSource]]
+			[interpreterProxy primitiveFailFor: PrimErrCallbackError]].
+	^destBits ~= 0 and: [sourceBits ~= 0 or: [noSource]]

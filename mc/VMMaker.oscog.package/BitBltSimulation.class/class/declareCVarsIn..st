@@ -51,10 +51,11 @@ declareCVarsIn: aCCodeGenerator
 	aCCodeGenerator var:'gammaLookupTable' 
 		type: 'unsigned char *'.
 
-	aCCodeGenerator var: 'querySurfaceFn' type: 'void *'.
-	aCCodeGenerator var: 'lockSurfaceFn' type: 'void *'.
-	aCCodeGenerator var: 'unlockSurfaceFn' type: 'void *'.
+	aCCodeGenerator
+		var: 'querySurfaceFn' declareC: 'int (*querySurfaceFn)(sqIntptr_t, int*, int*, int*, int*)';
+		var: 'lockSurfaceFn' declareC: 'sqIntptr_t (*lockSurfaceFn)(sqIntptr_t, int*, int, int, int, int)';
+		var: 'unlockSurfaceFn' declareC: 'int (*unlockSurfaceFn)(sqIntptr_t, int, int, int, int)'.
 	
 	#(sourcePitch sourceWidth sourceHeight sourceDepth sourceMSB sx sy
 		destPitch destWidth destHeight destDepth destMSB dx dy bbW bbH)
-		do: [:ivar | aCCodeGenerator var: ivar type: 'int']
+		do: [:ivar | aCCodeGenerator var: ivar type: #int]
