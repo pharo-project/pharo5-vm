@@ -7,6 +7,8 @@ loadBitBltFrom: bbObj warping: aBool
 	<inline: false>
 	bitBltOop := bbObj.
 	isWarping := aBool.
+	bitBltIsReceiver := bbObj = (interpreterProxy stackValue: interpreterProxy methodArgumentCount).
+	numGCsOnInvocation := interpreterProxy statNumGCs.
 	combinationRule := interpreterProxy fetchInteger: BBRuleIndex ofObject: bitBltOop.
 	(interpreterProxy failed
 		or: [combinationRule < 0 or: [combinationRule > (OpTableSize - 2)]])
@@ -55,4 +57,8 @@ loadBitBltFrom: bbObj warping: aBool
 	clipY < 0 ifTrue: [clipHeight := clipHeight + clipY.  clipY := 0].
 	clipX+clipWidth > destWidth ifTrue: [clipWidth := destWidth - clipX].
 	clipY+clipHeight > destHeight ifTrue: [clipHeight := destHeight - clipY].
+
+	numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue: "querySurface could be a callback in loadSourceFor: and loadDestForm:"
+		[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+		 ^false].
 	^ true

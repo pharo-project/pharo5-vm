@@ -1,5 +1,6 @@
 interpreter interface
 showDisplayBits
+	self ensureDestAndSourceFormsAreValid.
 	interpreterProxy 
 		showDisplayBits: destForm
 		Left: affectedL

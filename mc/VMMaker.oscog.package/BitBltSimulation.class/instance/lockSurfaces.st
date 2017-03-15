@@ -30,13 +30,16 @@ lockSurfaces
 	* Warping always requires the entire source surface to be locked because
 	there is no beforehand knowledge about what area will actually be traversed.
 
+	* Fail if a GC has occurred since the primitive started (presumably in the lockSurface
+	   function), because one or more of the primitives' parameters may have been moved.
 	"
 	| sourceHandle destHandle l r t b fn |
 	<inline: true>
 	<var: #fn declareC:'sqIntptr_t (*fn)(sqIntptr_t, int*, int, int, int, int)'>
+	self assert: numGCsOnInvocation = interpreterProxy statNumGCs.
 	hasSurfaceLock := false.
 	destBits = 0 ifTrue:["Blitting *to* OS surface"
-		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
+		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^false]].
 		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
 		destHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: destForm.
 		(sourceBits = 0 and:[noSource not]) ifTrue:[
@@ -57,17 +60,25 @@ lockSurfaces
 				destBits := sourceBits.
 				destPitch := sourcePitch.
 				hasSurfaceLock := true.
-				^destBits ~~ 0
+				numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
+					[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+					 ^false].
+				destBits = 0 ifTrue:
+					[interpreterProxy primitiveFailFor: PrimErrCallbackError].
+				^destBits ~= 0
 			].
 			"Fall through - if not equal it'll be handled below"
 		].
 		destBits := self cCode:'fn(destHandle, &destPitch, dx, dy, bbW, bbH)'.
 		hasSurfaceLock := true.
+		numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+			 ^false].
 	].
-	(sourceBits == 0 and:[noSource not]) ifTrue:["Blitting *from* OS surface"
+	(sourceBits = 0 and:[noSource not]) ifTrue:["Blitting *from* OS surface"
 		sourceHandle := interpreterProxy fetchInteger: FormBitsIndex ofObject: sourceForm.
 		interpreterProxy failed ifTrue:[^nil]. "fetch sourceHandle could fail"
-		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
+		lockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^false]].
 		fn := self cCoerce: lockSurfaceFn to: 'sqIntptr_t (*)(sqIntptr_t, int*, int, int, int, int)'.
 		"Warping requiring the entire surface"
 		isWarping ifTrue:[
@@ -76,5 +87,10 @@ lockSurfaces
 			sourceBits := self cCode:'fn(sourceHandle, &sourcePitch, sx, sy, bbW, bbH)'.
 		].
 		hasSurfaceLock := true.
+		numGCsOnInvocation ~= interpreterProxy statNumGCs ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrObjectMoved.
+			 ^false].
+		sourceBits = 0 ifTrue:
+			[interpreterProxy primitiveFailFor: PrimErrCallbackError].
 	].
-	^destBits ~~ 0 and:[sourceBits ~~ 0 or:[noSource]].
+	^destBits ~= 0 and: [sourceBits ~= 0 or:[noSource]]

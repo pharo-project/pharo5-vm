@@ -39,6 +39,11 @@ initialize
 	BBLastIndex := 15.
 	BBXTableIndex := 16.
 
+	"BalloonEngineFields"
+	BEBitBltIndex := (Smalltalk classNamed: #BalloonEngine)
+						ifNil: [2]
+						ifNotNil: [:be| (be allInstVarNames indexOf: 'bitBlt') - 1].
+
 	"RGBA indexes"
 	RedIndex := 0.
 	GreenIndex := 1.

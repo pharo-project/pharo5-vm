@@ -3,6 +3,7 @@ declareCVarsIn: aCCodeGenerator
 
 	"add option of  fast path BitBLT code header"
 	aCCodeGenerator
+		addHeaderFile:'"sqAssert.h"';
 		addHeaderFile:'#ifdef ENABLE_FAST_BLT
 #include "BitBltDispatch.h"
 #else
@@ -56,4 +57,4 @@ declareCVarsIn: aCCodeGenerator
 	
 	#(sourcePitch sourceWidth sourceHeight sourceDepth sourceMSB sx sy
 		destPitch destWidth destHeight destDepth destMSB dx dy bbW bbH)
-		do: [:ivar | aCCodeGenerator var: ivar type: 'int'.]
+		do: [:ivar | aCCodeGenerator var: ivar type: 'int']

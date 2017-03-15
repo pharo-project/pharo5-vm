@@ -17,7 +17,9 @@ loadBitBltDestForm
 	(interpreterProxy isIntegerObject: destBits) ifTrue:[
 		"Query for actual surface dimensions"
 		(self queryDestSurface: (interpreterProxy integerValueOf: destBits))
-			ifFalse:[^false].
+			ifFalse:
+				[interpreterProxy primitiveFailFor: PrimErrCallbackError.
+				 ^false].
 		destPPW := 32 // destDepth.
 		destBits := destPitch := 0.
 	] ifFalse:[

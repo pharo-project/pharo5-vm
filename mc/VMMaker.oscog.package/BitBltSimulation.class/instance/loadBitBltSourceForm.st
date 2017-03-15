@@ -16,7 +16,9 @@ loadBitBltSourceForm
 	(interpreterProxy isIntegerObject: sourceBits) ifTrue:[
 		"Query for actual surface dimensions"
 		(self querySourceSurface: (interpreterProxy integerValueOf: sourceBits))
-			ifFalse:[^false].
+			ifFalse:
+				[interpreterProxy primitiveFailFor: PrimErrCallbackError.
+				 ^false].
 		sourcePPW := 32 // sourceDepth.
 		sourceBits := sourcePitch := 0.
 	] ifFalse:[

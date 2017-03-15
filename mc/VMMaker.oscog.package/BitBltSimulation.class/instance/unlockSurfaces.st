@@ -6,6 +6,7 @@ unlockSurfaces
 	<var: #fn declareC:'int (*fn)(sqIntptr_t, int, int, int, int)'>
 	hasSurfaceLock ifTrue:[
 		unlockSurfaceFn = 0 ifTrue:[self loadSurfacePlugin ifFalse:[^nil]].
+		self ensureDestAndSourceFormsAreValid.
 		fn := self cCoerce: unlockSurfaceFn to: 'int (*)(sqIntptr_t, int, int, int, int)'.
 		destLocked := false.
 		destHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: destForm.
@@ -17,6 +18,7 @@ unlockSurfaces
 			destLocked := true.
 		].
 		noSource ifFalse:[
+			self ensureDestAndSourceFormsAreValid.
 			sourceHandle := interpreterProxy fetchPointer: FormBitsIndex ofObject: sourceForm.
 			(interpreterProxy isIntegerObject: sourceHandle) ifTrue:[
 				sourceHandle := interpreterProxy integerValueOf: sourceHandle.
