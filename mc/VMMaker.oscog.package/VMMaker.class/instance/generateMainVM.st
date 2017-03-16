@@ -8,7 +8,6 @@ generateMainVM
 	self logDateAndTime;
 		generateInterpreterFile;
 		generateCogitFiles;
-		processFilesForCoreVM;
 		generateInternalPlugins;
 		generateExportsFile;
 		logDateAndTime

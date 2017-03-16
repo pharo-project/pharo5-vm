@@ -1,2 +1,0 @@
-processing external files
-processFilesForCoreVM

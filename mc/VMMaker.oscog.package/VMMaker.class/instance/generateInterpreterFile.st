@@ -12,6 +12,13 @@ generateInterpreterFile
 								ifTrue: [ex rearmHandlerDuring: [ex pass]]
 								ifFalse: [ex pass]]].
 	self reinitializeWordSizeFrom: cg.
+
+	self interpreterClass additionalHeadersDo:
+		[:headerName :headerContents| | filePath |
+		 filePath := self coreVMDirectory fullNameFor: headerName.
+		 (cg needToGenerateHeader: headerName file: filePath contents: headerContents) ifTrue:
+			 [cg storeHeaderOnFile: filePath contents: headerContents]].
+
 	self needsToRegenerateInterpreterFile ifFalse: [^nil].
 
 	cg inferTypesForImplicitlyTypedVariablesAndMethods.
@@ -21,11 +28,6 @@ generateInterpreterFile
 	(cg needToGenerateHeader: self interpreterHeaderName file: self interpreterHeaderPath contents: vmHeaderContents) ifTrue:
 		[cg storeHeaderOnFile: self interpreterHeaderPath contents: vmHeaderContents].
 	cg storeCodeOnFile: (self sourceFilePathFor: self interpreterClass sourceFileName) doInlining: self doInlining.
-	self interpreterClass additionalHeadersDo:
-		[:headerName :headerContents| | filePath |
-		 filePath := self coreVMDirectory fullNameFor: headerName.
-		 (cg needToGenerateHeader: headerName file: filePath contents: headerContents) ifTrue:
-			 [cg storeHeaderOnFile: filePath contents: headerContents]].
 	self interpreterClass apiExportHeaderName ifNotNil:
 		[cg storeAPIExportHeader: self interpreterClass apiExportHeaderName
 			OnFile: (self sourceFilePathFor: self interpreterClass apiExportHeaderName)].
