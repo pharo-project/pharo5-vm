@@ -23,17 +23,17 @@ case "${ARCH}" in
 		os="mac"
 		;;
 	linux32x86) 
-		productDir="`find $productDir/products -name "ph*" -depth 1`" 
+		productDir="`find $productDir/products -name 'ph*' -depth 1`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux64x64) 
-		productDir="`find $productDir/products -name "ph*" -depth 1`" 
+		productDir="`find $productDir/products -name 'ph*' -depth 1`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux32ARMv6) 
-		productDir="`find $productDir/products -name "ph*" -depth 1`" 
+		productDir="`find $productDir/products -name 'ph*' -depth 1`" 
 		pattern="*"
 		os="linux"
 		productArch="ARMv6"
