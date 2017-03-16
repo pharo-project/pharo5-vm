@@ -8,7 +8,6 @@ set -ex
 # SRC_ARCH	- i386, x64_86
 # HEARTBEAT	- threaded, itimer (or none)
 
-vmVersion="5.0"
 productDir="../opensmalltalk-vm"
 productArch=$SRC_ARCH
 productHeartbeat=${HEARTBEAT}
@@ -24,17 +23,17 @@ case "${ARCH}" in
 		os="mac"
 		;;
 	linux32x86) 
-		productDir="`find $productDir/products -name "${vmVersion}*"`" 
+		productDir="`find $productDir/products -name "ph*" -depth 1`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux64x64) 
-		productDir="`find $productDir/products -name "${vmVersion}*"`" 
+		productDir="`find $productDir/products -name "ph*" -depth 1`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux32ARMv6) 
-		productDir="`find $productDir/products -name "${vmVersion}*"`" 
+		productDir="`find $productDir/products -name "ph*" -depth 1`" 
 		pattern="*"
 		os="linux"
 		productArch="ARMv6"
