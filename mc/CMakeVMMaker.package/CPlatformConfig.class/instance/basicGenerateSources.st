@@ -21,7 +21,6 @@ basicGenerateSources
 			sourceDirectoryName: self srcDir;
 			generateInterpreterFile;
 			generateCogitFiles;
-			processFilesForCoreVM;
 			generateExportsFile.
 		"Plugins"
 		maker 
