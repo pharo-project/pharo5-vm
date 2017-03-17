@@ -4,6 +4,7 @@
 	"instance" : {
 		"allocationLimit" : "eem 3/16/2017 16:11",
 		"computeAllocationThreshold" : "eem 3/16/2017 16:36",
+		"effectiveLimit" : "eem 3/17/2017 15:22",
 		"getCogCodeZoneThreshold" : "eem 3/16/2017 16:03",
 		"initialize" : "eem 3/17/2017 15:10",
 		"manageFrom:to:" : "eem 3/16/2017 16:06",

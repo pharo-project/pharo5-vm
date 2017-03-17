@@ -3,8 +3,8 @@ freeOlderMethodsForCompaction
 	"Free methods, preferring older methods for compaction, up to some fraction, currently a quarter."
 	| zoneSize amountToFree initialFreeSpace freedSoFar freeableUsage cogMethod |
 	<var: #cogMethod type: #'CogMethod *'>
-	zoneSize := limitAddress - baseAddress.
-	initialFreeSpace := limitAddress - mzFreeStart + methodBytesFreedSinceLastCompaction.
+	zoneSize := self effectiveLimit - baseAddress.
+	initialFreeSpace := self effectiveLimit - mzFreeStart + methodBytesFreedSinceLastCompaction.
 	freedSoFar := initialFreeSpace.
 	amountToFree := zoneSize // 4. "4 needs to be e.g. a start-up parameter"
 	freeableUsage := 0.
