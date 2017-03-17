@@ -1,4 +1,4 @@
 exported functions
 secDisableFileAccess
 	<export: true>
-	^self cCode: 'ioDisableFileAccess()'
+	^self ioDisableFileAccess

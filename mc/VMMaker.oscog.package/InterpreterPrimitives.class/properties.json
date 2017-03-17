@@ -18,7 +18,8 @@
 		"profileSemaphore",
 		"nextProfileTick",
 		"preemptionYields",
-		"newFinalization" ],
+		"newFinalization",
+		"sHEAFn" ],
 	"name" : "InterpreterPrimitives",
 	"pools" : [
 		"VMBasicConstants",

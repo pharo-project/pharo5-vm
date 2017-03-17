@@ -18,4 +18,5 @@ initializeInterpreter: bytesToShift
 	[globalSessionID = 0] whileTrue:
 		[globalSessionID := self
 								cCode: [(self time: #NULL) + self ioMSecs]
-								inSmalltalk: [(Random new next * SmallInteger maxVal) asInteger]]
+								inSmalltalk: [(Random new next * SmallInteger maxVal) asInteger]].
+	super initializeInterpreter: bytesToShift.

@@ -4,6 +4,7 @@ cStringOrNullFor: oop
 	 or the null pointer if oop is nil, or fail.  It is the client's responsibility to free the string later."
 	<api>
 	<returnTypeC: #'char *'>
+	<inline: false>
 	| isString len cString |
 	<var: 'cString' type: #'char *'>
 	isString := self isInstanceOfClassByteString: oop.
@@ -19,5 +20,5 @@ cStringOrNullFor: oop
 		[self primitiveFailFor: PrimErrNoCMemory.
 		 ^0].
 	self mem: cString cp: (objectMemory firstIndexableField: oop) y: len.
-	cString at: len put: 0.
+	cString at: (self cCode: [len] inSmalltalk: [len + 1]) put: 0.
 	^cString

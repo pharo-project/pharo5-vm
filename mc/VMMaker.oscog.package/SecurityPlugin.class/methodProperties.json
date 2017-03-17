@@ -19,10 +19,11 @@
 		"secCanOpenAsyncFile:OfSize:Writable:" : "(auto pragmas 12/08) ",
 		"secCanOpenFile:OfSize:Writable:" : "(auto pragmas 12/08) ",
 		"secCanRenameFile:OfSize:" : "(auto pragmas 12/08) ",
-		"secCanRenameImage" : "eem 10/8/2013 16:45",
+		"secCanRenameImage" : "eem 3/17/2017 10:44",
 		"secCanSetFileType:OfSize:" : "(auto pragmas 12/08) ",
-		"secCanWriteImage" : "(auto pragmas 12/08) ",
-		"secDisableFileAccess" : "(auto pragmas 12/08) ",
-		"secDisableSocketAccess" : "(auto pragmas 12/08) ",
-		"secHasFileAccess" : "(auto pragmas 12/08) ",
-		"secHasSocketAccess" : "(auto pragmas 12/08) " } }
+		"secCanWriteImage" : "eem 3/17/2017 10:44",
+		"secDisableFileAccess" : "eem 3/17/2017 10:44",
+		"secDisableSocketAccess" : "eem 3/17/2017 10:44",
+		"secHasEnvironmentAccess" : "eem 3/17/2017 10:43",
+		"secHasFileAccess" : "eem 3/17/2017 10:45",
+		"secHasSocketAccess" : "eem 3/17/2017 10:45" } }
