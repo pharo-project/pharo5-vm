@@ -7,7 +7,7 @@ setInterpreter: aCoInterpreter
 	coInterpreter := aCoInterpreter.
 	objectMemory := aCoInterpreter objectMemory.
 	threadManager := aCoInterpreter threadManager. "N.B. may be nil"
-	methodZone := CogMethodZone new.
+	methodZone := self class methodZoneClass new.
 	objectRepresentation := objectMemory objectRepresentationClass
 								forCogit: self methodZone: methodZone.
 	methodZone setInterpreter: aCoInterpreter

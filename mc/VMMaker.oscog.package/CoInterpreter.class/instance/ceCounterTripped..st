@@ -39,6 +39,7 @@ ceCounterTripped: condition
 		[cogit resetCountersIn: (self mframeHomeMethod: framePointer).
 		 ^condition].
 
+	cogit setCogCodeZoneThreshold: 1.0.
 	objectMemory splObj: SelectorCounterTripped put: objectMemory nilObject.
 	instructionPointer := self popStack.
 	context := self ensureFrameIsMarried: framePointer SP: stackPointer.

@@ -13,4 +13,7 @@ ancilliaryClasses: options
 		self activeCompilerClass literalsManagerClass},
 	((options at: #NewspeakVM ifAbsent: [false])
 		ifTrue: [{NewspeakCogMethod. NSSendCache}]
+		ifFalse: [#()]),
+	((options at: #SistaVM ifAbsent: [false])
+		ifTrue: [{SistaMethodZone}]
 		ifFalse: [#()])

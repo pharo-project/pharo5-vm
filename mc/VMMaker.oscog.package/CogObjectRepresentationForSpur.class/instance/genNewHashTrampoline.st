@@ -5,7 +5,7 @@ genNewHashTrampoline
 	<inline: true>
 	<option: #SistaVM>
 	^ cogit
-		genTrampolineFor: 1
+		genTrampolineFor: #ceNewHashOf:
 		called: 'newHashTrampoline'
 		numArgs: 1
 		arg: ReceiverResultReg

@@ -81,7 +81,7 @@
 		"genLcStore:object:at:" : "rsf 8/10/2016 00:29",
 		"genLcStore:object:field:" : "rsf 8/10/2016 00:29",
 		"genNewArrayOfSize:initialized:" : "eem 12/7/2015 16:12",
-		"genNewHashTrampoline" : "cb 1/27/2017 14:37",
+		"genNewHashTrampoline" : "eem 3/16/2017 16:44",
 		"genNoPopCreateClosureAt:numArgs:numCopied:contextNumArgs:large:inBlock:" : "eem 12/7/2015 16:12",
 		"genPrimitiveAsCharacter" : "eem 1/11/2016 18:01",
 		"genPrimitiveIdenticalOrNotIf:" : "cb 3/24/2016 10:19",

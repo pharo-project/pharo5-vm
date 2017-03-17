@@ -65,6 +65,8 @@ readImageFromFile: f HeapSize: desiredHeapSize StartingAt: imageOffset
 							[hdrCogCodeSize = 0
 									ifTrue: [cogit defaultCogCodeSize]
 									ifFalse: [hdrCogCodeSize]].
+	cogCodeSize > cogit maxCogCodeSize ifTrue:
+		[cogCodeSize := cogit maxCogCodeSize].
 	hdrEdenBytes		:= self getWord32FromFile: f swap: swapBytes.
 	objectMemory edenBytes: (desiredEdenBytes ~= 0
 						ifTrue: [desiredEdenBytes]
