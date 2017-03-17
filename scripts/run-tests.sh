@@ -25,16 +25,18 @@ unzip $VM_ARCHIVE -d $VM_DIR
 # TEST VM LOCATION ============================================================
 if [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "linux" ]]; then
 	VM_NAME="pharo"
+	PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
 elif [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "osx" ]]; then
 	VM_NAME="Pharo"
+	PHARO_TEST_VM=$VM_DIR/$VM_NAME
 elif [ "$APPVEYOR" = "True" ]; then
 	VM_NAME="PharoConsole.exe"
+	PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
 else
     echo "Unsupported OS";
     exit 1;
 fi
 
-PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
 if [ -z "$PHARO_TEST_VM" ]; then
 	echo "Could not find test VM in $VM_DIR"
 	exit 1
