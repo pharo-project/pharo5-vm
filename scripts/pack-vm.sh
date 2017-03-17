@@ -23,17 +23,17 @@ case "${ARCH}" in
 		os="mac"
 		;;
 	linux32x86) 
-		productDir="`ls -d $productDir/products/ph*`" 
+		productDir="`ls -d $productDir/products/*`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux64x64) 
-		productDir="`ls -d $productDir/products/ph*`" 
+		productDir="`ls -d $productDir/products/*`" 
 		pattern="*"
 		os="linux"
 		;;
 	linux32ARMv6) 
-		productDir="`ls -d $productDir/products/ph*`" 
+		productDir="`ls -d $productDir/products/*`" 
 		pattern="*"
 		os="linux"
 		productArch="ARMv6"
