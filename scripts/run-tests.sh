@@ -25,10 +25,10 @@ unzip $VM_ARCHIVE -d $VM_DIR
 # TEST VM LOCATION ============================================================
 if [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "linux" ]]; then
 	VM_NAME="pharo"
-	PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
+	PHARO_TEST_VM=$VM_DIR/$VM_NAME
 elif [[ "$TRAVIS" = "true" && "$TRAVIS_OS_NAME" = "osx" ]]; then
 	VM_NAME="Pharo"
-	PHARO_TEST_VM=$VM_DIR/$VM_NAME
+	PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
 elif [ "$APPVEYOR" = "True" ]; then
 	VM_NAME="PharoConsole.exe"
 	PHARO_TEST_VM=`find $VM_DIR -name $VM_NAME`
