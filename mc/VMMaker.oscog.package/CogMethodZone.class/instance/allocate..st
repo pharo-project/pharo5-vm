@@ -2,7 +2,7 @@ allocating
 allocate: numBytes
 	| roundedBytes allocation |
 	roundedBytes := numBytes + 7 bitAnd: -8.
-	mzFreeStart + roundedBytes >= (limitAddress - (methodCount * objectMemory wordSize)) ifTrue:
+	mzFreeStart + roundedBytes >= self allocationLimit ifTrue:
 		[^0].
 	allocation := mzFreeStart.
 	mzFreeStart := mzFreeStart + roundedBytes.

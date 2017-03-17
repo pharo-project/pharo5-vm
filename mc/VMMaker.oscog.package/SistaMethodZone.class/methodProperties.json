@@ -1,0 +1,10 @@
+{
+	"class" : {
+		"declareCVarsIn:" : "eem 3/16/2017 15:56" },
+	"instance" : {
+		"allocationLimit" : "eem 3/16/2017 16:11",
+		"computeAllocationThreshold" : "eem 3/16/2017 16:36",
+		"getCogCodeZoneThreshold" : "eem 3/16/2017 16:03",
+		"initialize" : "eem 3/16/2017 15:56",
+		"manageFrom:to:" : "eem 3/16/2017 16:06",
+		"setCogCodeZoneThreshold:" : "" } }

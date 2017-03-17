@@ -21,4 +21,7 @@ genPrimitiveIdentityHash
 	self genConvertSmallFloatToSmallFloatHashAsIntegerInReg: ReceiverResultReg scratch: TempReg.
 	cogit genPrimReturn.
 	jumpNotSet jmpTarget: cogit Label.
-	^0
+	cogit
+		CallRT: ceNewHashTrampoline;
+		genPrimReturn.
+	^UnfailingPrimitive

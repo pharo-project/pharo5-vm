@@ -12,13 +12,13 @@ genGetIdentityHash: rcvrReg resultReg: resultReg
 			 cogit CmpCq: ConstZero R: resultReg.
 			 jumpSet := cogit JumpNonZero: 0.
 			 cogit MoveR: rcvrReg R: resultReg.
-			 cogit CallRT: ceNewHashTrampoline.
+			 cogit CallRT: ceInlineNewHashTrampoline.
 			 cogit annotateBytecode: cogit Label]
 		ifFalse: 
 			[cogit ssTop popToReg: ReceiverResultReg.
 		 	 self genGetHashFieldNonImmOf: ReceiverResultReg asSmallIntegerInto: resultReg.
 			 cogit CmpCq: ConstZero R: resultReg.
 			 jumpSet := cogit JumpNonZero: 0.
-			 cogit CallRT: ceNewHashTrampoline.
+			 cogit CallRT: ceInlineNewHashTrampoline.
 			 cogit annotateBytecode: (cogit MoveR: ReceiverResultReg R: resultReg)].
-	jumpSet jmpTarget: cogit Label.
+	jumpSet jmpTarget: cogit Label

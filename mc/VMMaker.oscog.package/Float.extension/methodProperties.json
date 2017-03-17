@@ -7,4 +7,5 @@
 		"ccgDeclareCForVar:" : "acg 9/17/1999 01:09",
 		"fromIEEE64BitWord:" : "eem 5/23/2011 14:26" },
 	"instance" : {
-		"asIEEE64BitWord" : "eem 9/18/2010 17:29" } }
+		"asIEEE64BitWord" : "eem 9/18/2010 17:29",
+		"asUnsignedInteger" : "eem 3/16/2017 16:36" } }
