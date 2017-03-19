@@ -21,6 +21,10 @@ genPrimitiveIdentityHash
 	self genConvertSmallFloatToSmallFloatHashAsIntegerInReg: ReceiverResultReg scratch: TempReg.
 	cogit genPrimReturn.
 	jumpNotSet jmpTarget: cogit Label.
+	"For non-behaviors we can call ceNewHash to assign a fresh hash.
+	 For behaviors we must fail into the interpreter primitive to enter the receiver into the class table."
+	cogit primitiveIndex = 75 ifFalse:
+		[^0].
 	cogit
 		CallRT: ceNewHashTrampoline;
 		genPrimReturn.

@@ -491,6 +491,7 @@
 		"getIsObjectReference" : "eem 12/12/2015 14:11",
 		"getLiteral:" : "eem 3/1/2013 16:32",
 		"getOpcodeIndex" : "eem 01/10/2016 10:01",
+		"getPrimitiveIndex" : "eem 3/18/2017 21:52",
 		"halt" : "eem 10/22/2010 10:49",
 		"halt:" : "eem 9/2/2011 17:10",
 		"handleABICallOrJumpSimulationTrap:evaluable:" : "eem 5/31/2016 11:05",
