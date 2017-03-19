@@ -23,4 +23,5 @@ initialize
 	maxExtSemTabSizeSet := false.
 	debugCallbackInvokes := debugCallbackPath := debugCallbackReturns := 0.
 	statForceInterruptCheck := statStackOverflow := statCheckForEvents :=
-	statProcessSwitch := statIOProcessEvents := statStackPageDivorce := 0
+	statProcessSwitch := statIOProcessEvents := statStackPageDivorce :=
+	statIdleUsecs := 0

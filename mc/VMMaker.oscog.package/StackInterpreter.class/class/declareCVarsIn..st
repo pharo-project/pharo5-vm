@@ -101,15 +101,15 @@ declareCVarsIn: aCCodeGenerator
 								longRunningPrimitiveStartUsecs longRunningPrimitiveStopUsecs
 								"these are high-frequency enough that they're overflowing quite quickly on modern hardware"
 								statProcessSwitch statIOProcessEvents statForceInterruptCheck
-								statCheckForEvents statStackOverflow statStackPageDivorce)
+								statCheckForEvents statStackOverflow statStackPageDivorce
+								statIdleUsecs)
 		in: aCCodeGenerator.
 	aCCodeGenerator var: #nextProfileTick type: #sqLong.
 	
-	LowcodeVM ifTrue: [
-		aCCodeGenerator
+	LowcodeVM ifTrue:
+		[aCCodeGenerator
 			var: #shadowCallStackPointer
-			type: #'char*'.
+			type: #'char *'.
 		aCCodeGenerator
 			var: #lowcodeCalloutState
-			type: #'sqLowcodeCalloutState*'
-	].
+			type: #'sqLowcodeCalloutState*']
