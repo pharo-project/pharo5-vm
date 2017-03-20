@@ -23,7 +23,7 @@
 		"genAndDis:numCopied:options:" : "cb 4/11/2016 15:40",
 		"genAndDis:options:" : "cb 4/11/2016 15:38",
 		"genAndDisPICoptions:" : "eem 3/1/2016 17:58",
-		"generateCodeStringForCogitDotC" : "eem 12/11/2015 23:57",
+		"generateCodeStringForCogitDotC" : "eem 3/20/2017 11:40",
 		"generatorTable" : "eem 11/20/2010 09:17",
 		"generatorTableFrom:" : "cb 7/25/2016 10:28",
 		"guardPageSize" : "eem 11/22/2013 14:30",
@@ -64,6 +64,7 @@
 		"testPCMappingSelect:" : "eem 3/18/2013 11:13",
 		"testPCMappingSelect:options:" : "eem 1/16/2017 18:57",
 		"trampolines" : "nice 11/16/2016 00:49",
+		"translateableInstructionSubclassesAndInstalledOptionsDo:" : "eem 3/20/2017 09:30",
 		"typeForSelf" : "eem 2/9/2009 20:42" },
 	"instance" : {
 		"AddCq:R:" : "eem 6/8/2015 12:11",
