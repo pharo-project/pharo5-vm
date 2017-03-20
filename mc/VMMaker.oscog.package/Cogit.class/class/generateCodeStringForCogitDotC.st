@@ -9,7 +9,7 @@ generateCodeStringForCogitDotC
 		 s nextPutAll: (CCodeGenerator monticelloDescriptionFor: self).
 		 s cr; nextPutAll: ' */'.
 		 s cr; cr; nextPut: $#.
-		 (CogAbstractInstruction translateableSubclasses sort: [:a :b| a name < b name]) do:
+		 self translateableInstructionSubclassesAndInstalledOptionsDo:
 			[:class |
 			 s nextPutAll: 'if '.
 			 class identifyingPredefinedMacros

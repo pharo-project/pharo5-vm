@@ -4,6 +4,7 @@
 		"VarBaseReg" : "eem 9/28/2015 10:51",
 		"defaultCompilerClass" : "eem 12/4/2015 22:25",
 		"identifyingPredefinedMacros" : "eem 12/11/2015 23:43",
+		"ifTranslateableAddWithOptionsTo:" : "eem 3/20/2017 08:55",
 		"initialize" : "rsf 1/12/2017 17:23",
 		"initializeAbstractRegisters" : "eem 11/28/2016 18:03",
 		"initializeAbstractRegistersSysV" : "eem 11/28/2016 18:04",
@@ -11,6 +12,7 @@
 		"isAbstract" : "eem 12/12/2015 11:45",
 		"isSysV" : "nice 11/28/2016 23:18",
 		"machineCodeDeclaration" : "eem 9/17/2015 14:52",
+		"moduleName" : "eem 3/20/2017 09:00",
 		"wordSize" : "eem 12/11/2015 23:30" },
 	"instance" : {
 		"availableRegisterOrNoneFor:" : "cb 4/16/2016 15:23",
