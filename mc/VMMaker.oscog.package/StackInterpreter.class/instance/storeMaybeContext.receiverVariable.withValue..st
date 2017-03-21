@@ -6,7 +6,8 @@ storeMaybeContext: obj receiverVariable: fieldIndex withValue: anOop
 	<inline: true>
 	((self isWriteMediatedContextInstVarIndex: fieldIndex)
 	and: [(objectMemory isContextNonImm: obj)
-	and: [self isMarriedOrWidowedContext: obj]])
+	and: [(self isMarriedOrWidowedContext: obj)
+		or: [self is: fieldIndex methodAssignmentToContextWithMachineCodePC: anOop]]])
 		ifTrue:
 			[self instVar: fieldIndex ofContext: obj put: anOop]
 		ifFalse:

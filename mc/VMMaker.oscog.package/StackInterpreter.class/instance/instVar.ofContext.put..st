@@ -15,7 +15,7 @@ instVar: index ofContext: aMarriedContext put: anOop
 			[self ensureContextIsExecutionSafeAfterAssignToStackPointer: aMarriedContext].
 		 ^nil].
 	theFP := self frameOfMarriedContext: aMarriedContext.
-	index == SenderIndex ifTrue:
+	index = SenderIndex ifTrue:
 		[| thePage onCurrentPage |
 		 thePage := stackPages stackPageFor: theFP.
 		 self assert: stackPage = stackPages mostRecentlyUsedPage.
@@ -30,6 +30,8 @@ instVar: index ofContext: aMarriedContext put: anOop
 		 ^nil].
 	self externalizeIPandSP.
 	self externalDivorceFrame: theFP andContext: aMarriedContext.
+	(self is: index methodAssignmentToContextWithMachineCodePC: aMarriedContext) ifTrue:
+		[self ensureContextHasBytecodePC: aMarriedContext].
 	objectMemory storePointer: index ofObject: aMarriedContext withValue: anOop.
 	index = StackPointerIndex ifTrue:
 		[self ensureContextIsExecutionSafeAfterAssignToStackPointer: aMarriedContext].

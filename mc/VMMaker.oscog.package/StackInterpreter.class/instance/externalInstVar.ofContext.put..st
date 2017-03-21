@@ -16,11 +16,13 @@ externalInstVar: index ofContext: maybeMarriedContext put: anOop
 	thePage := stackPages stackPageFor: theFP.
 	self assert: stackPage = stackPages mostRecentlyUsedPage.
 	onCurrentPage := thePage = stackPage.
-	index == SenderIndex
+	index = SenderIndex
 		ifTrue:
 			[self storeSenderOfFrame: theFP withValue: anOop]
 		ifFalse:
 			[self externalDivorceFrame: theFP andContext: maybeMarriedContext.
+			 (self is: index methodAssignmentToContextWithMachineCodePC: maybeMarriedContext) ifTrue:
+				[self ensureContextHasBytecodePC: maybeMarriedContext].
 			 objectMemory storePointer: index ofObject: maybeMarriedContext withValue: anOop.
 			 index = StackPointerIndex ifTrue:
 				[self ensureContextIsExecutionSafeAfterAssignToStackPointer: maybeMarriedContext]].

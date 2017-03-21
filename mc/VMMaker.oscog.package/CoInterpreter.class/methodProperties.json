@@ -203,6 +203,7 @@
 		"interpretAddress" : "eem 12/12/2012 11:34",
 		"interpretMethodFromMachineCode" : "eem 11/13/2014 13:12",
 		"interpreterAllocationReserveBytes" : "eem 10/27/2016 15:54",
+		"is:methodAssignmentToContextWithMachineCodePC:" : "eem 3/21/2017 15:05",
 		"isCog" : "eem 2/2/2009 16:19",
 		"isCogCompiledCodeCompactionCalledFor" : "eem 1/8/2011 09:38",
 		"isCogMethodReference:" : "eem 7/5/2011 16:25",

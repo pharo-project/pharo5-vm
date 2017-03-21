@@ -1,3 +1,3 @@
 accessing
 specialSelectorNumArgs: index 
-	^Smalltalk specialSelectors at: index * 2 + 2
+	^self specialSelectors at: index * 2 + 2
