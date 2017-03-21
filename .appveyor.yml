@@ -29,14 +29,14 @@ install:
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86_64.exe" -FileName "setup-x86_64.exe"'
   - '%CYG_SETUP% -dgnqNO -R "%CYG_ROOT%" -s "%CYG_MIRROR%" -l "%CYG_ROOT%\var\cache\setup" -P mingw64-%MINGW_ARCH%-gcc-core,mingw64-%MINGW_ARCH%-gcc-g++,mingw64-%MINGW_ARCH%-headers,mingw64-%MINGW_ARCH%-runtime,zip,mingw64-%MINGW_ARCH%-clang,libiconv-devel,libglib2.0-devel,perl,mingw64-%MINGW_ARCH%-zlib,cmake,mingw64-%MINGW_ARCH%-win-iconv'
 build_script:
-  - '%CYG_ROOT%\bin\bash -lc "cd scripts; exec 0</dev/null; exec ./build_sources.sh -a i386"'
-  - '%CYG_ROOT%\bin\bash -lc "cd opensmalltalk-vm; exec 0</dev/null; exec export THIRDPARTYCACHEDIR=../../../.thirdparty-cache; ./.travis_build.sh"'
-  - '%CYG_ROOT%\bin\bash -lc "cd scripts; exec 0</dev/null; exec ./pack-vm.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./build_sources.sh -a i386"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; exec export THIRDPARTYCACHEDIR=../../../.thirdparty-cache; ./.travis_build.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
 test_script:
-  - '%CYG_ROOT%\bin\bash -lc "exec 0</dev/null; exec ./scripts/run-tests.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/run-tests.sh"'
 before_deploy:
-  - '%CYG_ROOT%\bin\bash -lc "cd scripts; exec 0</dev/null; exec ./deploy-key.sh"'
-  - '%CYG_ROOT%\bin\bash -lc "exec 0</dev/null; exec ./scripts/deploy-key.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./deploy-key.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/deploy-key.sh"'
 deploy_script:
-  - '%CYG_ROOT%\bin\bash -lc "exec 0</dev/null; exec ./scripts/deploy-bintray-appveyor.sh"'
-  - '%CYG_ROOT%\bin\bash -lc "exec 0</dev/null; exec ./scripts/deploy-files.pharo.org-appveyor.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/deploy-bintray-appveyor.sh"'
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/deploy-files.pharo.org-appveyor.sh"'
