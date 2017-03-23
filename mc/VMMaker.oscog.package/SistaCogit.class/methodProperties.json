@@ -25,7 +25,7 @@
 		"genBinaryInlineComparison:opFalse:destReg:" : "eem 02/09/2017 09:39",
 		"genBinaryVarOpConstInlinePrimitive:" : "cb 1/13/2017 11:53",
 		"genBinaryVarOpVarInlinePrimitive:" : "cb 3/22/2017 14:47",
-		"genByteEqualsInlinePrimitive:" : "cb 3/23/2017 15:01",
+		"genByteEqualsInlinePrimitive:" : "cb 3/23/2017 15:20",
 		"genByteEqualsInlinePrimitiveCmp:with:scratch1:scratch2:field:" : "cb 3/23/2017 14:33",
 		"genByteEqualsInlinePrimitiveResult:returnReg:" : "cb 3/23/2017 14:56",
 		"genCallPrimitiveBytecode" : "cb 3/22/2017 10:18",
