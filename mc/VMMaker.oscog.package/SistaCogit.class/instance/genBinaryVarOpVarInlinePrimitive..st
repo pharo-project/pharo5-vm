@@ -20,6 +20,9 @@ genBinaryVarOpVarInlinePrimitive: prim
 				 self genRemoveSmallIntegerTagsInScratchReg: ra.
 				 self MulR: ra R: rr.
 				 self genSetSmallIntegerTagsIn: rr].
+		"[4]	->	[].
+		[5]	->	[].
+		[6]	->	[]."
 
 		"2016 through 2020, bitAnd:, bitOr:, bitXor, bitShiftLeft:, bitShiftRight:, SmallInteger op SmallInteger => SmallInteger, no overflow"
 		[16] -> [ self AndR: ra R: rr ].

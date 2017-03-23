@@ -31,10 +31,11 @@ unaryInlinePrimitive: primIndex
 		[11] ->	[| classObj numSlots |
 				 classObj := self internalStackTop.
 				 numSlots := objectMemory instanceSizeOf: classObj.
-				 result := objectMemory eeInstantiateSmallClass: classObj numSlots: numSlots.
+				 result := objectMemory instantiateClass: classObj.
+				" result := objectMemory eeInstantiateSmallClass: classObj numSlots: numSlots.
 				 (extB noMask: 1) ifTrue:
 					[0 to: numSlots - 1 do:
-						[:i| objectMemory storePointerUnchecked: i ofObject: result withValue: objectMemory nilObject]].
+						[:i| objectMemory storePointerUnchecked: i ofObject: result withValue: objectMemory nilObject]]."
 				 extB := 0.
 				numExtB := 0.
 				 self internalStackTopPut: result].

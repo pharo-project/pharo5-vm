@@ -42,11 +42,23 @@ genUnaryInlinePrimitive: prim
 					"23		identityHash (SmallFloat64)"
 					"24		identityHash (Behavior)"
 					"30 	immediateAsInteger (Character)
-					 31 	immediateAsInteger (SmallFloat64)"
+					 31 	immediateAsInteger (SmallFloat64)
+					 35		immediateAsFloat 	  (SmallInteger)	"
 			[30] -> 
 				[self ssTop popToReg: resultReg.
 				 objectRepresentation genConvertCharacterToSmallIntegerInReg: resultReg.
-				 self ssPop: 1]
+				 self ssPop: 1].
+			[35] -> 
+				[self assert: self processorHasDoublePrecisionFloatingPointSupport.
+				self MoveR: rcvrReg R: TempReg.
+				self genConvertSmallIntegerToIntegerInReg: TempReg.
+				self ConvertR: TempReg Rd: DPFPReg0.
+				self flag: #TODO. "Should never fail"
+				self
+					genAllocFloatValue: DPFPReg0
+					into: resultReg
+					scratchReg: TempReg
+					scratchReg: NoReg. "scratch2 for V3 only"]
 				  }
 				
 		otherwise:
