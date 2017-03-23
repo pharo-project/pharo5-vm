@@ -1,4 +1,4 @@
-in-image compilation
+in-image compilation support
 instanceForTests: optionsDictionaryOrArray
 	"Initialize all the relevant classes from the options and answer a new instance of me."
 	| initOptions |

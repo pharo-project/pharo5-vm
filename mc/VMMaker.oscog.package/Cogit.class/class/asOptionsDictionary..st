@@ -1,4 +1,4 @@
-in-image compilation
+in-image compilation support
 asOptionsDictionary: optionsDictionaryOrArray
 	optionsDictionaryOrArray isArray ifTrue:
 		[| dict |
