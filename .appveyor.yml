@@ -23,7 +23,7 @@ init:
   - git config --system core.longpaths true
 #  - echo "Windows Original Path:"
 #  - echo %PATH%
-#  - set PATH=C:\MinGW\bin;C:\MinGW\msys\1.0\bin;%PATH%;%CYG_ROOT%\bin
+  - set PATH=%PATH%;%CYG_ROOT%\bin;C:\Ruby23\bin
 install:
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86.exe" -FileName "setup-x86.exe"'
   - ps: 'Start-FileDownload "http://cygwin.com/setup-x86_64.exe" -FileName "setup-x86_64.exe"'
