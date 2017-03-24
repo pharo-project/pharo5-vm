@@ -1,11 +1,11 @@
 jump bytecodes
-ifBackwardsCheckForEvents: offset
+ifBackwardsCheckForEvents: offsetToJumpBytecode
 	"Backward jump means we're in a loop.
 		- check for possible interrupts.
 		- check for long-running loops and JIT if appropriate."
 	| switched backwardJumpCountByte |
 	<inline: true>
-	offset >= 0 ifTrue:
+	offsetToJumpBytecode >= 0 ifTrue:
 		[^self].
 
 	localSP < stackLimit ifTrue:
@@ -25,7 +25,7 @@ ifBackwardsCheckForEvents: offset
 		ifTrue:
 			[(self methodWithHeaderShouldBeCogged: (objectMemory methodHeaderOf: method)) ifTrue:
 				[self externalizeIPandSP.
-				 self attemptToSwitchToMachineCode: (self oopForPointer: localIP) - offset - method - objectMemory baseHeaderSize - 1
+				 self attemptToSwitchToMachineCode: (self oopForPointer: localIP) - offsetToJumpBytecode - method - objectMemory baseHeaderSize - 1
 				 "If attemptToSwitchToMachineCode: returns the method could not be cogged, hence..."].
 			 "can't cog method; avoid asking to cog it again for the longest possible time."
 			 backwardJumpCountByte := 16r7F]

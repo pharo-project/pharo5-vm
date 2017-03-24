@@ -7,4 +7,5 @@ ensureContextHasBytecodePC: aContext
 	((objectMemory isIntegerObject: pc)
 	 and: [(pc := objectMemory integerValueOf: pc) < 0]) ifTrue:
 		[pc := self mustMapMachineCodePC: pc context: aContext.
+		 self assert: (self validBCPC: (objectMemory integerValueOf: pc) inMethod: (objectMemory fetchPointer: MethodIndex ofObject: aContext)).
 		 objectMemory storePointerUnchecked: InstructionPointerIndex ofObject: aContext withValue: pc]
