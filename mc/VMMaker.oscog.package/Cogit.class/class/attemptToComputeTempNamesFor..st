@@ -10,6 +10,10 @@ attemptToComputeTempNamesFor: aCompiledMethod
 																		do: [:ex|
 																			(self isSistaMessage: ex message unimplementedIn: Decompiler) ifTrue:
 																				[^self].
+																			 (Smalltalk classNamed: #AssemblerAbsentClassImport) ifNotNil:
+																				[:aaciClass|
+																				 (ex receiver isKindOf: aaciClass) ifTrue:
+																					[^self]].
 																			 ex pass])},
 				(blocks
 					ifEmpty: [#()]
