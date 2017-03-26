@@ -1,4 +1,5 @@
 simulation stack
 ssFlushAll
 	<inline: true>
-	self ssFlushTo: simStackPtr nativeFlushTo: simNativeStackPtr
+	self ssFlushTo: simStackPtr nativeFlushTo: simNativeStackPtr.
+	self voidReceiverResultRegContainsSelf.

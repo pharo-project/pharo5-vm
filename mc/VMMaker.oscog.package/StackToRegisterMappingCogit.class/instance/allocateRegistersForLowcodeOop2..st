@@ -9,11 +9,21 @@ allocateRegistersForLowcodeOop2: aBlock
 
 	self ssTop registerOrNone ~= NoReg ifTrue:  [
 		rOopTop := self ssTop registerOrNone.
+		"Ensure we are not using a duplicated register."
+		(self isOopRegister: rOopTop usedBefore: 0) ifTrue: [
+			rOopTop := NoReg
+		]
 	].
 
 	(self ssValue: 1) registerOrNone ~= NoReg ifTrue: [
 		rOopNext := (self ssValue: 1) registerOrNone.
-		oopTopRegisterMask := self registerMaskFor: rOopNext.
+		"Ensure we are not using a duplicated register."
+		(self isOopRegister: rOopNext usedBefore: 1) ifTrue: [
+			rOopNext := NoReg
+		].
+		rOopNext ~= NoReg ifTrue: [ 
+			oopTopRegisterMask := self registerMaskFor: rOopNext.
+		].
 	].
 
 	rOopTop = NoReg ifTrue: [

@@ -1,5 +1,5 @@
 accessing
 nativeFloatRegisterOrNone
-	^ ([type = SSRegisterSingleFloat] or: [type = SSRegisterDoubleFloat])
+	^ (type = SSRegisterSingleFloat or: [type = SSRegisterDoubleFloat])
 		 ifTrue: [register]
 		 ifFalse: [NoReg]
