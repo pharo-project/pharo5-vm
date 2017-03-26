@@ -13,6 +13,6 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 							['mergeSimStack']			-> [#'SimStackEntry *'].
 							['instructionIndex']			-> [#'unsigned short'].
 							['simStackPtr']				-> [#char].
-							['simNativeStackPtr']		-> [#'unsigned short'].
+							['simNativeStackPtr']		-> [#'short'].
 							['simNativeStackSize']		-> [#'unsigned short'].
 							['isReceiverResultRegSelf']	-> [#char] }])]

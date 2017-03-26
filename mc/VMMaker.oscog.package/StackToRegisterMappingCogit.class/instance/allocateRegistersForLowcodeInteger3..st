@@ -3,7 +3,7 @@ allocateRegistersForLowcodeInteger3: aBlock
 	<option: #LowcodeVM>
 	<inline: true>
 	
-	| rNext rNextNext nativeValueIndex rTop registerMask |
+	| rNext rNextNext nativeValueIndex rTop nextRegisterMask |
 	rTop := rNext := rNextNext := NoReg.
 	nativeValueIndex := 1.
 
@@ -30,21 +30,21 @@ allocateRegistersForLowcodeInteger3: aBlock
 	].
 
 	rTop = NoReg ifTrue: [
-		registerMask := 0.
-		rNext ~= NoReg ifTrue: [ registerMask := self registerMaskFor: rNext].
-		rNextNext ~= NoReg ifTrue: [ registerMask := registerMask bitOr: (self registerMaskFor: rNextNext)].
-		rTop := self allocateRegNotConflictingWith: registerMask
+		nextRegisterMask := 0.
+		rNext ~= NoReg ifTrue: [ nextRegisterMask := self registerMaskFor: rNext].
+		rNextNext ~= NoReg ifTrue: [ nextRegisterMask := nextRegisterMask bitOr: (self registerMaskFor: rNextNext)].
+		rTop := self allocateRegNotConflictingWith: nextRegisterMask
 	].
 	
 	rNext = NoReg ifTrue: [
-		registerMask := self registerMaskFor: rTop.
-		rNextNext ~= NoReg ifTrue: [ registerMask := registerMask bitOr: (self registerMaskFor: rNextNext)].
-		rNext := self allocateRegNotConflictingWith: registerMask
+		nextRegisterMask := self registerMaskFor: rTop.
+		rNextNext ~= NoReg ifTrue: [ nextRegisterMask := nextRegisterMask bitOr: (self registerMaskFor: rNextNext)].
+		rNext := self allocateRegNotConflictingWith: nextRegisterMask
 	].
 
 	rNextNext = NoReg ifTrue: [
-		registerMask := self registerMaskFor: rTop and: rNext.
-		rNextNext := self allocateRegNotConflictingWith: registerMask
+		nextRegisterMask := self registerMaskFor: rTop and: rNext.
+		rNextNext := self allocateRegNotConflictingWith: nextRegisterMask
 	].
 
 	self deny: (rTop = NoReg or: [rNext = NoReg or: [rNextNext = NoReg]]).

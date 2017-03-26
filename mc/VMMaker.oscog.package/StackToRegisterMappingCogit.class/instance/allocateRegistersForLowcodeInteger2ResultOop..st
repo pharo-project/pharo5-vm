@@ -6,7 +6,7 @@ allocateRegistersForLowcodeInteger2ResultOop: aBlock
 	| rNext rTop topRegistersMask rResult |
 	topRegistersMask := 0.
 	rTop := rNext := NoReg.
-	rResult := NoReg
+	rResult := NoReg.
 
 	self ssNativeTop nativeRegisterOrNone ~= NoReg ifTrue:  [
 		rTop := self ssNativeTop nativeRegisterOrNone.

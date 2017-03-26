@@ -22,6 +22,6 @@ allocateRegistersForLowcodeFloat2ResultInteger: aBlock
 	"Result"
 	rResult := self allocateRegNotConflictingWith: 0.
 
-	self deny: (frTop = NoReg or: [frNext = NoReg or: [rResult]]).
+	self deny: (frTop = NoReg or: [frNext = NoReg or: [rResult = NoReg]]).
 
 	^ aBlock value: frTop value: frNext value: rResult
