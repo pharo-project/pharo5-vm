@@ -4,6 +4,7 @@ useFreeChunkForSavedFirstFieldsSpace: highestSuitableFreeBlock
 	 eden is found not to be big enough for the job. Avoid the first few fields so as
 	 not to destroy the free chunk and there by confuse object enumeration."
 	<inline: true>
+	self assert: (manager validFreeTreeChunk: highestSuitableFreeBlock).
 	savedFirstFieldsSpace
 		start: highestSuitableFreeBlock + (manager freeChunkLargerIndex * manager bytesPerOop);
 		limit: (manager addressAfter: highestSuitableFreeBlock).
