@@ -60,7 +60,7 @@ matrix:
         script: ./scripts/commit-sources.sh
         on:
           branch: master
-          repo: pharo-project/pharo-vm
+          repo: estebanlm/pharo-vm
       after_deploy: 
         - ./scripts/deploy-after.sh
     - os: linux
