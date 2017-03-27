@@ -56,13 +56,8 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
-      after_script:
-        script: ./scripts/commit-sources.sh
-        on:
-          branch: master
-          repo: estebanlm/pharo-vm
-      after_deploy: 
-        - ./scripts/deploy-after.sh
+      after_script: ./scripts/commit-sources.sh
+      after_deploy: ./scripts/deploy-after.sh
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
       addons:

@@ -2,6 +2,10 @@
 
 set -ex
 
+if [  "$TRAVIS_REPO_SLUG" != "estebanlm/pharo-vm" -o "$TRAVIS_BRANCH" != "master" ]; then
+	exit
+fi
+
 LAST_MESSAGE=`git log -1 --pretty=%B`
 
 git add opensmalltalk-vm/src/*
