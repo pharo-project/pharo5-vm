@@ -31,8 +31,6 @@ matrix:
     - os: osx
       osx_image: xcode6.4
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
-      after_deploy: 
-        - ./scripts/deploy-after.sh
     - os: osx
       osx_image: xcode6.4
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
@@ -58,6 +56,13 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
+      after_script:
+        script: ./scripts/commit-sources.sh
+        on:
+          branch: master
+          repo: pharo-project/pharo-vm
+      after_deploy: 
+        - ./scripts/deploy-after.sh
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
       addons:
