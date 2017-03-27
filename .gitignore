@@ -3,3 +3,7 @@
 *.image
 *.sources
 *.changes
+test-image*
+runTests.sh
+genVersion.sh
+resetAll.sh
