@@ -6,6 +6,12 @@ if [  "$TRAVIS_REPO_SLUG" != "estebanlm/pharo-vm" -o "$TRAVIS_BRANCH" != "master
 	exit
 fi
 
+# prepare keys
+./deploy-key.sh
+# set system properties
+git config user.name "Travis CI"
+git config user.email ""
+
 LAST_MESSAGE=`git log -1 --pretty=%B`
 
 git add opensmalltalk-vm/src/*
