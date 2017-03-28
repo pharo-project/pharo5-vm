@@ -1,6 +1,17 @@
 #! /bin/bash
+# This script will add a deploy key to the CI;
+# Required environment variables:
+# 
+#	DEPLOY_KEY   	- The -K key (a phrase on hex)
+# 	DEPLOY_KEY_IV   - The -iv key (a phrase on hex)
+# 	DEPLOY_USER		- The username for deploying
 
-set -e
+set -ex
+
+# exit if there is already a .ssh config
+if [ -e ~/.ssh/id_rsa ]; then
+	exit
+fi
 
 if [ ! -e ~/.shh ]; then
 	mkdir -p ~/.ssh
