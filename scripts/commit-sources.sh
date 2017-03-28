@@ -6,7 +6,7 @@ if [  "$TRAVIS_REPO_SLUG" != "estebanlm/pharo-vm" -o "$TRAVIS_BRANCH" != "master
 	exit
 fi
 
-# prepare keys
+# prepare keys (I will use same as deploy, so I just install them now)
 ./deploy-key.sh
 # set system properties
 git config user.name "Travis CI"
