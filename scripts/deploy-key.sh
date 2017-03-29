@@ -8,11 +8,6 @@
 
 set -ex
 
-# exit if there is already a .ssh config
-if [ -e ~/.ssh/id_rsa ]; then
-	exit
-fi
-
 if [ ! -e ~/.shh ]; then
 	mkdir -p ~/.ssh
 fi

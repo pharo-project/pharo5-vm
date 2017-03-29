@@ -3,6 +3,8 @@
 # in case of debugging. 
 # Required environment variables:
 # 	
+#	DEPLOY_KEY   	- The -K key (a phrase on hex)
+# 	DEPLOY_KEY_IV   - The -iv key (a phrase on hex)
 #  	GIT_USERNAME - the git user.name property
 # 	GIT_USERMAIL - the git user.email property
 # 
@@ -15,16 +17,16 @@ if [  "$TRAVIS_REPO_SLUG" != "estebanlm/pharo-vm" -o "$TRAVIS_BRANCH" != "master
 	exit
 fi
 
-#if [ "$TRAVIS_COMMIT" != "`git rev-parse HEAD`" ]; then
-#	echo "Not in HEAD, aborting."
-#	exit 
-#fi
-
-# prepare keys (I will use same as deploy, so I just install them now)
-./deploy-key.sh
+# prepare keys 
+if [ ! -e ~/.shh ]; then
+	mkdir -p ~/.ssh
+fi
+openssl aes-256-cbc -K $DEPLOY_KEY -iv $DEPLOY_KEY_IV -in commit_key.enc -out ~/.ssh/id_rsa -d
+chmod 600 ~/.ssh/id_rsa
 # set system properties
-git config user.name "\"$GIT_USERNAME\""
-git config user.email "\"$GIT_USERMAIL\""
+git config user.name "$GIT_USERNAME"
+git config user.email "$GIT_USERMAIL"
+git config push.default simple
 # stage changes
 git add ../opensmalltalk-vm/src/*
 git add ../opensmalltalk-vm/spursrc/*
@@ -32,3 +34,5 @@ git add ../opensmalltalk-vm/spur64src/*
 # commit & push
 git commit --amend --no-edit
 git push
+# ensure clean of key
+rm -Rf ~/.ssh
