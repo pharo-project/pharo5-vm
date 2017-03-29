@@ -15,11 +15,18 @@ if [  "$TRAVIS_REPO_SLUG" != "estebanlm/pharo-vm" -o "$TRAVIS_BRANCH" != "master
 	exit
 fi
 
+if [ "$TRAVIS_COMMIT" != "`git rev-parse HEAD`" ]; then
+	echo "Not in HEAD, aborting."
+	exit 
+fi
+
 # prepare keys (I will use same as deploy, so I just install them now)
 ./deploy-key.sh
 # set system properties
 git config user.name "\"$GIT_USERNAME\""
 git config user.email "\"$GIT_USERMAIL\""
+
+git checkout HEAD
 
 git add ../opensmalltalk-vm/src/*
 git add ../opensmalltalk-vm/spursrc/*
