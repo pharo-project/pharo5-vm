@@ -33,6 +33,6 @@ git add ../opensmalltalk-vm/spursrc/*
 git add ../opensmalltalk-vm/spur64src/*
 # commit & push
 git commit --amend --no-edit
-git push
+git push origin HEAD:$TRAVIS_BRANCH
 # ensure clean of key
 rm -Rf ~/.ssh
