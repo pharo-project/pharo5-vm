@@ -29,7 +29,6 @@ export LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
 
 override_dh_auto_configure:
 	mkdir -p build/debian/build
-	cp build.linux32x86/mkNamedPrims.sh build/
 	cp build.linux32x86/pharo.cog.spur/plugins.* build/debian/build/
 	dh_auto_configure -- \
 		--without-npsqueak \
