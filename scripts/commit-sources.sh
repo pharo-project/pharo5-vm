@@ -29,12 +29,13 @@ git config user.email "$GIT_USERMAIL"
 git config push.default simple
 # checkout branch
 git checkout -f $TRAVIS_BRANCH
+git pull git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_BRANCH
 # stage changes
 git add ../opensmalltalk-vm/src/*
 git add ../opensmalltalk-vm/spursrc/*
 git add ../opensmalltalk-vm/spur64src/*
 # commit & push
 git commit --amend --no-edit
-git push git@github.com:$TRAVIS_REPO_SLUG.git HEAD:$TRAVIS_BRANCH
+git push git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_BRANCH
 # ensure clean of key
 rm -Rf ~/.ssh
