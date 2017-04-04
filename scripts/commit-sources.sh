@@ -35,7 +35,7 @@ git add ../opensmalltalk-vm/src/*
 git add ../opensmalltalk-vm/spursrc/*
 git add ../opensmalltalk-vm/spur64src/*
 # commit & push
-git commit --amend --no-edit
+git commit --amend -m "`git log -1 --pretty=%B` [skip ci]"
 git push -f git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_BRANCH
 # ensure clean of key
 rm -Rf ~/.ssh
