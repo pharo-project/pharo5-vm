@@ -27,6 +27,8 @@ chmod 600 ~/.ssh/id_rsa
 git config user.name "$GIT_USERNAME"
 git config user.email "$GIT_USERMAIL"
 git config push.default simple
+# checkout branch
+git checkout -f $TRAVIS_BRANCH
 # stage changes
 git add ../opensmalltalk-vm/src/*
 git add ../opensmalltalk-vm/spursrc/*
