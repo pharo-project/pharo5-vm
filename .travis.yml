@@ -26,6 +26,8 @@ addons:
       - libtool
       - automake
       - autoconf
+      - dpkg-dev
+      - osc
 matrix:
   include:
     - os: osx
@@ -35,7 +37,13 @@ matrix:
       osx_image: xcode6.4
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
     - os: linux
-      env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="threaded"
+      env:
+      - ARCH="linux32x86"
+      - FLAVOR="pharo.cog.spur"
+      - SRC_ARCH="i386"
+      - HEARTBEAT="threaded"
+      - secure: "Irxld8P+3z61Q2/5ju3NLEVrj4uQJFJ/oTuKScqO4eLADYuUZUru6jhqZ1RkQWi+eOjJTiHGCKZI5lEZ4mrSa1VCFgOXlTfkTA8+eQYwCoaNM7dqTdzEAkSSX94FlzTf5+AyJTMjtDl2Wjitt1RXDNv3atcMIYx569unHr+7c4k="
+      - secure: "GoRhWin9A5beT7vD2DJcu2hsakYxgpa7dWHe1xzhbmCOykxLeORX2SKZtSwm3lbGsEp7RS+ldy6FeOcuRvZS11V0bEj1mXw8vspYHij9rHRbGKfE1zpR7djc7mUlt5oa+ycfgsO8pBdLENMvLwSD+qeuL+0P1LApnzw9K3xIRVg="
       addons:
         apt:
           packages:
@@ -56,7 +64,11 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
-      #after_script: (cd scripts; ./commit-sources.sh)
+      after_script:
+#      - (cd scripts; ./commit-sources.sh)
+      - make -f Makefile.debian version_from_travis
+      - make -f Makefile.debian
+      - ./scripts/commit-obs.sh
       after_deploy: ./scripts/deploy-after.sh
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
