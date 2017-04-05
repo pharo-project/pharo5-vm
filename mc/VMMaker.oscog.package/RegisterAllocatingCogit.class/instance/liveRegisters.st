@@ -1,6 +1,7 @@
 simulation stack
 liveRegisters
 	| regsSet |
+	self assert: needsFrame.
 	regsSet := 0.
 	0 to: simStackPtr do:
 		[:i|

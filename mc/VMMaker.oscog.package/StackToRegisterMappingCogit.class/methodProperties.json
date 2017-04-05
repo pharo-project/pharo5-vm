@@ -70,7 +70,7 @@
 		"annotateInstructionForBytecode" : "eem 4/18/2016 18:59",
 		"anyReferencesToRegister:inAllButTopNItems:" : "eem 12/5/2016 10:49",
 		"anyReferencesToRegister:inTopNItems:" : "eem 1/12/2013 10:48",
-		"assertCorrectSimStackPtr" : "cb 4/20/2016 12:38",
+		"assertCorrectSimStackPtr" : "eem 4/5/2017 12:11",
 		"availableRegOrNoneNotConflictingWith:" : "eem 12/10/2015 09:18",
 		"beginHighLevelCall:" : "rsf 8/10/2016 00:20",
 		"bytecodeFixupClass" : "eem 11/22/2010 11:09",

@@ -20,6 +20,8 @@ mergeWithFixupIfRequired: fixup
 	for later assertions. self printSimStack: fixup mergeSimStack"
 
 	<var: #fixup type: #'BytecodeFixup *'>
+	self deny: self duplicateRegisterAssignmentsInTemporaries.
+
 	"case 1"
 	fixup notAFixup ifTrue: [^0].
 

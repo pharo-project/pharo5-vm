@@ -14,7 +14,8 @@ compileAbstractInstructionsFrom: start through: end
 	    result := super compileAbstractInstructionsFrom: start through: end.
 	    result = 0 and: [recompileForLoopRegisterAssignments]]
 		whileTrue:
-			[self reinitializeAllButBackwardFixupsFrom: start through: end.
+			[self assert: compilationPass <= 2.
+			 self reinitializeAllButBackwardFixupsFrom: start through: end.
 			 self resetSimStack: start.
 			 self reinitializeOpcodesFrom: initialOpcodeIndex to: opcodeIndex - 1.
 			 compilationPass := compilationPass + 1.

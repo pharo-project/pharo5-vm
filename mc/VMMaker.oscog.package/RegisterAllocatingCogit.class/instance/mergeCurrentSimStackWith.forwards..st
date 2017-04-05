@@ -23,18 +23,18 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 	self resolveRegisterOrderConflictsBetweenCurrentSimStackAnd: mergeSimStack.
 	(self asserta: (self conflictsResolvedBetweenSimStackAnd: mergeSimStack)) ifFalse:
 		[Notification new tag: #failedMerge; signal].
-	"Compute written to registers.  Perhaps we should use 0 in place of methodOrBlockNumArgs
+	"Compute written to registers.  Perhaps we should use 0 in place of methodOrBlockNumTemps
 	 but Smalltalk does not assign to arguments."
 	writtenToRegisters := 0.
 	(self pushForMergeWith: mergeSimStack)
 		ifTrue:
-			[methodOrBlockNumArgs to: simStackPtr do:
+			[methodOrBlockNumTemps to: simStackPtr do:
 				[:i|
 				 currentEntry := self simStack: simStack at: i.
 				 targetEntry := self simStack: mergeSimStack at: i.
 				 writtenToRegisters := writtenToRegisters bitOr: targetEntry registerMask.
 				 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
-					[self assert: i >= methodOrBlockNumArgs.
+					[self assert: i >= methodOrBlockNumTemps.
 					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack.
 					 targetEntry
 						type: SSRegister;
@@ -48,13 +48,13 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 							cCode: [mergeSimStack at: i]
 							inSmalltalk: [(mergeSimStack at: i) copy])"]]
 		ifFalse:
-			[simStackPtr to: methodOrBlockNumArgs by: -1 do:
+			[simStackPtr to: methodOrBlockNumTemps by: -1 do:
 				[:i|
 				 currentEntry := self simStack: simStack at: i.
 				 targetEntry := self simStack: mergeSimStack at: i.
 				 writtenToRegisters := writtenToRegisters bitOr: targetEntry registerMask.
 				 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
-					[self assert: i >= methodOrBlockNumArgs.
+					[self assert: i >= methodOrBlockNumTemps.
 					 self deassignRegisterForTempVar: targetEntry in: mergeSimStack.
 					 targetEntry
 						type: SSRegister;
