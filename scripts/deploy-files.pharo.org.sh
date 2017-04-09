@@ -13,4 +13,4 @@ if [ -z "$productName" ]; then
 	exit 1
 fi 
 echo "Uploading $productName to pharo.files.org/$destDir"
-scp $productName files.pharo.org:$destDir/nightly-build/$productName
+scp $productName files.pharo.org:$destDir/$productName
