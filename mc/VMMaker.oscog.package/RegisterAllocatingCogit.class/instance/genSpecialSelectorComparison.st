@@ -38,8 +38,6 @@ genSpecialSelectorComparison
 			 argReg := NoReg]
 		ifFalse:
 			[self allocateRegForStackTopTwoEntriesInto: [:rTop :rNext| argReg := rTop. rcvrReg := rNext].
-			 rcvrReg = Arg0Reg ifTrue:
-				[rcvrReg := argReg. argReg := Arg0Reg].
 			 self ssTop popToReg: argReg.
 			 (self ssValue: 1) popToReg: rcvrReg].
 	self ssPop: 2.

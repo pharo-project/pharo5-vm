@@ -9,7 +9,9 @@ moveVolatileSimStackEntriesToRegisters
 						 The second one has 1 on both paths, but we're not clever enough to spot this case yet.]
 	 Volatile contents are anything not spilled to the stack, because as yet we can only merge registers."
 	<inline: true>
+	| allocatedRegs |
 	<var: #desc type: #'SimStackEntry *'>
+	allocatedRegs := self allocatedRegisters.
 	(simSpillBase max: 0) to: simStackPtr do: 
 		[:i| | desc reg |
 		 desc := self simStackAt: i.
@@ -17,7 +19,10 @@ moveVolatileSimStackEntriesToRegisters
 			ifTrue: [simSpillBase := i]
 			ifFalse:
 				[desc registerOrNone = NoReg ifTrue:
-					[reg := self allocateRegNotConflictingWith: 0.
+					[reg := self allocateRegNotConflictingWith: allocatedRegs.
 					 reg = NoReg
 						ifTrue: [self halt] "have to spill"
-						ifFalse: [desc storeToReg: reg]]]]
+						ifFalse:
+							[desc storeToReg: reg.
+							 allocatedRegs := allocatedRegs bitOr: (self registerMaskFor: reg)]]]].
+	self deny: self duplicateRegisterAssignmentsInTemporaries
