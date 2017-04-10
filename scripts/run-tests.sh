@@ -44,7 +44,7 @@ fi
 
 # DOWNLOAD TEST IMAGE =========================================================
 TEST_IMAGE_DIR=test-image
-TEST_IMAGE="vm-test-image-60.zip"
+TEST_IMAGE="vm-test-image-50.zip"
 wget --quiet http://files.pharo.org/vm/src/$TEST_IMAGE
 unzip -d $TEST_IMAGE_DIR $TEST_IMAGE
 
