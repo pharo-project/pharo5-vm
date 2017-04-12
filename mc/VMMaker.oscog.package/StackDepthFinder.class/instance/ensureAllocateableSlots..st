@@ -1,3 +1,3 @@
-as yet unclassified
+instruction decoding
 ensureAllocateableSlots: numSlots
 	"nothing to do here..."
