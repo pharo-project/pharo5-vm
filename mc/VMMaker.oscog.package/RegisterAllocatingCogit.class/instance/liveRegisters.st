@@ -1,8 +1,17 @@
 simulation stack
 liveRegisters
 	| regsSet |
-	self assert: needsFrame.
-	regsSet := 0.
+	needsFrame
+		ifTrue: [regsSet := 0]
+		ifFalse:
+			[regsSet := (methodOrBlockNumArgs > self numRegArgs
+						  or: [methodOrBlockNumArgs = 0])
+							ifTrue:
+								[self registerMaskFor: ReceiverResultReg]
+							ifFalse:
+								[(self numRegArgs > 1 and: [methodOrBlockNumArgs > 1])
+									ifFalse: [self registerMaskFor: ReceiverResultReg and: Arg0Reg]
+									ifTrue: [self registerMaskFor: ReceiverResultReg and: Arg0Reg and: Arg1Reg]]].
 	0 to: simStackPtr do:
 		[:i|
 		regsSet := regsSet bitOr: (self simStackAt: i) registerMask].

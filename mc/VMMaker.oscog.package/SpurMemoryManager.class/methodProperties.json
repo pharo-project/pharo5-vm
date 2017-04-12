@@ -132,6 +132,7 @@
 		"cheapIsInMemory:" : "eem 11/25/2013 13:24",
 		"checkAllocFiller" : "eem 6/19/2014 15:13",
 		"checkCompactIndex:isClass:named:" : "eem 9/2/2013 17:52",
+		"checkForAvailableSlots:" : "eem 4/11/2017 15:50",
 		"checkForCompactableObjects" : "eem 11/26/2013 12:36",
 		"checkForLeaks" : "eem 5/12/2016 11:29",
 		"checkFreeSpace" : "eem 1/24/2016 13:48",

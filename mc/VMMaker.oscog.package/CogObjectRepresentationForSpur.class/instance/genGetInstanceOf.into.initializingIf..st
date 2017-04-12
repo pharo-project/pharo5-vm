@@ -12,6 +12,8 @@ genGetInstanceOf: classObj into: destReg initializingIf: initializeInstance
 	 and: [(slots := objectMemory fixedFieldsOfClassFormat: classFormat) < objectMemory numSlotsMask]]]]) ifFalse:
 		[^UnimplementedOperation].
 
+	self deny: destReg = TempReg.
+
 	header := objectMemory
 					headerForSlots: slots
 					format: (objectMemory instSpecOfClassFormat: classFormat)

@@ -75,7 +75,7 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 			[currentEntry := self simStack: simStack at: i.
 			 writtenToRegisters := writtenToRegisters bitOr: targetEntry registerMask.
 			 (currentEntry reconcileForwardsWith: targetEntry) ifTrue:
-				[self assert: i >= methodOrBlockNumArgs.
+				[self assert: i >= methodOrBlockNumTemps.
 				 self deassignRegisterForTempVar: targetEntry in: mergeSimStack]]].
 	optStatus isReceiverResultRegLive ifFalse:
 		[forwards

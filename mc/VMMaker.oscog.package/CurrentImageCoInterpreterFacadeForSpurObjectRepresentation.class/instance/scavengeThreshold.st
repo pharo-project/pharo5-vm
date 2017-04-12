@@ -1,0 +1,3 @@
+accessing
+scavengeThreshold
+	^objectMemory scavengeThreshold
