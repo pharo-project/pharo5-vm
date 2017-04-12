@@ -50,7 +50,7 @@
 		"genCallPrimitiveBytecode" : "cb 8/30/2016 10:58",
 		"genCmpConstant:R:" : "cb 4/8/2016 11:56",
 		"genDoubleFailIfZeroArgRcvr:arg:" : "nice 7/26/2016 00:14",
-		"genExtEnsureAllocatableSlots" : "eem 4/11/2017 17:17",
+		"genExtEnsureAllocatableSlots" : "eem 4/12/2017 09:37",
 		"genExtJumpIfFalse" : "rsf 1/5/2017 16:01",
 		"genExtJumpIfNotInstanceOfBehaviorsBytecode" : "cb 9/2/2016 11:21",
 		"genExtJumpIfTrue" : "rsf 1/5/2017 16:01",

@@ -46,6 +46,7 @@
 		"genUnconditionalTrapBytecode" : "cb 1/19/2017 12:11",
 		"genUnoptimizedSpecialSelectorComparison" : "cb 4/28/2015 12:53",
 		"generateSistaRuntime" : "cb 4/16/2015 16:16",
+		"getCogCodeZoneThreshold" : "eem 4/12/2017 09:15",
 		"getJumpTargetPCAt:" : "cb 4/28/2015 16:19",
 		"initialize" : "cb 5/5/2015 13:12",
 		"initializeCodeZoneFrom:upTo:" : "eem 7/4/2014 17:37",
