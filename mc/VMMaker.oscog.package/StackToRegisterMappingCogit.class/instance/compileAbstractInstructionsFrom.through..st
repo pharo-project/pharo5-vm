@@ -18,7 +18,7 @@ compileAbstractInstructionsFrom: start through: end
 	 result := deadCode
 				ifTrue: [self mapDeadDescriptorIfNeeded: descriptor]
 				ifFalse: [self perform: descriptor generator].
-	 self assertExtsAreConsumed: descriptor.
+	 result = 0 ifTrue: [self assertExtsAreConsumed: descriptor].
 	 self traceDescriptor: descriptor; traceSimStack.
 	 self patchFixupTargetIfNeeded: fixup nextOpcodeIndex: nextOpcodeIndex.
 	 self maybeDumpLiterals: descriptor.

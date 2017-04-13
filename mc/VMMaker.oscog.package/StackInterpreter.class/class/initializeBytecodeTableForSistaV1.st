@@ -101,7 +101,7 @@ initializeBytecodeTableForSistaV1
 		(234		extSendBytecode)
 		(235		extSendSuperBytecode)
 
-		(236		extEnsureAllocatableSlots)
+		(236		extEnsureAllocableSlots)
 
 		(237		extUnconditionalJump)
 		(238		extJumpIfTrue)

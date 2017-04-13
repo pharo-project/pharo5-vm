@@ -1,3 +1,3 @@
 instruction decoding
-ensureAllocateableSlots: numSlots
+ensureAllocableSlots: numSlots
 	"nothing to do here..."
