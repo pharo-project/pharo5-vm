@@ -29,5 +29,6 @@ genExtStorePopRemoteTempOrInstVarLongBytecodePopBoolean: boolean
 						RemoteInstVar: index 
 						ofObjectAt: byte2 - coInterpreter remoteIsInstVarAccess 
 						needsStoreCheck: needsStoreCheck
-						needsImmutabilityCheck: needsImmCheck ] ].
+						needsImmutabilityCheck: needsImmCheck ].
+			self cppIf: IMMUTABILITY ifTrue: [ needsImmCheck ifFalse: [self annotateBytecode: self Label ] ] ].
 	^ 0

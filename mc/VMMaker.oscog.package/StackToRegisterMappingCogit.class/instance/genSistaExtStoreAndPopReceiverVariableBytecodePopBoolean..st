@@ -1,7 +1,7 @@
 bytecode generators
 genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: popBoolean
 	<inline: true>
-	| index needsStoreCheck needsImmCheck maybeContext |
+	| index needsStoreCheck needsImmCheck maybeContext result |
 	needsStoreCheck := self sistaNeedsStoreCheck.
 	needsImmCheck := self extBSpecifiesImmCheck.
 	"Long form and short form exist for popInto. Only the long form exists for store.
@@ -12,7 +12,7 @@ genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: popBoolean
 	numExtB := 0.
 	index := byte1 + (extA << 8).
 	extA := 0.
-	^((coInterpreter isWriteMediatedContextInstVarIndex: index) and: [maybeContext])
+	result := ((coInterpreter isWriteMediatedContextInstVarIndex: index) and: [maybeContext])
 		ifTrue: [self 
 				genStorePop: popBoolean 
 				MaybeContextReceiverVariable: index 
@@ -22,4 +22,6 @@ genSistaExtStoreAndPopReceiverVariableBytecodePopBoolean: popBoolean
 				 genStorePop: popBoolean 
 				 ReceiverVariable: index 
 				 needsStoreCheck: needsStoreCheck 
-				 needsImmutabilityCheck: needsImmCheck]
+				 needsImmutabilityCheck: needsImmCheck].
+	self cppIf: IMMUTABILITY ifTrue: [ needsImmCheck ifFalse: [self annotateBytecode: self Label ] ].
+	^result

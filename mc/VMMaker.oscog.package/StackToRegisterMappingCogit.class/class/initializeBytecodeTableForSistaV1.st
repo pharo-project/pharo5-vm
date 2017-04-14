@@ -100,7 +100,7 @@ initializeBytecodeTableForSistaV1
 		(2 235 235 genExtSendSuperBytecode isMapped)
 
 		"sista bytecodes"
-		(2 236 236 genExtEnsureAllocatableSlots isMapped)
+		(2 236 236 genExtEnsureAllocableSlots isMapped)
 
 		"jumps"
 		(2 237 237 genExtUnconditionalJump	branch isMapped "because of interrupt check" v4:Long:Branch:Distance:)

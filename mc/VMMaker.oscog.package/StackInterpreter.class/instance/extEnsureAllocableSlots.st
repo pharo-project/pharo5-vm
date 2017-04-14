@@ -1,6 +1,6 @@
 miscellaneous bytecodes
-extEnsureAllocatableSlots
-	"SistaV1		*	236		11101100	iiiiiiii		Ensure Allocatable Slots (+ Extend A * 256)"
+extEnsureAllocableSlots
+	"SistaV1		*	236		11101100	iiiiiiii		Ensure Allocable Slots (+ Extend A * 256)"
 	| slots ok |
 	slots := (extA bitShift: 8) + self fetchByte.
 	self fetchNextBytecode.
