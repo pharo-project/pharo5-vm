@@ -87,7 +87,7 @@ blddir=`pwd`
 
 AC_ARG_WITH(vmmcfg,
 [  --with-vmmcfg=dir	vm configuration directory containing plugins.int and plugins.ext [default=.]],
-[ vmmcfg="${with-vmmcfg}"],
+[ vmmcfg="${withval}"],
 [ vmmcfg="${blddir}"])
 
 # Compiling a Cogit VM or not?  If so, need a cogit$o, cointerp, etc.
