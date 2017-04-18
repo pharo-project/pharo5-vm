@@ -124,6 +124,8 @@ initializePrimitiveTableForSqueak
 
 		(148 genPrimitiveShallowCopy 0)			"a.k.a. clone"
 
+		(159 genPrimitiveHashMultiply 0)
+
 		(169 genPrimitiveNotIdentical 1)
 
 		(170 genPrimitiveAsCharacter)				"SmallInteger>>asCharacter, Character class>>value:"

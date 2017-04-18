@@ -1,6 +1,7 @@
 sista bytecodes
 extJumpIfNotInstanceOfBehaviorsBytecode
-	"254		11111110	kkkkkkkk	jjjjjjjj		branch If Not Instance Of Behavior/Array Of Behavior kkkkkkkk (+ Extend A * 256, where Extend A >= 0) distance jjjjjjjj (+ Extend B * 256, where Extend B >= 0)"
+	"254		11111110	kkkkkkkk	jjjjjjjj		branch If Not Instance Of Behavior/Array Of Behavior kkkkkkkk (+ Extend A * 256, where Extend A >= 0) distance jjjjjjjj (+ Extend B * 256, where Extend B between: 0 and: 127)
+	 254		11111110	kkkkkkkk	jjjjjjjj		branch If Instance Of Behavior/Array Of Behavior kkkkkkkk (+ Extend A * 256, where Extend A >= 0) distance jjjjjjjj (+ Extend B - 128 * 256, where Extend B between: 128 and: 255)"
 	| tosClassTag literal distance inverse |
 	SistaVM ifFalse: [^self respondToUnknownBytecode].
 	self assert: ((extB bitAnd: 128) = 0 or: [extB < 0]).

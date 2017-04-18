@@ -1,6 +1,9 @@
 initialization
 initializePrimitiveTable
 	super initializePrimitiveTable.
+	PrimNumberHashMultiply := 159.
+	self assert: (PrimitiveTable at: PrimNumberHashMultiply + 1) = #primitiveHashMultiply.
+
 	#(216 253) do:
 		[:pidx| self assert: (PrimitiveTable at: pidx + 1) = #primitiveFail].
 	self assert: (PrimitiveTable at: 215 + 1) = #primitiveFlushCacheByMethod.

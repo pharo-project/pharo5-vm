@@ -124,6 +124,7 @@
 		"primitiveGreaterThan" : "eem 3/11/2015 08:55",
 		"primitiveGreaterThanLargeIntegers" : "eem (auto pragmas 12/08) 11/25/2008 12:50",
 		"primitiveGrowMemoryByAtLeast" : "eem 10/16/2013 16:00",
+		"primitiveHashMultiply" : "eem 4/17/2017 11:17",
 		"primitiveHeartbeatFrequency" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveHighResClock" : "ar (auto pragmas 12/08) 6/22/2007 13:01",
 		"primitiveIdentical" : "eem 6/20/2015 10:23",

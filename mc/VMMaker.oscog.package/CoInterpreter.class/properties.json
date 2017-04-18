@@ -21,6 +21,7 @@
 		"HasBeenReturnedFromMCPCOop",
 		"MFMethodFlagFrameIsMarkedFlag",
 		"MinBackwardJumpCountForCompile",
+		"PrimNumberHashMultiply",
 		"PrimTraceLogSize",
 		"ReturnToInterpreter",
 		"RumpCStackSize",

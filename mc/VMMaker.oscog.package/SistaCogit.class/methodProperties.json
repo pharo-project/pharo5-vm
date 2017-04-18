@@ -42,7 +42,7 @@
 		"genSpecialSelectorComparison" : "eem 4/13/2017 15:00",
 		"genSpecialSelectorComparisonWithoutCounters" : "cb 4/29/2015 14:39",
 		"genTrinaryInlinePrimitive:" : "cb 3/22/2017 17:56",
-		"genUnaryInlinePrimitive:" : "cb 3/22/2017 14:40",
+		"genUnaryInlinePrimitive:" : "eem 4/12/2017 19:38",
 		"genUnconditionalTrapBytecode" : "cb 1/19/2017 12:11",
 		"genUnoptimizedSpecialSelectorComparison" : "cb 4/28/2015 12:53",
 		"generateSistaRuntime" : "cb 4/16/2015 16:16",

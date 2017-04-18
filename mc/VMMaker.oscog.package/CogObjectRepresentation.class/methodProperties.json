@@ -94,6 +94,7 @@
 		"genPrimitiveFullClosureValue" : "cb 4/11/2016 16:16",
 		"genPrimitiveGreaterOrEqual" : "eem 01/08/2016 12:39",
 		"genPrimitiveGreaterThan" : "eem 01/08/2016 12:39",
+		"genPrimitiveHashMultiply" : "eem 4/17/2017 15:24",
 		"genPrimitiveIdentical" : "eem 1/7/2016 10:32",
 		"genPrimitiveImmediateAsInteger" : "eem 2/28/2016 10:47",
 		"genPrimitiveLessOrEqual" : "eem 01/08/2016 12:39",

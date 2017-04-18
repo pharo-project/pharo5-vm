@@ -214,6 +214,7 @@
 		"markAndTraceInterpreterOops:" : "eem 9/30/2010 13:21",
 		"maybeCheckStackDepth:sp:pc:" : "eem 4/12/2017 14:39",
 		"maybeMapPrimitiveFunctionPointerBackToSomethingEvaluable" : "eem 6/6/2016 12:09",
+		"mcprimFunctionForPrimitiveIndex:" : "eem 4/17/2017 13:35",
 		"memory" : "eem (objmem refactor) 6/8/2010 17:12",
 		"methodCache" : "eem 10/2/2013 15:19",
 		"methodCacheSize" : "eem (const to msg rewrite) 11/5/2014 18:08",

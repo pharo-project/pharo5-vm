@@ -41,7 +41,6 @@
 		"PrimNumberDoExternalCall",
 		"PrimNumberExternalCall",
 		"PrimNumberFFICall",
-		"PrimitiveExternalCallIndex",
 		"PrimitiveTable",
 		"StackPageReachedButUntraced",
 		"StackPageTraceInvalid",

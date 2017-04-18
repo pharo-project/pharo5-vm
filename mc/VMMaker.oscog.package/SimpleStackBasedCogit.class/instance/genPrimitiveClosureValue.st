@@ -48,7 +48,9 @@ genPrimitiveClosureValue
 		 self SubCq: blockNoContextSwitchOffset R: TempReg].
 	self JumpR: TempReg.
 	jumpBCMethod jmpTarget: (jumpFail1 jmpTarget: (jumpFail2 jmpTarget: (jumpFail3 jmpTarget: (jumpFail4 jmpTarget: self Label)))).
-	(result := self compileInterpreterPrimitive: primitiveRoutine) < 0 ifTrue:
+	(result := self
+				compileInterpreterPrimitive: primitiveRoutine
+				flags: (coInterpreter primitivePropertyFlags: primitiveIndex)) < 0 ifTrue:
 		[^result].
 	jumpFailNArgs jmpTarget: self Label.
 	^CompletePrimitive

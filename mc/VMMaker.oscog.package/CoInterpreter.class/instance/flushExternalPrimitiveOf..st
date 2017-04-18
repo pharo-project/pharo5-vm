@@ -6,7 +6,7 @@ flushExternalPrimitiveOf: methodObj
 	<api>
 	| primIdx |
 	primIdx := super flushExternalPrimitiveOf: methodObj.
-	(primIdx = PrimitiveExternalCallIndex
+	(primIdx = PrimNumberExternalCall
 	 and: [self methodHasCogMethod: methodObj]) ifTrue:
 		[cogit
 			rewritePrimInvocationIn: (self cogMethodOf: methodObj)

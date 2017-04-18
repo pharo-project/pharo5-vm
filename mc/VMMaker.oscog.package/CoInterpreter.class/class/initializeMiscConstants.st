@@ -10,9 +10,10 @@ initializeMiscConstants
 	PrimCallNeedsNewMethod := 1.
 	PrimCallNeedsPrimitiveFunction := 2.
 	PrimCallMayCallBack := 4.
-	PrimCallCollectsProfileSamples := 8.
-	CheckAllocationFillerAfterPrimCall := 16.
-	PrimCallDoNotJIT := 32.
+	PrimCallOnSmalltalkStack := 8.
+	PrimCallCollectsProfileSamples := 16.
+	CheckAllocationFillerAfterPrimCall := 32.
+	PrimCallDoNotJIT := 64.
 
 	ReturnToInterpreter := 1. "setjmp/longjmp code."
 

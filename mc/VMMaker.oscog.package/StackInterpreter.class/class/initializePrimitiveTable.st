@@ -189,7 +189,8 @@ initializePrimitiveTable
 		(149 primitiveGetAttribute)
 
 		"Were File Primitives (150-169) - NO LONGER INDEXED"
-		(150 159 primitiveFail)
+		(150 158 primitiveFail)
+		(159 primitiveHashMultiply)
 		(160 primitiveAdoptInstance)
 		(161 primitiveSetOrHasIdentityHash)
 		(162 primitiveFail)			"reserved for immutablity primitives"

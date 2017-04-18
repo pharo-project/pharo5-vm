@@ -1,10 +1,10 @@
 primitive generators
-compileInterpreterPrimitive: primitiveRoutine
+compileInterpreterPrimitive: primitiveRoutine flags: flags
 	"Compile a call to an interpreter primitive.  Call the C routine with the
 	 usual stack-switching dance, test the primFailCode and then either
 	 return on success or continue to the method body."
 	<var: #primitiveRoutine declareC: 'void (*primitiveRoutine)(void)'>
-	| flags jmp jmpSamplePrim continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
+	| jmp jmpSamplePrim continuePostSamplePrim jmpSampleNonPrim continuePostSampleNonPrim |
 	<var: #jmp type: #'AbstractInstruction *'>
 	<var: #jmpSamplePrim type: #'AbstractInstruction *'>
 	<var: #jmpSampleNonPrim type: #'AbstractInstruction *'>
@@ -15,10 +15,6 @@ compileInterpreterPrimitive: primitiveRoutine
 	self genExternalizePointersForPrimitiveCall.
 	"Switch to the C stack."
 	self genLoadCStackPointersForPrimCall.
-
-	flags := coInterpreter primitivePropertyFlags: primitiveIndex.
-	(flags anyMask: PrimCallDoNotJIT) ifTrue:
-		[^ShouldNotJIT].
 
 	(flags anyMask: PrimCallCollectsProfileSamples) ifTrue:
 		["Test nextProfileTick for being non-zero and call checkProfileTick if so"

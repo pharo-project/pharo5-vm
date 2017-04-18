@@ -17,6 +17,7 @@
 	"name" : "SimpleStackBasedCogit",
 	"pools" : [
 		"VMMethodCacheConstants",
-		"VMObjectIndices" ],
+		"VMObjectIndices",
+		"VMSqueakClassIndices" ],
 	"super" : "Cogit",
 	"type" : "normal" }
