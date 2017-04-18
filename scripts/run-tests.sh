@@ -43,13 +43,13 @@ if [ -z "$PHARO_TEST_VM" ]; then
 fi
 
 # DOWNLOAD TEST IMAGE =========================================================
-TEST_IMAGE_DIR=test-image
+TEST_IMAGE_DIR="test-image"
 TEST_IMAGE="vm-test-image-60.zip"
 wget --quiet http://files.pharo.org/vm/src/$TEST_IMAGE
 unzip -d $TEST_IMAGE_DIR $TEST_IMAGE
 
 # ENSURE SOURCES FILE (IN VM DIR) =============================================
-cp image/pharo-vm/*.sources $VM_DIR
+cp image/pharo-vm/*.sources $TEST_IMAGE_DIR
 
 # RUN TEST IMAGE ==============================================================
 if [ "$TRAVIS_OS_NAME" == "linux" ]; then
