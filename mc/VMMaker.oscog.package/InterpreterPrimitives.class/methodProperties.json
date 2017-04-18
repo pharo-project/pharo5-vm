@@ -3,6 +3,7 @@
 		"declareCVarsIn:" : "eem 3/17/2017 10:55",
 		"defineAtCompileTime:" : "eem 4/28/2016 21:09",
 		"initialize" : "eem 3/10/2016 11:20",
+		"initializeMiscConstants" : "eem 4/18/2017 11:27",
 		"windowColorSpecification" : "eem 3/10/2016 11:17" },
 	"instance" : {
 		"asUnsigned:" : "nice 11/6/2016 13:55",
@@ -124,7 +125,7 @@
 		"primitiveGreaterThan" : "eem 3/11/2015 08:55",
 		"primitiveGreaterThanLargeIntegers" : "eem (auto pragmas 12/08) 11/25/2008 12:50",
 		"primitiveGrowMemoryByAtLeast" : "eem 10/16/2013 16:00",
-		"primitiveHashMultiply" : "eem 4/17/2017 11:17",
+		"primitiveHashMultiply" : "eem 4/18/2017 11:28",
 		"primitiveHeartbeatFrequency" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveHighResClock" : "ar (auto pragmas 12/08) 6/22/2007 13:01",
 		"primitiveIdentical" : "eem 6/20/2015 10:23",
