@@ -1,3 +1,0 @@
-accessing class hierarchy
-methodZoneClass
-	^SistaMethodZone
