@@ -7,5 +7,5 @@ ssAllocateRequiredRegMask: requiredRegsMask upThrough: stackPtr upThroughNative:
 	0 to: methodOrBlockNumTemps - 1 do:
 		[:i|
 		((self simStackAt: i) registerMask anyMask: requiredRegsMask) ifTrue:
-			[(self simStackAt: i) liveRegister: 0]].
+			[(self simStackAt: i) liveRegister: NoReg]].
 	super ssAllocateRequiredRegMask: requiredRegsMask upThrough: stackPtr upThroughNative: nativeStackPtr

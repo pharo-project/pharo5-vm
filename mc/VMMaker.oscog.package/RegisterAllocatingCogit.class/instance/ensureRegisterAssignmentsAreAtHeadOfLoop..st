@@ -14,8 +14,9 @@ ensureRegisterAssignmentsAreAtHeadOfLoop: target
 	(self mergeRequiredToTarget: target mergeSimStack) ifFalse:
 		[^self].
 	"Schedule a recompile and merge the end-of-loop assignments into the head of the loop,
-	 giving priority to the assignments at this point, and preserving any other non-conflicting
-	 assignments."
+	 replacing any and all register assignments with the state as of the back jump.  Because
+	 typically the back jump will be taken much more often than the loop entered, favouring
+	 the assignments here is more efficient than trying to merge."
 	recompileForLoopRegisterAssignments := true.
 	conflictingRegsMask := self conflictingRegistersBetweenSimStackAnd: target mergeSimStack.
 	self deny: (self register: FPReg isInMask: conflictingRegsMask).
@@ -23,11 +24,6 @@ ensureRegisterAssignmentsAreAtHeadOfLoop: target
 		[:i| | currentEntry targetEntry |
 		 currentEntry := self simStack: simStack at: i.
 		 targetEntry := self simStack: target mergeSimStack at: i.
-		 currentEntry liveRegister ~= NoReg
-			ifTrue:
-				[targetEntry liveRegister: currentEntry liveRegister]
-			ifFalse:
-				[(targetEntry registerMask anyMask: conflictingRegsMask) ifTrue:
-					[targetEntry liveRegister: NoReg]]].
+		 targetEntry liveRegister: currentEntry liveRegister].
 	optStatus isReceiverResultRegLive ifTrue:
 		[target isReceiverResultRegSelf: true]

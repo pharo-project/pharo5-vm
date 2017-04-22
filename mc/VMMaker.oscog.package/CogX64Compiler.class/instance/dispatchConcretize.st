@@ -52,6 +52,7 @@ dispatchConcretize
 		[Stop]						-> [^self concretizeStop].
 		"Arithmetic"
 		[AddCqR]					-> [^self concretizeArithCqRWithRO: 0 raxOpcode: 15r05].
+		[AddcCqR]					-> [^self concretizeArithCqRWithRO: 2 raxOpcode: 15r15].
 		[AddCwR]					-> [^self concretizeArithCwR: 16r03].
 		[AddRR]						-> [^self concretizeOpRR: 16r03].
 		[AddRsRs]					-> [^self concretizeSEEOpRsRs: 16r58].
@@ -74,6 +75,7 @@ dispatchConcretize
 		[OrCwR]					-> [^self concretizeArithCwR: 16r0B].
 		[OrRR]						-> [^self concretizeOpRR: 16r0B].
 		[SubCqR]					-> [^self concretizeArithCqRWithRO: 5 raxOpcode: 16r2D].
+		[SubbCqR]					-> [^self concretizeArithCqRWithRO: 3 raxOpcode: 16r1D].
 		[SubCwR]					-> [^self concretizeArithCwR: 16r2B].
 		[SubRR]						-> [^self concretizeOpRR: 16r2B].
 		[SubRdRd]					-> [^self concretizeSEE2OpRdRd: 16r5C].

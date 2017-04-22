@@ -9,6 +9,7 @@ deassignRegisterForTempVar: targetEntry in: mergeSimStack
 	<var: #mergeSimStack type: #'SimStackEntry *'>
 	<inline: true>
 	| reg |
+	self halt.  "Clément and I hope this shouldn't happen as of the new merge code in reconcileRegistersInTempVarsInCurrentSimStackWithThoseIn:"
 	reg := targetEntry liveRegister.
 	self assert: (reg ~= NoReg and: [targetEntry type = SSConstant or: [targetEntry isFrameTempVar]]).
 	targetEntry type = SSConstant

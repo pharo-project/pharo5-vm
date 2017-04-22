@@ -14,7 +14,8 @@
 		"scratchOptStatus",
 		"ceSendMustBeBooleanAddTrueLongTrampoline",
 		"ceSendMustBeBooleanAddFalseLongTrampoline",
-		"recompileForLoopRegisterAssignments" ],
+		"recompileForLoopRegisterAssignments",
+		"scratchBytecodePC" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

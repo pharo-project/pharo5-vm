@@ -11,7 +11,10 @@ ensureFixupAt: targetPC
 		ifTrue:
 			[fixup mergeSimStack
 				ifNil: [self setMergeSimStackOf: fixup]
-				ifNotNil: [self mergeCurrentSimStackWith: fixup forwards: true]]
+				ifNotNil:
+					[self copySimStackToScratch: simSpillBase.
+					 self mergeCurrentSimStackWith: fixup forwards: true.
+					 self restoreSimStackFromScratch]]
 		ifFalse: 
 			[self assert: (fixup mergeSimStack isNil or: [compilationPass = 2]).
 			 self moveVolatileSimStackEntriesToRegisters.

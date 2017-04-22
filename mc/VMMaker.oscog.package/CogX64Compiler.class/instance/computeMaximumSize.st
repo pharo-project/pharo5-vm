@@ -70,10 +70,12 @@ computeMaximumSize
 
 		"Arithmetic"
 		[AddCqR]		-> [^self computeSizeOfArithCqR].
+		[AddcCqR]		-> [^self computeSizeOfArithCqR].
 		[AndCqR]		-> [^self computeSizeOfArithCqR].
 		[CmpCqR]		-> [^self computeSizeOfArithCqR].
-		[OrCqR]			-> [^self computeSizeOfArithCqR].
+		[OrCqR]		-> [^self computeSizeOfArithCqR].
 		[SubCqR]		-> [^self computeSizeOfArithCqR].
+		[SubbCqR]		-> [^self computeSizeOfArithCqR].
 		[TstCqR]		-> [^self computeSizeOfArithCqR].
 		[AddCwR]		-> [^self computeSizeOfArithCwR].
 		[AndCwR]		-> [^self computeSizeOfArithCwR].
@@ -86,12 +88,14 @@ computeMaximumSize
 		[OrCwR]		-> [^self computeSizeOfArithCwR].
 		[SubCwR]		-> [^self computeSizeOfArithCwR].
 		[XorCwR]		-> [^self computeSizeOfArithCwR].
-		[AddRR]			-> [^3].
-		[AndRR]			-> [^3].
+		[AddRR]		-> [^3].
+		[AddcRR]		-> [^3].
+		[AndRR]		-> [^3].
 		[CmpRR]		-> [^3].
 		[OrRR]			-> [^3].
 		[XorRR]			-> [^3].
-		[SubRR]			-> [^3].
+		[SubRR]		-> [^3].
+		[SubbRR]		-> [^3].
 		[NegateR]		-> [^3].
 		[LoadEffectiveAddressMwrR]
 						-> [^((self isQuick: (operands at: 0))

@@ -140,7 +140,7 @@ initialize
 						CmpRR AddRR SubRR AndRR OrRR XorRR
 						CmpCqR AddCqR SubCqR AndCqR OrCqR TstCqR XorCqR
 						CmpCwR CmpC32R AddCwR SubCwR AndCwR OrCwR XorCwR
-						AddcRR AddcCqR SubbRR
+						AddcRR AddcCqR SubbRR SubbCqR
 
 						AndCqRR "Three address ops for RISCs; feel free to add and extend"
 
