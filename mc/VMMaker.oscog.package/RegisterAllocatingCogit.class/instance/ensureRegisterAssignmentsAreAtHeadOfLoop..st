@@ -25,5 +25,5 @@ ensureRegisterAssignmentsAreAtHeadOfLoop: target
 		 currentEntry := self simStack: simStack at: i.
 		 targetEntry := self simStack: target mergeSimStack at: i.
 		 targetEntry liveRegister: currentEntry liveRegister].
-	optStatus isReceiverResultRegLive ifTrue:
+	self receiverIsInReceiverResultReg ifTrue:
 		[target isReceiverResultRegSelf: true]

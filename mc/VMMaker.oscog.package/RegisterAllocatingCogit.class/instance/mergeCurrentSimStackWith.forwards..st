@@ -35,5 +35,5 @@ mergeCurrentSimStackWith: fixup forwards: forwards
 				or: [simSpillBase < (methodOrBlockNumTemps max: 1)
 				or: [(self simStack: mergeSimStack at: simSpillBase - 1) spilled]]).
 	fixup isReceiverResultRegSelf ifTrue:
-		[optStatus isReceiverResultRegLive ifFalse:
+		[self receiverIsInReceiverResultReg ifFalse:
 			[self putSelfInReceiverResultReg]]

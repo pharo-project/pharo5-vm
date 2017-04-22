@@ -6,12 +6,12 @@ reconcileRegisterStateForJoinAfterSpecialSelectorSend
 	 
 	"If ReceiverResultReg is live along the inlined path, and is used before the next full send,
 	 reload it on the uncommon path."
-	scratchOptStatus isReceiverResultRegLive ifTrue:
+	scratchSimSelf liveRegister = ReceiverResultReg ifTrue:
 		[(self existsInstVarRefBeforeSendOrReturn
 		  or: [self receiverRefOnScratchSimStack])
 			ifTrue:
-				[optStatus isReceiverResultRegLive: true.
-				 optStatus ssEntry storeToReg: ReceiverResultReg]
+				[simSelf liveRegister: ReceiverResultReg.
+				 self putSelfInReceiverResultReg]
 			ifFalse: [self voidReceiverOptStatus]].
 
 	"Restore the simStack to that in scratchSimStack,

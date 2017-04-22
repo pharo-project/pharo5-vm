@@ -11,7 +11,7 @@
 		"nextFixup",
 		"scratchSimStack",
 		"scratchSpillBase",
-		"scratchOptStatus",
+		"scratchSimSelf",
 		"ceSendMustBeBooleanAddTrueLongTrampoline",
 		"ceSendMustBeBooleanAddFalseLongTrampoline",
 		"recompileForLoopRegisterAssignments",

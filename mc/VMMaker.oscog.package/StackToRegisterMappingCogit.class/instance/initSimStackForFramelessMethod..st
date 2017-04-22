@@ -6,9 +6,7 @@ initSimStackForFramelessMethod: startpc
 		type: SSRegister;
 		spilled: false;
 		register: ReceiverResultReg.
-	optStatus
-		isReceiverResultRegLive: true;
-		ssEntry: (self addressOf: simSelf).
+	self initOptStatus: true.
 	self assert: methodOrBlockNumTemps = methodOrBlockNumArgs.
 	self assert: self numRegArgs <= 2.
 	(methodOrBlockNumArgs between: 1 and: self numRegArgs)
