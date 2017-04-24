@@ -32,8 +32,8 @@ build_script:
   - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./build-sources.sh -a i386"'
   - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/opensmalltalk-vm; exec 0</dev/null; export THIRDPARTYCACHEDIR=../../../.thirdparty-cache; exec ./.travis_build.sh"'
   - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./pack-vm.sh"'
-#test_script:
-#  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/run-tests.sh"'
+test_script:
+  - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/run-tests.sh"'
 before_deploy:
   - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER/scripts; exec 0</dev/null; exec ./deploy-key.sh"'
   - '%CYG_ROOT%\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; exec 0</dev/null; exec ./scripts/deploy-before.sh"'
