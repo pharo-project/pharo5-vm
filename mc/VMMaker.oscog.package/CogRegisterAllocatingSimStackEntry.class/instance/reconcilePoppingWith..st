@@ -5,9 +5,8 @@ reconcilePoppingWith: targetEntry
 	<var: #targetEntry type: #'SimStackEntry *'>
 	| targetReg |
 	spilled = targetEntry spilled ifTrue:
-		[self assert: (targetEntry spilled
-						ifTrue: [self isSameEntryAs: targetEntry]
-						ifFalse: [targetEntry registerOrNone ~= NoReg]).
+		[self assert: ((self isSameEntryAs: targetEntry)
+					 or: [targetEntry spilled not and: [targetEntry registerOrNone ~= NoReg]]).
 		 (targetReg := targetEntry registerOrNone) = NoReg ifTrue:
 			[^self].
 		 type caseOf: {

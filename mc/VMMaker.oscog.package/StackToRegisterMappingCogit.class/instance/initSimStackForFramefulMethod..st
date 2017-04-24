@@ -6,9 +6,7 @@ initSimStackForFramefulMethod: startpc
 		spilled: true;
 		register: FPReg;
 		offset: FoxMFReceiver.
-	optStatus 
-		isReceiverResultRegLive: false;
-		ssEntry: (self addressOf: simSelf).
+	self initOptStatus: false.
 	simSpillBase := methodOrBlockNumTemps. "N.B. Includes num args"
 	simStackPtr := simSpillBase - 1.
 	LowcodeVM ifTrue: [

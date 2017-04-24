@@ -16,6 +16,6 @@ setMergeSimStackOf: fixup
 					[(self simStackAt: i) liveRegister: NoReg]]].
 	fixup
 		simStackPtr: simStackPtr;
-		isReceiverResultRegSelf: optStatus isReceiverResultRegLive.
+		isReceiverResultRegSelf: self receiverIsInReceiverResultReg.
 	self cCode: [self mem: fixup mergeSimStack cp: simStack y: self simStackSlots * (self sizeof: CogSimStackEntry)]
 		inSmalltalk: [fixup mergeSimStack: self copySimStack]

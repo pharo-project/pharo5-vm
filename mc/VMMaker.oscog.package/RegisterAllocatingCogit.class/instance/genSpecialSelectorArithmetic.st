@@ -76,7 +76,7 @@ genSpecialSelectorArithmetic
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before doing send"
 							 rcvrReg = destReg ifTrue:
-								[self SubCq: argInt - ConstZero R: rcvrReg]]
+								[self SubbCq: argInt - ConstZero R: rcvrReg]]
 						ifFalse:
 							[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: destReg.
 							 self AddR: argReg R: destReg.
@@ -86,7 +86,7 @@ genSpecialSelectorArithmetic
 								[(rcvrIsInt and: [rcvrIsConst])
 									ifTrue: [self MoveCq: rcvrInt R: rcvrReg]
 									ifFalse:
-										[self SubR: argReg R: rcvrReg.
+										[self SubbR: argReg R: rcvrReg.
 										 objectRepresentation genSetSmallIntegerTagsIn: rcvrReg]]]].
 		[SubRR] -> [argIsInt
 						ifTrue:
@@ -94,7 +94,7 @@ genSpecialSelectorArithmetic
 							 jumpContinue := self JumpNoOverflow: 0.
 							 "overflow; must undo the damage before doing send"
 							 rcvrReg = destReg ifTrue:
-								[self AddCq: argInt - ConstZero R: rcvrReg]]
+								[self AddcCq: argInt - ConstZero R: rcvrReg]]
 						ifFalse:
 							[(self anyReferencesToRegister: argReg inAllButTopNItems: 0)
 								ifTrue: "argReg is live; cannot strip tags and continue on no overflow without restoring tags"
@@ -107,7 +107,7 @@ genSpecialSelectorArithmetic
 									 jumpOverflow jmpTarget: self Label.
 									 "overflow; must undo the damage before doing send"
 									 ((rcvrIsInt and: [rcvrIsConst]) or: [destReg ~= rcvrReg]) ifFalse:
-										[self AddR: argReg R: destReg].
+										[self AddcR: argReg R: destReg].
 									 objectRepresentation genSetSmallIntegerTagsIn: argReg]
 								ifFalse:
 									[objectRepresentation genRemoveSmallIntegerTagsInScratchReg: argReg.
@@ -115,17 +115,23 @@ genSpecialSelectorArithmetic
 									 jumpContinue := self JumpNoOverflow: 0.
 									 "overflow; must undo the damage before doing send"
 									 ((rcvrIsInt and: [rcvrIsConst]) or: [destReg ~= rcvrReg]) ifFalse:
-										[self AddR: argReg R: rcvrReg].
+										[self AddcR: argReg R: rcvrReg].
 									 objectRepresentation genSetSmallIntegerTagsIn: argReg]]].
 		[AndRR] -> [argIsInt
 						ifTrue: [self AndCq: argInt R: destReg]
 						ifFalse: [self AndR: argReg R: destReg].
-					jumpContinue := self Jump: 0].
+					jumpContinue := jumpNotSmallInts ifNotNil: [self Jump: 0]].
 		[OrRR]	-> [argIsInt
 						ifTrue: [self OrCq: argInt R: destReg]
 						ifFalse: [self OrR: argReg R: destReg].
-					jumpContinue := self Jump: 0] }.
-	jumpNotSmallInts jmpTarget: self Label.
+					jumpContinue := jumpNotSmallInts ifNotNil: [self Jump: 0]] }.
+	jumpNotSmallInts
+		ifNil: [jumpContinue ifNil: "overflow cannot happen"
+				[self annotateInstructionForBytecode.
+				 self ssPushRegister: destReg.
+				 ^0]]
+		ifNotNil:
+			[jumpNotSmallInts jmpTarget: self Label].
 	self ssPushRegister: destReg.
 	self copySimStackToScratch: (simSpillBase min: simStackPtr - 1).
 	self ssPop: 1.

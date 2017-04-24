@@ -1,6 +1,5 @@
 bytecode generator support
 ensureReceiverResultRegContainsSelf
-	super ensureReceiverResultRegContainsSelf.
 	methodOrBlockNumTemps to: simStackPtr do:
 		[:i|
 		((self addressOf: simSelf) isSameEntryAs: (self simStackAt: i))
@@ -8,4 +7,12 @@ ensureReceiverResultRegContainsSelf
 			ifFalse:
 				[(self simStackAt: i) liveRegister = ReceiverResultReg ifTrue:
 					[(self simStackAt: i) liveRegister: NoReg]]].
-	simSelf liveRegister: ReceiverResultReg
+	needsFrame
+		ifTrue:
+			[self receiverIsInReceiverResultReg ifFalse:
+				[self ssAllocateRequiredReg: ReceiverResultReg.
+				 self putSelfInReceiverResultReg]]
+		ifFalse:
+			[self assert: (simSelf type = SSRegister
+						  and: [simSelf liveRegister = ReceiverResultReg])].
+	self assert: self receiverIsInReceiverResultReg

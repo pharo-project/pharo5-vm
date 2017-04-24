@@ -5,6 +5,7 @@ compileAbstractInstructionsFrom: start through: end
 	 parallel move.  Override to recompile after a loop requiring a merge is detected."
 	^[| result initialOpcodeIndex initialCounterIndex initialIndexOfIRC |
 	   compilationPass := 1.
+	   scratchBytecodePC := nil.
 	   initialOpcodeIndex := opcodeIndex.
 	   initialCounterIndex := self maybeCounterIndex."for SistaCogit"
 	   literalsManager saveForRecompile.

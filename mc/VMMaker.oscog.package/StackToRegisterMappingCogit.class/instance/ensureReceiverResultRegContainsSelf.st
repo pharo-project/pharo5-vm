@@ -2,7 +2,7 @@ bytecode generator support
 ensureReceiverResultRegContainsSelf
 	needsFrame
 		ifTrue:
-			[optStatus isReceiverResultRegLive ifFalse:
+			[self receiverIsInReceiverResultReg ifFalse:
 				[self ssAllocateRequiredReg: ReceiverResultReg.
 				self putSelfInReceiverResultReg ].
 			optStatus isReceiverResultRegLive: true]

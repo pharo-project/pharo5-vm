@@ -3,5 +3,5 @@ declareCVarsIn: aCodeGen
 	aCodeGen
 		var: #scratchSimStack
 			type: #'SimStackEntry *';
-		var: #scratchOptStatus
-			type: #CogSSOptStatus
+		var: #scratchSimSelf
+			type: #SimStackEntry

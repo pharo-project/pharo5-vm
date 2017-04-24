@@ -6,4 +6,4 @@ restoreSimStackFromScratch
 						[:i|
 						simStack at: i put: (scratchSimStack at: i)]].
 	simSpillBase := scratchSpillBase.
-	optStatus := scratchOptStatus
+	simSelf := scratchSimSelf

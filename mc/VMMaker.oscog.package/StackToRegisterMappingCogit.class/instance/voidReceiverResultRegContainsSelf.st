@@ -3,7 +3,7 @@ voidReceiverResultRegContainsSelf
 	"Used when ReceiverResultReg is allocated for other than simSelf, and
 	 there may be references to ReceiverResultReg which need to be spilled."
 	| spillIndex |
-	optStatus isReceiverResultRegLive: false.
+	self voidReceiverOptStatus.
 	spillIndex := -1.
 	(methodOrBlockNumTemps max: simSpillBase) to: simStackPtr do:
 		[:i|

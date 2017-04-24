@@ -35,5 +35,5 @@ mergeRequiredForJumpTo: targetPC
 	| fixup |
 	(fixup := self fixupAt: targetPC) hasMergeSimStack ifFalse:
 		[^false].
-	self assert: simStackPtr = fixup simStackPtr.
+	self assert: (simStackPtr = fixup simStackPtr or: [fixup isBackwardBranchFixup]).
 	^self mergeRequiredToTarget: fixup mergeSimStack

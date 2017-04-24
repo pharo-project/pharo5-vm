@@ -9,9 +9,7 @@ initSimStackForFramelessBlock: startpc
 		type: SSRegister;
 		spilled: false;
 		register: ReceiverResultReg.
-	optStatus
-		isReceiverResultRegLive: true;
-		ssEntry: (self addressOf: simSelf).
+	self initOptStatus: true.
 	self assert: methodOrBlockNumTemps >= methodOrBlockNumArgs.
 	0 to: methodOrBlockNumTemps - 1 do:
 		[:i|

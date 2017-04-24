@@ -11,10 +11,11 @@
 		"nextFixup",
 		"scratchSimStack",
 		"scratchSpillBase",
-		"scratchOptStatus",
+		"scratchSimSelf",
 		"ceSendMustBeBooleanAddTrueLongTrampoline",
 		"ceSendMustBeBooleanAddFalseLongTrampoline",
-		"recompileForLoopRegisterAssignments" ],
+		"recompileForLoopRegisterAssignments",
+		"scratchBytecodePC" ],
 	"name" : "RegisterAllocatingCogit",
 	"pools" : [
 		 ],

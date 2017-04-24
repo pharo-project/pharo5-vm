@@ -21,4 +21,4 @@ ssAllocateRequiredRegMask: requiredRegsMask upThrough: stackPtr upThroughNative:
 	"If any of requiredRegsMask are live we must spill."
 	(liveRegs anyMask: requiredRegsMask) ifTrue:
 		[self ssFlushTo: lastRequired nativeFlushTo: lastRequiredNative.
-		self assert: (self liveRegisters bitAnd: requiredRegsMask) = 0]
+		 self deny: (self liveRegisters anyMask: requiredRegsMask)]
