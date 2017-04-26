@@ -11,4 +11,4 @@ primitiveFullClosureValue
 	(objectMemory isOopCompiledMethod: closureMethod) ifFalse:
 		[^self primitiveFail].
 
-	self activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: true
+	self activateNewFullClosure: blockClosure method: closureMethod numArgs: numArgs mayContextSwitch: true

@@ -33,4 +33,4 @@ primitiveClosureValueWithArgs
 		[self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray).
 		index := index + 1].
 
-	self activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: true
+	self activateNewClosure: blockClosure outer: outerContext method: closureMethod numArgs: numArgs mayContextSwitch: true

@@ -17,4 +17,4 @@ primitiveClosureValue
 	(objectMemory isOopCompiledMethod: closureMethod) ifFalse:
 		[^self primitiveFail].
 
-	self activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: true
+	self activateNewClosure: blockClosure outer: outerContext method: closureMethod numArgs: numArgs mayContextSwitch: true

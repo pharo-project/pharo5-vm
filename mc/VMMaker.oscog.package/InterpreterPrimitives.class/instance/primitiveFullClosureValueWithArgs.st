@@ -16,7 +16,6 @@ primitiveFullClosureValueWithArgs
 	arraySize = numArgs ifFalse:
 		[^self primitiveFail].
 
-
 	closureMethod := objectMemory fetchPointer: FullClosureCompiledBlockIndex ofObject: blockClosure.
 	(objectMemory isOopCompiledMethod: closureMethod) ifFalse:
 		[^self primitiveFail].
@@ -29,4 +28,4 @@ primitiveFullClosureValueWithArgs
 		[self push: (objectMemory fetchPointer: index - 1 ofObject: argumentArray).
 		index := index + 1].
 
-	self activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: true
+	self activateNewFullClosure: blockClosure method: closureMethod numArgs: numArgs mayContextSwitch: true

@@ -27,8 +27,8 @@
 	"instance" : {
 		"accessorDepthForPrimitiveIndex:" : "eem 6/30/2014 20:25",
 		"activateCoggedNewMethod:" : "eem 12/08/2016 14:12",
-		"activateNewClosureMethod:numArgs:mayContextSwitch:" : "eem 8/2/2016 16:32",
-		"activateNewFullClosureMethod:numArgs:mayContextSwitch:" : "eem 12/08/2016 14:12",
+		"activateNewClosure:outer:method:numArgs:mayContextSwitch:" : "eem 4/23/2017 11:33",
+		"activateNewFullClosure:method:numArgs:mayContextSwitch:" : "eem 4/23/2017 11:39",
 		"activateNewMethod" : "eem 12/08/2016 14:12",
 		"addNewMethodToCache:" : "eem 10/9/2013 16:01",
 		"argumentCount" : "eem 1/27/2009 12:57",

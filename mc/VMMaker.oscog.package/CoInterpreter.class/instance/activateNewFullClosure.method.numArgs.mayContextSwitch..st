@@ -1,17 +1,16 @@
 control primitives
-activateNewFullClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayContextSwitch
+activateNewFullClosure: blockClosure method: theMethod numArgs: numArgs mayContextSwitch: mayContextSwitch
 	"Similar to activateNewMethod but for Closure and newMethod."
-	| numCopied theMethod methodHeader numTemps inInterpreter switched |
+	| numCopied methodHeader numTemps inInterpreter switched |
 	<inline: true>
-	numCopied := self copiedValueCountOfFullClosure: blockClosure.
-	theMethod := objectMemory fetchPointer: FullClosureCompiledBlockIndex ofObject: blockClosure.
-	self assert: (objectMemory isOopCompiledMethod: theMethod).
+	self assert: theMethod = (objectMemory fetchPointer: FullClosureCompiledBlockIndex ofObject: blockClosure).
 	methodHeader := self rawHeaderOf: theMethod.
 	(self isCogMethodReference: methodHeader) ifTrue:
 		[^self
 			executeFullCogBlock: (self cogMethodOf: theMethod)
 			closure: blockClosure
 			mayContextSwitch: mayContextSwitch].
+	numCopied := self copiedValueCountOfFullClosure: blockClosure.
 	"How do we know when to compile a block method?
 	 One simple criterion is to check if the block is running within its inner context,
 	 i.e. if the outerContext is married.

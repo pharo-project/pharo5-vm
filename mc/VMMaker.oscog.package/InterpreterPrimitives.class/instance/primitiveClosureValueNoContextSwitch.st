@@ -21,4 +21,4 @@ primitiveClosureValueNoContextSwitch
 	(objectMemory isOopCompiledMethod: closureMethod) ifFalse:
 		[^self primitiveFail].
 
-	self activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: false
+	self activateNewClosure: blockClosure outer: outerContext method: closureMethod numArgs: numArgs mayContextSwitch: false

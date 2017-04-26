@@ -1,15 +1,13 @@
 control primitives
-activateNewClosureMethod: blockClosure numArgs: numArgs mayContextSwitch: mayContextSwitch
+activateNewClosure: blockClosure outer: outerContext method: theMethod  numArgs: numArgs mayContextSwitch: mayContextSwitch
 	"Similar to activateNewMethod but for Closure and newMethod.
 	 Override to handle the various interpreter/machine code transitions
 	 and to create an appropriate frame layout."
-	| numCopied outerContext theMethod methodHeader inInterpreter closureIP switched |
+	| numCopied methodHeader inInterpreter closureIP switched |
 	<inline: true>
-	outerContext := objectMemory fetchPointer: ClosureOuterContextIndex ofObject: blockClosure.
 	self assert: (objectMemory isContext: outerContext).
-	self assert: outerContext ~= blockClosure.
 	numCopied := self copiedValueCountOfClosure: blockClosure.
-	theMethod := objectMemory fetchPointer: MethodIndex ofObject: outerContext.
+	self assert: theMethod = (objectMemory fetchPointer: MethodIndex ofObject: outerContext).
 	self assert: (objectMemory isOopCompiledMethod: theMethod).
 	methodHeader := self rawHeaderOf: theMethod.
 	(self isCogMethodReference: methodHeader) ifTrue:
