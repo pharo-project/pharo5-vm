@@ -41,9 +41,10 @@ genByteEqualsInlinePrimitive: prim
 	unroll := needLoop not and: [lenCst > objectMemory wordSize ].
 	needLoop 
 		ifTrue: 
-			[ str1Reg := self allocateRegForStackEntryAt: 1 notConflictingWith: self emptyRegisterMask.
+			[ self assert: self ssTop spilled not.
+			  str1Reg := self allocateRegForStackEntryAt: 1 notConflictingWith: self emptyRegisterMask.
 			  str2Reg := self allocateRegForStackEntryAt: 2 notConflictingWith: (self registerMaskFor: str1Reg).
-			  lenReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor:str1Reg and: str2Reg).
+			  lenReg := self allocateRegForStackEntryAt: 0 notConflictingWith: (self registerMaskFor: str1Reg and: str2Reg).
 			  (self ssValue: 1) popToReg: str1Reg.
 			  (self ssValue: 2) popToReg: str2Reg.
 			  extraReg := self allocateRegNotConflictingWith: (self registerMaskFor: str1Reg and: str2Reg and: lenReg)]

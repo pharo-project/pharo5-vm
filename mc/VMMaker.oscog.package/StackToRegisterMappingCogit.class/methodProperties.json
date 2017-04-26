@@ -26,7 +26,7 @@
 		"allocateEqualsEqualsRegistersArgNeedsReg:rcvrNeedsReg:into:" : "eem 12/10/2015 09:10",
 		"allocateFloatRegNotConflictingWith:" : "rsf 3/6/2017 01:13",
 		"allocateRegForStackEntryAt:" : "cb 4/26/2015 12:25",
-		"allocateRegForStackEntryAt:notConflictingWith:" : "eem 11/30/2016 11:09",
+		"allocateRegForStackEntryAt:notConflictingWith:" : "cb 3/26/2017 19:30",
 		"allocateRegForStackTopThreeEntriesInto:thirdIsReceiver:" : "eem 12/02/2016 16:00",
 		"allocateRegForStackTopTwoEntriesInto:" : "eem 11/28/2016 16:21",
 		"allocateRegNotConflictingWith:" : "eem 12/02/2016 16:00",

@@ -33,9 +33,16 @@ callPrimitiveBytecode
 				
 				 prim < 3000 ifTrue:
 					[^self binaryInlinePrimitive: prim - 2000].
-
+				
 				 prim < 4000 ifTrue:
 					[^self trinaryInlinePrimitive: prim - 3000].
+
+				 prim < 5000 ifTrue:
+					[^self quaternaryInlinePrimitive: prim - 4000].
+
+				 prim < 6000 ifTrue:
+					[^self quinaryInlinePrimitive: prim - 5000].
+				
 			 ].
 		
 			LowcodeVM ifTrue: [
