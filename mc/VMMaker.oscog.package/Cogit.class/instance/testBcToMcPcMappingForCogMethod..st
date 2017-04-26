@@ -38,7 +38,7 @@ testBcToMcPcMappingForCogMethod: cogMethod
 							   and: [desc isBranch
 							   and: [self isBackwardBranch: desc at: bcpc exts: nExts in: aMethodObj]])
 								ifTrue: "Backward branches have a special mapper"
-									[mappedBcpc := bcpc.
+									[mappedBcpc := bcpc - (2 * nExts).
 									 self
 										mcPCForBackwardBranch: mappedBcpc
 										startBcpc: startBcpc
