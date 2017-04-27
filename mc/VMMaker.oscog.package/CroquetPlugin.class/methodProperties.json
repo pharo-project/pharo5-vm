@@ -10,6 +10,7 @@
 		"primitiveInplaceHouseHolderInvert" : "jcg 6/18/2010 14:50",
 		"primitiveInverseByAdjoint" : "jcg 6/18/2010 14:50",
 		"primitiveMD5Transform" : "jcg 6/18/2010 14:49",
+		"primitiveOptimizeVertexIndicesForCacheLocality" : "jcg 6/18/2010 14:54",
 		"primitiveOrthoNormInverseMatrix" : "eem 10/4/2013 14:18",
 		"primitiveTransformDirection" : "jcg 6/18/2010 14:50",
 		"primitiveTransformMatrixWithInto" : "jcg 6/18/2010 14:50",
