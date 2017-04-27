@@ -20,7 +20,7 @@ emitCConstantsOn: aStream
 			[:n| n isConstant ifTrue: [unused remove: n name ifAbsent: []]]].
 	unused copy do:
 		[:const|
-		(variableDeclarations anySatisfy: [:value| value includesSubString: const]) ifTrue:
+		(variableDeclarations anySatisfy: [:value| value includesSubstring: const]) ifTrue:
 			[unused remove: const ifAbsent: []]].
 	"and VMBasicConstants mostBasicConstantNames *must* be taken from interp.h"
 	unused addAll: VMBasicConstants mostBasicConstantNames.

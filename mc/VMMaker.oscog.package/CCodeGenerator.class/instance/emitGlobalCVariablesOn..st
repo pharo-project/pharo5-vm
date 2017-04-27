@@ -12,7 +12,7 @@ emitGlobalCVariablesOn: aStream
 			ifTrue:
 				[aStream nextPutAll: decl; cr]
 			ifFalse:
-				[(decl includesSubString: ' private ') ifFalse: "work-around hack to prevent localization of variables only referenced once."
+				[(decl includesSubstring: ' private ') ifFalse: "work-around hack to prevent localization of variables only referenced once."
 					[(decl beginsWith: 'static') ifFalse: [aStream nextPutAll: 'VM_EXPORT '].
 					(decl includes: $=) ifTrue:
 						[decl := decl copyFrom: 1 to: (decl indexOf: $=) - 1].

@@ -7,7 +7,7 @@ emitCFunctionPrototype: aStream generator: aCodeGen isPrototype: isPrototype "<B
 		[self outputConditionalDefineFor: compileTimeOptionPragmas on: aStream].
 	returnTypeIsFunctionPointer := returnType notNil
 									and: [returnType last = $)
-									and: [returnType includesSubString: (aCodeGen cFunctionNameFor: selector)]].
+									and: [returnType includesSubstring: (aCodeGen cFunctionNameFor: selector)]].
 	export 
 		ifTrue:
 			[aStream nextPutAll: 'EXPORT('; nextPutAll: returnType; nextPut: $)]

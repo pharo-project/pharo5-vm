@@ -14,7 +14,7 @@ emitCMacros: methodList on: aStream
 				nextPutAll: (macros at: m selector); cr.
 			 m compiledMethod literalsDo:
 				[:lit|
-				(lit isVariableBinding and: [(macros at: m selector) includesSubString: lit key]) ifTrue:
+				(lit isVariableBinding and: [(macros at: m selector) includesSubstring: lit key]) ifTrue:
 					[usedConstants add: lit key]]]].
 	aStream cr.
 	^usedConstants

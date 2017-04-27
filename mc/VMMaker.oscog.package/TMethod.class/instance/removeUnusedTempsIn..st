@@ -10,8 +10,8 @@ removeUnusedTempsIn: aCodeGen
 	locals do:
 		[:local|
 		 ((usedVariables includes: local) not
-		  and: [((declarations at: local ifAbsent: ['']) includesSubString: 'static') not
-		  and: [((declarations at: local ifAbsent: ['']) includesSubString: 'extern') not]]) ifTrue:
+		  and: [((declarations at: local ifAbsent: ['']) includesSubstring: 'static') not
+		  and: [((declarations at: local ifAbsent: ['']) includesSubstring: 'extern') not]]) ifTrue:
 			[locals remove: local.
 			 declarations removeKey: local ifAbsent: []]].
 	^usedVariables

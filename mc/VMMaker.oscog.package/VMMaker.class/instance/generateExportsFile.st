@@ -5,7 +5,7 @@ generateExportsFile
 	filePath := self interpreterExportsFilePath.
 	"don't bother endlessly regenerating the example file."
 	(internalPlugins isEmpty
-	 and: [(filePath includesSubString: 'example')
+	 and: [(filePath includesSubstring: 'example')
 	 and: [FileDirectory default fileExists: filePath]]) ifTrue:
 		[^self].
 	cg := self createCodeGenerator.

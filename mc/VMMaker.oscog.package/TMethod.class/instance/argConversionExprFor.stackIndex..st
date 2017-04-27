@@ -8,7 +8,7 @@ argConversionExprFor: varName stackIndex: stackIndex
 	 and: ['int' ~= (type := (decl copyReplaceAll: varName with: '') withBlanksTrimmed)])
 		ifTrue:
 			[(decl includes: $*) ifTrue: "array"
-				[(decl includesSubString: 'char')
+				[(decl includesSubstring: 'char')
 					ifTrue:
 						[| expr |
 						expr := '(interpreterProxy isBytes: (interpreterProxy stackValue: (stackIndex))) ifFalse: [^interpreterProxy primitiveFail]'.

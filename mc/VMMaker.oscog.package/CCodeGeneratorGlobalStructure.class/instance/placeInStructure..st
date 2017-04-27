@@ -8,7 +8,7 @@ placeInStructure: var
 	check := variableDeclarations at: var ifAbsent: [''].
 	(check includes: $=) ifTrue: [^false].
 	(check includes: $() ifTrue: [^false].
-	(check includesSubString: 'static') ifTrue: [^false].
-	(check includesSubString: 'volatile') ifTrue: [^false].
+	(check includesSubstring: 'static') ifTrue: [^false].
+	(check includesSubstring: 'volatile') ifTrue: [^false].
 
 	^(vmClass mustBeGlobal: var) not

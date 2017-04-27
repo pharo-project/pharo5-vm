@@ -11,8 +11,8 @@ emitCConstants: constList on: aStream
 			  the value from Smalltalk to C.
 			  Allow the class to provide an alternative definition, either of just the value or the whole shebang."
 			default := (node value isString
-						and: [(node value includesSubString: '/*')
-								or: [(node value includesSubString: ' ? ') and: [node value includesSubString: ' : ']]])
+						and: [(node value includesSubstring: '/*')
+								or: [(node value includesSubstring: ' ? ') and: [node value includesSubstring: ' : ']]])
 							ifTrue: [node value]
 							ifFalse: [self cLiteralFor: node value name: varName].
 			default = #undefined
