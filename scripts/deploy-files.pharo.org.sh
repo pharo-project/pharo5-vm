@@ -41,8 +41,7 @@ get_heartbeat() {
 	elif [[ "{$file}" = *itimer* ]]; then
     	echo "itimer";
 	else
-    	echo "Unsupported heartbeat";
-    	exit 1;
+    	echo "";
 	fi
 }
 
