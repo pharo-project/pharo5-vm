@@ -39,7 +39,7 @@ get_heartbeat() {
 	if [[ "{$file}" = *threaded* ]]; then
     	echo "threaded";
 	elif [[ "{$file}" = *itimer* ]]; then
-    	echo "i386";
+    	echo "itimer";
 	else
     	echo "Unsupported heartbeat";
     	exit 1;
