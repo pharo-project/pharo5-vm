@@ -1,5 +1,10 @@
+VER=`head -1 debian/changelog | cut -d ' ' -f 2 | sed s,"(","",  | sed s,")","",`
+
+
 all: build_srcpackage pharo5_sources
 
+version_from_travis:
+	cd packaging/pharo5-vm-core && dch -v $(VER).$(TRAVIS_JOB_NUMBER) -m "Travis build $(TRAVIS_JOB_NUMBER)"
 
 build_srcpackage:
 	@echo "Generating sources"
