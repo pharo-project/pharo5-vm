@@ -19,7 +19,7 @@ genDivR: abstractRegDivisor R: abstractRegDividend Quo: abstractRegQuotient Rem:
 	rDivisor = CArg1Reg ifFalse:
 		[cogit MoveR: rDivisor R: CArg1Reg].
 	divRemFunctionAddr := self aeabiDivModFunctionAddr.
-	cogit backEnd saveAndRestoreLinkRegAround:
+	self saveAndRestoreLinkRegAround:
 		[cogit CallFullRT: (self cCode: [divRemFunctionAddr asUnsignedInteger]
 							   inSmalltalk: [cogit simulatedTrampolineFor: divRemFunctionAddr])
 			registersToBeSavedMask: (cogit registerMaskFor: CArg2Reg and: CArg3Reg)].

@@ -3,7 +3,8 @@
 		"hasHeaderFile" : "tpr 5/23/2001 17:08",
 		"moduleName" : "ar 4/19/2001 02:21",
 		"requiresCrossPlatformFiles" : "tpr 7/4/2001 15:12",
-		"requiresPlatformFiles" : "tpr 3/20/2001 12:16" },
+		"requiresPlatformFiles" : "tpr 3/20/2001 12:16",
+		"testLoadPlugin" : "eem 5/1/2017 10:22" },
 	"instance" : {
 		"checkBoundsRange:faces:count:" : "ar (auto pragmas 12/08) 12/5/2008 14:34",
 		"checkVertexData:" : "ar (auto pragmas 12/08) 12/5/2008 12:33",
