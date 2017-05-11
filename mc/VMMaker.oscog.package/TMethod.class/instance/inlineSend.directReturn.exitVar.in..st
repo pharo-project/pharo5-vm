@@ -9,18 +9,20 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 	 otherwise the assignee variable type must match the return type of the inlinee.  Return
 	 types are not propagated."
 
-	| sel meth methArgs exitLabel inlineStmts label exitType notToBeRenamed |
+	| sel meth methArgs exitLabel inlineStmts label exitType elidedArgs |
 	sel := aSendNode selector.
 	meth := aCodeGen methodNamed: sel.
 	methArgs := meth args.
 	"convenient for debugging..."
 	aCodeGen maybeBreakForInlineOf: aSendNode in: self.
+	elidedArgs := #().
 	(methArgs notEmpty and: [methArgs first beginsWith: 'self_in_'])
-		ifTrue:
-			[notToBeRenamed := {methArgs first}.
-			 methArgs := methArgs allButFirst]
-		ifFalse:
-			[notToBeRenamed := #()].
+		ifTrue: "If the first arg is not used we can and should elide it."
+			[| varNode |
+			 varNode := TVariableNode new setName: methArgs first.
+			 (meth parseTree noneSatisfy: [:node| varNode isSameAs: node]) ifTrue:
+				[elidedArgs := {methArgs first}].
+			 methArgs := methArgs allButFirst].
 	methArgs size = aSendNode args size ifFalse:
 		[^nil].
 	meth := meth copy.
@@ -48,9 +50,9 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 					type ~= #sqInt ifTrue:
 						[meth declarationAt: formal put: (type last = $* ifTrue: [type, formal] ifFalse: [type, ' ', formal])]]]].
 
-	meth renameVarsForInliningInto: self except: notToBeRenamed in: aCodeGen.
+	meth renameVarsForInliningInto: self except: elidedArgs in: aCodeGen.
 	meth renameLabelsForInliningInto: self.
-	self addVarsDeclarationsAndLabelsOf: meth except: notToBeRenamed.
+	self addVarsDeclarationsAndLabelsOf: meth except: elidedArgs.
 	meth hasReturn ifTrue:
 		[directReturn ifFalse:
 			[exitLabel := self unusedLabelForInliningInto: self.
@@ -59,7 +61,7 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 				ifFalse: [ exitLabel := nil ]]].
 	(inlineStmts := OrderedCollection new: meth statements size + meth args size + 2)
 		add: (label := TLabeledCommentNode new setComment: 'begin ', sel);
-		addAll: (self argAssignmentsFor: meth send: aSendNode in: aCodeGen);
+		addAll: (self argAssignmentsFor: meth send: aSendNode except: elidedArgs in: aCodeGen);
 		addAll: meth statements.  "method body"
 	directReturn ifTrue:
 		[meth endsWithReturn
