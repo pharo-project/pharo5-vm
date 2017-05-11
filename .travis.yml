@@ -27,7 +27,6 @@ addons:
       - automake
       - autoconf
       - dpkg-dev
-      - osc
 matrix:
   include:
     - os: osx
@@ -64,6 +63,7 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
+          - osc
       after_script:
 #      - (cd scripts; ./commit-sources.sh)
       - make -f Makefile.debian version_from_travis
