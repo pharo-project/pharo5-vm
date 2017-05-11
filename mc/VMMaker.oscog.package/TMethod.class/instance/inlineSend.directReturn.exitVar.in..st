@@ -9,14 +9,18 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 	 otherwise the assignee variable type must match the return type of the inlinee.  Return
 	 types are not propagated."
 
-	| sel meth methArgs exitLabel inlineStmts label exitType |
+	| sel meth methArgs exitLabel inlineStmts label exitType notToBeRenamed |
 	sel := aSendNode selector.
 	meth := aCodeGen methodNamed: sel.
 	methArgs := meth args.
 	"convenient for debugging..."
 	aCodeGen maybeBreakForInlineOf: aSendNode in: self.
-	(methArgs notEmpty and: [methArgs first beginsWith: 'self_in_']) ifTrue:
-		[methArgs := methArgs allButFirst].
+	(methArgs notEmpty and: [methArgs first beginsWith: 'self_in_'])
+		ifTrue:
+			[notToBeRenamed := {methArgs first}.
+			 methArgs := methArgs allButFirst]
+		ifFalse:
+			[notToBeRenamed := #()].
 	methArgs size = aSendNode args size ifFalse:
 		[^nil].
 	meth := meth copy.
@@ -44,9 +48,9 @@ inlineSend: aSendNode directReturn: directReturn exitVar: exitVar in: aCodeGen
 					type ~= #sqInt ifTrue:
 						[meth declarationAt: formal put: (type last = $* ifTrue: [type, formal] ifFalse: [type, ' ', formal])]]]].
 
-	meth renameVarsForInliningInto: self except: #() in: aCodeGen.
+	meth renameVarsForInliningInto: self except: notToBeRenamed in: aCodeGen.
 	meth renameLabelsForInliningInto: self.
-	self addVarsDeclarationsAndLabelsOf: meth except: #().
+	self addVarsDeclarationsAndLabelsOf: meth except: notToBeRenamed.
 	meth hasReturn ifTrue:
 		[directReturn ifFalse:
 			[exitLabel := self unusedLabelForInliningInto: self.

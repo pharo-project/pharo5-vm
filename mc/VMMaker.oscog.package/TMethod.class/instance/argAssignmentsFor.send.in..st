@@ -11,7 +11,7 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 	stmtList := OrderedCollection new: argList size.
 	substitutionDict := Dictionary new: argList size.
 	meth args with: argList do:
-		[:argName :exprNode |
+		[:argName :exprNode | | varNode |
 		(self isNode: exprNode substitutableFor: argName inMethod: meth in: aCodeGen)
 			ifTrue:
 				[substitutionDict
@@ -21,16 +21,19 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 							typeCompatibleWith: argName
 							inliningInto: meth
 							in: self).
-				 locals remove: argName.
-				declarations removeKey: argName ifAbsent: nil]
-			ifFalse:
-				[stmtList addLast:
-					(TAssignmentNode new
-						setVariable: (TVariableNode new setName: argName)
-						expression: (aCodeGen
-										node: exprNode copy
-										typeCompatibleWith: argName
-										inliningInto: meth
-										in: self))]].
+				 locals remove: argName ifAbsent: [self assert: (argName beginsWith: 'self_in_')].
+				 declarations removeKey: argName ifAbsent: nil]
+			ifFalse: "Add an assignment for anything except an unused self_in_foo argument"
+				[varNode := TVariableNode new setName: argName.
+				 ((argName beginsWith: 'self_in_')
+				  and: [meth parseTree noneSatisfy: [:node| varNode isSameAs: node]]) ifFalse:
+					[stmtList addLast:
+						(TAssignmentNode new
+							setVariable: varNode
+							expression: (aCodeGen
+											node: exprNode copy
+											typeCompatibleWith: argName
+											inliningInto: meth
+											in: self))]]].
 	meth parseTree: (meth parseTree bindVariablesIn: substitutionDict).
 	^stmtList

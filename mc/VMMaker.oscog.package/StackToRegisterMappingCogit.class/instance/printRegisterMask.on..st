@@ -1,5 +1,6 @@
 debug printing
 printRegisterMask: registerMask on: aStream
+	<doNotGenerate>
 	| first |
 	aStream nextPut: ${.
 	registerMask = 0
