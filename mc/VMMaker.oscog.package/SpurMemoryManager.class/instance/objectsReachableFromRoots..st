@@ -39,7 +39,7 @@ objectsReachableFromRoots: arrayOfRoots
 		[:i|
 		 oop := self fetchPointer: i ofObject: arrayOfRoots.
 		 (self isNonImmediate: oop) ifTrue:
-			[self push: oop onObjStack: markStack]].
+			[self noCheckPush: oop onObjStack: markStack]].
 
 	"Now collect the unmarked objects reachable from the roots."
 	[self isEmptyObjStack: markStack] whileFalse:
@@ -51,7 +51,7 @@ objectsReachableFromRoots: arrayOfRoots
 		 oop := self fetchClassOfNonImm: objOop.
 		 (self isMarked: oop) ifFalse:
 			[self setIsMarkedOf: objOop to: true.
-			 self push: oop onObjStack: markStack].
+			 self noCheckPush: oop onObjStack: markStack].
 		 ((self isContextNonImm: objOop)
 		  and: [coInterpreter isStillMarriedContext: objOop]) "widow now, before the loop"
 			ifTrue:
@@ -61,7 +61,7 @@ objectsReachableFromRoots: arrayOfRoots
 					 ((self isImmediate: oop)
 					  or: [self isMarked: oop]) ifFalse:
 						[self setIsMarkedOf: objOop to: true.
-						 self push: oop onObjStack: markStack]]]
+						 self noCheckPush: oop onObjStack: markStack]]]
 			ifFalse:
 				[0 to: (self numPointerSlotsOf: objOop) - 1 do:
 					[:i|
@@ -69,7 +69,7 @@ objectsReachableFromRoots: arrayOfRoots
 					 ((self isImmediate: oop)
 					  or: [self isMarked: oop]) ifFalse:
 						[self setIsMarkedOf: objOop to: true.
-						 self push: oop onObjStack: markStack]]]].
+						 self noCheckPush: oop onObjStack: markStack]]]].
 
 	self unmarkAllObjects.
 
@@ -84,6 +84,8 @@ objectsReachableFromRoots: arrayOfRoots
 	self setFormatOf: freeChunk to: self arrayFormat.
 	self setClassIndexOf: freeChunk to: ClassArrayCompactIndex.
 	self shorten: freeChunk toIndexableSize: count.
+	(self isForwarded: freeChunk) ifTrue:
+		[freeChunk := self followForwarded: freeChunk].
 	self possibleRootStoreInto: freeChunk.
 	self checkFreeSpace: GCModeImageSegment.
 	self runLeakCheckerFor: GCModeImageSegment.

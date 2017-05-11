@@ -8,5 +8,6 @@ storeLiteralVariable: literalIndex withValue: anObject
 	 rare; in my work image 8.7% of literals are globals)."
 
 	(objectMemory isForwarded: litVar) ifTrue:
-		[litVar := objectMemory followForwarded: litVar].
-	^objectMemory storePointerImmutabilityCheck: ValueIndex ofObject: litVar withValue: anObject
+		[litVar := objectMemory followForwarded: litVar.
+		 self literal: literalIndex ofMethod: method put: litVar].
+	objectMemory storePointerImmutabilityCheck: ValueIndex ofObject: litVar withValue: anObject
