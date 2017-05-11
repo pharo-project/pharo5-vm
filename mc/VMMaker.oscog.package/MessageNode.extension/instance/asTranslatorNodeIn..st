@@ -15,7 +15,7 @@ asTranslatorNodeIn: aTMethod
 	and: [rcvrOrNil name = 'super']]) ifTrue:
 		[^aTMethod superExpansionNodeFor: selector key args: arguments].
 	sel := selector isSymbol ifTrue: [selector] ifFalse: [selector key].
-	sel == #halt ifTrue: [^receiver].
+	sel == #halt ifTrue: [^rcvrOrNil].
 	(sel == #cCode:inSmalltalk: "extracting here rather than in translation allows inlining in the block."
 	  or: [sel == #cCode:]) ifTrue:
 		[arguments first isBlockNode ifTrue:
