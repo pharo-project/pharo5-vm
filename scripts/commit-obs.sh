@@ -10,6 +10,7 @@ fi
 cat <<- EOF > ~/.oscrc
 [general]
 apiurl = https://api.opensuse.org
+use_keyring = 0
 
 [https://api.opensuse.org]
 user = ${OBS_USER}
@@ -27,12 +28,13 @@ pushd .
 # rm files if directory is not empty
 cd ${OBS_HOME}/${OBS_PACKAGE}
 if [ `ls | wc -l` != 0 ]; then
-    osc rm *.dsc *.tar.gz
+    osc rm *.dsc
+    osc rm *.tar.*
 fi
 popd
 
 # copy our new files and send them to obs
-cp packaging/*.dsc packaging/*.tar.gz ${OBS_HOME}/${OBS_PACKAGE}
+cp packaging/pharo5-vm-*.dsc packaging/pharo5-vm-*.tar.* ${OBS_HOME}/${OBS_PACKAGE}
 cd ${OBS_HOME}/${OBS_PACKAGE}
-osc add *.dsc *.tar.gz
+osc add *.dsc *.tar.*
 osc ci -v -m "new build ${TRAVIS_COMMIT_RANGE}"
