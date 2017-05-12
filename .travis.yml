@@ -41,8 +41,6 @@ matrix:
       - FLAVOR="pharo.cog.spur"
       - SRC_ARCH="i386"
       - HEARTBEAT="threaded"
-      - secure: "Irxld8P+3z61Q2/5ju3NLEVrj4uQJFJ/oTuKScqO4eLADYuUZUru6jhqZ1RkQWi+eOjJTiHGCKZI5lEZ4mrSa1VCFgOXlTfkTA8+eQYwCoaNM7dqTdzEAkSSX94FlzTf5+AyJTMjtDl2Wjitt1RXDNv3atcMIYx569unHr+7c4k="
-      - secure: "GoRhWin9A5beT7vD2DJcu2hsakYxgpa7dWHe1xzhbmCOykxLeORX2SKZtSwm3lbGsEp7RS+ldy6FeOcuRvZS11V0bEj1mXw8vspYHij9rHRbGKfE1zpR7djc7mUlt5oa+ycfgsO8pBdLENMvLwSD+qeuL+0P1LApnzw9K3xIRVg="
       addons:
         apt:
           packages:
