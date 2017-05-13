@@ -298,7 +298,7 @@ primitiveVMParameter
 		[result := objectMemory integerObjectOf: objectMemory tenuringThreshold.
 		 primFailCode := objectMemory tenuringThreshold: arg].
 	
-	(SistaVM and: [index = 17]) ifTrue:
+	(SistaVM and: [self isCog and: [index = 17]]) ifTrue:
 		[result := objectMemory floatObjectOf: self getCogCodeZoneThreshold.
 		 primFailCode := self setCogCodeZoneThreshold: (objectMemory floatValueOf: arg)].
 	index = 23 ifTrue:
