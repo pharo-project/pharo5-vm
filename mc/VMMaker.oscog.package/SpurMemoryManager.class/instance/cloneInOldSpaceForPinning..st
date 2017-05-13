@@ -8,6 +8,8 @@ cloneInOldSpaceForPinning: objOop
 					bytes: (self objectBytesForSlots: numSlots)
 					format: fmt
 					classIndex: (self classIndexOf: objOop).
+	newObj ifNil:
+		[^0].
 	(self isPointersFormat: fmt)
 		ifTrue:
 			[| hasYoung |
@@ -24,8 +26,7 @@ cloneInOldSpaceForPinning: objOop
 				self storePointerUnchecked: i
 					ofObject: newObj
 					withValue: oop].
-			(hasYoung
-			 and: [(self isYoungObject: newObj) not]) ifTrue:
+			hasYoung ifTrue:
 				[scavenger remember: newObj]]
 		ifFalse:
 			[0 to: numSlots - 1 do:
@@ -35,7 +36,6 @@ cloneInOldSpaceForPinning: objOop
 					withValue: (self fetchPointer: i ofObject: objOop)].
 			 fmt >= self firstCompiledMethodFormat ifTrue:
 				[coInterpreter maybeFixClonedCompiledMethod: newObj.
-				 ((self isOldObject: newObj)
-				  and: [(self isYoungObject: objOop) or: [self isRemembered: objOop]]) ifTrue:
+				 ((self isYoungObject: objOop) or: [self isRemembered: objOop]) ifTrue:
 					[scavenger remember: newObj]]].
 	^newObj
