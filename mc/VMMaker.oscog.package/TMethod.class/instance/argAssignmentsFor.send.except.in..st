@@ -1,5 +1,5 @@
 inlining
-argAssignmentsFor: meth send: aSendNode in: aCodeGen
+argAssignmentsFor: meth send: aSendNode except: elidedArgs in: aCodeGen
 	"Return a collection of assignment nodes that assign the given argument expressions to the formal parameter variables of the given method."
 	"Optimization: If the actual parameters are either constants or local variables in the target method (the receiver), substitute them directly into the body of meth. Note that global variables cannot be subsituted because the inlined method might depend on the exact ordering of side effects to the globals."
 
@@ -21,16 +21,17 @@ argAssignmentsFor: meth send: aSendNode in: aCodeGen
 							typeCompatibleWith: argName
 							inliningInto: meth
 							in: self).
-				 locals remove: argName.
-				declarations removeKey: argName ifAbsent: nil]
-			ifFalse:
-				[stmtList addLast:
-					(TAssignmentNode new
-						setVariable: (TVariableNode new setName: argName)
-						expression: (aCodeGen
-										node: exprNode copy
-										typeCompatibleWith: argName
-										inliningInto: meth
-										in: self))]].
+				 locals remove: argName ifAbsent: [self assert: (argName beginsWith: 'self_in_')].
+				 declarations removeKey: argName ifAbsent: nil]
+			ifFalse: "Add an assignment for anything except an unused self_in_foo argument"
+				[(elidedArgs includes: argName) ifFalse:
+					[stmtList addLast:
+						(TAssignmentNode new
+							setVariable: (TVariableNode new setName: argName)
+							expression: (aCodeGen
+											node: exprNode copy
+											typeCompatibleWith: argName
+											inliningInto: meth
+											in: self))]]].
 	meth parseTree: (meth parseTree bindVariablesIn: substitutionDict).
 	^stmtList

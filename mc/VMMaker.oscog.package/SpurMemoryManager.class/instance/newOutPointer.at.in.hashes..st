@@ -10,5 +10,4 @@ newOutPointer: oop at: outIndex in: outPointerArray hashes: savedOutHashes
 	self storePointer: outIndex ofObject: outPointerArray withValue: oop.
 	self storeLong32: outIndex ofObject: savedOutHashes withValue: (self rawHashBitsOf: oop).
 	self setHashBitsOf: oop to: outIndex + TopHashBit.
-	self setIsMarkedOf: oop to: true.
 	^outIndex + 1

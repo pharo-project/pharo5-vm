@@ -11,10 +11,10 @@ assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPoin
 		 fillIdx := fillIdx + 1.
 		 "In the segment, class indices are offset indexes into the segment data,
 		  or into outPointers.  See mapOopsFrom:to:outPointers:outHashes:."
-		 classRef := (self classIndexOf: objOop) - self firstClassIndexPun.
+		 classRef := self classIndexOf: objOop.
 		 classOop := (classRef anyMask: TopHashBit)
-						ifTrue: [self fetchPointer: classRef - TopHashBit ofObject: outPointerArray]
-						ifFalse: [classRef * self allocationUnit + segmentStart].
+						ifTrue: [self fetchPointer: classRef - TopHashBit - self firstClassIndexPun ofObject: outPointerArray]
+						ifFalse: [classRef - self firstClassIndexPun * self allocationUnit + segmentStart].
 		 classIndex := self rawHashBitsOf: classOop.
 		 self assert: (classIndex > self lastClassIndexPun
 					  and: [(self classOrNilAtIndex: classIndex) = classOop]).
@@ -26,4 +26,4 @@ assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPoin
 			 oldClone ~= 0 ifTrue:
 				[self setIsPinnedOf: oldClone to: true.
 				 self forward: objOop to: oldClone]].
-		 objOop := self objectAfter: objOop limit: segmentLimit].
+		 objOop := self objectAfter: objOop limit: segmentLimit]

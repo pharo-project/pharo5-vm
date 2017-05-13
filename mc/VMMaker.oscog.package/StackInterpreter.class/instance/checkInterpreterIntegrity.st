@@ -12,8 +12,11 @@ checkInterpreterIntegrity
 	(objectMemory isNonImmediate: messageSelector) ifTrue:
 		[(objectMemory checkOopIntegrity: messageSelector named: 'messageSelector')ifFalse:
 			[ok := false]]."
-	(objectMemory checkOopIntegrity: newMethod named: 'newMethod')ifFalse:
-		[flags := flags + 2].
+	"Work around the primitiveDoPrimitiveWithArgs hack"
+	(objectMemory hasSpurMemoryManagerAPI
+	and: [objectMemory isIntegerObject: newMethod]) ifFalse:
+		[(objectMemory checkOopIntegrity: newMethod named: 'newMethod')ifFalse:
+			[flags := flags + 2]].
 	"No longer check lkupClass; it is ephemeral, not living beyond message lookup.
 	(objectMemory checkOopIntegrity: lkupClass named: 'lkupClass')ifFalse:
 		[ok := false]."

@@ -1,5 +1,6 @@
 obj stacks
 push: objOop onObjStack: objStack
+	<inline: true>
 	self assert: (self addressCouldBeOop: objOop).
 	(self isImmediate: objOop)
 		ifTrue:

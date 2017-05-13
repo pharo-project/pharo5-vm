@@ -1,6 +1,6 @@
 image segment in/out
 loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
-	"This primitive is called from Squeak as...
+	"This primitive is called from Smalltalk as...
 		<imageSegment> loadSegmentFrom: aWordArray outPointers: anArray."
 
 	"This primitive will load a binary image segment created by primitiveStoreImageSegment.
@@ -8,7 +8,10 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	 It will return as its value the original array of roots, and the segmentWordArray will become an
 	 array of the loaded objects.  If this primitive should fail, the segmentWordArray will, sadly, have
 	 been reduced to an unrecognizable and unusable jumble.  But what more could you have done
-	 with it anyway?"
+	 with it anyway?
+
+	 The primitive, if it succeeds, also becomes the segmentWordArray into the array of loaded objects.
+	 This allows fixing up of loaded objects directly, without nextObject, which Spur doesn't support."
 
 	<inline: false>
 	| segmentLimit segmentStart segVersion errorCode numLoadedObjects loadedObjectsArray |

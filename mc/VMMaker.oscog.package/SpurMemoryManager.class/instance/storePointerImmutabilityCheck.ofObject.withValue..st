@@ -7,5 +7,5 @@ storePointerImmutabilityCheck: fieldIndex ofObject: objOop withValue: valuePoint
 		[self deny: (self isImmediate: objOop).
 		 (self isImmutable: objOop) ifTrue: 
 			[^coInterpreter cannotAssign: valuePointer to: objOop withIndex: fieldIndex]].
-	
-	^self storePointer: fieldIndex ofObject: objOop withValue: valuePointer
+
+	self storePointer: fieldIndex ofObject: objOop withValue: valuePointer

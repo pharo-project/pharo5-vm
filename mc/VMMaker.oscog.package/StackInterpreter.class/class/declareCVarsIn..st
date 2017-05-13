@@ -11,7 +11,7 @@ declareCVarsIn: aCCodeGenerator
 		addHeaderFile:'"sqMemoryFence.h"';
 		addHeaderFile:'"dispdbg.h"'.
 	LowcodeVM ifTrue: [ aCCodeGenerator addHeaderFile:'"sqLowcodeFFI.h"'].
-	
+
 	vmClass declareInterpreterVersionIn: aCCodeGenerator defaultName: 'Stack'.
 	aCCodeGenerator
 		var: #interpreterProxy  type: #'struct VirtualMachine*'.
@@ -78,24 +78,23 @@ declareCVarsIn: aCCodeGenerator
 		ifFalse:
 			[aCCodeGenerator removeVariable: #primitiveAccessorDepthTable].
 	aCCodeGenerator
+		var: #displayBits type: #'void *'.
+	self declareC: #(displayWidth displayHeight displayDepth) as: #int in: aCCodeGenerator.
+	aCCodeGenerator
 		var: #primitiveFunctionPointer
-		declareC: 'void (*primitiveFunctionPointer)()'.
-	aCCodeGenerator
+			declareC: 'void (*primitiveFunctionPointer)()';
 		var: #externalPrimitiveTable
-		declareC: 'void (*externalPrimitiveTable[MaxExternalPrimitiveTableSize + 1 /* ', (MaxExternalPrimitiveTableSize + 1) printString, ' */])(void)'.
-	aCCodeGenerator var: #showSurfaceFn type: #'void *'.
-	aCCodeGenerator
-		var: #jmpBuf
-		declareC: 'jmp_buf jmpBuf[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]'.
-	aCCodeGenerator
-		var: #suspendedCallbacks
-		declareC: 'usqInt suspendedCallbacks[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]'.
-	aCCodeGenerator
-		var: #suspendedMethods
-		declareC: 'usqInt suspendedMethods[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]'.
-	aCCodeGenerator
+			declareC: 'void (*externalPrimitiveTable[MaxExternalPrimitiveTableSize + 1 /* ', (MaxExternalPrimitiveTableSize + 1) printString, ' */])(void)';
 		var: #interruptCheckChain
-		declareC: 'void (*interruptCheckChain)(void) = 0'.
+			declareC: 'void (*interruptCheckChain)(void) = 0';
+		var: #showSurfaceFn
+			declareC: 'int (*showSurfaceFn)(sqIntptr_t, int, int, int, int)';
+		var: #jmpBuf
+			declareC: 'jmp_buf jmpBuf[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]';
+		var: #suspendedCallbacks
+			declareC: 'usqInt suspendedCallbacks[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]';
+		var: #suspendedMethods
+			declareC: 'usqInt suspendedMethods[MaxJumpBuf + 1 /* ', (MaxJumpBuf + 1) printString, ' */]'.
 
 	self declareCAsUSqLong: #(nextPollUsecs nextWakeupUsecs longRunningPrimitiveGCUsecs
 								longRunningPrimitiveStartUsecs longRunningPrimitiveStopUsecs
@@ -108,8 +107,5 @@ declareCVarsIn: aCCodeGenerator
 	
 	LowcodeVM ifTrue:
 		[aCCodeGenerator
-			var: #shadowCallStackPointer
-			type: #'char *'.
-		aCCodeGenerator
-			var: #lowcodeCalloutState
-			type: #'sqLowcodeCalloutState*']
+			var: #shadowCallStackPointer type: #'char *';
+			var: #lowcodeCalloutState type: #'sqLowcodeCalloutState*']

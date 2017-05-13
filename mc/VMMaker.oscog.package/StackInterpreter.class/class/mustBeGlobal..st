@@ -5,7 +5,8 @@ mustBeGlobal: var
 	^(super mustBeGlobal: var)
 	   or: [(self objectMemoryClass mustBeGlobal: var)
 	   or: [(#('interpreterProxy' 'interpreterVersion' 'inIOProcessEvents'
-			'deferDisplayUpdates' 'extraVMMemory' 'showSurfaceFn'
+			'deferDisplayUpdates' 'extraVMMemory'
+			'showSurfaceFn' 'displayBits' 'displayWidth' 'displayHeight' 'displayDepth'
 			'desiredNumStackPages' 'desiredEdenBytes'
 			'breakSelector' 'breakSelectorLength' 'sendTrace' 'checkAllocFiller' 'checkedPluginName'
 			'suppressHeartbeatFlag' 'debugCallbackInvokes' 'debugCallbackPath' 'debugCallbackReturns') includes: var)

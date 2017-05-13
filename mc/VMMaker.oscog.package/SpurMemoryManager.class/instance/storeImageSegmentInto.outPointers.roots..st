@@ -1,44 +1,68 @@
 image segment in/out
-storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arrayOfRoots
+storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots: arrayOfRootsArg
 	"This primitive is called from Squeak as...
 		<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers: anArray.
 
-	 This primitive will store a binary image segment (in the same format as objercts in the heap) of the
+	 This primitive will store a binary image segment (in the same format as objects in the heap) of the
 	 set of objects in arrayOfObjects.  All pointers from within the set to objects outside the set will be
 	 copied into the array of outPointers.  In their place in the image segment will be an oop equal to the
-	 offset in the outPointer array (the first would be 4). but with the high bit set.
+	 offset in the outPointer array (the first would be 8), but with the high bit set.
 
-	 Since Spur has a class table the load primitive must insert classes that have instances in the class
-	 table.  This primitive marks such classes using the isRemembered bit, which isn't meaningful as a
-	 remembered bit in the segment.
+	 Since Spur has a class table the load primitive must insert classes that have instances into the
+	 class table.  This primitive marks such classes using the isRemembered bit, which isn't meaningful
+	 as a remembered bit in the segment.
 
 	 The primitive expects the segmentWordArray and outPointerArray to be more than adequately long.
 	 In this case it returns normally, and truncates the two arrays to exactly the right size.
 
 	 The primitive can fail for the following reasons with the specified failure codes:
-		PrimErrWritePastObject:	the segmentWordArray is too small
+		PrimErrGenericError:		the segmentWordArray is too small for the version stamp
+		PrimErrWritePastObject:	the segmentWordArray is too small to contain the reachable objects
 		PrimErrBadIndex:			the outPointerArray is too small
 		PrimErrNoMemory:			additional allocations failed
-		PrimErrLimitExceeded:		there is no room in the hash field to store object oops."
+		PrimErrLimitExceeded:		there is no room in the hash field to store out pointer indices or class references."
 	<inline: false>
-	| arrayOfObjects savedInHashes savedOutHashes fillValue segStart segAddr endSeg outIndex |
+	| segmentWordArray outPointerArray arrayOfRoots
+	  arrayOfObjects savedFirstFields savedOutHashes segStart segAddr endSeg outIndex numClassesInSegment |
+	((self isObjImmutable: segmentWordArrayArg)
+	 or: [self isObjImmutable: outPointerArrayArg]) ifTrue:
+		[^PrimErrNoModification].
+	"Since segmentWordArrayArg & outPointerArrayArg may get shortened, they can't be pinned."
+	((self isPinned: segmentWordArrayArg)
+	 or: [self isPinned: outPointerArrayArg]) ifTrue:
+		[^PrimErrObjectIsPinned].
+	(self numSlotsOf: outPointerArrayArg) > self maxIdentityHash ifTrue:
+		[^PrimErrLimitExceeded].
 
 	self runLeakCheckerFor: GCModeImageSegment.
 
-	"First compute the transitive closure, collecting the sequence of objects to be stored in the arrayOfObjects array."
+	"First scavenge to coillect any new space garbage that refers to the graph."
+	self scavengingGC.
+	segmentWordArray := self updatePostScavenge: segmentWordArrayArg.
+	outPointerArray := self updatePostScavenge: outPointerArrayArg.
+	arrayOfRoots := self updatePostScavenge: arrayOfRootsArg.
+	
+	"Now compute the transitive closure, collecting the sequence of objects to be stored in the arrayOfObjects array.
+	 Included in arrayOfObjects are the arrayOfRoots and all its contents.  All objects have been unmarked."
 	arrayOfObjects := self objectsReachableFromRoots: arrayOfRoots.
 	arrayOfObjects ifNil:
 		[^PrimErrNoMemory].
 
 	self assert: self allObjectsUnmarked. "work to be done when the incremental GC is written"
 
-	"The scheme is to copy the objects into segmentWordArray, and then map the oops in sementWordArray.
+	"Both to expand the max size of segment and to reduce the length of the
+	 load-time pass that adds classes to the class table, move classes to the
+	 front of arrayOfObjects, leaving the root array as the first element."
+	numClassesInSegment := self moveClassesForwardsIn: arrayOfObjects.
+
+	"The scheme is to copy the objects into segmentWordArray, and then map the oops in segmentWordArray.
 	 Therefore the primitive needs to both map efficiently originals to copies in segmentWordArray and
-	 be able to undo any side-effects if the primitive fails because either sementWordArray or outPointerArray
-	 is too small.  The mapping is done by having the originals (either the objects in arrayOfObjects or the
-	 objects in outPointerArray) refer to their mapped locations through their identityHash, and saving their
-	 identityHashes in two ByteArrays, one that mirrors arrayOfObjects, and one that mirrors outPointerArray.
-	 Since arrayOfObjects and its saved hashes, and outPointerArray and its saved hashes, can be enumerated
+	 be able to undo any side-effects if the primitive fails because either segmentWordArray or outPointerArray
+	 is too small.  The mapping is done by having the objects to be stored in arrayOfObjects refer to their mapped
+	 locations through their first field, just like a forwarding pointer, but without becoming a forwarder, saving their
+	 first field in savedFirstFields, and the objects in outPointerArray pointing to tehir locations in the outPointerArray
+	 through their identityHashes, saved in savedOutHashes.
+	 Since arrayOfObjects and its savedFirstFields, and outPointerArray and its saved hashes, can be enumerated
 	 side-by-side, the hashes can be restored to the originals.  So the hash of an object in arrayOfObjects
 	 is set to its offset in segmentWordArray / self allocationUnit, and the hash of an object in outPointerArray
 	 is set to its index in outPointerArray plus the top hash bit.  Oops in segmentWordArray are therefore
@@ -46,24 +70,18 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 	 and external oops.  The saved hash arrays are initialized with an out-of-range hash value so that the first
 	 unused entry can be identified."
 
-	savedInHashes := self allocateSlots: (self numSlotsForBytes: (self numSlotsOf: arrayOfObjects) * 4)
-							format: self firstLongFormat
-							classIndex: self thirtyTwoBitLongsClassIndexPun.
+	savedFirstFields := self allocateSlots: (self numSlotsOf: arrayOfObjects)
+							format: self wordIndexableFormat
+							classIndex: self wordSizeClassIndexPun.
 	savedOutHashes := self allocateSlots: (self numSlotsForBytes: (self numSlotsOf: outPointerArray) * 4)
 							format: self firstLongFormat
 							classIndex: self thirtyTwoBitLongsClassIndexPun.
-	(savedInHashes isNil or: [savedOutHashes isNil]) ifTrue:
+	(savedFirstFields isNil or: [savedOutHashes isNil]) ifTrue:
 		[self freeObject: arrayOfObjects.
 		 ^PrimErrNoMemory].
 
-	fillValue := self wordSize = 4 ifTrue: [self maxIdentityHash + 1] ifFalse: [self maxIdentityHash + 1 << 32 + (self maxIdentityHash + 1)].
-	self fillObj: savedInHashes numSlots: (self numSlotsOf: savedInHashes) with: fillValue.
-	self fillObj: savedOutHashes numSlots: (self numSlotsOf: savedOutHashes) with: fillValue.
-
-	"Both to expand the max size of segment and to reduce the length of the
-	 load-time pass that adds classes to the class table, move classes to the
-	 front of arrayOfObjects, leaving the root array as the first element."
-	self moveClassesForwardsIn: arrayOfObjects.
+	self fillObj: savedFirstFields numSlots: (self numSlotsOf: savedFirstFields) with: 0.
+	self fillObj: savedOutHashes numSlots: (self numSlotsOf: savedOutHashes) with: self savedOutHashFillValue.
 
 	segAddr := segmentWordArray + self baseHeaderSize.
 	endSeg := self addressAfter: segmentWordArray.
@@ -74,16 +92,24 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 	self long32At: segAddr + 4 put: self imageSegmentVersion.
 	segStart := segAddr := segAddr + self allocationUnit.
 
-	"Copy all reachable objects to the segment."
+	"Copy all reachable objects to the segment, setting the marked bit for all objects (clones) in the segment,
+	 and the remembered bit for all classes (clones) in the segment."
 	0 to: (self numSlotsOf: arrayOfObjects) - 1 do:
 		[:i| | newSegAddrOrError objOop |
+		"Check that classes in the segment are addressible.  Since the top bit of the hash field is used to tag
+		 classes external to the segment, the segment offset must not inadvertently set this bit.  This limit still
+		 allows for a million or more classes."
+		(i = numClassesInSegment
+		 and: [segAddr - segStart / self allocationUnit + self lastClassIndexPun >= TopHashBit]) ifTrue:
+			[^self return: PrimErrLimitExceeded
+					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields
+					and: outPointerArray savedHashes: savedOutHashes].
 		objOop := self fetchPointer: i ofObject: arrayOfObjects.
 		self deny: ((self isImmediate: objOop) or: [self isForwarded: objOop]).
-		self storeLong32: i ofObject: savedInHashes withValue: (self rawHashBitsOf: objOop).
-		newSegAddrOrError := self copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg.
+		newSegAddrOrError := self copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg savedFirstFields: savedFirstFields index: i.
 		newSegAddrOrError < segStart ifTrue:
 			[^self return: newSegAddrOrError
-					restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields
 					and: outPointerArray savedHashes: savedOutHashes].
 		 segAddr := newSegAddrOrError].
 
@@ -91,22 +117,22 @@ storeImageSegmentInto: segmentWordArray outPointers: outPointerArray roots: arra
 	(endSeg ~= segAddr
 	 and: [endSeg - segAddr < (self baseHeaderSize + self bytesPerOop)]) ifTrue:
 		[^self return: PrimErrWritePastObject
-				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+				restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
 				and: outPointerArray savedHashes: savedOutHashes].
 
 	"Now scan, adding out pointers to the outPointersArray; all objects in arrayOfObjects
-	 have their hashes set to point to their copies in segmentWordArray."
+	 have their first field pointing to the corresponding copy in segmentWordArray."
 	(outIndex := self mapOopsFrom: segStart
 					to: segAddr
 					outPointers: outPointerArray
 					outHashes: savedOutHashes) < 0 ifTrue: "no room in outPointers; fail"
 		[^self return: PrimErrBadIndex
-				restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+				restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
 				and: outPointerArray savedHashes: savedOutHashes].
 
 	"We're done.  Shorten the results, restore hashes and return."
 	self shorten: segmentWordArray toIndexableSize: segAddr - (segmentWordArray + self baseHeaderSize) / 4.
 	self shorten: outPointerArray toIndexableSize: outIndex.
 	^self return: PrimNoErr
-		restoringObjectsIn: arrayOfObjects savedHashes: savedInHashes
+		restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
 		and: outPointerArray savedHashes: savedOutHashes

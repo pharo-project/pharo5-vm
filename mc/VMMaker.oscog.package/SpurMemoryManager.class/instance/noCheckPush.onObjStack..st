@@ -1,5 +1,6 @@
 obj stacks
 noCheckPush: objOop onObjStack: objStack
+	<inline: false>
 	"Push an element on an objStack.  Split from push:onObjStack: for testing."
 	| topx |
 	self eassert: [self isValidObjStack: objStack].

@@ -7,7 +7,7 @@ primitiveShowDisplayRect
 	top := self stackIntegerValue: 1.
 	right := self stackIntegerValue: 2.
 	left := self stackIntegerValue: 3.
-	self displayBitsOf: (objectMemory splObj: TheDisplay) Left: left Top: top Right: right Bottom: bottom.
-	self successful
-		ifTrue: [self ioForceDisplayUpdate.
-			self pop: 4]
+	self updateDisplayLeft: left Top: top Right: right Bottom: bottom.
+	self successful ifTrue:
+		[self ioForceDisplayUpdate.
+		 self pop: 4]

@@ -1,9 +1,10 @@
 object enumeration
 addressAfter: objOop
 	"Answer the address immediately following an object."
-	| numSlots slotBytes |
-	numSlots := self numSlotsOfAny: objOop.
-	slotBytes := numSlots = 0
-					ifTrue: [self allocationUnit]
-					ifFalse: [numSlots + (numSlots bitAnd: 1) << self shiftForWord].
-	^objOop + self baseHeaderSize + slotBytes
+	<returnTypeC: #usqInt>
+	| numSlots |
+	numSlots := self rawNumSlotsOf: objOop.
+	numSlots = 0 ifTrue: [^objOop + self allocationUnit + self baseHeaderSize].
+	numSlots = self numSlotsMask ifTrue:
+		[numSlots := self rawOverflowSlotsOf: objOop].
+	^objOop + self baseHeaderSize + (numSlots + (numSlots bitAnd: 1) << self shiftForWord)

@@ -16,6 +16,7 @@ initialize
 	inIOProcessEvents := 0.
 	fullScreenFlag := 0.
 	deferDisplayUpdates := false.
+	displayBits := displayWidth := displayHeight := displayDepth := 0.
 	pendingFinalizationSignals := statPendingFinalizationSignals := 0.
 	globalSessionID := 0.
 	jmpDepth := 0.

@@ -1,7 +1,9 @@
 I/O primitives
-showDisplayBits: destBits w: w h: h d: d left: left right: right top: top bottom: bottom
+ioShow: destBits D: w i: h s: d p: left l: right a: top y: bottom
+	"This is the simulator's implementation of ioShowDisplay."
 	| raster pixPerWord simDisp realDisp rect |
 	displayForm ifNil: [^self].
+	displayBits = 0 ifTrue: [^self].
 	pixPerWord := 32 // d.
 	raster := displayForm width + (pixPerWord - 1) // pixPerWord.
 	simDisp := Form new hackBits: objectMemory memory.
@@ -12,7 +14,7 @@ showDisplayBits: destBits w: w h: h d: d left: left right: right top: top bottom
 		from: 0 @ (destBits // 4 + (top * raster))
 		in: simDisp
 		rule: Form over.
-	displayView ifNotNil: [^ displayView changed].
+	displayView ifNotNil: [^displayView changed].
 	
 	"If running without a view, just blat the bits onto the screen..."
 	rect := 0 @ top corner: displayForm width @ bottom.

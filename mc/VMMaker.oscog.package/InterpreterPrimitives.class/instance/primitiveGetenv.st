@@ -11,7 +11,7 @@ primitiveGetenv
 	var = 0 ifTrue:
 		[self successful ifTrue:
 			[^self primitiveFailFor: PrimErrBadArgument].
-		 ^self].
+		 ^self primitiveFailFor: primFailCode].
 	result := self getenv: (self cCode: [var] inSmalltalk: [var allButLast]).
 	self free: var.
 	result ~= 0 ifTrue:
