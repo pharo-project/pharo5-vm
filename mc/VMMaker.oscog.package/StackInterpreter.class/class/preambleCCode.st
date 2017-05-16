@@ -36,7 +36,7 @@ invalidCompactClassError(char *s) { /* Print a (compact) class index error messa
  */
 #undef sigsetjmp
 #undef siglongjmp
-#if WIN32
+#if _WIN32
 # define sigsetjmp(jb,ssmf) setjmp(jb)
 # define siglongjmp(jb,v) longjmp(jb,v)
 #else

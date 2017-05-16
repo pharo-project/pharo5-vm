@@ -4,5 +4,6 @@ ifTranslateableAddWithOptionsTo: aCollection
 	(self wordSize = Cogit objectMemoryClass wordSize
 	 and: [self identifyingPredefinedMacros notNil]) ifTrue:
 		[aCollection
-			add: {self. {#ISA. self ISA. #ABI. #SysV}};
-			add: {self. {#ISA. self ISA. #ABI. #WIN64}}]
+			"SysV must preceed _WIN64; see Cogit class>>#generateCodeStringForCogitDotC"
+			add: {self. {#ISA. self ISA. #ABI. #SysV}}; 
+			add: {self. {#ISA. self ISA. #ABI. #'_WIN64'}}]

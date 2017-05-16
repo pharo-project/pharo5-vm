@@ -10,8 +10,8 @@ initialize
 	initializationOptions ifNil: [ initializationOptions := Dictionary new ].
 	initializationOptions
 		at: #ABI
-		ifPresent: [:abi| SysV := abi asUppercase ~= #WIN64]
-		ifAbsent: [SysV := true]. "Default ABI; set to true for SysV, false for WIN64"
+		ifPresent: [:abi| SysV := abi asUppercase ~= #WIN64 and: [abi asUppercase ~= #'_WIN64']]
+		ifAbsent: [SysV := true]. "Default ABI; set to true for SysV, false for WIN64/_WIN64"
 
 	RAX := 0.
 	RCX := 1.  "Were they completely mad or simply sadistic?"
