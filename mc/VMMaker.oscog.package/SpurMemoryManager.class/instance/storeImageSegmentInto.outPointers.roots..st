@@ -36,7 +36,7 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 
 	self runLeakCheckerFor: GCModeImageSegment.
 
-	"First scavenge to collect any new space garbage that refers to the graph."
+	"First scavenge to coillect any new space garbage that refers to the graph."
 	self scavengingGC.
 	segmentWordArray := self updatePostScavenge: segmentWordArrayArg.
 	outPointerArray := self updatePostScavenge: outPointerArrayArg.
