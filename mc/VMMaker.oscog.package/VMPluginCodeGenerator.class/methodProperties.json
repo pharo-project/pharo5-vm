@@ -17,7 +17,7 @@
 		"generateIntegerObjectOf:on:indent:" : "eem 11/14/2016 15:15",
 		"generateIntegerValueOf:on:indent:" : "eem 11/14/2016 15:12",
 		"generateInterpreterProxyFunctionDereference:on:indent:" : "eem 4/22/2016 10:10",
-		"generateRemapOopIn:on:indent:" : "eem 7/2/2014 15:33",
+		"generateRemapOopIn:on:indent:" : "eem 5/16/2017 19:09",
 		"generateSpurRemapOopIn:on:indent:" : "eem 7/2/2014 15:32",
 		"generateV3RemapOopIn:on:indent:" : "eem 7/8/2015 11:19",
 		"harmonizeReturnTypesIn:" : "eem 11/1/2013 23:33",
