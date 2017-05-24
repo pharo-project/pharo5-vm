@@ -1087,7 +1087,7 @@
 		"returnTopFromMethod" : "eem 6/17/2008 11:35",
 		"returnTrue" : "eem (objmem refactor) 6/8/2010 17:12",
 		"reverseBytesInImage" : "eem 10/9/2013 14:32",
-		"reverseDisplayFrom:to:" : "eem 5/12/2017 17:47",
+		"reverseDisplayFrom:to:" : "nice 5/24/2017 19:13",
 		"rewriteMethodCacheEntryForExternalPrimitiveToFunction:" : "nice 11/2/2016 21:11",
 		"roomToPushNArgs:" : "eem 08/08/2014 10:42",
 		"runLeakChecker" : "eem 9/30/2015 12:24",
