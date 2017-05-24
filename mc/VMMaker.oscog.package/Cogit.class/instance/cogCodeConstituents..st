@@ -1,5 +1,5 @@
 profiling primitives
-cogCodeConstituents
+cogCodeConstituents: withDetails
 	"Answer the contents of the code zone as an array of pair-wise element, address in ascending address order.
 	 Answer a string for a runtime routine or abstract label (beginning, end, etc), a CompiledMethod for a CMMethod,
 	 or a selector (presumably a Symbol) for a PIC."
@@ -41,13 +41,14 @@ cogCodeConstituents
 				withValue: (cogMethod cmType = CMMethod
 								ifTrue: [cogMethod methodObject]
 								ifFalse: [cogMethod selector]).
-			 (value := self positiveMachineIntegerFor: cogMethod asUnsignedInteger) ifNil:
-				[coInterpreter popRemappableOop.
-				 ^nil].
-			 coInterpreter
-				storePointerUnchecked: count + 1
-				ofObject: coInterpreter topRemappableOop
-				withValue: value.
+			value := withDetails
+				ifFalse: [self positiveMachineIntegerFor: cogMethod asUnsignedInteger]
+				ifTrue: [self collectCogMethodConstituent: cogMethod].
+			value ifNil: [coInterpreter popRemappableOop. ^nil].
+			coInterpreter
+						storePointerUnchecked: count + 1
+						ofObject: coInterpreter topRemappableOop
+						withValue: value.
 			 count := count + 2].
 		cogMethod := methodZone methodAfter: cogMethod].
 	((label := objectMemory stringForCString: 'CCFree') isNil

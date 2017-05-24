@@ -144,7 +144,7 @@
 		"scheduleIncrementalGC" : "eem 9/14/2013 08:53",
 		"setCheckForLeaks:" : "eem 2/7/2015 10:03",
 		"setEndOfMemory:" : "eem 1/17/2013 15:48",
-		"shorten:toIndexableSize:" : "eem (const to msg rewrite) 11/6/2014 11:00",
+		"shorten:toIndexableSize:" : "cb 5/22/2017 16:53",
 		"shrinkObjectMemory:" : "eem 4/4/2009 20:11",
 		"sizeBitsOf:" : "eem 4/30/2009 11:32",
 		"sizeBitsOfSafe:" : "eem 7/15/2008 16:01",

@@ -202,7 +202,8 @@
 		"ceFFICalloutTrampoline",
 		"debugBytecodePointers",
 		"debugOpcodeIndices",
-		"disassemblingMethod" ],
+		"disassemblingMethod",
+		"cogConstituentIndex" ],
 	"name" : "Cogit",
 	"pools" : [
 		"CogAbstractRegisters",
