@@ -1,12 +1,13 @@
 arithmetic integer primitives
 primitiveMakePoint
 	<inline: false>
-	| rcvr pt |
+	| rcvr arg pt |
 	rcvr := self stackValue: 1.
-	((objectMemory isIntegerObject: rcvr) or: [objectMemory isFloatObject: rcvr]) ifFalse:
-		[^self primitiveFail].
+	arg := self stackTop.
+	((objectMemory isIntegerObject: arg) or: [objectMemory isFloatObject: arg]) ifFalse:
+		[^self primitiveFailFor: PrimErrBadArgument].
 	pt := objectMemory eeInstantiateSmallClass: (objectMemory splObj: ClassPoint) numSlots: YIndex + 1.
-	objectMemory
+	objectMemory "No need to check since new object is always new."
 		storePointerUnchecked: XIndex ofObject: pt withValue: rcvr;
-		storePointerUnchecked: YIndex ofObject: pt withValue: self stackTop.
+		storePointerUnchecked: YIndex ofObject: pt withValue: arg.
 	self pop: 2 thenPush: pt

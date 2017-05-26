@@ -282,8 +282,8 @@ initializePrimitiveTable
 		(242 primitiveSignalAtUTCMicroseconds)
 		(243 primitiveUpdateTimezone) "primStringtranslatefromtotable"
 		(244 primitiveUtcAndTimezoneOffset)
-		(245 primitiveFail) "primStringindexOfAsciiinStringstartingAt"
-		(246 primitiveFail) "primStringfindSubstringinstartingAtmatchTable"
+		(245 primitiveCoarseUTCMicrosecondClock) "primStringindexOfAsciiinStringstartingAt"
+		(246 primitiveCoarseLocalMicrosecondClock) "primStringfindSubstringinstartingAtmatchTable"
 		(247 primitiveSnapshotEmbedded)
 		(248 primitiveFail) "primitiveInvokeObjectAsMethod"
 		(249 primitiveArrayBecomeOneWayCopyHash)
