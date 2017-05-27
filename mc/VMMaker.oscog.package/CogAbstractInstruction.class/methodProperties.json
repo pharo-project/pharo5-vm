@@ -147,7 +147,6 @@
 		"numICacheFlushOpcodes" : "eem 4/16/2009 11:52",
 		"numIntRegArgs" : "eem 10/18/2015 19:22:52",
 		"numLowLevelLockOpcodes" : "eem 7/9/2009 22:03",
-		"numberOfSaveableRegisters" : "eem 7/17/2012 14:52",
 		"opcode" : "eem 2/11/2009 22:19",
 		"opcode:" : "eem 2/11/2009 22:19",
 		"operand0:" : "eem 6/8/2015 18:45",

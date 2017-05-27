@@ -500,7 +500,7 @@
 		"halt" : "eem 10/22/2010 10:49",
 		"halt:" : "eem 9/2/2011 17:10",
 		"handleABICallOrJumpSimulationTrap:evaluable:" : "eem 5/31/2016 11:05",
-		"handleCallOrJumpSimulationTrap:" : "eem 1/24/2017 12:45",
+		"handleCallOrJumpSimulationTrap:" : "eem 5/27/2017 08:46",
 		"handleReadSimulationTrap:" : "eem 3/26/2015 11:06",
 		"handleSimulationTrap:" : "eem 10/19/2010 18:13",
 		"handleWriteSimulationTrap:" : "eem 12/15/2015 21:49",
