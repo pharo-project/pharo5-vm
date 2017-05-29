@@ -137,7 +137,7 @@
 		"genMulR:R:" : "eem 12/16/2015 09:44",
 		"genPushRegisterArgsForAbortMissNumArgs:" : "rmacnak 11/10/2015 19:25:36",
 		"genPushRegisterArgsForNumArgs:scratchReg:" : "rmacnak 11/10/2015 19:24:20",
-		"genRemoveNArgsFromStack:" : "rmacnak 11/10/2015 19:07:20",
+		"genRemoveNArgsFromStack:" : "eem 5/29/2017 10:25",
 		"genRestoreRegs:" : "eem 3/3/2016 16:19",
 		"genSaveRegs:" : "eem 3/3/2016 12:44",
 		"genSaveStackPointers" : "rmacnak 11/9/2015 20:06:01",

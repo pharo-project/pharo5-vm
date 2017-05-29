@@ -1,5 +1,6 @@
 abi
 genRemoveNArgsFromStack: n
 	"This is a no-op on MIPS since the ABI passes up to 4 args in registers and trampolines currently observe that limit."
+	<inline: true>
 	self assert: n <= 4.
 	^0
