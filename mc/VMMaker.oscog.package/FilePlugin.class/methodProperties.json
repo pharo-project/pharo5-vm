@@ -9,6 +9,7 @@
 	"instance" : {
 		"asciiDirectoryDelimiter" : "eem 12/2/2013 14:32",
 		"fileOpenName:size:write:secure:" : "tpr (auto pragmas 12/08) 12/30/2005 15:23",
+		"fileOpenNewName:size:secure:" : "monty 5/26/2017 18:03",
 		"fileRecordSize" : "eem 12/12/2012 11:43",
 		"fileValueOf:" : "eem 2/10/2009 13:42",
 		"getThisSession" : "tpr (auto pragmas 12/08) 12/21/2005 19:06",
@@ -30,6 +31,7 @@
 		"primitiveFileFlush" : "tpr (auto pragmas 12/08) 12/29/2005 16:08",
 		"primitiveFileGetPosition" : "tpr (auto pragmas 12/08) 12/29/2005 16:14",
 		"primitiveFileOpen" : "tpr (auto pragmas 12/08) 12/30/2005 15:22",
+		"primitiveFileOpenNew" : "monty 5/26/2017 17:20",
 		"primitiveFileRead" : "eem 3/1/2016 17:31",
 		"primitiveFileReadWithPinning" : "eem 11/20/2016 16:22",
 		"primitiveFileReadWithoutPinning" : "eem 3/1/2016 17:32",
