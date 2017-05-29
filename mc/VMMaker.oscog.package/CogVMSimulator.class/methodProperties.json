@@ -291,7 +291,7 @@
 		"printLCS" : "eem 7/4/2008 15:02",
 		"printLogEntryAt:" : "eem 11/20/2010 21:51",
 		"printNum:" : "eem 7/7/2008 16:45",
-		"printRumpCStackTo:" : "eem 1/4/2017 08:46",
+		"printRumpCStackTo:" : "eem 5/29/2017 08:45",
 		"printStringForCurrentBytecode" : "eem 7/1/2008 09:24",
 		"printStringOf:" : "eem 10/12/2009 01:01",
 		"printStringOf:on:" : "eem (const to msg rewrite) 11/5/2014 18:08",

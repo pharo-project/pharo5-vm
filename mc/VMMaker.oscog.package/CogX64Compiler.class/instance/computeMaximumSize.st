@@ -35,7 +35,7 @@ computeMaximumSize
 		[CallFull]					-> [^12].
 		[Call]						-> [^5].
 		[CallR]						-> [^3].
-		[JumpR]						-> [^2].
+		[JumpR]					-> [^3].
 		[JumpFull]					-> [self resolveJumpTarget. ^12].
 		[JumpLong]					-> [self resolveJumpTarget. ^5].
 		[Jump]						-> [self resolveJumpTarget. ^5].

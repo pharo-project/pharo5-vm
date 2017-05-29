@@ -4,6 +4,7 @@ concretizeJumpR
 	| reg |
 	reg := operands at: 0.
 	machineCode
-		at: 0 put: 16rFF;
-		at: 1 put: (self mod: ModReg RM: reg RO: 4).
-	^machineCodeSize := 2
+		at: 0 put: (self rexR: 0 x: 0 b: reg);
+		at: 1 put: 16rFF;
+		at: 2 put: (self mod: ModReg RM: reg RO: 4).
+	^machineCodeSize := 3
