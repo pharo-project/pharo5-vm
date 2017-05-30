@@ -4,11 +4,15 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "",
+	"commentStamp" : "eem 5/30/2017 10:22",
 	"instvars" : [
-		"floatRegisterSignature" ],
+		"integerRegisterIndex",
+		"floatRegisterIndex",
+		"floatRegisterSignature",
+		"integerRegisters",
+		"floatRegisters" ],
 	"name" : "ThreadedFFICalloutStateForX64Win64",
 	"pools" : [
 		 ],
-	"super" : "ThreadedFFICalloutStateForX64",
+	"super" : "ThreadedFFICalloutState",
 	"type" : "normal" }

@@ -3,12 +3,14 @@
 	"classinstvars" : [
 		 ],
 	"classvars" : [
-		 ],
+		"NumFloatRegArgs",
+		"NumIntRegArgs",
+		"WordSize" ],
 	"commentStamp" : "eem 2/17/2016 20:03",
 	"instvars" : [
 		 ],
 	"name" : "ThreadedX64SysVFFIPlugin",
 	"pools" : [
 		 ],
-	"super" : "ThreadedX64FFIPlugin",
+	"super" : "ThreadedFFIPlugin",
 	"type" : "normal" }

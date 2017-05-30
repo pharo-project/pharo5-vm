@@ -1,3 +1,0 @@
-translation
-pluginClass
-	^self subclassResponsibility
