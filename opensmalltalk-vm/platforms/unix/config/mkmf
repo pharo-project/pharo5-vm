@@ -164,7 +164,7 @@ s%\[make_plg\]%%g
 s%\[plibs\]%${plibs}%g
 /\[make_targets\]/r ${make_targets}
 s%\[make_targets\]%%g" > ${name}/Makefile
-  /bin/rm -f ${make_targets} makefile.in makefile.sub
+  \rm -f ${make_targets} makefile.in makefile.sub
 }
 
 if test "${int_modules}" != ""; then

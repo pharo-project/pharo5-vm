@@ -33,8 +33,7 @@ AC_DEFUN([AC_CHECK_VMM_DIR],[
   vmmcheck () {
     if test ! ${2} ${3}; then
       AC_MSG_RESULT(bad)
-      echo "missing ${1}: ${3}"
-      exit 1
+      AC_MSG_ERROR("missing ${1}: ${3}")
     fi
   }
   vmmcheck dir  -d ${vmmcfg}
