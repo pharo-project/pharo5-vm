@@ -3,7 +3,7 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 	"enumerate aBinaryBlock with the names and C type strings for the inst vars to include in a ThreadedFFICalloutState struct."
 
 	ThreadedFFICalloutState instVarNamesAndTypesForTranslationDo: aBinaryBlock.
-	self instVarNames do:
+	ThreadedFFICalloutStateForX64 instVarNames do:
 		[:ivn|
 		aBinaryBlock
 			value: ivn
@@ -11,4 +11,4 @@ instVarNamesAndTypesForTranslationDo: aBinaryBlock
 						['integerRegisters']	-> [{#sqInt. '[NumIntRegArgs]'}].
 						['floatRegisters']	-> [{#double. '[NumFloatRegArgs]'}] }
 					otherwise:
-						[#char])]
+						[#sqInt])]

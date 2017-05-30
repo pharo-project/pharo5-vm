@@ -1,4 +1,0 @@
-accessing
-floatRegisterIndex
-
-	^ floatRegisterIndex

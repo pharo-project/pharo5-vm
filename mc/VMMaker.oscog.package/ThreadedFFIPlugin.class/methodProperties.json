@@ -22,7 +22,7 @@
 		"dispatchFunctionPointer:with:with:with:with:" : "eem 2/19/2016 19:46",
 		"dispatchFunctionPointer:with:with:with:with:with:with:" : "eem 2/19/2016 19:46",
 		"externalFunctionHasStackSizeSlot" : "eem 11/18/2009 16:15",
-		"ffiAddressOf:startingAt:size:" : "nice 11/6/2016 13:50",
+		"ffiAddressOf:startingAt:size:" : "eem 5/30/2017 11:54",
 		"ffiAlloc:" : "eem 11/11/2009 13:35",
 		"ffiArgByValue:in:" : "eem 11/7/2009 17:10",
 		"ffiArgument:Spec:Class:in:" : "eem 6/28/2016 12:44",

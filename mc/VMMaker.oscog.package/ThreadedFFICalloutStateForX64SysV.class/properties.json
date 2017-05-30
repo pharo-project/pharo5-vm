@@ -6,12 +6,9 @@
 		 ],
 	"commentStamp" : "eem 5/30/2017 10:22",
 	"instvars" : [
-		"integerRegisterIndex",
-		"floatRegisterIndex",
-		"integerRegisters",
-		"floatRegisters" ],
+		 ],
 	"name" : "ThreadedFFICalloutStateForX64SysV",
 	"pools" : [
 		 ],
-	"super" : "ThreadedFFICalloutState",
+	"super" : "ThreadedFFICalloutStateForX64",
 	"type" : "normal" }

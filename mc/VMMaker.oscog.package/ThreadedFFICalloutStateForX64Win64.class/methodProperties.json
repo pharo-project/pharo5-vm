@@ -1,13 +1,9 @@
 {
 	"class" : {
-		"instVarNamesAndTypesForTranslationDo:" : "eem 5/30/2017 10:34",
+		"instVarNamesAndTypesForTranslationDo:" : "nice 8/11/2016 02:50",
 		"pluginClass" : "eem 2/16/2016 19:15" },
 	"instance" : {
-		"floatRegisterIndex" : "eem 2/19/2016 19:50",
 		"floatRegisterSignature" : "nice 8/10/2016 18:59",
-		"floatRegisters" : "eem 2/16/2016 19:08",
 		"incrementFloatRegisterIndex" : "nice 8/11/2016 18:51",
 		"incrementIntegerRegisterIndex" : "nice 8/11/2016 18:50",
-		"initialize" : "eem 5/30/2017 10:16",
-		"integerRegisterIndex" : "eem 2/19/2016 19:50",
-		"integerRegisters" : "eem 2/16/2016 19:08" } }
+		"initialize" : "nice 8/10/2016 18:59" } }
