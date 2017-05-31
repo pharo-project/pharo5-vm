@@ -9,7 +9,7 @@ receiverTagBitsForMethod: aMethodObj
 			[| instSpec |
 			(methodClassOrNil = nilObj
 			 or: [(self isNonIntegerObject: (instSpec := self fetchPointer: InstanceSpecificationIndex ofObject: methodClassOrNil))
-			 or: [(self self instSpecOfClassFormat: (self integerValueOf: instSpec)) ~= self forwardedFormat]]) ifTrue:
+			 or: [(self instSpecOfClassFormat: (self integerValueOf: instSpec)) ~= self forwardedFormat]]) ifTrue:
 				[^0]]
 		ifFalse:
 			[(methodClassOrNil = nilObj
