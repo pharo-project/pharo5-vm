@@ -14,12 +14,12 @@ declareCVarsIn: cg
 	cg addHeaderFile: '<fcntl.h>'.
 	cg addHeaderFile: '<pthread.h>'.
 	cg addHeaderFile: '<errno.h>'.
+	cg addHeaderFile: '#ifdef __OpenBSD__\# include <sys/signalvar.h>\#endif' withCRs.
 	cg addHeaderFile: '"config.h"'.
 	cg addHeaderFile: '"sqaio.h"'.
 	cg addConstantForBinding: 'FILEHANDLETYPE' -> 'FILE *  /* the type of low level stream to be used in a struct SQFile */'.
-	cg var: 'sigHandlers' declareC: 'void *sigHandlers[NSIG]'.
-	cg var: 'originalSigHandlers' declareC: 'void *originalSigHandlers[NSIG]'.
-	cg var: 'semaIndices' declareC: 'unsigned char semaIndices[NSIG]'.
+	cg var: 'originalSigHandlers' declareC: 'void *originalSigHandlers[NSIG + 1]'.
+	cg var: 'semaIndices' declareC: 'unsigned char semaIndices[NSIG + 1]'.
 	cg var: 'exitFunction' declareC: 'void (*exitFunction)(void) = NULL'.
 	cg var: 'sigNumToSend' declareC: 'int sigNumToSend = SIGTERM'.
 	cg var: 'pidArray' declareC: 'pid_t *pidArray = NULL'.

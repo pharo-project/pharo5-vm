@@ -7,7 +7,6 @@
 	"commentStamp" : "<historical>",
 	"instvars" : [
 		"sigChldSemaIndex",
-		"sigHandlers",
 		"originalSigHandlers",
 		"semaIndices",
 		"vmThread",

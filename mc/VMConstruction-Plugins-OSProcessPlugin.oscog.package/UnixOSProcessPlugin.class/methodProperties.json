@@ -1,6 +1,6 @@
 {
 	"class" : {
-		"declareCVarsIn:" : "eem 12/14/2012 11:42",
+		"declareCVarsIn:" : "dtl 2/22/-4652 00:09",
 		"installedModuleName" : "dtl 3/1/2002 17:05",
 		"installedModuleVersionString" : "dtl 3/1/2002 17:24",
 		"isResponsibleFor:" : "dtl 5/6/2006 08:54",
@@ -146,6 +146,5 @@
 		"sigUsr1Number" : "eem 12/12/2012 12:33",
 		"sigUsr2Number" : "eem 12/12/2012 12:33",
 		"signalArraySize" : "dtl 1/31/2004 19:45",
-		"signalHandlers" : "dtl (auto pragmas dtl 2010-11-28) 8/3/2002 19:31",
 		"strlen:" : "eem 6/21/2011 15:39",
 		"unixFileNumber:" : "dtl (auto pragmas dtl 2010-11-28) 4/29/2006 09:28" } }
