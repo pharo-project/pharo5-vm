@@ -6,7 +6,7 @@ primitiveSetWaitForAnyProcessExitThenSignalSemaphoreWithIndex
 
 	| handleArrayOop handleArrayOopPtr handleArray handleArrayPtr handleCount arraySize idx semaIndex threadInformation |
 	<export: true>
-	<var: 'handleArrayOopPtr' type: 'unsigned int *'>
+	<var: 'handleArrayOopPtr' type: 'sqInt *'>
 	<var: 'handleArray' declareC: 'static HANDLE handleArray[MAXIMUM_WAIT_OBJECTS]'>
 	<var: 'handleArrayPtr' type: 'static HANDLE *'>
 	semaIndex := interpreterProxy stackIntegerValue: 0.

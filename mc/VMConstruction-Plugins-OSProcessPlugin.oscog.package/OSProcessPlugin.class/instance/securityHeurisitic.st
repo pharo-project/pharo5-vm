@@ -17,16 +17,13 @@ securityHeurisitic
 
 	sCWIfn := interpreterProxy ioLoadFunction: 'secCanWriteImage' From: 'SecurityPlugin'.
 	(sCWIfn = 0) ifTrue: [^ 0 "Cannot find plugin, so grant default full access"].
-	canWriteImage := self cCode: ' ((int (*) (void)) sCWIfn)()'
-				inSmalltalk: [1].
+	canWriteImage := self cCode: '((sqInt (*) (void)) sCWIfn)()' inSmalltalk: [1].
 	sHFAfn := interpreterProxy ioLoadFunction: 'secHasFileAccess' From: 'SecurityPlugin'.
 	(sHFAfn = 0) ifTrue: [^ 0 "Cannot find plugin, so grant default full access"].
-	hasFileAccess := self cCode: ' ((int (*) (void)) sHFAfn)()'
-				inSmalltalk: [1].
+	hasFileAccess := self cCode: '((sqInt (*) (void)) sHFAfn)()' inSmalltalk: [1].
 	sHSAfn := interpreterProxy ioLoadFunction: 'secHasSocketAccess' From: 'SecurityPlugin'.
 	(sHSAfn = 0) ifTrue: [^ 0 "Cannot find plugin, so grant default full access"].
-	hasSocketAccess := self cCode: ' ((int (*) (void)) sHSAfn)()'
-				inSmalltalk: [1].
-	((canWriteImage and: [hasFileAccess]) and: [hasSocketAccess])
-		ifTrue: [^ 0 "Grant full access"]
-		ifFalse: [^ 1 "Restricted access"]
+	hasSocketAccess := self cCode: '((sqInt (*) (void)) sHSAfn)()' inSmalltalk: [1].
+	^((canWriteImage and: [hasFileAccess]) and: [hasSocketAccess])
+		ifTrue: [0 "Grant full access"]
+		ifFalse: [1 "Restricted access"]
