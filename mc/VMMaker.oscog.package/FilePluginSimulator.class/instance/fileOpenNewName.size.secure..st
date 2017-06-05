@@ -9,7 +9,7 @@ fileOpenNewName: nameIndex size: nameSize secure: secureFlag
 	so it is caught and resignaled as a generic Error"
 	[f := FileStream newFileNamed: nameIndex]
 		on: FileExistsException
-		do: [:error | Error signal: 'File already exists: ', nameIndex].
+		do: [:error | ^ interpreterProxy primitiveFailFor: PrimErrInappropriate].
 	f ifNil: [^interpreterProxy primitiveFail].
 	f binary.
 	index := openFiles size + 1.
