@@ -3,17 +3,17 @@ handleFrom: aHandleObject
 	"Answer the HANDLE represented by aHandleObject."
 
 	| ptr handleUnion idx |
-	<returnTypeC: 'HANDLE'>
-	<var: 'ptr' type: 'unsigned char *'>
+	<returnTypeC: #HANDLE>
+	<var: 'ptr' type: #'unsigned char *'>
 	<var: 'handleUnion' type: 'union {void *address; unsigned char bytes[sizeof(void *)];}'>
 	((interpreterProxy isBytes: aHandleObject) and:
-			[(interpreterProxy stSizeOf: aHandleObject) = self sizeOfHandle])
+			[(interpreterProxy stSizeOf: aHandleObject) = (self sizeof: #HANDLE)])
 		ifFalse:
 			[interpreterProxy primitiveFail.
 			^ nil].
 	ptr := interpreterProxy arrayValueOf: aHandleObject.
 	idx := 0.
-	[idx < self sizeOfHandle]	whileTrue:
+	[idx < (self sizeof: #HANDLE)]	whileTrue:
 		[self cCode: 'handleUnion.bytes[idx] = ptr[idx]'.
 		idx := idx + 1].
 	^ self cCode: 'handleUnion.address' inSmalltalk: [handleUnion]

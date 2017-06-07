@@ -77,12 +77,7 @@ forkAndExecInDirectory: useSignalHandler
 	self cCode: 'intervalTimer.it_value.tv_usec = 0'.
 	self cCode: 'setitimer (ITIMER_REAL, &intervalTimer, &saveIntervalTimer)'.
 
-	pid := self fork.
-	pid < 0 ifTrue: 
-		[self perror: 'fork'.
-		^self primitiveFail].
-
-	pid ~= 0 ifTrue:
+	(pid := self vfork) ~= 0 ifTrue:
 		["Normal return to Smalltalk - this is the old parent process."
 		 "Enable the timer again before resuming Smalltalk."
 		 self cCode: 'setitimer (ITIMER_REAL, &saveIntervalTimer, 0L)'.

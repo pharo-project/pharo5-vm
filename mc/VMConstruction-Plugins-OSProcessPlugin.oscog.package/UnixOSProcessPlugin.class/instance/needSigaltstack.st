@@ -7,7 +7,7 @@ needSigaltstack
 	 any existing signalstack if available."
 	| GetAttributeString sigstack SigStackSize |
 	<var: 'GetAttributeString' declareC: 'char * (*GetAttributeString)(int)'>
-	<var: 'sigstack' declareC: 'stack_t sigstack = {0}'>
+	<var: 'sigstack' type: 'stack_t'>
 	useSignalStack >= 0 ifTrue:
 		[^useSignalStack ~= 0].
 	GetAttributeString := interpreterProxy ioLoadFunction: 'GetAttributeString' From: 'os_exports'.
