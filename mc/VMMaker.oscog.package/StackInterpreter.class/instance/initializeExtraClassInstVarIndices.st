@@ -18,5 +18,5 @@ initializeExtraClassInstVarIndices
 		oop := objectMemory fetchPointer: i - 1 ofObject: classArrayObj.
 		((objectMemory isBytes: oop)
 		and: [(objectMemory lengthOf: oop) = 5
-		and: [(self str: 'Array' n: (objectMemory firstFixedField: oop) cmp: 5) = 0]]) ifTrue:
+		and: [(objectMemory str: 'Array' n: (objectMemory firstFixedField: oop) cmp: 5) = 0]]) ifTrue:
 			[classNameIndex := i - 1]]

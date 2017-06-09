@@ -8,6 +8,7 @@ initializeBytecodeTableForSqueakV3PlusClosures
 	BytecodeTable := Array new: 256.
 	BytecodeEncoderClassName := #EncoderForV3PlusClosures.
 	LongStoreBytecode := 129.
+	BytecodeSetHasExtensions := false.
 	self table: BytecodeTable from:
 	#(
 		(  0  15 pushReceiverVariableBytecode)

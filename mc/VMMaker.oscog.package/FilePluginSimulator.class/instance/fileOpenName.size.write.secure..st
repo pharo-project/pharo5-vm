@@ -4,7 +4,7 @@ fileOpenName: nameIndex size: nameSize write: writeFlag secure: secureFlag
 	| path f index |
 	openFiles size >= maxOpenFiles ifTrue:
 		[^interpreterProxy primitiveFailFor: PrimErrLimitExceeded].
-	path := interpreterProxy interpreter asString: nameIndex size: nameSize.
+	path := interpreterProxy asString: nameIndex size: nameSize.
 	f := writeFlag
 			ifTrue: [FileStream fileNamed: path]
 			ifFalse:
