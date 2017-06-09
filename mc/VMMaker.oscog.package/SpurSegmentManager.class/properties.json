@@ -4,7 +4,7 @@
 		 ],
 	"classvars" : [
 		 ],
-	"commentStamp" : "eem 11/29/2013 11:48",
+	"commentStamp" : "eem 6/7/2017 14:00",
 	"instvars" : [
 		"manager",
 		"numSegments",
@@ -13,7 +13,8 @@
 		"firstSegmentSize",
 		"canSwizzle",
 		"sweepIndex",
-		"preferredPinningSegment" ],
+		"preferredPinningSegment",
+		"totalHeapSizeIncludingBridges" ],
 	"name" : "SpurSegmentManager",
 	"pools" : [
 		 ],

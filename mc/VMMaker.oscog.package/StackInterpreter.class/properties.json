@@ -109,6 +109,7 @@
 		"suppressHeartbeatFlag",
 		"breakSelector",
 		"breakSelectorLength",
+		"breakLookupClassTag",
 		"longRunningPrimitiveCheckMethod",
 		"longRunningPrimitiveCheckSemaphore",
 		"longRunningPrimitiveStartUsecs",

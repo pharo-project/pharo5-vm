@@ -4,6 +4,7 @@ lookupOrdinaryNoMNUEtcInClass: class
 	 for the error selector to use on failure rather than performing MNU processing etc."
 	| currentClass dictionary found |
 	<inline: false>
+	self lookupBreakFor: class.
 	currentClass := class.
 	[currentClass ~= objectMemory nilObject] whileTrue:
 		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: currentClass.

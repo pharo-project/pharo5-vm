@@ -21,6 +21,7 @@ addSegmentOfSize: ammount
 		 self bridgeFrom: (self addressOf: (segments at: newSegIndex - 1)) to: newSeg.
 		 self bridgeFrom: newSeg to: (newSegIndex = (numSegments - 1) ifFalse:
 										[self addressOf: (segments at: newSegIndex + 1)]).
+		 totalHeapSizeIncludingBridges := totalHeapSizeIncludingBridges + allocatedSize.
 		 "test isInMemory:"
 		 0 to: numSegments - 1 do:
 			[:i|

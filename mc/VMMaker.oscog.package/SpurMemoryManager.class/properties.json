@@ -62,6 +62,7 @@
 		"pastSpaceStart",
 		"heapGrowthToSizeGCRatio",
 		"heapSizeAtPreviousGC",
+		"oldSpaceUsePriorToScavenge",
 		"growHeadroom",
 		"shrinkThreshold",
 		"marking",
@@ -93,7 +94,8 @@
 		"statSGCDeltaUsecs",
 		"statScavengeGCUsecs",
 		"statScavenges",
-		"statShrinkMemory" ],
+		"statShrinkMemory",
+		"statAllocatedBytes" ],
 	"name" : "SpurMemoryManager",
 	"pools" : [
 		"SpurMemoryManagementConstants",

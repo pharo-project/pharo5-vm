@@ -273,6 +273,7 @@
 		"primitiveSignalAtMilliseconds" : "eem 11/26/2013 16:42",
 		"primitiveStoreStackp" : "eem 12/2/2010 18:39",
 		"primitiveVMCurrentThreadId" : "eem 11/20/2010 21:51",
+		"primitiveVMParameter" : "eem 6/7/2017 13:34",
 		"primitiveVoidVMState" : "eem 3/24/2017 11:55",
 		"print:" : "eem 6/20/2008 17:39",
 		"printActivationNameForSelector:startClass:" : "eem 8/4/2016 14:25",

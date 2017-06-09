@@ -388,6 +388,7 @@
 		"setSizeOfFree:to:" : "go 11/13/1998 17:04",
 		"shiftForWord" : "eem 12/13/2015 10:16",
 		"shorten:toIndexableSize:" : "cb 5/22/2017 16:54",
+		"shouldBreakForLookupIn:given:" : "eem 6/5/2017 11:18",
 		"shouldRemapObj:" : "eem 9/14/2013 09:58",
 		"shouldRemapOop:" : "eem 9/14/2013 09:58",
 		"shrinkObjectMemory:" : "eem 4/4/2009 20:09",

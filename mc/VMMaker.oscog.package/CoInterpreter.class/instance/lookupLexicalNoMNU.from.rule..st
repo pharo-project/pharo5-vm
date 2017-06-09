@@ -5,6 +5,7 @@ lookupLexicalNoMNU: selector from: mixin rule: rule
 	| receiverClass mixinApplication dictionary found |
 	receiverClass := objectMemory fetchClassOf: localAbsentReceiver.
 	lkupClass := receiverClass. "MNU lookup starts here."
+	self lookupBreakFor: lkupClass.
 	mixinApplication := self findApplicationOfTargetMixin: mixin startingAtBehavior: receiverClass.
 	dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: mixinApplication.
 	found := self lookupMethodInDictionary: dictionary.

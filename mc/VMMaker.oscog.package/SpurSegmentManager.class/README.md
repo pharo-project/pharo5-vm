@@ -5,14 +5,15 @@ When an image is written to a snapshot file the second word of the header of the
 On load all segments are read into one single segment, eliminating the bridge objects, and computing the swizzle distance for each segment, based on where the segments were in memory when the image file was written, and where the coalesced segment ends up on load.  Then the segment is traversed, swizzling pointers by selecting the relevant swizzle for each oop's segment.
 
 Instance Variables
-	manager:					<SpurMemoryManager>
-	numSegments:				<Integer>
-	numSegInfos:				<Integer>
-	segments:					<Array of SpurSegmentInfo>
-	firstSegmentSize:			<Integer>
-	canSwizzle:					<Boolean>
-	sweepIndex:				<Integer>
-	preferredPinningSegment:	<SpurSegmentInfo>
+	manager						<SpurMemoryManager>
+	numSegments					<Integer>
+	numSegInfos					<Integer>
+	segments						<Array of SpurSegmentInfo>
+	firstSegmentSize				<Integer>
+	canSwizzle						<Boolean>
+	sweepIndex					<Integer>
+	preferredPinningSegment		<SpurSegmentInfo>
+	totalHeapSizeIncludingBridges	<integer>
 
 canSwizzle
 	- a flag set and cleared during initialization to validate that swizzling is only performed at the right time
@@ -37,3 +38,6 @@ segments
 
 sweepIndex
 	- a segment index used to optimize setting the containsPinned flag on segments during freeUnmarkedObjectsAndSortAndCoalesceFreeSpace
+
+totalHeapSizeIncludingBridges
+	- the total size of all segments, used to compute heap usage

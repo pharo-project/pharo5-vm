@@ -11,7 +11,7 @@ collapseSegmentsPostSwizzle
 	numSegments := 1.
 	(segments at: 0)
 		segStart: manager oldSpaceStart;
-		segSize: manager endOfMemory - manager oldSpaceStart.
+		segSize: (totalHeapSizeIncludingBridges := manager endOfMemory - manager oldSpaceStart).
 	manager bootstrapping ifTrue:
 		["finally plant a bridge at the end of the coalesced segment and cut back the
 		  manager's notion of the end of memory to immediately before the bridge."

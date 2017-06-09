@@ -10,6 +10,7 @@ lookupOrdinarySend
 	<option: #NewspeakVM>
 	| currentClass dictionary found |
 	self assert: (self addressCouldBeClassObj: lkupClass).
+	self lookupBreakFor: lkupClass.
 	currentClass := lkupClass.
 	[currentClass ~= objectMemory nilObject] whileTrue:
 		[dictionary := objectMemory followObjField: MethodDictionaryIndex ofObject: currentClass.

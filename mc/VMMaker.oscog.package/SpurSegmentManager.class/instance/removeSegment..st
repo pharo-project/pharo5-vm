@@ -5,6 +5,7 @@ removeSegment: emptySeg
 	i := self indexOfSegment: emptySeg.
 	self assert: i > 0.
 
+	totalHeapSizeIncludingBridges := totalHeapSizeIncludingBridges - emptySeg segSize.
 	manager sqDeallocateMemorySegmentAt: emptySeg segStart asVoidPointer OfSize: emptySeg segSize.
 
 	i to: numSegments - 1 do:

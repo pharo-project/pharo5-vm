@@ -12,6 +12,7 @@ lookupMNU
 	RESULT: LookupRuleMNU"
 
 	| currentClass dictionary found |
+	self lookupBreakFor: lkupClass.
 	self createActualMessageTo: lkupClass.
 	messageSelector := objectMemory splObj: SelectorDoesNotUnderstand.
 	currentClass := lkupClass.
