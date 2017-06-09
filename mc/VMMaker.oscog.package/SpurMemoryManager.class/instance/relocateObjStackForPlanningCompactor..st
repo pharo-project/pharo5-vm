@@ -1,6 +1,6 @@
 compaction
 relocateObjStackForPlanningCompactor: objStack
-	"Relocate all objStack pages that cmprise objStack."
+	"Relocate all objStack pages that comprise objStack."
 	| stackOrNil freeList next relocated result |
 	objStack = nilObj ifTrue:
 		[^objStack].

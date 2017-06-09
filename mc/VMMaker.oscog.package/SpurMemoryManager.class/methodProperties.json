@@ -725,7 +725,7 @@
 		"rawOverflowSlotsOf:put:" : "eem 4/5/2014 12:07",
 		"readHeapFromImageFile:dataBytes:" : "eem 10/10/2013 15:24",
 		"rebuildFreeTreeFrom:" : "eem 6/28/2014 17:36",
-		"relocateObjStackForPlanningCompactor:" : "eem 12/24/2016 09:46",
+		"relocateObjStackForPlanningCompactor:" : "eem 6/7/2017 18:42",
 		"relocateObjStacksForPlanningCompactor" : "eem 12/24/2016 09:42",
 		"remap:" : "eem 9/15/2013 22:56",
 		"remapBuffer" : "eem 9/20/2013 15:22",

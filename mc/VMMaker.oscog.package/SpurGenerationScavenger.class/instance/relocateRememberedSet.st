@@ -1,4 +1,4 @@
 remembered set
 relocateRememberedSet
-	"For SpurPanningCompactor"
+	"For SpurPlanningCompactor"
 	rememberedSet := manager firstIndexableField: manager rememberedSetObj

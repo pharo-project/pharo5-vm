@@ -17,7 +17,7 @@
 		"bitInvert64" : "eem 11/19/2014 20:18",
 		"byteSwap32" : "nice 4/2/2016 22:34",
 		"byteSwap64" : "nice 4/2/2016 22:40",
-		"coerceTo:sim:" : "eem 4/7/2016 11:37",
+		"coerceTo:sim:" : "eem 6/9/2017 15:23",
 		"hex8" : "eem 5/21/2010 11:09",
 		"isActiveBreakpoint" : "eem 12/24/2015 11:57",
 		"isBreakpointFor:" : "eem 12/24/2015 11:58",

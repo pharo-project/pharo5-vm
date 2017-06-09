@@ -5,10 +5,11 @@ coerceTo: cTypeString sim: interpreterSimulator
 		['int']				-> [self ptrAddress].
 		['float *']			-> [self asSingleFloatAccessor].
 		['double *']			-> [self asDoubleFloatAccessor].
+		['sqInt *']			-> [self shallowCopy unitSize: interpreter bytesPerOop; yourself].
 		['unsigned int *']	-> [self shallowCopy unitSize: 4; yourself].
 		['int *']				-> [self shallowCopy unitSize: 4; yourself].
 		['char *']			-> [self shallowCopy unitSize: 1; yourself].
 		['unsigned char *']	-> [self shallowCopy unitSize: 1; yourself].
-		['unsigned']			-> [self ptrAddress].
+		['unsigned']		-> [self ptrAddress].
 		['sqInt']				-> [self ptrAddress].
 		['usqInt']			-> [self ptrAddress] }
