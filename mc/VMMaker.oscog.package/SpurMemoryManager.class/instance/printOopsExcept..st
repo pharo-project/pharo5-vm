@@ -1,5 +1,5 @@
 debug printing
-printOopsSuchThat: function
+printOopsExcept: function
 	<api>
 	<var: #function declareC: 'sqInt (*function)(sqInt)'>
 	<inline: #never>
@@ -7,7 +7,7 @@ printOopsSuchThat: function
 	n := 0.
 	self allHeapEntitiesDo:
 		[:o|
-		(self perform: function with: o) ifTrue:
+		(self perform: function with: o) ifFalse:
 			[n := n + 1.
 			 self printEntity: o]].
 	n > 4 ifTrue: "rabbits"
