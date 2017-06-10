@@ -1,4 +1,4 @@
-bytecode generator support
+inline primitive support
 genSetGCNeeded
 	<inline: true>
 	cogit

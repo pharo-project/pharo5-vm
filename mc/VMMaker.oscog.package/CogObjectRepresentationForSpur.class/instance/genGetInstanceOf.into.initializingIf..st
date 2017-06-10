@@ -1,4 +1,4 @@
-bytecode generator support
+inline primitive support
 genGetInstanceOf: classObj into: destReg initializingIf: initializeInstance
 	"Create an instance of classObj and assign it to destReg, initializing the instance
 	 if initializeInstance is true with nil or 0 as appropriate This is for inline primitives.
