@@ -13,8 +13,9 @@ declareCVarsIn: aCCodeGenerator
 		var: #heapGrowthToSizeGCRatio type: #float;
 		var: #heapSizeAtPreviousGC type: #usqInt;
 		var: #totalFreeOldSpace type: #usqInt;
-		var: #maxOldSpaceSize type: #usqInt;
-		var: #oldSpaceUsePriorToScavenge type: #usqInt.
+		var: #maxOldSpaceSize type: #usqInt.
+	aCCodeGenerator
+		var: #oldSpaceUsePriorToScavenge type: #sqLong.
 	aCCodeGenerator
 		var: #remapBuffer
 		declareC: 'sqInt remapBuffer[RemapBufferSize + 1 /* ', (RemapBufferSize + 1) printString, ' */]'.
