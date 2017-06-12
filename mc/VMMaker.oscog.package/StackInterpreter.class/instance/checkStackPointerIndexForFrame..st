@@ -16,4 +16,5 @@ checkStackPointerIndexForFrame: theFP
 	theSP := self findSPOrNilOf: theFP
 				on: thePage
 				startingFrom: (thePage = stackPage ifTrue: [framePointer] ifFalse: [thePage headFP]).
+	theSP ifNil: [^-1].
 	^self stackPointerIndexForFrame: theFP WithSP: theSP

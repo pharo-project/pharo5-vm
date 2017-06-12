@@ -8,8 +8,9 @@ findSPOf: theFP on: thePage
 	| theSP |
 	<inline: false>
 	<var: #theSP type: #'char *'>
+	self deny: (stackPages isFree: thePage).
 	theSP := self findSPOrNilOf: theFP on: thePage startingFrom: thePage headFP.
-	theSP notNil ifTrue:
+	theSP ifNotNil:
 		[^theSP].
 	self error: 'did not find theFP in stack page'.
 	^0

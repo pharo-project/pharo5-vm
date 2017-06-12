@@ -10,7 +10,6 @@ findSPOrNilOf: theFP on: thePage startingFrom: startFrame
 	<inline: true>
 	<var: #aFrame type: #'char *'>
 	<var: #prevFrame type: #'char *'>
-	self assert: (stackPages isFree: thePage) not.
 	startFrame = theFP ifTrue:
 		[thePage headSP >= startFrame ifTrue:
 			["If the SP is invalid return the pointer to the receiver field."
