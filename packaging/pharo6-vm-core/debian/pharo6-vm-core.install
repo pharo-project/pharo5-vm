@@ -1,3 +1,0 @@
-results/lib/pharo/*/pharo                    usr/lib/pharo6-vm
-results/lib/pharo/*/*.so                     usr/lib/pharo6-vm
-debian/pharo6-vm-core-resources/usr         .
