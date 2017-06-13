@@ -7,6 +7,11 @@ if [ "${TRAVIS_BRANCH}" != "master" ]; then
     exit 0
 fi
 
+if [ -z "${OBS_USER+x}" ]; then
+    echo "OBS_USER not set. Exiting"
+    exit 0
+fi
+
 cat <<- EOF > ~/.oscrc
 [general]
 apiurl = https://api.opensuse.org
