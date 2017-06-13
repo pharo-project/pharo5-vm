@@ -64,7 +64,7 @@ matrix:
           - osc
       before_script:
       - ./scripts/commit-obs.sh
-      - git clean -dxf . && git checkout .
+      - git clean -dxf packaging && git checkout .
       after_script:
 #      - (cd scripts; ./commit-sources.sh)
       - make -f Makefile.debian version_from_travis
