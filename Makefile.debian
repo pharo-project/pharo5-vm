@@ -1,10 +1,10 @@
 VER=`head -1 debian/changelog | cut -d ' ' -f 2 | sed s,"(","",  | sed s,")","",`
 
 
-all: build_srcpackage pharo5_sources
+all: build_srcpackage pharo6_sources
 
 version_from_travis:
-	cd packaging/pharo5-vm-core && dch -v $(VER).$(TRAVIS_JOB_NUMBER) -m "Travis build $(TRAVIS_JOB_NUMBER)"
+	cd packaging/pharo6-vm-core && dch -v $(VER).$(TRAVIS_JOB_NUMBER) -m "Travis build $(TRAVIS_JOB_NUMBER)"
 
 build_srcpackage:
 	@echo "Generating sources"
@@ -14,12 +14,12 @@ build_srcpackage:
 	cd image && ./pharo generator.image eval 'PharoVMSpur64Builder buildUnix64'
 	./packaging/patch_version.sh
 
-	cp -a opensmalltalk-vm/* packaging/pharo5-vm-core/
-	cd packaging/pharo5-vm-core/platforms/unix/config && make configure
-	cd packaging/pharo5-vm-core && dpkg-buildpackage -S -uc -us -d
+	cp -a opensmalltalk-vm/* packaging/pharo6-vm-core/
+	cd packaging/pharo6-vm-core/platforms/unix/config && make configure
+	cd packaging/pharo6-vm-core && dpkg-buildpackage -S -uc -us -d
 
-pharo5_sources:
-	cd packaging/pharo5-sources-files && wget http://files.pharo.org/sources/PharoV50.sources.zip
-	cd packaging/pharo5-sources-files && unzip PharoV50.sources.zip
-	cd packaging/pharo5-sources-files && rm PharoV50.sources.zip
-	cd packaging/pharo5-sources-files && dpkg-buildpackage -S -uc -us -d
+pharo6_sources:
+	cd packaging/pharo6-sources-files && wget http://files.pharo.org/sources/PharoV60.sources.zip
+	cd packaging/pharo6-sources-files && unzip PharoV60.sources.zip
+	cd packaging/pharo6-sources-files && rm PharoV60.sources.zip
+	cd packaging/pharo6-sources-files && dpkg-buildpackage -S -uc -us -d

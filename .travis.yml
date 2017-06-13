@@ -62,11 +62,13 @@ matrix:
           - gcc-multilib
           - uuid-dev:i386
           - osc
+      before_script:
+      - ./scripts/commit-obs.sh
+      - git clean -dxf . && git checkout .
       after_script:
 #      - (cd scripts; ./commit-sources.sh)
       - make -f Makefile.debian version_from_travis
       - make -f Makefile.debian
-      - ./scripts/commit-obs.sh
       after_deploy: ./scripts/deploy-after.sh
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
