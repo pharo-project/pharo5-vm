@@ -1,4 +1,6 @@
 statistics
 statAverageLivePagesWhenMapping
 	<returnTypeC: #double>
-	^statPageCountWhenMappingSum asFloat / statNumMaps
+	^statNumMaps = 0
+		ifTrue: [0.0]
+		ifFalse: [statPageCountWhenMappingSum asFloat / statNumMaps]

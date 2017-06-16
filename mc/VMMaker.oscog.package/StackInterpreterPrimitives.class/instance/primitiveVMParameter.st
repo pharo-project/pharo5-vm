@@ -15,7 +15,7 @@ primitiveVMParameter
 		8	total milliseconds in full GCs since startup (read-only)
 		9	incremental GCs (SqueakV3) or scavenges (Spur) since startup (read-only)
 		10	total milliseconds in incremental GCs (SqueakV3) or scavenges (Spur) since startup (read-only)
-		11	tenures of surving objects since startup (read-only)
+		11	tenures of surving objects since startup or reset (read-write)
 		12-20 were specific to ikp's JITTER VM, now 12-15 are open for use
 		16	total microseconds at idle since start-up (if non-zero)
 		17	fraction of the code zone to use (Sista only; used to control code zone use to preserve sendAndBranchData on counter tripped callback)
@@ -35,7 +35,7 @@ primitiveVMParameter
 		31	number of grow memory requests (read-only)
 		32	number of shrink memory requests (read-only)
 		33	number of root table entries used for current IGC/FGC (read-only)
-		34	Spur: bytes allocated in eden (read-write) (Used to be number of allocations done before current IGC/FGC (read-only))
+		34	Spur: bytes allocated in total since start-up or reset (read-write) (Used to be number of allocations done before current IGC/FGC (read-only))
 		35	number of survivor objects after current IGC/FGC (read-only)
 		36	millisecond clock when current IGC/FGC completed (read-only)
 		37	number of marked objects for Roots of the world, not including Root Table entries for current IGC/FGC (read-only)
@@ -68,8 +68,8 @@ primitiveVMParameter
 		65	whether the VM supports a certain feature, MULTIPLE_BYTECODE_SETS is bit 0, IMMTABILITY is bit 1
 		66	the byte size of a stack page
 		67	the max allowed size of old space (Spur only; nil otherwise; 0 implies no limit except that of the underlying platform)
-		68	the average number of live stack pages when scanned by GC (at scavenge/gc/become et al)
-		69	the maximum number of live stack pages when scanned by GC (at scavenge/gc/become et al)
+		68	the average number of live stack pages when scanned by GC (at scavenge/gc/become et al) (read-write)
+		69	the maximum number of live stack pages when scanned by GC (at scavenge/gc/become et al) (read-write)
 		70	the vmProxyMajorVersion (the interpreterProxy VM_MAJOR_VERSION)
 		71	the vmProxyMinorVersion (the interpreterProxy VM_MINOR_VERSION)
 	Note: Thanks to Ian Piumarta for this primitive."
@@ -279,9 +279,10 @@ primitiveVMParameter
 	(objectMemory isIntegerObject: index) ifFalse: [^self primitiveFailFor: PrimErrBadArgument].
 	index := objectMemory integerValueOf: index.
 	(index < 1 or: [index > paramsArraySize]) ifTrue: [^self primitiveFailFor: PrimErrBadIndex].
-	(index = 17 or: [index = 55])
+	(index = 17 or: [index = 55 or: [index = 68]])
 		ifTrue:
-			[(objectMemory isFloatInstance: arg) ifFalse:
+			[((objectMemory isFloatInstance: arg)
+			  or: [objectMemory isIntegerObject: arg]) ifFalse:
 				[^self primitiveFailFor: PrimErrBadArgument]]
 		ifFalse:
 			[(objectMemory isIntegerObject: arg) ifFalse:
@@ -301,10 +302,14 @@ primitiveVMParameter
 	index = 6 ifTrue:
 		[result := objectMemory integerObjectOf: objectMemory tenuringThreshold.
 		 primFailCode := objectMemory tenuringThreshold: arg].
-	
+	index = 11	ifTrue:
+		[result := objectMemory integerObjectOf: objectMemory statTenures.
+		 arg >= 0 ifTrue:
+			[objectMemory statTenures: arg.
+			 self initPrimCall]].
 	(SistaVM and: [self isCog and: [index = 17]]) ifTrue:
 		[result := objectMemory floatObjectOf: self getCogCodeZoneThreshold.
-		 primFailCode := self setCogCodeZoneThreshold: (objectMemory floatValueOf: arg)].
+		 primFailCode := self setCogCodeZoneThreshold: (self noInlineLoadFloatOrIntFrom: arg)].
 	index = 23 ifTrue:
 		[result := objectMemory integerObjectOf: extraVMMemory.
 		extraVMMemory := arg.
@@ -358,13 +363,24 @@ primitiveVMParameter
 	(index = 55
 	 and: [objectMemory hasSpurMemoryManagerAPI]) ifTrue:
 		[result := objectMemory floatObjectOf: objectMemory getHeapGrowthToSizeGCRatio.
-		 primFailCode := objectMemory setHeapGrowthToSizeGCRatio: (objectMemory floatValueOf: arg)].
+		 primFailCode := objectMemory setHeapGrowthToSizeGCRatio: (self noInlineLoadFloatOrIntFrom: arg)].
 
 	(index = 67
 	 and: [arg >= 0
 	 and: [objectMemory hasSpurMemoryManagerAPI]]) ifTrue:
 		[result := objectMemory integerObjectOf: objectMemory maxOldSpaceSize.
 		 primFailCode := objectMemory setMaxOldSpaceSize: arg].
+
+	index = 68 ifTrue:
+		[result := objectMemory floatObjectOf: stackPages statAverageLivePagesWhenMapping.
+		 self initPrimCall. "i.e. statAverageLivePagesWhenMapping: is allowed to fail"
+		 stackPages statAverageLivePagesWhenMapping: (self noInlineLoadFloatOrIntFrom: arg)].
+
+	(index = 69
+	 and: [arg >= 0]) ifTrue:
+		[result := objectMemory integerObjectOf: stackPages statMaxPageCountWhenMapping.
+		 stackPages statMaxPageCountWhenMapping: arg.
+		 self initPrimCall].
 
 	self successful ifTrue:
 		[self pop: 3 thenPush: result.  "return old value"

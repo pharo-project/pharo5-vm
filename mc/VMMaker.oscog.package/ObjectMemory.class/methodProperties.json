@@ -427,6 +427,7 @@
 		"statSurvivorCount" : "eem 6/8/2010 17:12",
 		"statSweepCount" : "eem 6/8/2010 17:12",
 		"statTenures" : "eem 6/8/2010 17:12",
+		"statTenures:" : "eem 6/15/2017 14:02",
 		"storeByte:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeImageSegmentInto:outPointers:roots:" : "eem (const to msg rewrite) 11/6/2014 10:59",
 		"storeLong32:ofObject:withValue:" : "eem (const to msg rewrite) 11/6/2014 10:59",
