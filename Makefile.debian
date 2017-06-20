@@ -21,5 +21,5 @@ build_srcpackage:
 pharo6_sources:
 	cd packaging/pharo6-sources-files && wget http://files.pharo.org/sources/PharoV60.sources.zip
 	cd packaging/pharo6-sources-files && unzip PharoV60.sources.zip
-	cd packaging/pharo6-sources-files && rm PharoV60.sources.zip
+	cd packaging/pharo6-sources-files && rm -rf PharoV60.sources.zip __MACOSX
 	cd packaging/pharo6-sources-files && dpkg-buildpackage -S -uc -us -d
