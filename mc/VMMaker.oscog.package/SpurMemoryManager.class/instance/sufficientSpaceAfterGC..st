@@ -7,7 +7,7 @@ sufficientSpaceAfterGC: numBytes
 	| heapSizePostGC |
 	self assert: numBytes = 0.
 	self scavengingGCTenuringIf: TenureByAge.
-	heapSizePostGC := endOfMemory - nilObj - totalFreeOldSpace.
+	heapSizePostGC := segmentManager totalOldSpaceCapacity - totalFreeOldSpace.
 	(heapSizePostGC - heapSizeAtPreviousGC) asFloat / heapSizeAtPreviousGC >= heapGrowthToSizeGCRatio ifTrue:
 		[self fullGC].
 	[totalFreeOldSpace < growHeadroom
