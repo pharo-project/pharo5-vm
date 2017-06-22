@@ -324,6 +324,7 @@
 		"flushExternalPrimitiveTable" : "eem 7/14/2008 12:29",
 		"flushExternalPrimitives" : "eem 4/27/2016 07:51",
 		"flushMethodCache" : "eem 7/18/2015 08:06",
+		"flushMethodCacheForMethod:" : "eem 6/21/2017 15:16",
 		"flushMethodCacheFrom:to:" : "eem 7/18/2015 08:10",
 		"followForwardedFieldsInCurrentMethod" : "eem 7/15/2014 11:12",
 		"followForwardedFrameContents:stackPointer:" : "eem 1/16/2016 06:03",

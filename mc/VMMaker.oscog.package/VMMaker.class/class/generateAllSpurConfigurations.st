@@ -1,11 +1,10 @@
 configurations
 generateAllSpurConfigurations
-	self generateNewspeakSpurCogVM;
-		generateNewspeakSpurCog64VM;
-		generateNewspeakSpurStackVM;
+	self generateAllNewspeakConfigurationsUnderVersionControl;
 		generateSqueakSpurCogVM;
 		generateSqueakSpurCog64VM;
 		generateSqueakSpurCogSistaVM;
 		generateSqueakSpurCogSista64VM;
 		generateSqueakSpurStackVM;
-		generateSqueakSpurStack64VM
+		generateSqueakSpurStack64VM;
+		generateAllSpurLowcodeConfigurations

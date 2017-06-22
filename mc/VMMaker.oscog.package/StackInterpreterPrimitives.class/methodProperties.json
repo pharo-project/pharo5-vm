@@ -25,7 +25,7 @@
 		"primitiveExternalCall" : "eem 6/3/2016 14:46",
 		"primitiveFindHandlerContext" : "eem (objmem refactor) 6/8/2010 17:12",
 		"primitiveFindNextUnwindContext" : "eem 9/7/2016 13:41",
-		"primitiveFlushCacheByMethod" : "eem 4/27/2016 07:50",
+		"primitiveFlushCacheByMethod" : "eem 6/21/2017 15:18",
 		"primitiveFlushCacheBySelector" : "eem 4/9/2009 14:35",
 		"primitiveFullGC" : "eem 11/25/2013 11:28",
 		"primitiveIncrementalGC" : "eem 6/6/2016 12:22",
