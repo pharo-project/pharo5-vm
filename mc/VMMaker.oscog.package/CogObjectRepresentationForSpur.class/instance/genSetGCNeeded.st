@@ -3,4 +3,4 @@ genSetGCNeeded
 	<inline: true>
 	cogit
 		MoveCq: 1 R: TempReg;
-		MoveR: TempReg Aw: coInterpreter needGCFlagAddress
+		MoveR: TempReg Aw: objectMemory needGCFlagAddress
