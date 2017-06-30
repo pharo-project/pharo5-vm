@@ -50,13 +50,13 @@ mapOopsFrom: segStart to: segAddr outPointers: outPointerArray outHashes: savedO
 					ifFalse: "oop is an outPointer; locate or allocate its oop"
 						[hash := self rawHashBitsOf: oop.
 						(self is: hash outPointerClassHashFor: oop in: outPointerArray limit: outIndex)
-							ifTrue: [oop := hash * self bytesPerOop + TopOopBit]
+							ifTrue: [oop := hash - TopHashBit * self bytesPerOop + TopOopBit]
 							ifFalse: "oop is a new outPointer; allocate its oop"
 								[outIndex := self newOutPointer: oop at: outIndex in: outPointerArray hashes: savedOutHashes.
 								 outIndex = 0 ifTrue: "no room in outPointers; fail"
 									[^-1 halt].
 								 self assert: ((self rawHashBitsOf: oop) anyMask: TopHashBit).
-								 oop := (self rawHashBitsOf: objOop) - TopHashBit * self bytesPerOop + TopOopBit]].
+								 oop := (self rawHashBitsOf: oop) - TopHashBit * self bytesPerOop + TopOopBit]].
 				 self storePointerUnchecked: i ofObject: objOop withValue: oop]].
 		 objOop := self objectAfter: objOop limit: segAddr].
 	^outIndex
