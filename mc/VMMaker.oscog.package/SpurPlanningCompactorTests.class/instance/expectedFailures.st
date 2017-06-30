@@ -1,5 +1,5 @@
 failures
 expectedFailures
-	^(FileDirectory default fileExists: self class imageNameForTests)
+	^(FileDirectory default fileExists: SpurImageTestResource imageNameForTests)
 		ifTrue: [#()]
 		ifFalse: [self testSelectors]

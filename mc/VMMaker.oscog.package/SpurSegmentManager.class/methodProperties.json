@@ -13,6 +13,7 @@
 		"bridgeFrom:to:" : "eem 12/2/2013 11:33",
 		"checkSegments" : "eem 5/28/2014 10:11",
 		"collapseSegmentsPostSwizzle" : "eem 6/7/2017 12:21",
+		"computeTotalHeapSizeIncludingBridges" : "eem 6/29/2017 15:59",
 		"findEmptySegNearestInSizeTo:" : "nice 11/9/2016 21:49",
 		"firstGapOfSizeAtLeast:" : "eem 6/13/2014 15:12",
 		"firstSegmentBytes" : "eem 10/9/2013 10:56",

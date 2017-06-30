@@ -1,0 +1,1 @@
+SimulatorHarness provides machinery for executing code within a simulator that is initialized with an image but not up and running.

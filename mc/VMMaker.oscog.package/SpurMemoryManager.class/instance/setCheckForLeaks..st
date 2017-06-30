@@ -4,6 +4,6 @@ setCheckForLeaks: integerFlags
 	  1 = check for leaks on fullGC (GCModeFull).
 	  2 = check for leaks on scavenger (GCModeNewSpace).
 	  4 = check for leaks on incremental (GCModeIncremental)
-	  8 = check for leaks on become
-	 16 = check for leaks on image segments"
+	  8 = check for leaks on become (GCModeBecome)
+	 16 = check for leaks on image segments (GCModeImageSegment)"
 	checkForLeaks := integerFlags

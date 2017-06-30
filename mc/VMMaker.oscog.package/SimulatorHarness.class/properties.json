@@ -1,0 +1,14 @@
+{
+	"category" : "VMMaker-Support",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "eem 6/29/2017 12:12",
+	"instvars" : [
+		 ],
+	"name" : "SimulatorHarness",
+	"pools" : [
+		"VMObjectIndices" ],
+	"super" : "Object",
+	"type" : "normal" }

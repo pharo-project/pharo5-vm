@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"emptyVM" ],
-	"name" : "SpurPlanningCompactorTestsImageResource",
+		"simulator" ],
+	"name" : "SimulatorHarnessForTests",
 	"pools" : [
 		 ],
-	"super" : "TestResource",
+	"super" : "SimulatorHarness",
 	"type" : "normal" }

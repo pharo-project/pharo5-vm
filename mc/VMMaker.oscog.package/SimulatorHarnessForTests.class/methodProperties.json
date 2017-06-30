@@ -1,0 +1,9 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"findClassNamed:" : "eem 6/29/2017 16:16",
+		"findSymbol:" : "eem 6/29/2017 16:21",
+		"interpreter:object:perform:withArguments:" : "eem 6/29/2017 12:15",
+		"symbolClass" : "eem 6/29/2017 12:24",
+		"withExecutableInterpreter:do:" : "eem 6/29/2017 12:15" } }

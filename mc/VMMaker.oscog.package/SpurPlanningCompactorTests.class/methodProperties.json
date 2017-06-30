@@ -1,13 +1,12 @@
 {
 	"class" : {
 		"defaultIntegerBaseInDebugger" : "eem 1/11/2017 10:37",
-		"imageNameForTests" : "eem 1/10/2017 11:51",
-		"preenImage" : "eem 1/10/2017 11:21",
-		"resources" : "eem 1/12/2017 10:14" },
+		"preenImage" : "eem 6/29/2017 10:56",
+		"resources" : "eem 6/29/2017 12:31" },
 	"instance" : {
 		"checkForLeaksIn:" : "eem 2/6/2017 11:00",
-		"expectedFailures" : "eem 2/6/2017 10:41",
-		"initializedVM" : "eem 1/12/2017 10:18",
+		"expectedFailures" : "eem 6/29/2017 12:37",
+		"initializedVM" : "eem 6/29/2017 12:37",
 		"testCompactedHeap" : "eem 2/6/2017 10:59",
 		"testIncompactibleHeap" : "eem 1/11/2017 09:43",
 		"testInitializedVM" : "eem 2/6/2017 11:12",

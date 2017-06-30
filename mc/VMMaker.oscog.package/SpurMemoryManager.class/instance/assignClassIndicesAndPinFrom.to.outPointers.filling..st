@@ -10,10 +10,11 @@ assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPoin
 		 self storePointerUnchecked: fillIdx ofObject: loadedObjectsArray withValue: objOop.
 		 fillIdx := fillIdx + 1.
 		 "In the segment, class indices are offset indexes into the segment data,
-		  or into outPointers.  See mapOopsFrom:to:outPointers:outHashes:."
+		  or into outPointers.  See mapOopsFrom:to:outPointers:outHashes: and
+		  newOutPointer:at:in:hashes:."
 		 classRef := self classIndexOf: objOop.
 		 classOop := (classRef anyMask: TopHashBit)
-						ifTrue: [self fetchPointer: classRef - TopHashBit - self firstClassIndexPun ofObject: outPointerArray]
+						ifTrue: [self fetchPointer: classRef - TopHashBit ofObject: outPointerArray]
 						ifFalse: [classRef - self firstClassIndexPun * self allocationUnit + segmentStart].
 		 classIndex := self rawHashBitsOf: classOop.
 		 self assert: (classIndex > self lastClassIndexPun

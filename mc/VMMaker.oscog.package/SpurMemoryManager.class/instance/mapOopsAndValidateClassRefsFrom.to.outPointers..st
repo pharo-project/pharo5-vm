@@ -17,7 +17,7 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 		 "validate the class ref, but don't update it until any internal classes have been added to the class table."
 		 (classIndex anyMask: TopHashBit)
 			ifTrue:
-				[classIndex := classIndex - TopHashBit - self firstClassIndexPun.
+				[classIndex := classIndex - TopHashBit.
 				 classIndex >= numOutPointers ifTrue:
 					[^PrimErrBadIndex halt].
 				 mappedOop := self fetchPointer: classIndex ofObject: outPointerArray.

@@ -24,21 +24,20 @@ mapOopsFrom: segStart to: segAddr outPointers: outPointerArray outHashes: savedO
 			ifTrue: "oop is a class in the segment; storeImageSegmentInto:outPointers:roots: established offset is within range."
 				[oop := self fetchPointer: 0 ofObject: oop.
 				 self assert: (self oop: oop isGreaterThanOrEqualTo: segStart andLessThan: segAddr).
-				 segIndex := oop - segStart / self allocationUnit.
-				 self deny: (segIndex + self firstClassIndexPun anyMask: TopHashBit)]
+				 segIndex := oop - segStart / self allocationUnit + self firstClassIndexPun.
+				 (segIndex anyMask: TopHashBit) ifTrue: "Too many classes in the segment"
+					[^-1 halt]]
 			ifFalse: "oop is an outPointer; locate or allocate its oop"
 				[hash := self rawHashBitsOf: oop.
-				((hash anyMask: TopHashBit)
-				 and: [hash - TopHashBit <= outIndex
-				 and: [oop = (self fetchPointer: hash - TopHashBit ofObject: outPointerArray)]])
+				 (self is: hash outPointerClassHashFor: oop in: outPointerArray limit: outIndex)
 					ifTrue: [segIndex := hash]
 					ifFalse: "oop is a new outPointer; allocate its oop"
 						[outIndex := self newOutPointer: oop at: outIndex in: outPointerArray hashes: savedOutHashes.
 						 outIndex = 0 ifTrue: "no room in outPointers; fail"
-							[^-1].
-						 self assert: ((self rawHashBitsOf: oop) anyMask: TopHashBit).
-						 segIndex := self rawHashBitsOf: oop]].
-		 self setClassIndexOf: objOop to: segIndex + self firstClassIndexPun.
+							[^-1 halt].
+						 segIndex := self rawHashBitsOf: oop].
+				 self assert: (segIndex anyMask: TopHashBit)].
+		 self setClassIndexOf: objOop to: segIndex.
 		 0 to: (self numPointerSlotsOf: objOop) - 1 do:
 			[:i|
 			 oop := self fetchPointer: i ofObject: objOop.
@@ -50,14 +49,12 @@ mapOopsFrom: segStart to: segAddr outPointers: outPointerArray outHashes: savedO
 						 oop := oop - segStart]
 					ifFalse: "oop is an outPointer; locate or allocate its oop"
 						[hash := self rawHashBitsOf: oop.
-						((hash anyMask: TopHashBit)
-						 and: [(hash := hash - TopHashBit) <= outIndex
-						 and: [oop = (self fetchPointer: hash ofObject: outPointerArray)]])
+						(self is: hash outPointerClassHashFor: oop in: outPointerArray limit: outIndex)
 							ifTrue: [oop := hash * self bytesPerOop + TopOopBit]
 							ifFalse: "oop is a new outPointer; allocate its oop"
 								[outIndex := self newOutPointer: oop at: outIndex in: outPointerArray hashes: savedOutHashes.
 								 outIndex = 0 ifTrue: "no room in outPointers; fail"
-									[^-1].
+									[^-1 halt].
 								 self assert: ((self rawHashBitsOf: oop) anyMask: TopHashBit).
 								 oop := (self rawHashBitsOf: objOop) - TopHashBit * self bytesPerOop + TopOopBit]].
 				 self storePointerUnchecked: i ofObject: objOop withValue: oop]].

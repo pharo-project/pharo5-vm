@@ -12,7 +12,7 @@ copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg savedFirstField
 	<inline: false>
 	bodySize := self bytesInObject: objOop.
 	(self oop: segAddr + bodySize isGreaterThanOrEqualTo: endSeg) ifTrue:
-		[^PrimErrWritePastObject].
+		[^PrimErrWritePastObject halt].
 	self mem: segAddr asVoidPointer cp: (self startOfObject: objOop) asVoidPointer y: bodySize.
 	copy := self objectStartingAt: segAddr.
 

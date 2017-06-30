@@ -102,23 +102,25 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 		(i = numClassesInSegment
 		 and: [segAddr - segStart / self allocationUnit + self lastClassIndexPun >= TopHashBit]) ifTrue:
 			[^self return: PrimErrLimitExceeded
-					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields
-					and: outPointerArray savedHashes: savedOutHashes].
+					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields].
 		objOop := self fetchPointer: i ofObject: arrayOfObjects.
 		self deny: ((self isImmediate: objOop) or: [self isForwarded: objOop]).
-		newSegAddrOrError := self copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg savedFirstFields: savedFirstFields index: i.
+		newSegAddrOrError := self copyObj: objOop
+									toAddr: segAddr
+									startAt: segStart 
+									stopAt: endSeg
+									savedFirstFields: savedFirstFields
+									index: i.
 		newSegAddrOrError < segStart ifTrue:
 			[^self return: newSegAddrOrError
-					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields
-					and: outPointerArray savedHashes: savedOutHashes].
+					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields].
 		 segAddr := newSegAddrOrError].
 
 	"Check that it can be safely shortened."
 	(endSeg ~= segAddr
 	 and: [endSeg - segAddr < (self baseHeaderSize + self bytesPerOop)]) ifTrue:
 		[^self return: PrimErrWritePastObject
-				restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
-				and: outPointerArray savedHashes: savedOutHashes].
+				restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields].
 
 	"Now scan, adding out pointers to the outPointersArray; all objects in arrayOfObjects
 	 have their first field pointing to the corresponding copy in segmentWordArray."
@@ -127,12 +129,12 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 					outPointers: outPointerArray
 					outHashes: savedOutHashes) < 0 ifTrue: "no room in outPointers; fail"
 		[^self return: PrimErrBadIndex
-				restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
+				restoringObjectsIn: arrayOfObjects savedFirstFields: savedFirstFields
 				and: outPointerArray savedHashes: savedOutHashes].
 
 	"We're done.  Shorten the results, restore hashes and return."
 	self shorten: segmentWordArray toIndexableSize: segAddr - (segmentWordArray + self baseHeaderSize) / 4.
 	self shorten: outPointerArray toIndexableSize: outIndex.
 	^self return: PrimNoErr
-		restoringObjectsIn: arrayOfObjects upTo: -1 savedFirstFields: savedFirstFields
+		restoringObjectsIn: arrayOfObjects savedFirstFields: savedFirstFields
 		and: outPointerArray savedHashes: savedOutHashes

@@ -1,0 +1,3 @@
+simulation only
+computeTotalHeapSizeIncludingBridges
+	totalHeapSizeIncludingBridges := manager endOfMemory - manager oldSpaceStart

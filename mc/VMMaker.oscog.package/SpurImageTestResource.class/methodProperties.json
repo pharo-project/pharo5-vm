@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"baseImageName" : "eem 6/29/2017 16:06",
+		"imageNameForTests" : "eem 6/29/2017 16:06",
+		"preenImage" : "eem 6/29/2017 16:05" },
+	"instance" : {
+		"emptyVM" : "eem 1/12/2017 10:12",
+		"initializedVM" : "eem 6/29/2017 12:31",
+		"reset" : "eem 6/29/2017 12:31" } }

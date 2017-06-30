@@ -1,0 +1,15 @@
+{
+	"category" : "VMMaker-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"CheckForLeaks" ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SpurImageSegmentTests",
+	"pools" : [
+		"VMBasicConstants",
+		"VMSqueakClassIndices" ],
+	"super" : "LongTestCase",
+	"type" : "normal" }

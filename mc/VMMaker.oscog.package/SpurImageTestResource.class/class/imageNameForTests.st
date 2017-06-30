@@ -2,7 +2,7 @@ accessing
 imageNameForTests
 	"self imageNameForTests"
 	| baseImageName |
-	baseImageName := 'core32-preen.image'.
+	baseImageName := self baseImageName.
 	#('.' 'oscogvm/image' '../oscogvm/image') do:
 		[:dirName|
 		 ((FileDirectory default directoryExists: dirName)
