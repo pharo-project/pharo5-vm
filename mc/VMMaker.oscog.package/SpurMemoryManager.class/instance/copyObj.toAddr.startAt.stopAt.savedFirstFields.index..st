@@ -10,6 +10,7 @@ copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg savedFirstField
 	"Copy the object..."
 	| bodySize copy hash |
 	<inline: false>
+	self deny: (self isCopiedIntoSegment: objOop).
 	bodySize := self bytesInObject: objOop.
 	(self oop: segAddr + bodySize isGreaterThanOrEqualTo: endSeg) ifTrue:
 		[^PrimErrWritePastObject halt].
@@ -34,7 +35,7 @@ copyObj: objOop toAddr: segAddr startAt: segStart stopAt: endSeg savedFirstField
 	"Now forward the object to its copy in the segment."
 	self storePointerUnchecked: i ofObject: savedFirstFields withValue: (self fetchPointer: 0 ofObject: objOop);
 		storePointerUnchecked: 0 ofObject: objOop withValue: copy;
-		setIsMarkedOf: objOop to: true.
+		markAsCopiedIntoSegment: objOop.
 
 	"Answer the new end of segment"
 	^segAddr + bodySize

@@ -5,7 +5,7 @@ assignClassIndicesAndPinFrom: segmentStart to: segmentLimit outPointers: outPoin
 	| fillIdx objOop |
 	objOop := self objectStartingAt: segmentStart.
 	fillIdx := 0.
-	[objOop < segmentLimit] whileTrue:
+	[self oop: objOop isLessThan: segmentLimit] whileTrue:
 		[| classRef classOop classIndex |
 		 self storePointerUnchecked: fillIdx ofObject: loadedObjectsArray withValue: objOop.
 		 fillIdx := fillIdx + 1.

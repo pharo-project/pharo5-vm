@@ -24,6 +24,7 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 	<inline: false>
 	| segmentWordArray outPointerArray arrayOfRoots
 	  arrayOfObjects savedFirstFields savedOutHashes segStart segAddr endSeg outIndex numClassesInSegment |
+	<var: 'segAddr' type: #usqInt>
 	((self isObjImmutable: segmentWordArrayArg)
 	 or: [self isObjImmutable: outPointerArrayArg]) ifTrue:
 		[^PrimErrNoModification].
@@ -41,6 +42,8 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 	segmentWordArray := self updatePostScavenge: segmentWordArrayArg.
 	outPointerArray := self updatePostScavenge: outPointerArrayArg.
 	arrayOfRoots := self updatePostScavenge: arrayOfRootsArg.
+	self deny: (self forwardersIn: outPointerArray).
+	self deny: (self forwardersIn: arrayOfRoots).
 	
 	"Now compute the transitive closure, collecting the sequence of objects to be stored in the arrayOfObjects array.
 	 Included in arrayOfObjects are the arrayOfRoots and all its contents.  All objects have been unmarked."
@@ -49,6 +52,7 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 		[^PrimErrNoMemory].
 
 	self assert: self allObjectsUnmarked. "work to be done when the incremental GC is written"
+	self deny: (self forwardersIn: arrayOfObjects).
 
 	"Both to expand the max size of segment and to reduce the length of the
 	 load-time pass that adds classes to the class table, move classes to the
@@ -114,7 +118,7 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 									stopAt: endSeg
 									savedFirstFields: savedFirstFields
 									index: i.
-		newSegAddrOrError < segStart ifTrue:
+		(self oop: newSegAddrOrError isLessThan: segStart) ifTrue:
 			[^self return: newSegAddrOrError
 					restoringObjectsIn: arrayOfObjects upTo: i savedFirstFields: savedFirstFields].
 		 segAddr := newSegAddrOrError].

@@ -8,7 +8,7 @@ allObjects
 	| freeChunk ptr start limit count bytes |
 	MarkObjectsForEnumerationPrimitives ifTrue:
 		[self markObjects: true]. "may not want to revive objects unnecessarily; but marking is sloooow."
-	freeChunk := self allocateLargestFreeChunk.
+	freeChunk := self allocateLargestFreeChunk. "N.B. Does /not/ update totalFreeOldSpace"
 	ptr := start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.
 	count := 0.

@@ -8,9 +8,10 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 	numOutPointers := self numSlotsOf: outPointerArray.
 	numSegObjs := 0.
 	objOop := self objectStartingAt: segmentStart.
-	[objOop < segmentLimit] whileTrue:
+	[self oop: objOop isLessThan: segmentLimit] whileTrue:
 		[| classIndex hash oop mappedOop |
 		 numSegObjs := numSegObjs + 1.
+		 "No object in the segment should be marked.  If is is something is wrong."
 		 (self isMarked: objOop) ifTrue:
 			[^PrimErrInappropriate].
 		 classIndex := self classIndexOf: objOop.

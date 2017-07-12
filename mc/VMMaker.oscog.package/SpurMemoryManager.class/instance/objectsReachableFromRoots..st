@@ -8,6 +8,7 @@ objectsReachableFromRoots: arrayOfRoots
 	 Thanks to Igor Stasenko for this idea."
 
 	| freeChunk ptr start limit count oop objOop |
+	<var: #freeChunk type: #usqInt> "& hence start & ptr are too; limit is also because of addressAfter:"
 	<inline: #never>
 	self assert: (self isArray: arrayOfRoots).
 	"Mark all objects except those only reachable from the arrayOfRoots by marking
@@ -25,7 +26,8 @@ objectsReachableFromRoots: arrayOfRoots
 	self assert: self noUnscannedEphemerons.
 
 	"Use the largest free chunk to answer the result."
-	freeChunk := self allocateLargestFreeChunk.
+	freeChunk := self allocateLargestFreeChunk. "N.B. Does /not/ update totalFreeOldSpace"
+	totalFreeOldSpace := totalFreeOldSpace - (self bytesInObject: freeChunk). "but must update so that growth in the markStack does not cause assert fails."
 	ptr := start := freeChunk + self baseHeaderSize.
 	limit := self addressAfter: freeChunk.
 	count := 0.
@@ -36,49 +38,50 @@ objectsReachableFromRoots: arrayOfRoots
 		[self longAt: ptr put: arrayOfRoots.
 		 ptr := ptr + self bytesPerOop].
 
+	"Now collect the roots and the transitive closure of unmarked objects from them."
 	0 to: (self numSlotsOf: arrayOfRoots) - 1 do:
-		[:i|
-		 oop := self fetchPointer: i ofObject: arrayOfRoots.
+		[:rx|
+		 oop := self fetchPointer: rx ofObject: arrayOfRoots.
 		 (self isNonImmediate: oop) ifTrue:
-			[self noCheckPush: oop onObjStack: markStack]].
+			[self deny: (self isForwarded: oop).
+			 self noCheckPush: oop onObjStack: markStack.
 
-	"Now collect the unmarked objects reachable from the roots."
-	[self isEmptyObjStack: markStack] whileFalse:
-		[objOop := self popObjStack: markStack.
-		 count := count + 1.
-		 ptr < limit ifTrue:
-			[self longAt: ptr put: objOop.
-			 ptr := ptr + self bytesPerOop].
-		 oop := self fetchClassOfNonImm: objOop.
-		 (self isMarked: oop) ifFalse:
-			[self setIsMarkedOf: objOop to: true.
-			 self noCheckPush: oop onObjStack: markStack].
-		 ((self isContextNonImm: objOop)
-		  and: [coInterpreter isStillMarriedContext: objOop]) "widow now, before the loop"
-			ifTrue:
-				[0 to: (coInterpreter numSlotsOfMarriedContext: objOop) - 1 do:
-					[:i|
-					 oop := coInterpreter fetchPointer: i ofMarriedContext: objOop.
-					 ((self isImmediate: oop)
-					  or: [self isMarked: oop]) ifFalse:
-						[self setIsMarkedOf: objOop to: true.
-						 self noCheckPush: oop onObjStack: markStack]]]
-			ifFalse:
-				[0 to: (self numPointerSlotsOf: objOop) - 1 do:
-					[:i|
-					 oop := self fetchPointer: i ofObject: objOop.
-					 ((self isImmediate: oop)
-					  or: [self isMarked: oop]) ifFalse:
-						[self setIsMarkedOf: objOop to: true.
-						 self noCheckPush: oop onObjStack: markStack]]]].
+			 "Collect the unmarked objects reachable from this root."
+			 [self isEmptyObjStack: markStack] whileFalse:
+				[objOop := self popObjStack: markStack.
+				 count := count + 1.
+				 ptr < limit ifTrue:
+					[self longAt: ptr put: objOop.
+					 ptr := ptr + self bytesPerOop].
+				 oop := self fetchClassOfNonImm: objOop.
+				 (self isMarked: oop) ifFalse:
+					[self setIsMarkedOf: oop to: true.
+					 self noCheckPush: oop onObjStack: markStack].
+				 ((self isContextNonImm: objOop)
+				  and: [coInterpreter isStillMarriedContext: objOop]) "widow now, before the loop"
+					ifTrue:
+						[0 to: (coInterpreter numSlotsOfMarriedContext: objOop) - 1 do:
+							[:i|
+							 oop := coInterpreter fetchPointer: i ofMarriedContext: objOop.
+							 ((self isImmediate: oop)
+							  or: [self isMarked: oop]) ifFalse:
+								[self setIsMarkedOf: oop to: true.
+								 self noCheckPush: oop onObjStack: markStack]]]
+					ifFalse:
+						[0 to: (self numPointerSlotsOf: objOop) - 1 do:
+							[:i|
+							 oop := self fetchPointer: i ofObject: objOop.
+							 ((self isImmediate: oop)
+							  or: [self isMarked: oop]) ifFalse:
+								[self setIsMarkedOf: oop to: true.
+								 self noCheckPush: oop onObjStack: markStack]]]]]].
 
 	self unmarkAllObjects.
 
-	totalFreeOldSpace := totalFreeOldSpace - (self bytesInObject: freeChunk).
 	"Now try and allocate the result"
 	(count > (ptr - start / self bytesPerOop) "not enough room"
 	 or: [limit ~= ptr and: [limit - ptr <= self allocationUnit]]) ifTrue: "can't split a single word"
-		[self freeChunkWithBytes: (self bytesInObject: freeChunk) at: (self startOfObject: freeChunk).
+		[self freeObject: freeChunk.
 		 self checkFreeSpace: GCModeImageSegment.
 		 ^self integerObjectOf: count].
 	"There's room; set the format, & classIndex and shorten."

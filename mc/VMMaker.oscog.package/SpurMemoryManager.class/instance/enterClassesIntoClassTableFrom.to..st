@@ -7,14 +7,14 @@ enterClassesIntoClassTableFrom: segmentStart to: segmentLimit
 	 otherwise remove all entered entries and answer an error code."
 	| objOop errorCode|
 	objOop := self objectAfter: (self objectStartingAt: segmentStart).
-	[objOop < segmentLimit
+	[(self oop: objOop isLessThan: segmentLimit)
 	 and: [self isRemembered: objOop]] whileTrue:
 		[self setIsRememberedOf: objOop to: false.
 		 (errorCode := self enterIntoClassTable: objOop) ~= 0 ifTrue:
 			[| oop |
 			 oop := objOop.
 			 objOop := self objectAfter: (self objectStartingAt: segmentStart).
-			 [objOop < oop] whileTrue:
+			 [self oop: objOop isLessThan: oop] whileTrue:
 				[self expungeFromClassTable: objOop.
 				 objOop := self objectAfter: objOop limit: segmentLimit].
 			 ^errorCode].
