@@ -4,7 +4,9 @@ mapOopsAndValidateClassRefsFrom: segmentStart to: segmentLimit outPointers: outP
 	 Scan through mapping oops and validating class references.  Defer
 	 entering any class objects into the class table and/or pinning objects
 	 until the second pass in assignClassIndicesAndPinFrom:to:outPointers:."
+	<var: 'segmentLimit' type: #usqInt>
 	| numOutPointers numSegObjs objOop |
+	<var: #oop type: #usqInt>
 	numOutPointers := self numSlotsOf: outPointerArray.
 	numSegObjs := 0.
 	objOop := self objectStartingAt: segmentStart.
