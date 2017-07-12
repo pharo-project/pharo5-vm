@@ -99,6 +99,8 @@ storeImageSegmentInto: segmentWordArrayArg outPointers: outPointerArrayArg roots
 	self long32At: segAddr + 4 put: self imageSegmentVersion.
 	segStart := segAddr := segAddr + self allocationUnit.
 
+	self assert: arrayOfRoots = (self fetchPointer: 0 ofObject: arrayOfObjects).
+
 	"Copy all reachable objects to the segment, setting the marked bit for all objects (clones) in the segment,
 	 and the remembered bit for all classes (clones) in the segment."
 	0 to: (self numSlotsOf: arrayOfObjects) - 1 do:

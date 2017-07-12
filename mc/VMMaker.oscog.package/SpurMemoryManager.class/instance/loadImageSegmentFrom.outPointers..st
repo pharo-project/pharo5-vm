@@ -18,7 +18,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 
 	segmentLimit := self numSlotsOf: segmentWordArray.
 	(self objectBytesForSlots: segmentLimit) < (self allocationUnit "version info" + self baseHeaderSize "one object header") ifTrue:
-		[^PrimErrBadArgument].
+		[^PrimErrBadArgument halt].
 
 	"Verify format.  If the format is wrong, word-swap (since ImageSegment data are 32-bit longs).
 	 If it is still wrong, undo the damage and fail."
@@ -30,7 +30,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 		 (coInterpreter readableFormat: (segVersion bitAnd: 16rFFFFFF "low 3 bytes")) ifFalse:
 			[self reverseBytesIn32BitWordsFrom: segmentWordArray + self baseHeaderSize
 				to: (self addressAfter: segmentWordArray).
-			 ^PrimErrBadArgument]].
+			 ^PrimErrBadArgument halt]].
 
 	segmentStart := segmentWordArray + self baseHeaderSize + self allocationUnit.
 	segmentLimit := segmentLimit * self bytesPerOop + segmentWordArray + self baseHeaderSize.
@@ -43,11 +43,17 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	(segVersion >> 24 bitAnd: 16rFF) ~= (self imageSegmentVersion >> 24 bitAnd: 16rFF) ifTrue:
 		"Reverse the byte-type objects once"
 		[true
-			ifTrue: [^PrimErrBadArgument]
+			ifTrue: [^PrimErrBadArgument halt]
 			ifFalse:
 				[self byteSwapByteObjectsFrom: (self objectStartingAt: segmentStart)
 					to: segmentLimit
 					flipFloatsIf: false]].
+
+	"Avoid having to remember by arranging that there are no young outPointers if segment is in old space."
+	(self isOldObject: segmentWordArray) ifTrue:
+		[errorCode := self ensureNoNewObjectsIn: outPointerArray.
+		 errorCode ~= 0 ifTrue:
+			[^errorCode]].
 
 	"scan through mapping oops and validating class references. Defer entering any
 	 class objects into the class table and/or pinning objects until a second pass."
@@ -57,7 +63,7 @@ loadImageSegmentFrom: segmentWordArray outPointers: outPointerArray
 	numLoadedObjects := errorCode negated.
 	loadedObjectsArray := self allocateSlots: numLoadedObjects format: self arrayFormat classIndex: ClassArrayCompactIndex.
 	loadedObjectsArray ifNil:
-		[^PrimErrNoMemory].
+		[^PrimErrNoMemory halt].
 
 	"Scan for classes contained in the segment, entering them into the class table.
 	 Classes are at the front, after the root array and have the remembered bit set."

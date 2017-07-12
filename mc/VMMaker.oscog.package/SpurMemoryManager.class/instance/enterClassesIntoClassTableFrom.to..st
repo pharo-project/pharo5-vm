@@ -17,6 +17,6 @@ enterClassesIntoClassTableFrom: segmentStart to: segmentLimit
 			 [self oop: objOop isLessThan: oop] whileTrue:
 				[self expungeFromClassTable: objOop.
 				 objOop := self objectAfter: objOop limit: segmentLimit].
-			 ^errorCode].
+			 ^errorCode halt].
 		 objOop := self objectAfter: objOop limit: segmentLimit].
 	^0

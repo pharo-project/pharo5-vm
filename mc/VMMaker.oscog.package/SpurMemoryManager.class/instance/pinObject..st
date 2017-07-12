@@ -23,7 +23,7 @@ pinObject: objOop
 			[self setIsPinnedOf: objOop to: true.
 			 seg containsPinned: true.
 			 ^objOop]].
-	oldClone := self cloneInOldSpaceForPinning: objOop.
+	oldClone := self cloneInOldSpace: objOop forPinning: true.
 	oldClone ~= 0 ifTrue:
 		[becomeEffectsFlags := self becomeEffectFlagsFor: objOop.
 		 self setIsPinnedOf: oldClone to: true.

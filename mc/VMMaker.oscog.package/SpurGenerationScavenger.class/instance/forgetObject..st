@@ -8,8 +8,10 @@ forgetObject: objOop
 		[| index |
 		 index := 0.
 		 [index < rememberedSetSize] whileTrue:
-			[objOop = (rememberedSet at: index) ifTrue:
-				[rememberedSet at: index put: (rememberedSet at: rememberedSetSize - 1).
-				 index := rememberedSetSize]]].
+			[objOop = (rememberedSet at: index)
+				ifTrue:
+					[rememberedSet at: index put: (rememberedSet at: rememberedSetSize - 1).
+					 index := rememberedSetSize]
+				ifFalse: [index := index + 1]]].
 	rememberedSetSize := rememberedSetSize - 1.
 	self assert: rememberedSetSize >= 0

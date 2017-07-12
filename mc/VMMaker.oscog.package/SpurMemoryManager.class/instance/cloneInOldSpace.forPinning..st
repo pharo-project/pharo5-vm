@@ -1,13 +1,21 @@
 allocation
-cloneInOldSpaceForPinning: objOop
-	| numSlots fmt newObj |
+cloneInOldSpace: objOop forPinning: forPinning
+	<inline: false>
+	| numSlots fmt newObj hash |
 	numSlots := self numSlotsOf: objOop.
 	fmt := self formatOf: objOop.
 	
-	newObj := self allocateSlotsForPinningInOldSpace: numSlots
-					bytes: (self objectBytesForSlots: numSlots)
-					format: fmt
-					classIndex: (self classIndexOf: objOop).
+	forPinning
+		ifTrue:
+			[newObj := self allocateSlotsForPinningInOldSpace: numSlots
+							bytes: (self objectBytesForSlots: numSlots)
+							format: fmt
+							classIndex: (self classIndexOf: objOop)]
+		ifFalse:
+			[newObj := self allocateSlotsInOldSpace: numSlots
+							bytes: (self objectBytesForSlots: numSlots)
+							format: fmt
+							classIndex: (self classIndexOf: objOop)].
 	newObj ifNil:
 		[^0].
 	(self isPointersFormat: fmt)
@@ -38,4 +46,6 @@ cloneInOldSpaceForPinning: objOop
 				[coInterpreter maybeFixClonedCompiledMethod: newObj.
 				 ((self isYoungObject: objOop) or: [self isRemembered: objOop]) ifTrue:
 					[scavenger remember: newObj]]].
+	(hash := self rawHashBitsOf: objOop) ~= 0 ifTrue:
+		[self setHashBitsOf: newObj to: hash].
 	^newObj
