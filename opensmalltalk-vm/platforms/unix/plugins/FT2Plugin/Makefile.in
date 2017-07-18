@@ -6,10 +6,10 @@
 
 TARGET= FT2Plugin$a
 OBJS= FT2Plugin$o 
-XINCLUDES= [includes] -I/usr/include/freetype2
+XINCLUDES= [includes] $(FREETYPE2_CFLAGS)
 
 $(TARGET) : $(OBJS) Makefile
-	$(LINK) $(TARGET) $(OBJS) -lfreetype 
+	$(LINK) $(TARGET) $(OBJS) $(FREETYPE2_LIBS)
 	$(RANLIB) $(TARGET)
 
 [make_targets]

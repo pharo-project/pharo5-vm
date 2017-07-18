@@ -61,6 +61,7 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
+          - pkg-config:i386
           - osc
       before_script:
       - make -f Makefile.debian version_from_travis
@@ -92,6 +93,7 @@ matrix:
           - libglapi-mesa:i386
           - gcc-multilib
           - uuid-dev:i386
+          - pkg-config:i386
     - os: linux
       env: ARCH="linux64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64" HEARTBEAT="threaded"
     - os: linux
