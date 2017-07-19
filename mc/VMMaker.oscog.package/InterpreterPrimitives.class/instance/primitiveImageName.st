@@ -24,6 +24,5 @@ primitiveImageName
 		sz := self imageNameSize.
 		s := objectMemory instantiateClass: (objectMemory splObj: ClassByteString) indexableSize: sz.
 		self imageNameGet: (s + objectMemory baseHeaderSize) Length: sz.
-		self pop: 1.  "rcvr"
-		self push: s.
+		self pop: 1 thenPush: s
 	]

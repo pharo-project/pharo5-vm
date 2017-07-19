@@ -9,5 +9,4 @@ primitiveGetLogDirectory
 	sz := self strlen: ptr.
 	stringOop := objectMemory instantiateClass: objectMemory classString indexableSize: sz.
 	0 to: sz-1 do:[:i| objectMemory storeByte: i ofObject: stringOop withValue: (ptr at: i)].
-	self pop: self methodArgumentCount+1.
-	self push: stringOop.
+	self pop: argumentCount+1 thenPush: stringOop

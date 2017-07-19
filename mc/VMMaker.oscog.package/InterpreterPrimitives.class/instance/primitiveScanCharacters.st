@@ -36,7 +36,7 @@ primitiveScanCharacters
 	((objectMemory isArray: scanXTable)
 	 and: [(objectMemory isArray: scanMap)
 	 and: [(objectMemory slotSizeOf: scanMap) = 256
-	 and: [self successful "for the fetchInteger:ofObject:'s abobve"]]]) ifFalse:
+	 and: [self successful "for the fetchInteger:ofObject:'s above"]]]) ifFalse:
 		[^ self primitiveFail].
 	maxGlyph := (objectMemory slotSizeOf: scanXTable) - 2.
 
@@ -54,8 +54,8 @@ primitiveScanCharacters
 					(objectMemory isIntegerValue: scanDestX) ifFalse: [^ self primitiveFail].
 					self storeInteger: 0 ofObject: rcvr withValue: scanDestX.
 					self storeInteger: 1 ofObject: rcvr withValue: scanLastIndex.
-					self pop: 7. "args+rcvr"
-					^ self push: stopReason].
+					self pop: 7 "args+rcvr" thenPush: stopReason.
+					^nil].
 			"Known to be okay since scanMap size = 256"
 			glyphIndex := self fetchInteger: ascii ofObject: scanMap.
 			"fail if the glyphIndex is out of range"
