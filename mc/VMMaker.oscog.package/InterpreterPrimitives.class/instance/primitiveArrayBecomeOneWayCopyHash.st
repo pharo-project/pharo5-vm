@@ -1,7 +1,7 @@
 object access primitives
 primitiveArrayBecomeOneWayCopyHash
 	"Similar to primitiveArrayBecomeOneWay but accepts a third argument deciding whether to
-	 copy the receiver's element's identity hash over the argument's elementy's identity hash."
+	 copy the receiver's elements identity hashes over the argument's elements identity hashes."
 
 	| copyHashFlag ec |
 	self stackTop = objectMemory trueObject
