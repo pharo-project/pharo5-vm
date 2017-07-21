@@ -5,6 +5,6 @@ primitiveHostWindowPosition: windowIndex
 	self primitive: 'primitiveHostWindowPosition'
 		parameters: #(SmallInteger ).
 	pos := self ioPositionOfWindow: windowIndex.
-	pos = -1
-		ifTrue: [^ interpreterProxy primitiveFail]
-		ifFalse: [^ interpreterProxy makePointwithxValue: pos >> 16  yValue: (pos bitAnd: 16rFFFF)]
+	pos = -1 ifTrue:
+		[^interpreterProxy primitiveFail].
+	^self pointFromCompactPointEncoding: pos

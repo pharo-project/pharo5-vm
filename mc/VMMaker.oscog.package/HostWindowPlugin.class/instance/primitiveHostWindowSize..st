@@ -5,6 +5,6 @@ primitiveHostWindowSize: windowIndex
 	self primitive: 'primitiveHostWindowSize'
 		parameters: #(SmallInteger ).
 	size := self ioSizeOfWindow: windowIndex.
-	size = -1
-		ifTrue: [^ interpreterProxy primitiveFail]
-		ifFalse: [^ interpreterProxy makePointwithxValue: size >> 16  yValue: (size bitAnd: 16rFFFF)]
+	size = -1 ifTrue:
+		[^interpreterProxy primitiveFail].
+	^self pointFromCompactPointEncoding: size
