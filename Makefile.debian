@@ -5,6 +5,7 @@ all: build_srcpackage pharo6_sources
 
 version_from_travis:
 	cd packaging/pharo6-vm-core && dch -v $(VER).$(TRAVIS_JOB_NUMBER) -m "Travis build $(TRAVIS_JOB_NUMBER)"
+	cd packaging/pharo6-vm-core && sed -i s,DEB_VERSION,pharo6-vm-core_$(VER).tar.gz, ../pharo6.spec
 
 build_srcpackage:
 	@echo "Generating sources"
