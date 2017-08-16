@@ -168,7 +168,6 @@ sed -i s,lib/i386-linux-gnu,lib, %{?buildroot}/usr/bin/*
 
 %files -n pharo6-64-ui
 %{_bindir}/pharo6-64-ui
-%{_libdir}/pharo6-vm/pharo
 %{_libdir}/pharo6-vm/B3DAcceleratorPlugin.so
 %{_libdir}/pharo6-vm/vm-display-X11.so
 %{_libdir}/pharo6-vm/vm-display-fbdev.so
@@ -198,7 +197,6 @@ sed -i s,lib/i386-linux-gnu,lib, %{?buildroot}/usr/bin/*
 
 %files -n pharo6-32-ui
 %{_bindir}/pharo6-32-ui
-%{_libdir}/pharo6-vm/pharo
 %{_libdir}/pharo6-vm/B3DAcceleratorPlugin.so
 %{_libdir}/pharo6-vm/vm-display-X11.so
 %{_libdir}/pharo6-vm/vm-display-fbdev.so
