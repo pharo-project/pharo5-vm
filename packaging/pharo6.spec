@@ -55,6 +55,7 @@ attractive platform to build and deploy mission critical applications.
 
 %package -n pharo6-64-ui
 Summary: Pharo6 VM for 64bit with UI
+Requires: pharo6-64 pharo6-ui-common
 %description -n pharo6-64-ui
 Description: Clean and innovative Smalltalk-inspired environment.
 Pharo's goal is to deliver a clean, innovative, free open-source
@@ -77,6 +78,7 @@ attractive platform to build and deploy mission critical applications.
 
 %package -n pharo6-32-ui
 Summary: Pharo6 VM for 32bit with UI
+Requires: pharo6-32 pharo6-ui-common
 %description -n pharo6-32-ui
 Description: Clean and innovative Smalltalk-inspired environment.
 Pharo's goal is to deliver a clean, innovative, free open-source
@@ -168,7 +170,6 @@ sed -i s,lib/i386-linux-gnu,lib, %{?buildroot}/usr/bin/*
 
 %files -n pharo6-64-ui
 %{_bindir}/pharo6-64-ui
-%{_libdir}/pharo6-vm/pharo
 %{_libdir}/pharo6-vm/B3DAcceleratorPlugin.so
 %{_libdir}/pharo6-vm/vm-display-X11.so
 %{_libdir}/pharo6-vm/vm-display-fbdev.so
@@ -198,7 +199,6 @@ sed -i s,lib/i386-linux-gnu,lib, %{?buildroot}/usr/bin/*
 
 %files -n pharo6-32-ui
 %{_bindir}/pharo6-32-ui
-%{_libdir}/pharo6-vm/pharo
 %{_libdir}/pharo6-vm/B3DAcceleratorPlugin.so
 %{_libdir}/pharo6-vm/vm-display-X11.so
 %{_libdir}/pharo6-vm/vm-display-fbdev.so
