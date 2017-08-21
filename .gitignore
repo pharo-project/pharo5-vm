@@ -7,3 +7,4 @@ test-image*
 runTests.sh
 genVersion.sh
 resetAll.sh
+clean-appveyor*.sh
