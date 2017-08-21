@@ -156,10 +156,13 @@ static int printerSetup = FALSE;
 UINT g_WM_MOUSEWHEEL = 0;	/* RvL: 1999-04-19 The message we receive from wheel mices */
 #endif
 
-/* misc declarations */
+/* misc forward declarations */
 int recordMouseEvent(MSG *msg, UINT nrClicks);
 int recordKeyboardEvent(MSG *msg);
 int recordWindowEvent(int action, RECT *r);
+#if NewspeakVM
+int ioDrainEventQueue(void);
+#endif
 
 extern sqInt byteSwapped(sqInt);
 extern int convertToSqueakTime(SYSTEMTIME);
@@ -1679,7 +1682,7 @@ sqInt ioProcessEvents(void)
 }
 
 #if NewspeakVM
-sqInt
+int
 ioDrainEventQueue(void)
 { static MSG msg;
   POINT mousePt;
@@ -3089,16 +3092,21 @@ DWORD SqueakImageLengthFromHandle(HANDLE hFile) {
   return 0;
 }
 
-DWORD SqueakImageLength(char *fileName) {
+DWORD SqueakImageLength(TCHAR *fileName) {
   DWORD dwSize;
-  WCHAR wideName[MAX_PATH];
   HANDLE hFile;
 
   /* open image file */
+#ifdef UNICODE
+  hFile = CreateFileW(fileName, GENERIC_READ, FILE_SHARE_READ,
+		      NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+#else
+  WCHAR wideName[MAX_PATH];
   MultiByteToWideChar(CP_UTF8, 0, fileName, -1, wideName, MAX_PATH);
   hFile = CreateFileW(wideName, GENERIC_READ, FILE_SHARE_READ,
 		      NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  if(hFile == INVALID_HANDLE_VALUE) return 0;
+#endif
+  if (hFile == INVALID_HANDLE_VALUE) return 0;
   dwSize = SqueakImageLengthFromHandle(hFile);
   CloseHandle(hFile);
   return dwSize;
@@ -3293,10 +3301,10 @@ int printUsage(int level)
 {
   switch(level) {
     case 0: /* No command line given */
-      abortMessage(TEXT("Usage: ") TEXT(VM_NAME) TEXT(" [options] <imageFile>"));
+      abortMessage(TEXT("Usage: ") TEXT(VM_NAME) TEXT(" [options] <imageFile>\n"));
       break;
     case 1: /* full usage */
-      abortMessage(TEXT("%s"),
+      abortMessage(TEXT("%s\n"),
                    TEXT("Usage: ") TEXT(VM_NAME) TEXT(" [vmOptions] imageFile [imageOptions]\n\n")
                    TEXT("vmOptions:")
 		   /* TEXT("\n\t-service: ServiceName \t(install Squeak as NT service)") */
@@ -3348,4 +3356,3 @@ int printUsage(int level)
   }
   return -1;
 }
-
