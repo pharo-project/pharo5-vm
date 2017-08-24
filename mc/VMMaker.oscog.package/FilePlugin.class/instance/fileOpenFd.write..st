@@ -1,7 +1,8 @@
-file primitives
+pharo primitives
 fileOpenFd: fd write: writeFlag
 	"Open the fd as file. Answer the file oop."
 	| file fileOop |
+	<option: #PharoVM>
 	<var: #file type: 'SQFile *'>
 	<var: 'fd' type: 'int'>
 	<export: true>

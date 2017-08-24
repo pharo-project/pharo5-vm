@@ -1,6 +1,7 @@
-file primitives
+pharo primitives
 primitiveFileOpenUseFile
 	| writeFlag cfile filePointer |
+	<option: #PharoVM>
 	<var: 'cfile' type: 'FILE* '>
 	<export: true>
 	writeFlag := interpreterProxy

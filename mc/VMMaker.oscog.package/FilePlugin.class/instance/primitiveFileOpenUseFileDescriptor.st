@@ -1,6 +1,7 @@
-file primitives
+pharo primitives
 primitiveFileOpenUseFileDescriptor
 	| writeFlag fdPointer fd filePointer |
+	<option: #PharoVM>
 	<var: 'fd' type: 'int'>
 	<export: true>
 	writeFlag := interpreterProxy

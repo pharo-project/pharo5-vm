@@ -1,7 +1,8 @@
-file primitives
+pharo primitives
 fileOpenFile: cfile write: writeFlag
 	"Open the FILE* as file. Answer the file oop."
 	| file fileOop |
+	<option: #PharoVM>
 	<var: #file type: 'SQFile *'>
 	<var: 'cfile' type: 'FILE *'>
 	<export: true>
