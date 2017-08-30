@@ -5,6 +5,7 @@ Priority: optional
 Standards-Version: 3.9.5
 Homepage: http://www.pharo.org
 Build-Depends: debhelper (>= 7.0.50~), libssl-dev, libfreetype6-dev, libsm-dev, libice-dev, libasound2-dev, cmake, mesa-common-dev, libgl1-mesa-dev, libpulse-dev, libmpeg3-dev, libsdl2-dev
+Build-Conflicts: libroar-dev
 
 Package: pharo6-ui-common
 Architecture: all
