@@ -1,0 +1,19 @@
+{
+	"category" : "Printf",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Base",
+		"Cased",
+		"Radix" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"operator",
+		"padding",
+		"radix",
+		"space" ],
+	"name" : "PrintfNumberFormatDescriptor",
+	"pools" : [
+		 ],
+	"super" : "PrintfFormatDescriptor",
+	"type" : "normal" }

@@ -1,0 +1,13 @@
+{
+	"class" : {
+		"examples" : "mir 6/7/2000 00:12" },
+	"instance" : {
+		"<<" : "eem 11/2/2017 15:32",
+		"collectFormatDescriptorsAndStrings:" : "eem 11/2/2017 14:16",
+		"f:printf:" : "eem 11/9/2017 15:15",
+		"printf:" : "eem 11/10/2017 10:35",
+		"process:" : "eem 11/9/2017 13:21",
+		"reset" : "eem 11/2/2017 15:32",
+		"scanStringFrom:" : "hjo 9/18/2011 00:00",
+		"setFormat:" : "eem 11/2/2017 15:32",
+		"string" : "eem 11/2/2017 15:32" } }

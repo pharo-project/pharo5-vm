@@ -1,0 +1,14 @@
+{
+	"category" : "Printf",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "PrintfStringFormatDescriptor",
+	"pools" : [
+		 ],
+	"super" : "PrintfFormatDescriptor",
+	"type" : "normal" }

@@ -1,0 +1,17 @@
+{
+	"class" : {
+		"initialize" : "eem 11/2/2017 15:17",
+		"newFrom:" : "" },
+	"instance" : {
+		"applyOperator:" : "eem 11/2/2017 15:21",
+		"base" : "",
+		"initialize" : "",
+		"padding" : "",
+		"printOn:" : "",
+		"radix" : "",
+		"radixString" : "",
+		"setOperator:" : "",
+		"setPadding:" : "",
+		"space" : "",
+		"stringLength" : "",
+		"zero" : "" } }

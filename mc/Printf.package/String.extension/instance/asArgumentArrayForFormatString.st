@@ -1,0 +1,4 @@
+*printf
+asArgumentArrayForFormatString
+
+	^{self}

@@ -1,0 +1,3 @@
+rendering
+applyOperator: object
+	self subclassResponsibility

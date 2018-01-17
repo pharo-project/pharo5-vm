@@ -1,0 +1,17 @@
+{
+	"category" : "Printf",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"Flags",
+		"Operators" ],
+	"commentStamp" : "",
+	"instvars" : [
+		"flush",
+		"width",
+		"precision" ],
+	"name" : "PrintfFormatDescriptor",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

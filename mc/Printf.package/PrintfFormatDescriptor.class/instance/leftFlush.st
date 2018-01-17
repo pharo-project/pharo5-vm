@@ -1,0 +1,3 @@
+scanning
+leftFlush
+	flush := #leftFlush

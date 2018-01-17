@@ -1,0 +1,16 @@
+{
+	"category" : "Printf",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "mir 6/7/2000 00:14",
+	"instvars" : [
+		"format",
+		"string",
+		"outputStream" ],
+	"name" : "PrintfFormatString",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

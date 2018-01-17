@@ -1,0 +1,28 @@
+{
+	"class" : {
+		"initialize" : "eem 11/2/2017 14:28",
+		"new" : "",
+		"newFrom:" : "",
+		"scanFrom:" : "" },
+	"instance" : {
+		"applyOperator:" : "",
+		"flush" : "",
+		"initialize" : "",
+		"leftFlush" : "",
+		"operator:" : "mir 6/6/2000 23:58",
+		"padding" : "",
+		"precision" : "",
+		"precision:" : "",
+		"printOn:" : "",
+		"printWidthOn:" : "",
+		"radix" : "eem 11/2/2017 14:17",
+		"render:" : "hjo 9/18/2011 00:31",
+		"rightFlush" : "",
+		"setOperator:" : "",
+		"space" : "eem 11/2/2017 14:17",
+		"startIndexOfCopyReplaceWithStringSize:" : "hjo 9/18/2011 00:31",
+		"stopIndexOfCopyReplaceWithStringSize:" : "hjo 9/18/2011 00:31",
+		"stringLength" : "",
+		"width" : "",
+		"width:" : "",
+		"zero" : "eem 11/2/2017 14:17" } }

@@ -1,0 +1,3 @@
+printf
+string
+	^outputStream contents
