@@ -11,6 +11,7 @@ baseline: spec
 			package: 'SharedPool-Speech';
 			package: 'Balloon-Engine-Pools';
 			package: 'Sound';
+			package: 'Printf';
 			"package: 'Alien-Core';"
 			package: 'VMMaker' with: [ 
 				spec 
