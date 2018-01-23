@@ -1,5 +1,6 @@
 {
+	"instance" : { },
 	"class" : {
-		"dateAndTimeNow" : "EstebanLorenzano 8/26/2014 15:15" },
-	"instance" : {
-		 } }
+		"dateAndTimeNow" : "EstebanLorenzano 8/26/2014 15:15"
+	}
+}

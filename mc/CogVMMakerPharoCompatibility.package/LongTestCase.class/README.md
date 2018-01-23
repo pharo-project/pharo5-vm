@@ -1,0 +1,1 @@
+Fake class to allow us to use VMMaker without forking.

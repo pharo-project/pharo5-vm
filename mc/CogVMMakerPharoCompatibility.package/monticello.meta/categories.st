@@ -1,2 +1,2 @@
 SystemOrganization addCategory: #CogVMMakerPharoCompatibility!
-SystemOrganization addCategory: 'CogVMMakerPharoCompatibility-Fake'!
+SystemOrganization addCategory: #'CogVMMakerPharoCompatibility-Fake'!

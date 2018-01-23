@@ -1,6 +1,7 @@
 {
-	"class" : {
-		 },
 	"instance" : {
-		"decompile" : "EstebanLorenzano 5/26/2014 14:58",
-		"decompileString" : "EstebanLorenzano 5/26/2014 14:58" } }
+		"decompileString" : "EstebanLorenzano 5/26/2014 14:58",
+		"decompile" : "EstebanLorenzano 5/26/2014 14:58"
+	},
+	"class" : { }
+}

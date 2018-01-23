@@ -1,14 +1,11 @@
 {
-	"category" : "CogVMMakerPharoCompatibility-Fake",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "EstebanLorenzano 4/22/2015 21:06",
-	"instvars" : [
-		 ],
-	"name" : "PackageOrganizer",
-	"pools" : [
-		 ],
 	"super" : "Object",
-	"type" : "normal" }
+	"category" : "CogVMMakerPharoCompatibility-Fake",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "PackageOrganizer",
+	"type" : "normal"
+}

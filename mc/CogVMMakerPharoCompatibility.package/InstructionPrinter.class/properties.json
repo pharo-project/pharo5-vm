@@ -1,10 +1,10 @@
 {
-	"category" : "CogVMMakerPharoCompatibility",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "md 4/8/2003 12:47",
+	"super" : "InstructionClient",
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"method",
 		"scanner",
@@ -13,9 +13,8 @@
 		"innerIndents",
 		"indent",
 		"printPC",
-		"indentSpanOfFollowingJump" ],
+		"indentSpanOfFollowingJump"
+	],
 	"name" : "InstructionPrinter",
-	"pools" : [
-		 ],
-	"super" : "InstructionClient",
-	"type" : "normal" }
+	"type" : "normal"
+}

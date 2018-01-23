@@ -1,14 +1,11 @@
 {
-	"category" : "CogVMMakerPharoCompatibility",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "AbstractSoundSystem",
-	"pools" : [
-		 ],
 	"super" : "SoundSystem",
-	"type" : "normal" }
+	"category" : "CogVMMakerPharoCompatibility",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "AbstractSoundSystem",
+	"type" : "normal"
+}
