@@ -17,7 +17,7 @@ if [ $OS == "CYGWIN" ]; then
 fi
 
 # PREPARE VM MAKER IMAGE ===================================================
-wget -O- get.pharo.org/50+vm | bash
+wget -O- get.pharo.org/70+vmLatest | bash
 
 echo -e "LOADING VM MAKER SOURCES INTO IMAGE"
 set -x
