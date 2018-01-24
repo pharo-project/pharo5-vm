@@ -1,5 +1,5 @@
 language: c
-sudo: false
+sudo: required
 cache:
   directories:
     - opensmalltalk-vm/.thirdparty-cache
@@ -8,14 +8,16 @@ git:
 
 install: ./opensmalltalk-vm/.travis_install.sh
 	
-matrix:
+jobs:
   include:
+    - stage: "Linux builds"
     - os: osx
       osx_image: xcode6.4
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
     - os: osx
       osx_image: xcode6.4
       env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
+    - stage: "Mac builds"
     - os: linux
       env:
       - ARCH="linux32x86"
@@ -27,7 +29,7 @@ matrix:
       - make -f Makefile.debian
       - ./scripts/commit-obs.sh
       - git clean -dxf packaging image && git checkout .
-      after_script:
+#      after_script:
 #      - (cd scripts; ./commit-sources.sh)
       after_deploy: ./scripts/deploy-after.sh
     - os: linux
