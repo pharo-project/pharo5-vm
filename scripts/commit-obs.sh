@@ -40,6 +40,7 @@ popd
 
 # copy our new files and send them to obs
 cp packaging/pharo6-vm-*.dsc packaging/pharo6-vm-*.tar.* ${OBS_HOME}/${OBS_PACKAGE}
+cp packaging/pharo6.spec ${OBS_HOME}/${OBS_PACKAGE}/
 cd ${OBS_HOME}/${OBS_PACKAGE}
 osc add *.dsc *.tar.*
 osc ci -v -m "new build ${TRAVIS_COMMIT_RANGE}"

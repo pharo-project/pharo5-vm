@@ -1289,6 +1289,20 @@ static socketOption socketOptions[]= {
 #ifdef SO_REUSEPORT
   { "SO_REUSEPORT",			SOL_SOCKET,	SO_REUSEPORT },
 #endif
+/*
+ * Linux/FreeBSD have IDLE/INTVL/CNT, macOS TCP_KEEPALIVE but it just seems
+ * to be an alias. So let's use the BSD/Linux name but the macOS define. On
+ * macOS the MIB is even called net.inet.tcp.keepidle.
+ */
+#if defined(TCP_KEEPIDLE) || defined(TCP_KEEPALIVE)
+#ifdef TCP_KEEPIDLE
+  { "TCP_KEEPIDLE",			SOL_TCP,	TCP_KEEPIDLE },
+#else
+  { "TCP_KEEPIDLE",			SOL_TCP,	TCP_KEEPALIVE },
+#endif
+  { "TCP_KEEPINTVL",			SOL_TCP,	TCP_KEEPINTVL },
+  { "TCP_KEEPCNT",			SOL_TCP,	TCP_KEEPCNT },
+#endif
 #if 0 /*** deliberately unsupported options -- do NOT enable these! ***/
   { "SO_PRIORITY",			SOL_SOCKET,	SO_PRIORITY },
   { "SO_RCVLOWAT",			SOL_SOCKET,	SO_RCVLOWAT },

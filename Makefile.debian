@@ -5,6 +5,7 @@ all: build_srcpackage pharo6_sources
 
 version_from_travis:
 	cd packaging/pharo6-vm-core && dch -v $(VER).$(TRAVIS_JOB_NUMBER) -m "Travis build $(TRAVIS_JOB_NUMBER)"
+	cd packaging/pharo6-vm-core && sed -i s,DEB_VERSION,pharo6-vm-core_$(VER).tar.gz, ../pharo6.spec
 
 build_srcpackage:
 	@echo "Generating sources"
@@ -21,5 +22,5 @@ build_srcpackage:
 pharo6_sources:
 	cd packaging/pharo6-sources-files && wget http://files.pharo.org/sources/PharoV60.sources.zip
 	cd packaging/pharo6-sources-files && unzip PharoV60.sources.zip
-	cd packaging/pharo6-sources-files && rm PharoV60.sources.zip
+	cd packaging/pharo6-sources-files && rm -rf PharoV60.sources.zip __MACOSX
 	cd packaging/pharo6-sources-files && dpkg-buildpackage -S -uc -us -d
