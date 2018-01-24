@@ -5,19 +5,10 @@ cache:
     - opensmalltalk-vm/.thirdparty-cache
 git:
   depth: 5
-
-install: ./opensmalltalk-vm/.travis_install.sh
 	
 jobs:
   include:
     - stage: "Linux builds"
-    - os: osx
-      osx_image: xcode6.4
-      env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
-    - os: osx
-      osx_image: xcode6.4
-      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
-    - stage: "Mac builds"
     - os: linux
       env:
       - ARCH="linux32x86"
@@ -29,8 +20,6 @@ jobs:
       - make -f Makefile.debian
       - ./scripts/commit-obs.sh
       - git clean -dxf packaging image && git checkout .
-#      after_script:
-#      - (cd scripts; ./commit-sources.sh)
       after_deploy: ./scripts/deploy-after.sh
     - os: linux
       env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
@@ -44,17 +33,27 @@ jobs:
         -- bash -c "
       dist: trusty
       group: edge
-      install:
-        - (cd opensmalltalk-vm && ./.travis_install.sh)
+    - stage: "Mac builds"
+    - os: osx
+      osx_image: xcode6.4
+      env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
+    - os: osx
+      osx_image: xcode6.4
+      env: ARCH="macos64x64" FLAVOR="pharo.cog.spur" SRC_ARCH="x86_64"
+
+install: (cd opensmalltalk-vm && .travis_install.sh)
+
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
   - (cd scripts && ./build-makefile-linux.sh)
   - (cd opensmalltalk-vm && $CHROOT ./.travis_build.sh)
   - (cd scripts && ./pack-vm.sh -p $ARCH -a $SRC_ARCH)
   - ./scripts/run-tests.sh
+
 before_deploy: 
   - (cd scripts && sh ./deploy-key.sh)
   - ./scripts/deploy-before.sh
+
 deploy:
   - provider: bintray
     skip_cleanup: true
