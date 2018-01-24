@@ -16,7 +16,7 @@ baseline: spec
 			package: 'VMMaker' with: [ 
 				spec 
 					file: 'VMMaker';
-					requires: #('FileSystem-Legacy' 'SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' "'Alien-Core'") ];
+					requires: #('FileSystem-Legacy' 'SharedPool-Speech' 'FFI-Pools' 'Balloon-Engine-Pools' 'Sound' 'Printf' "'Alien-Core'") ];
 			package: 'Cog' with: [ spec requires: #('VMMaker' ) ];
 			package: 'ImageFormat' with: [ spec requires: #('VMMaker' ) ];
 			package: 'MethodMassage' with: [ spec requires: #('VMMaker' ) ];
