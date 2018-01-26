@@ -15,12 +15,12 @@ jobs:
     - FLAVOR="pharo.cog.spur"
     - SRC_ARCH="i386"       
     - HEARTBEAT="threaded"
-    before_script:
-    - make -f Makefile.debian version_from_travis
-    - make -f Makefile.debian
-    - ./scripts/commit-obs.sh
-    - git clean -dxf packaging image && git checkout .
-    after_deploy: ./scripts/deploy-after.sh
+    #before_script:
+    #- make -f Makefile.debian version_from_travis
+    #- make -f Makefile.debian
+    #- ./scripts/commit-obs.sh  
+    #- git clean -dxf packaging image && git checkout .
+    #after_deploy: ./scripts/deploy-after.sh
   - os: linux
     env: ARCH="linux32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386" HEARTBEAT="itimer"
   - os: osx
@@ -42,7 +42,10 @@ jobs:
     dist: trusty
     group: edge
 
-install: (cd opensmalltalk-vm && ./.travis_install.sh)
+install: 
+  - echo "INSTALLING START"
+  - (cd opensmalltalk-vm && ./.travis_install.sh)
+  - echo "INSTALLING END"
 
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
