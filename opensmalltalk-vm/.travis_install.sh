@@ -12,9 +12,9 @@ if [[ "${ARCH}" = "linux64x64" ]]; then
             gcc-multilib \
             uuid-dev
 elif [[ "${ARCH}" = "linux32x86" ]]; then
-	echo "ESTEBAN: entering linux32x86"
     sudo apt-get remove -q -y gvfs-daemons
     sudo apt-get install -yq --no-install-suggests --no-install-recommends --force-yes \
+		#    libfreetype6-dev:i386 \ #not needed?
             devscripts \
             libc6-dev:i386 \
             libasound2:i386 \
@@ -22,7 +22,6 @@ elif [[ "${ARCH}" = "linux32x86" ]]; then
             libssl-dev:i386 \
             libssl0.9.8:i386 \
             libpng-dev:i386 \
-            libfreetype6-dev:i386 \
             libx11-dev:i386 \
             libsm-dev:i386 \
             libice-dev:i386 \
@@ -33,6 +32,7 @@ elif [[ "${ARCH}" = "linux32x86" ]]; then
             gcc-multilib \
             uuid-dev:i386 \
             libcurl3-dev:i386
+
 fi
 
 [[ "${ARCH}" != "linux32ARMv6" ]] && exit 0

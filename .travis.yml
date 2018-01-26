@@ -42,10 +42,7 @@ jobs:
     dist: trusty
     group: edge
 
-install: 
-  - echo "INSTALLING START"
-  - (cd opensmalltalk-vm && ./.travis_install.sh)
-  - echo "INSTALLING END"
+install: (cd opensmalltalk-vm && ./.travis_install.sh)
 
 script:
   - (cd scripts && ./build-sources.sh -a $SRC_ARCH)
