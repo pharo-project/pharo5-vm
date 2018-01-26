@@ -14,7 +14,6 @@ if [[ "${ARCH}" = "linux64x64" ]]; then
 elif [[ "${ARCH}" = "linux32x86" ]]; then
     sudo apt-get remove -q -y gvfs-daemons
     sudo apt-get install -yq --no-install-suggests --no-install-recommends --force-yes \
-		#    libfreetype6-dev:i386 \ #not needed?
             devscripts \
             libc6-dev:i386 \
             libasound2:i386 \
@@ -33,6 +32,7 @@ elif [[ "${ARCH}" = "linux32x86" ]]; then
             uuid-dev:i386 \
             libcurl3-dev:i386
 
+	#    libfreetype6-dev:i386 \ #not needed?
 fi
 
 [[ "${ARCH}" != "linux32ARMv6" ]] && exit 0
