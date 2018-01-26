@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "Object",
-	"category" : "CogVMMakerPharoCompatibility",
+	"category" : "CogVMMakerPharoCompatibility-Fake",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

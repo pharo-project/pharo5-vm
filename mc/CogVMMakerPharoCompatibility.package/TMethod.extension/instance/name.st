@@ -1,3 +1,0 @@
-*CogVMMakerPharoCompatibility
-name
-	^ self printString
