@@ -8,7 +8,7 @@ git:
 
 jobs:
   include:
-    - stage: "Linux builds"
+#    - stage: "Linux builds"
     - os: linux
       env:
       - ARCH="linux32x86"
@@ -33,7 +33,7 @@ jobs:
         -- bash -c "
       dist: trusty
       group: edge
-    - stage: "Mac builds"
+#    - stage: "Mac builds"
     - os: osx
       osx_image: xcode6.4
       env: ARCH="macos32x86" FLAVOR="pharo.cog.spur" SRC_ARCH="i386"
