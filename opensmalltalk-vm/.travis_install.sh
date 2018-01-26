@@ -12,6 +12,7 @@ if [[ "${ARCH}" = "linux64x64" ]]; then
             gcc-multilib \
             uuid-dev
 elif [[ "${ARCH}" = "linux32x86" ]]; then
+	echo "ESTEBAN: entering linux32x86"
     sudo apt-get remove -q -y gvfs-daemons
     sudo apt-get install -yq --no-install-suggests --no-install-recommends --force-yes \
             devscripts \
