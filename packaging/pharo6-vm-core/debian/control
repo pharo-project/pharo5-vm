@@ -27,7 +27,7 @@ Description: Clean and innovative Smalltalk-inspired environment.
 
 Package: pharo6-32-ui
 Architecture: i386
-Depends: pharo6-ui-common, ${shlibs:Depends}, ${misc:Depends}
+Depends: pharo6-ui-common, pharo6-32, ${shlibs:Depends}, ${misc:Depends}
 Multi-Arch: foreign
 Description: Clean and innovative Smalltalk-inspired environment.
  Pharo's goal is to deliver a clean, innovative, free open-source
@@ -50,7 +50,7 @@ Description: Clean and innovative Smalltalk-inspired environment.
 
 Package: pharo6-64-ui
 Architecture: amd64
-Depends: pharo6-ui-common, ${shlibs:Depends}, ${misc:Depends}
+Depends: pharo6-ui-common, pharo6-64, ${shlibs:Depends}, ${misc:Depends}
 Multi-Arch: foreign
 Description: Clean and innovative Smalltalk-inspired environment.
  Pharo's goal is to deliver a clean, innovative, free open-source
