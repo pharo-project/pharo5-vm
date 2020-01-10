@@ -1,6 +1,6 @@
-#Windows (32bits) Build Setup:
+# Windows (32bits) Build Setup:
 
-##Prerequisites
+## Prerequisites
 
 **NOTE: I'm updating the instructions, it will be more clear next days. [Here](README-Win32-fasttrack.md) is a fast track (the "happy path") for building VM on windows right now.**
 
