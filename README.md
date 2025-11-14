@@ -1,7 +1,7 @@
 This repository is discontinued!
 ====
 
-Dear user, we have move PharoVM development to OpenSmalltalk-VM, please go to our fork if you are looking for building a VM: [http://github.com/pharo-project/opensmalltalk-vm](http://github.com/pharo-project/opensmalltalk-vm)
+Dear user, we have move PharoVM development to Pharo-VM, please go to this project if you are looking for building a VM: [http://github.com/pharo-project/pharo-vm](http://github.com/pharo-project/pharo-vm)
 
 
 
