@@ -5,4 +5,4 @@ Dear user, we have move PharoVM development to Pharo-VM, please go to this proje
 
 
 
-We have kept thos repository because of historical reasons and to keep compatibility with older versions. If you want to look at how this repository works, you can go [here](README.old.md).
+We have kept this repository because of historical reasons and to keep compatibility with older versions. If you want to look at how this repository works, you can go [here](README.old.md).
